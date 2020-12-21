@@ -66,7 +66,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="solutionElements" upperBound="-1"
         eType="#//SolutionElement" eOpposite="#//SolutionElement/solution"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classDiagram" lowerBound="1"
-        eType="ecore:EClass ../../ModelingAssistant/model/classdiagram.ecore#//ClassDiagram"/>
+        eType="ecore:EClass classdiagram.ecore#//ClassDiagram"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SolutionElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatementElements"
@@ -78,7 +78,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakes" upperBound="-1"
         eType="#//Mistake" eOpposite="#//Mistake/solutionElements"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="element" lowerBound="1"
-        eType="ecore:EClass ../../ModelingAssistant/model/classdiagram.ecore#//NamedElement"/>
+        eType="ecore:EClass classdiagram.ecore#//NamedElement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LearningItem">
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
