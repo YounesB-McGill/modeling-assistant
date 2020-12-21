@@ -1,0 +1,97 @@
+// Metamodel v9
+
+namespace interactions;
+
+// The student.
+class Student {
+  id;
+  1 mistakeStudent -- * Mistake mistakes;
+  1 currentMistakeStudent -- 0..1 Mistake currentMistake;
+}
+
+// The problem description.
+class ProblemStatement {
+  1 <@>- * ProblemStatementElement;
+}
+
+class ProblemStatementElement {
+  * --* SolutionElement;
+}
+
+// General UML element, like class or attribute.
+class UmlElement {
+}
+
+class Solution {
+  * -- 0..1 Student;
+}
+
+// UML element of the student solution. Represents instances of UmlElement.
+class SolutionElement {
+  * -<@> 1 Solution;
+  * -- 1 UmlElement type;
+}
+
+// Independent from any student solution.
+class LearningItem {
+  * -- * UmlElement; // general UML elems
+  1 -- * LearningResource;
+}
+
+associationClass StudentKnowledge {
+  int levelOfKnowledge;
+  0..* Student; // many students if mistake is general, else 1
+  0..* MistakeType;
+}
+
+class MistakeType {
+  name;
+  boolean atomic;
+  Time timeToAddress; // The time it takes the student to address mistake.
+  int numStepsBeforeNotification; // The number of steps between mistake detection and notification.
+  1 -- * Mistake; // Total mistake count is implicit.
+  * -- 1 LearningItem;
+}
+
+class Mistake {
+  boolean resolved;
+  Time timeToAddress;
+  int numStepsBeforeNotification;
+  * -- * SolutionElement;
+  * -- 0..1 Feedback lastFeedback;
+}
+
+// Represents a feedback item.
+class Feedback {
+  int level;
+  boolean congratulatory;
+  double usefulness;
+  boolean highlightProblem;
+  boolean highlightSolution;
+  * -- 1 MistakeType;
+}
+
+class TextResponse {
+  isA Feedback;
+}
+
+class ParametrizedResponse {
+  isA Feedback;
+}
+
+class ResourceResponse {
+  isA Feedback;
+  * -- 1..* LearningResource;
+}
+
+class LearningResource {
+}
+
+class Reference { isA LearningResource; }
+class Tutorial { isA LearningResource; }
+class Example { isA LearningResource; }
+class Quiz { isA LearningResource; }
+
+/*
+https://cruise.eecs.uottawa.ca/umpleonline/?text=%2F%2F%20Metamodel%20v8%0A%0Anamespace%20interactions%3B%0A%0A%2F%2F%20The%20student.%0Aclass%20Student%20%7B%0A%20%20id%3B%0A%20%201%20mistakeStudent%20--%20*%20Mistake%20mistakes%3B%0A%20%201%20currentMistakeStudent%20--%200..1%20Mistake%20currentMistake%3B%0A%7D%0A%0A%2F%2F%20The%20problem%20description.%0Aclass%20ProblemStatement%20%7B%0A%20%201%20%3C%40%3E-%20*%20ProblemStatementElement%3B%0A%7D%0A%0Aclass%20ProblemStatementElement%20%7B%0A%20%20*%20--*%20SolutionElement%3B%0A%7D%0A%0A%2F%2F%20General%20UML%20element%2C%20like%20class%20or%20attribute.%0Aclass%20UmlElement%20%7B%0A%7D%0A%0Aclass%20Solution%20%7B%0A%20%20*%20--%200..1%20Student%3B%0A%7D%0A%0A%2F%2F%20UML%20element%20of%20the%20student%20solution.%20Represents%20instances%20of%20UmlElement.%0Aclass%20SolutionElement%20%7B%0A%20%20*%20-%3C%40%3E%201%20Solution%3B%0A%20%20*%20--%201%20UmlElement%20type%3B%0A%7D%0A%0A%2F%2F%20Independent%20from%20any%20student%20solution.%0Aclass%20LearningItem%20%7B%0A%20%20*%20--%20*%20UmlElement%3B%20%2F%2F%20general%20UML%20elems%0A%20%201%20--%20*%20LearningResource%3B%0A%7D%0A%0AassociationClass%20StudentKnowledge%20%7B%0A%20%20int%20levelOfKnowledge%3B%0A%20%200..*%20Student%3B%20%2F%2F%20many%20students%20if%20mistake%20is%20general%2C%20else%201%0A%20%200..*%20MistakeType%3B%0A%7D%0A%0Aclass%20MistakeType%20%7B%0A%20%20name%3B%0A%20%20boolean%20atomic%3B%0A%20%20Time%20timeToAddress%3B%20%2F%2F%20The%20time%20it%20takes%20the%20student%20to%20address%20mistake.%0A%20%20int%20numStepsBeforeNotification%3B%20%2F%2F%20The%20number%20of%20steps%20between%20mistake%20detection%20and%20notification.%0A%20%201%20--%20*%20Mistake%3B%20%2F%2F%20Total%20mistake%20count%20is%20implicit.%0A%20%20*%20--%201%20LearningItem%3B%0A%7D%0A%0Aclass%20Mistake%20%7B%0A%20%20boolean%20resolved%3B%0A%20%20Time%20timeToAddress%3B%0A%20%20int%20numStepsBeforeNotification%3B%0A%20%20*%20--%20*%20SolutionElement%3B%0A%20%20*%20--%200..1%20Feedback%20lastFeedback%3B%0A%7D%0A%0A%2F%2F%20Represents%20a%20feedback%20item.%0Aclass%20Feedback%20%7B%0A%20%20int%20level%3B%0A%20%20boolean%20congratulatory%3B%0A%20%20double%20usefulness%3B%0A%20%20boolean%20highlightProblem%3B%0A%20%20boolean%20highlightSolution%3B%0A%20%20*%20--%201%20MistakeType%3B%0A%7D%0A%0Aclass%20TextResponse%20%7B%0A%20%20isA%20Feedback%3B%0A%7D%0A%0Aclass%20ParametrizedResponse%20%7B%0A%20%20isA%20Feedback%3B%0A%7D%0A%0Aclass%20ResourceResponse%20%7B%0A%20%20isA%20Feedback%3B%0A%20%20*%20--%201..*%20LearningResource%3B%0A%7D%0A%0Aclass%20LearningResource%20%7B%0A%7D%0A%0Aclass%20Reference%20%7B%20isA%20LearningResource%3B%20%7D%0Aclass%20Tutorial%20%7B%20isA%20LearningResource%3B%20%7D%0Aclass%20Example%20%7B%20isA%20LearningResource%3B%20%7D%0Aclass%20Quiz%20%7B%20isA%20LearningResource%3B%20%7D%0A%0A%2F*%0A%0A*%2F%0A%2F%2F%24%3F%5BEnd_of_model%5D%24%3F%0A%0Anamespace%20-%3B%0A%0A%0Aclass%20Student%0A%7B%0A%20%20position%2054%20580%20109%2058%3B%0A%20%20position.association%20Mistake%3Amistakes__Student%3AmistakeStudent%20109%2C35%200%2C1%3B%0A%20%20position.association%20Mistake%3AcurrentMistake__Student%3AcurrentMistakeStudent%2083%2C58%200%2C52%3B%0A%7D%0A%0Aclass%20ProblemStatement%0A%7B%0A%20%20position%20903%20184%20133%2041%3B%0A%20%20position.association%20ProblemStatement__ProblemStatementElement%2082%2C41%2082%2C0%3B%0A%7D%0A%0Aclass%20ProblemStatementElement%0A%7B%0A%20%20position%20923%20336%20181%2041%3B%0A%7D%0A%0Aclass%20UmlElement%0A%7B%0A%20%20position%20742%20324%20109%2041%3B%0A%7D%0A%0Aclass%20SolutionElement%0A%7B%0A%20%20position%201026%20573%20119%2041%3B%0A%20%20position.association%20Solution__SolutionElement%2092%2C0%2030%2C41%3B%0A%20%20position.association%20SolutionElement__UmlElement%3Atype%200%2C10%2081%2C41%3B%0A%7D%0A%0Aclass%20LearningItem%0A%7B%0A%20%20position%20485%2047%20109%2041%3B%0A%20%20position.association%20LearningItem__UmlElement%2052%2C41%2053%2C0%3B%0A%20%20position.association%20LearningItem__LearningResource%20105%2C41%201%2C0%3B%0A%7D%0A%0Aclass%20StudentKnowledge%0A%7B%0A%20%20position%201%20366%20171%2058%3B%0A%20%20position.association%20MistakeType__StudentKnowledge%2056%2C0%206%2C109%3B%0A%20%20position.association%20Student__StudentKnowledge%2036%2C58%2024%2C0%3B%0A%7D%0A%0Aclass%20MistakeType%0A%7B%0A%20%20position%2039%20113%20239%20109%3B%0A%20%20position.association%20LearningItem__MistakeType%2030%2C0%200%2C22%3B%0A%7D%0A%0Aclass%20Mistake%0A%7B%0A%20%20position%20391%20668%20239%2092%3B%0A%20%20position.association%20Mistake__SolutionElement%20239%2C56%200%2C14%3B%0A%20%20position.association%20Feedback%3AlastFeedback__Mistake%20105%2C0%202%2C128%3B%0A%7D%0A%0Aclass%20Feedback%0A%7B%0A%20%20position%20342%20160%20200%20126%3B%0A%20%20position.association%20Feedback__MistakeType%200%2C5%20239%2C81%3B%0A%7D%0A%0Aclass%20TextResponse%0A%7B%0A%20%20position%20330%20376%20109%2041%3B%0A%7D%0A%0Aclass%20ParametrizedResponse%0A%7B%0A%20%20position%20357%20387%20161%2041%3B%0A%7D%0A%0Aclass%20ResourceResponse%0A%7B%0A%20%20position%20399%20398%20139%2041%3B%0A%20%20position.association%20LearningResource__ResourceResponse%20139%2C16%2011%2C41%3B%0A%7D%0A%0Aclass%20LearningResource%0A%7B%0A%20%20position%20560%20331%20131%2041%3B%0A%7D%0A%0Aclass%20Reference%0A%7B%0A%20%20position%20571%20427%20109%2041%3B%0A%7D%0A%0Aclass%20Tutorial%0A%7B%0A%20%20position%20608%20435%20109%2041%3B%0A%7D%0A%0Aclass%20Example%0A%7B%0A%20%20position%20597%20430%20109%2041%3B%0A%7D%0A%0Aclass%20Quiz%0A%7B%0A%20%20position%20624%20439%20109%2041%3B%0A%7D%0A%0Aclass%20Solution%0A%7B%0A%20%20position%201067%20425%20109%2041%3B%0A%20%20position.association%20Solution__Student%200%2C10%2091%2C0%3B%0A%7D
+*/
