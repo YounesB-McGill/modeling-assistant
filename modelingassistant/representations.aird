@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<viewpoint:DAnalysis xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" uid="_S3gWwENTEeuKqeYEIwT1Qg" version="14.3.1.202003261200">
+  <semanticResources>model/classdiagram.ecore</semanticResources>
+  <semanticResources>model/modelingassistant.ecore</semanticResources>
+  <semanticResources>platform:/resource/ModelingAssistant/model/metamodel.genmodel</semanticResources>
+  <semanticResources>platform:/resource/ModelingAssistant/model/metamodel.ecore</semanticResources>
+  <semanticResources>platform:/resource/ModelingAssistant/model/classdiagram_modified.ecore</semanticResources>
+  <semanticResources>platform:/resource/ModelingAssistant/model/classdiagram.ecore</semanticResources>
+  <semanticResources>model/modelingassistant.genmodel</semanticResources>
+</viewpoint:DAnalysis>

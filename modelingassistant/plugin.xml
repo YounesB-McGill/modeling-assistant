@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated modelingassistant -->
+      <package
+            uri="modelingassistant"
+            class="modelingassistant.ModelingassistantPackage"
+            genModel="model/modelingassistant.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated modelingassistant -->
+      <package
+            uri="http://cs.mcgill.ca/sel/cdm/1.0"
+            class="classdiagram.ClassdiagramPackage"
+            genModel="model/modelingassistant.genmodel"/>
+   </extension>
+
+</plugin>
