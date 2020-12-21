@@ -6,4 +6,4 @@
 Workspace, and select the source ecore file (eg, classdiagram.ecore).
 1. Expand Solution and add a classDiagram reference to it of EType ClassDiagram.
 1. Expand SolutionElement and add an element reference to it of EType NamedElement.
-1. Select File > New > Other > EMF Generator Model and follow the steps. Select modelingassistant as the root class.
+1. Select File > New > Other > EMF Generator Model and follow the steps. Select both modelingassistant and classdiagram as the root classes.
