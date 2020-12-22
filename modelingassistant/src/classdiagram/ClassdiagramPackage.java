@@ -402,123 +402,6 @@ public interface ClassdiagramPackage extends EPackage {
   int PRIMITIVE_TYPE = 7;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE__NAME = OBJECT_TYPE__NAME;
-
-  /**
-   * The feature id for the '<em><b>Super Types</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE__SUPER_TYPES = OBJECT_TYPE_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Data Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE__DATA_TYPE = OBJECT_TYPE_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Abstract</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE__ABSTRACT = OBJECT_TYPE_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Visibility</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE__VISIBILITY = OBJECT_TYPE_FEATURE_COUNT + 3;
-
-  /**
-   * The feature id for the '<em><b>Operations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE__OPERATIONS = OBJECT_TYPE_FEATURE_COUNT + 4;
-
-  /**
-   * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE__TYPE_PARAMETERS = OBJECT_TYPE_FEATURE_COUNT + 5;
-
-  /**
-   * The feature id for the '<em><b>Association Ends</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE__ASSOCIATION_ENDS = OBJECT_TYPE_FEATURE_COUNT + 6;
-
-  /**
-   * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE__ATTRIBUTES = OBJECT_TYPE_FEATURE_COUNT + 7;
-
-  /**
-   * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE__INSTANCE_CLASS_NAME = OBJECT_TYPE_FEATURE_COUNT + 8;
-
-  /**
-   * The feature id for the '<em><b>Interface</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE__INTERFACE = OBJECT_TYPE_FEATURE_COUNT + 9;
-
-  /**
-   * The number of structural features of the '<em>Primitive Type</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE_FEATURE_COUNT = OBJECT_TYPE_FEATURE_COUNT + 10;
-
-  /**
-   * The number of operations of the '<em>Primitive Type</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE_OPERATION_COUNT = OBJECT_TYPE_OPERATION_COUNT + 0;
-
-  /**
    * The meta object id for the '{@link classdiagram.impl.ClassifierImpl <em>Classifier</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -638,6 +521,300 @@ public interface ClassdiagramPackage extends EPackage {
   int OPERATION = 9;
 
   /**
+   * The meta object id for the '{@link classdiagram.impl.ClassImpl <em>Class</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see classdiagram.impl.ClassImpl
+   * @see classdiagram.impl.ClassdiagramPackageImpl#getClass_()
+   * @generated
+   */
+  int CLASS = 10;
+
+  /**
+   * The meta object id for the '{@link classdiagram.impl.TypeParameterImpl <em>Type Parameter</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see classdiagram.impl.TypeParameterImpl
+   * @see classdiagram.impl.ClassdiagramPackageImpl#getTypeParameter()
+   * @generated
+   */
+  int TYPE_PARAMETER = 11;
+
+  /**
+   * The meta object id for the '{@link classdiagram.impl.AssociationImpl <em>Association</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see classdiagram.impl.AssociationImpl
+   * @see classdiagram.impl.ClassdiagramPackageImpl#getAssociation()
+   * @generated
+   */
+  int ASSOCIATION = 12;
+
+  /**
+   * The meta object id for the '{@link classdiagram.impl.AssociationEndImpl <em>Association End</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see classdiagram.impl.AssociationEndImpl
+   * @see classdiagram.impl.ClassdiagramPackageImpl#getAssociationEnd()
+   * @generated
+   */
+  int ASSOCIATION_END = 13;
+
+  /**
+   * The meta object id for the '{@link classdiagram.impl.ClassDiagramImpl <em>Class Diagram</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see classdiagram.impl.ClassDiagramImpl
+   * @see classdiagram.impl.ClassdiagramPackageImpl#getClassDiagram()
+   * @generated
+   */
+  int CLASS_DIAGRAM = 14;
+
+  /**
+   * The meta object id for the '{@link classdiagram.impl.ImplementationClassImpl <em>Implementation Class</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see classdiagram.impl.ImplementationClassImpl
+   * @see classdiagram.impl.ClassdiagramPackageImpl#getImplementationClass()
+   * @generated
+   */
+  int IMPLEMENTATION_CLASS = 15;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLEMENTATION_CLASS__NAME = CLASSIFIER__NAME;
+
+  /**
+   * The feature id for the '<em><b>Super Types</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLEMENTATION_CLASS__SUPER_TYPES = CLASSIFIER__SUPER_TYPES;
+
+  /**
+   * The feature id for the '<em><b>Data Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLEMENTATION_CLASS__DATA_TYPE = CLASSIFIER__DATA_TYPE;
+
+  /**
+   * The feature id for the '<em><b>Abstract</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLEMENTATION_CLASS__ABSTRACT = CLASSIFIER__ABSTRACT;
+
+  /**
+   * The feature id for the '<em><b>Visibility</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLEMENTATION_CLASS__VISIBILITY = CLASSIFIER__VISIBILITY;
+
+  /**
+   * The feature id for the '<em><b>Operations</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLEMENTATION_CLASS__OPERATIONS = CLASSIFIER__OPERATIONS;
+
+  /**
+   * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLEMENTATION_CLASS__TYPE_PARAMETERS = CLASSIFIER__TYPE_PARAMETERS;
+
+  /**
+   * The feature id for the '<em><b>Association Ends</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLEMENTATION_CLASS__ASSOCIATION_ENDS = CLASSIFIER__ASSOCIATION_ENDS;
+
+  /**
+   * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLEMENTATION_CLASS__ATTRIBUTES = CLASSIFIER__ATTRIBUTES;
+
+  /**
+   * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLEMENTATION_CLASS__INSTANCE_CLASS_NAME = CLASSIFIER_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Interface</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLEMENTATION_CLASS__INTERFACE = CLASSIFIER_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Implementation Class</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLEMENTATION_CLASS_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 2;
+
+  /**
+   * The number of operations of the '<em>Implementation Class</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLEMENTATION_CLASS_OPERATION_COUNT = CLASSIFIER_OPERATION_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRIMITIVE_TYPE__NAME = IMPLEMENTATION_CLASS__NAME;
+
+  /**
+   * The feature id for the '<em><b>Super Types</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRIMITIVE_TYPE__SUPER_TYPES = IMPLEMENTATION_CLASS__SUPER_TYPES;
+
+  /**
+   * The feature id for the '<em><b>Data Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRIMITIVE_TYPE__DATA_TYPE = IMPLEMENTATION_CLASS__DATA_TYPE;
+
+  /**
+   * The feature id for the '<em><b>Abstract</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRIMITIVE_TYPE__ABSTRACT = IMPLEMENTATION_CLASS__ABSTRACT;
+
+  /**
+   * The feature id for the '<em><b>Visibility</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRIMITIVE_TYPE__VISIBILITY = IMPLEMENTATION_CLASS__VISIBILITY;
+
+  /**
+   * The feature id for the '<em><b>Operations</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRIMITIVE_TYPE__OPERATIONS = IMPLEMENTATION_CLASS__OPERATIONS;
+
+  /**
+   * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRIMITIVE_TYPE__TYPE_PARAMETERS = IMPLEMENTATION_CLASS__TYPE_PARAMETERS;
+
+  /**
+   * The feature id for the '<em><b>Association Ends</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRIMITIVE_TYPE__ASSOCIATION_ENDS = IMPLEMENTATION_CLASS__ASSOCIATION_ENDS;
+
+  /**
+   * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRIMITIVE_TYPE__ATTRIBUTES = IMPLEMENTATION_CLASS__ATTRIBUTES;
+
+  /**
+   * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRIMITIVE_TYPE__INSTANCE_CLASS_NAME = IMPLEMENTATION_CLASS__INSTANCE_CLASS_NAME;
+
+  /**
+   * The feature id for the '<em><b>Interface</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRIMITIVE_TYPE__INTERFACE = IMPLEMENTATION_CLASS__INTERFACE;
+
+  /**
+   * The number of structural features of the '<em>Primitive Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRIMITIVE_TYPE_FEATURE_COUNT = IMPLEMENTATION_CLASS_FEATURE_COUNT + 0;
+
+  /**
+   * The number of operations of the '<em>Primitive Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRIMITIVE_TYPE_OPERATION_COUNT = IMPLEMENTATION_CLASS_OPERATION_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -717,16 +894,6 @@ public interface ClassdiagramPackage extends EPackage {
    * @ordered
    */
   int OPERATION_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link classdiagram.impl.ClassImpl <em>Class</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see classdiagram.impl.ClassImpl
-   * @see classdiagram.impl.ClassdiagramPackageImpl#getClass_()
-   * @generated
-   */
-  int CLASS = 10;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -828,16 +995,6 @@ public interface ClassdiagramPackage extends EPackage {
   int CLASS_OPERATION_COUNT = CLASSIFIER_OPERATION_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link classdiagram.impl.TypeParameterImpl <em>Type Parameter</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see classdiagram.impl.TypeParameterImpl
-   * @see classdiagram.impl.ClassdiagramPackageImpl#getTypeParameter()
-   * @generated
-   */
-  int TYPE_PARAMETER = 11;
-
-  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -872,16 +1029,6 @@ public interface ClassdiagramPackage extends EPackage {
    * @ordered
    */
   int TYPE_PARAMETER_OPERATION_COUNT = TYPE_OPERATION_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link classdiagram.impl.AssociationImpl <em>Association</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see classdiagram.impl.AssociationImpl
-   * @see classdiagram.impl.ClassdiagramPackageImpl#getAssociation()
-   * @generated
-   */
-  int ASSOCIATION = 12;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -927,16 +1074,6 @@ public interface ClassdiagramPackage extends EPackage {
    * @ordered
    */
   int ASSOCIATION_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link classdiagram.impl.AssociationEndImpl <em>Association End</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see classdiagram.impl.AssociationEndImpl
-   * @see classdiagram.impl.ClassdiagramPackageImpl#getAssociationEnd()
-   * @generated
-   */
-  int ASSOCIATION_END = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1083,16 +1220,6 @@ public interface ClassdiagramPackage extends EPackage {
   int ASSOCIATION_END_OPERATION_COUNT = STRUCTURAL_FEATURE_OPERATION_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link classdiagram.impl.ClassDiagramImpl <em>Class Diagram</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see classdiagram.impl.ClassDiagramImpl
-   * @see classdiagram.impl.ClassdiagramPackageImpl#getClassDiagram()
-   * @generated
-   */
-  int CLASS_DIAGRAM = 14;
-
-  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1163,133 +1290,6 @@ public interface ClassdiagramPackage extends EPackage {
    * @ordered
    */
   int CLASS_DIAGRAM_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link classdiagram.impl.ImplementationClassImpl <em>Implementation Class</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see classdiagram.impl.ImplementationClassImpl
-   * @see classdiagram.impl.ClassdiagramPackageImpl#getImplementationClass()
-   * @generated
-   */
-  int IMPLEMENTATION_CLASS = 15;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPLEMENTATION_CLASS__NAME = CLASSIFIER__NAME;
-
-  /**
-   * The feature id for the '<em><b>Super Types</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPLEMENTATION_CLASS__SUPER_TYPES = CLASSIFIER__SUPER_TYPES;
-
-  /**
-   * The feature id for the '<em><b>Data Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPLEMENTATION_CLASS__DATA_TYPE = CLASSIFIER__DATA_TYPE;
-
-  /**
-   * The feature id for the '<em><b>Abstract</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPLEMENTATION_CLASS__ABSTRACT = CLASSIFIER__ABSTRACT;
-
-  /**
-   * The feature id for the '<em><b>Visibility</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPLEMENTATION_CLASS__VISIBILITY = CLASSIFIER__VISIBILITY;
-
-  /**
-   * The feature id for the '<em><b>Operations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPLEMENTATION_CLASS__OPERATIONS = CLASSIFIER__OPERATIONS;
-
-  /**
-   * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPLEMENTATION_CLASS__TYPE_PARAMETERS = CLASSIFIER__TYPE_PARAMETERS;
-
-  /**
-   * The feature id for the '<em><b>Association Ends</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPLEMENTATION_CLASS__ASSOCIATION_ENDS = CLASSIFIER__ASSOCIATION_ENDS;
-
-  /**
-   * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPLEMENTATION_CLASS__ATTRIBUTES = CLASSIFIER__ATTRIBUTES;
-
-  /**
-   * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPLEMENTATION_CLASS__INSTANCE_CLASS_NAME = CLASSIFIER_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Interface</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPLEMENTATION_CLASS__INTERFACE = CLASSIFIER_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Implementation Class</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPLEMENTATION_CLASS_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 2;
-
-  /**
-   * The number of operations of the '<em>Implementation Class</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPLEMENTATION_CLASS_OPERATION_COUNT = CLASSIFIER_OPERATION_COUNT + 0;
 
   /**
    * The meta object id for the '{@link classdiagram.impl.NoteImpl <em>Note</em>}' class.
