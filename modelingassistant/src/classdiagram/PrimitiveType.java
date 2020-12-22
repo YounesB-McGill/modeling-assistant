@@ -13,5 +13,5 @@ package classdiagram;
  * @model abstract="true"
  * @generated
  */
-public interface PrimitiveType extends ObjectType, ImplementationClass {
+public interface PrimitiveType extends ImplementationClass {
 } // PrimitiveType

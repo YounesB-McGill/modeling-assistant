@@ -147,12 +147,12 @@ public class ClassDiagramItemProvider extends NamedElementItemProvider {
     newChildDescriptors.add
       (createChildParameter
         (ClassdiagramPackage.Literals.CLASS_DIAGRAM__CLASSES,
-         ClassdiagramFactory.eINSTANCE.createClass()));
+         ClassdiagramFactory.eINSTANCE.createImplementationClass()));
 
     newChildDescriptors.add
       (createChildParameter
         (ClassdiagramPackage.Literals.CLASS_DIAGRAM__CLASSES,
-         ClassdiagramFactory.eINSTANCE.createImplementationClass()));
+         ClassdiagramFactory.eINSTANCE.createClass()));
 
     newChildDescriptors.add
       (createChildParameter
@@ -217,17 +217,17 @@ public class ClassDiagramItemProvider extends NamedElementItemProvider {
     newChildDescriptors.add
       (createChildParameter
         (ClassdiagramPackage.Literals.CLASS_DIAGRAM__TYPES,
+         ClassdiagramFactory.eINSTANCE.createImplementationClass()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ClassdiagramPackage.Literals.CLASS_DIAGRAM__TYPES,
          ClassdiagramFactory.eINSTANCE.createClass()));
 
     newChildDescriptors.add
       (createChildParameter
         (ClassdiagramPackage.Literals.CLASS_DIAGRAM__TYPES,
          ClassdiagramFactory.eINSTANCE.createTypeParameter()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (ClassdiagramPackage.Literals.CLASS_DIAGRAM__TYPES,
-         ClassdiagramFactory.eINSTANCE.createImplementationClass()));
 
     newChildDescriptors.add
       (createChildParameter

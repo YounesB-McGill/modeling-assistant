@@ -1655,7 +1655,6 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
     structuralFeatureEClass.getESuperTypes().add(this.getTypedElement());
     typeEClass.getESuperTypes().add(this.getNamedElement());
     objectTypeEClass.getESuperTypes().add(this.getType());
-    primitiveTypeEClass.getESuperTypes().add(this.getObjectType());
     primitiveTypeEClass.getESuperTypes().add(this.getImplementationClass());
     classifierEClass.getESuperTypes().add(this.getObjectType());
     operationEClass.getESuperTypes().add(this.getNamedElement());

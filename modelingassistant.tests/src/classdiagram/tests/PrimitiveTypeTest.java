@@ -10,7 +10,7 @@ import classdiagram.PrimitiveType;
  * <!-- end-user-doc -->
  * @generated
  */
-public abstract class PrimitiveTypeTest extends ObjectTypeTest {
+public abstract class PrimitiveTypeTest extends ImplementationClassTest {
 
   /**
    * Constructs a new Primitive Type test case with the given name.
