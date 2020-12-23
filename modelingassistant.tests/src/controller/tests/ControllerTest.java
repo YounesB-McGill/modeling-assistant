@@ -46,10 +46,12 @@ public class ControllerTest {
     carClass.setName("Car");
     var carId = cdf.createAttribute();
     carId.setName("id");
-    carId.setType(cdf.createCDInt());
+    var intType=cdf.createCDInt();
+    carId.setType(intType);
     var carMake = cdf.createAttribute();
     carMake.setName("make");
-    carMake.setType(cdf.createCDString());
+    var stringType=cdf.createCDString();
+    carMake.setType(stringType);
     carClass.getAttributes().add(carId);
     carClass.getAttributes().add(carMake);
     
@@ -62,8 +64,8 @@ public class ControllerTest {
     assertEquals("make", classDiagram.getClasses().get(0).getAttributes().get(1).getName());
     
     // These fail
-    // assertEquals(cdf.createCDInt(),  classDiagram.getClasses().get(0).getAttributes().get(0).getType());
-    // assertEquals(cdf.createCDString(),  classDiagram.getClasses().get(0).getAttributes().get(1).getType());
+    assertEquals(intType,  classDiagram.getClasses().get(0).getAttributes().get(0).getType());
+    assertEquals(stringType,  classDiagram.getClasses().get(0).getAttributes().get(1).getType());
   }
   
 }
