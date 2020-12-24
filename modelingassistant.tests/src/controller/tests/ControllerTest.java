@@ -25,7 +25,7 @@ public class ControllerTest {
   }
   
   /**
-   * Tests that a solution with these one class can be created (Umple syntax):
+   * Tests that a solution with one class can be created (Umple syntax):
    * 
    * class Car {
    *   int id;
