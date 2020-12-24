@@ -112,7 +112,51 @@ def test_creating_two_class_solution_with_association():
     assert 0 == driver_car_association_end.lowerBound
     assert -1 == driver_car_association_end.upperBound
 
+       
+def test_creating_two_class_solution_with_generalization(): 
+    """Test that a solution with these two classes can be created:
+   
+   class Car {} // see above
+   class Audi{} {
+   int modelNumber;
+   """  
+    modeling_assistant = ModelingAssistant()
+    solution = Solution()
+    class_diagram = ClassDiagram(name="Student1_solution")
+    solution.classDiagram = class_diagram
+    modeling_assistant.solutions.append(solution)
+    
+    cd_int = CDInt()
+    cd_string = CDString()
 
+    car_class = Class(name="Car", attributes=[
+        Attribute(name="id", type=cd_int),
+        Attribute(name="make", type=cd_string)
+    ])
+    audi_class = Class(name="Audi", attributes=[Attribute(name="Model Number", type=cd_int)])
+    
+    audi_class.superTypes.eType = car_class
+
+    class_diagram.classes.extend([car_class, audi_class])
+
+    assert "Student1_solution" == modeling_assistant.solutions[0].classDiagram.name
+    assert class_diagram == modeling_assistant.solutions[0].classDiagram
+    
+    assert car_class == class_diagram.classes[0]
+    assert "Car" == car_class.name
+    assert "id" == car_class.attributes[0].name
+    assert cd_int == car_class.attributes[0].type
+    assert "make" == car_class.attributes[1].name
+    assert cd_string == car_class.attributes[1].type
+
+    assert audi_class == class_diagram.classes[1]
+    assert "Audi" == audi_class.name
+    assert "Model Number" == audi_class.attributes[0].name
+    assert cd_int == audi_class.attributes[0].type
+
+    assert "Car" == audi_class.superTypes.eType.name
+    assert "id" == audi_class.superTypes.eType.attributes[0].name
+    assert "make" == audi_class.superTypes.eType.attributes[1].name
 
 if __name__ == "__main__":
     "Main entry point."
