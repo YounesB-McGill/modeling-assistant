@@ -114,12 +114,12 @@ def test_creating_two_class_solution_with_association():
 
        
 def test_creating_two_class_solution_with_generalization(): 
-    """Test that a solution with these two classes can be created:
+    """
+    Test that a solution with these two classes can be created:
    
-   class Car {} // see above
-   class Audi{} {
-   int modelNumber;
-   """  
+    class Car {} // see above
+    class SportsCar { isA Car; }
+    """
     modeling_assistant = ModelingAssistant()
     solution = Solution()
     class_diagram = ClassDiagram(name="Student1_solution")
@@ -133,11 +133,9 @@ def test_creating_two_class_solution_with_generalization():
         Attribute(name="id", type=cd_int),
         Attribute(name="make", type=cd_string)
     ])
-    audi_class = Class(name="Audi", attributes=[Attribute(name="Model Number", type=cd_int)])
-    
-    audi_class.superTypes.eType = car_class
+    sports_car_class = Class(name="SportsCar", superTypes=[car_class])
 
-    class_diagram.classes.extend([car_class, audi_class])
+    class_diagram.classes.extend([car_class, sports_car_class])
 
     assert "Student1_solution" == modeling_assistant.solutions[0].classDiagram.name
     assert class_diagram == modeling_assistant.solutions[0].classDiagram
@@ -149,14 +147,18 @@ def test_creating_two_class_solution_with_generalization():
     assert "make" == car_class.attributes[1].name
     assert cd_string == car_class.attributes[1].type
 
-    assert audi_class == class_diagram.classes[1]
-    assert "Audi" == audi_class.name
-    assert "Model Number" == audi_class.attributes[0].name
-    assert cd_int == audi_class.attributes[0].type
+    assert sports_car_class == class_diagram.classes[1]
+    assert "SportsCar" == sports_car_class.name
+    assert "Car" == sports_car_class.superTypes[0].name
+    assert "id" == sports_car_class.superTypes[0].attributes[0].name
+    assert "make" == sports_car_class.superTypes[0].attributes[1].name
 
-    assert "Car" == audi_class.superTypes.eType.name
-    assert "id" == audi_class.superTypes.eType.attributes[0].name
-    assert "make" == audi_class.superTypes.eType.attributes[1].name
+
+def test_creating_solution_from_serialized_class_diagram():
+    """
+    Verify that it is possible to create a modeling assistant solution from a serialized TouchCORE class diagram.
+    """
+
 
 if __name__ == "__main__":
     "Main entry point."
