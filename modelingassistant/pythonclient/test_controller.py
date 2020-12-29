@@ -157,14 +157,15 @@ def test_creating_two_class_solution_with_generalization():
     assert "make" == sports_car_class.superTypes[0].attributes[1].name
 
 
-def test_creating_solution_from_serialized_class_diagram():
+def test_creating_one_class_solution_from_serialized_class_diagram():
     """
-    Verify that it is possible to create a modeling assistant solution from a serialized TouchCORE class diagram.
+    Verify that it is possible to create a modeling assistant solution from a serialized TouchCORE single class
+    domain model.
     """
     # Open ClassDiagram metamodel
     cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
     rset = ResourceSet()
-    resource = rset.get_resource(URI(cdm_mm_file)) 
+    resource = rset.get_resource(URI(cdm_mm_file))
     mm_root = resource.contents[0]
     rset.metamodel_registry[mm_root.nsURI] = mm_root  # ecore is loaded in the 'rset' as a metamodel here
 
@@ -173,6 +174,7 @@ def test_creating_solution_from_serialized_class_diagram():
     cdm_file = f"{cdm_path}/car.domain_model.cdm"
     resource = rset.get_resource(URI(cdm_file))
     class_diagram = resource.contents[0]
+    class_diagram.__class__ = ClassDiagram
     
     car_class = class_diagram.classes[0]
     assert "Car" == car_class.name
@@ -183,21 +185,56 @@ def test_creating_solution_from_serialized_class_diagram():
 
     modeling_assistant = ModelingAssistant()
     solution = Solution()
-    #print(type(solution.classDiagram), type(class_diagram))
-
-    #print(pyecore.ecore.ClassDiagram)
-    pyecore.ecore.ClassDiagram = ClassDiagram
-    print(pyecore.ecore.ClassDiagram)
-    # classdiagram.classdiagram.ClassDiagram = pyecore.ecore.ClassDiagram
-    #ClassDiagram = pyecore.ecore.ClassDiagram
     solution.classDiagram = class_diagram
 
-    #assert 
-
+    assert car_class == solution.classDiagram.classes[0]
     
 
+def test_creating_multiclass_solution_from_serialized_class_diagram():
+    """
+    Verify that it is possible to create a modeling assistant solution from a serialized TouchCORE multiclass
+    domain model.
+    """
+    # Open ClassDiagram metamodel
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    rset = ResourceSet()
+    resource = rset.get_resource(URI(cdm_mm_file))
+    mm_root = resource.contents[0]
+    rset.metamodel_registry[mm_root.nsURI] = mm_root  # ecore is loaded in the 'rset' as a metamodel here
+
+    # Open a class diagram instance
+    cdm_path = "modelingassistant/testmodels"
+    cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
+    resource = rset.get_resource(URI(cdm_file))
+    class_diagram = resource.contents[0]
+    class_diagram.__class__ = ClassDiagram
+    
+    car_class = driver_class = sports_car_class = part_class = None
+    for c in class_diagram.classes:
+        if c.name == "Car": car_class = c
+        elif c.name == "Driver": driver_class = c
+        elif c.name == "SportsCar": sports_car_class = c
+        elif c.name == "Part": part_class = c
+
+    assert "Car" == car_class.name
+    assert "id" == car_class.attributes[0].name
+    assert CDInt.__name__ == type(car_class.attributes[0].type).__name__
+    assert "make" == car_class.attributes[1].name
+    assert CDString.__name__ == type(car_class.attributes[1].type).__name__
+    assert "Part" == part_class.name
+    assert "Car" == sports_car_class.superTypes[0].name
+    for ae in car_class.associationEnds:
+        if ae.name == "parts": assert "Composition" == str(ae.referenceType)
+
+    modeling_assistant = ModelingAssistant()
+    solution = Solution()
+    solution.classDiagram = class_diagram
+
+    for c in [car_class, driver_class, sports_car_class, part_class]:
+        assert c in solution.classDiagram.classes
+    
 
 if __name__ == "__main__":
     "Main entry point."
-    test_creating_solution_from_serialized_class_diagram()
+    test_creating_multiclass_solution_from_serialized_class_diagram()
     
