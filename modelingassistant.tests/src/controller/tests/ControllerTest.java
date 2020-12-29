@@ -4,8 +4,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import java.util.List;
 import org.junit.Test;
+
+import classdiagram.CDInt;
+import classdiagram.ClassDiagram;
 import classdiagram.ClassdiagramFactory;
+import classdiagram.Classifier;
 import modelingassistant.ModelingassistantFactory;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.common.util.URI;
 
 public class ControllerTest {
   
@@ -206,5 +215,24 @@ public class ControllerTest {
     assertEquals("id", sportsCarClass.getSuperTypes().get(0).getAttributes().get(0).getName());
     assertEquals("make", sportsCarClass.getSuperTypes().get(0).getAttributes().get(1).getName());
   }
-   
+@Test
+public void testCreatingSolutionFromSerializedClassDiagram() {
+	
+	Resource resource = ResourceHelper.INSTANCE.loadResource("modelingassistant/testmodels/car.domain_model.cdm");// FIX Cannot figure out path
+	ClassDiagram classDiagram = (ClassDiagram) resource.getContents().get(0);
+	Classifier carClass=classDiagram.getClasses().get(0);
+	
+	var cdf = ClassdiagramFactory.eINSTANCE;
+	var cdInt = cdf.createCDInt();	
+	var cdString = cdf.createCDString();
+	 
+	assertEquals(carClass, classDiagram.getClasses().get(0));
+	assertEquals("Car1", carClass.getName());
+	assertEquals("id", carClass.getAttributes().get(0).getName());
+	assertEquals("make", carClass.getAttributes().get(1).getName());
+	assertEquals(cdInt.getName(), carClass.getAttributes().get(0).getType().getName());
+	assertEquals(cdString.getName(), carClass.getAttributes().get(1).getType().getName());
+
+}
+
 }
