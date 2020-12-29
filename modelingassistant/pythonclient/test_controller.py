@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
+import pyecore
+
 from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, ImplementationClass, CDInt, CDString,
     AssociationEnd, Association)
 from modelingassistant.modelingassistant import ModelingAssistant, Solution
 from pyecore.ecore import EInteger, EString
+from pyecore.resources import ResourceSet, URI
 
 
 def test_pytest_is_working():
@@ -158,9 +161,43 @@ def test_creating_solution_from_serialized_class_diagram():
     """
     Verify that it is possible to create a modeling assistant solution from a serialized TouchCORE class diagram.
     """
+    # Open ClassDiagram metamodel
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    rset = ResourceSet()
+    resource = rset.get_resource(URI(cdm_mm_file)) 
+    mm_root = resource.contents[0]
+    rset.metamodel_registry[mm_root.nsURI] = mm_root  # ecore is loaded in the 'rset' as a metamodel here
+
+    # Open a class diagram instance
+    cdm_path = "modelingassistant/testmodels"
+    cdm_file = f"{cdm_path}/car.domain_model.cdm"
+    resource = rset.get_resource(URI(cdm_file))
+    class_diagram = resource.contents[0]
+    
+    car_class = class_diagram.classes[0]
+    assert "Car" == car_class.name
+    assert "id" == car_class.attributes[0].name
+    assert CDInt.__name__ == type(car_class.attributes[0].type).__name__
+    assert "make" == car_class.attributes[1].name
+    assert CDString.__name__ == type(car_class.attributes[1].type).__name__
+
+    modeling_assistant = ModelingAssistant()
+    solution = Solution()
+    #print(type(solution.classDiagram), type(class_diagram))
+
+    #print(pyecore.ecore.ClassDiagram)
+    pyecore.ecore.ClassDiagram = ClassDiagram
+    print(pyecore.ecore.ClassDiagram)
+    # classdiagram.classdiagram.ClassDiagram = pyecore.ecore.ClassDiagram
+    #ClassDiagram = pyecore.ecore.ClassDiagram
+    solution.classDiagram = class_diagram
+
+    #assert 
+
+    
 
 
 if __name__ == "__main__":
     "Main entry point."
-    test_creating_empty_solution()
-    test_creating_one_class_solution()
+    test_creating_solution_from_serialized_class_diagram()
+    
