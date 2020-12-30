@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import pyecore
 
 from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, ImplementationClass, CDInt, CDString,
@@ -234,7 +235,50 @@ def test_creating_multiclass_solution_from_serialized_class_diagram():
         assert c in solution.classDiagram.classes
     
 
+def test_persisting_modeling_assistant_with_one_class_solution():
+    """
+    Verify that a ModelingAssistant instance with a one class solution can be serialized to an XMI file.
+    """
+    # Remove previously created file (if it exists)
+    ma_path = "modelingassistant/instances/ma_one_class.xmi"
+    if os.path.exists(ma_path):
+        os.remove(ma_path)
+
+    # Load ClassDiagram metamodel
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    rset = ResourceSet()
+    resource = rset.get_resource(URI(cdm_mm_file))
+    mm_root = resource.contents[0]
+    rset.metamodel_registry[mm_root.nsURI] = mm_root  # ecore is loaded in the 'rset' as a metamodel here
+
+    # Dynamically create a modeling assistant and link it with a TouchCore class diagram 
+    modeling_assistant = ModelingAssistant()
+    solution = Solution()
+    class_diagram = ClassDiagram(name="Student1_solution")
+    solution.classDiagram = class_diagram
+    modeling_assistant.solutions.append(solution)
+    cd_int = CDInt()
+    cd_string = CDString()
+    car_class = Class(name="Car", attributes=[
+        Attribute(name="id", type=cd_int), Attribute(name="make", type=cd_string)])
+    print(car_class.attributes[0].type.__class__ == CDInt)
+    class_diagram.classes.append(car_class)
+    assert "Student1_solution" == modeling_assistant.solutions[0].classDiagram.name
+    assert "Car" == class_diagram.classes[0].name
+
+    # Save modeling assistant instance to file
+    resource = rset.create_resource(URI(ma_path))
+    resource.extend([modeling_assistant, class_diagram])
+    resource.save()
+
+    assert os.path.exists(ma_path)
+    with open(ma_path) as f:
+        file_contents = f.read()
+        for s in ["Student1_solution", "Car", "make"]:
+            assert s in file_contents
+
+
 if __name__ == "__main__":
     "Main entry point."
-    test_creating_multiclass_solution_from_serialized_class_diagram()
+    test_persisting_modeling_assistant_with_one_class_solution()
     

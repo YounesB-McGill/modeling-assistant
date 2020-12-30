@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:version="2.0">
+  <ns0:ModelingAssistant xmlns:ns0="modelingassistant" solutions=""/>
+  <classdiagram:ClassDiagram name="Student1_solution">
+    <classes xsi:type="classdiagram:Class" name="Car">
+      <attributes xsi:type="classdiagram:Attribute" name="id" type=""/>
+      <attributes xsi:type="classdiagram:Attribute" name="make" type=""/>
+    </classes>
+  </classdiagram:ClassDiagram>
+</xmi:XMI>
