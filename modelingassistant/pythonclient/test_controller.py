@@ -257,6 +257,7 @@ def test_persisting_modeling_assistant_with_one_class_solution():
     modeling_assistant.solutions.append(solution)
     cd_int = CDInt()
     cd_string = CDString()
+    class_diagram.types.extend([cd_int, cd_string])
     car_class = Class(name="Car", attributes=[
         Attribute(name="id", type=cd_int), Attribute(name="make", type=cd_string)])
     class_diagram.classes.append(car_class)
@@ -265,6 +266,7 @@ def test_persisting_modeling_assistant_with_one_class_solution():
 
     # Save modeling assistant instance to file
     resource = rset.create_resource(URI(ma_path))
+    resource.use_uuid = True
     resource.extend([modeling_assistant, class_diagram])
     resource.save()
 
