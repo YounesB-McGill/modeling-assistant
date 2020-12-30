@@ -3,17 +3,21 @@ package controller.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import java.util.List;
+import java.util.Map;
 import org.junit.Test;
 
 import classdiagram.CDInt;
 import classdiagram.ClassDiagram;
 import classdiagram.ClassdiagramFactory;
+import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.util.ResourceHelper;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.common.util.URI;
 
@@ -218,20 +222,44 @@ public class ControllerTest {
   }
   
   @Test public void testCreatingOneClassSolutionFromSerializedClassDiagram() {
-    var resource = ResourceHelper.INSTANCE.loadResource("modelingassistant/testmodels/car.domain_model.cdm");
-    var classDiagram = (ClassDiagram) resource.getContents().get(0);
-    var carClass = classDiagram.getClasses().get(0);
-
-    var cdf = ClassdiagramFactory.eINSTANCE;
-    var cdInt = cdf.createCDInt();
-    var cdString = cdf.createCDString();
-
-    assertEquals(carClass, classDiagram.getClasses().get(0));
-    assertEquals("Car1", carClass.getName());
-    assertEquals("id", carClass.getAttributes().get(0).getName());
-    assertEquals("make", carClass.getAttributes().get(1).getName());
-    assertEquals(cdInt.getName(), carClass.getAttributes().get(0).getType().getName());
-    assertEquals(cdString.getName(), carClass.getAttributes().get(1).getType().getName());
+    ClassdiagramPackage.eINSTANCE.eClass();
+    
+    // Open ClassDiagram metamodel
+    var cdmMmFile = "../modelingassistant/model/classdiagram.ecore";
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().putAll(Map.of(
+        "ecore", new EcoreResourceFactoryImpl(),
+        "cdm", new XMIResourceFactoryImpl()
+    ));
+    Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().putAll(Map.of(
+        "ecore", new EcoreResourceFactoryImpl(),
+        "cdm", new XMIResourceFactoryImpl()
+    ));
+    var mmRoot = (EPackage) rset.getResource(URI.createFileURI(cdmMmFile), true).getContents().get(0);
+    rset.getPackageRegistry().put(mmRoot.getNsURI(), mmRoot);
+    
+    // Open a class diagram instance
+    
+    var cdmFile = "../modelingassistant/testmodels/car.domain_model.cdm";
+    /*
+     * class_diagram = resource.contents[0]
+     * class_diagram.__class__ = ClassDiagram
+     */
+    ClassDiagram classDiagram = (ClassDiagram) (rset.getResource(URI.createFileURI(cdmFile), true).getContents().get(0));
+    
+    System.out.println(classDiagram);
+    
+//    var carClass = classDiagram.getClasses().get(0);
+//    var cdf = ClassdiagramFactory.eINSTANCE;
+//    var cdInt = cdf.createCDInt();
+//    var cdString = cdf.createCDString();
+//
+//    assertEquals(carClass, classDiagram.getClasses().get(0));
+//    assertEquals("Car1", carClass.getName());
+//    assertEquals("id", carClass.getAttributes().get(0).getName());
+//    assertEquals("make", carClass.getAttributes().get(1).getName());
+//    assertEquals(cdInt.getName(), carClass.getAttributes().get(0).getType().getName());
+//    assertEquals(cdString.getName(), carClass.getAttributes().get(1).getType().getName());
   }
 
 }
