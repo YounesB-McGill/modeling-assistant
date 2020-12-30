@@ -6,7 +6,7 @@ import pyecore
 from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, ImplementationClass, CDInt, CDString,
     AssociationEnd, Association, ReferenceType)
 from modelingassistant.modelingassistant import ModelingAssistant, Solution
-from pyecore.ecore import EInteger, EString
+from pyecore.ecore import EInteger, EString, EPackage
 from pyecore.resources import ResourceSet, URI
 
 
@@ -267,15 +267,48 @@ def test_persisting_modeling_assistant_with_one_class_solution():
     # Save modeling assistant instance to file
     resource = rset.create_resource(URI(ma_path))
     resource.use_uuid = True
-    resource.extend([modeling_assistant, class_diagram])
+    resource.extend([modeling_assistant, class_diagram, solution])
     resource.save()
 
     assert os.path.exists(ma_path)
     with open(ma_path) as f:
         file_contents = f.read()
-        for s in ["Student1_solution", "Car", "make"]:
+        for s in ["Student1_solution", "Car", "make", "CDInt"]:
             assert s in file_contents
 
+
+def test_loading_modeling_assistant_with_one_class_solution():
+    """
+    Verify that the modeling assistant instance defined above can be deserialized correctly.
+    """
+    # Open ClassDiagram and Modeling Assistant metamodels
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+    rset = ResourceSet()
+    resource = rset.get_resource(URI(cdm_mm_file))
+    cdm_mm_root = resource.contents[0]
+    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
+    resource = rset.get_resource(URI(ma_mm_file))
+    ma_mm_root = resource.contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+
+    # Open a Modeling Assistant instance
+    ma_path = "modelingassistant/instances"
+    ma_file = f"{ma_path}/ma_one_class.xmi"
+    resource = rset.get_resource(URI(ma_file))
+    modeling_assistant: ModelingAssistant = resource.contents[0]
+    modeling_assistant.__class__ = ModelingAssistant
+    class_diagram: ClassDiagram = resource.contents[1]
+    class_diagram.__class__ = ClassDiagram
+
+    assert class_diagram == modeling_assistant.solutions[0].classDiagram
+    assert "Student1_solution" == class_diagram.name
+    expected_class_names = ["Car"]
+    for c in class_diagram.classes:
+        assert c.name in expected_class_names
+        expected_class_names.remove(c.name)
+    assert not expected_class_names
+         
 
 def associate(class1, class2):
     """
@@ -402,4 +435,5 @@ def test_check_for_incomplete_containment_tree_failure_case():
 if __name__ == "__main__":
     "Main entry point."
     test_persisting_modeling_assistant_with_one_class_solution()
+    # test_loading_modeling_assistant_with_one_class_solution()
     
