@@ -4,7 +4,7 @@ import os
 import pyecore
 
 from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, ImplementationClass, CDInt, CDString,
-    AssociationEnd, Association)
+    AssociationEnd, Association, ReferenceType)
 from modelingassistant.modelingassistant import ModelingAssistant, Solution
 from pyecore.ecore import EInteger, EString
 from pyecore.resources import ResourceSet, URI
@@ -166,8 +166,7 @@ def test_creating_one_class_solution_from_serialized_class_diagram():
     # Open ClassDiagram metamodel
     cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
     rset = ResourceSet()
-    resource = rset.get_resource(URI(cdm_mm_file))
-    mm_root = resource.contents[0]
+    mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
     rset.metamodel_registry[mm_root.nsURI] = mm_root  # ecore is loaded in the 'rset' as a metamodel here
 
     # Open a class diagram instance
@@ -247,8 +246,7 @@ def test_persisting_modeling_assistant_with_one_class_solution():
     # Load ClassDiagram metamodel
     cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
     rset = ResourceSet()
-    resource = rset.get_resource(URI(cdm_mm_file))
-    mm_root = resource.contents[0]
+    mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
     rset.metamodel_registry[mm_root.nsURI] = mm_root  # ecore is loaded in the 'rset' as a metamodel here
 
     # Dynamically create a modeling assistant and link it with a TouchCore class diagram 
@@ -261,7 +259,6 @@ def test_persisting_modeling_assistant_with_one_class_solution():
     cd_string = CDString()
     car_class = Class(name="Car", attributes=[
         Attribute(name="id", type=cd_int), Attribute(name="make", type=cd_string)])
-    print(car_class.attributes[0].type.__class__ == CDInt)
     class_diagram.classes.append(car_class)
     assert "Student1_solution" == modeling_assistant.solutions[0].classDiagram.name
     assert "Car" == class_diagram.classes[0].name
@@ -276,6 +273,128 @@ def test_persisting_modeling_assistant_with_one_class_solution():
         file_contents = f.read()
         for s in ["Student1_solution", "Car", "make"]:
             assert s in file_contents
+
+
+def associate(class1, class2):
+    """
+    Associate the two classes in memory (modify classes and return None).
+    """
+    class12_association_end = AssociationEnd(classifier=class1, navigable=True, lowerBound=0, upperBound=-1)
+    class21_association_end = AssociationEnd(classifier=class2, navigable=True, lowerBound=0, upperBound=-1)
+    class1.associationEnds.append(class12_association_end)
+    class2.associationEnds.append(class21_association_end)
+    association = Association(ends=[class12_association_end, class21_association_end])
+    class12_association_end.assoc = association
+    class21_association_end.assoc = association
+
+
+def contains(container_class, contained_class):
+    """
+    Associate the two classes in memory (modify classes and return None).
+    """
+    class12_association_end = AssociationEnd(
+        classifier=container_class, navigable=True, lowerBound=1, upperBound=1, referenceType=ReferenceType.Composition)
+    class21_association_end = AssociationEnd(classifier=contained_class, navigable=True, lowerBound=0, upperBound=-1)
+    container_class.associationEnds.append(class12_association_end)
+    contained_class.associationEnds.append(class21_association_end)
+    association = Association(ends=[class12_association_end, class21_association_end])
+    class12_association_end.assoc = association
+    class21_association_end.assoc = association
+
+
+def check_for_incomplete_containment_tree(solution: Solution) -> bool:
+    """
+    Return True if containment is complete, False otherwise.
+    """
+    # Find the root class (if not given)
+    num_compositions: dict[Class, int] = {}
+    for c in solution.classDiagram.classes:
+        num_compositions[c] = 0
+        for ae in c.associationEnds:
+            if str(ae.referenceType) == "Composition":
+                num_compositions[c] += 1
+    
+    classes_with_most_compositions = [c for c, n in num_compositions.items() if n == max(num_compositions.values())]
+    if len(classes_with_most_compositions) != 1:
+        return False
+    root_class = classes_with_most_compositions[0]
+    
+    # Check every assoc end to see if they connect to all other classes and reference type is Composition
+    for ae in root_class.associationEnds:
+        if str(ae.referenceType) != "Composition":
+            return False
+
+    # TODO Check subclasses, which do not to be contained directly
+    for c in solution.classDiagram.classes:
+        if c == root_class:
+            continue
+        contained = False
+        for ae in c.associationEnds:
+            other_ae = ae.assoc.ends[0] if ae.assoc.ends[0] != ae else ae.assoc.ends[1]
+            if other_ae.classifier == root_class:
+                contained = True
+        if not contained:
+            return False
+    
+    return True
+    
+
+
+def test_check_for_incomplete_containment_tree_success_case():
+    """
+    Test the above function with this example:
+
+    class Flexibook {
+      1 <@>- * Owner;
+      1 <@>- * Customer;
+      1 <@>- * Service;
+    }
+    class Owner {}
+    class Customer {}
+    class Service {
+      * -- * Owner;
+      * -- * Customer;
+    }
+    """
+    # Dynamically create a modeling assistant and link it with a TouchCore class diagram 
+    modeling_assistant = ModelingAssistant()
+    solution = Solution()
+    class_diagram = ClassDiagram(name="Instructor_solution")
+    solution.classDiagram = class_diagram
+    modeling_assistant.solutions.append(solution)
+    flexibook_class = Class(name="Flexibook")
+    owner_class = Class(name="Owner")
+    customer_class = Class(name="Customer")
+    service_class = Class(name="Service")
+    associate(service_class, owner_class)
+    associate(service_class, customer_class)
+    for c in [owner_class, customer_class, service_class]:
+        contains(flexibook_class, c)
+    class_diagram.classes.extend([flexibook_class, owner_class, customer_class, service_class])
+
+    assert check_for_incomplete_containment_tree(solution)
+
+
+def test_check_for_incomplete_containment_tree_failure_case():
+    """
+    Similar to above, except Sevice is not contained in Flexibook
+    """
+    modeling_assistant = ModelingAssistant()
+    solution = Solution()
+    class_diagram = ClassDiagram(name="Student1_solution")
+    solution.classDiagram = class_diagram
+    modeling_assistant.solutions.append(solution)
+    flexibook_class = Class(name="Flexibook")
+    owner_class = Class(name="Owner")
+    customer_class = Class(name="Customer")
+    service_class = Class(name="Service")
+    associate(service_class, owner_class)
+    associate(service_class, customer_class)
+    for c in [owner_class, customer_class]:
+        contains(flexibook_class, c)
+    class_diagram.classes.extend([flexibook_class, owner_class, customer_class, service_class])
+    
+    assert not check_for_incomplete_containment_tree(solution)
 
 
 if __name__ == "__main__":
