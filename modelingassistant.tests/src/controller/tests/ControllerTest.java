@@ -245,7 +245,7 @@ public class ControllerTest {
      * class_diagram = resource.contents[0]
      * class_diagram.__class__ = ClassDiagram
      */
-    ClassDiagram classDiagram = (ClassDiagram) (rset.getResource(URI.createFileURI(cdmFile), true).getContents().get(0));
+    var classDiagram = (ClassDiagram) (rset.getResource(URI.createFileURI(cdmFile), true).getContents().get(0));
     
     System.out.println(classDiagram);
     
