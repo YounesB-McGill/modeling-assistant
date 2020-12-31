@@ -6,7 +6,7 @@ import pyecore
 from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, ImplementationClass, CDInt, CDString,
     AssociationEnd, Association, ReferenceType)
 from modelingassistant.modelingassistant import ModelingAssistant, Solution
-from pyecore.ecore import EInteger, EString, EPackage
+from pyecore.ecore import EInteger, EString
 from pyecore.resources import ResourceSet, URI
 
 
@@ -310,6 +310,88 @@ def test_loading_modeling_assistant_with_one_class_solution():
     assert not expected_class_names
          
 
+def test_persisting_modeling_assistant_with_multiclass_solution():
+    """
+    Verify that a ModelingAssistant instance with a multiclass solution can be serialized to an XMI file.
+    """
+    # Remove previously created file (if it exists)
+    ma_path = "modelingassistant/instances/ma_multiclass.xmi"
+    if os.path.exists(ma_path): os.remove(ma_path)
+    
+    # Open premade class diagram from one of the above tests
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    rset = ResourceSet()
+    resource = rset.get_resource(URI(cdm_mm_file))
+    mm_root = resource.contents[0]
+    rset.metamodel_registry[mm_root.nsURI] = mm_root
+    cdm_path = "modelingassistant/testmodels"
+    cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
+    resource = rset.get_resource(URI(cdm_file))
+    class_diagram: ClassDiagram = resource.contents[0]
+    class_diagram.__class__ = ClassDiagram
+    car_class = driver_class = sports_car_class = part_class = None
+    for c in class_diagram.classes:
+        if c.name == "Car": car_class = c
+        elif c.name == "Driver": driver_class = c
+        elif c.name == "SportsCar": sports_car_class = c
+        elif c.name == "Part": part_class = c
+
+    # Link class_diagram to modeling assistant instance
+    modeling_assistant = ModelingAssistant()
+    solution = Solution()
+    solution.classDiagram = class_diagram
+    modeling_assistant.solutions.append(solution)
+
+    # Save modeling assistant instance to file
+    resource = rset.create_resource(URI(ma_path))
+    resource.use_uuid = True
+    resource.extend([modeling_assistant, class_diagram, solution])
+    resource.save()
+
+    assert os.path.exists(ma_path)
+    with open(ma_path) as f:
+        file_contents = f.read()
+        for s in ["Car", "SportsCar", "Part", "Driver", "make", "CDInt"]:
+            assert s in file_contents
+
+
+def test_loading_modeling_assistant_with_multiclass_solution():
+    """
+    Verify that the modeling assistant instance defined above can be deserialized correctly.
+    """
+    # Open ClassDiagram and Modeling Assistant metamodels
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+    rset = ResourceSet()
+    resource = rset.get_resource(URI(cdm_mm_file))
+    cdm_mm_root = resource.contents[0]
+    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
+    resource = rset.get_resource(URI(ma_mm_file))
+    ma_mm_root = resource.contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+
+    # Open a Modeling Assistant instance
+    ma_path = "modelingassistant/instances"
+    ma_file = f"{ma_path}/ma_multiclass.xmi"
+    resource = rset.get_resource(URI(ma_file))
+    modeling_assistant: ModelingAssistant = resource.contents[0]
+    modeling_assistant.__class__ = ModelingAssistant
+    class_diagram: ClassDiagram = resource.contents[1]
+    class_diagram.__class__ = ClassDiagram
+
+    assert class_diagram == modeling_assistant.solutions[0].classDiagram
+    expected_class_names = ["Car", "SportsCar", "Part", "Driver"]
+    for c in class_diagram.classes:
+        if c.name == "Car":
+            for a in c.attributes:
+                assert type(a.type).__name__ in [CDInt.__name__, CDString.__name__]
+        if c.name == "SportsCar":
+            assert "Car" == c.superTypes[0].name
+        assert c.name in expected_class_names
+        expected_class_names.remove(c.name)
+    assert not expected_class_names
+
+
 def associate(class1, class2):
     """
     Associate the two classes in memory (modify classes and return None).
@@ -434,6 +516,5 @@ def test_check_for_incomplete_containment_tree_failure_case():
 
 if __name__ == "__main__":
     "Main entry point."
-    test_persisting_modeling_assistant_with_one_class_solution()
-    # test_loading_modeling_assistant_with_one_class_solution()
+    test_loading_modeling_assistant_with_multiclass_solution()
     
