@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0">
+  <ns0:ModelingAssistant xmlns:ns0="modelingassistant" xmi:id="e034f760-357f-44cf-81ec-3597221dfa02" umlElements="" feedbacks="eb4b7f6e-6d01-4841-970d-26c5c7ef6519 6442b21e-c88f-4583-a9ed-e2806e681f61 9ad663f6-252c-4646-8dcf-aa0c1558646e" mistakeTypes="349e8848-aa42-4538-bd8a-dd068f02d9b4" learningItems="f6150b8e-c6e0-4cad-9b96-97b7b988734b"/>
+  <ns0:LearningItem xmlns:ns0="modelingassistant" xmi:id="f6150b8e-c6e0-4cad-9b96-97b7b988734b" umlElements="" modelingAssistant="e034f760-357f-44cf-81ec-3597221dfa02" mistakeTypes="349e8848-aa42-4538-bd8a-dd068f02d9b4"/>
+  <ns0:MistakeType xmlns:ns0="modelingassistant" xmi:id="349e8848-aa42-4538-bd8a-dd068f02d9b4" learningItem="f6150b8e-c6e0-4cad-9b96-97b7b988734b" feedbacks="eb4b7f6e-6d01-4841-970d-26c5c7ef6519 6442b21e-c88f-4583-a9ed-e2806e681f61 9ad663f6-252c-4646-8dcf-aa0c1558646e" atomic="True" name="Software Engineering term" modelingAssistant="e034f760-357f-44cf-81ec-3597221dfa02"/>
+  <ns0:Feedback xmlns:ns0="modelingassistant" xmi:id="eb4b7f6e-6d01-4841-970d-26c5c7ef6519" mistakeType="349e8848-aa42-4538-bd8a-dd068f02d9b4" level="1" modelingAssistant="e034f760-357f-44cf-81ec-3597221dfa02" highlightSolution="True"/>
+  <ns0:TextResponse xmlns:ns0="modelingassistant" xmi:id="6442b21e-c88f-4583-a9ed-e2806e681f61" mistakeType="349e8848-aa42-4538-bd8a-dd068f02d9b4" level="2" modelingAssistant="e034f760-357f-44cf-81ec-3597221dfa02" highlightSolution="True"/>
+  <ns0:ParametrizedResponse xmlns:ns0="modelingassistant" xmi:id="9ad663f6-252c-4646-8dcf-aa0c1558646e" mistakeType="349e8848-aa42-4538-bd8a-dd068f02d9b4" level="3" modelingAssistant="e034f760-357f-44cf-81ec-3597221dfa02" highlightSolution="True"/>
+</xmi:XMI>

@@ -380,7 +380,7 @@ class Feedback(EObject, metaclass=MetaEClass):
     mistakeType = EReference(ordered=True, unique=True, containment=False, derived=False)
     mistakes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
 
-    def __init__(self, *, level=None, congratulatory=None, usefulness=None, highlightProblem=None, highlightSolution=None, modelingAssistant=None, mistakeType=None, mistakes=None):
+    def __init__(self, *, level=None, congratulatory=None, usefulness=None, highlightProblem=None, highlightSolution=None, modelingAssistant=None, mistakeType=None, mistakes=None, text=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
