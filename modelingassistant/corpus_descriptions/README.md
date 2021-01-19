@@ -87,6 +87,25 @@ Level 4: Resource Response with Example:
 
 ### Using an attribute instead of an association
 
+Level 1: Highlight solution
+
+Level 2: Text response
+
+> Remember that attributes are simple pieces of data.
+
+Level 3: Parameterized Response
+
+> ${includingClass.attributeName} should be its own class.
+
+Level 4: Resource Response with Quiz:
+
+> Pick the classes which are modeled correctly.
+>
+> - [ ] class Person { address; }
+> - [ ] class Person { * Person -- 1 Address; }; class Address {}
+> - [ ] class Loan { libraryPatron; }
+
+
 ### Incomplete containment tree
 
 
