@@ -23,15 +23,13 @@ _More to come..._
 
 ### Missing class
 
-Level 1: Highlight problem statement element
+Level 1: Highlight sentence of problem statement element
 
 Level 2: Text response:
 
-> Make sure you have modeled all the concepts in the problem description.
+> Make sure you have modeled all the classes in the problem description.
 
-Level 3: Text response:
-
-> You are missing a class.
+Level 3: Highlight problem statement element
 
 Level 4: Parameterized Response
 
@@ -52,6 +50,8 @@ Level 3: Text response:
 Level 4: Parameterized Response
 
 > The ${className} class is not part of the domain, so please remove it.
+
+> Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
 
 ### Wrong class name
 
@@ -87,7 +87,7 @@ Level 4: Resource Response with Example:
 
 ### Using an attribute instead of an association
 
-Level 1: Highlight solution
+Level 1: Highlight attribute
 
 Level 2: Text response
 
