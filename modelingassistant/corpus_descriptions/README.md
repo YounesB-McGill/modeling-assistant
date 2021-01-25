@@ -15,6 +15,15 @@ types are taken from our paper [Towards a Better Understanding of Interactions w
 1. [Wrong relationships](#wrong-relationships)
    1. [Using an attribute instead of an association](#using-an-attribute-instead-of-an-association)
    1. [Incomplete containment tree](#incomplete-containment-tree)
+   1. [Using an association instead of an aggregation/composition or vice versa](#using-an-association-instead-of-an-aggregationcomposition-or-vice-versa)
+   1. [Missing role names](#missing-role-names)
+   1. [Wrong association class](#wrong-association-class)
+   1. [Inapplicable generalization](#inapplicable-generalization)
+   1. [Non-differentiated subclass](#non-differentiated-subclass)
+
+1. [Modeling antipatterns or misuse of design patterns](#modeling-antipatterns-or-misuse-of-design-patterns)
+   1. [Misuse of Player-Role Pattern](#misuse-of-player-role-Pattern)
+
 
 _More to come..._
 
@@ -82,6 +91,7 @@ Level 4: Resource Response with Example:
 > Airplanes | Airplane 
 > AirlineData | Airline
 
+___
 
 ## Wrong relationships
 
@@ -107,6 +117,31 @@ Level 4: Resource Response with Quiz:
 
 
 ### Incomplete containment tree
+
+
+
+### Using an association instead of an aggregation/composition or vice versa
+
+
+
+### Missing role names
+
+
+### Wrong association class
+
+
+### Inapplicable generalization
+
+
+### Non-differentiated subclass
+
+
+___
+
+## Modeling antipatterns or misuse of design patterns
+
+### Misuse of Player-Role Pattern
+
 
 
 _More to come..._
