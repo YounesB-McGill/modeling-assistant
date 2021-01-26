@@ -118,13 +118,83 @@ Level 4: Resource Response with Quiz:
 
 ### Incomplete containment tree
 
+Level 1: Highlight classes
+
+Level 2: Text response
+
+> What is the relationship between the highlighted classes?
+
+Level 3: Parameterized Response
+
+> ${containedClass} is a part of ${containerClass}, so how would you model this?
+
+Level 4: Resource Response with Example
+
+Observe the following domain model. Every single class is contained in the 
+root class, `PISystem`, other than the root class itself.
+
+![PISystem](images/PISystem.png)
+
+Level 5: Resource Response with Quiz
+
+Complete the containment tree for the following model.
+
+![IRS](images/IRS.png)
+
+_Possible approaches:_
+
+* Use the envisioned UI for the quiz and let students create the
+compostitions themselves.
+* Multiple choice in the form: Pick the classes which are _directly_
+contained in the `IRS` root node.
+  `Team`, `League`, `Sport`, `Registration`, `Game`, `RegularLeague`,
+  `WeekendLeague`, `Person`, `StudentRole`, `RefereeRole`, `IRS`.
 
 
 ### Using an association instead of an aggregation/composition or vice versa
 
+Level 1: Highlight relationship
+
+Level 2: Text response
+
+> What is the relationship between these two concepts?
+
+Level 3: Parameterized Response
+
+> Why is ${incorrectlyContainedClass} contained in ${containerClass}?
+
+> The relationship between ${containedClass} and ${containerClass} can be
+modeled more precisely than with a simple association.
+
+Level 4: Resource Response with Example
+
+Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better differentiate these relationships.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
 
 
 ### Missing role names
+
+Level 1: Highlight association
+
+Level 2: Text response
+
+> Can you model this relationship more precisely?
+
+Level 3: Text response
+
+> The multiplicities for this association are correct, but something else is missing!
+
+Level 4: Resource Response with link to Reference
+
+> Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
+for this association? Role names help identify the role a class plays in a
+relationship and can be important if there is more than one relationship
+between the same two classes.
+
+![Role name](images/role_name.png)
 
 
 ### Wrong association class
