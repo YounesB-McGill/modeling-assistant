@@ -282,6 +282,35 @@ ___
 
 ### Misuse of Player-Role Pattern
 
+Level 1: Highlight wrong attribute(s) or class(es)
 
+Level 2: Text response
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parameterized Response
+
+> Modeling all the concepts in one ${playerClass} class will make it very 
+complicated! Think about adding one or more classes to better represent the domain.
+
+> (Nice try, but) a ${firstSubclass} can also play the role of a ${secondSubclass}.
+
+Level 4: Resource Response with Reference
+
+The [Player-Role Pattern](https://mycourses2.mcgill.ca/) can be used to 
+capture the fact that an object may play different roles in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+Level 5: Resource Response with Quiz
+
+Complete the following table:
+
+Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+--- | --- | --- | --- | ---
+Enumeration         | [ ] | [ ] | [ ] | [ ]
+Subclasses          | [ ] | [ ] | [ ] | [ ]
+Associations        | [ ] | [ ] | [ ] | [ ]
+Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
 
 _More to come..._
