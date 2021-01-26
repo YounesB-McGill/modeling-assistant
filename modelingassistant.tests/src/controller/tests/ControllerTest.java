@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.junit.Test;
 
 import classdiagram.CDInt;
@@ -12,6 +13,7 @@ import classdiagram.ClassDiagram;
 import classdiagram.ClassdiagramFactory;
 import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
+import classdiagram.ReferenceType;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.util.ResourceHelper;
 import org.eclipse.emf.ecore.EPackage;
@@ -222,6 +224,10 @@ public class ControllerTest {
     assertEquals("make", sportsCarClass.getSuperTypes().get(0).getAttributes().get(1).getName());
   }
   
+  /**
+   * Verifies that it is possible to create a modeling assistant solution from a serialized TouchCORE
+   * single class domain model.
+   */
   @Test public void testCreatingOneClassSolutionFromSerializedClassDiagram() {
     ClassdiagramPackage.eINSTANCE.eClass();
     var cdmFile = "../modelingassistant/testmodels/car.domain_model.cdm";
@@ -235,6 +241,49 @@ public class ControllerTest {
     assertEquals("make", carClass.getAttributes().get(1).getName());
     assertTrue(carClass.getAttributes().get(0).getType() instanceof CDInt);
     assertTrue(carClass.getAttributes().get(1).getType() instanceof CDString);
+  }
+  
+  /**
+   * Verifies that it is possible to create a modeling assistant solution from a serialized TouchCORE
+   * multiclass domain model.
+   */
+  @Test public void testCreatingMulticlassSolutionFromSerializedClassDiagram() {
+    ClassdiagramPackage.eINSTANCE.eClass();
+    var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
+    var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
+    var classDiagram = (ClassDiagram) resource.getContents().get(0);
+    
+    Classifier carClass = null;
+    Classifier driverClass = null;
+    Classifier sportsCarClass = null;
+    Classifier partClass = null;
+    for (var c: classDiagram.getClasses()) {
+      if ("Car".equals(c.getName())) carClass = c;
+      else if ("Driver".equals(c.getName())) driverClass = c;
+      else if ("SportsCar".equals(c.getName())) sportsCarClass = c;
+      else if ("Part".equals(c.getName())) partClass = c;
+    }
+
+    assertEquals(carClass, classDiagram.getClasses().get(0));
+    assertEquals("Car", carClass.getName());
+    assertEquals("id", carClass.getAttributes().get(0).getName());
+    assertEquals("make", carClass.getAttributes().get(1).getName());
+    assertTrue(carClass.getAttributes().get(0).getType() instanceof CDInt);
+    assertTrue(carClass.getAttributes().get(1).getType() instanceof CDString);
+    assertEquals("Part", partClass.getName());
+    assertEquals("Car", sportsCarClass.getSuperTypes().get(0).getName());
+    assertEquals(ReferenceType.COMPOSITION, carClass.getAssociationEnds().stream()
+        .filter(ae -> "parts".equals(ae.getName())).collect(Collectors.toList()).get(0).getReferenceType());
+    
+    var maf = ModelingassistantFactory.eINSTANCE;
+    var modelingAssistant = maf.createModelingAssistant();
+    var solution = maf.createSolution();
+    solution.setModelingAssistant(modelingAssistant);
+    modelingAssistant.getSolutions().add(solution);
+    solution.setClassDiagram(classDiagram);
+    
+    List.of(carClass, driverClass, sportsCarClass, partClass).forEach(c ->
+        assertTrue(solution.getClassDiagram().getClasses().contains(c)));
   }
 
 }
