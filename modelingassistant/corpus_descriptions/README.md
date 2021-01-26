@@ -199,12 +199,82 @@ between the same two classes.
 
 ### Wrong association class
 
+Level 1: Highlight association
+
+Level 2: Text response
+
+> Can you model this relationship more precisely?
+
+> Is using an association class the best way to model this?
+
+Level 3: Parameterized Response
+
+> The association between ${firstClass} and ${secondClass} should (not) be
+modeled with an [association class](https://mycourses2.mcgill.ca/).
+
+Level 4: Parameterized Response
+
+> Does it make sense to have multiple instances of the ${inBetweenClass}
+linking ${firstClass} and ${secondClass}?
+
+Level 5: Resource Response with link to Reference
+
+![Association class](images/association_class.png)
+
 
 ### Inapplicable generalization
+
+Level 1: Highlight classes
+
+Level 2: Text response
+
+> Can you find a better way to express this relationship?
+
+> Is there a (direct) relationship between these two classes?
+
+Level 3: Parameterized Response
+
+> When creating a generalization between ${wrongSubclass} and
+${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
+
+> ${wrongSubclass} is not a (direct) subclass of ${wrongSuperclass}.
+
+Level 4: Resource Response with Quiz
+
+<!-- TODO Complete following lists -->
+
+> Place the following classes in an inheritance hierarchy:
+>
+> * `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
+> * `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute` ...
+
+Level 5: Resource Response with Reference and Quiz
+
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* ...
 
 
 ### Non-differentiated subclass
 
+Level 1: Highlight class
+
+Level 2: Text response
+
+> Is it really necessary to model this as a subclass?
+
+Level 3: Parameterized Response
+
+> ${wrongSubclass} does not differ from ${wrongSuperclass} in terms of
+behavior or structure.
+
+Level 4: Resource Response with Quiz
+
+Which classes do not belong?
+* `Account`, `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`, `ClosedAccount`, 
 
 ___
 
