@@ -285,5 +285,55 @@ public class ControllerTest {
     List.of(carClass, driverClass, sportsCarClass, partClass).forEach(c ->
         assertTrue(solution.getClassDiagram().getClasses().contains(c)));
   }
+  
+  /**
+   * Tests for checking Software Engineering terms (Umple syntax):
+   * 
+   * class CarData {
+   *   int id;
+   *   String make; // eg, BMW, Honda
+   * }
+   */
+  @Test public void testCheckingSoftwareEngineeringTerm() {
+    var maf = ModelingassistantFactory.eINSTANCE;
+    var cdf = ClassdiagramFactory.eINSTANCE;
+    var modelingAssistant = maf.createModelingAssistant();
+    var solution = maf.createSolution();
+    var classDiagram = cdf.createClassDiagram();
+    classDiagram.setName("Student1_solution");
+    solution.setClassDiagram(classDiagram);
+    modelingAssistant.getSolutions().add(solution);
+    
+    var carClass = cdf.createClass();
+    carClass.setName("CarData");
+    var carId = cdf.createAttribute();
+    carId.setName("id");
+    var intType = cdf.createCDInt();
+    carId.setType(intType);
+    var carMake = cdf.createAttribute();
+    carMake.setName("make");
+    var stringType = cdf.createCDString();
+    carMake.setType(stringType);
+    carClass.getAttributes().add(carId);
+    carClass.getAttributes().add(carMake);
+    
+    classDiagram.getClasses().add(carClass);
+    
+    assertEquals("Student1_solution", modelingAssistant.getSolutions().get(0).getClassDiagram().getName());
+     
+   
+    String[] SoftwareEnginneringTerms = {"data", "record", "table", "information"};    
+    for( String i:SoftwareEnginneringTerms ){
+     if(classDiagram.getClasses().get(0).getName().toLowerCase().contains(i)){
+    	
+    	 assertEquals("CarData", classDiagram.getClasses().get(0).getName());
+	  }
+     }
+
+    assertEquals("id", classDiagram.getClasses().get(0).getAttributes().get(0).getName());
+    assertEquals("make", classDiagram.getClasses().get(0).getAttributes().get(1).getName());
+    assertEquals(intType, classDiagram.getClasses().get(0).getAttributes().get(0).getType());
+    assertEquals(stringType, classDiagram.getClasses().get(0).getAttributes().get(1).getType());
+  }
 
 }
