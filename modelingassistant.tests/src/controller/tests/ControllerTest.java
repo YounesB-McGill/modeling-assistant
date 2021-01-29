@@ -358,5 +358,46 @@ public class ControllerTest {
     assertEquals(check,true);
          
   }
+   public void associate(Classifier class1, Classifier class2) {
+	  var cdf = ClassdiagramFactory.eINSTANCE;
+	  var class1AssociationEnd = cdf.createAssociationEnd();
+	    class1AssociationEnd.setClassifier(class1);
+	    class1AssociationEnd.setNavigable(true);
+	    class1AssociationEnd.setLowerBound(1);
+	    class1AssociationEnd.setUpperBound(1);
+	    var class2AssociationEnd = cdf.createAssociationEnd();
+	    class2AssociationEnd.setClassifier(class2);
+	    class2AssociationEnd.setNavigable(true);
+	    class2AssociationEnd.setLowerBound(0);
+	    class2AssociationEnd.setUpperBound(-1);
+	    class1.getAssociationEnds().add(class1AssociationEnd);
+	    class2.getAssociationEnds().add(class2AssociationEnd);
+	    var class1class2Association = cdf.createAssociation();
+	    class1class2Association.getEnds().addAll(List.of(class1AssociationEnd, class2AssociationEnd));
+	    class1AssociationEnd.setAssoc(class1class2Association);
+	    class2AssociationEnd.setAssoc(class1class2Association);
+	  
+  }
+  public void contains(Classifier containedClass, Classifier containerClass) {
+	  var cdf = ClassdiagramFactory.eINSTANCE;
+	  var containerClassAssociationEnd = cdf.createAssociationEnd();
+	    containerClassAssociationEnd.setClassifier(containerClass);
+	    containerClassAssociationEnd.setNavigable(true);
+	    containerClassAssociationEnd.setLowerBound(1);
+	    containerClassAssociationEnd.setUpperBound(1);
+	    containerClassAssociationEnd.setReferenceType(ReferenceType.COMPOSITION);
+	    var containedClassAssociationEnd = cdf.createAssociationEnd();
+	    containedClassAssociationEnd.setClassifier(containedClass);
+	    containedClassAssociationEnd.setNavigable(true);
+	    containedClassAssociationEnd.setLowerBound(0);
+	    containedClassAssociationEnd.setUpperBound(-1);
+	    containerClass.getAssociationEnds().add(containerClassAssociationEnd);
+	    containedClass.getAssociationEnds().add(containedClassAssociationEnd);
+	    var containerClassContainedClassAssociation = cdf.createAssociation();
+	    containerClassContainedClassAssociation.getEnds().addAll(List.of(containerClassAssociationEnd, containedClassAssociationEnd));
+	    containerClassAssociationEnd.setAssoc(containerClassContainedClassAssociation);
+	    containedClassAssociationEnd.setAssoc(containerClassContainedClassAssociation);
+  }
+  
 
 }
