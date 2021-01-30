@@ -512,7 +512,6 @@ public class ControllerTest {
       List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt", "Student2_solution").forEach(s ->
           assertTrue(fileContent.contains(s)));
     } catch (IOException e) {
-      e.printStackTrace();
       fail();
     }
   }
@@ -545,7 +544,6 @@ public class ControllerTest {
     assertEquals(classDiagram2, modelingAssistant.getSolutions().get(1).getClassDiagram());
     var expectedClassNames2 = new ArrayList<String>(List.of("Car"));
     classDiagram2.getClasses().forEach(c -> {
-      System.out.println(c.getName());
       if ("Car".equals(c.getName())) {
         c.getAttributes().forEach(a -> assertTrue(a.getType() instanceof CDInt || a.getType() instanceof CDString));
       }
