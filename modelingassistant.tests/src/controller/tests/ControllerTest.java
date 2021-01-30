@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +24,7 @@ import classdiagram.ClassdiagramFactory;
 import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
 import classdiagram.ReferenceType;
+import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.util.ResourceHelper;
@@ -290,11 +292,7 @@ public class ControllerTest {
   }
   
   /**
-   * Tests for checking Software Engineering terms (Umple syntax):
-   * 
-   * class CarData {
-   *   
-   * }
+   * Tests for checking Software Engineering terms, eg, CarData.
    */
   @Test public void testCheckingSoftwareEngineeringTerm() {
     var maf = ModelingassistantFactory.eINSTANCE;
@@ -308,23 +306,19 @@ public class ControllerTest {
     
     var carClass = cdf.createClass();
     carClass.setName("CarData");
-        
+    
     classDiagram.getClasses().add(carClass);
     
     assertEquals("Student1_solution", modelingAssistant.getSolutions().get(0).getClassDiagram().getName());
-     
    
-    String[] SoftwareEnginneringTerms = {"data", "record", "table", "information"};    
-    for( String i:SoftwareEnginneringTerms ){
-     if(classDiagram.getClasses().get(0).getName().toLowerCase().contains(i)){
-    	
-    	 assertEquals("CarData", classDiagram.getClasses().get(0).getName());
-	  }
-     }
-    
-   
+    String[] SoftwareEnginneringTerms = {"data", "record", "table", "information"};
+    for (String i : SoftwareEnginneringTerms) {
+      if (classDiagram.getClasses().get(0).getName().toLowerCase().contains(i)) {
+        assertEquals("CarData", classDiagram.getClasses().get(0).getName());
+      }
+    }
   }
-  
+
   /**
    * Tests for checking Plural in Class Name, eg Cars.
    */
@@ -340,46 +334,23 @@ public class ControllerTest {
     
     var carClass = cdf.createClass();
     carClass.setName("Cars");
-  
-    classDiagram.getClasses().add(carClass);
-    
-    assertEquals("Student1_solution", modelingAssistant.getSolutions().get(0).getClassDiagram().getName());
-    
-    var className=classDiagram.getClasses().get(0).getName();
-    
-    assertEquals("Cars", className);
-    
-    boolean check=false;
-    
-    if(Character.toUpperCase(className.charAt(className.length()-1)) == 'S') {
-    	check=true;
-    	    }
-    assertEquals(check,true);
-         
-  }
 
-  public void contains(Classifier containedClass, Classifier containerClass) {
-    var cdf = ClassdiagramFactory.eINSTANCE;
-    var containerClassAssociationEnd = cdf.createAssociationEnd();
-    containerClassAssociationEnd.setClassifier(containerClass);
-    containerClassAssociationEnd.setNavigable(true);
-    containerClassAssociationEnd.setLowerBound(1);
-    containerClassAssociationEnd.setUpperBound(1);
-    containerClassAssociationEnd.setReferenceType(ReferenceType.COMPOSITION);
-    var containedClassAssociationEnd = cdf.createAssociationEnd();
-    containedClassAssociationEnd.setClassifier(containedClass);
-    containedClassAssociationEnd.setNavigable(true);
-    containedClassAssociationEnd.setLowerBound(0);
-    containedClassAssociationEnd.setUpperBound(-1);
-    containerClass.getAssociationEnds().add(containerClassAssociationEnd);
-    containedClass.getAssociationEnds().add(containedClassAssociationEnd);
-    var containerClassContainedClassAssociation = cdf.createAssociation();
-    containerClassContainedClassAssociation.getEnds()
-        .addAll(List.of(containerClassAssociationEnd, containedClassAssociationEnd));
-    containerClassAssociationEnd.setAssoc(containerClassContainedClassAssociation);
-    containedClassAssociationEnd.setAssoc(containerClassContainedClassAssociation);
-  }
-  
+    classDiagram.getClasses().add(carClass);
+
+    assertEquals("Student1_solution", modelingAssistant.getSolutions().get(0).getClassDiagram().getName());
+
+    var className = classDiagram.getClasses().get(0).getName();
+
+    assertEquals("Cars", className);
+
+    boolean check = false;
+
+    if (Character.toUpperCase(className.charAt(className.length() - 1)) == 'S') {
+      check = true;
+    }
+    assertEquals(check, true);
+         
+  }  
   
   /**
    * Verifies that a ModelingAssistant instance with a one class solution can be serialized to an XMI file.
@@ -443,6 +414,24 @@ public class ControllerTest {
       fail();
     }
   }
+
+  /**
+   * Verifies that the modeling assistant instance defined above can be deserialized correctly.
+   */
+  @Test public void testLoadingModelingAssistantWithOneClassSolution() {
+    ClassdiagramPackage.eINSTANCE.eClass();
+    ModelingassistantPackage.eINSTANCE.eClass();
+    var maPath = "../modelingassistant/instances/ma_one_class_from_java.xmi";
+    var resource = ResourceHelper.INSTANCE.loadResource(maPath);
+    var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
+    var classDiagram = (ClassDiagram) resource.getContents().get(1);
+    
+    assertEquals(classDiagram, modelingAssistant.getSolutions().get(0).getClassDiagram());
+    assertEquals("Student1_solution", classDiagram.getName());
+    var expectedClassNames = new ArrayList<String>(List.of("Car"));
+    classDiagram.getClasses().forEach(c -> assertTrue(expectedClassNames.remove(c.getName())));
+    assertTrue(expectedClassNames.isEmpty());
+  }
   
   /**
    * Associates the two classes in memory (modifies classes and returns nothing).
@@ -465,6 +454,28 @@ public class ControllerTest {
     association.getEnds().addAll(List.of(class12AssociationEnd, class21AssociationEnd));
     class12AssociationEnd.setAssoc(association);
     class21AssociationEnd.setAssoc(association);
+  }
+  
+  public void contains(Classifier containedClass, Classifier containerClass) {
+    var cdf = ClassdiagramFactory.eINSTANCE;
+    var containerClassAssociationEnd = cdf.createAssociationEnd();
+    containerClassAssociationEnd.setClassifier(containerClass);
+    containerClassAssociationEnd.setNavigable(true);
+    containerClassAssociationEnd.setLowerBound(1);
+    containerClassAssociationEnd.setUpperBound(1);
+    containerClassAssociationEnd.setReferenceType(ReferenceType.COMPOSITION);
+    var containedClassAssociationEnd = cdf.createAssociationEnd();
+    containedClassAssociationEnd.setClassifier(containedClass);
+    containedClassAssociationEnd.setNavigable(true);
+    containedClassAssociationEnd.setLowerBound(0);
+    containedClassAssociationEnd.setUpperBound(-1);
+    containerClass.getAssociationEnds().add(containerClassAssociationEnd);
+    containedClass.getAssociationEnds().add(containedClassAssociationEnd);
+    var containerClassContainedClassAssociation = cdf.createAssociation();
+    containerClassContainedClassAssociation.getEnds()
+        .addAll(List.of(containerClassAssociationEnd, containedClassAssociationEnd));
+    containerClassAssociationEnd.setAssoc(containerClassContainedClassAssociation);
+    containedClassAssociationEnd.setAssoc(containerClassContainedClassAssociation);
   }
 
 }
