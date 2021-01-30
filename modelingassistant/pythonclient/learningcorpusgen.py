@@ -6,7 +6,7 @@ from modelingassistant.modelingassistant import (ModelingAssistant, LearningItem
 from pyecore.resources import ResourceSet, URI
 
 
-def make_modeling_assistant_that_handles_wrong_class_name() -> ModelingAssistant:
+def make_modeling_assistant_that_handles_wrong_class_name():
     """
     Construct and save a Modeling Assistant that handles mistakes of the type Wrong Class Name. 
     """
@@ -23,6 +23,7 @@ def make_modeling_assistant_that_handles_wrong_class_name() -> ModelingAssistant
         ParametrizedResponse(modelingAssistant=ma, mistakeType=software_eng_term, level=3, highlightSolution=True,
                              text=f"Looks like you used another software engineering term ({{clazz.name}})."),
         # Can add Reference and Example here in a similar manner (some metamodel updates needed)
+        
     ])
 
     rset = ResourceSet()

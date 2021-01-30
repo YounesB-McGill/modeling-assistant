@@ -9,7 +9,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated modelingassistant -->
       <package
-            uri="modelingassistant"
+            uri="http://cs.mcgill.ca/sel/modelingassistant/1.0"
             class="modelingassistant.ModelingassistantPackage"
             genModel="model/modelingassistant.genmodel"/>
    </extension>

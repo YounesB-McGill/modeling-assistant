@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.LearningResource#getModelingAssistant <em>Modeling Assistant</em>}</li>
  *   <li>{@link modelingassistant.LearningResource#getLearningItem <em>Learning Item</em>}</li>
  *   <li>{@link modelingassistant.LearningResource#getResourceResponses <em>Resource Responses</em>}</li>
+ *   <li>{@link modelingassistant.LearningResource#getContent <em>Content</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getLearningResource()
@@ -86,5 +87,27 @@ public interface LearningResource extends EObject {
    * @generated
    */
   EList<ResourceResponse> getResourceResponses();
+
+  /**
+   * Returns the value of the '<em><b>Content</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Content</em>' attribute.
+   * @see #setContent(Object)
+   * @see modelingassistant.ModelingassistantPackage#getLearningResource_Content()
+   * @model
+   * @generated
+   */
+  Object getContent();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.LearningResource#getContent <em>Content</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Content</em>' attribute.
+   * @see #getContent()
+   * @generated
+   */
+  void setContent(Object value);
 
 } // LearningResource

@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link modelingassistant.impl.LearningResourceImpl#getModelingAssistant <em>Modeling Assistant</em>}</li>
  *   <li>{@link modelingassistant.impl.LearningResourceImpl#getLearningItem <em>Learning Item</em>}</li>
  *   <li>{@link modelingassistant.impl.LearningResourceImpl#getResourceResponses <em>Resource Responses</em>}</li>
+ *   <li>{@link modelingassistant.impl.LearningResourceImpl#getContent <em>Content</em>}</li>
  * </ul>
  *
  * @generated
@@ -69,6 +70,26 @@ public class LearningResourceImpl extends MinimalEObjectImpl.Container implement
    * @ordered
    */
   protected EList<ResourceResponse> resourceResponses;
+
+  /**
+   * The default value of the '{@link #getContent() <em>Content</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getContent()
+   * @generated
+   * @ordered
+   */
+  protected static final Object CONTENT_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getContent() <em>Content</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getContent()
+   * @generated
+   * @ordered
+   */
+  protected Object content = CONTENT_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -226,6 +247,27 @@ public class LearningResourceImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  public Object getContent() {
+    return content;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setContent(Object newContent) {
+    Object oldContent = content;
+    content = newContent;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.LEARNING_RESOURCE__CONTENT, oldContent, content));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -278,6 +320,8 @@ public class LearningResourceImpl extends MinimalEObjectImpl.Container implement
         return basicGetLearningItem();
       case ModelingassistantPackage.LEARNING_RESOURCE__RESOURCE_RESPONSES:
         return getResourceResponses();
+      case ModelingassistantPackage.LEARNING_RESOURCE__CONTENT:
+        return getContent();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -301,6 +345,9 @@ public class LearningResourceImpl extends MinimalEObjectImpl.Container implement
         getResourceResponses().clear();
         getResourceResponses().addAll((Collection<? extends ResourceResponse>)newValue);
         return;
+      case ModelingassistantPackage.LEARNING_RESOURCE__CONTENT:
+        setContent(newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -322,6 +369,9 @@ public class LearningResourceImpl extends MinimalEObjectImpl.Container implement
       case ModelingassistantPackage.LEARNING_RESOURCE__RESOURCE_RESPONSES:
         getResourceResponses().clear();
         return;
+      case ModelingassistantPackage.LEARNING_RESOURCE__CONTENT:
+        setContent(CONTENT_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -340,8 +390,26 @@ public class LearningResourceImpl extends MinimalEObjectImpl.Container implement
         return learningItem != null;
       case ModelingassistantPackage.LEARNING_RESOURCE__RESOURCE_RESPONSES:
         return resourceResponses != null && !resourceResponses.isEmpty();
+      case ModelingassistantPackage.LEARNING_RESOURCE__CONTENT:
+        return CONTENT_EDEFAULT == null ? content != null : !CONTENT_EDEFAULT.equals(content);
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString() {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (content: ");
+    result.append(content);
+    result.append(')');
+    return result.toString();
   }
 
 } //LearningResourceImpl

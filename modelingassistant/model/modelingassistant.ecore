@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="modelingassistant" nsURI="modelingassistant" nsPrefix="modelingassistant">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="modelingassistant" nsURI="http://cs.mcgill.ca/sel/modelingassistant/1.0"
+    nsPrefix="modelingassistant">
   <eClassifiers xsi:type="ecore:EDataType" name="int" instanceClassName="int"/>
   <eClassifiers xsi:type="ecore:EDataType" name="boolean" instanceClassName="boolean"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Time" instanceClassName="java.sql.Time"/>
@@ -144,6 +145,7 @@
         eType="#//MistakeType" eOpposite="#//MistakeType/feedbacks"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakes" upperBound="-1"
         eType="#//Mistake" eOpposite="#//Mistake/lastFeedback"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TextResponse" eSuperTypes="#//Feedback"/>
   <eClassifiers xsi:type="ecore:EClass" name="ParametrizedResponse" eSuperTypes="#//Feedback"/>
@@ -158,6 +160,7 @@
         eType="#//LearningItem" eOpposite="#//LearningItem/learningResources"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resourceResponses" upperBound="-1"
         eType="#//ResourceResponse" eOpposite="#//ResourceResponse/learningResources"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Reference" eSuperTypes="#//LearningResource"/>
   <eClassifiers xsi:type="ecore:EClass" name="Tutorial" eSuperTypes="#//LearningResource"/>

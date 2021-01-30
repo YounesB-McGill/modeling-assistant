@@ -1,4 +1,4 @@
-// Modeling Assistant Metamodel v9
+// Modeling Assistant Metamodel v10
 
 namespace modelingassistant;
 
@@ -28,7 +28,7 @@ class ProblemStatement {
 }
 
 class ProblemStatementElement {
-  * --* SolutionElement;
+  * -- * SolutionElement;
 }
 
 // General UML element, like class or attribute.
@@ -77,6 +77,7 @@ class Mistake {
 // Represents a feedback item.
 class Feedback {
   int level;
+  String text;
   boolean congratulatory;
   double usefulness;
   boolean highlightProblem;
@@ -98,6 +99,7 @@ class ResourceResponse {
 }
 
 class LearningResource {
+  Object content;
 }
 
 class Reference { isA LearningResource; }

@@ -6,6 +6,7 @@ package modelingassistant.provider;
 import java.util.Collection;
 import java.util.List;
 
+import modelingassistant.Quiz;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
@@ -62,7 +63,11 @@ public class QuizItemProvider extends LearningResourceItemProvider {
    */
   @Override
   public String getText(Object object) {
-    return getString("_UI_Quiz_type");
+    Object labelValue = ((Quiz)object).getContent();
+    String label = labelValue == null ? null : labelValue.toString();
+    return label == null || label.length() == 0 ?
+      getString("_UI_Quiz_type") :
+      getString("_UI_Quiz_type") + " " + label;
   }
 
 

@@ -97,6 +97,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Feedback/modelingAssistant"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Feedback/mistakeType"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Feedback/mistakes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Feedback/text"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//TextResponse"/>
     <genClasses ecoreClass="modelingassistant.ecore#//ParametrizedResponse"/>
@@ -107,6 +108,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//LearningResource/modelingAssistant"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//LearningResource/learningItem"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//LearningResource/resourceResponses"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//LearningResource/content"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//Reference"/>
     <genClasses ecoreClass="modelingassistant.ecore#//Tutorial"/>
