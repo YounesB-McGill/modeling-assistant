@@ -385,8 +385,7 @@ public class ControllerTest {
     var carMake = cdf.createAttribute();
     carMake.setName("make");
     carMake.setType(cdString);
-    carClass.getAttributes().add(carId);
-    carClass.getAttributes().add(carMake);
+    carClass.getAttributes().addAll(List.of(carId, carMake));
     
     classDiagram.getTypes().addAll(List.of(cdInt, cdString));
     classDiagram.getClasses().add(carClass);
@@ -449,7 +448,6 @@ public class ControllerTest {
     // Open premade class diagram from one of the above tests
     // Can't reuse ResourceHelper.INSTANCE here to load duplicate resource
     var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
-    
     var rset = new ResourceSetImpl();
     rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl() {
       @Override public Resource createResource(URI uri) {
@@ -505,6 +503,81 @@ public class ControllerTest {
       assertTrue(expectedClassNames.remove(c.getName()));
     });
     assertTrue(expectedClassNames.isEmpty());
+  }
+  
+  /**
+   * Verifies that a ModelingAssistant instance with a multiclass solution can be serialized to an XMI file.
+   */
+  @Test public void testPersistingModelingAssistantWithMultipleSolutions() {
+    var maPath = "../modelingassistant/instances/ma_multisolution_from_java.xmi";
+    var maFile = new File(maPath);
+    if (maFile.isFile()) {
+      assertTrue(maFile.delete());
+    }
+
+    ClassdiagramPackage.eINSTANCE.eClass();
+    ModelingassistantPackage.eINSTANCE.eClass();
+    var cdf = ClassdiagramFactory.eINSTANCE;
+    var maf = ModelingassistantFactory.eINSTANCE;
+    
+    // Open premade class diagram from one of the above tests
+    // Can't reuse ResourceHelper.INSTANCE here to load duplicate resource
+    var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl() {
+      @Override public Resource createResource(URI uri) {
+        return new XMIResourceImpl(uri) {
+          @Override protected boolean useUUIDs() { return true; }
+        };
+      }
+    });
+    var resource = rset.getResource(URI.createFileURI(cdmFile), true);
+    var classDiagram = (ClassDiagram) resource.getContents().get(0);
+
+    // Link first class diagram to modeling assistant instance
+    var modelingAssistant = maf.createModelingAssistant();
+    var solution1 = maf.createSolution();
+    solution1.setClassDiagram(classDiagram);
+    modelingAssistant.getSolutions().add(solution1);
+    
+    // Make and link second class diagram to modeling assistant instance
+    var classDiagram2 = cdf.createClassDiagram();
+    classDiagram2.setName("Student2_solution");
+    var solution2 = maf.createSolution();
+    modelingAssistant.getSolutions().add(solution2);
+    
+    var cdInt = cdf.createCDInt();
+    var cdString = cdf.createCDString();
+    classDiagram2.getTypes().addAll(List.of(cdInt, cdString));
+    
+    var carClass2 = cdf.createClass();
+    var carId = cdf.createAttribute();
+    carId.setName("id");
+    carId.setType(cdInt);
+    var carMake = cdf.createAttribute();
+    carMake.setName("make");
+    carMake.setType(cdString); 
+    carClass2.getAttributes().addAll(List.of(carId, carMake));
+    classDiagram2.getClasses().add(carClass2);
+    
+    // Save modeling assistant instance to file and verify contents
+    resource = rset.createResource(URI.createFileURI(maPath));
+    resource.getContents().addAll(List.of(modelingAssistant, classDiagram, classDiagram2, solution1, solution2));
+    try {
+      resource.save(Collections.EMPTY_MAP);
+      assertTrue(maFile.isFile());
+      var fileContent = Files.readString(Paths.get(maPath));
+      List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt", "Student2_solution")
+      .stream().map(s -> {
+        System.out.println(s);
+        return s;
+      })
+      .forEach(s ->
+          assertTrue(fileContent.contains(s)));
+    } catch (IOException e) {
+      e.printStackTrace();
+      fail();
+    }
   }
   
   /**
