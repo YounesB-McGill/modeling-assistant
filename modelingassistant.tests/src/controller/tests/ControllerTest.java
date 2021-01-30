@@ -447,7 +447,7 @@ public class ControllerTest {
     ModelingassistantPackage.eINSTANCE.eClass();
     
     // Open premade class diagram from one of the above tests
-    // Can't reuse ResourceHelper.INSTANCE here
+    // Can't reuse ResourceHelper.INSTANCE here to load duplicate resource
     var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
     
     var rset = new ResourceSetImpl();
@@ -475,16 +475,36 @@ public class ControllerTest {
       resource.save(Collections.EMPTY_MAP);
       assertTrue(maFile.isFile());
       var fileContent = Files.readString(Paths.get(maPath));
-      List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt").stream()
-      .map(s -> {
-        System.out.println(s);
-        return s;
-      })
-      .forEach(s ->
+      List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt").forEach(s ->
           assertTrue(fileContent.contains(s)));
     } catch (IOException e) {
       fail();
     }
+  }
+  
+  /**
+   * Verifies that the modeling assistant instance defined above can be deserialized correctly.
+   */
+  @Test public void testLoadingModelingAssistantWithMulticlassSolution() {
+    ClassdiagramPackage.eINSTANCE.eClass();
+    ModelingassistantPackage.eINSTANCE.eClass();
+    var maPath = "../modelingassistant/instances/ma_multiclass_from_java.xmi";
+    var resource = ResourceHelper.INSTANCE.loadResource(maPath);
+    var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
+    var classDiagram = (ClassDiagram) resource.getContents().get(1);
+    
+    assertEquals(classDiagram, modelingAssistant.getSolutions().get(0).getClassDiagram());
+    var expectedClassNames = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
+    classDiagram.getClasses().forEach(c -> {
+      if ("Car".equals(c.getName())) {
+        c.getAttributes().forEach(a -> assertTrue(a.getType() instanceof CDInt || a.getType() instanceof CDString));
+      }
+      if ("SportsCar".equals(c.getName())) {
+        assertEquals("Car", c.getSuperTypes().get(0).getName());
+      }
+      assertTrue(expectedClassNames.remove(c.getName()));
+    });
+    assertTrue(expectedClassNames.isEmpty());
   }
   
   /**
