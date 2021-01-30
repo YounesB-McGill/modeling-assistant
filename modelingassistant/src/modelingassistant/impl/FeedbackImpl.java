@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link modelingassistant.impl.FeedbackImpl#getModelingAssistant <em>Modeling Assistant</em>}</li>
  *   <li>{@link modelingassistant.impl.FeedbackImpl#getMistakeType <em>Mistake Type</em>}</li>
  *   <li>{@link modelingassistant.impl.FeedbackImpl#getMistakes <em>Mistakes</em>}</li>
+ *   <li>{@link modelingassistant.impl.FeedbackImpl#getText <em>Text</em>}</li>
  * </ul>
  *
  * @generated
@@ -174,6 +175,26 @@ public class FeedbackImpl extends MinimalEObjectImpl.Container implements Feedba
    * @ordered
    */
   protected EList<Mistake> mistakes;
+
+  /**
+   * The default value of the '{@link #getText() <em>Text</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getText()
+   * @generated
+   * @ordered
+   */
+  protected static final String TEXT_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getText() <em>Text</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getText()
+   * @generated
+   * @ordered
+   */
+  protected String text = TEXT_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -436,6 +457,27 @@ public class FeedbackImpl extends MinimalEObjectImpl.Container implements Feedba
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getText() {
+    return text;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setText(String newText) {
+    String oldText = text;
+    text = newText;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.FEEDBACK__TEXT, oldText, text));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -498,6 +540,8 @@ public class FeedbackImpl extends MinimalEObjectImpl.Container implements Feedba
         return basicGetMistakeType();
       case ModelingassistantPackage.FEEDBACK__MISTAKES:
         return getMistakes();
+      case ModelingassistantPackage.FEEDBACK__TEXT:
+        return getText();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -536,6 +580,9 @@ public class FeedbackImpl extends MinimalEObjectImpl.Container implements Feedba
         getMistakes().clear();
         getMistakes().addAll((Collection<? extends Mistake>)newValue);
         return;
+      case ModelingassistantPackage.FEEDBACK__TEXT:
+        setText((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -572,6 +619,9 @@ public class FeedbackImpl extends MinimalEObjectImpl.Container implements Feedba
       case ModelingassistantPackage.FEEDBACK__MISTAKES:
         getMistakes().clear();
         return;
+      case ModelingassistantPackage.FEEDBACK__TEXT:
+        setText(TEXT_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -600,6 +650,8 @@ public class FeedbackImpl extends MinimalEObjectImpl.Container implements Feedba
         return mistakeType != null;
       case ModelingassistantPackage.FEEDBACK__MISTAKES:
         return mistakes != null && !mistakes.isEmpty();
+      case ModelingassistantPackage.FEEDBACK__TEXT:
+        return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
     }
     return super.eIsSet(featureID);
   }
@@ -624,6 +676,8 @@ public class FeedbackImpl extends MinimalEObjectImpl.Container implements Feedba
     result.append(highlightProblem);
     result.append(", highlightSolution: ");
     result.append(highlightSolution);
+    result.append(", text: ");
+    result.append(text);
     result.append(')');
     return result.toString();
   }

@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.Feedback#getModelingAssistant <em>Modeling Assistant</em>}</li>
  *   <li>{@link modelingassistant.Feedback#getMistakeType <em>Mistake Type</em>}</li>
  *   <li>{@link modelingassistant.Feedback#getMistakes <em>Mistakes</em>}</li>
+ *   <li>{@link modelingassistant.Feedback#getText <em>Text</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getFeedback()
@@ -201,5 +202,27 @@ public interface Feedback extends EObject {
    * @generated
    */
   EList<Mistake> getMistakes();
+
+  /**
+   * Returns the value of the '<em><b>Text</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Text</em>' attribute.
+   * @see #setText(String)
+   * @see modelingassistant.ModelingassistantPackage#getFeedback_Text()
+   * @model
+   * @generated
+   */
+  String getText();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.Feedback#getText <em>Text</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Text</em>' attribute.
+   * @see #getText()
+   * @generated
+   */
+  void setText(String value);
 
 } // Feedback

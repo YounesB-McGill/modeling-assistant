@@ -970,6 +970,15 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getFeedback_Text() {
+    return (EAttribute)feedbackEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getTextResponse() {
     return textResponseEClass;
   }
@@ -1035,6 +1044,15 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    */
   public EReference getLearningResource_ResourceResponses() {
     return (EReference)learningResourceEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getLearningResource_Content() {
+    return (EAttribute)learningResourceEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -1224,6 +1242,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(feedbackEClass, FEEDBACK__MODELING_ASSISTANT);
     createEReference(feedbackEClass, FEEDBACK__MISTAKE_TYPE);
     createEReference(feedbackEClass, FEEDBACK__MISTAKES);
+    createEAttribute(feedbackEClass, FEEDBACK__TEXT);
 
     textResponseEClass = createEClass(TEXT_RESPONSE);
 
@@ -1236,6 +1255,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(learningResourceEClass, LEARNING_RESOURCE__MODELING_ASSISTANT);
     createEReference(learningResourceEClass, LEARNING_RESOURCE__LEARNING_ITEM);
     createEReference(learningResourceEClass, LEARNING_RESOURCE__RESOURCE_RESPONSES);
+    createEAttribute(learningResourceEClass, LEARNING_RESOURCE__CONTENT);
 
     referenceEClass = createEClass(REFERENCE);
 
@@ -1379,6 +1399,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getFeedback_ModelingAssistant(), this.getModelingAssistant(), this.getModelingAssistant_Feedbacks(), "modelingAssistant", null, 1, 1, Feedback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFeedback_MistakeType(), this.getMistakeType(), this.getMistakeType_Feedbacks(), "mistakeType", null, 1, 1, Feedback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFeedback_Mistakes(), this.getMistake(), this.getMistake_LastFeedback(), "mistakes", null, 0, -1, Feedback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getFeedback_Text(), ecorePackage.getEString(), "text", null, 0, 1, Feedback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(textResponseEClass, TextResponse.class, "TextResponse", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1391,6 +1412,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getLearningResource_ModelingAssistant(), this.getModelingAssistant(), this.getModelingAssistant_LearningResources(), "modelingAssistant", null, 1, 1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningResource_LearningItem(), this.getLearningItem(), this.getLearningItem_LearningResources(), "learningItem", null, 1, 1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningResource_ResourceResponses(), this.getResourceResponse(), this.getResourceResponse_LearningResources(), "resourceResponses", null, 0, -1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getLearningResource_Content(), ecorePackage.getEJavaObject(), "content", null, 0, 1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(referenceEClass, Reference.class, "Reference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

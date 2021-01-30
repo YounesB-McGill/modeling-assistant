@@ -5,7 +5,7 @@ from pyecore.ecore import *
 
 
 name = 'modelingassistant'
-nsURI = 'modelingassistant'
+nsURI = 'http://cs.mcgill.ca/sel/modelingassistant/1.0'
 nsPrefix = 'modelingassistant'
 
 eClass = EPackage(name=name, nsURI=nsURI, nsPrefix=nsPrefix)
@@ -376,6 +376,7 @@ class Feedback(EObject, metaclass=MetaEClass):
     usefulness = EAttribute(eType=double, unique=True, derived=False, changeable=True)
     highlightProblem = EAttribute(eType=boolean, unique=True, derived=False, changeable=True)
     highlightSolution = EAttribute(eType=boolean, unique=True, derived=False, changeable=True)
+    text = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
     modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
     mistakeType = EReference(ordered=True, unique=True, containment=False, derived=False)
     mistakes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
@@ -401,6 +402,9 @@ class Feedback(EObject, metaclass=MetaEClass):
         if highlightSolution is not None:
             self.highlightSolution = highlightSolution
 
+        if text is not None:
+            self.text = text
+
         if modelingAssistant is not None:
             self.modelingAssistant = modelingAssistant
 
@@ -413,16 +417,20 @@ class Feedback(EObject, metaclass=MetaEClass):
 
 class LearningResource(EObject, metaclass=MetaEClass):
 
+    content = EAttribute(eType=EJavaObject, unique=True, derived=False, changeable=True)
     modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
     learningItem = EReference(ordered=True, unique=True, containment=False, derived=False)
     resourceResponses = EReference(ordered=True, unique=True,
                                    containment=False, derived=False, upper=-1)
 
-    def __init__(self, *, modelingAssistant=None, learningItem=None, resourceResponses=None):
+    def __init__(self, *, modelingAssistant=None, learningItem=None, resourceResponses=None, content=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
         super().__init__()
+
+        if content is not None:
+            self.content = content
 
         if modelingAssistant is not None:
             self.modelingAssistant = modelingAssistant

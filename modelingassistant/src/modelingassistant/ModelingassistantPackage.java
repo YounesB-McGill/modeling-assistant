@@ -39,7 +39,7 @@ public interface ModelingassistantPackage extends EPackage {
    * <!-- end-user-doc -->
    * @generated
    */
-  String eNS_URI = "modelingassistant";
+  String eNS_URI = "http://cs.mcgill.ca/sel/modelingassistant/1.0";
 
   /**
    * The package namespace name.
@@ -952,13 +952,22 @@ public interface ModelingassistantPackage extends EPackage {
   int FEEDBACK__MISTAKES = 7;
 
   /**
+   * The feature id for the '<em><b>Text</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FEEDBACK__TEXT = 8;
+
+  /**
    * The number of structural features of the '<em>Feedback</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FEEDBACK_FEATURE_COUNT = 8;
+  int FEEDBACK_FEATURE_COUNT = 9;
 
   /**
    * The number of operations of the '<em>Feedback</em>' class.
@@ -1050,6 +1059,15 @@ public interface ModelingassistantPackage extends EPackage {
    * @ordered
    */
   int TEXT_RESPONSE__MISTAKES = FEEDBACK__MISTAKES;
+
+  /**
+   * The feature id for the '<em><b>Text</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEXT_RESPONSE__TEXT = FEEDBACK__TEXT;
 
   /**
    * The number of structural features of the '<em>Text Response</em>' class.
@@ -1152,6 +1170,15 @@ public interface ModelingassistantPackage extends EPackage {
   int PARAMETRIZED_RESPONSE__MISTAKES = FEEDBACK__MISTAKES;
 
   /**
+   * The feature id for the '<em><b>Text</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARAMETRIZED_RESPONSE__TEXT = FEEDBACK__TEXT;
+
+  /**
    * The number of structural features of the '<em>Parametrized Response</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1252,6 +1279,15 @@ public interface ModelingassistantPackage extends EPackage {
   int RESOURCE_RESPONSE__MISTAKES = FEEDBACK__MISTAKES;
 
   /**
+   * The feature id for the '<em><b>Text</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESOURCE_RESPONSE__TEXT = FEEDBACK__TEXT;
+
+  /**
    * The feature id for the '<em><b>Learning Resources</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1316,13 +1352,22 @@ public interface ModelingassistantPackage extends EPackage {
   int LEARNING_RESOURCE__RESOURCE_RESPONSES = 2;
 
   /**
+   * The feature id for the '<em><b>Content</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LEARNING_RESOURCE__CONTENT = 3;
+
+  /**
    * The number of structural features of the '<em>Learning Resource</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int LEARNING_RESOURCE_FEATURE_COUNT = 3;
+  int LEARNING_RESOURCE_FEATURE_COUNT = 4;
 
   /**
    * The number of operations of the '<em>Learning Resource</em>' class.
@@ -1369,6 +1414,15 @@ public interface ModelingassistantPackage extends EPackage {
    * @ordered
    */
   int REFERENCE__RESOURCE_RESPONSES = LEARNING_RESOURCE__RESOURCE_RESPONSES;
+
+  /**
+   * The feature id for the '<em><b>Content</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REFERENCE__CONTENT = LEARNING_RESOURCE__CONTENT;
 
   /**
    * The number of structural features of the '<em>Reference</em>' class.
@@ -1426,6 +1480,15 @@ public interface ModelingassistantPackage extends EPackage {
   int TUTORIAL__RESOURCE_RESPONSES = LEARNING_RESOURCE__RESOURCE_RESPONSES;
 
   /**
+   * The feature id for the '<em><b>Content</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TUTORIAL__CONTENT = LEARNING_RESOURCE__CONTENT;
+
+  /**
    * The number of structural features of the '<em>Tutorial</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1481,6 +1544,15 @@ public interface ModelingassistantPackage extends EPackage {
   int EXAMPLE__RESOURCE_RESPONSES = LEARNING_RESOURCE__RESOURCE_RESPONSES;
 
   /**
+   * The feature id for the '<em><b>Content</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXAMPLE__CONTENT = LEARNING_RESOURCE__CONTENT;
+
+  /**
    * The number of structural features of the '<em>Example</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1534,6 +1606,15 @@ public interface ModelingassistantPackage extends EPackage {
    * @ordered
    */
   int QUIZ__RESOURCE_RESPONSES = LEARNING_RESOURCE__RESOURCE_RESPONSES;
+
+  /**
+   * The feature id for the '<em><b>Content</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUIZ__CONTENT = LEARNING_RESOURCE__CONTENT;
 
   /**
    * The number of structural features of the '<em>Quiz</em>' class.
@@ -2416,6 +2497,17 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getFeedback_Mistakes();
 
   /**
+   * Returns the meta object for the attribute '{@link modelingassistant.Feedback#getText <em>Text</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Text</em>'.
+   * @see modelingassistant.Feedback#getText()
+   * @see #getFeedback()
+   * @generated
+   */
+  EAttribute getFeedback_Text();
+
+  /**
    * Returns the meta object for class '{@link modelingassistant.TextResponse <em>Text Response</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2498,6 +2590,17 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EReference getLearningResource_ResourceResponses();
+
+  /**
+   * Returns the meta object for the attribute '{@link modelingassistant.LearningResource#getContent <em>Content</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Content</em>'.
+   * @see modelingassistant.LearningResource#getContent()
+   * @see #getLearningResource()
+   * @generated
+   */
+  EAttribute getLearningResource_Content();
 
   /**
    * Returns the meta object for class '{@link modelingassistant.Reference <em>Reference</em>}'.
@@ -3236,6 +3339,14 @@ public interface ModelingassistantPackage extends EPackage {
     EReference FEEDBACK__MISTAKES = eINSTANCE.getFeedback_Mistakes();
 
     /**
+     * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FEEDBACK__TEXT = eINSTANCE.getFeedback_Text();
+
+    /**
      * The meta object literal for the '{@link modelingassistant.impl.TextResponseImpl <em>Text Response</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3306,6 +3417,14 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference LEARNING_RESOURCE__RESOURCE_RESPONSES = eINSTANCE.getLearningResource_ResourceResponses();
+
+    /**
+     * The meta object literal for the '<em><b>Content</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute LEARNING_RESOURCE__CONTENT = eINSTANCE.getLearningResource_Content();
 
     /**
      * The meta object literal for the '{@link modelingassistant.impl.ReferenceImpl <em>Reference</em>}' class.

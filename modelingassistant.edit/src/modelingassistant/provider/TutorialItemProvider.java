@@ -6,6 +6,7 @@ package modelingassistant.provider;
 import java.util.Collection;
 import java.util.List;
 
+import modelingassistant.Tutorial;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
@@ -62,7 +63,11 @@ public class TutorialItemProvider extends LearningResourceItemProvider {
    */
   @Override
   public String getText(Object object) {
-    return getString("_UI_Tutorial_type");
+    Object labelValue = ((Tutorial)object).getContent();
+    String label = labelValue == null ? null : labelValue.toString();
+    return label == null || label.length() == 0 ?
+      getString("_UI_Tutorial_type") :
+      getString("_UI_Tutorial_type") + " " + label;
   }
 
 

@@ -9,7 +9,7 @@
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
       <!-- @generated modelingassistant -->
       <factory
-            uri="modelingassistant"
+            uri="http://cs.mcgill.ca/sel/modelingassistant/1.0"
             class="modelingassistant.provider.ModelingassistantItemProviderAdapterFactory"
             supportedTypes=
               "org.eclipse.emf.edit.provider.IEditingDomainItemProvider

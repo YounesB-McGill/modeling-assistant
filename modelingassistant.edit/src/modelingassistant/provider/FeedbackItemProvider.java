@@ -68,6 +68,7 @@ public class FeedbackItemProvider
       addModelingAssistantPropertyDescriptor(object);
       addMistakeTypePropertyDescriptor(object);
       addMistakesPropertyDescriptor(object);
+      addTextPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -249,6 +250,28 @@ public class FeedbackItemProvider
   }
 
   /**
+   * This adds a property descriptor for the Text feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addTextPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_Feedback_text_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Feedback_text_feature", "_UI_Feedback_type"),
+         ModelingassistantPackage.Literals.FEEDBACK__TEXT,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This returns Feedback.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -289,6 +312,7 @@ public class FeedbackItemProvider
       case ModelingassistantPackage.FEEDBACK__USEFULNESS:
       case ModelingassistantPackage.FEEDBACK__HIGHLIGHT_PROBLEM:
       case ModelingassistantPackage.FEEDBACK__HIGHLIGHT_SOLUTION:
+      case ModelingassistantPackage.FEEDBACK__TEXT:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }
