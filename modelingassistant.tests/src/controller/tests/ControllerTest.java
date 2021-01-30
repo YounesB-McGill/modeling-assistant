@@ -285,5 +285,119 @@ public class ControllerTest {
     List.of(carClass, driverClass, sportsCarClass, partClass).forEach(c ->
         assertTrue(solution.getClassDiagram().getClasses().contains(c)));
   }
+  
+  /**
+   * Tests for checking Software Engineering terms (Umple syntax):
+   * 
+   * class CarData {
+   *   
+   * }
+   */
+  @Test public void testCheckingSoftwareEngineeringTerm() {
+    var maf = ModelingassistantFactory.eINSTANCE;
+    var cdf = ClassdiagramFactory.eINSTANCE;
+    var modelingAssistant = maf.createModelingAssistant();
+    var solution = maf.createSolution();
+    var classDiagram = cdf.createClassDiagram();
+    classDiagram.setName("Student1_solution");
+    solution.setClassDiagram(classDiagram);
+    modelingAssistant.getSolutions().add(solution);
+    
+    var carClass = cdf.createClass();
+    carClass.setName("CarData");
+        
+    classDiagram.getClasses().add(carClass);
+    
+    assertEquals("Student1_solution", modelingAssistant.getSolutions().get(0).getClassDiagram().getName());
+     
+   
+    String[] SoftwareEnginneringTerms = {"data", "record", "table", "information"};    
+    for( String i:SoftwareEnginneringTerms ){
+     if(classDiagram.getClasses().get(0).getName().toLowerCase().contains(i)){
+    	
+    	 assertEquals("CarData", classDiagram.getClasses().get(0).getName());
+	  }
+     }
+    
+   
+  }
+  
+  /**
+   * Tests for checking Plural in Class Name (Umple syntax):
+   * 
+   * class Cars {
+ 
+   * }
+   */
+  @Test public void testCheckingPluralTerm() {
+    var maf = ModelingassistantFactory.eINSTANCE;
+    var cdf = ClassdiagramFactory.eINSTANCE;
+    var modelingAssistant = maf.createModelingAssistant();
+    var solution = maf.createSolution();
+    var classDiagram = cdf.createClassDiagram();
+    classDiagram.setName("Student1_solution");
+    solution.setClassDiagram(classDiagram);
+    modelingAssistant.getSolutions().add(solution);
+    
+    var carClass = cdf.createClass();
+    carClass.setName("Cars");
+  
+    classDiagram.getClasses().add(carClass);
+    
+    assertEquals("Student1_solution", modelingAssistant.getSolutions().get(0).getClassDiagram().getName());
+    
+    var className=classDiagram.getClasses().get(0).getName();
+    
+    assertEquals("Cars", className);
+    
+    boolean check=false;
+    
+    if(Character.toUpperCase(className.charAt(className.length()-1)) == 'S') {
+    	check=true;
+    	    }
+    assertEquals(check,true);
+         
+  }
+   public void associate(Classifier class1, Classifier class2) {
+	  var cdf = ClassdiagramFactory.eINSTANCE;
+	  var class1AssociationEnd = cdf.createAssociationEnd();
+	    class1AssociationEnd.setClassifier(class1);
+	    class1AssociationEnd.setNavigable(true);
+	    class1AssociationEnd.setLowerBound(1);
+	    class1AssociationEnd.setUpperBound(1);
+	    var class2AssociationEnd = cdf.createAssociationEnd();
+	    class2AssociationEnd.setClassifier(class2);
+	    class2AssociationEnd.setNavigable(true);
+	    class2AssociationEnd.setLowerBound(0);
+	    class2AssociationEnd.setUpperBound(-1);
+	    class1.getAssociationEnds().add(class1AssociationEnd);
+	    class2.getAssociationEnds().add(class2AssociationEnd);
+	    var class1class2Association = cdf.createAssociation();
+	    class1class2Association.getEnds().addAll(List.of(class1AssociationEnd, class2AssociationEnd));
+	    class1AssociationEnd.setAssoc(class1class2Association);
+	    class2AssociationEnd.setAssoc(class1class2Association);
+	  
+  }
+  public void contains(Classifier containedClass, Classifier containerClass) {
+	  var cdf = ClassdiagramFactory.eINSTANCE;
+	  var containerClassAssociationEnd = cdf.createAssociationEnd();
+	    containerClassAssociationEnd.setClassifier(containerClass);
+	    containerClassAssociationEnd.setNavigable(true);
+	    containerClassAssociationEnd.setLowerBound(1);
+	    containerClassAssociationEnd.setUpperBound(1);
+	    containerClassAssociationEnd.setReferenceType(ReferenceType.COMPOSITION);
+	    var containedClassAssociationEnd = cdf.createAssociationEnd();
+	    containedClassAssociationEnd.setClassifier(containedClass);
+	    containedClassAssociationEnd.setNavigable(true);
+	    containedClassAssociationEnd.setLowerBound(0);
+	    containedClassAssociationEnd.setUpperBound(-1);
+	    containerClass.getAssociationEnds().add(containerClassAssociationEnd);
+	    containedClass.getAssociationEnds().add(containedClassAssociationEnd);
+	    var containerClassContainedClassAssociation = cdf.createAssociation();
+	    containerClassContainedClassAssociation.getEnds().addAll(List.of(containerClassAssociationEnd, containedClassAssociationEnd));
+	    containerClassAssociationEnd.setAssoc(containerClassContainedClassAssociation);
+	    containedClassAssociationEnd.setAssoc(containerClassContainedClassAssociation);
+  }
+  
 
 }
