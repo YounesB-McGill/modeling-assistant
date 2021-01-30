@@ -434,6 +434,60 @@ public class ControllerTest {
   }
   
   /**
+   * Verifies that a ModelingAssistant instance with a multiclass solution can be serialized to an XMI file.
+   */
+  @Test public void testPersistingModelingAssistantWithMulticlassSolution() {
+    var maPath = "../modelingassistant/instances/ma_multiclass_from_java.xmi";
+    var maFile = new File(maPath);
+    if (maFile.isFile()) {
+      assertTrue(maFile.delete());
+    }
+
+    ClassdiagramPackage.eINSTANCE.eClass();
+    ModelingassistantPackage.eINSTANCE.eClass();
+    
+    // Open premade class diagram from one of the above tests
+    // Can't reuse ResourceHelper.INSTANCE here
+    var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
+    
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl() {
+      @Override public Resource createResource(URI uri) {
+        return new XMIResourceImpl(uri) {
+          @Override protected boolean useUUIDs() { return true; }
+        };
+      }
+    });
+    var resource = rset.getResource(URI.createFileURI(cdmFile), true);
+    var classDiagram = (ClassDiagram) resource.getContents().get(0);
+    
+    // Link class_diagram to modeling assistant instance
+    var maf = ModelingassistantFactory.eINSTANCE;
+    var modelingAssistant = maf.createModelingAssistant();
+    var solution = maf.createSolution();
+    solution.setClassDiagram(classDiagram);
+    modelingAssistant.getSolutions().add(solution);
+    
+    // Save modeling assistant instance to file and verify contents
+    resource = rset.createResource(URI.createFileURI(maPath));
+    resource.getContents().addAll(List.of(modelingAssistant, classDiagram, solution));
+    try {
+      resource.save(Collections.EMPTY_MAP);
+      assertTrue(maFile.isFile());
+      var fileContent = Files.readString(Paths.get(maPath));
+      List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt").stream()
+      .map(s -> {
+        System.out.println(s);
+        return s;
+      })
+      .forEach(s ->
+          assertTrue(fileContent.contains(s)));
+    } catch (IOException e) {
+      fail();
+    }
+  }
+  
+  /**
    * Associates the two classes in memory (modifies classes and returns nothing).
    */
   public static void associate(Classifier class1, Classifier class2) {
