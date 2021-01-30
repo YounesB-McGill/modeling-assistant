@@ -1,7 +1,6 @@
 package controller.tests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import java.io.File;
@@ -550,43 +549,6 @@ public class ControllerTest {
       assertTrue(expectedClassNames2.remove(c.getName()));
     });
     assertTrue(expectedClassNames2.isEmpty());
-  }
-  
-  /**
-   * Returns true if the input string is a software engineering term.
-   */
-  public static boolean isSoftwareEngineeringTerm(String s) {
-    final var softwareEnginneringTerms = List.of("data", "record", "table", "info");
-    for (var seTerm: softwareEnginneringTerms) {
-      if (s.toLowerCase().contains(seTerm)) return true;
-    }
-    return false;
-  }
-  
-  /**
-   * Tests for checking Software Engineering terms, eg, CarData.
-   */
-  @Test public void testCheckingSoftwareEngineeringTerm() {
-    List.of("Car", "Driver", "Part").forEach(s -> assertFalse(isSoftwareEngineeringTerm(s)));
-    List.of("CarData", "DriverRecord", "PartInfo").forEach(s -> assertTrue(isSoftwareEngineeringTerm(s)));
-  }
-
-  /**
-   * Returns true if the input string is plural.
-   */
-  public static boolean isPlural(String s) {
-    return s.toLowerCase().endsWith("s");
-  }
-  
-  /**
-   * Tests for checking Plural in Class Name, eg Cars.
-   */
-  @Test public void testIsPlural() {
-    // check that singulars are not plural. The above method will fail for cases like Bus
-    List.of("Car", "Driver", "Part").forEach(s -> assertFalse(isPlural(s)));
-    
-    // check that plurals are plural. The above method will fail for cases like Men
-    List.of("Cars", "Drivers", "Parts").forEach(s -> assertTrue(isPlural(s)));
   }
   
   /**
