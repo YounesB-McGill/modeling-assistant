@@ -2,11 +2,20 @@ package controller.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.junit.Test;
-
 import classdiagram.CDInt;
 import classdiagram.CDString;
 import classdiagram.ClassDiagram;
@@ -15,14 +24,8 @@ import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
 import classdiagram.ReferenceType;
 import modelingassistant.ModelingassistantFactory;
+import modelingassistant.ModelingassistantPackage;
 import modelingassistant.util.ResourceHelper;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.emf.common.util.URI;
 
 public class ControllerTest {
   
@@ -323,11 +326,7 @@ public class ControllerTest {
   }
   
   /**
-   * Tests for checking Plural in Class Name (Umple syntax):
-   * 
-   * class Cars {
- 
-   * }
+   * Tests for checking Plural in Class Name, eg Cars.
    */
   @Test public void testCheckingPluralTerm() {
     var maf = ModelingassistantFactory.eINSTANCE;
@@ -358,46 +357,114 @@ public class ControllerTest {
     assertEquals(check,true);
          
   }
-   public void associate(Classifier class1, Classifier class2) {
-	  var cdf = ClassdiagramFactory.eINSTANCE;
-	  var class1AssociationEnd = cdf.createAssociationEnd();
-	    class1AssociationEnd.setClassifier(class1);
-	    class1AssociationEnd.setNavigable(true);
-	    class1AssociationEnd.setLowerBound(1);
-	    class1AssociationEnd.setUpperBound(1);
-	    var class2AssociationEnd = cdf.createAssociationEnd();
-	    class2AssociationEnd.setClassifier(class2);
-	    class2AssociationEnd.setNavigable(true);
-	    class2AssociationEnd.setLowerBound(0);
-	    class2AssociationEnd.setUpperBound(-1);
-	    class1.getAssociationEnds().add(class1AssociationEnd);
-	    class2.getAssociationEnds().add(class2AssociationEnd);
-	    var class1class2Association = cdf.createAssociation();
-	    class1class2Association.getEnds().addAll(List.of(class1AssociationEnd, class2AssociationEnd));
-	    class1AssociationEnd.setAssoc(class1class2Association);
-	    class2AssociationEnd.setAssoc(class1class2Association);
-	  
-  }
+
   public void contains(Classifier containedClass, Classifier containerClass) {
-	  var cdf = ClassdiagramFactory.eINSTANCE;
-	  var containerClassAssociationEnd = cdf.createAssociationEnd();
-	    containerClassAssociationEnd.setClassifier(containerClass);
-	    containerClassAssociationEnd.setNavigable(true);
-	    containerClassAssociationEnd.setLowerBound(1);
-	    containerClassAssociationEnd.setUpperBound(1);
-	    containerClassAssociationEnd.setReferenceType(ReferenceType.COMPOSITION);
-	    var containedClassAssociationEnd = cdf.createAssociationEnd();
-	    containedClassAssociationEnd.setClassifier(containedClass);
-	    containedClassAssociationEnd.setNavigable(true);
-	    containedClassAssociationEnd.setLowerBound(0);
-	    containedClassAssociationEnd.setUpperBound(-1);
-	    containerClass.getAssociationEnds().add(containerClassAssociationEnd);
-	    containedClass.getAssociationEnds().add(containedClassAssociationEnd);
-	    var containerClassContainedClassAssociation = cdf.createAssociation();
-	    containerClassContainedClassAssociation.getEnds().addAll(List.of(containerClassAssociationEnd, containedClassAssociationEnd));
-	    containerClassAssociationEnd.setAssoc(containerClassContainedClassAssociation);
-	    containedClassAssociationEnd.setAssoc(containerClassContainedClassAssociation);
+    var cdf = ClassdiagramFactory.eINSTANCE;
+    var containerClassAssociationEnd = cdf.createAssociationEnd();
+    containerClassAssociationEnd.setClassifier(containerClass);
+    containerClassAssociationEnd.setNavigable(true);
+    containerClassAssociationEnd.setLowerBound(1);
+    containerClassAssociationEnd.setUpperBound(1);
+    containerClassAssociationEnd.setReferenceType(ReferenceType.COMPOSITION);
+    var containedClassAssociationEnd = cdf.createAssociationEnd();
+    containedClassAssociationEnd.setClassifier(containedClass);
+    containedClassAssociationEnd.setNavigable(true);
+    containedClassAssociationEnd.setLowerBound(0);
+    containedClassAssociationEnd.setUpperBound(-1);
+    containerClass.getAssociationEnds().add(containerClassAssociationEnd);
+    containedClass.getAssociationEnds().add(containedClassAssociationEnd);
+    var containerClassContainedClassAssociation = cdf.createAssociation();
+    containerClassContainedClassAssociation.getEnds()
+        .addAll(List.of(containerClassAssociationEnd, containedClassAssociationEnd));
+    containerClassAssociationEnd.setAssoc(containerClassContainedClassAssociation);
+    containedClassAssociationEnd.setAssoc(containerClassContainedClassAssociation);
   }
   
+  
+  /**
+   * Verifies that a ModelingAssistant instance with a one class solution can be serialized to an XMI file.
+   */
+  @Test public void testPersistingModelingAssistantWithOneClassSolution() {
+    var maPath = "../modelingassistant/instances/ma_one_class_from_java.xmi";
+    var maFile = new File(maPath);
+    if (maFile.isFile()) {
+      assertTrue(maFile.delete());
+    }
+
+    // Dynamically create a modeling assistant and link it with a TouchCore class diagram
+    ClassdiagramPackage.eINSTANCE.eClass();
+    ModelingassistantPackage.eINSTANCE.eClass();
+    var cdf = ClassdiagramFactory.eINSTANCE;
+    var maf = ModelingassistantFactory.eINSTANCE;
+    
+    var modelingAssistant = maf.createModelingAssistant();
+    var solution = maf.createSolution();
+    var classDiagram = cdf.createClassDiagram();
+    classDiagram.setName("Student1_solution");
+    solution.setClassDiagram(classDiagram);
+    modelingAssistant.getSolutions().add(solution);
+    var cdInt = cdf.createCDInt();
+    var cdString = cdf.createCDString();
+    
+    var carClass = cdf.createClass();
+    carClass.setName("Car");
+    var carId = cdf.createAttribute();
+    carId.setName("id");
+    carId.setType(cdInt);
+    var carMake = cdf.createAttribute();
+    carMake.setName("make");
+    carMake.setType(cdString);
+    carClass.getAttributes().add(carId);
+    carClass.getAttributes().add(carMake);
+    
+    classDiagram.getTypes().addAll(List.of(cdInt, cdString));
+    classDiagram.getClasses().add(carClass);
+    
+    assertEquals("Student1_solution", modelingAssistant.getSolutions().get(0).getClassDiagram().getName());
+    assertEquals("Car", classDiagram.getClasses().get(0).getName());
+    
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl() {
+      @Override public Resource createResource(URI uri) {
+        return new XMIResourceImpl(uri) {
+          @Override protected boolean useUUIDs() { return true; }
+        };
+      }
+    });
+    var resource = rset.createResource(URI.createFileURI(maPath));
+    resource.getContents().addAll(List.of(modelingAssistant, classDiagram, solution));
+    try {
+      resource.save(Collections.EMPTY_MAP);
+      assertTrue(maFile.isFile());
+      var fileContent = Files.readString(Paths.get(maPath));
+      List.of("Student1_solution", "Car", "make", "CDInt").forEach(s -> 
+          assertTrue(fileContent.contains(s)));
+    } catch (IOException e) {
+      fail();
+    }
+  }
+  
+  /**
+   * Associates the two classes in memory (modifies classes and returns nothing).
+   */
+  public static void associate(Classifier class1, Classifier class2) {
+    var cdf = ClassdiagramFactory.eINSTANCE;
+    var class12AssociationEnd = cdf.createAssociationEnd();
+    class12AssociationEnd.setClassifier(class1);
+    class12AssociationEnd.setNavigable(true); // hardcoded for brevity
+    class12AssociationEnd.setLowerBound(0);
+    class12AssociationEnd.setUpperBound(-1);
+    var class21AssociationEnd = cdf.createAssociationEnd();
+    class21AssociationEnd.setClassifier(class2);
+    class21AssociationEnd.setNavigable(true);
+    class21AssociationEnd.setLowerBound(0);
+    class21AssociationEnd.setUpperBound(-1);
+    class1.getAssociationEnds().add(class12AssociationEnd);
+    class2.getAssociationEnds().add(class21AssociationEnd);
+    var association = cdf.createAssociation();
+    association.getEnds().addAll(List.of(class12AssociationEnd, class21AssociationEnd));
+    class12AssociationEnd.setAssoc(association);
+    class21AssociationEnd.setAssoc(association);
+  }
 
 }
