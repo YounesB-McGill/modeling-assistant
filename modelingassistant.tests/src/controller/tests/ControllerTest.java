@@ -544,6 +544,7 @@ public class ControllerTest {
     var classDiagram2 = cdf.createClassDiagram();
     classDiagram2.setName("Student2_solution");
     var solution2 = maf.createSolution();
+    solution2.setClassDiagram(classDiagram2);
     modelingAssistant.getSolutions().add(solution2);
     
     var cdInt = cdf.createCDInt();
@@ -551,6 +552,7 @@ public class ControllerTest {
     classDiagram2.getTypes().addAll(List.of(cdInt, cdString));
     
     var carClass2 = cdf.createClass();
+    carClass2.setName("Car");
     var carId = cdf.createAttribute();
     carId.setName("id");
     carId.setType(cdInt);
@@ -567,17 +569,49 @@ public class ControllerTest {
       resource.save(Collections.EMPTY_MAP);
       assertTrue(maFile.isFile());
       var fileContent = Files.readString(Paths.get(maPath));
-      List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt", "Student2_solution")
-      .stream().map(s -> {
-        System.out.println(s);
-        return s;
-      })
-      .forEach(s ->
+      List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt", "Student2_solution").forEach(s ->
           assertTrue(fileContent.contains(s)));
     } catch (IOException e) {
       e.printStackTrace();
       fail();
     }
+  }
+  
+  /**
+   * Verifies that the modeling assistant instance defined above can be deserialized correctly.
+   */
+  @Test public void testLoadingModelingAssistantWithMultipleSolutions() {
+    ClassdiagramPackage.eINSTANCE.eClass();
+    ModelingassistantPackage.eINSTANCE.eClass();
+    var maPath = "../modelingassistant/instances/ma_multisolution_from_java.xmi";
+    var resource = ResourceHelper.INSTANCE.loadResource(maPath);
+    var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
+    var classDiagram1 = (ClassDiagram) resource.getContents().get(1);
+    var classDiagram2 = (ClassDiagram) resource.getContents().get(2);
+    
+    assertEquals(classDiagram1, modelingAssistant.getSolutions().get(0).getClassDiagram());
+    var expectedClassNames1 = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
+    classDiagram1.getClasses().forEach(c -> {
+      if ("Car".equals(c.getName())) {
+        c.getAttributes().forEach(a -> assertTrue(a.getType() instanceof CDInt || a.getType() instanceof CDString));
+      }
+      if ("SportsCar".equals(c.getName())) {
+        assertEquals("Car", c.getSuperTypes().get(0).getName());
+      }
+      assertTrue(expectedClassNames1.remove(c.getName()));
+    });
+    assertTrue(expectedClassNames1.isEmpty());
+    
+    assertEquals(classDiagram2, modelingAssistant.getSolutions().get(1).getClassDiagram());
+    var expectedClassNames2 = new ArrayList<String>(List.of("Car"));
+    classDiagram2.getClasses().forEach(c -> {
+      System.out.println(c.getName());
+      if ("Car".equals(c.getName())) {
+        c.getAttributes().forEach(a -> assertTrue(a.getType() instanceof CDInt || a.getType() instanceof CDString));
+      }
+      assertTrue(expectedClassNames2.remove(c.getName()));
+    });
+    assertTrue(expectedClassNames2.isEmpty());
   }
   
   /**
