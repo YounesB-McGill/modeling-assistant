@@ -2,6 +2,7 @@
 
 import os
 import pyecore
+import pytest
 
 from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, ImplementationClass, CDInt, CDString,
     AssociationEnd, Association, ReferenceType)
@@ -228,6 +229,8 @@ def test_creating_multiclass_solution_from_serialized_class_diagram():
 
     modeling_assistant = ModelingAssistant()
     solution = Solution()
+    solution.modelingAssistant = modeling_assistant
+    modeling_assistant.solutions.append(solution)
     solution.classDiagram = class_diagram
 
     for c in [car_class, driver_class, sports_car_class, part_class]:
@@ -239,15 +242,18 @@ def test_persisting_modeling_assistant_with_one_class_solution():
     Verify that a ModelingAssistant instance with a one class solution can be serialized to an XMI file.
     """
     # Remove previously created file (if it exists)
-    ma_path = "modelingassistant/instances/ma_one_class.xmi"
+    ma_path = "modelingassistant/instances/ma_one_class_from_python.xmi"
     if os.path.exists(ma_path):
         os.remove(ma_path)
 
     # Load ClassDiagram metamodel
     cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = ResourceSet()
-    mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
-    rset.metamodel_registry[mm_root.nsURI] = mm_root  # ecore is loaded in the 'rset' as a metamodel here
+    cdm_mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
+    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root  # ecore is loaded in the 'rset' as a metamodel here
+    ma_mm_root = rset.get_resource(URI(ma_mm_file)).contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
 
     # Dynamically create a modeling assistant and link it with a TouchCore class diagram 
     modeling_assistant = ModelingAssistant()
@@ -294,7 +300,7 @@ def test_loading_modeling_assistant_with_one_class_solution():
 
     # Open a Modeling Assistant instance
     ma_path = "modelingassistant/instances"
-    ma_file = f"{ma_path}/ma_one_class.xmi"
+    ma_file = f"{ma_path}/ma_one_class_from_python.xmi"
     resource = rset.get_resource(URI(ma_file))
     modeling_assistant: ModelingAssistant = resource.contents[0]
     modeling_assistant.__class__ = ModelingAssistant
@@ -308,14 +314,14 @@ def test_loading_modeling_assistant_with_one_class_solution():
         assert c.name in expected_class_names
         expected_class_names.remove(c.name)
     assert not expected_class_names
-         
+
 
 def test_persisting_modeling_assistant_with_multiclass_solution():
     """
     Verify that a ModelingAssistant instance with a multiclass solution can be serialized to an XMI file.
     """
     # Remove previously created file (if it exists)
-    ma_path = "modelingassistant/instances/ma_multiclass.xmi"
+    ma_path = "modelingassistant/instances/ma_multiclass_from_python.xmi"
     if os.path.exists(ma_path): os.remove(ma_path)
     
     # Open premade class diagram from one of the above tests
@@ -372,7 +378,7 @@ def test_loading_modeling_assistant_with_multiclass_solution():
 
     # Open a Modeling Assistant instance
     ma_path = "modelingassistant/instances"
-    ma_file = f"{ma_path}/ma_multiclass.xmi"
+    ma_file = f"{ma_path}/ma_multiclass_from_python.xmi"
     resource = rset.get_resource(URI(ma_file))
     modeling_assistant: ModelingAssistant = resource.contents[0]
     modeling_assistant.__class__ = ModelingAssistant
@@ -397,7 +403,7 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
     Verify that a ModelingAssistant instance with multiple solutions can be serialized to an XMI file.
     """
     # Remove previously created file (if it exists)
-    ma_path = "modelingassistant/instances/ma_multisolution.xmi"
+    ma_path = "modelingassistant/instances/ma_multisolution_from_python.xmi"
     if os.path.exists(ma_path): os.remove(ma_path)
     
     # Open premade class diagram from one of the above tests
@@ -468,7 +474,7 @@ def test_loading_modeling_assistant_with_multiple_solutions():
 
     # Open a Modeling Assistant instance
     ma_path = "modelingassistant/instances"
-    ma_file = f"{ma_path}/ma_multisolution.xmi"
+    ma_file = f"{ma_path}/ma_multisolution_from_python.xmi"
     resource = rset.get_resource(URI(ma_file))
     modeling_assistant: ModelingAssistant = resource.contents[0]
     modeling_assistant.__class__ = ModelingAssistant
@@ -624,5 +630,4 @@ def test_check_for_incomplete_containment_tree_failure_case():
 
 if __name__ == "__main__":
     "Main entry point."
-    test_loading_modeling_assistant_with_multiclass_solution()
     
