@@ -315,6 +315,38 @@ def test_loading_modeling_assistant_with_one_class_solution():
         expected_class_names.remove(c.name)
     assert not expected_class_names
 
+def test_loading_modeling_assistant_with_one_class_solution_serialized_in_java():
+    """
+    Verify that the Java version of the modeling assistant instance defined above can be deserialized correctly.
+    """
+    # Open ClassDiagram and Modeling Assistant metamodels
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+    rset = ResourceSet()
+    resource = rset.get_resource(URI(cdm_mm_file))
+    cdm_mm_root = resource.contents[0]
+    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
+    resource = rset.get_resource(URI(ma_mm_file))
+    ma_mm_root = resource.contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+
+    # Open a Modeling Assistant instance
+    ma_path = "modelingassistant/instances"
+    ma_file = f"{ma_path}/ma_one_class_from_java.xmi"
+    resource = rset.get_resource(URI(ma_file))
+    modeling_assistant: ModelingAssistant = resource.contents[0]
+    modeling_assistant.__class__ = ModelingAssistant
+    class_diagram: ClassDiagram = resource.contents[1]
+    class_diagram.__class__ = ClassDiagram
+
+    assert class_diagram == modeling_assistant.solutions[0].classDiagram
+    assert "Student1_solution" == class_diagram.name
+    expected_class_names = ["Car"]
+    for c in class_diagram.classes:
+        assert c.name in expected_class_names
+        expected_class_names.remove(c.name)
+    assert not expected_class_names
+
 
 def test_persisting_modeling_assistant_with_multiclass_solution():
     """
@@ -379,6 +411,43 @@ def test_loading_modeling_assistant_with_multiclass_solution():
     # Open a Modeling Assistant instance
     ma_path = "modelingassistant/instances"
     ma_file = f"{ma_path}/ma_multiclass_from_python.xmi"
+    resource = rset.get_resource(URI(ma_file))
+    modeling_assistant: ModelingAssistant = resource.contents[0]
+    modeling_assistant.__class__ = ModelingAssistant
+    class_diagram: ClassDiagram = resource.contents[1]
+    class_diagram.__class__ = ClassDiagram
+
+    assert class_diagram == modeling_assistant.solutions[0].classDiagram
+    expected_class_names = ["Car", "SportsCar", "Part", "Driver"]
+    for c in class_diagram.classes:
+        if c.name == "Car":
+            for a in c.attributes:
+                assert type(a.type).__name__ in [CDInt.__name__, CDString.__name__]
+        if c.name == "SportsCar":
+            assert "Car" == c.superTypes[0].name
+        assert c.name in expected_class_names
+        expected_class_names.remove(c.name)
+    assert not expected_class_names
+
+
+def test_loading_modeling_assistant_with_multiclass_solution_serialized_in_java():
+    """
+    Verify that the Java version of the modeling assistant instance defined above can be deserialized correctly.
+    """
+    # Open ClassDiagram and Modeling Assistant metamodels
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+    rset = ResourceSet()
+    resource = rset.get_resource(URI(cdm_mm_file))
+    cdm_mm_root = resource.contents[0]
+    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
+    resource = rset.get_resource(URI(ma_mm_file))
+    ma_mm_root = resource.contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+
+    # Open a Modeling Assistant instance
+    ma_path = "modelingassistant/instances"
+    ma_file = f"{ma_path}/ma_multiclass_from_java.xmi"
     resource = rset.get_resource(URI(ma_file))
     modeling_assistant: ModelingAssistant = resource.contents[0]
     modeling_assistant.__class__ = ModelingAssistant
@@ -475,6 +544,55 @@ def test_loading_modeling_assistant_with_multiple_solutions():
     # Open a Modeling Assistant instance
     ma_path = "modelingassistant/instances"
     ma_file = f"{ma_path}/ma_multisolution_from_python.xmi"
+    resource = rset.get_resource(URI(ma_file))
+    modeling_assistant: ModelingAssistant = resource.contents[0]
+    modeling_assistant.__class__ = ModelingAssistant
+    class_diagram1: ClassDiagram = resource.contents[1]
+    class_diagram1.__class__ = ClassDiagram
+    class_diagram2: ClassDiagram = resource.contents[2]
+    class_diagram2.__class__ = ClassDiagram
+
+    assert class_diagram1 == modeling_assistant.solutions[0].classDiagram
+    expected_class_names1 = ["Car", "SportsCar", "Part", "Driver"]
+    for c in class_diagram1.classes:
+        if c.name == "Car":
+            for a in c.attributes:
+                assert type(a.type).__name__ in [CDInt.__name__, CDString.__name__]
+        if c.name == "SportsCar":
+            assert "Car" == c.superTypes[0].name
+        assert c.name in expected_class_names1
+        expected_class_names1.remove(c.name)
+    assert not expected_class_names1
+
+    assert class_diagram2 == modeling_assistant.solutions[1].classDiagram
+    expected_class_names2 = ["Car"]
+    for c in class_diagram2.classes:
+        if c.name == "Car":
+            for a in c.attributes:
+                assert type(a.type).__name__ in [CDInt.__name__, CDString.__name__]
+        assert c.name in expected_class_names2
+        expected_class_names2.remove(c.name)
+    assert not expected_class_names2
+
+
+def test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java():
+    """
+    Verify that the Java version of the modeling assistant instance defined above can be deserialized correctly.
+    """
+    # Open ClassDiagram and Modeling Assistant metamodels
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+    rset = ResourceSet()
+    resource = rset.get_resource(URI(cdm_mm_file))
+    cdm_mm_root = resource.contents[0]
+    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
+    resource = rset.get_resource(URI(ma_mm_file))
+    ma_mm_root = resource.contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+
+    # Open a Modeling Assistant instance
+    ma_path = "modelingassistant/instances"
+    ma_file = f"{ma_path}/ma_multisolution_from_java.xmi"
     resource = rset.get_resource(URI(ma_file))
     modeling_assistant: ModelingAssistant = resource.contents[0]
     modeling_assistant.__class__ = ModelingAssistant
