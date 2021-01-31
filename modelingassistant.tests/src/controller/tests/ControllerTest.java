@@ -372,6 +372,24 @@ public class ControllerTest {
   }
   
   /**
+   * Verifies that the pyecore version of the modeling assistant instance defined above can be deserialized correctly.
+   */
+  @Test public void testLoadingModelingAssistantWithOneClassSolutionSerializedWithPyecore() {
+    ClassdiagramPackage.eINSTANCE.eClass();
+    ModelingassistantPackage.eINSTANCE.eClass();
+    var maPath = "../modelingassistant/instances/ma_one_class_from_python.xmi";
+    var resource = ResourceHelper.INSTANCE.loadResource(maPath);
+    var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
+    var classDiagram = (ClassDiagram) resource.getContents().get(1);
+    
+    assertEquals(classDiagram, modelingAssistant.getSolutions().get(0).getClassDiagram());
+    assertEquals("Student1_solution", classDiagram.getName());
+    var expectedClassNames = new ArrayList<String>(List.of("Car"));
+    classDiagram.getClasses().forEach(c -> assertTrue(expectedClassNames.remove(c.getName())));
+    assertTrue(expectedClassNames.isEmpty());
+  }
+  
+  /**
    * Verifies that a ModelingAssistant instance with a multiclass solution can be serialized to an XMI file.
    */
   @Test public void testPersistingModelingAssistantWithMulticlassSolution() {
@@ -426,6 +444,31 @@ public class ControllerTest {
     ClassdiagramPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_multiclass_from_java.xmi";
+    var resource = ResourceHelper.INSTANCE.loadResource(maPath);
+    var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
+    var classDiagram = (ClassDiagram) resource.getContents().get(1);
+    
+    assertEquals(classDiagram, modelingAssistant.getSolutions().get(0).getClassDiagram());
+    var expectedClassNames = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
+    classDiagram.getClasses().forEach(c -> {
+      if ("Car".equals(c.getName())) {
+        c.getAttributes().forEach(a -> assertTrue(a.getType() instanceof CDInt || a.getType() instanceof CDString));
+      }
+      if ("SportsCar".equals(c.getName())) {
+        assertEquals("Car", c.getSuperTypes().get(0).getName());
+      }
+      assertTrue(expectedClassNames.remove(c.getName()));
+    });
+    assertTrue(expectedClassNames.isEmpty());
+  }
+  
+  /**
+   * Verifies that the pyecore version of the modeling assistant instance defined above can be deserialized correctly.
+   */
+  @Test public void testLoadingModelingAssistantWithMulticlassSolutionSerializedWithPyecore() {
+    ClassdiagramPackage.eINSTANCE.eClass();
+    ModelingassistantPackage.eINSTANCE.eClass();
+    var maPath = "../modelingassistant/instances/ma_multiclass_from_python.xmi";
     var resource = ResourceHelper.INSTANCE.loadResource(maPath);
     var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
     var classDiagram = (ClassDiagram) resource.getContents().get(1);
@@ -522,6 +565,42 @@ public class ControllerTest {
     ClassdiagramPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_multisolution_from_java.xmi";
+    var resource = ResourceHelper.INSTANCE.loadResource(maPath);
+    var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
+    var classDiagram1 = (ClassDiagram) resource.getContents().get(1);
+    var classDiagram2 = (ClassDiagram) resource.getContents().get(2);
+    
+    assertEquals(classDiagram1, modelingAssistant.getSolutions().get(0).getClassDiagram());
+    var expectedClassNames1 = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
+    classDiagram1.getClasses().forEach(c -> {
+      if ("Car".equals(c.getName())) {
+        c.getAttributes().forEach(a -> assertTrue(a.getType() instanceof CDInt || a.getType() instanceof CDString));
+      }
+      if ("SportsCar".equals(c.getName())) {
+        assertEquals("Car", c.getSuperTypes().get(0).getName());
+      }
+      assertTrue(expectedClassNames1.remove(c.getName()));
+    });
+    assertTrue(expectedClassNames1.isEmpty());
+    
+    assertEquals(classDiagram2, modelingAssistant.getSolutions().get(1).getClassDiagram());
+    var expectedClassNames2 = new ArrayList<String>(List.of("Car"));
+    classDiagram2.getClasses().forEach(c -> {
+      if ("Car".equals(c.getName())) {
+        c.getAttributes().forEach(a -> assertTrue(a.getType() instanceof CDInt || a.getType() instanceof CDString));
+      }
+      assertTrue(expectedClassNames2.remove(c.getName()));
+    });
+    assertTrue(expectedClassNames2.isEmpty());
+  }
+  
+  /**
+   * Verifies that the pyecore version of the modeling assistant instance defined above can be deserialized correctly.
+   */
+  @Test public void testLoadingModelingAssistantWithMultipleSolutionsSerializedWithPyecore() {
+    ClassdiagramPackage.eINSTANCE.eClass();
+    ModelingassistantPackage.eINSTANCE.eClass();
+    var maPath = "../modelingassistant/instances/ma_multisolution_from_python.xmi";
     var resource = ResourceHelper.INSTANCE.loadResource(maPath);
     var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
     var classDiagram1 = (ClassDiagram) resource.getContents().get(1);
