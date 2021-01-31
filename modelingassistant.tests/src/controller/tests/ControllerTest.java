@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -17,6 +18,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.junit.Test;
+import classdiagram.Attribute;
 import classdiagram.CDInt;
 import classdiagram.CDString;
 import classdiagram.ClassDiagram;
@@ -569,12 +571,13 @@ public class ControllerTest {
     var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
     var classDiagram1 = (ClassDiagram) resource.getContents().get(1);
     var classDiagram2 = (ClassDiagram) resource.getContents().get(2);
+    Predicate<Attribute> isCdIntOrStr = a -> a.getType() instanceof CDInt || a.getType() instanceof CDString;
     
     assertEquals(classDiagram1, modelingAssistant.getSolutions().get(0).getClassDiagram());
     var expectedClassNames1 = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
     classDiagram1.getClasses().forEach(c -> {
       if ("Car".equals(c.getName())) {
-        c.getAttributes().forEach(a -> assertTrue(a.getType() instanceof CDInt || a.getType() instanceof CDString));
+        c.getAttributes().forEach(a -> assertTrue(isCdIntOrStr.test(a)));
       }
       if ("SportsCar".equals(c.getName())) {
         assertEquals("Car", c.getSuperTypes().get(0).getName());
@@ -587,7 +590,7 @@ public class ControllerTest {
     var expectedClassNames2 = new ArrayList<String>(List.of("Car"));
     classDiagram2.getClasses().forEach(c -> {
       if ("Car".equals(c.getName())) {
-        c.getAttributes().forEach(a -> assertTrue(a.getType() instanceof CDInt || a.getType() instanceof CDString));
+        c.getAttributes().forEach(a -> assertTrue(isCdIntOrStr.test(a)));
       }
       assertTrue(expectedClassNames2.remove(c.getName()));
     });
@@ -605,12 +608,13 @@ public class ControllerTest {
     var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
     var classDiagram1 = (ClassDiagram) resource.getContents().get(1);
     var classDiagram2 = (ClassDiagram) resource.getContents().get(2);
+    Predicate<Attribute> isCdIntOrStr = a -> a.getType() instanceof CDInt || a.getType() instanceof CDString;
     
     assertEquals(classDiagram1, modelingAssistant.getSolutions().get(0).getClassDiagram());
     var expectedClassNames1 = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
     classDiagram1.getClasses().forEach(c -> {
       if ("Car".equals(c.getName())) {
-        c.getAttributes().forEach(a -> assertTrue(a.getType() instanceof CDInt || a.getType() instanceof CDString));
+        c.getAttributes().forEach(a -> assertTrue(isCdIntOrStr.test(a)));
       }
       if ("SportsCar".equals(c.getName())) {
         assertEquals("Car", c.getSuperTypes().get(0).getName());
@@ -623,7 +627,7 @@ public class ControllerTest {
     var expectedClassNames2 = new ArrayList<String>(List.of("Car"));
     classDiagram2.getClasses().forEach(c -> {
       if ("Car".equals(c.getName())) {
-        c.getAttributes().forEach(a -> assertTrue(a.getType() instanceof CDInt || a.getType() instanceof CDString));
+        c.getAttributes().forEach(a -> assertTrue(isCdIntOrStr.test(a)));
       }
       assertTrue(expectedClassNames2.remove(c.getName()));
     });
