@@ -6,6 +6,8 @@ package modelingassistant.provider;
 import java.util.Collection;
 import java.util.List;
 
+import modelingassistant.ModelingAssistant;
+import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -13,6 +15,7 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -21,6 +24,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link modelingassistant.ModelingAssistant} object.
@@ -269,6 +273,44 @@ public class ModelingAssistantItemProvider
   }
 
   /**
+   * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+   * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+   * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+    if (childrenFeatures == null) {
+      super.getChildrenFeatures(object);
+      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_ITEMS);
+      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_RESOURCES);
+      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__PROBLEM_STATEMENTS);
+      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__SOLUTIONS);
+      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__UML_ELEMENTS);
+      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__STUDENTS);
+      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACKS);
+      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__MISTAKES);
+      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__MISTAKE_TYPES);
+    }
+    return childrenFeatures;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  protected EStructuralFeature getChildFeature(Object object, Object child) {
+    // Check the type of the specified child object and return the proper feature to use for
+    // adding (see {@link AddCommand}) it as a child.
+
+    return super.getChildFeature(object, child);
+  }
+
+  /**
    * This returns ModelingAssistant.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -301,6 +343,20 @@ public class ModelingAssistantItemProvider
   @Override
   public void notifyChanged(Notification notification) {
     updateChildren(notification);
+
+    switch (notification.getFeatureID(ModelingAssistant.class)) {
+      case ModelingassistantPackage.MODELING_ASSISTANT__LEARNING_ITEMS:
+      case ModelingassistantPackage.MODELING_ASSISTANT__LEARNING_RESOURCES:
+      case ModelingassistantPackage.MODELING_ASSISTANT__PROBLEM_STATEMENTS:
+      case ModelingassistantPackage.MODELING_ASSISTANT__SOLUTIONS:
+      case ModelingassistantPackage.MODELING_ASSISTANT__UML_ELEMENTS:
+      case ModelingassistantPackage.MODELING_ASSISTANT__STUDENTS:
+      case ModelingassistantPackage.MODELING_ASSISTANT__FEEDBACKS:
+      case ModelingassistantPackage.MODELING_ASSISTANT__MISTAKES:
+      case ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPES:
+        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+        return;
+    }
     super.notifyChanged(notification);
   }
 
@@ -314,6 +370,86 @@ public class ModelingAssistantItemProvider
   @Override
   protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
     super.collectNewChildDescriptors(newChildDescriptors, object);
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_ITEMS,
+         ModelingassistantFactory.eINSTANCE.createLearningItem()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_RESOURCES,
+         ModelingassistantFactory.eINSTANCE.createLearningResource()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_RESOURCES,
+         ModelingassistantFactory.eINSTANCE.createReference()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_RESOURCES,
+         ModelingassistantFactory.eINSTANCE.createTutorial()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_RESOURCES,
+         ModelingassistantFactory.eINSTANCE.createExample()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_RESOURCES,
+         ModelingassistantFactory.eINSTANCE.createQuiz()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__PROBLEM_STATEMENTS,
+         ModelingassistantFactory.eINSTANCE.createProblemStatement()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__SOLUTIONS,
+         ModelingassistantFactory.eINSTANCE.createSolution()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__UML_ELEMENTS,
+         ModelingassistantFactory.eINSTANCE.createUmlElement()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__STUDENTS,
+         ModelingassistantFactory.eINSTANCE.createStudent()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACKS,
+         ModelingassistantFactory.eINSTANCE.createFeedback()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACKS,
+         ModelingassistantFactory.eINSTANCE.createTextResponse()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACKS,
+         ModelingassistantFactory.eINSTANCE.createParametrizedResponse()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACKS,
+         ModelingassistantFactory.eINSTANCE.createResourceResponse()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__MISTAKES,
+         ModelingassistantFactory.eINSTANCE.createMistake()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__MISTAKE_TYPES,
+         ModelingassistantFactory.eINSTANCE.createMistakeType()));
   }
 
   /**

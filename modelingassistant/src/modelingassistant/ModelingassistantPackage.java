@@ -95,7 +95,7 @@ public interface ModelingassistantPackage extends EPackage {
   int MODELING_ASSISTANT__PROBLEM_STATEMENTS = 2;
 
   /**
-   * The feature id for the '<em><b>Solutions</b></em>' reference list.
+   * The feature id for the '<em><b>Solutions</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -406,7 +406,7 @@ public interface ModelingassistantPackage extends EPackage {
   int SOLUTION = 5;
 
   /**
-   * The feature id for the '<em><b>Modeling Assistant</b></em>' reference.
+   * The feature id for the '<em><b>Modeling Assistant</b></em>' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1716,10 +1716,10 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getModelingAssistant_ProblemStatements();
 
   /**
-   * Returns the meta object for the reference list '{@link modelingassistant.ModelingAssistant#getSolutions <em>Solutions</em>}'.
+   * Returns the meta object for the containment reference list '{@link modelingassistant.ModelingAssistant#getSolutions <em>Solutions</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Solutions</em>'.
+   * @return the meta object for the containment reference list '<em>Solutions</em>'.
    * @see modelingassistant.ModelingAssistant#getSolutions()
    * @see #getModelingAssistant()
    * @generated
@@ -1975,10 +1975,10 @@ public interface ModelingassistantPackage extends EPackage {
   EClass getSolution();
 
   /**
-   * Returns the meta object for the reference '{@link modelingassistant.Solution#getModelingAssistant <em>Modeling Assistant</em>}'.
+   * Returns the meta object for the container reference '{@link modelingassistant.Solution#getModelingAssistant <em>Modeling Assistant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Modeling Assistant</em>'.
+   * @return the meta object for the container reference '<em>Modeling Assistant</em>'.
    * @see modelingassistant.Solution#getModelingAssistant()
    * @see #getSolution()
    * @generated
@@ -2741,7 +2741,7 @@ public interface ModelingassistantPackage extends EPackage {
     EReference MODELING_ASSISTANT__PROBLEM_STATEMENTS = eINSTANCE.getModelingAssistant_ProblemStatements();
 
     /**
-     * The meta object literal for the '<em><b>Solutions</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Solutions</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2943,7 +2943,7 @@ public interface ModelingassistantPackage extends EPackage {
     EClass SOLUTION = eINSTANCE.getSolution();
 
     /**
-     * The meta object literal for the '<em><b>Modeling Assistant</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Modeling Assistant</b></em>' container reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated

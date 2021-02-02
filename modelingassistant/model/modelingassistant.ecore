@@ -14,7 +14,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatements" upperBound="-1"
         eType="#//ProblemStatement" eOpposite="#//ProblemStatement/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="solutions" upperBound="-1"
-        eType="#//Solution" eOpposite="#//Solution/modelingAssistant"/>
+        eType="#//Solution" containment="true" eOpposite="#//Solution/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="umlElements" upperBound="-1"
         eType="#//UmlElement" eOpposite="#//UmlElement/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="students" upperBound="-1"
