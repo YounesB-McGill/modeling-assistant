@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0">
-  <modelingassistant:ModelingAssistant xmi:id="_poHlEGKSEeuOubrwQFtwPg" solutions="_poIMJmKSEeuOubrwQFtwPg"/>
-  <classdiagram:ClassDiagram xmi:id="_poIMIGKSEeuOubrwQFtwPg" name="Student1_solution">
-    <classes xsi:type="classdiagram:Class" xmi:id="_poIMIWKSEeuOubrwQFtwPg" name="Car">
-      <attributes xmi:id="_poIMImKSEeuOubrwQFtwPg" name="id" type="_poIMJGKSEeuOubrwQFtwPg"/>
-      <attributes xmi:id="_poIMI2KSEeuOubrwQFtwPg" name="make" type="_poIMJWKSEeuOubrwQFtwPg"/>
+  <modelingassistant:ModelingAssistant xmi:id="_4TikgGM-Eeu7bKeP69eaeg" solutions="_4Tikh2M-Eeu7bKeP69eaeg"/>
+  <classdiagram:ClassDiagram xmi:id="_4TikgWM-Eeu7bKeP69eaeg" name="Student1_solution">
+    <classes xsi:type="classdiagram:Class" xmi:id="_4TikgmM-Eeu7bKeP69eaeg" name="Car">
+      <attributes xmi:id="_4Tikg2M-Eeu7bKeP69eaeg" name="id" type="_4TikhWM-Eeu7bKeP69eaeg"/>
+      <attributes xmi:id="_4TikhGM-Eeu7bKeP69eaeg" name="make" type="_4TikhmM-Eeu7bKeP69eaeg"/>
     </classes>
-    <types xsi:type="classdiagram:CDInt" xmi:id="_poIMJGKSEeuOubrwQFtwPg"/>
-    <types xsi:type="classdiagram:CDString" xmi:id="_poIMJWKSEeuOubrwQFtwPg"/>
+    <types xsi:type="classdiagram:CDInt" xmi:id="_4TikhWM-Eeu7bKeP69eaeg"/>
+    <types xsi:type="classdiagram:CDString" xmi:id="_4TikhmM-Eeu7bKeP69eaeg"/>
   </classdiagram:ClassDiagram>
-  <modelingassistant:Solution xmi:id="_poIMJmKSEeuOubrwQFtwPg" modelingAssistant="_poHlEGKSEeuOubrwQFtwPg" classDiagram="_poIMIGKSEeuOubrwQFtwPg"/>
+  <modelingassistant:Solution xmi:id="_4Tikh2M-Eeu7bKeP69eaeg" modelingAssistant="_4TikgGM-Eeu7bKeP69eaeg" classDiagram="_4TikgWM-Eeu7bKeP69eaeg"/>
 </xmi:XMI>

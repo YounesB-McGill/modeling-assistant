@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0">
-  <modelingassistant:ModelingAssistant xmi:id="_L5VSEGLAEeuECPTbAwzNig" solutions="_L5XHRmLAEeuECPTbAwzNig _L5XHR2LAEeuECPTbAwzNig"/>
+  <modelingassistant:ModelingAssistant xmi:id="_4SyWkGM-Eeu7bKeP69eaeg" solutions="_4SzktmM-Eeu7bKeP69eaeg _4Szkt2M-Eeu7bKeP69eaeg"/>
   <classdiagram:ClassDiagram xmi:id="_VQRncElSEeuektpDqzDh1Q" name="Cdm-staging">
     <classes xsi:type="classdiagram:Class" xmi:id="_WHVLQElSEeuektpDqzDh1Q" name="Car">
       <associationEnds xmi:id="_cwaGIElUEeuektpDqzDh1Q" name="drivers" assoc="_cwaGIklUEeuektpDqzDh1Q" upperBound="-1"/>
@@ -45,14 +45,14 @@
       </containers>
     </layout>
   </classdiagram:ClassDiagram>
-  <classdiagram:ClassDiagram xmi:id="_L5XHQGLAEeuECPTbAwzNig" name="Student2_solution">
-    <classes xsi:type="classdiagram:Class" xmi:id="_L5XHQWLAEeuECPTbAwzNig">
-      <attributes xmi:id="_L5XHQmLAEeuECPTbAwzNig" name="id" type="_L5XHRGLAEeuECPTbAwzNig"/>
-      <attributes xmi:id="_L5XHQ2LAEeuECPTbAwzNig" name="make" type="_L5XHRWLAEeuECPTbAwzNig"/>
+  <classdiagram:ClassDiagram xmi:id="_4SzksGM-Eeu7bKeP69eaeg" name="Student2_solution">
+    <classes xsi:type="classdiagram:Class" xmi:id="_4SzksWM-Eeu7bKeP69eaeg" name="Car">
+      <attributes xmi:id="_4SzksmM-Eeu7bKeP69eaeg" name="id" type="_4SzktGM-Eeu7bKeP69eaeg"/>
+      <attributes xmi:id="_4Szks2M-Eeu7bKeP69eaeg" name="make" type="_4SzktWM-Eeu7bKeP69eaeg"/>
     </classes>
-    <types xsi:type="classdiagram:CDInt" xmi:id="_L5XHRGLAEeuECPTbAwzNig"/>
-    <types xsi:type="classdiagram:CDString" xmi:id="_L5XHRWLAEeuECPTbAwzNig"/>
+    <types xsi:type="classdiagram:CDInt" xmi:id="_4SzktGM-Eeu7bKeP69eaeg"/>
+    <types xsi:type="classdiagram:CDString" xmi:id="_4SzktWM-Eeu7bKeP69eaeg"/>
   </classdiagram:ClassDiagram>
-  <modelingassistant:Solution xmi:id="_L5XHRmLAEeuECPTbAwzNig" modelingAssistant="_L5VSEGLAEeuECPTbAwzNig" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
-  <modelingassistant:Solution xmi:id="_L5XHR2LAEeuECPTbAwzNig" modelingAssistant="_L5VSEGLAEeuECPTbAwzNig"/>
+  <modelingassistant:Solution xmi:id="_4SzktmM-Eeu7bKeP69eaeg" modelingAssistant="_4SyWkGM-Eeu7bKeP69eaeg" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
+  <modelingassistant:Solution xmi:id="_4Szkt2M-Eeu7bKeP69eaeg" modelingAssistant="_4SyWkGM-Eeu7bKeP69eaeg" classDiagram="_4SzksGM-Eeu7bKeP69eaeg"/>
 </xmi:XMI>
