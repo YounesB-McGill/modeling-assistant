@@ -333,21 +333,30 @@ Level 3: Text response
 
 Level 4: Parameterized Response
 
-> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]? 
+> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
+>
+> _(For a self-referencing class, eg, a Person has 2 parents.)_
 
 > How many ${class1}'s does a ${class2} have? [And so on]
+>
+> _(For two classes with multiplicities 1+ on either end.)_
 
 > Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
 
 Level 5: Resource Response with Quiz
 
-> Write code in ${programmingLanguage} to instantiate a ${Foo} given the following class diagram: 1 Foo -- 1 Bar.
->
+> Write code in ${programmingLanguage} to instantiate a ${Foo} given the following class diagram: 1 Foo -- 1 Bar and the generated code from Umple:
+> ```
+> Foo(Bar)
+> Bar(Foo)
+> ```
 > Yes, it is impossible to create a ${Foo} for the class diagram as given,
 because we need a ${Bar} to create a ${Foo}, but we need a ${Bar} to make 
 that ${Foo}, and so on.
->
-> Edit the class diagram to allow creating a ${Foo}.
+
+_Alternatively, give a MCQ with 3+ incorrect answers, and an explanation for why each one will not work._
+
+> Edit the class diagram to allow creating a ${Foo} (could give MC options here).
 
 ### Wrong role names
 
