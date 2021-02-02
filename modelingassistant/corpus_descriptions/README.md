@@ -3,7 +3,7 @@
 _**About this page:** This page is meant to be a human readable document
 that describes some of the content of the learning corpus. This material
 will be included in a more machine readable format later. The mistake 
-types are taken from our paper [Towards a Better Understanding of Interactions with a Domain Modeling Assistant](https://doi.org/10.1145/3417990.3418742)._
+types are taken from our paper [Towards a Better Understanding of Interactions with a Domain Modeling Assistant](https://doi.org/10.1145/3417990.3418742). The timeline of the content can be found [here](mistake_types_timeline.csv)._ 
 
 ## Table of Contents
 
@@ -12,14 +12,29 @@ types are taken from our paper [Towards a Better Understanding of Interactions w
    1. [Extra (redundant) class](#extra-class)
    1. [Wrong class name (using plural, lowercase, or software engineering term)](#wrong-class-name)
 
+1. [Wrong attribute](#wrong-attribute)
+   1. [Extra (redundant) attribute](#extra-redundant-attribute)
+      1. [Plural attribute or attribute list](#plural-attribute-or-attribute-list)
+   1. [Attribute in wrong class](#attribute-in-wrong-class)
+      1. [Attribute misplaced](#attribute-misplaced)
+      1. [Attribute duplicated](#attribute-duplicated)
+
 1. [Wrong relationships](#wrong-relationships)
-   1. [Using an attribute instead of an association](#using-an-attribute-instead-of-an-association)
+   1. [Missing relationship of any type](#missing-relationship-of-any-type)
+      1. [Using an attribute instead of an association](#using-an-attribute-instead-of-an-association)
    1. [Incomplete containment tree](#incomplete-containment-tree)
-   1. [Using an association instead of an aggregation/composition or vice versa](#using-an-association-instead-of-an-aggregationcomposition-or-vice-versa)
-   1. [Missing role names](#missing-role-names)
+   1. [Using wrong relationship type](#using-wrong-relationship-type)
+      1. [Using an association instead of an aggregation/composition or vice versa](#using-an-association-instead-of-an-aggregationcomposition-or-vice-versa)
+   1. [Wrong multiplicities](#wrong-multiplicities)
+      1. [Infinite recursive dependency](#infinite-recursive-dependency)
+   1. [Wrong role names](#wrong-role-names)
+      1. [Missing role names](#missing-role-names)
    1. [Wrong association class](#wrong-association-class)
-   1. [Inapplicable generalization](#inapplicable-generalization)
-   1. [Non-differentiated subclass](#non-differentiated-subclass)
+   1. [Wrong generalization](#wrong-generalization)
+      1. [Inapplicable generalization](#inapplicable-generalization)
+      1. [Subclass is an instance of superclass](#subclass-is-an-instance-of-superclass)
+      1. [Non-differentiated subclass](#non-differentiated-subclass)
+      1. [Wrong generalization direction](#wrong-generalization-direction)
 
 1. [Modeling antipatterns or misuse of design patterns](#modeling-antipatterns-or-misuse-of-design-patterns)
    1. [Misuse of Player-Role Pattern](#misuse-of-player-role-Pattern)
@@ -93,9 +108,111 @@ Level 4: Resource Response with Example:
 
 ___
 
+## Wrong attribute
+
+### Extra (redundant) attribute
+
+Level 1: Highlight attribute
+
+Level 2: Text response
+
+> Do we really need to model this concept?
+
+Level 3: Parameterized response
+
+> The ${redundantAttribute} in the ${className} class is not needed.
+
+> The ${redundantAttribute} attribute in the ${className} class is not 
+needed because it can be derived from ${derivationSources}.
+>
+> _e.g., The area attribute in the Rectangle class is not needed because it can be derived from the length and width._
+
+> The ${redundantAttribute} attribute in the ${className} class is not 
+needed because it is not part of the domain. You only need to model concepts
+related to the given problem description.
+
+Level 4: Resource Response with link to Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and
+[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+#### Plural attribute or attribute list
+
+Level 1: Highlight attribute
+
+Level 2: Text response
+
+> Can you double check this attribute name?
+>
+> _(if attribute should be singular)_
+
+> Is there a better way to model this concept?
+>
+> _(if attribute should be association instead)_
+
+Level 3: Text response
+
+> Remember that attributes are simple pieces of data.
+
+Level 3: Parameterized Response
+
+> ${includingClass.attributeName} should be modeled as an association instead.
+
+Level 4: Resource Response with Quiz:
+
+> Pick the classes which are modeled correctly.
+>
+> - [ ] class Student { courses; }
+> - [ ] class Folder { List\<File\> files; }
+> - [ ] class Restaurant { 1 -- * Employee; }
+
+### Attribute in wrong class
+
+#### Attribute misplaced
+
+Level 1: Highlight attribute
+
+Level 2: Text response
+
+> Can you think of a better place for this?
+
+Level 3: Parameterized Response
+
+> The ${misplacedAttribute} does not belong in the ${wrongClass} class.
+Where else can we place it?
+
+Level 4: Resource Response with link to Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+#### Attribute duplicated
+
+Level 1: Highlight attribute
+
+Level 2: Text response
+
+> Are you sure this is needed?
+
+Level 3: Text response
+
+> Does this need to be included more than once?
+
+Level 4: Parameterized Response
+
+> The ${duplicateAttribute} already exists in ${correctClass}, so there
+is no need to include it again.
+
+Level 5: Resource Response with link to Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+___
+
 ## Wrong relationships
 
-### Using an attribute instead of an association
+### Missing relationship of any type
+
+#### Using an attribute instead of an association
 
 Level 1: Highlight attribute
 
@@ -151,7 +268,9 @@ contained in the `IRS` root node.
   `WeekendLeague`, `Person`, `StudentRole`, `RefereeRole`, `IRS`.
 
 
-### Using an association instead of an aggregation/composition or vice versa
+### Using wrong relationship type
+
+#### Using an association instead of an aggregation/composition or vice versa
 
 Level 1: Highlight relationship
 
@@ -175,7 +294,64 @@ better differentiate these relationships.
 ![composition vs aggregation vs association](images/composition_aggregation_association.png)
 
 
-### Missing role names
+### Wrong multiplicities
+
+Level 1: Highlight association
+
+Level 2: Text response
+
+> Can you double check this association?
+
+Level 3: Text response
+
+> The multiplicities for this association are incorrect.
+
+Level 4: Parameterized Response
+
+> How many ${class1}'s does a ${class2} have? [And how many ${class2}'s
+does ${class1} have?]
+
+Level 5: Resource Response with Quiz
+
+> Pick the associations with correct multiplicities
+>
+> - [ ] 1 EmployeeRole -- 1 Person;
+> - [ ] * Episode -- 1 TvSeries;
+> - [ ] * Bank -- 1 Client;
+
+#### Infinite recursive dependency
+
+Level 1: Highlight association(s)
+
+Level 2: Text response
+
+> Can you double check this(ese) association(s)?
+
+Level 3: Text response
+
+> The multiplicities for this(ese) association(s) are incorrect.
+
+Level 4: Parameterized Response
+
+> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]? 
+
+> How many ${class1}'s does a ${class2} have? [And so on]
+
+> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
+
+Level 5: Resource Response with Quiz
+
+> Write code in ${programmingLanguage} to instantiate a ${Foo} given the following class diagram: 1 Foo -- 1 Bar.
+>
+> Yes, it is impossible to create a ${Foo} for the class diagram as given,
+because we need a ${Bar} to create a ${Foo}, but we need a ${Bar} to make 
+that ${Foo}, and so on.
+>
+> Edit the class diagram to allow creating a ${Foo}.
+
+### Wrong role names
+
+#### Missing role names
 
 Level 1: Highlight association
 
@@ -222,7 +398,9 @@ Level 5: Resource Response with link to Reference
 ![Association class](images/association_class.png)
 
 
-### Inapplicable generalization
+### Wrong generalization
+
+#### Inapplicable generalization
 
 Level 1: Highlight classes
 
@@ -258,7 +436,11 @@ The five checks for generalization are:
 * ...
 
 
-### Non-differentiated subclass
+#### Subclass is an instance of superclass
+
+
+
+#### Non-differentiated subclass
 
 Level 1: Highlight class
 
@@ -275,6 +457,9 @@ Level 4: Resource Response with Quiz
 
 Which classes do not belong?
 * `Account`, `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`, `ClosedAccount`, 
+
+
+#### Wrong generalization direction
 
 ___
 
