@@ -29,24 +29,24 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Solution extends EObject {
   /**
-   * Returns the value of the '<em><b>Modeling Assistant</b></em>' reference.
+   * Returns the value of the '<em><b>Modeling Assistant</b></em>' container reference.
    * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getSolutions <em>Solutions</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Modeling Assistant</em>' reference.
+   * @return the value of the '<em>Modeling Assistant</em>' container reference.
    * @see #setModelingAssistant(ModelingAssistant)
    * @see modelingassistant.ModelingassistantPackage#getSolution_ModelingAssistant()
    * @see modelingassistant.ModelingAssistant#getSolutions
-   * @model opposite="solutions" required="true"
+   * @model opposite="solutions" required="true" transient="false"
    * @generated
    */
   ModelingAssistant getModelingAssistant();
 
   /**
-   * Sets the value of the '{@link modelingassistant.Solution#getModelingAssistant <em>Modeling Assistant</em>}' reference.
+   * Sets the value of the '{@link modelingassistant.Solution#getModelingAssistant <em>Modeling Assistant</em>}' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Modeling Assistant</em>' reference.
+   * @param value the new value of the '<em>Modeling Assistant</em>' container reference.
    * @see #getModelingAssistant()
    * @generated
    */

@@ -74,15 +74,15 @@ public interface ModelingAssistant extends EObject {
   EList<ProblemStatement> getProblemStatements();
 
   /**
-   * Returns the value of the '<em><b>Solutions</b></em>' reference list.
+   * Returns the value of the '<em><b>Solutions</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.Solution}.
    * It is bidirectional and its opposite is '{@link modelingassistant.Solution#getModelingAssistant <em>Modeling Assistant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Solutions</em>' reference list.
+   * @return the value of the '<em>Solutions</em>' containment reference list.
    * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_Solutions()
    * @see modelingassistant.Solution#getModelingAssistant
-   * @model opposite="modelingAssistant"
+   * @model opposite="modelingAssistant" containment="true"
    * @generated
    */
   EList<Solution> getSolutions();

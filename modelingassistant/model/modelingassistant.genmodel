@@ -11,15 +11,15 @@
     <genDataTypes ecoreDataType="modelingassistant.ecore#//Time"/>
     <genDataTypes ecoreDataType="modelingassistant.ecore#//double"/>
     <genClasses ecoreClass="modelingassistant.ecore#//ModelingAssistant">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/learningItems"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/learningResources"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/problemStatements"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/solutions"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/umlElements"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/students"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/feedbacks"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/mistakes"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/mistakeTypes"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/learningItems"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/learningResources"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/problemStatements"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/solutions"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/umlElements"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/students"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/feedbacks"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/mistakes"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/mistakeTypes"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//Student">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Student/id"/>

@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -81,7 +82,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
   protected EList<ProblemStatement> problemStatements;
 
   /**
-   * The cached value of the '{@link #getSolutions() <em>Solutions</em>}' reference list.
+   * The cached value of the '{@link #getSolutions() <em>Solutions</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getSolutions()
@@ -202,7 +203,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
    */
   public EList<Solution> getSolutions() {
     if (solutions == null) {
-      solutions = new EObjectWithInverseResolvingEList<Solution>(Solution.class, this, ModelingassistantPackage.MODELING_ASSISTANT__SOLUTIONS, ModelingassistantPackage.SOLUTION__MODELING_ASSISTANT);
+      solutions = new EObjectContainmentWithInverseEList<Solution>(Solution.class, this, ModelingassistantPackage.MODELING_ASSISTANT__SOLUTIONS, ModelingassistantPackage.SOLUTION__MODELING_ASSISTANT);
     }
     return solutions;
   }
