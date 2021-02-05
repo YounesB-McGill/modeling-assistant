@@ -1,10 +1,12 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import org.junit.jupiter.api.Test;
+import org.apache.commons.text.similarity.LevenshteinDistance;
 
 public class MistakeDetectionTest {
 
@@ -28,4 +30,22 @@ public class MistakeDetectionTest {
     List.of("Cars", "Drivers", "Parts").forEach(s -> assertTrue(MistakeDetection.isPlural(s)));
   }
 
+  /**
+   * Tests for checking Spelling Mistake in Class Name, eg Cars.
+   */
+  @Test public void testIsSpelledWrong() {
+	
+    String class1= "Car";
+    String class2= "Car";
+    LevenshteinDistance ld =new LevenshteinDistance();
+    assertEquals(0, ld.apply(class1, class2));
+    
+    class1= "Car";
+    class2= "Cer";
+    assertEquals(1, ld.apply(class1, class2));
+    
+    class1= "Car";
+    class2= "Carss";
+    assertEquals(2, ld.apply(class1, class2));
+  }
 }
