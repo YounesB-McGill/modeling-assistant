@@ -27,9 +27,10 @@ public class MistakeDetection {
 //	      SolutionElement s = new SolutionElement(sClassifier);
 //	      m.getSolutionElements().add(s);
 //	      mistakes.add(m);
-		  SolutionElement s = null;
+		  SolutionElement s = MAF.createSolutionElement();
 		  s.setElement(sClassifier);
-		  Mistake m = MistakeTypes.SOFTWARE_ENGINEERING_TERM_M;
+		  Mistake m =MAF.createMistake();
+		  m.setMistakeType(MistakeTypes.SOFTWARE_ENGINEERING_TERM);// Have a helper Method.
 		  m.getSolutionElements().add(s);
 		  mistakes.add(m);
 		  
