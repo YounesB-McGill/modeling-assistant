@@ -3,10 +3,13 @@ package ca.mcgill.sel.mistakedetection.tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.IOException;
 import java.util.List;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import org.junit.jupiter.api.Test;
 import org.apache.commons.text.similarity.LevenshteinDistance;
+import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 public class MistakeDetectionTest {
 
@@ -23,11 +26,13 @@ public class MistakeDetectionTest {
    * Tests for checking Plural in Class Name, eg Cars.
    */
   @Test public void testIsPlural() {
-    // check that singulars are not plural. The above method will fail for cases like Bus
-    List.of("Car", "Driver", "Part").forEach(s -> assertFalse(MistakeDetection.isPlural(s)));
+   
+    List.of("Car", "Driver", "Part","Bus").forEach(s -> assertFalse(MistakeDetection.isPlural(s)));
     
-    // check that plurals are plural. The above method will fail for cases like Men
-    List.of("Cars", "Drivers", "Parts").forEach(s -> assertTrue(MistakeDetection.isPlural(s)));
+   
+    List.of("Cars", "Drivers","Parts","People","Men").forEach(s -> assertTrue(MistakeDetection.isPlural(s)));
+    
+   
   }
 
   /**
@@ -37,15 +42,12 @@ public class MistakeDetectionTest {
 	
     String class1= "Car";
     String class2= "Car";
-    LevenshteinDistance ld =new LevenshteinDistance();
-    assertEquals(0, ld.apply(class1, class2));
+    assertEquals(0, MistakeDetection.levenshteinDistance(class1, class2));
     
-    class1= "Car";
-    class2= "Cer";
-    assertEquals(1, ld.apply(class1, class2));
-    
-    class1= "Car";
-    class2= "Carss";
-    assertEquals(2, ld.apply(class1, class2));
+     class1= "Car";
+     class2= "Cer";
+    assertEquals(1, MistakeDetection.levenshteinDistance(class1, class2));
   }
+  
+  
 }
