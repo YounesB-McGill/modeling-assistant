@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.util.List;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import org.junit.jupiter.api.Test;
-import org.apache.commons.text.similarity.LevenshteinDistance;
-import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 public class MistakeDetectionTest {
 
