@@ -2,7 +2,11 @@ package ca.mcgill.sel.mistakedetection;
 
 import classdiagram.ClassdiagramFactory;
 import classdiagram.Classifier;
+import org.apache.commons.text.similarity.LevenshteinDistance;
+import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,7 +55,23 @@ public class MistakeDetection {
    * Returns true if the input string is plural.
    */
   public static boolean isPlural(String s) {
-    return s.toLowerCase().endsWith("s");
+
+	  MaxentTagger tagger;
+	  Boolean bool=false;
+	  try {
+		  tagger = new MaxentTagger("taggers/bidirectional-distsim-wsj-0-18.tagger");
+		  s=s.toLowerCase();
+		  String tagged = tagger.tagString(s);
+		  String[] str=tagged.split("/");
+		  // NNS for plural.
+		  String s1="NNS";
+		  if(str[1].contains(s1)) {
+			  bool =true;
+		  }
+	  } catch (ClassNotFoundException | IOException e) {
+		  e.printStackTrace();
+	  }
+	  return bool;
   }
   
   public static Mistake checkMistakePluralClassName(Classifier sClassifier) {
@@ -63,6 +83,20 @@ public class MistakeDetection {
     }
     return null;
  }
+  public static void checkMistakeClassSpelling(Classifier sClassifier, Classifier iClassifier){
+	  int lDistance=levenshteinDistance(sClassifier.getName(),iClassifier.getName());
+	  if (lDistance!=0) {
+	     // Mistake m = new Mistake("Class Name Spelled wrong");
+	    //  SolutionElement s = new SolutionElement(sClassifier);
+	    //  m.getSolutionElements().add(s);
+	    //  mistakes.add(m);
+	   }
+	}
+  
+  public static int levenshteinDistance(String sClassName,String iClassName) {
+	  LevenshteinDistance ld =new LevenshteinDistance();
+	   return ld.apply(sClassName,iClassName);
+  }
 
 
 }
