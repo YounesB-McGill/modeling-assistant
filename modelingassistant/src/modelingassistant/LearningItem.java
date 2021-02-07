@@ -27,24 +27,24 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface LearningItem extends EObject {
   /**
-   * Returns the value of the '<em><b>Modeling Assistant</b></em>' reference.
+   * Returns the value of the '<em><b>Modeling Assistant</b></em>' container reference.
    * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getLearningItems <em>Learning Items</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Modeling Assistant</em>' reference.
+   * @return the value of the '<em>Modeling Assistant</em>' container reference.
    * @see #setModelingAssistant(ModelingAssistant)
    * @see modelingassistant.ModelingassistantPackage#getLearningItem_ModelingAssistant()
    * @see modelingassistant.ModelingAssistant#getLearningItems
-   * @model opposite="learningItems" required="true"
+   * @model opposite="learningItems" required="true" transient="false"
    * @generated
    */
   ModelingAssistant getModelingAssistant();
 
   /**
-   * Sets the value of the '{@link modelingassistant.LearningItem#getModelingAssistant <em>Modeling Assistant</em>}' reference.
+   * Sets the value of the '{@link modelingassistant.LearningItem#getModelingAssistant <em>Modeling Assistant</em>}' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Modeling Assistant</em>' reference.
+   * @param value the new value of the '<em>Modeling Assistant</em>' container reference.
    * @see #getModelingAssistant()
    * @generated
    */

@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -129,16 +130,6 @@ public class MistakeTypeImpl extends MinimalEObjectImpl.Container implements Mis
    * @ordered
    */
   protected int numStepsBeforeNotification = NUM_STEPS_BEFORE_NOTIFICATION_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getModelingAssistant() <em>Modeling Assistant</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getModelingAssistant()
-   * @generated
-   * @ordered
-   */
-  protected ModelingAssistant modelingAssistant;
 
   /**
    * The cached value of the '{@link #getLearningItem() <em>Learning Item</em>}' reference.
@@ -289,24 +280,8 @@ public class MistakeTypeImpl extends MinimalEObjectImpl.Container implements Mis
    * @generated
    */
   public ModelingAssistant getModelingAssistant() {
-    if (modelingAssistant != null && modelingAssistant.eIsProxy()) {
-      InternalEObject oldModelingAssistant = (InternalEObject)modelingAssistant;
-      modelingAssistant = (ModelingAssistant)eResolveProxy(oldModelingAssistant);
-      if (modelingAssistant != oldModelingAssistant) {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.MISTAKE_TYPE__MODELING_ASSISTANT, oldModelingAssistant, modelingAssistant));
-      }
-    }
-    return modelingAssistant;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ModelingAssistant basicGetModelingAssistant() {
-    return modelingAssistant;
+    if (eContainerFeatureID() != ModelingassistantPackage.MISTAKE_TYPE__MODELING_ASSISTANT) return null;
+    return (ModelingAssistant)eInternalContainer();
   }
 
   /**
@@ -315,12 +290,7 @@ public class MistakeTypeImpl extends MinimalEObjectImpl.Container implements Mis
    * @generated
    */
   public NotificationChain basicSetModelingAssistant(ModelingAssistant newModelingAssistant, NotificationChain msgs) {
-    ModelingAssistant oldModelingAssistant = modelingAssistant;
-    modelingAssistant = newModelingAssistant;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE_TYPE__MODELING_ASSISTANT, oldModelingAssistant, newModelingAssistant);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
+    msgs = eBasicSetContainer((InternalEObject)newModelingAssistant, ModelingassistantPackage.MISTAKE_TYPE__MODELING_ASSISTANT, msgs);
     return msgs;
   }
 
@@ -330,10 +300,12 @@ public class MistakeTypeImpl extends MinimalEObjectImpl.Container implements Mis
    * @generated
    */
   public void setModelingAssistant(ModelingAssistant newModelingAssistant) {
-    if (newModelingAssistant != modelingAssistant) {
+    if (newModelingAssistant != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.MISTAKE_TYPE__MODELING_ASSISTANT && newModelingAssistant != null)) {
+      if (EcoreUtil.isAncestor(this, newModelingAssistant))
+        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
       NotificationChain msgs = null;
-      if (modelingAssistant != null)
-        msgs = ((InternalEObject)modelingAssistant).eInverseRemove(this, ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPES, ModelingAssistant.class, msgs);
+      if (eInternalContainer() != null)
+        msgs = eBasicRemoveFromContainer(msgs);
       if (newModelingAssistant != null)
         msgs = ((InternalEObject)newModelingAssistant).eInverseAdd(this, ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPES, ModelingAssistant.class, msgs);
       msgs = basicSetModelingAssistant(newModelingAssistant, msgs);
@@ -449,8 +421,8 @@ public class MistakeTypeImpl extends MinimalEObjectImpl.Container implements Mis
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
     switch (featureID) {
       case ModelingassistantPackage.MISTAKE_TYPE__MODELING_ASSISTANT:
-        if (modelingAssistant != null)
-          msgs = ((InternalEObject)modelingAssistant).eInverseRemove(this, ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPES, ModelingAssistant.class, msgs);
+        if (eInternalContainer() != null)
+          msgs = eBasicRemoveFromContainer(msgs);
         return basicSetModelingAssistant((ModelingAssistant)otherEnd, msgs);
       case ModelingassistantPackage.MISTAKE_TYPE__LEARNING_ITEM:
         if (learningItem != null)
@@ -494,6 +466,20 @@ public class MistakeTypeImpl extends MinimalEObjectImpl.Container implements Mis
    * @generated
    */
   @Override
+  public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+    switch (eContainerFeatureID()) {
+      case ModelingassistantPackage.MISTAKE_TYPE__MODELING_ASSISTANT:
+        return eInternalContainer().eInverseRemove(this, ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPES, ModelingAssistant.class, msgs);
+    }
+    return super.eBasicRemoveFromContainerFeature(msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
     switch (featureID) {
       case ModelingassistantPackage.MISTAKE_TYPE__NAME:
@@ -505,8 +491,7 @@ public class MistakeTypeImpl extends MinimalEObjectImpl.Container implements Mis
       case ModelingassistantPackage.MISTAKE_TYPE__NUM_STEPS_BEFORE_NOTIFICATION:
         return getNumStepsBeforeNotification();
       case ModelingassistantPackage.MISTAKE_TYPE__MODELING_ASSISTANT:
-        if (resolve) return getModelingAssistant();
-        return basicGetModelingAssistant();
+        return getModelingAssistant();
       case ModelingassistantPackage.MISTAKE_TYPE__LEARNING_ITEM:
         if (resolve) return getLearningItem();
         return basicGetLearningItem();
@@ -619,7 +604,7 @@ public class MistakeTypeImpl extends MinimalEObjectImpl.Container implements Mis
       case ModelingassistantPackage.MISTAKE_TYPE__NUM_STEPS_BEFORE_NOTIFICATION:
         return numStepsBeforeNotification != NUM_STEPS_BEFORE_NOTIFICATION_EDEFAULT;
       case ModelingassistantPackage.MISTAKE_TYPE__MODELING_ASSISTANT:
-        return modelingAssistant != null;
+        return getModelingAssistant() != null;
       case ModelingassistantPackage.MISTAKE_TYPE__LEARNING_ITEM:
         return learningItem != null;
       case ModelingassistantPackage.MISTAKE_TYPE__STUDENT_KNOWLEDGES:

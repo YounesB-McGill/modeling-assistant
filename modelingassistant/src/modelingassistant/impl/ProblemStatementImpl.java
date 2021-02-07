@@ -20,7 +20,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -39,17 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class ProblemStatementImpl extends MinimalEObjectImpl.Container implements ProblemStatement {
   /**
-   * The cached value of the '{@link #getModelingAssistant() <em>Modeling Assistant</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getModelingAssistant()
-   * @generated
-   * @ordered
-   */
-  protected ModelingAssistant modelingAssistant;
-
-  /**
-   * The cached value of the '{@link #getProblemStatementElements() <em>Problem Statement Elements</em>}' reference list.
+   * The cached value of the '{@link #getProblemStatementElements() <em>Problem Statement Elements</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getProblemStatementElements()
@@ -83,24 +74,8 @@ public class ProblemStatementImpl extends MinimalEObjectImpl.Container implement
    * @generated
    */
   public ModelingAssistant getModelingAssistant() {
-    if (modelingAssistant != null && modelingAssistant.eIsProxy()) {
-      InternalEObject oldModelingAssistant = (InternalEObject)modelingAssistant;
-      modelingAssistant = (ModelingAssistant)eResolveProxy(oldModelingAssistant);
-      if (modelingAssistant != oldModelingAssistant) {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT, oldModelingAssistant, modelingAssistant));
-      }
-    }
-    return modelingAssistant;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ModelingAssistant basicGetModelingAssistant() {
-    return modelingAssistant;
+    if (eContainerFeatureID() != ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT) return null;
+    return (ModelingAssistant)eInternalContainer();
   }
 
   /**
@@ -109,12 +84,7 @@ public class ProblemStatementImpl extends MinimalEObjectImpl.Container implement
    * @generated
    */
   public NotificationChain basicSetModelingAssistant(ModelingAssistant newModelingAssistant, NotificationChain msgs) {
-    ModelingAssistant oldModelingAssistant = modelingAssistant;
-    modelingAssistant = newModelingAssistant;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT, oldModelingAssistant, newModelingAssistant);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
+    msgs = eBasicSetContainer((InternalEObject)newModelingAssistant, ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT, msgs);
     return msgs;
   }
 
@@ -124,10 +94,12 @@ public class ProblemStatementImpl extends MinimalEObjectImpl.Container implement
    * @generated
    */
   public void setModelingAssistant(ModelingAssistant newModelingAssistant) {
-    if (newModelingAssistant != modelingAssistant) {
+    if (newModelingAssistant != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT && newModelingAssistant != null)) {
+      if (EcoreUtil.isAncestor(this, newModelingAssistant))
+        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
       NotificationChain msgs = null;
-      if (modelingAssistant != null)
-        msgs = ((InternalEObject)modelingAssistant).eInverseRemove(this, ModelingassistantPackage.MODELING_ASSISTANT__PROBLEM_STATEMENTS, ModelingAssistant.class, msgs);
+      if (eInternalContainer() != null)
+        msgs = eBasicRemoveFromContainer(msgs);
       if (newModelingAssistant != null)
         msgs = ((InternalEObject)newModelingAssistant).eInverseAdd(this, ModelingassistantPackage.MODELING_ASSISTANT__PROBLEM_STATEMENTS, ModelingAssistant.class, msgs);
       msgs = basicSetModelingAssistant(newModelingAssistant, msgs);
@@ -144,7 +116,7 @@ public class ProblemStatementImpl extends MinimalEObjectImpl.Container implement
    */
   public EList<ProblemStatementElement> getProblemStatementElements() {
     if (problemStatementElements == null) {
-      problemStatementElements = new EObjectWithInverseResolvingEList<ProblemStatementElement>(ProblemStatementElement.class, this, ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS, ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__PROBLEM_STATEMENT);
+      problemStatementElements = new EObjectContainmentWithInverseEList<ProblemStatementElement>(ProblemStatementElement.class, this, ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS, ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__PROBLEM_STATEMENT);
     }
     return problemStatementElements;
   }
@@ -159,8 +131,8 @@ public class ProblemStatementImpl extends MinimalEObjectImpl.Container implement
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
     switch (featureID) {
       case ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT:
-        if (modelingAssistant != null)
-          msgs = ((InternalEObject)modelingAssistant).eInverseRemove(this, ModelingassistantPackage.MODELING_ASSISTANT__PROBLEM_STATEMENTS, ModelingAssistant.class, msgs);
+        if (eInternalContainer() != null)
+          msgs = eBasicRemoveFromContainer(msgs);
         return basicSetModelingAssistant((ModelingAssistant)otherEnd, msgs);
       case ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getProblemStatementElements()).basicAdd(otherEnd, msgs);
@@ -190,11 +162,24 @@ public class ProblemStatementImpl extends MinimalEObjectImpl.Container implement
    * @generated
    */
   @Override
+  public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+    switch (eContainerFeatureID()) {
+      case ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT:
+        return eInternalContainer().eInverseRemove(this, ModelingassistantPackage.MODELING_ASSISTANT__PROBLEM_STATEMENTS, ModelingAssistant.class, msgs);
+    }
+    return super.eBasicRemoveFromContainerFeature(msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
     switch (featureID) {
       case ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT:
-        if (resolve) return getModelingAssistant();
-        return basicGetModelingAssistant();
+        return getModelingAssistant();
       case ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS:
         return getProblemStatementElements();
     }
@@ -248,7 +233,7 @@ public class ProblemStatementImpl extends MinimalEObjectImpl.Container implement
   public boolean eIsSet(int featureID) {
     switch (featureID) {
       case ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT:
-        return modelingAssistant != null;
+        return getModelingAssistant() != null;
       case ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS:
         return problemStatementElements != null && !problemStatementElements.isEmpty();
     }

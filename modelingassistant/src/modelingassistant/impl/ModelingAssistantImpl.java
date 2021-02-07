@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -52,7 +51,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implements ModelingAssistant {
   /**
-   * The cached value of the '{@link #getLearningItems() <em>Learning Items</em>}' reference list.
+   * The cached value of the '{@link #getLearningItems() <em>Learning Items</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getLearningItems()
@@ -62,7 +61,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
   protected EList<LearningItem> learningItems;
 
   /**
-   * The cached value of the '{@link #getLearningResources() <em>Learning Resources</em>}' reference list.
+   * The cached value of the '{@link #getLearningResources() <em>Learning Resources</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getLearningResources()
@@ -72,7 +71,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
   protected EList<LearningResource> learningResources;
 
   /**
-   * The cached value of the '{@link #getProblemStatements() <em>Problem Statements</em>}' reference list.
+   * The cached value of the '{@link #getProblemStatements() <em>Problem Statements</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getProblemStatements()
@@ -92,7 +91,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
   protected EList<Solution> solutions;
 
   /**
-   * The cached value of the '{@link #getUmlElements() <em>Uml Elements</em>}' reference list.
+   * The cached value of the '{@link #getUmlElements() <em>Uml Elements</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getUmlElements()
@@ -102,7 +101,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
   protected EList<UmlElement> umlElements;
 
   /**
-   * The cached value of the '{@link #getStudents() <em>Students</em>}' reference list.
+   * The cached value of the '{@link #getStudents() <em>Students</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getStudents()
@@ -112,7 +111,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
   protected EList<Student> students;
 
   /**
-   * The cached value of the '{@link #getFeedbacks() <em>Feedbacks</em>}' reference list.
+   * The cached value of the '{@link #getFeedbacks() <em>Feedbacks</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getFeedbacks()
@@ -122,7 +121,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
   protected EList<Feedback> feedbacks;
 
   /**
-   * The cached value of the '{@link #getMistakes() <em>Mistakes</em>}' reference list.
+   * The cached value of the '{@link #getMistakes() <em>Mistakes</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getMistakes()
@@ -132,7 +131,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
   protected EList<Mistake> mistakes;
 
   /**
-   * The cached value of the '{@link #getMistakeTypes() <em>Mistake Types</em>}' reference list.
+   * The cached value of the '{@link #getMistakeTypes() <em>Mistake Types</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getMistakeTypes()
@@ -167,7 +166,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
    */
   public EList<LearningItem> getLearningItems() {
     if (learningItems == null) {
-      learningItems = new EObjectWithInverseResolvingEList<LearningItem>(LearningItem.class, this, ModelingassistantPackage.MODELING_ASSISTANT__LEARNING_ITEMS, ModelingassistantPackage.LEARNING_ITEM__MODELING_ASSISTANT);
+      learningItems = new EObjectContainmentWithInverseEList<LearningItem>(LearningItem.class, this, ModelingassistantPackage.MODELING_ASSISTANT__LEARNING_ITEMS, ModelingassistantPackage.LEARNING_ITEM__MODELING_ASSISTANT);
     }
     return learningItems;
   }
@@ -179,7 +178,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
    */
   public EList<LearningResource> getLearningResources() {
     if (learningResources == null) {
-      learningResources = new EObjectWithInverseResolvingEList<LearningResource>(LearningResource.class, this, ModelingassistantPackage.MODELING_ASSISTANT__LEARNING_RESOURCES, ModelingassistantPackage.LEARNING_RESOURCE__MODELING_ASSISTANT);
+      learningResources = new EObjectContainmentWithInverseEList<LearningResource>(LearningResource.class, this, ModelingassistantPackage.MODELING_ASSISTANT__LEARNING_RESOURCES, ModelingassistantPackage.LEARNING_RESOURCE__MODELING_ASSISTANT);
     }
     return learningResources;
   }
@@ -191,7 +190,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
    */
   public EList<ProblemStatement> getProblemStatements() {
     if (problemStatements == null) {
-      problemStatements = new EObjectWithInverseResolvingEList<ProblemStatement>(ProblemStatement.class, this, ModelingassistantPackage.MODELING_ASSISTANT__PROBLEM_STATEMENTS, ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT);
+      problemStatements = new EObjectContainmentWithInverseEList<ProblemStatement>(ProblemStatement.class, this, ModelingassistantPackage.MODELING_ASSISTANT__PROBLEM_STATEMENTS, ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT);
     }
     return problemStatements;
   }
@@ -215,7 +214,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
    */
   public EList<UmlElement> getUmlElements() {
     if (umlElements == null) {
-      umlElements = new EObjectWithInverseResolvingEList<UmlElement>(UmlElement.class, this, ModelingassistantPackage.MODELING_ASSISTANT__UML_ELEMENTS, ModelingassistantPackage.UML_ELEMENT__MODELING_ASSISTANT);
+      umlElements = new EObjectContainmentWithInverseEList<UmlElement>(UmlElement.class, this, ModelingassistantPackage.MODELING_ASSISTANT__UML_ELEMENTS, ModelingassistantPackage.UML_ELEMENT__MODELING_ASSISTANT);
     }
     return umlElements;
   }
@@ -227,7 +226,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
    */
   public EList<Student> getStudents() {
     if (students == null) {
-      students = new EObjectWithInverseResolvingEList<Student>(Student.class, this, ModelingassistantPackage.MODELING_ASSISTANT__STUDENTS, ModelingassistantPackage.STUDENT__MODELING_ASSISTANT);
+      students = new EObjectContainmentWithInverseEList<Student>(Student.class, this, ModelingassistantPackage.MODELING_ASSISTANT__STUDENTS, ModelingassistantPackage.STUDENT__MODELING_ASSISTANT);
     }
     return students;
   }
@@ -239,7 +238,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
    */
   public EList<Feedback> getFeedbacks() {
     if (feedbacks == null) {
-      feedbacks = new EObjectWithInverseResolvingEList<Feedback>(Feedback.class, this, ModelingassistantPackage.MODELING_ASSISTANT__FEEDBACKS, ModelingassistantPackage.FEEDBACK__MODELING_ASSISTANT);
+      feedbacks = new EObjectContainmentWithInverseEList<Feedback>(Feedback.class, this, ModelingassistantPackage.MODELING_ASSISTANT__FEEDBACKS, ModelingassistantPackage.FEEDBACK__MODELING_ASSISTANT);
     }
     return feedbacks;
   }
@@ -251,7 +250,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
    */
   public EList<Mistake> getMistakes() {
     if (mistakes == null) {
-      mistakes = new EObjectWithInverseResolvingEList<Mistake>(Mistake.class, this, ModelingassistantPackage.MODELING_ASSISTANT__MISTAKES, ModelingassistantPackage.MISTAKE__MODELING_ASSISTANT);
+      mistakes = new EObjectContainmentWithInverseEList<Mistake>(Mistake.class, this, ModelingassistantPackage.MODELING_ASSISTANT__MISTAKES, ModelingassistantPackage.MISTAKE__MODELING_ASSISTANT);
     }
     return mistakes;
   }
@@ -263,7 +262,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
    */
   public EList<MistakeType> getMistakeTypes() {
     if (mistakeTypes == null) {
-      mistakeTypes = new EObjectWithInverseResolvingEList<MistakeType>(MistakeType.class, this, ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPES, ModelingassistantPackage.MISTAKE_TYPE__MODELING_ASSISTANT);
+      mistakeTypes = new EObjectContainmentWithInverseEList<MistakeType>(MistakeType.class, this, ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPES, ModelingassistantPackage.MISTAKE_TYPE__MODELING_ASSISTANT);
     }
     return mistakeTypes;
   }

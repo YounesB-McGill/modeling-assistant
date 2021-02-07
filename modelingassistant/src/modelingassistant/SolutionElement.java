@@ -68,24 +68,24 @@ public interface SolutionElement extends EObject {
   void setType(UmlElement value);
 
   /**
-   * Returns the value of the '<em><b>Solution</b></em>' reference.
+   * Returns the value of the '<em><b>Solution</b></em>' container reference.
    * It is bidirectional and its opposite is '{@link modelingassistant.Solution#getSolutionElements <em>Solution Elements</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Solution</em>' reference.
+   * @return the value of the '<em>Solution</em>' container reference.
    * @see #setSolution(Solution)
    * @see modelingassistant.ModelingassistantPackage#getSolutionElement_Solution()
    * @see modelingassistant.Solution#getSolutionElements
-   * @model opposite="solutionElements" required="true"
+   * @model opposite="solutionElements" required="true" transient="false"
    * @generated
    */
   Solution getSolution();
 
   /**
-   * Sets the value of the '{@link modelingassistant.SolutionElement#getSolution <em>Solution</em>}' reference.
+   * Sets the value of the '{@link modelingassistant.SolutionElement#getSolution <em>Solution</em>}' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Solution</em>' reference.
+   * @param value the new value of the '<em>Solution</em>' container reference.
    * @see #getSolution()
    * @generated
    */

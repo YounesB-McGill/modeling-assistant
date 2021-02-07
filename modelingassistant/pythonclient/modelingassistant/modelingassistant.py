@@ -24,18 +24,17 @@ double = EDataType('double', instanceClassName='double')
 
 class ModelingAssistant(EObject, metaclass=MetaEClass):
 
-    learningItems = EReference(ordered=True, unique=True,
-                               containment=False, derived=False, upper=-1)
+    learningItems = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     learningResources = EReference(ordered=True, unique=True,
-                                   containment=False, derived=False, upper=-1)
+                                   containment=True, derived=False, upper=-1)
     problemStatements = EReference(ordered=True, unique=True,
-                                   containment=False, derived=False, upper=-1)
-    solutions = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
-    umlElements = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
-    students = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
-    feedbacks = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
-    mistakes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
-    mistakeTypes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+                                   containment=True, derived=False, upper=-1)
+    solutions = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    umlElements = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    students = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    feedbacks = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    mistakes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    mistakeTypes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
 
     def __init__(self, *, learningItems=None, learningResources=None, problemStatements=None, solutions=None, umlElements=None, students=None, feedbacks=None, mistakes=None, mistakeTypes=None):
         # if kwargs:
@@ -110,7 +109,7 @@ class ProblemStatement(EObject, metaclass=MetaEClass):
 
     modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
     problemStatementElements = EReference(
-        ordered=True, unique=True, containment=False, derived=False, upper=-1)
+        ordered=True, unique=True, containment=True, derived=False, upper=-1)
 
     def __init__(self, *, modelingAssistant=None, problemStatementElements=None):
         # if kwargs:
@@ -173,7 +172,7 @@ class Solution(EObject, metaclass=MetaEClass):
     modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
     student = EReference(ordered=True, unique=True, containment=False, derived=False)
     solutionElements = EReference(ordered=True, unique=True,
-                                  containment=False, derived=False, upper=-1)
+                                  containment=True, derived=False, upper=-1)
     classDiagram = EReference(ordered=True, unique=True, containment=False, derived=False)
 
     def __init__(self, *, modelingAssistant=None, student=None, solutionElements=None, classDiagram=None):

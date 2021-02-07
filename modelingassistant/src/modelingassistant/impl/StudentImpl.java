@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -63,16 +64,6 @@ public class StudentImpl extends MinimalEObjectImpl.Container implements Student
    * @ordered
    */
   protected String id = ID_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getModelingAssistant() <em>Modeling Assistant</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getModelingAssistant()
-   * @generated
-   * @ordered
-   */
-  protected ModelingAssistant modelingAssistant;
 
   /**
    * The cached value of the '{@link #getMistakes() <em>Mistakes</em>}' reference list.
@@ -160,24 +151,8 @@ public class StudentImpl extends MinimalEObjectImpl.Container implements Student
    * @generated
    */
   public ModelingAssistant getModelingAssistant() {
-    if (modelingAssistant != null && modelingAssistant.eIsProxy()) {
-      InternalEObject oldModelingAssistant = (InternalEObject)modelingAssistant;
-      modelingAssistant = (ModelingAssistant)eResolveProxy(oldModelingAssistant);
-      if (modelingAssistant != oldModelingAssistant) {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.STUDENT__MODELING_ASSISTANT, oldModelingAssistant, modelingAssistant));
-      }
-    }
-    return modelingAssistant;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ModelingAssistant basicGetModelingAssistant() {
-    return modelingAssistant;
+    if (eContainerFeatureID() != ModelingassistantPackage.STUDENT__MODELING_ASSISTANT) return null;
+    return (ModelingAssistant)eInternalContainer();
   }
 
   /**
@@ -186,12 +161,7 @@ public class StudentImpl extends MinimalEObjectImpl.Container implements Student
    * @generated
    */
   public NotificationChain basicSetModelingAssistant(ModelingAssistant newModelingAssistant, NotificationChain msgs) {
-    ModelingAssistant oldModelingAssistant = modelingAssistant;
-    modelingAssistant = newModelingAssistant;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT__MODELING_ASSISTANT, oldModelingAssistant, newModelingAssistant);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
+    msgs = eBasicSetContainer((InternalEObject)newModelingAssistant, ModelingassistantPackage.STUDENT__MODELING_ASSISTANT, msgs);
     return msgs;
   }
 
@@ -201,10 +171,12 @@ public class StudentImpl extends MinimalEObjectImpl.Container implements Student
    * @generated
    */
   public void setModelingAssistant(ModelingAssistant newModelingAssistant) {
-    if (newModelingAssistant != modelingAssistant) {
+    if (newModelingAssistant != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.STUDENT__MODELING_ASSISTANT && newModelingAssistant != null)) {
+      if (EcoreUtil.isAncestor(this, newModelingAssistant))
+        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
       NotificationChain msgs = null;
-      if (modelingAssistant != null)
-        msgs = ((InternalEObject)modelingAssistant).eInverseRemove(this, ModelingassistantPackage.MODELING_ASSISTANT__STUDENTS, ModelingAssistant.class, msgs);
+      if (eInternalContainer() != null)
+        msgs = eBasicRemoveFromContainer(msgs);
       if (newModelingAssistant != null)
         msgs = ((InternalEObject)newModelingAssistant).eInverseAdd(this, ModelingassistantPackage.MODELING_ASSISTANT__STUDENTS, ModelingAssistant.class, msgs);
       msgs = basicSetModelingAssistant(newModelingAssistant, msgs);
@@ -320,8 +292,8 @@ public class StudentImpl extends MinimalEObjectImpl.Container implements Student
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
     switch (featureID) {
       case ModelingassistantPackage.STUDENT__MODELING_ASSISTANT:
-        if (modelingAssistant != null)
-          msgs = ((InternalEObject)modelingAssistant).eInverseRemove(this, ModelingassistantPackage.MODELING_ASSISTANT__STUDENTS, ModelingAssistant.class, msgs);
+        if (eInternalContainer() != null)
+          msgs = eBasicRemoveFromContainer(msgs);
         return basicSetModelingAssistant((ModelingAssistant)otherEnd, msgs);
       case ModelingassistantPackage.STUDENT__MISTAKES:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getMistakes()).basicAdd(otherEnd, msgs);
@@ -365,13 +337,26 @@ public class StudentImpl extends MinimalEObjectImpl.Container implements Student
    * @generated
    */
   @Override
+  public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+    switch (eContainerFeatureID()) {
+      case ModelingassistantPackage.STUDENT__MODELING_ASSISTANT:
+        return eInternalContainer().eInverseRemove(this, ModelingassistantPackage.MODELING_ASSISTANT__STUDENTS, ModelingAssistant.class, msgs);
+    }
+    return super.eBasicRemoveFromContainerFeature(msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
     switch (featureID) {
       case ModelingassistantPackage.STUDENT__ID:
         return getId();
       case ModelingassistantPackage.STUDENT__MODELING_ASSISTANT:
-        if (resolve) return getModelingAssistant();
-        return basicGetModelingAssistant();
+        return getModelingAssistant();
       case ModelingassistantPackage.STUDENT__MISTAKES:
         return getMistakes();
       case ModelingassistantPackage.STUDENT__CURRENT_MISTAKE:
@@ -460,7 +445,7 @@ public class StudentImpl extends MinimalEObjectImpl.Container implements Student
       case ModelingassistantPackage.STUDENT__ID:
         return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
       case ModelingassistantPackage.STUDENT__MODELING_ASSISTANT:
-        return modelingAssistant != null;
+        return getModelingAssistant() != null;
       case ModelingassistantPackage.STUDENT__MISTAKES:
         return mistakes != null && !mistakes.isEmpty();
       case ModelingassistantPackage.STUDENT__CURRENT_MISTAKE:

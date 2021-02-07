@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -64,16 +65,6 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected UmlElement type;
-
-  /**
-   * The cached value of the '{@link #getSolution() <em>Solution</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSolution()
-   * @generated
-   * @ordered
-   */
-  protected Solution solution;
 
   /**
    * The cached value of the '{@link #getMistakes() <em>Mistakes</em>}' reference list.
@@ -192,24 +183,8 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * @generated
    */
   public Solution getSolution() {
-    if (solution != null && solution.eIsProxy()) {
-      InternalEObject oldSolution = (InternalEObject)solution;
-      solution = (Solution)eResolveProxy(oldSolution);
-      if (solution != oldSolution) {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION, oldSolution, solution));
-      }
-    }
-    return solution;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Solution basicGetSolution() {
-    return solution;
+    if (eContainerFeatureID() != ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION) return null;
+    return (Solution)eInternalContainer();
   }
 
   /**
@@ -218,12 +193,7 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * @generated
    */
   public NotificationChain basicSetSolution(Solution newSolution, NotificationChain msgs) {
-    Solution oldSolution = solution;
-    solution = newSolution;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION, oldSolution, newSolution);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
+    msgs = eBasicSetContainer((InternalEObject)newSolution, ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION, msgs);
     return msgs;
   }
 
@@ -233,10 +203,12 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * @generated
    */
   public void setSolution(Solution newSolution) {
-    if (newSolution != solution) {
+    if (newSolution != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION && newSolution != null)) {
+      if (EcoreUtil.isAncestor(this, newSolution))
+        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
       NotificationChain msgs = null;
-      if (solution != null)
-        msgs = ((InternalEObject)solution).eInverseRemove(this, ModelingassistantPackage.SOLUTION__SOLUTION_ELEMENTS, Solution.class, msgs);
+      if (eInternalContainer() != null)
+        msgs = eBasicRemoveFromContainer(msgs);
       if (newSolution != null)
         msgs = ((InternalEObject)newSolution).eInverseAdd(this, ModelingassistantPackage.SOLUTION__SOLUTION_ELEMENTS, Solution.class, msgs);
       msgs = basicSetSolution(newSolution, msgs);
@@ -312,8 +284,8 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
           msgs = ((InternalEObject)type).eInverseRemove(this, ModelingassistantPackage.UML_ELEMENT__SOLUTION_ELEMENTS, UmlElement.class, msgs);
         return basicSetType((UmlElement)otherEnd, msgs);
       case ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION:
-        if (solution != null)
-          msgs = ((InternalEObject)solution).eInverseRemove(this, ModelingassistantPackage.SOLUTION__SOLUTION_ELEMENTS, Solution.class, msgs);
+        if (eInternalContainer() != null)
+          msgs = eBasicRemoveFromContainer(msgs);
         return basicSetSolution((Solution)otherEnd, msgs);
       case ModelingassistantPackage.SOLUTION_ELEMENT__MISTAKES:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getMistakes()).basicAdd(otherEnd, msgs);
@@ -347,6 +319,20 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * @generated
    */
   @Override
+  public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+    switch (eContainerFeatureID()) {
+      case ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION:
+        return eInternalContainer().eInverseRemove(this, ModelingassistantPackage.SOLUTION__SOLUTION_ELEMENTS, Solution.class, msgs);
+    }
+    return super.eBasicRemoveFromContainerFeature(msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
     switch (featureID) {
       case ModelingassistantPackage.SOLUTION_ELEMENT__PROBLEM_STATEMENT_ELEMENTS:
@@ -355,8 +341,7 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
         if (resolve) return getType();
         return basicGetType();
       case ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION:
-        if (resolve) return getSolution();
-        return basicGetSolution();
+        return getSolution();
       case ModelingassistantPackage.SOLUTION_ELEMENT__MISTAKES:
         return getMistakes();
       case ModelingassistantPackage.SOLUTION_ELEMENT__ELEMENT:
@@ -436,7 +421,7 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
       case ModelingassistantPackage.SOLUTION_ELEMENT__TYPE:
         return type != null;
       case ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION:
-        return solution != null;
+        return getSolution() != null;
       case ModelingassistantPackage.SOLUTION_ELEMENT__MISTAKES:
         return mistakes != null && !mistakes.isEmpty();
       case ModelingassistantPackage.SOLUTION_ELEMENT__ELEMENT:
