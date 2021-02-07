@@ -25,24 +25,24 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ProblemStatementElement extends EObject {
   /**
-   * Returns the value of the '<em><b>Problem Statement</b></em>' reference.
+   * Returns the value of the '<em><b>Problem Statement</b></em>' container reference.
    * It is bidirectional and its opposite is '{@link modelingassistant.ProblemStatement#getProblemStatementElements <em>Problem Statement Elements</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Problem Statement</em>' reference.
+   * @return the value of the '<em>Problem Statement</em>' container reference.
    * @see #setProblemStatement(ProblemStatement)
    * @see modelingassistant.ModelingassistantPackage#getProblemStatementElement_ProblemStatement()
    * @see modelingassistant.ProblemStatement#getProblemStatementElements
-   * @model opposite="problemStatementElements" required="true"
+   * @model opposite="problemStatementElements" required="true" transient="false"
    * @generated
    */
   ProblemStatement getProblemStatement();
 
   /**
-   * Sets the value of the '{@link modelingassistant.ProblemStatementElement#getProblemStatement <em>Problem Statement</em>}' reference.
+   * Sets the value of the '{@link modelingassistant.ProblemStatementElement#getProblemStatement <em>Problem Statement</em>}' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Problem Statement</em>' reference.
+   * @param value the new value of the '<em>Problem Statement</em>' container reference.
    * @see #getProblemStatement()
    * @generated
    */

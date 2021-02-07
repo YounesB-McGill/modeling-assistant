@@ -26,24 +26,24 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface UmlElement extends EObject {
   /**
-   * Returns the value of the '<em><b>Modeling Assistant</b></em>' reference.
+   * Returns the value of the '<em><b>Modeling Assistant</b></em>' container reference.
    * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getUmlElements <em>Uml Elements</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Modeling Assistant</em>' reference.
+   * @return the value of the '<em>Modeling Assistant</em>' container reference.
    * @see #setModelingAssistant(ModelingAssistant)
    * @see modelingassistant.ModelingassistantPackage#getUmlElement_ModelingAssistant()
    * @see modelingassistant.ModelingAssistant#getUmlElements
-   * @model opposite="umlElements" required="true"
+   * @model opposite="umlElements" required="true" transient="false"
    * @generated
    */
   ModelingAssistant getModelingAssistant();
 
   /**
-   * Sets the value of the '{@link modelingassistant.UmlElement#getModelingAssistant <em>Modeling Assistant</em>}' reference.
+   * Sets the value of the '{@link modelingassistant.UmlElement#getModelingAssistant <em>Modeling Assistant</em>}' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Modeling Assistant</em>' reference.
+   * @param value the new value of the '<em>Modeling Assistant</em>' container reference.
    * @see #getModelingAssistant()
    * @generated
    */

@@ -77,15 +77,15 @@ public interface Solution extends EObject {
   void setStudent(Student value);
 
   /**
-   * Returns the value of the '<em><b>Solution Elements</b></em>' reference list.
+   * Returns the value of the '<em><b>Solution Elements</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.SolutionElement}.
    * It is bidirectional and its opposite is '{@link modelingassistant.SolutionElement#getSolution <em>Solution</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Solution Elements</em>' reference list.
+   * @return the value of the '<em>Solution Elements</em>' containment reference list.
    * @see modelingassistant.ModelingassistantPackage#getSolution_SolutionElements()
    * @see modelingassistant.SolutionElement#getSolution
-   * @model opposite="solution"
+   * @model opposite="solution" containment="true"
    * @generated
    */
   EList<SolutionElement> getSolutionElements();

@@ -122,24 +122,24 @@ public interface MistakeType extends EObject {
   void setNumStepsBeforeNotification(int value);
 
   /**
-   * Returns the value of the '<em><b>Modeling Assistant</b></em>' reference.
+   * Returns the value of the '<em><b>Modeling Assistant</b></em>' container reference.
    * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getMistakeTypes <em>Mistake Types</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Modeling Assistant</em>' reference.
+   * @return the value of the '<em>Modeling Assistant</em>' container reference.
    * @see #setModelingAssistant(ModelingAssistant)
    * @see modelingassistant.ModelingassistantPackage#getMistakeType_ModelingAssistant()
    * @see modelingassistant.ModelingAssistant#getMistakeTypes
-   * @model opposite="mistakeTypes" required="true"
+   * @model opposite="mistakeTypes" required="true" transient="false"
    * @generated
    */
   ModelingAssistant getModelingAssistant();
 
   /**
-   * Sets the value of the '{@link modelingassistant.MistakeType#getModelingAssistant <em>Modeling Assistant</em>}' reference.
+   * Sets the value of the '{@link modelingassistant.MistakeType#getModelingAssistant <em>Modeling Assistant</em>}' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Modeling Assistant</em>' reference.
+   * @param value the new value of the '<em>Modeling Assistant</em>' container reference.
    * @see #getModelingAssistant()
    * @generated
    */

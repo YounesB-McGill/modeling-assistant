@@ -142,24 +142,24 @@ public interface Feedback extends EObject {
   void setHighlightSolution(boolean value);
 
   /**
-   * Returns the value of the '<em><b>Modeling Assistant</b></em>' reference.
+   * Returns the value of the '<em><b>Modeling Assistant</b></em>' container reference.
    * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getFeedbacks <em>Feedbacks</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Modeling Assistant</em>' reference.
+   * @return the value of the '<em>Modeling Assistant</em>' container reference.
    * @see #setModelingAssistant(ModelingAssistant)
    * @see modelingassistant.ModelingassistantPackage#getFeedback_ModelingAssistant()
    * @see modelingassistant.ModelingAssistant#getFeedbacks
-   * @model opposite="feedbacks" required="true"
+   * @model opposite="feedbacks" required="true" transient="false"
    * @generated
    */
   ModelingAssistant getModelingAssistant();
 
   /**
-   * Sets the value of the '{@link modelingassistant.Feedback#getModelingAssistant <em>Modeling Assistant</em>}' reference.
+   * Sets the value of the '{@link modelingassistant.Feedback#getModelingAssistant <em>Modeling Assistant</em>}' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Modeling Assistant</em>' reference.
+   * @param value the new value of the '<em>Modeling Assistant</em>' container reference.
    * @see #getModelingAssistant()
    * @generated
    */

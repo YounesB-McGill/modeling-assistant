@@ -32,43 +32,43 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ModelingAssistant extends EObject {
   /**
-   * Returns the value of the '<em><b>Learning Items</b></em>' reference list.
+   * Returns the value of the '<em><b>Learning Items</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.LearningItem}.
    * It is bidirectional and its opposite is '{@link modelingassistant.LearningItem#getModelingAssistant <em>Modeling Assistant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Learning Items</em>' reference list.
+   * @return the value of the '<em>Learning Items</em>' containment reference list.
    * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_LearningItems()
    * @see modelingassistant.LearningItem#getModelingAssistant
-   * @model opposite="modelingAssistant"
+   * @model opposite="modelingAssistant" containment="true"
    * @generated
    */
   EList<LearningItem> getLearningItems();
 
   /**
-   * Returns the value of the '<em><b>Learning Resources</b></em>' reference list.
+   * Returns the value of the '<em><b>Learning Resources</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.LearningResource}.
    * It is bidirectional and its opposite is '{@link modelingassistant.LearningResource#getModelingAssistant <em>Modeling Assistant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Learning Resources</em>' reference list.
+   * @return the value of the '<em>Learning Resources</em>' containment reference list.
    * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_LearningResources()
    * @see modelingassistant.LearningResource#getModelingAssistant
-   * @model opposite="modelingAssistant"
+   * @model opposite="modelingAssistant" containment="true"
    * @generated
    */
   EList<LearningResource> getLearningResources();
 
   /**
-   * Returns the value of the '<em><b>Problem Statements</b></em>' reference list.
+   * Returns the value of the '<em><b>Problem Statements</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.ProblemStatement}.
    * It is bidirectional and its opposite is '{@link modelingassistant.ProblemStatement#getModelingAssistant <em>Modeling Assistant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Problem Statements</em>' reference list.
+   * @return the value of the '<em>Problem Statements</em>' containment reference list.
    * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_ProblemStatements()
    * @see modelingassistant.ProblemStatement#getModelingAssistant
-   * @model opposite="modelingAssistant"
+   * @model opposite="modelingAssistant" containment="true"
    * @generated
    */
   EList<ProblemStatement> getProblemStatements();
@@ -88,71 +88,71 @@ public interface ModelingAssistant extends EObject {
   EList<Solution> getSolutions();
 
   /**
-   * Returns the value of the '<em><b>Uml Elements</b></em>' reference list.
+   * Returns the value of the '<em><b>Uml Elements</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.UmlElement}.
    * It is bidirectional and its opposite is '{@link modelingassistant.UmlElement#getModelingAssistant <em>Modeling Assistant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Uml Elements</em>' reference list.
+   * @return the value of the '<em>Uml Elements</em>' containment reference list.
    * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_UmlElements()
    * @see modelingassistant.UmlElement#getModelingAssistant
-   * @model opposite="modelingAssistant"
+   * @model opposite="modelingAssistant" containment="true"
    * @generated
    */
   EList<UmlElement> getUmlElements();
 
   /**
-   * Returns the value of the '<em><b>Students</b></em>' reference list.
+   * Returns the value of the '<em><b>Students</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.Student}.
    * It is bidirectional and its opposite is '{@link modelingassistant.Student#getModelingAssistant <em>Modeling Assistant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Students</em>' reference list.
+   * @return the value of the '<em>Students</em>' containment reference list.
    * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_Students()
    * @see modelingassistant.Student#getModelingAssistant
-   * @model opposite="modelingAssistant"
+   * @model opposite="modelingAssistant" containment="true"
    * @generated
    */
   EList<Student> getStudents();
 
   /**
-   * Returns the value of the '<em><b>Feedbacks</b></em>' reference list.
+   * Returns the value of the '<em><b>Feedbacks</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.Feedback}.
    * It is bidirectional and its opposite is '{@link modelingassistant.Feedback#getModelingAssistant <em>Modeling Assistant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Feedbacks</em>' reference list.
+   * @return the value of the '<em>Feedbacks</em>' containment reference list.
    * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_Feedbacks()
    * @see modelingassistant.Feedback#getModelingAssistant
-   * @model opposite="modelingAssistant"
+   * @model opposite="modelingAssistant" containment="true"
    * @generated
    */
   EList<Feedback> getFeedbacks();
 
   /**
-   * Returns the value of the '<em><b>Mistakes</b></em>' reference list.
+   * Returns the value of the '<em><b>Mistakes</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.Mistake}.
    * It is bidirectional and its opposite is '{@link modelingassistant.Mistake#getModelingAssistant <em>Modeling Assistant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Mistakes</em>' reference list.
+   * @return the value of the '<em>Mistakes</em>' containment reference list.
    * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_Mistakes()
    * @see modelingassistant.Mistake#getModelingAssistant
-   * @model opposite="modelingAssistant"
+   * @model opposite="modelingAssistant" containment="true"
    * @generated
    */
   EList<Mistake> getMistakes();
 
   /**
-   * Returns the value of the '<em><b>Mistake Types</b></em>' reference list.
+   * Returns the value of the '<em><b>Mistake Types</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.MistakeType}.
    * It is bidirectional and its opposite is '{@link modelingassistant.MistakeType#getModelingAssistant <em>Modeling Assistant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Mistake Types</em>' reference list.
+   * @return the value of the '<em>Mistake Types</em>' containment reference list.
    * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_MistakeTypes()
    * @see modelingassistant.MistakeType#getModelingAssistant
-   * @model opposite="modelingAssistant"
+   * @model opposite="modelingAssistant" containment="true"
    * @generated
    */
   EList<MistakeType> getMistakeTypes();

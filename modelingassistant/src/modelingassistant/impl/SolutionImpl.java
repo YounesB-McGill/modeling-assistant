@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -55,7 +55,7 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
   protected Student student;
 
   /**
-   * The cached value of the '{@link #getSolutionElements() <em>Solution Elements</em>}' reference list.
+   * The cached value of the '{@link #getSolutionElements() <em>Solution Elements</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getSolutionElements()
@@ -201,7 +201,7 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
    */
   public EList<SolutionElement> getSolutionElements() {
     if (solutionElements == null) {
-      solutionElements = new EObjectWithInverseResolvingEList<SolutionElement>(SolutionElement.class, this, ModelingassistantPackage.SOLUTION__SOLUTION_ELEMENTS, ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION);
+      solutionElements = new EObjectContainmentWithInverseEList<SolutionElement>(SolutionElement.class, this, ModelingassistantPackage.SOLUTION__SOLUTION_ELEMENTS, ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION);
     }
     return solutionElements;
   }
