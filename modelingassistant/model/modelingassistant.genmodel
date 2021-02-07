@@ -31,7 +31,7 @@
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//ProblemStatement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ProblemStatement/modelingAssistant"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ProblemStatement/problemStatementElements"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ProblemStatement/problemStatementElements"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//ProblemStatementElement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ProblemStatementElement/problemStatement"/>
@@ -45,7 +45,7 @@
     <genClasses ecoreClass="modelingassistant.ecore#//Solution">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/modelingAssistant"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/student"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/solutionElements"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/solutionElements"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/classDiagram"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//SolutionElement">
