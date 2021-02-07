@@ -8,23 +8,23 @@
   <eClassifiers xsi:type="ecore:EDataType" name="double" instanceClassName="double"/>
   <eClassifiers xsi:type="ecore:EClass" name="ModelingAssistant">
     <eStructuralFeatures xsi:type="ecore:EReference" name="learningItems" upperBound="-1"
-        eType="#//LearningItem" eOpposite="#//LearningItem/modelingAssistant"/>
+        eType="#//LearningItem" containment="true" eOpposite="#//LearningItem/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="learningResources" upperBound="-1"
-        eType="#//LearningResource" eOpposite="#//LearningResource/modelingAssistant"/>
+        eType="#//LearningResource" containment="true" eOpposite="#//LearningResource/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatements" upperBound="-1"
-        eType="#//ProblemStatement" eOpposite="#//ProblemStatement/modelingAssistant"/>
+        eType="#//ProblemStatement" containment="true" eOpposite="#//ProblemStatement/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="solutions" upperBound="-1"
         eType="#//Solution" containment="true" eOpposite="#//Solution/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="umlElements" upperBound="-1"
-        eType="#//UmlElement" eOpposite="#//UmlElement/modelingAssistant"/>
+        eType="#//UmlElement" containment="true" eOpposite="#//UmlElement/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="students" upperBound="-1"
-        eType="#//Student" eOpposite="#//Student/modelingAssistant"/>
+        eType="#//Student" containment="true" eOpposite="#//Student/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feedbacks" upperBound="-1"
-        eType="#//Feedback" eOpposite="#//Feedback/modelingAssistant"/>
+        eType="#//Feedback" containment="true" eOpposite="#//Feedback/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakes" upperBound="-1"
-        eType="#//Mistake" eOpposite="#//Mistake/modelingAssistant"/>
+        eType="#//Mistake" containment="true" eOpposite="#//Mistake/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypes" upperBound="-1"
-        eType="#//MistakeType" eOpposite="#//MistakeType/modelingAssistant"/>
+        eType="#//MistakeType" containment="true" eOpposite="#//MistakeType/modelingAssistant"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Student">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -43,7 +43,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
         eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/problemStatements"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatementElements"
-        upperBound="-1" eType="#//ProblemStatementElement" eOpposite="#//ProblemStatementElement/problemStatement"/>
+        upperBound="-1" eType="#//ProblemStatementElement" containment="true" eOpposite="#//ProblemStatementElement/problemStatement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProblemStatementElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatement" lowerBound="1"
@@ -65,7 +65,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="student" eType="#//Student"
         eOpposite="#//Student/solutions"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="solutionElements" upperBound="-1"
-        eType="#//SolutionElement" eOpposite="#//SolutionElement/solution"/>
+        eType="#//SolutionElement" containment="true" eOpposite="#//SolutionElement/solution"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classDiagram" lowerBound="1"
         eType="ecore:EClass classdiagram.ecore#//ClassDiagram"/>
   </eClassifiers>
