@@ -17,10 +17,8 @@ def test_pytest_is_working():
 
 def test_creating_empty_solution():
     modeling_assistant = ModelingAssistant()
-    solution = Solution()
     class_diagram = ClassDiagram(name="Student1_solution")
-    solution.classDiagram = class_diagram
-    modeling_assistant.solutions.append(solution)
+    solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
     assert "Student1_solution" == modeling_assistant.solutions[0].classDiagram.name
 
 
