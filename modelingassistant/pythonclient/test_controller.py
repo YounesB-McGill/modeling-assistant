@@ -6,7 +6,8 @@ import pytest
 
 from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, ImplementationClass, CDInt, CDString,
     AssociationEnd, Association, ReferenceType)
-from modelingassistant.modelingassistant import ModelingAssistant, Solution
+from modelingassistant.modelingassistant import (ModelingAssistant, Solution, Student, MistakeType, LearningItem,
+    StudentKnowledge)
 from pyecore.ecore import EInteger, EString
 from pyecore.resources import ResourceSet, URI
 
@@ -485,15 +486,11 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
 
     # Link first class diagram to modeling assistant instance
     modeling_assistant = ModelingAssistant()
-    solution1 = Solution()
-    solution1.classDiagram = class_diagram
-    modeling_assistant.solutions.append(solution1)
+    solution1 = Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
 
     # Make and link second class diagram to modeling assistant instance
     class_diagram2 = ClassDiagram(name="Student2_solution")
-    solution2 = Solution()
-    solution2.classDiagram = class_diagram2
-    modeling_assistant.solutions.append(solution2)
+    solution2 = Solution(classDiagram=class_diagram2, modelingAssistant=modeling_assistant)
     cd_int = CDInt()
     cd_string = CDString()
     class_diagram2.types.extend([cd_int, cd_string])
@@ -612,6 +609,93 @@ def test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java
         assert c.name in expected_class_names2
         expected_class_names2.remove(c.name)
     assert not expected_class_names2
+
+
+def test_student_knowledge_persisted_correctly():
+    """
+    Verify that StudentKnowledge association classes can be serialized and loaded again correctly.
+    """
+    # Remove previously created file (if it exists)
+    ma_path = "modelingassistant/instances/ma_studentknowledge_from_python.xmi"
+    if os.path.exists(ma_path): os.remove(ma_path)
+
+    # Load ClassDiagram and Modeling Assistant metamodels
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+    rset = ResourceSet()
+    cdm_mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
+    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
+    ma_mm_root = rset.get_resource(URI(ma_mm_file)).contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+    
+    # Open premade class diagram from one of the above tests
+    cdm_path = "modelingassistant/testmodels"
+    cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
+    class_diagram: ClassDiagram = rset.get_resource(URI(cdm_file)).contents[0]
+    class_diagram.__class__ = ClassDiagram
+    car_class = driver_class = sports_car_class = part_class = None
+    for c in class_diagram.classes:
+        if c.name == "Car": car_class = c
+        elif c.name == "Driver": driver_class = c
+        elif c.name == "SportsCar": sports_car_class = c
+        elif c.name == "Part": part_class = c
+
+    # Create modeling assistant and general learning objects associated with it 
+    modeling_assistant = ModelingAssistant()
+    correct_class_naming = LearningItem(modelingAssistant=modeling_assistant)
+    class_naming_mistake_type = MistakeType(name="Wrong class name", learningItem=correct_class_naming,
+                                            atomic=True, modelingAssistant=modeling_assistant)
+
+    # Link first class diagram to modeling assistant instance and related student
+    student1 = Student(id="1111", modelingAssistant=modeling_assistant)
+    solution1 = Solution(classDiagram=class_diagram, student=student1, modelingAssistant=modeling_assistant)
+    lok1 = 10_578_963  # use a large int to detect it in testing 
+    student1_class_naming_knowledge = StudentKnowledge(levelOfKnowledge=lok1, student=student1,
+                                                       mistakeType=class_naming_mistake_type)
+
+    # Make and link second class diagram to modeling assistant instance and related student
+    class_diagram2 = ClassDiagram(name="Student2_solution")
+    student2 = Student(id="2222", modelingAssistant=modeling_assistant)
+    solution2 = Solution(classDiagram=class_diagram2, student=student2, modelingAssistant=modeling_assistant)
+    lok2 = 8_996_541
+    student2_class_naming_knowledge = StudentKnowledge(levelOfKnowledge=lok2, student=student2,
+                                                       mistakeType=class_naming_mistake_type)
+    cd_int = CDInt()
+    cd_string = CDString()
+    class_diagram2.types.extend([cd_int, cd_string])
+    car_class2 = Class(name="Car", attributes=[
+        Attribute(name="id", type=cd_int),
+        Attribute(name="make", type=cd_string)
+    ])
+    class_diagram2.classes.append(car_class2)
+
+    # Save modeling assistant instance to file
+    resource = rset.create_resource(URI(ma_path))
+    resource.use_uuid = True
+    resource.extend([modeling_assistant, class_diagram, class_diagram2,
+                     student1_class_naming_knowledge, student2_class_naming_knowledge])  # should not be here
+    resource.save()
+
+    assert os.path.exists(ma_path)
+    with open(ma_path) as f:
+        file_contents = f.read()
+        for s in ["Car", "SportsCar", "Part", "Driver", "make", "CDInt", "Student2_solution", 
+                  "1111", "2222", f"{lok1}", f"{lok2}", "Wrong class name", "atomic"]:
+            assert s in file_contents
+
+    # Test loading
+    modeling_assistant: ModelingAssistant = rset.get_resource(URI(ma_path)).contents[0]
+    modeling_assistant.__class__ = ModelingAssistant
+    s1k = modeling_assistant.students[0].studentKnowledges[0]
+    s2k = modeling_assistant.students[1].studentKnowledges[0]
+
+    assert "1111" == s1k.student.id
+    assert lok1 == s1k.levelOfKnowledge
+    assert "Wrong class name" == s1k.mistakeType.name
+    assert "2222" == s2k.student.id
+    assert lok2 == s2k.levelOfKnowledge
+    assert s2k.mistakeType.atomic
+
 
 
 def associate(class1, class2):
