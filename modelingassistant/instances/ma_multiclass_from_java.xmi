@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0">
-  <modelingassistant:ModelingAssistant xmi:id="_4TtjoGM-Eeu7bKeP69eaeg" solutions="_4TtjoWM-Eeu7bKeP69eaeg"/>
+  <modelingassistant:ModelingAssistant xmi:id="_APrBwGnbEeuqJo8Fo4iNtw">
+    <solutions xmi:id="_APrBwWnbEeuqJo8Fo4iNtw" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
+  </modelingassistant:ModelingAssistant>
   <classdiagram:ClassDiagram xmi:id="_VQRncElSEeuektpDqzDh1Q" name="Cdm-staging">
     <classes xsi:type="classdiagram:Class" xmi:id="_WHVLQElSEeuektpDqzDh1Q" name="Car">
       <associationEnds xmi:id="_cwaGIElUEeuektpDqzDh1Q" name="drivers" assoc="_cwaGIklUEeuektpDqzDh1Q" upperBound="-1"/>
@@ -45,5 +47,4 @@
       </containers>
     </layout>
   </classdiagram:ClassDiagram>
-  <modelingassistant:Solution xmi:id="_4TtjoWM-Eeu7bKeP69eaeg" modelingAssistant="_4TtjoGM-Eeu7bKeP69eaeg" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
 </xmi:XMI>
