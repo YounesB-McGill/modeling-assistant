@@ -32,11 +32,8 @@ def test_creating_one_class_solution():
     }
     """
     modeling_assistant = ModelingAssistant()
-    solution = Solution()
     class_diagram = ClassDiagram(name="Student1_solution")
-    solution.classDiagram = class_diagram
-    modeling_assistant.solutions.append(solution)
-    
+    solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
     cd_int = CDInt()
     cd_string = CDString()
 
@@ -65,11 +62,8 @@ def test_creating_two_class_solution_with_association():
     }
     """
     modeling_assistant = ModelingAssistant()
-    solution = Solution()
     class_diagram = ClassDiagram(name="Student1_solution")
-    solution.classDiagram = class_diagram
-    modeling_assistant.solutions.append(solution)
-    
+    solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
     cd_int = CDInt()
     cd_string = CDString()
 
@@ -124,11 +118,8 @@ def test_creating_two_class_solution_with_generalization():
     class SportsCar { isA Car; }
     """
     modeling_assistant = ModelingAssistant()
-    solution = Solution()
     class_diagram = ClassDiagram(name="Student1_solution")
-    solution.classDiagram = class_diagram
-    modeling_assistant.solutions.append(solution)
-    
+    solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
     cd_int = CDInt()
     cd_string = CDString()
 
@@ -183,8 +174,7 @@ def test_creating_one_class_solution_from_serialized_class_diagram():
     assert CDString.__name__ == type(car_class.attributes[1].type).__name__
 
     modeling_assistant = ModelingAssistant()
-    solution = Solution()
-    solution.classDiagram = class_diagram
+    solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
 
     assert car_class == solution.classDiagram.classes[0]
     
@@ -226,10 +216,7 @@ def test_creating_multiclass_solution_from_serialized_class_diagram():
         if ae.name == "parts": assert "Composition" == str(ae.referenceType)
 
     modeling_assistant = ModelingAssistant()
-    solution = Solution()
-    solution.modelingAssistant = modeling_assistant
-    modeling_assistant.solutions.append(solution)
-    solution.classDiagram = class_diagram
+    solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
 
     for c in [car_class, driver_class, sports_car_class, part_class]:
         assert c in solution.classDiagram.classes
@@ -255,10 +242,8 @@ def test_persisting_modeling_assistant_with_one_class_solution():
 
     # Dynamically create a modeling assistant and link it with a TouchCore class diagram 
     modeling_assistant = ModelingAssistant()
-    solution = Solution()
     class_diagram = ClassDiagram(name="Student1_solution")
-    solution.classDiagram = class_diagram
-    modeling_assistant.solutions.append(solution)
+    solution = Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
     cd_int = CDInt()
     cd_string = CDString()
     class_diagram.types.extend([cd_int, cd_string])
@@ -271,7 +256,7 @@ def test_persisting_modeling_assistant_with_one_class_solution():
     # Save modeling assistant instance to file
     resource = rset.create_resource(URI(ma_path))
     resource.use_uuid = True
-    resource.extend([modeling_assistant, class_diagram, solution])
+    resource.extend([modeling_assistant, class_diagram])
     resource.save()
 
     assert os.path.exists(ma_path)
@@ -313,6 +298,7 @@ def test_loading_modeling_assistant_with_one_class_solution():
         expected_class_names.remove(c.name)
     assert not expected_class_names
 
+
 def test_loading_modeling_assistant_with_one_class_solution_serialized_in_java():
     """
     Verify that the Java version of the modeling assistant instance defined above can be deserialized correctly.
@@ -353,17 +339,20 @@ def test_persisting_modeling_assistant_with_multiclass_solution():
     # Remove previously created file (if it exists)
     ma_path = "modelingassistant/instances/ma_multiclass_from_python.xmi"
     if os.path.exists(ma_path): os.remove(ma_path)
-    
-    # Open premade class diagram from one of the above tests
+
+    # Load ClassDiagram and Modeling Assistant metamodels
     cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = ResourceSet()
-    resource = rset.get_resource(URI(cdm_mm_file))
-    mm_root = resource.contents[0]
-    rset.metamodel_registry[mm_root.nsURI] = mm_root
+    cdm_mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
+    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
+    ma_mm_root = rset.get_resource(URI(ma_mm_file)).contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+
+    # Open premade class diagram from one of the above tests
     cdm_path = "modelingassistant/testmodels"
     cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
-    resource = rset.get_resource(URI(cdm_file))
-    class_diagram: ClassDiagram = resource.contents[0]
+    class_diagram: ClassDiagram = rset.get_resource(URI(cdm_file)).contents[0]
     class_diagram.__class__ = ClassDiagram
     car_class = driver_class = sports_car_class = part_class = None
     for c in class_diagram.classes:
@@ -372,16 +361,16 @@ def test_persisting_modeling_assistant_with_multiclass_solution():
         elif c.name == "SportsCar": sports_car_class = c
         elif c.name == "Part": part_class = c
 
-    # Link class_diagram to modeling assistant instance
-    modeling_assistant = ModelingAssistant()
-    solution = Solution()
-    solution.classDiagram = class_diagram
-    modeling_assistant.solutions.append(solution)
+    assert "Car" == class_diagram.classes[0].name
 
+    # Link class_diagram to modeling assistant instance 
+    modeling_assistant = ModelingAssistant()
+    solution = Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
+    
     # Save modeling assistant instance to file
     resource = rset.create_resource(URI(ma_path))
     resource.use_uuid = True
-    resource.extend([modeling_assistant, class_diagram, solution])
+    resource.extend([modeling_assistant, class_diagram])
     resource.save()
 
     assert os.path.exists(ma_path)
@@ -472,17 +461,20 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
     # Remove previously created file (if it exists)
     ma_path = "modelingassistant/instances/ma_multisolution_from_python.xmi"
     if os.path.exists(ma_path): os.remove(ma_path)
+
+    # Load ClassDiagram and Modeling Assistant metamodels
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+    rset = ResourceSet()
+    cdm_mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
+    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
+    ma_mm_root = rset.get_resource(URI(ma_mm_file)).contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
     
     # Open premade class diagram from one of the above tests
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
-    rset = ResourceSet()
-    resource = rset.get_resource(URI(cdm_mm_file))
-    mm_root = resource.contents[0]
-    rset.metamodel_registry[mm_root.nsURI] = mm_root
     cdm_path = "modelingassistant/testmodels"
     cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
-    resource = rset.get_resource(URI(cdm_file))
-    class_diagram: ClassDiagram = resource.contents[0]
+    class_diagram: ClassDiagram = rset.get_resource(URI(cdm_file)).contents[0]
     class_diagram.__class__ = ClassDiagram
     car_class = driver_class = sports_car_class = part_class = None
     for c in class_diagram.classes:
@@ -514,7 +506,7 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
     # Save modeling assistant instance to file
     resource = rset.create_resource(URI(ma_path))
     resource.use_uuid = True
-    resource.extend([modeling_assistant, class_diagram, class_diagram2, solution1, solution2])
+    resource.extend([modeling_assistant, class_diagram, class_diagram2])
     resource.save()
 
     assert os.path.exists(ma_path)
