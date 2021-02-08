@@ -638,6 +638,118 @@ public class ControllerTest {
   }
   
   /**
+   *  Verifies that StudentKnowledge association classes can be serialized and loaded again correctly.
+   */
+  @Test public void testStudentKnowledgePersistedCorrectly() {
+    var maPath = "../modelingassistant/instances/ma_studentknowledge_from_java.xmi";
+    var maFile = new File(maPath);
+    if (maFile.isFile()) {
+      assertTrue(maFile.delete());
+    }
+
+    ClassdiagramPackage.eINSTANCE.eClass();
+    ModelingassistantPackage.eINSTANCE.eClass();
+    var cdf = ClassdiagramFactory.eINSTANCE;
+    var maf = ModelingassistantFactory.eINSTANCE;
+    
+    // Open premade class diagram from one of the above tests
+    // Can't reuse ResourceHelper.INSTANCE here to load duplicate resource
+    var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl() {
+      @Override public Resource createResource(URI uri) {
+        return new XMIResourceImpl(uri) {
+          @Override protected boolean useUUIDs() { return true; }
+        };
+      }
+    });
+    var resource = rset.getResource(URI.createFileURI(cdmFile), true);
+    var classDiagram = (ClassDiagram) resource.getContents().get(0);
+    
+    // Create modeling assistant and general learning objects associated with it
+    var modelingAssistant = maf.createModelingAssistant();
+    var correctClassNaming = maf.createLearningItem();
+    correctClassNaming.setModelingAssistant(modelingAssistant);
+    var classNamingMistakeType = maf.createMistakeType();
+    classNamingMistakeType.setName("Wrong class name");
+    classNamingMistakeType.setAtomic(true);
+    classNamingMistakeType.setLearningItem(correctClassNaming);
+    classNamingMistakeType.setModelingAssistant(modelingAssistant);
+
+    // Link first class diagram to modeling assistant instance and related student
+    var student1 = maf.createStudent();
+    student1.setId("1111");
+    student1.setModelingAssistant(modelingAssistant);
+    var solution1 = maf.createSolution();
+    solution1.setClassDiagram(classDiagram);
+    solution1.setStudent(student1);
+    solution1.setModelingAssistant(modelingAssistant);
+    var lok1 = 10_578_963; // use a large int to detect it in testing
+    var student1ClassNamingKnowledge = maf.createStudentKnowledge();
+    student1ClassNamingKnowledge.setLevelOfKnowledge(lok1);
+    student1ClassNamingKnowledge.setStudent(student1);
+    student1ClassNamingKnowledge.setMistakeType(classNamingMistakeType);
+    
+    // Make and link second class diagram to modeling assistant instance and related student
+    var classDiagram2 = cdf.createClassDiagram();
+    classDiagram2.setName("Student2_solution");
+    var student2 = maf.createStudent();
+    student2.setId("2222");
+    student2.setModelingAssistant(modelingAssistant);
+    var solution2 = maf.createSolution();
+    solution2.setClassDiagram(classDiagram2);
+    solution2.setStudent(student2);
+    solution2.setModelingAssistant(modelingAssistant);
+    var lok2 = 8_996_541;
+    var student2ClassNamingKnowledge = maf.createStudentKnowledge();
+    student2ClassNamingKnowledge.setLevelOfKnowledge(lok2);
+    student2ClassNamingKnowledge.setStudent(student2);
+    student2ClassNamingKnowledge.setMistakeType(classNamingMistakeType);
+    
+    var cdInt = cdf.createCDInt();
+    var cdString = cdf.createCDString();
+    classDiagram2.getTypes().addAll(List.of(cdInt, cdString));
+    
+    var carClass2 = cdf.createClass();
+    carClass2.setName("Car");
+    var carId = cdf.createAttribute();
+    carId.setName("id");
+    carId.setType(cdInt);
+    var carMake = cdf.createAttribute();
+    carMake.setName("make");
+    carMake.setType(cdString); 
+    carClass2.getAttributes().addAll(List.of(carId, carMake));
+    classDiagram2.getClasses().add(carClass2);
+    
+    // Save modeling assistant instance to file and verify contents
+    resource = rset.createResource(URI.createFileURI(maPath));
+    resource.getContents().addAll(List.of(modelingAssistant, classDiagram, classDiagram2,
+        student1ClassNamingKnowledge, student2ClassNamingKnowledge)); // should not be here
+    try {
+      resource.save(Collections.EMPTY_MAP);
+      assertTrue(maFile.isFile());
+      var fileContent = Files.readString(Paths.get(maPath));
+      List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt", "Student2_solution", "1111", "2222",
+          Integer.toString(lok1), Integer.toString(lok2), "Wrong class name", "atomic").forEach(s ->
+          assertTrue(fileContent.contains(s)));
+    } catch (IOException e) {
+      fail();
+    }
+    
+    // Test loading
+    modelingAssistant = (ModelingAssistant) rset.getResource(URI.createFileURI(maPath), false).getContents().get(0);
+    var s1k = modelingAssistant.getStudents().get(0).getStudentKnowledges().get(0);
+    var s2k = modelingAssistant.getStudents().get(1).getStudentKnowledges().get(0);
+    
+    assertEquals("1111", s1k.getStudent().getId());
+    assertEquals(lok1, s1k.getLevelOfKnowledge());
+    assertEquals("Wrong class name", s1k.getMistakeType().getName());
+    assertEquals("2222", s2k.getStudent().getId());
+    assertEquals(lok2, s2k.getLevelOfKnowledge());
+    assertTrue(s2k.getMistakeType().isAtomic());
+  }
+  
+  /**
    * Associates the two classes in memory (modifies classes and returns nothing).
    */
   public static void associate(Classifier class1, Classifier class2) {
