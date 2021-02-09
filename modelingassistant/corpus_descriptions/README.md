@@ -13,8 +13,11 @@ types are taken from our paper [Towards a Better Understanding of Interactions w
    1. [Wrong class name (using plural, lowercase, or software engineering term)](#wrong-class-name)
 
 1. [Wrong attribute](#wrong-attribute)
+   1. [Missing attribute](#missing-attribute)
    1. [Extra (redundant) attribute](#extra-redundant-attribute)
       1. [Plural attribute or attribute list](#plural-attribute-or-attribute-list)
+   1. [Wrong attribute name](#wrong-attribute-name)
+   1. [Wrong attribute type](#wrong-attribute-type)
    1. [Attribute in wrong class](#attribute-in-wrong-class)
       1. [Attribute misplaced](#attribute-misplaced)
       1. [Attribute duplicated](#attribute-duplicated)
@@ -31,10 +34,12 @@ types are taken from our paper [Towards a Better Understanding of Interactions w
       1. [Missing role names](#missing-role-names)
    1. [Wrong association class](#wrong-association-class)
    1. [Wrong generalization](#wrong-generalization)
+      1. [Missing generalization](#missing-generalization)
       1. [Inapplicable generalization](#inapplicable-generalization)
       1. [Subclass is an instance of superclass](#subclass-is-an-instance-of-superclass)
       1. [Non-differentiated subclass](#non-differentiated-subclass)
       1. [Wrong generalization direction](#wrong-generalization-direction)
+      1. [Wrong superclass](#wrong-superclass)
 
 1. [Modeling antipatterns or misuse of design patterns](#modeling-antipatterns-or-misuse-of-design-patterns)
    1. [Misuse of Player-Role Pattern](#misuse-of-player-role-Pattern)
@@ -110,6 +115,27 @@ ___
 
 ## Wrong attribute
 
+### Missing attribute
+
+Level 1: Highlight class
+
+Level 2: Text response
+
+> Make sure to model all the concepts/attributes of this class.
+
+Level 3: Parameterized response
+
+> The ${className} is missing an attribute.
+
+Level 4: Parameterized response
+
+> A ${className} has a ${missingAttribute}.
+
+Level 5: Resource Response with link to Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and
+[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
 ### Extra (redundant) attribute
 
 Level 1: Highlight attribute
@@ -165,6 +191,56 @@ Level 4: Resource Response with Quiz:
 > - [ ] class Student { courses; }
 > - [ ] class Folder { List\<File\> files; }
 > - [ ] class Restaurant { 1 -- * Employee; }
+
+### Wrong attribute name
+
+Level 1: Highlight attribute
+
+Level 2: Text response
+
+> Check your spelling here.
+
+> Remember that attributes are written in _lowerCamelCase_.
+
+> Can you think of a better way to name this attribute?
+
+_Response varies based on exact mistake._
+
+Level 3: Parameterized Response
+
+> ${wrongAttribute} is misspelled. [Use the same spelling as the problem description.] 
+
+> ${wrongAttribute} incorrectly starts with an Uppercase Letter. Attributes should start with a lowercase letter.
+
+> Can you rename the ${wrongAttribute} of the ${className} to fit the problem description?
+
+Level 4: Resource Response with link to Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and
+[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+### Wrong attribute type
+
+Level 1: Highlight attribute type
+
+Level 2: Text response
+
+> Can you double-check this?
+
+Level 3: Parameterized Response
+
+> Can you think of a better type for ${attribute}?
+
+Level 4: Parameterized Response
+
+> The ${className}.${attribute} is not of type ${attribute.type} because ${mistakeType.reason}. 
+
+_Only offered in cases where a reason can be determined, eg not a simple data type._
+
+Level 5: Resource Response with link to Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 ### Attribute in wrong class
 
@@ -409,6 +485,27 @@ Level 5: Resource Response with link to Reference
 
 ### Wrong generalization
 
+#### Missing generalization
+
+Level 1: Highlight classes
+
+Level 2: Text response
+
+> What is the relationship between these classes?
+
+Level 3: Parameterized Response
+
+> A ${subclass} is a ${superclass}. How should we model this?
+
+Level 4: Resource Response with Quiz
+
+<!-- TODO Complete following lists -->
+
+> Place the following classes in an inheritance hierarchy:
+>
+> * `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
+> * `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute` ...
+
 #### Inapplicable generalization
 
 Level 1: Highlight classes
@@ -447,7 +544,28 @@ The five checks for generalization are:
 
 #### Subclass is an instance of superclass
 
+Level 1: Highlight class
 
+Level 2: Text response
+
+> Can you find a better way to express this relationship?
+
+Level 3: Text response
+
+> Remember the definition of the **isA rule**. [Instances should not be modeled as subclasses].
+
+Level 4: Resource Response with Example
+
+> A CheckingAccount isA Account, but account1234 is **not** an Account according to the isA Rule.
+
+Level 5: Resource Response with Reference and Quiz
+
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* ...
 
 #### Non-differentiated subclass
 
@@ -469,6 +587,61 @@ Which classes do not belong?
 
 
 #### Wrong generalization direction
+
+Level 1: Highlight classes or relationship arrow
+
+Level 2: Text response
+
+> Can you double-check this relationship?
+
+Level 3: Parameterized Response
+
+> Is ${superclass} really a ${subclass}? [It should be the other way around.]
+
+Level 4: Resource Response with Quiz
+
+<!-- TODO Complete following lists -->
+
+> Place the following classes in an inheritance hierarchy:
+>
+> * `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
+> * `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute` ...
+
+Level 5: Resource Response with Reference and Quiz
+
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* ...
+
+#### Wrong superclass
+
+Level 1: Highlight classes or relationship arrow
+
+Level 2: Text response
+
+> Can you double-check this relationship?
+
+Level 3: Parameterized Response
+
+> Can you (find|create) a (better|different) superclass for ${subclass}? [Look at the problem description closely].
+
+Level 4: Highlight problem description elements
+
+Level 5: Parameterized Response
+
+> What is the inheritance hierarchy between ${hierarchy.classes}?
+
+Level 6: Resource Response with Quiz
+
+<!-- TODO Complete following lists -->
+
+> Place the following classes in an inheritance hierarchy:
+>
+> * `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
+> * `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute` ...
 
 ___
 
