@@ -7,6 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="lib" path="F:/git/modeling-assistant/mistakedetection/stanford-postagger.jar"/>
+	<classpathentry kind="lib" path="stanford-postagger.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
