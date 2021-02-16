@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_xsmrsHBCEeuYNv5rM3A5-w" name="StudentSolution" featureModel="_xsmrsXBCEeuYNv5rM3A5-w" impactModel="_xsmrs3BCEeuYNv5rM3A5-w">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_xsmrsXBCEeuYNv5rM3A5-w" root="_xsmrsnBCEeuYNv5rM3A5-w">
+    <features xmi:id="_xsmrsnBCEeuYNv5rM3A5-w" name="StudentSolution" realizedBy="_yUGwkXBCEeuYNv5rM3A5-w _5tGXYXBCEeuYNv5rM3A5-w _CfSlwXBDEeuYNv5rM3A5-w _KnDXEXBDEeuYNv5rM3A5-w _QVZLMXBJEeu54OJjlEl1yg _aCKLcXBJEeu54OJjlEl1yg __UO60HBJEeu54OJjlEl1yg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_xsmrs3BCEeuYNv5rM3A5-w" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_yUGwkHBCEeuYNv5rM3A5-w" name="StudentSolution" scene="_yUGwkXBCEeuYNv5rM3A5-w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/StudentSolution.design_class_model.cdm#_yUHXoHBCEeuYNv5rM3A5-w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_5tGXYHBCEeuYNv5rM3A5-w" name="StudentSolution" scene="_5tGXYXBCEeuYNv5rM3A5-w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/StudentSolution-a.design_class_model.cdm#_5tHlgHBCEeuYNv5rM3A5-w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_CfSlwHBDEeuYNv5rM3A5-w" name="StudentSolution" scene="_CfSlwXBDEeuYNv5rM3A5-w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/StudentSolution-b.design_class_model.cdm#_CfTM0HBDEeuYNv5rM3A5-w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_KnDXEHBDEeuYNv5rM3A5-w" name="StudentSolution" scene="_KnDXEXBDEeuYNv5rM3A5-w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/StudentSolution-c.design_class_model.cdm#_KnVD4HBDEeuYNv5rM3A5-w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_QVZLMHBJEeu54OJjlEl1yg" name="StudentSolution" scene="_QVZLMXBJEeu54OJjlEl1yg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/StudentSolution.domain_model.cdm#_QVeqwHBJEeu54OJjlEl1yg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_aCKLcHBJEeu54OJjlEl1yg" name="StudentSolution" scene="_aCKLcXBJEeu54OJjlEl1yg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/StudentSolution-a.domain_model.cdm#_aCdGYHBJEeu54OJjlEl1yg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="__UOTwHBJEeu54OJjlEl1yg" name="StudentSolution" scene="__UO60HBJEeu54OJjlEl1yg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/StudentSolution-b.domain_model.cdm#__UPh4HBJEeu54OJjlEl1yg"/>
+  </artefacts>
+  <scenes xmi:id="_yUGwkXBCEeuYNv5rM3A5-w" name="StudentSolution" realizes="_xsmrsnBCEeuYNv5rM3A5-w" perspectiveName="Design Modelling">
+    <artefacts xmi:id="_yUGwknBCEeuYNv5rM3A5-w" value="_yUGwkHBCEeuYNv5rM3A5-w" key="Design Class Model"/>
+  </scenes>
+  <scenes xmi:id="_5tGXYXBCEeuYNv5rM3A5-w" name="StudentSolution" realizes="_xsmrsnBCEeuYNv5rM3A5-w" perspectiveName="Design Modelling">
+    <artefacts xmi:id="_5tGXYnBCEeuYNv5rM3A5-w" value="_5tGXYHBCEeuYNv5rM3A5-w" key="Design Class Model"/>
+  </scenes>
+  <scenes xmi:id="_CfSlwXBDEeuYNv5rM3A5-w" name="StudentSolution" realizes="_xsmrsnBCEeuYNv5rM3A5-w" perspectiveName="Design Modelling">
+    <artefacts xmi:id="_CfSlwnBDEeuYNv5rM3A5-w" value="_CfSlwHBDEeuYNv5rM3A5-w" key="Design Class Model"/>
+  </scenes>
+  <scenes xmi:id="_KnDXEXBDEeuYNv5rM3A5-w" name="StudentSolution" realizes="_xsmrsnBCEeuYNv5rM3A5-w" perspectiveName="Design Modelling">
+    <artefacts xmi:id="_KnDXEnBDEeuYNv5rM3A5-w" value="_KnDXEHBDEeuYNv5rM3A5-w" key="Design Class Model"/>
+  </scenes>
+  <scenes xmi:id="_QVZLMXBJEeu54OJjlEl1yg" name="StudentSolution" realizes="_xsmrsnBCEeuYNv5rM3A5-w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_QVZLMnBJEeu54OJjlEl1yg" value="_QVZLMHBJEeu54OJjlEl1yg" key="Domain Model"/>
+  </scenes>
+  <scenes xmi:id="_aCKLcXBJEeu54OJjlEl1yg" name="StudentSolution" realizes="_xsmrsnBCEeuYNv5rM3A5-w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_aCKLcnBJEeu54OJjlEl1yg" value="_aCKLcHBJEeu54OJjlEl1yg" key="Domain Model"/>
+  </scenes>
+  <scenes xmi:id="__UO60HBJEeu54OJjlEl1yg" name="StudentSolution" realizes="_xsmrsnBCEeuYNv5rM3A5-w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="__UO60XBJEeu54OJjlEl1yg" value="__UOTwHBJEeu54OJjlEl1yg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

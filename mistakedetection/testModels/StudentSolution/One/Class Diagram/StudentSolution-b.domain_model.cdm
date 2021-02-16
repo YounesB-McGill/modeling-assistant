@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="__UPh4HBJEeu54OJjlEl1yg" name="StudentSolution1_IncorectName">
+  <classes xsi:type="classdiagram:Class" xmi:id="__tvnAHBJEeu54OJjlEl1yg" name="Bus">
+    <associationEnds xmi:id="_B0yzEXBKEeu54OJjlEl1yg" name="myDrivr" assoc="_B0yzEnBKEeu54OJjlEl1yg" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_Aa7dIHBKEeu54OJjlEl1yg" name="Drivr">
+    <associationEnds xmi:id="_B0yzEHBKEeu54OJjlEl1yg" name="myBus" assoc="_B0yzEnBKEeu54OJjlEl1yg" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="__UPh4XBJEeu54OJjlEl1yg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="__UPh4nBJEeu54OJjlEl1yg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="__UPh43BJEeu54OJjlEl1yg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="__UPh5HBJEeu54OJjlEl1yg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="__UPh5XBJEeu54OJjlEl1yg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="__UPh5nBJEeu54OJjlEl1yg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="__UPh53BJEeu54OJjlEl1yg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="__UPh6HBJEeu54OJjlEl1yg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="__UPh6XBJEeu54OJjlEl1yg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="__UPh6nBJEeu54OJjlEl1yg"/>
+  <associations xmi:id="_B0yzEnBKEeu54OJjlEl1yg" name="Drivr_Bus" ends="_B0yzEHBKEeu54OJjlEl1yg _B0yzEXBKEeu54OJjlEl1yg"/>
+  <layout xmi:id="__UPh63BJEeu54OJjlEl1yg">
+    <containers xmi:id="__UPh7HBJEeu54OJjlEl1yg" key="__UPh4HBJEeu54OJjlEl1yg">
+      <value xmi:id="__twOEHBJEeu54OJjlEl1yg" key="__tvnAHBJEeu54OJjlEl1yg">
+        <value xmi:id="__twOEXBJEeu54OJjlEl1yg" x="178.0" y="104.0"/>
+      </value>
+      <value xmi:id="_Aa8EMHBKEeu54OJjlEl1yg" key="_Aa7dIHBKEeu54OJjlEl1yg">
+        <value xmi:id="_Aa8EMXBKEeu54OJjlEl1yg" x="579.0" y="62.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
