@@ -129,10 +129,22 @@ public class MistakeDetectionTest {
 	public void CheckStudentSolution_1_PluralClassName() {
 
 		ClassdiagramPackage.eINSTANCE.eClass();
-		var cdmFile = "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution.domain_model.cdm";
+		var cdmFile = "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution-a.domain_model.cdm";
+		//Contains Class Buses and Drivers
 		var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
 		var classDiagram = (ClassDiagram) resource.getContents().get(0);
 
+		for (var c : classDiagram.getClasses()) {
+			assertEquals(MistakeDetection.isPlural(c.getName()),true);
+
+		}
+		
+		ClassdiagramPackage.eINSTANCE.eClass();
+		cdmFile = "../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm";
+		//Contains Class Buses and Driver
+		resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
+		classDiagram = (ClassDiagram) resource.getContents().get(0);
+		
 		for (var c : classDiagram.getClasses()) {
 			assertEquals(MistakeDetection.isPlural(c.getName()),false);
 
