@@ -61,37 +61,82 @@ public class MistakeDetectionTest {
     assertEquals(1, MistakeDetection.levenshteinDistance(class1, class2));
   }
   
-  @Test public void CheckInstructorSolution() {
-	
-	  ClassdiagramPackage.eINSTANCE.eClass();
-	 var cdmFile = "../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm";
-	 var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
-	 var classDiagram = (ClassDiagram) resource.getContents().get(0);
-	  
-	  
-	  	Classifier busClass = null;
-	    Classifier driverClass = null;
-	    
-	    for (var c: classDiagram.getClasses()) {
-	      if ("Bus".equals(c.getName())) busClass = c;
-	      else if ("Driver".equals(c.getName())) driverClass = c;
-	     
-	    }
+	@Test
+	public void CheckInstructorSolution() {
 
-	    assertEquals(busClass, classDiagram.getClasses().get(0));
-	    assertEquals("Bus", busClass.getName());
-	    assertEquals(driverClass, classDiagram.getClasses().get(1));
-	    assertEquals("Driver", driverClass.getName());
-	    
-	    
-	    
-	    var maf = ModelingassistantFactory.eINSTANCE;
-	    var modelingAssistant = maf.createModelingAssistant();
-	    var solution = maf.createSolution();
-	    solution.setModelingAssistant(modelingAssistant);
-	    solution.setClassDiagram(classDiagram);
-	    
-	    List.of(busClass, driverClass).forEach(c ->
-	       assertTrue(solution.getClassDiagram().getClasses().contains(c)));
-  }
+		ClassdiagramPackage.eINSTANCE.eClass();
+		var cdmFile = "../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm";
+		var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
+		var classDiagram = (ClassDiagram) resource.getContents().get(0);
+
+		Classifier busClass = null;
+		Classifier driverClass = null;
+
+		for (var c : classDiagram.getClasses()) {
+			if ("Bus".equals(c.getName()))
+				busClass = c;
+			else if ("Driver".equals(c.getName()))
+				driverClass = c;
+
+		}
+
+		assertEquals(busClass, classDiagram.getClasses().get(0));
+		assertEquals("Bus", busClass.getName());
+		assertEquals(driverClass, classDiagram.getClasses().get(1));
+		assertEquals("Driver", driverClass.getName());
+
+		var maf = ModelingassistantFactory.eINSTANCE;
+		var modelingAssistant = maf.createModelingAssistant();
+		var solution = maf.createSolution();
+		solution.setModelingAssistant(modelingAssistant);
+		solution.setClassDiagram(classDiagram);
+
+		List.of(busClass, driverClass).forEach(c -> assertTrue(solution.getClassDiagram().getClasses().contains(c)));
+	}
+	@Test
+	public void CheckStudentSolution1() {
+
+		ClassdiagramPackage.eINSTANCE.eClass();
+		var cdmFile = "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution.domain_model.cdm";
+		var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
+		var classDiagram = (ClassDiagram) resource.getContents().get(0);
+
+		Classifier busClass = null;
+		Classifier driverClass = null;
+
+		for (var c : classDiagram.getClasses()) {
+			if ("Bus".equals(c.getName()))
+				busClass = c;
+			else if ("Driver".equals(c.getName()))
+				driverClass = c;
+
+		}
+
+		assertEquals(busClass, classDiagram.getClasses().get(0));
+		assertEquals("Bus", busClass.getName());
+		assertEquals(driverClass, classDiagram.getClasses().get(1));
+		assertEquals("Driver", driverClass.getName());
+
+		var maf = ModelingassistantFactory.eINSTANCE;
+		var modelingAssistant = maf.createModelingAssistant();
+		var solution = maf.createSolution();
+		solution.setModelingAssistant(modelingAssistant);
+		solution.setClassDiagram(classDiagram);
+
+		List.of(busClass, driverClass).forEach(c -> assertTrue(solution.getClassDiagram().getClasses().contains(c)));
+	}
+	@Test
+	public void CheckStudentSolution_1_PluralClassName() {
+
+		ClassdiagramPackage.eINSTANCE.eClass();
+		var cdmFile = "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution.domain_model.cdm";
+		var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
+		var classDiagram = (ClassDiagram) resource.getContents().get(0);
+
+		for (var c : classDiagram.getClasses()) {
+			assertEquals(MistakeDetection.isPlural(c.getName()),false);
+
+		}
+
+	}
 }
