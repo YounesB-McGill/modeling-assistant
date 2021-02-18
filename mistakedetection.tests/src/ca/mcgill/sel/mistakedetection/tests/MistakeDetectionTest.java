@@ -44,7 +44,10 @@ public class MistakeDetectionTest {
    
     List.of("Cars","People","Men").forEach(s -> assertTrue(MistakeDetection.isPlural(s)));
     
-   
+    List.of("Car", "Driver").forEach(s -> assertFalse(MistakeDetection.isPlural(s)));
+    
+    
+    List.of("Cars","People","Men").forEach(s -> assertTrue(MistakeDetection.isPlural(s)));
   }
 
   /**
