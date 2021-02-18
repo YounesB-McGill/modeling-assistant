@@ -22,6 +22,8 @@ public class MistakeDetection {
   public static final ClassdiagramFactory CDF = ClassdiagramFactory.eINSTANCE;
   public static final ModelingassistantFactory MAF = ModelingassistantFactory.eINSTANCE;
 
+  static HashMap<String, Boolean> classNameCache = new HashMap<String, Boolean>();
+  
   EList<Mistake> mistakes;
   HashMap<Classifier, Classifier> mappedClassifier = new HashMap<Classifier, Classifier>();
   
@@ -54,25 +56,35 @@ public class MistakeDetection {
   /**
    * Returns true if the input string is plural.
    */
-  public static boolean isPlural(String s) {
+	public static boolean isPlural(String s) {
 
-	  MaxentTagger tagger;
-	  Boolean bool=false;
-	  try {
-		  tagger = new MaxentTagger("taggers/left3words-wsj-0-18.tagger");
-		  s=s.toLowerCase();
-		  String tagged = tagger.tagString(s);
-		  String[] str=tagged.split("/");
-		  // NNS for plural.
-		  String s1="NNS";
-		  if(str[1].contains(s1)) {
-			  bool =true;
-		  }
-	  } catch (ClassNotFoundException | IOException e) {
-		  e.printStackTrace();
-	  }
-	  return bool;
-  }
+		MaxentTagger tagger;
+		Boolean bool = false;
+		
+		if (classNameCache.containsKey(s)) {
+			System.out.println("InCache");
+			return classNameCache.get(s);
+			
+		} else {
+			try {
+				tagger = new MaxentTagger("taggers/left3words-wsj-0-18.tagger");
+				s = s.toLowerCase();
+				String tagged = tagger.tagString(s);
+				String[] str = tagged.split("/");
+				// NNS for plural.
+				String s1 = "NNS";
+				if (str[1].contains(s1)) {
+					bool = true;
+				}
+			} catch (ClassNotFoundException | IOException e) {
+				e.printStackTrace();
+			}
+			s=s.substring(0, 1).toUpperCase() + s.substring(1);
+			classNameCache.put(s, bool);
+			
+			return bool;
+		}
+	}
   
   public static Mistake checkMistakePluralClassName(Classifier sClassifier) {
     if (isPlural(sClassifier.getName())) {
