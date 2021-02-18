@@ -59,7 +59,7 @@ public class MistakeDetection {
 	  MaxentTagger tagger;
 	  Boolean bool=false;
 	  try {
-		  tagger = new MaxentTagger("taggers/bidirectional-distsim-wsj-0-18.tagger");
+		  tagger = new MaxentTagger("taggers/left3words-wsj-0-18.tagger");
 		  s=s.toLowerCase();
 		  String tagged = tagger.tagString(s);
 		  String[] str=tagged.split("/");
