@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0">
-  <modelingassistant:ModelingAssistant xmi:id="_IFi4IHH6Eeu6B4icYYaxuw">
-    <solutions xmi:id="_IF4PUHH6Eeu6B4icYYaxuw" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
-    <solutions xmi:id="_IF4PUXH6Eeu6B4icYYaxuw" classDiagram="_IF42YHH6Eeu6B4icYYaxuw"/>
+  <modelingassistant:ModelingAssistant xmi:id="_APJdUGnbEeuqJo8Fo4iNtw">
+    <solutions xmi:id="_APJdUGnbEeuqJo8Fo4iNtw" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
+    <solutions xmi:id="_APJdUGnbEeuqJo8Fo4iNtw" classDiagram="_APKrcGnbEeuqJo8Fo4iNtw"/>
   </modelingassistant:ModelingAssistant>
   <classdiagram:ClassDiagram xmi:id="_VQRncElSEeuektpDqzDh1Q" name="Cdm-staging">
     <classes xsi:type="classdiagram:Class" xmi:id="_WHVLQElSEeuektpDqzDh1Q" name="Car">
@@ -48,12 +48,12 @@
       </containers>
     </layout>
   </classdiagram:ClassDiagram>
-  <classdiagram:ClassDiagram xmi:id="_IF42YHH6Eeu6B4icYYaxuw" name="Student2_solution">
-    <classes xsi:type="classdiagram:Class" xmi:id="_IF5dcHH6Eeu6B4icYYaxuw" name="Car">
-      <attributes xmi:id="_IF5dcXH6Eeu6B4icYYaxuw" name="id" type="_IF5dc3H6Eeu6B4icYYaxuw"/>
-      <attributes xmi:id="_IF5dcnH6Eeu6B4icYYaxuw" name="make" type="_IF5ddHH6Eeu6B4icYYaxuw"/>
+  <classdiagram:ClassDiagram xmi:id="_APKrcGnbEeuqJo8Fo4iNtw" name="Student2_solution">
+    <classes xsi:type="classdiagram:Class" xmi:id="_APLSgGnbEeuqJo8Fo4iNtw" name="Car">
+      <attributes xmi:id="_APLSgWnbEeuqJo8Fo4iNtw" name="id" type="_APLSg2nbEeuqJo8Fo4iNtw"/>
+      <attributes xmi:id="_APLSgmnbEeuqJo8Fo4iNtw" name="make" type="_APLShGnbEeuqJo8Fo4iNtw"/>
     </classes>
-    <types xsi:type="classdiagram:CDInt" xmi:id="_IF5dc3H6Eeu6B4icYYaxuw"/>
-    <types xsi:type="classdiagram:CDString" xmi:id="_IF5ddHH6Eeu6B4icYYaxuw"/>
+    <types xsi:type="classdiagram:CDInt" xmi:id="_APLSg2nbEeuqJo8Fo4iNtw"/>
+    <types xsi:type="classdiagram:CDString" xmi:id="_APLShGnbEeuqJo8Fo4iNtw"/>
   </classdiagram:ClassDiagram>
 </xmi:XMI>
