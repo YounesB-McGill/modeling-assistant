@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_nF06QHBCEeuYNv5rM3A5-w" name="InstructorSolution" featureModel="_nF06QXBCEeuYNv5rM3A5-w" impactModel="_nF06Q3BCEeuYNv5rM3A5-w">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_nF06QXBCEeuYNv5rM3A5-w" root="_nF06QnBCEeuYNv5rM3A5-w">
+    <features xmi:id="_nF06QnBCEeuYNv5rM3A5-w" name="InstructorSolution" realizedBy="_oWssQXBCEeuYNv5rM3A5-w _zOb4kHBHEeu54OJjlEl1yg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_nF06Q3BCEeuYNv5rM3A5-w" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_oWssQHBCEeuYNv5rM3A5-w" name="InstructorSolution" scene="_oWssQXBCEeuYNv5rM3A5-w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/InstructorSolution.design_class_model.cdm#_oW12MHBCEeuYNv5rM3A5-w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_zOaqcHBHEeu54OJjlEl1yg" name="InstructorSolution" scene="_zOb4kHBHEeu54OJjlEl1yg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/InstructorSolution.domain_model.cdm#_zOhYIHBHEeu54OJjlEl1yg"/>
+  </artefacts>
+  <scenes xmi:id="_oWssQXBCEeuYNv5rM3A5-w" name="InstructorSolution" realizes="_nF06QnBCEeuYNv5rM3A5-w" perspectiveName="Design Modelling">
+    <artefacts xmi:id="_oWssQnBCEeuYNv5rM3A5-w" value="_oWssQHBCEeuYNv5rM3A5-w" key="Design Class Model"/>
+  </scenes>
+  <scenes xmi:id="_zOb4kHBHEeu54OJjlEl1yg" name="InstructorSolution" realizes="_nF06QnBCEeuYNv5rM3A5-w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_zOcfoHBHEeu54OJjlEl1yg" value="_zOaqcHBHEeu54OJjlEl1yg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
