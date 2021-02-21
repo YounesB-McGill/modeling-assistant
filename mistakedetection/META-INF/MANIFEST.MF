@@ -8,3 +8,5 @@ Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
 Import-Package: classdiagram,
  modelingassistant
 Export-Package: ca.mcgill.sel.mistakedetection
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Automatic-Module-Name: mistakedetection

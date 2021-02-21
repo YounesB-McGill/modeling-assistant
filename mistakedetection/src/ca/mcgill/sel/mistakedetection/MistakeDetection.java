@@ -4,18 +4,13 @@ import classdiagram.ClassdiagramFactory;
 import classdiagram.Classifier;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
-
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-
 import org.eclipse.emf.common.util.EList;
-
 import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.SolutionElement;
-import org.eclipse.emf.common.util.EList;
 
 public class MistakeDetection {
   
@@ -27,21 +22,17 @@ public class MistakeDetection {
   EList<Mistake> mistakes;
   HashMap<Classifier, Classifier> mappedClassifier = new HashMap<Classifier, Classifier>();
   
-  public void checkMistakeSoftwareEngineeringTerm(Classifier sClassifier) {
-	  if (isSoftwareEngineeringTerm(sClassifier.getName())) {
-//		  Mistake m = new Mistake("Class Name contains software engineering term");
-//	      SolutionElement s = new SolutionElement(sClassifier);
-//	      m.getSolutionElements().add(s);
-//	      mistakes.add(m);
-		  SolutionElement s = MAF.createSolutionElement();
-		  s.setElement(sClassifier);
-		  Mistake m =MAF.createMistake();
-		  m.setMistakeType(MistakeTypes.SOFTWARE_ENGINEERING_TERM);// Have a helper Method.
-		  m.getSolutionElements().add(s);
-		  mistakes.add(m);
-		  
-	      }
+  public void checkMistakeSoftwareEngineeringTerm(Classifier studentClassifier) {
+    if (isSoftwareEngineeringTerm(studentClassifier.getName())) {
+      SolutionElement s = MAF.createSolutionElement();
+      s.setElement(studentClassifier);
+      Mistake m = MAF.createMistake();
+      m.setMistakeType(MistakeTypes.SOFTWARE_ENGINEERING_TERM);// Have a helper Method.
+      m.getSolutionElements().add(s);
+      mistakes.add(m);
+    }
   }
+  
   /**
    * Returns true if the input string is a software engineering term.
    */
@@ -56,35 +47,31 @@ public class MistakeDetection {
   /**
    * Returns true if the input string is plural.
    */
-	public static boolean isPlural(String s) {
+  public static boolean isPlural(String s) {
+    MaxentTagger tagger;
+    Boolean bool = false;
 
-		MaxentTagger tagger;
-		Boolean bool = false;
-		
-		if (classNameCache.containsKey(s)) {
-			System.out.println("InCache");
-			return classNameCache.get(s);
-			
-		} else {
-			try {
-				tagger = new MaxentTagger("taggers/left3words-wsj-0-18.tagger");
-				s = s.toLowerCase();
-				String tagged = tagger.tagString(s);
-				String[] str = tagged.split("/");
-				// NNS for plural.
-				String s1 = "NNS";
-				if (str[1].contains(s1)) {
-					bool = true;
-				}
-			} catch (ClassNotFoundException | IOException e) {
-				e.printStackTrace();
-			}
-			s=s.substring(0, 1).toUpperCase() + s.substring(1);
-			classNameCache.put(s, bool);
-			
-			return bool;
-		}
-	}
+    if (classNameCache.containsKey(s)) {
+      return classNameCache.get(s);
+    } else {
+      try {
+        tagger = new MaxentTagger("taggers/left3words-wsj-0-18.tagger");
+        s = s.toLowerCase();
+        String tagged = tagger.tagString(s);
+        String[] str = tagged.split("/");
+        String pluralTag = "NNS";
+        if (str[1].contains(pluralTag)) {
+          bool = true;
+        }
+      } catch (ClassNotFoundException | IOException e) {
+        e.printStackTrace();
+      }
+      s = s.substring(0, 1).toUpperCase() + s.substring(1);
+      classNameCache.put(s, bool);
+
+      return bool;
+    }
+  }
   
   public static Mistake checkMistakePluralClassName(Classifier sClassifier) {
     if (isPlural(sClassifier.getName())) {
@@ -94,21 +81,21 @@ public class MistakeDetection {
        // TODO
     }
     return null;
- }
-  public static void checkMistakeClassSpelling(Classifier sClassifier, Classifier iClassifier){
-	  int lDistance=levenshteinDistance(sClassifier.getName(),iClassifier.getName());
-	  if (lDistance!=0) {
-	     // Mistake m = new Mistake("Class Name Spelled wrong");
-	    //  SolutionElement s = new SolutionElement(sClassifier);
-	    //  m.getSolutionElements().add(s);
-	    //  mistakes.add(m);
-	   }
-	}
-  
-  public static int levenshteinDistance(String sClassName,String iClassName) {
-	  LevenshteinDistance ld =new LevenshteinDistance();
-	   return ld.apply(sClassName,iClassName);
   }
-
+  
+  public static void checkMistakeClassSpelling(Classifier sClassifier, Classifier iClassifier) {
+    int lDistance = levenshteinDistance(sClassifier.getName(), iClassifier.getName());
+    if (lDistance != 0) {
+      // Mistake m = new Mistake("Class Name Spelled wrong");
+      // SolutionElement s = new SolutionElement(sClassifier);
+      // m.getSolutionElements().add(s);
+      // mistakes.add(m);
+    }
+  }
+  
+  public static int levenshteinDistance(String sClassName, String iClassName) {
+    LevenshteinDistance ld = new LevenshteinDistance();
+    return ld.apply(sClassName, iClassName);
+  }
 
 }
