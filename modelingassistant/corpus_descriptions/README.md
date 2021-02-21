@@ -26,6 +26,9 @@ types are taken from our paper [Towards a Better Understanding of Interactions w
    1. [Missing relationship of any type](#missing-relationship-of-any-type)
       1. [Using an attribute instead of an association](#using-an-attribute-instead-of-an-association)
    1. [Incomplete containment tree](#incomplete-containment-tree)
+   1. [Extra (redundant) association](#extra-association)
+      1. [Representing an action with an association](#representing-an-action-with-an-association)
+      1. [Composed part contained in more than one parent](#composed-part-contained-in-more-than-one-parent)
    1. [Using wrong relationship type](#using-wrong-relationship-type)
       1. [Using an association instead of an aggregation/composition or vice versa](#using-an-association-instead-of-an-aggregationcomposition-or-vice-versa)
    1. [Wrong multiplicities](#wrong-multiplicities)
@@ -288,6 +291,28 @@ ___
 
 ### Missing relationship of any type
 
+Level 1: Highlight classes
+
+Level 2: Text response
+
+> Is there a relationship between these classes?
+
+> What is the relationship between these classes?
+
+Level 3: Parameterized Response
+
+> How would you capture that a ${classOne} has a ${classTwo}?
+
+> How would you capture that a ${containerClass} contains a ${containedClass}?
+
+Level 4: Resource Response with Example
+
+Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
 #### Using an attribute instead of an association
 
 Level 1: Highlight attribute
@@ -343,6 +368,90 @@ contained in the `IRS` root node.
   `Team`, `League`, `Sport`, `Registration`, `Game`, `RegularLeague`,
   `WeekendLeague`, `Person`, `StudentRole`, `RefereeRole`, `IRS`.
 
+
+### Extra association
+
+Level 1: Highlight association
+
+Level 2: Text response
+
+> Is this association really necessary?
+
+Level 3: Parameterized Response
+
+> The relationship between ${classOne} and ${classTwo} is not expressed in the 
+problem description[, but there is a similar relationship with ${classThree} 
+that is missing].
+
+> The relationship between ${classOne} and ${classTwo} is redundant since we
+can access ${classTwo} from ${classOne} via ${classThree}.
+
+_Used in the case A-C-B, A-B._
+
+Level 4: Resource Response with Quiz
+
+Find all the redunandant associations in this class diagram (TODO).
+
+**OR**
+
+Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
+
+#### Representing an action with an association
+
+Level 1: Highlight association
+
+Level 2: Text response
+
+> Is association the best way to model this concept?
+
+Level 3: Parameterized Response
+
+> ${actionName} should not be modeled as an association.
+
+> ${actionName} does not need be modeled as part of a domain model.
+
+Level 4: Resource Response with link to Reference
+
+> Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/)
+to review which concepts should be a part of a domain model.
+
+#### Composed part contained in more than one parent
+
+Level 1: Highlight (wrong) association
+
+Level 2: Text response
+
+> Please double-check this relationship.
+
+Level 3: Text response
+
+> Please review the model containment hierarchy.
+
+Level 4: Parameterized Response
+
+> ${incorrectlyContainedClass} cannot be contained in more than one class.
+
+Level 5: Resource Response with Example
+
+Observe the following domain model. Every single class is contained in exactly 
+one class, except `PISystem`, which is the root class.
+
+![PISystem](images/PISystem.png)
+
+Level 6: Resource Response with Quiz
+
+Complete the containment tree for the following model.
+
+![IRS](images/IRS.png)
+
+_Possible approaches:_
+
+* Use the envisioned UI for the quiz and let students create the
+compostitions themselves.
+* Multiple choice in the form: Pick the classes which are _directly_
+contained in the `IRS` root node.
+  `Team`, `League`, `Sport`, `Registration`, `Game`, `RegularLeague`,
+  `WeekendLeague`, `Person`, `StudentRole`, `RefereeRole`, `IRS`.
 
 ### Using wrong relationship type
 
