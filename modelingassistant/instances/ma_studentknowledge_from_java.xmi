@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0">
-  <modelingassistant:ModelingAssistant xmi:id="_IH2lQHH6Eeu6B4icYYaxuw">
-    <learningItems xmi:id="_IH2lQXH6Eeu6B4icYYaxuw" mistakeTypes="_IH2lRnH6Eeu6B4icYYaxuw"/>
-    <solutions xmi:id="_IH2lQnH6Eeu6B4icYYaxuw" student="_IH2lRHH6Eeu6B4icYYaxuw" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
-    <solutions xmi:id="_IH2lQ3H6Eeu6B4icYYaxuw" student="_IH2lRXH6Eeu6B4icYYaxuw" classDiagram="_IH2lR3H6Eeu6B4icYYaxuw"/>
-    <students xmi:id="_IH2lRHH6Eeu6B4icYYaxuw" id="1111" solutions="_IH2lQnH6Eeu6B4icYYaxuw" studentKnowledges="_IH2lTXH6Eeu6B4icYYaxuw"/>
-    <students xmi:id="_IH2lRXH6Eeu6B4icYYaxuw" id="2222" solutions="_IH2lQ3H6Eeu6B4icYYaxuw" studentKnowledges="_IH2lTnH6Eeu6B4icYYaxuw"/>
-    <mistakeTypes xmi:id="_IH2lRnH6Eeu6B4icYYaxuw" name="Wrong class name" atomic="true" learningItem="_IH2lQXH6Eeu6B4icYYaxuw" studentKnowledges="_IH2lTXH6Eeu6B4icYYaxuw _IH2lTnH6Eeu6B4icYYaxuw"/>
+  <modelingassistant:ModelingAssistant xmi:id="_x6cnoGnlEeuD9I3RHQxqiw">
+    <learningItems xmi:id="_x6cnoWnlEeuD9I3RHQxqiw" mistakeTypes="_x6cnpmnlEeuD9I3RHQxqiw"/>
+    <solutions xmi:id="_x6cnomnlEeuD9I3RHQxqiw" student="_x6cnpGnlEeuD9I3RHQxqiw" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
+    <solutions xmi:id="_x6cno2nlEeuD9I3RHQxqiw" student="_x6cnpWnlEeuD9I3RHQxqiw" classDiagram="_x6cnp2nlEeuD9I3RHQxqiw"/>
+    <students xmi:id="_x6cnpGnlEeuD9I3RHQxqiw" id="1111" solutions="_x6cnomnlEeuD9I3RHQxqiw" studentKnowledges="_x6cnrWnlEeuD9I3RHQxqiw"/>
+    <students xmi:id="_x6cnpWnlEeuD9I3RHQxqiw" id="2222" solutions="_x6cno2nlEeuD9I3RHQxqiw" studentKnowledges="_x6cnrmnlEeuD9I3RHQxqiw"/>
+    <mistakeTypes xmi:id="_x6cnpmnlEeuD9I3RHQxqiw" name="Wrong class name" atomic="true" learningItem="_x6cnoWnlEeuD9I3RHQxqiw" studentKnowledges="_x6cnrWnlEeuD9I3RHQxqiw _x6cnrmnlEeuD9I3RHQxqiw"/>
   </modelingassistant:ModelingAssistant>
   <classdiagram:ClassDiagram xmi:id="_VQRncElSEeuektpDqzDh1Q" name="Cdm-staging">
     <classes xsi:type="classdiagram:Class" xmi:id="_WHVLQElSEeuektpDqzDh1Q" name="Car">
@@ -52,14 +52,14 @@
       </containers>
     </layout>
   </classdiagram:ClassDiagram>
-  <classdiagram:ClassDiagram xmi:id="_IH2lR3H6Eeu6B4icYYaxuw" name="Student2_solution">
-    <classes xsi:type="classdiagram:Class" xmi:id="_IH2lSHH6Eeu6B4icYYaxuw" name="Car">
-      <attributes xmi:id="_IH2lSXH6Eeu6B4icYYaxuw" name="id" type="_IH2lS3H6Eeu6B4icYYaxuw"/>
-      <attributes xmi:id="_IH2lSnH6Eeu6B4icYYaxuw" name="make" type="_IH2lTHH6Eeu6B4icYYaxuw"/>
+  <classdiagram:ClassDiagram xmi:id="_x6cnp2nlEeuD9I3RHQxqiw" name="Student2_solution">
+    <classes xsi:type="classdiagram:Class" xmi:id="_x6cnqGnlEeuD9I3RHQxqiw" name="Car">
+      <attributes xmi:id="_x6cnqWnlEeuD9I3RHQxqiw" name="id" type="_x6cnq2nlEeuD9I3RHQxqiw"/>
+      <attributes xmi:id="_x6cnqmnlEeuD9I3RHQxqiw" name="make" type="_x6cnrGnlEeuD9I3RHQxqiw"/>
     </classes>
-    <types xsi:type="classdiagram:CDInt" xmi:id="_IH2lS3H6Eeu6B4icYYaxuw"/>
-    <types xsi:type="classdiagram:CDString" xmi:id="_IH2lTHH6Eeu6B4icYYaxuw"/>
+    <types xsi:type="classdiagram:CDInt" xmi:id="_x6cnq2nlEeuD9I3RHQxqiw"/>
+    <types xsi:type="classdiagram:CDString" xmi:id="_x6cnrGnlEeuD9I3RHQxqiw"/>
   </classdiagram:ClassDiagram>
-  <modelingassistant:StudentKnowledge xmi:id="_IH2lTXH6Eeu6B4icYYaxuw" levelOfKnowledge="10578963" student="_IH2lRHH6Eeu6B4icYYaxuw" mistakeType="_IH2lRnH6Eeu6B4icYYaxuw"/>
-  <modelingassistant:StudentKnowledge xmi:id="_IH2lTnH6Eeu6B4icYYaxuw" levelOfKnowledge="8996541" student="_IH2lRXH6Eeu6B4icYYaxuw" mistakeType="_IH2lRnH6Eeu6B4icYYaxuw"/>
+  <modelingassistant:StudentKnowledge xmi:id="_x6cnrWnlEeuD9I3RHQxqiw" levelOfKnowledge="10578963" student="_x6cnpGnlEeuD9I3RHQxqiw" mistakeType="_x6cnpmnlEeuD9I3RHQxqiw"/>
+  <modelingassistant:StudentKnowledge xmi:id="_x6cnrmnlEeuD9I3RHQxqiw" levelOfKnowledge="8996541" student="_x6cnpWnlEeuD9I3RHQxqiw" mistakeType="_x6cnpmnlEeuD9I3RHQxqiw"/>
 </xmi:XMI>
