@@ -17,7 +17,8 @@ public class MistakeDetection {
   public static final ClassdiagramFactory CDF = ClassdiagramFactory.eINSTANCE;
   public static final ModelingassistantFactory MAF = ModelingassistantFactory.eINSTANCE;
 
-  static HashMap<String, Boolean> classNameCache = new HashMap<String, Boolean>();
+  /** Maps nouns to true if they are plural, false otherwise. */
+  static HashMap<String, Boolean> nounPluralStatus = new HashMap<String, Boolean>();
   
   EList<Mistake> mistakes;
   HashMap<Classifier, Classifier> mappedClassifier = new HashMap<Classifier, Classifier>();
@@ -51,8 +52,8 @@ public class MistakeDetection {
     MaxentTagger tagger;
     Boolean bool = false;
 
-    if (classNameCache.containsKey(s)) {
-      return classNameCache.get(s);
+    if (nounPluralStatus.containsKey(s)) {
+      return nounPluralStatus.get(s);
     } else {
       try {
         tagger = new MaxentTagger("taggers/left3words-wsj-0-18.tagger");
@@ -67,7 +68,7 @@ public class MistakeDetection {
         e.printStackTrace();
       }
       s = s.substring(0, 1).toUpperCase() + s.substring(1);
-      classNameCache.put(s, bool);
+      nounPluralStatus.put(s, bool);
 
       return bool;
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0">
   <modelingassistant:ModelingAssistant xmi:id="_APrBwGnbEeuqJo8Fo4iNtw">
-    <solutions xmi:id="_APrBwGnbEeuqJo8Fo4iNtw" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
+    <solutions xmi:id="_APrBwWnbEeuqJo8Fo4iNtw" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
   </modelingassistant:ModelingAssistant>
   <classdiagram:ClassDiagram xmi:id="_VQRncElSEeuektpDqzDh1Q" name="Cdm-staging">
     <classes xsi:type="classdiagram:Class" xmi:id="_WHVLQElSEeuektpDqzDh1Q" name="Car">
