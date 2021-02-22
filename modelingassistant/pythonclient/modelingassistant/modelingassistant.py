@@ -35,8 +35,10 @@ class ModelingAssistant(EObject, metaclass=MetaEClass):
     feedbacks = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     mistakes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     mistakeTypes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    studentknowledge = EReference(ordered=True, unique=True,
+                                  containment=True, derived=False, upper=-1)
 
-    def __init__(self, *, learningItems=None, learningResources=None, problemStatements=None, solutions=None, umlElements=None, students=None, feedbacks=None, mistakes=None, mistakeTypes=None):
+    def __init__(self, *, learningItems=None, learningResources=None, problemStatements=None, solutions=None, umlElements=None, students=None, feedbacks=None, mistakes=None, mistakeTypes=None, studentknowledge=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -68,6 +70,9 @@ class ModelingAssistant(EObject, metaclass=MetaEClass):
 
         if mistakeTypes:
             self.mistakeTypes.extend(mistakeTypes)
+
+        if studentknowledge:
+            self.studentknowledge.extend(studentknowledge)
 
 
 class Student(EObject, metaclass=MetaEClass):
@@ -257,8 +262,9 @@ class StudentKnowledge(EObject, metaclass=MetaEClass):
     levelOfKnowledge = EAttribute(eType=int, unique=True, derived=False, changeable=True)
     student = EReference(ordered=True, unique=True, containment=False, derived=False)
     mistakeType = EReference(ordered=True, unique=True, containment=False, derived=False)
+    modelingassistant = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, levelOfKnowledge=None, student=None, mistakeType=None):
+    def __init__(self, *, levelOfKnowledge=None, student=None, mistakeType=None, modelingassistant=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -272,6 +278,9 @@ class StudentKnowledge(EObject, metaclass=MetaEClass):
 
         if mistakeType is not None:
             self.mistakeType = mistakeType
+
+        if modelingassistant is not None:
+            self.modelingassistant = modelingassistant
 
 
 class MistakeType(EObject, metaclass=MetaEClass):

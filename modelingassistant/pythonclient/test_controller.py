@@ -651,7 +651,8 @@ def test_student_knowledge_persisted_correctly():
     solution1 = Solution(classDiagram=class_diagram, student=student1, modelingAssistant=modeling_assistant)
     lok1 = 10_578_963  # use a large int to detect it in testing 
     student1_class_naming_knowledge = StudentKnowledge(levelOfKnowledge=lok1, student=student1,
-                                                       mistakeType=class_naming_mistake_type)
+                                                       mistakeType=class_naming_mistake_type,
+                                                       modelingassistant=modeling_assistant)
 
     # Make and link second class diagram to modeling assistant instance and related student
     class_diagram2 = ClassDiagram(name="Student2_solution")
@@ -659,7 +660,8 @@ def test_student_knowledge_persisted_correctly():
     solution2 = Solution(classDiagram=class_diagram2, student=student2, modelingAssistant=modeling_assistant)
     lok2 = 8_996_541
     student2_class_naming_knowledge = StudentKnowledge(levelOfKnowledge=lok2, student=student2,
-                                                       mistakeType=class_naming_mistake_type)
+                                                       mistakeType=class_naming_mistake_type,
+                                                       modelingassistant=modeling_assistant)
     cd_int = CDInt()
     cd_string = CDString()
     class_diagram2.types.extend([cd_int, cd_string])
@@ -672,8 +674,7 @@ def test_student_knowledge_persisted_correctly():
     # Save modeling assistant instance to file
     resource = rset.create_resource(URI(ma_path))
     resource.use_uuid = True
-    resource.extend([modeling_assistant, class_diagram, class_diagram2,
-                     student1_class_naming_knowledge, student2_class_naming_knowledge])  # should not be here
+    resource.extend([modeling_assistant, class_diagram, class_diagram2])
     resource.save()
 
     assert os.path.exists(ma_path)
