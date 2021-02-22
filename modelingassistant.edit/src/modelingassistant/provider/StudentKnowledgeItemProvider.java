@@ -63,6 +63,7 @@ public class StudentKnowledgeItemProvider
       addLevelOfKnowledgePropertyDescriptor(object);
       addStudentPropertyDescriptor(object);
       addMistakeTypePropertyDescriptor(object);
+      addModelingassistantPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -125,6 +126,28 @@ public class StudentKnowledgeItemProvider
          getString("_UI_StudentKnowledge_mistakeType_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_StudentKnowledge_mistakeType_feature", "_UI_StudentKnowledge_type"),
          ModelingassistantPackage.Literals.STUDENT_KNOWLEDGE__MISTAKE_TYPE,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Modelingassistant feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addModelingassistantPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_StudentKnowledge_modelingassistant_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_StudentKnowledge_modelingassistant_feature", "_UI_StudentKnowledge_type"),
+         ModelingassistantPackage.Literals.STUDENT_KNOWLEDGE__MODELINGASSISTANT,
          true,
          false,
          true,

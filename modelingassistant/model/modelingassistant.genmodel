@@ -20,6 +20,7 @@
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/feedbacks"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/mistakes"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/mistakeTypes"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/studentknowledge"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//Student">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Student/id"/>
@@ -65,6 +66,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//StudentKnowledge/levelOfKnowledge"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//StudentKnowledge/student"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//StudentKnowledge/mistakeType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//StudentKnowledge/modelingassistant"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//MistakeType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//MistakeType/name"/>

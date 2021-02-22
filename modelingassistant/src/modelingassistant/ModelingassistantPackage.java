@@ -149,13 +149,22 @@ public interface ModelingassistantPackage extends EPackage {
   int MODELING_ASSISTANT__MISTAKE_TYPES = 8;
 
   /**
+   * The feature id for the '<em><b>Studentknowledge</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODELING_ASSISTANT__STUDENTKNOWLEDGE = 9;
+
+  /**
    * The number of structural features of the '<em>Modeling Assistant</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODELING_ASSISTANT_FEATURE_COUNT = 9;
+  int MODELING_ASSISTANT_FEATURE_COUNT = 10;
 
   /**
    * The number of operations of the '<em>Modeling Assistant</em>' class.
@@ -634,13 +643,22 @@ public interface ModelingassistantPackage extends EPackage {
   int STUDENT_KNOWLEDGE__MISTAKE_TYPE = 2;
 
   /**
+   * The feature id for the '<em><b>Modelingassistant</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STUDENT_KNOWLEDGE__MODELINGASSISTANT = 3;
+
+  /**
    * The number of structural features of the '<em>Student Knowledge</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STUDENT_KNOWLEDGE_FEATURE_COUNT = 3;
+  int STUDENT_KNOWLEDGE_FEATURE_COUNT = 4;
 
   /**
    * The number of operations of the '<em>Student Knowledge</em>' class.
@@ -1782,6 +1800,17 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getModelingAssistant_MistakeTypes();
 
   /**
+   * Returns the meta object for the containment reference list '{@link modelingassistant.ModelingAssistant#getStudentknowledge <em>Studentknowledge</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Studentknowledge</em>'.
+   * @see modelingassistant.ModelingAssistant#getStudentknowledge()
+   * @see #getModelingAssistant()
+   * @generated
+   */
+  EReference getModelingAssistant_Studentknowledge();
+
+  /**
    * Returns the meta object for class '{@link modelingassistant.Student <em>Student</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2179,6 +2208,17 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EReference getStudentKnowledge_MistakeType();
+
+  /**
+   * Returns the meta object for the container reference '{@link modelingassistant.StudentKnowledge#getModelingassistant <em>Modelingassistant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the container reference '<em>Modelingassistant</em>'.
+   * @see modelingassistant.StudentKnowledge#getModelingassistant()
+   * @see #getStudentKnowledge()
+   * @generated
+   */
+  EReference getStudentKnowledge_Modelingassistant();
 
   /**
    * Returns the meta object for class '{@link modelingassistant.MistakeType <em>Mistake Type</em>}'.
@@ -2789,6 +2829,14 @@ public interface ModelingassistantPackage extends EPackage {
     EReference MODELING_ASSISTANT__MISTAKE_TYPES = eINSTANCE.getModelingAssistant_MistakeTypes();
 
     /**
+     * The meta object literal for the '<em><b>Studentknowledge</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODELING_ASSISTANT__STUDENTKNOWLEDGE = eINSTANCE.getModelingAssistant_Studentknowledge();
+
+    /**
      * The meta object literal for the '{@link modelingassistant.impl.StudentImpl <em>Student</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3099,6 +3147,14 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference STUDENT_KNOWLEDGE__MISTAKE_TYPE = eINSTANCE.getStudentKnowledge_MistakeType();
+
+    /**
+     * The meta object literal for the '<em><b>Modelingassistant</b></em>' container reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference STUDENT_KNOWLEDGE__MODELINGASSISTANT = eINSTANCE.getStudentKnowledge_Modelingassistant();
 
     /**
      * The meta object literal for the '{@link modelingassistant.impl.MistakeTypeImpl <em>Mistake Type</em>}' class.

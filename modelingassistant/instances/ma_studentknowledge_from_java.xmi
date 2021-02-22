@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0">
-  <modelingassistant:ModelingAssistant xmi:id="_x6cnoGnlEeuD9I3RHQxqiw">
-    <learningItems xmi:id="_x6cnoWnlEeuD9I3RHQxqiw" mistakeTypes="_x6cnpmnlEeuD9I3RHQxqiw"/>
-    <solutions xmi:id="_x6cnomnlEeuD9I3RHQxqiw" student="_x6cnpGnlEeuD9I3RHQxqiw" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
-    <solutions xmi:id="_x6cno2nlEeuD9I3RHQxqiw" student="_x6cnpWnlEeuD9I3RHQxqiw" classDiagram="_x6cnp2nlEeuD9I3RHQxqiw"/>
-    <students xmi:id="_x6cnpGnlEeuD9I3RHQxqiw" id="1111" solutions="_x6cnomnlEeuD9I3RHQxqiw" studentKnowledges="_x6cnrWnlEeuD9I3RHQxqiw"/>
-    <students xmi:id="_x6cnpWnlEeuD9I3RHQxqiw" id="2222" solutions="_x6cno2nlEeuD9I3RHQxqiw" studentKnowledges="_x6cnrmnlEeuD9I3RHQxqiw"/>
-    <mistakeTypes xmi:id="_x6cnpmnlEeuD9I3RHQxqiw" name="Wrong class name" atomic="true" learningItem="_x6cnoWnlEeuD9I3RHQxqiw" studentKnowledges="_x6cnrWnlEeuD9I3RHQxqiw _x6cnrmnlEeuD9I3RHQxqiw"/>
+  <modelingassistant:ModelingAssistant xmi:id="_N3s20HTVEeuHTKAeTAH24g">
+    <learningItems xmi:id="_N3s20XTVEeuHTKAeTAH24g" mistakeTypes="_N3s21nTVEeuHTKAeTAH24g"/>
+    <solutions xmi:id="_N3s20nTVEeuHTKAeTAH24g" student="_N3s21HTVEeuHTKAeTAH24g" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
+    <solutions xmi:id="_N3s203TVEeuHTKAeTAH24g" student="_N3s21XTVEeuHTKAeTAH24g" classDiagram="_N3uE8HTVEeuHTKAeTAH24g"/>
+    <students xmi:id="_N3s21HTVEeuHTKAeTAH24g" id="1111" solutions="_N3s20nTVEeuHTKAeTAH24g" studentKnowledges="_N3td4HTVEeuHTKAeTAH24g"/>
+    <students xmi:id="_N3s21XTVEeuHTKAeTAH24g" id="2222" solutions="_N3s203TVEeuHTKAeTAH24g" studentKnowledges="_N3td4XTVEeuHTKAeTAH24g"/>
+    <mistakeTypes xmi:id="_N3s21nTVEeuHTKAeTAH24g" name="Wrong class name" atomic="true" learningItem="_N3s20XTVEeuHTKAeTAH24g" studentKnowledges="_N3td4HTVEeuHTKAeTAH24g _N3td4XTVEeuHTKAeTAH24g"/>
+    <studentknowledge xmi:id="_N3td4HTVEeuHTKAeTAH24g" levelOfKnowledge="10578963" student="_N3s21HTVEeuHTKAeTAH24g" mistakeType="_N3s21nTVEeuHTKAeTAH24g"/>
+    <studentknowledge xmi:id="_N3td4XTVEeuHTKAeTAH24g" levelOfKnowledge="8996541" student="_N3s21XTVEeuHTKAeTAH24g" mistakeType="_N3s21nTVEeuHTKAeTAH24g"/>
   </modelingassistant:ModelingAssistant>
   <classdiagram:ClassDiagram xmi:id="_VQRncElSEeuektpDqzDh1Q" name="Cdm-staging">
     <classes xsi:type="classdiagram:Class" xmi:id="_WHVLQElSEeuektpDqzDh1Q" name="Car">
@@ -52,14 +54,12 @@
       </containers>
     </layout>
   </classdiagram:ClassDiagram>
-  <classdiagram:ClassDiagram xmi:id="_x6cnp2nlEeuD9I3RHQxqiw" name="Student2_solution">
-    <classes xsi:type="classdiagram:Class" xmi:id="_x6cnqGnlEeuD9I3RHQxqiw" name="Car">
-      <attributes xmi:id="_x6cnqWnlEeuD9I3RHQxqiw" name="id" type="_x6cnq2nlEeuD9I3RHQxqiw"/>
-      <attributes xmi:id="_x6cnqmnlEeuD9I3RHQxqiw" name="make" type="_x6cnrGnlEeuD9I3RHQxqiw"/>
+  <classdiagram:ClassDiagram xmi:id="_N3uE8HTVEeuHTKAeTAH24g" name="Student2_solution">
+    <classes xsi:type="classdiagram:Class" xmi:id="_N3uE8XTVEeuHTKAeTAH24g" name="Car">
+      <attributes xmi:id="_N3uE8nTVEeuHTKAeTAH24g" name="id" type="_N3uE9HTVEeuHTKAeTAH24g"/>
+      <attributes xmi:id="_N3uE83TVEeuHTKAeTAH24g" name="make" type="_N3uE9XTVEeuHTKAeTAH24g"/>
     </classes>
-    <types xsi:type="classdiagram:CDInt" xmi:id="_x6cnq2nlEeuD9I3RHQxqiw"/>
-    <types xsi:type="classdiagram:CDString" xmi:id="_x6cnrGnlEeuD9I3RHQxqiw"/>
+    <types xsi:type="classdiagram:CDInt" xmi:id="_N3uE9HTVEeuHTKAeTAH24g"/>
+    <types xsi:type="classdiagram:CDString" xmi:id="_N3uE9XTVEeuHTKAeTAH24g"/>
   </classdiagram:ClassDiagram>
-  <modelingassistant:StudentKnowledge xmi:id="_x6cnrWnlEeuD9I3RHQxqiw" levelOfKnowledge="10578963" student="_x6cnpGnlEeuD9I3RHQxqiw" mistakeType="_x6cnpmnlEeuD9I3RHQxqiw"/>
-  <modelingassistant:StudentKnowledge xmi:id="_x6cnrmnlEeuD9I3RHQxqiw" levelOfKnowledge="8996541" student="_x6cnpWnlEeuD9I3RHQxqiw" mistakeType="_x6cnpmnlEeuD9I3RHQxqiw"/>
 </xmi:XMI>
