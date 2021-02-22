@@ -25,8 +25,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -287,7 +285,7 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
    */
   public EList<StudentKnowledge> getStudentknowledge() {
     if (studentknowledge == null) {
-      studentknowledge = new EObjectContainmentEList<StudentKnowledge>(StudentKnowledge.class, this, ModelingassistantPackage.MODELING_ASSISTANT__STUDENTKNOWLEDGE);
+      studentknowledge = new EObjectContainmentWithInverseEList<StudentKnowledge>(StudentKnowledge.class, this, ModelingassistantPackage.MODELING_ASSISTANT__STUDENTKNOWLEDGE, ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELINGASSISTANT);
     }
     return studentknowledge;
   }
@@ -319,6 +317,8 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getMistakes()).basicAdd(otherEnd, msgs);
       case ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPES:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getMistakeTypes()).basicAdd(otherEnd, msgs);
+      case ModelingassistantPackage.MODELING_ASSISTANT__STUDENTKNOWLEDGE:
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getStudentknowledge()).basicAdd(otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }

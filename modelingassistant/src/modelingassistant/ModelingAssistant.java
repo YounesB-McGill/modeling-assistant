@@ -161,11 +161,13 @@ public interface ModelingAssistant extends EObject {
   /**
    * Returns the value of the '<em><b>Studentknowledge</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.StudentKnowledge}.
+   * It is bidirectional and its opposite is '{@link modelingassistant.StudentKnowledge#getModelingassistant <em>Modelingassistant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Studentknowledge</em>' containment reference list.
    * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_Studentknowledge()
-   * @model containment="true"
+   * @see modelingassistant.StudentKnowledge#getModelingassistant
+   * @model opposite="modelingassistant" containment="true"
    * @generated
    */
   EList<StudentKnowledge> getStudentknowledge();
