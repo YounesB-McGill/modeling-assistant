@@ -3,7 +3,7 @@ from .modelingassistant import getEClassifier, eClassifiers
 from .modelingassistant import name, nsURI, nsPrefix, eClass
 from .modelingassistant import int, boolean, Time, double, ModelingAssistant, Student, ProblemStatement, ProblemStatementElement, UmlElement, Solution, SolutionElement, LearningItem, StudentKnowledge, MistakeType, Mistake, Feedback, TextResponse, ParametrizedResponse, ResourceResponse, LearningResource, Reference, Tutorial, Example, Quiz
 
-from classdiagram import NamedElement, ClassDiagram
+from classdiagram import ClassDiagram, NamedElement
 
 from . import modelingassistant
 
@@ -15,6 +15,7 @@ eSuperPackage = None
 modelingassistant.eSubpackages = eSubpackages
 modelingassistant.eSuperPackage = eSuperPackage
 
+ModelingAssistant.studentknowledge.eType = StudentKnowledge
 Solution.classDiagram.eType = ClassDiagram
 SolutionElement.element.eType = NamedElement
 ModelingAssistant.learningItems.eType = LearningItem

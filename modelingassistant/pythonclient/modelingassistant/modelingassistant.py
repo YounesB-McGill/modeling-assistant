@@ -35,8 +35,10 @@ class ModelingAssistant(EObject, metaclass=MetaEClass):
     feedbacks = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     mistakes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     mistakeTypes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    studentknowledge = EReference(ordered=True, unique=True,
+                                  containment=True, derived=False, upper=-1)
 
-    def __init__(self, *, learningItems=None, learningResources=None, problemStatements=None, solutions=None, umlElements=None, students=None, feedbacks=None, mistakes=None, mistakeTypes=None):
+    def __init__(self, *, learningItems=None, learningResources=None, problemStatements=None, solutions=None, umlElements=None, students=None, feedbacks=None, mistakes=None, mistakeTypes=None, studentknowledge=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -68,6 +70,9 @@ class ModelingAssistant(EObject, metaclass=MetaEClass):
 
         if mistakeTypes:
             self.mistakeTypes.extend(mistakeTypes)
+
+        if studentknowledge:
+            self.studentknowledge.extend(studentknowledge)
 
 
 class Student(EObject, metaclass=MetaEClass):

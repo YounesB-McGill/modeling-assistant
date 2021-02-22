@@ -376,6 +376,15 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getModelingAssistant_Studentknowledge() {
+    return (EReference)modelingAssistantEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getStudent() {
     return studentEClass;
   }
@@ -1165,6 +1174,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(modelingAssistantEClass, MODELING_ASSISTANT__FEEDBACKS);
     createEReference(modelingAssistantEClass, MODELING_ASSISTANT__MISTAKES);
     createEReference(modelingAssistantEClass, MODELING_ASSISTANT__MISTAKE_TYPES);
+    createEReference(modelingAssistantEClass, MODELING_ASSISTANT__STUDENTKNOWLEDGE);
 
     studentEClass = createEClass(STUDENT);
     createEAttribute(studentEClass, STUDENT__ID);
@@ -1322,6 +1332,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getModelingAssistant_Feedbacks(), this.getFeedback(), this.getFeedback_ModelingAssistant(), "feedbacks", null, 0, -1, ModelingAssistant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getModelingAssistant_Mistakes(), this.getMistake(), this.getMistake_ModelingAssistant(), "mistakes", null, 0, -1, ModelingAssistant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getModelingAssistant_MistakeTypes(), this.getMistakeType(), this.getMistakeType_ModelingAssistant(), "mistakeTypes", null, 0, -1, ModelingAssistant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getModelingAssistant_Studentknowledge(), this.getStudentKnowledge(), null, "studentknowledge", null, 0, -1, ModelingAssistant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(studentEClass, Student.class, "Student", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getStudent_Id(), ecorePackage.getEString(), "id", null, 0, 1, Student.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
