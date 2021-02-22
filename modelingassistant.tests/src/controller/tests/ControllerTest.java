@@ -689,6 +689,7 @@ public class ControllerTest {
     student1ClassNamingKnowledge.setLevelOfKnowledge(lok1);
     student1ClassNamingKnowledge.setStudent(student1);
     student1ClassNamingKnowledge.setMistakeType(classNamingMistakeType);
+    student1ClassNamingKnowledge.setModelingassistant(modelingAssistant);
     
     // Make and link second class diagram to modeling assistant instance and related student
     var classDiagram2 = cdf.createClassDiagram();
@@ -705,6 +706,7 @@ public class ControllerTest {
     student2ClassNamingKnowledge.setLevelOfKnowledge(lok2);
     student2ClassNamingKnowledge.setStudent(student2);
     student2ClassNamingKnowledge.setMistakeType(classNamingMistakeType);
+    student2ClassNamingKnowledge.setModelingassistant(modelingAssistant);
     
     var cdInt = cdf.createCDInt();
     var cdString = cdf.createCDString();
@@ -723,8 +725,7 @@ public class ControllerTest {
     
     // Save modeling assistant instance to file and verify contents
     resource = rset.createResource(URI.createFileURI(maPath));
-    resource.getContents().addAll(List.of(modelingAssistant, classDiagram, classDiagram2,
-        student1ClassNamingKnowledge, student2ClassNamingKnowledge)); // should not be here
+    resource.getContents().addAll(List.of(modelingAssistant, classDiagram, classDiagram2));
     try {
       resource.save(Collections.EMPTY_MAP);
       assertTrue(maFile.isFile());
