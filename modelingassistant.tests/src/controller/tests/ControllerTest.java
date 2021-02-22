@@ -3,6 +3,7 @@ package controller.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,10 +14,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.junit.Test;
 import classdiagram.Attribute;
 import classdiagram.CDInt;
@@ -29,6 +27,7 @@ import classdiagram.ReferenceType;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
+import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 import modelingassistant.util.ResourceHelper;
 
 public class ControllerTest {
@@ -338,13 +337,7 @@ public class ControllerTest {
     assertEquals("Car", classDiagram.getClasses().get(0).getName());
     
     var rset = new ResourceSetImpl();
-    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl() {
-      @Override public Resource createResource(URI uri) {
-        return new XMIResourceImpl(uri) {
-          @Override protected boolean useUUIDs() { return true; }
-        };
-      }
-    });
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new ModelingassistantResourceFactoryImpl());
     var resource = rset.createResource(URI.createFileURI(maPath));
     resource.getContents().addAll(List.of(modelingAssistant, classDiagram));
     try {
@@ -411,13 +404,7 @@ public class ControllerTest {
     // Can't reuse ResourceHelper.INSTANCE here to load duplicate resource
     var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
     var rset = new ResourceSetImpl();
-    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl() {
-      @Override public Resource createResource(URI uri) {
-        return new XMIResourceImpl(uri) {
-          @Override protected boolean useUUIDs() { return true; }
-        };
-      }
-    });
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new ModelingassistantResourceFactoryImpl());
     var resource = rset.getResource(URI.createFileURI(cdmFile), true);
     var classDiagram = (ClassDiagram) resource.getContents().get(0);
     
@@ -511,13 +498,7 @@ public class ControllerTest {
     // Can't reuse ResourceHelper.INSTANCE here to load duplicate resource
     var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
     var rset = new ResourceSetImpl();
-    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl() {
-      @Override public Resource createResource(URI uri) {
-        return new XMIResourceImpl(uri) {
-          @Override protected boolean useUUIDs() { return true; }
-        };
-      }
-    });
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new ModelingassistantResourceFactoryImpl());
     var resource = rset.getResource(URI.createFileURI(cdmFile), true);
     var classDiagram = (ClassDiagram) resource.getContents().get(0);
 
@@ -656,13 +637,7 @@ public class ControllerTest {
     // Can't reuse ResourceHelper.INSTANCE here to load duplicate resource
     var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
     var rset = new ResourceSetImpl();
-    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl() {
-      @Override public Resource createResource(URI uri) {
-        return new XMIResourceImpl(uri) {
-          @Override protected boolean useUUIDs() { return true; }
-        };
-      }
-    });
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new ModelingassistantResourceFactoryImpl());
     var resource = rset.getResource(URI.createFileURI(cdmFile), true);
     var classDiagram = (ClassDiagram) resource.getContents().get(0);
     

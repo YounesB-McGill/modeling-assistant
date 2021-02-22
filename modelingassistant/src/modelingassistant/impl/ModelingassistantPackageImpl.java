@@ -448,6 +448,15 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getStudent_Name() {
+    return (EAttribute)studentEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getProblemStatement() {
     return problemStatementEClass;
   }
@@ -475,6 +484,24 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getProblemStatement_Title() {
+    return (EAttribute)problemStatementEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getProblemStatement_Text() {
+    return (EAttribute)problemStatementEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getProblemStatementElement() {
     return problemStatementElementEClass;
   }
@@ -495,6 +522,15 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    */
   public EReference getProblemStatementElement_SolutionElements() {
     return (EReference)problemStatementElementEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getProblemStatementElement_Name() {
+    return (EAttribute)problemStatementElementEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -675,6 +711,24 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    */
   public EReference getLearningItem_MistakeTypes() {
     return (EReference)learningItemEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getLearningItem_Name() {
+    return (EAttribute)learningItemEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getLearningItem_Description() {
+    return (EAttribute)learningItemEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -1069,8 +1123,17 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getLearningResource_Content() {
+  public EAttribute getLearningResource_Name() {
     return (EAttribute)learningResourceEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getLearningResource_Content() {
+    return (EAttribute)learningResourceEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -1192,14 +1255,18 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(studentEClass, STUDENT__CURRENT_MISTAKE);
     createEReference(studentEClass, STUDENT__SOLUTIONS);
     createEReference(studentEClass, STUDENT__STUDENT_KNOWLEDGES);
+    createEAttribute(studentEClass, STUDENT__NAME);
 
     problemStatementEClass = createEClass(PROBLEM_STATEMENT);
     createEReference(problemStatementEClass, PROBLEM_STATEMENT__MODELING_ASSISTANT);
     createEReference(problemStatementEClass, PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS);
+    createEAttribute(problemStatementEClass, PROBLEM_STATEMENT__TITLE);
+    createEAttribute(problemStatementEClass, PROBLEM_STATEMENT__TEXT);
 
     problemStatementElementEClass = createEClass(PROBLEM_STATEMENT_ELEMENT);
     createEReference(problemStatementElementEClass, PROBLEM_STATEMENT_ELEMENT__PROBLEM_STATEMENT);
     createEReference(problemStatementElementEClass, PROBLEM_STATEMENT_ELEMENT__SOLUTION_ELEMENTS);
+    createEAttribute(problemStatementElementEClass, PROBLEM_STATEMENT_ELEMENT__NAME);
 
     umlElementEClass = createEClass(UML_ELEMENT);
     createEReference(umlElementEClass, UML_ELEMENT__MODELING_ASSISTANT);
@@ -1224,6 +1291,8 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(learningItemEClass, LEARNING_ITEM__UML_ELEMENTS);
     createEReference(learningItemEClass, LEARNING_ITEM__LEARNING_RESOURCES);
     createEReference(learningItemEClass, LEARNING_ITEM__MISTAKE_TYPES);
+    createEAttribute(learningItemEClass, LEARNING_ITEM__NAME);
+    createEAttribute(learningItemEClass, LEARNING_ITEM__DESCRIPTION);
 
     studentKnowledgeEClass = createEClass(STUDENT_KNOWLEDGE);
     createEAttribute(studentKnowledgeEClass, STUDENT_KNOWLEDGE__LEVEL_OF_KNOWLEDGE);
@@ -1275,6 +1344,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(learningResourceEClass, LEARNING_RESOURCE__MODELING_ASSISTANT);
     createEReference(learningResourceEClass, LEARNING_RESOURCE__LEARNING_ITEM);
     createEReference(learningResourceEClass, LEARNING_RESOURCE__RESOURCE_RESPONSES);
+    createEAttribute(learningResourceEClass, LEARNING_RESOURCE__NAME);
     createEAttribute(learningResourceEClass, LEARNING_RESOURCE__CONTENT);
 
     referenceEClass = createEClass(REFERENCE);
@@ -1351,14 +1421,18 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getStudent_CurrentMistake(), this.getMistake(), this.getMistake_CurrentMistakeStudent(), "currentMistake", null, 0, 1, Student.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStudent_Solutions(), this.getSolution(), this.getSolution_Student(), "solutions", null, 0, -1, Student.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStudent_StudentKnowledges(), this.getStudentKnowledge(), this.getStudentKnowledge_Student(), "studentKnowledges", null, 0, -1, Student.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getStudent_Name(), ecorePackage.getEString(), "name", null, 0, 1, Student.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(problemStatementEClass, ProblemStatement.class, "ProblemStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getProblemStatement_ModelingAssistant(), this.getModelingAssistant(), this.getModelingAssistant_ProblemStatements(), "modelingAssistant", null, 1, 1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getProblemStatement_ProblemStatementElements(), this.getProblemStatementElement(), this.getProblemStatementElement_ProblemStatement(), "problemStatementElements", null, 0, -1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getProblemStatement_Title(), ecorePackage.getEString(), "title", null, 0, 1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getProblemStatement_Text(), ecorePackage.getEString(), "text", null, 0, 1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(problemStatementElementEClass, ProblemStatementElement.class, "ProblemStatementElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getProblemStatementElement_ProblemStatement(), this.getProblemStatement(), this.getProblemStatement_ProblemStatementElements(), "problemStatement", null, 1, 1, ProblemStatementElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getProblemStatementElement_SolutionElements(), this.getSolutionElement(), this.getSolutionElement_ProblemStatementElements(), "solutionElements", null, 0, -1, ProblemStatementElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getProblemStatementElement_Name(), ecorePackage.getEString(), "name", null, 0, 1, ProblemStatementElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(umlElementEClass, UmlElement.class, "UmlElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getUmlElement_ModelingAssistant(), this.getModelingAssistant(), this.getModelingAssistant_UmlElements(), "modelingAssistant", null, 1, 1, UmlElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1383,6 +1457,8 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getLearningItem_UmlElements(), this.getUmlElement(), this.getUmlElement_LearningItems(), "umlElements", null, 0, -1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningItem_LearningResources(), this.getLearningResource(), this.getLearningResource_LearningItem(), "learningResources", null, 0, -1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningItem_MistakeTypes(), this.getMistakeType(), this.getMistakeType_LearningItem(), "mistakeTypes", null, 0, -1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getLearningItem_Name(), ecorePackage.getEString(), "name", null, 0, 1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getLearningItem_Description(), ecorePackage.getEString(), "description", null, 0, 1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(studentKnowledgeEClass, StudentKnowledge.class, "StudentKnowledge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getStudentKnowledge_LevelOfKnowledge(), this.getint(), "levelOfKnowledge", null, 0, 1, StudentKnowledge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1434,6 +1510,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getLearningResource_ModelingAssistant(), this.getModelingAssistant(), this.getModelingAssistant_LearningResources(), "modelingAssistant", null, 1, 1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningResource_LearningItem(), this.getLearningItem(), this.getLearningItem_LearningResources(), "learningItem", null, 1, 1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningResource_ResourceResponses(), this.getResourceResponse(), this.getResourceResponse_LearningResources(), "resourceResponses", null, 0, -1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getLearningResource_Name(), ecorePackage.getEString(), "name", null, 0, 1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getLearningResource_Content(), ecorePackage.getEJavaObject(), "content", null, 0, 1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(referenceEClass, Reference.class, "Reference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
