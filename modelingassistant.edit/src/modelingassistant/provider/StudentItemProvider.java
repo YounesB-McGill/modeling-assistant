@@ -66,6 +66,7 @@ public class StudentItemProvider
       addCurrentMistakePropertyDescriptor(object);
       addSolutionsPropertyDescriptor(object);
       addStudentKnowledgesPropertyDescriptor(object);
+      addNamePropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -203,6 +204,28 @@ public class StudentItemProvider
   }
 
   /**
+   * This adds a property descriptor for the Name feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addNamePropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_Student_name_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Student_name_feature", "_UI_Student_type"),
+         ModelingassistantPackage.Literals.STUDENT__NAME,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This returns Student.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -221,7 +244,7 @@ public class StudentItemProvider
    */
   @Override
   public String getText(Object object) {
-    String label = ((Student)object).getId();
+    String label = ((Student)object).getName();
     return label == null || label.length() == 0 ?
       getString("_UI_Student_type") :
       getString("_UI_Student_type") + " " + label;
@@ -241,6 +264,7 @@ public class StudentItemProvider
 
     switch (notification.getFeatureID(Student.class)) {
       case ModelingassistantPackage.STUDENT__ID:
+      case ModelingassistantPackage.STUDENT__NAME:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }

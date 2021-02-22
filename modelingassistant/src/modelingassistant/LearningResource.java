@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.LearningResource#getModelingAssistant <em>Modeling Assistant</em>}</li>
  *   <li>{@link modelingassistant.LearningResource#getLearningItem <em>Learning Item</em>}</li>
  *   <li>{@link modelingassistant.LearningResource#getResourceResponses <em>Resource Responses</em>}</li>
+ *   <li>{@link modelingassistant.LearningResource#getName <em>Name</em>}</li>
  *   <li>{@link modelingassistant.LearningResource#getContent <em>Content</em>}</li>
  * </ul>
  *
@@ -87,6 +88,28 @@ public interface LearningResource extends EObject {
    * @generated
    */
   EList<ResourceResponse> getResourceResponses();
+
+  /**
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see modelingassistant.ModelingassistantPackage#getLearningResource_Name()
+   * @model
+   * @generated
+   */
+  String getName();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.LearningResource#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' attribute.
