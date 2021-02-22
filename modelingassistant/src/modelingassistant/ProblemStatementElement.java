@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link modelingassistant.ProblemStatementElement#getProblemStatement <em>Problem Statement</em>}</li>
  *   <li>{@link modelingassistant.ProblemStatementElement#getSolutionElements <em>Solution Elements</em>}</li>
+ *   <li>{@link modelingassistant.ProblemStatementElement#getName <em>Name</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getProblemStatementElement()
@@ -61,5 +62,27 @@ public interface ProblemStatementElement extends EObject {
    * @generated
    */
   EList<SolutionElement> getSolutionElements();
+
+  /**
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see modelingassistant.ModelingassistantPackage#getProblemStatementElement_Name()
+   * @model
+   * @generated
+   */
+  String getName();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.ProblemStatementElement#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
 
 } // ProblemStatementElement
