@@ -5,7 +5,8 @@
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
     operationReflection="true" importOrganizing="true">
   <foreignModel>modelingassistant.ecore</foreignModel>
-  <genPackages prefix="Modelingassistant" disposableProviderFactory="true" ecorePackage="modelingassistant.ecore#/">
+  <genPackages prefix="Modelingassistant" resource="XMI" disposableProviderFactory="true"
+      ecorePackage="modelingassistant.ecore#/">
     <genDataTypes ecoreDataType="modelingassistant.ecore#//int"/>
     <genDataTypes ecoreDataType="modelingassistant.ecore#//boolean"/>
     <genDataTypes ecoreDataType="modelingassistant.ecore#//Time"/>
