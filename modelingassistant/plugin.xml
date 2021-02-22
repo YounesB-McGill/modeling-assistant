@@ -14,6 +14,13 @@
             genModel="model/modelingassistant.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated modelingassistant -->
+      <parser
+            type="modelingassistant"
+            class="modelingassistant.util.ModelingassistantResourceFactoryImpl"/>
+   </extension>
+
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated modelingassistant -->
       <package
