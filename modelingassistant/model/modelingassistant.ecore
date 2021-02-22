@@ -40,18 +40,22 @@
         eType="#//Solution" eOpposite="#//Solution/student"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="studentKnowledges" upperBound="-1"
         eType="#//StudentKnowledge" eOpposite="#//StudentKnowledge/student"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProblemStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
         eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/problemStatements"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatementElements"
         upperBound="-1" eType="#//ProblemStatementElement" containment="true" eOpposite="#//ProblemStatementElement/problemStatement"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProblemStatementElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatement" lowerBound="1"
         eType="#//ProblemStatement" eOpposite="#//ProblemStatement/problemStatementElements"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="solutionElements" upperBound="-1"
         eType="#//SolutionElement" eOpposite="#//SolutionElement/problemStatementElements"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UmlElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
@@ -92,6 +96,8 @@
         eType="#//LearningResource" eOpposite="#//LearningResource/learningItem"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypes" upperBound="-1"
         eType="#//MistakeType" eOpposite="#//MistakeType/learningItem"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StudentKnowledge">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="levelOfKnowledge" eType="#//int"/>
@@ -164,6 +170,7 @@
         eType="#//LearningItem" eOpposite="#//LearningItem/learningResources"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resourceResponses" upperBound="-1"
         eType="#//ResourceResponse" eOpposite="#//ResourceResponse/learningResources"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Reference" eSuperTypes="#//LearningResource"/>

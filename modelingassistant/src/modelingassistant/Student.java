@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.Student#getCurrentMistake <em>Current Mistake</em>}</li>
  *   <li>{@link modelingassistant.Student#getSolutions <em>Solutions</em>}</li>
  *   <li>{@link modelingassistant.Student#getStudentKnowledges <em>Student Knowledges</em>}</li>
+ *   <li>{@link modelingassistant.Student#getName <em>Name</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getStudent()
@@ -139,5 +140,27 @@ public interface Student extends EObject {
    * @generated
    */
   EList<StudentKnowledge> getStudentKnowledges();
+
+  /**
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see modelingassistant.ModelingassistantPackage#getStudent_Name()
+   * @model
+   * @generated
+   */
+  String getName();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.Student#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
 
 } // Student

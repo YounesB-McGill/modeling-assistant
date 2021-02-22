@@ -63,6 +63,7 @@ public class LearningResourceItemProvider
       addModelingAssistantPropertyDescriptor(object);
       addLearningItemPropertyDescriptor(object);
       addResourceResponsesPropertyDescriptor(object);
+      addNamePropertyDescriptor(object);
       addContentPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
@@ -135,6 +136,28 @@ public class LearningResourceItemProvider
   }
 
   /**
+   * This adds a property descriptor for the Name feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addNamePropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_LearningResource_name_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_LearningResource_name_feature", "_UI_LearningResource_type"),
+         ModelingassistantPackage.Literals.LEARNING_RESOURCE__NAME,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This adds a property descriptor for the Content feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -175,8 +198,7 @@ public class LearningResourceItemProvider
    */
   @Override
   public String getText(Object object) {
-    Object labelValue = ((LearningResource)object).getContent();
-    String label = labelValue == null ? null : labelValue.toString();
+    String label = ((LearningResource)object).getName();
     return label == null || label.length() == 0 ?
       getString("_UI_LearningResource_type") :
       getString("_UI_LearningResource_type") + " " + label;
@@ -195,6 +217,7 @@ public class LearningResourceItemProvider
     updateChildren(notification);
 
     switch (notification.getFeatureID(LearningResource.class)) {
+      case ModelingassistantPackage.LEARNING_RESOURCE__NAME:
       case ModelingassistantPackage.LEARNING_RESOURCE__CONTENT:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
