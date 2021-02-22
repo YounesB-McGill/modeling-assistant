@@ -134,4 +134,38 @@ public class MistakeDetectionTest {
     }
   }
 
+  @Test public void checkLowerCase() {
+    assertTrue(MistakeDetection.isLowerName("class1"));
+    assertFalse(MistakeDetection.isLowerName("Class1"));
+  }
+  
+  @Test public void checkCorrect() {
+    
+    ClassdiagramPackage.eINSTANCE.eClass();
+    var cdmFile = "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution.domain_model.cdm";
+    var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
+    var classDiagram = (ClassDiagram) resource.getContents().get(0);
+    var maf = ModelingassistantFactory.eINSTANCE;
+    var modelingAssistant = maf.createModelingAssistant();
+    var solution = maf.createSolution();
+    solution.setModelingAssistant(modelingAssistant);
+    solution.setClassDiagram(classDiagram);
+    
+    assertTrue(MistakeDetection.checkCorrect(solution.getClassDiagram().getClasses().get(0), solution.getClassDiagram().getClasses().get(0)));
+   
+    assertEquals(MistakeDetection.notMappedInstructorClassifier.size(), 0);
+    assertEquals(MistakeDetection.extraStudentClassifier.size(), 0);
+    assertEquals(MistakeDetection.mappedClassifier.size(), 1);
+    
+    System.out.println("--");
+    
+    MistakeDetection.mappedClassifier.clear();
+    MistakeDetection.extraStudentClassifier.clear();
+    MistakeDetection.notMappedInstructorClassifier.clear();
+    
+    assertFalse(MistakeDetection.checkCorrect(solution.getClassDiagram().getClasses().get(0), solution.getClassDiagram().getClasses().get(1)));
+    assertEquals(MistakeDetection.notMappedInstructorClassifier.size(), 1);
+    assertEquals(MistakeDetection.extraStudentClassifier.size(), 1);
+    assertEquals(MistakeDetection.mappedClassifier.size(), 0);
+  }
 }
