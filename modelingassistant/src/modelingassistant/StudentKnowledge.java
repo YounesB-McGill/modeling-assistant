@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.StudentKnowledge#getLevelOfKnowledge <em>Level Of Knowledge</em>}</li>
  *   <li>{@link modelingassistant.StudentKnowledge#getStudent <em>Student</em>}</li>
  *   <li>{@link modelingassistant.StudentKnowledge#getMistakeType <em>Mistake Type</em>}</li>
+ *   <li>{@link modelingassistant.StudentKnowledge#getModelingassistant <em>Modelingassistant</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getStudentKnowledge()
@@ -92,5 +93,29 @@ public interface StudentKnowledge extends EObject {
    * @generated
    */
   void setMistakeType(MistakeType value);
+
+  /**
+   * Returns the value of the '<em><b>Modelingassistant</b></em>' container reference.
+   * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getStudentknowledge <em>Studentknowledge</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Modelingassistant</em>' container reference.
+   * @see #setModelingassistant(ModelingAssistant)
+   * @see modelingassistant.ModelingassistantPackage#getStudentKnowledge_Modelingassistant()
+   * @see modelingassistant.ModelingAssistant#getStudentknowledge
+   * @model opposite="studentknowledge" required="true" transient="false"
+   * @generated
+   */
+  ModelingAssistant getModelingassistant();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.StudentKnowledge#getModelingassistant <em>Modelingassistant</em>}' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Modelingassistant</em>' container reference.
+   * @see #getModelingassistant()
+   * @generated
+   */
+  void setModelingassistant(ModelingAssistant value);
 
 } // StudentKnowledge

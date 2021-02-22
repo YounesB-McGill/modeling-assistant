@@ -262,8 +262,9 @@ class StudentKnowledge(EObject, metaclass=MetaEClass):
     levelOfKnowledge = EAttribute(eType=int, unique=True, derived=False, changeable=True)
     student = EReference(ordered=True, unique=True, containment=False, derived=False)
     mistakeType = EReference(ordered=True, unique=True, containment=False, derived=False)
+    modelingassistant = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, levelOfKnowledge=None, student=None, mistakeType=None):
+    def __init__(self, *, levelOfKnowledge=None, student=None, mistakeType=None, modelingassistant=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -277,6 +278,9 @@ class StudentKnowledge(EObject, metaclass=MetaEClass):
 
         if mistakeType is not None:
             self.mistakeType = mistakeType
+
+        if modelingassistant is not None:
+            self.modelingassistant = modelingassistant
 
 
 class MistakeType(EObject, metaclass=MetaEClass):

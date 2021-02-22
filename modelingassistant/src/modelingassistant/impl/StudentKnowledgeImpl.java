@@ -3,6 +3,7 @@
 package modelingassistant.impl;
 
 import modelingassistant.MistakeType;
+import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.Student;
 import modelingassistant.StudentKnowledge;
@@ -15,6 +16,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,6 +29,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link modelingassistant.impl.StudentKnowledgeImpl#getLevelOfKnowledge <em>Level Of Knowledge</em>}</li>
  *   <li>{@link modelingassistant.impl.StudentKnowledgeImpl#getStudent <em>Student</em>}</li>
  *   <li>{@link modelingassistant.impl.StudentKnowledgeImpl#getMistakeType <em>Mistake Type</em>}</li>
+ *   <li>{@link modelingassistant.impl.StudentKnowledgeImpl#getModelingassistant <em>Modelingassistant</em>}</li>
  * </ul>
  *
  * @generated
@@ -237,6 +240,47 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  public ModelingAssistant getModelingassistant() {
+    if (eContainerFeatureID() != ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELINGASSISTANT) return null;
+    return (ModelingAssistant)eInternalContainer();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetModelingassistant(ModelingAssistant newModelingassistant, NotificationChain msgs) {
+    msgs = eBasicSetContainer((InternalEObject)newModelingassistant, ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELINGASSISTANT, msgs);
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setModelingassistant(ModelingAssistant newModelingassistant) {
+    if (newModelingassistant != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELINGASSISTANT && newModelingassistant != null)) {
+      if (EcoreUtil.isAncestor(this, newModelingassistant))
+        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+      NotificationChain msgs = null;
+      if (eInternalContainer() != null)
+        msgs = eBasicRemoveFromContainer(msgs);
+      if (newModelingassistant != null)
+        msgs = ((InternalEObject)newModelingassistant).eInverseAdd(this, ModelingassistantPackage.MODELING_ASSISTANT__STUDENTKNOWLEDGE, ModelingAssistant.class, msgs);
+      msgs = basicSetModelingassistant(newModelingassistant, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELINGASSISTANT, newModelingassistant, newModelingassistant));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
     switch (featureID) {
@@ -248,6 +292,10 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
         if (mistakeType != null)
           msgs = ((InternalEObject)mistakeType).eInverseRemove(this, ModelingassistantPackage.MISTAKE_TYPE__STUDENT_KNOWLEDGES, MistakeType.class, msgs);
         return basicSetMistakeType((MistakeType)otherEnd, msgs);
+      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELINGASSISTANT:
+        if (eInternalContainer() != null)
+          msgs = eBasicRemoveFromContainer(msgs);
+        return basicSetModelingassistant((ModelingAssistant)otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -264,8 +312,24 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
         return basicSetStudent(null, msgs);
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE:
         return basicSetMistakeType(null, msgs);
+      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELINGASSISTANT:
+        return basicSetModelingassistant(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+    switch (eContainerFeatureID()) {
+      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELINGASSISTANT:
+        return eInternalContainer().eInverseRemove(this, ModelingassistantPackage.MODELING_ASSISTANT__STUDENTKNOWLEDGE, ModelingAssistant.class, msgs);
+    }
+    return super.eBasicRemoveFromContainerFeature(msgs);
   }
 
   /**
@@ -284,6 +348,8 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE:
         if (resolve) return getMistakeType();
         return basicGetMistakeType();
+      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELINGASSISTANT:
+        return getModelingassistant();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -304,6 +370,9 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
         return;
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE:
         setMistakeType((MistakeType)newValue);
+        return;
+      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELINGASSISTANT:
+        setModelingassistant((ModelingAssistant)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -326,6 +395,9 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE:
         setMistakeType((MistakeType)null);
         return;
+      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELINGASSISTANT:
+        setModelingassistant((ModelingAssistant)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -344,6 +416,8 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
         return student != null;
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE:
         return mistakeType != null;
+      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELINGASSISTANT:
+        return getModelingassistant() != null;
     }
     return super.eIsSet(featureID);
   }
