@@ -19,6 +19,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.LearningItem#getUmlElements <em>Uml Elements</em>}</li>
  *   <li>{@link modelingassistant.LearningItem#getLearningResources <em>Learning Resources</em>}</li>
  *   <li>{@link modelingassistant.LearningItem#getMistakeTypes <em>Mistake Types</em>}</li>
+ *   <li>{@link modelingassistant.LearningItem#getName <em>Name</em>}</li>
+ *   <li>{@link modelingassistant.LearningItem#getDescription <em>Description</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getLearningItem()
@@ -91,5 +93,49 @@ public interface LearningItem extends EObject {
    * @generated
    */
   EList<MistakeType> getMistakeTypes();
+
+  /**
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see modelingassistant.ModelingassistantPackage#getLearningItem_Name()
+   * @model
+   * @generated
+   */
+  String getName();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.LearningItem#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Description</em>' attribute.
+   * @see #setDescription(String)
+   * @see modelingassistant.ModelingassistantPackage#getLearningItem_Description()
+   * @model
+   * @generated
+   */
+  String getDescription();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.LearningItem#getDescription <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Description</em>' attribute.
+   * @see #getDescription()
+   * @generated
+   */
+  void setDescription(String value);
 
 } // LearningItem

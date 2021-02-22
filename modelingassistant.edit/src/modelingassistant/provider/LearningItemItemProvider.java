@@ -6,6 +6,7 @@ package modelingassistant.provider;
 import java.util.Collection;
 import java.util.List;
 
+import modelingassistant.LearningItem;
 import modelingassistant.ModelingassistantPackage;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -20,7 +21,9 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link modelingassistant.LearningItem} object.
@@ -61,6 +64,8 @@ public class LearningItemItemProvider
       addUmlElementsPropertyDescriptor(object);
       addLearningResourcesPropertyDescriptor(object);
       addMistakeTypesPropertyDescriptor(object);
+      addNamePropertyDescriptor(object);
+      addDescriptionPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -154,6 +159,50 @@ public class LearningItemItemProvider
   }
 
   /**
+   * This adds a property descriptor for the Name feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addNamePropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_LearningItem_name_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_LearningItem_name_feature", "_UI_LearningItem_type"),
+         ModelingassistantPackage.Literals.LEARNING_ITEM__NAME,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Description feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addDescriptionPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_LearningItem_description_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_LearningItem_description_feature", "_UI_LearningItem_type"),
+         ModelingassistantPackage.Literals.LEARNING_ITEM__DESCRIPTION,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This returns LearningItem.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -172,7 +221,10 @@ public class LearningItemItemProvider
    */
   @Override
   public String getText(Object object) {
-    return getString("_UI_LearningItem_type");
+    String label = ((LearningItem)object).getName();
+    return label == null || label.length() == 0 ?
+      getString("_UI_LearningItem_type") :
+      getString("_UI_LearningItem_type") + " " + label;
   }
 
 
@@ -186,6 +238,13 @@ public class LearningItemItemProvider
   @Override
   public void notifyChanged(Notification notification) {
     updateChildren(notification);
+
+    switch (notification.getFeatureID(LearningItem.class)) {
+      case ModelingassistantPackage.LEARNING_ITEM__NAME:
+      case ModelingassistantPackage.LEARNING_ITEM__DESCRIPTION:
+        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+        return;
+    }
     super.notifyChanged(notification);
   }
 

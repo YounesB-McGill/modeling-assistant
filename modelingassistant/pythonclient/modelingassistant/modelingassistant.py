@@ -35,8 +35,10 @@ class ModelingAssistant(EObject, metaclass=MetaEClass):
     feedbacks = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     mistakes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     mistakeTypes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    studentknowledge = EReference(ordered=True, unique=True,
+                                  containment=True, derived=False, upper=-1)
 
-    def __init__(self, *, learningItems=None, learningResources=None, problemStatements=None, solutions=None, umlElements=None, students=None, feedbacks=None, mistakes=None, mistakeTypes=None):
+    def __init__(self, *, learningItems=None, learningResources=None, problemStatements=None, solutions=None, umlElements=None, students=None, feedbacks=None, mistakes=None, mistakeTypes=None, studentknowledge=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -69,10 +71,14 @@ class ModelingAssistant(EObject, metaclass=MetaEClass):
         if mistakeTypes:
             self.mistakeTypes.extend(mistakeTypes)
 
+        if studentknowledge:
+            self.studentknowledge.extend(studentknowledge)
+
 
 class Student(EObject, metaclass=MetaEClass):
 
     id = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
+    name = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
     modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
     mistakes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
     currentMistake = EReference(ordered=True, unique=True, containment=False, derived=False)
@@ -80,7 +86,7 @@ class Student(EObject, metaclass=MetaEClass):
     studentKnowledges = EReference(ordered=True, unique=True,
                                    containment=False, derived=False, upper=-1)
 
-    def __init__(self, *, id=None, modelingAssistant=None, mistakes=None, currentMistake=None, solutions=None, studentKnowledges=None):
+    def __init__(self, *, id=None, modelingAssistant=None, mistakes=None, currentMistake=None, solutions=None, studentKnowledges=None, name=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -88,6 +94,9 @@ class Student(EObject, metaclass=MetaEClass):
 
         if id is not None:
             self.id = id
+
+        if name is not None:
+            self.name = name
 
         if modelingAssistant is not None:
             self.modelingAssistant = modelingAssistant
@@ -107,15 +116,23 @@ class Student(EObject, metaclass=MetaEClass):
 
 class ProblemStatement(EObject, metaclass=MetaEClass):
 
+    title = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
+    text = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
     modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
     problemStatementElements = EReference(
         ordered=True, unique=True, containment=True, derived=False, upper=-1)
 
-    def __init__(self, *, modelingAssistant=None, problemStatementElements=None):
+    def __init__(self, *, modelingAssistant=None, problemStatementElements=None, title=None, text=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
         super().__init__()
+
+        if title is not None:
+            self.title = title
+
+        if text is not None:
+            self.text = text
 
         if modelingAssistant is not None:
             self.modelingAssistant = modelingAssistant
@@ -126,15 +143,19 @@ class ProblemStatement(EObject, metaclass=MetaEClass):
 
 class ProblemStatementElement(EObject, metaclass=MetaEClass):
 
+    name = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
     problemStatement = EReference(ordered=True, unique=True, containment=False, derived=False)
     solutionElements = EReference(ordered=True, unique=True,
                                   containment=False, derived=False, upper=-1)
 
-    def __init__(self, *, problemStatement=None, solutionElements=None):
+    def __init__(self, *, problemStatement=None, solutionElements=None, name=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
         super().__init__()
+
+        if name is not None:
+            self.name = name
 
         if problemStatement is not None:
             self.problemStatement = problemStatement
@@ -227,17 +248,25 @@ class SolutionElement(EObject, metaclass=MetaEClass):
 
 class LearningItem(EObject, metaclass=MetaEClass):
 
+    name = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
+    description = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
     modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
     umlElements = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
     learningResources = EReference(ordered=True, unique=True,
                                    containment=False, derived=False, upper=-1)
     mistakeTypes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
 
-    def __init__(self, *, modelingAssistant=None, umlElements=None, learningResources=None, mistakeTypes=None):
+    def __init__(self, *, modelingAssistant=None, umlElements=None, learningResources=None, mistakeTypes=None, name=None, description=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
         super().__init__()
+
+        if name is not None:
+            self.name = name
+
+        if description is not None:
+            self.description = description
 
         if modelingAssistant is not None:
             self.modelingAssistant = modelingAssistant
@@ -257,8 +286,9 @@ class StudentKnowledge(EObject, metaclass=MetaEClass):
     levelOfKnowledge = EAttribute(eType=int, unique=True, derived=False, changeable=True)
     student = EReference(ordered=True, unique=True, containment=False, derived=False)
     mistakeType = EReference(ordered=True, unique=True, containment=False, derived=False)
+    modelingassistant = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, levelOfKnowledge=None, student=None, mistakeType=None):
+    def __init__(self, *, levelOfKnowledge=None, student=None, mistakeType=None, modelingassistant=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -272,6 +302,9 @@ class StudentKnowledge(EObject, metaclass=MetaEClass):
 
         if mistakeType is not None:
             self.mistakeType = mistakeType
+
+        if modelingassistant is not None:
+            self.modelingassistant = modelingassistant
 
 
 class MistakeType(EObject, metaclass=MetaEClass):
@@ -416,17 +449,21 @@ class Feedback(EObject, metaclass=MetaEClass):
 
 class LearningResource(EObject, metaclass=MetaEClass):
 
+    name = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
     content = EAttribute(eType=EJavaObject, unique=True, derived=False, changeable=True)
     modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
     learningItem = EReference(ordered=True, unique=True, containment=False, derived=False)
     resourceResponses = EReference(ordered=True, unique=True,
                                    containment=False, derived=False, upper=-1)
 
-    def __init__(self, *, modelingAssistant=None, learningItem=None, resourceResponses=None, content=None):
+    def __init__(self, *, modelingAssistant=None, learningItem=None, resourceResponses=None, name=None, content=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
         super().__init__()
+
+        if name is not None:
+            self.name = name
 
         if content is not None:
             self.content = content

@@ -14,6 +14,7 @@ import modelingassistant.ModelingassistantPackage;
 import modelingassistant.ProblemStatement;
 import modelingassistant.Solution;
 import modelingassistant.Student;
+import modelingassistant.StudentKnowledge;
 import modelingassistant.UmlElement;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -24,7 +25,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -45,6 +45,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link modelingassistant.impl.ModelingAssistantImpl#getFeedbacks <em>Feedbacks</em>}</li>
  *   <li>{@link modelingassistant.impl.ModelingAssistantImpl#getMistakes <em>Mistakes</em>}</li>
  *   <li>{@link modelingassistant.impl.ModelingAssistantImpl#getMistakeTypes <em>Mistake Types</em>}</li>
+ *   <li>{@link modelingassistant.impl.ModelingAssistantImpl#getStudentknowledge <em>Studentknowledge</em>}</li>
  * </ul>
  *
  * @generated
@@ -139,6 +140,16 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
    * @ordered
    */
   protected EList<MistakeType> mistakeTypes;
+
+  /**
+   * The cached value of the '{@link #getStudentknowledge() <em>Studentknowledge</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getStudentknowledge()
+   * @generated
+   * @ordered
+   */
+  protected EList<StudentKnowledge> studentknowledge;
 
   /**
    * <!-- begin-user-doc -->
@@ -272,6 +283,18 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<StudentKnowledge> getStudentknowledge() {
+    if (studentknowledge == null) {
+      studentknowledge = new EObjectContainmentWithInverseEList<StudentKnowledge>(StudentKnowledge.class, this, ModelingassistantPackage.MODELING_ASSISTANT__STUDENTKNOWLEDGE, ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELINGASSISTANT);
+    }
+    return studentknowledge;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -294,6 +317,8 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getMistakes()).basicAdd(otherEnd, msgs);
       case ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPES:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getMistakeTypes()).basicAdd(otherEnd, msgs);
+      case ModelingassistantPackage.MODELING_ASSISTANT__STUDENTKNOWLEDGE:
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getStudentknowledge()).basicAdd(otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -324,6 +349,8 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
         return ((InternalEList<?>)getMistakes()).basicRemove(otherEnd, msgs);
       case ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPES:
         return ((InternalEList<?>)getMistakeTypes()).basicRemove(otherEnd, msgs);
+      case ModelingassistantPackage.MODELING_ASSISTANT__STUDENTKNOWLEDGE:
+        return ((InternalEList<?>)getStudentknowledge()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -354,6 +381,8 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
         return getMistakes();
       case ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPES:
         return getMistakeTypes();
+      case ModelingassistantPackage.MODELING_ASSISTANT__STUDENTKNOWLEDGE:
+        return getStudentknowledge();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -403,6 +432,10 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
         getMistakeTypes().clear();
         getMistakeTypes().addAll((Collection<? extends MistakeType>)newValue);
         return;
+      case ModelingassistantPackage.MODELING_ASSISTANT__STUDENTKNOWLEDGE:
+        getStudentknowledge().clear();
+        getStudentknowledge().addAll((Collection<? extends StudentKnowledge>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -442,6 +475,9 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
       case ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPES:
         getMistakeTypes().clear();
         return;
+      case ModelingassistantPackage.MODELING_ASSISTANT__STUDENTKNOWLEDGE:
+        getStudentknowledge().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -472,6 +508,8 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
         return mistakes != null && !mistakes.isEmpty();
       case ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPES:
         return mistakeTypes != null && !mistakeTypes.isEmpty();
+      case ModelingassistantPackage.MODELING_ASSISTANT__STUDENTKNOWLEDGE:
+        return studentknowledge != null && !studentknowledge.isEmpty();
     }
     return super.eIsSet(featureID);
   }

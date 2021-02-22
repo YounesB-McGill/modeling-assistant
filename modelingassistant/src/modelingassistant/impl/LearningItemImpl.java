@@ -38,6 +38,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link modelingassistant.impl.LearningItemImpl#getUmlElements <em>Uml Elements</em>}</li>
  *   <li>{@link modelingassistant.impl.LearningItemImpl#getLearningResources <em>Learning Resources</em>}</li>
  *   <li>{@link modelingassistant.impl.LearningItemImpl#getMistakeTypes <em>Mistake Types</em>}</li>
+ *   <li>{@link modelingassistant.impl.LearningItemImpl#getName <em>Name</em>}</li>
+ *   <li>{@link modelingassistant.impl.LearningItemImpl#getDescription <em>Description</em>}</li>
  * </ul>
  *
  * @generated
@@ -72,6 +74,46 @@ public class LearningItemImpl extends MinimalEObjectImpl.Container implements Le
    * @ordered
    */
   protected EList<MistakeType> mistakeTypes;
+
+  /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected static final String DESCRIPTION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected String description = DESCRIPTION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -174,6 +216,48 @@ public class LearningItemImpl extends MinimalEObjectImpl.Container implements Le
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName) {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.LEARNING_ITEM__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDescription(String newDescription) {
+    String oldDescription = description;
+    description = newDescription;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.LEARNING_ITEM__DESCRIPTION, oldDescription, description));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -242,6 +326,10 @@ public class LearningItemImpl extends MinimalEObjectImpl.Container implements Le
         return getLearningResources();
       case ModelingassistantPackage.LEARNING_ITEM__MISTAKE_TYPES:
         return getMistakeTypes();
+      case ModelingassistantPackage.LEARNING_ITEM__NAME:
+        return getName();
+      case ModelingassistantPackage.LEARNING_ITEM__DESCRIPTION:
+        return getDescription();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -270,6 +358,12 @@ public class LearningItemImpl extends MinimalEObjectImpl.Container implements Le
         getMistakeTypes().clear();
         getMistakeTypes().addAll((Collection<? extends MistakeType>)newValue);
         return;
+      case ModelingassistantPackage.LEARNING_ITEM__NAME:
+        setName((String)newValue);
+        return;
+      case ModelingassistantPackage.LEARNING_ITEM__DESCRIPTION:
+        setDescription((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -294,6 +388,12 @@ public class LearningItemImpl extends MinimalEObjectImpl.Container implements Le
       case ModelingassistantPackage.LEARNING_ITEM__MISTAKE_TYPES:
         getMistakeTypes().clear();
         return;
+      case ModelingassistantPackage.LEARNING_ITEM__NAME:
+        setName(NAME_EDEFAULT);
+        return;
+      case ModelingassistantPackage.LEARNING_ITEM__DESCRIPTION:
+        setDescription(DESCRIPTION_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -314,8 +414,30 @@ public class LearningItemImpl extends MinimalEObjectImpl.Container implements Le
         return learningResources != null && !learningResources.isEmpty();
       case ModelingassistantPackage.LEARNING_ITEM__MISTAKE_TYPES:
         return mistakeTypes != null && !mistakeTypes.isEmpty();
+      case ModelingassistantPackage.LEARNING_ITEM__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case ModelingassistantPackage.LEARNING_ITEM__DESCRIPTION:
+        return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString() {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(", description: ");
+    result.append(description);
+    result.append(')');
+    return result.toString();
   }
 
 } //LearningItemImpl

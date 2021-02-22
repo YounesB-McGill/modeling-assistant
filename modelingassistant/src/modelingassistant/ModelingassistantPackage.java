@@ -149,13 +149,22 @@ public interface ModelingassistantPackage extends EPackage {
   int MODELING_ASSISTANT__MISTAKE_TYPES = 8;
 
   /**
+   * The feature id for the '<em><b>Studentknowledge</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODELING_ASSISTANT__STUDENTKNOWLEDGE = 9;
+
+  /**
    * The number of structural features of the '<em>Modeling Assistant</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODELING_ASSISTANT_FEATURE_COUNT = 9;
+  int MODELING_ASSISTANT_FEATURE_COUNT = 10;
 
   /**
    * The number of operations of the '<em>Modeling Assistant</em>' class.
@@ -231,13 +240,22 @@ public interface ModelingassistantPackage extends EPackage {
   int STUDENT__STUDENT_KNOWLEDGES = 5;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STUDENT__NAME = 6;
+
+  /**
    * The number of structural features of the '<em>Student</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STUDENT_FEATURE_COUNT = 6;
+  int STUDENT_FEATURE_COUNT = 7;
 
   /**
    * The number of operations of the '<em>Student</em>' class.
@@ -277,13 +295,31 @@ public interface ModelingassistantPackage extends EPackage {
   int PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS = 1;
 
   /**
+   * The feature id for the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROBLEM_STATEMENT__TITLE = 2;
+
+  /**
+   * The feature id for the '<em><b>Text</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROBLEM_STATEMENT__TEXT = 3;
+
+  /**
    * The number of structural features of the '<em>Problem Statement</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT_FEATURE_COUNT = 2;
+  int PROBLEM_STATEMENT_FEATURE_COUNT = 4;
 
   /**
    * The number of operations of the '<em>Problem Statement</em>' class.
@@ -323,13 +359,22 @@ public interface ModelingassistantPackage extends EPackage {
   int PROBLEM_STATEMENT_ELEMENT__SOLUTION_ELEMENTS = 1;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROBLEM_STATEMENT_ELEMENT__NAME = 2;
+
+  /**
    * The number of structural features of the '<em>Problem Statement Element</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT_ELEMENT_FEATURE_COUNT = 2;
+  int PROBLEM_STATEMENT_ELEMENT_FEATURE_COUNT = 3;
 
   /**
    * The number of operations of the '<em>Problem Statement Element</em>' class.
@@ -579,13 +624,31 @@ public interface ModelingassistantPackage extends EPackage {
   int LEARNING_ITEM__MISTAKE_TYPES = 3;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LEARNING_ITEM__NAME = 4;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LEARNING_ITEM__DESCRIPTION = 5;
+
+  /**
    * The number of structural features of the '<em>Learning Item</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int LEARNING_ITEM_FEATURE_COUNT = 4;
+  int LEARNING_ITEM_FEATURE_COUNT = 6;
 
   /**
    * The number of operations of the '<em>Learning Item</em>' class.
@@ -634,13 +697,22 @@ public interface ModelingassistantPackage extends EPackage {
   int STUDENT_KNOWLEDGE__MISTAKE_TYPE = 2;
 
   /**
+   * The feature id for the '<em><b>Modelingassistant</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STUDENT_KNOWLEDGE__MODELINGASSISTANT = 3;
+
+  /**
    * The number of structural features of the '<em>Student Knowledge</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STUDENT_KNOWLEDGE_FEATURE_COUNT = 3;
+  int STUDENT_KNOWLEDGE_FEATURE_COUNT = 4;
 
   /**
    * The number of operations of the '<em>Student Knowledge</em>' class.
@@ -1352,13 +1424,22 @@ public interface ModelingassistantPackage extends EPackage {
   int LEARNING_RESOURCE__RESOURCE_RESPONSES = 2;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LEARNING_RESOURCE__NAME = 3;
+
+  /**
    * The feature id for the '<em><b>Content</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int LEARNING_RESOURCE__CONTENT = 3;
+  int LEARNING_RESOURCE__CONTENT = 4;
 
   /**
    * The number of structural features of the '<em>Learning Resource</em>' class.
@@ -1367,7 +1448,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int LEARNING_RESOURCE_FEATURE_COUNT = 4;
+  int LEARNING_RESOURCE_FEATURE_COUNT = 5;
 
   /**
    * The number of operations of the '<em>Learning Resource</em>' class.
@@ -1414,6 +1495,15 @@ public interface ModelingassistantPackage extends EPackage {
    * @ordered
    */
   int REFERENCE__RESOURCE_RESPONSES = LEARNING_RESOURCE__RESOURCE_RESPONSES;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REFERENCE__NAME = LEARNING_RESOURCE__NAME;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' attribute.
@@ -1480,6 +1570,15 @@ public interface ModelingassistantPackage extends EPackage {
   int TUTORIAL__RESOURCE_RESPONSES = LEARNING_RESOURCE__RESOURCE_RESPONSES;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TUTORIAL__NAME = LEARNING_RESOURCE__NAME;
+
+  /**
    * The feature id for the '<em><b>Content</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1544,6 +1643,15 @@ public interface ModelingassistantPackage extends EPackage {
   int EXAMPLE__RESOURCE_RESPONSES = LEARNING_RESOURCE__RESOURCE_RESPONSES;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXAMPLE__NAME = LEARNING_RESOURCE__NAME;
+
+  /**
    * The feature id for the '<em><b>Content</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1606,6 +1714,15 @@ public interface ModelingassistantPackage extends EPackage {
    * @ordered
    */
   int QUIZ__RESOURCE_RESPONSES = LEARNING_RESOURCE__RESOURCE_RESPONSES;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUIZ__NAME = LEARNING_RESOURCE__NAME;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' attribute.
@@ -1782,6 +1899,17 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getModelingAssistant_MistakeTypes();
 
   /**
+   * Returns the meta object for the containment reference list '{@link modelingassistant.ModelingAssistant#getStudentknowledge <em>Studentknowledge</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Studentknowledge</em>'.
+   * @see modelingassistant.ModelingAssistant#getStudentknowledge()
+   * @see #getModelingAssistant()
+   * @generated
+   */
+  EReference getModelingAssistant_Studentknowledge();
+
+  /**
    * Returns the meta object for class '{@link modelingassistant.Student <em>Student</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1858,6 +1986,17 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getStudent_StudentKnowledges();
 
   /**
+   * Returns the meta object for the attribute '{@link modelingassistant.Student#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see modelingassistant.Student#getName()
+   * @see #getStudent()
+   * @generated
+   */
+  EAttribute getStudent_Name();
+
+  /**
    * Returns the meta object for class '{@link modelingassistant.ProblemStatement <em>Problem Statement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1890,6 +2029,28 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getProblemStatement_ProblemStatementElements();
 
   /**
+   * Returns the meta object for the attribute '{@link modelingassistant.ProblemStatement#getTitle <em>Title</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Title</em>'.
+   * @see modelingassistant.ProblemStatement#getTitle()
+   * @see #getProblemStatement()
+   * @generated
+   */
+  EAttribute getProblemStatement_Title();
+
+  /**
+   * Returns the meta object for the attribute '{@link modelingassistant.ProblemStatement#getText <em>Text</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Text</em>'.
+   * @see modelingassistant.ProblemStatement#getText()
+   * @see #getProblemStatement()
+   * @generated
+   */
+  EAttribute getProblemStatement_Text();
+
+  /**
    * Returns the meta object for class '{@link modelingassistant.ProblemStatementElement <em>Problem Statement Element</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1920,6 +2081,17 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EReference getProblemStatementElement_SolutionElements();
+
+  /**
+   * Returns the meta object for the attribute '{@link modelingassistant.ProblemStatementElement#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see modelingassistant.ProblemStatementElement#getName()
+   * @see #getProblemStatementElement()
+   * @generated
+   */
+  EAttribute getProblemStatementElement_Name();
 
   /**
    * Returns the meta object for class '{@link modelingassistant.UmlElement <em>Uml Element</em>}'.
@@ -2138,6 +2310,28 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getLearningItem_MistakeTypes();
 
   /**
+   * Returns the meta object for the attribute '{@link modelingassistant.LearningItem#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see modelingassistant.LearningItem#getName()
+   * @see #getLearningItem()
+   * @generated
+   */
+  EAttribute getLearningItem_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link modelingassistant.LearningItem#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see modelingassistant.LearningItem#getDescription()
+   * @see #getLearningItem()
+   * @generated
+   */
+  EAttribute getLearningItem_Description();
+
+  /**
    * Returns the meta object for class '{@link modelingassistant.StudentKnowledge <em>Student Knowledge</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2179,6 +2373,17 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EReference getStudentKnowledge_MistakeType();
+
+  /**
+   * Returns the meta object for the container reference '{@link modelingassistant.StudentKnowledge#getModelingassistant <em>Modelingassistant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the container reference '<em>Modelingassistant</em>'.
+   * @see modelingassistant.StudentKnowledge#getModelingassistant()
+   * @see #getStudentKnowledge()
+   * @generated
+   */
+  EReference getStudentKnowledge_Modelingassistant();
 
   /**
    * Returns the meta object for class '{@link modelingassistant.MistakeType <em>Mistake Type</em>}'.
@@ -2592,6 +2797,17 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getLearningResource_ResourceResponses();
 
   /**
+   * Returns the meta object for the attribute '{@link modelingassistant.LearningResource#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see modelingassistant.LearningResource#getName()
+   * @see #getLearningResource()
+   * @generated
+   */
+  EAttribute getLearningResource_Name();
+
+  /**
    * Returns the meta object for the attribute '{@link modelingassistant.LearningResource#getContent <em>Content</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2789,6 +3005,14 @@ public interface ModelingassistantPackage extends EPackage {
     EReference MODELING_ASSISTANT__MISTAKE_TYPES = eINSTANCE.getModelingAssistant_MistakeTypes();
 
     /**
+     * The meta object literal for the '<em><b>Studentknowledge</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODELING_ASSISTANT__STUDENTKNOWLEDGE = eINSTANCE.getModelingAssistant_Studentknowledge();
+
+    /**
      * The meta object literal for the '{@link modelingassistant.impl.StudentImpl <em>Student</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2847,6 +3071,14 @@ public interface ModelingassistantPackage extends EPackage {
     EReference STUDENT__STUDENT_KNOWLEDGES = eINSTANCE.getStudent_StudentKnowledges();
 
     /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute STUDENT__NAME = eINSTANCE.getStudent_Name();
+
+    /**
      * The meta object literal for the '{@link modelingassistant.impl.ProblemStatementImpl <em>Problem Statement</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2873,6 +3105,22 @@ public interface ModelingassistantPackage extends EPackage {
     EReference PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS = eINSTANCE.getProblemStatement_ProblemStatementElements();
 
     /**
+     * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PROBLEM_STATEMENT__TITLE = eINSTANCE.getProblemStatement_Title();
+
+    /**
+     * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PROBLEM_STATEMENT__TEXT = eINSTANCE.getProblemStatement_Text();
+
+    /**
      * The meta object literal for the '{@link modelingassistant.impl.ProblemStatementElementImpl <em>Problem Statement Element</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2897,6 +3145,14 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference PROBLEM_STATEMENT_ELEMENT__SOLUTION_ELEMENTS = eINSTANCE.getProblemStatementElement_SolutionElements();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PROBLEM_STATEMENT_ELEMENT__NAME = eINSTANCE.getProblemStatementElement_Name();
 
     /**
      * The meta object literal for the '{@link modelingassistant.impl.UmlElementImpl <em>Uml Element</em>}' class.
@@ -3067,6 +3323,22 @@ public interface ModelingassistantPackage extends EPackage {
     EReference LEARNING_ITEM__MISTAKE_TYPES = eINSTANCE.getLearningItem_MistakeTypes();
 
     /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute LEARNING_ITEM__NAME = eINSTANCE.getLearningItem_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute LEARNING_ITEM__DESCRIPTION = eINSTANCE.getLearningItem_Description();
+
+    /**
      * The meta object literal for the '{@link modelingassistant.impl.StudentKnowledgeImpl <em>Student Knowledge</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3099,6 +3371,14 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference STUDENT_KNOWLEDGE__MISTAKE_TYPE = eINSTANCE.getStudentKnowledge_MistakeType();
+
+    /**
+     * The meta object literal for the '<em><b>Modelingassistant</b></em>' container reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference STUDENT_KNOWLEDGE__MODELINGASSISTANT = eINSTANCE.getStudentKnowledge_Modelingassistant();
 
     /**
      * The meta object literal for the '{@link modelingassistant.impl.MistakeTypeImpl <em>Mistake Type</em>}' class.
@@ -3417,6 +3697,14 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference LEARNING_RESOURCE__RESOURCE_RESPONSES = eINSTANCE.getLearningResource_ResourceResponses();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute LEARNING_RESOURCE__NAME = eINSTANCE.getLearningResource_Name();
 
     /**
      * The meta object literal for the '<em><b>Content</b></em>' attribute feature.

@@ -3,6 +3,7 @@
   <viewpoint:DAnalysis uid="_WZcFQGM4EeuEbbkB4PRcdg" selectedViews="_WesYsGM4EeuEbbkB4PRcdg" version="14.3.1.202003261200">
     <semanticResources>mistakedetection.ecore</semanticResources>
     <semanticResources>mistakedetection.genmodel</semanticResources>
+    <semanticResources>../build.properties</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_WesYsGM4EeuEbbkB4PRcdg">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_WhKd4GM4EeuEbbkB4PRcdg" name="mistakedetection" repPath="#_WgERsGM4EeuEbbkB4PRcdg" changeId="fb2778b4-6cec-4971-9292-e40c7d2f60b9">
