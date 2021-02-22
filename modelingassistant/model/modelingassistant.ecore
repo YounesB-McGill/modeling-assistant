@@ -25,6 +25,8 @@
         eType="#//Mistake" containment="true" eOpposite="#//Mistake/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypes" upperBound="-1"
         eType="#//MistakeType" containment="true" eOpposite="#//MistakeType/modelingAssistant"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="studentknowledge" upperBound="-1"
+        eType="#//StudentKnowledge" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Student">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
