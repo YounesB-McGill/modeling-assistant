@@ -23,6 +23,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
@@ -63,6 +64,8 @@ public class ProblemStatementItemProvider
 
       addModelingAssistantPropertyDescriptor(object);
       addProblemStatementElementsPropertyDescriptor(object);
+      addTitlePropertyDescriptor(object);
+      addTextPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -107,6 +110,50 @@ public class ProblemStatementItemProvider
          false,
          true,
          null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Title feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addTitlePropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_ProblemStatement_title_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_ProblemStatement_title_feature", "_UI_ProblemStatement_type"),
+         ModelingassistantPackage.Literals.PROBLEM_STATEMENT__TITLE,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Text feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addTextPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_ProblemStatement_text_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_ProblemStatement_text_feature", "_UI_ProblemStatement_type"),
+         ModelingassistantPackage.Literals.PROBLEM_STATEMENT__TEXT,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
          null,
          null));
   }
@@ -160,7 +207,10 @@ public class ProblemStatementItemProvider
    */
   @Override
   public String getText(Object object) {
-    return getString("_UI_ProblemStatement_type");
+    String label = ((ProblemStatement)object).getTitle();
+    return label == null || label.length() == 0 ?
+      getString("_UI_ProblemStatement_type") :
+      getString("_UI_ProblemStatement_type") + " " + label;
   }
 
 
@@ -176,6 +226,10 @@ public class ProblemStatementItemProvider
     updateChildren(notification);
 
     switch (notification.getFeatureID(ProblemStatement.class)) {
+      case ModelingassistantPackage.PROBLEM_STATEMENT__TITLE:
+      case ModelingassistantPackage.PROBLEM_STATEMENT__TEXT:
+        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+        return;
       case ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;

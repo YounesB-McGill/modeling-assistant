@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.ModelingAssistant#getFeedbacks <em>Feedbacks</em>}</li>
  *   <li>{@link modelingassistant.ModelingAssistant#getMistakes <em>Mistakes</em>}</li>
  *   <li>{@link modelingassistant.ModelingAssistant#getMistakeTypes <em>Mistake Types</em>}</li>
+ *   <li>{@link modelingassistant.ModelingAssistant#getStudentknowledge <em>Studentknowledge</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getModelingAssistant()
@@ -156,5 +157,19 @@ public interface ModelingAssistant extends EObject {
    * @generated
    */
   EList<MistakeType> getMistakeTypes();
+
+  /**
+   * Returns the value of the '<em><b>Studentknowledge</b></em>' containment reference list.
+   * The list contents are of type {@link modelingassistant.StudentKnowledge}.
+   * It is bidirectional and its opposite is '{@link modelingassistant.StudentKnowledge#getModelingassistant <em>Modelingassistant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Studentknowledge</em>' containment reference list.
+   * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_Studentknowledge()
+   * @see modelingassistant.StudentKnowledge#getModelingassistant
+   * @model opposite="modelingassistant" containment="true"
+   * @generated
+   */
+  EList<StudentKnowledge> getStudentknowledge();
 
 } // ModelingAssistant

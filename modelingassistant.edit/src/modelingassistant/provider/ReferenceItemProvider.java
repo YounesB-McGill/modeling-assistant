@@ -63,8 +63,7 @@ public class ReferenceItemProvider extends LearningResourceItemProvider {
    */
   @Override
   public String getText(Object object) {
-    Object labelValue = ((Reference)object).getContent();
-    String label = labelValue == null ? null : labelValue.toString();
+    String label = ((Reference)object).getName();
     return label == null || label.length() == 0 ?
       getString("_UI_Reference_type") :
       getString("_UI_Reference_type") + " " + label;

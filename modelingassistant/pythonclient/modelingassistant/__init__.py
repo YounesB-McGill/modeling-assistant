@@ -3,7 +3,7 @@ from .modelingassistant import getEClassifier, eClassifiers
 from .modelingassistant import name, nsURI, nsPrefix, eClass
 from .modelingassistant import int, boolean, Time, double, ModelingAssistant, Student, ProblemStatement, ProblemStatementElement, UmlElement, Solution, SolutionElement, LearningItem, StudentKnowledge, MistakeType, Mistake, Feedback, TextResponse, ParametrizedResponse, ResourceResponse, LearningResource, Reference, Tutorial, Example, Quiz
 
-from classdiagram import NamedElement, ClassDiagram
+from classdiagram import ClassDiagram, NamedElement
 
 from . import modelingassistant
 
@@ -26,6 +26,7 @@ ModelingAssistant.students.eType = Student
 ModelingAssistant.feedbacks.eType = Feedback
 ModelingAssistant.mistakes.eType = Mistake
 ModelingAssistant.mistakeTypes.eType = MistakeType
+ModelingAssistant.studentknowledge.eType = StudentKnowledge
 Student.modelingAssistant.eType = ModelingAssistant
 Student.modelingAssistant.eOpposite = ModelingAssistant.students
 Student.mistakes.eType = Mistake
@@ -63,6 +64,8 @@ LearningItem.mistakeTypes.eType = MistakeType
 StudentKnowledge.student.eType = Student
 StudentKnowledge.student.eOpposite = Student.studentKnowledges
 StudentKnowledge.mistakeType.eType = MistakeType
+StudentKnowledge.modelingassistant.eType = ModelingAssistant
+StudentKnowledge.modelingassistant.eOpposite = ModelingAssistant.studentknowledge
 MistakeType.modelingAssistant.eType = ModelingAssistant
 MistakeType.modelingAssistant.eOpposite = ModelingAssistant.mistakeTypes
 MistakeType.learningItem.eType = LearningItem
