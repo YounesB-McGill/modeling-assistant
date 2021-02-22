@@ -149,13 +149,22 @@ public interface ModelingassistantPackage extends EPackage {
   int MODELING_ASSISTANT__MISTAKE_TYPES = 8;
 
   /**
+   * The feature id for the '<em><b>Studentknowledge</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODELING_ASSISTANT__STUDENTKNOWLEDGE = 9;
+
+  /**
    * The number of structural features of the '<em>Modeling Assistant</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODELING_ASSISTANT_FEATURE_COUNT = 9;
+  int MODELING_ASSISTANT_FEATURE_COUNT = 10;
 
   /**
    * The number of operations of the '<em>Modeling Assistant</em>' class.
@@ -1782,6 +1791,17 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getModelingAssistant_MistakeTypes();
 
   /**
+   * Returns the meta object for the containment reference list '{@link modelingassistant.ModelingAssistant#getStudentknowledge <em>Studentknowledge</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Studentknowledge</em>'.
+   * @see modelingassistant.ModelingAssistant#getStudentknowledge()
+   * @see #getModelingAssistant()
+   * @generated
+   */
+  EReference getModelingAssistant_Studentknowledge();
+
+  /**
    * Returns the meta object for class '{@link modelingassistant.Student <em>Student</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2787,6 +2807,14 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference MODELING_ASSISTANT__MISTAKE_TYPES = eINSTANCE.getModelingAssistant_MistakeTypes();
+
+    /**
+     * The meta object literal for the '<em><b>Studentknowledge</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODELING_ASSISTANT__STUDENTKNOWLEDGE = eINSTANCE.getModelingAssistant_Studentknowledge();
 
     /**
      * The meta object literal for the '{@link modelingassistant.impl.StudentImpl <em>Student</em>}' class.
