@@ -26,7 +26,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypes" upperBound="-1"
         eType="#//MistakeType" containment="true" eOpposite="#//MistakeType/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="studentknowledge" upperBound="-1"
-        eType="#//StudentKnowledge" containment="true"/>
+        eType="#//StudentKnowledge" containment="true" eOpposite="#//StudentKnowledge/modelingassistant"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Student">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -99,6 +99,8 @@
         eType="#//Student" eOpposite="#//Student/studentKnowledges"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeType" lowerBound="1"
         eType="#//MistakeType" eOpposite="#//MistakeType/studentKnowledges"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelingassistant" lowerBound="1"
+        eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/studentknowledge"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MistakeType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
