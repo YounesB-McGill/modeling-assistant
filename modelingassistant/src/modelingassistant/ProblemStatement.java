@@ -17,6 +17,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link modelingassistant.ProblemStatement#getModelingAssistant <em>Modeling Assistant</em>}</li>
  *   <li>{@link modelingassistant.ProblemStatement#getProblemStatementElements <em>Problem Statement Elements</em>}</li>
+ *   <li>{@link modelingassistant.ProblemStatement#getTitle <em>Title</em>}</li>
+ *   <li>{@link modelingassistant.ProblemStatement#getText <em>Text</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getProblemStatement()
@@ -61,5 +63,49 @@ public interface ProblemStatement extends EObject {
    * @generated
    */
   EList<ProblemStatementElement> getProblemStatementElements();
+
+  /**
+   * Returns the value of the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Title</em>' attribute.
+   * @see #setTitle(String)
+   * @see modelingassistant.ModelingassistantPackage#getProblemStatement_Title()
+   * @model
+   * @generated
+   */
+  String getTitle();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.ProblemStatement#getTitle <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Title</em>' attribute.
+   * @see #getTitle()
+   * @generated
+   */
+  void setTitle(String value);
+
+  /**
+   * Returns the value of the '<em><b>Text</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Text</em>' attribute.
+   * @see #setText(String)
+   * @see modelingassistant.ModelingassistantPackage#getProblemStatement_Text()
+   * @model
+   * @generated
+   */
+  String getText();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.ProblemStatement#getText <em>Text</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Text</em>' attribute.
+   * @see #getText()
+   * @generated
+   */
+  void setText(String value);
 
 } // ProblemStatement

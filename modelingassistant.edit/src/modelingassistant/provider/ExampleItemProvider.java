@@ -63,8 +63,7 @@ public class ExampleItemProvider extends LearningResourceItemProvider {
    */
   @Override
   public String getText(Object object) {
-    Object labelValue = ((Example)object).getContent();
-    String label = labelValue == null ? null : labelValue.toString();
+    String label = ((Example)object).getName();
     return label == null || label.length() == 0 ?
       getString("_UI_Example_type") :
       getString("_UI_Example_type") + " " + label;

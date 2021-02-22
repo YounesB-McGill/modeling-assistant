@@ -34,6 +34,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link modelingassistant.impl.ProblemStatementImpl#getModelingAssistant <em>Modeling Assistant</em>}</li>
  *   <li>{@link modelingassistant.impl.ProblemStatementImpl#getProblemStatementElements <em>Problem Statement Elements</em>}</li>
+ *   <li>{@link modelingassistant.impl.ProblemStatementImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link modelingassistant.impl.ProblemStatementImpl#getText <em>Text</em>}</li>
  * </ul>
  *
  * @generated
@@ -48,6 +50,43 @@ public class ProblemStatementImpl extends MinimalEObjectImpl.Container implement
    * @ordered
    */
   protected EList<ProblemStatementElement> problemStatementElements;
+
+  /**
+   * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTitle()
+   * @generated
+   * @ordered
+   */
+  protected static final String TITLE_EDEFAULT = null;
+  /**
+   * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTitle()
+   * @generated
+   * @ordered
+   */
+  protected String title = TITLE_EDEFAULT;
+  /**
+   * The default value of the '{@link #getText() <em>Text</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getText()
+   * @generated
+   * @ordered
+   */
+  protected static final String TEXT_EDEFAULT = null;
+  /**
+   * The cached value of the '{@link #getText() <em>Text</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getText()
+   * @generated
+   * @ordered
+   */
+  protected String text = TEXT_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -126,6 +165,48 @@ public class ProblemStatementImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getTitle() {
+    return title;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTitle(String newTitle) {
+    String oldTitle = title;
+    title = newTitle;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.PROBLEM_STATEMENT__TITLE, oldTitle, title));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getText() {
+    return text;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setText(String newText) {
+    String oldText = text;
+    text = newText;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.PROBLEM_STATEMENT__TEXT, oldText, text));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -182,6 +263,10 @@ public class ProblemStatementImpl extends MinimalEObjectImpl.Container implement
         return getModelingAssistant();
       case ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS:
         return getProblemStatementElements();
+      case ModelingassistantPackage.PROBLEM_STATEMENT__TITLE:
+        return getTitle();
+      case ModelingassistantPackage.PROBLEM_STATEMENT__TEXT:
+        return getText();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -202,6 +287,12 @@ public class ProblemStatementImpl extends MinimalEObjectImpl.Container implement
         getProblemStatementElements().clear();
         getProblemStatementElements().addAll((Collection<? extends ProblemStatementElement>)newValue);
         return;
+      case ModelingassistantPackage.PROBLEM_STATEMENT__TITLE:
+        setTitle((String)newValue);
+        return;
+      case ModelingassistantPackage.PROBLEM_STATEMENT__TEXT:
+        setText((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -220,6 +311,12 @@ public class ProblemStatementImpl extends MinimalEObjectImpl.Container implement
       case ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS:
         getProblemStatementElements().clear();
         return;
+      case ModelingassistantPackage.PROBLEM_STATEMENT__TITLE:
+        setTitle(TITLE_EDEFAULT);
+        return;
+      case ModelingassistantPackage.PROBLEM_STATEMENT__TEXT:
+        setText(TEXT_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -236,8 +333,30 @@ public class ProblemStatementImpl extends MinimalEObjectImpl.Container implement
         return getModelingAssistant() != null;
       case ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS:
         return problemStatementElements != null && !problemStatementElements.isEmpty();
+      case ModelingassistantPackage.PROBLEM_STATEMENT__TITLE:
+        return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+      case ModelingassistantPackage.PROBLEM_STATEMENT__TEXT:
+        return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString() {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (title: ");
+    result.append(title);
+    result.append(", text: ");
+    result.append(text);
+    result.append(')');
+    return result.toString();
   }
 
 } //ProblemStatementImpl
