@@ -110,15 +110,24 @@ public class MistakeDetection {
     // For Debugging----
     notMappedInstructorClassifier.add(instructorClassifier);
     extraStudentClassifier.add(studentClassifier);
-    
-    System.out.println(notMappedInstructorClassifier);
-    System.out.println(extraStudentClassifier);
-    System.out.println(mappedClassifier);
+   /* 
+    System.out.println();
+    System.out.println("----Before-----");
+    for(Classifier c: notMappedInstructorClassifier) {
+      System.out.print(c.getName()+" ");
+    }
+    System.out.println("--");
+    for(Classifier c: extraStudentClassifier) {
+      System.out.print(c.getName()+" ");
+    }
+    System.out.println("--");
+    mappedClassifier.forEach((key,value) -> System.out.println(key.getName() + " = " + value.getName()));
+    */
     //------------------------
     int totalAttibutes = iAttributes.size();
     int correctAttribute = 0;
     float lDistance = levenshteinDistance(studentClassifier.getName(), instructorClassifier.getName());
-    if (lDistance < 2) {
+    if (lDistance <= 2) {
       flag = true;
       mappedClassifier.put(instructorClassifier, studentClassifier);
       notMappedInstructorClassifier.remove(instructorClassifier);
@@ -127,7 +136,7 @@ public class MistakeDetection {
       for (Attribute iAttribute : iAttributes) { // To check association -> Not at present.
         for (Attribute sAttribute : sAttributes) {
           lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
-          if (lDistance < 2) {
+          if (lDistance <= 2) {
             correctAttribute++;
             break;
           }
@@ -155,10 +164,10 @@ public class MistakeDetection {
 
 
           lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
-          if (lDistance < 3 && mappedAttribute.containsValue(sAttribute)) {
+          if (lDistance <= 2 && mappedAttribute.containsValue(sAttribute)) {
             dulpicateStudentAttribute.add(sAttribute);
             extraStudentAttribute.remove(sAttribute);
-          } else if (lDistance < 3) {
+          } else if (lDistance <=2) {
             mappedAttribute.put(iAttribute, sAttribute);
             notMappedInstructorAttribute.remove(iAttribute);
             extraStudentAttribute.remove(sAttribute);
@@ -169,9 +178,20 @@ public class MistakeDetection {
         count = 1;
       }
     }
-    System.out.println(notMappedInstructorClassifier);
-    System.out.println(extraStudentClassifier);
-    System.out.println(mappedClassifier);
+    System.out.println();
+    System.out.println("----After-----");
+    System.out.print("Not Mapped InstructorClassifier List : ");
+    for(Classifier c: notMappedInstructorClassifier) {
+      System.out.print(c.getName()+" ");
+    }
+    System.out.println();
+    System.out.print("Not Mapped extraStudentClassifier : ");
+    for(Classifier c: extraStudentClassifier) {
+      System.out.print(c.getName()+" ");
+    }
+    System.out.println();
+    mappedClassifier.forEach((key,value) -> System.out.println(key.getName() + " = " + value.getName()));
+    
     return flag;
   }
 
