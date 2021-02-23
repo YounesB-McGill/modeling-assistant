@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_XRwU0HU1EeuKi-O_HNyfjA" name="Two(withAttribute)" featureModel="_XRwU0XU1EeuKi-O_HNyfjA" impactModel="_XRwU03U1EeuKi-O_HNyfjA">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_XRwU0XU1EeuKi-O_HNyfjA" root="_XRwU0nU1EeuKi-O_HNyfjA">
+    <features xmi:id="_XRwU0nU1EeuKi-O_HNyfjA" name="Two(withAttribute)" realizedBy="_YDUUoXU1EeuKi-O_HNyfjA"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_XRwU03U1EeuKi-O_HNyfjA" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_YDUUoHU1EeuKi-O_HNyfjA" name="Two(withAttribute)" scene="_YDUUoXU1EeuKi-O_HNyfjA" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Two(withAttribute)-b.domain_model.cdm#_YDU7sHU1EeuKi-O_HNyfjA"/>
+  </artefacts>
+  <scenes xmi:id="_YDUUoXU1EeuKi-O_HNyfjA" name="Two(withAttribute)" realizes="_XRwU0nU1EeuKi-O_HNyfjA" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_YDUUonU1EeuKi-O_HNyfjA" value="_YDUUoHU1EeuKi-O_HNyfjA" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

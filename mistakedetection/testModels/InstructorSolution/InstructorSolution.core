@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_xY02QHUzEeuKi-O_HNyfjA" name="InstructorSolution" featureModel="_xY02QXUzEeuKi-O_HNyfjA" impactModel="_xY02Q3UzEeuKi-O_HNyfjA">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_xY02QXUzEeuKi-O_HNyfjA" root="_xY02QnUzEeuKi-O_HNyfjA">
+    <features xmi:id="_xY02QnUzEeuKi-O_HNyfjA" name="InstructorSolution"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_xY02Q3UzEeuKi-O_HNyfjA" name="Impact Model"/>
+</core:COREConcern>
