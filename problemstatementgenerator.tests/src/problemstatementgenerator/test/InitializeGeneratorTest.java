@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 public class InitializeGeneratorTest {
 	
 	
-	@Test public void CheckInstructorSolution() {
+	@Test public void checkClassDiagramExists() {
 
 	    
 	    ClassdiagramPackage.eINSTANCE.eClass();
@@ -26,11 +26,14 @@ public class InitializeGeneratorTest {
 	    
 	    var cdPath = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
 	    
+	    
 	    var resource = ResourceHelper.INSTANCE.loadResource(cdPath);
 	    
 	    var classDiagram = (ClassDiagram) resource.getContents().get(0);
+	    
+	    assertTrue(classDiagram!=null);
 
-	    assertTrue( )
+	    
 	    
 	    
 	  }
