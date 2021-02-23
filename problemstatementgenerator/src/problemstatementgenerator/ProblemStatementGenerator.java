@@ -52,9 +52,9 @@ public class ProblemStatementGenerator {
 		AssociationEnd oneEnd = a.getEnds().get(0);
 		AssociationEnd twoEnd = a.getEnds().get(1);
 		
-		description += describeClassifier(twoEnd);		
+		description += describeClassifier(oneEnd);		
 		description += describeReferenceType(a.getEnds());
-		description += describeClassifier(oneEnd);
+		description += describeClassifier(twoEnd);
 		
 		
 		return description;
