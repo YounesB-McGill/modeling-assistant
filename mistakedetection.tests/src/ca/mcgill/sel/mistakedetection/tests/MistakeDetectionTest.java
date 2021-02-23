@@ -437,9 +437,7 @@ public class MistakeDetectionTest {
   }
 
 @Test public void checkCorrectTestWithSolution2_withAttributes_Compare() {
-  System.out.println("____");
-  System.out.println("Test Start");
-  System.out.println("____");
+  
   ClassdiagramPackage.eINSTANCE.eClass();
   var cdmFile = "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
   var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -472,14 +470,124 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.dulpicateStudentAttribute.size(), 0);
   assertEquals(MistakeDetection.mappedAttribute.size(), 2);
   
+  clearAttributesAndClassifer();
+  }
+@Test public void checkCorrectTestWithSolution4_withAttributes_Compare() {
+  
+  ClassdiagramPackage.eINSTANCE.eClass();
+  var cdmFile = "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
+  var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
+  var classDiagram = (ClassDiagram) resource.getContents().get(0);
+  var maf = ModelingassistantFactory.eINSTANCE;
+  var modelingAssistant = maf.createModelingAssistant();
+  var solution = maf.createSolution();
+  solution.setModelingAssistant(modelingAssistant);
+  solution.setClassDiagram(classDiagram);
+  
+  ClassdiagramPackage.eINSTANCE.eClass();
+  var cdmFile1 = "../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute)-c.domain_model.cdm";
+  var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
+  var classDiagram1 = (ClassDiagram) resource1.getContents().get(0);
+  var maf1 = ModelingassistantFactory.eINSTANCE;
+  var modelingAssistant1 = maf1.createModelingAssistant();
+  var solution1 = maf1.createSolution();
+  solution1.setModelingAssistant(modelingAssistant1);
+  solution1.setClassDiagram(classDiagram1);
+  
+  
+  MistakeDetection.compare(solution,solution1);
+  
+  assertEquals(MistakeDetection.notMappedInstructorClassifier.size(), 0);
+  assertEquals(MistakeDetection.extraStudentClassifier.size(), 1);
+  assertEquals(MistakeDetection.mappedClassifier.size(), 3);
+  
+  assertEquals(MistakeDetection.notMappedInstructorAttribute.size(), 0);
+  assertEquals(MistakeDetection.extraStudentAttribute.size(), 1);
+  assertEquals(MistakeDetection.dulpicateStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.mappedAttribute.size(), 4);
+  
+  
+  clearAttributesAndClassifer();
+  }
+
+@Test public void checkCorrectTestWithSolution5_withAttributes_Compare() {
+  
+  ClassdiagramPackage.eINSTANCE.eClass();
+  var cdmFile = "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
+  var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
+  var classDiagram = (ClassDiagram) resource.getContents().get(0);
+  var maf = ModelingassistantFactory.eINSTANCE;
+  var modelingAssistant = maf.createModelingAssistant();
+  var solution = maf.createSolution();
+  solution.setModelingAssistant(modelingAssistant);
+  solution.setClassDiagram(classDiagram);
+  
+  ClassdiagramPackage.eINSTANCE.eClass();
+  var cdmFile1 = "../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute)-d.domain_model.cdm";
+  var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
+  var classDiagram1 = (ClassDiagram) resource1.getContents().get(0);
+  var maf1 = ModelingassistantFactory.eINSTANCE;
+  var modelingAssistant1 = maf1.createModelingAssistant();
+  var solution1 = maf1.createSolution();
+  solution1.setModelingAssistant(modelingAssistant1);
+  solution1.setClassDiagram(classDiagram1);
+  
+  
+  MistakeDetection.compare(solution,solution1);
+  
+  assertEquals(MistakeDetection.notMappedInstructorClassifier.size(), 0);
+  assertEquals(MistakeDetection.extraStudentClassifier.size(), 0);
+  assertEquals(MistakeDetection.mappedClassifier.size(), 3);
+  
+  assertEquals(MistakeDetection.notMappedInstructorAttribute.size(), 0);
+  assertEquals(MistakeDetection.extraStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.dulpicateStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.mappedAttribute.size(), 4);
+  
+ 
+  clearAttributesAndClassifer();
+  }
+
+@Test public void checkCorrectTestWithSolution6_withAttributes_Compare() {
+  
+  ClassdiagramPackage.eINSTANCE.eClass();
+  var cdmFile = "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
+  var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
+  var classDiagram = (ClassDiagram) resource.getContents().get(0);
+  var maf = ModelingassistantFactory.eINSTANCE;
+  var modelingAssistant = maf.createModelingAssistant();
+  var solution = maf.createSolution();
+  solution.setModelingAssistant(modelingAssistant);
+  solution.setClassDiagram(classDiagram);
+  
+  ClassdiagramPackage.eINSTANCE.eClass();
+  var cdmFile1 = "../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute)-e.domain_model.cdm";
+  var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
+  var classDiagram1 = (ClassDiagram) resource1.getContents().get(0);
+  var maf1 = ModelingassistantFactory.eINSTANCE;
+  var modelingAssistant1 = maf1.createModelingAssistant();
+  var solution1 = maf1.createSolution();
+  solution1.setModelingAssistant(modelingAssistant1);
+  solution1.setClassDiagram(classDiagram1);
+  
+  
+  MistakeDetection.compare(solution,solution1);
+  
+  assertEquals(MistakeDetection.notMappedInstructorClassifier.size(), 0);
+  assertEquals(MistakeDetection.extraStudentClassifier.size(), 0);
+  assertEquals(MistakeDetection.mappedClassifier.size(), 3);
+  
+  assertEquals(MistakeDetection.notMappedInstructorAttribute.size(), 0);
+  assertEquals(MistakeDetection.extraStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.dulpicateStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.mappedAttribute.size(), 4);
+  
   log();
   clearAttributesAndClassifer();
   }
 
 @Test public void checkCorrectTestWithSolution1_withAttributes_Compare() {
-  System.out.println("____");
-  System.out.println("Test Start");
-  System.out.println("____");
+  
   ClassdiagramPackage.eINSTANCE.eClass();
   var cdmFile = "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
   var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -512,7 +620,7 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.dulpicateStudentAttribute.size(), 0);
   assertEquals(MistakeDetection.mappedAttribute.size(), 4);
   
-  log();
+ 
   clearAttributesAndClassifer();
   }
 
