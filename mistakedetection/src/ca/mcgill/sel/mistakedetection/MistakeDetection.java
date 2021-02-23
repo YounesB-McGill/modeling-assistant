@@ -9,6 +9,7 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -31,7 +32,7 @@ public class MistakeDetection {
   public static HashMap<Association, Association> mappedRelation = new HashMap<Association, Association>();
 
   public static EList<Classifier> notMappedInstructorClassifier =  new BasicEList<Classifier>() ;
-  public  static EList<Classifier> extraStudentClassifier =  new BasicEList<Classifier>() ;
+  public static EList<Classifier> extraStudentClassifier =  new BasicEList<Classifier>() ;
 
   public static EList<Attribute> notMappedInstructorAttribute =  new BasicEList<Attribute>();
   public static EList<Attribute> extraStudentAttribute =  new BasicEList<Attribute>();
@@ -57,9 +58,13 @@ public class MistakeDetection {
       }
       
       for (Classifier studentClassifier : studentClassifiers) {
-        if (count == 0) // To stop duplicate entries.
+        if (count == 0) { // To stop duplicate entries.
           extraStudentClassifier.add(studentClassifier);
-
+          EList<Attribute> sAttributes = studentClassifier.getAttributes();
+          for (Attribute attribute : sAttributes) {
+            extraStudentAttribute.add(attribute);
+          }
+        }
         if (checkCorrect(instructorClassifier, studentClassifier)) {
           checkMistakeClassSpelling(studentClassifier, instructorClassifier);
           checkMistakeSoftwareEngineeringTerm(studentClassifier);
@@ -87,6 +92,7 @@ public class MistakeDetection {
       }
       count = 1;
     }
+      notMatchedMapping();
     // checkMistakeMissingClass();
     // checkMistakeExtraClass();
     // checkMistakeDuplicateAttributes();
@@ -110,45 +116,22 @@ public class MistakeDetection {
     EList<Attribute> iAttributes = instructorClassifier.getAttributes();
     EList<Attribute> sAttributes = studentClassifier.getAttributes();
     // System.out.println("Function called with i="+ instructorClassifier.getName() +" s=" +studentClassifier.getName()); //FOR DEBUGGING
-    int totalAttibutes = iAttributes.size();
-    int correctAttribute = 0;
+   
     float lDistance = levenshteinDistance(studentClassifier.getName(), instructorClassifier.getName());
     if (lDistance <= 2) {
       flag = true;
       mappedClassifier.put(instructorClassifier, studentClassifier);
       notMappedInstructorClassifier.remove(instructorClassifier);
       extraStudentClassifier.remove(studentClassifier);
-    } else {
-      for (Attribute iAttribute : iAttributes) { // To check association -> Not at present.
-        for (Attribute sAttribute : sAttributes) {
-          lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
-          if (lDistance <= 2) {
-            correctAttribute++;
-            break;
-          }
-        }
-      }
     }
-    if(totalAttibutes!=0) {
-    if (correctAttribute / totalAttibutes > 0.5 && flag == false) {
-    //  mappedClassifier.put(instructorClassifier, studentClassifier);
-  //    notMappedInstructorClassifier.remove(instructorClassifier);
-   //   extraStudentClassifier.remove(studentClassifier);
-
-   //   flag = true;
-    }
-    }
-   ;
-    if (flag == true) { // Map attributes if classifiers map.
-      int count = 0;
+    
+     if (flag == true) { // Map attributes if classifiers map.
+     
       for (Attribute iAttribute : iAttributes) { // To check association -> Not at present.
      //   System.out.println("Instructor "+ iAttribute +" " +instructorClassifier.getName());//FOR DEBUGGING
         for (Attribute sAttribute : sAttributes) {
         //  System.out.println("Student "+ sAttribute+" " +studentClassifier.getName());//FOR DEBUGGING
-          if (count != 1) // To stop duplicate entries.
-            extraStudentAttribute.add(sAttribute);
-
-
+         
           lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
           if (lDistance <= 2 && mappedAttribute.get(iAttribute)==sAttribute) {
             dulpicateStudentAttribute.add(sAttribute);
@@ -162,13 +145,65 @@ public class MistakeDetection {
           }
         }
 
-        count = 1;
       }
     }
    
     return flag;
   }
 
+  public static void notMatchedMapping() {
+    if (!notMappedInstructorClassifier.isEmpty() && !extraStudentClassifier.isEmpty()) {
+      int counter=1;
+      for(int k=0;k<counter;k++) {
+      for (int i = 0; i < notMappedInstructorClassifier.size(); i++) {
+        EList<Attribute> iAttributes = notMappedInstructorClassifier.get(i).getAttributes();
+        Classifier instructorClassifier = notMappedInstructorClassifier.get(i);
+      //  System.out.println("Instructor " + instructorClassifier.getName());
+        int totalAttributes = iAttributes.size();
+
+        for (int j = 0; j < extraStudentClassifier.size(); j++) {
+          Classifier studentClassifier = extraStudentClassifier.get(j);
+          EList<Attribute> sAttributes = studentClassifier.getAttributes();
+         // System.out.println("Student " + studentClassifier.getName());
+          int correctAttribute = 0;
+          for (Attribute iAttribute : iAttributes) { // To check association -> Not at present.
+            for (Attribute sAttribute : sAttributes) {
+              float lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
+              if (lDistance <= 2) {
+                correctAttribute++;
+                break;
+              }
+            }
+          }
+         // System.out.println("CorrectAttribute "+ " "+ instructorClassifier.getName() +" "+ studentClassifier.getName()+" "+ correctAttribute);
+          if (totalAttributes != 0) {
+            if (correctAttribute / totalAttributes > 0.5) {
+              mappedClassifier.put(instructorClassifier, studentClassifier);
+              notMappedInstructorClassifier.remove(instructorClassifier);
+              extraStudentClassifier.remove(studentClassifier);
+              counter++;
+              for (Attribute iAttribute : iAttributes) { // To check association -> Not at present.
+                for (Attribute sAttribute : sAttributes) {
+                  float lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
+                  if (lDistance <= 2) {
+                   // System.out.println(instructorClassifier.getName() + " " + sAttribute.getName()+ " " + iAttribute.getName());
+                    mappedAttribute.put(iAttribute, sAttribute);
+                    notMappedInstructorAttribute.remove(iAttribute);
+                    extraStudentAttribute.remove(sAttribute);
+                   break ;
+                  }
+                }
+              }
+
+
+            }
+          }
+        }
+
+      }
+    }
+    }
+  }
 
   /**
    * Checks for a software engineering term in a given classifier.
