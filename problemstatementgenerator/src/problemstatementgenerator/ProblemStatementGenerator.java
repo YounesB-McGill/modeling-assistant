@@ -1,9 +1,13 @@
 package problemstatementgenerator;
 
+import org.eclipse.emf.common.util.EList;
+
+import classdiagram.Association;
 import classdiagram.AssociationEnd;
 import classdiagram.ClassDiagram;
 import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
+import classdiagram.ReferenceType;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.util.ResourceHelper;
@@ -27,108 +31,148 @@ public class ProblemStatementGenerator {
 	    
 	    for (var t: classDiagram.getAssociations()) {
 	    	
-	    	var print = describeAssociationEnd(t.getEnds().get(1));
+	    	var print = describeAssociation(t);
 	    	System.out.println(print);
-	    	
 	    	
 	    }
 	    
 	    
 	}
+	  /**
+	   * Describe an Association
+	   * @param An Asssociation
+	   * @return A String description of an Association
+	   */
 	
-	public static String describeAssociationEnd(AssociationEnd ae) {
+	
+	public static String describeAssociation(Association a) {
 		
 		String description = "";
 		
+		AssociationEnd oneEnd = a.getEnds().get(0);
+		AssociationEnd twoEnd = a.getEnds().get(1);
 		
-		
-		
-		description += describeReferenceType(ae);
-		description += " ";
-		description += describePrimaryClass(ae);
-		
-		
-		
-		
+		description += describeClassifier(twoEnd);		
+		description += describeReferenceType(a.getEnds());
+		description += describeClassifier(oneEnd);
 		
 		
 		return description;
 	}
 	
-	public static String describePrimaryClass(AssociationEnd ae) {
+	  /**
+	   * Describe an AssociationEnd's Classifier
+	   * @param AssociationEnd 
+	   * @return A String description of an AssociationEnd's Classifier
+	   */
+	
+	public static String describeClassifier(AssociationEnd ae) {
 		
 		Classifier p = ae.getClassifier();
+	
 		
-		String primaryClassDescription = "";
+		String classifierDescription = "";
 		
-		//parentClassDescription += parent.getAttributes();
+		
 		
 		if (p.getAttributes().size()>0) {
 			
-			primaryClassDescription = p.getName() + " has the following attributes:";
+			classifierDescription = "A "+p.getName() + " has the following attributes:";
 			for(int i = 0; i < p.getAttributes().size(); i++) {
 				
 				var att = p.getAttributes().get(i);
 				
 				if(i > 0) {
-					primaryClassDescription += ",";
+					classifierDescription += ",";
 				}
-				primaryClassDescription += " ";
-				primaryClassDescription += att.getName();
-				
+				classifierDescription += " ";
+				classifierDescription += att.getName();
 			}
-			primaryClassDescription += ".";
+			classifierDescription += ". ";
 		}
 		
 		if (p.getOperations().size()>0) {
 			
-			primaryClassDescription = p.getName() + " has the following methods:";
+			classifierDescription = p.getName() + " has the following methods:";
 			for(int i = 0; i < p.getOperations().size(); i++) {
 				
 				var opp = p.getOperations().get(i);
 				
 				if (i > 0) {
-					primaryClassDescription += ",";
+					classifierDescription += ",";
 				}
-				primaryClassDescription += " ";
-				primaryClassDescription += opp.getName();
+				classifierDescription += " ";
+				classifierDescription += opp.getName();
 			}
-			
+			classifierDescription += ". ";
 		}
 		
 		
-		return primaryClassDescription;
+		return classifierDescription;
 		
 	}
 	
-	public static String describeReferenceType(AssociationEnd ae) {
+	/**
+	   * Describe the reference between two AssociationEnds
+	   * @param EList<AssociationEnd> aEnds
+	   * @return A String description of two AssociationEnds
+	   */
+	
+	public static String describeReferenceType(EList<AssociationEnd> aEnds) {
 		
 		
-		
-		String aeName = ae.getName();
-		String aeParentClass = ae.getClassifier().getName();
-		String aeReferenceType = ae.getReferenceType().getName();
 		String referenceTypeDescription = "";
 		
-		String referenceTypeWord;
-		if (aeReferenceType.equals("Composition")) {
+		AssociationEnd oneEnd = aEnds.get(0);
+		AssociationEnd twoEnd = aEnds.get(1);
+				
+		String subject = oneEnd.getClassifier().getName();
+		String object = twoEnd.getClassifier().getName();
+		String referenceTypeWord = "has";
+		
+		ReferenceType oneRefType = oneEnd.getReferenceType();
+		ReferenceType twoRefType = twoEnd.getReferenceType();
+		
+		String oneRefTypeStr = oneRefType.getName();
+		String twoRefTypeStr = twoRefType.getName();
+		
+		
+		if (oneRefTypeStr.equals("Composition") || twoRefTypeStr.equals("Composition")) {
+			if(oneRefTypeStr.equals("Composition")) {
+				referenceTypeWord = " is composed of ";
+			}
+			else if(twoRefTypeStr.equals("Composition")) {
+				referenceTypeWord = " is an element of a ";
+			}
+			else {
+				referenceTypeWord = " <- ? -> ";
+			}
 			
-			referenceTypeWord = " is composed of ";
+		}
+		else if (oneRefTypeStr.equals("Aggregation") || twoRefTypeStr.equals("Aggregation")){
+			if(oneRefTypeStr.equals("Aggregation")) {
+				referenceTypeWord = " is made up of ";
+			} 
+			else if (twoRefTypeStr.equals("Aggregation")) {
+				referenceTypeWord = " make up ";
+				
+			}
+			
+		}
+		else if (oneRefTypeStr.equals("Qualified") || twoRefTypeStr.equals("Qualified")){
+			referenceTypeWord = " has a ";
 		}
 		else {
 			referenceTypeWord = " has a ";
 		}
 
 		
-		referenceTypeDescription = "A "+aeParentClass + referenceTypeWord + aeName + ".";
+		referenceTypeDescription = "A "+subject+referenceTypeWord+ object + ". ";
 		
 		
 		return referenceTypeDescription;
 		
 	}
-	
-	
-	
 	
 	
 	

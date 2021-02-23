@@ -17,6 +17,9 @@ import org.junit.jupiter.api.Test;
 
 public class InitializeGeneratorTest {
 	
+	int errorCount = 0;
+	String error = "";
+	
 	
 	@Test public void checkClassDiagramExists() {
 
@@ -24,18 +27,43 @@ public class InitializeGeneratorTest {
 	    ClassdiagramPackage.eINSTANCE.eClass();
 	    ModelingassistantPackage.eINSTANCE.eClass();
 	    
-	    var cdPath = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
+	    try {
+	    	var cdPath = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
+	    	var resource = ResourceHelper.INSTANCE.loadResource(cdPath);
+	    	var classDiagram = (ClassDiagram) resource.getContents().get(0);
+	    	assertTrue(classDiagram!=null);
+	    	
+	    }
+	    catch(Exception e) {
+	    	errorCount += 1;
+	    	error += "classDiagram not loaded properly. \n";
+	    }
 	    
-	    
-	    var resource = ResourceHelper.INSTANCE.loadResource(cdPath);
-	    
-	    var classDiagram = (ClassDiagram) resource.getContents().get(0);
-	    
-	    assertTrue(classDiagram!=null);
 
 	    
 	    
 	    
 	  }
+	
+	@Test public void checkClassDiagramAssociations() {
+		ClassdiagramPackage.eINSTANCE.eClass();
+		ModelingassistantPackage.eINSTANCE.eClass();
+		
+		try {
+			var cdPath = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
+		    var resource = ResourceHelper.INSTANCE.loadResource(cdPath);
+		    var classDiagram = (ClassDiagram) resource.getContents().get(0);
+		    
+		    assertTrue(classDiagram.getAssociations().size() >= 1);
+		    assertTrue(classDiagram.getClasses().size() >= 2);
+	    }
+		catch(Exception e) {
+			errorCount += 1;
+			error += "Class Diagram has less than 1 Association or less than 2 Classes";
+			
+		}
+	    
+		
+	}
 
 }
