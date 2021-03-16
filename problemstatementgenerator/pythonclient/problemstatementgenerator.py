@@ -19,8 +19,8 @@ def main():
     class_diagram = resource.contents[0]
     class_diagram.__class__ = ClassDiagram
 
-    # massDir(class_diagram.classes[1])
-    # massDir(class_diagram)
+    # show_all_information(class_diagram.classes[1])
+    # show_all_information(class_diagram)
 
     print_classes(class_diagram)
 
@@ -40,13 +40,10 @@ def print_attributes(cl):
 
 
 def tab(n: int):
-    s = "  "
-    for i in range(n):
-        s += s
-    return s
+    return n * "  "
 
 
-def massDir(cd: ClassDiagram):
+def show_all_information(cd: ClassDiagram):
     for val in dir(cd):
         print(val.upper())
         print(dir(val), "\n", "-----------------------------------------------------------")
