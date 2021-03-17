@@ -227,10 +227,13 @@ def test_persisting_modeling_assistant_with_one_class_solution():
     """
     Verify that a ModelingAssistant instance with a one class solution can be serialized to an XMI file.
     """
-    # Remove previously created file (if it exists)
+    # Remove previously created files (if they exist)
     ma_path = "modelingassistant/instances/ma_one_class_from_python.xmi"
+    cd_path = "modelingassistant/instances/ma_one_class_from_python.cdm"
     if os.path.exists(ma_path):
         os.remove(ma_path)
+    if os.path.exists(cd_path):
+        os.remove(cd_path)
 
     # Load ClassDiagram metamodel
     cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
@@ -254,14 +257,19 @@ def test_persisting_modeling_assistant_with_one_class_solution():
     assert "Student1_solution" == modeling_assistant.solutions[0].classDiagram.name
     assert "Car" == class_diagram.classes[0].name
 
-    # Save modeling assistant instance to file
-    resource = rset.create_resource(URI(ma_path))
-    resource.use_uuid = True
-    resource.extend([modeling_assistant, class_diagram])
-    resource.save()
+    # Save modeling assistant instance to files
+    ma_resource = rset.create_resource(URI(ma_path))
+    cd_resource = rset.create_resource(URI(cd_path))
+    ma_resource.use_uuid = True
+    cd_resource.use_uuid = True
+    ma_resource.append(modeling_assistant)
+    cd_resource.append(class_diagram)
+    ma_resource.save()
+    cd_resource.save()
 
     assert os.path.exists(ma_path)
-    with open(ma_path) as f:
+    assert os.path.exists(cd_path)
+    with open(cd_path) as f:
         file_contents = f.read()
         for s in ["Student1_solution", "Car", "make", "CDInt"]:
             assert s in file_contents
@@ -288,10 +296,9 @@ def test_loading_modeling_assistant_with_one_class_solution():
     resource = rset.get_resource(URI(ma_file))
     modeling_assistant: ModelingAssistant = resource.contents[0]
     modeling_assistant.__class__ = ModelingAssistant
-    class_diagram: ClassDiagram = resource.contents[1]
+    class_diagram: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram.__class__ = ClassDiagram
 
-    assert class_diagram == modeling_assistant.solutions[0].classDiagram
     assert "Student1_solution" == class_diagram.name
     expected_class_names = ["Car"]
     for c in class_diagram.classes:
