@@ -19,8 +19,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -36,13 +34,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link modelingassistant.impl.LearningResourceImpl#getModelingAssistant <em>Modeling Assistant</em>}</li>
  *   <li>{@link modelingassistant.impl.LearningResourceImpl#getLearningItem <em>Learning Item</em>}</li>
  *   <li>{@link modelingassistant.impl.LearningResourceImpl#getResourceResponses <em>Resource Responses</em>}</li>
- *   <li>{@link modelingassistant.impl.LearningResourceImpl#getName <em>Name</em>}</li>
  *   <li>{@link modelingassistant.impl.LearningResourceImpl#getContent <em>Content</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class LearningResourceImpl extends MinimalEObjectImpl.Container implements LearningResource {
+public class LearningResourceImpl extends NamedElementImpl implements LearningResource {
   /**
    * The cached value of the '{@link #getLearningItem() <em>Learning Item</em>}' reference.
    * <!-- begin-user-doc -->
@@ -62,26 +59,6 @@ public class LearningResourceImpl extends MinimalEObjectImpl.Container implement
    * @ordered
    */
   protected EList<ResourceResponse> resourceResponses;
-
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getContent() <em>Content</em>}' attribute.
@@ -240,27 +217,6 @@ public class LearningResourceImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName) {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.LEARNING_RESOURCE__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public Object getContent() {
     return content;
   }
@@ -347,8 +303,6 @@ public class LearningResourceImpl extends MinimalEObjectImpl.Container implement
         return basicGetLearningItem();
       case ModelingassistantPackage.LEARNING_RESOURCE__RESOURCE_RESPONSES:
         return getResourceResponses();
-      case ModelingassistantPackage.LEARNING_RESOURCE__NAME:
-        return getName();
       case ModelingassistantPackage.LEARNING_RESOURCE__CONTENT:
         return getContent();
     }
@@ -374,9 +328,6 @@ public class LearningResourceImpl extends MinimalEObjectImpl.Container implement
         getResourceResponses().clear();
         getResourceResponses().addAll((Collection<? extends ResourceResponse>)newValue);
         return;
-      case ModelingassistantPackage.LEARNING_RESOURCE__NAME:
-        setName((String)newValue);
-        return;
       case ModelingassistantPackage.LEARNING_RESOURCE__CONTENT:
         setContent(newValue);
         return;
@@ -401,9 +352,6 @@ public class LearningResourceImpl extends MinimalEObjectImpl.Container implement
       case ModelingassistantPackage.LEARNING_RESOURCE__RESOURCE_RESPONSES:
         getResourceResponses().clear();
         return;
-      case ModelingassistantPackage.LEARNING_RESOURCE__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case ModelingassistantPackage.LEARNING_RESOURCE__CONTENT:
         setContent(CONTENT_EDEFAULT);
         return;
@@ -425,8 +373,6 @@ public class LearningResourceImpl extends MinimalEObjectImpl.Container implement
         return learningItem != null;
       case ModelingassistantPackage.LEARNING_RESOURCE__RESOURCE_RESPONSES:
         return resourceResponses != null && !resourceResponses.isEmpty();
-      case ModelingassistantPackage.LEARNING_RESOURCE__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ModelingassistantPackage.LEARNING_RESOURCE__CONTENT:
         return CONTENT_EDEFAULT == null ? content != null : !CONTENT_EDEFAULT.equals(content);
     }
@@ -443,9 +389,7 @@ public class LearningResourceImpl extends MinimalEObjectImpl.Container implement
     if (eIsProxy()) return super.toString();
 
     StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", content: ");
+    result.append(" (content: ");
     result.append(content);
     result.append(')');
     return result.toString();

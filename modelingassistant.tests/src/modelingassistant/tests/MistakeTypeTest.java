@@ -2,8 +2,6 @@
  */
 package modelingassistant.tests;
 
-import junit.framework.TestCase;
-
 import junit.textui.TestRunner;
 
 import modelingassistant.MistakeType;
@@ -15,15 +13,7 @@ import modelingassistant.ModelingassistantFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class MistakeTypeTest extends TestCase {
-
-  /**
-   * The fixture for this Mistake Type test case.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected MistakeType fixture = null;
+public class MistakeTypeTest extends NamedElementTest {
 
   /**
    * <!-- begin-user-doc -->
@@ -45,23 +35,14 @@ public class MistakeTypeTest extends TestCase {
   }
 
   /**
-   * Sets the fixture for this Mistake Type test case.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void setFixture(MistakeType fixture) {
-    this.fixture = fixture;
-  }
-
-  /**
    * Returns the fixture for this Mistake Type test case.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   protected MistakeType getFixture() {
-    return fixture;
+    return (MistakeType)fixture;
   }
 
   /**

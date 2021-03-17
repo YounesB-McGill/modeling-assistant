@@ -17,6 +17,7 @@ import modelingassistant.MistakeType;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
+import modelingassistant.NamedElement;
 import modelingassistant.ParametrizedResponse;
 import modelingassistant.ProblemStatement;
 import modelingassistant.ProblemStatementElement;
@@ -185,6 +186,13 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   private EClass quizEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass namedElementEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -448,15 +456,6 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getStudent_Name() {
-    return (EAttribute)studentEClass.getEStructuralFeatures().get(6);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getProblemStatement() {
     return problemStatementEClass;
   }
@@ -467,7 +466,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   public EReference getProblemStatement_ModelingAssistant() {
-    return (EReference)problemStatementEClass.getEStructuralFeatures().get(0);
+    return (EReference)problemStatementEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -476,16 +475,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   public EReference getProblemStatement_ProblemStatementElements() {
-    return (EReference)problemStatementEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getProblemStatement_Title() {
-    return (EAttribute)problemStatementEClass.getEStructuralFeatures().get(2);
+    return (EReference)problemStatementEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -494,7 +484,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   public EAttribute getProblemStatement_Text() {
-    return (EAttribute)problemStatementEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)problemStatementEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -522,15 +512,6 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    */
   public EReference getProblemStatementElement_SolutionElements() {
     return (EReference)problemStatementElementEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getProblemStatementElement_Name() {
-    return (EAttribute)problemStatementElementEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -718,17 +699,8 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getLearningItem_Name() {
-    return (EAttribute)learningItemEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EAttribute getLearningItem_Description() {
-    return (EAttribute)learningItemEClass.getEStructuralFeatures().get(5);
+    return (EAttribute)learningItemEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -790,7 +762,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getMistakeType_Name() {
+  public EAttribute getMistakeType_Atomic() {
     return (EAttribute)mistakeTypeEClass.getEStructuralFeatures().get(0);
   }
 
@@ -799,7 +771,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getMistakeType_Atomic() {
+  public EAttribute getMistakeType_TimeToAddress() {
     return (EAttribute)mistakeTypeEClass.getEStructuralFeatures().get(1);
   }
 
@@ -808,7 +780,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getMistakeType_TimeToAddress() {
+  public EAttribute getMistakeType_NumStepsBeforeNotification() {
     return (EAttribute)mistakeTypeEClass.getEStructuralFeatures().get(2);
   }
 
@@ -817,17 +789,8 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getMistakeType_NumStepsBeforeNotification() {
-    return (EAttribute)mistakeTypeEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getMistakeType_ModelingAssistant() {
-    return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(4);
+    return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -836,7 +799,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   public EReference getMistakeType_LearningItem() {
-    return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(5);
+    return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -845,7 +808,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   public EReference getMistakeType_StudentKnowledges() {
-    return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(6);
+    return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -854,7 +817,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   public EReference getMistakeType_Mistakes() {
-    return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(7);
+    return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -863,7 +826,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   public EReference getMistakeType_Feedbacks() {
-    return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(8);
+    return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -1123,17 +1086,8 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getLearningResource_Name() {
-    return (EAttribute)learningResourceEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EAttribute getLearningResource_Content() {
-    return (EAttribute)learningResourceEClass.getEStructuralFeatures().get(4);
+    return (EAttribute)learningResourceEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -1170,6 +1124,24 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    */
   public EClass getQuiz() {
     return quizEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getNamedElement() {
+    return namedElementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getNamedElement_Name() {
+    return (EAttribute)namedElementEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1255,18 +1227,15 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(studentEClass, STUDENT__CURRENT_MISTAKE);
     createEReference(studentEClass, STUDENT__SOLUTIONS);
     createEReference(studentEClass, STUDENT__STUDENT_KNOWLEDGES);
-    createEAttribute(studentEClass, STUDENT__NAME);
 
     problemStatementEClass = createEClass(PROBLEM_STATEMENT);
-    createEReference(problemStatementEClass, PROBLEM_STATEMENT__MODELING_ASSISTANT);
     createEReference(problemStatementEClass, PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS);
-    createEAttribute(problemStatementEClass, PROBLEM_STATEMENT__TITLE);
     createEAttribute(problemStatementEClass, PROBLEM_STATEMENT__TEXT);
+    createEReference(problemStatementEClass, PROBLEM_STATEMENT__MODELING_ASSISTANT);
 
     problemStatementElementEClass = createEClass(PROBLEM_STATEMENT_ELEMENT);
     createEReference(problemStatementElementEClass, PROBLEM_STATEMENT_ELEMENT__PROBLEM_STATEMENT);
     createEReference(problemStatementElementEClass, PROBLEM_STATEMENT_ELEMENT__SOLUTION_ELEMENTS);
-    createEAttribute(problemStatementElementEClass, PROBLEM_STATEMENT_ELEMENT__NAME);
 
     umlElementEClass = createEClass(UML_ELEMENT);
     createEReference(umlElementEClass, UML_ELEMENT__MODELING_ASSISTANT);
@@ -1291,7 +1260,6 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(learningItemEClass, LEARNING_ITEM__UML_ELEMENTS);
     createEReference(learningItemEClass, LEARNING_ITEM__LEARNING_RESOURCES);
     createEReference(learningItemEClass, LEARNING_ITEM__MISTAKE_TYPES);
-    createEAttribute(learningItemEClass, LEARNING_ITEM__NAME);
     createEAttribute(learningItemEClass, LEARNING_ITEM__DESCRIPTION);
 
     studentKnowledgeEClass = createEClass(STUDENT_KNOWLEDGE);
@@ -1301,7 +1269,6 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(studentKnowledgeEClass, STUDENT_KNOWLEDGE__MODELINGASSISTANT);
 
     mistakeTypeEClass = createEClass(MISTAKE_TYPE);
-    createEAttribute(mistakeTypeEClass, MISTAKE_TYPE__NAME);
     createEAttribute(mistakeTypeEClass, MISTAKE_TYPE__ATOMIC);
     createEAttribute(mistakeTypeEClass, MISTAKE_TYPE__TIME_TO_ADDRESS);
     createEAttribute(mistakeTypeEClass, MISTAKE_TYPE__NUM_STEPS_BEFORE_NOTIFICATION);
@@ -1344,7 +1311,6 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(learningResourceEClass, LEARNING_RESOURCE__MODELING_ASSISTANT);
     createEReference(learningResourceEClass, LEARNING_RESOURCE__LEARNING_ITEM);
     createEReference(learningResourceEClass, LEARNING_RESOURCE__RESOURCE_RESPONSES);
-    createEAttribute(learningResourceEClass, LEARNING_RESOURCE__NAME);
     createEAttribute(learningResourceEClass, LEARNING_RESOURCE__CONTENT);
 
     referenceEClass = createEClass(REFERENCE);
@@ -1354,6 +1320,9 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     exampleEClass = createEClass(EXAMPLE);
 
     quizEClass = createEClass(QUIZ);
+
+    namedElementEClass = createEClass(NAMED_ELEMENT);
+    createEAttribute(namedElementEClass, NAMED_ELEMENT__NAME);
 
     // Create data types
     intEDataType = createEDataType(INT);
@@ -1393,9 +1362,15 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    studentEClass.getESuperTypes().add(this.getNamedElement());
+    problemStatementEClass.getESuperTypes().add(this.getNamedElement());
+    problemStatementElementEClass.getESuperTypes().add(this.getNamedElement());
+    learningItemEClass.getESuperTypes().add(this.getNamedElement());
+    mistakeTypeEClass.getESuperTypes().add(this.getNamedElement());
     textResponseEClass.getESuperTypes().add(this.getFeedback());
     parametrizedResponseEClass.getESuperTypes().add(this.getFeedback());
     resourceResponseEClass.getESuperTypes().add(this.getFeedback());
+    learningResourceEClass.getESuperTypes().add(this.getNamedElement());
     referenceEClass.getESuperTypes().add(this.getLearningResource());
     tutorialEClass.getESuperTypes().add(this.getLearningResource());
     exampleEClass.getESuperTypes().add(this.getLearningResource());
@@ -1421,18 +1396,15 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getStudent_CurrentMistake(), this.getMistake(), this.getMistake_CurrentMistakeStudent(), "currentMistake", null, 0, 1, Student.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStudent_Solutions(), this.getSolution(), this.getSolution_Student(), "solutions", null, 0, -1, Student.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStudent_StudentKnowledges(), this.getStudentKnowledge(), this.getStudentKnowledge_Student(), "studentKnowledges", null, 0, -1, Student.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getStudent_Name(), ecorePackage.getEString(), "name", null, 0, 1, Student.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(problemStatementEClass, ProblemStatement.class, "ProblemStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getProblemStatement_ModelingAssistant(), this.getModelingAssistant(), this.getModelingAssistant_ProblemStatements(), "modelingAssistant", null, 1, 1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getProblemStatement_ProblemStatementElements(), this.getProblemStatementElement(), this.getProblemStatementElement_ProblemStatement(), "problemStatementElements", null, 0, -1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getProblemStatement_Title(), ecorePackage.getEString(), "title", null, 0, 1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getProblemStatement_Text(), ecorePackage.getEString(), "text", null, 0, 1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getProblemStatement_ModelingAssistant(), this.getModelingAssistant(), this.getModelingAssistant_ProblemStatements(), "modelingAssistant", null, 1, 1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(problemStatementElementEClass, ProblemStatementElement.class, "ProblemStatementElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getProblemStatementElement_ProblemStatement(), this.getProblemStatement(), this.getProblemStatement_ProblemStatementElements(), "problemStatement", null, 1, 1, ProblemStatementElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getProblemStatementElement_SolutionElements(), this.getSolutionElement(), this.getSolutionElement_ProblemStatementElements(), "solutionElements", null, 0, -1, ProblemStatementElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getProblemStatementElement_Name(), ecorePackage.getEString(), "name", null, 0, 1, ProblemStatementElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(umlElementEClass, UmlElement.class, "UmlElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getUmlElement_ModelingAssistant(), this.getModelingAssistant(), this.getModelingAssistant_UmlElements(), "modelingAssistant", null, 1, 1, UmlElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1457,7 +1429,6 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getLearningItem_UmlElements(), this.getUmlElement(), this.getUmlElement_LearningItems(), "umlElements", null, 0, -1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningItem_LearningResources(), this.getLearningResource(), this.getLearningResource_LearningItem(), "learningResources", null, 0, -1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningItem_MistakeTypes(), this.getMistakeType(), this.getMistakeType_LearningItem(), "mistakeTypes", null, 0, -1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getLearningItem_Name(), ecorePackage.getEString(), "name", null, 0, 1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getLearningItem_Description(), ecorePackage.getEString(), "description", null, 0, 1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(studentKnowledgeEClass, StudentKnowledge.class, "StudentKnowledge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1467,7 +1438,6 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getStudentKnowledge_Modelingassistant(), this.getModelingAssistant(), this.getModelingAssistant_Studentknowledge(), "modelingassistant", null, 1, 1, StudentKnowledge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(mistakeTypeEClass, MistakeType.class, "MistakeType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getMistakeType_Name(), ecorePackage.getEString(), "name", null, 0, 1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMistakeType_Atomic(), this.getboolean(), "atomic", null, 0, 1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMistakeType_TimeToAddress(), this.getTime(), "timeToAddress", null, 0, 1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMistakeType_NumStepsBeforeNotification(), this.getint(), "numStepsBeforeNotification", null, 0, 1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1510,7 +1480,6 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getLearningResource_ModelingAssistant(), this.getModelingAssistant(), this.getModelingAssistant_LearningResources(), "modelingAssistant", null, 1, 1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningResource_LearningItem(), this.getLearningItem(), this.getLearningItem_LearningResources(), "learningItem", null, 1, 1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningResource_ResourceResponses(), this.getResourceResponse(), this.getResourceResponse_LearningResources(), "resourceResponses", null, 0, -1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getLearningResource_Name(), ecorePackage.getEString(), "name", null, 0, 1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getLearningResource_Content(), ecorePackage.getEJavaObject(), "content", null, 0, 1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(referenceEClass, Reference.class, "Reference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1520,6 +1489,9 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEClass(exampleEClass, Example.class, "Example", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(quizEClass, Quiz.class, "Quiz", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(namedElementEClass, NamedElement.class, "NamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getNamedElement_Name(), ecorePackage.getEString(), "name", null, 0, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize data types
     initEDataType(intEDataType, int.class, "int", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

@@ -2,8 +2,6 @@
  */
 package modelingassistant.tests;
 
-import junit.framework.TestCase;
-
 import junit.textui.TestRunner;
 
 import modelingassistant.LearningResource;
@@ -15,15 +13,7 @@ import modelingassistant.ModelingassistantFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class LearningResourceTest extends TestCase {
-
-  /**
-   * The fixture for this Learning Resource test case.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected LearningResource fixture = null;
+public class LearningResourceTest extends NamedElementTest {
 
   /**
    * <!-- begin-user-doc -->
@@ -45,23 +35,14 @@ public class LearningResourceTest extends TestCase {
   }
 
   /**
-   * Sets the fixture for this Learning Resource test case.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void setFixture(LearningResource fixture) {
-    this.fixture = fixture;
-  }
-
-  /**
    * Returns the fixture for this Learning Resource test case.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   protected LearningResource getFixture() {
-    return fixture;
+    return (LearningResource)fixture;
   }
 
   /**

@@ -12,19 +12,10 @@ import modelingassistant.ModelingassistantPackage;
 import modelingassistant.ProblemStatement;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -34,13 +25,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class ProblemStatementItemProvider 
-  extends ItemProviderAdapter
-  implements
-    IEditingDomainItemProvider,
-    IStructuredItemContentProvider,
-    ITreeItemContentProvider,
-    IItemLabelProvider,
-    IItemPropertySource {
+  extends NamedElementItemProvider {
   /**
    * This constructs an instance from a factory and a notifier.
    * <!-- begin-user-doc -->
@@ -62,34 +47,10 @@ public class ProblemStatementItemProvider
     if (itemPropertyDescriptors == null) {
       super.getPropertyDescriptors(object);
 
-      addModelingAssistantPropertyDescriptor(object);
       addProblemStatementElementsPropertyDescriptor(object);
-      addTitlePropertyDescriptor(object);
       addTextPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
-  }
-
-  /**
-   * This adds a property descriptor for the Modeling Assistant feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addModelingAssistantPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_ProblemStatement_modelingAssistant_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_ProblemStatement_modelingAssistant_feature", "_UI_ProblemStatement_type"),
-         ModelingassistantPackage.Literals.PROBLEM_STATEMENT__MODELING_ASSISTANT,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
   }
 
   /**
@@ -110,28 +71,6 @@ public class ProblemStatementItemProvider
          false,
          true,
          null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Title feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addTitlePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_ProblemStatement_title_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_ProblemStatement_title_feature", "_UI_ProblemStatement_type"),
-         ModelingassistantPackage.Literals.PROBLEM_STATEMENT__TITLE,
-         true,
-         false,
-         false,
-         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
          null,
          null));
   }
@@ -207,7 +146,7 @@ public class ProblemStatementItemProvider
    */
   @Override
   public String getText(Object object) {
-    String label = ((ProblemStatement)object).getTitle();
+    String label = ((ProblemStatement)object).getName();
     return label == null || label.length() == 0 ?
       getString("_UI_ProblemStatement_type") :
       getString("_UI_ProblemStatement_type") + " " + label;
@@ -226,7 +165,6 @@ public class ProblemStatementItemProvider
     updateChildren(notification);
 
     switch (notification.getFeatureID(ProblemStatement.class)) {
-      case ModelingassistantPackage.PROBLEM_STATEMENT__TITLE:
       case ModelingassistantPackage.PROBLEM_STATEMENT__TEXT:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
@@ -252,17 +190,6 @@ public class ProblemStatementItemProvider
       (createChildParameter
         (ModelingassistantPackage.Literals.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS,
          ModelingassistantFactory.eINSTANCE.createProblemStatementElement()));
-  }
-
-  /**
-   * Return the resource locator for this item provider's resources.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public ResourceLocator getResourceLocator() {
-    return ModelingassistantEditPlugin.INSTANCE;
   }
 
 }

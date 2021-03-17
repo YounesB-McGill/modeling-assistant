@@ -6,8 +6,6 @@ import java.sql.Time;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Mistake Type</b></em>'.
@@ -17,7 +15,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link modelingassistant.MistakeType#getName <em>Name</em>}</li>
  *   <li>{@link modelingassistant.MistakeType#isAtomic <em>Atomic</em>}</li>
  *   <li>{@link modelingassistant.MistakeType#getTimeToAddress <em>Time To Address</em>}</li>
  *   <li>{@link modelingassistant.MistakeType#getNumStepsBeforeNotification <em>Num Steps Before Notification</em>}</li>
@@ -32,29 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface MistakeType extends EObject {
-  /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see modelingassistant.ModelingassistantPackage#getMistakeType_Name()
-   * @model
-   * @generated
-   */
-  String getName();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.MistakeType#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
-
+public interface MistakeType extends NamedElement {
   /**
    * Returns the value of the '<em><b>Atomic</b></em>' attribute.
    * <!-- begin-user-doc -->
