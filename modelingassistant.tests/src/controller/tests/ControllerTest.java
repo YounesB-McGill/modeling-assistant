@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.junit.Test;
+import ca.mcgill.sel.classdiagram.util.CdmResourceFactoryImpl;
 import classdiagram.Attribute;
 import classdiagram.CDInt;
 import classdiagram.CDString;
@@ -300,9 +301,14 @@ public class ControllerTest {
    */
   @Test public void testPersistingModelingAssistantWithOneClassSolution() {
     var maPath = "../modelingassistant/instances/ma_one_class_from_java.xmi";
+    var cdPath = "../modelingassistant/instances/cd_one_class_from_java.cdm";
     var maFile = new File(maPath);
+    var cdFile = new File(cdPath);
     if (maFile.isFile()) {
       assertTrue(maFile.delete());
+    }
+    if (cdFile.isFile()) {
+      assertTrue(cdFile.delete());
     }
 
     // Dynamically create a modeling assistant and link it with a TouchCore class diagram
@@ -337,15 +343,24 @@ public class ControllerTest {
     assertEquals("Car", classDiagram.getClasses().get(0).getName());
     
     var rset = new ResourceSetImpl();
-    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new ModelingassistantResourceFactoryImpl());
-    var resource = rset.createResource(URI.createFileURI(maPath));
-    resource.getContents().addAll(List.of(modelingAssistant, classDiagram));
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi",
+        new ModelingassistantResourceFactoryImpl());
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm",
+        new CdmResourceFactoryImpl());
+    var maResource = rset.createResource(URI.createFileURI(maPath));
+    var cdResource = rset.createResource(URI.createFileURI(cdPath));
+    maResource.getContents().add(modelingAssistant);
+    cdResource.getContents().add(classDiagram);
     try {
-      resource.save(Collections.EMPTY_MAP);
+      maResource.save(Collections.EMPTY_MAP);
+      cdResource.save(Collections.EMPTY_MAP);
       assertTrue(maFile.isFile());
-      var fileContent = Files.readString(Paths.get(maPath));
+      assertTrue(cdFile.isFile());
+      var cdFileContent = Files.readString(Paths.get(cdPath));
       List.of("Student1_solution", "Car", "make", "CDInt").forEach(s -> 
-          assertTrue(fileContent.contains(s)));
+          assertTrue(cdFileContent.contains(s)));
+      
+      // TODO Check that MA points to CD
     } catch (IOException e) {
       fail();
     }
@@ -358,11 +373,21 @@ public class ControllerTest {
     ClassdiagramPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_one_class_from_java.xmi";
-    var resource = ResourceHelper.INSTANCE.loadResource(maPath);
-    var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
-    var classDiagram = (ClassDiagram) resource.getContents().get(1);
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi",
+        new ModelingassistantResourceFactoryImpl());
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm",
+        new CdmResourceFactoryImpl());
+    var maResource = rset.createResource(URI.createFileURI(maPath));
+    try {
+      maResource.load(Collections.EMPTY_MAP);
+    } catch (IOException e) {
+      fail();
+    }
     
-    assertEquals(classDiagram, modelingAssistant.getSolutions().get(0).getClassDiagram());
+    var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
+    var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
+
     assertEquals("Student1_solution", classDiagram.getName());
     var expectedClassNames = new ArrayList<String>(List.of("Car"));
     classDiagram.getClasses().forEach(c -> assertTrue(expectedClassNames.remove(c.getName())));
