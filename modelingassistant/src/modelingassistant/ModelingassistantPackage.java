@@ -176,6 +176,43 @@ public interface ModelingassistantPackage extends EPackage {
   int MODELING_ASSISTANT_OPERATION_COUNT = 0;
 
   /**
+   * The meta object id for the '{@link modelingassistant.impl.NamedElementImpl <em>Named Element</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see modelingassistant.impl.NamedElementImpl
+   * @see modelingassistant.impl.ModelingassistantPackageImpl#getNamedElement()
+   * @generated
+   */
+  int NAMED_ELEMENT = 20;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAMED_ELEMENT__NAME = 0;
+
+  /**
+   * The number of structural features of the '<em>Named Element</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAMED_ELEMENT_FEATURE_COUNT = 1;
+
+  /**
+   * The number of operations of the '<em>Named Element</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAMED_ELEMENT_OPERATION_COUNT = 0;
+
+  /**
    * The meta object id for the '{@link modelingassistant.impl.StudentImpl <em>Student</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -186,13 +223,22 @@ public interface ModelingassistantPackage extends EPackage {
   int STUDENT = 1;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STUDENT__NAME = NAMED_ELEMENT__NAME;
+
+  /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STUDENT__ID = 0;
+  int STUDENT__ID = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Modeling Assistant</b></em>' container reference.
@@ -201,7 +247,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int STUDENT__MODELING_ASSISTANT = 1;
+  int STUDENT__MODELING_ASSISTANT = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Mistakes</b></em>' reference list.
@@ -210,7 +256,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int STUDENT__MISTAKES = 2;
+  int STUDENT__MISTAKES = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Current Mistake</b></em>' reference.
@@ -219,7 +265,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int STUDENT__CURRENT_MISTAKE = 3;
+  int STUDENT__CURRENT_MISTAKE = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Solutions</b></em>' reference list.
@@ -228,7 +274,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int STUDENT__SOLUTIONS = 4;
+  int STUDENT__SOLUTIONS = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Student Knowledges</b></em>' reference list.
@@ -237,16 +283,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int STUDENT__STUDENT_KNOWLEDGES = 5;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STUDENT__NAME = 6;
+  int STUDENT__STUDENT_KNOWLEDGES = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Student</em>' class.
@@ -255,7 +292,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int STUDENT_FEATURE_COUNT = 7;
+  int STUDENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 6;
 
   /**
    * The number of operations of the '<em>Student</em>' class.
@@ -264,7 +301,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int STUDENT_OPERATION_COUNT = 0;
+  int STUDENT_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
 
   /**
    * The meta object id for the '{@link modelingassistant.impl.ProblemStatementImpl <em>Problem Statement</em>}' class.
@@ -277,13 +314,13 @@ public interface ModelingassistantPackage extends EPackage {
   int PROBLEM_STATEMENT = 2;
 
   /**
-   * The feature id for the '<em><b>Modeling Assistant</b></em>' container reference.
+   * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT__MODELING_ASSISTANT = 0;
+  int PROBLEM_STATEMENT__NAME = NAMED_ELEMENT__NAME;
 
   /**
    * The feature id for the '<em><b>Problem Statement Elements</b></em>' containment reference list.
@@ -292,16 +329,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS = 1;
-
-  /**
-   * The feature id for the '<em><b>Title</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROBLEM_STATEMENT__TITLE = 2;
+  int PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Text</b></em>' attribute.
@@ -310,7 +338,16 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT__TEXT = 3;
+  int PROBLEM_STATEMENT__TEXT = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Modeling Assistant</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROBLEM_STATEMENT__MODELING_ASSISTANT = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Problem Statement</em>' class.
@@ -319,7 +356,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT_FEATURE_COUNT = 4;
+  int PROBLEM_STATEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The number of operations of the '<em>Problem Statement</em>' class.
@@ -328,7 +365,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT_OPERATION_COUNT = 0;
+  int PROBLEM_STATEMENT_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
 
   /**
    * The meta object id for the '{@link modelingassistant.impl.ProblemStatementElementImpl <em>Problem Statement Element</em>}' class.
@@ -341,13 +378,22 @@ public interface ModelingassistantPackage extends EPackage {
   int PROBLEM_STATEMENT_ELEMENT = 3;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROBLEM_STATEMENT_ELEMENT__NAME = NAMED_ELEMENT__NAME;
+
+  /**
    * The feature id for the '<em><b>Problem Statement</b></em>' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT_ELEMENT__PROBLEM_STATEMENT = 0;
+  int PROBLEM_STATEMENT_ELEMENT__PROBLEM_STATEMENT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Solution Elements</b></em>' reference list.
@@ -356,16 +402,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT_ELEMENT__SOLUTION_ELEMENTS = 1;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROBLEM_STATEMENT_ELEMENT__NAME = 2;
+  int PROBLEM_STATEMENT_ELEMENT__SOLUTION_ELEMENTS = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Problem Statement Element</em>' class.
@@ -374,7 +411,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT_ELEMENT_FEATURE_COUNT = 3;
+  int PROBLEM_STATEMENT_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The number of operations of the '<em>Problem Statement Element</em>' class.
@@ -383,7 +420,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT_ELEMENT_OPERATION_COUNT = 0;
+  int PROBLEM_STATEMENT_ELEMENT_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
 
   /**
    * The meta object id for the '{@link modelingassistant.impl.UmlElementImpl <em>Uml Element</em>}' class.
@@ -588,13 +625,22 @@ public interface ModelingassistantPackage extends EPackage {
   int LEARNING_ITEM = 7;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LEARNING_ITEM__NAME = NAMED_ELEMENT__NAME;
+
+  /**
    * The feature id for the '<em><b>Modeling Assistant</b></em>' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int LEARNING_ITEM__MODELING_ASSISTANT = 0;
+  int LEARNING_ITEM__MODELING_ASSISTANT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Uml Elements</b></em>' reference list.
@@ -603,7 +649,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int LEARNING_ITEM__UML_ELEMENTS = 1;
+  int LEARNING_ITEM__UML_ELEMENTS = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Learning Resources</b></em>' reference list.
@@ -612,7 +658,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int LEARNING_ITEM__LEARNING_RESOURCES = 2;
+  int LEARNING_ITEM__LEARNING_RESOURCES = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Mistake Types</b></em>' reference list.
@@ -621,16 +667,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int LEARNING_ITEM__MISTAKE_TYPES = 3;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LEARNING_ITEM__NAME = 4;
+  int LEARNING_ITEM__MISTAKE_TYPES = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -639,7 +676,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int LEARNING_ITEM__DESCRIPTION = 5;
+  int LEARNING_ITEM__DESCRIPTION = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Learning Item</em>' class.
@@ -648,7 +685,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int LEARNING_ITEM_FEATURE_COUNT = 6;
+  int LEARNING_ITEM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
   /**
    * The number of operations of the '<em>Learning Item</em>' class.
@@ -657,7 +694,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int LEARNING_ITEM_OPERATION_COUNT = 0;
+  int LEARNING_ITEM_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
 
   /**
    * The meta object id for the '{@link modelingassistant.impl.StudentKnowledgeImpl <em>Student Knowledge</em>}' class.
@@ -740,7 +777,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MISTAKE_TYPE__NAME = 0;
+  int MISTAKE_TYPE__NAME = NAMED_ELEMENT__NAME;
 
   /**
    * The feature id for the '<em><b>Atomic</b></em>' attribute.
@@ -749,7 +786,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MISTAKE_TYPE__ATOMIC = 1;
+  int MISTAKE_TYPE__ATOMIC = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Time To Address</b></em>' attribute.
@@ -758,7 +795,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MISTAKE_TYPE__TIME_TO_ADDRESS = 2;
+  int MISTAKE_TYPE__TIME_TO_ADDRESS = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Num Steps Before Notification</b></em>' attribute.
@@ -767,7 +804,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MISTAKE_TYPE__NUM_STEPS_BEFORE_NOTIFICATION = 3;
+  int MISTAKE_TYPE__NUM_STEPS_BEFORE_NOTIFICATION = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Modeling Assistant</b></em>' container reference.
@@ -776,7 +813,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MISTAKE_TYPE__MODELING_ASSISTANT = 4;
+  int MISTAKE_TYPE__MODELING_ASSISTANT = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Learning Item</b></em>' reference.
@@ -785,7 +822,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MISTAKE_TYPE__LEARNING_ITEM = 5;
+  int MISTAKE_TYPE__LEARNING_ITEM = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Student Knowledges</b></em>' reference list.
@@ -794,7 +831,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MISTAKE_TYPE__STUDENT_KNOWLEDGES = 6;
+  int MISTAKE_TYPE__STUDENT_KNOWLEDGES = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Mistakes</b></em>' reference list.
@@ -803,7 +840,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MISTAKE_TYPE__MISTAKES = 7;
+  int MISTAKE_TYPE__MISTAKES = NAMED_ELEMENT_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Feedbacks</b></em>' reference list.
@@ -812,7 +849,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MISTAKE_TYPE__FEEDBACKS = 8;
+  int MISTAKE_TYPE__FEEDBACKS = NAMED_ELEMENT_FEATURE_COUNT + 7;
 
   /**
    * The number of structural features of the '<em>Mistake Type</em>' class.
@@ -821,7 +858,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MISTAKE_TYPE_FEATURE_COUNT = 9;
+  int MISTAKE_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 8;
 
   /**
    * The number of operations of the '<em>Mistake Type</em>' class.
@@ -830,7 +867,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MISTAKE_TYPE_OPERATION_COUNT = 0;
+  int MISTAKE_TYPE_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
 
   /**
    * The meta object id for the '{@link modelingassistant.impl.MistakeImpl <em>Mistake</em>}' class.
@@ -1397,13 +1434,22 @@ public interface ModelingassistantPackage extends EPackage {
   int LEARNING_RESOURCE = 15;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LEARNING_RESOURCE__NAME = NAMED_ELEMENT__NAME;
+
+  /**
    * The feature id for the '<em><b>Modeling Assistant</b></em>' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int LEARNING_RESOURCE__MODELING_ASSISTANT = 0;
+  int LEARNING_RESOURCE__MODELING_ASSISTANT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Learning Item</b></em>' reference.
@@ -1412,7 +1458,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int LEARNING_RESOURCE__LEARNING_ITEM = 1;
+  int LEARNING_RESOURCE__LEARNING_ITEM = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Resource Responses</b></em>' reference list.
@@ -1421,16 +1467,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int LEARNING_RESOURCE__RESOURCE_RESPONSES = 2;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LEARNING_RESOURCE__NAME = 3;
+  int LEARNING_RESOURCE__RESOURCE_RESPONSES = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' attribute.
@@ -1439,7 +1476,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int LEARNING_RESOURCE__CONTENT = 4;
+  int LEARNING_RESOURCE__CONTENT = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Learning Resource</em>' class.
@@ -1448,7 +1485,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int LEARNING_RESOURCE_FEATURE_COUNT = 5;
+  int LEARNING_RESOURCE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The number of operations of the '<em>Learning Resource</em>' class.
@@ -1457,7 +1494,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int LEARNING_RESOURCE_OPERATION_COUNT = 0;
+  int LEARNING_RESOURCE_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
 
   /**
    * The meta object id for the '{@link modelingassistant.impl.ReferenceImpl <em>Reference</em>}' class.
@@ -1468,6 +1505,15 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   int REFERENCE = 16;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REFERENCE__NAME = LEARNING_RESOURCE__NAME;
 
   /**
    * The feature id for the '<em><b>Modeling Assistant</b></em>' container reference.
@@ -1495,15 +1541,6 @@ public interface ModelingassistantPackage extends EPackage {
    * @ordered
    */
   int REFERENCE__RESOURCE_RESPONSES = LEARNING_RESOURCE__RESOURCE_RESPONSES;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REFERENCE__NAME = LEARNING_RESOURCE__NAME;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' attribute.
@@ -1543,6 +1580,15 @@ public interface ModelingassistantPackage extends EPackage {
   int TUTORIAL = 17;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TUTORIAL__NAME = LEARNING_RESOURCE__NAME;
+
+  /**
    * The feature id for the '<em><b>Modeling Assistant</b></em>' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1568,15 +1614,6 @@ public interface ModelingassistantPackage extends EPackage {
    * @ordered
    */
   int TUTORIAL__RESOURCE_RESPONSES = LEARNING_RESOURCE__RESOURCE_RESPONSES;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TUTORIAL__NAME = LEARNING_RESOURCE__NAME;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' attribute.
@@ -1616,6 +1653,15 @@ public interface ModelingassistantPackage extends EPackage {
   int EXAMPLE = 18;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXAMPLE__NAME = LEARNING_RESOURCE__NAME;
+
+  /**
    * The feature id for the '<em><b>Modeling Assistant</b></em>' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1641,15 +1687,6 @@ public interface ModelingassistantPackage extends EPackage {
    * @ordered
    */
   int EXAMPLE__RESOURCE_RESPONSES = LEARNING_RESOURCE__RESOURCE_RESPONSES;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXAMPLE__NAME = LEARNING_RESOURCE__NAME;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' attribute.
@@ -1689,6 +1726,15 @@ public interface ModelingassistantPackage extends EPackage {
   int QUIZ = 19;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUIZ__NAME = LEARNING_RESOURCE__NAME;
+
+  /**
    * The feature id for the '<em><b>Modeling Assistant</b></em>' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1714,15 +1760,6 @@ public interface ModelingassistantPackage extends EPackage {
    * @ordered
    */
   int QUIZ__RESOURCE_RESPONSES = LEARNING_RESOURCE__RESOURCE_RESPONSES;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int QUIZ__NAME = LEARNING_RESOURCE__NAME;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' attribute.
@@ -1758,7 +1795,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @see modelingassistant.impl.ModelingassistantPackageImpl#getint()
    * @generated
    */
-  int INT = 20;
+  int INT = 21;
 
   /**
    * The meta object id for the '<em>boolean</em>' data type.
@@ -1767,7 +1804,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @see modelingassistant.impl.ModelingassistantPackageImpl#getboolean()
    * @generated
    */
-  int BOOLEAN = 21;
+  int BOOLEAN = 22;
 
   /**
    * The meta object id for the '<em>Time</em>' data type.
@@ -1777,7 +1814,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @see modelingassistant.impl.ModelingassistantPackageImpl#getTime()
    * @generated
    */
-  int TIME = 22;
+  int TIME = 23;
 
   /**
    * The meta object id for the '<em>double</em>' data type.
@@ -1786,7 +1823,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @see modelingassistant.impl.ModelingassistantPackageImpl#getdouble()
    * @generated
    */
-  int DOUBLE = 23;
+  int DOUBLE = 24;
 
 
   /**
@@ -1986,17 +2023,6 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getStudent_StudentKnowledges();
 
   /**
-   * Returns the meta object for the attribute '{@link modelingassistant.Student#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see modelingassistant.Student#getName()
-   * @see #getStudent()
-   * @generated
-   */
-  EAttribute getStudent_Name();
-
-  /**
    * Returns the meta object for class '{@link modelingassistant.ProblemStatement <em>Problem Statement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2027,17 +2053,6 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EReference getProblemStatement_ProblemStatementElements();
-
-  /**
-   * Returns the meta object for the attribute '{@link modelingassistant.ProblemStatement#getTitle <em>Title</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Title</em>'.
-   * @see modelingassistant.ProblemStatement#getTitle()
-   * @see #getProblemStatement()
-   * @generated
-   */
-  EAttribute getProblemStatement_Title();
 
   /**
    * Returns the meta object for the attribute '{@link modelingassistant.ProblemStatement#getText <em>Text</em>}'.
@@ -2081,17 +2096,6 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EReference getProblemStatementElement_SolutionElements();
-
-  /**
-   * Returns the meta object for the attribute '{@link modelingassistant.ProblemStatementElement#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see modelingassistant.ProblemStatementElement#getName()
-   * @see #getProblemStatementElement()
-   * @generated
-   */
-  EAttribute getProblemStatementElement_Name();
 
   /**
    * Returns the meta object for class '{@link modelingassistant.UmlElement <em>Uml Element</em>}'.
@@ -2310,17 +2314,6 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getLearningItem_MistakeTypes();
 
   /**
-   * Returns the meta object for the attribute '{@link modelingassistant.LearningItem#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see modelingassistant.LearningItem#getName()
-   * @see #getLearningItem()
-   * @generated
-   */
-  EAttribute getLearningItem_Name();
-
-  /**
    * Returns the meta object for the attribute '{@link modelingassistant.LearningItem#getDescription <em>Description</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2394,17 +2387,6 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EClass getMistakeType();
-
-  /**
-   * Returns the meta object for the attribute '{@link modelingassistant.MistakeType#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see modelingassistant.MistakeType#getName()
-   * @see #getMistakeType()
-   * @generated
-   */
-  EAttribute getMistakeType_Name();
 
   /**
    * Returns the meta object for the attribute '{@link modelingassistant.MistakeType#isAtomic <em>Atomic</em>}'.
@@ -2797,17 +2779,6 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getLearningResource_ResourceResponses();
 
   /**
-   * Returns the meta object for the attribute '{@link modelingassistant.LearningResource#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see modelingassistant.LearningResource#getName()
-   * @see #getLearningResource()
-   * @generated
-   */
-  EAttribute getLearningResource_Name();
-
-  /**
    * Returns the meta object for the attribute '{@link modelingassistant.LearningResource#getContent <em>Content</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2857,6 +2828,27 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EClass getQuiz();
+
+  /**
+   * Returns the meta object for class '{@link modelingassistant.NamedElement <em>Named Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Named Element</em>'.
+   * @see modelingassistant.NamedElement
+   * @generated
+   */
+  EClass getNamedElement();
+
+  /**
+   * Returns the meta object for the attribute '{@link modelingassistant.NamedElement#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see modelingassistant.NamedElement#getName()
+   * @see #getNamedElement()
+   * @generated
+   */
+  EAttribute getNamedElement_Name();
 
   /**
    * Returns the meta object for data type '<em>int</em>'.
@@ -3071,14 +3063,6 @@ public interface ModelingassistantPackage extends EPackage {
     EReference STUDENT__STUDENT_KNOWLEDGES = eINSTANCE.getStudent_StudentKnowledges();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute STUDENT__NAME = eINSTANCE.getStudent_Name();
-
-    /**
      * The meta object literal for the '{@link modelingassistant.impl.ProblemStatementImpl <em>Problem Statement</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3103,14 +3087,6 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS = eINSTANCE.getProblemStatement_ProblemStatementElements();
-
-    /**
-     * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute PROBLEM_STATEMENT__TITLE = eINSTANCE.getProblemStatement_Title();
 
     /**
      * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
@@ -3145,14 +3121,6 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference PROBLEM_STATEMENT_ELEMENT__SOLUTION_ELEMENTS = eINSTANCE.getProblemStatementElement_SolutionElements();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute PROBLEM_STATEMENT_ELEMENT__NAME = eINSTANCE.getProblemStatementElement_Name();
 
     /**
      * The meta object literal for the '{@link modelingassistant.impl.UmlElementImpl <em>Uml Element</em>}' class.
@@ -3323,14 +3291,6 @@ public interface ModelingassistantPackage extends EPackage {
     EReference LEARNING_ITEM__MISTAKE_TYPES = eINSTANCE.getLearningItem_MistakeTypes();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute LEARNING_ITEM__NAME = eINSTANCE.getLearningItem_Name();
-
-    /**
      * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3389,14 +3349,6 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EClass MISTAKE_TYPE = eINSTANCE.getMistakeType();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute MISTAKE_TYPE__NAME = eINSTANCE.getMistakeType_Name();
 
     /**
      * The meta object literal for the '<em><b>Atomic</b></em>' attribute feature.
@@ -3699,14 +3651,6 @@ public interface ModelingassistantPackage extends EPackage {
     EReference LEARNING_RESOURCE__RESOURCE_RESPONSES = eINSTANCE.getLearningResource_ResourceResponses();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute LEARNING_RESOURCE__NAME = eINSTANCE.getLearningResource_Name();
-
-    /**
      * The meta object literal for the '<em><b>Content</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3753,6 +3697,24 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EClass QUIZ = eINSTANCE.getQuiz();
+
+    /**
+     * The meta object literal for the '{@link modelingassistant.impl.NamedElementImpl <em>Named Element</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see modelingassistant.impl.NamedElementImpl
+     * @see modelingassistant.impl.ModelingassistantPackageImpl#getNamedElement()
+     * @generated
+     */
+    EClass NAMED_ELEMENT = eINSTANCE.getNamedElement();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute NAMED_ELEMENT__NAME = eINSTANCE.getNamedElement_Name();
 
     /**
      * The meta object literal for the '<em>int</em>' data type.
