@@ -328,10 +328,9 @@ def test_loading_modeling_assistant_with_one_class_solution_serialized_in_java()
     resource = rset.get_resource(URI(ma_file))
     modeling_assistant: ModelingAssistant = resource.contents[0]
     modeling_assistant.__class__ = ModelingAssistant
-    class_diagram: ClassDiagram = resource.contents[1]
+    class_diagram: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram.__class__ = ClassDiagram
 
-    assert class_diagram == modeling_assistant.solutions[0].classDiagram
     assert "Student1_solution" == class_diagram.name
     expected_class_names = ["Car"]
     for c in class_diagram.classes:
@@ -346,7 +345,9 @@ def test_persisting_modeling_assistant_with_multiclass_solution():
     """
     # Remove previously created file (if it exists)
     ma_path = "modelingassistant/instances/ma_multiclass_from_python.xmi"
+    cd_path = "modelingassistant/instances/ma_multiclass_from_python.cdm"
     if os.path.exists(ma_path): os.remove(ma_path)
+    if os.path.exists(cd_path): os.remove(cd_path)
 
     # Load ClassDiagram and Modeling Assistant metamodels
     cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
@@ -375,14 +376,18 @@ def test_persisting_modeling_assistant_with_multiclass_solution():
     modeling_assistant = ModelingAssistant()
     solution = Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
     
-    # Save modeling assistant instance to file
-    resource = rset.create_resource(URI(ma_path))
-    resource.use_uuid = True
-    resource.extend([modeling_assistant, class_diagram])
-    resource.save()
+    # Save modeling assistant instance to files
+    ma_resource = rset.create_resource(URI(ma_path))
+    cd_resource = rset.create_resource(URI(cd_path))
+    ma_resource.use_uuid = cd_resource.use_uuid = True
+    ma_resource.append(modeling_assistant)
+    cd_resource.append(class_diagram)
+    ma_resource.save()
+    cd_resource.save()
 
     assert os.path.exists(ma_path)
-    with open(ma_path) as f:
+    assert os.path.exists(cd_path)
+    with open(cd_path) as f:
         file_contents = f.read()
         for s in ["Car", "SportsCar", "Part", "Driver", "make", "CDInt"]:
             assert s in file_contents
@@ -409,10 +414,9 @@ def test_loading_modeling_assistant_with_multiclass_solution():
     resource = rset.get_resource(URI(ma_file))
     modeling_assistant: ModelingAssistant = resource.contents[0]
     modeling_assistant.__class__ = ModelingAssistant
-    class_diagram: ClassDiagram = resource.contents[1]
+    class_diagram: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram.__class__ = ClassDiagram
 
-    assert class_diagram == modeling_assistant.solutions[0].classDiagram
     expected_class_names = ["Car", "SportsCar", "Part", "Driver"]
     for c in class_diagram.classes:
         if c.name == "Car":
@@ -446,10 +450,9 @@ def test_loading_modeling_assistant_with_multiclass_solution_serialized_in_java(
     resource = rset.get_resource(URI(ma_file))
     modeling_assistant: ModelingAssistant = resource.contents[0]
     modeling_assistant.__class__ = ModelingAssistant
-    class_diagram: ClassDiagram = resource.contents[1]
+    class_diagram: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram.__class__ = ClassDiagram
 
-    assert class_diagram == modeling_assistant.solutions[0].classDiagram
     expected_class_names = ["Car", "SportsCar", "Part", "Driver"]
     for c in class_diagram.classes:
         if c.name == "Car":
@@ -468,7 +471,10 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
     """
     # Remove previously created file (if it exists)
     ma_path = "modelingassistant/instances/ma_multisolution_from_python.xmi"
-    if os.path.exists(ma_path): os.remove(ma_path)
+    cd1_path = "modelingassistant/instances/ma_multisolution_from_python1.cdm"
+    cd2_path = "modelingassistant/instances/ma_multisolution_from_python2.cdm"
+    for p in [ma_path, cd1_path, cd2_path]:
+        if os.path.exists(p): os.remove(p)
 
     # Load ClassDiagram and Modeling Assistant metamodels
     cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
@@ -478,25 +484,31 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
     rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
     ma_mm_root = rset.get_resource(URI(ma_mm_file)).contents[0]
     rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+
+    # Define mapping from destination filenames to class diagram instances
+    cdm_by_file: dict[str, ClassDiagram] = {}
     
     # Open premade class diagram from one of the above tests
     cdm_path = "modelingassistant/testmodels"
     cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
-    class_diagram: ClassDiagram = rset.get_resource(URI(cdm_file)).contents[0]
-    class_diagram.__class__ = ClassDiagram
+    class_diagram1: ClassDiagram = rset.get_resource(URI(cdm_file)).contents[0]
+    class_diagram1.__class__ = ClassDiagram
+    cdm_by_file[cd1_path] = class_diagram1
     car_class = driver_class = sports_car_class = part_class = None
-    for c in class_diagram.classes:
+    for c in class_diagram1.classes:
         if c.name == "Car": car_class = c
         elif c.name == "Driver": driver_class = c
         elif c.name == "SportsCar": sports_car_class = c
         elif c.name == "Part": part_class = c
+    
 
     # Link first class diagram to modeling assistant instance
     modeling_assistant = ModelingAssistant()
-    solution1 = Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
+    solution1 = Solution(classDiagram=class_diagram1, modelingAssistant=modeling_assistant)
 
     # Make and link second class diagram to modeling assistant instance
     class_diagram2 = ClassDiagram(name="Student2_solution")
+    cdm_by_file[cd2_path] = class_diagram2
     solution2 = Solution(classDiagram=class_diagram2, modelingAssistant=modeling_assistant)
     cd_int = CDInt()
     cd_string = CDString()
@@ -507,16 +519,28 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
     ])
     class_diagram2.classes.append(car_class2)
 
-    # Save modeling assistant instance to file
-    resource = rset.create_resource(URI(ma_path))
-    resource.use_uuid = True
-    resource.extend([modeling_assistant, class_diagram, class_diagram2])
-    resource.save()
+    # Save modeling assistant instance to files
+    for cd_path in [cd1_path, cd2_path]:
+        cd_resource = rset.create_resource(URI(cd_path))
+        cd_resource.use_uuid = True
+        cd_resource.append(cdm_by_file[cd_path])
+        cd_resource.save()
+    
+    ma_resource = rset.create_resource(URI(ma_path))
+    ma_resource.use_uuid = True
+    ma_resource.append(modeling_assistant)
+    ma_resource.save()
 
     assert os.path.exists(ma_path)
-    with open(ma_path) as f:
+    assert os.path.exists(cd1_path)
+    assert os.path.exists(cd2_path)
+    with open(cd1_path) as f:
         file_contents = f.read()
-        for s in ["Car", "SportsCar", "Part", "Driver", "make", "CDInt", "Student2_solution"]:
+        for s in ["Car", "SportsCar", "Part", "Driver", "make", "CDInt"]:
+            assert s in file_contents
+    with open(cd2_path) as f:
+        file_contents = f.read()
+        for s in ["Car", "make", "CDInt", "Student2_solution"]:
             assert s in file_contents
 
 
@@ -541,9 +565,9 @@ def test_loading_modeling_assistant_with_multiple_solutions():
     resource = rset.get_resource(URI(ma_file))
     modeling_assistant: ModelingAssistant = resource.contents[0]
     modeling_assistant.__class__ = ModelingAssistant
-    class_diagram1: ClassDiagram = resource.contents[1]
+    class_diagram1: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram1.__class__ = ClassDiagram
-    class_diagram2: ClassDiagram = resource.contents[2]
+    class_diagram2: ClassDiagram = modeling_assistant.solutions[1].classDiagram
     class_diagram2.__class__ = ClassDiagram
 
     assert class_diagram1 == modeling_assistant.solutions[0].classDiagram
@@ -590,12 +614,11 @@ def test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java
     resource = rset.get_resource(URI(ma_file))
     modeling_assistant: ModelingAssistant = resource.contents[0]
     modeling_assistant.__class__ = ModelingAssistant
-    class_diagram1: ClassDiagram = resource.contents[1]
+    class_diagram1: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram1.__class__ = ClassDiagram
-    class_diagram2: ClassDiagram = resource.contents[2]
+    class_diagram2: ClassDiagram = modeling_assistant.solutions[1].classDiagram
     class_diagram2.__class__ = ClassDiagram
 
-    assert class_diagram1 == modeling_assistant.solutions[0].classDiagram
     expected_class_names1 = ["Car", "SportsCar", "Part", "Driver"]
     for c in class_diagram1.classes:
         if c.name == "Car":
@@ -607,7 +630,6 @@ def test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java
         expected_class_names1.remove(c.name)
     assert not expected_class_names1
 
-    assert class_diagram2 == modeling_assistant.solutions[1].classDiagram
     expected_class_names2 = ["Car"]
     for c in class_diagram2.classes:
         if c.name == "Car":
@@ -624,7 +646,10 @@ def test_student_knowledge_persisted_correctly():
     """
     # Remove previously created file (if it exists)
     ma_path = "modelingassistant/instances/ma_studentknowledge_from_python.xmi"
-    if os.path.exists(ma_path): os.remove(ma_path)
+    cd1_path = "modelingassistant/instances/ma_studentknowledge_from_python1.cdm"
+    cd2_path = "modelingassistant/instances/ma_studentknowledge_from_python2.cdm"
+    for p in [ma_path, cd1_path, cd2_path]:
+        if os.path.exists(p): os.remove(p)
 
     # Load ClassDiagram and Modeling Assistant metamodels
     cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
@@ -634,14 +659,18 @@ def test_student_knowledge_persisted_correctly():
     rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
     ma_mm_root = rset.get_resource(URI(ma_mm_file)).contents[0]
     rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+
+    # Define mapping from destination filenames to class diagram instances
+    cdm_by_file: dict[str, ClassDiagram] = {}
     
     # Open premade class diagram from one of the above tests
     cdm_path = "modelingassistant/testmodels"
     cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
-    class_diagram: ClassDiagram = rset.get_resource(URI(cdm_file)).contents[0]
-    class_diagram.__class__ = ClassDiagram
+    class_diagram1: ClassDiagram = rset.get_resource(URI(cdm_file)).contents[0]
+    class_diagram1.__class__ = ClassDiagram
+    cdm_by_file[cd1_path] = class_diagram1
     car_class = driver_class = sports_car_class = part_class = None
-    for c in class_diagram.classes:
+    for c in class_diagram1.classes:
         if c.name == "Car": car_class = c
         elif c.name == "Driver": driver_class = c
         elif c.name == "SportsCar": sports_car_class = c
@@ -655,7 +684,7 @@ def test_student_knowledge_persisted_correctly():
 
     # Link first class diagram to modeling assistant instance and related student
     student1 = Student(id="1111", modelingAssistant=modeling_assistant)
-    solution1 = Solution(classDiagram=class_diagram, student=student1, modelingAssistant=modeling_assistant)
+    solution1 = Solution(classDiagram=class_diagram1, student=student1, modelingAssistant=modeling_assistant)
     lok1 = 10_578_963  # use a large int to detect it in testing 
     student1_class_naming_knowledge = StudentKnowledge(levelOfKnowledge=lok1, student=student1,
                                                        mistakeType=class_naming_mistake_type,
@@ -663,6 +692,7 @@ def test_student_knowledge_persisted_correctly():
 
     # Make and link second class diagram to modeling assistant instance and related student
     class_diagram2 = ClassDiagram(name="Student2_solution")
+    cdm_by_file[cd2_path] = class_diagram2
     student2 = Student(id="2222", modelingAssistant=modeling_assistant)
     solution2 = Solution(classDiagram=class_diagram2, student=student2, modelingAssistant=modeling_assistant)
     lok2 = 8_996_541
@@ -678,17 +708,33 @@ def test_student_knowledge_persisted_correctly():
     ])
     class_diagram2.classes.append(car_class2)
 
-    # Save modeling assistant instance to file
-    resource = rset.create_resource(URI(ma_path))
-    resource.use_uuid = True
-    resource.extend([modeling_assistant, class_diagram, class_diagram2])
-    resource.save()
+    # Save modeling assistant instance to files
+    for cd_path in [cd1_path, cd2_path]:
+        cd_resource = rset.create_resource(URI(cd_path))
+        cd_resource.use_uuid = True
+        cd_resource.append(cdm_by_file[cd_path])
+        cd_resource.save()
+    
+    ma_resource = rset.create_resource(URI(ma_path))
+    ma_resource.use_uuid = True
+    ma_resource.append(modeling_assistant)
+    ma_resource.save()
 
-    assert os.path.exists(ma_path)
+    for p in [ma_path, cd1_path, cd2_path]:
+        assert os.path.exists(p)
+
+    # TODO modify lists to reflect what should be in each file
     with open(ma_path) as f:
         file_contents = f.read()
-        for s in ["Car", "SportsCar", "Part", "Driver", "make", "CDInt", "Student2_solution", 
-                  "1111", "2222", f"{lok1}", f"{lok2}", "Wrong class name", "atomic"]:
+        for s in ["1111", "2222", f"{lok1}", f"{lok2}", "Wrong class name", "atomic"]:
+            assert s in file_contents
+    with open(cd1_path) as f:
+        file_contents = f.read()
+        for s in ["Car", "SportsCar", "Part", "Driver", "make", "CDInt"]:
+            assert s in file_contents
+    with open(cd2_path) as f:
+        file_contents = f.read()
+        for s in ["Car", "make", "CDInt", "Student2_solution"]:
             assert s in file_contents
 
     # Test loading
@@ -830,4 +876,5 @@ def test_check_for_incomplete_containment_tree_failure_case():
 
 if __name__ == "__main__":
     "Main entry point."
+    test_persisting_modeling_assistant_with_multiple_solutions()
     
