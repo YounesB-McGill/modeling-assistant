@@ -300,8 +300,11 @@ public class ControllerTest {
    * Verifies that a ModelingAssistant instance with a one class solution can be serialized to an XMI file.
    */
   @Test public void testPersistingModelingAssistantWithOneClassSolution() {
-    var maPath = "../modelingassistant/instances/ma_one_class_from_java.xmi";
-    var cdPath = "../modelingassistant/instances/cd_one_class_from_java.cdm";
+    var maInstancePath = "../modelingassistant/instances/";
+    var maFilename = "ma_one_class_from_java.xmi";
+    var cdFilename = "cd_one_class_from_java.cdm";
+    var maPath = maInstancePath + maFilename;
+    var cdPath = maInstancePath + cdFilename;
     var maFile = new File(maPath);
     var cdFile = new File(cdPath);
     if (maFile.isFile()) {
@@ -347,11 +350,11 @@ public class ControllerTest {
         new ModelingassistantResourceFactoryImpl());
     rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm",
         new CdmResourceFactoryImpl());
-    var maResource = rset.createResource(URI.createFileURI(maPath));
-    var cdResource = rset.createResource(URI.createFileURI(cdPath));
-    maResource.getContents().add(modelingAssistant);
-    cdResource.getContents().add(classDiagram);
     try {
+      var maResource = rset.createResource(URI.createFileURI(maFile.getCanonicalPath()));
+      var cdResource = rset.createResource(URI.createFileURI(cdFile.getCanonicalPath()));
+      maResource.getContents().add(modelingAssistant);
+      cdResource.getContents().add(classDiagram);
       maResource.save(Collections.EMPTY_MAP);
       cdResource.save(Collections.EMPTY_MAP);
       assertTrue(maFile.isFile());
@@ -359,8 +362,6 @@ public class ControllerTest {
       var cdFileContent = Files.readString(Paths.get(cdPath));
       List.of("Student1_solution", "Car", "make", "CDInt").forEach(s -> 
           assertTrue(cdFileContent.contains(s)));
-      
-      // TODO Check that MA points to CD
     } catch (IOException e) {
       fail();
     }
@@ -378,20 +379,20 @@ public class ControllerTest {
         new ModelingassistantResourceFactoryImpl());
     rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm",
         new CdmResourceFactoryImpl());
-    var maResource = rset.createResource(URI.createFileURI(maPath));
     try {
+      var maResource = rset.createResource(URI.createFileURI(new File(maPath).getCanonicalPath()));
       maResource.load(Collections.EMPTY_MAP);
+      
+      var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
+      var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
+
+      assertEquals("Student1_solution", classDiagram.getName());
+      var expectedClassNames = new ArrayList<String>(List.of("Car"));
+      classDiagram.getClasses().forEach(c -> assertTrue(expectedClassNames.remove(c.getName())));
+      assertTrue(expectedClassNames.isEmpty());
     } catch (IOException e) {
       fail();
     }
-    
-    var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
-    var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
-
-    assertEquals("Student1_solution", classDiagram.getName());
-    var expectedClassNames = new ArrayList<String>(List.of("Car"));
-    classDiagram.getClasses().forEach(c -> assertTrue(expectedClassNames.remove(c.getName())));
-    assertTrue(expectedClassNames.isEmpty());
   }
   
   /**
@@ -401,15 +402,25 @@ public class ControllerTest {
     ClassdiagramPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_one_class_from_python.xmi";
-    var resource = ResourceHelper.INSTANCE.loadResource(maPath);
-    var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
-    var classDiagram = (ClassDiagram) resource.getContents().get(1);
-    
-    assertEquals(classDiagram, modelingAssistant.getSolutions().get(0).getClassDiagram());
-    assertEquals("Student1_solution", classDiagram.getName());
-    var expectedClassNames = new ArrayList<String>(List.of("Car"));
-    classDiagram.getClasses().forEach(c -> assertTrue(expectedClassNames.remove(c.getName())));
-    assertTrue(expectedClassNames.isEmpty());
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi",
+        new ModelingassistantResourceFactoryImpl());
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm",
+        new CdmResourceFactoryImpl());
+    try {
+      var maResource = rset.createResource(URI.createFileURI(new File(maPath).getCanonicalPath()));
+      maResource.load(Collections.EMPTY_MAP);
+      
+      var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
+      var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
+
+      assertEquals("Student1_solution", classDiagram.getName());
+      var expectedClassNames = new ArrayList<String>(List.of("Car"));
+      classDiagram.getClasses().forEach(c -> assertTrue(expectedClassNames.remove(c.getName())));
+      assertTrue(expectedClassNames.isEmpty());
+    } catch (IOException e) {
+      fail();
+    }
   }
   
   /**
