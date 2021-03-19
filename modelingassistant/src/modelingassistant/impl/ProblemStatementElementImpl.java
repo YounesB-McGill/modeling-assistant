@@ -18,8 +18,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -34,12 +32,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link modelingassistant.impl.ProblemStatementElementImpl#getProblemStatement <em>Problem Statement</em>}</li>
  *   <li>{@link modelingassistant.impl.ProblemStatementElementImpl#getSolutionElements <em>Solution Elements</em>}</li>
- *   <li>{@link modelingassistant.impl.ProblemStatementElementImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ProblemStatementElementImpl extends MinimalEObjectImpl.Container implements ProblemStatementElement {
+public class ProblemStatementElementImpl extends NamedElementImpl implements ProblemStatementElement {
   /**
    * The cached value of the '{@link #getSolutionElements() <em>Solution Elements</em>}' reference list.
    * <!-- begin-user-doc -->
@@ -49,25 +46,6 @@ public class ProblemStatementElementImpl extends MinimalEObjectImpl.Container im
    * @ordered
    */
   protected EList<SolutionElement> solutionElements;
-
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -146,27 +124,6 @@ public class ProblemStatementElementImpl extends MinimalEObjectImpl.Container im
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName) {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -223,8 +180,6 @@ public class ProblemStatementElementImpl extends MinimalEObjectImpl.Container im
         return getProblemStatement();
       case ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__SOLUTION_ELEMENTS:
         return getSolutionElements();
-      case ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__NAME:
-        return getName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -245,9 +200,6 @@ public class ProblemStatementElementImpl extends MinimalEObjectImpl.Container im
         getSolutionElements().clear();
         getSolutionElements().addAll((Collection<? extends SolutionElement>)newValue);
         return;
-      case ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__NAME:
-        setName((String)newValue);
-        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -266,9 +218,6 @@ public class ProblemStatementElementImpl extends MinimalEObjectImpl.Container im
       case ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__SOLUTION_ELEMENTS:
         getSolutionElements().clear();
         return;
-      case ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__NAME:
-        setName(NAME_EDEFAULT);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -285,26 +234,8 @@ public class ProblemStatementElementImpl extends MinimalEObjectImpl.Container im
         return getProblemStatement() != null;
       case ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__SOLUTION_ELEMENTS:
         return solutionElements != null && !solutionElements.isEmpty();
-      case ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString() {
-    if (eIsProxy()) return super.toString();
-
-    StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //ProblemStatementElementImpl

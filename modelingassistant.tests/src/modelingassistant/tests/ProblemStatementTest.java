@@ -2,8 +2,6 @@
  */
 package modelingassistant.tests;
 
-import junit.framework.TestCase;
-
 import junit.textui.TestRunner;
 
 import modelingassistant.ModelingassistantFactory;
@@ -15,15 +13,7 @@ import modelingassistant.ProblemStatement;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ProblemStatementTest extends TestCase {
-
-  /**
-   * The fixture for this Problem Statement test case.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected ProblemStatement fixture = null;
+public class ProblemStatementTest extends NamedElementTest {
 
   /**
    * <!-- begin-user-doc -->
@@ -45,23 +35,14 @@ public class ProblemStatementTest extends TestCase {
   }
 
   /**
-   * Sets the fixture for this Problem Statement test case.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void setFixture(ProblemStatement fixture) {
-    this.fixture = fixture;
-  }
-
-  /**
    * Returns the fixture for this Problem Statement test case.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   protected ProblemStatement getFixture() {
-    return fixture;
+    return (ProblemStatement)fixture;
   }
 
   /**
