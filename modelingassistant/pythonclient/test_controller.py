@@ -876,5 +876,3 @@ def test_check_for_incomplete_containment_tree_failure_case():
 
 if __name__ == "__main__":
     "Main entry point."
-    test_persisting_modeling_assistant_with_multiple_solutions()
-    
