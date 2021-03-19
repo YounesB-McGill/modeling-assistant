@@ -30,18 +30,15 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Student/currentMistake"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Student/solutions"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Student/studentKnowledges"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Student/name"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//ProblemStatement">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ProblemStatement/modelingAssistant"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ProblemStatement/problemStatementElements"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//ProblemStatement/title"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//ProblemStatement/text"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference modelingassistant.ecore#//ProblemStatement/modelingAssistant"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//ProblemStatementElement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ProblemStatementElement/problemStatement"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ProblemStatementElement/solutionElements"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//ProblemStatementElement/name"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//UmlElement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//UmlElement/modelingAssistant"/>
@@ -66,7 +63,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//LearningItem/umlElements"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//LearningItem/learningResources"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//LearningItem/mistakeTypes"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//LearningItem/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//LearningItem/description"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//StudentKnowledge">
@@ -76,7 +72,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//StudentKnowledge/modelingassistant"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//MistakeType">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//MistakeType/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//MistakeType/atomic"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//MistakeType/timeToAddress"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//MistakeType/numStepsBeforeNotification"/>
@@ -117,13 +112,15 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//LearningResource/modelingAssistant"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//LearningResource/learningItem"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//LearningResource/resourceResponses"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//LearningResource/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//LearningResource/content"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//Reference"/>
     <genClasses ecoreClass="modelingassistant.ecore#//Tutorial"/>
     <genClasses ecoreClass="modelingassistant.ecore#//Example"/>
     <genClasses ecoreClass="modelingassistant.ecore#//Quiz"/>
+    <genClasses ecoreClass="modelingassistant.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//NamedElement/name"/>
+    </genClasses>
   </genPackages>
   <genPackages prefix="Classdiagram" disposableProviderFactory="true" ecorePackage="classdiagram.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="classdiagram.ecore#//VisibilityType">

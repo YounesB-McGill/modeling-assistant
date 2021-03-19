@@ -7,28 +7,45 @@ import java.util.Collection;
 import java.util.List;
 
 import modelingassistant.ModelingassistantPackage;
+import modelingassistant.NamedElement;
 
-import modelingassistant.ProblemStatementElement;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.IItemPropertySource;
+import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
+import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link modelingassistant.ProblemStatementElement} object.
+ * This is the item provider adapter for a {@link modelingassistant.NamedElement} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ProblemStatementElementItemProvider 
-  extends NamedElementItemProvider {
+public class NamedElementItemProvider 
+  extends ItemProviderAdapter
+  implements
+    IEditingDomainItemProvider,
+    IStructuredItemContentProvider,
+    ITreeItemContentProvider,
+    IItemLabelProvider,
+    IItemPropertySource {
   /**
    * This constructs an instance from a factory and a notifier.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  public ProblemStatementElementItemProvider(AdapterFactory adapterFactory) {
+  public NamedElementItemProvider(AdapterFactory adapterFactory) {
     super(adapterFactory);
   }
 
@@ -43,65 +60,42 @@ public class ProblemStatementElementItemProvider
     if (itemPropertyDescriptors == null) {
       super.getPropertyDescriptors(object);
 
-      addProblemStatementPropertyDescriptor(object);
-      addSolutionElementsPropertyDescriptor(object);
+      addNamePropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
 
   /**
-   * This adds a property descriptor for the Problem Statement feature.
+   * This adds a property descriptor for the Name feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addProblemStatementPropertyDescriptor(Object object) {
+  protected void addNamePropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_ProblemStatementElement_problemStatement_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_ProblemStatementElement_problemStatement_feature", "_UI_ProblemStatementElement_type"),
-         ModelingassistantPackage.Literals.PROBLEM_STATEMENT_ELEMENT__PROBLEM_STATEMENT,
+         getString("_UI_NamedElement_name_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_NamedElement_name_feature", "_UI_NamedElement_type"),
+         ModelingassistantPackage.Literals.NAMED_ELEMENT__NAME,
          true,
          false,
-         true,
-         null,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
          null,
          null));
   }
 
   /**
-   * This adds a property descriptor for the Solution Elements feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addSolutionElementsPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_ProblemStatementElement_solutionElements_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_ProblemStatementElement_solutionElements_feature", "_UI_ProblemStatementElement_type"),
-         ModelingassistantPackage.Literals.PROBLEM_STATEMENT_ELEMENT__SOLUTION_ELEMENTS,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This returns ProblemStatementElement.gif.
+   * This returns NamedElement.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
   @Override
   public Object getImage(Object object) {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/ProblemStatementElement"));
+    return overlayImage(object, getResourceLocator().getImage("full/obj16/NamedElement"));
   }
 
   /**
@@ -112,10 +106,10 @@ public class ProblemStatementElementItemProvider
    */
   @Override
   public String getText(Object object) {
-    String label = ((ProblemStatementElement)object).getName();
+    String label = ((NamedElement)object).getName();
     return label == null || label.length() == 0 ?
-      getString("_UI_ProblemStatementElement_type") :
-      getString("_UI_ProblemStatementElement_type") + " " + label;
+      getString("_UI_NamedElement_type") :
+      getString("_UI_NamedElement_type") + " " + label;
   }
 
 
@@ -129,6 +123,12 @@ public class ProblemStatementElementItemProvider
   @Override
   public void notifyChanged(Notification notification) {
     updateChildren(notification);
+
+    switch (notification.getFeatureID(NamedElement.class)) {
+      case ModelingassistantPackage.NAMED_ELEMENT__NAME:
+        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+        return;
+    }
     super.notifyChanged(notification);
   }
 
@@ -142,6 +142,17 @@ public class ProblemStatementElementItemProvider
   @Override
   protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
     super.collectNewChildDescriptors(newChildDescriptors, object);
+  }
+
+  /**
+   * Return the resource locator for this item provider's resources.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public ResourceLocator getResourceLocator() {
+    return ModelingassistantEditPlugin.INSTANCE;
   }
 
 }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0">
-  <modelingassistant:ModelingAssistant xmi:id="_N3s20HTVEeuHTKAeTAH24g">
-    <learningItems xmi:id="_N3s20XTVEeuHTKAeTAH24g" mistakeTypes="_N3s21nTVEeuHTKAeTAH24g"/>
-    <solutions xmi:id="_N3s20nTVEeuHTKAeTAH24g" student="_N3s21HTVEeuHTKAeTAH24g" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
-    <solutions xmi:id="_N3s203TVEeuHTKAeTAH24g" student="_N3s21XTVEeuHTKAeTAH24g" classDiagram="_N3uE8HTVEeuHTKAeTAH24g"/>
-    <students xmi:id="_N3s21HTVEeuHTKAeTAH24g" id="1111" solutions="_N3s20nTVEeuHTKAeTAH24g" studentKnowledges="_N3td4HTVEeuHTKAeTAH24g"/>
-    <students xmi:id="_N3s21XTVEeuHTKAeTAH24g" id="2222" solutions="_N3s203TVEeuHTKAeTAH24g" studentKnowledges="_N3td4XTVEeuHTKAeTAH24g"/>
-    <mistakeTypes xmi:id="_N3s21nTVEeuHTKAeTAH24g" name="Wrong class name" atomic="true" learningItem="_N3s20XTVEeuHTKAeTAH24g" studentKnowledges="_N3td4HTVEeuHTKAeTAH24g _N3td4XTVEeuHTKAeTAH24g"/>
-    <studentknowledge xmi:id="_N3td4HTVEeuHTKAeTAH24g" levelOfKnowledge="10578963" student="_N3s21HTVEeuHTKAeTAH24g" mistakeType="_N3s21nTVEeuHTKAeTAH24g"/>
-    <studentknowledge xmi:id="_N3td4XTVEeuHTKAeTAH24g" levelOfKnowledge="8996541" student="_N3s21XTVEeuHTKAeTAH24g" mistakeType="_N3s21nTVEeuHTKAeTAH24g"/>
+  <modelingassistant:ModelingAssistant xmi:id="_kmxmEIh5EeuEPLcfi0JT_w">
+    <learningItems xmi:id="_kmxmEYh5EeuEPLcfi0JT_w" mistakeTypes="_kmxmFoh5EeuEPLcfi0JT_w"/>
+    <solutions xmi:id="_kmxmEoh5EeuEPLcfi0JT_w" student="_kmxmFIh5EeuEPLcfi0JT_w" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
+    <solutions xmi:id="_kmxmE4h5EeuEPLcfi0JT_w" student="_kmxmFYh5EeuEPLcfi0JT_w" classDiagram="_kmyNIIh5EeuEPLcfi0JT_w"/>
+    <students xmi:id="_kmxmFIh5EeuEPLcfi0JT_w" id="1111" solutions="_kmxmEoh5EeuEPLcfi0JT_w" studentKnowledges="_kmxmF4h5EeuEPLcfi0JT_w"/>
+    <students xmi:id="_kmxmFYh5EeuEPLcfi0JT_w" id="2222" solutions="_kmxmE4h5EeuEPLcfi0JT_w" studentKnowledges="_kmxmGIh5EeuEPLcfi0JT_w"/>
+    <mistakeTypes xmi:id="_kmxmFoh5EeuEPLcfi0JT_w" name="Wrong class name" atomic="true" learningItem="_kmxmEYh5EeuEPLcfi0JT_w" studentKnowledges="_kmxmF4h5EeuEPLcfi0JT_w _kmxmGIh5EeuEPLcfi0JT_w"/>
+    <studentknowledge xmi:id="_kmxmF4h5EeuEPLcfi0JT_w" levelOfKnowledge="10578963" student="_kmxmFIh5EeuEPLcfi0JT_w" mistakeType="_kmxmFoh5EeuEPLcfi0JT_w"/>
+    <studentknowledge xmi:id="_kmxmGIh5EeuEPLcfi0JT_w" levelOfKnowledge="8996541" student="_kmxmFYh5EeuEPLcfi0JT_w" mistakeType="_kmxmFoh5EeuEPLcfi0JT_w"/>
   </modelingassistant:ModelingAssistant>
   <classdiagram:ClassDiagram xmi:id="_VQRncElSEeuektpDqzDh1Q" name="Cdm-staging">
     <classes xsi:type="classdiagram:Class" xmi:id="_WHVLQElSEeuektpDqzDh1Q" name="Car">
@@ -54,12 +54,12 @@
       </containers>
     </layout>
   </classdiagram:ClassDiagram>
-  <classdiagram:ClassDiagram xmi:id="_N3uE8HTVEeuHTKAeTAH24g" name="Student2_solution">
-    <classes xsi:type="classdiagram:Class" xmi:id="_N3uE8XTVEeuHTKAeTAH24g" name="Car">
-      <attributes xmi:id="_N3uE8nTVEeuHTKAeTAH24g" name="id" type="_N3uE9HTVEeuHTKAeTAH24g"/>
-      <attributes xmi:id="_N3uE83TVEeuHTKAeTAH24g" name="make" type="_N3uE9XTVEeuHTKAeTAH24g"/>
+  <classdiagram:ClassDiagram xmi:id="_kmyNIIh5EeuEPLcfi0JT_w" name="Student2_solution">
+    <classes xsi:type="classdiagram:Class" xmi:id="_kmyNIYh5EeuEPLcfi0JT_w" name="Car">
+      <attributes xmi:id="_kmyNIoh5EeuEPLcfi0JT_w" name="id" type="_kmyNJIh5EeuEPLcfi0JT_w"/>
+      <attributes xmi:id="_kmyNI4h5EeuEPLcfi0JT_w" name="make" type="_kmyNJYh5EeuEPLcfi0JT_w"/>
     </classes>
-    <types xsi:type="classdiagram:CDInt" xmi:id="_N3uE9HTVEeuHTKAeTAH24g"/>
-    <types xsi:type="classdiagram:CDString" xmi:id="_N3uE9XTVEeuHTKAeTAH24g"/>
+    <types xsi:type="classdiagram:CDInt" xmi:id="_kmyNJIh5EeuEPLcfi0JT_w"/>
+    <types xsi:type="classdiagram:CDString" xmi:id="_kmyNJYh5EeuEPLcfi0JT_w"/>
   </classdiagram:ClassDiagram>
 </xmi:XMI>

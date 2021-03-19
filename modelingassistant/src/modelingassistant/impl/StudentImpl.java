@@ -20,8 +20,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -40,12 +38,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link modelingassistant.impl.StudentImpl#getCurrentMistake <em>Current Mistake</em>}</li>
  *   <li>{@link modelingassistant.impl.StudentImpl#getSolutions <em>Solutions</em>}</li>
  *   <li>{@link modelingassistant.impl.StudentImpl#getStudentKnowledges <em>Student Knowledges</em>}</li>
- *   <li>{@link modelingassistant.impl.StudentImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class StudentImpl extends MinimalEObjectImpl.Container implements Student {
+public class StudentImpl extends NamedElementImpl implements Student {
   /**
    * The default value of the '{@link #getId() <em>Id</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -105,26 +102,6 @@ public class StudentImpl extends MinimalEObjectImpl.Container implements Student
    * @ordered
    */
   protected EList<StudentKnowledge> studentKnowledges;
-
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -308,27 +285,6 @@ public class StudentImpl extends MinimalEObjectImpl.Container implements Student
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName) {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -408,8 +364,6 @@ public class StudentImpl extends MinimalEObjectImpl.Container implements Student
         return getSolutions();
       case ModelingassistantPackage.STUDENT__STUDENT_KNOWLEDGES:
         return getStudentKnowledges();
-      case ModelingassistantPackage.STUDENT__NAME:
-        return getName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -444,9 +398,6 @@ public class StudentImpl extends MinimalEObjectImpl.Container implements Student
         getStudentKnowledges().clear();
         getStudentKnowledges().addAll((Collection<? extends StudentKnowledge>)newValue);
         return;
-      case ModelingassistantPackage.STUDENT__NAME:
-        setName((String)newValue);
-        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -477,9 +428,6 @@ public class StudentImpl extends MinimalEObjectImpl.Container implements Student
       case ModelingassistantPackage.STUDENT__STUDENT_KNOWLEDGES:
         getStudentKnowledges().clear();
         return;
-      case ModelingassistantPackage.STUDENT__NAME:
-        setName(NAME_EDEFAULT);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -504,8 +452,6 @@ public class StudentImpl extends MinimalEObjectImpl.Container implements Student
         return solutions != null && !solutions.isEmpty();
       case ModelingassistantPackage.STUDENT__STUDENT_KNOWLEDGES:
         return studentKnowledges != null && !studentKnowledges.isEmpty();
-      case ModelingassistantPackage.STUDENT__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
     return super.eIsSet(featureID);
   }
@@ -522,8 +468,6 @@ public class StudentImpl extends MinimalEObjectImpl.Container implements Student
     StringBuilder result = new StringBuilder(super.toString());
     result.append(" (id: ");
     result.append(id);
-    result.append(", name: ");
-    result.append(name);
     result.append(')');
     return result.toString();
   }

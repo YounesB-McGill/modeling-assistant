@@ -4,8 +4,6 @@ package modelingassistant;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Learning Resource</b></em>'.
@@ -18,7 +16,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.LearningResource#getModelingAssistant <em>Modeling Assistant</em>}</li>
  *   <li>{@link modelingassistant.LearningResource#getLearningItem <em>Learning Item</em>}</li>
  *   <li>{@link modelingassistant.LearningResource#getResourceResponses <em>Resource Responses</em>}</li>
- *   <li>{@link modelingassistant.LearningResource#getName <em>Name</em>}</li>
  *   <li>{@link modelingassistant.LearningResource#getContent <em>Content</em>}</li>
  * </ul>
  *
@@ -26,7 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface LearningResource extends EObject {
+public interface LearningResource extends NamedElement {
   /**
    * Returns the value of the '<em><b>Modeling Assistant</b></em>' container reference.
    * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getLearningResources <em>Learning Resources</em>}'.
@@ -88,28 +85,6 @@ public interface LearningResource extends EObject {
    * @generated
    */
   EList<ResourceResponse> getResourceResponses();
-
-  /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see modelingassistant.ModelingassistantPackage#getLearningResource_Name()
-   * @model
-   * @generated
-   */
-  String getName();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.LearningResource#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' attribute.

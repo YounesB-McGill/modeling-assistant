@@ -4,8 +4,6 @@ package modelingassistant;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Problem Statement Element</b></em>'.
@@ -17,14 +15,13 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link modelingassistant.ProblemStatementElement#getProblemStatement <em>Problem Statement</em>}</li>
  *   <li>{@link modelingassistant.ProblemStatementElement#getSolutionElements <em>Solution Elements</em>}</li>
- *   <li>{@link modelingassistant.ProblemStatementElement#getName <em>Name</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getProblemStatementElement()
  * @model
  * @generated
  */
-public interface ProblemStatementElement extends EObject {
+public interface ProblemStatementElement extends NamedElement {
   /**
    * Returns the value of the '<em><b>Problem Statement</b></em>' container reference.
    * It is bidirectional and its opposite is '{@link modelingassistant.ProblemStatement#getProblemStatementElements <em>Problem Statement Elements</em>}'.
@@ -62,27 +59,5 @@ public interface ProblemStatementElement extends EObject {
    * @generated
    */
   EList<SolutionElement> getSolutionElements();
-
-  /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see modelingassistant.ModelingassistantPackage#getProblemStatementElement_Name()
-   * @model
-   * @generated
-   */
-  String getName();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.ProblemStatementElement#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
 
 } // ProblemStatementElement
