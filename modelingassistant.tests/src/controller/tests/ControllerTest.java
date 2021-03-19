@@ -302,7 +302,7 @@ public class ControllerTest {
   @Test public void testPersistingModelingAssistantWithOneClassSolution() {
     var maInstancePath = "../modelingassistant/instances/";
     var maFilename = "ma_one_class_from_java.xmi";
-    var cdFilename = "cd_one_class_from_java.cdm";
+    var cdFilename = "ma_one_class_from_java.cdm";
     var maPath = maInstancePath + maFilename;
     var cdPath = maInstancePath + cdFilename;
     var maFile = new File(maPath);
@@ -428,11 +428,16 @@ public class ControllerTest {
    */
   @Test public void testPersistingModelingAssistantWithMulticlassSolution() {
     var maPath = "../modelingassistant/instances/ma_multiclass_from_java.xmi";
+    var cdPath = "../modelingassistant/instances/ma_multiclass_from_java.cdm";
     var maFile = new File(maPath);
+    var cdFile = new File(cdPath);
     if (maFile.isFile()) {
       assertTrue(maFile.delete());
     }
-
+    if (cdFile.isFile()) {
+      assertTrue(cdFile.delete());
+    }
+    
     ClassdiagramPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     
@@ -440,7 +445,10 @@ public class ControllerTest {
     // Can't reuse ResourceHelper.INSTANCE here to load duplicate resource
     var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
     var rset = new ResourceSetImpl();
-    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new ModelingassistantResourceFactoryImpl());
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi",
+        new ModelingassistantResourceFactoryImpl());
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm",
+        new CdmResourceFactoryImpl());
     var resource = rset.getResource(URI.createFileURI(cdmFile), true);
     var classDiagram = (ClassDiagram) resource.getContents().get(0);
     
@@ -452,14 +460,18 @@ public class ControllerTest {
     solution.setModelingAssistant(modelingAssistant);
     
     // Save modeling assistant instance to file and verify contents
-    resource = rset.createResource(URI.createFileURI(maPath));
-    resource.getContents().addAll(List.of(modelingAssistant, classDiagram));
     try {
-      resource.save(Collections.EMPTY_MAP);
+      var maResource = rset.createResource(URI.createFileURI(maFile.getCanonicalPath()));
+      var cdResource = rset.createResource(URI.createFileURI(cdFile.getCanonicalPath()));
+      maResource.getContents().add(modelingAssistant);
+      cdResource.getContents().add(classDiagram);
+      maResource.save(Collections.EMPTY_MAP);
+      cdResource.save(Collections.EMPTY_MAP);
       assertTrue(maFile.isFile());
-      var fileContent = Files.readString(Paths.get(maPath));
-      List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt").forEach(s ->
-          assertTrue(fileContent.contains(s)));
+      assertTrue(cdFile.isFile());
+      var cdFileContent = Files.readString(Paths.get(cdPath));
+      List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt").forEach(s -> 
+          assertTrue(cdFileContent.contains(s)));
     } catch (IOException e) {
       fail();
     }
@@ -472,22 +484,33 @@ public class ControllerTest {
     ClassdiagramPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_multiclass_from_java.xmi";
-    var resource = ResourceHelper.INSTANCE.loadResource(maPath);
-    var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
-    var classDiagram = (ClassDiagram) resource.getContents().get(1);
-    
-    assertEquals(classDiagram, modelingAssistant.getSolutions().get(0).getClassDiagram());
-    var expectedClassNames = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
-    classDiagram.getClasses().forEach(c -> {
-      if ("Car".equals(c.getName())) {
-        c.getAttributes().forEach(a -> assertTrue(a.getType() instanceof CDInt || a.getType() instanceof CDString));
-      }
-      if ("SportsCar".equals(c.getName())) {
-        assertEquals("Car", c.getSuperTypes().get(0).getName());
-      }
-      assertTrue(expectedClassNames.remove(c.getName()));
-    });
-    assertTrue(expectedClassNames.isEmpty());
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi",
+        new ModelingassistantResourceFactoryImpl());
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm",
+        new CdmResourceFactoryImpl());
+
+    try {
+      var maResource = rset.createResource(URI.createFileURI(new File(maPath).getCanonicalPath()));
+      maResource.load(Collections.EMPTY_MAP);
+      
+      var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
+      var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
+
+      var expectedClassNames = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
+      classDiagram.getClasses().forEach(c -> {
+        if ("Car".equals(c.getName())) {
+          c.getAttributes().forEach(a -> assertTrue(a.getType() instanceof CDInt || a.getType() instanceof CDString));
+        }
+        if ("SportsCar".equals(c.getName())) {
+          assertEquals("Car", c.getSuperTypes().get(0).getName());
+        }
+        assertTrue(expectedClassNames.remove(c.getName()));
+      });
+      assertTrue(expectedClassNames.isEmpty());
+    } catch (IOException e) {
+      fail();
+    }
   }
   
   /**
@@ -497,22 +520,33 @@ public class ControllerTest {
     ClassdiagramPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_multiclass_from_python.xmi";
-    var resource = ResourceHelper.INSTANCE.loadResource(maPath);
-    var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
-    var classDiagram = (ClassDiagram) resource.getContents().get(1);
-    
-    assertEquals(classDiagram, modelingAssistant.getSolutions().get(0).getClassDiagram());
-    var expectedClassNames = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
-    classDiagram.getClasses().forEach(c -> {
-      if ("Car".equals(c.getName())) {
-        c.getAttributes().forEach(a -> assertTrue(a.getType() instanceof CDInt || a.getType() instanceof CDString));
-      }
-      if ("SportsCar".equals(c.getName())) {
-        assertEquals("Car", c.getSuperTypes().get(0).getName());
-      }
-      assertTrue(expectedClassNames.remove(c.getName()));
-    });
-    assertTrue(expectedClassNames.isEmpty());
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi",
+        new ModelingassistantResourceFactoryImpl());
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm",
+        new CdmResourceFactoryImpl());
+
+    try {
+      var maResource = rset.createResource(URI.createFileURI(new File(maPath).getCanonicalPath()));
+      maResource.load(Collections.EMPTY_MAP);
+      
+      var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
+      var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
+
+      var expectedClassNames = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
+      classDiagram.getClasses().forEach(c -> {
+        if ("Car".equals(c.getName())) {
+          c.getAttributes().forEach(a -> assertTrue(a.getType() instanceof CDInt || a.getType() instanceof CDString));
+        }
+        if ("SportsCar".equals(c.getName())) {
+          assertEquals("Car", c.getSuperTypes().get(0).getName());
+        }
+        assertTrue(expectedClassNames.remove(c.getName()));
+      });
+      assertTrue(expectedClassNames.isEmpty());
+    } catch (IOException e) {
+      fail();
+    }
   }
   
   /**
@@ -520,10 +554,12 @@ public class ControllerTest {
    */
   @Test public void testPersistingModelingAssistantWithMultipleSolutions() {
     var maPath = "../modelingassistant/instances/ma_multisolution_from_java.xmi";
+    var cd1Path = "../modelingassistant/instances/ma_multisolution_from_java1.cdm";
+    var cd2Path = "../modelingassistant/instances/ma_multisolution_from_java2.cdm";
     var maFile = new File(maPath);
-    if (maFile.isFile()) {
-      assertTrue(maFile.delete());
-    }
+    var cd1File = new File(cd1Path);
+    var cd2File = new File(cd2Path);
+    List.of(maFile, cd1File, cd2File).stream().filter(File::isFile).forEach(f -> assertTrue(f.delete()));
 
     ClassdiagramPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
@@ -534,14 +570,17 @@ public class ControllerTest {
     // Can't reuse ResourceHelper.INSTANCE here to load duplicate resource
     var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
     var rset = new ResourceSetImpl();
-    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new ModelingassistantResourceFactoryImpl());
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi",
+        new ModelingassistantResourceFactoryImpl());
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm",
+        new CdmResourceFactoryImpl());
     var resource = rset.getResource(URI.createFileURI(cdmFile), true);
-    var classDiagram = (ClassDiagram) resource.getContents().get(0);
+    var classDiagram1 = (ClassDiagram) resource.getContents().get(0);
 
     // Link first class diagram to modeling assistant instance
     var modelingAssistant = maf.createModelingAssistant();
     var solution1 = maf.createSolution();
-    solution1.setClassDiagram(classDiagram);
+    solution1.setClassDiagram(classDiagram1);
     modelingAssistant.getSolutions().add(solution1);
     
     // Make and link second class diagram to modeling assistant instance
@@ -567,14 +606,23 @@ public class ControllerTest {
     classDiagram2.getClasses().add(carClass2);
     
     // Save modeling assistant instance to file and verify contents
-    resource = rset.createResource(URI.createFileURI(maPath));
-    resource.getContents().addAll(List.of(modelingAssistant, classDiagram, classDiagram2));
     try {
-      resource.save(Collections.EMPTY_MAP);
-      assertTrue(maFile.isFile());
-      var fileContent = Files.readString(Paths.get(maPath));
-      List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt", "Student2_solution").forEach(s ->
-          assertTrue(fileContent.contains(s)));
+      var maResource = rset.createResource(URI.createFileURI(maFile.getCanonicalPath()));
+      var cd1Resource = rset.createResource(URI.createFileURI(cd1File.getCanonicalPath()));
+      var cd2Resource = rset.createResource(URI.createFileURI(cd2File.getCanonicalPath()));
+      maResource.getContents().add(modelingAssistant);
+      cd1Resource.getContents().add(classDiagram1);
+      cd2Resource.getContents().add(classDiagram2);
+      maResource.save(Collections.EMPTY_MAP);
+      cd1Resource.save(Collections.EMPTY_MAP);
+      cd2Resource.save(Collections.EMPTY_MAP);
+      List.of(maFile, cd1File, cd2File).stream().forEach(f -> assertTrue(f.isFile()));
+      var cd1FileContent = Files.readString(Paths.get(cd1Path));
+      var cd2FileContent = Files.readString(Paths.get(cd2Path));
+      List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt").forEach(s -> 
+          assertTrue(cd1FileContent.contains(s)));
+      List.of("Car", "make", "CDInt", "Student2_solution").forEach(s -> 
+          assertTrue(cd2FileContent.contains(s)));
     } catch (IOException e) {
       fail();
     }
@@ -587,34 +635,44 @@ public class ControllerTest {
     ClassdiagramPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_multisolution_from_java.xmi";
-    var resource = ResourceHelper.INSTANCE.loadResource(maPath);
-    var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
-    var classDiagram1 = (ClassDiagram) resource.getContents().get(1);
-    var classDiagram2 = (ClassDiagram) resource.getContents().get(2);
-    Predicate<Attribute> isCdIntOrStr = a -> a.getType() instanceof CDInt || a.getType() instanceof CDString;
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi",
+        new ModelingassistantResourceFactoryImpl());
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm",
+        new CdmResourceFactoryImpl());
     
-    assertEquals(classDiagram1, modelingAssistant.getSolutions().get(0).getClassDiagram());
-    var expectedClassNames1 = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
-    classDiagram1.getClasses().forEach(c -> {
-      if ("Car".equals(c.getName())) {
-        c.getAttributes().forEach(a -> assertTrue(isCdIntOrStr.test(a)));
-      }
-      if ("SportsCar".equals(c.getName())) {
-        assertEquals("Car", c.getSuperTypes().get(0).getName());
-      }
-      assertTrue(expectedClassNames1.remove(c.getName()));
-    });
-    assertTrue(expectedClassNames1.isEmpty());
-    
-    assertEquals(classDiagram2, modelingAssistant.getSolutions().get(1).getClassDiagram());
-    var expectedClassNames2 = new ArrayList<String>(List.of("Car"));
-    classDiagram2.getClasses().forEach(c -> {
-      if ("Car".equals(c.getName())) {
-        c.getAttributes().forEach(a -> assertTrue(isCdIntOrStr.test(a)));
-      }
-      assertTrue(expectedClassNames2.remove(c.getName()));
-    });
-    assertTrue(expectedClassNames2.isEmpty());
+    try {
+      var maResource = rset.createResource(URI.createFileURI(new File(maPath).getCanonicalPath()));
+      maResource.load(Collections.EMPTY_MAP);
+      
+      var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
+      var classDiagram1 = modelingAssistant.getSolutions().get(0).getClassDiagram();
+      var classDiagram2 = modelingAssistant.getSolutions().get(1).getClassDiagram();
+      Predicate<Attribute> isCdIntOrStr = a -> a.getType() instanceof CDInt || a.getType() instanceof CDString;
+      
+      var expectedClassNames1 = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
+      classDiagram1.getClasses().forEach(c -> {
+        if ("Car".equals(c.getName())) {
+          c.getAttributes().forEach(a -> assertTrue(isCdIntOrStr.test(a)));
+        }
+        if ("SportsCar".equals(c.getName())) {
+          assertEquals("Car", c.getSuperTypes().get(0).getName());
+        }
+        assertTrue(expectedClassNames1.remove(c.getName()));
+      });
+      assertTrue(expectedClassNames1.isEmpty());
+      
+      var expectedClassNames2 = new ArrayList<String>(List.of("Car"));
+      classDiagram2.getClasses().forEach(c -> {
+        if ("Car".equals(c.getName())) {
+          c.getAttributes().forEach(a -> assertTrue(isCdIntOrStr.test(a)));
+        }
+        assertTrue(expectedClassNames2.remove(c.getName()));
+      });
+      assertTrue(expectedClassNames2.isEmpty());
+    } catch (IOException e) {
+      fail();
+    }
   }
   
   /**
@@ -624,34 +682,44 @@ public class ControllerTest {
     ClassdiagramPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_multisolution_from_python.xmi";
-    var resource = ResourceHelper.INSTANCE.loadResource(maPath);
-    var modelingAssistant = (ModelingAssistant) resource.getContents().get(0);
-    var classDiagram1 = (ClassDiagram) resource.getContents().get(1);
-    var classDiagram2 = (ClassDiagram) resource.getContents().get(2);
-    Predicate<Attribute> isCdIntOrStr = a -> a.getType() instanceof CDInt || a.getType() instanceof CDString;
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi",
+        new ModelingassistantResourceFactoryImpl());
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm",
+        new CdmResourceFactoryImpl());
     
-    assertEquals(classDiagram1, modelingAssistant.getSolutions().get(0).getClassDiagram());
-    var expectedClassNames1 = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
-    classDiagram1.getClasses().forEach(c -> {
-      if ("Car".equals(c.getName())) {
-        c.getAttributes().forEach(a -> assertTrue(isCdIntOrStr.test(a)));
-      }
-      if ("SportsCar".equals(c.getName())) {
-        assertEquals("Car", c.getSuperTypes().get(0).getName());
-      }
-      assertTrue(expectedClassNames1.remove(c.getName()));
-    });
-    assertTrue(expectedClassNames1.isEmpty());
-    
-    assertEquals(classDiagram2, modelingAssistant.getSolutions().get(1).getClassDiagram());
-    var expectedClassNames2 = new ArrayList<String>(List.of("Car"));
-    classDiagram2.getClasses().forEach(c -> {
-      if ("Car".equals(c.getName())) {
-        c.getAttributes().forEach(a -> assertTrue(isCdIntOrStr.test(a)));
-      }
-      assertTrue(expectedClassNames2.remove(c.getName()));
-    });
-    assertTrue(expectedClassNames2.isEmpty());
+    try {
+      var maResource = rset.createResource(URI.createFileURI(new File(maPath).getCanonicalPath()));
+      maResource.load(Collections.EMPTY_MAP);
+      
+      var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
+      var classDiagram1 = modelingAssistant.getSolutions().get(0).getClassDiagram();
+      var classDiagram2 = modelingAssistant.getSolutions().get(1).getClassDiagram();
+      Predicate<Attribute> isCdIntOrStr = a -> a.getType() instanceof CDInt || a.getType() instanceof CDString;
+      
+      var expectedClassNames1 = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
+      classDiagram1.getClasses().forEach(c -> {
+        if ("Car".equals(c.getName())) {
+          c.getAttributes().forEach(a -> assertTrue(isCdIntOrStr.test(a)));
+        }
+        if ("SportsCar".equals(c.getName())) {
+          assertEquals("Car", c.getSuperTypes().get(0).getName());
+        }
+        assertTrue(expectedClassNames1.remove(c.getName()));
+      });
+      assertTrue(expectedClassNames1.isEmpty());
+      
+      var expectedClassNames2 = new ArrayList<String>(List.of("Car"));
+      classDiagram2.getClasses().forEach(c -> {
+        if ("Car".equals(c.getName())) {
+          c.getAttributes().forEach(a -> assertTrue(isCdIntOrStr.test(a)));
+        }
+        assertTrue(expectedClassNames2.remove(c.getName()));
+      });
+      assertTrue(expectedClassNames2.isEmpty());
+    } catch (IOException e) {
+      fail();
+    }
   }
   
   /**
