@@ -1,50 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:version="2.0">
-  <modelingassistant:ModelingAssistant xmi:id="9cba67d1-2ecf-4e0d-8fa8-dcb0ffbb68cd">
-    <solutions xsi:type="modelingassistant:Solution" xmi:id="67a221ab-e512-40d6-9ec3-f0cfa45f8070" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
-  </modelingassistant:ModelingAssistant>
-  <classdiagram:ClassDiagram xmi:id="_VQRncElSEeuektpDqzDh1Q" name="Cdm-staging">
-    <associations xmi:id="_cwaGIklUEeuektpDqzDh1Q" name="Car_Driver" ends="_cwaGIElUEeuektpDqzDh1Q _cwaGIUlUEeuektpDqzDh1Q"/>
-    <associations xmi:id="_8e54MklUEeuektpDqzDh1Q" name="Part_Car" ends="_8e54MUlUEeuektpDqzDh1Q _8e54MElUEeuektpDqzDh1Q"/>
-    <classes xsi:type="classdiagram:Class" xmi:id="_WHVLQElSEeuektpDqzDh1Q" name="Car">
-      <associationEnds xmi:id="_cwaGIElUEeuektpDqzDh1Q" name="drivers" upperBound="-1" assoc="_cwaGIklUEeuektpDqzDh1Q"/>
-      <associationEnds xmi:id="_8e54MUlUEeuektpDqzDh1Q" referenceType="Composition" upperBound="-1" name="parts" assoc="_8e54MklUEeuektpDqzDh1Q"/>
-      <attributes xmi:id="_e2D18ElSEeuektpDqzDh1Q" name="id" type="_VQRndUlSEeuektpDqzDh1Q"/>
-      <attributes xmi:id="_gzbhkElSEeuektpDqzDh1Q" name="make" type="_VQRnd0lSEeuektpDqzDh1Q"/>
-    </classes>
-    <classes xsi:type="classdiagram:Class" xmi:id="_YyFPYElUEeuektpDqzDh1Q" name="Driver">
-      <associationEnds xmi:id="_cwaGIUlUEeuektpDqzDh1Q" lowerBound="1" name="primaryVehicle" assoc="_cwaGIklUEeuektpDqzDh1Q"/>
-      <attributes xmi:id="_atkEoElUEeuektpDqzDh1Q" name="name" type="_VQRnd0lSEeuektpDqzDh1Q"/>
-    </classes>
-    <classes xsi:type="classdiagram:Class" xmi:id="_pm-I4ElUEeuektpDqzDh1Q" superTypes="_WHVLQElSEeuektpDqzDh1Q" name="SportsCar"/>
-    <classes xsi:type="classdiagram:Class" xmi:id="_6CeSAElUEeuektpDqzDh1Q" name="Part">
-      <associationEnds xmi:id="_8e54MElUEeuektpDqzDh1Q" lowerBound="1" name="car" assoc="_8e54MklUEeuektpDqzDh1Q"/>
-    </classes>
-    <types xsi:type="classdiagram:CDVoid" xmi:id="_VQRncUlSEeuektpDqzDh1Q"/>
-    <types xsi:type="classdiagram:CDAny" xmi:id="_VQRncklSEeuektpDqzDh1Q"/>
-    <types xsi:type="classdiagram:CDBoolean" xmi:id="_VQRnc0lSEeuektpDqzDh1Q"/>
-    <types xsi:type="classdiagram:CDDouble" xmi:id="_VQRndElSEeuektpDqzDh1Q"/>
-    <types xsi:type="classdiagram:CDInt" xmi:id="_VQRndUlSEeuektpDqzDh1Q"/>
-    <types xsi:type="classdiagram:CDLong" xmi:id="_VQRndklSEeuektpDqzDh1Q"/>
-    <types xsi:type="classdiagram:CDString" xmi:id="_VQRnd0lSEeuektpDqzDh1Q"/>
-    <types xsi:type="classdiagram:CDByte" xmi:id="_VQRneElSEeuektpDqzDh1Q"/>
-    <types xsi:type="classdiagram:CDFloat" xmi:id="_VQRneUlSEeuektpDqzDh1Q"/>
-    <types xsi:type="classdiagram:CDChar" xmi:id="_VQRneklSEeuektpDqzDh1Q"/>
-    <layout xmi:id="_VQRne0lSEeuektpDqzDh1Q">
-      <containers xmi:id="_VQRnfElSEeuektpDqzDh1Q" key="_VQRncElSEeuektpDqzDh1Q">
-        <value xmi:id="_WINVAElSEeuektpDqzDh1Q" key="_WHVLQElSEeuektpDqzDh1Q">
-          <value xmi:id="_WINVAUlSEeuektpDqzDh1Q" y="208.00583" x="527.00006"/>
-        </value>
-        <value xmi:id="_YyHroElUEeuektpDqzDh1Q" key="_YyFPYElUEeuektpDqzDh1Q">
-          <value xmi:id="_YyHroUlUEeuektpDqzDh1Q" y="221.0078" x="131.00024"/>
-        </value>
-        <value xmi:id="_pnAlIElUEeuektpDqzDh1Q" key="_pm-I4ElUEeuektpDqzDh1Q">
-          <value xmi:id="_pnAlIUlUEeuektpDqzDh1Q" y="411.99985" x="527.00006"/>
-        </value>
-        <value xmi:id="_6CguQElUEeuektpDqzDh1Q" key="_6CeSAElUEeuektpDqzDh1Q">
-          <value xmi:id="_6CguQUlUEeuektpDqzDh1Q" y="236.02536" x="855.9999"/>
-        </value>
-      </containers>
-    </layout>
-  </classdiagram:ClassDiagram>
-</xmi:XMI>
+<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="42e0d468-cd92-4506-84cf-4d67124c5d37" xmi:version="2.0">
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="93aca120-d824-41e6-9d93-67f220d8989a">
+    <classDiagram href="ma_multiclass_from_python.cdm#_VQRncElSEeuektpDqzDh1Q" xsi:type="classdiagram:ClassDiagram"/>
+  </solutions>
+</modelingassistant:ModelingAssistant>

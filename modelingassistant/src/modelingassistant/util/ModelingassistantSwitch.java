@@ -75,18 +75,21 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
       case ModelingassistantPackage.STUDENT: {
         Student student = (Student)theEObject;
         T result = caseStudent(student);
+        if (result == null) result = caseNamedElement(student);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
       case ModelingassistantPackage.PROBLEM_STATEMENT: {
         ProblemStatement problemStatement = (ProblemStatement)theEObject;
         T result = caseProblemStatement(problemStatement);
+        if (result == null) result = caseNamedElement(problemStatement);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
       case ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT: {
         ProblemStatementElement problemStatementElement = (ProblemStatementElement)theEObject;
         T result = caseProblemStatementElement(problemStatementElement);
+        if (result == null) result = caseNamedElement(problemStatementElement);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -111,6 +114,7 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
       case ModelingassistantPackage.LEARNING_ITEM: {
         LearningItem learningItem = (LearningItem)theEObject;
         T result = caseLearningItem(learningItem);
+        if (result == null) result = caseNamedElement(learningItem);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -123,6 +127,7 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
       case ModelingassistantPackage.MISTAKE_TYPE: {
         MistakeType mistakeType = (MistakeType)theEObject;
         T result = caseMistakeType(mistakeType);
+        if (result == null) result = caseNamedElement(mistakeType);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -162,6 +167,7 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
       case ModelingassistantPackage.LEARNING_RESOURCE: {
         LearningResource learningResource = (LearningResource)theEObject;
         T result = caseLearningResource(learningResource);
+        if (result == null) result = caseNamedElement(learningResource);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -169,6 +175,7 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
         Reference reference = (Reference)theEObject;
         T result = caseReference(reference);
         if (result == null) result = caseLearningResource(reference);
+        if (result == null) result = caseNamedElement(reference);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -176,6 +183,7 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
         Tutorial tutorial = (Tutorial)theEObject;
         T result = caseTutorial(tutorial);
         if (result == null) result = caseLearningResource(tutorial);
+        if (result == null) result = caseNamedElement(tutorial);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -183,6 +191,7 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
         Example example = (Example)theEObject;
         T result = caseExample(example);
         if (result == null) result = caseLearningResource(example);
+        if (result == null) result = caseNamedElement(example);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -190,6 +199,13 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
         Quiz quiz = (Quiz)theEObject;
         T result = caseQuiz(quiz);
         if (result == null) result = caseLearningResource(quiz);
+        if (result == null) result = caseNamedElement(quiz);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ModelingassistantPackage.NAMED_ELEMENT: {
+        NamedElement namedElement = (NamedElement)theEObject;
+        T result = caseNamedElement(namedElement);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -494,6 +510,21 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseQuiz(Quiz object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Named Element</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Named Element</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNamedElement(NamedElement object) {
     return null;
   }
 

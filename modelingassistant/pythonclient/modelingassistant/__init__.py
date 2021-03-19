@@ -1,14 +1,14 @@
 
 from .modelingassistant import getEClassifier, eClassifiers
 from .modelingassistant import name, nsURI, nsPrefix, eClass
-from .modelingassistant import int, boolean, Time, double, ModelingAssistant, Student, ProblemStatement, ProblemStatementElement, UmlElement, Solution, SolutionElement, LearningItem, StudentKnowledge, MistakeType, Mistake, Feedback, TextResponse, ParametrizedResponse, ResourceResponse, LearningResource, Reference, Tutorial, Example, Quiz
+from .modelingassistant import int, boolean, Time, double, ModelingAssistant, Student, ProblemStatement, ProblemStatementElement, UmlElement, Solution, SolutionElement, LearningItem, StudentKnowledge, MistakeType, Mistake, Feedback, TextResponse, ParametrizedResponse, ResourceResponse, LearningResource, Reference, Tutorial, Example, Quiz, NamedElement
 
-from classdiagram import ClassDiagram, NamedElement
+from classdiagram import NamedElement, ClassDiagram
 
 from . import modelingassistant
 
 __all__ = ['int', 'boolean', 'Time', 'double', 'ModelingAssistant', 'Student', 'ProblemStatement', 'ProblemStatementElement', 'UmlElement', 'Solution', 'SolutionElement', 'LearningItem',
-           'StudentKnowledge', 'MistakeType', 'Mistake', 'Feedback', 'TextResponse', 'ParametrizedResponse', 'ResourceResponse', 'LearningResource', 'Reference', 'Tutorial', 'Example', 'Quiz']
+           'StudentKnowledge', 'MistakeType', 'Mistake', 'Feedback', 'TextResponse', 'ParametrizedResponse', 'ResourceResponse', 'LearningResource', 'Reference', 'Tutorial', 'Example', 'Quiz', 'NamedElement']
 
 eSubpackages = []
 eSuperPackage = None
@@ -33,9 +33,9 @@ Student.mistakes.eType = Mistake
 Student.currentMistake.eType = Mistake
 Student.solutions.eType = Solution
 Student.studentKnowledges.eType = StudentKnowledge
+ProblemStatement.problemStatementElements.eType = ProblemStatementElement
 ProblemStatement.modelingAssistant.eType = ModelingAssistant
 ProblemStatement.modelingAssistant.eOpposite = ModelingAssistant.problemStatements
-ProblemStatement.problemStatementElements.eType = ProblemStatementElement
 ProblemStatementElement.problemStatement.eType = ProblemStatement
 ProblemStatementElement.problemStatement.eOpposite = ProblemStatement.problemStatementElements
 ProblemStatementElement.solutionElements.eType = SolutionElement
