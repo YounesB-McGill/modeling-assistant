@@ -532,6 +532,29 @@ public class ModelingassistantItemProviderAdapterFactory extends Modelingassista
   }
 
   /**
+   * This keeps track of the one adapter used for all {@link modelingassistant.MistakeTypeCategory} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected MistakeTypeCategoryItemProvider mistakeTypeCategoryItemProvider;
+
+  /**
+   * This creates an adapter for a {@link modelingassistant.MistakeTypeCategory}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createMistakeTypeCategoryAdapter() {
+    if (mistakeTypeCategoryItemProvider == null) {
+      mistakeTypeCategoryItemProvider = new MistakeTypeCategoryItemProvider(this);
+    }
+
+    return mistakeTypeCategoryItemProvider;
+  }
+
+  /**
    * This returns the root adapter factory that contains this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -650,6 +673,7 @@ public class ModelingassistantItemProviderAdapterFactory extends Modelingassista
     if (tutorialItemProvider != null) tutorialItemProvider.dispose();
     if (exampleItemProvider != null) exampleItemProvider.dispose();
     if (quizItemProvider != null) quizItemProvider.dispose();
+    if (mistakeTypeCategoryItemProvider != null) mistakeTypeCategoryItemProvider.dispose();
   }
 
 }

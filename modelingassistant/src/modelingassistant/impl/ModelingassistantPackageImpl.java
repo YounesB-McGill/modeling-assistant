@@ -14,6 +14,7 @@ import modelingassistant.LearningItem;
 import modelingassistant.LearningResource;
 import modelingassistant.Mistake;
 import modelingassistant.MistakeType;
+import modelingassistant.MistakeTypeCategory;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
@@ -193,6 +194,13 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   private EClass namedElementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass mistakeTypeCategoryEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -834,6 +842,15 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getMistakeType_Mistaketypecategory() {
+    return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getMistake() {
     return mistakeEClass;
   }
@@ -1149,6 +1166,42 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getMistakeTypeCategory() {
+    return mistakeTypeCategoryEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMistakeTypeCategory_Mistaketype() {
+    return (EReference)mistakeTypeCategoryEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMistakeTypeCategory_Supercategory() {
+    return (EReference)mistakeTypeCategoryEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMistakeTypeCategory_Subcategories() {
+    return (EReference)mistakeTypeCategoryEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EDataType getint() {
     return intEDataType;
   }
@@ -1277,6 +1330,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(mistakeTypeEClass, MISTAKE_TYPE__STUDENT_KNOWLEDGES);
     createEReference(mistakeTypeEClass, MISTAKE_TYPE__MISTAKES);
     createEReference(mistakeTypeEClass, MISTAKE_TYPE__FEEDBACKS);
+    createEReference(mistakeTypeEClass, MISTAKE_TYPE__MISTAKETYPECATEGORY);
 
     mistakeEClass = createEClass(MISTAKE);
     createEAttribute(mistakeEClass, MISTAKE__RESOLVED);
@@ -1323,6 +1377,11 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
 
     namedElementEClass = createEClass(NAMED_ELEMENT);
     createEAttribute(namedElementEClass, NAMED_ELEMENT__NAME);
+
+    mistakeTypeCategoryEClass = createEClass(MISTAKE_TYPE_CATEGORY);
+    createEReference(mistakeTypeCategoryEClass, MISTAKE_TYPE_CATEGORY__MISTAKETYPE);
+    createEReference(mistakeTypeCategoryEClass, MISTAKE_TYPE_CATEGORY__SUPERCATEGORY);
+    createEReference(mistakeTypeCategoryEClass, MISTAKE_TYPE_CATEGORY__SUBCATEGORIES);
 
     // Create data types
     intEDataType = createEDataType(INT);
@@ -1375,6 +1434,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     tutorialEClass.getESuperTypes().add(this.getLearningResource());
     exampleEClass.getESuperTypes().add(this.getLearningResource());
     quizEClass.getESuperTypes().add(this.getLearningResource());
+    mistakeTypeCategoryEClass.getESuperTypes().add(this.getNamedElement());
 
     // Initialize classes, features, and operations; add parameters
     initEClass(modelingAssistantEClass, ModelingAssistant.class, "ModelingAssistant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1446,6 +1506,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getMistakeType_StudentKnowledges(), this.getStudentKnowledge(), this.getStudentKnowledge_MistakeType(), "studentKnowledges", null, 0, -1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMistakeType_Mistakes(), this.getMistake(), this.getMistake_MistakeType(), "mistakes", null, 0, -1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMistakeType_Feedbacks(), this.getFeedback(), this.getFeedback_MistakeType(), "feedbacks", null, 0, -1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMistakeType_Mistaketypecategory(), this.getMistakeTypeCategory(), this.getMistakeTypeCategory_Mistaketype(), "mistaketypecategory", null, 1, 1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(mistakeEClass, Mistake.class, "Mistake", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getMistake_Resolved(), this.getboolean(), "resolved", null, 0, 1, Mistake.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1492,6 +1553,11 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
 
     initEClass(namedElementEClass, NamedElement.class, "NamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getNamedElement_Name(), ecorePackage.getEString(), "name", null, 0, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(mistakeTypeCategoryEClass, MistakeTypeCategory.class, "MistakeTypeCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getMistakeTypeCategory_Mistaketype(), this.getMistakeType(), this.getMistakeType_Mistaketypecategory(), "mistaketype", null, 0, -1, MistakeTypeCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMistakeTypeCategory_Supercategory(), this.getMistakeTypeCategory(), this.getMistakeTypeCategory_Subcategories(), "supercategory", null, 0, 1, MistakeTypeCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMistakeTypeCategory_Subcategories(), this.getMistakeTypeCategory(), this.getMistakeTypeCategory_Supercategory(), "subcategories", null, 0, 1, MistakeTypeCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize data types
     initEDataType(intEDataType, int.class, "int", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
