@@ -23,6 +23,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link modelingassistant.MistakeType#getStudentKnowledges <em>Student Knowledges</em>}</li>
  *   <li>{@link modelingassistant.MistakeType#getMistakes <em>Mistakes</em>}</li>
  *   <li>{@link modelingassistant.MistakeType#getFeedbacks <em>Feedbacks</em>}</li>
+ *   <li>{@link modelingassistant.MistakeType#getMistaketypecategory <em>Mistaketypecategory</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getMistakeType()
@@ -185,5 +186,29 @@ public interface MistakeType extends NamedElement {
    * @generated
    */
   EList<Feedback> getFeedbacks();
+
+  /**
+   * Returns the value of the '<em><b>Mistaketypecategory</b></em>' reference.
+   * It is bidirectional and its opposite is '{@link modelingassistant.MistakeTypeCategory#getMistaketype <em>Mistaketype</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Mistaketypecategory</em>' reference.
+   * @see #setMistaketypecategory(MistakeTypeCategory)
+   * @see modelingassistant.ModelingassistantPackage#getMistakeType_Mistaketypecategory()
+   * @see modelingassistant.MistakeTypeCategory#getMistaketype
+   * @model opposite="mistaketype" required="true"
+   * @generated
+   */
+  MistakeTypeCategory getMistaketypecategory();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.MistakeType#getMistaketypecategory <em>Mistaketypecategory</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Mistaketypecategory</em>' reference.
+   * @see #getMistaketypecategory()
+   * @generated
+   */
+  void setMistaketypecategory(MistakeTypeCategory value);
 
 } // MistakeType

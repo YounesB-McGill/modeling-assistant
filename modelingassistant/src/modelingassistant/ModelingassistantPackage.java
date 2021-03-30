@@ -852,13 +852,22 @@ public interface ModelingassistantPackage extends EPackage {
   int MISTAKE_TYPE__FEEDBACKS = NAMED_ELEMENT_FEATURE_COUNT + 7;
 
   /**
+   * The feature id for the '<em><b>Mistaketypecategory</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_TYPE__MISTAKETYPECATEGORY = NAMED_ELEMENT_FEATURE_COUNT + 8;
+
+  /**
    * The number of structural features of the '<em>Mistake Type</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MISTAKE_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 8;
+  int MISTAKE_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 9;
 
   /**
    * The number of operations of the '<em>Mistake Type</em>' class.
@@ -1789,13 +1798,77 @@ public interface ModelingassistantPackage extends EPackage {
   int QUIZ_OPERATION_COUNT = LEARNING_RESOURCE_OPERATION_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link modelingassistant.impl.MistakeTypeCategoryImpl <em>Mistake Type Category</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see modelingassistant.impl.MistakeTypeCategoryImpl
+   * @see modelingassistant.impl.ModelingassistantPackageImpl#getMistakeTypeCategory()
+   * @generated
+   */
+  int MISTAKE_TYPE_CATEGORY = 21;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_TYPE_CATEGORY__NAME = NAMED_ELEMENT__NAME;
+
+  /**
+   * The feature id for the '<em><b>Mistaketype</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_TYPE_CATEGORY__MISTAKETYPE = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Supercategory</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_TYPE_CATEGORY__SUPERCATEGORY = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Subcategories</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_TYPE_CATEGORY__SUBCATEGORIES = NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Mistake Type Category</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_TYPE_CATEGORY_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
+
+  /**
+   * The number of operations of the '<em>Mistake Type Category</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_TYPE_CATEGORY_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
+
+  /**
    * The meta object id for the '<em>int</em>' data type.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see modelingassistant.impl.ModelingassistantPackageImpl#getint()
    * @generated
    */
-  int INT = 21;
+  int INT = 22;
 
   /**
    * The meta object id for the '<em>boolean</em>' data type.
@@ -1804,7 +1877,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @see modelingassistant.impl.ModelingassistantPackageImpl#getboolean()
    * @generated
    */
-  int BOOLEAN = 22;
+  int BOOLEAN = 23;
 
   /**
    * The meta object id for the '<em>Time</em>' data type.
@@ -1814,7 +1887,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @see modelingassistant.impl.ModelingassistantPackageImpl#getTime()
    * @generated
    */
-  int TIME = 23;
+  int TIME = 24;
 
   /**
    * The meta object id for the '<em>double</em>' data type.
@@ -1823,7 +1896,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @see modelingassistant.impl.ModelingassistantPackageImpl#getdouble()
    * @generated
    */
-  int DOUBLE = 24;
+  int DOUBLE = 25;
 
 
   /**
@@ -2477,6 +2550,17 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getMistakeType_Feedbacks();
 
   /**
+   * Returns the meta object for the reference '{@link modelingassistant.MistakeType#getMistaketypecategory <em>Mistaketypecategory</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Mistaketypecategory</em>'.
+   * @see modelingassistant.MistakeType#getMistaketypecategory()
+   * @see #getMistakeType()
+   * @generated
+   */
+  EReference getMistakeType_Mistaketypecategory();
+
+  /**
    * Returns the meta object for class '{@link modelingassistant.Mistake <em>Mistake</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2849,6 +2933,49 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EAttribute getNamedElement_Name();
+
+  /**
+   * Returns the meta object for class '{@link modelingassistant.MistakeTypeCategory <em>Mistake Type Category</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Mistake Type Category</em>'.
+   * @see modelingassistant.MistakeTypeCategory
+   * @generated
+   */
+  EClass getMistakeTypeCategory();
+
+  /**
+   * Returns the meta object for the reference list '{@link modelingassistant.MistakeTypeCategory#getMistaketype <em>Mistaketype</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Mistaketype</em>'.
+   * @see modelingassistant.MistakeTypeCategory#getMistaketype()
+   * @see #getMistakeTypeCategory()
+   * @generated
+   */
+  EReference getMistakeTypeCategory_Mistaketype();
+
+  /**
+   * Returns the meta object for the reference '{@link modelingassistant.MistakeTypeCategory#getSupercategory <em>Supercategory</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Supercategory</em>'.
+   * @see modelingassistant.MistakeTypeCategory#getSupercategory()
+   * @see #getMistakeTypeCategory()
+   * @generated
+   */
+  EReference getMistakeTypeCategory_Supercategory();
+
+  /**
+   * Returns the meta object for the reference '{@link modelingassistant.MistakeTypeCategory#getSubcategories <em>Subcategories</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Subcategories</em>'.
+   * @see modelingassistant.MistakeTypeCategory#getSubcategories()
+   * @see #getMistakeTypeCategory()
+   * @generated
+   */
+  EReference getMistakeTypeCategory_Subcategories();
 
   /**
    * Returns the meta object for data type '<em>int</em>'.
@@ -3415,6 +3542,14 @@ public interface ModelingassistantPackage extends EPackage {
     EReference MISTAKE_TYPE__FEEDBACKS = eINSTANCE.getMistakeType_Feedbacks();
 
     /**
+     * The meta object literal for the '<em><b>Mistaketypecategory</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MISTAKE_TYPE__MISTAKETYPECATEGORY = eINSTANCE.getMistakeType_Mistaketypecategory();
+
+    /**
      * The meta object literal for the '{@link modelingassistant.impl.MistakeImpl <em>Mistake</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3715,6 +3850,40 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EAttribute NAMED_ELEMENT__NAME = eINSTANCE.getNamedElement_Name();
+
+    /**
+     * The meta object literal for the '{@link modelingassistant.impl.MistakeTypeCategoryImpl <em>Mistake Type Category</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see modelingassistant.impl.MistakeTypeCategoryImpl
+     * @see modelingassistant.impl.ModelingassistantPackageImpl#getMistakeTypeCategory()
+     * @generated
+     */
+    EClass MISTAKE_TYPE_CATEGORY = eINSTANCE.getMistakeTypeCategory();
+
+    /**
+     * The meta object literal for the '<em><b>Mistaketype</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MISTAKE_TYPE_CATEGORY__MISTAKETYPE = eINSTANCE.getMistakeTypeCategory_Mistaketype();
+
+    /**
+     * The meta object literal for the '<em><b>Supercategory</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MISTAKE_TYPE_CATEGORY__SUPERCATEGORY = eINSTANCE.getMistakeTypeCategory_Supercategory();
+
+    /**
+     * The meta object literal for the '<em><b>Subcategories</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MISTAKE_TYPE_CATEGORY__SUBCATEGORIES = eINSTANCE.getMistakeTypeCategory_Subcategories();
 
     /**
      * The meta object literal for the '<em>int</em>' data type.

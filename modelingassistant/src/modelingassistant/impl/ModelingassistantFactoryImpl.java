@@ -79,6 +79,7 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
       case ModelingassistantPackage.TUTORIAL: return createTutorial();
       case ModelingassistantPackage.EXAMPLE: return createExample();
       case ModelingassistantPackage.QUIZ: return createQuiz();
+      case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY: return createMistakeTypeCategory();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -324,6 +325,16 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
   public Quiz createQuiz() {
     QuizImpl quiz = new QuizImpl();
     return quiz;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public MistakeTypeCategory createMistakeTypeCategory() {
+    MistakeTypeCategoryImpl mistakeTypeCategory = new MistakeTypeCategoryImpl();
+    return mistakeTypeCategory;
   }
 
   /**
