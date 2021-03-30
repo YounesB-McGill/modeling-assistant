@@ -80,6 +80,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//MistakeType/studentKnowledges"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//MistakeType/mistakes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//MistakeType/feedbacks"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//MistakeType/mistaketypecategory"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//Mistake">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Mistake/resolved"/>
@@ -120,6 +121,11 @@
     <genClasses ecoreClass="modelingassistant.ecore#//Quiz"/>
     <genClasses ecoreClass="modelingassistant.ecore#//NamedElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//NamedElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="modelingassistant.ecore#//MistakeTypeCategory">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//MistakeTypeCategory/mistaketype"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//MistakeTypeCategory/supercategory"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//MistakeTypeCategory/subcategories"/>
     </genClasses>
   </genPackages>
   <genPackages prefix="Classdiagram" disposableProviderFactory="true" ecorePackage="classdiagram.ecore#/">
