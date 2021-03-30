@@ -119,6 +119,8 @@
         eType="#//Mistake" eOpposite="#//Mistake/mistakeType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feedbacks" upperBound="-1"
         eType="#//Feedback" eOpposite="#//Feedback/mistakeType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistaketypecategory" lowerBound="1"
+        eType="#//MistakeTypeCategory" eOpposite="#//MistakeTypeCategory/mistaketype"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Mistake">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" eType="#//boolean"/>
@@ -173,5 +175,13 @@
   <eClassifiers xsi:type="ecore:EClass" name="Quiz" eSuperTypes="#//LearningResource"/>
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MistakeTypeCategory" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistaketype" upperBound="-1"
+        eType="#//MistakeType" eOpposite="#//MistakeType/mistaketypecategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="supercategory" eType="#//MistakeTypeCategory"
+        eOpposite="#//MistakeTypeCategory/subcategories"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subcategories" eType="#//MistakeTypeCategory"
+        eOpposite="#//MistakeTypeCategory/supercategory"/>
   </eClassifiers>
 </ecore:EPackage>
