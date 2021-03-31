@@ -1844,7 +1844,7 @@ public interface ModelingassistantPackage extends EPackage {
   int MISTAKE_TYPE_CATEGORY__SUPERCATEGORY = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Subcategories</b></em>' reference.
+   * The feature id for the '<em><b>Subcategories</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -2996,10 +2996,10 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getMistakeTypeCategory_Supercategory();
 
   /**
-   * Returns the meta object for the reference '{@link modelingassistant.MistakeTypeCategory#getSubcategories <em>Subcategories</em>}'.
+   * Returns the meta object for the reference list '{@link modelingassistant.MistakeTypeCategory#getSubcategories <em>Subcategories</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Subcategories</em>'.
+   * @return the meta object for the reference list '<em>Subcategories</em>'.
    * @see modelingassistant.MistakeTypeCategory#getSubcategories()
    * @see #getMistakeTypeCategory()
    * @generated
@@ -3926,7 +3926,7 @@ public interface ModelingassistantPackage extends EPackage {
     EReference MISTAKE_TYPE_CATEGORY__SUPERCATEGORY = eINSTANCE.getMistakeTypeCategory_Supercategory();
 
     /**
-     * The meta object literal for the '<em><b>Subcategories</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Subcategories</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated

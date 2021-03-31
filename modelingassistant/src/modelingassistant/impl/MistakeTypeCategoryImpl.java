@@ -61,14 +61,14 @@ public class MistakeTypeCategoryImpl extends NamedElementImpl implements Mistake
   protected MistakeTypeCategory supercategory;
 
   /**
-   * The cached value of the '{@link #getSubcategories() <em>Subcategories</em>}' reference.
+   * The cached value of the '{@link #getSubcategories() <em>Subcategories</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getSubcategories()
    * @generated
    * @ordered
    */
-  protected MistakeTypeCategory subcategories;
+  protected EList<MistakeTypeCategory> subcategories;
 
   /**
    * <!-- begin-user-doc -->
@@ -166,59 +166,11 @@ public class MistakeTypeCategoryImpl extends NamedElementImpl implements Mistake
    * <!-- end-user-doc -->
    * @generated
    */
-  public MistakeTypeCategory getSubcategories() {
-    if (subcategories != null && subcategories.eIsProxy()) {
-      InternalEObject oldSubcategories = (InternalEObject)subcategories;
-      subcategories = (MistakeTypeCategory)eResolveProxy(oldSubcategories);
-      if (subcategories != oldSubcategories) {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUBCATEGORIES, oldSubcategories, subcategories));
-      }
+  public EList<MistakeTypeCategory> getSubcategories() {
+    if (subcategories == null) {
+      subcategories = new EObjectWithInverseResolvingEList<MistakeTypeCategory>(MistakeTypeCategory.class, this, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUBCATEGORIES, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUPERCATEGORY);
     }
     return subcategories;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public MistakeTypeCategory basicGetSubcategories() {
-    return subcategories;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetSubcategories(MistakeTypeCategory newSubcategories, NotificationChain msgs) {
-    MistakeTypeCategory oldSubcategories = subcategories;
-    subcategories = newSubcategories;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUBCATEGORIES, oldSubcategories, newSubcategories);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setSubcategories(MistakeTypeCategory newSubcategories) {
-    if (newSubcategories != subcategories) {
-      NotificationChain msgs = null;
-      if (subcategories != null)
-        msgs = ((InternalEObject)subcategories).eInverseRemove(this, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUPERCATEGORY, MistakeTypeCategory.class, msgs);
-      if (newSubcategories != null)
-        msgs = ((InternalEObject)newSubcategories).eInverseAdd(this, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUPERCATEGORY, MistakeTypeCategory.class, msgs);
-      msgs = basicSetSubcategories(newSubcategories, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUBCATEGORIES, newSubcategories, newSubcategories));
   }
 
   /**
@@ -278,9 +230,7 @@ public class MistakeTypeCategoryImpl extends NamedElementImpl implements Mistake
           msgs = ((InternalEObject)supercategory).eInverseRemove(this, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUBCATEGORIES, MistakeTypeCategory.class, msgs);
         return basicSetSupercategory((MistakeTypeCategory)otherEnd, msgs);
       case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUBCATEGORIES:
-        if (subcategories != null)
-          msgs = ((InternalEObject)subcategories).eInverseRemove(this, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUPERCATEGORY, MistakeTypeCategory.class, msgs);
-        return basicSetSubcategories((MistakeTypeCategory)otherEnd, msgs);
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getSubcategories()).basicAdd(otherEnd, msgs);
       case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__MODELINGASSISTANT:
         if (eInternalContainer() != null)
           msgs = eBasicRemoveFromContainer(msgs);
@@ -302,7 +252,7 @@ public class MistakeTypeCategoryImpl extends NamedElementImpl implements Mistake
       case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUPERCATEGORY:
         return basicSetSupercategory(null, msgs);
       case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUBCATEGORIES:
-        return basicSetSubcategories(null, msgs);
+        return ((InternalEList<?>)getSubcategories()).basicRemove(otherEnd, msgs);
       case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__MODELINGASSISTANT:
         return basicSetModelingassistant(null, msgs);
     }
@@ -337,8 +287,7 @@ public class MistakeTypeCategoryImpl extends NamedElementImpl implements Mistake
         if (resolve) return getSupercategory();
         return basicGetSupercategory();
       case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUBCATEGORIES:
-        if (resolve) return getSubcategories();
-        return basicGetSubcategories();
+        return getSubcategories();
       case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__MODELINGASSISTANT:
         return getModelingassistant();
     }
@@ -362,7 +311,8 @@ public class MistakeTypeCategoryImpl extends NamedElementImpl implements Mistake
         setSupercategory((MistakeTypeCategory)newValue);
         return;
       case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUBCATEGORIES:
-        setSubcategories((MistakeTypeCategory)newValue);
+        getSubcategories().clear();
+        getSubcategories().addAll((Collection<? extends MistakeTypeCategory>)newValue);
         return;
       case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__MODELINGASSISTANT:
         setModelingassistant((ModelingAssistant)newValue);
@@ -386,7 +336,7 @@ public class MistakeTypeCategoryImpl extends NamedElementImpl implements Mistake
         setSupercategory((MistakeTypeCategory)null);
         return;
       case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUBCATEGORIES:
-        setSubcategories((MistakeTypeCategory)null);
+        getSubcategories().clear();
         return;
       case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__MODELINGASSISTANT:
         setModelingassistant((ModelingAssistant)null);
@@ -408,7 +358,7 @@ public class MistakeTypeCategoryImpl extends NamedElementImpl implements Mistake
       case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUPERCATEGORY:
         return supercategory != null;
       case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__SUBCATEGORIES:
-        return subcategories != null;
+        return subcategories != null && !subcategories.isEmpty();
       case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__MODELINGASSISTANT:
         return getModelingassistant() != null;
     }
