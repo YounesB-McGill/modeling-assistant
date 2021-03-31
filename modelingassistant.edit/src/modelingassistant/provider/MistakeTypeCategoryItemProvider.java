@@ -46,6 +46,7 @@ public class MistakeTypeCategoryItemProvider extends NamedElementItemProvider {
       addMistaketypePropertyDescriptor(object);
       addSupercategoryPropertyDescriptor(object);
       addSubcategoriesPropertyDescriptor(object);
+      addModelingassistantPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -108,6 +109,28 @@ public class MistakeTypeCategoryItemProvider extends NamedElementItemProvider {
          getString("_UI_MistakeTypeCategory_subcategories_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_MistakeTypeCategory_subcategories_feature", "_UI_MistakeTypeCategory_type"),
          ModelingassistantPackage.Literals.MISTAKE_TYPE_CATEGORY__SUBCATEGORIES,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Modelingassistant feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addModelingassistantPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_MistakeTypeCategory_modelingassistant_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_MistakeTypeCategory_modelingassistant_feature", "_UI_MistakeTypeCategory_type"),
+         ModelingassistantPackage.Literals.MISTAKE_TYPE_CATEGORY__MODELINGASSISTANT,
          true,
          false,
          true,

@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link modelingassistant.MistakeTypeCategory#getMistaketype <em>Mistaketype</em>}</li>
  *   <li>{@link modelingassistant.MistakeTypeCategory#getSupercategory <em>Supercategory</em>}</li>
  *   <li>{@link modelingassistant.MistakeTypeCategory#getSubcategories <em>Subcategories</em>}</li>
+ *   <li>{@link modelingassistant.MistakeTypeCategory#getModelingassistant <em>Modelingassistant</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getMistakeTypeCategory()
@@ -84,5 +85,29 @@ public interface MistakeTypeCategory extends NamedElement {
    * @generated
    */
   void setSubcategories(MistakeTypeCategory value);
+
+  /**
+   * Returns the value of the '<em><b>Modelingassistant</b></em>' container reference.
+   * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getMistaketypecategory <em>Mistaketypecategory</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Modelingassistant</em>' container reference.
+   * @see #setModelingassistant(ModelingAssistant)
+   * @see modelingassistant.ModelingassistantPackage#getMistakeTypeCategory_Modelingassistant()
+   * @see modelingassistant.ModelingAssistant#getMistaketypecategory
+   * @model opposite="mistaketypecategory" required="true" transient="false"
+   * @generated
+   */
+  ModelingAssistant getModelingassistant();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.MistakeTypeCategory#getModelingassistant <em>Modelingassistant</em>}' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Modelingassistant</em>' container reference.
+   * @see #getModelingassistant()
+   * @generated
+   */
+  void setModelingassistant(ModelingAssistant value);
 
 } // MistakeTypeCategory
