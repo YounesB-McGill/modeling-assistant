@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modelingassistant:ModelingAssistant xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmi:id="_Qu12IJHsEeukqv5DhMfmgQ">
+  <mistakeTypes xmi:id="_FALA0JHyEeuzx4byvxA1iA" name="Missing class" mistaketypecategory="_4xsRwJHxEeuzx4byvxA1iA"/>
+  <mistakeTypes xmi:id="_KXsfIJHyEeuzx4byvxA1iA" name="Extra (redundant) class" mistaketypecategory="_4xsRwJHxEeuzx4byvxA1iA"/>
+  <mistakeTypes xmi:id="_Vt3GIJHyEeuzx4byvxA1iA" name="Using plural or lowercase" mistaketypecategory="_RVLOoJHyEeuzx4byvxA1iA"/>
+  <mistakeTypes xmi:id="_aQwpkJHyEeuzx4byvxA1iA" name="Software engineering term" mistaketypecategory="_RVLOoJHyEeuzx4byvxA1iA"/>
+  <mistakeTypes xmi:id="_eSuqMJHyEeuzx4byvxA1iA" name="Bad class name spelling" mistaketypecategory="_RVLOoJHyEeuzx4byvxA1iA"/>
+  <mistakeTypes xmi:id="_gGNaAJHyEeuzx4byvxA1iA" name="Similar (yet incorrect) class name" mistaketypecategory="_RVLOoJHyEeuzx4byvxA1iA"/>
+  <mistakeTypes xmi:id="_OUYPwJH1EeumZcd623X5sA" name="Regular class should be an enumeration or vice versa" mistaketypecategory="_jwUUQJHyEeuzx4byvxA1iA"/>
+  <mistakeTypes xmi:id="_RwTkEJH1EeumZcd623X5sA" name="Wrong enumeration items" mistaketypecategory="_jwUUQJHyEeuzx4byvxA1iA"/>
+  <mistakeTypes xmi:id="_bIqnUJIFEeumZcd623X5sA" name="Missing attribute" mistaketypecategory="_W5KhAJIFEeumZcd623X5sA"/>
+  <mistakeTypes xmi:id="_2WQ5sJIIEeumZcd623X5sA" name="Plural attribute or attribute list" mistaketypecategory="_ZF9d0JIHEeumZcd623X5sA"/>
+  <mistakeTypes xmi:id="_5Hu7wJIIEeumZcd623X5sA" name="Other extra attribute" mistaketypecategory="_ZF9d0JIHEeumZcd623X5sA"/>
+  <mistakeTypes xmi:id="__AKuwJIIEeumZcd623X5sA" name="Bad attribute name spelling" mistaketypecategory="_8R_RQJIIEeumZcd623X5sA"/>
+  <mistakeTypes xmi:id="_BFJeQJIJEeumZcd623X5sA" name="Similar (yet incorrect) attribute name" mistaketypecategory="_8R_RQJIIEeumZcd623X5sA"/>
+  <mistakeTypes xmi:id="_QADXUJIJEeumZcd623X5sA" name="Wrong attribute type" mistaketypecategory="_W5KhAJIFEeumZcd623X5sA"/>
+  <mistakeTypes xmi:id="_ZY8ZUJIJEeumZcd623X5sA" name="Attribute misplaced" mistaketypecategory="_SsAnQJIJEeumZcd623X5sA"/>
+  <mistakeTypes xmi:id="_bPuUwJIJEeumZcd623X5sA" name="Attribute duplicated (eg, in a subclass)" mistaketypecategory="_SsAnQJIJEeumZcd623X5sA"/>
+  <mistakeTypes xmi:id="_iMhHwJIJEeumZcd623X5sA" name="Attribute expected to be static but is not or vice versa" mistaketypecategory="_W5KhAJIFEeumZcd623X5sA"/>
+  <mistakeTypes xmi:id="_hXBi0JIMEeumZcd623X5sA" name="Using an attribute instead of an association" mistaketypecategory="_a53SIJIMEeumZcd623X5sA"/>
+  <mistaketypecategory xmi:id="_4xsRwJHxEeuzx4byvxA1iA" name="Wrong class" mistaketype="_FALA0JHyEeuzx4byvxA1iA _KXsfIJHyEeuzx4byvxA1iA" subcategories="_jwUUQJHyEeuzx4byvxA1iA _RVLOoJHyEeuzx4byvxA1iA"/>
+  <mistaketypecategory xmi:id="_jwUUQJHyEeuzx4byvxA1iA" name="Wrong enumeration" mistaketype="_OUYPwJH1EeumZcd623X5sA _RwTkEJH1EeumZcd623X5sA" supercategory="_4xsRwJHxEeuzx4byvxA1iA"/>
+  <mistaketypecategory xmi:id="_RVLOoJHyEeuzx4byvxA1iA" name="Wrong class name" mistaketype="_Vt3GIJHyEeuzx4byvxA1iA _aQwpkJHyEeuzx4byvxA1iA _eSuqMJHyEeuzx4byvxA1iA _gGNaAJHyEeuzx4byvxA1iA" supercategory="_4xsRwJHxEeuzx4byvxA1iA"/>
+  <mistaketypecategory xmi:id="_W5KhAJIFEeumZcd623X5sA" name="Wrong attribute" mistaketype="_bIqnUJIFEeumZcd623X5sA _QADXUJIJEeumZcd623X5sA _iMhHwJIJEeumZcd623X5sA" subcategories="_ZF9d0JIHEeumZcd623X5sA _8R_RQJIIEeumZcd623X5sA _SsAnQJIJEeumZcd623X5sA"/>
+  <mistaketypecategory xmi:id="_ZF9d0JIHEeumZcd623X5sA" name="Extra (redundant) attribute" mistaketype="_5Hu7wJIIEeumZcd623X5sA _2WQ5sJIIEeumZcd623X5sA" supercategory="_W5KhAJIFEeumZcd623X5sA"/>
+  <mistaketypecategory xmi:id="_8R_RQJIIEeumZcd623X5sA" name="Wrong attribute name" mistaketype="__AKuwJIIEeumZcd623X5sA _BFJeQJIJEeumZcd623X5sA" supercategory="_W5KhAJIFEeumZcd623X5sA"/>
+  <mistaketypecategory xmi:id="_SsAnQJIJEeumZcd623X5sA" name="Attribute in wrong class" mistaketype="_bPuUwJIJEeumZcd623X5sA _ZY8ZUJIJEeumZcd623X5sA" supercategory="_W5KhAJIFEeumZcd623X5sA"/>
+  <mistaketypecategory xmi:id="_YsbKMJIMEeumZcd623X5sA" name="Wrong relationships" subcategories="_a53SIJIMEeumZcd623X5sA"/>
+  <mistaketypecategory xmi:id="_a53SIJIMEeumZcd623X5sA" name="Missing relationship of any type" mistaketype="_hXBi0JIMEeumZcd623X5sA" supercategory="_YsbKMJIMEeumZcd623X5sA"/>
+</modelingassistant:ModelingAssistant>
