@@ -158,13 +158,22 @@ public interface ModelingassistantPackage extends EPackage {
   int MODELING_ASSISTANT__STUDENTKNOWLEDGE = 9;
 
   /**
+   * The feature id for the '<em><b>Mistaketypecategory</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODELING_ASSISTANT__MISTAKETYPECATEGORY = 10;
+
+  /**
    * The number of structural features of the '<em>Modeling Assistant</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODELING_ASSISTANT_FEATURE_COUNT = 10;
+  int MODELING_ASSISTANT_FEATURE_COUNT = 11;
 
   /**
    * The number of operations of the '<em>Modeling Assistant</em>' class.
@@ -1844,13 +1853,22 @@ public interface ModelingassistantPackage extends EPackage {
   int MISTAKE_TYPE_CATEGORY__SUBCATEGORIES = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
+   * The feature id for the '<em><b>Modelingassistant</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_TYPE_CATEGORY__MODELINGASSISTANT = NAMED_ELEMENT_FEATURE_COUNT + 3;
+
+  /**
    * The number of structural features of the '<em>Mistake Type Category</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MISTAKE_TYPE_CATEGORY_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
+  int MISTAKE_TYPE_CATEGORY_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The number of operations of the '<em>Mistake Type Category</em>' class.
@@ -2018,6 +2036,17 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EReference getModelingAssistant_Studentknowledge();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link modelingassistant.ModelingAssistant#getMistaketypecategory <em>Mistaketypecategory</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Mistaketypecategory</em>'.
+   * @see modelingassistant.ModelingAssistant#getMistaketypecategory()
+   * @see #getModelingAssistant()
+   * @generated
+   */
+  EReference getModelingAssistant_Mistaketypecategory();
 
   /**
    * Returns the meta object for class '{@link modelingassistant.Student <em>Student</em>}'.
@@ -2978,6 +3007,17 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getMistakeTypeCategory_Subcategories();
 
   /**
+   * Returns the meta object for the container reference '{@link modelingassistant.MistakeTypeCategory#getModelingassistant <em>Modelingassistant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the container reference '<em>Modelingassistant</em>'.
+   * @see modelingassistant.MistakeTypeCategory#getModelingassistant()
+   * @see #getMistakeTypeCategory()
+   * @generated
+   */
+  EReference getMistakeTypeCategory_Modelingassistant();
+
+  /**
    * Returns the meta object for data type '<em>int</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3130,6 +3170,14 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference MODELING_ASSISTANT__STUDENTKNOWLEDGE = eINSTANCE.getModelingAssistant_Studentknowledge();
+
+    /**
+     * The meta object literal for the '<em><b>Mistaketypecategory</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODELING_ASSISTANT__MISTAKETYPECATEGORY = eINSTANCE.getModelingAssistant_Mistaketypecategory();
 
     /**
      * The meta object literal for the '{@link modelingassistant.impl.StudentImpl <em>Student</em>}' class.
@@ -3884,6 +3932,14 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference MISTAKE_TYPE_CATEGORY__SUBCATEGORIES = eINSTANCE.getMistakeTypeCategory_Subcategories();
+
+    /**
+     * The meta object literal for the '<em><b>Modelingassistant</b></em>' container reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MISTAKE_TYPE_CATEGORY__MODELINGASSISTANT = eINSTANCE.getMistakeTypeCategory_Modelingassistant();
 
     /**
      * The meta object literal for the '<em>int</em>' data type.

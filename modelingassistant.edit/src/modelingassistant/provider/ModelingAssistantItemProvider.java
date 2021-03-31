@@ -71,6 +71,7 @@ public class ModelingAssistantItemProvider
       addMistakesPropertyDescriptor(object);
       addMistakeTypesPropertyDescriptor(object);
       addStudentknowledgePropertyDescriptor(object);
+      addMistaketypecategoryPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -296,6 +297,28 @@ public class ModelingAssistantItemProvider
   }
 
   /**
+   * This adds a property descriptor for the Mistaketypecategory feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addMistaketypecategoryPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_ModelingAssistant_mistaketypecategory_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_ModelingAssistant_mistaketypecategory_feature", "_UI_ModelingAssistant_type"),
+         ModelingassistantPackage.Literals.MODELING_ASSISTANT__MISTAKETYPECATEGORY,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
    * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
    * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
    * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -317,6 +340,7 @@ public class ModelingAssistantItemProvider
       childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__MISTAKES);
       childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__MISTAKE_TYPES);
       childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__STUDENTKNOWLEDGE);
+      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__MISTAKETYPECATEGORY);
     }
     return childrenFeatures;
   }
@@ -379,6 +403,7 @@ public class ModelingAssistantItemProvider
       case ModelingassistantPackage.MODELING_ASSISTANT__MISTAKES:
       case ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPES:
       case ModelingassistantPackage.MODELING_ASSISTANT__STUDENTKNOWLEDGE:
+      case ModelingassistantPackage.MODELING_ASSISTANT__MISTAKETYPECATEGORY:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
     }
@@ -480,6 +505,11 @@ public class ModelingAssistantItemProvider
       (createChildParameter
         (ModelingassistantPackage.Literals.MODELING_ASSISTANT__STUDENTKNOWLEDGE,
          ModelingassistantFactory.eINSTANCE.createStudentKnowledge()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__MISTAKETYPECATEGORY,
+         ModelingassistantFactory.eINSTANCE.createMistakeTypeCategory()));
   }
 
   /**
