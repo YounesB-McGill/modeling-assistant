@@ -183,8 +183,8 @@
         eType="#//MistakeType" eOpposite="#//MistakeType/mistaketypecategory"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="supercategory" eType="#//MistakeTypeCategory"
         eOpposite="#//MistakeTypeCategory/subcategories"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="subcategories" eType="#//MistakeTypeCategory"
-        eOpposite="#//MistakeTypeCategory/supercategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subcategories" upperBound="-1"
+        eType="#//MistakeTypeCategory" eOpposite="#//MistakeTypeCategory/supercategory"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelingassistant" lowerBound="1"
         eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/mistaketypecategory"/>
   </eClassifiers>

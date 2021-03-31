@@ -10,7 +10,7 @@
     <semanticResources>model/modelingassistant.genmodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_sM2lgGVtEeu25_uYr0tc7g">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uiMFMWVtEeu25_uYr0tc7g" name="modelingassistant" repPath="#_uhm2YGVtEeu25_uYr0tc7g" changeId="6d0d841e-75c1-42ce-85e1-72a956761366">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uiMFMWVtEeu25_uYr0tc7g" name="modelingassistant" repPath="#_uhm2YGVtEeu25_uYr0tc7g" changeId="e8f94491-f71e-4643-90f1-9d02e7a35eb5">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/modelingassistant.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -2067,7 +2067,7 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_Qaa4PJGSEeuVvKVFNenbfg" sourceNode="_t2DsQJGREeuVvKVFNenbfg" targetNode="_t2DsQJGREeuVvKVFNenbfg" beginLabel="[0..1] subcategories" endLabel="[0..1] supercategory">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_Qaa4PJGSEeuVvKVFNenbfg" sourceNode="_t2DsQJGREeuVvKVFNenbfg" targetNode="_t2DsQJGREeuVvKVFNenbfg" beginLabel="[0..*] subcategories" endLabel="[0..1] supercategory">
       <target xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//MistakeTypeCategory/supercategory"/>
       <semanticElements xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//MistakeTypeCategory/subcategories"/>
       <semanticElements xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//MistakeTypeCategory/supercategory"/>
