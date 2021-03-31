@@ -63,28 +63,18 @@ public interface MistakeTypeCategory extends NamedElement {
   void setSupercategory(MistakeTypeCategory value);
 
   /**
-   * Returns the value of the '<em><b>Subcategories</b></em>' reference.
+   * Returns the value of the '<em><b>Subcategories</b></em>' reference list.
+   * The list contents are of type {@link modelingassistant.MistakeTypeCategory}.
    * It is bidirectional and its opposite is '{@link modelingassistant.MistakeTypeCategory#getSupercategory <em>Supercategory</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Subcategories</em>' reference.
-   * @see #setSubcategories(MistakeTypeCategory)
+   * @return the value of the '<em>Subcategories</em>' reference list.
    * @see modelingassistant.ModelingassistantPackage#getMistakeTypeCategory_Subcategories()
    * @see modelingassistant.MistakeTypeCategory#getSupercategory
    * @model opposite="supercategory"
    * @generated
    */
-  MistakeTypeCategory getSubcategories();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.MistakeTypeCategory#getSubcategories <em>Subcategories</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Subcategories</em>' reference.
-   * @see #getSubcategories()
-   * @generated
-   */
-  void setSubcategories(MistakeTypeCategory value);
+  EList<MistakeTypeCategory> getSubcategories();
 
   /**
    * Returns the value of the '<em><b>Modelingassistant</b></em>' container reference.
