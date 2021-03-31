@@ -37,8 +37,10 @@ class ModelingAssistant(EObject, metaclass=MetaEClass):
     mistakeTypes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     studentknowledge = EReference(ordered=True, unique=True,
                                   containment=True, derived=False, upper=-1)
+    mistaketypecategory = EReference(ordered=True, unique=True,
+                                     containment=True, derived=False, upper=-1)
 
-    def __init__(self, *, learningItems=None, learningResources=None, problemStatements=None, solutions=None, umlElements=None, students=None, feedbacks=None, mistakes=None, mistakeTypes=None, studentknowledge=None):
+    def __init__(self, *, learningItems=None, learningResources=None, problemStatements=None, solutions=None, umlElements=None, students=None, feedbacks=None, mistakes=None, mistakeTypes=None, studentknowledge=None, mistaketypecategory=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -73,6 +75,9 @@ class ModelingAssistant(EObject, metaclass=MetaEClass):
 
         if studentknowledge:
             self.studentknowledge.extend(studentknowledge)
+
+        if mistaketypecategory:
+            self.mistaketypecategory.extend(mistaketypecategory)
 
 
 class UmlElement(EObject, metaclass=MetaEClass):
@@ -493,8 +498,9 @@ class MistakeTypeCategory(NamedElement):
     mistaketype = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
     supercategory = EReference(ordered=True, unique=True, containment=False, derived=False)
     subcategories = EReference(ordered=True, unique=True, containment=False, derived=False)
+    modelingassistant = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, mistaketype=None, supercategory=None, subcategories=None, **kwargs):
+    def __init__(self, *, mistaketype=None, supercategory=None, subcategories=None, modelingassistant=None, **kwargs):
 
         super().__init__(**kwargs)
 
@@ -506,6 +512,9 @@ class MistakeTypeCategory(NamedElement):
 
         if subcategories is not None:
             self.subcategories = subcategories
+
+        if modelingassistant is not None:
+            self.modelingassistant = modelingassistant
 
 
 class Reference(LearningResource):
