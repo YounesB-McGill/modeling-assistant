@@ -497,7 +497,8 @@ class MistakeTypeCategory(NamedElement):
 
     mistaketype = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
     supercategory = EReference(ordered=True, unique=True, containment=False, derived=False)
-    subcategories = EReference(ordered=True, unique=True, containment=False, derived=False)
+    subcategories = EReference(ordered=True, unique=True,
+                               containment=False, derived=False, upper=-1)
     modelingassistant = EReference(ordered=True, unique=True, containment=False, derived=False)
 
     def __init__(self, *, mistaketype=None, supercategory=None, subcategories=None, modelingassistant=None, **kwargs):
@@ -510,8 +511,8 @@ class MistakeTypeCategory(NamedElement):
         if supercategory is not None:
             self.supercategory = supercategory
 
-        if subcategories is not None:
-            self.subcategories = subcategories
+        if subcategories:
+            self.subcategories.extend(subcategories)
 
         if modelingassistant is not None:
             self.modelingassistant = modelingassistant
