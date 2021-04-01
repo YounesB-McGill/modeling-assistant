@@ -37,8 +37,10 @@ class ModelingAssistant(EObject, metaclass=MetaEClass):
     mistakeTypes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     studentknowledge = EReference(ordered=True, unique=True,
                                   containment=True, derived=False, upper=-1)
+    mistaketypecategory = EReference(ordered=True, unique=True,
+                                     containment=True, derived=False, upper=-1)
 
-    def __init__(self, *, learningItems=None, learningResources=None, problemStatements=None, solutions=None, umlElements=None, students=None, feedbacks=None, mistakes=None, mistakeTypes=None, studentknowledge=None):
+    def __init__(self, *, learningItems=None, learningResources=None, problemStatements=None, solutions=None, umlElements=None, students=None, feedbacks=None, mistakes=None, mistakeTypes=None, studentknowledge=None, mistaketypecategory=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -73,6 +75,9 @@ class ModelingAssistant(EObject, metaclass=MetaEClass):
 
         if studentknowledge:
             self.studentknowledge.extend(studentknowledge)
+
+        if mistaketypecategory:
+            self.mistaketypecategory.extend(mistaketypecategory)
 
 
 class UmlElement(EObject, metaclass=MetaEClass):
@@ -402,8 +407,9 @@ class MistakeType(NamedElement):
                                    containment=False, derived=False, upper=-1)
     mistakes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
     feedbacks = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    mistaketypecategory = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, atomic=None, timeToAddress=None, numStepsBeforeNotification=None, modelingAssistant=None, learningItem=None, studentKnowledges=None, mistakes=None, feedbacks=None, **kwargs):
+    def __init__(self, *, atomic=None, timeToAddress=None, numStepsBeforeNotification=None, modelingAssistant=None, learningItem=None, studentKnowledges=None, mistakes=None, feedbacks=None, mistaketypecategory=None, **kwargs):
 
         super().__init__(**kwargs)
 
@@ -430,6 +436,9 @@ class MistakeType(NamedElement):
 
         if feedbacks:
             self.feedbacks.extend(feedbacks)
+
+        if mistaketypecategory is not None:
+            self.mistaketypecategory = mistaketypecategory
 
 
 class TextResponse(Feedback):
@@ -482,6 +491,31 @@ class LearningResource(NamedElement):
 
         if resourceResponses:
             self.resourceResponses.extend(resourceResponses)
+
+
+class MistakeTypeCategory(NamedElement):
+
+    mistaketype = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    supercategory = EReference(ordered=True, unique=True, containment=False, derived=False)
+    subcategories = EReference(ordered=True, unique=True,
+                               containment=False, derived=False, upper=-1)
+    modelingassistant = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, mistaketype=None, supercategory=None, subcategories=None, modelingassistant=None, **kwargs):
+
+        super().__init__(**kwargs)
+
+        if mistaketype:
+            self.mistaketype.extend(mistaketype)
+
+        if supercategory is not None:
+            self.supercategory = supercategory
+
+        if subcategories:
+            self.subcategories.extend(subcategories)
+
+        if modelingassistant is not None:
+            self.modelingassistant = modelingassistant
 
 
 class Reference(LearningResource):

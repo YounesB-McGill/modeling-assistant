@@ -202,6 +202,15 @@ public interface ModelingassistantFactory extends EFactory {
   Quiz createQuiz();
 
   /**
+   * Returns a new object of class '<em>Mistake Type Category</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Mistake Type Category</em>'.
+   * @generated
+   */
+  MistakeTypeCategory createMistakeTypeCategory();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
