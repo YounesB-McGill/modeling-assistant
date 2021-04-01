@@ -10,6 +10,7 @@ import modelingassistant.Feedback;
 import modelingassistant.LearningItem;
 import modelingassistant.Mistake;
 import modelingassistant.MistakeType;
+import modelingassistant.MistakeTypeCategory;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.StudentKnowledge;
@@ -43,6 +44,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link modelingassistant.impl.MistakeTypeImpl#getStudentKnowledges <em>Student Knowledges</em>}</li>
  *   <li>{@link modelingassistant.impl.MistakeTypeImpl#getMistakes <em>Mistakes</em>}</li>
  *   <li>{@link modelingassistant.impl.MistakeTypeImpl#getFeedbacks <em>Feedbacks</em>}</li>
+ *   <li>{@link modelingassistant.impl.MistakeTypeImpl#getMistaketypecategory <em>Mistaketypecategory</em>}</li>
  * </ul>
  *
  * @generated
@@ -147,6 +149,16 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
    * @ordered
    */
   protected EList<Feedback> feedbacks;
+
+  /**
+   * The cached value of the '{@link #getMistaketypecategory() <em>Mistaketypecategory</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getMistaketypecategory()
+   * @generated
+   * @ordered
+   */
+  protected MistakeTypeCategory mistaketypecategory;
 
   /**
    * <!-- begin-user-doc -->
@@ -372,6 +384,66 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
    * <!-- end-user-doc -->
    * @generated
    */
+  public MistakeTypeCategory getMistaketypecategory() {
+    if (mistaketypecategory != null && mistaketypecategory.eIsProxy()) {
+      InternalEObject oldMistaketypecategory = (InternalEObject)mistaketypecategory;
+      mistaketypecategory = (MistakeTypeCategory)eResolveProxy(oldMistaketypecategory);
+      if (mistaketypecategory != oldMistaketypecategory) {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY, oldMistaketypecategory, mistaketypecategory));
+      }
+    }
+    return mistaketypecategory;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public MistakeTypeCategory basicGetMistaketypecategory() {
+    return mistaketypecategory;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetMistaketypecategory(MistakeTypeCategory newMistaketypecategory, NotificationChain msgs) {
+    MistakeTypeCategory oldMistaketypecategory = mistaketypecategory;
+    mistaketypecategory = newMistaketypecategory;
+    if (eNotificationRequired()) {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY, oldMistaketypecategory, newMistaketypecategory);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setMistaketypecategory(MistakeTypeCategory newMistaketypecategory) {
+    if (newMistaketypecategory != mistaketypecategory) {
+      NotificationChain msgs = null;
+      if (mistaketypecategory != null)
+        msgs = ((InternalEObject)mistaketypecategory).eInverseRemove(this, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__MISTAKETYPE, MistakeTypeCategory.class, msgs);
+      if (newMistaketypecategory != null)
+        msgs = ((InternalEObject)newMistaketypecategory).eInverseAdd(this, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__MISTAKETYPE, MistakeTypeCategory.class, msgs);
+      msgs = basicSetMistaketypecategory(newMistaketypecategory, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY, newMistaketypecategory, newMistaketypecategory));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -390,6 +462,10 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getMistakes()).basicAdd(otherEnd, msgs);
       case ModelingassistantPackage.MISTAKE_TYPE__FEEDBACKS:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getFeedbacks()).basicAdd(otherEnd, msgs);
+      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY:
+        if (mistaketypecategory != null)
+          msgs = ((InternalEObject)mistaketypecategory).eInverseRemove(this, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__MISTAKETYPE, MistakeTypeCategory.class, msgs);
+        return basicSetMistaketypecategory((MistakeTypeCategory)otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -412,6 +488,8 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         return ((InternalEList<?>)getMistakes()).basicRemove(otherEnd, msgs);
       case ModelingassistantPackage.MISTAKE_TYPE__FEEDBACKS:
         return ((InternalEList<?>)getFeedbacks()).basicRemove(otherEnd, msgs);
+      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY:
+        return basicSetMistaketypecategory(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -455,6 +533,9 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         return getMistakes();
       case ModelingassistantPackage.MISTAKE_TYPE__FEEDBACKS:
         return getFeedbacks();
+      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY:
+        if (resolve) return getMistaketypecategory();
+        return basicGetMistaketypecategory();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -495,6 +576,9 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         getFeedbacks().clear();
         getFeedbacks().addAll((Collection<? extends Feedback>)newValue);
         return;
+      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY:
+        setMistaketypecategory((MistakeTypeCategory)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -531,6 +615,9 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
       case ModelingassistantPackage.MISTAKE_TYPE__FEEDBACKS:
         getFeedbacks().clear();
         return;
+      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY:
+        setMistaketypecategory((MistakeTypeCategory)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -559,6 +646,8 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         return mistakes != null && !mistakes.isEmpty();
       case ModelingassistantPackage.MISTAKE_TYPE__FEEDBACKS:
         return feedbacks != null && !feedbacks.isEmpty();
+      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY:
+        return mistaketypecategory != null;
     }
     return super.eIsSet(featureID);
   }

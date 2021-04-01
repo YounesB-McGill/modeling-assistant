@@ -1,14 +1,14 @@
 
 from .modelingassistant import getEClassifier, eClassifiers
 from .modelingassistant import name, nsURI, nsPrefix, eClass
-from .modelingassistant import int, boolean, Time, double, ModelingAssistant, Student, ProblemStatement, ProblemStatementElement, UmlElement, Solution, SolutionElement, LearningItem, StudentKnowledge, MistakeType, Mistake, Feedback, TextResponse, ParametrizedResponse, ResourceResponse, LearningResource, Reference, Tutorial, Example, Quiz, NamedElement
+from .modelingassistant import int, boolean, Time, double, ModelingAssistant, Student, ProblemStatement, ProblemStatementElement, UmlElement, Solution, SolutionElement, LearningItem, StudentKnowledge, MistakeType, Mistake, Feedback, TextResponse, ParametrizedResponse, ResourceResponse, LearningResource, Reference, Tutorial, Example, Quiz, NamedElement, MistakeTypeCategory
 
-from classdiagram import NamedElement, ClassDiagram
+from classdiagram import ClassDiagram, NamedElement
 
 from . import modelingassistant
 
-__all__ = ['int', 'boolean', 'Time', 'double', 'ModelingAssistant', 'Student', 'ProblemStatement', 'ProblemStatementElement', 'UmlElement', 'Solution', 'SolutionElement', 'LearningItem',
-           'StudentKnowledge', 'MistakeType', 'Mistake', 'Feedback', 'TextResponse', 'ParametrizedResponse', 'ResourceResponse', 'LearningResource', 'Reference', 'Tutorial', 'Example', 'Quiz', 'NamedElement']
+__all__ = ['int', 'boolean', 'Time', 'double', 'ModelingAssistant', 'Student', 'ProblemStatement', 'ProblemStatementElement', 'UmlElement', 'Solution', 'SolutionElement', 'LearningItem', 'StudentKnowledge',
+           'MistakeType', 'Mistake', 'Feedback', 'TextResponse', 'ParametrizedResponse', 'ResourceResponse', 'LearningResource', 'Reference', 'Tutorial', 'Example', 'Quiz', 'NamedElement', 'MistakeTypeCategory']
 
 eSubpackages = []
 eSuperPackage = None
@@ -27,6 +27,7 @@ ModelingAssistant.feedbacks.eType = Feedback
 ModelingAssistant.mistakes.eType = Mistake
 ModelingAssistant.mistakeTypes.eType = MistakeType
 ModelingAssistant.studentknowledge.eType = StudentKnowledge
+ModelingAssistant.mistaketypecategory.eType = MistakeTypeCategory
 Student.modelingAssistant.eType = ModelingAssistant
 Student.modelingAssistant.eOpposite = ModelingAssistant.students
 Student.mistakes.eType = Mistake
@@ -74,6 +75,7 @@ MistakeType.studentKnowledges.eType = StudentKnowledge
 MistakeType.studentKnowledges.eOpposite = StudentKnowledge.mistakeType
 MistakeType.mistakes.eType = Mistake
 MistakeType.feedbacks.eType = Feedback
+MistakeType.mistaketypecategory.eType = MistakeTypeCategory
 Mistake.modelingAssistant.eType = ModelingAssistant
 Mistake.modelingAssistant.eOpposite = ModelingAssistant.mistakes
 Mistake.mistakeStudent.eType = Student
@@ -98,6 +100,13 @@ LearningResource.learningItem.eType = LearningItem
 LearningResource.learningItem.eOpposite = LearningItem.learningResources
 LearningResource.resourceResponses.eType = ResourceResponse
 LearningResource.resourceResponses.eOpposite = ResourceResponse.learningResources
+MistakeTypeCategory.mistaketype.eType = MistakeType
+MistakeTypeCategory.mistaketype.eOpposite = MistakeType.mistaketypecategory
+MistakeTypeCategory.supercategory.eType = MistakeTypeCategory
+MistakeTypeCategory.subcategories.eType = MistakeTypeCategory
+MistakeTypeCategory.subcategories.eOpposite = MistakeTypeCategory.supercategory
+MistakeTypeCategory.modelingassistant.eType = ModelingAssistant
+MistakeTypeCategory.modelingassistant.eOpposite = ModelingAssistant.mistaketypecategory
 
 otherClassifiers = [int, boolean, Time, double]
 
