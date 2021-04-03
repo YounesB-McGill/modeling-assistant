@@ -39,18 +39,18 @@ Number,Maj,Min,Point,,,,Name,Corpus entry done
 27,,,2,,,|,Using a directed association instead of an undirected one or vice versa,N
 28,,,3,,,|,Using aggregation instead of composition or vice versa,N
 ,,5,,,L,,Wrong association name,
-29,,,1,,,|,Missing association name when one was expected,N
-30,,,2,,,|,Bad association name spelling,N
-31,,,3,,,|,Similar (yet incorrect) association name,N
+29,,,1,,,|,Missing association name when one was expected,Y
+30,,,2,,,|,Bad association name spelling,Y
+31,,,3,,,|,Similar (yet incorrect) association name,Y
 ,,6,,,L,,Wrong multiplicities,
 32,,,1,,,|,Infinite recursive dependency,Y
 33,,,2,,,|,Other wrong multiplicity,Y
 ,,7,,,L,,Wrong role names,
 34,,,1,,,|,Missing role names,Y
-35,,,2,,,|,Role names present but incorrect,N
+35,,,2,,,|,Role names present but incorrect,Y
 36,,,3,,,|,Role expected to be static but is not or vice versa,N
-37,,,4,,,|,Bad role name spelling,N
-38,,,5,,,|,Similar (yet incorrect) role name,N
+37,,,4,,,|,Bad role name spelling,Y
+38,,,5,,,|,Similar (yet incorrect) role name,Y
 ,,8,,,L,,Wrong association class,
 39,,,1,,,|,Missing association class,Y
 40,,,2,,,|,Extra (redundant) association class,Y
