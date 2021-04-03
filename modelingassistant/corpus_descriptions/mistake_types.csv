@@ -8,8 +8,8 @@ Number,Maj,Min,Point,,,,Name,Corpus entry done
 5,,,3,,,|,Bad class name spelling,Y
 6,,,4,,,|,Similar (yet incorrect) class name,Y
 ,,4,,,L,,Wrong enumeration,
-7,,,1,,,|,Regular class should be an enumeration or vice versa,N
-8,,,2,,,|,Wrong enumeration items,N
+7,,,1,,,|,Regular class should be an enumeration or vice versa,Y
+8,,,2,,,|,Wrong enumeration items,Y
 ,2,,,L,,,Wrong attribute,
 9,,1,,,|,,Missing attribute,Y
 ,,2,,,L,,Extra (redundant) attribute,
@@ -36,8 +36,8 @@ Number,Maj,Min,Point,,,,Name,Corpus entry done
 25,,,3,,,|,Other extra association,Y
 ,,4,,,L,,Using wrong relationship type,
 26,,,1,,,|,Using an association instead of an aggregation/composition or vice versa,Y
-27,,,2,,,|,Using a directed association instead of an undirected one or vice versa,N
-28,,,3,,,|,Using aggregation instead of composition or vice versa,N
+27,,,2,,,|,Using a directed association instead of an undirected one or vice versa,Y
+28,,,3,,,|,Using aggregation instead of composition or vice versa,Y
 ,,5,,,L,,Wrong association name,
 29,,,1,,,|,Missing association name when one was expected,Y
 30,,,2,,,|,Bad association name spelling,Y
