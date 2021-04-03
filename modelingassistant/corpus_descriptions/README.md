@@ -203,11 +203,47 @@ ${correctClassName}.
 
 #### Regular class should be an enumeration or vice versa
 
-TODO
+Level 1: Highlight class
+
+Level 2: Text response
+
+> Is there anything special about this class?
+
+Level 3: Parameterized response
+
+> The ${className} can only be one of ${correctEnumSize} options, so what is
+the best way to model this?
+
+> Is ${className} limited to the options shown in (an|this) enumeration?
+Can this be modeled differently?
+
+Level 4: Resource Response with link to Reference:
+
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 #### Wrong enumeration items
 
-TODO
+Level 1: Highlight enumeration class or items
+
+Level 2: Text response
+
+> Is there anything missing here?
+
+> Should this really be here?
+
+> Can this item be renamed?
+
+Level 3: Parameterized response
+
+> The ${enumName} enumeration is missing an item.
+
+> The ${enumName} enumeration has an extra item.
+
+> The ${wronglyNamedEnumItem} should be renamed[ to ${correctEnumItemName}].
+
+Level 4: Resource Response with link to Reference:
+
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 ___
 
@@ -642,11 +678,40 @@ better differentiate these relationships.
 
 #### Using a directed association instead of an undirected one or vice versa
 
-TODO
+Level 1: Highlight association
+
+Level 2: Text response
+
+> Is there anything special about this association?
+
+Level 3: Parameterized response
+
+> The association between ${classOne} and ${classTwo} should be [un]directed[ from ${classOne} to ${classTwo}].
+
+Level 4: Resource Response with link to Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 #### Using aggregation instead of composition or vice versa
 
-TODO
+Level 1: Highlight relationship
+
+Level 2: Text response
+
+> Is this the best relationship to use here?
+
+Level 3: Parameterized response
+
+> The (aggregation|composition) between ${containedClass} and ${containerClass}
+is better modeled using (composition|aggregation).
+
+Level 4: Resource Response with link to Reference:
+
+Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better differentiate these relationships.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
 
 ### Wrong association name
 
