@@ -3,7 +3,7 @@
 _**About this page:** This page is meant to be a human readable document
 that describes some of the content of the learning corpus. This material
 will be included in a more machine readable format later. The mistake 
-types are taken from our paper [Towards a Better Understanding of Interactions with a Domain Modeling Assistant](https://doi.org/10.1145/3417990.3418742). The timeline of the content can be found [here](mistake_types_timeline.csv)._ 
+types are taken from our paper [_Towards a Better Understanding of Interactions with a Domain Modeling Assistant_](https://doi.org/10.1145/3417990.3418742).
 
 ## Table of Contents
 
@@ -80,9 +80,7 @@ types are taken from our paper [Towards a Better Understanding of Interactions w
    1. [Misuse of Player-Role Pattern](#misuse-of-player-role-pattern)
    1. [Misuse of Abstraction-Occurrence](#misuse-of-abstraction-occurrence)
 
-
-_More to come..._
-
+___
 
 ## Wrong class
 
@@ -654,15 +652,58 @@ TODO
 
 #### Missing association name when one was expected
 
-TODO
+Level 1: Highlight association
+
+Level 2: Text response
+
+> Something is missing here.
+
+Level 3: Text Response
+
+> Can you give this association a name?
+
+Level 4: Parameterized Response
+
+> This association should be named ${associationName}.
+
+Level 5: Resource Response with link to Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) and
+[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 #### Bad association name spelling
 
-TODO
+Level 1: Highlight association name
+
+Level 2: Text response
+
+> Check your spelling here.
+
+Level 3: Parameterized Response
+
+> ${associationName} is misspelled. [Use the same spelling as the problem description.] 
+
+Level 4: Resource Response with link to Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) and
+[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 #### Similar association name
 
-TODO
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you double check this association name?
+
+Level 3: Parameterized Response
+
+> The ${similarYetIncorrectAssociationName} association has a name that is not quite right.
+
+Level 4: Parameterized Response
+
+> The ${similarYetIncorrectAssociationName} association should be changed to
+${correctAssociationName}.
 
 ### Wrong multiplicities
 
@@ -755,7 +796,20 @@ between the same two classes.
 
 #### Role names present but incorrect
 
-TODO
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you double check this role name?
+
+Level 3: Parameterized Response
+
+> The ${similarYetIncorrectRoleName} role name is incorrect.
+
+Level 4: Parameterized Response
+
+> The ${similarYetIncorrectRoleName} role name should be changed to
+${correctRoleName}.
 
 #### Role expected to be static but is not or vice versa
 
@@ -763,11 +817,37 @@ TODO
 
 #### Bad role name spelling
 
-TODO
+Level 1: Highlight role name
+
+Level 2: Text response
+
+> Check your spelling here.
+
+Level 3: Parameterized Response
+
+> ${roleName} is misspelled. [Use the same spelling as the problem description.] 
+
+Level 4: Resource Response with link to Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) and
+[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 #### Similar role name
 
-TODO
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you double check this role name?
+
+Level 3: Parameterized Response
+
+> The ${similarYetIncorrectRoleName} role name is not quite right.
+
+Level 4: Parameterized Response
+
+> The ${similarYetIncorrectRoleName} role name should be changed to
+${correctRoleName}.
 
 ### Wrong association class
 
