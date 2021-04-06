@@ -13,6 +13,8 @@ Export-Package: classdiagram.tests,
 Require-Bundle: org.eclipse.core.runtime,
  modelingassistant;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
- org.junit;visibility:=reexport
+ org.junit;visibility:=reexport,
+ org.junit,
+ org.junit.jupiter.api
 Bundle-ActivationPolicy: lazy
 Import-Package: ca.mcgill.sel.classdiagram.util
