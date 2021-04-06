@@ -4,7 +4,7 @@
 
 [template public generateElement(aModelingAssistant : ModelingAssistant)]
 [comment @main/]
-[file ('File.java', false, 'UTF-8')]
+[file ('MistakeDetection.java', false, 'UTF-8')]
 
 import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 
@@ -22,9 +22,8 @@ public class MistakeTypesTemplate {
   static {
     // Not included in actual mistake types file.
     disallowCallsToThisClassExceptFromTestClass();
-    
-    var modelingAssistant = loadModelingAssistant();
-	[for(mT : MistakeType | aModelingAssistant.mistakeTypes)]
+
+   	[for(mT : MistakeType | aModelingAssistant.mistakeTypes)]
 		MISTAKE_TYPES_BY_NAME.put([mT.name.replaceAll(' ','_')/], [mT/]));
 	[/for]
 	[for(mTC : MistakeTypeCategory | aModelingAssistant.mistaketypecategory)]
