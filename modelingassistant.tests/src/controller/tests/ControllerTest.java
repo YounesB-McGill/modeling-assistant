@@ -1,8 +1,8 @@
 package controller.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.util.CdmResourceFactoryImpl;
 import classdiagram.Attribute;
 import classdiagram.CDInt;
