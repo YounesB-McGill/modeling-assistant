@@ -1,9 +1,30 @@
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import modelingassistant.MistakeType;
+import modelingassistant.MistakeTypeCategory;
+import modelingassistant.ModelingAssistant;
+import modelingassistant.ModelingassistantPackage;
 import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 
 public class MistakeTypesTemplate {
   
   
+  /** The only class that can call this template. Not included in actual mistake types file. */
+  public static final String ALLOWED_CALLER = "MistakeTypeTemplateTests";
+
+
+  /** The path of the modeling assistant instance with mistake types. */
+  public static final String MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH =
+      "../modelingassistant.visualization.instances/MA1.modelingassistant";
+
+
   /** Map of mistake type categories by name. */
   public static final Map<String, MistakeTypeCategory> MISTAKE_TYPE_CATEGORIES_BY_NAME =
       new HashMap<String, MistakeTypeCategory>();
@@ -16,37 +37,13 @@ public class MistakeTypesTemplate {
     // Not included in actual mistake types file.
     disallowCallsToThisClassExceptFromTestClass();
 
-		MISTAKE_TYPES_BY_NAME.put(Missing_class, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@598a942b (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Extra_(redundant)_class, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@46ec57b8 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Using_plural_or_lowercase, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@6a5d2e1a (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Software_engineering_term, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@35280138 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Bad_class_name_spelling, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@388ee07a (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Similar_(yet_incorrect)_class_name, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@1c7b3144 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Regular_class_should_be_an_enumeration_or_vice_versa, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@1fd5e12f (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Wrong_enumeration_items, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@6a81122c (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Missing_attribute, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@25c3b236 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Plural_attribute_or_attribute_list, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@60f756db (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Other_extra_attribute, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@501b0f73 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Bad_attribute_name_spelling, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@32e9772e (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Similar_(yet_incorrect)_attribute_name, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@a832147 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Wrong_attribute_type, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@5098ef42 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Attribute_misplaced, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@58f012b5 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Attribute_duplicated_(eg,_in_a_subclass), org.eclipse.emf.ecore.impl.DynamicEObjectImpl@21d94e82 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Attribute_expected_to_be_static_but_is_not_or_vice_versa, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@3243dae7 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Using_an_attribute_instead_of_an_association, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@2536c112 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		MISTAKE_TYPES_BY_NAME.put(Mistake1, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@7d8b0abb (eClass: org.eclipse.emf.ecore.impl.EClassImpl@76610489 (name: MistakeType) (instanceClassName: null) (abstract: false, interface: false))));
-		 MISTAKE_TYPE_CATEGORIES_BY_NAME.put(Wrong_class, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@16cdf6d6 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@52f3d5a9 (name: MistakeTypeCategory) (instanceClassName: null) (abstract: false, interface: false))));
-		 MISTAKE_TYPE_CATEGORIES_BY_NAME.put(Wrong_enumeration, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@3a75920a (eClass: org.eclipse.emf.ecore.impl.EClassImpl@52f3d5a9 (name: MistakeTypeCategory) (instanceClassName: null) (abstract: false, interface: false))));
-		 MISTAKE_TYPE_CATEGORIES_BY_NAME.put(Wrong_class_name, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@2958ea07 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@52f3d5a9 (name: MistakeTypeCategory) (instanceClassName: null) (abstract: false, interface: false))));
-		 MISTAKE_TYPE_CATEGORIES_BY_NAME.put(Wrong_attribute, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@ca3f345 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@52f3d5a9 (name: MistakeTypeCategory) (instanceClassName: null) (abstract: false, interface: false))));
-		 MISTAKE_TYPE_CATEGORIES_BY_NAME.put(Extra_(redundant)_attribute, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@7521df41 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@52f3d5a9 (name: MistakeTypeCategory) (instanceClassName: null) (abstract: false, interface: false))));
-		 MISTAKE_TYPE_CATEGORIES_BY_NAME.put(Wrong_attribute_name, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@63d2f62d (eClass: org.eclipse.emf.ecore.impl.EClassImpl@52f3d5a9 (name: MistakeTypeCategory) (instanceClassName: null) (abstract: false, interface: false))));
-		 MISTAKE_TYPE_CATEGORIES_BY_NAME.put(Attribute_in_wrong_class, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@db42082 (eClass: org.eclipse.emf.ecore.impl.EClassImpl@52f3d5a9 (name: MistakeTypeCategory) (instanceClassName: null) (abstract: false, interface: false))));
-		 MISTAKE_TYPE_CATEGORIES_BY_NAME.put(Wrong_relationships, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@1e1ec3aa (eClass: org.eclipse.emf.ecore.impl.EClassImpl@52f3d5a9 (name: MistakeTypeCategory) (instanceClassName: null) (abstract: false, interface: false))));
-		 MISTAKE_TYPE_CATEGORIES_BY_NAME.put(Missing_relationship_of_any_type, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@65bedcff (eClass: org.eclipse.emf.ecore.impl.EClassImpl@52f3d5a9 (name: MistakeTypeCategory) (instanceClassName: null) (abstract: false, interface: false))));
-		 MISTAKE_TYPE_CATEGORIES_BY_NAME.put(MistakeCat1, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@11293dfb (eClass: org.eclipse.emf.ecore.impl.EClassImpl@52f3d5a9 (name: MistakeTypeCategory) (instanceClassName: null) (abstract: false, interface: false))));
-		 MISTAKE_TYPE_CATEGORIES_BY_NAME.put(Cat2, org.eclipse.emf.ecore.impl.DynamicEObjectImpl@3d35bf6c (eClass: org.eclipse.emf.ecore.impl.EClassImpl@52f3d5a9 (name: MistakeTypeCategory) (instanceClassName: null) (abstract: false, interface: false))));
-            
+    var modelingAssistant = loadModelingAssistant();
+    
+	modelingAssistant.getMistaketypecategory().forEach(mtc ->
+        MISTAKE_TYPE_CATEGORIES_BY_NAME.put(mtc.getName(), mtc));
+    
+	modelingAssistant.getMistakeTypes().forEach(mt ->
+        MISTAKE_TYPES_BY_NAME.put(mt.getName(), mt));       
   }
 
 
@@ -61,8 +58,6 @@ public class MistakeTypesTemplate {
 		 public static final MistakeTypeCategory Attribute_in_wrong_class  = MISTAKE_TYPE_CATEGORIES_BY_NAME.get("Attribute_in_wrong_class");
 		 public static final MistakeTypeCategory Wrong_relationships  = MISTAKE_TYPE_CATEGORIES_BY_NAME.get("Wrong_relationships");
 		 public static final MistakeTypeCategory Missing_relationship_of_any_type  = MISTAKE_TYPE_CATEGORIES_BY_NAME.get("Missing_relationship_of_any_type");
-		 public static final MistakeTypeCategory MistakeCat1  = MISTAKE_TYPE_CATEGORIES_BY_NAME.get("MistakeCat1");
-		 public static final MistakeTypeCategory Cat2  = MISTAKE_TYPE_CATEGORIES_BY_NAME.get("Cat2");
  
 
   // Mistake types
@@ -84,7 +79,6 @@ public class MistakeTypesTemplate {
 		public static final MistakeType Attribute_duplicated_(eg,_in_a_subclass) = MISTAKE_TYPES_BY_NAME.get("Attribute_duplicated_(eg,_in_a_subclass)");
 		public static final MistakeType Attribute_expected_to_be_static_but_is_not_or_vice_versa = MISTAKE_TYPES_BY_NAME.get("Attribute_expected_to_be_static_but_is_not_or_vice_versa");
 		public static final MistakeType Using_an_attribute_instead_of_an_association = MISTAKE_TYPES_BY_NAME.get("Using_an_attribute_instead_of_an_association");
-		public static final MistakeType Mistake1 = MISTAKE_TYPES_BY_NAME.get("Mistake1");
   
 
   /**
@@ -94,6 +88,7 @@ public class MistakeTypesTemplate {
     ModelingassistantPackage.eINSTANCE.eClass();
     final var path = MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH;
     var splitPath = path.split("\\.");
+	var fileExtension = splitPath[splitPath.length - 1];
     var rset = new ResourceSetImpl();
     rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileExtension,
         new ModelingassistantResourceFactoryImpl());
