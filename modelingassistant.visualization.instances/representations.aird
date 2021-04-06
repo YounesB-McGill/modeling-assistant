@@ -4,7 +4,7 @@
     <semanticResources>MA1.modelingassistant</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_pG4B4JH1EeumZcd623X5sA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_yLqms5H2EeumZcd623X5sA" name="Modeling Assistant diagram" repPath="#_yLqmsJH2EeumZcd623X5sA" changeId="82f440b3-19ab-436b-adf9-6d1dfd8548ce">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_yLqms5H2EeumZcd623X5sA" name="Modeling Assistant diagram" repPath="#_yLqmsJH2EeumZcd623X5sA" changeId="2598c259-0f95-41bd-b8e0-e109aa91852f">
         <description xmi:type="description_1:DiagramDescription" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']"/>
         <target xmi:type="modelingassistant:ModelingAssistant" href="MA1.modelingassistant#_Qu12IJHsEeukqv5DhMfmgQ"/>
       </ownedRepresentationDescriptors>
@@ -309,39 +309,6 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_hXD_EZIMEeumZcd623X5sA" fontName="Segoe UI" fontHeight="12"/>
           <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hXD_EpIMEeumZcd623X5sA" x="-348" y="1278" width="200" height="100"/>
-        </children>
-        <children xmi:type="notation:Node" xmi:id="_ep_GcJJcEeu6pL9HrEPQjw" type="2001" element="_epjooJJcEeu6pL9HrEPQjw">
-          <children xmi:type="notation:Node" xmi:id="_eqbLUJJcEeu6pL9HrEPQjw" type="5002">
-            <layoutConstraint xmi:type="notation:Location" xmi:id="_eqbLUZJcEeu6pL9HrEPQjw" y="5"/>
-          </children>
-          <children xmi:type="notation:Node" xmi:id="_eqfcwJJcEeu6pL9HrEPQjw" type="3003" element="_epk2wJJcEeu6pL9HrEPQjw">
-            <styles xmi:type="notation:ShapeStyle" xmi:id="_eqfcwZJcEeu6pL9HrEPQjw" fontName="Segoe UI"/>
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eqfcwpJcEeu6pL9HrEPQjw"/>
-          </children>
-          <styles xmi:type="notation:ShapeStyle" xmi:id="_ep_GcZJcEeu6pL9HrEPQjw" fontName="Segoe UI" fontHeight="12"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ep_GcpJcEeu6pL9HrEPQjw" x="924" y="1086" width="200" height="100"/>
-        </children>
-        <children xmi:type="notation:Node" xmi:id="_hRLyMJJcEeu6pL9HrEPQjw" type="2001" element="_hQ-W0JJcEeu6pL9HrEPQjw">
-          <children xmi:type="notation:Node" xmi:id="_hRNAUJJcEeu6pL9HrEPQjw" type="5002">
-            <layoutConstraint xmi:type="notation:Location" xmi:id="_hRNAUZJcEeu6pL9HrEPQjw" y="5"/>
-          </children>
-          <children xmi:type="notation:Node" xmi:id="_hRNnYJJcEeu6pL9HrEPQjw" type="3003" element="_hQ-W0ZJcEeu6pL9HrEPQjw">
-            <styles xmi:type="notation:ShapeStyle" xmi:id="_hRNnYZJcEeu6pL9HrEPQjw" fontName="Segoe UI"/>
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRNnYpJcEeu6pL9HrEPQjw"/>
-          </children>
-          <styles xmi:type="notation:ShapeStyle" xmi:id="_hRMZQJJcEeu6pL9HrEPQjw" fontName="Segoe UI" fontHeight="12"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRMZQZJcEeu6pL9HrEPQjw" x="480" y="1095" width="200" height="100"/>
-        </children>
-        <children xmi:type="notation:Node" xmi:id="_j4FjAJJcEeu6pL9HrEPQjw" type="2001" element="_j39nMJJcEeu6pL9HrEPQjw">
-          <children xmi:type="notation:Node" xmi:id="_j4GKEJJcEeu6pL9HrEPQjw" type="5002">
-            <layoutConstraint xmi:type="notation:Location" xmi:id="_j4GKEZJcEeu6pL9HrEPQjw" y="5"/>
-          </children>
-          <children xmi:type="notation:Node" xmi:id="_j4GxIJJcEeu6pL9HrEPQjw" type="3003" element="_j3-OQJJcEeu6pL9HrEPQjw">
-            <styles xmi:type="notation:ShapeStyle" xmi:id="_j4GxIZJcEeu6pL9HrEPQjw" fontName="Segoe UI"/>
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_j4GxIpJcEeu6pL9HrEPQjw"/>
-          </children>
-          <styles xmi:type="notation:ShapeStyle" xmi:id="_j4FjAZJcEeu6pL9HrEPQjw" fontName="Segoe UI" fontHeight="12"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_j4FjApJcEeu6pL9HrEPQjw" x="504" y="1344" width="200" height="100"/>
         </children>
         <styles xmi:type="notation:DiagramStyle" xmi:id="_yLrNwpH2EeumZcd623X5sA"/>
         <edges xmi:type="notation:Edge" xmi:id="_SQmi0JH3EeumZcd623X5sA" type="4001" element="_SPnrYJH3EeumZcd623X5sA" source="_yL0XspH2EeumZcd623X5sA" target="_yLwGQJH2EeumZcd623X5sA">
@@ -728,38 +695,6 @@
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_jZaRUJIMEeumZcd623X5sA" id="(0.21,1.0)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_jZaRUZIMEeumZcd623X5sA" id="(0.63,0.0)"/>
         </edges>
-        <edges xmi:type="notation:Edge" xmi:id="_jDNwgJJcEeu6pL9HrEPQjw" type="4001" element="_jDCKUJJcEeu6pL9HrEPQjw" source="_hRLyMJJcEeu6pL9HrEPQjw" target="_ep_GcJJcEeu6pL9HrEPQjw">
-          <children xmi:type="notation:Node" xmi:id="_jDQMwJJcEeu6pL9HrEPQjw" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_jDQMwZJcEeu6pL9HrEPQjw" x="-4" y="-11"/>
-          </children>
-          <children xmi:type="notation:Node" xmi:id="_jDSpAJJcEeu6pL9HrEPQjw" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_jDSpAZJcEeu6pL9HrEPQjw" x="2" y="9"/>
-          </children>
-          <children xmi:type="notation:Node" xmi:id="_jDT3IJJcEeu6pL9HrEPQjw" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_jDT3IZJcEeu6pL9HrEPQjw" x="3" y="8"/>
-          </children>
-          <styles xmi:type="notation:ConnectorStyle" xmi:id="_jDNwgZJcEeu6pL9HrEPQjw"/>
-          <styles xmi:type="notation:FontStyle" xmi:id="_jDNwgpJcEeu6pL9HrEPQjw" fontName="Segoe UI" fontHeight="12"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_jDNwg5JcEeu6pL9HrEPQjw" points="[0, 0, -244, 33]$[244, -33, 0, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_jDXhgJJcEeu6pL9HrEPQjw" id="(1.0,0.48)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_jDXhgZJcEeu6pL9HrEPQjw" id="(0.0,0.24)"/>
-        </edges>
-        <edges xmi:type="notation:Edge" xmi:id="_k3S9QJJcEeu6pL9HrEPQjw" type="4001" element="_k3JzaJJcEeu6pL9HrEPQjw" source="_hRLyMJJcEeu6pL9HrEPQjw" target="_j4FjAJJcEeu6pL9HrEPQjw">
-          <children xmi:type="notation:Node" xmi:id="_k3TkUJJcEeu6pL9HrEPQjw" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_k3TkUZJcEeu6pL9HrEPQjw" x="-9" y="-4"/>
-          </children>
-          <children xmi:type="notation:Node" xmi:id="_k3TkUpJcEeu6pL9HrEPQjw" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_k3TkU5JcEeu6pL9HrEPQjw" x="7" y="7"/>
-          </children>
-          <children xmi:type="notation:Node" xmi:id="_k3TkVJJcEeu6pL9HrEPQjw" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_k3TkVZJcEeu6pL9HrEPQjw" x="7" y="6"/>
-          </children>
-          <styles xmi:type="notation:ConnectorStyle" xmi:id="_k3S9QZJcEeu6pL9HrEPQjw"/>
-          <styles xmi:type="notation:FontStyle" xmi:id="_k3S9QpJcEeu6pL9HrEPQjw" fontName="Segoe UI" fontHeight="12"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_k3S9Q5JcEeu6pL9HrEPQjw" points="[0, 0, 10, -149]$[-10, 149, 0, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_k3TkVpJcEeu6pL9HrEPQjw" id="(0.57,1.0)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_k3TkV5JcEeu6pL9HrEPQjw" id="(0.4,0.0)"/>
-        </edges>
       </data>
     </ownedAnnotationEntries>
     <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_yLu4IpH2EeumZcd623X5sA" source="DANNOTATION_CUSTOMIZATION_KEY">
@@ -963,14 +898,6 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']/@defaultLayer/@nodeMappings[name='MistakeTypeNode']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNode" uid="_epjooJJcEeu6pL9HrEPQjw" name="Mistake1" incomingEdges="_jDCKUJJcEeu6pL9HrEPQjw" width="20" height="10" resizeKind="NSEW">
-      <target xmi:type="modelingassistant:MistakeType" href="MA1.modelingassistant#_epiagJJcEeu6pL9HrEPQjw"/>
-      <semanticElements xmi:type="modelingassistant:MistakeType" href="MA1.modelingassistant#_epiagJJcEeu6pL9HrEPQjw"/>
-      <ownedStyle xmi:type="diagram:Square" uid="_epk2wJJcEeu6pL9HrEPQjw" labelSize="12" labelPosition="node" width="20" height="10" color="204,242,166">
-        <description xmi:type="style:SquareDescription" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']/@defaultLayer/@nodeMappings[name='MistakeTypeNode']/@style"/>
-      </ownedStyle>
-      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']/@defaultLayer/@nodeMappings[name='MistakeTypeNode']"/>
-    </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_yLtqApH2EeumZcd623X5sA" name="Wrong class" outgoingEdges="_SPnrYJH3EeumZcd623X5sA _SPoScpH3EeumZcd623X5sA _x2HYEJH3EeumZcd623X5sA _x2H_EJH3EeumZcd623X5sA" width="20" height="10" resizeKind="NSEW">
       <target xmi:type="modelingassistant:MistakeTypeCategory" href="MA1.modelingassistant#_4xsRwJHxEeuzx4byvxA1iA"/>
       <semanticElements xmi:type="modelingassistant:MistakeTypeCategory" href="MA1.modelingassistant#_4xsRwJHxEeuzx4byvxA1iA"/>
@@ -1063,28 +990,6 @@
       <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
       <ownedStyle xmi:type="diagram:Square" uid="_a535MZIMEeumZcd623X5sA" labelSize="12" labelPosition="node" width="20" height="10" color="238,201,142">
-        <description xmi:type="style:SquareDescription" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']/@defaultLayer/@nodeMappings[name='MistakeTypeCategoryNode']/@style"/>
-      </ownedStyle>
-      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']/@defaultLayer/@nodeMappings[name='MistakeTypeCategoryNode']"/>
-    </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNode" uid="_hQ-W0JJcEeu6pL9HrEPQjw" name="MistakeCat1" outgoingEdges="_jDCKUJJcEeu6pL9HrEPQjw _k3JzaJJcEeu6pL9HrEPQjw" width="20" height="10" resizeKind="NSEW">
-      <target xmi:type="modelingassistant:MistakeTypeCategory" href="MA1.modelingassistant#_hQ9vwJJcEeu6pL9HrEPQjw"/>
-      <semanticElements xmi:type="modelingassistant:MistakeTypeCategory" href="MA1.modelingassistant#_hQ9vwJJcEeu6pL9HrEPQjw"/>
-      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
-      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
-      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-      <ownedStyle xmi:type="diagram:Square" uid="_hQ-W0ZJcEeu6pL9HrEPQjw" labelSize="12" labelPosition="node" width="20" height="10" color="238,201,142">
-        <description xmi:type="style:SquareDescription" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']/@defaultLayer/@nodeMappings[name='MistakeTypeCategoryNode']/@style"/>
-      </ownedStyle>
-      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']/@defaultLayer/@nodeMappings[name='MistakeTypeCategoryNode']"/>
-    </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNode" uid="_j39nMJJcEeu6pL9HrEPQjw" name="Cat2" incomingEdges="_k3JzaJJcEeu6pL9HrEPQjw" width="20" height="10" resizeKind="NSEW">
-      <target xmi:type="modelingassistant:MistakeTypeCategory" href="MA1.modelingassistant#_j39AIJJcEeu6pL9HrEPQjw"/>
-      <semanticElements xmi:type="modelingassistant:MistakeTypeCategory" href="MA1.modelingassistant#_j39AIJJcEeu6pL9HrEPQjw"/>
-      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
-      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
-      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-      <ownedStyle xmi:type="diagram:Square" uid="_j3-OQJJcEeu6pL9HrEPQjw" labelSize="12" labelPosition="node" width="20" height="10" color="238,201,142">
         <description xmi:type="style:SquareDescription" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']/@defaultLayer/@nodeMappings[name='MistakeTypeCategoryNode']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']/@defaultLayer/@nodeMappings[name='MistakeTypeCategoryNode']"/>
@@ -1280,22 +1185,6 @@
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_jZWnEpIMEeumZcd623X5sA" labelSize="12"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']/@defaultLayer/@edgeMappings[name='MistakeTypeCategoryEdge']"/>
-    </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_jDCKUJJcEeu6pL9HrEPQjw" sourceNode="_hQ-W0JJcEeu6pL9HrEPQjw" targetNode="_epjooJJcEeu6pL9HrEPQjw">
-      <target xmi:type="modelingassistant:MistakeTypeCategory" href="MA1.modelingassistant#_hQ9vwJJcEeu6pL9HrEPQjw"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_jDCxYJJcEeu6pL9HrEPQjw" size="2" strokeColor="77,137,20">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']/@defaultLayer/@edgeMappings[name='MistakeTypeCategoryEdge']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_jDCxYZJcEeu6pL9HrEPQjw" labelSize="12"/>
-      </ownedStyle>
-      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']/@defaultLayer/@edgeMappings[name='MistakeTypeCategoryEdge']"/>
-    </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_k3JzaJJcEeu6pL9HrEPQjw" sourceNode="_hQ-W0JJcEeu6pL9HrEPQjw" targetNode="_j39nMJJcEeu6pL9HrEPQjw">
-      <target xmi:type="modelingassistant:MistakeTypeCategory" href="MA1.modelingassistant#_hQ9vwJJcEeu6pL9HrEPQjw"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_k3KaYJJcEeu6pL9HrEPQjw" size="2" strokeColor="154,103,23">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']/@defaultLayer/@edgeMappings[name='MistakeCategoryCategoryEdge']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_k3KaYZJcEeu6pL9HrEPQjw" labelSize="12"/>
-      </ownedStyle>
-      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']/@defaultLayer/@edgeMappings[name='MistakeCategoryCategoryEdge']"/>
     </ownedDiagramElements>
     <description xmi:type="description_1:DiagramDescription" href="platform:/resource/modelingassistant.visualization.design/description/modelingassistant-specification.odesign#//@ownedViewpoints[name='modelingassistant']/@ownedRepresentations[name='Modeling%20Assistant%20diagram']"/>
     <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_yLqmsZH2EeumZcd623X5sA"/>

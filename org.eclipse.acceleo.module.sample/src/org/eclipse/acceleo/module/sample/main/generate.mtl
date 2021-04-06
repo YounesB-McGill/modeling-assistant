@@ -6,11 +6,32 @@
 [comment @main/]
 [file ('MistakeDetection.java', false, 'UTF-8')]
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import modelingassistant.MistakeType;
+import modelingassistant.MistakeTypeCategory;
+import modelingassistant.ModelingAssistant;
+import modelingassistant.ModelingassistantPackage;
 import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 
 public class MistakeTypesTemplate {
   
   
+  /** The only class that can call this template. Not included in actual mistake types file. */
+  public static final String ALLOWED_CALLER = "MistakeTypeTemplateTests";
+
+
+  /** The path of the modeling assistant instance with mistake types. */
+  public static final String MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH =
+      "../modelingassistant.visualization.instances/MA1.modelingassistant";
+
+
   /** Map of mistake type categories by name. */
   public static final Map<String, MistakeTypeCategory> MISTAKE_TYPE_CATEGORIES_BY_NAME =
       new HashMap<String, MistakeTypeCategory>();
@@ -23,26 +44,26 @@ public class MistakeTypesTemplate {
     // Not included in actual mistake types file.
     disallowCallsToThisClassExceptFromTestClass();
 
-   	[for(mT : MistakeType | aModelingAssistant.mistakeTypes)]
-		MISTAKE_TYPES_BY_NAME.put([mT.name.replaceAll(' ','_')/], [mT/]));
-	[/for]
-	[for(mTC : MistakeTypeCategory | aModelingAssistant.mistaketypecategory)]
-		 MISTAKE_TYPE_CATEGORIES_BY_NAME.put([mTC.name.replaceAll(' ','_')/], [mTC/]));
-	[/for]
-            
+    var modelingAssistant = loadModelingAssistant();
+    
+	modelingAssistant.getMistaketypecategory().forEach(mtc ->
+        MISTAKE_TYPE_CATEGORIES_BY_NAME.put(mtc.getName(), mtc));
+    
+	modelingAssistant.getMistakeTypes().forEach(mt ->
+        MISTAKE_TYPES_BY_NAME.put(mt.getName(), mt));       
   }
 
 
   // Mistake type categories
 
  	[for(mTC : MistakeTypeCategory | aModelingAssistant.mistaketypecategory)] 
-		 public static final MistakeTypeCategory [mTC.name.replaceAll(' ','_')/]  = MISTAKE_TYPE_CATEGORIES_BY_NAME.get("[mTC.name.replaceAll(' ','_')/]");
+		 public static final MistakeTypeCategory [mTC.name.replaceAll(' ()','_')/]  = MISTAKE_TYPE_CATEGORIES_BY_NAME.get("[mTC.name.replaceAll(' ','_')/]");
 	[/for]
  
 
   // Mistake types
 	[for(mT : MistakeType | aModelingAssistant.mistakeTypes)]
-		public static final MistakeType [mT.name.replaceAll(' ','_')/] = MISTAKE_TYPES_BY_NAME.get("[mT.name.replaceAll(' ','_')/]");
+		public static final MistakeType [mT.name.replaceAll(' ()','_')/] = MISTAKE_TYPES_BY_NAME.get("[mT.name.replaceAll(' ','_')/]");
 	[/for]
   
 
@@ -53,7 +74,7 @@ public class MistakeTypesTemplate {
     ModelingassistantPackage.eINSTANCE.eClass();
     final var path = MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH;
     var splitPath = path.split("\\.");
-[comment]    var fileExtension = splitPath[splitPath.length - 1];  TODO[/comment]
+	var fileExtension = splitPath[ '[' /]splitPath.length - 1[ ']' /];
     var rset = new ResourceSetImpl();
     rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileExtension,
         new ModelingassistantResourceFactoryImpl());
