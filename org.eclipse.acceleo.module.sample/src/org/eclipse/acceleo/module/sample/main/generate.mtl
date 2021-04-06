@@ -54,7 +54,7 @@ public class MistakeTypesTemplate {
     ModelingassistantPackage.eINSTANCE.eClass();
     final var path = MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH;
     var splitPath = path.split("\\.");
-[comment]    var fileExtension = splitPath[splitPath.length - 1];[/comment]
+[comment]    var fileExtension = splitPath[splitPath.length - 1];  TODO[/comment]
     var rset = new ResourceSetImpl();
     rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileExtension,
         new ModelingassistantResourceFactoryImpl());
