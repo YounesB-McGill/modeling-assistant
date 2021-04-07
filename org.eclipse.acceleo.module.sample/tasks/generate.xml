@@ -1,35 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="generate" name="org.eclipse.acceleo.module.sample">
-    <property name="ECLIPSE_HOME" value="C:/Users/Simran's PC/eclipse-modeling-2020-12-R-win32-x86_64/eclipse"/>
-    <property name="ECLIPSE_WORKSPACE" value="C:/Users/Simran's PC/eclipse-workspace-UML"/>
+    <property name="ECLIPSE_HOME" value="../../../../eclipse-modeling-tools/eclipse"/>
+    <property name="ECLIPSE_WORKSPACE" value="../../../../eclipse-modeling-ws"/>
 
     <!-- The classpath with only the dependencies used by the project -->
     <path id="org.eclipse.acceleo.module.sample.libraryclasspath">
         <pathelement location="${ECLIPSE_WORKSPACE}/org.eclipse.acceleo.module.sample/bin"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.runtime_3.20.0.v20201027-1526.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.osgi_3.16.100.v20201030-1916.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.fx.osgi_3.7.0.202010120720.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.osgi.compatibility.state_1.2.200.v20200915-2015.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.common_3.14.0.v20201102-2053.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.jobs_3.10.1000.v20200909-1312.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.registry_3.10.0.v20201107-1818.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.preferences_3.8.100.v20201102-2042.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.contenttype_3.7.800.v20200724-0804.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.app_1.5.0.v20200717-0620.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.ecore_2.23.0.v20200630-0516.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.common_2.21.0.v20200917-1439.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.ecore.xmi_2.16.0.v20190528-0725.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.ocl_3.15.100.v20201208-2229.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/lpg.runtime.java_2.0.17.v201004271640.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.ocl.common_1.8.500.v20201208-2229.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.ocl.ecore_3.15.100.v20201208-2229.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.acceleo.common_3.7.11.202102190929.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.acceleo.model_3.7.11.202102190929.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.acceleo.profiler_3.7.11.202102190929.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.acceleo.engine_3.7.11.202102190929.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.codegen.ecore_2.24.0.v20200917-1423.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.codegen_2.21.0.v20200708-0547.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.guava_27.1.0.v20190517-1946.jar"/>
     </path>
 
     <path id="org.eclipse.acceleo.module.sample.classpath">

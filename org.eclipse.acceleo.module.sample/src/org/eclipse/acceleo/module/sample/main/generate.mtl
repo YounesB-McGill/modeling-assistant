@@ -29,7 +29,6 @@ public class MistakeTypes {
   public static final String MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH =
       "../modelingassistant.visualization.instances/MA1.modelingassistant";
 
-
   /** Map of mistake type categories by name. */
   public static final Map<String, MistakeTypeCategory> MISTAKE_TYPE_CATEGORIES_BY_NAME =
       new HashMap<String, MistakeTypeCategory>();
@@ -37,6 +36,9 @@ public class MistakeTypes {
   /** Map of mistake types by name. */
   public static final Map<String, MistakeType> MISTAKE_TYPES_BY_NAME = new HashMap<String, MistakeType>();
 
+  // Short-name references to the above maps for greater code legibility
+  private static final Map<String, MistakeTypeCategory> MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME;
+  private static final Map<String, MistakeTypeCategory> MTS = MISTAKE_TYPES_BY_NAME;
 
   static {
     var modelingAssistant = loadModelingAssistant();
@@ -51,16 +53,23 @@ public class MistakeTypes {
 
   // Mistake type categories
 
- 	[for(mTC : MistakeTypeCategory | aModelingAssistant.mistaketypecategory)] 
-		 public static final MistakeTypeCategory [mTC.name.replaceAll(' ()','_')/]  = MISTAKE_TYPE_CATEGORIES_BY_NAME.get("[mTC.name.replaceAll(' ','_')/]");
-	[/for]
- 
+  [for(mTC : MistakeTypeCategory | aModelingAssistant.mistaketypecategory)]
+  /** The [mTC.name.toLower()/] mistake type category. */
+  public static final MistakeTypeCategory [
+    mTC.name.replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
+  /] = MTCS.get("[mTC.name/]");
+
+  [/for]
 
   // Mistake types
-	[for(mT : MistakeType | aModelingAssistant.mistakeTypes)]
-		public static final MistakeType [mT.name.replaceAll(' ()','_')/] = MISTAKE_TYPES_BY_NAME.get("[mT.name.replaceAll(' ','_')/]");
-	[/for]
-  
+
+  [for(mT : MistakeType | aModelingAssistant.mistakeTypes)]
+  /** The [mT.name.toLower()/] mistake type. */
+  public static final MistakeType [
+    mT.name.replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
+  /] = MTS.get("[mT.name/]");
+
+  [/for]
 
   /**
    * Loads the modeling assistant instance from MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH.
