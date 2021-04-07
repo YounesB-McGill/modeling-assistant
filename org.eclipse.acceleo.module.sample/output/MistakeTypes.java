@@ -36,10 +36,10 @@ public class MistakeTypes {
   static {
     var modelingAssistant = loadModelingAssistant();
     
-	modelingAssistant.getMistaketypecategory().forEach(mtc ->
+    modelingAssistant.getMistaketypecategory().forEach(mtc ->
         MISTAKE_TYPE_CATEGORIES_BY_NAME.put(mtc.getName(), mtc));
     
-	modelingAssistant.getMistakeTypes().forEach(mt ->
+    modelingAssistant.getMistakeTypes().forEach(mt ->
         MISTAKE_TYPES_BY_NAME.put(mt.getName(), mt));       
   }
 
@@ -71,7 +71,8 @@ public class MistakeTypes {
   public static final MistakeTypeCategory WRONG_RELATIONSHIPS = MTCS.get("Wrong relationships");
 
   /** The missing relationship of any type mistake type category. */
-  public static final MistakeTypeCategory MISSING_RELATIONSHIP_OF_ANY_TYPE = MTCS.get("Missing relationship of any type");
+  public static final MistakeTypeCategory MISSING_RELATIONSHIP_OF_ANY_TYPE =
+      MTCS.get("Missing relationship of any type");
 
 
   // Mistake types
@@ -95,7 +96,8 @@ public class MistakeTypes {
   public static final MistakeType SIMILAR_CLASS_NAME = MTS.get("Similar (yet incorrect) class name");
 
   /** The regular class should be an enumeration or vice versa mistake type. */
-  public static final MistakeType REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION_OR_VICE_VERSA = MTS.get("Regular class should be an enumeration or vice versa");
+  public static final MistakeType REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION_OR_VICE_VERSA =
+      MTS.get("Regular class should be an enumeration or vice versa");
 
   /** The wrong enumeration items mistake type. */
   public static final MistakeType WRONG_ENUMERATION_ITEMS = MTS.get("Wrong enumeration items");
@@ -125,10 +127,12 @@ public class MistakeTypes {
   public static final MistakeType ATTRIBUTE_DUPLICATED_ = MTS.get("Attribute duplicated (eg, in a subclass)");
 
   /** The attribute expected to be static but is not or vice versa mistake type. */
-  public static final MistakeType ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA = MTS.get("Attribute expected to be static but is not or vice versa");
+  public static final MistakeType ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA =
+      MTS.get("Attribute expected to be static but is not or vice versa");
 
   /** The using an attribute instead of an association mistake type. */
-  public static final MistakeType USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION = MTS.get("Using an attribute instead of an association");
+  public static final MistakeType USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION =
+      MTS.get("Using an attribute instead of an association");
 
 
   /**
@@ -138,7 +142,7 @@ public class MistakeTypes {
     ModelingassistantPackage.eINSTANCE.eClass();
     final var path = MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH;
     var splitPath = path.split("\\.");
-	var fileExtension = splitPath[splitPath.length - 1];
+    var fileExtension = splitPath[splitPath.length - 1];
     var rset = new ResourceSetImpl();
     rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileExtension,
         new ModelingassistantResourceFactoryImpl());
