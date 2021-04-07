@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.acceleo.engine.event.IAcceleoTextGenerationListener;
 import org.eclipse.acceleo.engine.generation.strategy.IAcceleoGenerationStrategy;
 import org.eclipse.acceleo.engine.service.AbstractAcceleoGenerator;
@@ -23,6 +22,7 @@ import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import modelingassistant.ModelingassistantPackage;
 
 /**
  * Entry point of the 'Generate' generation module.
@@ -335,7 +335,7 @@ public class Generate extends AbstractAcceleoGenerator {
      * 
      * @param resourceSet
      *            The resource set which registry has to be updated.
-     * @generated
+     * @generated NOT
      */
     @Override
     public void registerPackages(ResourceSet resourceSet) {
@@ -372,6 +372,7 @@ public class Generate extends AbstractAcceleoGenerator {
          * 
          * To learn more about Package Registration, have a look at the Acceleo documentation (Help -> Help Contents).
          */
+        resourceSet.getPackageRegistry().put(ModelingassistantPackage.eNS_URI, ModelingassistantPackage.eINSTANCE);
     }
 
     /**
