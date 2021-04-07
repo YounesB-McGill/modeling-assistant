@@ -117,4 +117,73 @@ public class MistakeTypes {
 
 }
 [/file]
+
+[file ('../../modelingassistant/pythonclient/mistaketypes.py', false, 'UTF-8')]
+"""
+This file contains all mistake types and categories.
+"""
+
+from modelingassistant.modelingassistant import ModelingAssistant, MistakeTypeCategory, MistakeType
+from pyecore.resources import ResourceSet, URI
+
+MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH = "modelingassistant.visualization.instances/MA1.modelingassistant"
+
+MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[ '[' /]str, MistakeTypeCategory[ ']' /] = {}
+MISTAKE_TYPES_BY_NAME: dict[ '[' /]str, MistakeType[ ']' /] = {}
+
+# Short-name references to the above maps for greater code legibility
+_MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
+_MTS = MISTAKE_TYPES_BY_NAME
+
+# Open Modeling Assistant metamodel and instance
+ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+rset = ResourceSet()
+resource = rset.get_resource(URI(ma_mm_file))
+ma_mm_root = resource.contents[ '[' /]0[ ']' /]
+rset.metamodel_registry[ '[' /]ma_mm_root.nsURI[ ']' /] = ma_mm_root
+resource = rset.get_resource(URI(MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH))
+modeling_assistant: ModelingAssistant = resource.contents[ '[' /]0[ ']' /]
+modeling_assistant.__class__ = ModelingAssistant
+
+# Populate dictionaries
+for mtc in modeling_assistant.mistaketypecategory: MISTAKE_TYPE_CATEGORIES_BY_NAME[ '[' /]mtc.name[ ']' /] = mtc
+for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[ ']' /] = mt
+
+# Mistake type categories
+[for(mTC : MistakeTypeCategory | aModelingAssistant.mistaketypecategory)]
+[let lhs : String = mTC.name.replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
+  + ': MistakeTypeCategory'
+]
+[let rhs : String = '_MTCS["' + mTC.name + '"]']
+[let mtcDecl : String = lhs + ' = ' + rhs]
+[if (mtcDecl.size() < 121)]
+[mtcDecl/]
+[/if]
+[if (mtcDecl.size() > 120)]
+[lhs + ' = \\\n    ' + rhs/]
+[/if]
+[/let] 
+[/let]
+[/let]
+[/for]
+
+# Mistake types
+[for(mT : MistakeType | aModelingAssistant.mistakeTypes)]
+[let lhs : String = mT.name.replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
+  + ': MistakeType'
+]
+[let rhs : String = '_MTS["' + mT.name + '"]']
+[let mtDecl : String = lhs + ' = ' + rhs]
+[if (mtDecl.size() < 121)]
+[mtDecl/]
+[/if]
+[if (mtDecl.size() > 120)]
+[lhs + ' = \\\n    ' + rhs/]
+[/if]
+[/let] 
+[/let]
+[/let]
+[/for]
+[/file]
+
 [/template]
