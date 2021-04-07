@@ -4,7 +4,7 @@
 
 [template public generateElement(aModelingAssistant : ModelingAssistant)]
 [comment @main/]
-[file ('MistakeDetection.java', false, 'UTF-8')]
+[file ('MistakeTypes.java', false, 'UTF-8')]
 
 import java.io.File;
 import java.io.IOException;
@@ -20,12 +20,10 @@ import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 
-public class MistakeTypesTemplate {
-  
-  
-  /** The only class that can call this template. Not included in actual mistake types file. */
-  public static final String ALLOWED_CALLER = "MistakeTypeTemplateTests";
-
+/**
+ * This class contains all mistake types and categories.
+ */
+public class MistakeTypes {
 
   /** The path of the modeling assistant instance with mistake types. */
   public static final String MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH =
@@ -41,9 +39,6 @@ public class MistakeTypesTemplate {
 
 
   static {
-    // Not included in actual mistake types file.
-    disallowCallsToThisClassExceptFromTestClass();
-
     var modelingAssistant = loadModelingAssistant();
     
 	modelingAssistant.getMistaketypecategory().forEach(mtc ->
@@ -85,17 +80,6 @@ public class MistakeTypesTemplate {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-  }
-
-
-  /**
-   * Disallows all use of this class, except by the MistakeTypeTemplateTests test class.
-   * Not included in actual mistake types file.
-   */
-  public static void disallowCallsToThisClassExceptFromTestClass() {
-    var stack = Thread.currentThread().getStackTrace();
-    Arrays.asList(stack).stream().filter(e -> e.getClassName().contains(ALLOWED_CALLER)).findFirst()
-        .orElseThrow(UnsupportedOperationException::new);
   }
 
 }
