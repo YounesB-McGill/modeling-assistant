@@ -1,6 +1,12 @@
 [comment encoding = UTF-8 /]
 [module generate('http://cs.mcgill.ca/sel/modelingassistant/1.0')]
 
+[comment TODO Change the package name when code is moved to new project /]
+[query public generate(arg0 : ModelingAssistant) : String
+  = invoke('org.eclipse.acceleo.module.sample.main.MarkdownGenerator',
+    'generate(modelingassistant.ModelingAssistant)',
+    Sequence{arg0})
+/]
 
 [template public generateElement(aModelingAssistant : ModelingAssistant)]
 [comment @main/]
@@ -58,8 +64,7 @@ public class MistakeTypes {
     mTC.name.replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
   ]
   [let rhs : String = 'MTCS.get("' + mTC.name + '");']
-  [let mtcDecl : String = lhs + ' = ' + rhs
-  ]
+  [let mtcDecl : String = lhs + ' = ' + rhs]
   /** The [mTC.name.toLower()/] mistake type category. */
   [if (mtcDecl.size() < 119)]
   [mtcDecl/]
@@ -186,4 +191,7 @@ for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[
 [/for]
 [/file]
 
+[file ('../../modelingassistant/corpus_descriptions/README_TOC.md', false, 'UTF-8')]
+[generate(aModelingAssistant)/]
+[/file]
 [/template]
