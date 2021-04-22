@@ -1,7 +1,8 @@
+Automatic-Model-Name: modelingassistant.dsl.transformation
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Acceleo Sample Module Runtime Plug-in
-Bundle-SymbolicName: org.eclipse.acceleo.module.sample
+Bundle-SymbolicName: modelingassistant.dsl.transformation
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.acceleo.module.sample.Activator
 Bundle-Vendor: Eclipse Modeling Project
@@ -27,3 +28,4 @@ Export-Package: org.eclipse.acceleo.module.sample.main;
    org.eclipse.emf.ecore.resource,
    org.eclipse.acceleo.engine.generation.strategy"
 Bundle-ClassPath: bin/
+Automatic-Module-Name: modelingassistant.dsl.transformation

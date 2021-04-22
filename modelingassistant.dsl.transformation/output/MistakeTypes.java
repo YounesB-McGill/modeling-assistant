@@ -74,6 +74,9 @@ public class MistakeTypes {
   public static final MistakeTypeCategory MISSING_RELATIONSHIP_OF_ANY_TYPE =
       MTCS.get("Missing relationship of any type");
 
+  /** The wrong generalization mistake type category. */
+  public static final MistakeTypeCategory WRONG_GENERALIZATION = MTCS.get("Wrong Generalization");
+
 
   // Mistake types
 
@@ -133,6 +136,12 @@ public class MistakeTypes {
   /** The using an attribute instead of an association mistake type. */
   public static final MistakeType USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION =
       MTS.get("Using an attribute instead of an association");
+
+  /** The missing generalization mistake type. */
+  public static final MistakeType MISSING_GENERALIZATION = MTS.get("Missing Generalization");
+
+  /** The does not follow isa rule mistake type. */
+  public static final MistakeType DOES_NOT_FOLLOW_ISA_RULE = MTS.get("Does not follow isA rule");
 
 
   /**
