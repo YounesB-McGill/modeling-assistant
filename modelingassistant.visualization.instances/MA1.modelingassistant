@@ -3,8 +3,8 @@
   <mistakeTypes xmi:id="_FALA0JHyEeuzx4byvxA1iA" name="Missing class" mistaketypecategory="_4xsRwJHxEeuzx4byvxA1iA"/>
   <mistakeTypes xmi:id="_KXsfIJHyEeuzx4byvxA1iA" name="Extra (redundant) class" mistaketypecategory="_4xsRwJHxEeuzx4byvxA1iA"/>
   <mistakeTypes xmi:id="_Vt3GIJHyEeuzx4byvxA1iA" name="Using plural or lowercase" mistaketypecategory="_RVLOoJHyEeuzx4byvxA1iA"/>
-  <mistakeTypes xmi:id="_aQwpkJHyEeuzx4byvxA1iA" name="Software engineering term" mistaketypecategory="_RVLOoJHyEeuzx4byvxA1iA"/>
-  <mistakeTypes xmi:id="_eSuqMJHyEeuzx4byvxA1iA" name="Bad class name spelling" mistaketypecategory="_RVLOoJHyEeuzx4byvxA1iA"/>
+  <mistakeTypes xmi:id="_aQwpkJHyEeuzx4byvxA1iA" name="Software engineering term" atomic="true" mistaketypecategory="_RVLOoJHyEeuzx4byvxA1iA"/>
+  <mistakeTypes xmi:id="_eSuqMJHyEeuzx4byvxA1iA" name="Bad class name spelling" atomic="true" mistaketypecategory="_RVLOoJHyEeuzx4byvxA1iA"/>
   <mistakeTypes xmi:id="_gGNaAJHyEeuzx4byvxA1iA" name="Similar (yet incorrect) class name" mistaketypecategory="_RVLOoJHyEeuzx4byvxA1iA"/>
   <mistakeTypes xmi:id="_OUYPwJH1EeumZcd623X5sA" name="Regular class should be an enumeration or vice versa" mistaketypecategory="_jwUUQJHyEeuzx4byvxA1iA"/>
   <mistakeTypes xmi:id="_RwTkEJH1EeumZcd623X5sA" name="Wrong enumeration items" mistaketypecategory="_jwUUQJHyEeuzx4byvxA1iA"/>
