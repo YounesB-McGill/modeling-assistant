@@ -1,11 +1,23 @@
 [comment encoding = UTF-8 /]
 [module generate('http://cs.mcgill.ca/sel/modelingassistant/1.0')]
 
-[query public generate(arg0 : ModelingAssistant) : String
+[**
+ * Generates Markdown table-of-contents from input modeling assistant via MarkdownGenerator, implemented in Java.
+ */]
+[query public generateMarkdown(aModelingAssistant : ModelingAssistant) : String
   = invoke('org.eclipse.acceleo.module.sample.main.MarkdownGenerator',
     'generate(modelingassistant.ModelingAssistant)',
-    Sequence{arg0})
+    Sequence{aModelingAssistant})
 /]
+
+[**
+ * Underscorifies and capitalizes the given input string, omitting any information in parentheses.
+ * Example: "Extra (redundant) class" > "EXTRA_CLASS"
+ */]
+[query public underscorify(s : String) : String
+  = s.replaceAll('/', '_').replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
+/]
+
 
 [template public generateElement(aModelingAssistant : ModelingAssistant)]
 [comment @main/]
@@ -60,7 +72,7 @@ public class MistakeTypes {
 
   [for(mTC : MistakeTypeCategory | aModelingAssistant.mistaketypecategory)]
   [let lhs : String = 'public static final MistakeTypeCategory ' +
-    mTC.name.replaceAll('/', '_').replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
+    underscorify(mTC.name)
   ]
   [let rhs : String = 'MTCS.get("' + mTC.name + '");']
   [let mtcDecl : String = lhs + ' = ' + rhs]
@@ -81,7 +93,7 @@ public class MistakeTypes {
 
   [for(mT : MistakeType | aModelingAssistant.mistakeTypes)]
   [let lhs : String = 'public static final MistakeType ' +
-    mT.name.replaceAll('/', '_').replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
+    underscorify(mT.name)
   ]
   [let rhs : String = 'MTS.get("' + mT.name + '");']
   [let mtDecl : String = lhs + ' = ' + rhs
@@ -155,7 +167,7 @@ for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[
 
 # Mistake type categories
 [for(mTC : MistakeTypeCategory | aModelingAssistant.mistaketypecategory)]
-[let lhs : String = mTC.name.replaceAll('/', '_').replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
+[let lhs : String = underscorify(mTC.name)
   + ': MistakeTypeCategory'
 ]
 [let rhs : String = '_MTCS["' + mTC.name + '"]']
@@ -173,7 +185,7 @@ for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[
 
 # Mistake types
 [for(mT : MistakeType | aModelingAssistant.mistakeTypes)]
-[let lhs : String = mT.name.replaceAll('/', '_').replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
+[let lhs : String = underscorify(mT.name)
   + ': MistakeType'
 ]
 [let rhs : String = '_MTS["' + mT.name + '"]']
@@ -191,6 +203,6 @@ for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[
 [/file]
 
 [file ('../../modelingassistant/corpus_descriptions/README_TOC.md', false, 'UTF-8')]
-[generate(aModelingAssistant)/]
+[generateMarkdown(aModelingAssistant)/]
 [/file]
 [/template]
