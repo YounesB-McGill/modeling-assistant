@@ -1,7 +1,7 @@
+package modelingassistant.mistaketypes;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +31,7 @@ public class MistakeTypes {
 
   // Short-name references to the above maps for greater code legibility
   private static final Map<String, MistakeTypeCategory> MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME;
-  private static final Map<String, MistakeTypeCategory> MTS = MISTAKE_TYPES_BY_NAME;
+  private static final Map<String, MistakeType> MTS = MISTAKE_TYPES_BY_NAME;
 
   static {
     var modelingAssistant = loadModelingAssistant();
@@ -74,8 +74,14 @@ public class MistakeTypes {
   public static final MistakeTypeCategory MISSING_RELATIONSHIP_OF_ANY_TYPE =
       MTCS.get("Missing relationship of any type");
 
-  /** The wrong generalization mistake type category. */
-  public static final MistakeTypeCategory WRONG_GENERALIZATION = MTCS.get("Wrong Generalization");
+  /** The extra (redundant) association mistake type category. */
+  public static final MistakeTypeCategory EXTRA_ASSOCIATION = MTCS.get("Extra (redundant) association");
+
+  /** The using wrong relationship type mistake type category. */
+  public static final MistakeTypeCategory USING_WRONG_RELATIONSHIP_TYPE = MTCS.get("Using wrong relationship type");
+
+  /** The wrong association name mistake type category. */
+  public static final MistakeTypeCategory WRONG_ASSOCIATION_NAME = MTCS.get("Wrong association name");
 
 
   // Mistake types
@@ -137,11 +143,50 @@ public class MistakeTypes {
   public static final MistakeType USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION =
       MTS.get("Using an attribute instead of an association");
 
-  /** The missing generalization mistake type. */
-  public static final MistakeType MISSING_GENERALIZATION = MTS.get("Missing Generalization");
+  /** The missing composition mistake type. */
+  public static final MistakeType MISSING_COMPOSITION = MTS.get("Missing composition");
 
-  /** The does not follow isa rule mistake type. */
-  public static final MistakeType DOES_NOT_FOLLOW_ISA_RULE = MTS.get("Does not follow isA rule");
+  /** The missing aggregation mistake type. */
+  public static final MistakeType MISSING_AGGREGATION = MTS.get("Missing aggregation");
+
+  /** The missing association mistake type. */
+  public static final MistakeType MISSING_ASSOCIATION = MTS.get("Missing association");
+
+  /** The incomplete containment tree mistake type. */
+  public static final MistakeType INCOMPLETE_CONTAINMENT_TREE = MTS.get("Incomplete containment tree");
+
+  /** The representing an action with an association mistake type. */
+  public static final MistakeType REPRESENTING_AN_ACTION_WITH_AN_ASSOCIATION =
+      MTS.get("Representing an action with an association");
+
+  /** The composed part contained in more than one parent mistake type. */
+  public static final MistakeType COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT =
+      MTS.get("Composed part contained in more than one parent");
+
+  /** The other extra association mistake type. */
+  public static final MistakeType OTHER_EXTRA_ASSOCIATION = MTS.get("Other extra association");
+
+  /** The using an association instead of an aggregation/composition or vice versa mistake type. */
+  public static final MistakeType USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION_OR_VICE_VERSA =
+      MTS.get("Using an association instead of an aggregation/composition or vice versa");
+
+  /** The using a directed association instead of an undirected one or vice versa mistake type. */
+  public static final MistakeType USING_A_DIRECTED_ASSOCIATION_INSTEAD_OF_AN_UNDIRECTED_ONE_OR_VICE_VERSA =
+      MTS.get("Using a directed association instead of an undirected one or vice versa");
+
+  /** The using aggregation instead of composition or vice versa mistake type. */
+  public static final MistakeType USING_AGGREGATION_INSTEAD_OF_COMPOSITION_OR_VICE_VERSA =
+      MTS.get("Using aggregation instead of composition or vice versa");
+
+  /** The missing association name when one was expected mistake type. */
+  public static final MistakeType MISSING_ASSOCIATION_NAME_WHEN_ONE_WAS_EXPECTED =
+      MTS.get("Missing association name when one was expected");
+
+  /** The bad association name spelling mistake type. */
+  public static final MistakeType BAD_ASSOCIATION_NAME_SPELLING = MTS.get("Bad association name spelling");
+
+  /** The similar (yet incorrect) association name mistake type. */
+  public static final MistakeType SIMILAR_ASSOCIATION_NAME = MTS.get("Similar (yet incorrect) association name");
 
 
   /**

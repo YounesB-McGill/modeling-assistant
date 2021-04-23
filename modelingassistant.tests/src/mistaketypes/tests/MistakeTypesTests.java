@@ -1,11 +1,12 @@
-package mistaketypetemplate.tests;
+package mistaketypes.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import modelingassistant.ModelingassistantFactory;
+import modelingassistant.mistaketypes.MistakeTypes;
 
-public class MistakeTypeTemplateTests {
+public class MistakeTypesTests {
   
   public static final ModelingassistantFactory MAF = ModelingassistantFactory.eINSTANCE;
   
@@ -20,11 +21,11 @@ public class MistakeTypeTemplateTests {
     expectedMissingClassMistakeType.setName(missingClassMistakeTypeName);
     expectedMissingClassMistakeType.setAtomic(false);
     expectedMissingClassMistakeType.setMistaketypecategory(expectedWrongClassMistakeTypeCategory);
-    expectedMissingClassMistakeType.setNumStepsBeforeNotification(3); // TODO
+    expectedMissingClassMistakeType.setNumStepsBeforeNotification(3); // Should be in Sirius
     expectedMissingClassMistakeType.setTimeToAddress(null);
     
-    var actualWrongClassMistakeTypeCategory = MistakeTypesTemplate.WRONG_CLASS;
-    var actualMissingClassMistakeType = MistakeTypesTemplate.MISSING_CLASS;
+    var actualWrongClassMistakeTypeCategory = MistakeTypes.WRONG_CLASS;
+    var actualMissingClassMistakeType = MistakeTypes.MISSING_CLASS;
     
     assertEquals(expectedWrongClassMistakeTypeCategory.getName(), actualWrongClassMistakeTypeCategory.getName());
     

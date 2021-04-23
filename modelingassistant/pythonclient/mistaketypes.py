@@ -38,6 +38,9 @@ WRONG_ATTRIBUTE_NAME: MistakeTypeCategory = _MTCS["Wrong attribute name"]
 ATTRIBUTE_IN_WRONG_CLASS: MistakeTypeCategory = _MTCS["Attribute in wrong class"]
 WRONG_RELATIONSHIPS: MistakeTypeCategory = _MTCS["Wrong relationships"]
 MISSING_RELATIONSHIP_OF_ANY_TYPE: MistakeTypeCategory = _MTCS["Missing relationship of any type"]
+EXTRA_ASSOCIATION: MistakeTypeCategory = _MTCS["Extra (redundant) association"]
+USING_WRONG_RELATIONSHIP_TYPE: MistakeTypeCategory = _MTCS["Using wrong relationship type"]
+WRONG_ASSOCIATION_NAME: MistakeTypeCategory = _MTCS["Wrong association name"]
 
 # Mistake types
 MISSING_CLASS: MistakeType = _MTS["Missing class"]
@@ -60,3 +63,19 @@ ATTRIBUTE_DUPLICATED_: MistakeType = _MTS["Attribute duplicated (eg, in a subcla
 ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA: MistakeType = \
     _MTS["Attribute expected to be static but is not or vice versa"]
 USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION: MistakeType = _MTS["Using an attribute instead of an association"]
+MISSING_COMPOSITION: MistakeType = _MTS["Missing composition"]
+MISSING_AGGREGATION: MistakeType = _MTS["Missing aggregation"]
+MISSING_ASSOCIATION: MistakeType = _MTS["Missing association"]
+INCOMPLETE_CONTAINMENT_TREE: MistakeType = _MTS["Incomplete containment tree"]
+REPRESENTING_AN_ACTION_WITH_AN_ASSOCIATION: MistakeType = _MTS["Representing an action with an association"]
+COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT: MistakeType = _MTS["Composed part contained in more than one parent"]
+OTHER_EXTRA_ASSOCIATION: MistakeType = _MTS["Other extra association"]
+USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION_OR_VICE_VERSA: MistakeType = \
+    _MTS["Using an association instead of an aggregation/composition or vice versa"]
+USING_A_DIRECTED_ASSOCIATION_INSTEAD_OF_AN_UNDIRECTED_ONE_OR_VICE_VERSA: MistakeType = \
+    _MTS["Using a directed association instead of an undirected one or vice versa"]
+USING_AGGREGATION_INSTEAD_OF_COMPOSITION_OR_VICE_VERSA: MistakeType = \
+    _MTS["Using aggregation instead of composition or vice versa"]
+MISSING_ASSOCIATION_NAME_WHEN_ONE_WAS_EXPECTED: MistakeType = _MTS["Missing association name when one was expected"]
+BAD_ASSOCIATION_NAME_SPELLING: MistakeType = _MTS["Bad association name spelling"]
+SIMILAR_ASSOCIATION_NAME: MistakeType = _MTS["Similar (yet incorrect) association name"]

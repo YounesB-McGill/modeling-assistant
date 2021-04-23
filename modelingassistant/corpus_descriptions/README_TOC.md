@@ -27,6 +27,22 @@
 1. [Wrong relationships](#wrong-relationships)
    1. [Missing relationship of any type](#missing-relationship-of-any-type)
       1. [Using an attribute instead of an association](#using-an-attribute-instead-of-an-association)
+      1. [Missing composition](#missing-composition)
+      1. [Missing aggregation](#missing-aggregation)
+      1. [Missing association](#missing-association)
+   1. [Extra (redundant) association](#extra-redundant-association)
+      1. [Representing an action with an association](#representing-an-action-with-an-association)
+      1. [Composed part contained in more than one parent](#composed-part-contained-in-more-than-one-parent)
+      1. [Other extra association](#other-extra-association)
+   1. [Using wrong relationship type](#using-wrong-relationship-type)
+      1. [Using an association instead of an aggregation/composition or vice versa](#using-an-association-instead-of-an-aggregation/composition-or-vice-versa)
+      1. [Using a directed association instead of an undirected one or vice versa](#using-a-directed-association-instead-of-an-undirected-one-or-vice-versa)
+      1. [Using aggregation instead of composition or vice versa](#using-aggregation-instead-of-composition-or-vice-versa)
+   1. [Wrong association name](#wrong-association-name)
+      1. [Missing association name when one was expected](#missing-association-name-when-one-was-expected)
+      1. [Bad association name spelling](#bad-association-name-spelling)
+      1. [Similar (yet incorrect) association name](#similar--association-name)
+   1. [Incomplete containment tree](#incomplete-containment-tree)
 
 ## Wrong class
 
@@ -96,5 +112,49 @@
 ### Missing relationship of any type
 
 #### Using an attribute instead of an association
+
+
+#### Missing composition
+
+
+#### Missing aggregation
+
+
+#### Missing association
+
+
+### Extra redundant association
+
+#### Representing an action with an association
+
+
+#### Composed part contained in more than one parent
+
+
+#### Other extra association
+
+
+### Using wrong relationship type
+
+#### Using an association instead of an aggregation/composition or vice versa
+
+
+#### Using a directed association instead of an undirected one or vice versa
+
+
+#### Using aggregation instead of composition or vice versa
+
+
+### Wrong association name
+
+#### Missing association name when one was expected
+
+
+#### Bad association name spelling
+
+
+#### Similar  association name
+
+### Incomplete containment tree
 
 
