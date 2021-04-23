@@ -7,7 +7,7 @@
       1. [Role names present but incorrect](#role-names-present-but-incorrect)
       1. [Role expected to be static but is not or vice versa](#role-expected-to-be-static-but-is-not-or-vice-versa)
       1. [Bad role name spelling](#bad-role-name-spelling)
-      1. [Similar (yet incorrect) role name](#similar--role-name)
+      1. [Similar (yet incorrect) role name](#similar-role-name)
 
 ## Wrong relationships
 
