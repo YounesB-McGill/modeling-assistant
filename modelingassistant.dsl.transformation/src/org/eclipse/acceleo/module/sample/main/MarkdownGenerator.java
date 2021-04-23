@@ -43,11 +43,11 @@ public class MarkdownGenerator {
   }
   
   private static String dashify(String s) {
-    return clean(s).replace(" ", "-").toLowerCase();
+    return clean(s).replace(" ", "-").replace("/", "-").replace("--", "-").toLowerCase();
   }
   
   private static String clean(String s) {
-    return s.replace("(", "").replace(")", "").replace("yet incorrect", "");
+    return s.replace("(", "").replace(")", "").replace(",", "").replace("yet incorrect", "");
   }
 
 }

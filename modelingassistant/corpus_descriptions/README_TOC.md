@@ -6,7 +6,7 @@
       1. [Using plural or lowercase](#using-plural-or-lowercase)
       1. [Software engineering term](#software-engineering-term)
       1. [Bad class name spelling](#bad-class-name-spelling)
-      1. [Similar (yet incorrect) class name](#similar--class-name)
+      1. [Similar (yet incorrect) class name](#similar-class-name)
    1. [Missing class](#missing-class)
    1. [Extra (redundant) class](#extra-redundant-class)
 
@@ -16,9 +16,9 @@
       1. [Plural attribute or attribute list](#plural-attribute-or-attribute-list)
    1. [Wrong attribute name](#wrong-attribute-name)
       1. [Bad attribute name spelling](#bad-attribute-name-spelling)
-      1. [Similar (yet incorrect) attribute name](#similar--attribute-name)
+      1. [Similar (yet incorrect) attribute name](#similar-attribute-name)
    1. [Attribute in wrong class](#attribute-in-wrong-class)
-      1. [Attribute duplicated (eg, in a subclass)](#attribute-duplicated-eg,-in-a-subclass)
+      1. [Attribute duplicated (eg, in a subclass)](#attribute-duplicated-eg-in-a-subclass)
       1. [Attribute misplaced](#attribute-misplaced)
    1. [Missing attribute](#missing-attribute)
    1. [Wrong attribute type](#wrong-attribute-type)
@@ -35,13 +35,13 @@
       1. [Composed part contained in more than one parent](#composed-part-contained-in-more-than-one-parent)
       1. [Other extra association](#other-extra-association)
    1. [Using wrong relationship type](#using-wrong-relationship-type)
-      1. [Using an association instead of an aggregation/composition or vice versa](#using-an-association-instead-of-an-aggregation/composition-or-vice-versa)
+      1. [Using an association instead of an aggregation/composition or vice versa](#using-an-association-instead-of-an-aggregation-composition-or-vice-versa)
       1. [Using a directed association instead of an undirected one or vice versa](#using-a-directed-association-instead-of-an-undirected-one-or-vice-versa)
       1. [Using aggregation instead of composition or vice versa](#using-aggregation-instead-of-composition-or-vice-versa)
    1. [Wrong association name](#wrong-association-name)
       1. [Missing association name when one was expected](#missing-association-name-when-one-was-expected)
       1. [Bad association name spelling](#bad-association-name-spelling)
-      1. [Similar (yet incorrect) association name](#similar--association-name)
+      1. [Similar (yet incorrect) association name](#similar-association-name)
    1. [Incomplete containment tree](#incomplete-containment-tree)
 
 ## Wrong class
@@ -93,7 +93,7 @@
 
 ### Attribute in wrong class
 
-#### Attribute duplicated eg, in a subclass
+#### Attribute duplicated eg in a subclass
 
 
 #### Attribute misplaced
