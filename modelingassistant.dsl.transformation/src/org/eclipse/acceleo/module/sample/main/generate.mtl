@@ -1,7 +1,6 @@
 [comment encoding = UTF-8 /]
 [module generate('http://cs.mcgill.ca/sel/modelingassistant/1.0')]
 
-[comment TODO Change the package name when code is moved to new project /]
 [query public generate(arg0 : ModelingAssistant) : String
   = invoke('org.eclipse.acceleo.module.sample.main.MarkdownGenerator',
     'generate(modelingassistant.ModelingAssistant)',
@@ -61,7 +60,7 @@ public class MistakeTypes {
 
   [for(mTC : MistakeTypeCategory | aModelingAssistant.mistaketypecategory)]
   [let lhs : String = 'public static final MistakeTypeCategory ' +
-    mTC.name.replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
+    mTC.name.replaceAll('/', '_').replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
   ]
   [let rhs : String = 'MTCS.get("' + mTC.name + '");']
   [let mtcDecl : String = lhs + ' = ' + rhs]
@@ -82,7 +81,7 @@ public class MistakeTypes {
 
   [for(mT : MistakeType | aModelingAssistant.mistakeTypes)]
   [let lhs : String = 'public static final MistakeType ' +
-    mT.name.replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
+    mT.name.replaceAll('/', '_').replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
   ]
   [let rhs : String = 'MTS.get("' + mT.name + '");']
   [let mtDecl : String = lhs + ' = ' + rhs
@@ -156,7 +155,7 @@ for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[
 
 # Mistake type categories
 [for(mTC : MistakeTypeCategory | aModelingAssistant.mistaketypecategory)]
-[let lhs : String = mTC.name.replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
+[let lhs : String = mTC.name.replaceAll('/', '_').replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
   + ': MistakeTypeCategory'
 ]
 [let rhs : String = '_MTCS["' + mTC.name + '"]']
@@ -174,7 +173,7 @@ for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[
 
 # Mistake types
 [for(mT : MistakeType | aModelingAssistant.mistakeTypes)]
-[let lhs : String = mT.name.replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
+[let lhs : String = mT.name.replaceAll('/', '_').replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
   + ': MistakeType'
 ]
 [let rhs : String = '_MTS["' + mT.name + '"]']

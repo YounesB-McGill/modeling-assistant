@@ -15,6 +15,6 @@
     <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_CLASSPATH_ONLY_JAR" value="false"/>
     <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.eclipse.acceleo.module.sample.main.Generate"/>
     <stringAttribute key="org.eclipse.jdt.launching.MODULE_NAME" value="org.eclipse.acceleo.module.sample"/>
-    <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="&quot;/media/Storage/McGill/MastersThesis/ModelingAssistant/modeling-assistant/modelingassistant.visualization.instances/MA1.modelingassistant&quot; &quot;/media/Storage/McGill/MastersThesis/ModelingAssistant/modeling-assistant/org.eclipse.acceleo.module.sample/output&quot;"/>
-    <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.eclipse.acceleo.module.sample"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="&quot;${workspace_loc:modelingassistant.visualization.instances/MA1.modelingassistant}&quot; &quot;${workspace_loc:modelingassistant.dsl.transformation/output}&quot;"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="modelingassistant.dsl.transformation"/>
 </launchConfiguration>
