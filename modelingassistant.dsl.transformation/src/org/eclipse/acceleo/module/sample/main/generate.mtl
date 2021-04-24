@@ -1,0 +1,208 @@
+[comment encoding = UTF-8 /]
+[module generate('http://cs.mcgill.ca/sel/modelingassistant/1.0')]
+
+[**
+ * Generates Markdown table-of-contents from input modeling assistant via MarkdownGenerator, implemented in Java.
+ */]
+[query public generateMarkdown(aModelingAssistant : ModelingAssistant) : String
+  = invoke('org.eclipse.acceleo.module.sample.main.MarkdownGenerator',
+    'generate(modelingassistant.ModelingAssistant)',
+    Sequence{aModelingAssistant})
+/]
+
+[**
+ * Underscorifies and capitalizes the given input string, omitting any information in parentheses.
+ * Example: "Extra (redundant) class" > "EXTRA_CLASS"
+ */]
+[query public underscorify(s : String) : String
+  = s.replaceAll('/', '_').replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
+/]
+
+
+[template public generateElement(aModelingAssistant : ModelingAssistant)]
+[comment @main/]
+[file ('../../modelingassistant/src/modelingassistant/mistaketypes/MistakeTypes.java', false, 'UTF-8')]
+package modelingassistant.mistaketypes;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import modelingassistant.MistakeType;
+import modelingassistant.MistakeTypeCategory;
+import modelingassistant.ModelingAssistant;
+import modelingassistant.ModelingassistantPackage;
+import modelingassistant.util.ModelingassistantResourceFactoryImpl;
+
+/**
+ * This class contains all mistake types and categories.
+ */
+public class MistakeTypes {
+
+  /** The path of the modeling assistant instance with mistake types. */
+  public static final String MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH =
+      "../modelingassistant.visualization.instances/MA1.modelingassistant";
+
+  /** Map of mistake type categories by name. */
+  public static final Map<String, MistakeTypeCategory> MISTAKE_TYPE_CATEGORIES_BY_NAME =
+      new HashMap<String, MistakeTypeCategory>();
+
+  /** Map of mistake types by name. */
+  public static final Map<String, MistakeType> MISTAKE_TYPES_BY_NAME = new HashMap<String, MistakeType>();
+
+  // Short-name references to the above maps for greater code legibility
+  private static final Map<String, MistakeTypeCategory> MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME;
+  private static final Map<String, MistakeType> MTS = MISTAKE_TYPES_BY_NAME;
+
+  static {
+    var modelingAssistant = loadModelingAssistant();
+    
+    modelingAssistant.getMistaketypecategory().forEach(mtc ->
+        MISTAKE_TYPE_CATEGORIES_BY_NAME.put(mtc.getName(), mtc));
+    
+    modelingAssistant.getMistakeTypes().forEach(mt ->
+        MISTAKE_TYPES_BY_NAME.put(mt.getName(), mt));       
+  }
+
+
+  // Mistake type categories
+
+  [for(mTC : MistakeTypeCategory | aModelingAssistant.mistaketypecategory)]
+  [let lhs : String = 'public static final MistakeTypeCategory ' +
+    underscorify(mTC.name)
+  ]
+  [let rhs : String = 'MTCS.get("' + mTC.name + '");']
+  [let mtcDecl : String = lhs + ' = ' + rhs]
+  /** The [mTC.name.toLower()/] mistake type category. */
+  [if (mtcDecl.size() < 119)]
+  [mtcDecl/]
+  [/if]
+  [if (mtcDecl.size() > 118)]
+  [lhs + ' =\n      ' + rhs/]
+  [/if]
+
+  [/let] 
+  [/let]
+  [/let]
+  [/for]
+
+  // Mistake types
+
+  [for(mT : MistakeType | aModelingAssistant.mistakeTypes)]
+  [let lhs : String = 'public static final MistakeType ' +
+    underscorify(mT.name)
+  ]
+  [let rhs : String = 'MTS.get("' + mT.name + '");']
+  [let mtDecl : String = lhs + ' = ' + rhs
+  ]
+  /** The [mT.name.toLower()/] mistake type. */
+  [if (mtDecl.size() < 119)]
+  [mtDecl/]
+  [/if]
+  [if (mtDecl.size() > 118)]
+  [lhs + ' =\n      ' + rhs/]
+  [/if]
+
+  [/let] 
+  [/let]
+  [/let]
+  [/for]
+
+  /**
+   * Loads the modeling assistant instance from MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH.
+   */
+  public static ModelingAssistant loadModelingAssistant() {
+    ModelingassistantPackage.eINSTANCE.eClass();
+    final var path = MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH;
+    var splitPath = path.split("\\.");
+    var fileExtension = splitPath[ '[' /]splitPath.length - 1[ ']' /];
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileExtension,
+        new ModelingassistantResourceFactoryImpl());
+    try {
+      var maResource = rset.createResource(URI.createFileURI(new File(path).getCanonicalPath()));
+      maResource.load(Collections.EMPTY_MAP);
+      return (ModelingAssistant) maResource.getContents().get(0);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+}
+[/file]
+
+[file ('../../modelingassistant/pythonclient/mistaketypes.py', false, 'UTF-8')]
+"""
+This file contains all mistake types and categories.
+"""
+
+from modelingassistant.modelingassistant import ModelingAssistant, MistakeTypeCategory, MistakeType
+from pyecore.resources import ResourceSet, URI
+
+MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH = "modelingassistant.visualization.instances/MA1.modelingassistant"
+
+MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[ '[' /]str, MistakeTypeCategory[ ']' /] = {}
+MISTAKE_TYPES_BY_NAME: dict[ '[' /]str, MistakeType[ ']' /] = {}
+
+# Short-name references to the above maps for greater code legibility
+_MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
+_MTS = MISTAKE_TYPES_BY_NAME
+
+# Open Modeling Assistant metamodel and instance
+ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+rset = ResourceSet()
+resource = rset.get_resource(URI(ma_mm_file))
+ma_mm_root = resource.contents[ '[' /]0[ ']' /]
+rset.metamodel_registry[ '[' /]ma_mm_root.nsURI[ ']' /] = ma_mm_root
+resource = rset.get_resource(URI(MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH))
+modeling_assistant: ModelingAssistant = resource.contents[ '[' /]0[ ']' /]
+modeling_assistant.__class__ = ModelingAssistant
+
+# Populate dictionaries
+for mtc in modeling_assistant.mistaketypecategory: MISTAKE_TYPE_CATEGORIES_BY_NAME[ '[' /]mtc.name[ ']' /] = mtc
+for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[ ']' /] = mt
+
+# Mistake type categories
+[for(mTC : MistakeTypeCategory | aModelingAssistant.mistaketypecategory)]
+[let lhs : String = underscorify(mTC.name)
+  + ': MistakeTypeCategory'
+]
+[let rhs : String = '_MTCS["' + mTC.name + '"]']
+[let mtcDecl : String = lhs + ' = ' + rhs]
+[if (mtcDecl.size() < 121)]
+[mtcDecl/]
+[/if]
+[if (mtcDecl.size() > 120)]
+[lhs + ' = \\\n    ' + rhs/]
+[/if]
+[/let] 
+[/let]
+[/let]
+[/for]
+
+# Mistake types
+[for(mT : MistakeType | aModelingAssistant.mistakeTypes)]
+[let lhs : String = underscorify(mT.name)
+  + ': MistakeType'
+]
+[let rhs : String = '_MTS["' + mT.name + '"]']
+[let mtDecl : String = lhs + ' = ' + rhs]
+[if (mtDecl.size() < 121)]
+[mtDecl/]
+[/if]
+[if (mtDecl.size() > 120)]
+[lhs + ' = \\\n    ' + rhs/]
+[/if]
+[/let] 
+[/let]
+[/let]
+[/for]
+[/file]
+
+[file ('../../modelingassistant/corpus_descriptions/README_TOC.md', false, 'UTF-8')]
+[generateMarkdown(aModelingAssistant)/]
+[/file]
+[/template]

@@ -13,6 +13,7 @@ Export-Package: classdiagram,
  classdiagram.util,
  modelingassistant,
  modelingassistant.impl,
+ modelingassistant.mistaketypes,
  modelingassistant.util
 Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.emf.ecore;visibility:=reexport,

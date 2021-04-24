@@ -18,6 +18,7 @@ types are taken from our paper [_Towards a Better Understanding of Interactions 
    1. [Wrong enumeration](#wrong-enumeration)
       1. [Regular class should be an enumeration or vice versa](#regular-class-should-be-an-enumeration-or-vice-versa)
       1. [Wrong enumeration items](#wrong-enumeration-items)
+      1. [Missing enumeration item](#missing-enumeration-item)
 
 1. [Wrong attribute](#wrong-attribute)
    1. [Missing attribute](#missing-attribute)
@@ -70,7 +71,7 @@ types are taken from our paper [_Towards a Better Understanding of Interactions 
       1. [Missing generalization](#missing-generalization)
       1. [Inapplicable generalization](#inapplicable-generalization)
       1. [Subclass not distinct across lifetime](#subclass-not-distinct-across-lifetime)
-      1. [Inherited feature does not make sense for subclass](#Inherited-feature-does-not-make-sense-for-subclass)
+      1. [Inherited feature does not make sense for subclass](#inherited-feature-does-not-make-sense-for-subclass)
       1. [Subclass is an instance of superclass](#subclass-is-an-instance-of-superclass)
       1. [Non-differentiated subclass](#non-differentiated-subclass)
       1. [Wrong generalization direction](#wrong-generalization-direction)
