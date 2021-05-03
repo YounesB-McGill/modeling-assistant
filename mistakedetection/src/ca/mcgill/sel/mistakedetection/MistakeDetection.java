@@ -112,7 +112,7 @@ public class MistakeDetection {
     // checkMistakeWrongAttribute();
     // checkMistakeAttributeMisplaced();
     // checkMistakeIncompleteContainmentTree(studentClassifiers);
-
+      
 
   }
 
@@ -317,6 +317,7 @@ public class MistakeDetection {
      * @return
      */
     public static boolean checkCorrectTest(Classifier instructorClassifier, Classifier studentClassifier) {
+    clearAttributesAndClassifer();
     boolean flag = false;
     EList<Attribute> iAttributes = instructorClassifier.getAttributes();
     EList<Attribute> sAttributes = studentClassifier.getAttributes();
@@ -379,7 +380,7 @@ public class MistakeDetection {
         count = 1;
       }
     }
-   
+    
     return flag;
   }
     
