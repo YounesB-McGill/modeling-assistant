@@ -27,8 +27,18 @@ public class MistakeDetection {
   static HashMap<String, Boolean> nounPluralStatus = new HashMap<String, Boolean>();
 
   static EList<Mistake> mistakes;
+  
+  /**
+   *   It maps an instructor solution classifier to student solution classifier
+   */
   public static HashMap<Classifier, Classifier> mappedClassifier = new HashMap<Classifier, Classifier>();
+  /**
+   *   It maps an instructor solution classifier attribute to student solution classifier attribute
+   */
   public static HashMap<Attribute, Attribute> mappedAttribute = new HashMap<Attribute, Attribute>();
+  /**
+  *   It maps an instructor solution classifier relation to student solution classifier relation
+  */
   public static HashMap<Association, Association> mappedRelation = new HashMap<Association, Association>();
 
   public static EList<Classifier> notMappedInstructorClassifier =  new BasicEList<Classifier>() ;
@@ -36,7 +46,7 @@ public class MistakeDetection {
 
   public static EList<Attribute> notMappedInstructorAttribute =  new BasicEList<Attribute>();
   public static EList<Attribute> extraStudentAttribute =  new BasicEList<Attribute>();
-  public static EList<Attribute> dulpicateStudentAttribute =  new BasicEList<Attribute>();
+  public static EList<Attribute> dulplicateStudentAttribute =  new BasicEList<Attribute>();
   // EList<Attribute> wrongStudentAttribute = new EList<Attribute>; // Commented temporarly
 
   public static EList<Association> notMappedInstructorRelation;
@@ -113,20 +123,20 @@ public class MistakeDetection {
    * @return
    */
   public static boolean checkCorrect(Classifier instructorClassifier, Classifier studentClassifier) {
-    boolean flag = false;
+    boolean isMapped = false;
     EList<Attribute> iAttributes = instructorClassifier.getAttributes();
     EList<Attribute> sAttributes = studentClassifier.getAttributes();
     // System.out.println("Function called with i="+ instructorClassifier.getName() +" s=" +studentClassifier.getName()); //FOR DEBUGGING
    
     float lDistance = levenshteinDistance(studentClassifier.getName(), instructorClassifier.getName());
     if (lDistance <= 2) {
-      flag = true;
+      isMapped = true;
       mappedClassifier.put(instructorClassifier, studentClassifier);
       notMappedInstructorClassifier.remove(instructorClassifier);
       extraStudentClassifier.remove(studentClassifier);
     }
     
-     if (flag == true) { // Map attributes if classifiers map.
+     if (isMapped == true) { // Map attributes if classifiers map.
      
       for (Attribute iAttribute : iAttributes) { // To check association -> Not at present.
      //   System.out.println("Instructor "+ iAttribute +" " +instructorClassifier.getName());//FOR DEBUGGING
@@ -135,7 +145,7 @@ public class MistakeDetection {
          
           lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
           if (lDistance <= 2 && mappedAttribute.get(iAttribute)==sAttribute) {
-            dulpicateStudentAttribute.add(sAttribute);
+            dulplicateStudentAttribute.add(sAttribute);
             extraStudentAttribute.remove(sAttribute);
           } else if (lDistance <=2) {
            // System.out.println("Mapped");
@@ -149,7 +159,7 @@ public class MistakeDetection {
       }
     }
    
-    return flag;
+    return isMapped;
   }
 
   public static void notMatchedMapping() {
@@ -356,7 +366,7 @@ public class MistakeDetection {
 
           lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
           if (lDistance <= 2 && mappedAttribute.containsValue(sAttribute)) {
-            dulpicateStudentAttribute.add(sAttribute);
+            dulplicateStudentAttribute.add(sAttribute);
             extraStudentAttribute.remove(sAttribute);
           } else if (lDistance <=2) {
             mappedAttribute.put(iAttribute, sAttribute);
@@ -380,7 +390,7 @@ public class MistakeDetection {
       mappedAttribute.clear();
       extraStudentAttribute.clear();
       notMappedInstructorAttribute.clear();
-      dulpicateStudentAttribute.clear();
+      dulplicateStudentAttribute.clear();
       
     }
 }
