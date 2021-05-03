@@ -430,7 +430,7 @@ public class MistakeDetectionTest {
   
   assertEquals(MistakeDetection.notMappedInstructorAttribute.size(), 0);
   assertEquals(MistakeDetection.extraStudentAttribute.size(), 0);
-  assertEquals(MistakeDetection.dulpicateStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.dulplicateStudentAttribute.size(), 0);
   assertEquals(MistakeDetection.mappedAttribute.size(), 4);
   
  
@@ -472,7 +472,7 @@ public class MistakeDetectionTest {
   
   assertEquals(MistakeDetection.notMappedInstructorAttribute.size(), 2);
   assertEquals(MistakeDetection.extraStudentAttribute.size(), 0);
-  assertEquals(MistakeDetection.dulpicateStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.dulplicateStudentAttribute.size(), 0);
   assertEquals(MistakeDetection.mappedAttribute.size(), 2);
   Attribute a =MistakeDetection.notMappedInstructorAttribute.get(1);
   EList<Classifier>  c=solution.getClassDiagram().getClasses();
@@ -521,7 +521,7 @@ public class MistakeDetectionTest {
   
   assertEquals(MistakeDetection.notMappedInstructorAttribute.size(), 4);
   assertEquals(MistakeDetection.extraStudentAttribute.size(), 0);
-  assertEquals(MistakeDetection.dulpicateStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.dulplicateStudentAttribute.size(), 0);
   assertEquals(MistakeDetection.mappedAttribute.size(), 0);
   
   clearAttributesAndClassifer();
@@ -558,7 +558,7 @@ public class MistakeDetectionTest {
   
   assertEquals(MistakeDetection.notMappedInstructorAttribute.size(), 2);
   assertEquals(MistakeDetection.extraStudentAttribute.size(), 0);
-  assertEquals(MistakeDetection.dulpicateStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.dulplicateStudentAttribute.size(), 0);
   assertEquals(MistakeDetection.mappedAttribute.size(), 2);
   
   clearAttributesAndClassifer();
@@ -594,7 +594,7 @@ public class MistakeDetectionTest {
   
   assertEquals(MistakeDetection.notMappedInstructorAttribute.size(), 0);
   assertEquals(MistakeDetection.extraStudentAttribute.size(), 1);
-  assertEquals(MistakeDetection.dulpicateStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.dulplicateStudentAttribute.size(), 0);
   assertEquals(MistakeDetection.mappedAttribute.size(), 4);
   
   
@@ -632,7 +632,7 @@ public class MistakeDetectionTest {
   
   assertEquals(MistakeDetection.notMappedInstructorAttribute.size(), 0);
   assertEquals(MistakeDetection.extraStudentAttribute.size(), 0);
-  assertEquals(MistakeDetection.dulpicateStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.dulplicateStudentAttribute.size(), 0);
   assertEquals(MistakeDetection.mappedAttribute.size(), 4);
   
  
@@ -670,7 +670,7 @@ public class MistakeDetectionTest {
   
   assertEquals(MistakeDetection.notMappedInstructorAttribute.size(), 0);
   assertEquals(MistakeDetection.extraStudentAttribute.size(), 0);
-  assertEquals(MistakeDetection.dulpicateStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.dulplicateStudentAttribute.size(), 0);
   assertEquals(MistakeDetection.mappedAttribute.size(), 4);
   
  // log();
@@ -708,7 +708,7 @@ public class MistakeDetectionTest {
   
   assertEquals(MistakeDetection.notMappedInstructorAttribute.size(), 0);
   assertEquals(MistakeDetection.extraStudentAttribute.size(), 0);
-  assertEquals(MistakeDetection.dulpicateStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.dulplicateStudentAttribute.size(), 0);
   assertEquals(MistakeDetection.mappedAttribute.size(), 4);
   
  
@@ -744,8 +744,8 @@ public class MistakeDetectionTest {
      System.out.print(c.getName()+" ");
    }
    System.out.println();
-   System.out.print("Dulpicate Attribute : ");
-   for(Attribute c: MistakeDetection.dulpicateStudentAttribute) {
+   System.out.print("dulplicate Attribute : ");
+   for(Attribute c: MistakeDetection.dulplicateStudentAttribute) {
      System.out.print(c.getName()+" ");
    }
    System.out.println();
@@ -764,7 +764,7 @@ public class MistakeDetectionTest {
    MistakeDetection.mappedAttribute.clear();
    MistakeDetection.extraStudentAttribute.clear();
    MistakeDetection.notMappedInstructorAttribute.clear();
-   MistakeDetection.dulpicateStudentAttribute.clear();
+   MistakeDetection.dulplicateStudentAttribute.clear();
    
  }
 }
