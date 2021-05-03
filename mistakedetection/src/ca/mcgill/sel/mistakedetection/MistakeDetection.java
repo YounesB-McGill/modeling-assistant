@@ -46,6 +46,7 @@ public class MistakeDetection {
 
 
   public static void compare(Solution instructor, Solution student) {
+    clearAttributesAndClassifer();
     EList<Classifier> instructorClassifiers = instructor.getClassDiagram().getClasses();
     EList<Classifier> studentClassifiers = student.getClassDiagram().getClasses();
 
@@ -371,4 +372,15 @@ public class MistakeDetection {
    
     return flag;
   }
+    
+    public static void clearAttributesAndClassifer() {
+      mappedClassifier.clear();
+      extraStudentClassifier.clear();
+      notMappedInstructorClassifier.clear();
+      mappedAttribute.clear();
+      extraStudentAttribute.clear();
+      notMappedInstructorAttribute.clear();
+      dulpicateStudentAttribute.clear();
+      
+    }
 }

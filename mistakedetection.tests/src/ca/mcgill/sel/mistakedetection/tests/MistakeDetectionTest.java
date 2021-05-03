@@ -51,7 +51,9 @@ public class MistakeDetectionTest {
      class2= "Cer";
     assertEquals(1, MistakeDetection.levenshteinDistance(class1, class2));
   }
-  
+  /**
+   * Test to check if all the classes exist in Instructor solution are loaded in cdmFile
+   * */
   @Test public void CheckInstructorSolution() {
     ClassdiagramPackage.eINSTANCE.eClass();
     var cdmFile =
@@ -82,7 +84,9 @@ public class MistakeDetectionTest {
 
     List.of(busClass, driverClass).forEach(c -> assertTrue(solution.getClassDiagram().getClasses().contains(c)));
   }
-
+  /**
+   * Test to check if all the classes exist in Student solution are loaded in cdmFile
+   * */
   @Test
   public void CheckStudentSolution1() {
     ClassdiagramPackage.eINSTANCE.eClass();
@@ -113,7 +117,9 @@ public class MistakeDetectionTest {
 
     List.of(busClass, driverClass).forEach(c -> assertTrue(solution.getClassDiagram().getClasses().contains(c)));
   }
-
+/**
+ * Test to check for plural class names in student solution
+ */
   @Test public void CheckStudentSolution_1_PluralClassName() {
     ClassdiagramPackage.eINSTANCE.eClass();
     var cdmFile = "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution-a.domain_model.cdm";
@@ -135,12 +141,17 @@ public class MistakeDetectionTest {
       assertEquals(MistakeDetection.isPlural(c.getName()), false);
     }
   }
-
+/**
+ * Test to check if isLowerName working correctly.
+ */
   @Test public void checkLowerCase() {
     assertTrue(MistakeDetection.isLowerName("class1"));
     assertFalse(MistakeDetection.isLowerName("Class1"));
   }
-  
+  /**
+   * Test to check mapping function(checkCorrect) that will be called with .compare. For testing checkCorrectTest is created and called.
+   * It has same functionality as checkCorrect. This test check is bus class maps to bus class.
+   */
   @Test public void checkCorrectTest() {
     
     ClassdiagramPackage.eINSTANCE.eClass();
@@ -153,25 +164,33 @@ public class MistakeDetectionTest {
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
     
-    assertTrue(MistakeDetection.checkCorrectTest(solution.getClassDiagram().getClasses().get(0), solution.getClassDiagram().getClasses().get(0)));
+    Classifier StudentBusClass = solution.getClassDiagram().getClasses().get(0);
+    Classifier StudentDriverClass = solution.getClassDiagram().getClasses().get(1);
+   
+    
+    assertTrue(MistakeDetection.checkCorrectTest(StudentBusClass, StudentBusClass));
    
     assertEquals(MistakeDetection.notMappedInstructorClassifier.size(), 0);
     assertEquals(MistakeDetection.extraStudentClassifier.size(), 0);
     assertEquals(MistakeDetection.mappedClassifier.size(),1);
+    assertEquals(MistakeDetection.mappedClassifier.get(StudentBusClass),StudentBusClass);
+       
+   
+    clearClassifier();
     
-    System.out.println("--");
-    
-    MistakeDetection.mappedClassifier.clear();
-    MistakeDetection.extraStudentClassifier.clear();
-    MistakeDetection.notMappedInstructorClassifier.clear();
-    
-    assertFalse(MistakeDetection.checkCorrectTest(solution.getClassDiagram().getClasses().get(0), solution.getClassDiagram().getClasses().get(1)));
+    assertFalse(MistakeDetection.checkCorrectTest(StudentBusClass,StudentDriverClass ));
     assertEquals(MistakeDetection.notMappedInstructorClassifier.size(), 1);
     assertEquals(MistakeDetection.extraStudentClassifier.size(), 1);
     assertEquals(MistakeDetection.mappedClassifier.size(), 0);
+    assertEquals(MistakeDetection.notMappedInstructorClassifier.get(0),StudentBusClass);
+    assertEquals(MistakeDetection.extraStudentClassifier.get(0),StudentDriverClass);
+   
     
     clearClassifier();
   }
+  /**
+   * Test for checking mapping between instructor classifier(Bus, Driver) and Student classifier(Bus, Driver)
+   */
 @Test public void checkCorrectTestWithSolution1() {
     
     ClassdiagramPackage.eINSTANCE.eClass();
@@ -194,17 +213,40 @@ public class MistakeDetectionTest {
     solution1.setModelingAssistant(modelingAssistant1);
     solution1.setClassDiagram(classDiagram1);
     
-    assertTrue(MistakeDetection.checkCorrectTest(solution.getClassDiagram().getClasses().get(0), solution1.getClassDiagram().getClasses().get(0)));
+    Classifier InstructorBusClass = null;
+    Classifier InstructorDriverClass = null;
+
+    for (var c : classDiagram.getClasses()) {
+      if ("Bus".equals(c.getName()))
+        InstructorBusClass = c;
+      else if ("Driver".equals(c.getName()))
+        InstructorDriverClass = c;
+    }
+    
+    Classifier StudentBusClass = null;
+    Classifier StudentDriverClass = null;
+
+    for (var c : classDiagram1.getClasses()) {
+      if ("Bus".equals(c.getName()))
+        StudentBusClass = c;
+      else if ("Driver".equals(c.getName()))
+        StudentDriverClass = c;
+    }
+    assertTrue(MistakeDetection.checkCorrectTest(InstructorBusClass, StudentBusClass));
        
-    assertTrue(MistakeDetection.checkCorrectTest(solution.getClassDiagram().getClasses().get(1), solution1.getClassDiagram().getClasses().get(1)));
+    assertTrue(MistakeDetection.checkCorrectTest(InstructorDriverClass, StudentDriverClass));
     
     assertEquals(MistakeDetection.notMappedInstructorClassifier.size(), 0);
     assertEquals(MistakeDetection.extraStudentClassifier.size(), 0);
     assertEquals(MistakeDetection.mappedClassifier.size(), 2);
+    assertEquals(MistakeDetection.mappedClassifier.get(InstructorBusClass),StudentBusClass);
+    assertEquals(MistakeDetection.mappedClassifier.get(InstructorDriverClass),StudentDriverClass);
     
     clearClassifier();
   }
-
+/**
+ * Test for checking mapping between instructor classifier(Bus, Driver) and Student classifier(Buses, Drivers)
+ */
 @Test public void checkCorrectTestWithSolution2() {
   
   ClassdiagramPackage.eINSTANCE.eClass();
@@ -227,16 +269,41 @@ public class MistakeDetectionTest {
   solution1.setModelingAssistant(modelingAssistant1);
   solution1.setClassDiagram(classDiagram1);
   
-  assertTrue(MistakeDetection.checkCorrectTest(solution.getClassDiagram().getClasses().get(0), solution1.getClassDiagram().getClasses().get(0)));
+  Classifier InstructorBusClass = null;
+  Classifier InstructorDriverClass = null;
+
+  for (var c : classDiagram.getClasses()) {
+    if ("Bus".equals(c.getName()))
+      InstructorBusClass = c;
+    else if ("Driver".equals(c.getName()))
+      InstructorDriverClass = c;
+  }
+  
+  Classifier StudentBusesClass = null;
+  Classifier StudentDriversClass = null;
+
+  for (var c : classDiagram1.getClasses()) {
+    if ("Buses".equals(c.getName()))
+      StudentBusesClass = c;
+    else if ("Drivers".equals(c.getName()))
+      StudentDriversClass = c;
+  }
+  
+  assertTrue(MistakeDetection.checkCorrectTest(InstructorBusClass, StudentBusesClass));
      
-  assertTrue(MistakeDetection.checkCorrectTest(solution.getClassDiagram().getClasses().get(1), solution1.getClassDiagram().getClasses().get(1)));
+  assertTrue(MistakeDetection.checkCorrectTest(InstructorDriverClass, StudentDriversClass));
   
   assertEquals(MistakeDetection.notMappedInstructorClassifier.size(), 0);
   assertEquals(MistakeDetection.extraStudentClassifier.size(), 0);
   assertEquals(MistakeDetection.mappedClassifier.size(), 2);
+  assertEquals(MistakeDetection.mappedClassifier.get(InstructorBusClass),StudentBusesClass);
+  assertEquals(MistakeDetection.mappedClassifier.get(InstructorDriverClass),StudentDriversClass);
   
   clearClassifier();
   }
+/**
+ * Test for checking mapping between instructor classifier(Bus, Driver) and Student classifier(Buses, Drivr)
+ */
 @Test public void checkCorrectTestWithSolution3() {
   
   ClassdiagramPackage.eINSTANCE.eClass();
@@ -259,17 +326,41 @@ public class MistakeDetectionTest {
   solution1.setModelingAssistant(modelingAssistant1);
   solution1.setClassDiagram(classDiagram1);
   
-  assertTrue(MistakeDetection.checkCorrectTest(solution.getClassDiagram().getClasses().get(0), solution1.getClassDiagram().getClasses().get(0)));
+  Classifier InstructorBusClass = null;
+  Classifier InstructorDriverClass = null;
+
+  for (var c : classDiagram.getClasses()) {
+    if ("Bus".equals(c.getName()))
+      InstructorBusClass = c;
+    else if ("Driver".equals(c.getName()))
+      InstructorDriverClass = c;
+  }
+  
+  Classifier StudentBusClass = null;
+  Classifier StudentDrivrClass = null;
+
+  for (var c : classDiagram1.getClasses()) {
+    if ("Bus".equals(c.getName()))
+      StudentBusClass = c;
+    else if ("Drivr".equals(c.getName()))
+      StudentDrivrClass = c;
+  }
+  
+  assertTrue(MistakeDetection.checkCorrectTest(InstructorBusClass, StudentBusClass));
      
-  assertTrue(MistakeDetection.checkCorrectTest(solution.getClassDiagram().getClasses().get(1), solution1.getClassDiagram().getClasses().get(1)));
+  assertTrue(MistakeDetection.checkCorrectTest(InstructorDriverClass, StudentDrivrClass));
   
   assertEquals(MistakeDetection.notMappedInstructorClassifier.size(), 0);
   assertEquals(MistakeDetection.extraStudentClassifier.size(), 0);
   assertEquals(MistakeDetection.mappedClassifier.size(), 2);
-  
+  assertEquals(MistakeDetection.mappedClassifier.get(InstructorBusClass),StudentBusClass);
+  assertEquals(MistakeDetection.mappedClassifier.get(InstructorDriverClass),StudentDrivrClass);
+  log();
   clearClassifier();
   }
-
+/**
+ * Test to check if cdm file with attributes is loaded correctly.
+ */
 @Test public void CheckSolution_withAttributes() {
   ClassdiagramPackage.eINSTANCE.eClass();
   var cdmFile = "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
@@ -582,7 +673,7 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.dulpicateStudentAttribute.size(), 0);
   assertEquals(MistakeDetection.mappedAttribute.size(), 4);
   
-  log();
+ // log();
   clearAttributesAndClassifer();
   }
 
