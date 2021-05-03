@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
@@ -12,7 +13,9 @@ import classdiagram.Attribute;
 import classdiagram.ClassDiagram;
 import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
+import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantFactory;
+import modelingassistant.mistaketypes.MistakeTypes;
 import modelingassistant.util.ResourceHelper;
 
 public class MistakeDetectionTest {
@@ -24,6 +27,8 @@ public class MistakeDetectionTest {
     List.of("Car", "Driver", "Part").forEach(s -> assertFalse(MistakeDetection.isSoftwareEngineeringTerm(s)));
     List.of("CarData", "DriverRecord", "PartInfo").forEach(s ->
         assertTrue(MistakeDetection.isSoftwareEngineeringTerm(s)));
+    
+    
   }
   
   /**
@@ -228,6 +233,7 @@ public class MistakeDetectionTest {
     assertEquals(MistakeDetection.mappedClassifier.size(), 2);
     assertEquals(MistakeDetection.mappedClassifier.get(InstructorBusClass),StudentBusClass);
     assertEquals(MistakeDetection.mappedClassifier.get(InstructorDriverClass),StudentDriverClass);
+    assertEquals(MistakeDetection.mistakes.size(), 0);
     
     
   }
@@ -287,6 +293,26 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedClassifier.get(InstructorBusClass),StudentBusesClass);
   assertEquals(MistakeDetection.mappedClassifier.get(InstructorDriverClass),StudentDriversClass);
   
+  assertEquals(MistakeDetection.mistakes.size(), 4);
+  
+  for(Mistake m: MistakeDetection.mistakes) {
+   if(m.getMistakeType()==MistakeTypes.USING_PLURAL_OR_LOWERCASE && m.getSolutionElements().get(0).getElement() == StudentBusesClass) {
+     assertEquals(m.getSolutionElements().get(0).getElement(),StudentBusesClass);
+     
+   }
+   if(m.getMistakeType()==MistakeTypes.USING_PLURAL_OR_LOWERCASE && m.getSolutionElements().get(0).getElement() == StudentDriversClass) {
+     assertEquals(m.getSolutionElements().get(0).getElement(),StudentDriversClass);
+     
+   }
+   if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getSolutionElements().get(0).getElement() == StudentBusesClass) {
+     assertEquals(m.getSolutionElements().get(0).getElement(),StudentBusesClass);
+     
+   }
+   if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getSolutionElements().get(0).getElement() == StudentDriversClass) {
+     assertEquals(m.getSolutionElements().get(0).getElement(),StudentDriversClass);
+     
+   }
+  }
   
   }
 /**
@@ -343,8 +369,15 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedClassifier.size(), 2);
   assertEquals(MistakeDetection.mappedClassifier.get(InstructorBusClass),StudentBusClass);
   assertEquals(MistakeDetection.mappedClassifier.get(InstructorDriverClass),StudentDrivrClass);
+  assertEquals(MistakeDetection.mistakes.size(), 1);
   
-  
+  for(Mistake m: MistakeDetection.mistakes) {
+    
+    if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getSolutionElements().get(0).getElement() == StudentDrivrClass) {
+      assertEquals(m.getSolutionElements().get(0).getElement(),StudentDrivrClass);
+      
+    }
+   }
   }
 /**
  * Test to check if cdm file with attributes is loaded correctly.
@@ -510,7 +543,7 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorBusClassAttributeNumberPlate),StudentBusClassAttributeNumberPlate);
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorDriverClassAttributeName),StudentDriverClassAttributeName);
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorPassengerClassAttributeName),StudentPassengerClassAttributeName);
-  
+  assertEquals(MistakeDetection.mistakes.size(), 0);
   
  
   }
@@ -641,7 +674,7 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorPassengerClassAttributeName),StudentPassengerClassAttributeName);
   assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(InstructorDriverClassAttributeName));
   assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(InstructorBusClassAttributeNumberPlate));
-  
+  assertEquals(MistakeDetection.mistakes.size(), 0);
   
   }
 /**
@@ -736,7 +769,7 @@ public class MistakeDetectionTest {
   assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(InstructorBusClassAttributeNumberPlate));
   assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(InstructorPassengerClassAttributeName));
   assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(InstructorBusClassAttributeCapacity));
-  
+  assertEquals(MistakeDetection.mistakes.size(), 0);
   
   
   }
@@ -860,7 +893,7 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorPassengerClassAttributeName),StudentPassengerClassAttributeName);
   assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(InstructorDriverClassAttributeName));
   assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(InstructorBusClassAttributeNumberPlate));
-  
+  assertEquals(MistakeDetection.mistakes.size(), 0);
    
   }
 /**
@@ -997,11 +1030,11 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorBusClassAttributeNumberPlate),StudentBusClassAttributeNumberPlate);
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorDriverClassAttributeName),StudentDriverClassAttributeName);
   assertTrue(MistakeDetection.extraStudentAttribute.contains(StudentCustomerClassAttributeName));
- 
+  assertEquals(MistakeDetection.mistakes.size(), 0);
   
   }
 /**
- * Test to ceck mapping for Passenger = Customer 
+ * Test to check mapping for Passenger = Customer 
  */
 @Test public void checkCorrectTestWithSolution5_withAttributes_Compare() {
   
@@ -1123,7 +1156,7 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorPassengerClassAttributeName),StudentCustomerClassAttributeName);
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorBusClassAttributeNumberPlate),StudentBusClassAttributeNumberPlate);
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorDriverClassAttributeName),StudentDriverClassAttributeName);
-  
+  assertEquals(MistakeDetection.mistakes.size(), 0);
  
   }
 /**
@@ -1248,6 +1281,7 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorPassengerClassAttributeName),StudentCustomerClassAttributeName);
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorBusClassAttributeNumberPlate),StudentVehicleClassAttributeNumberPlate);
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorDriverClassAttributeName),StudentPilotClassAttributeName);
+  assertEquals(MistakeDetection.mistakes.size(), 0);
   }
 /**
  * Test to check if both solutions are same then mapping should establish properly using .compare()

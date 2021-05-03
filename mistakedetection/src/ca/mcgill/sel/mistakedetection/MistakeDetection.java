@@ -17,6 +17,7 @@ import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
+import modelingassistant.mistaketypes.MistakeTypes;
 
 public class MistakeDetection {
 
@@ -26,7 +27,7 @@ public class MistakeDetection {
   /** Maps nouns to true if they are plural, false otherwise. */
   static HashMap<String, Boolean> nounPluralStatus = new HashMap<String, Boolean>();
 
-  static EList<Mistake> mistakes;
+  public static EList<Mistake> mistakes = new BasicEList<Mistake>();
   
   /**
    *   It maps an instructor solution classifier to student solution classifier
@@ -57,6 +58,7 @@ public class MistakeDetection {
 
   public static void compare(Solution instructor, Solution student) {
     clearAttributesAndClassifer();
+    mistakes.clear();
     EList<Classifier> instructorClassifiers = instructor.getClassDiagram().getClasses();
     EList<Classifier> studentClassifiers = student.getClassDiagram().getClasses();
 
@@ -112,8 +114,8 @@ public class MistakeDetection {
     // checkMistakeWrongAttribute();
     // checkMistakeAttributeMisplaced();
     // checkMistakeIncompleteContainmentTree(studentClassifiers);
+    
       
-
   }
 
   /**
@@ -223,10 +225,13 @@ public class MistakeDetection {
     if (isSoftwareEngineeringTerm(studentClassifier.getName())) {
       SolutionElement s = MAF.createSolutionElement();
       s.setElement(studentClassifier);
+      
       Mistake m = MAF.createMistake();
       m.setMistakeType(MistakeTypes.SOFTWARE_ENGINEERING_TERM);// Have a helper Method.
       m.getSolutionElements().add(s);
       mistakes.add(m);
+    
+      
     }
   }
 
@@ -273,9 +278,13 @@ public class MistakeDetection {
 
   public static void checkMistakePluralClassName(Classifier studentClassifier) {
     if (isPlural(studentClassifier.getName())) {
-      var mistake = MAF.createMistake();
-      mistake.setMistakeType(MistakeTypes.PLURAL_CLASS_NAME);
-
+      SolutionElement s = MAF.createSolutionElement();
+      s.setElement(studentClassifier);
+      
+      var m = MAF.createMistake();
+      m.setMistakeType(MistakeTypes.USING_PLURAL_OR_LOWERCASE);
+      m.getSolutionElements().add(s);
+      mistakes.add(m);
     }
  
   }
@@ -285,10 +294,13 @@ public class MistakeDetection {
     int lDistance =
         levenshteinDistance(studentClassifier.getName(), instructorClassifier.getName());
     if (lDistance != 0) {
-      // Mistake m = new Mistake("Class Name Spelled wrong");
-      // SolutionElement s = new SolutionElement(studentClassifier);
-      // m.getSolutionElements().add(s);
-      // mistakes.add(m);
+      SolutionElement s = MAF.createSolutionElement();
+      s.setElement(studentClassifier);
+      
+      var m = MAF.createMistake();
+      m.setMistakeType(MistakeTypes.BAD_CLASS_NAME_SPELLING);
+      m.getSolutionElements().add(s);
+      mistakes.add(m);
     }
   }
 
@@ -299,7 +311,13 @@ public class MistakeDetection {
 
   public static void checkMistakeLowerClassName(Classifier studentClassifier) {
     if (isLowerName(studentClassifier.getName())) {
-
+      SolutionElement s = MAF.createSolutionElement();
+      s.setElement(studentClassifier);
+      
+      var m = MAF.createMistake();
+      m.setMistakeType(MistakeTypes.USING_PLURAL_OR_LOWERCASE);
+      m.getSolutionElements().add(s);
+      mistakes.add(m);
     }
   }
 
@@ -393,5 +411,11 @@ public class MistakeDetection {
       notMappedInstructorAttribute.clear();
       dulplicateStudentAttribute.clear();
       
+    }
+    
+    public static void showMistakes() {
+      for(Mistake m : mistakes) {
+        System.out.println(m.getMistakeType().getName() + " in " + m.getSolutionElements().get(0).getElement().getName());
+      }
     }
 }
