@@ -227,6 +227,7 @@ public class MistakeDetection {
       s.setElement(studentClassifier);
       
       Mistake m = MAF.createMistake();
+      m.setModelingAssistant(null);
       m.setMistakeType(MistakeTypes.SOFTWARE_ENGINEERING_TERM);// Have a helper Method.
       m.getSolutionElements().add(s);
       mistakes.add(m);
