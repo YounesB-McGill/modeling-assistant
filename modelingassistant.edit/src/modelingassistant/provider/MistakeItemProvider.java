@@ -63,12 +63,13 @@ public class MistakeItemProvider
       addResolvedPropertyDescriptor(object);
       addTimeToAddressPropertyDescriptor(object);
       addNumStepsBeforeNotificationPropertyDescriptor(object);
-      addModelingAssistantPropertyDescriptor(object);
-      addMistakeStudentPropertyDescriptor(object);
-      addCurrentMistakeStudentPropertyDescriptor(object);
-      addSolutionElementsPropertyDescriptor(object);
+      addStudentElementsPropertyDescriptor(object);
       addMistakeTypePropertyDescriptor(object);
       addLastFeedbackPropertyDescriptor(object);
+      addInstructorElementsPropertyDescriptor(object);
+      addStudentSolutionPropertyDescriptor(object);
+      addNumDetectionPropertyDescriptor(object);
+      addNumDetectionSinceResolvedPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -140,85 +141,19 @@ public class MistakeItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Modeling Assistant feature.
+   * This adds a property descriptor for the Student Elements feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addModelingAssistantPropertyDescriptor(Object object) {
+  protected void addStudentElementsPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_Mistake_modelingAssistant_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_modelingAssistant_feature", "_UI_Mistake_type"),
-         ModelingassistantPackage.Literals.MISTAKE__MODELING_ASSISTANT,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Mistake Student feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addMistakeStudentPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_Mistake_mistakeStudent_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_mistakeStudent_feature", "_UI_Mistake_type"),
-         ModelingassistantPackage.Literals.MISTAKE__MISTAKE_STUDENT,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Current Mistake Student feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addCurrentMistakeStudentPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_Mistake_currentMistakeStudent_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_currentMistakeStudent_feature", "_UI_Mistake_type"),
-         ModelingassistantPackage.Literals.MISTAKE__CURRENT_MISTAKE_STUDENT,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Solution Elements feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addSolutionElementsPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_Mistake_solutionElements_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_solutionElements_feature", "_UI_Mistake_type"),
-         ModelingassistantPackage.Literals.MISTAKE__SOLUTION_ELEMENTS,
+         getString("_UI_Mistake_studentElements_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_studentElements_feature", "_UI_Mistake_type"),
+         ModelingassistantPackage.Literals.MISTAKE__STUDENT_ELEMENTS,
          true,
          false,
          true,
@@ -272,6 +207,94 @@ public class MistakeItemProvider
   }
 
   /**
+   * This adds a property descriptor for the Instructor Elements feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addInstructorElementsPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_Mistake_instructorElements_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_instructorElements_feature", "_UI_Mistake_type"),
+         ModelingassistantPackage.Literals.MISTAKE__INSTRUCTOR_ELEMENTS,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Student Solution feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addStudentSolutionPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_Mistake_studentSolution_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_studentSolution_feature", "_UI_Mistake_type"),
+         ModelingassistantPackage.Literals.MISTAKE__STUDENT_SOLUTION,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Num Detection feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addNumDetectionPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_Mistake_numDetection_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_numDetection_feature", "_UI_Mistake_type"),
+         ModelingassistantPackage.Literals.MISTAKE__NUM_DETECTION,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Num Detection Since Resolved feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addNumDetectionSinceResolvedPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_Mistake_numDetectionSinceResolved_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_numDetectionSinceResolved_feature", "_UI_Mistake_type"),
+         ModelingassistantPackage.Literals.MISTAKE__NUM_DETECTION_SINCE_RESOLVED,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This returns Mistake.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -310,6 +333,8 @@ public class MistakeItemProvider
       case ModelingassistantPackage.MISTAKE__RESOLVED:
       case ModelingassistantPackage.MISTAKE__TIME_TO_ADDRESS:
       case ModelingassistantPackage.MISTAKE__NUM_STEPS_BEFORE_NOTIFICATION:
+      case ModelingassistantPackage.MISTAKE__NUM_DETECTION:
+      case ModelingassistantPackage.MISTAKE__NUM_DETECTION_SINCE_RESOLVED:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }

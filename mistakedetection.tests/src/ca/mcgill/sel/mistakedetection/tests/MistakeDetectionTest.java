@@ -296,22 +296,24 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mistakes.size(), 4);
   
   for(Mistake m: MistakeDetection.mistakes) {
+    /*
    if(m.getMistakeType()==MistakeTypes.USING_PLURAL_OR_LOWERCASE && m.getSolutionElements().get(0).getElement() == StudentBusesClass) {
-     assertEquals(m.getSolutionElements().get(0).getElement(),StudentBusesClass);
+    // assertEquals(m.getSolutionElements().get(0).getElement(),StudentBusesClass);
      
    }
    if(m.getMistakeType()==MistakeTypes.USING_PLURAL_OR_LOWERCASE && m.getSolutionElements().get(0).getElement() == StudentDriversClass) {
-     assertEquals(m.getSolutionElements().get(0).getElement(),StudentDriversClass);
+   //  assertEquals(m.getSolutionElements().get(0).getElement(),StudentDriversClass);
      
    }
    if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getSolutionElements().get(0).getElement() == StudentBusesClass) {
-     assertEquals(m.getSolutionElements().get(0).getElement(),StudentBusesClass);
+    // assertEquals(m.getSolutionElements().get(0).getElement(),StudentBusesClass);
      
    }
    if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getSolutionElements().get(0).getElement() == StudentDriversClass) {
-     assertEquals(m.getSolutionElements().get(0).getElement(),StudentDriversClass);
+   //  assertEquals(m.getSolutionElements().get(0).getElement(),StudentDriversClass);
      
    }
+   */
   }
   
   }
@@ -372,12 +374,14 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mistakes.size(), 1);
   
   for(Mistake m: MistakeDetection.mistakes) {
-    
+    /*
     if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getSolutionElements().get(0).getElement() == StudentDrivrClass) {
       assertEquals(m.getSolutionElements().get(0).getElement(),StudentDrivrClass);
       
     }
+      */
    }
+ 
   }
 /**
  * Test to check if cdm file with attributes is loaded correctly.

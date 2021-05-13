@@ -227,9 +227,9 @@ public class MistakeDetection {
       s.setElement(studentClassifier);
       
       Mistake m = MAF.createMistake();
-      m.setModelingAssistant(null);
+     
       m.setMistakeType(MistakeTypes.SOFTWARE_ENGINEERING_TERM);// Have a helper Method.
-      m.getSolutionElements().add(s);
+     
       mistakes.add(m);
     
       
@@ -284,7 +284,7 @@ public class MistakeDetection {
       
       var m = MAF.createMistake();
       m.setMistakeType(MistakeTypes.USING_PLURAL_OR_LOWERCASE);
-      m.getSolutionElements().add(s);
+     // m.getSolutionElements().add(s);
       mistakes.add(m);
     }
  
@@ -300,7 +300,7 @@ public class MistakeDetection {
       
       var m = MAF.createMistake();
       m.setMistakeType(MistakeTypes.BAD_CLASS_NAME_SPELLING);
-      m.getSolutionElements().add(s);
+      //m.getSolutionElements().add(s);
       mistakes.add(m);
     }
   }
@@ -317,7 +317,7 @@ public class MistakeDetection {
       
       var m = MAF.createMistake();
       m.setMistakeType(MistakeTypes.USING_PLURAL_OR_LOWERCASE);
-      m.getSolutionElements().add(s);
+     // m.getSolutionElements().add(s);
       mistakes.add(m);
     }
   }
@@ -416,7 +416,7 @@ public class MistakeDetection {
     
     public static void showMistakes() {
       for(Mistake m : mistakes) {
-        System.out.println(m.getMistakeType().getName() + " in " + m.getSolutionElements().get(0).getElement().getName());
+      //  System.out.println(m.getMistakeType().getName() + " in " + m.getSolutionElements().get(0).getElement().getName());
       }
     }
 }

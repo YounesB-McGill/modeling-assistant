@@ -11,8 +11,6 @@ import modelingassistant.ModelingassistantPackage;
 import modelingassistant.ProblemStatementElement;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
-import modelingassistant.UmlElement;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -37,10 +35,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link modelingassistant.impl.SolutionElementImpl#getProblemStatementElements <em>Problem Statement Elements</em>}</li>
- *   <li>{@link modelingassistant.impl.SolutionElementImpl#getType <em>Type</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionElementImpl#getSolution <em>Solution</em>}</li>
- *   <li>{@link modelingassistant.impl.SolutionElementImpl#getMistakes <em>Mistakes</em>}</li>
+ *   <li>{@link modelingassistant.impl.SolutionElementImpl#getStudentElementMistakes <em>Student Element Mistakes</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionElementImpl#getElement <em>Element</em>}</li>
+ *   <li>{@link modelingassistant.impl.SolutionElementImpl#getInstructorElementMistakes <em>Instructor Element Mistakes</em>}</li>
  * </ul>
  *
  * @generated
@@ -57,24 +55,14 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
   protected EList<ProblemStatementElement> problemStatementElements;
 
   /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+   * The cached value of the '{@link #getStudentElementMistakes() <em>Student Element Mistakes</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getType()
+   * @see #getStudentElementMistakes()
    * @generated
    * @ordered
    */
-  protected UmlElement type;
-
-  /**
-   * The cached value of the '{@link #getMistakes() <em>Mistakes</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getMistakes()
-   * @generated
-   * @ordered
-   */
-  protected EList<Mistake> mistakes;
+  protected EList<Mistake> studentElementMistakes;
 
   /**
    * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
@@ -85,6 +73,16 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected NamedElement element;
+
+  /**
+   * The cached value of the '{@link #getInstructorElementMistakes() <em>Instructor Element Mistakes</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInstructorElementMistakes()
+   * @generated
+   * @ordered
+   */
+  protected EList<Mistake> instructorElementMistakes;
 
   /**
    * <!-- begin-user-doc -->
@@ -115,66 +113,6 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
       problemStatementElements = new EObjectWithInverseResolvingEList.ManyInverse<ProblemStatementElement>(ProblemStatementElement.class, this, ModelingassistantPackage.SOLUTION_ELEMENT__PROBLEM_STATEMENT_ELEMENTS, ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__SOLUTION_ELEMENTS);
     }
     return problemStatementElements;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public UmlElement getType() {
-    if (type != null && type.eIsProxy()) {
-      InternalEObject oldType = (InternalEObject)type;
-      type = (UmlElement)eResolveProxy(oldType);
-      if (type != oldType) {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.SOLUTION_ELEMENT__TYPE, oldType, type));
-      }
-    }
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public UmlElement basicGetType() {
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetType(UmlElement newType, NotificationChain msgs) {
-    UmlElement oldType = type;
-    type = newType;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.SOLUTION_ELEMENT__TYPE, oldType, newType);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setType(UmlElement newType) {
-    if (newType != type) {
-      NotificationChain msgs = null;
-      if (type != null)
-        msgs = ((InternalEObject)type).eInverseRemove(this, ModelingassistantPackage.UML_ELEMENT__SOLUTION_ELEMENTS, UmlElement.class, msgs);
-      if (newType != null)
-        msgs = ((InternalEObject)newType).eInverseAdd(this, ModelingassistantPackage.UML_ELEMENT__SOLUTION_ELEMENTS, UmlElement.class, msgs);
-      msgs = basicSetType(newType, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.SOLUTION_ELEMENT__TYPE, newType, newType));
   }
 
   /**
@@ -223,11 +161,11 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Mistake> getMistakes() {
-    if (mistakes == null) {
-      mistakes = new EObjectWithInverseResolvingEList.ManyInverse<Mistake>(Mistake.class, this, ModelingassistantPackage.SOLUTION_ELEMENT__MISTAKES, ModelingassistantPackage.MISTAKE__SOLUTION_ELEMENTS);
+  public EList<Mistake> getStudentElementMistakes() {
+    if (studentElementMistakes == null) {
+      studentElementMistakes = new EObjectWithInverseResolvingEList.ManyInverse<Mistake>(Mistake.class, this, ModelingassistantPackage.SOLUTION_ELEMENT__STUDENT_ELEMENT_MISTAKES, ModelingassistantPackage.MISTAKE__STUDENT_ELEMENTS);
     }
-    return mistakes;
+    return studentElementMistakes;
   }
 
   /**
@@ -273,22 +211,32 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Mistake> getInstructorElementMistakes() {
+    if (instructorElementMistakes == null) {
+      instructorElementMistakes = new EObjectWithInverseResolvingEList.ManyInverse<Mistake>(Mistake.class, this, ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES, ModelingassistantPackage.MISTAKE__INSTRUCTOR_ELEMENTS);
+    }
+    return instructorElementMistakes;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
     switch (featureID) {
       case ModelingassistantPackage.SOLUTION_ELEMENT__PROBLEM_STATEMENT_ELEMENTS:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getProblemStatementElements()).basicAdd(otherEnd, msgs);
-      case ModelingassistantPackage.SOLUTION_ELEMENT__TYPE:
-        if (type != null)
-          msgs = ((InternalEObject)type).eInverseRemove(this, ModelingassistantPackage.UML_ELEMENT__SOLUTION_ELEMENTS, UmlElement.class, msgs);
-        return basicSetType((UmlElement)otherEnd, msgs);
       case ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION:
         if (eInternalContainer() != null)
           msgs = eBasicRemoveFromContainer(msgs);
         return basicSetSolution((Solution)otherEnd, msgs);
-      case ModelingassistantPackage.SOLUTION_ELEMENT__MISTAKES:
-        return ((InternalEList<InternalEObject>)(InternalEList<?>)getMistakes()).basicAdd(otherEnd, msgs);
+      case ModelingassistantPackage.SOLUTION_ELEMENT__STUDENT_ELEMENT_MISTAKES:
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getStudentElementMistakes()).basicAdd(otherEnd, msgs);
+      case ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES:
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getInstructorElementMistakes()).basicAdd(otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -303,12 +251,12 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
     switch (featureID) {
       case ModelingassistantPackage.SOLUTION_ELEMENT__PROBLEM_STATEMENT_ELEMENTS:
         return ((InternalEList<?>)getProblemStatementElements()).basicRemove(otherEnd, msgs);
-      case ModelingassistantPackage.SOLUTION_ELEMENT__TYPE:
-        return basicSetType(null, msgs);
       case ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION:
         return basicSetSolution(null, msgs);
-      case ModelingassistantPackage.SOLUTION_ELEMENT__MISTAKES:
-        return ((InternalEList<?>)getMistakes()).basicRemove(otherEnd, msgs);
+      case ModelingassistantPackage.SOLUTION_ELEMENT__STUDENT_ELEMENT_MISTAKES:
+        return ((InternalEList<?>)getStudentElementMistakes()).basicRemove(otherEnd, msgs);
+      case ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES:
+        return ((InternalEList<?>)getInstructorElementMistakes()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -337,16 +285,15 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
     switch (featureID) {
       case ModelingassistantPackage.SOLUTION_ELEMENT__PROBLEM_STATEMENT_ELEMENTS:
         return getProblemStatementElements();
-      case ModelingassistantPackage.SOLUTION_ELEMENT__TYPE:
-        if (resolve) return getType();
-        return basicGetType();
       case ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION:
         return getSolution();
-      case ModelingassistantPackage.SOLUTION_ELEMENT__MISTAKES:
-        return getMistakes();
+      case ModelingassistantPackage.SOLUTION_ELEMENT__STUDENT_ELEMENT_MISTAKES:
+        return getStudentElementMistakes();
       case ModelingassistantPackage.SOLUTION_ELEMENT__ELEMENT:
         if (resolve) return getElement();
         return basicGetElement();
+      case ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES:
+        return getInstructorElementMistakes();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -364,18 +311,19 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
         getProblemStatementElements().clear();
         getProblemStatementElements().addAll((Collection<? extends ProblemStatementElement>)newValue);
         return;
-      case ModelingassistantPackage.SOLUTION_ELEMENT__TYPE:
-        setType((UmlElement)newValue);
-        return;
       case ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION:
         setSolution((Solution)newValue);
         return;
-      case ModelingassistantPackage.SOLUTION_ELEMENT__MISTAKES:
-        getMistakes().clear();
-        getMistakes().addAll((Collection<? extends Mistake>)newValue);
+      case ModelingassistantPackage.SOLUTION_ELEMENT__STUDENT_ELEMENT_MISTAKES:
+        getStudentElementMistakes().clear();
+        getStudentElementMistakes().addAll((Collection<? extends Mistake>)newValue);
         return;
       case ModelingassistantPackage.SOLUTION_ELEMENT__ELEMENT:
         setElement((NamedElement)newValue);
+        return;
+      case ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES:
+        getInstructorElementMistakes().clear();
+        getInstructorElementMistakes().addAll((Collection<? extends Mistake>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -392,17 +340,17 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
       case ModelingassistantPackage.SOLUTION_ELEMENT__PROBLEM_STATEMENT_ELEMENTS:
         getProblemStatementElements().clear();
         return;
-      case ModelingassistantPackage.SOLUTION_ELEMENT__TYPE:
-        setType((UmlElement)null);
-        return;
       case ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION:
         setSolution((Solution)null);
         return;
-      case ModelingassistantPackage.SOLUTION_ELEMENT__MISTAKES:
-        getMistakes().clear();
+      case ModelingassistantPackage.SOLUTION_ELEMENT__STUDENT_ELEMENT_MISTAKES:
+        getStudentElementMistakes().clear();
         return;
       case ModelingassistantPackage.SOLUTION_ELEMENT__ELEMENT:
         setElement((NamedElement)null);
+        return;
+      case ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES:
+        getInstructorElementMistakes().clear();
         return;
     }
     super.eUnset(featureID);
@@ -418,14 +366,14 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
     switch (featureID) {
       case ModelingassistantPackage.SOLUTION_ELEMENT__PROBLEM_STATEMENT_ELEMENTS:
         return problemStatementElements != null && !problemStatementElements.isEmpty();
-      case ModelingassistantPackage.SOLUTION_ELEMENT__TYPE:
-        return type != null;
       case ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION:
         return getSolution() != null;
-      case ModelingassistantPackage.SOLUTION_ELEMENT__MISTAKES:
-        return mistakes != null && !mistakes.isEmpty();
+      case ModelingassistantPackage.SOLUTION_ELEMENT__STUDENT_ELEMENT_MISTAKES:
+        return studentElementMistakes != null && !studentElementMistakes.isEmpty();
       case ModelingassistantPackage.SOLUTION_ELEMENT__ELEMENT:
         return element != null;
+      case ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES:
+        return instructorElementMistakes != null && !instructorElementMistakes.isEmpty();
     }
     return super.eIsSet(featureID);
   }

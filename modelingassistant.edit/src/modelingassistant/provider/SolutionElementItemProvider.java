@@ -58,10 +58,10 @@ public class SolutionElementItemProvider
       super.getPropertyDescriptors(object);
 
       addProblemStatementElementsPropertyDescriptor(object);
-      addTypePropertyDescriptor(object);
       addSolutionPropertyDescriptor(object);
-      addMistakesPropertyDescriptor(object);
+      addStudentElementMistakesPropertyDescriptor(object);
       addElementPropertyDescriptor(object);
+      addInstructorElementMistakesPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -80,28 +80,6 @@ public class SolutionElementItemProvider
          getString("_UI_SolutionElement_problemStatementElements_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_SolutionElement_problemStatementElements_feature", "_UI_SolutionElement_type"),
          ModelingassistantPackage.Literals.SOLUTION_ELEMENT__PROBLEM_STATEMENT_ELEMENTS,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Type feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addTypePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_SolutionElement_type_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_SolutionElement_type_feature", "_UI_SolutionElement_type"),
-         ModelingassistantPackage.Literals.SOLUTION_ELEMENT__TYPE,
          true,
          false,
          true,
@@ -133,19 +111,19 @@ public class SolutionElementItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Mistakes feature.
+   * This adds a property descriptor for the Student Element Mistakes feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addMistakesPropertyDescriptor(Object object) {
+  protected void addStudentElementMistakesPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_SolutionElement_mistakes_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_SolutionElement_mistakes_feature", "_UI_SolutionElement_type"),
-         ModelingassistantPackage.Literals.SOLUTION_ELEMENT__MISTAKES,
+         getString("_UI_SolutionElement_studentElementMistakes_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_SolutionElement_studentElementMistakes_feature", "_UI_SolutionElement_type"),
+         ModelingassistantPackage.Literals.SOLUTION_ELEMENT__STUDENT_ELEMENT_MISTAKES,
          true,
          false,
          true,
@@ -168,6 +146,28 @@ public class SolutionElementItemProvider
          getString("_UI_SolutionElement_element_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_SolutionElement_element_feature", "_UI_SolutionElement_type"),
          ModelingassistantPackage.Literals.SOLUTION_ELEMENT__ELEMENT,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Instructor Element Mistakes feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addInstructorElementMistakesPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_SolutionElement_instructorElementMistakes_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_SolutionElement_instructorElementMistakes_feature", "_UI_SolutionElement_type"),
+         ModelingassistantPackage.Literals.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES,
          true,
          false,
          true,

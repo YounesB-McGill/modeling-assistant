@@ -18,10 +18,10 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link modelingassistant.SolutionElement#getProblemStatementElements <em>Problem Statement Elements</em>}</li>
- *   <li>{@link modelingassistant.SolutionElement#getType <em>Type</em>}</li>
  *   <li>{@link modelingassistant.SolutionElement#getSolution <em>Solution</em>}</li>
- *   <li>{@link modelingassistant.SolutionElement#getMistakes <em>Mistakes</em>}</li>
+ *   <li>{@link modelingassistant.SolutionElement#getStudentElementMistakes <em>Student Element Mistakes</em>}</li>
  *   <li>{@link modelingassistant.SolutionElement#getElement <em>Element</em>}</li>
+ *   <li>{@link modelingassistant.SolutionElement#getInstructorElementMistakes <em>Instructor Element Mistakes</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getSolutionElement()
@@ -42,30 +42,6 @@ public interface SolutionElement extends EObject {
    * @generated
    */
   EList<ProblemStatementElement> getProblemStatementElements();
-
-  /**
-   * Returns the value of the '<em><b>Type</b></em>' reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.UmlElement#getSolutionElements <em>Solution Elements</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Type</em>' reference.
-   * @see #setType(UmlElement)
-   * @see modelingassistant.ModelingassistantPackage#getSolutionElement_Type()
-   * @see modelingassistant.UmlElement#getSolutionElements
-   * @model opposite="solutionElements" required="true"
-   * @generated
-   */
-  UmlElement getType();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.SolutionElement#getType <em>Type</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Type</em>' reference.
-   * @see #getType()
-   * @generated
-   */
-  void setType(UmlElement value);
 
   /**
    * Returns the value of the '<em><b>Solution</b></em>' container reference.
@@ -92,18 +68,18 @@ public interface SolutionElement extends EObject {
   void setSolution(Solution value);
 
   /**
-   * Returns the value of the '<em><b>Mistakes</b></em>' reference list.
+   * Returns the value of the '<em><b>Student Element Mistakes</b></em>' reference list.
    * The list contents are of type {@link modelingassistant.Mistake}.
-   * It is bidirectional and its opposite is '{@link modelingassistant.Mistake#getSolutionElements <em>Solution Elements</em>}'.
+   * It is bidirectional and its opposite is '{@link modelingassistant.Mistake#getStudentElements <em>Student Elements</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Mistakes</em>' reference list.
-   * @see modelingassistant.ModelingassistantPackage#getSolutionElement_Mistakes()
-   * @see modelingassistant.Mistake#getSolutionElements
-   * @model opposite="solutionElements"
+   * @return the value of the '<em>Student Element Mistakes</em>' reference list.
+   * @see modelingassistant.ModelingassistantPackage#getSolutionElement_StudentElementMistakes()
+   * @see modelingassistant.Mistake#getStudentElements
+   * @model opposite="studentElements"
    * @generated
    */
-  EList<Mistake> getMistakes();
+  EList<Mistake> getStudentElementMistakes();
 
   /**
    * Returns the value of the '<em><b>Element</b></em>' reference.
@@ -126,5 +102,19 @@ public interface SolutionElement extends EObject {
    * @generated
    */
   void setElement(NamedElement value);
+
+  /**
+   * Returns the value of the '<em><b>Instructor Element Mistakes</b></em>' reference list.
+   * The list contents are of type {@link modelingassistant.Mistake}.
+   * It is bidirectional and its opposite is '{@link modelingassistant.Mistake#getInstructorElements <em>Instructor Elements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Instructor Element Mistakes</em>' reference list.
+   * @see modelingassistant.ModelingassistantPackage#getSolutionElement_InstructorElementMistakes()
+   * @see modelingassistant.Mistake#getInstructorElements
+   * @model opposite="instructorElements"
+   * @generated
+   */
+  EList<Mistake> getInstructorElementMistakes();
 
 } // SolutionElement

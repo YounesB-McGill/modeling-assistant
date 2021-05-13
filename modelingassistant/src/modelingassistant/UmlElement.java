@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link modelingassistant.UmlElement#getModelingAssistant <em>Modeling Assistant</em>}</li>
- *   <li>{@link modelingassistant.UmlElement#getSolutionElements <em>Solution Elements</em>}</li>
  *   <li>{@link modelingassistant.UmlElement#getLearningItems <em>Learning Items</em>}</li>
  * </ul>
  *
@@ -48,20 +47,6 @@ public interface UmlElement extends EObject {
    * @generated
    */
   void setModelingAssistant(ModelingAssistant value);
-
-  /**
-   * Returns the value of the '<em><b>Solution Elements</b></em>' reference list.
-   * The list contents are of type {@link modelingassistant.SolutionElement}.
-   * It is bidirectional and its opposite is '{@link modelingassistant.SolutionElement#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Solution Elements</em>' reference list.
-   * @see modelingassistant.ModelingassistantPackage#getUmlElement_SolutionElements()
-   * @see modelingassistant.SolutionElement#getType
-   * @model opposite="type"
-   * @generated
-   */
-  EList<SolutionElement> getSolutionElements();
 
   /**
    * Returns the value of the '<em><b>Learning Items</b></em>' reference list.

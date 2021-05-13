@@ -7,7 +7,6 @@ import java.util.Collection;
 import modelingassistant.LearningItem;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
-import modelingassistant.SolutionElement;
 import modelingassistant.UmlElement;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -34,23 +33,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link modelingassistant.impl.UmlElementImpl#getModelingAssistant <em>Modeling Assistant</em>}</li>
- *   <li>{@link modelingassistant.impl.UmlElementImpl#getSolutionElements <em>Solution Elements</em>}</li>
  *   <li>{@link modelingassistant.impl.UmlElementImpl#getLearningItems <em>Learning Items</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class UmlElementImpl extends MinimalEObjectImpl.Container implements UmlElement {
-  /**
-   * The cached value of the '{@link #getSolutionElements() <em>Solution Elements</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSolutionElements()
-   * @generated
-   * @ordered
-   */
-  protected EList<SolutionElement> solutionElements;
-
   /**
    * The cached value of the '{@link #getLearningItems() <em>Learning Items</em>}' reference list.
    * <!-- begin-user-doc -->
@@ -126,18 +114,6 @@ public class UmlElementImpl extends MinimalEObjectImpl.Container implements UmlE
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<SolutionElement> getSolutionElements() {
-    if (solutionElements == null) {
-      solutionElements = new EObjectWithInverseResolvingEList<SolutionElement>(SolutionElement.class, this, ModelingassistantPackage.UML_ELEMENT__SOLUTION_ELEMENTS, ModelingassistantPackage.SOLUTION_ELEMENT__TYPE);
-    }
-    return solutionElements;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<LearningItem> getLearningItems() {
     if (learningItems == null) {
       learningItems = new EObjectWithInverseResolvingEList.ManyInverse<LearningItem>(LearningItem.class, this, ModelingassistantPackage.UML_ELEMENT__LEARNING_ITEMS, ModelingassistantPackage.LEARNING_ITEM__UML_ELEMENTS);
@@ -158,8 +134,6 @@ public class UmlElementImpl extends MinimalEObjectImpl.Container implements UmlE
         if (eInternalContainer() != null)
           msgs = eBasicRemoveFromContainer(msgs);
         return basicSetModelingAssistant((ModelingAssistant)otherEnd, msgs);
-      case ModelingassistantPackage.UML_ELEMENT__SOLUTION_ELEMENTS:
-        return ((InternalEList<InternalEObject>)(InternalEList<?>)getSolutionElements()).basicAdd(otherEnd, msgs);
       case ModelingassistantPackage.UML_ELEMENT__LEARNING_ITEMS:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getLearningItems()).basicAdd(otherEnd, msgs);
     }
@@ -176,8 +150,6 @@ public class UmlElementImpl extends MinimalEObjectImpl.Container implements UmlE
     switch (featureID) {
       case ModelingassistantPackage.UML_ELEMENT__MODELING_ASSISTANT:
         return basicSetModelingAssistant(null, msgs);
-      case ModelingassistantPackage.UML_ELEMENT__SOLUTION_ELEMENTS:
-        return ((InternalEList<?>)getSolutionElements()).basicRemove(otherEnd, msgs);
       case ModelingassistantPackage.UML_ELEMENT__LEARNING_ITEMS:
         return ((InternalEList<?>)getLearningItems()).basicRemove(otherEnd, msgs);
     }
@@ -208,8 +180,6 @@ public class UmlElementImpl extends MinimalEObjectImpl.Container implements UmlE
     switch (featureID) {
       case ModelingassistantPackage.UML_ELEMENT__MODELING_ASSISTANT:
         return getModelingAssistant();
-      case ModelingassistantPackage.UML_ELEMENT__SOLUTION_ELEMENTS:
-        return getSolutionElements();
       case ModelingassistantPackage.UML_ELEMENT__LEARNING_ITEMS:
         return getLearningItems();
     }
@@ -227,10 +197,6 @@ public class UmlElementImpl extends MinimalEObjectImpl.Container implements UmlE
     switch (featureID) {
       case ModelingassistantPackage.UML_ELEMENT__MODELING_ASSISTANT:
         setModelingAssistant((ModelingAssistant)newValue);
-        return;
-      case ModelingassistantPackage.UML_ELEMENT__SOLUTION_ELEMENTS:
-        getSolutionElements().clear();
-        getSolutionElements().addAll((Collection<? extends SolutionElement>)newValue);
         return;
       case ModelingassistantPackage.UML_ELEMENT__LEARNING_ITEMS:
         getLearningItems().clear();
@@ -251,9 +217,6 @@ public class UmlElementImpl extends MinimalEObjectImpl.Container implements UmlE
       case ModelingassistantPackage.UML_ELEMENT__MODELING_ASSISTANT:
         setModelingAssistant((ModelingAssistant)null);
         return;
-      case ModelingassistantPackage.UML_ELEMENT__SOLUTION_ELEMENTS:
-        getSolutionElements().clear();
-        return;
       case ModelingassistantPackage.UML_ELEMENT__LEARNING_ITEMS:
         getLearningItems().clear();
         return;
@@ -271,8 +234,6 @@ public class UmlElementImpl extends MinimalEObjectImpl.Container implements UmlE
     switch (featureID) {
       case ModelingassistantPackage.UML_ELEMENT__MODELING_ASSISTANT:
         return getModelingAssistant() != null;
-      case ModelingassistantPackage.UML_ELEMENT__SOLUTION_ELEMENTS:
-        return solutionElements != null && !solutionElements.isEmpty();
       case ModelingassistantPackage.UML_ELEMENT__LEARNING_ITEMS:
         return learningItems != null && !learningItems.isEmpty();
     }
