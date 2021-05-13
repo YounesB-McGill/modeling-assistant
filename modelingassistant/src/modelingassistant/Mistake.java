@@ -20,12 +20,13 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.Mistake#isResolved <em>Resolved</em>}</li>
  *   <li>{@link modelingassistant.Mistake#getTimeToAddress <em>Time To Address</em>}</li>
  *   <li>{@link modelingassistant.Mistake#getNumStepsBeforeNotification <em>Num Steps Before Notification</em>}</li>
- *   <li>{@link modelingassistant.Mistake#getModelingAssistant <em>Modeling Assistant</em>}</li>
- *   <li>{@link modelingassistant.Mistake#getMistakeStudent <em>Mistake Student</em>}</li>
- *   <li>{@link modelingassistant.Mistake#getCurrentMistakeStudent <em>Current Mistake Student</em>}</li>
- *   <li>{@link modelingassistant.Mistake#getSolutionElements <em>Solution Elements</em>}</li>
+ *   <li>{@link modelingassistant.Mistake#getStudentElements <em>Student Elements</em>}</li>
  *   <li>{@link modelingassistant.Mistake#getMistakeType <em>Mistake Type</em>}</li>
  *   <li>{@link modelingassistant.Mistake#getLastFeedback <em>Last Feedback</em>}</li>
+ *   <li>{@link modelingassistant.Mistake#getInstructorElements <em>Instructor Elements</em>}</li>
+ *   <li>{@link modelingassistant.Mistake#getStudentSolution <em>Student Solution</em>}</li>
+ *   <li>{@link modelingassistant.Mistake#getNumDetection <em>Num Detection</em>}</li>
+ *   <li>{@link modelingassistant.Mistake#getNumDetectionSinceResolved <em>Num Detection Since Resolved</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getMistake()
@@ -100,90 +101,18 @@ public interface Mistake extends EObject {
   void setNumStepsBeforeNotification(int value);
 
   /**
-   * Returns the value of the '<em><b>Modeling Assistant</b></em>' container reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getMistakes <em>Mistakes</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Modeling Assistant</em>' container reference.
-   * @see #setModelingAssistant(ModelingAssistant)
-   * @see modelingassistant.ModelingassistantPackage#getMistake_ModelingAssistant()
-   * @see modelingassistant.ModelingAssistant#getMistakes
-   * @model opposite="mistakes" required="true" transient="false"
-   * @generated
-   */
-  ModelingAssistant getModelingAssistant();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.Mistake#getModelingAssistant <em>Modeling Assistant</em>}' container reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Modeling Assistant</em>' container reference.
-   * @see #getModelingAssistant()
-   * @generated
-   */
-  void setModelingAssistant(ModelingAssistant value);
-
-  /**
-   * Returns the value of the '<em><b>Mistake Student</b></em>' reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.Student#getMistakes <em>Mistakes</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Mistake Student</em>' reference.
-   * @see #setMistakeStudent(Student)
-   * @see modelingassistant.ModelingassistantPackage#getMistake_MistakeStudent()
-   * @see modelingassistant.Student#getMistakes
-   * @model opposite="mistakes" required="true"
-   * @generated
-   */
-  Student getMistakeStudent();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.Mistake#getMistakeStudent <em>Mistake Student</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Mistake Student</em>' reference.
-   * @see #getMistakeStudent()
-   * @generated
-   */
-  void setMistakeStudent(Student value);
-
-  /**
-   * Returns the value of the '<em><b>Current Mistake Student</b></em>' reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.Student#getCurrentMistake <em>Current Mistake</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Current Mistake Student</em>' reference.
-   * @see #setCurrentMistakeStudent(Student)
-   * @see modelingassistant.ModelingassistantPackage#getMistake_CurrentMistakeStudent()
-   * @see modelingassistant.Student#getCurrentMistake
-   * @model opposite="currentMistake" required="true"
-   * @generated
-   */
-  Student getCurrentMistakeStudent();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.Mistake#getCurrentMistakeStudent <em>Current Mistake Student</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Current Mistake Student</em>' reference.
-   * @see #getCurrentMistakeStudent()
-   * @generated
-   */
-  void setCurrentMistakeStudent(Student value);
-
-  /**
-   * Returns the value of the '<em><b>Solution Elements</b></em>' reference list.
+   * Returns the value of the '<em><b>Student Elements</b></em>' reference list.
    * The list contents are of type {@link modelingassistant.SolutionElement}.
-   * It is bidirectional and its opposite is '{@link modelingassistant.SolutionElement#getMistakes <em>Mistakes</em>}'.
+   * It is bidirectional and its opposite is '{@link modelingassistant.SolutionElement#getStudentElementMistakes <em>Student Element Mistakes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Solution Elements</em>' reference list.
-   * @see modelingassistant.ModelingassistantPackage#getMistake_SolutionElements()
-   * @see modelingassistant.SolutionElement#getMistakes
-   * @model opposite="mistakes"
+   * @return the value of the '<em>Student Elements</em>' reference list.
+   * @see modelingassistant.ModelingassistantPackage#getMistake_StudentElements()
+   * @see modelingassistant.SolutionElement#getStudentElementMistakes
+   * @model opposite="studentElementMistakes"
    * @generated
    */
-  EList<SolutionElement> getSolutionElements();
+  EList<SolutionElement> getStudentElements();
 
   /**
    * Returns the value of the '<em><b>Mistake Type</b></em>' reference.
@@ -232,5 +161,87 @@ public interface Mistake extends EObject {
    * @generated
    */
   void setLastFeedback(Feedback value);
+
+  /**
+   * Returns the value of the '<em><b>Instructor Elements</b></em>' reference list.
+   * The list contents are of type {@link modelingassistant.SolutionElement}.
+   * It is bidirectional and its opposite is '{@link modelingassistant.SolutionElement#getInstructorElementMistakes <em>Instructor Element Mistakes</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Instructor Elements</em>' reference list.
+   * @see modelingassistant.ModelingassistantPackage#getMistake_InstructorElements()
+   * @see modelingassistant.SolutionElement#getInstructorElementMistakes
+   * @model opposite="instructorElementMistakes"
+   * @generated
+   */
+  EList<SolutionElement> getInstructorElements();
+
+  /**
+   * Returns the value of the '<em><b>Student Solution</b></em>' container reference.
+   * It is bidirectional and its opposite is '{@link modelingassistant.Solution#getMistakes <em>Mistakes</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Student Solution</em>' container reference.
+   * @see #setStudentSolution(Solution)
+   * @see modelingassistant.ModelingassistantPackage#getMistake_StudentSolution()
+   * @see modelingassistant.Solution#getMistakes
+   * @model opposite="mistakes" required="true" transient="false"
+   * @generated
+   */
+  Solution getStudentSolution();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.Mistake#getStudentSolution <em>Student Solution</em>}' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Student Solution</em>' container reference.
+   * @see #getStudentSolution()
+   * @generated
+   */
+  void setStudentSolution(Solution value);
+
+  /**
+   * Returns the value of the '<em><b>Num Detection</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Num Detection</em>' attribute.
+   * @see #setNumDetection(int)
+   * @see modelingassistant.ModelingassistantPackage#getMistake_NumDetection()
+   * @model
+   * @generated
+   */
+  int getNumDetection();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.Mistake#getNumDetection <em>Num Detection</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Num Detection</em>' attribute.
+   * @see #getNumDetection()
+   * @generated
+   */
+  void setNumDetection(int value);
+
+  /**
+   * Returns the value of the '<em><b>Num Detection Since Resolved</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Num Detection Since Resolved</em>' attribute.
+   * @see #setNumDetectionSinceResolved(int)
+   * @see modelingassistant.ModelingassistantPackage#getMistake_NumDetectionSinceResolved()
+   * @model
+   * @generated
+   */
+  int getNumDetectionSinceResolved();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.Mistake#getNumDetectionSinceResolved <em>Num Detection Since Resolved</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Num Detection Since Resolved</em>' attribute.
+   * @see #getNumDetectionSinceResolved()
+   * @generated
+   */
+  void setNumDetectionSinceResolved(int value);
 
 } // Mistake

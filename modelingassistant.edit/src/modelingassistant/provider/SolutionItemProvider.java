@@ -65,6 +65,11 @@ public class SolutionItemProvider
       addStudentPropertyDescriptor(object);
       addSolutionElementsPropertyDescriptor(object);
       addClassDiagramPropertyDescriptor(object);
+      addMistakesPropertyDescriptor(object);
+      addCurrentMistakePropertyDescriptor(object);
+      addStudentProblemStatementPropertyDescriptor(object);
+      addInstructorProblemStatementPropertyDescriptor(object);
+      addCurrentStudentPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -158,6 +163,116 @@ public class SolutionItemProvider
   }
 
   /**
+   * This adds a property descriptor for the Mistakes feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addMistakesPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_Solution_mistakes_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Solution_mistakes_feature", "_UI_Solution_type"),
+         ModelingassistantPackage.Literals.SOLUTION__MISTAKES,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Current Mistake feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addCurrentMistakePropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_Solution_currentMistake_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Solution_currentMistake_feature", "_UI_Solution_type"),
+         ModelingassistantPackage.Literals.SOLUTION__CURRENT_MISTAKE,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Student Problem Statement feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addStudentProblemStatementPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_Solution_studentProblemStatement_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Solution_studentProblemStatement_feature", "_UI_Solution_type"),
+         ModelingassistantPackage.Literals.SOLUTION__STUDENT_PROBLEM_STATEMENT,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Instructor Problem Statement feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addInstructorProblemStatementPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_Solution_instructorProblemStatement_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Solution_instructorProblemStatement_feature", "_UI_Solution_type"),
+         ModelingassistantPackage.Literals.SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Current Student feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addCurrentStudentPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_Solution_currentStudent_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Solution_currentStudent_feature", "_UI_Solution_type"),
+         ModelingassistantPackage.Literals.SOLUTION__CURRENT_STUDENT,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
    * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
    * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
    * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -170,6 +285,7 @@ public class SolutionItemProvider
     if (childrenFeatures == null) {
       super.getChildrenFeatures(object);
       childrenFeatures.add(ModelingassistantPackage.Literals.SOLUTION__SOLUTION_ELEMENTS);
+      childrenFeatures.add(ModelingassistantPackage.Literals.SOLUTION__MISTAKES);
     }
     return childrenFeatures;
   }
@@ -223,6 +339,7 @@ public class SolutionItemProvider
 
     switch (notification.getFeatureID(Solution.class)) {
       case ModelingassistantPackage.SOLUTION__SOLUTION_ELEMENTS:
+      case ModelingassistantPackage.SOLUTION__MISTAKES:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
     }
@@ -244,6 +361,11 @@ public class SolutionItemProvider
       (createChildParameter
         (ModelingassistantPackage.Literals.SOLUTION__SOLUTION_ELEMENTS,
          ModelingassistantFactory.eINSTANCE.createSolutionElement()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.SOLUTION__MISTAKES,
+         ModelingassistantFactory.eINSTANCE.createMistake()));
   }
 
   /**

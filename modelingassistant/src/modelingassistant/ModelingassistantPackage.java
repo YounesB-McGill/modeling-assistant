@@ -131,22 +131,13 @@ public interface ModelingassistantPackage extends EPackage {
   int MODELING_ASSISTANT__FEEDBACKS = 6;
 
   /**
-   * The feature id for the '<em><b>Mistakes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MODELING_ASSISTANT__MISTAKES = 7;
-
-  /**
    * The feature id for the '<em><b>Mistake Types</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODELING_ASSISTANT__MISTAKE_TYPES = 8;
+  int MODELING_ASSISTANT__MISTAKE_TYPES = 7;
 
   /**
    * The feature id for the '<em><b>Studentknowledge</b></em>' containment reference list.
@@ -155,7 +146,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MODELING_ASSISTANT__STUDENTKNOWLEDGE = 9;
+  int MODELING_ASSISTANT__STUDENTKNOWLEDGE = 8;
 
   /**
    * The feature id for the '<em><b>Mistaketypecategory</b></em>' containment reference list.
@@ -164,7 +155,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MODELING_ASSISTANT__MISTAKETYPECATEGORY = 10;
+  int MODELING_ASSISTANT__MISTAKETYPECATEGORY = 9;
 
   /**
    * The number of structural features of the '<em>Modeling Assistant</em>' class.
@@ -173,7 +164,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MODELING_ASSISTANT_FEATURE_COUNT = 11;
+  int MODELING_ASSISTANT_FEATURE_COUNT = 10;
 
   /**
    * The number of operations of the '<em>Modeling Assistant</em>' class.
@@ -259,31 +250,13 @@ public interface ModelingassistantPackage extends EPackage {
   int STUDENT__MODELING_ASSISTANT = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Mistakes</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STUDENT__MISTAKES = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Current Mistake</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STUDENT__CURRENT_MISTAKE = NAMED_ELEMENT_FEATURE_COUNT + 3;
-
-  /**
    * The feature id for the '<em><b>Solutions</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STUDENT__SOLUTIONS = NAMED_ELEMENT_FEATURE_COUNT + 4;
+  int STUDENT__SOLUTIONS = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Student Knowledges</b></em>' reference list.
@@ -292,7 +265,16 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int STUDENT__STUDENT_KNOWLEDGES = NAMED_ELEMENT_FEATURE_COUNT + 5;
+  int STUDENT__STUDENT_KNOWLEDGES = NAMED_ELEMENT_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Current Solution</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STUDENT__CURRENT_SOLUTION = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Student</em>' class.
@@ -301,7 +283,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int STUDENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 6;
+  int STUDENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
   /**
    * The number of operations of the '<em>Student</em>' class.
@@ -359,13 +341,31 @@ public interface ModelingassistantPackage extends EPackage {
   int PROBLEM_STATEMENT__MODELING_ASSISTANT = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
+   * The feature id for the '<em><b>Student Solution</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROBLEM_STATEMENT__STUDENT_SOLUTION = NAMED_ELEMENT_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Instructor Solution</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION = NAMED_ELEMENT_FEATURE_COUNT + 4;
+
+  /**
    * The number of structural features of the '<em>Problem Statement</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
+  int PROBLEM_STATEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
   /**
    * The number of operations of the '<em>Problem Statement</em>' class.
@@ -451,22 +451,13 @@ public interface ModelingassistantPackage extends EPackage {
   int UML_ELEMENT__MODELING_ASSISTANT = 0;
 
   /**
-   * The feature id for the '<em><b>Solution Elements</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UML_ELEMENT__SOLUTION_ELEMENTS = 1;
-
-  /**
    * The feature id for the '<em><b>Learning Items</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int UML_ELEMENT__LEARNING_ITEMS = 2;
+  int UML_ELEMENT__LEARNING_ITEMS = 1;
 
   /**
    * The number of structural features of the '<em>Uml Element</em>' class.
@@ -475,7 +466,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int UML_ELEMENT_FEATURE_COUNT = 3;
+  int UML_ELEMENT_FEATURE_COUNT = 2;
 
   /**
    * The number of operations of the '<em>Uml Element</em>' class.
@@ -533,13 +524,58 @@ public interface ModelingassistantPackage extends EPackage {
   int SOLUTION__CLASS_DIAGRAM = 3;
 
   /**
+   * The feature id for the '<em><b>Mistakes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SOLUTION__MISTAKES = 4;
+
+  /**
+   * The feature id for the '<em><b>Current Mistake</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SOLUTION__CURRENT_MISTAKE = 5;
+
+  /**
+   * The feature id for the '<em><b>Student Problem Statement</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SOLUTION__STUDENT_PROBLEM_STATEMENT = 6;
+
+  /**
+   * The feature id for the '<em><b>Instructor Problem Statement</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT = 7;
+
+  /**
+   * The feature id for the '<em><b>Current Student</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SOLUTION__CURRENT_STUDENT = 8;
+
+  /**
    * The number of structural features of the '<em>Solution</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SOLUTION_FEATURE_COUNT = 4;
+  int SOLUTION_FEATURE_COUNT = 9;
 
   /**
    * The number of operations of the '<em>Solution</em>' class.
@@ -570,31 +606,22 @@ public interface ModelingassistantPackage extends EPackage {
   int SOLUTION_ELEMENT__PROBLEM_STATEMENT_ELEMENTS = 0;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SOLUTION_ELEMENT__TYPE = 1;
-
-  /**
    * The feature id for the '<em><b>Solution</b></em>' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SOLUTION_ELEMENT__SOLUTION = 2;
+  int SOLUTION_ELEMENT__SOLUTION = 1;
 
   /**
-   * The feature id for the '<em><b>Mistakes</b></em>' reference list.
+   * The feature id for the '<em><b>Student Element Mistakes</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SOLUTION_ELEMENT__MISTAKES = 3;
+  int SOLUTION_ELEMENT__STUDENT_ELEMENT_MISTAKES = 2;
 
   /**
    * The feature id for the '<em><b>Element</b></em>' reference.
@@ -603,7 +630,16 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SOLUTION_ELEMENT__ELEMENT = 4;
+  int SOLUTION_ELEMENT__ELEMENT = 3;
+
+  /**
+   * The feature id for the '<em><b>Instructor Element Mistakes</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES = 4;
 
   /**
    * The number of structural features of the '<em>Solution Element</em>' class.
@@ -925,40 +961,13 @@ public interface ModelingassistantPackage extends EPackage {
   int MISTAKE__NUM_STEPS_BEFORE_NOTIFICATION = 2;
 
   /**
-   * The feature id for the '<em><b>Modeling Assistant</b></em>' container reference.
+   * The feature id for the '<em><b>Student Elements</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MISTAKE__MODELING_ASSISTANT = 3;
-
-  /**
-   * The feature id for the '<em><b>Mistake Student</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MISTAKE__MISTAKE_STUDENT = 4;
-
-  /**
-   * The feature id for the '<em><b>Current Mistake Student</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MISTAKE__CURRENT_MISTAKE_STUDENT = 5;
-
-  /**
-   * The feature id for the '<em><b>Solution Elements</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MISTAKE__SOLUTION_ELEMENTS = 6;
+  int MISTAKE__STUDENT_ELEMENTS = 3;
 
   /**
    * The feature id for the '<em><b>Mistake Type</b></em>' reference.
@@ -967,7 +976,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MISTAKE__MISTAKE_TYPE = 7;
+  int MISTAKE__MISTAKE_TYPE = 4;
 
   /**
    * The feature id for the '<em><b>Last Feedback</b></em>' reference.
@@ -976,7 +985,43 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MISTAKE__LAST_FEEDBACK = 8;
+  int MISTAKE__LAST_FEEDBACK = 5;
+
+  /**
+   * The feature id for the '<em><b>Instructor Elements</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE__INSTRUCTOR_ELEMENTS = 6;
+
+  /**
+   * The feature id for the '<em><b>Student Solution</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE__STUDENT_SOLUTION = 7;
+
+  /**
+   * The feature id for the '<em><b>Num Detection</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE__NUM_DETECTION = 8;
+
+  /**
+   * The feature id for the '<em><b>Num Detection Since Resolved</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE__NUM_DETECTION_SINCE_RESOLVED = 9;
 
   /**
    * The number of structural features of the '<em>Mistake</em>' class.
@@ -985,7 +1030,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int MISTAKE_FEATURE_COUNT = 9;
+  int MISTAKE_FEATURE_COUNT = 10;
 
   /**
    * The number of operations of the '<em>Mistake</em>' class.
@@ -2005,17 +2050,6 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getModelingAssistant_Feedbacks();
 
   /**
-   * Returns the meta object for the containment reference list '{@link modelingassistant.ModelingAssistant#getMistakes <em>Mistakes</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Mistakes</em>'.
-   * @see modelingassistant.ModelingAssistant#getMistakes()
-   * @see #getModelingAssistant()
-   * @generated
-   */
-  EReference getModelingAssistant_Mistakes();
-
-  /**
    * Returns the meta object for the containment reference list '{@link modelingassistant.ModelingAssistant#getMistakeTypes <em>Mistake Types</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2081,28 +2115,6 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getStudent_ModelingAssistant();
 
   /**
-   * Returns the meta object for the reference list '{@link modelingassistant.Student#getMistakes <em>Mistakes</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Mistakes</em>'.
-   * @see modelingassistant.Student#getMistakes()
-   * @see #getStudent()
-   * @generated
-   */
-  EReference getStudent_Mistakes();
-
-  /**
-   * Returns the meta object for the reference '{@link modelingassistant.Student#getCurrentMistake <em>Current Mistake</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Current Mistake</em>'.
-   * @see modelingassistant.Student#getCurrentMistake()
-   * @see #getStudent()
-   * @generated
-   */
-  EReference getStudent_CurrentMistake();
-
-  /**
    * Returns the meta object for the reference list '{@link modelingassistant.Student#getSolutions <em>Solutions</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2125,6 +2137,17 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getStudent_StudentKnowledges();
 
   /**
+   * Returns the meta object for the reference '{@link modelingassistant.Student#getCurrentSolution <em>Current Solution</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Current Solution</em>'.
+   * @see modelingassistant.Student#getCurrentSolution()
+   * @see #getStudent()
+   * @generated
+   */
+  EReference getStudent_CurrentSolution();
+
+  /**
    * Returns the meta object for class '{@link modelingassistant.ProblemStatement <em>Problem Statement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2144,6 +2167,28 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EReference getProblemStatement_ModelingAssistant();
+
+  /**
+   * Returns the meta object for the reference list '{@link modelingassistant.ProblemStatement#getStudentSolution <em>Student Solution</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Student Solution</em>'.
+   * @see modelingassistant.ProblemStatement#getStudentSolution()
+   * @see #getProblemStatement()
+   * @generated
+   */
+  EReference getProblemStatement_StudentSolution();
+
+  /**
+   * Returns the meta object for the reference '{@link modelingassistant.ProblemStatement#getInstructorSolution <em>Instructor Solution</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Instructor Solution</em>'.
+   * @see modelingassistant.ProblemStatement#getInstructorSolution()
+   * @see #getProblemStatement()
+   * @generated
+   */
+  EReference getProblemStatement_InstructorSolution();
 
   /**
    * Returns the meta object for the containment reference list '{@link modelingassistant.ProblemStatement#getProblemStatementElements <em>Problem Statement Elements</em>}'.
@@ -2221,17 +2266,6 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getUmlElement_ModelingAssistant();
 
   /**
-   * Returns the meta object for the reference list '{@link modelingassistant.UmlElement#getSolutionElements <em>Solution Elements</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Solution Elements</em>'.
-   * @see modelingassistant.UmlElement#getSolutionElements()
-   * @see #getUmlElement()
-   * @generated
-   */
-  EReference getUmlElement_SolutionElements();
-
-  /**
    * Returns the meta object for the reference list '{@link modelingassistant.UmlElement#getLearningItems <em>Learning Items</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2297,6 +2331,61 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getSolution_ClassDiagram();
 
   /**
+   * Returns the meta object for the containment reference list '{@link modelingassistant.Solution#getMistakes <em>Mistakes</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Mistakes</em>'.
+   * @see modelingassistant.Solution#getMistakes()
+   * @see #getSolution()
+   * @generated
+   */
+  EReference getSolution_Mistakes();
+
+  /**
+   * Returns the meta object for the reference '{@link modelingassistant.Solution#getCurrentMistake <em>Current Mistake</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Current Mistake</em>'.
+   * @see modelingassistant.Solution#getCurrentMistake()
+   * @see #getSolution()
+   * @generated
+   */
+  EReference getSolution_CurrentMistake();
+
+  /**
+   * Returns the meta object for the reference '{@link modelingassistant.Solution#getStudentProblemStatement <em>Student Problem Statement</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Student Problem Statement</em>'.
+   * @see modelingassistant.Solution#getStudentProblemStatement()
+   * @see #getSolution()
+   * @generated
+   */
+  EReference getSolution_StudentProblemStatement();
+
+  /**
+   * Returns the meta object for the reference '{@link modelingassistant.Solution#getInstructorProblemStatement <em>Instructor Problem Statement</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Instructor Problem Statement</em>'.
+   * @see modelingassistant.Solution#getInstructorProblemStatement()
+   * @see #getSolution()
+   * @generated
+   */
+  EReference getSolution_InstructorProblemStatement();
+
+  /**
+   * Returns the meta object for the reference '{@link modelingassistant.Solution#getCurrentStudent <em>Current Student</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Current Student</em>'.
+   * @see modelingassistant.Solution#getCurrentStudent()
+   * @see #getSolution()
+   * @generated
+   */
+  EReference getSolution_CurrentStudent();
+
+  /**
    * Returns the meta object for class '{@link modelingassistant.SolutionElement <em>Solution Element</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2318,17 +2407,6 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getSolutionElement_ProblemStatementElements();
 
   /**
-   * Returns the meta object for the reference '{@link modelingassistant.SolutionElement#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Type</em>'.
-   * @see modelingassistant.SolutionElement#getType()
-   * @see #getSolutionElement()
-   * @generated
-   */
-  EReference getSolutionElement_Type();
-
-  /**
    * Returns the meta object for the container reference '{@link modelingassistant.SolutionElement#getSolution <em>Solution</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2340,15 +2418,15 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getSolutionElement_Solution();
 
   /**
-   * Returns the meta object for the reference list '{@link modelingassistant.SolutionElement#getMistakes <em>Mistakes</em>}'.
+   * Returns the meta object for the reference list '{@link modelingassistant.SolutionElement#getStudentElementMistakes <em>Student Element Mistakes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Mistakes</em>'.
-   * @see modelingassistant.SolutionElement#getMistakes()
+   * @return the meta object for the reference list '<em>Student Element Mistakes</em>'.
+   * @see modelingassistant.SolutionElement#getStudentElementMistakes()
    * @see #getSolutionElement()
    * @generated
    */
-  EReference getSolutionElement_Mistakes();
+  EReference getSolutionElement_StudentElementMistakes();
 
   /**
    * Returns the meta object for the reference '{@link modelingassistant.SolutionElement#getElement <em>Element</em>}'.
@@ -2360,6 +2438,17 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EReference getSolutionElement_Element();
+
+  /**
+   * Returns the meta object for the reference list '{@link modelingassistant.SolutionElement#getInstructorElementMistakes <em>Instructor Element Mistakes</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Instructor Element Mistakes</em>'.
+   * @see modelingassistant.SolutionElement#getInstructorElementMistakes()
+   * @see #getSolutionElement()
+   * @generated
+   */
+  EReference getSolutionElement_InstructorElementMistakes();
 
   /**
    * Returns the meta object for class '{@link modelingassistant.LearningItem <em>Learning Item</em>}'.
@@ -2633,48 +2722,15 @@ public interface ModelingassistantPackage extends EPackage {
   EAttribute getMistake_NumStepsBeforeNotification();
 
   /**
-   * Returns the meta object for the container reference '{@link modelingassistant.Mistake#getModelingAssistant <em>Modeling Assistant</em>}'.
+   * Returns the meta object for the reference list '{@link modelingassistant.Mistake#getStudentElements <em>Student Elements</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the container reference '<em>Modeling Assistant</em>'.
-   * @see modelingassistant.Mistake#getModelingAssistant()
+   * @return the meta object for the reference list '<em>Student Elements</em>'.
+   * @see modelingassistant.Mistake#getStudentElements()
    * @see #getMistake()
    * @generated
    */
-  EReference getMistake_ModelingAssistant();
-
-  /**
-   * Returns the meta object for the reference '{@link modelingassistant.Mistake#getMistakeStudent <em>Mistake Student</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Mistake Student</em>'.
-   * @see modelingassistant.Mistake#getMistakeStudent()
-   * @see #getMistake()
-   * @generated
-   */
-  EReference getMistake_MistakeStudent();
-
-  /**
-   * Returns the meta object for the reference '{@link modelingassistant.Mistake#getCurrentMistakeStudent <em>Current Mistake Student</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Current Mistake Student</em>'.
-   * @see modelingassistant.Mistake#getCurrentMistakeStudent()
-   * @see #getMistake()
-   * @generated
-   */
-  EReference getMistake_CurrentMistakeStudent();
-
-  /**
-   * Returns the meta object for the reference list '{@link modelingassistant.Mistake#getSolutionElements <em>Solution Elements</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Solution Elements</em>'.
-   * @see modelingassistant.Mistake#getSolutionElements()
-   * @see #getMistake()
-   * @generated
-   */
-  EReference getMistake_SolutionElements();
+  EReference getMistake_StudentElements();
 
   /**
    * Returns the meta object for the reference '{@link modelingassistant.Mistake#getMistakeType <em>Mistake Type</em>}'.
@@ -2697,6 +2753,50 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EReference getMistake_LastFeedback();
+
+  /**
+   * Returns the meta object for the reference list '{@link modelingassistant.Mistake#getInstructorElements <em>Instructor Elements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Instructor Elements</em>'.
+   * @see modelingassistant.Mistake#getInstructorElements()
+   * @see #getMistake()
+   * @generated
+   */
+  EReference getMistake_InstructorElements();
+
+  /**
+   * Returns the meta object for the container reference '{@link modelingassistant.Mistake#getStudentSolution <em>Student Solution</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the container reference '<em>Student Solution</em>'.
+   * @see modelingassistant.Mistake#getStudentSolution()
+   * @see #getMistake()
+   * @generated
+   */
+  EReference getMistake_StudentSolution();
+
+  /**
+   * Returns the meta object for the attribute '{@link modelingassistant.Mistake#getNumDetection <em>Num Detection</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Num Detection</em>'.
+   * @see modelingassistant.Mistake#getNumDetection()
+   * @see #getMistake()
+   * @generated
+   */
+  EAttribute getMistake_NumDetection();
+
+  /**
+   * Returns the meta object for the attribute '{@link modelingassistant.Mistake#getNumDetectionSinceResolved <em>Num Detection Since Resolved</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Num Detection Since Resolved</em>'.
+   * @see modelingassistant.Mistake#getNumDetectionSinceResolved()
+   * @see #getMistake()
+   * @generated
+   */
+  EAttribute getMistake_NumDetectionSinceResolved();
 
   /**
    * Returns the meta object for class '{@link modelingassistant.Feedback <em>Feedback</em>}'.
@@ -3148,14 +3248,6 @@ public interface ModelingassistantPackage extends EPackage {
     EReference MODELING_ASSISTANT__FEEDBACKS = eINSTANCE.getModelingAssistant_Feedbacks();
 
     /**
-     * The meta object literal for the '<em><b>Mistakes</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MODELING_ASSISTANT__MISTAKES = eINSTANCE.getModelingAssistant_Mistakes();
-
-    /**
      * The meta object literal for the '<em><b>Mistake Types</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3206,22 +3298,6 @@ public interface ModelingassistantPackage extends EPackage {
     EReference STUDENT__MODELING_ASSISTANT = eINSTANCE.getStudent_ModelingAssistant();
 
     /**
-     * The meta object literal for the '<em><b>Mistakes</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STUDENT__MISTAKES = eINSTANCE.getStudent_Mistakes();
-
-    /**
-     * The meta object literal for the '<em><b>Current Mistake</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STUDENT__CURRENT_MISTAKE = eINSTANCE.getStudent_CurrentMistake();
-
-    /**
      * The meta object literal for the '<em><b>Solutions</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3236,6 +3312,14 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference STUDENT__STUDENT_KNOWLEDGES = eINSTANCE.getStudent_StudentKnowledges();
+
+    /**
+     * The meta object literal for the '<em><b>Current Solution</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference STUDENT__CURRENT_SOLUTION = eINSTANCE.getStudent_CurrentSolution();
 
     /**
      * The meta object literal for the '{@link modelingassistant.impl.ProblemStatementImpl <em>Problem Statement</em>}' class.
@@ -3254,6 +3338,22 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference PROBLEM_STATEMENT__MODELING_ASSISTANT = eINSTANCE.getProblemStatement_ModelingAssistant();
+
+    /**
+     * The meta object literal for the '<em><b>Student Solution</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROBLEM_STATEMENT__STUDENT_SOLUTION = eINSTANCE.getProblemStatement_StudentSolution();
+
+    /**
+     * The meta object literal for the '<em><b>Instructor Solution</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION = eINSTANCE.getProblemStatement_InstructorSolution();
 
     /**
      * The meta object literal for the '<em><b>Problem Statement Elements</b></em>' containment reference list feature.
@@ -3316,14 +3416,6 @@ public interface ModelingassistantPackage extends EPackage {
     EReference UML_ELEMENT__MODELING_ASSISTANT = eINSTANCE.getUmlElement_ModelingAssistant();
 
     /**
-     * The meta object literal for the '<em><b>Solution Elements</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference UML_ELEMENT__SOLUTION_ELEMENTS = eINSTANCE.getUmlElement_SolutionElements();
-
-    /**
      * The meta object literal for the '<em><b>Learning Items</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3374,6 +3466,46 @@ public interface ModelingassistantPackage extends EPackage {
     EReference SOLUTION__CLASS_DIAGRAM = eINSTANCE.getSolution_ClassDiagram();
 
     /**
+     * The meta object literal for the '<em><b>Mistakes</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SOLUTION__MISTAKES = eINSTANCE.getSolution_Mistakes();
+
+    /**
+     * The meta object literal for the '<em><b>Current Mistake</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SOLUTION__CURRENT_MISTAKE = eINSTANCE.getSolution_CurrentMistake();
+
+    /**
+     * The meta object literal for the '<em><b>Student Problem Statement</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SOLUTION__STUDENT_PROBLEM_STATEMENT = eINSTANCE.getSolution_StudentProblemStatement();
+
+    /**
+     * The meta object literal for the '<em><b>Instructor Problem Statement</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT = eINSTANCE.getSolution_InstructorProblemStatement();
+
+    /**
+     * The meta object literal for the '<em><b>Current Student</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SOLUTION__CURRENT_STUDENT = eINSTANCE.getSolution_CurrentStudent();
+
+    /**
      * The meta object literal for the '{@link modelingassistant.impl.SolutionElementImpl <em>Solution Element</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3392,14 +3524,6 @@ public interface ModelingassistantPackage extends EPackage {
     EReference SOLUTION_ELEMENT__PROBLEM_STATEMENT_ELEMENTS = eINSTANCE.getSolutionElement_ProblemStatementElements();
 
     /**
-     * The meta object literal for the '<em><b>Type</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference SOLUTION_ELEMENT__TYPE = eINSTANCE.getSolutionElement_Type();
-
-    /**
      * The meta object literal for the '<em><b>Solution</b></em>' container reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3408,12 +3532,12 @@ public interface ModelingassistantPackage extends EPackage {
     EReference SOLUTION_ELEMENT__SOLUTION = eINSTANCE.getSolutionElement_Solution();
 
     /**
-     * The meta object literal for the '<em><b>Mistakes</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Student Element Mistakes</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SOLUTION_ELEMENT__MISTAKES = eINSTANCE.getSolutionElement_Mistakes();
+    EReference SOLUTION_ELEMENT__STUDENT_ELEMENT_MISTAKES = eINSTANCE.getSolutionElement_StudentElementMistakes();
 
     /**
      * The meta object literal for the '<em><b>Element</b></em>' reference feature.
@@ -3422,6 +3546,14 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference SOLUTION_ELEMENT__ELEMENT = eINSTANCE.getSolutionElement_Element();
+
+    /**
+     * The meta object literal for the '<em><b>Instructor Element Mistakes</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES = eINSTANCE.getSolutionElement_InstructorElementMistakes();
 
     /**
      * The meta object literal for the '{@link modelingassistant.impl.LearningItemImpl <em>Learning Item</em>}' class.
@@ -3632,36 +3764,12 @@ public interface ModelingassistantPackage extends EPackage {
     EAttribute MISTAKE__NUM_STEPS_BEFORE_NOTIFICATION = eINSTANCE.getMistake_NumStepsBeforeNotification();
 
     /**
-     * The meta object literal for the '<em><b>Modeling Assistant</b></em>' container reference feature.
+     * The meta object literal for the '<em><b>Student Elements</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MISTAKE__MODELING_ASSISTANT = eINSTANCE.getMistake_ModelingAssistant();
-
-    /**
-     * The meta object literal for the '<em><b>Mistake Student</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MISTAKE__MISTAKE_STUDENT = eINSTANCE.getMistake_MistakeStudent();
-
-    /**
-     * The meta object literal for the '<em><b>Current Mistake Student</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MISTAKE__CURRENT_MISTAKE_STUDENT = eINSTANCE.getMistake_CurrentMistakeStudent();
-
-    /**
-     * The meta object literal for the '<em><b>Solution Elements</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MISTAKE__SOLUTION_ELEMENTS = eINSTANCE.getMistake_SolutionElements();
+    EReference MISTAKE__STUDENT_ELEMENTS = eINSTANCE.getMistake_StudentElements();
 
     /**
      * The meta object literal for the '<em><b>Mistake Type</b></em>' reference feature.
@@ -3678,6 +3786,38 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference MISTAKE__LAST_FEEDBACK = eINSTANCE.getMistake_LastFeedback();
+
+    /**
+     * The meta object literal for the '<em><b>Instructor Elements</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MISTAKE__INSTRUCTOR_ELEMENTS = eINSTANCE.getMistake_InstructorElements();
+
+    /**
+     * The meta object literal for the '<em><b>Student Solution</b></em>' container reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MISTAKE__STUDENT_SOLUTION = eINSTANCE.getMistake_StudentSolution();
+
+    /**
+     * The meta object literal for the '<em><b>Num Detection</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MISTAKE__NUM_DETECTION = eINSTANCE.getMistake_NumDetection();
+
+    /**
+     * The meta object literal for the '<em><b>Num Detection Since Resolved</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MISTAKE__NUM_DETECTION_SINCE_RESOLVED = eINSTANCE.getMistake_NumDetectionSinceResolved();
 
     /**
      * The meta object literal for the '{@link modelingassistant.impl.FeedbackImpl <em>Feedback</em>}' class.

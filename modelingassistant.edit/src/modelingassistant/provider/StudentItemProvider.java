@@ -47,10 +47,9 @@ public class StudentItemProvider
 
       addIdPropertyDescriptor(object);
       addModelingAssistantPropertyDescriptor(object);
-      addMistakesPropertyDescriptor(object);
-      addCurrentMistakePropertyDescriptor(object);
       addSolutionsPropertyDescriptor(object);
       addStudentKnowledgesPropertyDescriptor(object);
+      addCurrentSolutionPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -100,50 +99,6 @@ public class StudentItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Mistakes feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addMistakesPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_Student_mistakes_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Student_mistakes_feature", "_UI_Student_type"),
-         ModelingassistantPackage.Literals.STUDENT__MISTAKES,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Current Mistake feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addCurrentMistakePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_Student_currentMistake_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Student_currentMistake_feature", "_UI_Student_type"),
-         ModelingassistantPackage.Literals.STUDENT__CURRENT_MISTAKE,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
    * This adds a property descriptor for the Solutions feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -179,6 +134,28 @@ public class StudentItemProvider
          getString("_UI_Student_studentKnowledges_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_Student_studentKnowledges_feature", "_UI_Student_type"),
          ModelingassistantPackage.Literals.STUDENT__STUDENT_KNOWLEDGES,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Current Solution feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addCurrentSolutionPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_Student_currentSolution_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Student_currentSolution_feature", "_UI_Student_type"),
+         ModelingassistantPackage.Literals.STUDENT__CURRENT_SOLUTION,
          true,
          false,
          true,

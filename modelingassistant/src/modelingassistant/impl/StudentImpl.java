@@ -3,8 +3,6 @@
 package modelingassistant.impl;
 
 import java.util.Collection;
-
-import modelingassistant.Mistake;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.Solution;
@@ -34,10 +32,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link modelingassistant.impl.StudentImpl#getId <em>Id</em>}</li>
  *   <li>{@link modelingassistant.impl.StudentImpl#getModelingAssistant <em>Modeling Assistant</em>}</li>
- *   <li>{@link modelingassistant.impl.StudentImpl#getMistakes <em>Mistakes</em>}</li>
- *   <li>{@link modelingassistant.impl.StudentImpl#getCurrentMistake <em>Current Mistake</em>}</li>
  *   <li>{@link modelingassistant.impl.StudentImpl#getSolutions <em>Solutions</em>}</li>
  *   <li>{@link modelingassistant.impl.StudentImpl#getStudentKnowledges <em>Student Knowledges</em>}</li>
+ *   <li>{@link modelingassistant.impl.StudentImpl#getCurrentSolution <em>Current Solution</em>}</li>
  * </ul>
  *
  * @generated
@@ -64,26 +61,6 @@ public class StudentImpl extends NamedElementImpl implements Student {
   protected String id = ID_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getMistakes() <em>Mistakes</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getMistakes()
-   * @generated
-   * @ordered
-   */
-  protected EList<Mistake> mistakes;
-
-  /**
-   * The cached value of the '{@link #getCurrentMistake() <em>Current Mistake</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getCurrentMistake()
-   * @generated
-   * @ordered
-   */
-  protected Mistake currentMistake;
-
-  /**
    * The cached value of the '{@link #getSolutions() <em>Solutions</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -102,6 +79,16 @@ public class StudentImpl extends NamedElementImpl implements Student {
    * @ordered
    */
   protected EList<StudentKnowledge> studentKnowledges;
+
+  /**
+   * The cached value of the '{@link #getCurrentSolution() <em>Current Solution</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCurrentSolution()
+   * @generated
+   * @ordered
+   */
+  protected Solution currentSolution;
 
   /**
    * <!-- begin-user-doc -->
@@ -189,78 +176,6 @@ public class StudentImpl extends NamedElementImpl implements Student {
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Mistake> getMistakes() {
-    if (mistakes == null) {
-      mistakes = new EObjectWithInverseResolvingEList<Mistake>(Mistake.class, this, ModelingassistantPackage.STUDENT__MISTAKES, ModelingassistantPackage.MISTAKE__MISTAKE_STUDENT);
-    }
-    return mistakes;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Mistake getCurrentMistake() {
-    if (currentMistake != null && currentMistake.eIsProxy()) {
-      InternalEObject oldCurrentMistake = (InternalEObject)currentMistake;
-      currentMistake = (Mistake)eResolveProxy(oldCurrentMistake);
-      if (currentMistake != oldCurrentMistake) {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.STUDENT__CURRENT_MISTAKE, oldCurrentMistake, currentMistake));
-      }
-    }
-    return currentMistake;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Mistake basicGetCurrentMistake() {
-    return currentMistake;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetCurrentMistake(Mistake newCurrentMistake, NotificationChain msgs) {
-    Mistake oldCurrentMistake = currentMistake;
-    currentMistake = newCurrentMistake;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT__CURRENT_MISTAKE, oldCurrentMistake, newCurrentMistake);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCurrentMistake(Mistake newCurrentMistake) {
-    if (newCurrentMistake != currentMistake) {
-      NotificationChain msgs = null;
-      if (currentMistake != null)
-        msgs = ((InternalEObject)currentMistake).eInverseRemove(this, ModelingassistantPackage.MISTAKE__CURRENT_MISTAKE_STUDENT, Mistake.class, msgs);
-      if (newCurrentMistake != null)
-        msgs = ((InternalEObject)newCurrentMistake).eInverseAdd(this, ModelingassistantPackage.MISTAKE__CURRENT_MISTAKE_STUDENT, Mistake.class, msgs);
-      msgs = basicSetCurrentMistake(newCurrentMistake, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT__CURRENT_MISTAKE, newCurrentMistake, newCurrentMistake));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<Solution> getSolutions() {
     if (solutions == null) {
       solutions = new EObjectWithInverseResolvingEList<Solution>(Solution.class, this, ModelingassistantPackage.STUDENT__SOLUTIONS, ModelingassistantPackage.SOLUTION__STUDENT);
@@ -285,6 +200,66 @@ public class StudentImpl extends NamedElementImpl implements Student {
    * <!-- end-user-doc -->
    * @generated
    */
+  public Solution getCurrentSolution() {
+    if (currentSolution != null && currentSolution.eIsProxy()) {
+      InternalEObject oldCurrentSolution = (InternalEObject)currentSolution;
+      currentSolution = (Solution)eResolveProxy(oldCurrentSolution);
+      if (currentSolution != oldCurrentSolution) {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.STUDENT__CURRENT_SOLUTION, oldCurrentSolution, currentSolution));
+      }
+    }
+    return currentSolution;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Solution basicGetCurrentSolution() {
+    return currentSolution;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetCurrentSolution(Solution newCurrentSolution, NotificationChain msgs) {
+    Solution oldCurrentSolution = currentSolution;
+    currentSolution = newCurrentSolution;
+    if (eNotificationRequired()) {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT__CURRENT_SOLUTION, oldCurrentSolution, newCurrentSolution);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCurrentSolution(Solution newCurrentSolution) {
+    if (newCurrentSolution != currentSolution) {
+      NotificationChain msgs = null;
+      if (currentSolution != null)
+        msgs = ((InternalEObject)currentSolution).eInverseRemove(this, ModelingassistantPackage.SOLUTION__CURRENT_STUDENT, Solution.class, msgs);
+      if (newCurrentSolution != null)
+        msgs = ((InternalEObject)newCurrentSolution).eInverseAdd(this, ModelingassistantPackage.SOLUTION__CURRENT_STUDENT, Solution.class, msgs);
+      msgs = basicSetCurrentSolution(newCurrentSolution, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT__CURRENT_SOLUTION, newCurrentSolution, newCurrentSolution));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -293,16 +268,14 @@ public class StudentImpl extends NamedElementImpl implements Student {
         if (eInternalContainer() != null)
           msgs = eBasicRemoveFromContainer(msgs);
         return basicSetModelingAssistant((ModelingAssistant)otherEnd, msgs);
-      case ModelingassistantPackage.STUDENT__MISTAKES:
-        return ((InternalEList<InternalEObject>)(InternalEList<?>)getMistakes()).basicAdd(otherEnd, msgs);
-      case ModelingassistantPackage.STUDENT__CURRENT_MISTAKE:
-        if (currentMistake != null)
-          msgs = ((InternalEObject)currentMistake).eInverseRemove(this, ModelingassistantPackage.MISTAKE__CURRENT_MISTAKE_STUDENT, Mistake.class, msgs);
-        return basicSetCurrentMistake((Mistake)otherEnd, msgs);
       case ModelingassistantPackage.STUDENT__SOLUTIONS:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getSolutions()).basicAdd(otherEnd, msgs);
       case ModelingassistantPackage.STUDENT__STUDENT_KNOWLEDGES:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getStudentKnowledges()).basicAdd(otherEnd, msgs);
+      case ModelingassistantPackage.STUDENT__CURRENT_SOLUTION:
+        if (currentSolution != null)
+          msgs = ((InternalEObject)currentSolution).eInverseRemove(this, ModelingassistantPackage.SOLUTION__CURRENT_STUDENT, Solution.class, msgs);
+        return basicSetCurrentSolution((Solution)otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -317,14 +290,12 @@ public class StudentImpl extends NamedElementImpl implements Student {
     switch (featureID) {
       case ModelingassistantPackage.STUDENT__MODELING_ASSISTANT:
         return basicSetModelingAssistant(null, msgs);
-      case ModelingassistantPackage.STUDENT__MISTAKES:
-        return ((InternalEList<?>)getMistakes()).basicRemove(otherEnd, msgs);
-      case ModelingassistantPackage.STUDENT__CURRENT_MISTAKE:
-        return basicSetCurrentMistake(null, msgs);
       case ModelingassistantPackage.STUDENT__SOLUTIONS:
         return ((InternalEList<?>)getSolutions()).basicRemove(otherEnd, msgs);
       case ModelingassistantPackage.STUDENT__STUDENT_KNOWLEDGES:
         return ((InternalEList<?>)getStudentKnowledges()).basicRemove(otherEnd, msgs);
+      case ModelingassistantPackage.STUDENT__CURRENT_SOLUTION:
+        return basicSetCurrentSolution(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -355,15 +326,13 @@ public class StudentImpl extends NamedElementImpl implements Student {
         return getId();
       case ModelingassistantPackage.STUDENT__MODELING_ASSISTANT:
         return getModelingAssistant();
-      case ModelingassistantPackage.STUDENT__MISTAKES:
-        return getMistakes();
-      case ModelingassistantPackage.STUDENT__CURRENT_MISTAKE:
-        if (resolve) return getCurrentMistake();
-        return basicGetCurrentMistake();
       case ModelingassistantPackage.STUDENT__SOLUTIONS:
         return getSolutions();
       case ModelingassistantPackage.STUDENT__STUDENT_KNOWLEDGES:
         return getStudentKnowledges();
+      case ModelingassistantPackage.STUDENT__CURRENT_SOLUTION:
+        if (resolve) return getCurrentSolution();
+        return basicGetCurrentSolution();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -383,13 +352,6 @@ public class StudentImpl extends NamedElementImpl implements Student {
       case ModelingassistantPackage.STUDENT__MODELING_ASSISTANT:
         setModelingAssistant((ModelingAssistant)newValue);
         return;
-      case ModelingassistantPackage.STUDENT__MISTAKES:
-        getMistakes().clear();
-        getMistakes().addAll((Collection<? extends Mistake>)newValue);
-        return;
-      case ModelingassistantPackage.STUDENT__CURRENT_MISTAKE:
-        setCurrentMistake((Mistake)newValue);
-        return;
       case ModelingassistantPackage.STUDENT__SOLUTIONS:
         getSolutions().clear();
         getSolutions().addAll((Collection<? extends Solution>)newValue);
@@ -397,6 +359,9 @@ public class StudentImpl extends NamedElementImpl implements Student {
       case ModelingassistantPackage.STUDENT__STUDENT_KNOWLEDGES:
         getStudentKnowledges().clear();
         getStudentKnowledges().addAll((Collection<? extends StudentKnowledge>)newValue);
+        return;
+      case ModelingassistantPackage.STUDENT__CURRENT_SOLUTION:
+        setCurrentSolution((Solution)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -416,17 +381,14 @@ public class StudentImpl extends NamedElementImpl implements Student {
       case ModelingassistantPackage.STUDENT__MODELING_ASSISTANT:
         setModelingAssistant((ModelingAssistant)null);
         return;
-      case ModelingassistantPackage.STUDENT__MISTAKES:
-        getMistakes().clear();
-        return;
-      case ModelingassistantPackage.STUDENT__CURRENT_MISTAKE:
-        setCurrentMistake((Mistake)null);
-        return;
       case ModelingassistantPackage.STUDENT__SOLUTIONS:
         getSolutions().clear();
         return;
       case ModelingassistantPackage.STUDENT__STUDENT_KNOWLEDGES:
         getStudentKnowledges().clear();
+        return;
+      case ModelingassistantPackage.STUDENT__CURRENT_SOLUTION:
+        setCurrentSolution((Solution)null);
         return;
     }
     super.eUnset(featureID);
@@ -444,14 +406,12 @@ public class StudentImpl extends NamedElementImpl implements Student {
         return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
       case ModelingassistantPackage.STUDENT__MODELING_ASSISTANT:
         return getModelingAssistant() != null;
-      case ModelingassistantPackage.STUDENT__MISTAKES:
-        return mistakes != null && !mistakes.isEmpty();
-      case ModelingassistantPackage.STUDENT__CURRENT_MISTAKE:
-        return currentMistake != null;
       case ModelingassistantPackage.STUDENT__SOLUTIONS:
         return solutions != null && !solutions.isEmpty();
       case ModelingassistantPackage.STUDENT__STUDENT_KNOWLEDGES:
         return studentKnowledges != null && !studentKnowledges.isEmpty();
+      case ModelingassistantPackage.STUDENT__CURRENT_SOLUTION:
+        return currentSolution != null;
     }
     return super.eIsSet(featureID);
   }
