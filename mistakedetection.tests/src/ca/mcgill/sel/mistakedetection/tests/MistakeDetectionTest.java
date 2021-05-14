@@ -14,6 +14,7 @@ import classdiagram.ClassDiagram;
 import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
 import modelingassistant.Mistake;
+import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.mistaketypes.MistakeTypes;
 import modelingassistant.util.ResourceHelper;
@@ -183,6 +184,7 @@ public class MistakeDetectionTest {
    * Test for checking mapping between instructor classifier(Bus, Driver) and Student classifier(Bus, Driver)
    */
 @Test public void checkCorrectTestWithSolution1() {
+  
     
     ClassdiagramPackage.eINSTANCE.eClass();
     var cdmFile = "../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm";
@@ -233,7 +235,7 @@ public class MistakeDetectionTest {
     assertEquals(MistakeDetection.mappedClassifier.size(), 2);
     assertEquals(MistakeDetection.mappedClassifier.get(InstructorBusClass),StudentBusClass);
     assertEquals(MistakeDetection.mappedClassifier.get(InstructorDriverClass),StudentDriverClass);
-    assertEquals(MistakeDetection.mistakes.size(), 0);
+    assertEquals(MistakeDetection.newMistakes.size(), 0);
     
     
   }
@@ -293,27 +295,27 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedClassifier.get(InstructorBusClass),StudentBusesClass);
   assertEquals(MistakeDetection.mappedClassifier.get(InstructorDriverClass),StudentDriversClass);
   
-  assertEquals(MistakeDetection.mistakes.size(), 4);
+  assertEquals(MistakeDetection.newMistakes.size(), 4);
   
-  for(Mistake m: MistakeDetection.mistakes) {
-    /*
-   if(m.getMistakeType()==MistakeTypes.USING_PLURAL_OR_LOWERCASE && m.getSolutionElements().get(0).getElement() == StudentBusesClass) {
-    // assertEquals(m.getSolutionElements().get(0).getElement(),StudentBusesClass);
+  for(Mistake m: MistakeDetection.newMistakes) {
+    
+   if(m.getMistakeType()==MistakeTypes.USING_PLURAL_OR_LOWERCASE && m.getStudentElements().get(0).getElement() == StudentBusesClass) {
+     assertEquals(m.getStudentElements().get(0).getElement(),StudentBusesClass);
      
    }
-   if(m.getMistakeType()==MistakeTypes.USING_PLURAL_OR_LOWERCASE && m.getSolutionElements().get(0).getElement() == StudentDriversClass) {
-   //  assertEquals(m.getSolutionElements().get(0).getElement(),StudentDriversClass);
+   if(m.getMistakeType()==MistakeTypes.USING_PLURAL_OR_LOWERCASE && m.getStudentElements().get(0).getElement() == StudentDriversClass) {
+     assertEquals(m.getStudentElements().get(0).getElement(),StudentDriversClass);
      
    }
-   if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getSolutionElements().get(0).getElement() == StudentBusesClass) {
-    // assertEquals(m.getSolutionElements().get(0).getElement(),StudentBusesClass);
+   if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getStudentElements().get(0).getElement() == StudentBusesClass) {
+     assertEquals(m.getStudentElements().get(0).getElement(),StudentBusesClass);
      
    }
-   if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getSolutionElements().get(0).getElement() == StudentDriversClass) {
-   //  assertEquals(m.getSolutionElements().get(0).getElement(),StudentDriversClass);
+   if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getStudentElements().get(0).getElement() == StudentDriversClass) {
+     assertEquals(m.getStudentElements().get(0).getElement(),StudentDriversClass);
      
    }
-   */
+  
   }
   
   }
@@ -371,12 +373,12 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedClassifier.size(), 2);
   assertEquals(MistakeDetection.mappedClassifier.get(InstructorBusClass),StudentBusClass);
   assertEquals(MistakeDetection.mappedClassifier.get(InstructorDriverClass),StudentDrivrClass);
-  assertEquals(MistakeDetection.mistakes.size(), 1);
+  assertEquals(MistakeDetection.newMistakes.size(), 1);
   
-  for(Mistake m: MistakeDetection.mistakes) {
+  for(Mistake m: MistakeDetection.newMistakes) {
     /*
-    if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getSolutionElements().get(0).getElement() == StudentDrivrClass) {
-      assertEquals(m.getSolutionElements().get(0).getElement(),StudentDrivrClass);
+    if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getStudentElements().get(0).getElement() == StudentDrivrClass) {
+      assertEquals(m.getStudentElements().get(0).getElement(),StudentDrivrClass);
       
     }
       */
@@ -547,7 +549,7 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorBusClassAttributeNumberPlate),StudentBusClassAttributeNumberPlate);
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorDriverClassAttributeName),StudentDriverClassAttributeName);
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorPassengerClassAttributeName),StudentPassengerClassAttributeName);
-  assertEquals(MistakeDetection.mistakes.size(), 0);
+  assertEquals(MistakeDetection.newMistakes.size(), 0);
   
  
   }
@@ -678,7 +680,7 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorPassengerClassAttributeName),StudentPassengerClassAttributeName);
   assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(InstructorDriverClassAttributeName));
   assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(InstructorBusClassAttributeNumberPlate));
-  assertEquals(MistakeDetection.mistakes.size(), 0);
+  assertEquals(MistakeDetection.newMistakes.size(), 0);
   
   }
 /**
@@ -773,7 +775,7 @@ public class MistakeDetectionTest {
   assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(InstructorBusClassAttributeNumberPlate));
   assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(InstructorPassengerClassAttributeName));
   assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(InstructorBusClassAttributeCapacity));
-  assertEquals(MistakeDetection.mistakes.size(), 0);
+  assertEquals(MistakeDetection.newMistakes.size(), 0);
   
   
   }
@@ -897,7 +899,7 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorPassengerClassAttributeName),StudentPassengerClassAttributeName);
   assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(InstructorDriverClassAttributeName));
   assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(InstructorBusClassAttributeNumberPlate));
-  assertEquals(MistakeDetection.mistakes.size(), 0);
+  assertEquals(MistakeDetection.newMistakes.size(), 0);
    
   }
 /**
@@ -1034,7 +1036,7 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorBusClassAttributeNumberPlate),StudentBusClassAttributeNumberPlate);
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorDriverClassAttributeName),StudentDriverClassAttributeName);
   assertTrue(MistakeDetection.extraStudentAttribute.contains(StudentCustomerClassAttributeName));
-  assertEquals(MistakeDetection.mistakes.size(), 0);
+  assertEquals(MistakeDetection.newMistakes.size(), 0);
   
   }
 /**
@@ -1160,7 +1162,7 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorPassengerClassAttributeName),StudentCustomerClassAttributeName);
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorBusClassAttributeNumberPlate),StudentBusClassAttributeNumberPlate);
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorDriverClassAttributeName),StudentDriverClassAttributeName);
-  assertEquals(MistakeDetection.mistakes.size(), 0);
+  assertEquals(MistakeDetection.newMistakes.size(), 0);
  
   }
 /**
@@ -1285,7 +1287,7 @@ public class MistakeDetectionTest {
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorPassengerClassAttributeName),StudentCustomerClassAttributeName);
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorBusClassAttributeNumberPlate),StudentVehicleClassAttributeNumberPlate);
   assertEquals(MistakeDetection.mappedAttribute.get(InstructorDriverClassAttributeName),StudentPilotClassAttributeName);
-  assertEquals(MistakeDetection.mistakes.size(), 0);
+  assertEquals(MistakeDetection.newMistakes.size(), 0);
   }
 /**
  * Test to check if both solutions are same then mapping should establish properly using .compare()
