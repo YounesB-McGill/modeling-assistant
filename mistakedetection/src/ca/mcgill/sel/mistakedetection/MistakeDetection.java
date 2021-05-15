@@ -62,7 +62,7 @@ public class MistakeDetection {
 
 
   public static void compare(Solution instructor, Solution student) {
-    if (isSolutionInstructor(instructor) && isSolutionStudent(student)) // checks if instructor
+    if (true) // checks if instructorisSolutionInstructor(instructor) && isSolutionStudent(student) STATENENT COMMENTED TEMOPRARLY
       // student is really
       // instructor solution and
       // vice versa
@@ -125,7 +125,7 @@ public class MistakeDetection {
       // checkMistakeAttributeMisplaced();
       // checkMistakeIncompleteContainmentTree(studentClassifiers);
 
-      updateMistakes(student); // This function updates new and older mistakes in the metamodel.
+   //   updateMistakes(student); // This function updates new and older mistakes in the metamodel.
     }
   }
 
