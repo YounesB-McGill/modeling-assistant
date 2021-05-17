@@ -20,7 +20,7 @@ public class MistakeTypesTests {
     var expectedMissingClassMistakeType = MAF.createMistakeType();
     expectedMissingClassMistakeType.setName(missingClassMistakeTypeName);
     expectedMissingClassMistakeType.setAtomic(false);
-    expectedMissingClassMistakeType.setMistaketypecategory(expectedWrongClassMistakeTypeCategory);
+    expectedMissingClassMistakeType.setMistakeTypeCategory(expectedWrongClassMistakeTypeCategory);
     expectedMissingClassMistakeType.setNumStepsBeforeNotification(3); // Should be in Sirius
     expectedMissingClassMistakeType.setTimeToAddress(null);
     
@@ -31,11 +31,11 @@ public class MistakeTypesTests {
     
     assertEquals(expectedMissingClassMistakeType.getName(), actualMissingClassMistakeType.getName());
     assertEquals(expectedMissingClassMistakeType.isAtomic(), actualMissingClassMistakeType.isAtomic());
-    assertEquals(expectedMissingClassMistakeType.getMistaketypecategory().getName(),
-        actualMissingClassMistakeType.getMistaketypecategory().getName());
+    assertEquals(expectedMissingClassMistakeType.getMistakeTypeCategory().getName(),
+        actualMissingClassMistakeType.getMistakeTypeCategory().getName());
     
-    assertNotNull(actualWrongClassMistakeTypeCategory.getModelingassistant());
-    assertEquals(actualWrongClassMistakeTypeCategory.getModelingassistant(),
+    assertNotNull(actualWrongClassMistakeTypeCategory.getModelingAssistant());
+    assertEquals(actualWrongClassMistakeTypeCategory.getModelingAssistant(),
         actualMissingClassMistakeType.getModelingAssistant());
   }
 

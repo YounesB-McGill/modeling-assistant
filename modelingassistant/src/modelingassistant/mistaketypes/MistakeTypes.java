@@ -36,7 +36,7 @@ public class MistakeTypes {
   static {
     var modelingAssistant = loadModelingAssistant();
     
-    modelingAssistant.getMistaketypecategory().forEach(mtc ->
+    modelingAssistant.getMistakeTypeCategories().forEach(mtc ->
         MISTAKE_TYPE_CATEGORIES_BY_NAME.put(mtc.getName(), mtc));
     
     modelingAssistant.getMistakeTypes().forEach(mt ->

@@ -60,7 +60,7 @@ public class MistakeTypes {
   static {
     var modelingAssistant = loadModelingAssistant();
     
-    modelingAssistant.getMistaketypecategory().forEach(mtc ->
+    modelingAssistant.getMistakeTypeCategories().forEach(mtc ->
         MISTAKE_TYPE_CATEGORIES_BY_NAME.put(mtc.getName(), mtc));
     
     modelingAssistant.getMistakeTypes().forEach(mt ->
@@ -70,7 +70,7 @@ public class MistakeTypes {
 
   // Mistake type categories
 
-  [for(mTC : MistakeTypeCategory | aModelingAssistant.mistaketypecategory)]
+  [for(mTC : MistakeTypeCategory | aModelingAssistant.mistakeTypeCategories)]
   [let lhs : String = 'public static final MistakeTypeCategory ' +
     underscorify(mTC.name)
   ]
@@ -162,11 +162,11 @@ modeling_assistant: ModelingAssistant = resource.contents[ '[' /]0[ ']' /]
 modeling_assistant.__class__ = ModelingAssistant
 
 # Populate dictionaries
-for mtc in modeling_assistant.mistaketypecategory: MISTAKE_TYPE_CATEGORIES_BY_NAME[ '[' /]mtc.name[ ']' /] = mtc
+for mtc in modeling_assistant.mistakeTypeCategories: MISTAKE_TYPE_CATEGORIES_BY_NAME[ '[' /]mtc.name[ ']' /] = mtc
 for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[ ']' /] = mt
 
 # Mistake type categories
-[for(mTC : MistakeTypeCategory | aModelingAssistant.mistaketypecategory)]
+[for(mTC : MistakeTypeCategory | aModelingAssistant.mistakeTypeCategories)]
 [let lhs : String = underscorify(mTC.name)
   + ': MistakeTypeCategory'
 ]
