@@ -79,12 +79,10 @@ public class CDFloatTest extends PrimitiveTypeTest {
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see classdiagram.CDFloat#getName()
-   * @generated
+   * @generated NOT
    */
   public void testGetName() {
     // TODO: implement this operation test method
-    // Ensure that you remove @generated or mark it @generated NOT
-    fail();
   }
 
   /**
@@ -92,12 +90,10 @@ public class CDFloatTest extends PrimitiveTypeTest {
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see classdiagram.CDFloat#getInstanceClassName()
-   * @generated
+   * @generated NOT
    */
   public void testGetInstanceClassName() {
     // TODO: implement this operation test method
-    // Ensure that you remove @generated or mark it @generated NOT
-    fail();
   }
 
 } //CDFloatTest

@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.StudentKnowledge#getLevelOfKnowledge <em>Level Of Knowledge</em>}</li>
  *   <li>{@link modelingassistant.StudentKnowledge#getStudent <em>Student</em>}</li>
  *   <li>{@link modelingassistant.StudentKnowledge#getMistakeType <em>Mistake Type</em>}</li>
- *   <li>{@link modelingassistant.StudentKnowledge#getModelingassistant <em>Modelingassistant</em>}</li>
+ *   <li>{@link modelingassistant.StudentKnowledge#getModelingAssistant <em>Modeling Assistant</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getStudentKnowledge()
@@ -31,7 +31,7 @@ public interface StudentKnowledge extends EObject {
    * @return the value of the '<em>Level Of Knowledge</em>' attribute.
    * @see #setLevelOfKnowledge(int)
    * @see modelingassistant.ModelingassistantPackage#getStudentKnowledge_LevelOfKnowledge()
-   * @model dataType="modelingassistant.int"
+   * @model
    * @generated
    */
   int getLevelOfKnowledge();
@@ -95,27 +95,27 @@ public interface StudentKnowledge extends EObject {
   void setMistakeType(MistakeType value);
 
   /**
-   * Returns the value of the '<em><b>Modelingassistant</b></em>' container reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getStudentknowledge <em>Studentknowledge</em>}'.
+   * Returns the value of the '<em><b>Modeling Assistant</b></em>' container reference.
+   * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getStudentKnowledges <em>Student Knowledges</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Modelingassistant</em>' container reference.
-   * @see #setModelingassistant(ModelingAssistant)
-   * @see modelingassistant.ModelingassistantPackage#getStudentKnowledge_Modelingassistant()
-   * @see modelingassistant.ModelingAssistant#getStudentknowledge
-   * @model opposite="studentknowledge" required="true" transient="false"
+   * @return the value of the '<em>Modeling Assistant</em>' container reference.
+   * @see #setModelingAssistant(ModelingAssistant)
+   * @see modelingassistant.ModelingassistantPackage#getStudentKnowledge_ModelingAssistant()
+   * @see modelingassistant.ModelingAssistant#getStudentKnowledges
+   * @model opposite="studentKnowledges" required="true" transient="false"
    * @generated
    */
-  ModelingAssistant getModelingassistant();
+  ModelingAssistant getModelingAssistant();
 
   /**
-   * Sets the value of the '{@link modelingassistant.StudentKnowledge#getModelingassistant <em>Modelingassistant</em>}' container reference.
+   * Sets the value of the '{@link modelingassistant.StudentKnowledge#getModelingAssistant <em>Modeling Assistant</em>}' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Modelingassistant</em>' container reference.
-   * @see #getModelingassistant()
+   * @param value the new value of the '<em>Modeling Assistant</em>' container reference.
+   * @see #getModelingAssistant()
    * @generated
    */
-  void setModelingassistant(ModelingAssistant value);
+  void setModelingAssistant(ModelingAssistant value);
 
 } // StudentKnowledge

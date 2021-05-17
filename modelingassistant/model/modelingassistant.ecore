@@ -2,10 +2,7 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="modelingassistant" nsURI="http://cs.mcgill.ca/sel/modelingassistant/1.0"
     nsPrefix="modelingassistant">
-  <eClassifiers xsi:type="ecore:EDataType" name="int" instanceClassName="int"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="boolean" instanceClassName="boolean"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Time" instanceClassName="java.sql.Time"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="double" instanceClassName="double"/>
   <eClassifiers xsi:type="ecore:EClass" name="ModelingAssistant">
     <eStructuralFeatures xsi:type="ecore:EReference" name="learningItems" upperBound="-1"
         eType="#//LearningItem" containment="true" eOpposite="#//LearningItem/modelingAssistant"/>
@@ -23,10 +20,10 @@
         eType="#//Feedback" containment="true" eOpposite="#//Feedback/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypes" upperBound="-1"
         eType="#//MistakeType" containment="true" eOpposite="#//MistakeType/modelingAssistant"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="studentknowledge" upperBound="-1"
-        eType="#//StudentKnowledge" containment="true" eOpposite="#//StudentKnowledge/modelingassistant"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="mistaketypecategory" upperBound="-1"
-        eType="#//MistakeTypeCategory" containment="true" eOpposite="#//MistakeTypeCategory/modelingassistant"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="studentKnowledges" upperBound="-1"
+        eType="#//StudentKnowledge" containment="true" eOpposite="#//StudentKnowledge/modelingAssistant"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypeCategories" upperBound="-1"
+        eType="#//MistakeTypeCategory" containment="true" eOpposite="#//MistakeTypeCategory/modelingAssistant"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Student" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -105,19 +102,19 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StudentKnowledge">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="levelOfKnowledge" eType="#//int"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="levelOfKnowledge" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="student" lowerBound="1"
         eType="#//Student" eOpposite="#//Student/studentKnowledges"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeType" lowerBound="1"
         eType="#//MistakeType" eOpposite="#//MistakeType/studentKnowledges"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelingassistant" lowerBound="1"
-        eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/studentknowledge"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
+        eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/studentKnowledges"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MistakeType" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="atomic" eType="#//boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="atomic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeToAddress" eType="#//Time"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numStepsBeforeNotification"
-        eType="#//int"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
         eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/mistakeTypes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="learningItem" lowerBound="1"
@@ -128,14 +125,14 @@
         eType="#//Mistake" eOpposite="#//Mistake/mistakeType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feedbacks" upperBound="-1"
         eType="#//Feedback" eOpposite="#//Feedback/mistakeType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="mistaketypecategory" lowerBound="1"
-        eType="#//MistakeTypeCategory" eOpposite="#//MistakeTypeCategory/mistaketype"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypeCategory" lowerBound="1"
+        eType="#//MistakeTypeCategory" eOpposite="#//MistakeTypeCategory/mistakeTypes"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Mistake">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" eType="#//boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeToAddress" eType="#//Time"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numStepsBeforeNotification"
-        eType="#//int"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="studentElements" upperBound="-1"
         eType="#//SolutionElement" eOpposite="#//SolutionElement/studentElementMistakes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeType" lowerBound="1"
@@ -151,11 +148,11 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Feedback">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="level" eType="#//int"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="congratulatory" eType="#//boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usefulness" eType="#//double"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="highlightProblem" eType="#//boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="highlightSolution" eType="#//boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="level" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="congratulatory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usefulness" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="highlightProblem" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="highlightSolution" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
         eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/feedbacks"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeType" lowerBound="1"
@@ -187,13 +184,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MistakeTypeCategory" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="mistaketype" upperBound="-1"
-        eType="#//MistakeType" eOpposite="#//MistakeType/mistaketypecategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypes" upperBound="-1"
+        eType="#//MistakeType" eOpposite="#//MistakeType/mistakeTypeCategory"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="supercategory" eType="#//MistakeTypeCategory"
         eOpposite="#//MistakeTypeCategory/subcategories"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subcategories" upperBound="-1"
         eType="#//MistakeTypeCategory" eOpposite="#//MistakeTypeCategory/supercategory"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelingassistant" lowerBound="1"
-        eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/mistaketypecategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
+        eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/mistakeTypeCategories"/>
   </eClassifiers>
 </ecore:EPackage>
