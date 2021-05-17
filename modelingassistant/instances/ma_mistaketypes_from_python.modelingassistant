@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmi:id="524efae7-b82b-4bf8-b414-5214d14c0d57" xmi:version="2.0">
+  <mistakeTypes xsi:type="modelingassistant:MistakeType" xmi:id="9bd9f666-db14-4d89-9fc2-809a85ffa5bf" mistakeTypeCategory="73a95c1c-0153-4138-ba4f-cdc9fa3fae05" name="Missing class"/>
+  <mistakeTypes xsi:type="modelingassistant:MistakeType" xmi:id="90e072ac-3a71-4831-b560-64f357fa21eb" mistakeTypeCategory="74cbc023-d4a9-4e4b-ab22-505a2fc2fc40" atomic="true" name="Software engineering term"/>
+  <mistakeTypeCategories xsi:type="modelingassistant:MistakeTypeCategory" xmi:id="73a95c1c-0153-4138-ba4f-cdc9fa3fae05" subcategories="74cbc023-d4a9-4e4b-ab22-505a2fc2fc40" mistakeTypes="9bd9f666-db14-4d89-9fc2-809a85ffa5bf" name="Wrong class"/>
+  <mistakeTypeCategories xsi:type="modelingassistant:MistakeTypeCategory" xmi:id="74cbc023-d4a9-4e4b-ab22-505a2fc2fc40" supercategory="73a95c1c-0153-4138-ba4f-cdc9fa3fae05" mistakeTypes="90e072ac-3a71-4831-b560-64f357fa21eb" name="Wrong class name"/>
+</modelingassistant:ModelingAssistant>

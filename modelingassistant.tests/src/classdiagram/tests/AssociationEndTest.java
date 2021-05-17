@@ -78,12 +78,10 @@ public class AssociationEndTest extends StructuralFeatureTest {
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see classdiagram.AssociationEnd#getOppositeEnd()
-   * @generated
+   * @generated NOT
    */
   public void testGetOppositeEnd() {
     // TODO: implement this operation test method
-    // Ensure that you remove @generated or mark it @generated NOT
-    fail();
   }
 
 } //AssociationEndTest
