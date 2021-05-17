@@ -114,7 +114,7 @@
         eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/studentknowledge"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MistakeType" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="atomic" eType="#//boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="atomic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeToAddress" eType="#//Time"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numStepsBeforeNotification"
         eType="#//int"/>
