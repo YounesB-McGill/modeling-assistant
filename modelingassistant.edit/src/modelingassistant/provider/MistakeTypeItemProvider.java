@@ -53,7 +53,7 @@ public class MistakeTypeItemProvider
       addStudentKnowledgesPropertyDescriptor(object);
       addMistakesPropertyDescriptor(object);
       addFeedbacksPropertyDescriptor(object);
-      addMistaketypecategoryPropertyDescriptor(object);
+      addMistakeTypeCategoryPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -235,19 +235,19 @@ public class MistakeTypeItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Mistaketypecategory feature.
+   * This adds a property descriptor for the Mistake Type Category feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addMistaketypecategoryPropertyDescriptor(Object object) {
+  protected void addMistakeTypeCategoryPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_MistakeType_mistaketypecategory_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_MistakeType_mistaketypecategory_feature", "_UI_MistakeType_type"),
-         ModelingassistantPackage.Literals.MISTAKE_TYPE__MISTAKETYPECATEGORY,
+         getString("_UI_MistakeType_mistakeTypeCategory_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_MistakeType_mistakeTypeCategory_feature", "_UI_MistakeType_type"),
+         ModelingassistantPackage.Literals.MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY,
          true,
          false,
          true,

@@ -38,7 +38,7 @@ public interface Feedback extends EObject {
    * @return the value of the '<em>Level</em>' attribute.
    * @see #setLevel(int)
    * @see modelingassistant.ModelingassistantPackage#getFeedback_Level()
-   * @model dataType="modelingassistant.int"
+   * @model
    * @generated
    */
   int getLevel();
@@ -60,7 +60,7 @@ public interface Feedback extends EObject {
    * @return the value of the '<em>Congratulatory</em>' attribute.
    * @see #setCongratulatory(boolean)
    * @see modelingassistant.ModelingassistantPackage#getFeedback_Congratulatory()
-   * @model dataType="modelingassistant.boolean"
+   * @model
    * @generated
    */
   boolean isCongratulatory();
@@ -82,7 +82,7 @@ public interface Feedback extends EObject {
    * @return the value of the '<em>Usefulness</em>' attribute.
    * @see #setUsefulness(double)
    * @see modelingassistant.ModelingassistantPackage#getFeedback_Usefulness()
-   * @model dataType="modelingassistant.double"
+   * @model
    * @generated
    */
   double getUsefulness();
@@ -104,7 +104,7 @@ public interface Feedback extends EObject {
    * @return the value of the '<em>Highlight Problem</em>' attribute.
    * @see #setHighlightProblem(boolean)
    * @see modelingassistant.ModelingassistantPackage#getFeedback_HighlightProblem()
-   * @model dataType="modelingassistant.boolean"
+   * @model
    * @generated
    */
   boolean isHighlightProblem();
@@ -126,7 +126,7 @@ public interface Feedback extends EObject {
    * @return the value of the '<em>Highlight Solution</em>' attribute.
    * @see #setHighlightSolution(boolean)
    * @see modelingassistant.ModelingassistantPackage#getFeedback_HighlightSolution()
-   * @model dataType="modelingassistant.boolean"
+   * @model
    * @generated
    */
   boolean isHighlightSolution();
