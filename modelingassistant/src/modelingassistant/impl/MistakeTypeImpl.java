@@ -44,7 +44,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link modelingassistant.impl.MistakeTypeImpl#getStudentKnowledges <em>Student Knowledges</em>}</li>
  *   <li>{@link modelingassistant.impl.MistakeTypeImpl#getMistakes <em>Mistakes</em>}</li>
  *   <li>{@link modelingassistant.impl.MistakeTypeImpl#getFeedbacks <em>Feedbacks</em>}</li>
- *   <li>{@link modelingassistant.impl.MistakeTypeImpl#getMistaketypecategory <em>Mistaketypecategory</em>}</li>
+ *   <li>{@link modelingassistant.impl.MistakeTypeImpl#getMistakeTypeCategory <em>Mistake Type Category</em>}</li>
  * </ul>
  *
  * @generated
@@ -151,14 +151,14 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
   protected EList<Feedback> feedbacks;
 
   /**
-   * The cached value of the '{@link #getMistaketypecategory() <em>Mistaketypecategory</em>}' reference.
+   * The cached value of the '{@link #getMistakeTypeCategory() <em>Mistake Type Category</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMistaketypecategory()
+   * @see #getMistakeTypeCategory()
    * @generated
    * @ordered
    */
-  protected MistakeTypeCategory mistaketypecategory;
+  protected MistakeTypeCategory mistakeTypeCategory;
 
   /**
    * <!-- begin-user-doc -->
@@ -384,16 +384,16 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
    * <!-- end-user-doc -->
    * @generated
    */
-  public MistakeTypeCategory getMistaketypecategory() {
-    if (mistaketypecategory != null && mistaketypecategory.eIsProxy()) {
-      InternalEObject oldMistaketypecategory = (InternalEObject)mistaketypecategory;
-      mistaketypecategory = (MistakeTypeCategory)eResolveProxy(oldMistaketypecategory);
-      if (mistaketypecategory != oldMistaketypecategory) {
+  public MistakeTypeCategory getMistakeTypeCategory() {
+    if (mistakeTypeCategory != null && mistakeTypeCategory.eIsProxy()) {
+      InternalEObject oldMistakeTypeCategory = (InternalEObject)mistakeTypeCategory;
+      mistakeTypeCategory = (MistakeTypeCategory)eResolveProxy(oldMistakeTypeCategory);
+      if (mistakeTypeCategory != oldMistakeTypeCategory) {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY, oldMistaketypecategory, mistaketypecategory));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY, oldMistakeTypeCategory, mistakeTypeCategory));
       }
     }
-    return mistaketypecategory;
+    return mistakeTypeCategory;
   }
 
   /**
@@ -401,8 +401,8 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
    * <!-- end-user-doc -->
    * @generated
    */
-  public MistakeTypeCategory basicGetMistaketypecategory() {
-    return mistaketypecategory;
+  public MistakeTypeCategory basicGetMistakeTypeCategory() {
+    return mistakeTypeCategory;
   }
 
   /**
@@ -410,11 +410,11 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetMistaketypecategory(MistakeTypeCategory newMistaketypecategory, NotificationChain msgs) {
-    MistakeTypeCategory oldMistaketypecategory = mistaketypecategory;
-    mistaketypecategory = newMistaketypecategory;
+  public NotificationChain basicSetMistakeTypeCategory(MistakeTypeCategory newMistakeTypeCategory, NotificationChain msgs) {
+    MistakeTypeCategory oldMistakeTypeCategory = mistakeTypeCategory;
+    mistakeTypeCategory = newMistakeTypeCategory;
     if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY, oldMistaketypecategory, newMistaketypecategory);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY, oldMistakeTypeCategory, newMistakeTypeCategory);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -425,18 +425,18 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setMistaketypecategory(MistakeTypeCategory newMistaketypecategory) {
-    if (newMistaketypecategory != mistaketypecategory) {
+  public void setMistakeTypeCategory(MistakeTypeCategory newMistakeTypeCategory) {
+    if (newMistakeTypeCategory != mistakeTypeCategory) {
       NotificationChain msgs = null;
-      if (mistaketypecategory != null)
-        msgs = ((InternalEObject)mistaketypecategory).eInverseRemove(this, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__MISTAKETYPE, MistakeTypeCategory.class, msgs);
-      if (newMistaketypecategory != null)
-        msgs = ((InternalEObject)newMistaketypecategory).eInverseAdd(this, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__MISTAKETYPE, MistakeTypeCategory.class, msgs);
-      msgs = basicSetMistaketypecategory(newMistaketypecategory, msgs);
+      if (mistakeTypeCategory != null)
+        msgs = ((InternalEObject)mistakeTypeCategory).eInverseRemove(this, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__MISTAKE_TYPES, MistakeTypeCategory.class, msgs);
+      if (newMistakeTypeCategory != null)
+        msgs = ((InternalEObject)newMistakeTypeCategory).eInverseAdd(this, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__MISTAKE_TYPES, MistakeTypeCategory.class, msgs);
+      msgs = basicSetMistakeTypeCategory(newMistakeTypeCategory, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY, newMistaketypecategory, newMistaketypecategory));
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY, newMistakeTypeCategory, newMistakeTypeCategory));
   }
 
   /**
@@ -462,10 +462,10 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getMistakes()).basicAdd(otherEnd, msgs);
       case ModelingassistantPackage.MISTAKE_TYPE__FEEDBACKS:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getFeedbacks()).basicAdd(otherEnd, msgs);
-      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY:
-        if (mistaketypecategory != null)
-          msgs = ((InternalEObject)mistaketypecategory).eInverseRemove(this, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__MISTAKETYPE, MistakeTypeCategory.class, msgs);
-        return basicSetMistaketypecategory((MistakeTypeCategory)otherEnd, msgs);
+      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY:
+        if (mistakeTypeCategory != null)
+          msgs = ((InternalEObject)mistakeTypeCategory).eInverseRemove(this, ModelingassistantPackage.MISTAKE_TYPE_CATEGORY__MISTAKE_TYPES, MistakeTypeCategory.class, msgs);
+        return basicSetMistakeTypeCategory((MistakeTypeCategory)otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -488,8 +488,8 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         return ((InternalEList<?>)getMistakes()).basicRemove(otherEnd, msgs);
       case ModelingassistantPackage.MISTAKE_TYPE__FEEDBACKS:
         return ((InternalEList<?>)getFeedbacks()).basicRemove(otherEnd, msgs);
-      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY:
-        return basicSetMistaketypecategory(null, msgs);
+      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY:
+        return basicSetMistakeTypeCategory(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -533,9 +533,9 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         return getMistakes();
       case ModelingassistantPackage.MISTAKE_TYPE__FEEDBACKS:
         return getFeedbacks();
-      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY:
-        if (resolve) return getMistaketypecategory();
-        return basicGetMistaketypecategory();
+      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY:
+        if (resolve) return getMistakeTypeCategory();
+        return basicGetMistakeTypeCategory();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -576,8 +576,8 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         getFeedbacks().clear();
         getFeedbacks().addAll((Collection<? extends Feedback>)newValue);
         return;
-      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY:
-        setMistaketypecategory((MistakeTypeCategory)newValue);
+      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY:
+        setMistakeTypeCategory((MistakeTypeCategory)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -615,8 +615,8 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
       case ModelingassistantPackage.MISTAKE_TYPE__FEEDBACKS:
         getFeedbacks().clear();
         return;
-      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY:
-        setMistaketypecategory((MistakeTypeCategory)null);
+      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY:
+        setMistakeTypeCategory((MistakeTypeCategory)null);
         return;
     }
     super.eUnset(featureID);
@@ -646,8 +646,8 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         return mistakes != null && !mistakes.isEmpty();
       case ModelingassistantPackage.MISTAKE_TYPE__FEEDBACKS:
         return feedbacks != null && !feedbacks.isEmpty();
-      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKETYPECATEGORY:
-        return mistaketypecategory != null;
+      case ModelingassistantPackage.MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY:
+        return mistakeTypeCategory != null;
     }
     return super.eIsSet(featureID);
   }

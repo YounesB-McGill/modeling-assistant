@@ -41,7 +41,7 @@ public interface Mistake extends EObject {
    * @return the value of the '<em>Resolved</em>' attribute.
    * @see #setResolved(boolean)
    * @see modelingassistant.ModelingassistantPackage#getMistake_Resolved()
-   * @model dataType="modelingassistant.boolean"
+   * @model
    * @generated
    */
   boolean isResolved();
@@ -85,7 +85,7 @@ public interface Mistake extends EObject {
    * @return the value of the '<em>Num Steps Before Notification</em>' attribute.
    * @see #setNumStepsBeforeNotification(int)
    * @see modelingassistant.ModelingassistantPackage#getMistake_NumStepsBeforeNotification()
-   * @model dataType="modelingassistant.int"
+   * @model
    * @generated
    */
   int getNumStepsBeforeNotification();

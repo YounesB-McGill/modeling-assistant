@@ -3,7 +3,6 @@ package controller.tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.URI;
@@ -25,9 +25,12 @@ import classdiagram.ClassdiagramFactory;
 import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
 import classdiagram.ReferenceType;
+import modelingassistant.MistakeType;
+import modelingassistant.MistakeTypeCategory;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
+import modelingassistant.NamedElement;
 import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 import modelingassistant.util.ResourceHelper;
 
@@ -768,7 +771,7 @@ public class ControllerTest {
     student1ClassNamingKnowledge.setLevelOfKnowledge(lok1);
     student1ClassNamingKnowledge.setStudent(student1);
     student1ClassNamingKnowledge.setMistakeType(classNamingMistakeType);
-    student1ClassNamingKnowledge.setModelingassistant(modelingAssistant);
+    student1ClassNamingKnowledge.setModelingAssistant(modelingAssistant);
     
     // Make and link second class diagram to modeling assistant instance and related student
     var classDiagram2 = cdf.createClassDiagram();
@@ -785,7 +788,7 @@ public class ControllerTest {
     student2ClassNamingKnowledge.setLevelOfKnowledge(lok2);
     student2ClassNamingKnowledge.setStudent(student2);
     student2ClassNamingKnowledge.setMistakeType(classNamingMistakeType);
-    student2ClassNamingKnowledge.setModelingassistant(modelingAssistant);
+    student2ClassNamingKnowledge.setModelingAssistant(modelingAssistant);
     
     var cdInt = cdf.createCDInt();
     var cdString = cdf.createCDString();
@@ -828,7 +831,105 @@ public class ControllerTest {
     assertEquals(lok2, s2k.getLevelOfKnowledge());
     assertTrue(s2k.getMistakeType().isAtomic());
   }
-  
+
+  /**
+   * Verifies that a ModelingAssistant instance with mistake types and categories can be serialized to an XMI file.
+   */
+  @Test public void testPersistingModelingAssistantWithMistakeTypesAndCategories() {
+    var maPath = "../modelingassistant/instances/ma_mistaketypes_from_java.modelingassistant";
+    var maFile = new File(maPath);
+    if (maFile.isFile()) {
+      assertTrue(maFile.delete());
+    }
+
+    ModelingassistantPackage.eINSTANCE.eClass();
+    var maf = ModelingassistantFactory.eINSTANCE;
+    
+    var modelingAssistant = maf.createModelingAssistant();
+    var wrongClass = maf.createMistakeTypeCategory();
+    wrongClass.setName("Wrong class");
+    wrongClass.setModelingAssistant(modelingAssistant);
+    var wrongClassName = maf.createMistakeTypeCategory();
+    wrongClassName.setName("Wrong class name");
+    wrongClassName.setSupercategory(wrongClass);
+    wrongClassName.setModelingAssistant(modelingAssistant);
+    var missingClass = maf.createMistakeType();
+    missingClass.setName("Missing class");
+    missingClass.setMistakeTypeCategory(wrongClass);
+    missingClass.setModelingAssistant(modelingAssistant);
+    var seTerm = maf.createMistakeType();
+    seTerm.setName("Software engineering term");
+    seTerm.setAtomic(true);
+    seTerm.setMistakeTypeCategory(wrongClassName);
+    seTerm.setModelingAssistant(modelingAssistant);
+
+    // Save modeling assistant instance to file and verify contents
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new ModelingassistantResourceFactoryImpl());
+    var resource = rset.createResource(URI.createFileURI(maPath));
+    resource.getContents().add(modelingAssistant);
+    try {
+      resource.save(Collections.EMPTY_MAP);
+      assertTrue(maFile.isFile());
+      var fileContent = Files.readString(Paths.get(maPath));
+      List.of("Wrong class name", "Missing class", "Software engineering term", "atomic").forEach(s ->
+          assertTrue(fileContent.contains(s)));
+    } catch (IOException e) {
+      fail();
+    }
+  }
+
+  /**
+   * Verifies that the the modeling assistant instance defined above can be deserialized correctly.
+   */
+  @Test public void testLoadingModelingAssistantWithMistakeTypesAndCategories() {
+    ModelingassistantPackage.eINSTANCE.eClass();
+    var maPaths = List.of(
+        "../modelingassistant/instances/ma_mistaketypes_from_java.modelingassistant",
+        "../modelingassistant/instances/ma_mistaketypes_from_python.modelingassistant"
+    );
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("modelingassistant",
+        new ModelingassistantResourceFactoryImpl());
+    
+    final BiFunction<List<? extends NamedElement>, String, NamedElement> itemByName = (itemList, name) ->
+      itemList.stream().filter(item -> item.getName().equals(name)).findFirst().orElse(null);
+
+    maPaths.forEach(maPath -> {
+      try {
+        var maResource = rset.createResource(URI.createFileURI(new File(maPath).getCanonicalPath()));
+        maResource.load(Collections.EMPTY_MAP);
+        
+        var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
+        var mtcs = modelingAssistant.getMistakeTypeCategories();
+        var mts = modelingAssistant.getMistakeTypes();
+        var wrongClass = (MistakeTypeCategory) itemByName.apply(mtcs, "Wrong class");
+        var wrongClassName = (MistakeTypeCategory) itemByName.apply(mtcs, "Wrong class name");
+        var missingClass = (MistakeType) itemByName.apply(mts, "Missing class");
+        var seTerm = (MistakeType) itemByName.apply(mts, "Software engineering term");
+        
+        /* Verify all of these relationships (names already correct due to above):
+         * 
+         *                         Wrong class: MistakeTypeCategory
+         *                       /                                  \
+         *     Wrong class name: MistakeTypeCategory       Missing class: MistakeType
+         *                     |
+         *     Software engineering term: MistakeType
+         */
+        assertTrue(wrongClass.getSubcategories().contains(wrongClassName));
+        assertTrue(wrongClassName.getSupercategory() == wrongClass); // should be same object, not just equal
+        assertTrue(wrongClass.getMistakeTypes().contains(missingClass));
+        assertTrue(missingClass.getMistakeTypeCategory() == wrongClass);
+        assertTrue(wrongClassName.getMistakeTypes().contains(seTerm));
+        assertTrue(seTerm.getMistakeTypeCategory() == wrongClassName);
+        List.of(wrongClass, wrongClassName).forEach(mtc -> assertTrue(mtc.getModelingAssistant() == modelingAssistant));
+        List.of(missingClass, seTerm).forEach(mt -> assertTrue(mt.getModelingAssistant() == modelingAssistant));
+      } catch (IOException e) {
+        fail();
+      }
+    });
+  }
+
   /**
    * Associates the two classes in memory (modifies classes and returns nothing).
    */
@@ -852,7 +953,7 @@ public class ControllerTest {
     class21AssociationEnd.setAssoc(association);
   }
   
-  public void contains(Classifier containedClass, Classifier containerClass) {
+  public void contain(Classifier containedClass, Classifier containerClass) {
     var cdf = ClassdiagramFactory.eINSTANCE;
     var containerClassAssociationEnd = cdf.createAssociationEnd();
     containerClassAssociationEnd.setClassifier(containerClass);

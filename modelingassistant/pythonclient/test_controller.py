@@ -6,8 +6,8 @@ import pytest
 
 from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, ImplementationClass, CDInt, CDString,
     AssociationEnd, Association, ReferenceType)
-from modelingassistant.modelingassistant import (ModelingAssistant, Solution, Student, MistakeType, LearningItem,
-    StudentKnowledge)
+from modelingassistant.modelingassistant import (ModelingAssistant, Solution, Student, MistakeType,
+    MistakeTypeCategory, LearningItem, StudentKnowledge)
 from pyecore.ecore import EInteger, EString
 from pyecore.resources import ResourceSet, URI
 
@@ -688,7 +688,7 @@ def test_student_knowledge_persisted_correctly():
     lok1 = 10_578_963  # use a large int to detect it in testing 
     student1_class_naming_knowledge = StudentKnowledge(levelOfKnowledge=lok1, student=student1,
                                                        mistakeType=class_naming_mistake_type,
-                                                       modelingassistant=modeling_assistant)
+                                                       modelingAssistant=modeling_assistant)
 
     # Make and link second class diagram to modeling assistant instance and related student
     class_diagram2 = ClassDiagram(name="Student2_solution")
@@ -698,7 +698,7 @@ def test_student_knowledge_persisted_correctly():
     lok2 = 8_996_541
     student2_class_naming_knowledge = StudentKnowledge(levelOfKnowledge=lok2, student=student2,
                                                        mistakeType=class_naming_mistake_type,
-                                                       modelingassistant=modeling_assistant)
+                                                       modelingAssistant=modeling_assistant)
     cd_int = CDInt()
     cd_string = CDString()
     class_diagram2.types.extend([cd_int, cd_string])
@@ -749,6 +749,92 @@ def test_student_knowledge_persisted_correctly():
     assert "2222" == s2k.student.id
     assert lok2 == s2k.levelOfKnowledge
     assert s2k.mistakeType.atomic
+
+
+def test_persisting_modeling_assistant_with_mistake_types_and_categories():
+    """
+    Verify that a ModelingAssistant instance with mistake types and categories can be serialized
+    to an XMI file.
+    """
+    # Remove previously created file (if it exists)
+    ma_path = "modelingassistant/instances/ma_mistaketypes_from_python.modelingassistant"
+    if os.path.exists(ma_path): os.remove(ma_path)
+
+    # Load Modeling Assistant metamodel
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+    rset = ResourceSet()
+    ma_mm_root = rset.get_resource(URI(ma_mm_file)).contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+
+    modeling_assistant = ModelingAssistant()
+    wrong_class = MistakeTypeCategory(name="Wrong class", modelingAssistant=modeling_assistant)
+    wrong_class_name = MistakeTypeCategory(name="Wrong class name", supercategory=wrong_class,
+                                           modelingAssistant=modeling_assistant)
+    missing_class = MistakeType(name="Missing class", mistakeTypeCategory=wrong_class,
+                                modelingAssistant=modeling_assistant)
+    se_term = MistakeType(name="Software engineering term", mistakeTypeCategory=wrong_class_name,
+                          atomic=True, modelingAssistant=modeling_assistant)
+    
+    # Save modeling assistant instance to file
+    ma_resource = rset.create_resource(URI(ma_path))
+    ma_resource.use_uuid = True
+    ma_resource.append(modeling_assistant)
+    ma_resource.save()
+
+    assert os.path.exists(ma_path)
+    with open(ma_path) as f:
+        file_contents = f.read()
+        for s in ["Wrong class name", "Missing class", "Software engineering term", "atomic"]:
+            assert s in file_contents
+
+
+def test_loading_modeling_assistant_with_mistake_types_and_categories():
+    """
+    Verify that the the modeling assistant instance defined above can be deserialized correctly.
+    """
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+    rset = ResourceSet()
+    resource = rset.get_resource(URI(ma_mm_file))
+    ma_mm_root = resource.contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+
+    item_by_name = lambda item_list, name: list(filter(lambda item: item.name == name, item_list))[0]
+
+    ma_path = "modelingassistant/instances"
+    ma_files = [
+        f"{ma_path}/ma_mistaketypes_from_python.modelingassistant",
+        f"{ma_path}/ma_mistaketypes_from_java.modelingassistant"
+    ]
+
+    for ma_file in ma_files:
+        resource = rset.get_resource(URI(ma_file))
+        modeling_assistant: ModelingAssistant = resource.contents[0]
+        modeling_assistant.__class__ = ModelingAssistant
+
+        mtcs = modeling_assistant.mistakeTypeCategories
+        mts = modeling_assistant.mistakeTypes
+        wrong_class = item_by_name(mtcs, "Wrong class")
+        wrong_class_name = item_by_name(mtcs, "Wrong class name")
+        missing_class = item_by_name(mts, "Missing class")
+        se_term = item_by_name(mts, "Software engineering term")
+
+        """
+        Verify all of these relationships (names already correct due to above):
+
+                              Wrong class: MistakeTypeCategory
+                            /                                  \
+            Wrong class name: MistakeTypeCategory       Missing class: MistakeType
+                            |
+            Software engineering term: MistakeType
+        """
+        assert wrong_class_name in wrong_class.subcategories
+        assert wrong_class_name.supercategory is wrong_class
+        assert missing_class in wrong_class.mistakeTypes
+        assert missing_class.mistakeTypeCategory is wrong_class
+        assert se_term in wrong_class_name.mistakeTypes
+        assert se_term.mistakeTypeCategory is wrong_class_name
+        for item in [wrong_class, wrong_class_name, missing_class, se_term]:
+            assert item.modelingAssistant is modeling_assistant
 
 
 
@@ -876,3 +962,5 @@ def test_check_for_incomplete_containment_tree_failure_case():
 
 if __name__ == "__main__":
     "Main entry point."
+    test_persisting_modeling_assistant_with_mistake_types_and_categories()
+    test_loading_modeling_assistant_with_mistake_types_and_categories()
