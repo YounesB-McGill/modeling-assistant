@@ -253,21 +253,14 @@ public class MistakeDetection {
 
 
   private static boolean isSolutionStudent(Solution studentSolution) {
-    if (studentSolution.getStudent() != null) {
-      return true;
-    } else {
-      return false;
-    }
+ 
+    return studentSolution.getStudent() != null;
 
   }
 
   private static boolean isSolutionInstructor(Solution instructorSolution) {
-    if (instructorSolution.getStudent() == null) {
-      return true;
-    } else {
-      return false;
-    }
-
+    return instructorSolution.getStudent() == null;
+      
   }
 
   /**
