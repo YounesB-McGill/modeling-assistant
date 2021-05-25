@@ -23,7 +23,9 @@ public class MistakeDetection {
 
   public static final ClassdiagramFactory CDF = ClassdiagramFactory.eINSTANCE;
   public static final ModelingassistantFactory MAF = ModelingassistantFactory.eINSTANCE;
-
+  
+  public static final int MAX_DETECTIONS_AFTER_RESOLUTION = 5;
+  
   /** Maps nouns to true if they are plural, false otherwise. */
   static HashMap<String, Boolean> nounPluralStatus = new HashMap<String, Boolean>();
 
@@ -137,12 +139,17 @@ public class MistakeDetection {
  // List containing existing mistakes that are equal to newMistakes
     EList<Mistake> existingMistakesProcessed = new BasicEList<Mistake>(); 
 
-    EList<Mistake> newMistakesToRemove = new BasicEList<Mistake>(); // List containing mistakes to
-                                                                    // be removed from new Mistake
-                                                                    // List
-
+    EList<Mistake> newMistakesToRemove = new BasicEList<Mistake>(); // List containing mistakes to  be removed from new Mistake
+     
+   // --FOR DEBUGGING--
+    //System.out.println(studentSolution.getStudent()); 
+    //System.out.println(studentSolution);// List
+   // System.out.println(existingMistakes.size());
+    //---
+    
  // Condition when only new mistakes exists.
     if (existingMistakes.size() == 0 && newMistakes.size() != 0) {
+   //   System.out.println("In 1");
       for (Mistake newMistake : newMistakes) {
 
         newMistake.setResolved(false);
@@ -152,7 +159,7 @@ public class MistakeDetection {
 
       }
     } else if (existingMistakes.size() != 0 && newMistakes.size() != 0) {
-
+    //  System.out.println("In 2");
       for (Mistake existingMistake : existingMistakes) {
 
         for (Mistake newMistake : newMistakes) {
@@ -170,8 +177,8 @@ public class MistakeDetection {
                 newMistakesToRemove.add(newMistake);
               }
             } else if (isExistingMistakesHasOnlyStudentElements(existingMistake) && isNewMistakesHasOnlyStudentElements(newMistake)) {
-              System.out.println(existingMistake.getStudentElements().get(0).getElement());
-              System.out.println(newMistake.getStudentElements().get(0).getElement());
+            //  System.out.println(existingMistake.getStudentElements().get(0).getElement());
+            //  System.out.println(newMistake.getStudentElements().get(0).getElement());
               if (existingMistake.getStudentElements().get(0).getElement()
                   .equals(newMistake.getStudentElements().get(0).getElement())) {
                
@@ -202,7 +209,7 @@ public class MistakeDetection {
       for (Mistake existingMistake : existingMistakes) {
         if(!existingMistakesProcessed.contains(existingMistake)) {
                   
-        if (existingMistake.getNumDetectionSinceResolved() <= 5 && existingMistake.isResolved() == true) {
+        if (existingMistake.getNumDetectionSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION && existingMistake.isResolved()) {
           existingMistake.setResolved(true);
           existingMistake
               .setNumDetectionSinceResolved(existingMistake.getNumDetectionSinceResolved() + 1);
@@ -223,8 +230,9 @@ public class MistakeDetection {
         newMistake.setStudentSolution(studentSolution);
       }
     } else if (existingMistakes.size() != 0 && newMistakes.size() == 0) {
+     // System.out.println("In 3");
       for (Mistake existingMistake : existingMistakes) {
-        if (existingMistake.getNumDetectionSinceResolved() <= 5) {
+        if (existingMistake.getNumDetectionSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION) {
           existingMistake.setResolved(true);
          
           existingMistake
@@ -280,12 +288,17 @@ public class MistakeDetection {
    return (newMistake.getInstructorElements().size() != 0 && newMistake.getStudentElements().size() == 0);
       
  }
-     
+ /**
+  * Helper Function which returns true if a student is associated with a solution.
+  * */   
   private static boolean isSolutionStudentSolution(Solution studentSolution) {
  
     return studentSolution.getStudent() != null;
 
   }
+  /**
+   * Helper Function which returns true if NO student is associated with a solution.
+   * */  
   private static boolean isSolutionInstructorSolution(Solution instructorSolution) {
     
     return instructorSolution.getStudent() == null;
