@@ -61,14 +61,14 @@ public class MistakeDetection {
 
 
 
-  public static void compare(Solution instructor, Solution student) {
-    if (isSolutionInstructorSolution(instructor) && isSolutionStudentSolution(student)) // checks if
+  public static void compare(Solution instructorSolution, Solution studentSolution) {
+    if (isSolutionInstructorSolution(instructorSolution) && isSolutionStudentSolution(studentSolution)) // checks if
     // solution is really instructor solution and vice versa
     {
       clearAttributesAndClassifer();
       newMistakes.clear();
-      EList<Classifier> instructorClassifiers = instructor.getClassDiagram().getClasses();
-      EList<Classifier> studentClassifiers = student.getClassDiagram().getClasses();
+      EList<Classifier> instructorClassifiers = instructorSolution.getClassDiagram().getClasses();
+      EList<Classifier> studentClassifiers = studentSolution.getClassDiagram().getClasses();
 
       int count = 0;
       for (Classifier instructorClassifier : instructorClassifiers) {
@@ -123,7 +123,7 @@ public class MistakeDetection {
       // checkMistakeAttributeMisplaced();
       // checkMistakeIncompleteContainmentTree(studentClassifiers);
 
-      updateMistakes(student); // This function updates new and older mistakes in the metamodel.
+      updateMistakes(studentSolution); // This function updates new and older mistakes in the metamodel.
     }
   }
 
@@ -141,9 +141,8 @@ public class MistakeDetection {
                                                                     // be removed from new Mistake
                                                                     // List
 
-
-    if (existingMistakes.size() == 0 && newMistakes.size() != 0) {// Condition when only new
-      // mistakes exists.
+ // Condition when only new mistakes exists.
+    if (existingMistakes.size() == 0 && newMistakes.size() != 0) {
       for (Mistake newMistake : newMistakes) {
 
         newMistake.setResolved(false);
@@ -171,6 +170,8 @@ public class MistakeDetection {
                 newMistakesToRemove.add(newMistake);
               }
             } else if (isExistingMistakesHasOnlyStudentElements(existingMistake) && isNewMistakesHasOnlyStudentElements(newMistake)) {
+              System.out.println(existingMistake.getStudentElements().get(0).getElement());
+              System.out.println(newMistake.getStudentElements().get(0).getElement());
               if (existingMistake.getStudentElements().get(0).getElement()
                   .equals(newMistake.getStudentElements().get(0).getElement())) {
                
@@ -237,32 +238,44 @@ public class MistakeDetection {
       }
     }
   }
-
+  /**
+   * Helper Function which returns true if a existing mistake has both instructor and student elements.
+   * */
  private static boolean isExistingMistakesHasInstructorAndStudentElements(Mistake existingMistake) {
    return (existingMistake.getInstructorElements().size() != 0 && existingMistake.getStudentElements().size() != 0);
       
  }
- 
+ /**
+  * Helper Function which returns true if a new mistake has both instructor and student elements.
+  * */
  private static boolean isNewMistakesHasInstructorAndStudentElements(Mistake newMistake) {
    return (newMistake.getInstructorElements().size() != 0 && newMistake.getStudentElements().size() != 0);
       
  }
- 
+ /**
+  * Helper Function which returns true if a existing mistake has only student elements.
+  * */
  private static boolean isExistingMistakesHasOnlyStudentElements(Mistake existingMistake) {
    return (existingMistake.getInstructorElements().size() == 0 && existingMistake.getStudentElements().size() != 0);
       
  }
- 
+ /**
+  * Helper Function which returns true if a new mistake has only student elements.
+  * */
  private static boolean isNewMistakesHasOnlyStudentElements(Mistake newMistake) {
    return (newMistake.getInstructorElements().size() == 0 && newMistake.getStudentElements().size() != 0);
       
  }
- 
+ /**
+  * Helper Function which returns true if a existing mistake has only instructor elements.
+  * */
  private static boolean isExistingMistakesHasOnlyInstructorElements(Mistake existingMistake) {
    return ( existingMistake.getInstructorElements().size() != 0 && existingMistake.getStudentElements().size() == 0);
       
  }
- 
+ /**
+  * Helper Function which returns true if a new mistake has only instructor elements.
+  * */
  private static boolean isNewMistakesHasOnlyInstructorElements(Mistake newMistake) {
    return (newMistake.getInstructorElements().size() != 0 && newMistake.getStudentElements().size() == 0);
       
@@ -273,8 +286,8 @@ public class MistakeDetection {
     return studentSolution.getStudent() != null;
 
   }
-
   private static boolean isSolutionInstructorSolution(Solution instructorSolution) {
+    
     return instructorSolution.getStudent() == null;
       
   }
