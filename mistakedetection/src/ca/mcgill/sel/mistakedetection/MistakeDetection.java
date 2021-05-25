@@ -8,9 +8,7 @@ import classdiagram.Classifier;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -64,10 +62,8 @@ public class MistakeDetection {
 
 
   public static void compare(Solution instructor, Solution student) {
-    if (isSolutionInstructor(instructor) && isSolutionStudent(student)) // checks if
-    // solution is really
-    // instructor solution and
-    // vice versa
+    if (isSolutionInstructorSolution(instructor) && isSolutionStudentSolution(student)) // checks if
+    // solution is really instructor solution and vice versa
     {
       clearAttributesAndClassifer();
       newMistakes.clear();
@@ -133,20 +129,20 @@ public class MistakeDetection {
 
   private static void updateMistakes(Solution studentSolution) {
     ModelingAssistant ma = studentSolution.getModelingAssistant();
-    EList<Mistake> ExistingMistakes = new BasicEList<Mistake>(); // List containing mistakes in
-    // metamodel
-    ExistingMistakes = studentSolution.getMistakes();
     
+ // List containing mistakes associated with a student Solution
+    EList<Mistake> existingMistakes = new BasicEList<Mistake>(); 
+    existingMistakes = studentSolution.getMistakes();
     
-    EList<Mistake> ExistingMistakesProcessed = new BasicEList<Mistake>(); // List containing mistakes
-                                                                         // that are processed
+ // List containing existing mistakes that are equal to newMistakes
+    EList<Mistake> existingMistakesProcessed = new BasicEList<Mistake>(); 
 
     EList<Mistake> newMistakesToRemove = new BasicEList<Mistake>(); // List containing mistakes to
                                                                     // be removed from new Mistake
                                                                     // List
 
 
-    if (ExistingMistakes.size() == 0 && newMistakes.size() != 0) {// Condition when only new
+    if (existingMistakes.size() == 0 && newMistakes.size() != 0) {// Condition when only new
       // mistakes exists.
       for (Mistake newMistake : newMistakes) {
 
@@ -156,51 +152,42 @@ public class MistakeDetection {
         newMistake.setStudentSolution(studentSolution);
 
       }
-    } else if (ExistingMistakes.size() != 0 && newMistakes.size() != 0) {
+    } else if (existingMistakes.size() != 0 && newMistakes.size() != 0) {
 
-      for (Mistake ExistingMistake : ExistingMistakes) {
+      for (Mistake existingMistake : existingMistakes) {
 
         for (Mistake newMistake : newMistakes) {
-          if (ExistingMistake.getMistakeType() == newMistake.getMistakeType()) {
-            if (ExistingMistake.getInstructorElements().size() != 0
-                && ExistingMistake.getStudentElements().size() != 0
-                && newMistake.getInstructorElements().size() != 0
-                && newMistake.getStudentElements().size() != 0) {
-              if (ExistingMistake.getStudentElements().get(0).getElement()
+          if (existingMistake.getMistakeType() == newMistake.getMistakeType()) {
+            if (isExistingMistakesHasInstructorAndStudentElements(existingMistake) && isNewMistakesHasInstructorAndStudentElements(newMistake)) {
+              if (existingMistake.getStudentElements().get(0).getElement()
                   .equals(newMistake.getStudentElements().get(0).getElement())
-                  && ExistingMistake.getInstructorElements().get(0).getElement()
+                  && existingMistake.getInstructorElements().get(0).getElement()
                       .equals(newMistake.getInstructorElements().get(0).getElement())) {
                 
-                ExistingMistake.setResolved(false);
-                ExistingMistake.setNumDetection(ExistingMistake.getNumDetection() + 1);
-                ExistingMistake.setNumDetectionSinceResolved(0);
-                ExistingMistakesProcessed.add(ExistingMistake);
+                existingMistake.setResolved(false);
+                existingMistake.setNumDetection(existingMistake.getNumDetection() + 1);
+                existingMistake.setNumDetectionSinceResolved(0);
+                existingMistakesProcessed.add(existingMistake);
                 newMistakesToRemove.add(newMistake);
               }
-            } else if (ExistingMistake.getInstructorElements().size() == 0
-                && ExistingMistake.getStudentElements().size() != 0
-                && newMistake.getInstructorElements().size() == 0
-                && newMistake.getStudentElements().size() != 0) {
-              if (ExistingMistake.getStudentElements().get(0).getElement()
+            } else if (isExistingMistakesHasOnlyStudentElements(existingMistake) && isNewMistakesHasOnlyStudentElements(newMistake)) {
+              if (existingMistake.getStudentElements().get(0).getElement()
                   .equals(newMistake.getStudentElements().get(0).getElement())) {
                
-                ExistingMistake.setResolved(false);
-                ExistingMistake.setNumDetection(ExistingMistake.getNumDetection() + 1);
-                ExistingMistake.setNumDetectionSinceResolved(0);
-                ExistingMistakesProcessed.add(ExistingMistake);
+                existingMistake.setResolved(false);
+                existingMistake.setNumDetection(existingMistake.getNumDetection() + 1);
+                existingMistake.setNumDetectionSinceResolved(0);
+                existingMistakesProcessed.add(existingMistake);
                 newMistakesToRemove.add(newMistake);
               }
-            } else if (ExistingMistake.getInstructorElements().size() != 0
-                && ExistingMistake.getStudentElements().size() == 0
-                && newMistake.getInstructorElements().size() != 0
-                && newMistake.getStudentElements().size() == 0) {
-              if (ExistingMistake.getInstructorElements().get(0).getElement()
+            } else if (isExistingMistakesHasOnlyInstructorElements(existingMistake) && isNewMistakesHasOnlyInstructorElements(newMistake)) {
+              if (existingMistake.getInstructorElements().get(0).getElement()
                   .equals(newMistake.getInstructorElements().get(0).getElement())) {
               
-                ExistingMistake.setResolved(false);
-                ExistingMistake.setNumDetection(ExistingMistake.getNumDetection() + 1);
-                ExistingMistake.setNumDetectionSinceResolved(0);
-                ExistingMistakesProcessed.add(ExistingMistake);
+                existingMistake.setResolved(false);
+                existingMistake.setNumDetection(existingMistake.getNumDetection() + 1);
+                existingMistake.setNumDetectionSinceResolved(0);
+                existingMistakesProcessed.add(existingMistake);
                 newMistakesToRemove.add(newMistake);
               }
             }
@@ -211,19 +198,19 @@ public class MistakeDetection {
       }
       newMistakes.removeAll(newMistakesToRemove);
      
-      for (Mistake ExistingMistake : ExistingMistakes) {
-        if(!ExistingMistakesProcessed.contains(ExistingMistake)) {
+      for (Mistake existingMistake : existingMistakes) {
+        if(!existingMistakesProcessed.contains(existingMistake)) {
                   
-        if (ExistingMistake.getNumDetectionSinceResolved() <= 5 && ExistingMistake.isResolved() == true) {
-          ExistingMistake.setResolved(true);
-          ExistingMistake
-              .setNumDetectionSinceResolved(ExistingMistake.getNumDetectionSinceResolved() + 1);
+        if (existingMistake.getNumDetectionSinceResolved() <= 5 && existingMistake.isResolved() == true) {
+          existingMistake.setResolved(true);
+          existingMistake
+              .setNumDetectionSinceResolved(existingMistake.getNumDetectionSinceResolved() + 1);
          
         } else {
           
-          ExistingMistake.setStudentSolution(null);
-          ExistingMistake.getInstructorElements().clear();
-          ExistingMistake.getStudentElements().clear();
+          existingMistake.setStudentSolution(null);
+          existingMistake.getInstructorElements().clear();
+          existingMistake.getStudentElements().clear();
         }
         }
       }
@@ -234,31 +221,60 @@ public class MistakeDetection {
         newMistake.setNumDetectionSinceResolved(0);
         newMistake.setStudentSolution(studentSolution);
       }
-    } else if (ExistingMistakes.size() != 0 && newMistakes.size() == 0) {
-      for (Mistake ExistingMistake : ExistingMistakes) {
-        if (ExistingMistake.getNumDetectionSinceResolved() <= 5) {
-          ExistingMistake.setResolved(true);
+    } else if (existingMistakes.size() != 0 && newMistakes.size() == 0) {
+      for (Mistake existingMistake : existingMistakes) {
+        if (existingMistake.getNumDetectionSinceResolved() <= 5) {
+          existingMistake.setResolved(true);
          
-          ExistingMistake
-              .setNumDetectionSinceResolved(ExistingMistake.getNumDetectionSinceResolved() + 1);
+          existingMistake
+              .setNumDetectionSinceResolved(existingMistake.getNumDetectionSinceResolved() + 1);
 
         } else {
-          ExistingMistake.setStudentSolution(null);
-          ExistingMistake.getInstructorElements().clear();
-          ExistingMistake.getStudentElements().clear();
+          existingMistake.setStudentSolution(null);
+          existingMistake.getInstructorElements().clear();
+          existingMistake.getStudentElements().clear();
         }
       }
     }
   }
 
-
-  private static boolean isSolutionStudent(Solution studentSolution) {
+ private static boolean isExistingMistakesHasInstructorAndStudentElements(Mistake existingMistake) {
+   return (existingMistake.getInstructorElements().size() != 0 && existingMistake.getStudentElements().size() != 0);
+      
+ }
+ 
+ private static boolean isNewMistakesHasInstructorAndStudentElements(Mistake newMistake) {
+   return (newMistake.getInstructorElements().size() != 0 && newMistake.getStudentElements().size() != 0);
+      
+ }
+ 
+ private static boolean isExistingMistakesHasOnlyStudentElements(Mistake existingMistake) {
+   return (existingMistake.getInstructorElements().size() == 0 && existingMistake.getStudentElements().size() != 0);
+      
+ }
+ 
+ private static boolean isNewMistakesHasOnlyStudentElements(Mistake newMistake) {
+   return (newMistake.getInstructorElements().size() == 0 && newMistake.getStudentElements().size() != 0);
+      
+ }
+ 
+ private static boolean isExistingMistakesHasOnlyInstructorElements(Mistake existingMistake) {
+   return ( existingMistake.getInstructorElements().size() != 0 && existingMistake.getStudentElements().size() == 0);
+      
+ }
+ 
+ private static boolean isNewMistakesHasOnlyInstructorElements(Mistake newMistake) {
+   return (newMistake.getInstructorElements().size() != 0 && newMistake.getStudentElements().size() == 0);
+      
+ }
+     
+  private static boolean isSolutionStudentSolution(Solution studentSolution) {
  
     return studentSolution.getStudent() != null;
 
   }
 
-  private static boolean isSolutionInstructor(Solution instructorSolution) {
+  private static boolean isSolutionInstructorSolution(Solution instructorSolution) {
     return instructorSolution.getStudent() == null;
       
   }
