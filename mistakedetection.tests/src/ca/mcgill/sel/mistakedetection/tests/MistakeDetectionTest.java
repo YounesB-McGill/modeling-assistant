@@ -1457,6 +1457,8 @@ public class MistakeDetectionTest {
  */
 @Test public void checkComparetWithSolution1_Metamodel() {
   
+ 
+  
   ClassdiagramPackage.eINSTANCE.eClass();
   var cdmFile = "../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm";
   var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -1636,6 +1638,122 @@ public class MistakeDetectionTest {
    }
   
   }
+  
+  MistakeDetection.compare(solution,solution1);
+  assertEquals(MistakeDetection.notMappedInstructorClassifier.size(), 0);
+  assertEquals(MistakeDetection.extraStudentClassifier.size(), 0);
+  assertEquals(MistakeDetection.mappedClassifier.size(), 2);
+  assertEquals(MistakeDetection.mappedClassifier.get(InstructorBusClass),StudentBusesClass);
+  assertEquals(MistakeDetection.mappedClassifier.get(InstructorDriverClass),StudentDriversClass);
+  
+  assertEquals(MistakeDetection.newMistakes.size(), 0); // Removed in updateMistake() function
+  assertEquals(solution1.getMistakes().size(), 4);
+  for(Mistake m: solution1.getMistakes()) {
+    
+   if(m.getMistakeType()==MistakeTypes.USING_PLURAL_OR_LOWERCASE && m.getStudentElements().get(0).getElement() == StudentBusesClass) {
+     assertEquals(m.getStudentElements().get(0).getElement(),StudentBusesClass);
+     assertEquals(m.getNumDetectionSinceResolved(), 0);
+     assertEquals(m.getNumDetection(), 3);
+     assertFalse(m.isResolved());
+     
+   }
+   if(m.getMistakeType()==MistakeTypes.USING_PLURAL_OR_LOWERCASE && m.getStudentElements().get(0).getElement() == StudentDriversClass) {
+     assertEquals(m.getStudentElements().get(0).getElement(),StudentDriversClass);
+     assertEquals(m.getNumDetectionSinceResolved(), 0);
+     assertEquals(m.getNumDetection(), 3);
+     assertFalse(m.isResolved());
+     
+   }
+   if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getStudentElements().get(0).getElement() == StudentBusesClass) {
+     assertEquals(m.getStudentElements().get(0).getElement(),StudentBusesClass);
+     assertEquals(m.getNumDetectionSinceResolved(), 0);
+     assertEquals(m.getNumDetection(), 3);
+     assertFalse(m.isResolved());
+     
+   }
+   if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getStudentElements().get(0).getElement() == StudentDriversClass) {
+     assertEquals(m.getStudentElements().get(0).getElement(),StudentDriversClass);
+     assertEquals(m.getNumDetectionSinceResolved(), 0);
+     assertEquals(m.getNumDetection(), 3);
+     assertFalse(m.isResolved());
+     
+   }
+  
+  }
+  
+ // checking with perfect solution
+  
+  cdmFile1 = "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution.domain_model.cdm";
+  resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
+  classDiagram1 = (ClassDiagram) resource1.getContents().get(0);
+  modelingAssistant1 = maf1.createModelingAssistant();
+  solution1.setModelingAssistant(modelingAssistant1);
+  solution1.setClassDiagram(classDiagram1);
+  solution1.setStudent(student);
+  
+  InstructorBusClass = null;
+  InstructorDriverClass = null;
+
+  for (var c : classDiagram.getClasses()) {
+    if ("Bus".equals(c.getName()))
+      InstructorBusClass = c;
+    else if ("Driver".equals(c.getName()))
+      InstructorDriverClass = c;
+  }
+  
+  StudentBusClass = null;
+  StudentDriverClass = null;
+
+  for (var c : classDiagram1.getClasses()) {
+    if ("Bus".equals(c.getName()))
+      StudentBusClass = c;
+    else if ("Driver".equals(c.getName()))
+      StudentDriverClass = c;
+  }
+  
+  MistakeDetection.compare(solution, solution1);    
+  assertEquals(MistakeDetection.notMappedInstructorClassifier.size(), 0);
+  assertEquals(MistakeDetection.extraStudentClassifier.size(), 0);
+  assertEquals(MistakeDetection.mappedClassifier.size(), 2);
+  assertEquals(MistakeDetection.mappedClassifier.get(InstructorBusClass),StudentBusClass);
+  assertEquals(MistakeDetection.mappedClassifier.get(InstructorDriverClass),StudentDriverClass);
+  assertEquals(MistakeDetection.newMistakes.size(), 0);
+  assertEquals(solution1.getMistakes().size(), 4);
+  
+  for(Mistake m: solution1.getMistakes()) {
+    
+    if(m.getMistakeType()==MistakeTypes.USING_PLURAL_OR_LOWERCASE && m.getStudentElements().get(0).getElement() == StudentBusesClass) {
+      assertEquals(m.getStudentElements().get(0).getElement(),StudentBusesClass);
+      assertEquals(m.getNumDetectionSinceResolved(), 1);
+      assertEquals(m.getNumDetection(), 3);
+      assertTrue(m.isResolved());
+      
+    }
+    if(m.getMistakeType()==MistakeTypes.USING_PLURAL_OR_LOWERCASE && m.getStudentElements().get(0).getElement() == StudentDriversClass) {
+      assertEquals(m.getStudentElements().get(0).getElement(),StudentDriversClass);
+      assertEquals(m.getNumDetectionSinceResolved(), 1);
+      assertEquals(m.getNumDetection(), 3);
+      assertTrue(m.isResolved());
+      
+    }
+    if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getStudentElements().get(0).getElement() == StudentBusesClass) {
+      assertEquals(m.getStudentElements().get(0).getElement(),StudentBusesClass);
+      assertEquals(m.getNumDetectionSinceResolved(), 1);
+      assertEquals(m.getNumDetection(), 3);
+      assertTrue(m.isResolved());
+      
+    }
+    if(m.getMistakeType()==MistakeTypes.BAD_CLASS_NAME_SPELLING && m.getStudentElements().get(0).getElement() == StudentDriversClass) {
+      assertEquals(m.getStudentElements().get(0).getElement(),StudentDriversClass);
+      assertEquals(m.getNumDetectionSinceResolved(), 1);
+      assertEquals(m.getNumDetection(), 3);
+      assertTrue(m.isResolved());
+      
+    }
+   
+   }
+  
+ 
   
   }
 
