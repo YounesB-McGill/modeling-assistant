@@ -103,7 +103,9 @@ public class MistakeDetection {
               for (Attribute sAttribute : sAttributes) {
                 float lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
                 if (lDistance < 3) {
-                  // checkMistakeWrongAttributeType(sAttribute,iAttribute);
+                     checkMistakeAttributeSpelling(sAttribute,iAttribute);
+                     
+                    checkMistakeWrongAttributeType(sAttribute,iAttribute);
                   // checkMistakeAttributeStatic(sAttribute,iAttribute);
                 }
               }
@@ -128,6 +130,8 @@ public class MistakeDetection {
       updateMistakes(studentSolution); // This function updates new and older mistakes in the metamodel.
     }
   }
+
+  
 
   private static void updateMistakes(Solution studentSolution) {
     ModelingAssistant ma = studentSolution.getModelingAssistant();
@@ -499,6 +503,21 @@ public class MistakeDetection {
       newMistakes.add(m);
     }
   }
+    
+  public static void checkMistakeAttributeSpelling(Attribute sAttribute,
+      Attribute iAttribute) {
+    int lDistance =
+        levenshteinDistance(sAttribute.getName(), iAttribute.getName());
+    if (lDistance != 0) {
+      SolutionElement s = MAF.createSolutionElement();
+      s.setElement(sAttribute);
+
+      var m = MAF.createMistake();
+      m.setMistakeType(MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING);
+      m.getStudentElements().add(s);
+      newMistakes.add(m);
+    }
+  }
 
   public static int levenshteinDistance(String sClassName, String iClassName) {
     LevenshteinDistance ld = new LevenshteinDistance();
@@ -564,6 +583,24 @@ public class MistakeDetection {
     return false;
   }
 
+  public static void checkMistakeWrongAttributeType(Attribute sAttribute, Attribute iAttribute) {
+    if(isAttributeTypeWrong(sAttribute,iAttribute)){
+      
+      SolutionElement s = MAF.createSolutionElement();
+      s.setElement(sAttribute);
+
+      var m = MAF.createMistake();
+      m.setMistakeType(MistakeTypes.WRONG_ATTRIBUTE_TYPE);
+      m.getStudentElements().add(s);
+      newMistakes.add(m);
+   }
+
+    
+  }
+  
+  public static boolean isAttributeTypeWrong(Attribute sAttribute, Attribute iAttribute){
+    return (!sAttribute.getType().toString().substring(0,sAttribute.getType().toString().indexOf("@")).equals(iAttribute.getType().toString().substring(0,iAttribute.getType().toString().indexOf("@"))));
+    }
 
   /***
    * This is a fuunction created for testing the logic. Only for test.

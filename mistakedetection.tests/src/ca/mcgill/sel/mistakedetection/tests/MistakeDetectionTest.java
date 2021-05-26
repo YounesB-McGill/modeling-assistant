@@ -1758,6 +1758,337 @@ public class MistakeDetectionTest {
   }
 
 /**
+ * Test to check for mapped classifiers(Passanger,Bus,Driver) and attributes Spelling Mistakes (nam,capacty,nme,noPlate)
+ */
+@Test public void checkCorrectTestWithSolutionThree_withAttributes() {
+  
+  ClassdiagramPackage.eINSTANCE.eClass();
+  var cdmFile = "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
+  var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
+  var classDiagram = (ClassDiagram) resource.getContents().get(0);
+  var maf = ModelingassistantFactory.eINSTANCE;
+  var modelingAssistant = maf.createModelingAssistant();
+  var solution = maf.createSolution();
+  solution.setModelingAssistant(modelingAssistant);
+  solution.setClassDiagram(classDiagram);
+  
+  ClassdiagramPackage.eINSTANCE.eClass();
+  var cdmFile1 = "../mistakedetection/testModels/StudentSolution/three(withAttributes)/ClassDiagram/Three(withAttributes).domain_model.cdm";
+  var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
+  var classDiagram1 = (ClassDiagram) resource1.getContents().get(0);
+  var maf1 = ModelingassistantFactory.eINSTANCE;
+  var modelingAssistant1 = maf1.createModelingAssistant();
+  var solution1 = maf1.createSolution();
+  solution1.setModelingAssistant(modelingAssistant1);
+  solution1.setClassDiagram(classDiagram1);
+  var student = maf1.createStudent();
+  solution1.setStudent(student);
+  
+  Classifier InstructorBusClass = null;
+  Classifier InstructorDriverClass = null;
+  Classifier InstructorPassangerClass = null;
+
+  Attribute InstructorBusClassAttributeCapacity = null;
+  Attribute InstructorBusClassAttributeNumberPlate = null;
+  Attribute InstructorDriverClassAttributeName = null;
+  Attribute InstructorPassengerClassAttributeName = null;
+
+  for (var c : classDiagram.getClasses()) {
+    if ("Bus".equals(c.getName())) {
+      InstructorBusClass = c;
+      for (Attribute a : c.getAttributes()) {
+        if ("capacity".equals(a.getName())) {
+          InstructorBusClassAttributeCapacity = a;
+        }
+        if ("numberPlate".equals(a.getName())) {
+          InstructorBusClassAttributeNumberPlate = a;
+        }
+      }
+    } else if ("Driver".equals(c.getName())) {
+      InstructorDriverClass = c;
+      for (Attribute a : c.getAttributes()) {
+        if ("name".equals(a.getName())) {
+          InstructorDriverClassAttributeName = a;
+        }
+
+      }
+    } else if ("Passanger".equals(c.getName())) {
+      InstructorPassangerClass = c;
+      for (Attribute a : c.getAttributes()) {
+        if ("name".equals(a.getName())) {
+          InstructorPassengerClassAttributeName = a;
+        }
+
+      }
+    }
+  }
+  
+  Classifier StudentBusClass = null;
+  Classifier StudentDriverClass = null;
+  Classifier StudentPassangerClass = null;
+
+  Attribute StudentBusClassAttributeCapacty = null;
+  Attribute StudentBusClassAttributeNamberPlate = null;
+  Attribute StudentDriverClassAttributeNme = null;
+  Attribute StudentPassengerClassAttributeNam = null;
+
+  for (var c : classDiagram1.getClasses()) {
+    if ("Bus".equals(c.getName())) {
+      StudentBusClass = c;
+      for (Attribute a : c.getAttributes()) {
+        if ("capacty".equals(a.getName())) {
+          StudentBusClassAttributeCapacty = a;
+        }
+        if ("namberPlate".equals(a.getName())) {
+          StudentBusClassAttributeNamberPlate = a;
+        }
+      }
+    } else if ("Driver".equals(c.getName())) {
+      StudentDriverClass = c;
+      for (Attribute a : c.getAttributes()) {
+        if ("nme".equals(a.getName())) {
+          StudentDriverClassAttributeNme = a;
+        }
+
+      }
+    } else if ("Passanger".equals(c.getName())) {
+      StudentPassangerClass = c;
+      for (Attribute a : c.getAttributes()) {
+        if ("nam".equals(a.getName())) {
+          StudentPassengerClassAttributeNam = a;
+        }
+
+      }
+    }
+  }
+  
+  assertTrue(MistakeDetection.checkCorrectTest(InstructorBusClass, StudentBusClass)); 
+  
+  assertTrue(MistakeDetection.checkCorrectTest(InstructorDriverClass, StudentDriverClass));
+ 
+  assertTrue(MistakeDetection.checkCorrectTest(InstructorPassangerClass,StudentPassangerClass));
+  
+  MistakeDetection.compare(solution,solution1);
+   
+  assertEquals(MistakeDetection.notMappedInstructorClassifier.size(), 0);
+  assertEquals(MistakeDetection.extraStudentClassifier.size(), 0);
+  assertEquals(MistakeDetection.mappedClassifier.size(), 3);
+  
+  assertEquals(MistakeDetection.mappedClassifier.get(InstructorBusClass),StudentBusClass);
+  assertEquals(MistakeDetection.mappedClassifier.get(InstructorDriverClass),StudentDriverClass);
+  assertEquals(MistakeDetection.mappedClassifier.get(InstructorPassangerClass),StudentPassangerClass);
+ 
+  assertEquals(MistakeDetection.notMappedInstructorAttribute.size(), 0);
+  assertEquals(MistakeDetection.extraStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.dulplicateStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.mappedAttribute.size(), 4);
+  assertEquals(MistakeDetection.mappedAttribute.get(InstructorBusClassAttributeCapacity),StudentBusClassAttributeCapacty);
+  assertEquals(MistakeDetection.mappedAttribute.get(InstructorBusClassAttributeNumberPlate),StudentBusClassAttributeNamberPlate);
+  assertEquals(MistakeDetection.mappedAttribute.get(InstructorDriverClassAttributeName),StudentDriverClassAttributeNme);
+  assertEquals(MistakeDetection.mappedAttribute.get(InstructorPassengerClassAttributeName),StudentPassengerClassAttributeNam);
+  assertEquals(MistakeDetection.newMistakes.size(), 4);
+  assertEquals(solution1.getMistakes().size(), 4);
+ 
+ for(Mistake m: solution1.getMistakes()) {
+    
+    if(m.getMistakeType()==MistakeTypes.WRONG_ATTRIBUTE_NAME && m.getStudentElements().get(0).getElement() == StudentBusClassAttributeCapacty) {
+      assertEquals(m.getStudentElements().get(0).getElement(),StudentBusClassAttributeCapacty);
+      assertEquals(m.getNumDetectionSinceResolved(), 0);
+      assertEquals(m.getNumDetection(), 1);
+      assertFalse(m.isResolved());
+      
+    }
+    if(m.getMistakeType()==MistakeTypes.WRONG_ATTRIBUTE_NAME && m.getStudentElements().get(0).getElement() == StudentBusClassAttributeNamberPlate) {
+      assertEquals(m.getStudentElements().get(0).getElement(),StudentBusClassAttributeNamberPlate);
+      assertEquals(m.getNumDetectionSinceResolved(), 0);
+      assertEquals(m.getNumDetection(), 1);
+      assertFalse(m.isResolved());
+      
+    }
+    if(m.getMistakeType()==MistakeTypes.WRONG_ATTRIBUTE_NAME && m.getStudentElements().get(0).getElement() == StudentDriverClassAttributeNme) {
+      assertEquals(m.getStudentElements().get(0).getElement(),StudentDriverClassAttributeNme);
+      assertEquals(m.getNumDetectionSinceResolved(), 0);
+      assertEquals(m.getNumDetection(), 1);
+      assertFalse(m.isResolved());
+      
+    }
+    if(m.getMistakeType()==MistakeTypes.WRONG_ATTRIBUTE_NAME && m.getStudentElements().get(0).getElement() == StudentPassengerClassAttributeNam) {
+      assertEquals(m.getStudentElements().get(0).getElement(),StudentPassengerClassAttributeNam);
+      assertEquals(m.getNumDetectionSinceResolved(), 0);
+      assertEquals(m.getNumDetection(), 1);
+      assertFalse(m.isResolved());
+      
+    }
+   
+   }
+  }
+/**
+ * Test to check for mapped classifiers(Passanger,Bus,Driver) and attributes(name,capacity,name,numberPlate) with Wrong Attribute Types
+ */
+@Test public void checkCorrectTestWithSolution4_withWrongAttributesTypes() {
+  
+  ClassdiagramPackage.eINSTANCE.eClass();
+  var cdmFile = "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
+  var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
+  var classDiagram = (ClassDiagram) resource.getContents().get(0);
+  var maf = ModelingassistantFactory.eINSTANCE;
+  var modelingAssistant = maf.createModelingAssistant();
+  var solution = maf.createSolution();
+  solution.setModelingAssistant(modelingAssistant);
+  solution.setClassDiagram(classDiagram);
+  
+  ClassdiagramPackage.eINSTANCE.eClass();
+  var cdmFile1 = "../mistakedetection/testModels/StudentSolution/four(WrongAttibuteType)/ClassDiagram/Four(WrongAttibuteType).domain_model.cdm";
+  var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
+  var classDiagram1 = (ClassDiagram) resource1.getContents().get(0);
+  var maf1 = ModelingassistantFactory.eINSTANCE;
+  var modelingAssistant1 = maf1.createModelingAssistant();
+  var solution1 = maf1.createSolution();
+  solution1.setModelingAssistant(modelingAssistant1);
+  solution1.setClassDiagram(classDiagram1);
+  var student = maf1.createStudent();
+  solution1.setStudent(student);
+  
+  Classifier InstructorBusClass = null;
+  Classifier InstructorDriverClass = null;
+  Classifier InstructorPassangerClass = null;
+
+  Attribute InstructorBusClassAttributeCapacity = null;
+  Attribute InstructorBusClassAttributeNumberPlate = null;
+  Attribute InstructorDriverClassAttributeName = null;
+  Attribute InstructorPassengerClassAttributeName = null;
+
+  for (var c : classDiagram.getClasses()) {
+    if ("Bus".equals(c.getName())) {
+      InstructorBusClass = c;
+      for (Attribute a : c.getAttributes()) {
+        if ("capacity".equals(a.getName())) {
+          InstructorBusClassAttributeCapacity = a;
+        }
+        if ("numberPlate".equals(a.getName())) {
+          InstructorBusClassAttributeNumberPlate = a;
+        }
+      }
+    } else if ("Driver".equals(c.getName())) {
+      InstructorDriverClass = c;
+      for (Attribute a : c.getAttributes()) {
+        if ("name".equals(a.getName())) {
+          InstructorDriverClassAttributeName = a;
+        }
+
+      }
+    } else if ("Passanger".equals(c.getName())) {
+      InstructorPassangerClass = c;
+      for (Attribute a : c.getAttributes()) {
+        if ("name".equals(a.getName())) {
+          InstructorPassengerClassAttributeName = a;
+        }
+
+      }
+    }
+  }
+  
+  Classifier StudentBusClass = null;
+  Classifier StudentDriverClass = null;
+  Classifier StudentPassangerClass = null;
+
+  Attribute StudentBusClassAttributeCapacity = null;
+  Attribute StudentBusClassAttributeNumberPlate = null;
+  Attribute StudentDriverClassAttributeName = null;
+  Attribute StudentPassengerClassAttributeName = null;
+
+  for (var c : classDiagram1.getClasses()) {
+    if ("Bus".equals(c.getName())) {
+      StudentBusClass = c;
+      for (Attribute a : c.getAttributes()) {
+        if ("capacity".equals(a.getName())) {
+          StudentBusClassAttributeCapacity = a;
+        }
+        if ("numberPlate".equals(a.getName())) {
+          StudentBusClassAttributeNumberPlate = a;
+        }
+      }
+    } else if ("Driver".equals(c.getName())) {
+      StudentDriverClass = c;
+      for (Attribute a : c.getAttributes()) {
+        if ("name".equals(a.getName())) {
+          StudentDriverClassAttributeName = a;
+        }
+
+      }
+    } else if ("Passanger".equals(c.getName())) {
+      StudentPassangerClass = c;
+      for (Attribute a : c.getAttributes()) {
+        if ("name".equals(a.getName())) {
+          StudentPassengerClassAttributeName = a;
+        }
+
+      }
+    }
+  }
+  
+  assertTrue(MistakeDetection.checkCorrectTest(InstructorBusClass, StudentBusClass)); 
+  
+  assertTrue(MistakeDetection.checkCorrectTest(InstructorDriverClass, StudentDriverClass));
+ 
+  assertTrue(MistakeDetection.checkCorrectTest(InstructorPassangerClass,StudentPassangerClass));
+  
+  MistakeDetection.compare(solution,solution1);
+   
+  assertEquals(MistakeDetection.notMappedInstructorClassifier.size(), 0);
+  assertEquals(MistakeDetection.extraStudentClassifier.size(), 0);
+  assertEquals(MistakeDetection.mappedClassifier.size(), 3);
+  
+  assertEquals(MistakeDetection.mappedClassifier.get(InstructorBusClass),StudentBusClass);
+  assertEquals(MistakeDetection.mappedClassifier.get(InstructorDriverClass),StudentDriverClass);
+  assertEquals(MistakeDetection.mappedClassifier.get(InstructorPassangerClass),StudentPassangerClass);
+  
+  assertEquals(MistakeDetection.notMappedInstructorAttribute.size(), 0);
+  assertEquals(MistakeDetection.extraStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.dulplicateStudentAttribute.size(), 0);
+  assertEquals(MistakeDetection.mappedAttribute.size(), 4);
+  assertEquals(MistakeDetection.mappedAttribute.get(InstructorBusClassAttributeCapacity),StudentBusClassAttributeCapacity);
+  assertEquals(MistakeDetection.mappedAttribute.get(InstructorBusClassAttributeNumberPlate),StudentBusClassAttributeNumberPlate);
+  assertEquals(MistakeDetection.mappedAttribute.get(InstructorDriverClassAttributeName),StudentDriverClassAttributeName);
+  assertEquals(MistakeDetection.mappedAttribute.get(InstructorPassengerClassAttributeName),StudentPassengerClassAttributeName);
+  
+  assertEquals(MistakeDetection.newMistakes.size(), 4);
+  assertEquals(solution1.getMistakes().size(), 4);
+ 
+ for(Mistake m: solution1.getMistakes()) {
+    
+    if(m.getMistakeType()==MistakeTypes.WRONG_ATTRIBUTE_TYPE && m.getStudentElements().get(0).getElement() == StudentBusClassAttributeCapacity) {
+      assertEquals(m.getStudentElements().get(0).getElement(),StudentBusClassAttributeCapacity);
+      assertEquals(m.getNumDetectionSinceResolved(), 0);
+      assertEquals(m.getNumDetection(), 1);
+      assertFalse(m.isResolved());
+      
+    }
+    if(m.getMistakeType()==MistakeTypes.WRONG_ATTRIBUTE_TYPE && m.getStudentElements().get(0).getElement() == StudentBusClassAttributeNumberPlate) {
+      assertEquals(m.getStudentElements().get(0).getElement(),StudentBusClassAttributeNumberPlate);
+      assertEquals(m.getNumDetectionSinceResolved(), 0);
+      assertEquals(m.getNumDetection(), 1);
+      assertFalse(m.isResolved());
+      
+    }
+    if(m.getMistakeType()==MistakeTypes.WRONG_ATTRIBUTE_TYPE && m.getStudentElements().get(0).getElement() == StudentDriverClassAttributeName) {
+      assertEquals(m.getStudentElements().get(0).getElement(),StudentDriverClassAttributeName);
+      assertEquals(m.getNumDetectionSinceResolved(), 0);
+      assertEquals(m.getNumDetection(), 1);
+      assertFalse(m.isResolved());
+      
+    }
+    if(m.getMistakeType()==MistakeTypes.WRONG_ATTRIBUTE_TYPE && m.getStudentElements().get(0).getElement() == StudentPassengerClassAttributeName) {
+      assertEquals(m.getStudentElements().get(0).getElement(),StudentPassengerClassAttributeName);
+      assertEquals(m.getNumDetectionSinceResolved(), 0);
+      assertEquals(m.getNumDetection(), 1);
+      assertFalse(m.isResolved());
+      
+    }
+   
+   }
+  }
+/**
  * Function to print the mapped, unmapped classifier or attributes.
  */
  public void log() {
@@ -1792,7 +2123,7 @@ public class MistakeDetectionTest {
    }
    System.out.println();
    System.out.println("Mapped Attributes : ");
-   MistakeDetection.mappedAttribute.forEach((key,value) -> System.out.println(key.getName() + " = " + value.getName()));
+   MistakeDetection.mappedAttribute.forEach((key,value) -> System.out.println(key.getType()+ " "+ key.getName() + " = " + value.getType()+ " "+ value.getName()));
  }
  public void clearClassifier() {
    MistakeDetection.mappedClassifier.clear();
