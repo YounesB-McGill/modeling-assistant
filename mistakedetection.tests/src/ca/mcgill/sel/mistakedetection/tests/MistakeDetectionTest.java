@@ -2087,6 +2087,62 @@ public class MistakeDetectionTest {
     }
    
    }
+ 
+ //---------Second---
+ MistakeDetection.compare(solution,solution1);
+ 
+ assertEquals(MistakeDetection.notMappedInstructorClassifier.size(), 0);
+ assertEquals(MistakeDetection.extraStudentClassifier.size(), 0);
+ assertEquals(MistakeDetection.mappedClassifier.size(), 3);
+ 
+ assertEquals(MistakeDetection.mappedClassifier.get(InstructorBusClass),StudentBusClass);
+ assertEquals(MistakeDetection.mappedClassifier.get(InstructorDriverClass),StudentDriverClass);
+ assertEquals(MistakeDetection.mappedClassifier.get(InstructorPassangerClass),StudentPassangerClass);
+ 
+ assertEquals(MistakeDetection.notMappedInstructorAttribute.size(), 0);
+ assertEquals(MistakeDetection.extraStudentAttribute.size(), 0);
+ assertEquals(MistakeDetection.dulplicateStudentAttribute.size(), 0);
+ assertEquals(MistakeDetection.mappedAttribute.size(), 4);
+ assertEquals(MistakeDetection.mappedAttribute.get(InstructorBusClassAttributeCapacity),StudentBusClassAttributeCapacity);
+ assertEquals(MistakeDetection.mappedAttribute.get(InstructorBusClassAttributeNumberPlate),StudentBusClassAttributeNumberPlate);
+ assertEquals(MistakeDetection.mappedAttribute.get(InstructorDriverClassAttributeName),StudentDriverClassAttributeName);
+ assertEquals(MistakeDetection.mappedAttribute.get(InstructorPassengerClassAttributeName),StudentPassengerClassAttributeName);
+ 
+ assertEquals(MistakeDetection.newMistakes.size(), 0);
+ assertEquals(solution1.getMistakes().size(), 4);
+
+for(Mistake m: solution1.getMistakes()) {
+   
+   if(m.getMistakeType()==MistakeTypes.WRONG_ATTRIBUTE_TYPE && m.getStudentElements().get(0).getElement() == StudentBusClassAttributeCapacity) {
+     assertEquals(m.getStudentElements().get(0).getElement(),StudentBusClassAttributeCapacity);
+     assertEquals(m.getNumDetectionSinceResolved(), 0);
+     assertEquals(m.getNumDetection(), 2);
+     assertFalse(m.isResolved());
+     
+   }
+   if(m.getMistakeType()==MistakeTypes.WRONG_ATTRIBUTE_TYPE && m.getStudentElements().get(0).getElement() == StudentBusClassAttributeNumberPlate) {
+     assertEquals(m.getStudentElements().get(0).getElement(),StudentBusClassAttributeNumberPlate);
+     assertEquals(m.getNumDetectionSinceResolved(), 0);
+     assertEquals(m.getNumDetection(), 2);
+     assertFalse(m.isResolved());
+     
+   }
+   if(m.getMistakeType()==MistakeTypes.WRONG_ATTRIBUTE_TYPE && m.getStudentElements().get(0).getElement() == StudentDriverClassAttributeName) {
+     assertEquals(m.getStudentElements().get(0).getElement(),StudentDriverClassAttributeName);
+     assertEquals(m.getNumDetectionSinceResolved(), 0);
+     assertEquals(m.getNumDetection(), 2);
+     assertFalse(m.isResolved());
+     
+   }
+   if(m.getMistakeType()==MistakeTypes.WRONG_ATTRIBUTE_TYPE && m.getStudentElements().get(0).getElement() == StudentPassengerClassAttributeName) {
+     assertEquals(m.getStudentElements().get(0).getElement(),StudentPassengerClassAttributeName);
+     assertEquals(m.getNumDetectionSinceResolved(), 0);
+     assertEquals(m.getNumDetection(), 2);
+     assertFalse(m.isResolved());
+     
+   }
+  
+  }
   }
 /**
  * Function to print the mapped, unmapped classifier or attributes.
