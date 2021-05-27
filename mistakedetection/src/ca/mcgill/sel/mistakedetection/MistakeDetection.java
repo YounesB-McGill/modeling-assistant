@@ -25,8 +25,6 @@ public class MistakeDetection {
 
   public static final ClassdiagramFactory CDF = ClassdiagramFactory.eINSTANCE;
   public static final ModelingassistantFactory MAF = ModelingassistantFactory.eINSTANCE;
-  
-  public static final int MAX_DETECTIONS_AFTER_RESOLUTION = 5;
 
   /** The maximum limit after which a resolved mistake will be removed from student solution. */
   public static final int MAX_DETECTIONS_AFTER_RESOLUTION = 5;
