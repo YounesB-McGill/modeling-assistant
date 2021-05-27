@@ -11,7 +11,7 @@ def test_get_mistake_type_and_mistake_type_category_by_names():
     expected_missing_class_mistake_type = MistakeType(
         name=missing_class_mistake_type_name,
         atomic=False,
-        mistaketypecategory=expected_wrong_class_mistake_type_category,
+        mistakeTypeCategory=expected_wrong_class_mistake_type_category,
         numStepsBeforeNotification=3,
         timeToAddress=None)
 
@@ -22,9 +22,9 @@ def test_get_mistake_type_and_mistake_type_category_by_names():
     
     assert expected_missing_class_mistake_type.name == actual_missing_class_mistake_type.name
     assert expected_missing_class_mistake_type.atomic == actual_missing_class_mistake_type.atomic
-    assert (expected_missing_class_mistake_type.mistaketypecategory.name ==
-        actual_missing_class_mistake_type.mistaketypecategory.name)
+    assert (expected_missing_class_mistake_type.mistakeTypeCategory.name ==
+        actual_missing_class_mistake_type.mistakeTypeCategory.name)
     
-    assert actual_wrong_class_mistake_type_category.modelingassistant
-    assert (actual_wrong_class_mistake_type_category.modelingassistant ==
+    assert actual_wrong_class_mistake_type_category.modelingAssistant
+    assert (actual_wrong_class_mistake_type_category.modelingAssistant ==
         actual_missing_class_mistake_type.modelingAssistant)

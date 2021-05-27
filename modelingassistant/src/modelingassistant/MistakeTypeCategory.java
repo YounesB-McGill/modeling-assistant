@@ -13,10 +13,10 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link modelingassistant.MistakeTypeCategory#getMistaketype <em>Mistaketype</em>}</li>
+ *   <li>{@link modelingassistant.MistakeTypeCategory#getMistakeTypes <em>Mistake Types</em>}</li>
  *   <li>{@link modelingassistant.MistakeTypeCategory#getSupercategory <em>Supercategory</em>}</li>
  *   <li>{@link modelingassistant.MistakeTypeCategory#getSubcategories <em>Subcategories</em>}</li>
- *   <li>{@link modelingassistant.MistakeTypeCategory#getModelingassistant <em>Modelingassistant</em>}</li>
+ *   <li>{@link modelingassistant.MistakeTypeCategory#getModelingAssistant <em>Modeling Assistant</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getMistakeTypeCategory()
@@ -25,18 +25,18 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface MistakeTypeCategory extends NamedElement {
   /**
-   * Returns the value of the '<em><b>Mistaketype</b></em>' reference list.
+   * Returns the value of the '<em><b>Mistake Types</b></em>' reference list.
    * The list contents are of type {@link modelingassistant.MistakeType}.
-   * It is bidirectional and its opposite is '{@link modelingassistant.MistakeType#getMistaketypecategory <em>Mistaketypecategory</em>}'.
+   * It is bidirectional and its opposite is '{@link modelingassistant.MistakeType#getMistakeTypeCategory <em>Mistake Type Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Mistaketype</em>' reference list.
-   * @see modelingassistant.ModelingassistantPackage#getMistakeTypeCategory_Mistaketype()
-   * @see modelingassistant.MistakeType#getMistaketypecategory
-   * @model opposite="mistaketypecategory"
+   * @return the value of the '<em>Mistake Types</em>' reference list.
+   * @see modelingassistant.ModelingassistantPackage#getMistakeTypeCategory_MistakeTypes()
+   * @see modelingassistant.MistakeType#getMistakeTypeCategory
+   * @model opposite="mistakeTypeCategory"
    * @generated
    */
-  EList<MistakeType> getMistaketype();
+  EList<MistakeType> getMistakeTypes();
 
   /**
    * Returns the value of the '<em><b>Supercategory</b></em>' reference.
@@ -77,27 +77,27 @@ public interface MistakeTypeCategory extends NamedElement {
   EList<MistakeTypeCategory> getSubcategories();
 
   /**
-   * Returns the value of the '<em><b>Modelingassistant</b></em>' container reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getMistaketypecategory <em>Mistaketypecategory</em>}'.
+   * Returns the value of the '<em><b>Modeling Assistant</b></em>' container reference.
+   * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getMistakeTypeCategories <em>Mistake Type Categories</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Modelingassistant</em>' container reference.
-   * @see #setModelingassistant(ModelingAssistant)
-   * @see modelingassistant.ModelingassistantPackage#getMistakeTypeCategory_Modelingassistant()
-   * @see modelingassistant.ModelingAssistant#getMistaketypecategory
-   * @model opposite="mistaketypecategory" required="true" transient="false"
+   * @return the value of the '<em>Modeling Assistant</em>' container reference.
+   * @see #setModelingAssistant(ModelingAssistant)
+   * @see modelingassistant.ModelingassistantPackage#getMistakeTypeCategory_ModelingAssistant()
+   * @see modelingassistant.ModelingAssistant#getMistakeTypeCategories
+   * @model opposite="mistakeTypeCategories" required="true" transient="false"
    * @generated
    */
-  ModelingAssistant getModelingassistant();
+  ModelingAssistant getModelingAssistant();
 
   /**
-   * Sets the value of the '{@link modelingassistant.MistakeTypeCategory#getModelingassistant <em>Modelingassistant</em>}' container reference.
+   * Sets the value of the '{@link modelingassistant.MistakeTypeCategory#getModelingAssistant <em>Modeling Assistant</em>}' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Modelingassistant</em>' container reference.
-   * @see #getModelingassistant()
+   * @param value the new value of the '<em>Modeling Assistant</em>' container reference.
+   * @see #getModelingAssistant()
    * @generated
    */
-  void setModelingassistant(ModelingAssistant value);
+  void setModelingAssistant(ModelingAssistant value);
 
 } // MistakeTypeCategory

@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="e9e1bbc1-f8bf-4103-be16-251bec4e7367" xmi:version="2.0">
-  <mistakeTypes xsi:type="modelingassistant:MistakeType" xmi:id="f4963f9c-6e56-4b1e-b6e7-21737ca783cd" learningItem="1b9b2b5b-db57-4b2a-baed-ea71bac1a917" atomic="True" studentKnowledges="c210afdd-d237-4612-b08e-53be61d7624e 204b1ce9-20ad-41b2-a7c8-f4f7a52a7763" name="Wrong class name"/>
-  <students xsi:type="modelingassistant:Student" xmi:id="ce8a6d92-45b1-46a2-9251-a4039acf4fcc" id="1111" solutions="90b13637-6786-4644-9c18-c32a23af6354" studentKnowledges="c210afdd-d237-4612-b08e-53be61d7624e"/>
-  <students xsi:type="modelingassistant:Student" xmi:id="c33429e7-802b-4962-9905-7f80eb7eb3df" id="2222" solutions="d42cba0d-0de5-4f29-ad5a-2ba0069c7e7a" studentKnowledges="204b1ce9-20ad-41b2-a7c8-f4f7a52a7763"/>
-  <learningItems xsi:type="modelingassistant:LearningItem" xmi:id="1b9b2b5b-db57-4b2a-baed-ea71bac1a917" mistakeTypes="f4963f9c-6e56-4b1e-b6e7-21737ca783cd"/>
-  <solutions xsi:type="modelingassistant:Solution" xmi:id="90b13637-6786-4644-9c18-c32a23af6354" student="ce8a6d92-45b1-46a2-9251-a4039acf4fcc">
+<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="fa64b364-1a38-44d2-8224-dafe81567ad6" xmi:version="2.0">
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="b1afa4d9-3892-4784-90fe-95aa91566a24" student="cdee9e6b-30e1-4e8e-ae24-479efa069289">
     <classDiagram href="ma_studentknowledge_from_python1.cdm#_VQRncElSEeuektpDqzDh1Q" xsi:type="classdiagram:ClassDiagram"/>
   </solutions>
-  <solutions xsi:type="modelingassistant:Solution" xmi:id="d42cba0d-0de5-4f29-ad5a-2ba0069c7e7a" student="c33429e7-802b-4962-9905-7f80eb7eb3df">
-    <classDiagram href="ma_studentknowledge_from_python2.cdm#cf664b50-2d20-4f26-a98e-ac91462ee3cd" xsi:type="classdiagram:ClassDiagram"/>
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="c7cef384-66dd-47ea-be2d-68bb94e1ef2d" student="23e2e3f3-b6d7-443a-a4a6-96395909afd0">
+    <classDiagram href="ma_studentknowledge_from_python2.cdm#83806c46-0dfe-42ae-86d0-bcb75f3c7e8a" xsi:type="classdiagram:ClassDiagram"/>
   </solutions>
-  <studentknowledge xsi:type="modelingassistant:StudentKnowledge" xmi:id="c210afdd-d237-4612-b08e-53be61d7624e" student="ce8a6d92-45b1-46a2-9251-a4039acf4fcc" levelOfKnowledge="10578963" mistakeType="f4963f9c-6e56-4b1e-b6e7-21737ca783cd"/>
-  <studentknowledge xsi:type="modelingassistant:StudentKnowledge" xmi:id="204b1ce9-20ad-41b2-a7c8-f4f7a52a7763" student="c33429e7-802b-4962-9905-7f80eb7eb3df" levelOfKnowledge="8996541" mistakeType="f4963f9c-6e56-4b1e-b6e7-21737ca783cd"/>
+  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="e46ccb4b-5391-4f50-94dd-1dada8c30ebc" student="cdee9e6b-30e1-4e8e-ae24-479efa069289" mistakeType="f9ac5eaa-5dab-48db-bf8c-25f8eae86480" levelOfKnowledge="10578963"/>
+  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="2be5ace2-0e15-4dda-a067-55a223425202" student="23e2e3f3-b6d7-443a-a4a6-96395909afd0" mistakeType="f9ac5eaa-5dab-48db-bf8c-25f8eae86480" levelOfKnowledge="8996541"/>
+  <students xsi:type="modelingassistant:Student" xmi:id="cdee9e6b-30e1-4e8e-ae24-479efa069289" studentKnowledges="e46ccb4b-5391-4f50-94dd-1dada8c30ebc" solutions="b1afa4d9-3892-4784-90fe-95aa91566a24" id="1111"/>
+  <students xsi:type="modelingassistant:Student" xmi:id="23e2e3f3-b6d7-443a-a4a6-96395909afd0" studentKnowledges="2be5ace2-0e15-4dda-a067-55a223425202" solutions="c7cef384-66dd-47ea-be2d-68bb94e1ef2d" id="2222"/>
+  <learningItems xsi:type="modelingassistant:LearningItem" xmi:id="320d72d8-10dc-4123-9943-e11674920a09" mistakeTypes="f9ac5eaa-5dab-48db-bf8c-25f8eae86480"/>
+  <mistakeTypes xsi:type="modelingassistant:MistakeType" xmi:id="f9ac5eaa-5dab-48db-bf8c-25f8eae86480" name="Wrong class name" atomic="true" learningItem="320d72d8-10dc-4123-9943-e11674920a09" studentKnowledges="e46ccb4b-5391-4f50-94dd-1dada8c30ebc 2be5ace2-0e15-4dda-a067-55a223425202"/>
 </modelingassistant:ModelingAssistant>

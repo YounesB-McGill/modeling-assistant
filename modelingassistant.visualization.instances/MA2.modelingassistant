@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modelingassistant:ModelingAssistant xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmi:id="_0IVwMKKIEeuqWKxn05FfnQ">
-  <mistakeTypes xmi:id="_CwQw8KKLEeuqWKxn05FfnQ" name="Other wrong multiplicity" mistaketypecategory="_9cX1cKKKEeuqWKxn05FfnQ"/>
-  <mistakeTypes xmi:id="_DE2g4KKLEeuqWKxn05FfnQ" name="Infinite recursive dependency" mistaketypecategory="_9cX1cKKKEeuqWKxn05FfnQ"/>
-  <mistakeTypes xmi:id="_VVSyYKKLEeuqWKxn05FfnQ" name="Missing role names" mistaketypecategory="_ewik0KKLEeuqWKxn05FfnQ"/>
-  <mistakeTypes xmi:id="_ngjB4KKLEeuqWKxn05FfnQ" name="Role names present but incorrect" mistaketypecategory="_ewik0KKLEeuqWKxn05FfnQ"/>
-  <mistakeTypes xmi:id="_or2XYKKLEeuqWKxn05FfnQ" name="Role expected to be static but is not or vice versa" mistaketypecategory="_ewik0KKLEeuqWKxn05FfnQ"/>
-  <mistakeTypes xmi:id="_p6R5YKKLEeuqWKxn05FfnQ" name="Bad role name spelling" mistaketypecategory="_ewik0KKLEeuqWKxn05FfnQ"/>
-  <mistakeTypes xmi:id="_8zieYKKLEeuqWKxn05FfnQ" name="Similar (yet incorrect) role name" mistaketypecategory="_ewik0KKLEeuqWKxn05FfnQ"/>
-  <mistaketypecategory xmi:id="_puCpoKKKEeuqWKxn05FfnQ" name="Wrong relationships" subcategories="_9cX1cKKKEeuqWKxn05FfnQ _ewik0KKLEeuqWKxn05FfnQ"/>
-  <mistaketypecategory xmi:id="_9cX1cKKKEeuqWKxn05FfnQ" name="Wrong multiplicities" mistaketype="_DE2g4KKLEeuqWKxn05FfnQ _CwQw8KKLEeuqWKxn05FfnQ" supercategory="_puCpoKKKEeuqWKxn05FfnQ"/>
-  <mistaketypecategory xmi:id="_ewik0KKLEeuqWKxn05FfnQ" name="Wrong role names" mistaketype="_VVSyYKKLEeuqWKxn05FfnQ _ngjB4KKLEeuqWKxn05FfnQ _or2XYKKLEeuqWKxn05FfnQ _p6R5YKKLEeuqWKxn05FfnQ _8zieYKKLEeuqWKxn05FfnQ" supercategory="_puCpoKKKEeuqWKxn05FfnQ"/>
+  <mistakeTypes xmi:id="_CwQw8KKLEeuqWKxn05FfnQ" name="Other wrong multiplicity" mistakeTypeCategory="_9cX1cKKKEeuqWKxn05FfnQ"/>
+  <mistakeTypes xmi:id="_DE2g4KKLEeuqWKxn05FfnQ" name="Infinite recursive dependency" mistakeTypeCategory="_9cX1cKKKEeuqWKxn05FfnQ"/>
+  <mistakeTypes xmi:id="_VVSyYKKLEeuqWKxn05FfnQ" name="Missing role names" mistakeTypeCategory="_ewik0KKLEeuqWKxn05FfnQ"/>
+  <mistakeTypes xmi:id="_ngjB4KKLEeuqWKxn05FfnQ" name="Role names present but incorrect" mistakeTypeCategory="_ewik0KKLEeuqWKxn05FfnQ"/>
+  <mistakeTypes xmi:id="_or2XYKKLEeuqWKxn05FfnQ" name="Role expected to be static but is not or vice versa" mistakeTypeCategory="_ewik0KKLEeuqWKxn05FfnQ"/>
+  <mistakeTypes xmi:id="_p6R5YKKLEeuqWKxn05FfnQ" name="Bad role name spelling" mistakeTypeCategory="_ewik0KKLEeuqWKxn05FfnQ"/>
+  <mistakeTypes xmi:id="_8zieYKKLEeuqWKxn05FfnQ" name="Similar (yet incorrect) role name" mistakeTypeCategory="_ewik0KKLEeuqWKxn05FfnQ"/>
+  <mistakeTypeCategories xmi:id="_puCpoKKKEeuqWKxn05FfnQ" name="Wrong relationships" subcategories="_9cX1cKKKEeuqWKxn05FfnQ _ewik0KKLEeuqWKxn05FfnQ"/>
+  <mistakeTypeCategories xmi:id="_9cX1cKKKEeuqWKxn05FfnQ" name="Wrong multiplicities" mistakeTypes="_DE2g4KKLEeuqWKxn05FfnQ _CwQw8KKLEeuqWKxn05FfnQ" supercategory="_puCpoKKKEeuqWKxn05FfnQ"/>
+  <mistakeTypeCategories xmi:id="_ewik0KKLEeuqWKxn05FfnQ" name="Wrong role names" mistakeTypes="_VVSyYKKLEeuqWKxn05FfnQ _ngjB4KKLEeuqWKxn05FfnQ _or2XYKKLEeuqWKxn05FfnQ _p6R5YKKLEeuqWKxn05FfnQ _8zieYKKLEeuqWKxn05FfnQ" supercategory="_puCpoKKKEeuqWKxn05FfnQ"/>
 </modelingassistant:ModelingAssistant>

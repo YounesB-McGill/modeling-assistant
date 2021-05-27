@@ -22,10 +22,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.ModelingAssistant#getUmlElements <em>Uml Elements</em>}</li>
  *   <li>{@link modelingassistant.ModelingAssistant#getStudents <em>Students</em>}</li>
  *   <li>{@link modelingassistant.ModelingAssistant#getFeedbacks <em>Feedbacks</em>}</li>
- *   <li>{@link modelingassistant.ModelingAssistant#getMistakes <em>Mistakes</em>}</li>
  *   <li>{@link modelingassistant.ModelingAssistant#getMistakeTypes <em>Mistake Types</em>}</li>
- *   <li>{@link modelingassistant.ModelingAssistant#getStudentknowledge <em>Studentknowledge</em>}</li>
- *   <li>{@link modelingassistant.ModelingAssistant#getMistaketypecategory <em>Mistaketypecategory</em>}</li>
+ *   <li>{@link modelingassistant.ModelingAssistant#getStudentKnowledges <em>Student Knowledges</em>}</li>
+ *   <li>{@link modelingassistant.ModelingAssistant#getMistakeTypeCategories <em>Mistake Type Categories</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getModelingAssistant()
@@ -132,20 +131,6 @@ public interface ModelingAssistant extends EObject {
   EList<Feedback> getFeedbacks();
 
   /**
-   * Returns the value of the '<em><b>Mistakes</b></em>' containment reference list.
-   * The list contents are of type {@link modelingassistant.Mistake}.
-   * It is bidirectional and its opposite is '{@link modelingassistant.Mistake#getModelingAssistant <em>Modeling Assistant</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Mistakes</em>' containment reference list.
-   * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_Mistakes()
-   * @see modelingassistant.Mistake#getModelingAssistant
-   * @model opposite="modelingAssistant" containment="true"
-   * @generated
-   */
-  EList<Mistake> getMistakes();
-
-  /**
    * Returns the value of the '<em><b>Mistake Types</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.MistakeType}.
    * It is bidirectional and its opposite is '{@link modelingassistant.MistakeType#getModelingAssistant <em>Modeling Assistant</em>}'.
@@ -160,31 +145,31 @@ public interface ModelingAssistant extends EObject {
   EList<MistakeType> getMistakeTypes();
 
   /**
-   * Returns the value of the '<em><b>Studentknowledge</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Student Knowledges</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.StudentKnowledge}.
-   * It is bidirectional and its opposite is '{@link modelingassistant.StudentKnowledge#getModelingassistant <em>Modelingassistant</em>}'.
+   * It is bidirectional and its opposite is '{@link modelingassistant.StudentKnowledge#getModelingAssistant <em>Modeling Assistant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Studentknowledge</em>' containment reference list.
-   * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_Studentknowledge()
-   * @see modelingassistant.StudentKnowledge#getModelingassistant
-   * @model opposite="modelingassistant" containment="true"
+   * @return the value of the '<em>Student Knowledges</em>' containment reference list.
+   * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_StudentKnowledges()
+   * @see modelingassistant.StudentKnowledge#getModelingAssistant
+   * @model opposite="modelingAssistant" containment="true"
    * @generated
    */
-  EList<StudentKnowledge> getStudentknowledge();
+  EList<StudentKnowledge> getStudentKnowledges();
 
   /**
-   * Returns the value of the '<em><b>Mistaketypecategory</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Mistake Type Categories</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.MistakeTypeCategory}.
-   * It is bidirectional and its opposite is '{@link modelingassistant.MistakeTypeCategory#getModelingassistant <em>Modelingassistant</em>}'.
+   * It is bidirectional and its opposite is '{@link modelingassistant.MistakeTypeCategory#getModelingAssistant <em>Modeling Assistant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Mistaketypecategory</em>' containment reference list.
-   * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_Mistaketypecategory()
-   * @see modelingassistant.MistakeTypeCategory#getModelingassistant
-   * @model opposite="modelingassistant" containment="true"
+   * @return the value of the '<em>Mistake Type Categories</em>' containment reference list.
+   * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_MistakeTypeCategories()
+   * @see modelingassistant.MistakeTypeCategory#getModelingAssistant
+   * @model opposite="modelingAssistant" containment="true"
    * @generated
    */
-  EList<MistakeTypeCategory> getMistaketypecategory();
+  EList<MistakeTypeCategory> getMistakeTypeCategories();
 
 } // ModelingAssistant

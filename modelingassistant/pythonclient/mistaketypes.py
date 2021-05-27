@@ -25,7 +25,7 @@ modeling_assistant: ModelingAssistant = resource.contents[0]
 modeling_assistant.__class__ = ModelingAssistant
 
 # Populate dictionaries
-for mtc in modeling_assistant.mistaketypecategory: MISTAKE_TYPE_CATEGORIES_BY_NAME[mtc.name] = mtc
+for mtc in modeling_assistant.mistakeTypeCategories: MISTAKE_TYPE_CATEGORIES_BY_NAME[mtc.name] = mtc
 for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[mt.name] = mt
 
 # Mistake type categories

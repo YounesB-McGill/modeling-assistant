@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_qSB0IL3sEeu5L_I95B1uRg" name="Three(withAttributes)" featureModel="_qSB0Ib3sEeu5L_I95B1uRg" impactModel="_qSB0I73sEeu5L_I95B1uRg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_qSB0Ib3sEeu5L_I95B1uRg" root="_qSB0Ir3sEeu5L_I95B1uRg">
+    <features xmi:id="_qSB0Ir3sEeu5L_I95B1uRg" name="Three(withAttributes)" realizedBy="_rCoxsL3sEeu5L_I95B1uRg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_qSB0I73sEeu5L_I95B1uRg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_rCnjkL3sEeu5L_I95B1uRg" name="Three(withAttributes)" scene="_rCoxsL3sEeu5L_I95B1uRg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Three(withAttributes).domain_model.cdm#_rCqm4L3sEeu5L_I95B1uRg"/>
+  </artefacts>
+  <scenes xmi:id="_rCoxsL3sEeu5L_I95B1uRg" name="Three(withAttributes)" realizes="_qSB0Ir3sEeu5L_I95B1uRg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_rCoxsb3sEeu5L_I95B1uRg" value="_rCnjkL3sEeu5L_I95B1uRg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
