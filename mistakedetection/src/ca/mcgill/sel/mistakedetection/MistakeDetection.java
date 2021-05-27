@@ -103,7 +103,7 @@ public class MistakeDetection {
                 if (lDistance <= MAX_Levenshtein_Distance_Allowed) {
                   checkMistakeAttributeSpelling(sAttribute,iAttribute);
                   checkMistakeWrongAttributeType(sAttribute,iAttribute);
-                  // checkMistakeAttributeStatic(sAttribute,iAttribute);
+                  checkMistakeAttributeStatic(sAttribute,iAttribute);
                 }
               }
             }
@@ -560,11 +560,38 @@ public class MistakeDetection {
 
 
   }
-
+  
   public static boolean isAttributeTypeWrong(Attribute sAttribute, Attribute iAttribute){
     return !sAttribute.getType().toString().substring(0, sAttribute.getType().toString().indexOf("@"))
         .equals(iAttribute.getType().toString().substring(0, iAttribute.getType().toString().indexOf("@")));
   }
+  
+  public static void checkMistakeAttributeStatic(Attribute sAttribute, Attribute iAttribute) {
+    if(isAttributeStatic(sAttribute,iAttribute)){
+
+      SolutionElement s = MAF.createSolutionElement();
+      s.setElement(sAttribute);
+
+      var m = MAF.createMistake();
+      m.setMistakeType(MistakeTypes.ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA);
+      m.getStudentElements().add(s);
+      newMistakes.add(m);
+   }
+
+
+  }
+
+  public static boolean isAttributeStatic(Attribute sAttribute, Attribute iAttribute){
+    
+    if (sAttribute.isStatic() && !iAttribute.isStatic()) {
+      return true;
+    }
+    else if (!sAttribute.isStatic() && iAttribute.isStatic()) {
+      return true;
+    }
+    return false;
+  }
+  
 
   /***
    * This is a function created for testing the logic. Only for test.
