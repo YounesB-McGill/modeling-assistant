@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_Qhe08L3xEeu5L_I95B1uRg" name="Four(WrongAttibuteType)" featureModel="_Qhe08b3xEeu5L_I95B1uRg" impactModel="_Qhe0873xEeu5L_I95B1uRg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_Qhe08b3xEeu5L_I95B1uRg" root="_Qhe08r3xEeu5L_I95B1uRg">
+    <features xmi:id="_Qhe08r3xEeu5L_I95B1uRg" name="Four(WrongAttibuteType)" realizedBy="_RDjAMb3xEeu5L_I95B1uRg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_Qhe0873xEeu5L_I95B1uRg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_RDjAML3xEeu5L_I95B1uRg" name="Four(WrongAttibuteType)" scene="_RDjAMb3xEeu5L_I95B1uRg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Four(WrongAttibuteType).domain_model.cdm#_REdmML3xEeu5L_I95B1uRg"/>
+  </artefacts>
+  <scenes xmi:id="_RDjAMb3xEeu5L_I95B1uRg" name="Four(WrongAttibuteType)" realizes="_Qhe08r3xEeu5L_I95B1uRg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_RDjAMr3xEeu5L_I95B1uRg" value="_RDjAML3xEeu5L_I95B1uRg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
