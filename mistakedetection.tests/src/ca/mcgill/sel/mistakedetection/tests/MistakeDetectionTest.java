@@ -50,7 +50,7 @@ public class MistakeDetectionTest {
   /**
    * Test to check if all the classes exist in Instructor solution are loaded in cdmFile
    * */
-  @Test public void CheckInstructorSolution() {
+  @Test public void testLoadingInstructorSolution() {
     ClassdiagramPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm";
@@ -84,7 +84,7 @@ public class MistakeDetectionTest {
   /**
    * Test to check if all the classes exist in Student solution are loaded in cdmFile
    */
-  @Test public void CheckStudentSolution1() {
+  @Test public void testLoadingStudentSolution1() {
     ClassdiagramPackage.eINSTANCE.eClass();
     var cdmFile = "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution.domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -117,7 +117,7 @@ public class MistakeDetectionTest {
   /**
    * Test to check for plural class names in student solution
    */
-  @Test public void CheckStudentSolution_1_PluralClassName() {
+  @Test public void testStudentSolution_1_PluralClassName() {
     ClassdiagramPackage.eINSTANCE.eClass();
     var cdmFile = "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution-a.domain_model.cdm";
     // Contains Class Buses and Drivers
@@ -391,7 +391,7 @@ public class MistakeDetectionTest {
   /**
    * Test to check if cdm file with attributes is loaded correctly.
    */
-  @Test public void CheckSolution_withAttributes() {
+  @Test public void checkSolution_withAttributes() {
     ClassdiagramPackage.eINSTANCE.eClass();
     var cdmFile = "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
