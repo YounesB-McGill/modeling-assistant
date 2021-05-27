@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
-<modelingassistant:ModelingAssistant xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmi:id="_vIrxgLbPEeuWrb6jzvi9xQ">
-  <mistakeTypes xmi:id="_vIrxgbbPEeuWrb6jzvi9xQ" name="Missing class" mistakeTypeCategory="_vIrxg7bPEeuWrb6jzvi9xQ"/>
-  <mistakeTypes xmi:id="_vIrxgrbPEeuWrb6jzvi9xQ" name="Software engineering term" atomic="true" mistakeTypeCategory="_vIrxhLbPEeuWrb6jzvi9xQ"/>
-  <mistakeTypeCategories xmi:id="_vIrxg7bPEeuWrb6jzvi9xQ" name="Wrong class" mistakeTypes="_vIrxgbbPEeuWrb6jzvi9xQ" subcategories="_vIrxhLbPEeuWrb6jzvi9xQ"/>
-  <mistakeTypeCategories xmi:id="_vIrxhLbPEeuWrb6jzvi9xQ" name="Wrong class name" mistakeTypes="_vIrxgrbPEeuWrb6jzvi9xQ" supercategory="_vIrxg7bPEeuWrb6jzvi9xQ"/>
+<modelingassistant:ModelingAssistant xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmi:id="_0JH-kL68Eeuk9bx4pnjkCg">
+  <mistakeTypes xmi:id="_0JH-kb68Eeuk9bx4pnjkCg" name="Missing class" mistakeTypeCategory="_0JH-k768Eeuk9bx4pnjkCg"/>
+  <mistakeTypes xmi:id="_0JH-kr68Eeuk9bx4pnjkCg" name="Software engineering term" atomic="true" mistakeTypeCategory="_0JH-lL68Eeuk9bx4pnjkCg"/>
+  <mistakeTypeCategories xmi:id="_0JH-k768Eeuk9bx4pnjkCg" name="Wrong class" mistakeTypes="_0JH-kb68Eeuk9bx4pnjkCg" subcategories="_0JH-lL68Eeuk9bx4pnjkCg"/>
+  <mistakeTypeCategories xmi:id="_0JH-lL68Eeuk9bx4pnjkCg" name="Wrong class name" mistakeTypes="_0JH-kr68Eeuk9bx4pnjkCg" supercategory="_0JH-k768Eeuk9bx4pnjkCg"/>
 </modelingassistant:ModelingAssistant>
