@@ -6,15 +6,15 @@ import modelingassistant.ModelingAssistant;
 
 /**
  * Generates markdown for mistake types and their categories.
- * 
+ *
  * @author Younes Boubekeur
  * @generated NOT
  */
 public class MarkdownGenerator {
-  
+
   /**
    * The maximum number of # signs in a markdown ATX heading.
-   * 
+   *
    * @see <a href="https://github.github.com/gfm/#atx-heading">github.github.com/gfm/#atx-heading</a>
    */
   public static final int MAX_NUM_OF_HASHES_IN_HEADING = 6;
@@ -55,11 +55,11 @@ public class MarkdownGenerator {
         "**" + clean(name) + "**")
         + "\n\n" ;
   }
-  
+
   private static String dashify(String s) {
     return clean(s).replace(" ", "-").replace("/", "-").replace("--", "-").toLowerCase();
   }
-  
+
   private static String clean(String s) {
     return s.replace("(", "").replace(")", "").replace(",", "").replace("yet incorrect", "");
   }
