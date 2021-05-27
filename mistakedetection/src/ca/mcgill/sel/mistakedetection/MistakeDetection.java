@@ -1,10 +1,10 @@
 package ca.mcgill.sel.mistakedetection;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.Map;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -28,27 +28,29 @@ public class MistakeDetection {
   
   public static final int MAX_DETECTIONS_AFTER_RESOLUTION = 5;
 
+  /** The maximum limit after which a resolved mistake will be removed from student solution. */
+  public static final int MAX_DETECTIONS_AFTER_RESOLUTION = 5;
+
+  /** The maximum number of difference 2 words can have in terms of letters. */
+  public static final int MAX_LEVENSHTEIN_DISTANCE_ALLOWED = 2;
+
+  // TODO Refactor lists and hashmaps
+
   /** Maps nouns to true if they are plural, false otherwise. */
-  static HashMap<String, Boolean> nounPluralStatus = new HashMap<String, Boolean>();
+  static Map<String, Boolean> nounPluralStatus = new HashMap<String, Boolean>();
 
-  public static EList<Mistake> newMistakes = new BasicEList<Mistake>();// List of mistakes in
-  // current iteration
+  /** The list of mistakes in current iteration. */
+  public static EList<Mistake> newMistakes = new BasicEList<Mistake>();
 
-
-
-  /**
-   * It maps an instructor solution classifier to student solution classifier
-   */
-  public static HashMap<Classifier, Classifier> mappedClassifier =
+  /** Maps an instructor solution classifier to student solution classifier. */
+  public static Map<Classifier, Classifier> mappedClassifier =
       new HashMap<Classifier, Classifier>();
-  /**
-   * It maps an instructor solution classifier attribute to student solution classifier attribute
-   */
-  public static HashMap<Attribute, Attribute> mappedAttribute = new HashMap<Attribute, Attribute>();
-  /**
-   * It maps an instructor solution classifier relation to student solution classifier relation
-   */
-  public static HashMap<Association, Association> mappedRelation =
+
+  /** Maps an instructor solution classifier attribute to student solution classifier attribute. */
+  public static Map<Attribute, Attribute> mappedAttribute = new HashMap<Attribute, Attribute>();
+
+  /** Maps an instructor solution classifier relation to student solution classifier relation. */
+  public static Map<Association, Association> mappedRelation =
       new HashMap<Association, Association>();
 
   public static EList<Classifier> notMappedInstructorClassifier = new BasicEList<Classifier>();
@@ -56,22 +58,20 @@ public class MistakeDetection {
 
   public static EList<Attribute> notMappedInstructorAttribute = new BasicEList<Attribute>();
   public static EList<Attribute> extraStudentAttribute = new BasicEList<Attribute>();
-  public static EList<Attribute> dulplicateStudentAttribute = new BasicEList<Attribute>();
-  // EList<Attribute> wrongStudentAttribute = new EList<Attribute>; // Commented temporarly
+  public static EList<Attribute> duplicateStudentAttribute = new BasicEList<Attribute>();
+  // EList<Attribute> wrongStudentAttribute = new EList<Attribute>; // Commented temporarily
 
   public static EList<Association> notMappedInstructorRelation;
 
   public static EList<Association> extraStudentRelation;
 
 
-
-  public static void compare(Solution instructorSol, Solution studentSol) {
-    // checks if solution is really instructor solution and vice versa
-    if (isInstructorSolution(instructorSol) && isStudentSolution(studentSol)) {
+  public static void compare(Solution instructorSolution, Solution studentSolution) {
+    if (isInstructorSolution(instructorSolution) && isStudentSolution(studentSolution)) {
       clearAttributesAndClassifer();
       newMistakes.clear();
-      EList<Classifier> instructorClassifiers = instructorSol.getClassDiagram().getClasses();
-      EList<Classifier> studentClassifiers = studentSol.getClassDiagram().getClasses();
+      EList<Classifier> instructorClassifiers = instructorSolution.getClassDiagram().getClasses();
+      EList<Classifier> studentClassifiers = studentSolution.getClassDiagram().getClasses();
 
       int count = 0;
       for (Classifier instructorClassifier : instructorClassifiers) {
@@ -97,20 +97,17 @@ public class MistakeDetection {
             checkMistakeWrongEnumerationClass(studentClassifier, instructorClassifier);
             // checkMistakeWrongEnumerationClassItems(studentClassifier,instructorClassifier);
 
-
-            EList<Attribute> sAttributes = studentClassifier.getAttributes();// Mapping already done
-            // in check
+            // Mapping already done in check
+            EList<Attribute> sAttributes = studentClassifier.getAttributes();
             for (Attribute iAttribute : iAttributes) {
               for (Attribute sAttribute : sAttributes) {
                 float lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
-                if (lDistance < 3) {
-                  // checkMistakeWrongAttributeType(sAttribute,iAttribute);
-                  // checkMistakeAttributeStatic(sAttribute,iAttribute);
+                if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+                  checkMistakeAttributeSpelling(sAttribute,iAttribute);
+                  checkMistakeWrongAttributeType(sAttribute,iAttribute);
+                  checkMistakeAttributeStatic(sAttribute,iAttribute);
                 }
               }
-
-              // Relationship Loop
-
             }
           }
         }
@@ -126,81 +123,57 @@ public class MistakeDetection {
       // checkMistakeAttributeMisplaced();
       // checkMistakeIncompleteContainmentTree(studentClassifiers);
 
-      updateMistakes(studentSol); // This function updates new and older mistakes in the metamodel.
+      updateMistakes(studentSolution); // This function updates new and older mistakes in the metamodel.
     }
   }
 
   private static void updateMistakes(Solution studentSolution) {
-    var existingMistakes = studentSolution.getMistakes();
-    
-    // TODO Explain and rename this variable
-    var existingMistakesProcessed = new BasicEList<Mistake>();
+    // List containing mistakes associated with a student Solution
+    EList<Mistake> existingMistakes = new BasicEList<Mistake>();
+    existingMistakes = studentSolution.getMistakes();
 
-    // list containing mistakes to be removed from new mistake list
-    var newMistakesToRemove = new BasicEList<Mistake>();
+    // List containing existing mistakes that are equal to newMistakes
+    EList<Mistake> existingMistakesProcessed = new BasicEList<Mistake>();
 
-    var existingMistakesExist = existingMistakes.size() > 0;
-    var newMistakesExist = newMistakes.size() > 0;
+    // List containing mistakes to  be removed from new Mistake
+    EList<Mistake> newMistakesToRemove = new BasicEList<Mistake>();
 
-    // TODO refactor these as needed and/or extract to helper methods to allow reuse
-    Predicate<Mistake> hasInstructorElements = mistake -> !mistake.getInstructorElements().isEmpty();
-    Predicate<Mistake> hasStudentElements = mistake -> !mistake.getStudentElements().isEmpty();
-    
-    Predicate<Mistake> hasBothInstructorAndStudentElements = mistake ->
-      hasInstructorElements.test(mistake) && hasStudentElements.test(mistake);
-      
-    Predicate<List<Mistake>> haveBothInstructorAndStudentElements = mistakes ->
-      mistakes.stream().allMatch(hasBothInstructorAndStudentElements);
-      
-    Predicate<Mistake> hasOnlyInstructorElements = mistake ->
-      hasInstructorElements.test(mistake) && !hasStudentElements.test(mistake);
-      
-    Predicate<List<Mistake>> haveOnlyInstructorElements = mistakes ->
-      mistakes.stream().allMatch(hasOnlyInstructorElements);
-      
-    Predicate<Mistake> hasOnlyStudentElements = mistake ->
-      !hasInstructorElements.test(mistake) && hasStudentElements.test(mistake);
-      
-    Predicate<List<Mistake>> haveOnlyStudentElements = mistakes ->
-      mistakes.stream().allMatch(hasOnlyStudentElements);
-      
-    Function<Mistake, NamedElement> instructorElem0 = mistake -> mistake.getInstructorElements().get(0).getElement();
-    Function<Mistake, NamedElement> studentElem0 = mistake -> mistake.getStudentElements().get(0).getElement();
-    
+    // --FOR DEBUGGING--
+    // System.out.println(studentSolution.getStudent());
+    // System.out.println(studentSolution);// List
+    // System.out.println(existingMistakes.size());
+    // ---
 
-    if (!existingMistakesExist && newMistakesExist) {// Condition when only new mistakes exists
+    // Condition when only new mistakes exists.
+    if (existingMistakes.size() == 0 && newMistakes.size() != 0) {
+      // System.out.println("In 1");
       for (Mistake newMistake : newMistakes) {
-        newMistake.setResolved(false);
-        newMistake.setNumDetection(1);
-        newMistake.setNumDetectionSinceResolved(0);
+        setMistakeProperties(newMistake, false, 1, 0);
         newMistake.setStudentSolution(studentSolution);
       }
-    } else if (existingMistakesExist && newMistakesExist) {
+    } else if (!existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
+      //  System.out.println("In 2");
       for (Mistake existingMistake : existingMistakes) {
         for (Mistake newMistake : newMistakes) {
           if (existingMistake.getMistakeType() == newMistake.getMistakeType()) {
-            if (haveBothInstructorAndStudentElements.test(List.of(existingMistake, newMistake))) {
-              if (studentElem0.apply(existingMistake).equals(studentElem0.apply(newMistake))
-                  && instructorElem0.apply(existingMistake).equals(instructorElem0.apply(newMistake))) {
-                existingMistake.setResolved(false);
-                existingMistake.setNumDetection(existingMistake.getNumDetection() + 1);
-                existingMistake.setNumDetectionSinceResolved(0);
+            if (haveInstructorAndStudentElements(existingMistake, newMistake)) {
+              if (zerothStudentElement(existingMistake).equals(zerothStudentElement(newMistake))
+                  && zerothInstructorElement(existingMistake).equals(zerothInstructorElement(newMistake))) {
+                setMistakeProperties(existingMistake, false, existingMistake.getNumDetection() + 1, 0);
                 existingMistakesProcessed.add(existingMistake);
                 newMistakesToRemove.add(newMistake);
               }
-            } else if (haveOnlyStudentElements.test(List.of(existingMistake, newMistake))) {
-              if (studentElem0.apply(existingMistake).equals(studentElem0.apply(newMistake))) {
-                existingMistake.setResolved(false);
-                existingMistake.setNumDetection(existingMistake.getNumDetection() + 1);
-                existingMistake.setNumDetectionSinceResolved(0);
+            } else if (haveOnlyStudentElements(existingMistake, newMistake)) {
+              // System.out.println("O "+existingMistake.getStudentElements().get(0).getElement());
+              // System.out.println("F "+zerothStudentElement(existingMistake));
+              if (zerothStudentElement(existingMistake).equals(zerothStudentElement(newMistake))) {
+                setMistakeProperties(existingMistake, false, existingMistake.getNumDetection() + 1, 0);
                 existingMistakesProcessed.add(existingMistake);
                 newMistakesToRemove.add(newMistake);
               }
-            } else if (haveOnlyInstructorElements.test(List.of(existingMistake, newMistake))) {
-              if (instructorElem0.apply(existingMistake).equals(instructorElem0.apply(newMistake))) {
-                existingMistake.setResolved(false);
-                existingMistake.setNumDetection(existingMistake.getNumDetection() + 1);
-                existingMistake.setNumDetectionSinceResolved(0);
+            } else if (haveOnlyInstructorElements(existingMistake, newMistake)) {
+              if (zerothInstructorElement(existingMistake).equals(zerothInstructorElement(newMistake))) {
+                setMistakeProperties(existingMistake, false, existingMistake.getNumDetection() + 1, 0);
                 existingMistakesProcessed.add(existingMistake);
                 newMistakesToRemove.add(newMistake);
               }
@@ -209,33 +182,30 @@ public class MistakeDetection {
         }
       }
       newMistakes.removeAll(newMistakesToRemove);
-
       for (Mistake existingMistake : existingMistakes) {
         if (!existingMistakesProcessed.contains(existingMistake)) {
           if (existingMistake.getNumDetectionSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION
               && existingMistake.isResolved()) {
             existingMistake.setResolved(true);
             existingMistake.setNumDetectionSinceResolved(existingMistake.getNumDetectionSinceResolved() + 1);
-            existingMistakes.remove(existingMistake);
           } else {
             existingMistake.setStudentSolution(null);
             existingMistake.getInstructorElements().clear();
             existingMistake.getStudentElements().clear();
           }
         }
-        for (Mistake newMistake : newMistakes) {
-          newMistake.setResolved(false);
-          newMistake.setNumDetection(1);
-          newMistake.setNumDetectionSinceResolved(0);
-          newMistake.setStudentSolution(studentSolution);
-        }
+      }
+
+      for (Mistake newMistake : newMistakes) {
+        setMistakeProperties(newMistake, false, 1, 0);
+        newMistake.setStudentSolution(studentSolution);
       }
     } else if (existingMistakes.size() != 0 && newMistakes.size() == 0) {
+      // System.out.println("In 3");
       for (Mistake existingMistake : existingMistakes) {
-        if (existingMistake.getNumDetectionSinceResolved() <= 5) {
+        if (existingMistake.getNumDetectionSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION) {
           existingMistake.setResolved(true);
           existingMistake.setNumDetectionSinceResolved(existingMistake.getNumDetectionSinceResolved() + 1);
-          existingMistakes.remove(existingMistake);
         } else {
           existingMistake.setStudentSolution(null);
           existingMistake.getInstructorElements().clear();
@@ -243,22 +213,75 @@ public class MistakeDetection {
         }
       }
     }
+
   }
 
-  private static boolean isStudentSolution(Solution studentSolution) {
-    return studentSolution.getStudent() != null;
+  // TODO Move helper methods to their relevant classes so they can be reused elsewhere in the app
+
+  /** Returns true if the given mistake has both instructor and student elements. */
+  private static boolean hasInstructorAndStudentElements(Mistake mistake) {
+    return !mistake.getInstructorElements().isEmpty() && !mistake.getStudentElements().isEmpty();
   }
 
-  private static boolean isInstructorSolution(Solution instructorSolution) {
-    return instructorSolution.getStudent() == null;
+  /** Returns true if the given mistakes have both instructor and student elements. */
+  private static boolean haveInstructorAndStudentElements(Mistake... mistakes) {
+    return Arrays.stream(mistakes).allMatch(MistakeDetection::hasInstructorAndStudentElements);
+  }
+
+  /** Returns true if the given mistake has only instructor elements. */
+  private static boolean hasOnlyInstructorElements(Mistake mistake) {
+    return !mistake.getInstructorElements().isEmpty() && mistake.getStudentElements().isEmpty();
+  }
+
+  /** Returns true if the given mistakes have only instructor elements. */
+  private static boolean haveOnlyInstructorElements(Mistake... mistakes) {
+    return Arrays.stream(mistakes).allMatch(MistakeDetection::hasOnlyInstructorElements);
+  }
+
+  /** Returns true if the given mistake has only student elements. */
+  private static boolean hasOnlyStudentElements(Mistake mistake) {
+    return mistake.getInstructorElements().isEmpty() && !mistake.getStudentElements().isEmpty();
+  }
+
+  /** Returns true if the given mistakes have only student elements. */
+  private static boolean haveOnlyStudentElements(Mistake... mistakes) {
+    return Arrays.stream(mistakes).allMatch(MistakeDetection::hasOnlyStudentElements);
+  }
+
+ /** Returns true if a student is associated with a solution. */
+  private static boolean isStudentSolution(Solution solution) {
+    return solution.getStudent() != null;
+  }
+
+  /** Returns true if NO student is associated with a solution. */
+  private static boolean isInstructorSolution(Solution solution) {
+    return solution.getStudent() == null;
+  }
+
+  /** Returns a mistake's zeroth student element. */
+  private static NamedElement zerothStudentElement(Mistake mistake) {
+    return mistake.getStudentElements().get(0).getElement();
+  }
+
+  /** Returns a mistake's zeroth instructor element. */
+  private static NamedElement zerothInstructorElement(Mistake mistake) {
+    return mistake.getInstructorElements().get(0).getElement();
+  }
+
+  /** Sets the properties of a mistake. */
+  private static void setMistakeProperties(Mistake mistake, boolean isResolved, int numDetection,
+      int numDetectionSiceResolved) {
+    mistake.setResolved(isResolved);
+    mistake.setNumDetection(numDetection);
+    mistake.setNumDetectionSinceResolved(numDetectionSiceResolved);
   }
 
   /**
    * Method to check if two classifiers match or not.
-   * 
+   *
    * @param instructorClassifier
    * @param studentClassifier
-   * @return
+   * @return boolean
    */
   public static boolean checkCorrect(Classifier instructorClassifier,
       Classifier studentClassifier) {
@@ -270,27 +293,24 @@ public class MistakeDetection {
 
     float lDistance =
         levenshteinDistance(studentClassifier.getName(), instructorClassifier.getName());
-    if (lDistance <= 2) {
+    if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
       isMapped = true;
       mappedClassifier.put(instructorClassifier, studentClassifier);
       notMappedInstructorClassifier.remove(instructorClassifier);
       extraStudentClassifier.remove(studentClassifier);
     }
 
-    if (isMapped == true) { // Map attributes if classifiers map.
-
+    // Commented print statements for debugging
+    if (isMapped) { // Map attributes if classifiers map.
       for (Attribute iAttribute : iAttributes) { // To check association -> Not at present.
-        // System.out.println("Instructor "+ iAttribute +" " +instructorClassifier.getName());//FOR
-        // DEBUGGING
+        // System.out.println("Instructor "+ iAttribute +" " +instructorClassifier.getName());
         for (Attribute sAttribute : sAttributes) {
-          // System.out.println("Student "+ sAttribute+" " +studentClassifier.getName());//FOR
-          // DEBUGGING
-
+          // System.out.println("Student "+ sAttribute+" " +studentClassifier.getName());
           lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
-          if (lDistance <= 2 && mappedAttribute.get(iAttribute) == sAttribute) {
-            dulplicateStudentAttribute.add(sAttribute);
+          if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED && mappedAttribute.get(iAttribute) == sAttribute) {
+            duplicateStudentAttribute.add(sAttribute);
             extraStudentAttribute.remove(sAttribute);
-          } else if (lDistance <= 2) {
+          } else if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
             // System.out.println("Mapped");
             mappedAttribute.put(iAttribute, sAttribute);
             notMappedInstructorAttribute.remove(iAttribute);
@@ -298,7 +318,6 @@ public class MistakeDetection {
             break;
           }
         }
-
       }
     }
 
@@ -323,7 +342,7 @@ public class MistakeDetection {
             for (Attribute iAttribute : iAttributes) { // To check association -> Not at present.
               for (Attribute sAttribute : sAttributes) {
                 float lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
-                if (lDistance <= 2) {
+                if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
                   correctAttribute++;
                   break;
                 }
@@ -332,17 +351,16 @@ public class MistakeDetection {
             // System.out.println("CorrectAttribute "+ " "+ instructorClassifier.getName() +" "+
             // studentClassifier.getName()+" "+ correctAttribute);
             if (totalAttributes != 0) {
-              if (correctAttribute / totalAttributes > 0.5) {
+              if ((double)correctAttribute / (double)totalAttributes > 0.5) {
                 mappedClassifier.put(instructorClassifier, studentClassifier);
                 notMappedInstructorClassifier.remove(instructorClassifier);
                 extraStudentClassifier.remove(studentClassifier);
                 counter++;
-                for (Attribute iAttribute : iAttributes) { // To check association -> Not at
-                  // present.
+                for (Attribute iAttribute : iAttributes) { // To check association -> Not at present.
                   for (Attribute sAttribute : sAttributes) {
                     float lDistance =
                         levenshteinDistance(sAttribute.getName(), iAttribute.getName());
-                    if (lDistance <= 2) {
+                    if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
                       // System.out.println(instructorClassifier.getName() + " " +
                       // sAttribute.getName()+ " " + iAttribute.getName());
                       mappedAttribute.put(iAttribute, sAttribute);
@@ -371,11 +389,9 @@ public class MistakeDetection {
       SolutionElement s = MAF.createSolutionElement();
       s.setElement(studentClassifier);
       Mistake m = MAF.createMistake();
-      m.setMistakeType(MistakeTypes.SOFTWARE_ENGINEERING_TERM);// Have a helper Method.
+      m.setMistakeType(MistakeTypes.SOFTWARE_ENGINEERING_TERM);
       m.getStudentElements().add(s);
       newMistakes.add(m);
-
-
     }
   }
 
@@ -448,9 +464,23 @@ public class MistakeDetection {
     }
   }
 
+  public static void checkMistakeAttributeSpelling(Attribute sAttribute,
+      Attribute iAttribute) {
+    int lDistance =
+        levenshteinDistance(sAttribute.getName(), iAttribute.getName());
+    if (lDistance != 0) {
+      SolutionElement s = MAF.createSolutionElement();
+      s.setElement(sAttribute);
+
+      var m = MAF.createMistake();
+      m.setMistakeType(MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING);
+      m.getStudentElements().add(s);
+      newMistakes.add(m);
+    }
+  }
+
   public static int levenshteinDistance(String sClassName, String iClassName) {
-    LevenshteinDistance ld = new LevenshteinDistance();
-    return ld.apply(sClassName, iClassName);
+    return LevenshteinDistance.getDefaultInstance().apply(sClassName, iClassName);
   }
 
   public static void checkMistakeLowerClassName(Classifier studentClassifier) {
@@ -466,24 +496,12 @@ public class MistakeDetection {
   }
 
   public static boolean isLowerName(String name) {
-    if (name.toLowerCase() == name) {
-      return true;
-    }
-    return false;
+    return name.toLowerCase() == name;
   }
 
   public static void checkMistakeWrongEnumerationClass(Classifier studentClassifier,
       Classifier instructorClassifier) {
-    if (isEnumerationClass(studentClassifier, instructorClassifier)) {
-      SolutionElement s = MAF.createSolutionElement();
-      s.setElement(studentClassifier);
-
-      var m = MAF.createMistake();
-      m.setMistakeType(MistakeTypes.REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION_OR_VICE_VERSA);
-      m.getStudentElements().add(s);
-      newMistakes.add(m);
-
-    } else if (isNotEnumerationClass(studentClassifier, instructorClassifier)) {
+    if (!classEnumStatusesMatch(studentClassifier, instructorClassifier)) {
       SolutionElement s = MAF.createSolutionElement();
       s.setElement(studentClassifier);
 
@@ -492,30 +510,50 @@ public class MistakeDetection {
       m.getStudentElements().add(s);
       newMistakes.add(m);
     }
-  }
+   }
 
-  public static boolean isEnumerationClass(Classifier studentClassifier,
+  /** Returns true if both classes are enum classes or if both are not. */
+  public static boolean classEnumStatusesMatch(Classifier studentClassifier,
       Classifier instructorClassifier) {
-
-    if (instructorClassifier instanceof CDEnum && studentClassifier instanceof CDEnum) {
-      return true;
-    }
-    return false;
+    return instructorClassifier instanceof CDEnum == studentClassifier instanceof CDEnum;
   }
 
-  public static boolean isNotEnumerationClass(Classifier studentClassifier,
-      Classifier instructorClassifier) {
+  public static void checkMistakeWrongAttributeType(Attribute sAttribute, Attribute iAttribute) {
+    if (!attributeTypesMatch(sAttribute, iAttribute)) {
+      SolutionElement s = MAF.createSolutionElement();
+      s.setElement(sAttribute);
 
-    if (instructorClassifier instanceof CDEnum && studentClassifier instanceof CDEnum) {
-      return true;
+      var m = MAF.createMistake();
+      m.setMistakeType(MistakeTypes.WRONG_ATTRIBUTE_TYPE);
+      m.getStudentElements().add(s);
+      newMistakes.add(m);
     }
-    return false;
   }
 
+  public static boolean attributeTypesMatch(Attribute sAttribute, Attribute iAttribute){
+    return sAttribute.getType().getClass().equals(iAttribute.getType().getClass());
+  }
+
+  public static void checkMistakeAttributeStatic(Attribute sAttribute, Attribute iAttribute) {
+    if (!attributeStaticPropertiesMatch(sAttribute, iAttribute)) {
+      SolutionElement s = MAF.createSolutionElement();
+      s.setElement(sAttribute);
+
+      var m = MAF.createMistake();
+      m.setMistakeType(MistakeTypes.ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA);
+      m.getStudentElements().add(s);
+      newMistakes.add(m);
+    }
+  }
+
+  /** Returns true if the student and instructor attributes' static properties match. */
+  public static boolean attributeStaticPropertiesMatch(Attribute sAttribute, Attribute iAttribute) {
+    return sAttribute.isStatic() == iAttribute.isStatic();
+  }
 
   /***
-   * This is a fuunction created for testing the logic. Only for test.
-   * 
+   * This is a function created for testing the logic. Only for test.
+   *
    * @param instructorClassifier
    * @param studentClassifier
    * @return
@@ -523,10 +561,9 @@ public class MistakeDetection {
   public static boolean checkCorrectTest(Classifier instructorClassifier,
       Classifier studentClassifier) {
     clearAttributesAndClassifer();
-    boolean flag = false;
+    boolean isMapped = false;
     EList<Attribute> iAttributes = instructorClassifier.getAttributes();
     EList<Attribute> sAttributes = studentClassifier.getAttributes();
-
 
     notMappedInstructorClassifier.add(instructorClassifier);
     extraStudentClassifier.add(studentClassifier);
@@ -535,8 +572,8 @@ public class MistakeDetection {
     int correctAttribute = 0;
     float lDistance =
         levenshteinDistance(studentClassifier.getName(), instructorClassifier.getName());
-    if (lDistance <= 2) {
-      flag = true;
+    if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+      isMapped = true;
       mappedClassifier.put(instructorClassifier, studentClassifier);
       notMappedInstructorClassifier.remove(instructorClassifier);
       extraStudentClassifier.remove(studentClassifier);
@@ -544,7 +581,7 @@ public class MistakeDetection {
       for (Attribute iAttribute : iAttributes) { // To check association -> Not at present.
         for (Attribute sAttribute : sAttributes) {
           lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
-          if (lDistance <= 2) {
+          if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
             correctAttribute++;
             break;
           }
@@ -552,42 +589,39 @@ public class MistakeDetection {
       }
     }
     if (totalAttibutes != 0) {
-      if (correctAttribute / totalAttibutes > 0.5 && flag == false) {
+      if (correctAttribute / totalAttibutes > 0.5 && isMapped == false) {
         mappedClassifier.put(instructorClassifier, studentClassifier);
         notMappedInstructorClassifier.remove(instructorClassifier);
         extraStudentClassifier.remove(studentClassifier);
 
-        flag = true;
+        isMapped = true;
       }
     }
 
-    if (flag == true) { // Map attributes if classifiers map.
+    if (isMapped == true) { // Map attributes if classifiers map.
       int count = 0;
       for (Attribute iAttribute : iAttributes) { // To check association -> Not at present.
         notMappedInstructorAttribute.add(iAttribute);
         for (Attribute sAttribute : sAttributes) {
-
           if (count != 1) // To stop duplicate entries.
             extraStudentAttribute.add(sAttribute);
 
-
           lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
-          if (lDistance <= 2 && mappedAttribute.containsValue(sAttribute)) {
-            dulplicateStudentAttribute.add(sAttribute);
+          if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED && mappedAttribute.containsValue(sAttribute)) {
+            duplicateStudentAttribute.add(sAttribute);
             extraStudentAttribute.remove(sAttribute);
-          } else if (lDistance <= 2) {
+          } else if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
             mappedAttribute.put(iAttribute, sAttribute);
             notMappedInstructorAttribute.remove(iAttribute);
             extraStudentAttribute.remove(sAttribute);
             break;
           }
         }
-
         count = 1;
       }
     }
 
-    return flag;
+    return isMapped;
   }
 
   public static void clearAttributesAndClassifer() {
@@ -597,8 +631,7 @@ public class MistakeDetection {
     mappedAttribute.clear();
     extraStudentAttribute.clear();
     notMappedInstructorAttribute.clear();
-    dulplicateStudentAttribute.clear();
-
+    duplicateStudentAttribute.clear();
   }
 
   public static void showMistakes() {
@@ -607,4 +640,5 @@ public class MistakeDetection {
           + m.getStudentElements().get(0).getElement().getName());
     }
   }
+
 }
