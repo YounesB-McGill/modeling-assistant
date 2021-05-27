@@ -43,28 +43,27 @@ public class MistakeTypeCategoryItemProvider extends NamedElementItemProvider {
     if (itemPropertyDescriptors == null) {
       super.getPropertyDescriptors(object);
 
-      addMistaketypePropertyDescriptor(object);
+      addMistakeTypesPropertyDescriptor(object);
       addSupercategoryPropertyDescriptor(object);
       addSubcategoriesPropertyDescriptor(object);
-      addModelingassistantPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
 
   /**
-   * This adds a property descriptor for the Mistaketype feature.
+   * This adds a property descriptor for the Mistake Types feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addMistaketypePropertyDescriptor(Object object) {
+  protected void addMistakeTypesPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_MistakeTypeCategory_mistaketype_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_MistakeTypeCategory_mistaketype_feature", "_UI_MistakeTypeCategory_type"),
-         ModelingassistantPackage.Literals.MISTAKE_TYPE_CATEGORY__MISTAKETYPE,
+         getString("_UI_MistakeTypeCategory_mistakeTypes_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_MistakeTypeCategory_mistakeTypes_feature", "_UI_MistakeTypeCategory_type"),
+         ModelingassistantPackage.Literals.MISTAKE_TYPE_CATEGORY__MISTAKE_TYPES,
          true,
          false,
          true,
@@ -109,28 +108,6 @@ public class MistakeTypeCategoryItemProvider extends NamedElementItemProvider {
          getString("_UI_MistakeTypeCategory_subcategories_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_MistakeTypeCategory_subcategories_feature", "_UI_MistakeTypeCategory_type"),
          ModelingassistantPackage.Literals.MISTAKE_TYPE_CATEGORY__SUBCATEGORIES,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Modelingassistant feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addModelingassistantPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_MistakeTypeCategory_modelingassistant_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_MistakeTypeCategory_modelingassistant_feature", "_UI_MistakeTypeCategory_type"),
-         ModelingassistantPackage.Literals.MISTAKE_TYPE_CATEGORY__MODELINGASSISTANT,
          true,
          false,
          true,

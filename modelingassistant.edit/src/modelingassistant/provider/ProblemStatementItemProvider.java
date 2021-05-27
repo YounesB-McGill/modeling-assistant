@@ -49,6 +49,8 @@ public class ProblemStatementItemProvider
 
       addProblemStatementElementsPropertyDescriptor(object);
       addTextPropertyDescriptor(object);
+      addStudentSolutionPropertyDescriptor(object);
+      addInstructorSolutionPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -93,6 +95,50 @@ public class ProblemStatementItemProvider
          false,
          false,
          ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Student Solution feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addStudentSolutionPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_ProblemStatement_studentSolution_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_ProblemStatement_studentSolution_feature", "_UI_ProblemStatement_type"),
+         ModelingassistantPackage.Literals.PROBLEM_STATEMENT__STUDENT_SOLUTION,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Instructor Solution feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addInstructorSolutionPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_ProblemStatement_instructorSolution_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_ProblemStatement_instructorSolution_feature", "_UI_ProblemStatement_type"),
+         ModelingassistantPackage.Literals.PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION,
+         true,
+         false,
+         true,
+         null,
          null,
          null));
   }

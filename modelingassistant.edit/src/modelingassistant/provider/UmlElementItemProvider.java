@@ -58,7 +58,6 @@ public class UmlElementItemProvider
       super.getPropertyDescriptors(object);
 
       addModelingAssistantPropertyDescriptor(object);
-      addSolutionElementsPropertyDescriptor(object);
       addLearningItemsPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
@@ -78,28 +77,6 @@ public class UmlElementItemProvider
          getString("_UI_UmlElement_modelingAssistant_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_UmlElement_modelingAssistant_feature", "_UI_UmlElement_type"),
          ModelingassistantPackage.Literals.UML_ELEMENT__MODELING_ASSISTANT,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Solution Elements feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addSolutionElementsPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_UmlElement_solutionElements_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_UmlElement_solutionElements_feature", "_UI_UmlElement_type"),
-         ModelingassistantPackage.Literals.UML_ELEMENT__SOLUTION_ELEMENTS,
          true,
          false,
          true,

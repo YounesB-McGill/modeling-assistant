@@ -3,7 +3,6 @@ package controller.tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.URI;
@@ -25,14 +25,17 @@ import classdiagram.ClassdiagramFactory;
 import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
 import classdiagram.ReferenceType;
+import modelingassistant.MistakeType;
+import modelingassistant.MistakeTypeCategory;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
+import modelingassistant.NamedElement;
 import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 import modelingassistant.util.ResourceHelper;
 
 public class ControllerTest {
-  
+
   @Test public void testJunitIsWorking() {
     assertTrue(true);
   }
@@ -48,10 +51,10 @@ public class ControllerTest {
     solution.setClassDiagram(classDiagram);
     assertEquals("Student1_solution", modelingAssistant.getSolutions().get(0).getClassDiagram().getName());
   }
-  
+
   /**
    * Tests that a solution with one class can be created (Umple syntax):
-   * 
+   *
    * class Car {
    *   int id;
    *   String make; // eg, BMW, Honda
@@ -66,7 +69,7 @@ public class ControllerTest {
     classDiagram.setName("Student1_solution");
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
-    
+
     var carClass = cdf.createClass();
     carClass.setName("Car");
     var carId = cdf.createAttribute();
@@ -80,7 +83,7 @@ public class ControllerTest {
     carClass.getAttributes().add(carId);
     carClass.getAttributes().add(carMake);
     classDiagram.getClasses().add(carClass);
-    
+
     assertEquals("Student1_solution", modelingAssistant.getSolutions().get(0).getClassDiagram().getName());
     assertEquals("Car", classDiagram.getClasses().get(0).getName());
     assertEquals("id", classDiagram.getClasses().get(0).getAttributes().get(0).getName());
@@ -88,10 +91,10 @@ public class ControllerTest {
     assertEquals(intType, classDiagram.getClasses().get(0).getAttributes().get(0).getType());
     assertEquals(stringType, classDiagram.getClasses().get(0).getAttributes().get(1).getType());
   }
-  
+
   /**
    * Test that a solution with these two classes can be created:
-   * 
+   *
    * class Car {} // see above
    * class Driver {
    *   String name;
@@ -109,7 +112,7 @@ public class ControllerTest {
     classDiagram.setName("Student1_solution");
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
-    
+
     var carClass = cdf.createClass();
     carClass.setName("Car");
     var carId = cdf.createAttribute();
@@ -120,14 +123,14 @@ public class ControllerTest {
     carMake.setType(cdString);
     carClass.getAttributes().add(carId);
     carClass.getAttributes().add(carMake);
-    
+
     var driverClass = cdf.createClass();
     driverClass.setName("Driver");
     var driverName = cdf.createAttribute();
     driverName.setName("name");
     driverName.setType(cdString);
     driverClass.getAttributes().add(driverName);
-    
+
     var carDriverAssociationEnd = cdf.createAssociationEnd();
     carDriverAssociationEnd.setClassifier(carClass);
     carDriverAssociationEnd.setNavigable(true);
@@ -144,24 +147,24 @@ public class ControllerTest {
     carDriverAssociation.getEnds().addAll(List.of(carDriverAssociationEnd, driverCarAssociationEnd));
     carDriverAssociationEnd.setAssoc(carDriverAssociation);
     driverCarAssociationEnd.setAssoc(carDriverAssociation);
-    
+
     classDiagram.getClasses().addAll(List.of(carClass, driverClass));
-    
+
     assertEquals("Student1_solution", modelingAssistant.getSolutions().get(0).getClassDiagram().getName());
     assertEquals(classDiagram, modelingAssistant.getSolutions().get(0).getClassDiagram());
-    
+
     assertEquals(carClass, classDiagram.getClasses().get(0));
     assertEquals("Car", carClass.getName());
     assertEquals("id", carClass.getAttributes().get(0).getName());
     assertEquals("make", carClass.getAttributes().get(1).getName());
     assertEquals(cdInt, carClass.getAttributes().get(0).getType());
     assertEquals(cdString, carClass.getAttributes().get(1).getType());
-    
+
     assertEquals(driverClass, classDiagram.getClasses().get(1));
     assertEquals("Driver", driverClass.getName());
     assertEquals("name", driverClass.getAttributes().get(0).getName());
     assertEquals(cdString, driverClass.getAttributes().get(0).getType());
-    
+
     assertEquals(carDriverAssociation, carClass.getAssociationEnds().get(0).getAssoc());
     assertEquals(carDriverAssociation, driverClass.getAssociationEnds().get(0).getAssoc());
     assertEquals(carDriverAssociationEnd, carDriverAssociation.getEnds().get(0));
@@ -173,12 +176,12 @@ public class ControllerTest {
     assertEquals(0, driverCarAssociationEnd.getLowerBound());
     assertEquals(-1, driverCarAssociationEnd.getUpperBound());
   }
-  
+
   /**
    * Test that a solution with these two classes can be created:
-   * 
+   *
    * class Car {} // see above
-   * class SportsCar { isA Car; }  
+   * class SportsCar { isA Car; }
    */
   @Test
   public void testCreatingTwoClassSolutionWithGeneralization() {
@@ -226,7 +229,7 @@ public class ControllerTest {
     assertEquals("id", sportsCarClass.getSuperTypes().get(0).getAttributes().get(0).getName());
     assertEquals("make", sportsCarClass.getSuperTypes().get(0).getAttributes().get(1).getName());
   }
-  
+
   /**
    * Verifies that it is possible to create a modeling assistant solution from a serialized TouchCORE
    * single class domain model.
@@ -244,16 +247,16 @@ public class ControllerTest {
     assertEquals("make", carClass.getAttributes().get(1).getName());
     assertTrue(carClass.getAttributes().get(0).getType() instanceof CDInt);
     assertTrue(carClass.getAttributes().get(1).getType() instanceof CDString);
-    
+
     var maf = ModelingassistantFactory.eINSTANCE;
     var modelingAssistant = maf.createModelingAssistant();
     var solution = maf.createSolution();
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
-    
+
     assertTrue(solution.getClassDiagram().getClasses().contains(carClass));
   }
-  
+
   /**
    * Verifies that it is possible to create a modeling assistant solution from a serialized TouchCORE
    * multiclass domain model.
@@ -263,7 +266,7 @@ public class ControllerTest {
     var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
     var classDiagram = (ClassDiagram) resource.getContents().get(0);
-    
+
     Classifier carClass = null;
     Classifier driverClass = null;
     Classifier sportsCarClass = null;
@@ -285,17 +288,17 @@ public class ControllerTest {
     assertEquals("Car", sportsCarClass.getSuperTypes().get(0).getName());
     assertEquals(ReferenceType.COMPOSITION, carClass.getAssociationEnds().stream()
         .filter(ae -> "parts".equals(ae.getName())).collect(Collectors.toList()).get(0).getReferenceType());
-    
+
     var maf = ModelingassistantFactory.eINSTANCE;
     var modelingAssistant = maf.createModelingAssistant();
     var solution = maf.createSolution();
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
-    
+
     List.of(carClass, driverClass, sportsCarClass, partClass).forEach(c ->
         assertTrue(solution.getClassDiagram().getClasses().contains(c)));
   }
-  
+
   /**
    * Verifies that a ModelingAssistant instance with a one class solution can be serialized to an XMI file.
    */
@@ -319,7 +322,7 @@ public class ControllerTest {
     ModelingassistantPackage.eINSTANCE.eClass();
     var cdf = ClassdiagramFactory.eINSTANCE;
     var maf = ModelingassistantFactory.eINSTANCE;
-    
+
     var modelingAssistant = maf.createModelingAssistant();
     var solution = maf.createSolution();
     var classDiagram = cdf.createClassDiagram();
@@ -328,7 +331,7 @@ public class ControllerTest {
     solution.setModelingAssistant(modelingAssistant);
     var cdInt = cdf.createCDInt();
     var cdString = cdf.createCDString();
-    
+
     var carClass = cdf.createClass();
     carClass.setName("Car");
     var carId = cdf.createAttribute();
@@ -338,13 +341,13 @@ public class ControllerTest {
     carMake.setName("make");
     carMake.setType(cdString);
     carClass.getAttributes().addAll(List.of(carId, carMake));
-    
+
     classDiagram.getTypes().addAll(List.of(cdInt, cdString));
     classDiagram.getClasses().add(carClass);
-    
+
     assertEquals("Student1_solution", modelingAssistant.getSolutions().get(0).getClassDiagram().getName());
     assertEquals("Car", classDiagram.getClasses().get(0).getName());
-    
+
     var rset = new ResourceSetImpl();
     rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi",
         new ModelingassistantResourceFactoryImpl());
@@ -360,7 +363,7 @@ public class ControllerTest {
       assertTrue(maFile.isFile());
       assertTrue(cdFile.isFile());
       var cdFileContent = Files.readString(Paths.get(cdPath));
-      List.of("Student1_solution", "Car", "make", "CDInt").forEach(s -> 
+      List.of("Student1_solution", "Car", "make", "CDInt").forEach(s ->
           assertTrue(cdFileContent.contains(s)));
     } catch (IOException e) {
       fail();
@@ -382,7 +385,7 @@ public class ControllerTest {
     try {
       var maResource = rset.createResource(URI.createFileURI(new File(maPath).getCanonicalPath()));
       maResource.load(Collections.EMPTY_MAP);
-      
+
       var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
       var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
 
@@ -394,7 +397,7 @@ public class ControllerTest {
       fail();
     }
   }
-  
+
   /**
    * Verifies that the pyecore version of the modeling assistant instance defined above can be deserialized correctly.
    */
@@ -410,7 +413,7 @@ public class ControllerTest {
     try {
       var maResource = rset.createResource(URI.createFileURI(new File(maPath).getCanonicalPath()));
       maResource.load(Collections.EMPTY_MAP);
-      
+
       var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
       var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
 
@@ -422,7 +425,7 @@ public class ControllerTest {
       fail();
     }
   }
-  
+
   /**
    * Verifies that a ModelingAssistant instance with a multiclass solution can be serialized to an XMI file.
    */
@@ -437,10 +440,10 @@ public class ControllerTest {
     if (cdFile.isFile()) {
       assertTrue(cdFile.delete());
     }
-    
+
     ClassdiagramPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    
+
     // Open premade class diagram from one of the above tests
     // Can't reuse ResourceHelper.INSTANCE here to load duplicate resource
     var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
@@ -451,14 +454,14 @@ public class ControllerTest {
         new CdmResourceFactoryImpl());
     var resource = rset.getResource(URI.createFileURI(cdmFile), true);
     var classDiagram = (ClassDiagram) resource.getContents().get(0);
-    
+
     // Link class_diagram to modeling assistant instance
     var maf = ModelingassistantFactory.eINSTANCE;
     var modelingAssistant = maf.createModelingAssistant();
     var solution = maf.createSolution();
     solution.setClassDiagram(classDiagram);
     solution.setModelingAssistant(modelingAssistant);
-    
+
     // Save modeling assistant instance to file and verify contents
     try {
       var maResource = rset.createResource(URI.createFileURI(maFile.getCanonicalPath()));
@@ -470,13 +473,13 @@ public class ControllerTest {
       assertTrue(maFile.isFile());
       assertTrue(cdFile.isFile());
       var cdFileContent = Files.readString(Paths.get(cdPath));
-      List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt").forEach(s -> 
+      List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt").forEach(s ->
           assertTrue(cdFileContent.contains(s)));
     } catch (IOException e) {
       fail();
     }
   }
-  
+
   /**
    * Verifies that the modeling assistant instance defined above can be deserialized correctly.
    */
@@ -493,7 +496,7 @@ public class ControllerTest {
     try {
       var maResource = rset.createResource(URI.createFileURI(new File(maPath).getCanonicalPath()));
       maResource.load(Collections.EMPTY_MAP);
-      
+
       var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
       var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
 
@@ -512,7 +515,7 @@ public class ControllerTest {
       fail();
     }
   }
-  
+
   /**
    * Verifies that the pyecore version of the modeling assistant instance defined above can be deserialized correctly.
    */
@@ -529,7 +532,7 @@ public class ControllerTest {
     try {
       var maResource = rset.createResource(URI.createFileURI(new File(maPath).getCanonicalPath()));
       maResource.load(Collections.EMPTY_MAP);
-      
+
       var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
       var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
 
@@ -548,7 +551,7 @@ public class ControllerTest {
       fail();
     }
   }
-  
+
   /**
    * Verifies that a ModelingAssistant instance with a multiclass solution can be serialized to an XMI file.
    */
@@ -565,7 +568,7 @@ public class ControllerTest {
     ModelingassistantPackage.eINSTANCE.eClass();
     var cdf = ClassdiagramFactory.eINSTANCE;
     var maf = ModelingassistantFactory.eINSTANCE;
-    
+
     // Open premade class diagram from one of the above tests
     // Can't reuse ResourceHelper.INSTANCE here to load duplicate resource
     var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
@@ -582,18 +585,18 @@ public class ControllerTest {
     var solution1 = maf.createSolution();
     solution1.setClassDiagram(classDiagram1);
     modelingAssistant.getSolutions().add(solution1);
-    
+
     // Make and link second class diagram to modeling assistant instance
     var classDiagram2 = cdf.createClassDiagram();
     classDiagram2.setName("Student2_solution");
     var solution2 = maf.createSolution();
     solution2.setClassDiagram(classDiagram2);
     modelingAssistant.getSolutions().add(solution2);
-    
+
     var cdInt = cdf.createCDInt();
     var cdString = cdf.createCDString();
     classDiagram2.getTypes().addAll(List.of(cdInt, cdString));
-    
+
     var carClass2 = cdf.createClass();
     carClass2.setName("Car");
     var carId = cdf.createAttribute();
@@ -601,10 +604,10 @@ public class ControllerTest {
     carId.setType(cdInt);
     var carMake = cdf.createAttribute();
     carMake.setName("make");
-    carMake.setType(cdString); 
+    carMake.setType(cdString);
     carClass2.getAttributes().addAll(List.of(carId, carMake));
     classDiagram2.getClasses().add(carClass2);
-    
+
     // Save modeling assistant instance to file and verify contents
     try {
       var maResource = rset.createResource(URI.createFileURI(maFile.getCanonicalPath()));
@@ -619,15 +622,15 @@ public class ControllerTest {
       List.of(maFile, cd1File, cd2File).stream().forEach(f -> assertTrue(f.isFile()));
       var cd1FileContent = Files.readString(Paths.get(cd1Path));
       var cd2FileContent = Files.readString(Paths.get(cd2Path));
-      List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt").forEach(s -> 
+      List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt").forEach(s ->
           assertTrue(cd1FileContent.contains(s)));
-      List.of("Car", "make", "CDInt", "Student2_solution").forEach(s -> 
+      List.of("Car", "make", "CDInt", "Student2_solution").forEach(s ->
           assertTrue(cd2FileContent.contains(s)));
     } catch (IOException e) {
       fail();
     }
   }
-  
+
   /**
    * Verifies that the modeling assistant instance defined above can be deserialized correctly.
    */
@@ -640,16 +643,16 @@ public class ControllerTest {
         new ModelingassistantResourceFactoryImpl());
     rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm",
         new CdmResourceFactoryImpl());
-    
+
     try {
       var maResource = rset.createResource(URI.createFileURI(new File(maPath).getCanonicalPath()));
       maResource.load(Collections.EMPTY_MAP);
-      
+
       var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
       var classDiagram1 = modelingAssistant.getSolutions().get(0).getClassDiagram();
       var classDiagram2 = modelingAssistant.getSolutions().get(1).getClassDiagram();
       Predicate<Attribute> isCdIntOrStr = a -> a.getType() instanceof CDInt || a.getType() instanceof CDString;
-      
+
       var expectedClassNames1 = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
       classDiagram1.getClasses().forEach(c -> {
         if ("Car".equals(c.getName())) {
@@ -661,7 +664,7 @@ public class ControllerTest {
         assertTrue(expectedClassNames1.remove(c.getName()));
       });
       assertTrue(expectedClassNames1.isEmpty());
-      
+
       var expectedClassNames2 = new ArrayList<String>(List.of("Car"));
       classDiagram2.getClasses().forEach(c -> {
         if ("Car".equals(c.getName())) {
@@ -674,7 +677,7 @@ public class ControllerTest {
       fail();
     }
   }
-  
+
   /**
    * Verifies that the pyecore version of the modeling assistant instance defined above can be deserialized correctly.
    */
@@ -687,16 +690,16 @@ public class ControllerTest {
         new ModelingassistantResourceFactoryImpl());
     rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm",
         new CdmResourceFactoryImpl());
-    
+
     try {
       var maResource = rset.createResource(URI.createFileURI(new File(maPath).getCanonicalPath()));
       maResource.load(Collections.EMPTY_MAP);
-      
+
       var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
       var classDiagram1 = modelingAssistant.getSolutions().get(0).getClassDiagram();
       var classDiagram2 = modelingAssistant.getSolutions().get(1).getClassDiagram();
       Predicate<Attribute> isCdIntOrStr = a -> a.getType() instanceof CDInt || a.getType() instanceof CDString;
-      
+
       var expectedClassNames1 = new ArrayList<String>(List.of("Car", "SportsCar", "Part", "Driver"));
       classDiagram1.getClasses().forEach(c -> {
         if ("Car".equals(c.getName())) {
@@ -708,7 +711,7 @@ public class ControllerTest {
         assertTrue(expectedClassNames1.remove(c.getName()));
       });
       assertTrue(expectedClassNames1.isEmpty());
-      
+
       var expectedClassNames2 = new ArrayList<String>(List.of("Car"));
       classDiagram2.getClasses().forEach(c -> {
         if ("Car".equals(c.getName())) {
@@ -721,7 +724,7 @@ public class ControllerTest {
       fail();
     }
   }
-  
+
   /**
    *  Verifies that StudentKnowledge association classes can be serialized and loaded again correctly.
    */
@@ -736,7 +739,7 @@ public class ControllerTest {
     ModelingassistantPackage.eINSTANCE.eClass();
     var cdf = ClassdiagramFactory.eINSTANCE;
     var maf = ModelingassistantFactory.eINSTANCE;
-    
+
     // Open premade class diagram from one of the above tests
     // Can't reuse ResourceHelper.INSTANCE here to load duplicate resource
     var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
@@ -744,7 +747,7 @@ public class ControllerTest {
     rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new ModelingassistantResourceFactoryImpl());
     var resource = rset.getResource(URI.createFileURI(cdmFile), true);
     var classDiagram = (ClassDiagram) resource.getContents().get(0);
-    
+
     // Create modeling assistant and general learning objects associated with it
     var modelingAssistant = maf.createModelingAssistant();
     var correctClassNaming = maf.createLearningItem();
@@ -768,8 +771,8 @@ public class ControllerTest {
     student1ClassNamingKnowledge.setLevelOfKnowledge(lok1);
     student1ClassNamingKnowledge.setStudent(student1);
     student1ClassNamingKnowledge.setMistakeType(classNamingMistakeType);
-    student1ClassNamingKnowledge.setModelingassistant(modelingAssistant);
-    
+    student1ClassNamingKnowledge.setModelingAssistant(modelingAssistant);
+
     // Make and link second class diagram to modeling assistant instance and related student
     var classDiagram2 = cdf.createClassDiagram();
     classDiagram2.setName("Student2_solution");
@@ -785,12 +788,12 @@ public class ControllerTest {
     student2ClassNamingKnowledge.setLevelOfKnowledge(lok2);
     student2ClassNamingKnowledge.setStudent(student2);
     student2ClassNamingKnowledge.setMistakeType(classNamingMistakeType);
-    student2ClassNamingKnowledge.setModelingassistant(modelingAssistant);
-    
+    student2ClassNamingKnowledge.setModelingAssistant(modelingAssistant);
+
     var cdInt = cdf.createCDInt();
     var cdString = cdf.createCDString();
     classDiagram2.getTypes().addAll(List.of(cdInt, cdString));
-    
+
     var carClass2 = cdf.createClass();
     carClass2.setName("Car");
     var carId = cdf.createAttribute();
@@ -798,10 +801,10 @@ public class ControllerTest {
     carId.setType(cdInt);
     var carMake = cdf.createAttribute();
     carMake.setName("make");
-    carMake.setType(cdString); 
+    carMake.setType(cdString);
     carClass2.getAttributes().addAll(List.of(carId, carMake));
     classDiagram2.getClasses().add(carClass2);
-    
+
     // Save modeling assistant instance to file and verify contents
     resource = rset.createResource(URI.createFileURI(maPath));
     resource.getContents().addAll(List.of(modelingAssistant, classDiagram, classDiagram2));
@@ -815,12 +818,12 @@ public class ControllerTest {
     } catch (IOException e) {
       fail();
     }
-    
+
     // Test loading
     modelingAssistant = (ModelingAssistant) rset.getResource(URI.createFileURI(maPath), false).getContents().get(0);
     var s1k = modelingAssistant.getStudents().get(0).getStudentKnowledges().get(0);
     var s2k = modelingAssistant.getStudents().get(1).getStudentKnowledges().get(0);
-    
+
     assertEquals("1111", s1k.getStudent().getId());
     assertEquals(lok1, s1k.getLevelOfKnowledge());
     assertEquals("Wrong class name", s1k.getMistakeType().getName());
@@ -828,7 +831,105 @@ public class ControllerTest {
     assertEquals(lok2, s2k.getLevelOfKnowledge());
     assertTrue(s2k.getMistakeType().isAtomic());
   }
-  
+
+  /**
+   * Verifies that a ModelingAssistant instance with mistake types and categories can be serialized to an XMI file.
+   */
+  @Test public void testPersistingModelingAssistantWithMistakeTypesAndCategories() {
+    var maPath = "../modelingassistant/instances/ma_mistaketypes_from_java.modelingassistant";
+    var maFile = new File(maPath);
+    if (maFile.isFile()) {
+      assertTrue(maFile.delete());
+    }
+
+    ModelingassistantPackage.eINSTANCE.eClass();
+    var maf = ModelingassistantFactory.eINSTANCE;
+
+    var modelingAssistant = maf.createModelingAssistant();
+    var wrongClass = maf.createMistakeTypeCategory();
+    wrongClass.setName("Wrong class");
+    wrongClass.setModelingAssistant(modelingAssistant);
+    var wrongClassName = maf.createMistakeTypeCategory();
+    wrongClassName.setName("Wrong class name");
+    wrongClassName.setSupercategory(wrongClass);
+    wrongClassName.setModelingAssistant(modelingAssistant);
+    var missingClass = maf.createMistakeType();
+    missingClass.setName("Missing class");
+    missingClass.setMistakeTypeCategory(wrongClass);
+    missingClass.setModelingAssistant(modelingAssistant);
+    var seTerm = maf.createMistakeType();
+    seTerm.setName("Software engineering term");
+    seTerm.setAtomic(true);
+    seTerm.setMistakeTypeCategory(wrongClassName);
+    seTerm.setModelingAssistant(modelingAssistant);
+
+    // Save modeling assistant instance to file and verify contents
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new ModelingassistantResourceFactoryImpl());
+    var resource = rset.createResource(URI.createFileURI(maPath));
+    resource.getContents().add(modelingAssistant);
+    try {
+      resource.save(Collections.EMPTY_MAP);
+      assertTrue(maFile.isFile());
+      var fileContent = Files.readString(Paths.get(maPath));
+      List.of("Wrong class name", "Missing class", "Software engineering term", "atomic").forEach(s ->
+          assertTrue(fileContent.contains(s)));
+    } catch (IOException e) {
+      fail();
+    }
+  }
+
+  /**
+   * Verifies that the the modeling assistant instance defined above can be deserialized correctly.
+   */
+  @Test public void testLoadingModelingAssistantWithMistakeTypesAndCategories() {
+    ModelingassistantPackage.eINSTANCE.eClass();
+    var maPaths = List.of(
+        "../modelingassistant/instances/ma_mistaketypes_from_java.modelingassistant",
+        "../modelingassistant/instances/ma_mistaketypes_from_python.modelingassistant"
+    );
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("modelingassistant",
+        new ModelingassistantResourceFactoryImpl());
+
+    final BiFunction<List<? extends NamedElement>, String, NamedElement> itemByName = (itemList, name) ->
+      itemList.stream().filter(item -> item.getName().equals(name)).findFirst().orElse(null);
+
+    maPaths.forEach(maPath -> {
+      try {
+        var maResource = rset.createResource(URI.createFileURI(new File(maPath).getCanonicalPath()));
+        maResource.load(Collections.EMPTY_MAP);
+
+        var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
+        var mtcs = modelingAssistant.getMistakeTypeCategories();
+        var mts = modelingAssistant.getMistakeTypes();
+        var wrongClass = (MistakeTypeCategory) itemByName.apply(mtcs, "Wrong class");
+        var wrongClassName = (MistakeTypeCategory) itemByName.apply(mtcs, "Wrong class name");
+        var missingClass = (MistakeType) itemByName.apply(mts, "Missing class");
+        var seTerm = (MistakeType) itemByName.apply(mts, "Software engineering term");
+
+        /* Verify all of these relationships (names already correct due to above):
+         *
+         *                         Wrong class: MistakeTypeCategory
+         *                       /                                  \
+         *     Wrong class name: MistakeTypeCategory       Missing class: MistakeType
+         *                     |
+         *     Software engineering term: MistakeType
+         */
+        assertTrue(wrongClass.getSubcategories().contains(wrongClassName));
+        assertTrue(wrongClassName.getSupercategory() == wrongClass); // should be same object, not just equal
+        assertTrue(wrongClass.getMistakeTypes().contains(missingClass));
+        assertTrue(missingClass.getMistakeTypeCategory() == wrongClass);
+        assertTrue(wrongClassName.getMistakeTypes().contains(seTerm));
+        assertTrue(seTerm.getMistakeTypeCategory() == wrongClassName);
+        List.of(wrongClass, wrongClassName).forEach(mtc -> assertTrue(mtc.getModelingAssistant() == modelingAssistant));
+        List.of(missingClass, seTerm).forEach(mt -> assertTrue(mt.getModelingAssistant() == modelingAssistant));
+      } catch (IOException e) {
+        fail();
+      }
+    });
+  }
+
   /**
    * Associates the two classes in memory (modifies classes and returns nothing).
    */
@@ -851,8 +952,8 @@ public class ControllerTest {
     class12AssociationEnd.setAssoc(association);
     class21AssociationEnd.setAssoc(association);
   }
-  
-  public void contains(Classifier containedClass, Classifier containerClass) {
+
+  public void contain(Classifier containedClass, Classifier containerClass) {
     var cdf = ClassdiagramFactory.eINSTANCE;
     var containerClassAssociationEnd = cdf.createAssociationEnd();
     containerClassAssociationEnd.setClassifier(containerClass);

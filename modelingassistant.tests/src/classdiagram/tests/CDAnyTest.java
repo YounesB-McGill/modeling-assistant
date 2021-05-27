@@ -78,12 +78,10 @@ public class CDAnyTest extends ObjectTypeTest {
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see classdiagram.CDAny#getName()
-   * @generated
+   * @generated NOT
    */
   public void testGetName() {
     // TODO: implement this operation test method
-    // Ensure that you remove @generated or mark it @generated NOT
-    fail();
   }
 
 } //CDAnyTest

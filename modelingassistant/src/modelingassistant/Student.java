@@ -15,10 +15,9 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link modelingassistant.Student#getId <em>Id</em>}</li>
  *   <li>{@link modelingassistant.Student#getModelingAssistant <em>Modeling Assistant</em>}</li>
- *   <li>{@link modelingassistant.Student#getMistakes <em>Mistakes</em>}</li>
- *   <li>{@link modelingassistant.Student#getCurrentMistake <em>Current Mistake</em>}</li>
  *   <li>{@link modelingassistant.Student#getSolutions <em>Solutions</em>}</li>
  *   <li>{@link modelingassistant.Student#getStudentKnowledges <em>Student Knowledges</em>}</li>
+ *   <li>{@link modelingassistant.Student#getCurrentSolution <em>Current Solution</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getStudent()
@@ -73,44 +72,6 @@ public interface Student extends NamedElement {
   void setModelingAssistant(ModelingAssistant value);
 
   /**
-   * Returns the value of the '<em><b>Mistakes</b></em>' reference list.
-   * The list contents are of type {@link modelingassistant.Mistake}.
-   * It is bidirectional and its opposite is '{@link modelingassistant.Mistake#getMistakeStudent <em>Mistake Student</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Mistakes</em>' reference list.
-   * @see modelingassistant.ModelingassistantPackage#getStudent_Mistakes()
-   * @see modelingassistant.Mistake#getMistakeStudent
-   * @model opposite="mistakeStudent"
-   * @generated
-   */
-  EList<Mistake> getMistakes();
-
-  /**
-   * Returns the value of the '<em><b>Current Mistake</b></em>' reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.Mistake#getCurrentMistakeStudent <em>Current Mistake Student</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Current Mistake</em>' reference.
-   * @see #setCurrentMistake(Mistake)
-   * @see modelingassistant.ModelingassistantPackage#getStudent_CurrentMistake()
-   * @see modelingassistant.Mistake#getCurrentMistakeStudent
-   * @model opposite="currentMistakeStudent"
-   * @generated
-   */
-  Mistake getCurrentMistake();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.Student#getCurrentMistake <em>Current Mistake</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Current Mistake</em>' reference.
-   * @see #getCurrentMistake()
-   * @generated
-   */
-  void setCurrentMistake(Mistake value);
-
-  /**
    * Returns the value of the '<em><b>Solutions</b></em>' reference list.
    * The list contents are of type {@link modelingassistant.Solution}.
    * It is bidirectional and its opposite is '{@link modelingassistant.Solution#getStudent <em>Student</em>}'.
@@ -137,5 +98,29 @@ public interface Student extends NamedElement {
    * @generated
    */
   EList<StudentKnowledge> getStudentKnowledges();
+
+  /**
+   * Returns the value of the '<em><b>Current Solution</b></em>' reference.
+   * It is bidirectional and its opposite is '{@link modelingassistant.Solution#getCurrentStudent <em>Current Student</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Current Solution</em>' reference.
+   * @see #setCurrentSolution(Solution)
+   * @see modelingassistant.ModelingassistantPackage#getStudent_CurrentSolution()
+   * @see modelingassistant.Solution#getCurrentStudent
+   * @model opposite="currentStudent"
+   * @generated
+   */
+  Solution getCurrentSolution();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.Student#getCurrentSolution <em>Current Solution</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Current Solution</em>' reference.
+   * @see #getCurrentSolution()
+   * @generated
+   */
+  void setCurrentSolution(Solution value);
 
 } // Student

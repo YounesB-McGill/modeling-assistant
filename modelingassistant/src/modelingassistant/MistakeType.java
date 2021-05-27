@@ -23,7 +23,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link modelingassistant.MistakeType#getStudentKnowledges <em>Student Knowledges</em>}</li>
  *   <li>{@link modelingassistant.MistakeType#getMistakes <em>Mistakes</em>}</li>
  *   <li>{@link modelingassistant.MistakeType#getFeedbacks <em>Feedbacks</em>}</li>
- *   <li>{@link modelingassistant.MistakeType#getMistaketypecategory <em>Mistaketypecategory</em>}</li>
+ *   <li>{@link modelingassistant.MistakeType#getMistakeTypeCategory <em>Mistake Type Category</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getMistakeType()
@@ -38,7 +38,7 @@ public interface MistakeType extends NamedElement {
    * @return the value of the '<em>Atomic</em>' attribute.
    * @see #setAtomic(boolean)
    * @see modelingassistant.ModelingassistantPackage#getMistakeType_Atomic()
-   * @model dataType="modelingassistant.boolean"
+   * @model
    * @generated
    */
   boolean isAtomic();
@@ -82,7 +82,7 @@ public interface MistakeType extends NamedElement {
    * @return the value of the '<em>Num Steps Before Notification</em>' attribute.
    * @see #setNumStepsBeforeNotification(int)
    * @see modelingassistant.ModelingassistantPackage#getMistakeType_NumStepsBeforeNotification()
-   * @model dataType="modelingassistant.int"
+   * @model
    * @generated
    */
   int getNumStepsBeforeNotification();
@@ -188,27 +188,27 @@ public interface MistakeType extends NamedElement {
   EList<Feedback> getFeedbacks();
 
   /**
-   * Returns the value of the '<em><b>Mistaketypecategory</b></em>' reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.MistakeTypeCategory#getMistaketype <em>Mistaketype</em>}'.
+   * Returns the value of the '<em><b>Mistake Type Category</b></em>' reference.
+   * It is bidirectional and its opposite is '{@link modelingassistant.MistakeTypeCategory#getMistakeTypes <em>Mistake Types</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Mistaketypecategory</em>' reference.
-   * @see #setMistaketypecategory(MistakeTypeCategory)
-   * @see modelingassistant.ModelingassistantPackage#getMistakeType_Mistaketypecategory()
-   * @see modelingassistant.MistakeTypeCategory#getMistaketype
-   * @model opposite="mistaketype" required="true"
+   * @return the value of the '<em>Mistake Type Category</em>' reference.
+   * @see #setMistakeTypeCategory(MistakeTypeCategory)
+   * @see modelingassistant.ModelingassistantPackage#getMistakeType_MistakeTypeCategory()
+   * @see modelingassistant.MistakeTypeCategory#getMistakeTypes
+   * @model opposite="mistakeTypes" required="true"
    * @generated
    */
-  MistakeTypeCategory getMistaketypecategory();
+  MistakeTypeCategory getMistakeTypeCategory();
 
   /**
-   * Sets the value of the '{@link modelingassistant.MistakeType#getMistaketypecategory <em>Mistaketypecategory</em>}' reference.
+   * Sets the value of the '{@link modelingassistant.MistakeType#getMistakeTypeCategory <em>Mistake Type Category</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Mistaketypecategory</em>' reference.
-   * @see #getMistaketypecategory()
+   * @param value the new value of the '<em>Mistake Type Category</em>' reference.
+   * @see #getMistakeTypeCategory()
    * @generated
    */
-  void setMistaketypecategory(MistakeTypeCategory value);
+  void setMistakeTypeCategory(MistakeTypeCategory value);
 
 } // MistakeType
