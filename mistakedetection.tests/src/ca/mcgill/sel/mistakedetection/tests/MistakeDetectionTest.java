@@ -2130,4 +2130,8 @@ public class MistakeDetectionTest {
     MistakeDetection.duplicateStudentAttribute.clear();
   }
 
+  private boolean mistakesContainMistakeType(List<Mistake> mistakes, MistakeType mistakeType) {
+    return mistakes.stream().anyMatch(mistake -> mistake.getMistakeType().equals(mistakeType));
+  }
+
 }
