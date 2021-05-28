@@ -2059,6 +2059,21 @@ public class MistakeDetectionTest {
     }
   }
 
+  @Test void testCheckMistakePluralClassName() {
+    // no mistake
+    var studentClass = MistakeDetection.CDF.createClass();
+    studentClass.setName("Woman");
+    assertTrue(MistakeDetection.checkMistakePluralClassName(studentClass).isEmpty());
+
+    // mistake
+    var expected = MistakeDetection.MAF.createMistake();
+    expected.setMistakeType(MistakeTypes.USING_PLURAL_OR_LOWERCASE);
+    studentClass = MistakeDetection.CDF.createClass();
+    studentClass.setName("Women");
+    var actual = MistakeDetection.checkMistakePluralClassName(studentClass).get();
+    assertEquals(expected.getMistakeType(), actual.getMistakeType());
+  }
+
   /**
    * Function to print the mapped, unmapped classifier or attributes.
    */

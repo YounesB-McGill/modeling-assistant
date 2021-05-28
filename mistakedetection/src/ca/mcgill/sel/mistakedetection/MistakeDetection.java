@@ -63,9 +63,9 @@ public class MistakeDetection {
   public static EList<Attribute> duplicateStudentAttribute = new BasicEList<Attribute>();
   // EList<Attribute> wrongStudentAttribute = new EList<Attribute>; // Commented temporarily
 
-  public static EList<Association> notMappedInstructorRelation;
+  // public static EList<Association> notMappedInstructorRelation;
 
-  public static EList<Association> extraStudentRelation;
+  // public static EList<Association> extraStudentRelation;
 
 
   public static List<Mistake> compare(Solution instructorSolution, Solution studentSolution) {
