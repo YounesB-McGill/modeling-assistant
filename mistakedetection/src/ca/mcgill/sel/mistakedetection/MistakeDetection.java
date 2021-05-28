@@ -393,46 +393,7 @@ public class MistakeDetection {
     }
   }
 
-  /**
-   * Returns true if the input string is a software engineering term.
-   */
-  public static boolean isSoftwareEngineeringTerm(String s) {
-    final var softwareEnginneringTerms = List.of("data", "record", "table", "info");
-    for (var seTerm : softwareEnginneringTerms) {
-      if (s.toLowerCase().contains(seTerm))
-        return true;
-    }
-    return false;
-  }
-
-  /**
-   * Returns true if the input string is plural.
-   */
-  public static boolean isPlural(String s) {
-    MaxentTagger tagger;
-    Boolean bool = false;
-
-    if (nounPluralStatus.containsKey(s)) {
-      return nounPluralStatus.get(s);
-    } else {
-      try {
-        tagger = new MaxentTagger("taggers/left3words-wsj-0-18.tagger");
-        s = s.toLowerCase();
-        String tagged = tagger.tagString(s);
-        String[] str = tagged.split("/");
-        String pluralTag = "NNS";
-        if (str[1].contains(pluralTag)) {
-          bool = true;
-        }
-      } catch (ClassNotFoundException | IOException e) {
-        e.printStackTrace();
-      }
-      s = s.substring(0, 1).toUpperCase() + s.substring(1);
-      nounPluralStatus.put(s, bool);
-
-      return bool;
-    }
-  }
+  
 
   public static void checkMistakePluralClassName(Classifier studentClassifier) {
     if (isPlural(studentClassifier.getName())) {
@@ -477,10 +438,7 @@ public class MistakeDetection {
     }
   }
 
-  public static int levenshteinDistance(String sClassName, String iClassName) {
-    return LevenshteinDistance.getDefaultInstance().apply(sClassName, iClassName);
-  }
-
+ 
   public static void checkMistakeLowerClassName(Classifier studentClassifier) {
     if (isLowerName(studentClassifier.getName())) {
       SolutionElement s = MAF.createSolutionElement();
@@ -493,10 +451,7 @@ public class MistakeDetection {
     }
   }
 
-  public static boolean isLowerName(String name) {
-    return name.toLowerCase() == name;
-  }
-
+ 
   public static void checkMistakeWrongEnumerationClass(Classifier studentClassifier,
       Classifier instructorClassifier) {
     if (!classEnumStatusesMatch(studentClassifier, instructorClassifier)) {
@@ -510,10 +465,16 @@ public class MistakeDetection {
     }
    }
 
-  /** Returns true if both classes are enum classes or if both are not. */
-  public static boolean classEnumStatusesMatch(Classifier studentClassifier,
-      Classifier instructorClassifier) {
-    return instructorClassifier instanceof CDEnum == studentClassifier instanceof CDEnum;
+  public static void checkMistakeAttributeStatic(Attribute sAttribute, Attribute iAttribute) {
+    if (!attributeStaticPropertiesMatch(sAttribute, iAttribute)) {
+      SolutionElement s = MAF.createSolutionElement();
+      s.setElement(sAttribute);
+
+      var m = MAF.createMistake();
+      m.setMistakeType(MistakeTypes.ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA);
+      m.getStudentElements().add(s);
+      newMistakes.add(m);
+    }
   }
 
   public static void checkMistakeWrongAttributeType(Attribute sAttribute, Attribute iAttribute) {
@@ -527,28 +488,73 @@ public class MistakeDetection {
       newMistakes.add(m);
     }
   }
+  
+  /**
+   * Returns true if the input string is a software engineering term.
+   */
+  public static boolean isSoftwareEngineeringTerm(String s) {
+    final var softwareEnginneringTerms = List.of("data", "record", "table", "info");
+    for (var seTerm : softwareEnginneringTerms) {
+      if (s.toLowerCase().contains(seTerm))
+        return true;
+    }
+    return false;
+  }
+
+  /**
+   * Returns true if the input string is plural.
+   */
+  public static boolean isPlural(String s) {
+    MaxentTagger tagger;
+    Boolean bool = false;
+
+    if (nounPluralStatus.containsKey(s)) {
+      return nounPluralStatus.get(s);
+    } else {
+      try {
+        tagger = new MaxentTagger("taggers/left3words-wsj-0-18.tagger");
+        s = s.toLowerCase();
+        String tagged = tagger.tagString(s);
+        String[] str = tagged.split("/");
+        String pluralTag = "NNS";
+        if (str[1].contains(pluralTag)) {
+          bool = true;
+        }
+      } catch (ClassNotFoundException | IOException e) {
+        e.printStackTrace();
+      }
+      s = s.substring(0, 1).toUpperCase() + s.substring(1);
+      nounPluralStatus.put(s, bool);
+
+      return bool;
+    }
+  }
 
   public static boolean attributeTypesMatch(Attribute sAttribute, Attribute iAttribute){
     return sAttribute.getType().getClass().equals(iAttribute.getType().getClass());
   }
-
-  public static void checkMistakeAttributeStatic(Attribute sAttribute, Attribute iAttribute) {
-    if (!attributeStaticPropertiesMatch(sAttribute, iAttribute)) {
-      SolutionElement s = MAF.createSolutionElement();
-      s.setElement(sAttribute);
-
-      var m = MAF.createMistake();
-      m.setMistakeType(MistakeTypes.ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA);
-      m.getStudentElements().add(s);
-      newMistakes.add(m);
-    }
+  
+  /** Returns true if both classes are enum classes or if both are not. */
+  public static boolean classEnumStatusesMatch(Classifier studentClassifier,
+      Classifier instructorClassifier) {
+    return instructorClassifier instanceof CDEnum == studentClassifier instanceof CDEnum;
   }
-
+  
   /** Returns true if the student and instructor attributes' static properties match. */
   public static boolean attributeStaticPropertiesMatch(Attribute sAttribute, Attribute iAttribute) {
     return sAttribute.isStatic() == iAttribute.isStatic();
   }
+  
+  public static boolean isLowerName(String name) {
+    return name.toLowerCase() == name;
+  }
+  
+  public static int levenshteinDistance(String sClassName, String iClassName) {
+    return LevenshteinDistance.getDefaultInstance().apply(sClassName, iClassName);
+  }
 
+
+  
   /***
    * This is a function created for testing the logic. Only for test.
    *
@@ -587,7 +593,7 @@ public class MistakeDetection {
       }
     }
     if (totalAttibutes != 0) {
-      if (correctAttribute / totalAttibutes > 0.5 && isMapped == false) {
+      if ((double)correctAttribute / (double)totalAttibutes > 0.5 && isMapped == false) {
         mappedClassifier.put(instructorClassifier, studentClassifier);
         notMappedInstructorClassifier.remove(instructorClassifier);
         extraStudentClassifier.remove(studentClassifier);
@@ -596,7 +602,7 @@ public class MistakeDetection {
       }
     }
 
-    if (isMapped == true) { // Map attributes if classifiers map.
+    if (isMapped) { // Map attributes if classifiers map.
       int count = 0;
       for (Attribute iAttribute : iAttributes) { // To check association -> Not at present.
         notMappedInstructorAttribute.add(iAttribute);
@@ -640,3 +646,11 @@ public class MistakeDetection {
   }
 
 }
+
+/*
+  public static Optional<Mistake> checkMistakeSoftwareEngineeringTerm(Classifier studentClass) {
+    if (isSoftwareEngineeringTerm(studentClass.getName())) {
+      return Optional.of(createMistake(SOFTWARE_ENGINEERING_TERM, studentClass));
+    }
+    return Optional.empty();
+ */ 

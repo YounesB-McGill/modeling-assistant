@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import classdiagram.Attribute;
@@ -2059,7 +2060,26 @@ public class MistakeDetectionTest {
       }
     }
   }
-
+  @Test void testCheckMistakePluralClassName() {
+    // no mistake
+       
+    var studentClass = MistakeDetection.CDF.createClass();
+    studentClass.setName("Woman");
+    MistakeDetection.checkMistakePluralClassName(studentClass);
+    assertTrue(MistakeDetection.newMistakes.isEmpty());
+    
+   // MistakeDetection.newMistakes.clear();
+    //----
+    
+    // mistake
+    var expected = MistakeDetection.MAF.createMistake();
+    expected.setMistakeType(MistakeTypes.USING_PLURAL_OR_LOWERCASE);
+       
+    studentClass = MistakeDetection.CDF.createClass();
+    studentClass.setName("Women");
+    MistakeDetection.checkMistakePluralClassName(studentClass);
+    assertTrue(EcoreUtil.equals(expected.getMistakeType(), MistakeDetection.newMistakes.get(0).getMistakeType()));
+  }
   /**
    * Function to print the mapped, unmapped classifier or attributes.
    */
