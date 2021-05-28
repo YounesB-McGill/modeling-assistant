@@ -1,10 +1,18 @@
 package ca.mcgill.sel.mistakedetection;
 
+import static modelingassistant.mistaketypes.MistakeTypes.ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA;
+import static modelingassistant.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
+import static modelingassistant.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
+import static modelingassistant.mistaketypes.MistakeTypes.REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION_OR_VICE_VERSA;
+import static modelingassistant.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
+import static modelingassistant.mistaketypes.MistakeTypes.USING_PLURAL_OR_LOWERCASE;
+import static modelingassistant.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -16,10 +24,9 @@ import classdiagram.Classifier;
 import classdiagram.NamedElement;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import modelingassistant.Mistake;
+import modelingassistant.MistakeType;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
-import modelingassistant.SolutionElement;
-import modelingassistant.mistaketypes.MistakeTypes;
 
 public class MistakeDetection {
 
@@ -29,16 +36,13 @@ public class MistakeDetection {
   /** The maximum limit after which a resolved mistake will be removed from student solution. */
   public static final int MAX_DETECTIONS_AFTER_RESOLUTION = 5;
 
-  /** The maximum number of difference 2 words can have in terms of letters. */
+  /** The maximum number of difference two words can have in terms of letters. */
   public static final int MAX_LEVENSHTEIN_DISTANCE_ALLOWED = 2;
 
-  // TODO Refactor lists and hashmaps
-
-  /** Maps nouns to true if they are plural, false otherwise. */
+  /** Cache to map nouns to true if they are plural, false otherwise. */
   static Map<String, Boolean> nounPluralStatus = new HashMap<String, Boolean>();
 
-  /** The list of mistakes in current iteration. */
-  public static EList<Mistake> newMistakes = new BasicEList<Mistake>();
+  // TODO Refactor lists and hashmaps
 
   /** Maps an instructor solution classifier to student solution classifier. */
   public static Map<Classifier, Classifier> mappedClassifier =
@@ -64,68 +68,70 @@ public class MistakeDetection {
   public static EList<Association> extraStudentRelation;
 
 
-  public static void compare(Solution instructorSolution, Solution studentSolution) {
-    if (isInstructorSolution(instructorSolution) && isStudentSolution(studentSolution)) {
-      clearAttributesAndClassifer();
-      newMistakes.clear();
-      EList<Classifier> instructorClassifiers = instructorSolution.getClassDiagram().getClasses();
-      EList<Classifier> studentClassifiers = studentSolution.getClassDiagram().getClasses();
+  public static List<Mistake> compare(Solution instructorSolution, Solution studentSolution) {
+    if (!isInstructorSolution(instructorSolution) || !isStudentSolution(studentSolution)) {
+      throw new IllegalArgumentException("The input is not a valid (instructorSolution, studentSolution) pair.");
+    }
+    clearAttributesAndClassifer();
 
-      int count = 0;
-      for (Classifier instructorClassifier : instructorClassifiers) {
-        notMappedInstructorClassifier.add(instructorClassifier);
-        EList<Attribute> iAttributes = instructorClassifier.getAttributes();
-        for (Attribute attribute : iAttributes) {
-          notMappedInstructorAttribute.add(attribute);
-        }
+    EList<Mistake> newMistakes = new BasicEList<Mistake>();
+    var instructorClassifiers = instructorSolution.getClassDiagram().getClasses();
+    var studentClassifiers = studentSolution.getClassDiagram().getClasses();
 
-        for (Classifier studentClassifier : studentClassifiers) {
-          if (count == 0) { // To stop duplicate entries.
-            extraStudentClassifier.add(studentClassifier);
-            EList<Attribute> sAttributes = studentClassifier.getAttributes();
-            for (Attribute attribute : sAttributes) {
-              extraStudentAttribute.add(attribute);
-            }
+    var processed = false;
+    for (Classifier instructorClassifier : instructorClassifiers) {
+      notMappedInstructorClassifier.add(instructorClassifier);
+      EList<Attribute> iAttributes = instructorClassifier.getAttributes();
+      for (Attribute attribute : iAttributes) {
+        notMappedInstructorAttribute.add(attribute);
+      }
+
+      for (Classifier studentClassifier : studentClassifiers) {
+        if (!processed) { // To stop duplicate entries.
+          extraStudentClassifier.add(studentClassifier);
+          EList<Attribute> sAttributes = studentClassifier.getAttributes();
+          for (Attribute attribute : sAttributes) {
+            extraStudentAttribute.add(attribute);
           }
-          if (checkCorrect(instructorClassifier, studentClassifier)) {
-            checkMistakeClassSpelling(studentClassifier, instructorClassifier);
-            checkMistakeSoftwareEngineeringTerm(studentClassifier);
-            checkMistakePluralClassName(studentClassifier);
-            checkMistakeLowerClassName(studentClassifier);
-            checkMistakeWrongEnumerationClass(studentClassifier, instructorClassifier);
-            // checkMistakeWrongEnumerationClassItems(studentClassifier,instructorClassifier);
+        }
+        if (checkCorrect(instructorClassifier, studentClassifier)) {
+          checkMistakeClassSpelling(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
+          checkMistakeSoftwareEngineeringTerm(studentClassifier).ifPresent(newMistakes::add);
+          checkMistakePluralClassName(studentClassifier).ifPresent(newMistakes::add);
+          checkMistakeLowerClassName(studentClassifier).ifPresent(newMistakes::add);
+          checkMistakeWrongEnumerationClass(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
+          // checkMistakeWrongEnumerationClassItems(studentClassifier,instructorClassifier).ifPresent(newMistakes::add);
 
-            // Mapping already done in check
-            EList<Attribute> sAttributes = studentClassifier.getAttributes();
-            for (Attribute iAttribute : iAttributes) {
-              for (Attribute sAttribute : sAttributes) {
-                float lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
-                if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-                  checkMistakeAttributeSpelling(sAttribute,iAttribute);
-                  checkMistakeWrongAttributeType(sAttribute,iAttribute);
-                  checkMistakeAttributeStatic(sAttribute,iAttribute);
-                }
+          // Mapping already done in check
+          EList<Attribute> sAttributes = studentClassifier.getAttributes();
+          for (Attribute iAttribute : iAttributes) {
+            for (Attribute sAttribute : sAttributes) {
+              float lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
+              if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+                checkMistakeAttributeSpelling(sAttribute,iAttribute).ifPresent(newMistakes::add);
+                checkMistakeWrongAttributeType(sAttribute,iAttribute).ifPresent(newMistakes::add);
+                checkMistakeAttributeStatic(sAttribute,iAttribute).ifPresent(newMistakes::add);
               }
             }
           }
         }
-        count = 1;
       }
-      notMatchedMapping();
-      // checkMistakeMissingClass();
-      // checkMistakeExtraClass();
-      // checkMistakeDuplicateAttributes();
-      // checkMistakeExtraAttribute();
-      // checkMistakeMissingAttribute();
-      // checkMistakeWrongAttribute();
-      // checkMistakeAttributeMisplaced();
-      // checkMistakeIncompleteContainmentTree(studentClassifiers);
-
-      updateMistakes(studentSolution); // This function updates new and older mistakes in the metamodel.
+      processed = true;
     }
+    notMatchedMapping();
+    // checkMistakeMissingClass();
+    // checkMistakeExtraClass();
+    // checkMistakeDuplicateAttributes();
+    // checkMistakeExtraAttribute();
+    // checkMistakeMissingAttribute();
+    // checkMistakeWrongAttribute();
+    // checkMistakeAttributeMisplaced();
+    // checkMistakeIncompleteContainmentTree(studentClassifiers);
+
+    return updateMistakes(studentSolution, newMistakes); // This function updates new and older mistakes in the metamodel.
   }
 
-  private static void updateMistakes(Solution studentSolution) {
+  private static List<Mistake> updateMistakes(Solution studentSolution, List<Mistake> newMistakes) {
     // List containing mistakes associated with a student Solution
     EList<Mistake> existingMistakes = new BasicEList<Mistake>();
     existingMistakes = studentSolution.getMistakes();
@@ -211,7 +217,7 @@ public class MistakeDetection {
         }
       }
     }
-
+    return newMistakes;
   }
 
   // TODO Move helper methods to their relevant classes so they can be reused elsewhere in the app
@@ -382,15 +388,11 @@ public class MistakeDetection {
   /**
    * Checks for a software engineering term in a given classifier.
    */
-  public static void checkMistakeSoftwareEngineeringTerm(Classifier studentClassifier) {
-    if (isSoftwareEngineeringTerm(studentClassifier.getName())) {
-      SolutionElement s = MAF.createSolutionElement();
-      s.setElement(studentClassifier);
-      Mistake m = MAF.createMistake();
-      m.setMistakeType(MistakeTypes.SOFTWARE_ENGINEERING_TERM);
-      m.getStudentElements().add(s);
-      newMistakes.add(m);
+  public static Optional<Mistake> checkMistakeSoftwareEngineeringTerm(Classifier studentClass) {
+    if (isSoftwareEngineeringTerm(studentClass.getName())) {
+      return Optional.of(createMistake(SOFTWARE_ENGINEERING_TERM, studentClass));
     }
+    return Optional.empty();
   }
 
   /**
@@ -434,80 +436,50 @@ public class MistakeDetection {
     }
   }
 
-  public static void checkMistakePluralClassName(Classifier studentClassifier) {
-    if (isPlural(studentClassifier.getName())) {
-      SolutionElement s = MAF.createSolutionElement();
-      s.setElement(studentClassifier);
-
-      var m = MAF.createMistake();
-      m.setMistakeType(MistakeTypes.USING_PLURAL_OR_LOWERCASE);
-      m.getStudentElements().add(s);
-      newMistakes.add(m);
+  public static Optional<Mistake> checkMistakePluralClassName(Classifier studentClass) {
+    if (isPlural(studentClass.getName())) {
+      return Optional.of(createMistake(USING_PLURAL_OR_LOWERCASE, studentClass));
     }
-
+    return Optional.empty();
   }
 
-  public static void checkMistakeClassSpelling(Classifier studentClassifier,
-      Classifier instructorClassifier) {
-    int lDistance =
-        levenshteinDistance(studentClassifier.getName(), instructorClassifier.getName());
+  public static Optional<Mistake> checkMistakeClassSpelling(Classifier studentClass, Classifier instructorClass) {
+    int lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
     if (lDistance != 0) {
-      SolutionElement s = MAF.createSolutionElement();
-      s.setElement(studentClassifier);
-
-      var m = MAF.createMistake();
-      m.setMistakeType(MistakeTypes.BAD_CLASS_NAME_SPELLING);
-      m.getStudentElements().add(s);
-      newMistakes.add(m);
+      return Optional.of(createMistake(BAD_CLASS_NAME_SPELLING, studentClass));
     }
+    return Optional.empty();
   }
 
-  public static void checkMistakeAttributeSpelling(Attribute sAttribute,
-      Attribute iAttribute) {
-    int lDistance =
-        levenshteinDistance(sAttribute.getName(), iAttribute.getName());
+  public static Optional<Mistake> checkMistakeAttributeSpelling(Attribute sAttribute, Attribute iAttribute) {
+    int lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
     if (lDistance != 0) {
-      SolutionElement s = MAF.createSolutionElement();
-      s.setElement(sAttribute);
-
-      var m = MAF.createMistake();
-      m.setMistakeType(MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING);
-      m.getStudentElements().add(s);
-      newMistakes.add(m);
+      return Optional.of(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, sAttribute));
     }
+    return Optional.empty();
   }
 
-  public static int levenshteinDistance(String sClassName, String iClassName) {
-    return LevenshteinDistance.getDefaultInstance().apply(sClassName, iClassName);
+  public static int levenshteinDistance(String string1, String string2) {
+    return LevenshteinDistance.getDefaultInstance().apply(string1, string2);
   }
 
-  public static void checkMistakeLowerClassName(Classifier studentClassifier) {
-    if (isLowerName(studentClassifier.getName())) {
-      SolutionElement s = MAF.createSolutionElement();
-      s.setElement(studentClassifier);
-
-      var m = MAF.createMistake();
-      m.setMistakeType(MistakeTypes.USING_PLURAL_OR_LOWERCASE);
-      m.getStudentElements().add(s);
-      newMistakes.add(m);
+  public static Optional<Mistake> checkMistakeLowerClassName(Classifier studentClass) {
+    if (isLowerName(studentClass.getName())) {
+      return Optional.of(createMistake(USING_PLURAL_OR_LOWERCASE, studentClass));
     }
+    return Optional.empty();
   }
 
   public static boolean isLowerName(String name) {
     return name.toLowerCase() == name;
   }
 
-  public static void checkMistakeWrongEnumerationClass(Classifier studentClassifier,
-      Classifier instructorClassifier) {
-    if (!classEnumStatusesMatch(studentClassifier, instructorClassifier)) {
-      SolutionElement s = MAF.createSolutionElement();
-      s.setElement(studentClassifier);
-
-      var m = MAF.createMistake();
-      m.setMistakeType(MistakeTypes.REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION_OR_VICE_VERSA);
-      m.getStudentElements().add(s);
-      newMistakes.add(m);
+  public static Optional<Mistake> checkMistakeWrongEnumerationClass(Classifier studentClass,
+      Classifier instructorClass) {
+    if (!classEnumStatusesMatch(studentClass, instructorClass)) {
+      return Optional.of(createMistake(REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION_OR_VICE_VERSA, studentClass));
     }
+    return Optional.empty();
    }
 
   /** Returns true if both classes are enum classes or if both are not. */
@@ -516,37 +488,40 @@ public class MistakeDetection {
     return instructorClassifier instanceof CDEnum == studentClassifier instanceof CDEnum;
   }
 
-  public static void checkMistakeWrongAttributeType(Attribute sAttribute, Attribute iAttribute) {
+  public static Optional<Mistake> checkMistakeWrongAttributeType(Attribute sAttribute, Attribute iAttribute) {
     if (!attributeTypesMatch(sAttribute, iAttribute)) {
-      SolutionElement s = MAF.createSolutionElement();
-      s.setElement(sAttribute);
-
-      var m = MAF.createMistake();
-      m.setMistakeType(MistakeTypes.WRONG_ATTRIBUTE_TYPE);
-      m.getStudentElements().add(s);
-      newMistakes.add(m);
+      return Optional.of(createMistake(WRONG_ATTRIBUTE_TYPE, sAttribute));
     }
+    return Optional.empty();
   }
 
   public static boolean attributeTypesMatch(Attribute sAttribute, Attribute iAttribute){
     return sAttribute.getType().getClass().equals(iAttribute.getType().getClass());
   }
 
-  public static void checkMistakeAttributeStatic(Attribute sAttribute, Attribute iAttribute) {
+  public static Optional<Mistake> checkMistakeAttributeStatic(Attribute sAttribute, Attribute iAttribute) {
     if (!attributeStaticPropertiesMatch(sAttribute, iAttribute)) {
-      SolutionElement s = MAF.createSolutionElement();
-      s.setElement(sAttribute);
-
-      var m = MAF.createMistake();
-      m.setMistakeType(MistakeTypes.ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA);
-      m.getStudentElements().add(s);
-      newMistakes.add(m);
+      return Optional.of(createMistake(ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA, sAttribute));
     }
+    return Optional.empty();
   }
 
   /** Returns true if the student and instructor attributes' static properties match. */
   public static boolean attributeStaticPropertiesMatch(Attribute sAttribute, Attribute iAttribute) {
     return sAttribute.isStatic() == iAttribute.isStatic();
+  }
+
+  /** Creates a new mistake from the input parameters. */
+  private static Mistake createMistake(MistakeType mistakeType, NamedElement studentElement) {
+    var mistake = MAF.createMistake();
+    mistake.setMistakeType(mistakeType);
+
+    // TODO Use existing solution element when available
+    var solutionElement = MAF.createSolutionElement();
+    solutionElement.setElement(studentElement);
+    mistake.getStudentElements().add(solutionElement);
+
+    return mistake;
   }
 
   /***
@@ -556,8 +531,7 @@ public class MistakeDetection {
    * @param studentClassifier
    * @return
    */
-  public static boolean checkCorrectTest(Classifier instructorClassifier,
-      Classifier studentClassifier) {
+  public static boolean checkCorrectTest(Classifier instructorClassifier, Classifier studentClassifier) {
     clearAttributesAndClassifer();
     boolean isMapped = false;
     EList<Attribute> iAttributes = instructorClassifier.getAttributes();
@@ -632,8 +606,8 @@ public class MistakeDetection {
     duplicateStudentAttribute.clear();
   }
 
-  public static void showMistakes() {
-    for (Mistake m : newMistakes) {
+  public static void showMistakes(List<Mistake> mistakes) {
+    for (Mistake m : mistakes) {
       System.out.println(m.getMistakeType().getName() + " in "
           + m.getStudentElements().get(0).getElement().getName());
     }
