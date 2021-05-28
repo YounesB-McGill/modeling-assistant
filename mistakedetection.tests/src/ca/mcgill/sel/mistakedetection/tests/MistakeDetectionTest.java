@@ -12,6 +12,7 @@ import classdiagram.ClassDiagram;
 import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
 import modelingassistant.Mistake;
+import modelingassistant.MistakeType;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.mistaketypes.MistakeTypes;
 import modelingassistant.util.ResourceHelper;
@@ -679,8 +680,23 @@ public class MistakeDetectionTest {
     assertEquals(MistakeDetection.mappedAttribute.get(instructorPassengerClassAttributeName),studentPassengerClassAttributeName);
     assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(instructorDriverClassAttributeName));
     assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(instructorBusClassAttributeNumberPlate));
-    assertEquals(mistakes.size(), 0);
-    assertEquals(solution1.getMistakes().size(), 0);
+    assertEquals(mistakes.size(), 2);
+    assertEquals(solution1.getMistakes().size(), 2);
+    for (Mistake m : solution1.getMistakes()) {
+      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE
+          && m.getStudentElements().get(0).getElement() == instructorDriverClassAttributeName) {
+        assertEquals(m.getStudentElements().get(0).getElement(), instructorDriverClassAttributeName);
+        assertEquals(m.getNumDetectionSinceResolved(), 0);
+        assertEquals(m.getNumDetection(), 1);
+        assertFalse(m.isResolved());
+      }
+      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE
+          && m.getStudentElements().get(0).getElement() == instructorBusClassAttributeNumberPlate) {
+        assertEquals(m.getStudentElements().get(0).getElement(), instructorBusClassAttributeNumberPlate);
+        assertEquals(m.getNumDetectionSinceResolved(), 0);
+        assertFalse(m.isResolved());
+      }
+    }
   }
 
   /**
@@ -772,8 +788,52 @@ public class MistakeDetectionTest {
     assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(instructorBusClassAttributeNumberPlate));
     assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(instructorPassengerClassAttributeName));
     assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(instructorBusClassAttributeCapacity));
-    assertEquals(mistakes.size(), 0);
-    assertEquals(solution1.getMistakes().size(), 0);
+    assertEquals(mistakes.size(), 6);
+    assertEquals(solution1.getMistakes().size(), 6);
+    for (Mistake m : solution1.getMistakes()) {
+      if (m.getMistakeType() == MistakeTypes.MISSING_CLASS
+          && m.getStudentElements().get(0).getElement() == instructorPassangerClass) {
+        assertEquals(m.getStudentElements().get(0).getElement(), instructorPassangerClass);
+        assertEquals(m.getNumDetectionSinceResolved(), 0);
+        assertEquals(m.getNumDetection(), 1);
+        assertFalse(m.isResolved());
+      }
+      if (m.getMistakeType() == MistakeTypes.MISSING_CLASS
+          && m.getStudentElements().get(0).getElement() == instructorBusClass) {
+        assertEquals(m.getStudentElements().get(0).getElement(), instructorBusClass);
+        assertEquals(m.getNumDetectionSinceResolved(), 0);
+        assertEquals(m.getNumDetection(), 1);
+        assertFalse(m.isResolved());
+      }
+      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE
+          && m.getStudentElements().get(0).getElement() == instructorDriverClassAttributeName) {
+        assertEquals(m.getStudentElements().get(0).getElement(), instructorDriverClassAttributeName);
+        assertEquals(m.getNumDetectionSinceResolved(), 0);
+        assertEquals(m.getNumDetection(), 1);
+        assertFalse(m.isResolved());
+      }
+      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE
+          && m.getStudentElements().get(0).getElement() == instructorBusClassAttributeNumberPlate) {
+        assertEquals(m.getStudentElements().get(0).getElement(), instructorBusClassAttributeNumberPlate);
+        assertEquals(m.getNumDetectionSinceResolved(), 0);
+        assertEquals(m.getNumDetection(), 1);
+        assertFalse(m.isResolved());
+      }
+      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE
+          && m.getStudentElements().get(0).getElement() == instructorPassengerClassAttributeName) {
+        assertEquals(m.getStudentElements().get(0).getElement(), instructorPassengerClassAttributeName);
+        assertEquals(m.getNumDetectionSinceResolved(), 0);
+        assertEquals(m.getNumDetection(), 1);
+        assertFalse(m.isResolved());
+      }
+      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE
+          && m.getStudentElements().get(0).getElement() == instructorBusClassAttributeCapacity) {
+        assertEquals(m.getStudentElements().get(0).getElement(), instructorBusClassAttributeCapacity);
+        assertEquals(m.getNumDetectionSinceResolved(), 0);
+        assertEquals(m.getNumDetection(), 1);
+        assertFalse(m.isResolved());
+      }
+    }
   }
 
   /**
@@ -894,8 +954,23 @@ public class MistakeDetectionTest {
     assertEquals(MistakeDetection.mappedAttribute.get(instructorPassengerClassAttributeName),studentPassengerClassAttributeName);
     assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(instructorDriverClassAttributeName));
     assertTrue(MistakeDetection.notMappedInstructorAttribute.contains(instructorBusClassAttributeNumberPlate));
-    assertEquals(mistakes.size(), 0);
-    assertEquals(solution1.getMistakes().size(), 0);
+    assertEquals(mistakes.size(), 2);
+    assertEquals(solution1.getMistakes().size(), 2);
+    for (Mistake m : solution1.getMistakes()) {
+      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE
+          && m.getStudentElements().get(0).getElement() == instructorDriverClassAttributeName) {
+        assertEquals(m.getStudentElements().get(0).getElement(), instructorDriverClassAttributeName);
+        assertEquals(m.getNumDetectionSinceResolved(), 0);
+        assertEquals(m.getNumDetection(), 1);
+        assertFalse(m.isResolved());
+      }
+      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE
+          && m.getStudentElements().get(0).getElement() == instructorBusClassAttributeNumberPlate) {
+        assertEquals(m.getStudentElements().get(0).getElement(), instructorBusClassAttributeNumberPlate);
+        assertEquals(m.getNumDetectionSinceResolved(), 0);
+        assertFalse(m.isResolved());
+      }
+    }
   }
 
   /**
@@ -1028,8 +1103,25 @@ public class MistakeDetectionTest {
     assertEquals(MistakeDetection.mappedAttribute.get(instructorBusClassAttributeNumberPlate),studentBusClassAttributeNumberPlate);
     assertEquals(MistakeDetection.mappedAttribute.get(instructorDriverClassAttributeName),studentDriverClassAttributeName);
     assertTrue(MistakeDetection.extraStudentAttribute.contains(studentCustomerClassAttributeName));
-    assertEquals(mistakes.size(), 0);
-    assertEquals(solution1.getMistakes().size(), 0);
+    assertEquals(mistakes.size(), 2);
+    assertEquals(solution1.getMistakes().size(), 2);
+    
+    for (Mistake m : solution1.getMistakes()) {
+      if (m.getMistakeType() == MistakeTypes.EXTRA_CLASS
+          && m.getStudentElements().get(0).getElement() == studentCustomerClass) {
+        assertEquals(m.getStudentElements().get(0).getElement(), studentCustomerClass);
+        assertEquals(m.getNumDetectionSinceResolved(), 0);
+        assertEquals(m.getNumDetection(), 1);
+        assertFalse(m.isResolved());
+      }
+      if (m.getMistakeType() == MistakeTypes.OTHER_EXTRA_ATTRIBUTE
+          && m.getStudentElements().get(0).getElement() == studentCustomerClassAttributeName) {
+        assertEquals(m.getStudentElements().get(0).getElement(), studentCustomerClassAttributeName);
+        assertEquals(m.getNumDetectionSinceResolved(), 0);
+        assertEquals(m.getNumDetection(), 1);
+        assertFalse(m.isResolved());
+      }
+    }
   }
 
   /**

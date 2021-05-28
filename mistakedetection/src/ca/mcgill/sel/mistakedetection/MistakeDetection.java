@@ -27,6 +27,7 @@ import modelingassistant.Mistake;
 import modelingassistant.MistakeType;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
+import modelingassistant.mistaketypes.MistakeTypes;
 
 public class MistakeDetection {
 
@@ -119,11 +120,11 @@ public class MistakeDetection {
       processed = true;
     }
     notMatchedMapping();
-    // checkMistakeMissingClass();
-    // checkMistakeExtraClass();
+     checkMistakeMissingClass(newMistakes);
+     checkMistakeExtraClass(newMistakes);
     // checkMistakeDuplicateAttributes();
-    // checkMistakeExtraAttribute();
-    // checkMistakeMissingAttribute();
+     checkMistakeExtraAttribute(newMistakes);
+     checkMistakeMissingAttribute(newMistakes);
     // checkMistakeWrongAttribute();
     // checkMistakeAttributeMisplaced();
     // checkMistakeIncompleteContainmentTree(studentClassifiers);
@@ -394,8 +395,7 @@ public class MistakeDetection {
     }
     return Optional.empty();
   }
-
-  
+ 
 
   public static Optional<Mistake> checkMistakePluralClassName(Classifier studentClass) {
     if (isPlural(studentClass.getName())) {
@@ -431,10 +431,7 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-  public static boolean isLowerName(String name) {
-    return name.toLowerCase() == name;
-  }
-
+  
   public static Optional<Mistake> checkMistakeWrongEnumerationClass(Classifier studentClass,
       Classifier instructorClass) {
     if (!classEnumStatusesMatch(studentClass, instructorClass)) {
@@ -443,17 +440,7 @@ public class MistakeDetection {
     return Optional.empty();
    }
 
-  public static void checkMistakeAttributeStatic(Attribute sAttribute, Attribute iAttribute) {
-    if (!attributeStaticPropertiesMatch(sAttribute, iAttribute)) {
-      SolutionElement s = MAF.createSolutionElement();
-      s.setElement(sAttribute);
-
-      var m = MAF.createMistake();
-      m.setMistakeType(MistakeTypes.ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA);
-      m.getStudentElements().add(s);
-      newMistakes.add(m);
-    }
-  }
+ 
 
   public static Optional<Mistake> checkMistakeWrongAttributeType(Attribute sAttribute, Attribute iAttribute) {
     if (!attributeTypesMatch(sAttribute, iAttribute)) {
@@ -462,6 +449,43 @@ public class MistakeDetection {
     return Optional.empty();
   }
   
+  public static Optional<Mistake> checkMistakeAttributeStatic(Attribute sAttribute, Attribute iAttribute) {
+    if (!attributeStaticPropertiesMatch(sAttribute, iAttribute)) {
+      return Optional.of(createMistake(ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA, sAttribute));
+    }
+    return Optional.empty();
+  }
+  
+  public static void checkMistakeMissingClass(EList<Mistake> newMistakes) {
+
+    if (!notMappedInstructorClassifier.isEmpty()) {
+      notMappedInstructorClassifier.forEach(
+          classifier -> newMistakes.add(createMistake(MistakeTypes.MISSING_CLASS, classifier)));
+    }
+  }
+  
+  public static void checkMistakeExtraClass(EList<Mistake> newMistakes) {
+
+    if (!extraStudentClassifier.isEmpty()) {
+      extraStudentClassifier.forEach(
+          classifier -> newMistakes.add(createMistake(MistakeTypes.EXTRA_CLASS, classifier)));
+    }
+  }
+  public static void  checkMistakeMissingAttribute(EList<Mistake> newMistakes) {
+
+    if (!notMappedInstructorAttribute.isEmpty()) {
+      notMappedInstructorAttribute.forEach(
+          classifier -> newMistakes.add(createMistake(MistakeTypes.MISSING_ATTRIBUTE, classifier)));
+    }
+  }
+ 
+  public static void  checkMistakeExtraAttribute(EList<Mistake> newMistakes) {
+
+    if (!extraStudentAttribute.isEmpty()) {
+      extraStudentAttribute.forEach(
+          classifier -> newMistakes.add(createMistake(MistakeTypes.OTHER_EXTRA_ATTRIBUTE, classifier)));
+    }
+  }
   /**
    * Returns true if the input string is a software engineering term.
    */
@@ -498,15 +522,9 @@ public class MistakeDetection {
       }
       s = s.substring(0, 1).toUpperCase() + s.substring(1);
       nounPluralStatus.put(s, bool);
-
-      return bool;
-  public static Optional<Mistake> checkMistakeAttributeStatic(Attribute sAttribute, Attribute iAttribute) {
-    if (!attributeStaticPropertiesMatch(sAttribute, iAttribute)) {
-      return Optional.of(createMistake(ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA, sAttribute));
     }
-    return Optional.empty();
-  }
-
+      return bool;
+    }
   public static boolean attributeTypesMatch(Attribute sAttribute, Attribute iAttribute){
     return sAttribute.getType().getClass().equals(iAttribute.getType().getClass());
   }
@@ -526,9 +544,6 @@ public class MistakeDetection {
     return name.toLowerCase() == name;
   }
   
-  public static int levenshteinDistance(String sClassName, String iClassName) {
-    return LevenshteinDistance.getDefaultInstance().apply(sClassName, iClassName);
-  }
 
 
   /** Creates a new mistake from the input parameters. */
@@ -635,10 +650,3 @@ public class MistakeDetection {
 
 }
 
-/*
-  public static Optional<Mistake> checkMistakeSoftwareEngineeringTerm(Classifier studentClass) {
-    if (isSoftwareEngineeringTerm(studentClass.getName())) {
-      return Optional.of(createMistake(SOFTWARE_ENGINEERING_TERM, studentClass));
-    }
-    return Optional.empty();
- */ 
