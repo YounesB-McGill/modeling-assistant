@@ -22,7 +22,7 @@ Number,Maj,Min,Point,,,,Name,Corpus entry done
 ,,5,,,L,,Attribute in wrong class,
 15,,,1,,,|,Attribute misplaced,Y
 16,,,2,,,|,"Attribute duplicated (eg, in a subclass)",Y
-17,,6,,,|,,Attribute expected to be static but is not or vice versa,N
+17,,6,,,|,,Attribute expected to be static but is not or vice versa,Y
 ,3,,,L,,,Wrong relationships,
 ,,1,,,L,,Missing relationship of any type,
 18,,,1,,,|,Using an attribute instead of an association,Y
@@ -48,7 +48,7 @@ Number,Maj,Min,Point,,,,Name,Corpus entry done
 ,,7,,,L,,Wrong role names,
 34,,,1,,,|,Missing role names,Y
 35,,,2,,,|,Role names present but incorrect,Y
-36,,,3,,,|,Role expected to be static but is not or vice versa,N
+36,,,3,,,|,Role expected to be static but is not or vice versa,Y
 37,,,4,,,|,Bad role name spelling,Y
 38,,,5,,,|,Similar (yet incorrect) role name,Y
 ,,8,,,L,,Wrong association class,

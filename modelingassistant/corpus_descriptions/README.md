@@ -435,7 +435,20 @@ Level 5: Resource Response with link to Reference:
 
 ### Attribute expected to be static but is not or vice versa
 
-TODO
+Level 1: Highlight attribute
+
+Level 2: Text response
+
+> Is[n't] there something special about this attribute?
+
+Level 3: Parameterized Response
+
+> ${includingClass.attributeName} should [not] be static, because it
+(applies|doesn't apply) to all instances of ${includingClass}.
+
+Level 4: Resource Response with link to Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 ___
 
@@ -879,7 +892,21 @@ ${correctRoleName}.
 
 #### Role expected to be static but is not or vice versa
 
-TODO
+Level 1: Highlight role name
+
+Level 2: Text response
+
+> Is[n't] there something special about this role name?
+
+Level 3: Parameterized Response
+
+> ${roleName} should [not] be static, because it
+(applies|doesn't apply) to all instances of the association between
+${class1} and ${class2}.
+
+Level 4: Resource Response with link to Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 #### Bad role name spelling
 
