@@ -1,6 +1,6 @@
 # Learning Corpus Content Outline
 
-_**About this page:** This page is meant to be a human readable document
+**About this page:** This page is meant to be a human readable document
 that describes some of the content of the learning corpus. This material
 will be included in a more machine readable format later. The mistake 
 types are taken from our paper [_Towards a Better Understanding of Interactions with a Domain Modeling Assistant_](https://doi.org/10.1145/3417990.3418742).
@@ -1073,7 +1073,7 @@ Level 4: Resource Response with Quiz
 > Place the following classes in an inheritance hierarchy:
 >
 > * `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
-> * `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute` ...
+> * `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
 
 Level 5: Resource Response with Reference and Quiz
 
@@ -1082,11 +1082,37 @@ Please review the [checks for proper generalization](https://mycourses2.mcgill.c
 The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
-* ...
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
+
 
 #### Inherited feature does not make sense for subclass
 
-TODO
+Level 1: Highlight class
+
+Level 2: Text response
+
+> Does this belong here?
+
+Level 3: Parameterized Response
+
+> The ${featureName} feature of the ${superclass} class does not make sense
+for its ${subclass} subclass.
+
+Level 4: Resource Response with Reference and Quiz
+
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
+
 
 #### Subclass not distinct across lifetime
 
@@ -1115,7 +1141,10 @@ Please review the [checks for proper generalization](https://mycourses2.mcgill.c
 The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
-* ...
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
 
 #### Non-differentiated subclass
 
@@ -1164,7 +1193,10 @@ Please review the [checks for proper generalization](https://mycourses2.mcgill.c
 The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
-* ...
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
 
 #### Wrong superclass
 
