@@ -59,7 +59,7 @@ BAD_ATTRIBUTE_NAME_SPELLING: MistakeType = _MTS["Bad attribute name spelling"]
 SIMILAR_ATTRIBUTE_NAME: MistakeType = _MTS["Similar (yet incorrect) attribute name"]
 WRONG_ATTRIBUTE_TYPE: MistakeType = _MTS["Wrong attribute type"]
 ATTRIBUTE_MISPLACED: MistakeType = _MTS["Attribute misplaced"]
-ATTRIBUTE_DUPLICATED_: MistakeType = _MTS["Attribute duplicated (eg, in a subclass)"]
+ATTRIBUTE_DUPLICATED: MistakeType = _MTS["Attribute duplicated (eg, in a subclass)"]
 ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA: MistakeType = \
     _MTS["Attribute expected to be static but is not or vice versa"]
 USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION: MistakeType = _MTS["Using an attribute instead of an association"]
