@@ -22,7 +22,7 @@ Number,Maj,Min,Point,,,,Name,Corpus entry done
 ,,5,,,L,,Attribute in wrong class,
 15,,,1,,,|,Attribute misplaced,Y
 16,,,2,,,|,"Attribute duplicated (eg, in a subclass)",Y
-17,,6,,,|,,Attribute expected to be static but is not or vice versa,N
+17,,6,,,|,,Attribute expected to be static but is not or vice versa,Y
 ,3,,,L,,,Wrong relationships,
 ,,1,,,L,,Missing relationship of any type,
 18,,,1,,,|,Using an attribute instead of an association,Y
@@ -48,7 +48,7 @@ Number,Maj,Min,Point,,,,Name,Corpus entry done
 ,,7,,,L,,Wrong role names,
 34,,,1,,,|,Missing role names,Y
 35,,,2,,,|,Role names present but incorrect,Y
-36,,,3,,,|,Role expected to be static but is not or vice versa,N
+36,,,3,,,|,Role expected to be static but is not or vice versa,Y
 37,,,4,,,|,Bad role name spelling,Y
 38,,,5,,,|,Similar (yet incorrect) role name,Y
 ,,8,,,L,,Wrong association class,
@@ -59,12 +59,12 @@ Number,Maj,Min,Point,,,,Name,Corpus entry done
 ,,9,,,L,,Wrong generalization,
 43,,,1,,,|,Missing generalization,Y
 44,,,2,,,|,"Generalization inapplicable (eg, not following isA rule)",Y
-45,,,3,,,|,Subclass not distinct across lifetime (a full-time student can become part-time),N
-46,,,4,,,|,Inherited feature does not make sense for subclass,N
+45,,,3,,,|,Subclass not distinct across lifetime (a full-time student can become part-time),Y
+46,,,4,,,|,Inherited feature does not make sense for subclass,Y
 47,,,5,,,|,Subclass is an instance of superclass,Y
 48,,,6,,,|,Non-differentiated subclass,Y
 49,,,7,,,|,Wrong generalization direction (Person isA Student),Y
 50,,,8,,,|,Wrong superclass (Dog isA Animal when expected to be a Mammal),Y
 ,4,,,L,,,Modeling antipatterns or misuse of design patterns,
 51,,1,,,|,,Misuse of Player-Role Pattern,Y
-52,,2,,,|,,Misuse of Abstraction-Occurrence,N
+52,,2,,,|,,Misuse of Abstraction-Occurrence,Y
