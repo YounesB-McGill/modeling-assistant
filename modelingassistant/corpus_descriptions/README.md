@@ -1,6 +1,6 @@
 # Learning Corpus Content Outline
 
-_**About this page:** This page is meant to be a human readable document
+**About this page:** This page is meant to be a human readable document
 that describes some of the content of the learning corpus. This material
 will be included in a more machine readable format later. The mistake 
 types are taken from our paper [_Towards a Better Understanding of Interactions with a Domain Modeling Assistant_](https://doi.org/10.1145/3417990.3418742).
@@ -435,7 +435,20 @@ Level 5: Resource Response with link to Reference:
 
 ### Attribute expected to be static but is not or vice versa
 
-TODO
+Level 1: Highlight attribute
+
+Level 2: Text response
+
+> Is[n't] there something special about this attribute?
+
+Level 3: Parameterized Response
+
+> ${includingClass.attributeName} should [not] be static, because it
+(applies|doesn't apply) to all instances of ${includingClass}.
+
+Level 4: Resource Response with link to Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 ___
 
@@ -879,7 +892,21 @@ ${correctRoleName}.
 
 #### Role expected to be static but is not or vice versa
 
-TODO
+Level 1: Highlight role name
+
+Level 2: Text response
+
+> Is[n't] there something special about this role name?
+
+Level 3: Parameterized Response
+
+> ${roleName} should [not] be static, because it
+(applies|doesn't apply) to all instances of the association between
+${class1} and ${class2}.
+
+Level 4: Resource Response with link to Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 #### Bad role name spelling
 
@@ -1046,7 +1073,7 @@ Level 4: Resource Response with Quiz
 > Place the following classes in an inheritance hierarchy:
 >
 > * `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
-> * `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute` ...
+> * `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
 
 Level 5: Resource Response with Reference and Quiz
 
@@ -1055,15 +1082,59 @@ Please review the [checks for proper generalization](https://mycourses2.mcgill.c
 The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
-* ...
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
 
 #### Inherited feature does not make sense for subclass
 
-TODO
+Level 1: Highlight class
+
+Level 2: Text response
+
+> Does this belong here?
+
+Level 3: Parameterized Response
+
+> The ${featureName} feature of the ${superclass} class does not make sense
+for its ${subclass} subclass.
+
+Level 4: Resource Response with Reference and Quiz
+
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
 
 #### Subclass not distinct across lifetime
 
-TODO
+Level 1: Highlight class
+
+Level 2: Text response
+
+> Can you find a better way to model this concept?
+
+Level 3: Parameterized Response
+
+> Will a[n] ${nondistinctSubclass} retain this status over its lifetime?
+
+Level 4: Resource Response with Reference and Quiz
+
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
 
 #### Subclass is an instance of superclass
 
@@ -1088,7 +1159,10 @@ Please review the [checks for proper generalization](https://mycourses2.mcgill.c
 The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
-* ...
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
 
 #### Non-differentiated subclass
 
@@ -1137,7 +1211,10 @@ Please review the [checks for proper generalization](https://mycourses2.mcgill.c
 The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
-* ...
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
 
 #### Wrong superclass
 
@@ -1183,7 +1260,7 @@ Level 3: Parameterized Response
 > Modeling all the concepts in one ${playerClass} class will make it very 
 complicated! Think about adding one or more classes to better represent the domain.
 
-> (Nice try, but) a ${firstSubclass} can also play the role of a ${secondSubclass}.
+> [Nice try, but] a ${firstSubclass} can also play the role of a ${secondSubclass}.
 
 Level 4: Resource Response with Reference
 
@@ -1205,4 +1282,28 @@ Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
 
 ### Misuse of Abstraction-Occurrence
 
-TODO
+Level 1: Highlight wrong attribute(s) or class(es)
+
+Level 2: Text response
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parameterized Response
+
+> Is there a way to remove the duplicate ${duplicateAttribute} attribute
+between ${class1} and ${class2}?
+
+> ${wronglySubclass} should not be a subclass of ${superclass}. Is there a
+design pattern that can be used here?
+
+> The ${commonAttribute} is common information for all instances of ${className},
+but this is not enforced.
+
+Level 4: Resource Response with Reference
+
+The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
+represent a set of related objects that share common information but also differ
+from each other in an important way.
+
+![Abstraction-Occurrence Pattern](images/abstraction_occurrence.png)
+
