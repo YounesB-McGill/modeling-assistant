@@ -133,7 +133,7 @@ public class MistakeTypes {
   public static final MistakeType ATTRIBUTE_MISPLACED = MTS.get("Attribute misplaced");
 
   /** The attribute duplicated (eg, in a subclass) mistake type. */
-  public static final MistakeType ATTRIBUTE_DUPLICATED_ = MTS.get("Attribute duplicated (eg, in a subclass)");
+  public static final MistakeType ATTRIBUTE_DUPLICATED = MTS.get("Attribute duplicated (eg, in a subclass)");
 
   /** The attribute expected to be static but is not or vice versa mistake type. */
   public static final MistakeType ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA =

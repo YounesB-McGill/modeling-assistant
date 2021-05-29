@@ -15,7 +15,8 @@
  * Example: "Extra (redundant) class" > "EXTRA_CLASS"
  */]
 [query public underscorify(s : String) : String
-  = s.replaceAll('/', '_').replaceAll('\\s+', '_').replaceAll('\\((.+?)\\)', '').replaceAll('_+', '_').toUpper()
+  = s.replaceAll('\\((.+?)\\)', '').trim()
+     .replaceAll('/', '_').replaceAll('\\s+', '_').replaceAll('_+', '_').toUpper()
 /]
 
 
