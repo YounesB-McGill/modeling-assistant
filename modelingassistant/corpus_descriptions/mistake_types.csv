@@ -67,4 +67,4 @@ Number,Maj,Min,Point,,,,Name,Corpus entry done
 50,,,8,,,|,Wrong superclass (Dog isA Animal when expected to be a Mammal),Y
 ,4,,,L,,,Modeling antipatterns or misuse of design patterns,
 51,,1,,,|,,Misuse of Player-Role Pattern,Y
-52,,2,,,|,,Misuse of Abstraction-Occurrence,N
+52,,2,,,|,,Misuse of Abstraction-Occurrence,Y

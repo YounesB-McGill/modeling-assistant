@@ -1260,7 +1260,7 @@ Level 3: Parameterized Response
 > Modeling all the concepts in one ${playerClass} class will make it very 
 complicated! Think about adding one or more classes to better represent the domain.
 
-> (Nice try, but) a ${firstSubclass} can also play the role of a ${secondSubclass}.
+> [Nice try, but] a ${firstSubclass} can also play the role of a ${secondSubclass}.
 
 Level 4: Resource Response with Reference
 
@@ -1282,4 +1282,28 @@ Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
 
 ### Misuse of Abstraction-Occurrence
 
-TODO
+Level 1: Highlight wrong attribute(s) or class(es)
+
+Level 2: Text response
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parameterized Response
+
+> Is there a way to remove the duplicate ${duplicateAttribute} attribute
+between ${class1} and ${class2}?
+
+> ${wronglySubclass} should not be a subclass of ${superclass}. Is there a
+design pattern that can be used here?
+
+> The ${commonAttribute} is common information for all instances of ${className},
+but this is not enforced.
+
+Level 4: Resource Response with Reference
+
+The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
+represent a set of related objects that share common information but also differ
+from each other in an important way.
+
+![Abstraction-Occurrence Pattern](images/abstraction_occurrence.png)
+
