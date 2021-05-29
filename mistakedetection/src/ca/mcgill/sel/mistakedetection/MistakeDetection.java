@@ -45,11 +45,12 @@ public class MistakeDetection {
   /** Cache to map nouns to true if they are plural, false otherwise. */
   static Map<String, Boolean> nounPluralStatus = new HashMap<String, Boolean>();
 
+  private static MaxentTagger maxentTagger = getMaxentTagger();
+
   public static Comparison compare(Solution instructorSolution, Solution studentSolution) {
     if (!isInstructorSolution(instructorSolution) || !isStudentSolution(studentSolution)) {
       throw new IllegalArgumentException("The input is not a valid (instructorSolution, studentSolution) pair.");
     }
-    //clearAttributesAndClassifer();
     var comparison = new Comparison();
 
     var newMistakes = comparison.newMistakes;
@@ -410,16 +411,13 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-
   public static Optional<Mistake> checkMistakeWrongEnumerationClass(Classifier studentClass,
       Classifier instructorClass) {
     if (!classEnumStatusesMatch(studentClass, instructorClass)) {
       return Optional.of(createMistake(REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION_OR_VICE_VERSA, studentClass));
     }
     return Optional.empty();
-   }
-
-
+  }
 
   public static Optional<Mistake> checkMistakeWrongAttributeType(Attribute sAttribute, Attribute iAttribute) {
     if (!attributeTypesMatch(sAttribute, iAttribute)) {
@@ -471,29 +469,24 @@ public class MistakeDetection {
    * Returns true if the input string is plural.
    */
   public static boolean isPlural(String s) {
-    MaxentTagger tagger;
-    Boolean bool = false;
+    boolean isPlural = false;
 
     if (nounPluralStatus.containsKey(s)) {
       return nounPluralStatus.get(s);
     } else {
-      try {
-        tagger = new MaxentTagger("taggers/left3words-wsj-0-18.tagger");
-        s = s.toLowerCase();
-        String tagged = tagger.tagString(s);
-        String[] str = tagged.split("/");
-        String pluralTag = "NNS";
-        if (str[1].contains(pluralTag)) {
-          bool = true;
-        }
-      } catch (ClassNotFoundException | IOException e) {
-        e.printStackTrace();
+      s = s.toLowerCase();
+      String tagged = maxentTagger.tagString(s);
+      String[] str = tagged.split("/");
+      String pluralTag = "NNS";
+      if (str[1].contains(pluralTag)) {
+        isPlural = true;
       }
       s = s.substring(0, 1).toUpperCase() + s.substring(1);
-      nounPluralStatus.put(s, bool);
+      nounPluralStatus.put(s, isPlural);
     }
-      return bool;
-    }
+    return isPlural;
+  }
+
   public static boolean attributeTypesMatch(Attribute sAttribute, Attribute iAttribute){
     return sAttribute.getType().getClass().equals(iAttribute.getType().getClass());
   }
@@ -512,8 +505,6 @@ public class MistakeDetection {
   public static boolean isLowerName(String name) {
     return name.toLowerCase() == name;
   }
-
-
 
   /** Creates a new mistake from the input parameters. */
   private static Mistake createMistake(MistakeType mistakeType, NamedElement studentElement) {
@@ -612,6 +603,15 @@ public class MistakeDetection {
       System.out.println(m.getMistakeType().getName() + " in "
           + m.getStudentElements().get(0).getElement().getName());
     }
+  }
+
+  private static MaxentTagger getMaxentTagger() {
+    try {
+      return new MaxentTagger("taggers/left3words-wsj-0-18.tagger");
+    } catch (ClassNotFoundException | IOException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 
 }
