@@ -121,8 +121,8 @@ public class MistakeDetection {
     // List containing existing mistakes that are equal to newMistakes
     EList<Mistake> existingMistakesProcessed = new BasicEList<Mistake>();
 
-    // List containing mistakes to be removed from new Mistake
-    EList<Mistake> newMistakesToRemove = new BasicEList<Mistake>();
+    // List containing new mistakes that are already present in a solution (i.e existingMistakes)
+    EList<Mistake> newMistakesProcessed = new BasicEList<Mistake>();
 
     // --FOR DEBUGGING--
     // System.out.println(studentSolution.getStudent());
@@ -147,7 +147,7 @@ public class MistakeDetection {
                   && zerothInstructorElement(existingMistake).equals(zerothInstructorElement(newMistake))) {
                 setMistakeProperties(existingMistake, false, existingMistake.getNumDetection() + 1, 0);
                 existingMistakesProcessed.add(existingMistake);
-                newMistakesToRemove.add(newMistake);
+                newMistakesProcessed.add(newMistake);
               }
             } else if (haveOnlyStudentElements(existingMistake, newMistake)) {
               // System.out.println("O "+existingMistake.getStudentElements().get(0).getElement());
@@ -155,19 +155,19 @@ public class MistakeDetection {
               if (zerothStudentElement(existingMistake).equals(zerothStudentElement(newMistake))) {
                 setMistakeProperties(existingMistake, false, existingMistake.getNumDetection() + 1, 0);
                 existingMistakesProcessed.add(existingMistake);
-                newMistakesToRemove.add(newMistake);
+                newMistakesProcessed.add(newMistake);
               }
             } else if (haveOnlyInstructorElements(existingMistake, newMistake)) {
               if (zerothInstructorElement(existingMistake).equals(zerothInstructorElement(newMistake))) {
                 setMistakeProperties(existingMistake, false, existingMistake.getNumDetection() + 1, 0);
                 existingMistakesProcessed.add(existingMistake);
-                newMistakesToRemove.add(newMistake);
+                newMistakesProcessed.add(newMistake);
               }
             }
           }
         }
       }
-      newMistakes.removeAll(newMistakesToRemove);
+      
       for (Mistake existingMistake : existingMistakes) {
         if (!existingMistakesProcessed.contains(existingMistake)) {
           if (existingMistake.getNumDetectionSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION
@@ -183,8 +183,10 @@ public class MistakeDetection {
       }
 
       for (Mistake newMistake : newMistakes) {
+        if (!newMistakesProcessed.contains(newMistake)) {
         setMistakeProperties(newMistake, false, 1, 0);
         newMistake.setStudentSolution(studentSolution);
+        }
       }
     } else if (existingMistakes.size() != 0 && newMistakes.size() == 0) {
       // System.out.println("In 3");

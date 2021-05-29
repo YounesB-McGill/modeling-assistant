@@ -1636,7 +1636,7 @@ public class MistakeDetectionTest {
     assertEquals(comparison.mappedClassifier.get(instructorBusClass),studentBusesClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass),studentDriversClass);
 
-    assertEquals(comparison.newMistakes.size(), 0); // Removed in updateMistake() function
+    assertEquals(comparison.newMistakes.size(), 4); 
     assertEquals(solution1.getMistakes().size(), 4);
 
     for (Mistake m : solution1.getMistakes()) {
@@ -1677,7 +1677,7 @@ public class MistakeDetectionTest {
     assertEquals(comparison.mappedClassifier.get(instructorBusClass),studentBusesClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass),studentDriversClass);
 
-    assertEquals(comparison.newMistakes.size(), 0); // Removed in updateMistake() function
+    assertEquals(comparison.newMistakes.size(), 4); 
     assertEquals(solution1.getMistakes().size(), 4);
 
     for (Mistake m : solution1.getMistakes()) {
@@ -2120,7 +2120,7 @@ public class MistakeDetectionTest {
     assertEquals(comparison.mappedAttribute.get(instructorPassengerClassAttributeName),
         studentPassengerClassAttributeName);
 
-    assertEquals(comparison.newMistakes.size(), 0);
+    assertEquals(comparison.newMistakes.size(), 4);
     assertEquals(solution1.getMistakes().size(), 4);
 
     for (Mistake m : solution1.getMistakes()) {
