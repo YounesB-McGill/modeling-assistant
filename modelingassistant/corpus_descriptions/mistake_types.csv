@@ -59,8 +59,8 @@ Number,Maj,Min,Point,,,,Name,Corpus entry done
 ,,9,,,L,,Wrong generalization,
 43,,,1,,,|,Missing generalization,Y
 44,,,2,,,|,"Generalization inapplicable (eg, not following isA rule)",Y
-45,,,3,,,|,Subclass not distinct across lifetime (a full-time student can become part-time),N
-46,,,4,,,|,Inherited feature does not make sense for subclass,N
+45,,,3,,,|,Subclass not distinct across lifetime (a full-time student can become part-time),Y
+46,,,4,,,|,Inherited feature does not make sense for subclass,Y
 47,,,5,,,|,Subclass is an instance of superclass,Y
 48,,,6,,,|,Non-differentiated subclass,Y
 49,,,7,,,|,Wrong generalization direction (Person isA Student),Y
