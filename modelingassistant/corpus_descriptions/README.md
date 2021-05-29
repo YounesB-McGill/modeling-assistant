@@ -1087,7 +1087,6 @@ The five checks for generalization are:
 (behavior, structure)
 * Subclass must not be ________. (instance)
 
-
 #### Inherited feature does not make sense for subclass
 
 Level 1: Highlight class
@@ -1113,10 +1112,29 @@ The five checks for generalization are:
 (behavior, structure)
 * Subclass must not be ________. (instance)
 
-
 #### Subclass not distinct across lifetime
 
-TODO
+Level 1: Highlight class
+
+Level 2: Text response
+
+> Can you find a better way to model this concept?
+
+Level 3: Parameterized Response
+
+> Will a[n] ${nondistinctSubclass} retain this status over its lifetime?
+
+Level 4: Resource Response with Reference and Quiz
+
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
 
 #### Subclass is an instance of superclass
 
