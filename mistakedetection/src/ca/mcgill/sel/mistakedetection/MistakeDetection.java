@@ -75,9 +75,9 @@ public class MistakeDetection {
         }
         if (checkCorrect(instructorClassifier, studentClassifier, comparison)) {
           checkMistakeClassSpelling(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
-          checkMistakeSoftwareEngineeringTerm(studentClassifier).ifPresent(newMistakes::add);
-          checkMistakePluralClassName(studentClassifier).ifPresent(newMistakes::add);
-          checkMistakeLowerClassName(studentClassifier).ifPresent(newMistakes::add);
+          checkMistakeSoftwareEngineeringTerm(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
+          checkMistakePluralClassName(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
+          checkMistakeLowerClassName(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
           checkMistakeWrongEnumerationClass(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
           // checkMistakeWrongEnumerationClassItems(studentClassifier,instructorClassifier).ifPresent(newMistakes::add);
 
@@ -371,17 +371,17 @@ public class MistakeDetection {
   /**
    * Checks for a software engineering term in a given classifier.
    */
-  public static Optional<Mistake> checkMistakeSoftwareEngineeringTerm(Classifier studentClass) {
+  public static Optional<Mistake> checkMistakeSoftwareEngineeringTerm(Classifier studentClass,Classifier instructorClass) {
     if (isSoftwareEngineeringTerm(studentClass.getName())) {
-      return Optional.of(createMistake(SOFTWARE_ENGINEERING_TERM, studentClass));
+      return Optional.of(createMistake(SOFTWARE_ENGINEERING_TERM, studentClass, instructorClass));
     }
     return Optional.empty();
   }
 
 
-  public static Optional<Mistake> checkMistakePluralClassName(Classifier studentClass) {
+  public static Optional<Mistake> checkMistakePluralClassName(Classifier studentClass, Classifier instructorClass) {
     if (isPlural(studentClass.getName())) {
-      return Optional.of(createMistake(USING_PLURAL_OR_LOWERCASE, studentClass));
+      return Optional.of(createMistake(USING_PLURAL_OR_LOWERCASE, studentClass, instructorClass));
     }
     return Optional.empty();
   }
@@ -389,7 +389,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeClassSpelling(Classifier studentClass, Classifier instructorClass) {
     int lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
     if (lDistance != 0) {
-      return Optional.of(createMistake(BAD_CLASS_NAME_SPELLING, studentClass));
+      return Optional.of(createMistake(BAD_CLASS_NAME_SPELLING, studentClass, instructorClass));
     }
     return Optional.empty();
   }
@@ -397,7 +397,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeAttributeSpelling(Attribute sAttribute, Attribute iAttribute) {
     int lDistance = levenshteinDistance(sAttribute.getName(), iAttribute.getName());
     if (lDistance != 0) {
-      return Optional.of(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, sAttribute));
+      return Optional.of(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, sAttribute,iAttribute));
     }
     return Optional.empty();
   }
@@ -406,9 +406,9 @@ public class MistakeDetection {
     return LevenshteinDistance.getDefaultInstance().apply(string1, string2);
   }
 
-  public static Optional<Mistake> checkMistakeLowerClassName(Classifier studentClass) {
+  public static Optional<Mistake> checkMistakeLowerClassName(Classifier studentClass, Classifier instructorClass) {
     if (isLowerName(studentClass.getName())) {
-      return Optional.of(createMistake(USING_PLURAL_OR_LOWERCASE, studentClass));
+      return Optional.of(createMistake(USING_PLURAL_OR_LOWERCASE, studentClass, instructorClass));
     }
     return Optional.empty();
   }
@@ -416,43 +416,43 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeWrongEnumerationClass(Classifier studentClass,
       Classifier instructorClass) {
     if (!classEnumStatusesMatch(studentClass, instructorClass)) {
-      return Optional.of(createMistake(REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION_OR_VICE_VERSA, studentClass));
+      return Optional.of(createMistake(REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION_OR_VICE_VERSA, studentClass,instructorClass));
     }
     return Optional.empty();
   }
 
   public static Optional<Mistake> checkMistakeWrongAttributeType(Attribute sAttribute, Attribute iAttribute) {
     if (!attributeTypesMatch(sAttribute, iAttribute)) {
-      return Optional.of(createMistake(WRONG_ATTRIBUTE_TYPE, sAttribute));
+      return Optional.of(createMistake(WRONG_ATTRIBUTE_TYPE, sAttribute,iAttribute));
     }
     return Optional.empty();
   }
 
   public static Optional<Mistake> checkMistakeAttributeStatic(Attribute sAttribute, Attribute iAttribute) {
     if (!attributeStaticPropertiesMatch(sAttribute, iAttribute)) {
-      return Optional.of(createMistake(ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA, sAttribute));
+      return Optional.of(createMistake(ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA, sAttribute,iAttribute));
     }
     return Optional.empty();
   }
 
   public static void checkMistakeMissingClass(Comparison comparison) {
     comparison.notMappedInstructorClassifier.forEach(cls ->
-      comparison.newMistakes.add(createMistake(MISSING_CLASS, cls)));
+      comparison.newMistakes.add(createMistake(MISSING_CLASS, null, cls))); // No Student Element
   }
 
   public static void checkMistakeExtraClass(Comparison comparison) {
     comparison.extraStudentClassifier.forEach(cls ->
-      comparison.newMistakes.add(createMistake(EXTRA_CLASS, cls)));
+      comparison.newMistakes.add(createMistake(EXTRA_CLASS, cls, null))); //  No Instructor Element
   }
 
   public static void checkMistakeMissingAttribute(Comparison comparison) {
     comparison.notMappedInstructorAttribute.forEach(cls ->
-      comparison.newMistakes.add(createMistake(MISSING_ATTRIBUTE, cls)));
+      comparison.newMistakes.add(createMistake(MISSING_ATTRIBUTE, null, cls)));
   }
 
   public static void checkMistakeExtraAttribute(Comparison comparison) {
     comparison.extraStudentAttribute.forEach(cls ->
-      comparison.newMistakes.add(createMistake(OTHER_EXTRA_ATTRIBUTE, cls)));
+      comparison.newMistakes.add(createMistake(OTHER_EXTRA_ATTRIBUTE, cls , null)));
   }
 
   /**
@@ -509,15 +509,23 @@ public class MistakeDetection {
   }
 
   /** Creates a new mistake from the input parameters. */
-  private static Mistake createMistake(MistakeType mistakeType, NamedElement studentElement) {
+  private static Mistake createMistake(MistakeType mistakeType, NamedElement studentElement, NamedElement instructorElement) {
     var mistake = MAF.createMistake();
     mistake.setMistakeType(mistakeType);
 
     // TODO Use existing solution element when available
+    if (studentElement!= null) {
     var solutionElement = MAF.createSolutionElement();
     solutionElement.setElement(studentElement);
     mistake.getStudentElements().add(solutionElement);
-
+    }
+    if (instructorElement!= null) {
+      var solutionElement = MAF.createSolutionElement();
+      solutionElement.setElement(instructorElement);
+      mistake.getInstructorElements().add(solutionElement);
+      }
+    
+    
     return mistake;
   }
 

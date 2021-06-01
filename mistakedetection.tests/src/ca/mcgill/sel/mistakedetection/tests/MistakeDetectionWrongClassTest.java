@@ -205,6 +205,7 @@ public class MistakeDetectionWrongClassTest {
       if (m.getMistakeType() == MistakeTypes.USING_PLURAL_OR_LOWERCASE
           && m.getStudentElements().get(0).getElement() == studentBusesClass) {
         assertEquals(m.getStudentElements().get(0).getElement(), studentBusesClass);
+        assertEquals(m.getInstructorElements().get(0).getElement(), instructorBusClass);
         assertEquals(m.getNumDetectionSinceResolved(), 0);
         assertEquals(m.getNumDetection(), 1);
         assertFalse(m.isResolved());
@@ -212,6 +213,7 @@ public class MistakeDetectionWrongClassTest {
       if (m.getMistakeType() == MistakeTypes.USING_PLURAL_OR_LOWERCASE
           && m.getStudentElements().get(0).getElement() == studentDriversClass) {
         assertEquals(m.getStudentElements().get(0).getElement(), studentDriversClass);
+        assertEquals(m.getInstructorElements().get(0).getElement(), instructorDriverClass);
         assertEquals(m.getNumDetectionSinceResolved(), 0);
         assertEquals(m.getNumDetection(), 1);
         assertFalse(m.isResolved());
@@ -219,6 +221,7 @@ public class MistakeDetectionWrongClassTest {
       if (m.getMistakeType() == MistakeTypes.BAD_CLASS_NAME_SPELLING
           && m.getStudentElements().get(0).getElement() == studentBusesClass) {
         assertEquals(m.getStudentElements().get(0).getElement(), studentBusesClass);
+        assertEquals(m.getInstructorElements().get(0).getElement(), instructorBusClass);
         assertEquals(m.getNumDetectionSinceResolved(), 0);
         assertEquals(m.getNumDetection(), 1);
         assertFalse(m.isResolved());
@@ -299,6 +302,7 @@ public class MistakeDetectionWrongClassTest {
       if (m.getMistakeType() == MistakeTypes.BAD_CLASS_NAME_SPELLING
           && m.getStudentElements().get(0).getElement() == studentDrivrClass) {
         assertEquals(m.getStudentElements().get(0).getElement(), studentDrivrClass);
+        assertEquals(m.getInstructorElements().get(0).getElement(), instructorDriverClass);
         assertEquals(m.getNumDetectionSinceResolved(), 0);
         assertEquals(m.getNumDetection(), 1);
         assertFalse(m.isResolved());
@@ -311,14 +315,22 @@ public class MistakeDetectionWrongClassTest {
     // no mistake
     var studentClass = MistakeDetection.CDF.createClass();
     studentClass.setName("Woman");
-    assertTrue(MistakeDetection.checkMistakePluralClassName(studentClass).isEmpty());
+    
+    var instructorClass = MistakeDetection.CDF.createClass();
+    instructorClass.setName("Woman");
+    
+    assertTrue(MistakeDetection.checkMistakePluralClassName(studentClass,instructorClass).isEmpty());
 
     // mistake
     var expected = MistakeDetection.MAF.createMistake();
     expected.setMistakeType(MistakeTypes.USING_PLURAL_OR_LOWERCASE);
     studentClass = MistakeDetection.CDF.createClass();
     studentClass.setName("Women");
-    var actual = MistakeDetection.checkMistakePluralClassName(studentClass).get();
+    
+    instructorClass = MistakeDetection.CDF.createClass();
+    instructorClass.setName("Woman");
+    
+    var actual = MistakeDetection.checkMistakePluralClassName(studentClass,instructorClass).get();
     assertEquals(expected.getMistakeType(), actual.getMistakeType());
   }
 
