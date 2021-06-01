@@ -2,6 +2,7 @@
 
 import os
 import pyecore
+from pyecore.resources.resource import Resource
 import pytest
 
 from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, ImplementationClass, CDInt, CDString,
@@ -640,6 +641,111 @@ def test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java
     assert not expected_class_names2
 
 
+def test_persisting_modeling_assistant_with_multiple_solutions_to_one_file():
+    """
+    Verify that a ModelingAssistant instance with multiple solutions can be serialized with
+    everything (including the class diagrams) in one file. This old test was brought back because
+    the file is needed for generating a string to be used in the web app, and so no Java equivalent
+    of this test is required. 
+    """
+    # Remove previously created file (if it exists)
+    ma_path = "modelingassistant/instances/ma_multisolution_all_in_one.modelingassistant"
+    if os.path.exists(ma_path): os.remove(ma_path)
+
+    # Load ClassDiagram and Modeling Assistant metamodels
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+    rset = ResourceSet()
+    cdm_mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
+    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
+    ma_mm_root = rset.get_resource(URI(ma_mm_file)).contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+    
+    # Open premade class diagram from one of the above tests
+    cdm_path = "modelingassistant/testmodels"
+    cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
+    class_diagram: ClassDiagram = rset.get_resource(URI(cdm_file)).contents[0]
+    class_diagram.__class__ = ClassDiagram
+    class_diagram.name = "Student1_solution"
+
+    # Link first class diagram to modeling assistant instance
+    modeling_assistant = ModelingAssistant()
+    Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
+
+    # Make and link second class diagram to modeling assistant instance
+    class_diagram2 = ClassDiagram(name="Student2_solution")
+    Solution(classDiagram=class_diagram2, modelingAssistant=modeling_assistant)
+    cd_int = CDInt()
+    cd_string = CDString()
+    class_diagram2.types.extend([cd_int, cd_string])
+    car_class2 = Class(name="Car", attributes=[
+        Attribute(name="id", type=cd_int),
+        Attribute(name="make", type=cd_string)
+    ])
+    class_diagram2.classes.append(car_class2)
+
+    # Save modeling assistant instance to file
+    resource = rset.create_resource(URI(ma_path))
+    resource.use_uuid = True
+    resource.extend([modeling_assistant, class_diagram, class_diagram2])
+    resource.save()
+
+    assert os.path.exists(ma_path)
+    with open(ma_path) as f:
+        file_contents = f.read()
+        for s in ["Car", "SportsCar", "Part", "Driver", "make", "CDInt", "Student2_solution"]:
+            assert s in file_contents
+
+
+def test_loading_modeling_assistant_deserialized_from_string():
+    """
+    Test loading the instance defined above from a string.
+    """
+    # Open ClassDiagram and Modeling Assistant metamodels
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+    rset = ResourceSet()
+    resource: Resource = rset.get_resource(URI(cdm_mm_file))
+    cdm_mm_root = resource.contents[0]
+    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
+    resource = rset.get_resource(URI(ma_mm_file))
+    ma_mm_root = resource.contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+    #resource = rset.get_resource(URI("*.modelingassistant"))
+
+    ma_path = "modelingassistant/instances/ma_multisolution_all_in_one.modelingassistant"
+    with open(ma_path) as f:
+        ma_str = f.read()
+
+    resource.load(ma_str)
+    modeling_assistant: ModelingAssistant = resource.contents[0]
+    modeling_assistant.__class__ = ModelingAssistant
+    class_diagram1: ClassDiagram = modeling_assistant.solutions[0].classDiagram
+    class_diagram1.__class__ = ClassDiagram
+    class_diagram2: ClassDiagram = modeling_assistant.solutions[1].classDiagram
+    class_diagram2.__class__ = ClassDiagram
+
+    expected_class_names1 = ["Car", "SportsCar", "Part", "Driver"]
+    for c in class_diagram1.classes:
+        if c.name == "Car":
+            for a in c.attributes:
+                assert type(a.type).__name__ in [CDInt.__name__, CDString.__name__]
+        if c.name == "SportsCar":
+            assert "Car" == c.superTypes[0].name
+        assert c.name in expected_class_names1
+        expected_class_names1.remove(c.name)
+    assert not expected_class_names1
+
+    expected_class_names2 = ["Car"]
+    for c in class_diagram2.classes:
+        if c.name == "Car":
+            for a in c.attributes:
+                assert type(a.type).__name__ in [CDInt.__name__, CDString.__name__]
+        assert c.name in expected_class_names2
+        expected_class_names2.remove(c.name)
+    assert not expected_class_names2
+
+
 def test_student_knowledge_persisted_correctly():
     """
     Verify that StudentKnowledge association classes can be serialized and loaded again correctly.
@@ -962,5 +1068,5 @@ def test_check_for_incomplete_containment_tree_failure_case():
 
 if __name__ == "__main__":
     "Main entry point."
-    test_persisting_modeling_assistant_with_mistake_types_and_categories()
-    test_loading_modeling_assistant_with_mistake_types_and_categories()
+    #test_loading_modeling_assistant_deserialized_from_string()
+    test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java()

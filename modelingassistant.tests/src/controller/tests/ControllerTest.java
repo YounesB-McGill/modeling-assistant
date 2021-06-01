@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +15,7 @@ import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.util.CdmResourceFactoryImpl;
@@ -720,6 +722,35 @@ public class ControllerTest {
         assertTrue(expectedClassNames2.remove(c.getName()));
       });
       assertTrue(expectedClassNames2.isEmpty());
+    } catch (IOException e) {
+      fail();
+    }
+  }
+
+  /**
+   * Verifies that the modeling assistant instance defined above can be deserialized correctly from a string.
+   * This will be used in the web app.
+   */
+  @Test public void testLoadingModelingAssistantDeserializedFromString() {
+    ClassdiagramPackage.eINSTANCE.eClass();
+    ModelingassistantPackage.eINSTANCE.eClass();
+    var maPath = "../modelingassistant/instances/ma_multisolution_all_in_one.modelingassistant";
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("modelingassistant",
+        new ModelingassistantResourceFactoryImpl());
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm", new CdmResourceFactoryImpl());
+    try {
+      var maResource = rset.createResource(URI.createFileURI("*.modelingassistant"));
+      var maString = Files.readString(Path.of(maPath));
+      maResource.load(new URIConverter.ReadableInputStream(maString), Collections.EMPTY_MAP);
+
+      var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
+      var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
+
+      assertEquals("Student1_solution", classDiagram.getName());
+      var expectedClassNames = new ArrayList<String>(List.of("Car", "SportsCar", "Driver", "Part"));
+      classDiagram.getClasses().forEach(c -> assertTrue(expectedClassNames.remove(c.getName())));
+      assertTrue(expectedClassNames.isEmpty());
     } catch (IOException e) {
       fail();
     }
