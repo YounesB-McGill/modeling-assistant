@@ -7,7 +7,8 @@ Welcome to the team! :tada:
 ### Background Knowledge
 
 * Domain modeling (class diagram) and metamodeling.
-* [Video overview](https://vimeo.com/469525402) of the Modeling Assistant
+* [Video overview](https://vimeo.com/469525402) of the Modeling Assistant.
+* Mistake Detection System [overview presentation](mistake-detection-system-info/Guide-to-understanding-MDS.pdf).
 
 ### Project Tools
 * Familiarity with one or more of Java, Python, C#, and TypeScript/JavaScript, as applicable.
@@ -28,4 +29,6 @@ and [Modeling Assistant](modelingassistant/model/modelingassistant.jpg) metamode
 [Eclipse Modeling Tools](https://www.eclipse.org/downloads/packages/).
 * [TouchCORE](https://bitbucket.org/mcgillram/touchram/src/master/)
 sources on your local machine. <!-- To be reviewed after mavenization -->
+
+_(Detailed setup instructions coming soon!)_
 
