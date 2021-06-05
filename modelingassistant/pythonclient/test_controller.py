@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
 import os
+import re
 import pyecore
 from pyecore.resources.resource import Resource
 import pytest
+from textwrap import dedent
 
 from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, CDInt, CDString,
     AssociationEnd, Association, ReferenceType)
@@ -20,7 +22,7 @@ def test_pytest_is_working():
 def test_creating_empty_solution():
     modeling_assistant = ModelingAssistant()
     class_diagram = ClassDiagram(name="Student1_solution")
-    solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
+    Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
     assert "Student1_solution" == modeling_assistant.solutions[0].classDiagram.name
 
 
@@ -35,7 +37,7 @@ def test_creating_one_class_solution():
     """
     modeling_assistant = ModelingAssistant()
     class_diagram = ClassDiagram(name="Student1_solution")
-    solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
+    Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
     cd_int = CDInt()
     cd_string = CDString()
 
@@ -65,7 +67,7 @@ def test_creating_two_class_solution_with_association():
     """
     modeling_assistant = ModelingAssistant()
     class_diagram = ClassDiagram(name="Student1_solution")
-    solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
+    Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
     cd_int = CDInt()
     cd_string = CDString()
 
@@ -121,7 +123,7 @@ def test_creating_two_class_solution_with_generalization():
     """
     modeling_assistant = ModelingAssistant()
     class_diagram = ClassDiagram(name="Student1_solution")
-    solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
+    Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
     cd_int = CDInt()
     cd_string = CDString()
 
@@ -248,7 +250,7 @@ def test_persisting_modeling_assistant_with_one_class_solution():
     # Dynamically create a modeling assistant and link it with a TouchCore class diagram 
     modeling_assistant = ModelingAssistant()
     class_diagram = ClassDiagram(name="Student1_solution")
-    solution = Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
+    Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
     cd_int = CDInt()
     cd_string = CDString()
     class_diagram.types.extend([cd_int, cd_string])
@@ -494,23 +496,16 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
     cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
     class_diagram1: ClassDiagram = rset.get_resource(URI(cdm_file)).contents[0]
     class_diagram1.__class__ = ClassDiagram
-    cdm_by_file[cd1_path] = class_diagram1
-    car_class = driver_class = sports_car_class = part_class = None
-    for c in class_diagram1.classes:
-        if c.name == "Car": car_class = c
-        elif c.name == "Driver": driver_class = c
-        elif c.name == "SportsCar": sports_car_class = c
-        elif c.name == "Part": part_class = c
-    
+    cdm_by_file[cd1_path] = class_diagram1    
 
     # Link first class diagram to modeling assistant instance
     modeling_assistant = ModelingAssistant()
-    solution1 = Solution(classDiagram=class_diagram1, modelingAssistant=modeling_assistant)
+    Solution(classDiagram=class_diagram1, modelingAssistant=modeling_assistant)
 
     # Make and link second class diagram to modeling assistant instance
     class_diagram2 = ClassDiagram(name="Student2_solution")
     cdm_by_file[cd2_path] = class_diagram2
-    solution2 = Solution(classDiagram=class_diagram2, modelingAssistant=modeling_assistant)
+    Solution(classDiagram=class_diagram2, modelingAssistant=modeling_assistant)
     cd_int = CDInt()
     cd_string = CDString()
     class_diagram2.types.extend([cd_int, cd_string])
@@ -743,6 +738,58 @@ def test_loading_modeling_assistant_deserialized_from_string():
         assert c.name in expected_class_names2
         expected_class_names2.remove(c.name)
     assert not expected_class_names2
+
+
+def test_persisting_modeling_assistant_to_string():
+    # Open ClassDiagram and Modeling Assistant metamodels
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+    rset = StringEnabledResourceSet()
+    resource: Resource = rset.get_resource(URI(cdm_mm_file))
+    cdm_mm_root = resource.contents[0]
+    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
+    resource = rset.get_resource(URI(ma_mm_file))
+    ma_mm_root = resource.contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+
+    # Create a ModelingAssistant instance in-memory
+    modeling_assistant = ModelingAssistant()
+    class_diagram = ClassDiagram(name="Student1_solution")
+    Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
+    cd_int = CDInt()
+    cd_string = CDString()
+
+    car_class = Class(name="Car", attributes=[
+        Attribute(name="id", type=cd_int),
+        Attribute(name="make", type=cd_string)
+    ])
+    class_diagram.classes.append(car_class)
+
+    resource = rset.create_string_resource()
+    resource.use_uuid = True
+    resource.extend([modeling_assistant, class_diagram])
+    ma_str = resource.save_to_string().decode()
+
+    xmi_id_pattern = re.compile(r'xmi:id="(.*?)"')
+    cdm_id_pattern = re.compile(r'classDiagram="(.*?)"')
+    ma_str = xmi_id_pattern.sub('xmi:id=""', ma_str)
+    ma_str = cdm_id_pattern.sub('classDiagram=""', ma_str)
+    ma_str = ma_str.replace(' type=""', '')  # since name and type can occur in any order 
+
+    assert dedent('''\
+        <?xml version='1.0' encoding='UTF-8'?>
+        <xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:version="2.0">
+          <modelingassistant:ModelingAssistant xmi:id="">
+            <solutions xsi:type="modelingassistant:Solution" xmi:id="" classDiagram=""/>
+          </modelingassistant:ModelingAssistant>
+          <classdiagram:ClassDiagram xmi:id="" name="Student1_solution">
+            <classes xsi:type="classdiagram:Class" xmi:id="" name="Car">
+              <attributes xsi:type="classdiagram:Attribute" xmi:id="" name="id"/>
+              <attributes xsi:type="classdiagram:Attribute" xmi:id="" name="make"/>
+            </classes>
+          </classdiagram:ClassDiagram>
+        </xmi:XMI>
+        ''') == ma_str
 
 
 def test_student_knowledge_persisted_correctly():
@@ -1069,4 +1116,5 @@ if __name__ == "__main__":
     "Main entry point."
     #test_loading_modeling_assistant_deserialized_from_string()
     #test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java()
-    test_loading_modeling_assistant_deserialized_from_string()
+    #test_loading_modeling_assistant_deserialized_from_string()
+    test_persisting_modeling_assistant_to_string()

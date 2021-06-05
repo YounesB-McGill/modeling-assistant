@@ -2,11 +2,10 @@
 Module for custom, string-friendly pyecore items.
 """
 
-from lxml.etree import fromstring, parse
+from lxml.etree import Element, ElementTree, QName, fromstring, tostring
 from pyecore.ecore import EProxy
-from pyecore.resources import resource
-from pyecore.resources.resource import  ResourceSet, URI, URIConverter
-from pyecore.resources.xmi import XMI, XMIResource, XSI
+from pyecore.resources.resource import  ResourceSet
+from pyecore.resources.xmi import XMI, XMIOptions, XMIResource, XMI_URL, XSI
 
 MA_USE_STRING_SERDES = "MA_USE_STRING_SERDES"
 
@@ -73,3 +72,36 @@ class StringEnabledXMIResource(XMIResource):
 
         if self.contents:
             self._decode_ereferences()
+
+    def save_to_string(self, options=None) -> bytes:
+        """
+        Save resource to binary string.
+        """
+        self.options = options or {}
+        self.prefixes.clear()
+        self.reverse_nsmap.clear()
+
+        serialize_default = self.options.get(XMIOptions.SERIALIZE_DEFAULT_VALUES, False)
+        nsmap = {XMI: XMI_URL}
+
+        if len(self.contents) == 1:
+            root = self.contents[0]
+            self.register_eobject_epackage(root)
+            tmp_xmi_root = self._go_across(root, serialize_default)
+        else:
+            tag = QName(XMI_URL, 'XMI')
+            tmp_xmi_root = Element(tag)
+            for root in self.contents:
+                root_node = self._go_across(root, serialize_default)
+                tmp_xmi_root.append(root_node)
+
+        # update nsmap with prefixes register during the nodes creation
+        nsmap.update(self.prefixes)
+        xmi_root = Element(tmp_xmi_root.tag, nsmap=nsmap)
+        xmi_root[:] = tmp_xmi_root[:]
+        xmi_root.attrib.update(tmp_xmi_root.attrib)
+        xmi_version = QName(XMI_URL, 'version')
+        xmi_root.attrib[xmi_version] = '2.0'
+        tree = ElementTree(xmi_root)
+        # TODO Set pretty_print=False in production 
+        return tostring(tree, pretty_print=True, xml_declaration=True, encoding=tree.docinfo.encoding)
