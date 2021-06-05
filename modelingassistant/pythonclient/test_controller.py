@@ -5,13 +5,13 @@ import pyecore
 from pyecore.resources.resource import Resource
 import pytest
 
-from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, ImplementationClass, CDInt, CDString,
+from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, CDInt, CDString,
     AssociationEnd, Association, ReferenceType)
 from modelingassistant.modelingassistant import (ModelingAssistant, Solution, Student, MistakeType,
     MistakeTypeCategory, LearningItem, StudentKnowledge)
-from pyecore.ecore import EInteger, EString
 from pyecore.resources import ResourceSet, URI
 
+from stringserdes import StringEnabledResourceSet
 
 def test_pytest_is_working():
     assert True
@@ -704,20 +704,19 @@ def test_loading_modeling_assistant_deserialized_from_string():
     # Open ClassDiagram and Modeling Assistant metamodels
     cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
     ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
-    rset = ResourceSet()
+    rset = StringEnabledResourceSet()
     resource: Resource = rset.get_resource(URI(cdm_mm_file))
     cdm_mm_root = resource.contents[0]
     rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
     resource = rset.get_resource(URI(ma_mm_file))
     ma_mm_root = resource.contents[0]
     rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
-    #resource = rset.get_resource(URI("*.modelingassistant"))
 
     ma_path = "modelingassistant/instances/ma_multisolution_all_in_one.modelingassistant"
-    with open(ma_path) as f:
+    with open(ma_path, "rb") as f:
         ma_str = f.read()
 
-    resource.load(ma_str)
+    resource = rset.get_string_resource(ma_str)
     modeling_assistant: ModelingAssistant = resource.contents[0]
     modeling_assistant.__class__ = ModelingAssistant
     class_diagram1: ClassDiagram = modeling_assistant.solutions[0].classDiagram
@@ -1069,4 +1068,5 @@ def test_check_for_incomplete_containment_tree_failure_case():
 if __name__ == "__main__":
     "Main entry point."
     #test_loading_modeling_assistant_deserialized_from_string()
-    test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java()
+    #test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java()
+    test_loading_modeling_assistant_deserialized_from_string()
