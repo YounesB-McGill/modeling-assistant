@@ -3,8 +3,10 @@ package controller.tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
@@ -751,6 +754,73 @@ public class ControllerTest {
       var expectedClassNames = new ArrayList<String>(List.of("Car", "SportsCar", "Driver", "Part"));
       classDiagram.getClasses().forEach(c -> assertTrue(expectedClassNames.remove(c.getName())));
       assertTrue(expectedClassNames.isEmpty());
+    } catch (IOException e) {
+      fail();
+    }
+  }
+
+  /**
+   * Verifies that a modeling assistant instance can be serialized to a string. This will be used in the web app.
+   */
+  @Test public void testPersistingModelingAssistantToString() {
+    ClassdiagramPackage.eINSTANCE.eClass();
+    ModelingassistantPackage.eINSTANCE.eClass();
+    var maf = ModelingassistantFactory.eINSTANCE;
+    var cdf = ClassdiagramFactory.eINSTANCE;
+    var modelingAssistant = maf.createModelingAssistant();
+    var classDiagram = cdf.createClassDiagram();
+    var solution = maf.createSolution();
+    classDiagram.setName("Student1_solution");
+    solution.setModelingAssistant(modelingAssistant);
+    solution.setClassDiagram(classDiagram);
+
+    var carClass = cdf.createClass();
+    carClass.setName("Car");
+    var carId = cdf.createAttribute();
+    carId.setName("id");
+    var cdInt = cdf.createCDInt();
+    carId.setType(cdInt);
+    var carMake = cdf.createAttribute();
+    carMake.setName("make");
+    var cdString = cdf.createCDString();
+    carMake.setType(cdString);
+    carClass.getAttributes().addAll(List.of(carId, carMake));
+    classDiagram.getTypes().addAll(List.of(cdInt, cdString));
+    classDiagram.getClasses().add(carClass);
+
+    // Write modeling assistant instance to string and verify contents
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("modelingassistant",
+        new ModelingassistantResourceFactoryImpl());
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm", new CdmResourceFactoryImpl());
+    var resource = rset.createResource(URI.createFileURI("*.modelingassistant"));
+    resource.getContents().addAll(List.of(modelingAssistant, classDiagram));
+    var outputStream = new ByteArrayOutputStream();
+    try {
+      resource.save(outputStream, Collections.EMPTY_MAP);
+      var maStr = outputStream.toString(StandardCharsets.UTF_8);
+      var xmiIdPattern = Pattern.compile("xmi:id=\"(.*?)\"");
+      var cdmIdPattern = Pattern.compile("classDiagram=\"(.*?)\"");
+      var typePattern = Pattern.compile(" type=\"(.*?)\"");
+      maStr = xmiIdPattern.matcher(maStr).replaceAll("xmi:id=\"\"");
+      maStr = cdmIdPattern.matcher(maStr).replaceAll("classDiagram=\"\"");
+      maStr = typePattern.matcher(maStr).replaceAll(""); // since name and type can occur in any order
+
+      // TODO Replace ugly string concatenation with """text block""" after upgrading to Java 16+
+      assertEquals("<?xml version=\"1.0\" encoding=\"ASCII\"?>\n"
+          + "<xmi:XMI xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:classdiagram=\"http://cs.mcgill.ca/sel/cdm/1.0\" xmlns:modelingassistant=\"http://cs.mcgill.ca/sel/modelingassistant/1.0\">\n"
+          + "  <modelingassistant:ModelingAssistant xmi:id=\"\">\n"
+          + "    <solutions xmi:id=\"\" classDiagram=\"\"/>\n"
+          + "  </modelingassistant:ModelingAssistant>\n"
+          + "  <classdiagram:ClassDiagram xmi:id=\"\" name=\"Student1_solution\">\n"
+          + "    <classes xsi:type=\"classdiagram:Class\" xmi:id=\"\" name=\"Car\">\n"
+          + "      <attributes xmi:id=\"\" name=\"id\"/>\n"
+          + "      <attributes xmi:id=\"\" name=\"make\"/>\n"
+          + "    </classes>\n"
+          + "    <types xsi:type=\"classdiagram:CDInt\" xmi:id=\"\"/>\n"
+          + "    <types xsi:type=\"classdiagram:CDString\" xmi:id=\"\"/>\n"
+          + "  </classdiagram:ClassDiagram>\n"
+          + "</xmi:XMI>\n", maStr);
     } catch (IOException e) {
       fail();
     }
