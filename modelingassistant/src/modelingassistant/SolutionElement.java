@@ -2,11 +2,9 @@
  */
 package modelingassistant;
 
-import classdiagram.NamedElement;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
+import ca.mcgill.sel.classdiagram.NamedElement;
 
 /**
  * <!-- begin-user-doc -->

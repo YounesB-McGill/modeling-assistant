@@ -2,11 +2,9 @@
  */
 package modelingassistant;
 
-import classdiagram.ClassDiagram;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
+import ca.mcgill.sel.classdiagram.ClassDiagram;
 
 /**
  * <!-- begin-user-doc -->

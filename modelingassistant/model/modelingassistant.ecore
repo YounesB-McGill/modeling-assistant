@@ -22,8 +22,8 @@
         eType="#//MistakeType" containment="true" eOpposite="#//MistakeType/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="studentKnowledges" upperBound="-1"
         eType="#//StudentKnowledge" containment="true" eOpposite="#//StudentKnowledge/modelingAssistant"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypeCategories" upperBound="-1"
-        eType="#//MistakeTypeCategory" containment="true" eOpposite="#//MistakeTypeCategory/modelingAssistant"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypeCategories"
+        upperBound="-1" eType="#//MistakeTypeCategory" containment="true" eOpposite="#//MistakeTypeCategory/modelingAssistant"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Student" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -66,8 +66,7 @@
         eOpposite="#//Student/solutions"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="solutionElements" upperBound="-1"
         eType="#//SolutionElement" containment="true" eOpposite="#//SolutionElement/solution"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="classDiagram" lowerBound="1"
-        eType="ecore:EClass classdiagram.ecore#//ClassDiagram"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="classDiagram" lowerBound="1"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakes" upperBound="-1"
         eType="#//Mistake" containment="true" eOpposite="#//Mistake/studentSolution"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="currentMistake" eType="#//Mistake"/>
@@ -85,8 +84,7 @@
         eType="#//Solution" eOpposite="#//Solution/solutionElements"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="studentElementMistakes"
         upperBound="-1" eType="#//Mistake" eOpposite="#//Mistake/studentElements"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="element" lowerBound="1"
-        eType="ecore:EClass classdiagram.ecore#//NamedElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="element" lowerBound="1"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="instructorElementMistakes"
         upperBound="-1" eType="#//Mistake" eOpposite="#//Mistake/instructorElements"/>
   </eClassifiers>

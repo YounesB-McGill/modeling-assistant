@@ -2,12 +2,15 @@
  */
 package modelingassistant.impl;
 
-import classdiagram.ClassdiagramPackage;
-
-import classdiagram.impl.ClassdiagramPackageImpl;
-
 import java.sql.Time;
-
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+import ca.mcgill.sel.classdiagram.ClassdiagramPackage;
+import ca.mcgill.sel.classdiagram.impl.ClassdiagramPackageImpl;
 import modelingassistant.Example;
 import modelingassistant.Feedback;
 import modelingassistant.LearningItem;
@@ -32,14 +35,6 @@ import modelingassistant.StudentKnowledge;
 import modelingassistant.TextResponse;
 import modelingassistant.Tutorial;
 import modelingassistant.UmlElement;
-
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-
-import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -281,6 +276,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getModelingAssistant() {
     return modelingAssistantEClass;
   }
@@ -290,6 +286,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getModelingAssistant_LearningItems() {
     return (EReference)modelingAssistantEClass.getEStructuralFeatures().get(0);
   }
@@ -299,6 +296,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getModelingAssistant_LearningResources() {
     return (EReference)modelingAssistantEClass.getEStructuralFeatures().get(1);
   }
@@ -308,6 +306,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getModelingAssistant_ProblemStatements() {
     return (EReference)modelingAssistantEClass.getEStructuralFeatures().get(2);
   }
@@ -317,6 +316,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getModelingAssistant_Solutions() {
     return (EReference)modelingAssistantEClass.getEStructuralFeatures().get(3);
   }
@@ -326,6 +326,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getModelingAssistant_UmlElements() {
     return (EReference)modelingAssistantEClass.getEStructuralFeatures().get(4);
   }
@@ -335,6 +336,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getModelingAssistant_Students() {
     return (EReference)modelingAssistantEClass.getEStructuralFeatures().get(5);
   }
@@ -344,6 +346,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getModelingAssistant_Feedbacks() {
     return (EReference)modelingAssistantEClass.getEStructuralFeatures().get(6);
   }
@@ -353,6 +356,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getModelingAssistant_MistakeTypes() {
     return (EReference)modelingAssistantEClass.getEStructuralFeatures().get(7);
   }
@@ -362,6 +366,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getModelingAssistant_StudentKnowledges() {
     return (EReference)modelingAssistantEClass.getEStructuralFeatures().get(8);
   }
@@ -371,6 +376,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getModelingAssistant_MistakeTypeCategories() {
     return (EReference)modelingAssistantEClass.getEStructuralFeatures().get(9);
   }
@@ -380,6 +386,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getStudent() {
     return studentEClass;
   }
@@ -389,6 +396,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getStudent_Id() {
     return (EAttribute)studentEClass.getEStructuralFeatures().get(0);
   }
@@ -398,6 +406,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStudent_ModelingAssistant() {
     return (EReference)studentEClass.getEStructuralFeatures().get(1);
   }
@@ -407,6 +416,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStudent_Solutions() {
     return (EReference)studentEClass.getEStructuralFeatures().get(2);
   }
@@ -416,6 +426,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStudent_StudentKnowledges() {
     return (EReference)studentEClass.getEStructuralFeatures().get(3);
   }
@@ -425,6 +436,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStudent_CurrentSolution() {
     return (EReference)studentEClass.getEStructuralFeatures().get(4);
   }
@@ -434,6 +446,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getProblemStatement() {
     return problemStatementEClass;
   }
@@ -443,6 +456,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getProblemStatement_ModelingAssistant() {
     return (EReference)problemStatementEClass.getEStructuralFeatures().get(2);
   }
@@ -452,6 +466,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getProblemStatement_StudentSolution() {
     return (EReference)problemStatementEClass.getEStructuralFeatures().get(3);
   }
@@ -461,6 +476,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getProblemStatement_InstructorSolution() {
     return (EReference)problemStatementEClass.getEStructuralFeatures().get(4);
   }
@@ -470,6 +486,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getProblemStatement_ProblemStatementElements() {
     return (EReference)problemStatementEClass.getEStructuralFeatures().get(0);
   }
@@ -479,6 +496,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getProblemStatement_Text() {
     return (EAttribute)problemStatementEClass.getEStructuralFeatures().get(1);
   }
@@ -488,6 +506,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getProblemStatementElement() {
     return problemStatementElementEClass;
   }
@@ -497,6 +516,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getProblemStatementElement_ProblemStatement() {
     return (EReference)problemStatementElementEClass.getEStructuralFeatures().get(0);
   }
@@ -506,6 +526,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getProblemStatementElement_SolutionElements() {
     return (EReference)problemStatementElementEClass.getEStructuralFeatures().get(1);
   }
@@ -515,6 +536,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getUmlElement() {
     return umlElementEClass;
   }
@@ -524,6 +546,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getUmlElement_ModelingAssistant() {
     return (EReference)umlElementEClass.getEStructuralFeatures().get(0);
   }
@@ -533,6 +556,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getUmlElement_LearningItems() {
     return (EReference)umlElementEClass.getEStructuralFeatures().get(1);
   }
@@ -542,6 +566,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSolution() {
     return solutionEClass;
   }
@@ -551,6 +576,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSolution_ModelingAssistant() {
     return (EReference)solutionEClass.getEStructuralFeatures().get(0);
   }
@@ -560,6 +586,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSolution_Student() {
     return (EReference)solutionEClass.getEStructuralFeatures().get(1);
   }
@@ -569,6 +596,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSolution_SolutionElements() {
     return (EReference)solutionEClass.getEStructuralFeatures().get(2);
   }
@@ -578,6 +606,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSolution_ClassDiagram() {
     return (EReference)solutionEClass.getEStructuralFeatures().get(3);
   }
@@ -587,6 +616,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSolution_Mistakes() {
     return (EReference)solutionEClass.getEStructuralFeatures().get(4);
   }
@@ -596,6 +626,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSolution_CurrentMistake() {
     return (EReference)solutionEClass.getEStructuralFeatures().get(5);
   }
@@ -605,6 +636,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSolution_StudentProblemStatement() {
     return (EReference)solutionEClass.getEStructuralFeatures().get(6);
   }
@@ -614,6 +646,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSolution_InstructorProblemStatement() {
     return (EReference)solutionEClass.getEStructuralFeatures().get(7);
   }
@@ -623,6 +656,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSolution_CurrentStudent() {
     return (EReference)solutionEClass.getEStructuralFeatures().get(8);
   }
@@ -632,6 +666,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSolutionElement() {
     return solutionElementEClass;
   }
@@ -641,6 +676,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSolutionElement_ProblemStatementElements() {
     return (EReference)solutionElementEClass.getEStructuralFeatures().get(0);
   }
@@ -650,6 +686,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSolutionElement_Solution() {
     return (EReference)solutionElementEClass.getEStructuralFeatures().get(1);
   }
@@ -659,6 +696,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSolutionElement_StudentElementMistakes() {
     return (EReference)solutionElementEClass.getEStructuralFeatures().get(2);
   }
@@ -668,6 +706,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSolutionElement_Element() {
     return (EReference)solutionElementEClass.getEStructuralFeatures().get(3);
   }
@@ -677,6 +716,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSolutionElement_InstructorElementMistakes() {
     return (EReference)solutionElementEClass.getEStructuralFeatures().get(4);
   }
@@ -686,6 +726,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getLearningItem() {
     return learningItemEClass;
   }
@@ -695,6 +736,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getLearningItem_ModelingAssistant() {
     return (EReference)learningItemEClass.getEStructuralFeatures().get(0);
   }
@@ -704,6 +746,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getLearningItem_UmlElements() {
     return (EReference)learningItemEClass.getEStructuralFeatures().get(1);
   }
@@ -713,6 +756,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getLearningItem_LearningResources() {
     return (EReference)learningItemEClass.getEStructuralFeatures().get(2);
   }
@@ -722,6 +766,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getLearningItem_MistakeTypes() {
     return (EReference)learningItemEClass.getEStructuralFeatures().get(3);
   }
@@ -731,6 +776,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getLearningItem_Description() {
     return (EAttribute)learningItemEClass.getEStructuralFeatures().get(4);
   }
@@ -740,6 +786,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getStudentKnowledge() {
     return studentKnowledgeEClass;
   }
@@ -749,6 +796,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getStudentKnowledge_LevelOfKnowledge() {
     return (EAttribute)studentKnowledgeEClass.getEStructuralFeatures().get(0);
   }
@@ -758,6 +806,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStudentKnowledge_Student() {
     return (EReference)studentKnowledgeEClass.getEStructuralFeatures().get(1);
   }
@@ -767,6 +816,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStudentKnowledge_MistakeType() {
     return (EReference)studentKnowledgeEClass.getEStructuralFeatures().get(2);
   }
@@ -776,6 +826,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStudentKnowledge_ModelingAssistant() {
     return (EReference)studentKnowledgeEClass.getEStructuralFeatures().get(3);
   }
@@ -785,6 +836,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getMistakeType() {
     return mistakeTypeEClass;
   }
@@ -794,6 +846,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getMistakeType_Atomic() {
     return (EAttribute)mistakeTypeEClass.getEStructuralFeatures().get(0);
   }
@@ -803,6 +856,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getMistakeType_TimeToAddress() {
     return (EAttribute)mistakeTypeEClass.getEStructuralFeatures().get(1);
   }
@@ -812,6 +866,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getMistakeType_NumStepsBeforeNotification() {
     return (EAttribute)mistakeTypeEClass.getEStructuralFeatures().get(2);
   }
@@ -821,6 +876,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMistakeType_ModelingAssistant() {
     return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(3);
   }
@@ -830,6 +886,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMistakeType_LearningItem() {
     return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(4);
   }
@@ -839,6 +896,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMistakeType_StudentKnowledges() {
     return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(5);
   }
@@ -848,6 +906,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMistakeType_Mistakes() {
     return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(6);
   }
@@ -857,6 +916,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMistakeType_Feedbacks() {
     return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(7);
   }
@@ -866,6 +926,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMistakeType_MistakeTypeCategory() {
     return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(8);
   }
@@ -875,6 +936,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getMistake() {
     return mistakeEClass;
   }
@@ -884,6 +946,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getMistake_Resolved() {
     return (EAttribute)mistakeEClass.getEStructuralFeatures().get(0);
   }
@@ -893,6 +956,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getMistake_TimeToAddress() {
     return (EAttribute)mistakeEClass.getEStructuralFeatures().get(1);
   }
@@ -902,6 +966,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getMistake_NumStepsBeforeNotification() {
     return (EAttribute)mistakeEClass.getEStructuralFeatures().get(2);
   }
@@ -911,6 +976,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMistake_StudentElements() {
     return (EReference)mistakeEClass.getEStructuralFeatures().get(3);
   }
@@ -920,6 +986,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMistake_MistakeType() {
     return (EReference)mistakeEClass.getEStructuralFeatures().get(4);
   }
@@ -929,6 +996,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMistake_LastFeedback() {
     return (EReference)mistakeEClass.getEStructuralFeatures().get(5);
   }
@@ -938,6 +1006,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMistake_InstructorElements() {
     return (EReference)mistakeEClass.getEStructuralFeatures().get(6);
   }
@@ -947,6 +1016,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMistake_StudentSolution() {
     return (EReference)mistakeEClass.getEStructuralFeatures().get(7);
   }
@@ -956,6 +1026,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getMistake_NumDetection() {
     return (EAttribute)mistakeEClass.getEStructuralFeatures().get(8);
   }
@@ -965,6 +1036,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getMistake_NumDetectionSinceResolved() {
     return (EAttribute)mistakeEClass.getEStructuralFeatures().get(9);
   }
@@ -974,6 +1046,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getFeedback() {
     return feedbackEClass;
   }
@@ -983,6 +1056,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getFeedback_Level() {
     return (EAttribute)feedbackEClass.getEStructuralFeatures().get(0);
   }
@@ -992,6 +1066,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getFeedback_Congratulatory() {
     return (EAttribute)feedbackEClass.getEStructuralFeatures().get(1);
   }
@@ -1001,6 +1076,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getFeedback_Usefulness() {
     return (EAttribute)feedbackEClass.getEStructuralFeatures().get(2);
   }
@@ -1010,6 +1086,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getFeedback_HighlightProblem() {
     return (EAttribute)feedbackEClass.getEStructuralFeatures().get(3);
   }
@@ -1019,6 +1096,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getFeedback_HighlightSolution() {
     return (EAttribute)feedbackEClass.getEStructuralFeatures().get(4);
   }
@@ -1028,6 +1106,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getFeedback_ModelingAssistant() {
     return (EReference)feedbackEClass.getEStructuralFeatures().get(5);
   }
@@ -1037,6 +1116,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getFeedback_MistakeType() {
     return (EReference)feedbackEClass.getEStructuralFeatures().get(6);
   }
@@ -1046,6 +1126,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getFeedback_Mistakes() {
     return (EReference)feedbackEClass.getEStructuralFeatures().get(7);
   }
@@ -1055,6 +1136,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getFeedback_Text() {
     return (EAttribute)feedbackEClass.getEStructuralFeatures().get(8);
   }
@@ -1064,6 +1146,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTextResponse() {
     return textResponseEClass;
   }
@@ -1073,6 +1156,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getParametrizedResponse() {
     return parametrizedResponseEClass;
   }
@@ -1082,6 +1166,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getResourceResponse() {
     return resourceResponseEClass;
   }
@@ -1091,6 +1176,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getResourceResponse_LearningResources() {
     return (EReference)resourceResponseEClass.getEStructuralFeatures().get(0);
   }
@@ -1100,6 +1186,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getLearningResource() {
     return learningResourceEClass;
   }
@@ -1109,6 +1196,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getLearningResource_ModelingAssistant() {
     return (EReference)learningResourceEClass.getEStructuralFeatures().get(0);
   }
@@ -1118,6 +1206,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getLearningResource_LearningItem() {
     return (EReference)learningResourceEClass.getEStructuralFeatures().get(1);
   }
@@ -1127,6 +1216,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getLearningResource_ResourceResponses() {
     return (EReference)learningResourceEClass.getEStructuralFeatures().get(2);
   }
@@ -1136,6 +1226,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getLearningResource_Content() {
     return (EAttribute)learningResourceEClass.getEStructuralFeatures().get(3);
   }
@@ -1145,6 +1236,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getReference() {
     return referenceEClass;
   }
@@ -1154,6 +1246,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTutorial() {
     return tutorialEClass;
   }
@@ -1163,6 +1256,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getExample() {
     return exampleEClass;
   }
@@ -1172,6 +1266,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getQuiz() {
     return quizEClass;
   }
@@ -1181,6 +1276,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getNamedElement() {
     return namedElementEClass;
   }
@@ -1190,6 +1286,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getNamedElement_Name() {
     return (EAttribute)namedElementEClass.getEStructuralFeatures().get(0);
   }
@@ -1199,6 +1296,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getMistakeTypeCategory() {
     return mistakeTypeCategoryEClass;
   }
@@ -1208,6 +1306,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMistakeTypeCategory_MistakeTypes() {
     return (EReference)mistakeTypeCategoryEClass.getEStructuralFeatures().get(0);
   }
@@ -1217,6 +1316,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMistakeTypeCategory_Supercategory() {
     return (EReference)mistakeTypeCategoryEClass.getEStructuralFeatures().get(1);
   }
@@ -1226,6 +1326,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMistakeTypeCategory_Subcategories() {
     return (EReference)mistakeTypeCategoryEClass.getEStructuralFeatures().get(2);
   }
@@ -1235,6 +1336,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMistakeTypeCategory_ModelingAssistant() {
     return (EReference)mistakeTypeCategoryEClass.getEStructuralFeatures().get(3);
   }
@@ -1244,6 +1346,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EDataType getTime() {
     return timeEDataType;
   }
@@ -1253,6 +1356,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ModelingassistantFactory getModelingassistantFactory() {
     return (ModelingassistantFactory)getEFactoryInstance();
   }

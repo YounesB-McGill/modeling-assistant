@@ -15,6 +15,8 @@ import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 
 /**
  * This class contains all mistake types and categories.
+ *
+ * @generated NOT
  */
 public class MistakeTypes {
 
@@ -35,12 +37,12 @@ public class MistakeTypes {
 
   static {
     var modelingAssistant = loadModelingAssistant();
-    
+
     modelingAssistant.getMistakeTypeCategories().forEach(mtc ->
         MISTAKE_TYPE_CATEGORIES_BY_NAME.put(mtc.getName(), mtc));
-    
+
     modelingAssistant.getMistakeTypes().forEach(mt ->
-        MISTAKE_TYPES_BY_NAME.put(mt.getName(), mt));       
+        MISTAKE_TYPES_BY_NAME.put(mt.getName(), mt));
   }
 
 

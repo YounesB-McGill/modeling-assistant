@@ -4,13 +4,12 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: modelingassistant;singleton:=true
 Automatic-Module-Name: modelingassistant
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: .
+Bundle-ClassPath: .,lib/TouchCORE.jar
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Export-Package: classdiagram,
- classdiagram.impl,
- classdiagram.util,
+Export-Package: 
+ ca.mcgill.sel.classdiagram,
  modelingassistant,
  modelingassistant.impl,
  modelingassistant.mistaketypes,

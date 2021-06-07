@@ -776,6 +776,7 @@ def test_persisting_modeling_assistant_to_string():
     ma_str = cdm_id_pattern.sub('classDiagram=""', ma_str)
     ma_str = ma_str.replace(' type=""', '')  # since name and type can occur in any order 
 
+    # CDString etc missing
     assert dedent('''\
         <?xml version='1.0' encoding='UTF-8'?>
         <xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:version="2.0">
