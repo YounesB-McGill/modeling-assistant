@@ -23,7 +23,7 @@ public class Comparison {
   public Map<Attribute, Attribute> mappedAttribute = new HashMap<Attribute, Attribute>();
 
   /** Maps an instructor solution classifier relation to student solution classifier relation. */
-  public Map<Association, Association> mappedRelation = new HashMap<Association, Association>();
+  public Map<Association, Association> mappedAssociation = new HashMap<Association, Association>();
 
   public EList<Classifier> notMappedInstructorClassifier = new BasicEList<Classifier>();
   public EList<Classifier> extraStudentClassifier = new BasicEList<Classifier>();
@@ -31,6 +31,9 @@ public class Comparison {
   public EList<Attribute> notMappedInstructorAttribute = new BasicEList<Attribute>();
   public EList<Attribute> extraStudentAttribute = new BasicEList<Attribute>();
   public EList<Attribute> duplicateStudentAttribute = new BasicEList<Attribute>();
+  
+  public EList<Association> notMappedInstructorAssociation = new BasicEList<Association>();
+  public EList<Association> extraStudentAssociation = new BasicEList<Association>();
 
   public EList<Mistake> newMistakes = new BasicEList<Mistake>();
 

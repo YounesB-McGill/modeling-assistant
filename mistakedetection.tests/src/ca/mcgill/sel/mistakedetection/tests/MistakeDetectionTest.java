@@ -5,11 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.platform.suite.api.SelectClasses;
-import org.junit.runner.RunWith;
 import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
+import classdiagram.Association;
 import classdiagram.Attribute;
 import classdiagram.ClassDiagram;
 import classdiagram.ClassdiagramPackage;
@@ -90,11 +88,6 @@ public class MistakeDetectionTest {
     List.of(busClass, driverClass).forEach(c -> assertTrue(solution.getClassDiagram().getClasses().contains(c)));
   }
 
-  
-
-  
-
-  
   /**
    * Test to check if cdm file with attributes is loaded correctly.
    */
@@ -827,7 +820,7 @@ public class MistakeDetectionTest {
   /**
    * Function to print the mapped, unmapped classifier or attributes.
    */
-  public void log(Comparison comparison) {
+  public static void log(Comparison comparison) {
     System.out.println();
     System.out.println("----Test Logger-----");
     System.out.print("Not Mapped InstructorClassifier List : ");
@@ -862,9 +855,30 @@ public class MistakeDetectionTest {
     System.out.println("Mapped Attributes : ");
     comparison.mappedAttribute.forEach((key, value) -> System.out
         .println(key.getType() + " " + key.getName() + " = " + value.getType() + " " + value.getName()));
+    
+    System.out.println();
+    System.out.print("Not Mapped Association : ");
+    for (Association assoc : comparison.notMappedInstructorAssociation) {
+      System.out.print(assoc.getName() + " ");
+    }
+    
+    System.out.println();
+    System.out.print("Extra Association : ");
+    for (Association assoc : comparison.extraStudentAssociation) {
+      System.out.print(assoc.getName() + " ");
+    }
+    System.out.println();
+    System.out.println("Mapped Association : ");
+    comparison.mappedAssociation.forEach((key, value) -> System.out
+        .println(key.getName() + " " + value.getName()));
+    
+    System.out.println();
+    System.out.println("Mistakes : ");
+    comparison.newMistakes.forEach((m) -> System.out
+        .println(m.getMistakeType()));
   }
 
-  private boolean mistakesContainMistakeType(List<Mistake> mistakes, MistakeType mistakeType) {
+  private static boolean mistakesContainMistakeType(List<Mistake> mistakes, MistakeType mistakeType) {
     return mistakes.stream().anyMatch(mistake -> mistake.getMistakeType().equals(mistakeType));
   }
 

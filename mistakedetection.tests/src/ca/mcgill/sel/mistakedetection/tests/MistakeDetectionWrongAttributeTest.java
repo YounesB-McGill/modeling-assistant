@@ -3,16 +3,14 @@ package ca.mcgill.sel.mistakedetection.tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.util.List;
 import org.junit.jupiter.api.Test;
-import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
+import classdiagram.Association;
 import classdiagram.Attribute;
 import classdiagram.ClassDiagram;
 import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
 import modelingassistant.Mistake;
-import modelingassistant.MistakeType;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.mistaketypes.MistakeTypes;
 import modelingassistant.util.ResourceHelper;
@@ -358,6 +356,18 @@ public class MistakeDetectionWrongAttributeTest {
         }
       }
     }
+    Association instructorBusPassangerAssociation=null;
+    Association instructorDriverBusAssociation=null;
+
+    for (var assoc : classDiagram.getAssociations()) {
+      
+      if("Passanger_Bus".equals(assoc.getName())) {
+        instructorBusPassangerAssociation=assoc;
+      }
+      if("Driver_Bus".equals(assoc.getName())) {
+        instructorDriverBusAssociation=assoc;
+      }
+    }
 
     Classifier studentDriverClass = null;
 
@@ -365,6 +375,7 @@ public class MistakeDetectionWrongAttributeTest {
       if ("Driver".equals(c.getName()))
         studentDriverClass = c;
     }
+    
 
     var comparison = MistakeDetection.compare(solution, solution1);
 
@@ -389,8 +400,13 @@ public class MistakeDetectionWrongAttributeTest {
         comparison.notMappedInstructorAttribute.contains(instructorPassengerClassAttributeName));
     assertTrue(
         comparison.notMappedInstructorAttribute.contains(instructorBusClassAttributeCapacity));
-    assertEquals(comparison.newMistakes.size(), 6);
-    assertEquals(solution1.getMistakes().size(), 6);
+    
+    assertEquals(comparison.notMappedInstructorAssociation.size(), 2);
+    assertEquals(comparison.extraStudentAssociation.size(), 0);
+    assertEquals(comparison.mappedAssociation.size(), 0);
+    
+    assertEquals(comparison.newMistakes.size(), 8);
+    assertEquals(solution1.getMistakes().size(), 8);
     for (Mistake m : solution1.getMistakes()) {
       if (m.getMistakeType() == MistakeTypes.MISSING_CLASS
           && m.getInstructorElements().get(0).getElement() == instructorPassangerClass) {
@@ -434,6 +450,20 @@ public class MistakeDetectionWrongAttributeTest {
           && m.getInstructorElements().get(0).getElement() == instructorBusClassAttributeCapacity) {
         assertEquals(m.getInstructorElements().get(0).getElement(),
             instructorBusClassAttributeCapacity);
+        assertEquals(m.getNumDetectionSinceResolved(), 0);
+        assertEquals(m.getNumDetection(), 1);
+        assertFalse(m.isResolved());
+      }
+      if (m.getMistakeType() == MistakeTypes.MISSING_ASSOCIATION
+          && m.getInstructorElements().get(0).getElement() == instructorDriverBusAssociation) {
+        assertEquals(m.getInstructorElements().get(0).getElement(), instructorDriverBusAssociation);
+        assertEquals(m.getNumDetectionSinceResolved(), 0);
+        assertEquals(m.getNumDetection(), 1);
+        assertFalse(m.isResolved());
+      }
+      if (m.getMistakeType() == MistakeTypes.MISSING_ASSOCIATION
+          && m.getInstructorElements().get(0).getElement() == instructorBusPassangerAssociation) {
+        assertEquals(m.getInstructorElements().get(0).getElement(), instructorBusPassangerAssociation);
         assertEquals(m.getNumDetectionSinceResolved(), 0);
         assertEquals(m.getNumDetection(), 1);
         assertFalse(m.isResolved());
@@ -689,7 +719,14 @@ public class MistakeDetectionWrongAttributeTest {
         }
       }
     }
+    Association studentBusCustomerAssociation=null;
 
+    for (var assoc : classDiagram1.getAssociations()) {
+      
+      if("Bus_Customer".equals(assoc.getName())) {
+        studentBusCustomerAssociation=assoc;
+      }
+    }
     var comparison = MistakeDetection.compare(solution, solution1);
 
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
@@ -713,8 +750,13 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(comparison.mappedAttribute.get(instructorDriverClassAttributeName),
         studentDriverClassAttributeName);
     assertTrue(comparison.extraStudentAttribute.contains(studentCustomerClassAttributeName));
-    assertEquals(comparison.newMistakes.size(), 2);
-    assertEquals(solution1.getMistakes().size(), 2);
+   
+    assertEquals(comparison.newMistakes.size(), 3);
+    assertEquals(solution1.getMistakes().size(), 3);
+    
+    assertEquals(comparison.notMappedInstructorAssociation.size(), 0);
+    assertEquals(comparison.extraStudentAssociation.size(), 1);
+    assertEquals(comparison.mappedAssociation.size(), 2);
 
     for (Mistake m : solution1.getMistakes()) {
       if (m.getMistakeType() == MistakeTypes.EXTRA_CLASS
@@ -727,6 +769,13 @@ public class MistakeDetectionWrongAttributeTest {
       if (m.getMistakeType() == MistakeTypes.OTHER_EXTRA_ATTRIBUTE
           && m.getStudentElements().get(0).getElement() == studentCustomerClassAttributeName) {
         assertEquals(m.getStudentElements().get(0).getElement(), studentCustomerClassAttributeName);
+        assertEquals(m.getNumDetectionSinceResolved(), 0);
+        assertEquals(m.getNumDetection(), 1);
+        assertFalse(m.isResolved());
+      }
+      if (m.getMistakeType() == MistakeTypes.OTHER_EXTRA_ASSOCIATION
+          && m.getStudentElements().get(0).getElement() == studentBusCustomerAssociation) {
+        assertEquals(m.getStudentElements().get(0).getElement(), studentBusCustomerAssociation);
         assertEquals(m.getNumDetectionSinceResolved(), 0);
         assertEquals(m.getNumDetection(), 1);
         assertFalse(m.isResolved());
@@ -1121,49 +1170,5 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(comparison.mappedAttribute.get(instructorPassengerClassAttributeName),
         studentPassengerClassAttributeName);
     assertEquals(solution1.getMistakes().size(), 0);
-  }
-
-  /**
-   * Function to print the mapped, unmapped classifier or attributes.
-   */
-  public void log(Comparison comparison) {
-    System.out.println();
-    System.out.println("----Test Logger-----");
-    System.out.print("Not Mapped InstructorClassifier List : ");
-    for (Classifier c : comparison.notMappedInstructorClassifier) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.print("Not Mapped extraStudentClassifier : ");
-    for (Classifier c : comparison.extraStudentClassifier) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.println("Mapped Classifiers : ");
-    comparison.mappedClassifier
-        .forEach((key, value) -> System.out.println(key.getName() + " = " + value.getName()));
-    System.out.println();
-    System.out.print("Not Mapped InstructorAttribute List : ");
-    for (Attribute c : comparison.notMappedInstructorAttribute) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.print("Not Mapped extraStudentAttribute : ");
-    for (Attribute c : comparison.extraStudentAttribute) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.print("duplicate Attribute : ");
-    for (Attribute c : comparison.duplicateStudentAttribute) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.println("Mapped Attributes : ");
-    comparison.mappedAttribute.forEach((key, value) -> System.out.println(
-        key.getType() + " " + key.getName() + " = " + value.getType() + " " + value.getName()));
-  }
-
-  private boolean mistakesContainMistakeType(List<Mistake> mistakes, MistakeType mistakeType) {
-    return mistakes.stream().anyMatch(mistake -> mistake.getMistakeType().equals(mistakeType));
   }
 }
