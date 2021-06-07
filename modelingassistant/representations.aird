@@ -8,6 +8,7 @@
     <semanticResources>platform:/resource/ModelingAssistant/model/classdiagram_modified.ecore</semanticResources>
     <semanticResources>platform:/resource/ModelingAssistant/model/classdiagram.ecore</semanticResources>
     <semanticResources>model/modelingassistant.genmodel</semanticResources>
+    <semanticResources>pom.xml</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_sM2lgGVtEeu25_uYr0tc7g">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uiMFMWVtEeu25_uYr0tc7g" name="modelingassistant" repPath="#_uhm2YGVtEeu25_uYr0tc7g" changeId="f56fa90e-62a3-49d1-9285-0b43c6270ca7">
