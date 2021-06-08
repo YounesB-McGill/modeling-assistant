@@ -5,14 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import classdiagram.Attribute;
-import classdiagram.Classifier;
-import modelingassistant.Mistake;
-import modelingassistant.MistakeType;
 
-public class MistakeDetectionFunctionLogicTest {
+public class MistakeDetectionHelperFunctionLogicTest {
 
   /**
    * Tests for checking Software Engineering terms, eg, CarData.

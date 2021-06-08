@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import classdiagram.Association;
-import classdiagram.Attribute;
 import classdiagram.ClassDiagram;
 import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
@@ -16,8 +15,8 @@ import modelingassistant.mistaketypes.MistakeTypes;
 import modelingassistant.util.ResourceHelper;
 
 public class MistakeDetectionWrongRelationshipsTest {
-  
-  
+
+
   /**
    * Test to check mapping of relationships (No Mistakes)
    */
@@ -58,7 +57,7 @@ public class MistakeDetectionWrongRelationshipsTest {
         instructorBusPassangerAssociation=assoc;
       }
     }
-       
+
     Association studentBusDriverAssociation=null;
     Association studentBusPassangerAssociation=null;
 
@@ -70,7 +69,7 @@ public class MistakeDetectionWrongRelationshipsTest {
         studentBusPassangerAssociation=assoc;
       }
     }
-    
+
     var comparison = MistakeDetection.compare(solution, solution1);
 
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
@@ -81,14 +80,14 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(comparison.extraStudentAttribute.size(), 0);
     assertEquals(comparison.duplicateStudentAttribute.size(), 0);
     assertEquals(comparison.mappedAttribute.size(), 4);
-        
+
     assertEquals(comparison.notMappedInstructorAssociation.size(), 0);
     assertEquals(comparison.extraStudentAssociation.size(), 0);
     assertEquals(comparison.mappedAssociation.size(), 2);
-    
+
     assertEquals(comparison.mappedAssociation.get(instructorBusDriverAssociation), studentBusDriverAssociation);
     assertEquals(comparison.mappedAssociation.get(instructorBusPassangerAssociation), studentBusPassangerAssociation);
-    
+
     assertEquals(comparison.newMistakes.size(), 0);
     assertEquals(solution1.getMistakes().size(), 0);
   }
@@ -153,7 +152,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDrivrClass);
     assertEquals(comparison.newMistakes.size(), 2);
     assertEquals(solution1.getMistakes().size(), 2);
-    
+
 
     for (Mistake m : solution1.getMistakes()) {
       if (m.getMistakeType() == MistakeTypes.BAD_CLASS_NAME_SPELLING
@@ -174,4 +173,5 @@ public class MistakeDetectionWrongRelationshipsTest {
       }
     }
   }
+
 }

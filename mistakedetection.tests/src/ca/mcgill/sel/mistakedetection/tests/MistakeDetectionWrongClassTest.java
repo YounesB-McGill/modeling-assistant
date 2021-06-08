@@ -3,16 +3,12 @@ package ca.mcgill.sel.mistakedetection.tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.util.List;
 import org.junit.jupiter.api.Test;
-import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import classdiagram.Attribute;
 import classdiagram.ClassDiagram;
 import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
 import modelingassistant.Mistake;
-import modelingassistant.MistakeType;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.mistaketypes.MistakeTypes;
 import modelingassistant.util.ResourceHelper;
@@ -235,16 +231,16 @@ public class MistakeDetectionWrongClassTest {
       }
     }
   }
-  
+
   @Test
   void testCheckMistakePluralClassName() {
     // no mistake
     var studentClass = MistakeDetection.CDF.createClass();
     studentClass.setName("Woman");
-    
+
     var instructorClass = MistakeDetection.CDF.createClass();
     instructorClass.setName("Woman");
-    
+
     assertTrue(MistakeDetection.checkMistakePluralClassName(studentClass,instructorClass).isEmpty());
 
     // mistake
@@ -252,11 +248,12 @@ public class MistakeDetectionWrongClassTest {
     expected.setMistakeType(MistakeTypes.USING_PLURAL_OR_LOWERCASE);
     studentClass = MistakeDetection.CDF.createClass();
     studentClass.setName("Women");
-    
+
     instructorClass = MistakeDetection.CDF.createClass();
     instructorClass.setName("Woman");
-    
+
     var actual = MistakeDetection.checkMistakePluralClassName(studentClass,instructorClass).get();
     assertEquals(expected.getMistakeType(), actual.getMistakeType());
   }
+
 }

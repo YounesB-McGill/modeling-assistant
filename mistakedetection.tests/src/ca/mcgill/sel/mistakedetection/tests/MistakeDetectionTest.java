@@ -19,8 +19,8 @@ import modelingassistant.mistaketypes.MistakeTypes;
 import modelingassistant.util.ResourceHelper;
 
 public class MistakeDetectionTest {
- 
-  
+
+
   /**
    * Test to check if all the classes exist in Instructor solution are loaded in cdmFile
    * */
@@ -126,7 +126,7 @@ public class MistakeDetectionTest {
     List.of(busClass, driverClass, passangerClass).forEach(c -> assertTrue(solution.getClassDiagram().getClasses().contains(c)));
   }
 
-  
+
 
   /**
    * Test to check Mistakes in Metamodel
@@ -272,7 +272,7 @@ public class MistakeDetectionTest {
     assertEquals(comparison.mappedClassifier.get(instructorBusClass),studentBusesClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass),studentDriversClass);
 
-    assertEquals(comparison.newMistakes.size(), 4); 
+    assertEquals(comparison.newMistakes.size(), 4);
     assertEquals(solution1.getMistakes().size(), 4);
 
     for (Mistake m : solution1.getMistakes()) {
@@ -317,7 +317,7 @@ public class MistakeDetectionTest {
     assertEquals(comparison.mappedClassifier.get(instructorBusClass),studentBusesClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass),studentDriversClass);
 
-    assertEquals(comparison.newMistakes.size(), 4); 
+    assertEquals(comparison.newMistakes.size(), 4);
     assertEquals(solution1.getMistakes().size(), 4);
 
     for (Mistake m : solution1.getMistakes()) {
@@ -815,8 +815,6 @@ public class MistakeDetectionTest {
     }
   }
 
-  
-
   /**
    * Function to print the mapped, unmapped classifier or attributes.
    */
@@ -855,13 +853,13 @@ public class MistakeDetectionTest {
     System.out.println("Mapped Attributes : ");
     comparison.mappedAttribute.forEach((key, value) -> System.out
         .println(key.getType() + " " + key.getName() + " = " + value.getType() + " " + value.getName()));
-    
+
     System.out.println();
     System.out.print("Not Mapped Association : ");
     for (Association assoc : comparison.notMappedInstructorAssociation) {
       System.out.print(assoc.getName() + " ");
     }
-    
+
     System.out.println();
     System.out.print("Extra Association : ");
     for (Association assoc : comparison.extraStudentAssociation) {
@@ -871,14 +869,14 @@ public class MistakeDetectionTest {
     System.out.println("Mapped Association : ");
     comparison.mappedAssociation.forEach((key, value) -> System.out
         .println(key.getName() + " " + value.getName()));
-    
+
     System.out.println();
     System.out.println("Mistakes : ");
     comparison.newMistakes.forEach((m) -> System.out
         .println(m.getMistakeType()));
   }
 
-  private static boolean mistakesContainMistakeType(List<Mistake> mistakes, MistakeType mistakeType) {
+  public static boolean mistakesContainMistakeType(List<Mistake> mistakes, MistakeType mistakeType) {
     return mistakes.stream().anyMatch(mistake -> mistake.getMistakeType().equals(mistakeType));
   }
 
