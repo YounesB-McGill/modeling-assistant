@@ -1,0 +1,1 @@
+Add student cdm files to test patterns in this folder

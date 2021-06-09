@@ -1,0 +1,1 @@
+Add student cdm files to test attributes in this folder
