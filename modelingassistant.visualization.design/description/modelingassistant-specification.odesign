@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Sirius Modeling Assistant is deprecated and no longer in use. -->
 <description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="modelingassistant-specification" version="12.0.0.2017041100">
   <ownedViewpoints name="modelingassistant" modelFileExtension="modelingassistant" icon="/org.eclipse.emf/modeling32.png">
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="Modeling Assistant diagram" domainClass="modelingassistant::ModelingAssistant" enablePopupBars="true">
