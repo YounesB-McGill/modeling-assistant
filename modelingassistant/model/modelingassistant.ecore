@@ -22,8 +22,10 @@
         eType="#//MistakeType" containment="true" eOpposite="#//MistakeType/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="studentKnowledges" upperBound="-1"
         eType="#//StudentKnowledge" containment="true" eOpposite="#//StudentKnowledge/modelingAssistant"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypeCategories" upperBound="-1"
-        eType="#//MistakeTypeCategory" containment="true" eOpposite="#//MistakeTypeCategory/modelingAssistant"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypeCategories"
+        upperBound="-1" eType="#//MistakeTypeCategory" containment="true" eOpposite="#//MistakeTypeCategory/modelingAssistant"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feedbackItems" upperBound="-1"
+        eType="#//FeedbackItem" containment="true" eOpposite="#//FeedbackItem/modelingAssistant"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Student" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -137,8 +139,8 @@
         eType="#//SolutionElement" eOpposite="#//SolutionElement/studentElementMistakes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeType" lowerBound="1"
         eType="#//MistakeType" eOpposite="#//MistakeType/mistakes"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="lastFeedback" eType="#//Feedback"
-        eOpposite="#//Feedback/mistakes"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lastFeedback" eType="#//FeedbackItem"
+        eOpposite="#//FeedbackItem/mistakes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="instructorElements" upperBound="-1"
         eType="#//SolutionElement" eOpposite="#//SolutionElement/instructorElementMistakes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="studentSolution" lowerBound="1"
@@ -157,8 +159,6 @@
         eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/feedbacks"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeType" lowerBound="1"
         eType="#//MistakeType" eOpposite="#//MistakeType/feedbacks"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakes" upperBound="-1"
-        eType="#//Mistake" eOpposite="#//Mistake/lastFeedback"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TextResponse" eSuperTypes="#//Feedback"/>
@@ -192,5 +192,13 @@
         eType="#//MistakeTypeCategory" eOpposite="#//MistakeTypeCategory/supercategory"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
         eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/mistakeTypeCategories"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeedbackItem">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakes" eType="#//Mistake"
+        eOpposite="#//Mistake/lastFeedback"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feedback" lowerBound="1"
+        eType="#//Feedback"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
+        eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/feedbackItems"/>
   </eClassifiers>
 </ecore:EPackage>
