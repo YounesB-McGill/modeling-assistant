@@ -19,6 +19,7 @@
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/mistakeTypes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/studentKnowledges"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/mistakeTypeCategories"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/feedbackItems"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//Student">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Student/id"/>
@@ -104,7 +105,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Feedback/highlightSolution"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Feedback/modelingAssistant"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Feedback/mistakeType"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Feedback/mistakes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Feedback/text"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//TextResponse"/>
@@ -130,6 +130,11 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//MistakeTypeCategory/supercategory"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//MistakeTypeCategory/subcategories"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference modelingassistant.ecore#//MistakeTypeCategory/modelingAssistant"/>
+    </genClasses>
+    <genClasses ecoreClass="modelingassistant.ecore#//FeedbackItem">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//FeedbackItem/mistakes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//FeedbackItem/feedback"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//FeedbackItem/modelingAssistant"/>
     </genClasses>
   </genPackages>
   <genPackages prefix="Classdiagram" disposableProviderFactory="true" ecorePackage="classdiagram.ecore#/">
