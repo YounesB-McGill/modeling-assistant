@@ -4,6 +4,7 @@ package classdiagram.impl;
 
 import classdiagram.ClassdiagramPackage;
 import classdiagram.PrimitiveType;
+
 import org.eclipse.emf.ecore.EClass;
 
 /**

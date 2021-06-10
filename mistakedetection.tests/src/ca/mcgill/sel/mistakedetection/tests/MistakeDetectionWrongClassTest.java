@@ -8,9 +8,9 @@ import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import classdiagram.ClassDiagram;
 import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
+import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantFactory;
-import modelingassistant.mistaketypes.MistakeTypes;
 import modelingassistant.util.ResourceHelper;
 
 public class MistakeDetectionWrongClassTest {

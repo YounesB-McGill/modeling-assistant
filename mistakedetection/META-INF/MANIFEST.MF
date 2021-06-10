@@ -4,10 +4,11 @@ Bundle-Name: mistakedetection
 Bundle-SymbolicName: mistakedetection; singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ modelingassistant
 Import-Package: classdiagram,
- modelingassistant,
- modelingassistant.mistaketypes
+ learningcorpus,
+ modelingassistant
 Export-Package: ca.mcgill.sel.mistakedetection
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: mistakedetection

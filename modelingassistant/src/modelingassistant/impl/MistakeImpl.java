@@ -6,12 +6,14 @@ import java.sql.Time;
 
 import java.util.Collection;
 
-import modelingassistant.Feedback;
+import learningcorpus.MistakeType;
+
+import modelingassistant.FeedbackItem;
 import modelingassistant.Mistake;
-import modelingassistant.MistakeType;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -39,12 +41,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link modelingassistant.impl.MistakeImpl#getTimeToAddress <em>Time To Address</em>}</li>
  *   <li>{@link modelingassistant.impl.MistakeImpl#getNumStepsBeforeNotification <em>Num Steps Before Notification</em>}</li>
  *   <li>{@link modelingassistant.impl.MistakeImpl#getStudentElements <em>Student Elements</em>}</li>
- *   <li>{@link modelingassistant.impl.MistakeImpl#getMistakeType <em>Mistake Type</em>}</li>
  *   <li>{@link modelingassistant.impl.MistakeImpl#getLastFeedback <em>Last Feedback</em>}</li>
  *   <li>{@link modelingassistant.impl.MistakeImpl#getInstructorElements <em>Instructor Elements</em>}</li>
  *   <li>{@link modelingassistant.impl.MistakeImpl#getStudentSolution <em>Student Solution</em>}</li>
  *   <li>{@link modelingassistant.impl.MistakeImpl#getNumDetection <em>Num Detection</em>}</li>
  *   <li>{@link modelingassistant.impl.MistakeImpl#getNumDetectionSinceResolved <em>Num Detection Since Resolved</em>}</li>
+ *   <li>{@link modelingassistant.impl.MistakeImpl#getMistakeType <em>Mistake Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -121,16 +123,6 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
   protected EList<SolutionElement> studentElements;
 
   /**
-   * The cached value of the '{@link #getMistakeType() <em>Mistake Type</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getMistakeType()
-   * @generated
-   * @ordered
-   */
-  protected MistakeType mistakeType;
-
-  /**
    * The cached value of the '{@link #getLastFeedback() <em>Last Feedback</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -138,7 +130,7 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
    * @generated
    * @ordered
    */
-  protected Feedback lastFeedback;
+  protected FeedbackItem lastFeedback;
 
   /**
    * The cached value of the '{@link #getInstructorElements() <em>Instructor Elements</em>}' reference list.
@@ -191,6 +183,16 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
   protected int numDetectionSinceResolved = NUM_DETECTION_SINCE_RESOLVED_EDEFAULT;
 
   /**
+   * The cached value of the '{@link #getMistakeType() <em>Mistake Type</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getMistakeType()
+   * @generated
+   * @ordered
+   */
+  protected MistakeType mistakeType;
+
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -214,6 +216,7 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isResolved() {
     return resolved;
   }
@@ -223,6 +226,7 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setResolved(boolean newResolved) {
     boolean oldResolved = resolved;
     resolved = newResolved;
@@ -235,6 +239,7 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Time getTimeToAddress() {
     return timeToAddress;
   }
@@ -244,6 +249,7 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTimeToAddress(Time newTimeToAddress) {
     Time oldTimeToAddress = timeToAddress;
     timeToAddress = newTimeToAddress;
@@ -256,6 +262,7 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public int getNumStepsBeforeNotification() {
     return numStepsBeforeNotification;
   }
@@ -265,6 +272,7 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setNumStepsBeforeNotification(int newNumStepsBeforeNotification) {
     int oldNumStepsBeforeNotification = numStepsBeforeNotification;
     numStepsBeforeNotification = newNumStepsBeforeNotification;
@@ -277,6 +285,7 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<SolutionElement> getStudentElements() {
     if (studentElements == null) {
       studentElements = new EObjectWithInverseResolvingEList.ManyInverse<SolutionElement>(SolutionElement.class, this, ModelingassistantPackage.MISTAKE__STUDENT_ELEMENTS, ModelingassistantPackage.SOLUTION_ELEMENT__STUDENT_ELEMENT_MISTAKES);
@@ -289,6 +298,171 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public FeedbackItem getLastFeedback() {
+    if (lastFeedback != null && lastFeedback.eIsProxy()) {
+      InternalEObject oldLastFeedback = (InternalEObject)lastFeedback;
+      lastFeedback = (FeedbackItem)eResolveProxy(oldLastFeedback);
+      if (lastFeedback != oldLastFeedback) {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.MISTAKE__LAST_FEEDBACK, oldLastFeedback, lastFeedback));
+      }
+    }
+    return lastFeedback;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FeedbackItem basicGetLastFeedback() {
+    return lastFeedback;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetLastFeedback(FeedbackItem newLastFeedback, NotificationChain msgs) {
+    FeedbackItem oldLastFeedback = lastFeedback;
+    lastFeedback = newLastFeedback;
+    if (eNotificationRequired()) {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE__LAST_FEEDBACK, oldLastFeedback, newLastFeedback);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setLastFeedback(FeedbackItem newLastFeedback) {
+    if (newLastFeedback != lastFeedback) {
+      NotificationChain msgs = null;
+      if (lastFeedback != null)
+        msgs = ((InternalEObject)lastFeedback).eInverseRemove(this, ModelingassistantPackage.FEEDBACK_ITEM__MISTAKES, FeedbackItem.class, msgs);
+      if (newLastFeedback != null)
+        msgs = ((InternalEObject)newLastFeedback).eInverseAdd(this, ModelingassistantPackage.FEEDBACK_ITEM__MISTAKES, FeedbackItem.class, msgs);
+      msgs = basicSetLastFeedback(newLastFeedback, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE__LAST_FEEDBACK, newLastFeedback, newLastFeedback));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EList<SolutionElement> getInstructorElements() {
+    if (instructorElements == null) {
+      instructorElements = new EObjectWithInverseResolvingEList.ManyInverse<SolutionElement>(SolutionElement.class, this, ModelingassistantPackage.MISTAKE__INSTRUCTOR_ELEMENTS, ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES);
+    }
+    return instructorElements;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Solution getStudentSolution() {
+    if (eContainerFeatureID() != ModelingassistantPackage.MISTAKE__STUDENT_SOLUTION) return null;
+    return (Solution)eInternalContainer();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetStudentSolution(Solution newStudentSolution, NotificationChain msgs) {
+    msgs = eBasicSetContainer((InternalEObject)newStudentSolution, ModelingassistantPackage.MISTAKE__STUDENT_SOLUTION, msgs);
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setStudentSolution(Solution newStudentSolution) {
+    if (newStudentSolution != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.MISTAKE__STUDENT_SOLUTION && newStudentSolution != null)) {
+      if (EcoreUtil.isAncestor(this, newStudentSolution))
+        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+      NotificationChain msgs = null;
+      if (eInternalContainer() != null)
+        msgs = eBasicRemoveFromContainer(msgs);
+      if (newStudentSolution != null)
+        msgs = ((InternalEObject)newStudentSolution).eInverseAdd(this, ModelingassistantPackage.SOLUTION__MISTAKES, Solution.class, msgs);
+      msgs = basicSetStudentSolution(newStudentSolution, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE__STUDENT_SOLUTION, newStudentSolution, newStudentSolution));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public int getNumDetection() {
+    return numDetection;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setNumDetection(int newNumDetection) {
+    int oldNumDetection = numDetection;
+    numDetection = newNumDetection;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE__NUM_DETECTION, oldNumDetection, numDetection));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public int getNumDetectionSinceResolved() {
+    return numDetectionSinceResolved;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setNumDetectionSinceResolved(int newNumDetectionSinceResolved) {
+    int oldNumDetectionSinceResolved = numDetectionSinceResolved;
+    numDetectionSinceResolved = newNumDetectionSinceResolved;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE__NUM_DETECTION_SINCE_RESOLVED, oldNumDetectionSinceResolved, numDetectionSinceResolved));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public MistakeType getMistakeType() {
     if (mistakeType != null && mistakeType.eIsProxy()) {
       InternalEObject oldMistakeType = (InternalEObject)mistakeType;
@@ -315,188 +489,12 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetMistakeType(MistakeType newMistakeType, NotificationChain msgs) {
+  @Override
+  public void setMistakeType(MistakeType newMistakeType) {
     MistakeType oldMistakeType = mistakeType;
     mistakeType = newMistakeType;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE__MISTAKE_TYPE, oldMistakeType, newMistakeType);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setMistakeType(MistakeType newMistakeType) {
-    if (newMistakeType != mistakeType) {
-      NotificationChain msgs = null;
-      if (mistakeType != null)
-        msgs = ((InternalEObject)mistakeType).eInverseRemove(this, ModelingassistantPackage.MISTAKE_TYPE__MISTAKES, MistakeType.class, msgs);
-      if (newMistakeType != null)
-        msgs = ((InternalEObject)newMistakeType).eInverseAdd(this, ModelingassistantPackage.MISTAKE_TYPE__MISTAKES, MistakeType.class, msgs);
-      msgs = basicSetMistakeType(newMistakeType, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE__MISTAKE_TYPE, newMistakeType, newMistakeType));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Feedback getLastFeedback() {
-    if (lastFeedback != null && lastFeedback.eIsProxy()) {
-      InternalEObject oldLastFeedback = (InternalEObject)lastFeedback;
-      lastFeedback = (Feedback)eResolveProxy(oldLastFeedback);
-      if (lastFeedback != oldLastFeedback) {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.MISTAKE__LAST_FEEDBACK, oldLastFeedback, lastFeedback));
-      }
-    }
-    return lastFeedback;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Feedback basicGetLastFeedback() {
-    return lastFeedback;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetLastFeedback(Feedback newLastFeedback, NotificationChain msgs) {
-    Feedback oldLastFeedback = lastFeedback;
-    lastFeedback = newLastFeedback;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE__LAST_FEEDBACK, oldLastFeedback, newLastFeedback);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setLastFeedback(Feedback newLastFeedback) {
-    if (newLastFeedback != lastFeedback) {
-      NotificationChain msgs = null;
-      if (lastFeedback != null)
-        msgs = ((InternalEObject)lastFeedback).eInverseRemove(this, ModelingassistantPackage.FEEDBACK__MISTAKES, Feedback.class, msgs);
-      if (newLastFeedback != null)
-        msgs = ((InternalEObject)newLastFeedback).eInverseAdd(this, ModelingassistantPackage.FEEDBACK__MISTAKES, Feedback.class, msgs);
-      msgs = basicSetLastFeedback(newLastFeedback, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE__LAST_FEEDBACK, newLastFeedback, newLastFeedback));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<SolutionElement> getInstructorElements() {
-    if (instructorElements == null) {
-      instructorElements = new EObjectWithInverseResolvingEList.ManyInverse<SolutionElement>(SolutionElement.class, this, ModelingassistantPackage.MISTAKE__INSTRUCTOR_ELEMENTS, ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES);
-    }
-    return instructorElements;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Solution getStudentSolution() {
-    if (eContainerFeatureID() != ModelingassistantPackage.MISTAKE__STUDENT_SOLUTION) return null;
-    return (Solution)eInternalContainer();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetStudentSolution(Solution newStudentSolution, NotificationChain msgs) {
-    msgs = eBasicSetContainer((InternalEObject)newStudentSolution, ModelingassistantPackage.MISTAKE__STUDENT_SOLUTION, msgs);
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setStudentSolution(Solution newStudentSolution) {
-    if (newStudentSolution != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.MISTAKE__STUDENT_SOLUTION && newStudentSolution != null)) {
-      if (EcoreUtil.isAncestor(this, newStudentSolution))
-        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-      NotificationChain msgs = null;
-      if (eInternalContainer() != null)
-        msgs = eBasicRemoveFromContainer(msgs);
-      if (newStudentSolution != null)
-        msgs = ((InternalEObject)newStudentSolution).eInverseAdd(this, ModelingassistantPackage.SOLUTION__MISTAKES, Solution.class, msgs);
-      msgs = basicSetStudentSolution(newStudentSolution, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE__STUDENT_SOLUTION, newStudentSolution, newStudentSolution));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getNumDetection() {
-    return numDetection;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setNumDetection(int newNumDetection) {
-    int oldNumDetection = numDetection;
-    numDetection = newNumDetection;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE__NUM_DETECTION, oldNumDetection, numDetection));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getNumDetectionSinceResolved() {
-    return numDetectionSinceResolved;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setNumDetectionSinceResolved(int newNumDetectionSinceResolved) {
-    int oldNumDetectionSinceResolved = numDetectionSinceResolved;
-    numDetectionSinceResolved = newNumDetectionSinceResolved;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE__NUM_DETECTION_SINCE_RESOLVED, oldNumDetectionSinceResolved, numDetectionSinceResolved));
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE__MISTAKE_TYPE, oldMistakeType, mistakeType));
   }
 
   /**
@@ -510,14 +508,10 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
     switch (featureID) {
       case ModelingassistantPackage.MISTAKE__STUDENT_ELEMENTS:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getStudentElements()).basicAdd(otherEnd, msgs);
-      case ModelingassistantPackage.MISTAKE__MISTAKE_TYPE:
-        if (mistakeType != null)
-          msgs = ((InternalEObject)mistakeType).eInverseRemove(this, ModelingassistantPackage.MISTAKE_TYPE__MISTAKES, MistakeType.class, msgs);
-        return basicSetMistakeType((MistakeType)otherEnd, msgs);
       case ModelingassistantPackage.MISTAKE__LAST_FEEDBACK:
         if (lastFeedback != null)
-          msgs = ((InternalEObject)lastFeedback).eInverseRemove(this, ModelingassistantPackage.FEEDBACK__MISTAKES, Feedback.class, msgs);
-        return basicSetLastFeedback((Feedback)otherEnd, msgs);
+          msgs = ((InternalEObject)lastFeedback).eInverseRemove(this, ModelingassistantPackage.FEEDBACK_ITEM__MISTAKES, FeedbackItem.class, msgs);
+        return basicSetLastFeedback((FeedbackItem)otherEnd, msgs);
       case ModelingassistantPackage.MISTAKE__INSTRUCTOR_ELEMENTS:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getInstructorElements()).basicAdd(otherEnd, msgs);
       case ModelingassistantPackage.MISTAKE__STUDENT_SOLUTION:
@@ -538,8 +532,6 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
     switch (featureID) {
       case ModelingassistantPackage.MISTAKE__STUDENT_ELEMENTS:
         return ((InternalEList<?>)getStudentElements()).basicRemove(otherEnd, msgs);
-      case ModelingassistantPackage.MISTAKE__MISTAKE_TYPE:
-        return basicSetMistakeType(null, msgs);
       case ModelingassistantPackage.MISTAKE__LAST_FEEDBACK:
         return basicSetLastFeedback(null, msgs);
       case ModelingassistantPackage.MISTAKE__INSTRUCTOR_ELEMENTS:
@@ -580,9 +572,6 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
         return getNumStepsBeforeNotification();
       case ModelingassistantPackage.MISTAKE__STUDENT_ELEMENTS:
         return getStudentElements();
-      case ModelingassistantPackage.MISTAKE__MISTAKE_TYPE:
-        if (resolve) return getMistakeType();
-        return basicGetMistakeType();
       case ModelingassistantPackage.MISTAKE__LAST_FEEDBACK:
         if (resolve) return getLastFeedback();
         return basicGetLastFeedback();
@@ -594,6 +583,9 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
         return getNumDetection();
       case ModelingassistantPackage.MISTAKE__NUM_DETECTION_SINCE_RESOLVED:
         return getNumDetectionSinceResolved();
+      case ModelingassistantPackage.MISTAKE__MISTAKE_TYPE:
+        if (resolve) return getMistakeType();
+        return basicGetMistakeType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -620,11 +612,8 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
         getStudentElements().clear();
         getStudentElements().addAll((Collection<? extends SolutionElement>)newValue);
         return;
-      case ModelingassistantPackage.MISTAKE__MISTAKE_TYPE:
-        setMistakeType((MistakeType)newValue);
-        return;
       case ModelingassistantPackage.MISTAKE__LAST_FEEDBACK:
-        setLastFeedback((Feedback)newValue);
+        setLastFeedback((FeedbackItem)newValue);
         return;
       case ModelingassistantPackage.MISTAKE__INSTRUCTOR_ELEMENTS:
         getInstructorElements().clear();
@@ -638,6 +627,9 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
         return;
       case ModelingassistantPackage.MISTAKE__NUM_DETECTION_SINCE_RESOLVED:
         setNumDetectionSinceResolved((Integer)newValue);
+        return;
+      case ModelingassistantPackage.MISTAKE__MISTAKE_TYPE:
+        setMistakeType((MistakeType)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -663,11 +655,8 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
       case ModelingassistantPackage.MISTAKE__STUDENT_ELEMENTS:
         getStudentElements().clear();
         return;
-      case ModelingassistantPackage.MISTAKE__MISTAKE_TYPE:
-        setMistakeType((MistakeType)null);
-        return;
       case ModelingassistantPackage.MISTAKE__LAST_FEEDBACK:
-        setLastFeedback((Feedback)null);
+        setLastFeedback((FeedbackItem)null);
         return;
       case ModelingassistantPackage.MISTAKE__INSTRUCTOR_ELEMENTS:
         getInstructorElements().clear();
@@ -680,6 +669,9 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
         return;
       case ModelingassistantPackage.MISTAKE__NUM_DETECTION_SINCE_RESOLVED:
         setNumDetectionSinceResolved(NUM_DETECTION_SINCE_RESOLVED_EDEFAULT);
+        return;
+      case ModelingassistantPackage.MISTAKE__MISTAKE_TYPE:
+        setMistakeType((MistakeType)null);
         return;
     }
     super.eUnset(featureID);
@@ -701,8 +693,6 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
         return numStepsBeforeNotification != NUM_STEPS_BEFORE_NOTIFICATION_EDEFAULT;
       case ModelingassistantPackage.MISTAKE__STUDENT_ELEMENTS:
         return studentElements != null && !studentElements.isEmpty();
-      case ModelingassistantPackage.MISTAKE__MISTAKE_TYPE:
-        return mistakeType != null;
       case ModelingassistantPackage.MISTAKE__LAST_FEEDBACK:
         return lastFeedback != null;
       case ModelingassistantPackage.MISTAKE__INSTRUCTOR_ELEMENTS:
@@ -713,6 +703,8 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
         return numDetection != NUM_DETECTION_EDEFAULT;
       case ModelingassistantPackage.MISTAKE__NUM_DETECTION_SINCE_RESOLVED:
         return numDetectionSinceResolved != NUM_DETECTION_SINCE_RESOLVED_EDEFAULT;
+      case ModelingassistantPackage.MISTAKE__MISTAKE_TYPE:
+        return mistakeType != null;
     }
     return super.eIsSet(featureID);
   }

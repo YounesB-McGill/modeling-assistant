@@ -55,6 +55,7 @@ public class CDVoidImpl extends ObjectTypeImpl implements CDVoid {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName() {
     try {
       return (String)GET_NAME__EINVOCATION_DELEGATE.dynamicInvoke(this, null);

@@ -68,6 +68,7 @@ public class LayoutImpl extends MinimalEObjectImpl.Container implements Layout {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EMap<EObject, EMap<EObject, LayoutElement>> getContainers() {
     if (containers == null) {
       containers = new EcoreEMap<EObject,EMap<EObject, LayoutElement>>(ClassdiagramPackage.Literals.CONTAINER_MAP, ContainerMapImpl.class, this, ClassdiagramPackage.LAYOUT__CONTAINERS);

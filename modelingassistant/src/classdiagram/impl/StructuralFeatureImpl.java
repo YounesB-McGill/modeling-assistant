@@ -91,6 +91,7 @@ public abstract class StructuralFeatureImpl extends TypedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isStatic() {
     return static_;
   }
@@ -100,6 +101,7 @@ public abstract class StructuralFeatureImpl extends TypedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setStatic(boolean newStatic) {
     boolean oldStatic = static_;
     static_ = newStatic;
@@ -112,6 +114,7 @@ public abstract class StructuralFeatureImpl extends TypedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VisibilityType getVisibility() {
     return visibility;
   }
@@ -121,6 +124,7 @@ public abstract class StructuralFeatureImpl extends TypedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setVisibility(VisibilityType newVisibility) {
     VisibilityType oldVisibility = visibility;
     visibility = newVisibility == null ? VISIBILITY_EDEFAULT : newVisibility;

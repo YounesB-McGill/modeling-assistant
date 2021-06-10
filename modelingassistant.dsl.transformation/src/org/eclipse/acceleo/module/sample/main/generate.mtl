@@ -1,13 +1,13 @@
 [comment encoding = UTF-8 /]
-[module generate('http://cs.mcgill.ca/sel/modelingassistant/1.0')]
+[module generate('http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0')]
 
 [**
  * Generates Markdown table-of-contents from input modeling assistant via MarkdownGenerator, implemented in Java.
  */]
-[query public generateMarkdown(aModelingAssistant : ModelingAssistant) : String
+[query public generateMarkdown(learningCorpus : LearningCorpus) : String
   = invoke('org.eclipse.acceleo.module.sample.main.MarkdownGenerator',
-    'generate(modelingassistant.ModelingAssistant)',
-    Sequence{aModelingAssistant})
+    'generate(learningcorpus.LearningCorpus)',
+    Sequence{learningCorpus})
 /]
 
 [**
@@ -19,21 +19,30 @@
      .replaceAll('/', '_').replaceAll('\\s+', '_').replaceAll('_+', '_').toUpper()
 /]
 
+[**
+ * Gets all the mistake types of the given learning corpus.
+ */]
+[query public mistakeTypes(learningCorpus : LearningCorpus) : Collection(MistakeType)
+  = invoke('org.eclipse.acceleo.module.sample.main.Generate',
+    'getMistakeTypes(learningcorpus.LearningCorpus)',
+    Sequence{learningCorpus})
+/]
 
-[template public generateElement(aModelingAssistant : ModelingAssistant)]
+
+[template public generateElement(learningCorpus : LearningCorpus)]
 [comment @main/]
-[file ('../../modelingassistant/src/modelingassistant/mistaketypes/MistakeTypes.java', false, 'UTF-8')]
-package modelingassistant.mistaketypes;
+[file ('../../modelingassistant/src/learningcorpus/mistaketypes/MistakeTypes.java', false, 'UTF-8')]
+package learningcorpus.mistaketypes;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import learningcorpus.MistakeType;
+import learningcorpus.MistakeTypeCategory;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import modelingassistant.MistakeType;
-import modelingassistant.MistakeTypeCategory;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.util.ModelingassistantResourceFactoryImpl;
@@ -43,7 +52,7 @@ import modelingassistant.util.ModelingassistantResourceFactoryImpl;
  */
 public class MistakeTypes {
 
-  /** The path of the modeling assistant instance with mistake types. */
+  /** The path of the learning corpus instance with mistake types. */
   public static final String MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH =
       "../modelingassistant.visualization.instances/MA1.modelingassistant";
 
@@ -71,7 +80,7 @@ public class MistakeTypes {
 
   // Mistake type categories
 
-  [for(mTC : MistakeTypeCategory | aModelingAssistant.mistakeTypeCategories)]
+  [for(mTC : MistakeTypeCategory | learningCorpus.mistakeTypeCategories)]
   [let lhs : String = 'public static final MistakeTypeCategory ' +
     underscorify(mTC.name)
   ]
@@ -92,7 +101,7 @@ public class MistakeTypes {
 
   // Mistake types
 
-  [for(mT : MistakeType | aModelingAssistant.mistakeTypes)]
+  [for(mT : MistakeType | mistakeTypes(learningCorpus))]
   [let lhs : String = 'public static final MistakeType ' +
     underscorify(mT.name)
   ]
@@ -167,7 +176,7 @@ for mtc in modeling_assistant.mistakeTypeCategories: MISTAKE_TYPE_CATEGORIES_BY_
 for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[ ']' /] = mt
 
 # Mistake type categories
-[for(mTC : MistakeTypeCategory | aModelingAssistant.mistakeTypeCategories)]
+[for(mTC : MistakeTypeCategory | learningCorpus.mistakeTypeCategories)]
 [let lhs : String = underscorify(mTC.name)
   + ': MistakeTypeCategory'
 ]
@@ -185,7 +194,7 @@ for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[
 [/for]
 
 # Mistake types
-[for(mT : MistakeType | aModelingAssistant.mistakeTypes)]
+[for(mT : MistakeType | mistakeTypes(learningCorpus))]
 [let lhs : String = underscorify(mT.name)
   + ': MistakeType'
 ]
@@ -204,6 +213,6 @@ for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[
 [/file]
 
 [file ('../../modelingassistant/corpus_descriptions/README_TOC.md', false, 'UTF-8')]
-[generateMarkdown(aModelingAssistant)/]
+[generateMarkdown(learningCorpus)/]
 [/file]
 [/template]

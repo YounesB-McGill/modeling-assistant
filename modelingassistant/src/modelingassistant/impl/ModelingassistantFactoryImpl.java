@@ -63,23 +63,11 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
       case ModelingassistantPackage.STUDENT: return createStudent();
       case ModelingassistantPackage.PROBLEM_STATEMENT: return createProblemStatement();
       case ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT: return createProblemStatementElement();
-      case ModelingassistantPackage.UML_ELEMENT: return createUmlElement();
       case ModelingassistantPackage.SOLUTION: return createSolution();
       case ModelingassistantPackage.SOLUTION_ELEMENT: return createSolutionElement();
-      case ModelingassistantPackage.LEARNING_ITEM: return createLearningItem();
       case ModelingassistantPackage.STUDENT_KNOWLEDGE: return createStudentKnowledge();
-      case ModelingassistantPackage.MISTAKE_TYPE: return createMistakeType();
       case ModelingassistantPackage.MISTAKE: return createMistake();
-      case ModelingassistantPackage.FEEDBACK: return createFeedback();
-      case ModelingassistantPackage.TEXT_RESPONSE: return createTextResponse();
-      case ModelingassistantPackage.PARAMETRIZED_RESPONSE: return createParametrizedResponse();
-      case ModelingassistantPackage.RESOURCE_RESPONSE: return createResourceResponse();
-      case ModelingassistantPackage.LEARNING_RESOURCE: return createLearningResource();
-      case ModelingassistantPackage.REFERENCE: return createReference();
-      case ModelingassistantPackage.TUTORIAL: return createTutorial();
-      case ModelingassistantPackage.EXAMPLE: return createExample();
-      case ModelingassistantPackage.QUIZ: return createQuiz();
-      case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY: return createMistakeTypeCategory();
+      case ModelingassistantPackage.FEEDBACK_ITEM: return createFeedbackItem();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -120,6 +108,7 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ModelingAssistant createModelingAssistant() {
     ModelingAssistantImpl modelingAssistant = new ModelingAssistantImpl();
     return modelingAssistant;
@@ -130,6 +119,7 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Student createStudent() {
     StudentImpl student = new StudentImpl();
     return student;
@@ -140,6 +130,7 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ProblemStatement createProblemStatement() {
     ProblemStatementImpl problemStatement = new ProblemStatementImpl();
     return problemStatement;
@@ -150,6 +141,7 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ProblemStatementElement createProblemStatementElement() {
     ProblemStatementElementImpl problemStatementElement = new ProblemStatementElementImpl();
     return problemStatementElement;
@@ -160,16 +152,7 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
-  public UmlElement createUmlElement() {
-    UmlElementImpl umlElement = new UmlElementImpl();
-    return umlElement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
+  @Override
   public Solution createSolution() {
     SolutionImpl solution = new SolutionImpl();
     return solution;
@@ -180,6 +163,7 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SolutionElement createSolutionElement() {
     SolutionElementImpl solutionElement = new SolutionElementImpl();
     return solutionElement;
@@ -190,16 +174,7 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
-  public LearningItem createLearningItem() {
-    LearningItemImpl learningItem = new LearningItemImpl();
-    return learningItem;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
+  @Override
   public StudentKnowledge createStudentKnowledge() {
     StudentKnowledgeImpl studentKnowledge = new StudentKnowledgeImpl();
     return studentKnowledge;
@@ -210,16 +185,7 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
-  public MistakeType createMistakeType() {
-    MistakeTypeImpl mistakeType = new MistakeTypeImpl();
-    return mistakeType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
+  @Override
   public Mistake createMistake() {
     MistakeImpl mistake = new MistakeImpl();
     return mistake;
@@ -230,99 +196,10 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
-  public Feedback createFeedback() {
-    FeedbackImpl feedback = new FeedbackImpl();
-    return feedback;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public TextResponse createTextResponse() {
-    TextResponseImpl textResponse = new TextResponseImpl();
-    return textResponse;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ParametrizedResponse createParametrizedResponse() {
-    ParametrizedResponseImpl parametrizedResponse = new ParametrizedResponseImpl();
-    return parametrizedResponse;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ResourceResponse createResourceResponse() {
-    ResourceResponseImpl resourceResponse = new ResourceResponseImpl();
-    return resourceResponse;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public LearningResource createLearningResource() {
-    LearningResourceImpl learningResource = new LearningResourceImpl();
-    return learningResource;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Reference createReference() {
-    ReferenceImpl reference = new ReferenceImpl();
-    return reference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Tutorial createTutorial() {
-    TutorialImpl tutorial = new TutorialImpl();
-    return tutorial;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Example createExample() {
-    ExampleImpl example = new ExampleImpl();
-    return example;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Quiz createQuiz() {
-    QuizImpl quiz = new QuizImpl();
-    return quiz;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public MistakeTypeCategory createMistakeTypeCategory() {
-    MistakeTypeCategoryImpl mistakeTypeCategory = new MistakeTypeCategoryImpl();
-    return mistakeTypeCategory;
+  @Override
+  public FeedbackItem createFeedbackItem() {
+    FeedbackItemImpl feedbackItem = new FeedbackItemImpl();
+    return feedbackItem;
   }
 
   /**
@@ -348,6 +225,7 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ModelingassistantPackage getModelingassistantPackage() {
     return (ModelingassistantPackage)getEPackage();
   }

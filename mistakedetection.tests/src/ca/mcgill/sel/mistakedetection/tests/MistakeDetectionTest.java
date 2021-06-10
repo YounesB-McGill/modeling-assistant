@@ -12,10 +12,10 @@ import classdiagram.Attribute;
 import classdiagram.ClassDiagram;
 import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
+import learningcorpus.MistakeType;
+import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
-import modelingassistant.MistakeType;
 import modelingassistant.ModelingassistantFactory;
-import modelingassistant.mistaketypes.MistakeTypes;
 import modelingassistant.util.ResourceHelper;
 
 public class MistakeDetectionTest {
@@ -867,13 +867,11 @@ public class MistakeDetectionTest {
     }
     System.out.println();
     System.out.println("Mapped Association : ");
-    comparison.mappedAssociation.forEach((key, value) -> System.out
-        .println(key.getName() + " " + value.getName()));
+    comparison.mappedAssociation.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
 
     System.out.println();
     System.out.println("Mistakes : ");
-    comparison.newMistakes.forEach((m) -> System.out
-        .println(m.getMistakeType()));
+    comparison.newMistakes.forEach((m) -> System.out.println(m.getMistakeType()));
   }
 
   public static boolean mistakesContainMistakeType(List<Mistake> mistakes, MistakeType mistakeType) {

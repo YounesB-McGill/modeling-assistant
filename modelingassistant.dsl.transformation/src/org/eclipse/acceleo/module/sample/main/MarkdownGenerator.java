@@ -1,8 +1,8 @@
 package org.eclipse.acceleo.module.sample.main;
 
 import java.util.stream.Collectors;
-import modelingassistant.MistakeTypeCategory;
-import modelingassistant.ModelingAssistant;
+import learningcorpus.LearningCorpus;
+import learningcorpus.MistakeTypeCategory;
 
 /**
  * Generates markdown for mistake types and their categories.
@@ -20,12 +20,11 @@ public class MarkdownGenerator {
   public static final int MAX_NUM_OF_HASHES_IN_HEADING = 6;
 
   /** Generates markdown for the given modeling assistant instance. */
-  public static String generate(ModelingAssistant modelingAssistant) {
+  public static String generate(LearningCorpus learningCorpus) {
     var joiner = Collectors.joining("\n");
-    var topLevelMistakeTypeCategories = modelingAssistant.getMistakeTypeCategories().stream()
-        .filter(mtc -> mtc.getSupercategory() == null).collect(Collectors.toUnmodifiableList());
-    return topLevelMistakeTypeCategories.stream().map(mtc -> getNestedTocOutputFor(mtc, 0)).collect(joiner)
-        + "\n" + topLevelMistakeTypeCategories.stream().map(mtc -> getNestedBodyOutputFor(mtc, 0)).collect(joiner);
+    var topLevelMTCs = learningCorpus.getTopLevelMistakeTypeCategories();
+    return topLevelMTCs.stream().map(mtc -> getNestedTocOutputFor(mtc, 0)).collect(joiner)
+        + "\n" + topLevelMTCs.stream().map(mtc -> getNestedBodyOutputFor(mtc, 0)).collect(joiner);
   }
 
   /** Returns the nested table of contents output for the input in a recursive way. */
