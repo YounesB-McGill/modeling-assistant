@@ -9,5 +9,18 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: modelingassistant,
  org.eclipse.xtext,
  org.eclipse.xtext.xbase,
- org.eclipse.equinox.common;bundle-version="3.5.0"
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.util,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
 Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: modelingassistant.learningcorpus.dsl.validation,
+ modelingassistant.learningcorpus.dsl,
+ modelingassistant.learningcorpus.dsl.generator,
+ modelingassistant.learningcorpus.dsl.scoping,
+ modelingassistant.learningcorpus.dsl.parser.antlr.internal,
+ modelingassistant.learningcorpus.dsl.services,
+ modelingassistant.learningcorpus.dsl.serializer,
+ modelingassistant.learningcorpus.dsl.parser.antlr,
+ modelingassistant.learningcorpus.dsl.formatting2
+Import-Package: org.apache.log4j
