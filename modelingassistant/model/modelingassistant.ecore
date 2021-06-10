@@ -77,6 +77,7 @@
         eType="#//Student" eOpposite="#//Student/studentKnowledges"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
         eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/studentKnowledges"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeType" eType="ecore:EClass learningcorpus.ecore#//MistakeType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Mistake">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -94,6 +95,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numDetection" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numDetectionSinceResolved"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeType" eType="ecore:EClass learningcorpus.ecore#//MistakeType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -103,5 +105,7 @@
         eOpposite="#//Mistake/lastFeedback"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
         eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/feedbackItems"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usefulness" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feedback" eType="ecore:EClass learningcorpus.ecore#//Feedback"/>
   </eClassifiers>
 </ecore:EPackage>
