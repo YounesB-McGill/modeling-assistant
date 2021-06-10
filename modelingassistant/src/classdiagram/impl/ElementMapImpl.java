@@ -248,6 +248,7 @@ public class ElementMapImpl extends MinimalEObjectImpl.Container implements Basi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public int getHash() {
     if (hash == -1) {
       Object theKey = getKey();
@@ -261,6 +262,7 @@ public class ElementMapImpl extends MinimalEObjectImpl.Container implements Basi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setHash(int hash) {
     this.hash = hash;
   }
@@ -270,6 +272,7 @@ public class ElementMapImpl extends MinimalEObjectImpl.Container implements Basi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EObject getKey() {
     return getTypedKey();
   }
@@ -279,6 +282,7 @@ public class ElementMapImpl extends MinimalEObjectImpl.Container implements Basi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setKey(EObject key) {
     setTypedKey(key);
   }
@@ -288,6 +292,7 @@ public class ElementMapImpl extends MinimalEObjectImpl.Container implements Basi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public LayoutElement getValue() {
     return getTypedValue();
   }
@@ -297,6 +302,7 @@ public class ElementMapImpl extends MinimalEObjectImpl.Container implements Basi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public LayoutElement setValue(LayoutElement value) {
     LayoutElement oldValue = getValue();
     setTypedValue(value);

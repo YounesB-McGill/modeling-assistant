@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -71,6 +72,7 @@ public class ProblemStatementElementImpl extends NamedElementImpl implements Pro
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ProblemStatement getProblemStatement() {
     if (eContainerFeatureID() != ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__PROBLEM_STATEMENT) return null;
     return (ProblemStatement)eInternalContainer();
@@ -91,6 +93,7 @@ public class ProblemStatementElementImpl extends NamedElementImpl implements Pro
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setProblemStatement(ProblemStatement newProblemStatement) {
     if (newProblemStatement != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__PROBLEM_STATEMENT && newProblemStatement != null)) {
       if (EcoreUtil.isAncestor(this, newProblemStatement))
@@ -112,6 +115,7 @@ public class ProblemStatementElementImpl extends NamedElementImpl implements Pro
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<SolutionElement> getSolutionElements() {
     if (solutionElements == null) {
       solutionElements = new EObjectWithInverseResolvingEList.ManyInverse<SolutionElement>(SolutionElement.class, this, ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__SOLUTION_ELEMENTS, ModelingassistantPackage.SOLUTION_ELEMENT__PROBLEM_STATEMENT_ELEMENTS);

@@ -25,7 +25,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.Solution#getCurrentMistake <em>Current Mistake</em>}</li>
  *   <li>{@link modelingassistant.Solution#getStudentProblemStatement <em>Student Problem Statement</em>}</li>
  *   <li>{@link modelingassistant.Solution#getInstructorProblemStatement <em>Instructor Problem Statement</em>}</li>
- *   <li>{@link modelingassistant.Solution#getCurrentStudent <em>Current Student</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getSolution()
@@ -200,29 +199,5 @@ public interface Solution extends EObject {
    * @generated
    */
   void setInstructorProblemStatement(ProblemStatement value);
-
-  /**
-   * Returns the value of the '<em><b>Current Student</b></em>' reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.Student#getCurrentSolution <em>Current Solution</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Current Student</em>' reference.
-   * @see #setCurrentStudent(Student)
-   * @see modelingassistant.ModelingassistantPackage#getSolution_CurrentStudent()
-   * @see modelingassistant.Student#getCurrentSolution
-   * @model opposite="currentSolution"
-   * @generated
-   */
-  Student getCurrentStudent();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.Solution#getCurrentStudent <em>Current Student</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Current Student</em>' reference.
-   * @see #getCurrentStudent()
-   * @generated
-   */
-  void setCurrentStudent(Student value);
 
 } // Solution

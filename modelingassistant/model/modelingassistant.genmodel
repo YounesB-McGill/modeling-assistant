@@ -2,7 +2,7 @@
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/modelingassistant/src" modelPluginID="modelingassistant"
     modelName="Modelingassistant" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="11.0" copyrightFields="false"
     operationReflection="true" importOrganizing="true">
   <foreignModel>modelingassistant.ecore</foreignModel>
   <genPackages prefix="Modelingassistant" resource="XMI" disposableProviderFactory="true"
@@ -236,7 +236,7 @@
     <genClasses ecoreClass="classdiagram.ecore#//CDSet"/>
     <genClasses ecoreClass="classdiagram.ecore#//CDSequence"/>
   </genPackages>
-  <genPackages prefix="Learningcorpus" ecorePackage="learningcorpus.ecore#/">
+  <genPackages prefix="Learningcorpus" resource="XMI" ecorePackage="learningcorpus.ecore#/">
     <genDataTypes ecoreDataType="learningcorpus.ecore#//Time"/>
     <genClasses ecoreClass="learningcorpus.ecore#//UmlElement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//UmlElement/learningItems"/>

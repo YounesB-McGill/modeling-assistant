@@ -3,7 +3,6 @@
 package modelingassistant.util;
 
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 
 /**
@@ -24,7 +23,7 @@ public class ModelingassistantResourceImpl extends XMIResourceImpl {
   public ModelingassistantResourceImpl(URI uri) {
     super(uri);
   }
-  
+
   /*
    * Manual code added to ensure ModelingAssistant instances are serialized using UUIDs.
    */

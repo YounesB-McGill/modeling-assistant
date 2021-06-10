@@ -62,4 +62,32 @@
       </editor>
    </extension>
 
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated modelingassistant -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="learningcorpus.presentation.LearningcorpusModelWizardID"
+            name="%_UI_LearningcorpusModelWizard_label"
+            class="learningcorpus.presentation.LearningcorpusModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/LearningcorpusModelFile.gif">
+         <description>%_UI_LearningcorpusModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated modelingassistant -->
+      <editor
+            id="learningcorpus.presentation.LearningcorpusEditorID"
+            name="%_UI_LearningcorpusEditor_label"
+            icon="icons/full/obj16/LearningcorpusModelFile.gif"
+            extensions="learningcorpus"
+            class="learningcorpus.presentation.LearningcorpusEditor"
+            contributorClass="learningcorpus.presentation.LearningcorpusActionBarContributor">
+      </editor>
+   </extension>
+
 </plugin>

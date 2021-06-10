@@ -8,8 +8,8 @@ Bundle-ClassPath: .
 Bundle-Activator: modelingassistant.provider.ModelingassistantEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: classdiagram.provider,
+ learningcorpus.provider,
  modelingassistant.provider
 Require-Bundle: org.eclipse.core.runtime,
  modelingassistant;visibility:=reexport,

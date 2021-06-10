@@ -67,6 +67,7 @@ public abstract class CDCollectionImpl extends ImplementationClassImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Type getType() {
     if (type != null && type.eIsProxy()) {
       InternalEObject oldType = (InternalEObject)type;
@@ -93,6 +94,7 @@ public abstract class CDCollectionImpl extends ImplementationClassImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setType(Type newType) {
     Type oldType = type;
     type = newType;
@@ -115,6 +117,7 @@ public abstract class CDCollectionImpl extends ImplementationClassImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName() {
     try {
       return (String)GET_NAME__EINVOCATION_DELEGATE.dynamicInvoke(this, null);

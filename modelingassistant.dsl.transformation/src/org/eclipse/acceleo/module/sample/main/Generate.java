@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
@@ -18,10 +18,14 @@ import org.eclipse.acceleo.engine.event.IAcceleoTextGenerationListener;
 import org.eclipse.acceleo.engine.generation.strategy.IAcceleoGenerationStrategy;
 import org.eclipse.acceleo.engine.service.AbstractAcceleoGenerator;
 import org.eclipse.emf.common.util.BasicMonitor;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import learningcorpus.LearningCorpus;
+import learningcorpus.LearningcorpusPackage;
+import learningcorpus.MistakeType;
 import modelingassistant.ModelingassistantPackage;
 
 /**
@@ -36,14 +40,14 @@ public class Generate extends AbstractAcceleoGenerator {
      * @generated
      */
     public static final String MODULE_FILE_NAME = "/org/eclipse/acceleo/module/sample/main/generate";
-    
+
     /**
      * The name of the templates that are to be generated.
      *
      * @generated
      */
     public static final String[] TEMPLATE_NAMES = { "generateElement" };
-    
+
     /**
      * The list of properties files from the launch parameters (Launch configuration).
      *
@@ -71,7 +75,7 @@ public class Generate extends AbstractAcceleoGenerator {
 
     /**
      * This allows clients to instantiates a generator with all required information.
-     * 
+     *
      * @param modelURI
      *            URI where the model on which this generator will be used is located.
      * @param targetFolder
@@ -92,7 +96,7 @@ public class Generate extends AbstractAcceleoGenerator {
 
     /**
      * This allows clients to instantiates a generator with all required information.
-     * 
+     *
      * @param model
      *            We'll iterate over the content of this element to find Objects matching the first parameter
      *            of the template we need to call.
@@ -110,10 +114,10 @@ public class Generate extends AbstractAcceleoGenerator {
             List<? extends Object> arguments) throws IOException {
         initialize(model, targetFolder, arguments);
     }
-    
+
     /**
      * This can be used to launch the generation from a standalone application.
-     * 
+     *
      * @param args
      *            Arguments of the generation.
      * @generated
@@ -166,7 +170,7 @@ public class Generate extends AbstractAcceleoGenerator {
 
     /**
      * Launches the generation described by this instance.
-     * 
+     *
      * @param monitor
      *            This will be used to display progress information to the user.
      * @throws IOException
@@ -201,10 +205,10 @@ public class Generate extends AbstractAcceleoGenerator {
 
         super.doGenerate(monitor);
     }
-    
+
     /**
      * If this generator needs to listen to text generation events, listeners can be returned from here.
-     * 
+     *
      * @return List of listeners that are to be notified when text is generated through this launch.
      * @generated
      */
@@ -219,7 +223,7 @@ public class Generate extends AbstractAcceleoGenerator {
          */
         return listeners;
     }
-    
+
     /**
      * If you need to change the way files are generated, this is your entry point.
      * <p>
@@ -237,7 +241,7 @@ public class Generate extends AbstractAcceleoGenerator {
      * <p>
      * All three of these default strategies support merging through JMerge.
      * </p>
-     * 
+     *
      * @return The generation strategy that is to be used for generations launched through this launcher.
      * @generated
      */
@@ -245,11 +249,11 @@ public class Generate extends AbstractAcceleoGenerator {
     public IAcceleoGenerationStrategy getGenerationStrategy() {
         return super.getGenerationStrategy();
     }
-    
+
     /**
      * This will be called in order to find and load the module that will be launched through this launcher.
      * We expect this name not to contain file extension, and the module to be located beside the launcher.
-     * 
+     *
      * @return The name of the module that is to be launched.
      * @generated
      */
@@ -257,12 +261,12 @@ public class Generate extends AbstractAcceleoGenerator {
     public String getModuleName() {
         return MODULE_FILE_NAME;
     }
-    
+
     /**
      * If the module(s) called by this launcher require properties files, return their qualified path from
      * here.Take note that the first added properties files will take precedence over subsequent ones if they
      * contain conflicting keys.
-     * 
+     *
      * @return The list of properties file we need to add to the generation context.
      * @see java.util.ResourceBundle#getBundle(String)
      * @generated
@@ -305,10 +309,10 @@ public class Generate extends AbstractAcceleoGenerator {
          */
         return propertiesFiles;
     }
-    
+
     /**
      * Adds a properties file in the list of properties files.
-     * 
+     *
      * @param propertiesFile
      *            The properties file to add.
      * @generated
@@ -318,10 +322,10 @@ public class Generate extends AbstractAcceleoGenerator {
     public void addPropertiesFile(String propertiesFile) {
         this.propertiesFiles.add(propertiesFile);
     }
-    
+
     /**
      * This will be used to get the list of templates that are to be launched by this launcher.
-     * 
+     *
      * @return The list of templates to call on the module {@link #getModuleName()}.
      * @generated
      */
@@ -329,10 +333,10 @@ public class Generate extends AbstractAcceleoGenerator {
     public String[] getTemplateNames() {
         return TEMPLATE_NAMES;
     }
-    
+
     /**
      * This can be used to update the resource set's package registry with all needed EPackages.
-     * 
+     *
      * @param resourceSet
      *            The resource set which registry has to be updated.
      * @generated NOT
@@ -340,44 +344,45 @@ public class Generate extends AbstractAcceleoGenerator {
     @Override
     public void registerPackages(ResourceSet resourceSet) {
         super.registerPackages(resourceSet);
-        
+
         /*
          * If you want to change the content of this method, do NOT forget to change the "@generated"
          * tag in the Javadoc of this method to "@generated NOT". Without this new tag, any compilation
          * of the Acceleo module with the main template that has caused the creation of this class will
          * revert your modifications.
          */
-        
+
         /*
          * If you need additional package registrations, you can register them here. The following line
          * (in comment) is an example of the package registration for UML.
-         * 
+         *
          * You can use the method  "isInWorkspace(Class c)" to check if the package that you are about to
          * register is in the workspace.
-         * 
+         *
          * To register a package properly, please follow the following conventions:
          *
          * If the package is located in another plug-in, already installed in Eclipse. The following content should
          * have been generated at the beginning of this method. Do not register the package using this mechanism if
          * the metamodel is located in the workspace.
-         *  
+         *
          * if (!isInWorkspace(UMLPackage.class)) {
          *     // The normal package registration if your metamodel is in a plugin.
          *     resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
          * }
-         * 
+         *
          * If the package is located in another project in your workspace, the plugin containing the package has not
          * been register by EMF and Acceleo should register it automatically. If you want to use the generator in
          * stand alone, the regular registration (seen a couple lines before) is needed.
-         * 
+         *
          * To learn more about Package Registration, have a look at the Acceleo documentation (Help -> Help Contents).
          */
         resourceSet.getPackageRegistry().put(ModelingassistantPackage.eNS_URI, ModelingassistantPackage.eINSTANCE);
+        resourceSet.getPackageRegistry().put(LearningcorpusPackage.eNS_URI, LearningcorpusPackage.eINSTANCE);
     }
 
     /**
      * This can be used to update the resource set's resource factory registry with all needed factories.
-     * 
+     *
      * @param resourceSet
      *            The resource set which registry has to be updated.
      * @generated
@@ -409,5 +414,14 @@ public class Generate extends AbstractAcceleoGenerator {
          */ 
         // UMLResourcesUtil.init(resourceSet)
     }
-    
+
+    /**
+     * Helper method to get the learning corpus mistake types.
+     *
+     * @generated NOT
+     */
+    public EList<MistakeType> getMistakeTypes(LearningCorpus learningCorpus) {
+      return learningCorpus.getMistakeTypes();
+    }
+
 }

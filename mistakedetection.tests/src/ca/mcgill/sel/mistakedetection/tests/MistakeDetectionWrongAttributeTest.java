@@ -10,9 +10,9 @@ import classdiagram.Attribute;
 import classdiagram.ClassDiagram;
 import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
+import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantFactory;
-import modelingassistant.mistaketypes.MistakeTypes;
 import modelingassistant.util.ResourceHelper;
 
 public class MistakeDetectionWrongAttributeTest {
@@ -360,7 +360,6 @@ public class MistakeDetectionWrongAttributeTest {
     Association instructorDriverBusAssociation=null;
 
     for (var assoc : classDiagram.getAssociations()) {
-      
       if("Passanger_Bus".equals(assoc.getName())) {
         instructorBusPassangerAssociation=assoc;
       }
@@ -375,7 +374,6 @@ public class MistakeDetectionWrongAttributeTest {
       if ("Driver".equals(c.getName()))
         studentDriverClass = c;
     }
-    
 
     var comparison = MistakeDetection.compare(solution, solution1);
 
@@ -400,11 +398,11 @@ public class MistakeDetectionWrongAttributeTest {
         comparison.notMappedInstructorAttribute.contains(instructorPassengerClassAttributeName));
     assertTrue(
         comparison.notMappedInstructorAttribute.contains(instructorBusClassAttributeCapacity));
-    
+
     assertEquals(comparison.notMappedInstructorAssociation.size(), 2);
     assertEquals(comparison.extraStudentAssociation.size(), 0);
     assertEquals(comparison.mappedAssociation.size(), 0);
-    
+
     assertEquals(comparison.newMistakes.size(), 8);
     assertEquals(solution1.getMistakes().size(), 8);
     for (Mistake m : solution1.getMistakes()) {
@@ -722,7 +720,6 @@ public class MistakeDetectionWrongAttributeTest {
     Association studentBusCustomerAssociation=null;
 
     for (var assoc : classDiagram1.getAssociations()) {
-      
       if("Bus_Customer".equals(assoc.getName())) {
         studentBusCustomerAssociation=assoc;
       }
@@ -750,10 +747,10 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(comparison.mappedAttribute.get(instructorDriverClassAttributeName),
         studentDriverClassAttributeName);
     assertTrue(comparison.extraStudentAttribute.contains(studentCustomerClassAttributeName));
-   
+
     assertEquals(comparison.newMistakes.size(), 3);
     assertEquals(solution1.getMistakes().size(), 3);
-    
+
     assertEquals(comparison.notMappedInstructorAssociation.size(), 0);
     assertEquals(comparison.extraStudentAssociation.size(), 1);
     assertEquals(comparison.mappedAssociation.size(), 2);
