@@ -1,20 +1,95 @@
 <?xml version="1.0" encoding="ASCII"?>
-<learningcorpus:LearningCorpus xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:learningcorpus="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0" xmi:id="_ZTP9MMqBEeuxWKyQPLmYyQ">
-  <mistakeTypeCategories xmi:id="_ZTP9McqBEeuxWKyQPLmYyQ" name="Wrong class" subcategories="_ZTP9NMqBEeuxWKyQPLmYyQ _ZTP9OMqBEeuxWKyQPLmYyQ">
-    <mistakeTypes xmi:id="_ZTP9MsqBEeuxWKyQPLmYyQ" name="Missing class"/>
-    <mistakeTypes xmi:id="_ZTP9M8qBEeuxWKyQPLmYyQ" name="Extra (redundant) class"/>
+<learningcorpus:LearningCorpus xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:learningcorpus="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0" xmi:id="_sLr9MMsNEeumCrs-Wg5P2Q">
+  <mistakeTypeCategories xmi:id="_sLr9McsNEeumCrs-Wg5P2Q" name="Wrong class" subcategories="_sLr9NMsNEeumCrs-Wg5P2Q _sLr9OssNEeumCrs-Wg5P2Q">
+    <mistakeTypes xmi:id="_sLr9MssNEeumCrs-Wg5P2Q" name="Missing class"/>
+    <mistakeTypes xmi:id="_sLr9M8sNEeumCrs-Wg5P2Q" name="Extra (redundant) class"/>
   </mistakeTypeCategories>
-  <mistakeTypeCategories xmi:id="_ZTP9NMqBEeuxWKyQPLmYyQ" name="Wrong enumeration" supercategory="_ZTP9McqBEeuxWKyQPLmYyQ">
-    <mistakeTypes xmi:id="_ZTP9NcqBEeuxWKyQPLmYyQ" name="Regular class should be an enumeration"/>
-    <mistakeTypes xmi:id="_ZTP9NsqBEeuxWKyQPLmYyQ" name="Enumeration should be a regular class"/>
-    <mistakeTypes xmi:id="_ZTP9N8qBEeuxWKyQPLmYyQ" name="Wrong enumeration items"/>
+  <mistakeTypeCategories xmi:id="_sLr9NMsNEeumCrs-Wg5P2Q" name="Wrong class name" supercategory="_sLr9McsNEeumCrs-Wg5P2Q">
+    <mistakeTypes xmi:id="_sLr9NcsNEeumCrs-Wg5P2Q" name="Plural class name"/>
+    <mistakeTypes xmi:id="_sLr9NssNEeumCrs-Wg5P2Q" name="Lowercase class name"/>
+    <mistakeTypes xmi:id="_sLr9N8sNEeumCrs-Wg5P2Q" name="Software engineering term" atomic="true" numStepsBeforeNotification="3"/>
+    <mistakeTypes xmi:id="_sLr9OMsNEeumCrs-Wg5P2Q" name="Bad class name spelling" atomic="true"/>
+    <mistakeTypes xmi:id="_sLr9OcsNEeumCrs-Wg5P2Q" name="Similar (yet incorrect) class name" atomic="true"/>
   </mistakeTypeCategories>
-  <mistakeTypeCategories xmi:id="_ZTP9OMqBEeuxWKyQPLmYyQ" name="Wrong class name" supercategory="_ZTP9McqBEeuxWKyQPLmYyQ">
-    <mistakeTypes xmi:id="_ZTP9OcqBEeuxWKyQPLmYyQ" name="Plural class name"/>
-    <mistakeTypes xmi:id="_ZTP9OsqBEeuxWKyQPLmYyQ" name="Lowercase class name"/>
-    <mistakeTypes xmi:id="_ZTP9O8qBEeuxWKyQPLmYyQ" name="Software engineering term" atomic="true" numStepsBeforeNotification="3"/>
-    <mistakeTypes xmi:id="_ZTP9PMqBEeuxWKyQPLmYyQ" name="Bad class name spelling" atomic="true"/>
-    <mistakeTypes xmi:id="_ZTP9PcqBEeuxWKyQPLmYyQ" name="Similar (yet incorrect) class name" atomic="true"/>
+  <mistakeTypeCategories xmi:id="_sLr9OssNEeumCrs-Wg5P2Q" name="Wrong enumeration" supercategory="_sLr9McsNEeumCrs-Wg5P2Q">
+    <mistakeTypes xmi:id="_sLr9O8sNEeumCrs-Wg5P2Q" name="Regular class should be an enumeration"/>
+    <mistakeTypes xmi:id="_sLr9PMsNEeumCrs-Wg5P2Q" name="Enumeration should be a regular class"/>
+    <mistakeTypes xmi:id="_sLr9PcsNEeumCrs-Wg5P2Q" name="Wrong enumeration items"/>
   </mistakeTypeCategories>
-  <learningItems xmi:id="_ZTP9PsqBEeuxWKyQPLmYyQ" name="DomainModeling" description="Description"/>
+  <mistakeTypeCategories xmi:id="_sLr9PssNEeumCrs-Wg5P2Q" name="Wrong attribute" subcategories="_sLr9Q8sNEeumCrs-Wg5P2Q _sLr9R8sNEeumCrs-Wg5P2Q _sLr9SssNEeumCrs-Wg5P2Q">
+    <mistakeTypes xmi:id="_sLr9P8sNEeumCrs-Wg5P2Q" name="Missing attribute"/>
+    <mistakeTypes xmi:id="_sLr9QMsNEeumCrs-Wg5P2Q" name="Wrong attribute type"/>
+    <mistakeTypes xmi:id="_sLr9QcsNEeumCrs-Wg5P2Q" name="Attribute should be static"/>
+    <mistakeTypes xmi:id="_sLr9QssNEeumCrs-Wg5P2Q" name="Attribute should not be static"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xmi:id="_sLr9Q8sNEeumCrs-Wg5P2Q" name="Extra (redundant) attribute" supercategory="_sLr9PssNEeumCrs-Wg5P2Q">
+    <mistakeTypes xmi:id="_sLr9RMsNEeumCrs-Wg5P2Q" name="Plural attribute"/>
+    <mistakeTypes xmi:id="_sLr9RcsNEeumCrs-Wg5P2Q" name="List attribute"/>
+    <mistakeTypes xmi:id="_sLr9RssNEeumCrs-Wg5P2Q" name="Other extra attribute"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xmi:id="_sLr9R8sNEeumCrs-Wg5P2Q" name="Wrong attribute name" supercategory="_sLr9PssNEeumCrs-Wg5P2Q">
+    <mistakeTypes xmi:id="_sLr9SMsNEeumCrs-Wg5P2Q" name="Bad attribute name spelling"/>
+    <mistakeTypes xmi:id="_sLr9ScsNEeumCrs-Wg5P2Q" name="Similar (yet incorrect) attribute name"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xmi:id="_sLr9SssNEeumCrs-Wg5P2Q" name="Attribute in wrong class" supercategory="_sLr9PssNEeumCrs-Wg5P2Q"/>
+  <mistakeTypeCategories xmi:id="_sLr9S8sNEeumCrs-Wg5P2Q" name="Wrong relationship" subcategories="_sLr9TcsNEeumCrs-Wg5P2Q _sLr9UssNEeumCrs-Wg5P2Q _sLr9VssNEeumCrs-Wg5P2Q _sLr9XcsNEeumCrs-Wg5P2Q _sLr9YcsNEeumCrs-Wg5P2Q _sLr9ZMsNEeumCrs-Wg5P2Q _sLr9a8sNEeumCrs-Wg5P2Q _sLr9cMsNEeumCrs-Wg5P2Q">
+    <mistakeTypes xmi:id="_sLr9TMsNEeumCrs-Wg5P2Q" name="Incomplete containment tree"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xmi:id="_sLr9TcsNEeumCrs-Wg5P2Q" name="Missing relationship" supercategory="_sLr9S8sNEeumCrs-Wg5P2Q">
+    <mistakeTypes xmi:id="_sLr9TssNEeumCrs-Wg5P2Q" name="Missing association"/>
+    <mistakeTypes xmi:id="_sLr9T8sNEeumCrs-Wg5P2Q" name="Missing composition"/>
+    <mistakeTypes xmi:id="_sLr9UMsNEeumCrs-Wg5P2Q" name="Missing aggregation"/>
+    <mistakeTypes xmi:id="_sLr9UcsNEeumCrs-Wg5P2Q" name="Using an attribute instead of an association"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xmi:id="_sLr9UssNEeumCrs-Wg5P2Q" name="Extra (redundant) association" supercategory="_sLr9S8sNEeumCrs-Wg5P2Q">
+    <mistakeTypes xmi:id="_sLr9U8sNEeumCrs-Wg5P2Q" name="Representing an action with an association"/>
+    <mistakeTypes xmi:id="_sLr9VMsNEeumCrs-Wg5P2Q" name="Composed part contained in more than one parent"/>
+    <mistakeTypes xmi:id="_sLr9VcsNEeumCrs-Wg5P2Q" name="Other extra association"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xmi:id="_sLr9VssNEeumCrs-Wg5P2Q" name="Using wrong relationship type" supercategory="_sLr9S8sNEeumCrs-Wg5P2Q">
+    <mistakeTypes xmi:id="_sLr9V8sNEeumCrs-Wg5P2Q" name="Using an association instead of an aggregation/composition"/>
+    <mistakeTypes xmi:id="_sLr9WMsNEeumCrs-Wg5P2Q" name="Using an aggregation/composition instead of an association"/>
+    <mistakeTypes xmi:id="_sLr9WcsNEeumCrs-Wg5P2Q" name="Using a directed association instead of an undirected one"/>
+    <mistakeTypes xmi:id="_sLr9WssNEeumCrs-Wg5P2Q" name="Using an undirected association instead of a directed one"/>
+    <mistakeTypes xmi:id="_sLr9W8sNEeumCrs-Wg5P2Q" name="Using aggregation instead of composition"/>
+    <mistakeTypes xmi:id="_sLr9XMsNEeumCrs-Wg5P2Q" name="Using composition instead of aggregation"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xmi:id="_sLr9XcsNEeumCrs-Wg5P2Q" name="Wrong association name" supercategory="_sLr9S8sNEeumCrs-Wg5P2Q">
+    <mistakeTypes xmi:id="_sLr9XssNEeumCrs-Wg5P2Q" name="Missing association name when one was expected"/>
+    <mistakeTypes xmi:id="_sLr9X8sNEeumCrs-Wg5P2Q" name="Bad association name spelling"/>
+    <mistakeTypes xmi:id="_sLr9YMsNEeumCrs-Wg5P2Q" name="Similar (yet incorrect) association name"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xmi:id="_sLr9YcsNEeumCrs-Wg5P2Q" name="Wrong multiplicities" supercategory="_sLr9S8sNEeumCrs-Wg5P2Q">
+    <mistakeTypes xmi:id="_sLr9YssNEeumCrs-Wg5P2Q" name="Infinite recursive dependency"/>
+    <mistakeTypes xmi:id="_sLr9Y8sNEeumCrs-Wg5P2Q" name="Other wrong multiplicity"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xmi:id="_sLr9ZMsNEeumCrs-Wg5P2Q" name="Wrong role names" supercategory="_sLr9S8sNEeumCrs-Wg5P2Q">
+    <mistakeTypes xmi:id="_sLr9ZcsNEeumCrs-Wg5P2Q" name="Missing role names"/>
+    <mistakeTypes xmi:id="_sLr9ZssNEeumCrs-Wg5P2Q" name="Role names present but incorrect"/>
+    <mistakeTypes xmi:id="_sLr9Z8sNEeumCrs-Wg5P2Q" name="Role should be static"/>
+    <mistakeTypes xmi:id="_sLr9aMsNEeumCrs-Wg5P2Q" name="Role should not be static"/>
+    <mistakeTypes xmi:id="_sLr9acsNEeumCrs-Wg5P2Q" name="Bad role name spelling"/>
+    <mistakeTypes xmi:id="_sLr9assNEeumCrs-Wg5P2Q" name="Similar (yet incorrect) role name"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xmi:id="_sLr9a8sNEeumCrs-Wg5P2Q" name="Wrong association class" supercategory="_sLr9S8sNEeumCrs-Wg5P2Q">
+    <mistakeTypes xmi:id="_sLr9bMsNEeumCrs-Wg5P2Q" name="Missing association class"/>
+    <mistakeTypes xmi:id="_sLr9bcsNEeumCrs-Wg5P2Q" name="Extra (redundant) association class"/>
+    <mistakeTypes xmi:id="_sLr9bssNEeumCrs-Wg5P2Q" name="Bad association class name spelling"/>
+    <mistakeTypes xmi:id="_sLr9b8sNEeumCrs-Wg5P2Q" name="Similar (yet incorrect) association class name"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xmi:id="_sLr9cMsNEeumCrs-Wg5P2Q" name="Wrong generalization" supercategory="_sLr9S8sNEeumCrs-Wg5P2Q">
+    <mistakeTypes xmi:id="_sLr9ccsNEeumCrs-Wg5P2Q" name="Missing generalization"/>
+    <mistakeTypes xmi:id="_sLr9cssNEeumCrs-Wg5P2Q" name="Generalization inapplicable"/>
+    <mistakeTypes xmi:id="_sLr9c8sNEeumCrs-Wg5P2Q" name="Subclass not distinct across lifetime"/>
+    <mistakeTypes xmi:id="_sLr9dMsNEeumCrs-Wg5P2Q" name="Inherited feature does not make sense for subclass"/>
+    <mistakeTypes xmi:id="_sLr9dcsNEeumCrs-Wg5P2Q" name="Subclass is an instance of superclass"/>
+    <mistakeTypes xmi:id="_sLr9dssNEeumCrs-Wg5P2Q" name="Non-differentiated subclass"/>
+    <mistakeTypes xmi:id="_sLr9d8sNEeumCrs-Wg5P2Q" name="Wrong generalization direction"/>
+    <mistakeTypes xmi:id="_sLr9eMsNEeumCrs-Wg5P2Q" name="Wrong superclass"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xmi:id="_sLr9ecsNEeumCrs-Wg5P2Q" name="Misuse of design patterns">
+    <mistakeTypes xmi:id="_sLr9essNEeumCrs-Wg5P2Q" name="Misuse of Player-Role Pattern"/>
+    <mistakeTypes xmi:id="_sLr9e8sNEeumCrs-Wg5P2Q" name="Misuse of Abstraction-Occurrence"/>
+  </mistakeTypeCategories>
+  <learningItems xmi:id="_sLr9fMsNEeumCrs-Wg5P2Q" name="DomainModeling" description="Description"/>
 </learningcorpus:LearningCorpus>
