@@ -51,6 +51,7 @@ public class XmiExporter {
     var learningCorpus = LearningCorpus.fromFile(target);
     Map<String, MistakeTypeCategory> namesToMtc = new HashMap<String, MistakeTypeCategory>();
 
+    // TODO refactor to remove side effects
     learningCorpus.getMistakeTypeCategories().stream().map(mtc -> {
       // get real names of all MTCs
       var name = mtc.getName();
