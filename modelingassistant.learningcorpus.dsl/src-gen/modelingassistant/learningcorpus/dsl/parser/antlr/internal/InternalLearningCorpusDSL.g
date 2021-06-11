@@ -77,23 +77,44 @@ ruleLearningCorpus returns [EObject current=null]
 }:
 	(
 		(
-			{
-				newCompositeNode(grammarAccess.getLearningCorpusAccess().getMistakeTypeCategoriesMistakeTypeCategoryParserRuleCall_0());
-			}
-			lv_mistakeTypeCategories_0_0=ruleMistakeTypeCategory
-			{
-				if ($current==null) {
-					$current = createModelElementForParent(grammarAccess.getLearningCorpusRule());
+			(
+				{
+					newCompositeNode(grammarAccess.getLearningCorpusAccess().getMistakeTypeCategoriesMistakeTypeCategoryParserRuleCall_0_0());
 				}
-				add(
-					$current,
-					"mistakeTypeCategories",
-					lv_mistakeTypeCategories_0_0,
-					"modelingassistant.learningcorpus.dsl.LearningCorpusDSL.MistakeTypeCategory");
-				afterParserOrEnumRuleCall();
-			}
-		)
-	)*
+				lv_mistakeTypeCategories_0_0=ruleMistakeTypeCategory
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getLearningCorpusRule());
+					}
+					add(
+						$current,
+						"mistakeTypeCategories",
+						lv_mistakeTypeCategories_0_0,
+						"modelingassistant.learningcorpus.dsl.LearningCorpusDSL.MistakeTypeCategory");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getLearningCorpusAccess().getLearningItemsLearningItemParserRuleCall_1_0());
+				}
+				lv_learningItems_1_0=ruleLearningItem
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getLearningCorpusRule());
+					}
+					add(
+						$current,
+						"learningItems",
+						lv_learningItems_1_0,
+						"modelingassistant.learningcorpus.dsl.LearningCorpusDSL.LearningItem");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+	)
 ;
 
 // Entry rule entryRuleMistakeTypeCategory
@@ -112,22 +133,255 @@ ruleMistakeTypeCategory returns [EObject current=null]
 	leaveRule();
 }:
 	(
+		otherlv_0='MistakeTypeCategory'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getMistakeTypeCategoryAccess().getMistakeTypeCategoryKeyword_0());
+		}
 		(
-			lv_name_0_0=RULE_ID
-			{
-				newLeafNode(lv_name_0_0, grammarAccess.getMistakeTypeCategoryAccess().getNameIDTerminalRuleCall_0());
-			}
-			{
-				if ($current==null) {
-					$current = createModelElement(grammarAccess.getMistakeTypeCategoryRule());
+			(
+				{
+					newCompositeNode(grammarAccess.getMistakeTypeCategoryAccess().getNameEStringParserRuleCall_1_0());
 				}
-				setWithLastConsumed(
-					$current,
-					"name",
-					lv_name_0_0,
-					"org.eclipse.xtext.common.Terminals.ID");
-			}
+				lv_name_1_0=ruleEString
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getMistakeTypeCategoryRule());
+					}
+					set(
+						$current,
+						"name",
+						lv_name_1_0,
+						"modelingassistant.learningcorpus.dsl.LearningCorpusDSL.EString");
+					afterParserOrEnumRuleCall();
+				}
+			)
 		)
+		otherlv_2='{'
+		{
+			newLeafNode(otherlv_2, grammarAccess.getMistakeTypeCategoryAccess().getLeftCurlyBracketKeyword_2());
+		}
+		otherlv_3='mistakeTypes'
+		{
+			newLeafNode(otherlv_3, grammarAccess.getMistakeTypeCategoryAccess().getMistakeTypesKeyword_3());
+		}
+		(
+			this_WS_4=RULE_WS
+			{
+				newLeafNode(this_WS_4, grammarAccess.getMistakeTypeCategoryAccess().getWSTerminalRuleCall_4());
+			}
+		)*
+		otherlv_5='{'
+		{
+			newLeafNode(otherlv_5, grammarAccess.getMistakeTypeCategoryAccess().getLeftCurlyBracketKeyword_5());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getMistakeTypeCategoryAccess().getMistakeTypesMistakeTypeParserRuleCall_6_0());
+				}
+				lv_mistakeTypes_6_0=ruleMistakeType
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getMistakeTypeCategoryRule());
+					}
+					add(
+						$current,
+						"mistakeTypes",
+						lv_mistakeTypes_6_0,
+						"modelingassistant.learningcorpus.dsl.LearningCorpusDSL.MistakeType");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+		otherlv_7='}'
+		{
+			newLeafNode(otherlv_7, grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_7());
+		}
+		otherlv_8='}'
+		{
+			newLeafNode(otherlv_8, grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_8());
+		}
+	)
+;
+
+// Entry rule entryRuleMistakeType
+entryRuleMistakeType returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getMistakeTypeRule()); }
+	iv_ruleMistakeType=ruleMistakeType
+	{ $current=$iv_ruleMistakeType.current; }
+	EOF;
+
+// Rule MistakeType
+ruleMistakeType returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='Mistake'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getMistakeTypeAccess().getMistakeKeyword_0());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getMistakeTypeAccess().getNameEStringParserRuleCall_1_0());
+				}
+				lv_name_1_0=ruleEString
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getMistakeTypeRule());
+					}
+					set(
+						$current,
+						"name",
+						lv_name_1_0,
+						"modelingassistant.learningcorpus.dsl.LearningCorpusDSL.EString");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		(
+			(
+				lv_atomic_2_0='atomic'
+				{
+					newLeafNode(lv_atomic_2_0, grammarAccess.getMistakeTypeAccess().getAtomicAtomicKeyword_2_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getMistakeTypeRule());
+					}
+					setWithLastConsumed($current, "atomic", lv_atomic_2_0 != null, "atomic");
+				}
+			)
+		)?
+		(
+			(
+				lv_numStepsBeforeNotification_3_0=RULE_INT
+				{
+					newLeafNode(lv_numStepsBeforeNotification_3_0, grammarAccess.getMistakeTypeAccess().getNumStepsBeforeNotificationINTTerminalRuleCall_3_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getMistakeTypeRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"numStepsBeforeNotification",
+						lv_numStepsBeforeNotification_3_0,
+						"org.eclipse.xtext.common.Terminals.INT");
+				}
+			)
+		)?
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getMistakeTypeRule());
+					}
+				}
+				otherlv_4=RULE_ID
+				{
+					newLeafNode(otherlv_4, grammarAccess.getMistakeTypeAccess().getLearningItemLearningItemCrossReference_4_0());
+				}
+			)
+		)
+	)
+;
+
+// Entry rule entryRuleLearningItem
+entryRuleLearningItem returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getLearningItemRule()); }
+	iv_ruleLearningItem=ruleLearningItem
+	{ $current=$iv_ruleLearningItem.current; }
+	EOF;
+
+// Rule LearningItem
+ruleLearningItem returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='LearningItem'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getLearningItemAccess().getLearningItemKeyword_0());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getLearningItemAccess().getNameEStringParserRuleCall_1_0());
+				}
+				lv_name_1_0=ruleEString
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getLearningItemRule());
+					}
+					set(
+						$current,
+						"name",
+						lv_name_1_0,
+						"modelingassistant.learningcorpus.dsl.LearningCorpusDSL.EString");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		(
+			(
+				lv_description_2_0=RULE_STRING
+				{
+					newLeafNode(lv_description_2_0, grammarAccess.getLearningItemAccess().getDescriptionSTRINGTerminalRuleCall_2_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getLearningItemRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"description",
+						lv_description_2_0,
+						"org.eclipse.xtext.common.Terminals.STRING");
+				}
+			)
+		)
+	)
+;
+
+// Entry rule entryRuleEString
+entryRuleEString returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getEStringRule()); }
+	iv_ruleEString=ruleEString
+	{ $current=$iv_ruleEString.current.getText(); }
+	EOF;
+
+// Rule EString
+ruleEString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		this_STRING_0=RULE_STRING
+		{
+			$current.merge(this_STRING_0);
+		}
+		{
+			newLeafNode(this_STRING_0, grammarAccess.getEStringAccess().getSTRINGTerminalRuleCall_0());
+		}
+		    |
+		this_ID_1=RULE_ID
+		{
+			$current.merge(this_ID_1);
+		}
+		{
+			newLeafNode(this_ID_1, grammarAccess.getEStringAccess().getIDTerminalRuleCall_1());
+		}
 	)
 ;
 

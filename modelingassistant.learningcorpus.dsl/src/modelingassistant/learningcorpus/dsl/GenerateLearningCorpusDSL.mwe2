@@ -32,7 +32,7 @@ Workflow {
 		}
 		language = StandardLanguage {
 			name = "modelingassistant.learningcorpus.dsl.LearningCorpusDSL"
-			fileExtensions = "learningcorpus"
+			fileExtensions = "learningcorpusdsl"
 			referencedResource = "platform:/resource/modelingassistant/model/modelingassistant.genmodel"
 			
 			fragment = ecore2xtext.Ecore2XtextValueConverterServiceFragment2 auto-inject {}

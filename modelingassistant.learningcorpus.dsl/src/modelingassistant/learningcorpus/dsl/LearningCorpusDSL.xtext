@@ -7,10 +7,35 @@ import "http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0" as learnin
 
 LearningCorpus returns learningcorpus::LearningCorpus:
     mistakeTypeCategories+=MistakeTypeCategory*
+    learningItems+=LearningItem*
 ;
 
+/**
+ * Creates a mistake type category. Since Xtext does not support recursion,
+ * the name of the mistake type category must be written as follows:
+ * 
+ * '"MTC Name" [-> "Supercategory name"]'
+ * 
+ * To generate the final output with the correct names, run the script in the instances project
+ */
 MistakeTypeCategory returns learningcorpus::MistakeTypeCategory:
-    name=ID
+    'MistakeTypeCategory' name=EString '{' // TODO Refactor to somehow include parent/children MTCs
+        'mistakeTypes' WS* '{'
+            mistakeTypes+=MistakeType*
+        '}'
+    '}'
+;
+
+// TODO Add timeToAddress
+MistakeType returns learningcorpus::MistakeType:
+    'Mistake' name=EString (atomic?='atomic')? (numStepsBeforeNotification=INT)?
+    learningItem=[learningcorpus::LearningItem]
+;
+
+LearningItem returns learningcorpus::LearningItem:
+    'LearningItem' name=EString description=STRING
 ;
 
 
+EString returns ecore::EString:
+    STRING | ID;

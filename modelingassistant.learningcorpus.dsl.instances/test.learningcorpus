@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ASCII"?>
+<learningcorpus:LearningCorpus xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:learningcorpus="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0" xmi:id="_xZxHsMp1EeuH9J7wJFvbsQ">
+  <mistakeTypeCategories xmi:id="_xZxHscp1EeuH9J7wJFvbsQ" name="Wrong class name">
+    <mistakeTypes xmi:id="_xZxHssp1EeuH9J7wJFvbsQ" name="Software engineering term" atomic="true" numStepsBeforeNotification="3" learningItem="_xZxHtMp1EeuH9J7wJFvbsQ"/>
+    <mistakeTypes xmi:id="_xZxHs8p1EeuH9J7wJFvbsQ" name="Bad class name spelling" atomic="true" learningItem="_xZxHtMp1EeuH9J7wJFvbsQ"/>
+  </mistakeTypeCategories>
+  <learningItems xmi:id="_xZxHtMp1EeuH9J7wJFvbsQ" name="DomainModeling" description="Description"/>
+</learningcorpus:LearningCorpus>

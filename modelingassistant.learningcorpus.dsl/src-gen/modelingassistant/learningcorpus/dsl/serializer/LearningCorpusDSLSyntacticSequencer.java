@@ -11,6 +11,8 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
+import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
+import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 
@@ -18,17 +20,29 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class LearningCorpusDSLSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected LearningCorpusDSLGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_MistakeTypeCategory_WSTerminalRuleCall_4_a;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (LearningCorpusDSLGrammarAccess) access;
+		match_MistakeTypeCategory_WSTerminalRuleCall_4_a = new TokenAlias(true, true, grammarAccess.getMistakeTypeCategoryAccess().getWSTerminalRuleCall_4());
 	}
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (ruleCall.getRule() == grammarAccess.getWSRule())
+			return getWSToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
+	/**
+	 * terminal WS         : (' '|'\t'|'\r'|'\n')+;
+	 */
+	protected String getWSToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return " ";
+	}
 	
 	@Override
 	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
@@ -36,8 +50,22 @@ public class LearningCorpusDSLSyntacticSequencer extends AbstractSyntacticSequen
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			acceptNodes(getLastNavigableState(), syntaxNodes);
+			if (match_MistakeTypeCategory_WSTerminalRuleCall_4_a.equals(syntax))
+				emit_MistakeTypeCategory_WSTerminalRuleCall_4_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
+	/**
+	 * Ambiguous syntax:
+	 *     WS*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     name=EString '{' 'mistakeTypes' (ambiguity) '{' '}' '}' (rule end)
+	 *     name=EString '{' 'mistakeTypes' (ambiguity) '{' mistakeTypes+=MistakeType
+	 */
+	protected void emit_MistakeTypeCategory_WSTerminalRuleCall_4_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 }

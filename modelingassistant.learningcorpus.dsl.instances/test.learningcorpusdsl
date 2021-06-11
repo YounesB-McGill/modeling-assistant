@@ -1,0 +1,8 @@
+MistakeTypeCategory 'Wrong class name' {
+  mistakeTypes {
+    Mistake 'Software engineering term' atomic 3 DomainModeling
+    Mistake 'Bad class name spelling' atomic DomainModeling
+  }
+}
+
+LearningItem 'DomainModeling' 'Description'
