@@ -31,7 +31,7 @@ public class LearningCorpusDSLStandaloneSetupGenerated implements ISetup {
 		IResourceFactory resourceFactory = injector.getInstance(IResourceFactory.class);
 		IResourceServiceProvider serviceProvider = injector.getInstance(IResourceServiceProvider.class);
 		
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("learningcorpus", resourceFactory);
-		IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("learningcorpus", serviceProvider);
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("learningcorpusdsl", resourceFactory);
+		IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("learningcorpusdsl", serviceProvider);
 	}
 }

@@ -6,9 +6,13 @@ package modelingassistant.learningcorpus.dsl.services;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.List;
+import org.eclipse.xtext.Alternatives;
 import org.eclipse.xtext.Assignment;
+import org.eclipse.xtext.CrossReference;
 import org.eclipse.xtext.Grammar;
 import org.eclipse.xtext.GrammarUtil;
+import org.eclipse.xtext.Group;
+import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.TerminalRule;
@@ -21,38 +25,210 @@ public class LearningCorpusDSLGrammarAccess extends AbstractElementFinder.Abstra
 	
 	public class LearningCorpusElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "modelingassistant.learningcorpus.dsl.LearningCorpusDSL.LearningCorpus");
-		private final Assignment cMistakeTypeCategoriesAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cMistakeTypeCategoriesMistakeTypeCategoryParserRuleCall_0 = (RuleCall)cMistakeTypeCategoriesAssignment.eContents().get(0);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cMistakeTypeCategoriesAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cMistakeTypeCategoriesMistakeTypeCategoryParserRuleCall_0_0 = (RuleCall)cMistakeTypeCategoriesAssignment_0.eContents().get(0);
+		private final Assignment cLearningItemsAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cLearningItemsLearningItemParserRuleCall_1_0 = (RuleCall)cLearningItemsAssignment_1.eContents().get(0);
 		
 		//LearningCorpus learningcorpus::LearningCorpus:
-		//	mistakeTypeCategories+=MistakeTypeCategory*;
+		//	mistakeTypeCategories+=MistakeTypeCategory*
+		//	learningItems+=LearningItem*;
 		@Override public ParserRule getRule() { return rule; }
 		
+		//mistakeTypeCategories+=MistakeTypeCategory* learningItems+=LearningItem*
+		public Group getGroup() { return cGroup; }
+		
 		//mistakeTypeCategories+=MistakeTypeCategory*
-		public Assignment getMistakeTypeCategoriesAssignment() { return cMistakeTypeCategoriesAssignment; }
+		public Assignment getMistakeTypeCategoriesAssignment_0() { return cMistakeTypeCategoriesAssignment_0; }
 		
 		//MistakeTypeCategory
-		public RuleCall getMistakeTypeCategoriesMistakeTypeCategoryParserRuleCall_0() { return cMistakeTypeCategoriesMistakeTypeCategoryParserRuleCall_0; }
+		public RuleCall getMistakeTypeCategoriesMistakeTypeCategoryParserRuleCall_0_0() { return cMistakeTypeCategoriesMistakeTypeCategoryParserRuleCall_0_0; }
+		
+		//learningItems+=LearningItem*
+		public Assignment getLearningItemsAssignment_1() { return cLearningItemsAssignment_1; }
+		
+		//LearningItem
+		public RuleCall getLearningItemsLearningItemParserRuleCall_1_0() { return cLearningItemsLearningItemParserRuleCall_1_0; }
 	}
 	public class MistakeTypeCategoryElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "modelingassistant.learningcorpus.dsl.LearningCorpusDSL.MistakeTypeCategory");
-		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cMistakeTypeCategoryKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameEStringParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cMistakeTypesKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final RuleCall cWSTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Keyword cLeftCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cMistakeTypesAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cMistakeTypesMistakeTypeParserRuleCall_6_0 = (RuleCall)cMistakeTypesAssignment_6.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
-		//MistakeTypeCategory learningcorpus::MistakeTypeCategory:
-		//	name=ID;
+		///**
+		// * Creates a mistake type category. Since Xtext does not support recursion,
+		// * the name of the mistake type category must be written as follows:
+		// * 
+		// * '"MTC Name" [-> "Supercategory name"]'
+		// * 
+		// * To generate the final output with the correct names, run the script in the instances project
+		// */ MistakeTypeCategory learningcorpus::MistakeTypeCategory:
+		//	'MistakeTypeCategory' name=EString '{' // TODO Refactor to somehow include parent/children MTCs
+		//	'mistakeTypes' WS* '{'
+		//	mistakeTypes+=MistakeType*
+		//	'}'
+		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=ID
-		public Assignment getNameAssignment() { return cNameAssignment; }
+		//'MistakeTypeCategory' name=EString '{' // TODO Refactor to somehow include parent/children MTCs
+		//'mistakeTypes' WS* '{' mistakeTypes+=MistakeType* '}' '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'MistakeTypeCategory'
+		public Keyword getMistakeTypeCategoryKeyword_0() { return cMistakeTypeCategoryKeyword_0; }
+		
+		//name=EString
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		
+		//EString
+		public RuleCall getNameEStringParserRuleCall_1_0() { return cNameEStringParserRuleCall_1_0; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+		
+		//// TODO Refactor to somehow include parent/children MTCs
+		//'mistakeTypes'
+		public Keyword getMistakeTypesKeyword_3() { return cMistakeTypesKeyword_3; }
+		
+		//WS*
+		public RuleCall getWSTerminalRuleCall_4() { return cWSTerminalRuleCall_4; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_5() { return cLeftCurlyBracketKeyword_5; }
+		
+		//mistakeTypes+=MistakeType*
+		public Assignment getMistakeTypesAssignment_6() { return cMistakeTypesAssignment_6; }
+		
+		//MistakeType
+		public RuleCall getMistakeTypesMistakeTypeParserRuleCall_6_0() { return cMistakeTypesMistakeTypeParserRuleCall_6_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_7() { return cRightCurlyBracketKeyword_7; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
+	}
+	public class MistakeTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "modelingassistant.learningcorpus.dsl.LearningCorpusDSL.MistakeType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cMistakeKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameEStringParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Assignment cAtomicAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final Keyword cAtomicAtomicKeyword_2_0 = (Keyword)cAtomicAssignment_2.eContents().get(0);
+		private final Assignment cNumStepsBeforeNotificationAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cNumStepsBeforeNotificationINTTerminalRuleCall_3_0 = (RuleCall)cNumStepsBeforeNotificationAssignment_3.eContents().get(0);
+		private final Assignment cLearningItemAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cLearningItemLearningItemCrossReference_4_0 = (CrossReference)cLearningItemAssignment_4.eContents().get(0);
+		private final RuleCall cLearningItemLearningItemIDTerminalRuleCall_4_0_1 = (RuleCall)cLearningItemLearningItemCrossReference_4_0.eContents().get(1);
+		
+		//// TODO Add timeToAddress
+		//MistakeType learningcorpus::MistakeType:
+		//	'Mistake' name=EString atomic?='atomic'? numStepsBeforeNotification=INT?
+		//	learningItem=[learningcorpus::LearningItem];
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'Mistake' name=EString atomic?='atomic'? numStepsBeforeNotification=INT? learningItem=[learningcorpus::LearningItem]
+		public Group getGroup() { return cGroup; }
+		
+		//'Mistake'
+		public Keyword getMistakeKeyword_0() { return cMistakeKeyword_0; }
+		
+		//name=EString
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		
+		//EString
+		public RuleCall getNameEStringParserRuleCall_1_0() { return cNameEStringParserRuleCall_1_0; }
+		
+		//atomic?='atomic'?
+		public Assignment getAtomicAssignment_2() { return cAtomicAssignment_2; }
+		
+		//'atomic'
+		public Keyword getAtomicAtomicKeyword_2_0() { return cAtomicAtomicKeyword_2_0; }
+		
+		//numStepsBeforeNotification=INT?
+		public Assignment getNumStepsBeforeNotificationAssignment_3() { return cNumStepsBeforeNotificationAssignment_3; }
+		
+		//INT
+		public RuleCall getNumStepsBeforeNotificationINTTerminalRuleCall_3_0() { return cNumStepsBeforeNotificationINTTerminalRuleCall_3_0; }
+		
+		//learningItem=[learningcorpus::LearningItem]
+		public Assignment getLearningItemAssignment_4() { return cLearningItemAssignment_4; }
+		
+		//[learningcorpus::LearningItem]
+		public CrossReference getLearningItemLearningItemCrossReference_4_0() { return cLearningItemLearningItemCrossReference_4_0; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_0() { return cNameIDTerminalRuleCall_0; }
+		public RuleCall getLearningItemLearningItemIDTerminalRuleCall_4_0_1() { return cLearningItemLearningItemIDTerminalRuleCall_4_0_1; }
+	}
+	public class LearningItemElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "modelingassistant.learningcorpus.dsl.LearningCorpusDSL.LearningItem");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLearningItemKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameEStringParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Assignment cDescriptionAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_2_0 = (RuleCall)cDescriptionAssignment_2.eContents().get(0);
+		
+		//LearningItem learningcorpus::LearningItem:
+		//	'LearningItem' name=EString description=STRING;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'LearningItem' name=EString description=STRING
+		public Group getGroup() { return cGroup; }
+		
+		//'LearningItem'
+		public Keyword getLearningItemKeyword_0() { return cLearningItemKeyword_0; }
+		
+		//name=EString
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		
+		//EString
+		public RuleCall getNameEStringParserRuleCall_1_0() { return cNameEStringParserRuleCall_1_0; }
+		
+		//description=STRING
+		public Assignment getDescriptionAssignment_2() { return cDescriptionAssignment_2; }
+		
+		//STRING
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_2_0() { return cDescriptionSTRINGTerminalRuleCall_2_0; }
+	}
+	public class EStringElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "modelingassistant.learningcorpus.dsl.LearningCorpusDSL.EString");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cSTRINGTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//EString:
+		//	STRING | ID;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//STRING | ID
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//STRING
+		public RuleCall getSTRINGTerminalRuleCall_0() { return cSTRINGTerminalRuleCall_0; }
+		
+		//ID
+		public RuleCall getIDTerminalRuleCall_1() { return cIDTerminalRuleCall_1; }
 	}
 	
 	
 	private final LearningCorpusElements pLearningCorpus;
 	private final MistakeTypeCategoryElements pMistakeTypeCategory;
+	private final MistakeTypeElements pMistakeType;
+	private final LearningItemElements pLearningItem;
+	private final EStringElements pEString;
 	
 	private final Grammar grammar;
 	
@@ -65,6 +241,9 @@ public class LearningCorpusDSLGrammarAccess extends AbstractElementFinder.Abstra
 		this.gaTerminals = gaTerminals;
 		this.pLearningCorpus = new LearningCorpusElements();
 		this.pMistakeTypeCategory = new MistakeTypeCategoryElements();
+		this.pMistakeType = new MistakeTypeElements();
+		this.pLearningItem = new LearningItemElements();
+		this.pEString = new EStringElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -95,7 +274,8 @@ public class LearningCorpusDSLGrammarAccess extends AbstractElementFinder.Abstra
 
 	
 	//LearningCorpus learningcorpus::LearningCorpus:
-	//	mistakeTypeCategories+=MistakeTypeCategory*;
+	//	mistakeTypeCategories+=MistakeTypeCategory*
+	//	learningItems+=LearningItem*;
 	public LearningCorpusElements getLearningCorpusAccess() {
 		return pLearningCorpus;
 	}
@@ -104,14 +284,57 @@ public class LearningCorpusDSLGrammarAccess extends AbstractElementFinder.Abstra
 		return getLearningCorpusAccess().getRule();
 	}
 	
-	//MistakeTypeCategory learningcorpus::MistakeTypeCategory:
-	//	name=ID;
+	///**
+	// * Creates a mistake type category. Since Xtext does not support recursion,
+	// * the name of the mistake type category must be written as follows:
+	// * 
+	// * '"MTC Name" [-> "Supercategory name"]'
+	// * 
+	// * To generate the final output with the correct names, run the script in the instances project
+	// */ MistakeTypeCategory learningcorpus::MistakeTypeCategory:
+	//	'MistakeTypeCategory' name=EString '{' // TODO Refactor to somehow include parent/children MTCs
+	//	'mistakeTypes' WS* '{'
+	//	mistakeTypes+=MistakeType*
+	//	'}'
+	//	'}';
 	public MistakeTypeCategoryElements getMistakeTypeCategoryAccess() {
 		return pMistakeTypeCategory;
 	}
 	
 	public ParserRule getMistakeTypeCategoryRule() {
 		return getMistakeTypeCategoryAccess().getRule();
+	}
+	
+	//// TODO Add timeToAddress
+	//MistakeType learningcorpus::MistakeType:
+	//	'Mistake' name=EString atomic?='atomic'? numStepsBeforeNotification=INT?
+	//	learningItem=[learningcorpus::LearningItem];
+	public MistakeTypeElements getMistakeTypeAccess() {
+		return pMistakeType;
+	}
+	
+	public ParserRule getMistakeTypeRule() {
+		return getMistakeTypeAccess().getRule();
+	}
+	
+	//LearningItem learningcorpus::LearningItem:
+	//	'LearningItem' name=EString description=STRING;
+	public LearningItemElements getLearningItemAccess() {
+		return pLearningItem;
+	}
+	
+	public ParserRule getLearningItemRule() {
+		return getLearningItemAccess().getRule();
+	}
+	
+	//EString:
+	//	STRING | ID;
+	public EStringElements getEStringAccess() {
+		return pEString;
+	}
+	
+	public ParserRule getEStringRule() {
+		return getEStringAccess().getRule();
 	}
 	
 	//terminal ID:

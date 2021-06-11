@@ -31,8 +31,21 @@ public class LearningCorpusDSLParser extends AbstractContentAssistParser {
 		}
 		
 		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, LearningCorpusDSLGrammarAccess grammarAccess) {
-			builder.put(grammarAccess.getLearningCorpusAccess().getMistakeTypeCategoriesAssignment(), "rule__LearningCorpus__MistakeTypeCategoriesAssignment");
-			builder.put(grammarAccess.getMistakeTypeCategoryAccess().getNameAssignment(), "rule__MistakeTypeCategory__NameAssignment");
+			builder.put(grammarAccess.getEStringAccess().getAlternatives(), "rule__EString__Alternatives");
+			builder.put(grammarAccess.getLearningCorpusAccess().getGroup(), "rule__LearningCorpus__Group__0");
+			builder.put(grammarAccess.getMistakeTypeCategoryAccess().getGroup(), "rule__MistakeTypeCategory__Group__0");
+			builder.put(grammarAccess.getMistakeTypeAccess().getGroup(), "rule__MistakeType__Group__0");
+			builder.put(grammarAccess.getLearningItemAccess().getGroup(), "rule__LearningItem__Group__0");
+			builder.put(grammarAccess.getLearningCorpusAccess().getMistakeTypeCategoriesAssignment_0(), "rule__LearningCorpus__MistakeTypeCategoriesAssignment_0");
+			builder.put(grammarAccess.getLearningCorpusAccess().getLearningItemsAssignment_1(), "rule__LearningCorpus__LearningItemsAssignment_1");
+			builder.put(grammarAccess.getMistakeTypeCategoryAccess().getNameAssignment_1(), "rule__MistakeTypeCategory__NameAssignment_1");
+			builder.put(grammarAccess.getMistakeTypeCategoryAccess().getMistakeTypesAssignment_6(), "rule__MistakeTypeCategory__MistakeTypesAssignment_6");
+			builder.put(grammarAccess.getMistakeTypeAccess().getNameAssignment_1(), "rule__MistakeType__NameAssignment_1");
+			builder.put(grammarAccess.getMistakeTypeAccess().getAtomicAssignment_2(), "rule__MistakeType__AtomicAssignment_2");
+			builder.put(grammarAccess.getMistakeTypeAccess().getNumStepsBeforeNotificationAssignment_3(), "rule__MistakeType__NumStepsBeforeNotificationAssignment_3");
+			builder.put(grammarAccess.getMistakeTypeAccess().getLearningItemAssignment_4(), "rule__MistakeType__LearningItemAssignment_4");
+			builder.put(grammarAccess.getLearningItemAccess().getNameAssignment_1(), "rule__LearningItem__NameAssignment_1");
+			builder.put(grammarAccess.getLearningItemAccess().getDescriptionAssignment_2(), "rule__LearningItem__DescriptionAssignment_2");
 		}
 	}
 	

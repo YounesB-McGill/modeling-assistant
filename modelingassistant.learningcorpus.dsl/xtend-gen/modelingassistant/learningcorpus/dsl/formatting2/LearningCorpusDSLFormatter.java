@@ -3,15 +3,21 @@
  */
 package modelingassistant.learningcorpus.dsl.formatting2;
 
+import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import learningcorpus.LearningCorpus;
 import learningcorpus.MistakeTypeCategory;
 import modelingassistant.learningcorpus.dsl.services.LearningCorpusDSLGrammarAccess;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting2.AbstractFormatter2;
+import org.eclipse.xtext.formatting2.FormatterPreferenceKeys;
+import org.eclipse.xtext.formatting2.FormatterRequest;
 import org.eclipse.xtext.formatting2.IFormattableDocument;
+import org.eclipse.xtext.preferences.ITypedPreferenceValues;
+import org.eclipse.xtext.preferences.MapBasedPreferenceValues;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.xbase.lib.Extension;
 
@@ -26,6 +32,12 @@ public class LearningCorpusDSLFormatter extends AbstractFormatter2 {
     for (final MistakeTypeCategory mistakeTypeCategory : _mistakeTypeCategories) {
       document.<MistakeTypeCategory>format(mistakeTypeCategory);
     }
+    final ITypedPreferenceValues preferences = this.getPreferences();
+    final LinkedHashMap<String, String> newMap = Maps.<String, String>newLinkedHashMap();
+    newMap.put(FormatterPreferenceKeys.indentation.getId(), "  ");
+    final MapBasedPreferenceValues result = new MapBasedPreferenceValues(preferences, newMap);
+    FormatterRequest _request = this.getRequest();
+    _request.setPreferences(result);
   }
   
   public void format(final Object learningCorpus, final IFormattableDocument document) {

@@ -3,22 +3,32 @@
  */
 package modelingassistant.learningcorpus.dsl.formatting2
 
+import com.google.common.collect.Maps
 import com.google.inject.Inject
 import learningcorpus.LearningCorpus
 import modelingassistant.learningcorpus.dsl.services.LearningCorpusDSLGrammarAccess
 import org.eclipse.xtext.formatting2.AbstractFormatter2
+import org.eclipse.xtext.formatting2.FormatterPreferenceKeys
 import org.eclipse.xtext.formatting2.IFormattableDocument
+import org.eclipse.xtext.preferences.MapBasedPreferenceValues
 
 class LearningCorpusDSLFormatter extends AbstractFormatter2 {
-	
-	@Inject extension LearningCorpusDSLGrammarAccess
 
-	def dispatch void format(LearningCorpus learningCorpus, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		for (mistakeTypeCategory : learningCorpus.mistakeTypeCategories) {
-			mistakeTypeCategory.format
-		}
-	}
-	
-	// TODO: implement for 
+    @Inject extension LearningCorpusDSLGrammarAccess
+
+    def dispatch void format(LearningCorpus learningCorpus, extension IFormattableDocument document) {
+        // TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
+        for (mistakeTypeCategory : learningCorpus.mistakeTypeCategories) {
+            mistakeTypeCategory.format
+        }
+
+        // use spaces instead of tabs (from eclipse.org/forums/index.php/t/1102362/)
+        val preferences = getPreferences
+        val newMap = Maps.<String, String>newLinkedHashMap
+        newMap.put(FormatterPreferenceKeys.indentation.id, '  ') // $NON-NLS-1$
+        val result = new MapBasedPreferenceValues(preferences, newMap)
+        request.preferences = result
+    }
+
+    // TODO: implement for 
 }

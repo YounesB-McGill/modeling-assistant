@@ -6,7 +6,9 @@ package modelingassistant.learningcorpus.dsl.serializer;
 import com.google.inject.Inject;
 import java.util.Set;
 import learningcorpus.LearningCorpus;
+import learningcorpus.LearningItem;
 import learningcorpus.LearningcorpusPackage;
+import learningcorpus.MistakeType;
 import learningcorpus.MistakeTypeCategory;
 import modelingassistant.learningcorpus.dsl.services.LearningCorpusDSLGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
@@ -36,6 +38,12 @@ public class LearningCorpusDSLSemanticSequencer extends AbstractDelegatingSemant
 			case LearningcorpusPackage.LEARNING_CORPUS:
 				sequence_LearningCorpus(context, (LearningCorpus) semanticObject); 
 				return; 
+			case LearningcorpusPackage.LEARNING_ITEM:
+				sequence_LearningItem(context, (LearningItem) semanticObject); 
+				return; 
+			case LearningcorpusPackage.MISTAKE_TYPE:
+				sequence_MistakeType(context, (MistakeType) semanticObject); 
+				return; 
 			case LearningcorpusPackage.MISTAKE_TYPE_CATEGORY:
 				sequence_MistakeTypeCategory(context, (MistakeTypeCategory) semanticObject); 
 				return; 
@@ -49,7 +57,7 @@ public class LearningCorpusDSLSemanticSequencer extends AbstractDelegatingSemant
 	 *     LearningCorpus returns LearningCorpus
 	 *
 	 * Constraint:
-	 *     mistakeTypeCategories+=MistakeTypeCategory+
+	 *     ((mistakeTypeCategories+=MistakeTypeCategory+ learningItems+=LearningItem+) | learningItems+=LearningItem+)?
 	 */
 	protected void sequence_LearningCorpus(ISerializationContext context, LearningCorpus semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -58,19 +66,46 @@ public class LearningCorpusDSLSemanticSequencer extends AbstractDelegatingSemant
 	
 	/**
 	 * Contexts:
-	 *     MistakeTypeCategory returns MistakeTypeCategory
+	 *     LearningItem returns LearningItem
 	 *
 	 * Constraint:
-	 *     name=ID
+	 *     (name=EString description=STRING)
 	 */
-	protected void sequence_MistakeTypeCategory(ISerializationContext context, MistakeTypeCategory semanticObject) {
+	protected void sequence_LearningItem(ISerializationContext context, LearningItem semanticObject) {
 		if (errorAcceptor != null) {
 			if (transientValues.isValueTransient(semanticObject, LearningcorpusPackage.Literals.NAMED_ELEMENT__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, LearningcorpusPackage.Literals.NAMED_ELEMENT__NAME));
+			if (transientValues.isValueTransient(semanticObject, LearningcorpusPackage.Literals.LEARNING_ITEM__DESCRIPTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, LearningcorpusPackage.Literals.LEARNING_ITEM__DESCRIPTION));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getMistakeTypeCategoryAccess().getNameIDTerminalRuleCall_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getLearningItemAccess().getNameEStringParserRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getLearningItemAccess().getDescriptionSTRINGTerminalRuleCall_2_0(), semanticObject.getDescription());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     MistakeTypeCategory returns MistakeTypeCategory
+	 *
+	 * Constraint:
+	 *     (name=EString mistakeTypes+=MistakeType*)
+	 */
+	protected void sequence_MistakeTypeCategory(ISerializationContext context, MistakeTypeCategory semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     MistakeType returns MistakeType
+	 *
+	 * Constraint:
+	 *     (name=EString atomic?='atomic'? numStepsBeforeNotification=INT? learningItem=[LearningItem|ID])
+	 */
+	protected void sequence_MistakeType(ISerializationContext context, MistakeType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
