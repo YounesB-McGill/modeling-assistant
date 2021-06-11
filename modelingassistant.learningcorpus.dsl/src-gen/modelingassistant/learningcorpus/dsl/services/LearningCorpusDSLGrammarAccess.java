@@ -57,14 +57,15 @@ public class LearningCorpusDSLGrammarAccess extends AbstractElementFinder.Abstra
 		private final Keyword cMistakeTypeCategoryKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameEStringParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Keyword cMistakeTypesKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final RuleCall cWSTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
-		private final Keyword cLeftCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cMistakeTypesAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cMistakeTypesMistakeTypeParserRuleCall_6_0 = (RuleCall)cMistakeTypesAssignment_6.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
-		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cLeftCurlyBracketKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Keyword cMistakeTypesKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
+		private final RuleCall cWSTerminalRuleCall_2_2 = (RuleCall)cGroup_2.eContents().get(2);
+		private final Keyword cLeftCurlyBracketKeyword_2_3 = (Keyword)cGroup_2.eContents().get(3);
+		private final Assignment cMistakeTypesAssignment_2_4 = (Assignment)cGroup_2.eContents().get(4);
+		private final RuleCall cMistakeTypesMistakeTypeParserRuleCall_2_4_0 = (RuleCall)cMistakeTypesAssignment_2_4.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_2_5 = (Keyword)cGroup_2.eContents().get(5);
+		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		///**
 		// * Creates a mistake type category. Since Xtext does not support recursion,
@@ -74,15 +75,15 @@ public class LearningCorpusDSLGrammarAccess extends AbstractElementFinder.Abstra
 		// * 
 		// * To generate the final output with the correct names, run the script in the instances project
 		// */ MistakeTypeCategory learningcorpus::MistakeTypeCategory:
-		//	'MistakeTypeCategory' name=EString '{' // TODO Refactor to somehow include parent/children MTCs
+		//	'MistakeTypeCategory' name=EString ('{' // TODO Refactor to somehow include parent/children MTCs
 		//	'mistakeTypes' WS* '{'
 		//	mistakeTypes+=MistakeType*
-		//	'}'
+		//	'}')?
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'MistakeTypeCategory' name=EString '{' // TODO Refactor to somehow include parent/children MTCs
-		//'mistakeTypes' WS* '{' mistakeTypes+=MistakeType* '}' '}'
+		//'MistakeTypeCategory' name=EString ('{' // TODO Refactor to somehow include parent/children MTCs
+		//'mistakeTypes' WS* '{' mistakeTypes+=MistakeType* '}')? '}'
 		public Group getGroup() { return cGroup; }
 		
 		//'MistakeTypeCategory'
@@ -94,30 +95,34 @@ public class LearningCorpusDSLGrammarAccess extends AbstractElementFinder.Abstra
 		//EString
 		public RuleCall getNameEStringParserRuleCall_1_0() { return cNameEStringParserRuleCall_1_0; }
 		
+		//('{' // TODO Refactor to somehow include parent/children MTCs
+		//'mistakeTypes' WS* '{' mistakeTypes+=MistakeType* '}')?
+		public Group getGroup_2() { return cGroup_2; }
+		
 		//'{'
-		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+		public Keyword getLeftCurlyBracketKeyword_2_0() { return cLeftCurlyBracketKeyword_2_0; }
 		
 		//// TODO Refactor to somehow include parent/children MTCs
 		//'mistakeTypes'
-		public Keyword getMistakeTypesKeyword_3() { return cMistakeTypesKeyword_3; }
+		public Keyword getMistakeTypesKeyword_2_1() { return cMistakeTypesKeyword_2_1; }
 		
 		//WS*
-		public RuleCall getWSTerminalRuleCall_4() { return cWSTerminalRuleCall_4; }
+		public RuleCall getWSTerminalRuleCall_2_2() { return cWSTerminalRuleCall_2_2; }
 		
 		//'{'
-		public Keyword getLeftCurlyBracketKeyword_5() { return cLeftCurlyBracketKeyword_5; }
+		public Keyword getLeftCurlyBracketKeyword_2_3() { return cLeftCurlyBracketKeyword_2_3; }
 		
 		//mistakeTypes+=MistakeType*
-		public Assignment getMistakeTypesAssignment_6() { return cMistakeTypesAssignment_6; }
+		public Assignment getMistakeTypesAssignment_2_4() { return cMistakeTypesAssignment_2_4; }
 		
 		//MistakeType
-		public RuleCall getMistakeTypesMistakeTypeParserRuleCall_6_0() { return cMistakeTypesMistakeTypeParserRuleCall_6_0; }
+		public RuleCall getMistakeTypesMistakeTypeParserRuleCall_2_4_0() { return cMistakeTypesMistakeTypeParserRuleCall_2_4_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_7() { return cRightCurlyBracketKeyword_7; }
+		public Keyword getRightCurlyBracketKeyword_2_5() { return cRightCurlyBracketKeyword_2_5; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
+		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
 	}
 	public class MistakeTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "modelingassistant.learningcorpus.dsl.LearningCorpusDSL.MistakeType");
@@ -292,10 +297,10 @@ public class LearningCorpusDSLGrammarAccess extends AbstractElementFinder.Abstra
 	// * 
 	// * To generate the final output with the correct names, run the script in the instances project
 	// */ MistakeTypeCategory learningcorpus::MistakeTypeCategory:
-	//	'MistakeTypeCategory' name=EString '{' // TODO Refactor to somehow include parent/children MTCs
+	//	'MistakeTypeCategory' name=EString ('{' // TODO Refactor to somehow include parent/children MTCs
 	//	'mistakeTypes' WS* '{'
 	//	mistakeTypes+=MistakeType*
-	//	'}'
+	//	'}')?
 	//	'}';
 	public MistakeTypeCategoryElements getMistakeTypeCategoryAccess() {
 		return pMistakeTypeCategory;

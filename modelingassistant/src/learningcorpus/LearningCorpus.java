@@ -2,9 +2,15 @@
  */
 package learningcorpus;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import learningcorpus.util.LearningcorpusResourceFactoryImpl;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Learning Corpus</b></em>'. <!-- end-user-doc -->
@@ -123,5 +129,33 @@ public interface LearningCorpus extends EObject {
    * @generated
    */
   void setUmlElements(UmlElement value);
+
+  /**
+   * Returns the learning corpus at the given *.learningcorpus file.
+   *
+   * @generated NOT
+   */
+  static LearningCorpus fromFile(File file) {
+    LearningcorpusPackage.eINSTANCE.eClass();
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put(LearningcorpusPackage.eNAME,
+        new LearningcorpusResourceFactoryImpl());
+    try {
+      var lcResource = rset.createResource(URI.createFileURI(file.getCanonicalPath()));
+      lcResource.load(Collections.EMPTY_MAP);
+      return (LearningCorpus) lcResource.getContents().get(0);
+    } catch (IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * Returns the learning corpus at the given *.learningcorpus file path.
+   *
+   * @generated NOT
+   */
+  static LearningCorpus fromFile(String path) {
+    return fromFile(new File(path));
+  }
 
 } // LearningCorpus

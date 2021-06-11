@@ -28,7 +28,6 @@ import classdiagram.ReferenceType;
 import learningcorpus.LearningCorpus;
 import learningcorpus.LearningcorpusPackage;
 import learningcorpus.mistaketypes.MistakeTypes;
-import learningcorpus.util.LearningcorpusResourceFactoryImpl;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
@@ -964,23 +963,7 @@ public class ControllerTest {
 
   /** Returns the default learning corpus. */
   public static LearningCorpus getLearningCorpus() {
-    return getLearningCorpusAt(LEARNING_CORPUS_PATH);
-  }
-
-
-  /** Returns the learning corpus at the given file path. */
-  public static LearningCorpus getLearningCorpusAt(String path) {
-    LearningcorpusPackage.eINSTANCE.eClass();
-    var rset = new ResourceSetImpl();
-    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put(LearningcorpusPackage.eNAME,
-        new LearningcorpusResourceFactoryImpl());
-    try {
-      var lcResource = rset.createResource(URI.createFileURI(new File(path).getCanonicalPath()));
-      lcResource.load(Collections.EMPTY_MAP);
-      return (LearningCorpus) lcResource.getContents().get(0);
-    } catch (IOException e) {
-      return null;
-    }
+    return LearningCorpus.fromFile(LEARNING_CORPUS_PATH);
   }
 
 }

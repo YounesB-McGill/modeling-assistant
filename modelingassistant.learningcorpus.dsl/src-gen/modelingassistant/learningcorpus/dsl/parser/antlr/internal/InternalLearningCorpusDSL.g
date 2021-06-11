@@ -156,50 +156,52 @@ ruleMistakeTypeCategory returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_2='{'
-		{
-			newLeafNode(otherlv_2, grammarAccess.getMistakeTypeCategoryAccess().getLeftCurlyBracketKeyword_2());
-		}
-		otherlv_3='mistakeTypes'
-		{
-			newLeafNode(otherlv_3, grammarAccess.getMistakeTypeCategoryAccess().getMistakeTypesKeyword_3());
-		}
 		(
-			this_WS_4=RULE_WS
+			otherlv_2='{'
 			{
-				newLeafNode(this_WS_4, grammarAccess.getMistakeTypeCategoryAccess().getWSTerminalRuleCall_4());
+				newLeafNode(otherlv_2, grammarAccess.getMistakeTypeCategoryAccess().getLeftCurlyBracketKeyword_2_0());
 			}
-		)*
-		otherlv_5='{'
-		{
-			newLeafNode(otherlv_5, grammarAccess.getMistakeTypeCategoryAccess().getLeftCurlyBracketKeyword_5());
-		}
-		(
+			otherlv_3='mistakeTypes'
+			{
+				newLeafNode(otherlv_3, grammarAccess.getMistakeTypeCategoryAccess().getMistakeTypesKeyword_2_1());
+			}
 			(
+				this_WS_4=RULE_WS
 				{
-					newCompositeNode(grammarAccess.getMistakeTypeCategoryAccess().getMistakeTypesMistakeTypeParserRuleCall_6_0());
+					newLeafNode(this_WS_4, grammarAccess.getMistakeTypeCategoryAccess().getWSTerminalRuleCall_2_2());
 				}
-				lv_mistakeTypes_6_0=ruleMistakeType
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getMistakeTypeCategoryRule());
+			)*
+			otherlv_5='{'
+			{
+				newLeafNode(otherlv_5, grammarAccess.getMistakeTypeCategoryAccess().getLeftCurlyBracketKeyword_2_3());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getMistakeTypeCategoryAccess().getMistakeTypesMistakeTypeParserRuleCall_2_4_0());
 					}
-					add(
-						$current,
-						"mistakeTypes",
-						lv_mistakeTypes_6_0,
-						"modelingassistant.learningcorpus.dsl.LearningCorpusDSL.MistakeType");
-					afterParserOrEnumRuleCall();
-				}
-			)
-		)*
-		otherlv_7='}'
-		{
-			newLeafNode(otherlv_7, grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_7());
-		}
+					lv_mistakeTypes_6_0=ruleMistakeType
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getMistakeTypeCategoryRule());
+						}
+						add(
+							$current,
+							"mistakeTypes",
+							lv_mistakeTypes_6_0,
+							"modelingassistant.learningcorpus.dsl.LearningCorpusDSL.MistakeType");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)*
+			otherlv_7='}'
+			{
+				newLeafNode(otherlv_7, grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_2_5());
+			}
+		)?
 		otherlv_8='}'
 		{
-			newLeafNode(otherlv_8, grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_8());
+			newLeafNode(otherlv_8, grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_3());
 		}
 	)
 ;
