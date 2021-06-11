@@ -19,10 +19,10 @@ LearningCorpus returns learningcorpus::LearningCorpus:
  * To generate the final output with the correct names, run the script in the instances project
  */
 MistakeTypeCategory returns learningcorpus::MistakeTypeCategory:
-    'MistakeTypeCategory' name=EString '{' // TODO Refactor to somehow include parent/children MTCs
+    'MistakeTypeCategory' name=EString ('{' // TODO Refactor to somehow include parent/children MTCs
         'mistakeTypes' WS* '{'
             mistakeTypes+=MistakeType*
-        '}'
+        '}')?
     '}'
 ;
 

@@ -1,8 +1,24 @@
-MistakeTypeCategory 'Wrong class name' {
+MistakeTypeCategory 'Wrong class' {
   mistakeTypes {
-    Mistake 'Software engineering term' atomic 3 DomainModeling
-    Mistake 'Bad class name spelling' atomic DomainModeling
+    Mistake 'Missing class' DomainModeling
+    Mistake 'Extra (redundant) class' DomainModeling
   }
 }
+  MistakeTypeCategory 'Wrong enumeration -> Wrong class' {
+    mistakeTypes {
+      Mistake 'Regular class should be an enumeration' DomainModeling
+      Mistake 'Enumeration should be a regular class' DomainModeling
+      Mistake 'Wrong enumeration items' DomainModeling
+    }
+  }
+  MistakeTypeCategory 'Wrong class name -> Wrong class' {
+    mistakeTypes {
+      Mistake 'Plural class name' DomainModeling
+      Mistake 'Lowercase class name' DomainModeling
+      Mistake 'Software engineering term' atomic 3 DomainModeling
+      Mistake 'Bad class name spelling' atomic DomainModeling
+      Mistake 'Similar (yet incorrect) class name' atomic DomainModeling
+    }
+  }
 
 LearningItem 'DomainModeling' 'Description'

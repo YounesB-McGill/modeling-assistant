@@ -36,6 +36,34 @@ no fancy AST manipulation required).
     return (EList<MistakeType>) getMistakeTypeCategories().stream().map(MistakeTypeCategory::getMistakeTypes)
         .flatMap(EList::stream).collect(Collectors.toUnmodifiableList());
   }
+
+  /**
+   * Returns the learning corpus at the given *.learningcorpus file.
+   *
+   * @generated NOT
+   */
+  static LearningCorpus fromFile(File file) {
+    LearningcorpusPackage.eINSTANCE.eClass();
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put(LearningcorpusPackage.eNAME,
+        new LearningcorpusResourceFactoryImpl());
+    try {
+      var lcResource = rset.createResource(URI.createFileURI(file.getCanonicalPath()));
+      lcResource.load(Collections.EMPTY_MAP);
+      return (LearningCorpus) lcResource.getContents().get(0);
+    } catch (IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * Returns the learning corpus at the given *.learningcorpus file path.
+   *
+   * @generated NOT
+   */
+  static LearningCorpus fromFile(String path) {
+    return fromFile(new File(path));
+  }
 ```
 
 **`LearningcorpusResourceImpl`**

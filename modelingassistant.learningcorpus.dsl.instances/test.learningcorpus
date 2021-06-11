@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="ASCII"?>
-<learningcorpus:LearningCorpus xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:learningcorpus="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0" xmi:id="_xZxHsMp1EeuH9J7wJFvbsQ">
-  <mistakeTypeCategories xmi:id="_xZxHscp1EeuH9J7wJFvbsQ" name="Wrong class name">
-    <mistakeTypes xmi:id="_xZxHssp1EeuH9J7wJFvbsQ" name="Software engineering term" atomic="true" numStepsBeforeNotification="3" learningItem="_xZxHtMp1EeuH9J7wJFvbsQ"/>
-    <mistakeTypes xmi:id="_xZxHs8p1EeuH9J7wJFvbsQ" name="Bad class name spelling" atomic="true" learningItem="_xZxHtMp1EeuH9J7wJFvbsQ"/>
+<learningcorpus:LearningCorpus xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:learningcorpus="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0" xmi:id="_ZTP9MMqBEeuxWKyQPLmYyQ">
+  <mistakeTypeCategories xmi:id="_ZTP9McqBEeuxWKyQPLmYyQ" name="Wrong class" subcategories="_ZTP9NMqBEeuxWKyQPLmYyQ _ZTP9OMqBEeuxWKyQPLmYyQ">
+    <mistakeTypes xmi:id="_ZTP9MsqBEeuxWKyQPLmYyQ" name="Missing class"/>
+    <mistakeTypes xmi:id="_ZTP9M8qBEeuxWKyQPLmYyQ" name="Extra (redundant) class"/>
   </mistakeTypeCategories>
-  <learningItems xmi:id="_xZxHtMp1EeuH9J7wJFvbsQ" name="DomainModeling" description="Description"/>
+  <mistakeTypeCategories xmi:id="_ZTP9NMqBEeuxWKyQPLmYyQ" name="Wrong enumeration" supercategory="_ZTP9McqBEeuxWKyQPLmYyQ">
+    <mistakeTypes xmi:id="_ZTP9NcqBEeuxWKyQPLmYyQ" name="Regular class should be an enumeration"/>
+    <mistakeTypes xmi:id="_ZTP9NsqBEeuxWKyQPLmYyQ" name="Enumeration should be a regular class"/>
+    <mistakeTypes xmi:id="_ZTP9N8qBEeuxWKyQPLmYyQ" name="Wrong enumeration items"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xmi:id="_ZTP9OMqBEeuxWKyQPLmYyQ" name="Wrong class name" supercategory="_ZTP9McqBEeuxWKyQPLmYyQ">
+    <mistakeTypes xmi:id="_ZTP9OcqBEeuxWKyQPLmYyQ" name="Plural class name"/>
+    <mistakeTypes xmi:id="_ZTP9OsqBEeuxWKyQPLmYyQ" name="Lowercase class name"/>
+    <mistakeTypes xmi:id="_ZTP9O8qBEeuxWKyQPLmYyQ" name="Software engineering term" atomic="true" numStepsBeforeNotification="3"/>
+    <mistakeTypes xmi:id="_ZTP9PMqBEeuxWKyQPLmYyQ" name="Bad class name spelling" atomic="true"/>
+    <mistakeTypes xmi:id="_ZTP9PcqBEeuxWKyQPLmYyQ" name="Similar (yet incorrect) class name" atomic="true"/>
+  </mistakeTypeCategories>
+  <learningItems xmi:id="_ZTP9PsqBEeuxWKyQPLmYyQ" name="DomainModeling" description="Description"/>
 </learningcorpus:LearningCorpus>
