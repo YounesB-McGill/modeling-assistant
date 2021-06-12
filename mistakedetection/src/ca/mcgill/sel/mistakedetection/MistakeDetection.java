@@ -1025,8 +1025,7 @@ public class MistakeDetection {
    */
   private static Mistake createMistake(MistakeType mistakeType, NamedElement studentElement,
       NamedElement instructorElement) {
-    var mistake = MAF.createMistake();
-    mistake.setMistakeType(mistakeType);
+    var mistake = MAF.createMistakeOfType(mistakeType);
 
     // TODO Use existing solution element when available
     if (studentElement != null) {
