@@ -3,6 +3,7 @@
 package modelingassistant;
 
 import org.eclipse.emf.ecore.EFactory;
+import learningcorpus.MistakeType;
 
 /**
  * <!-- begin-user-doc -->
@@ -92,6 +93,17 @@ public interface ModelingassistantFactory extends EFactory {
    * @generated
    */
   Mistake createMistake();
+
+  /**
+   * Creates a mistake of the given type.
+   *
+   * @generated NOT
+   */
+  default Mistake createMistakeOfType(MistakeType mistakeType) {
+    var mistake = createMistake();
+    mistake.setMistakeType(mistakeType);
+    return mistake;
+  }
 
   /**
    * Returns a new object of class '<em>Feedback Item</em>'.
