@@ -819,7 +819,7 @@ public class ControllerTest {
 
     assertEquals("1111", s1k.getStudent().getId());
     assertEquals(lok1, s1k.getLevelOfKnowledge());
-    assertEquals("Wrong class name", s1k.getMistakeType().getName());
+    assertEquals("Bad class name spelling", s1k.getMistakeType().getName());
     assertEquals("2222", s2k.getStudent().getId());
     assertEquals(lok2, s2k.getLevelOfKnowledge());
     assertTrue(s2k.getMistakeType().isAtomic());

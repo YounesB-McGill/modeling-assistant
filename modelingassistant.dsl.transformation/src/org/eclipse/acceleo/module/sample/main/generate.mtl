@@ -16,7 +16,7 @@
  */]
 [query public underscorify(s : String) : String
   = s.replaceAll('\\((.+?)\\)', '').trim()
-     .replaceAll('/', '_').replaceAll('\\s+', '_').replaceAll('_+', '_').toUpper()
+     .replaceAll('/', '_').replaceAll('-', '_').replaceAll('\\s+', '_').replaceAll('_+', '_').toUpper()
 /]
 
 [**
@@ -28,24 +28,16 @@
     Sequence{learningCorpus})
 /]
 
-
 [template public generateElement(learningCorpus : LearningCorpus)]
 [comment @main/]
 [file ('../../modelingassistant/src/learningcorpus/mistaketypes/MistakeTypes.java', false, 'UTF-8')]
 package learningcorpus.mistaketypes;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import learningcorpus.LearningCorpus;
 import learningcorpus.MistakeType;
 import learningcorpus.MistakeTypeCategory;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import modelingassistant.ModelingAssistant;
-import modelingassistant.ModelingassistantPackage;
-import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 
 /**
  * This class contains all mistake types and categories.
@@ -53,8 +45,8 @@ import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 public class MistakeTypes {
 
   /** The path of the learning corpus instance with mistake types. */
-  public static final String MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH =
-      "../modelingassistant.visualization.instances/MA1.modelingassistant";
+  public static final String LEARNING_CORPUS_PATH =
+      "../modelingassistant.learningcorpus.dsl.instances/test.learningcorpus";
 
   /** Map of mistake type categories by name. */
   public static final Map<String, MistakeTypeCategory> MISTAKE_TYPE_CATEGORIES_BY_NAME =
@@ -68,13 +60,13 @@ public class MistakeTypes {
   private static final Map<String, MistakeType> MTS = MISTAKE_TYPES_BY_NAME;
 
   static {
-    var modelingAssistant = loadModelingAssistant();
-    
-    modelingAssistant.getMistakeTypeCategories().forEach(mtc ->
+    var learningCorpus = LearningCorpus.fromFile(LEARNING_CORPUS_PATH);
+
+    learningCorpus.getMistakeTypeCategories().forEach(mtc ->
         MISTAKE_TYPE_CATEGORIES_BY_NAME.put(mtc.getName(), mtc));
-    
-    modelingAssistant.getMistakeTypes().forEach(mt ->
-        MISTAKE_TYPES_BY_NAME.put(mt.getName(), mt));       
+
+    learningCorpus.getMistakeTypes().forEach(mt ->
+        MISTAKE_TYPES_BY_NAME.put(mt.getName(), mt));
   }
 
 
@@ -120,27 +112,6 @@ public class MistakeTypes {
   [/let]
   [/let]
   [/for]
-
-  /**
-   * Loads the modeling assistant instance from MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH.
-   */
-  public static ModelingAssistant loadModelingAssistant() {
-    ModelingassistantPackage.eINSTANCE.eClass();
-    final var path = MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH;
-    var splitPath = path.split("\\.");
-    var fileExtension = splitPath[ '[' /]splitPath.length - 1[ ']' /];
-    var rset = new ResourceSetImpl();
-    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileExtension,
-        new ModelingassistantResourceFactoryImpl());
-    try {
-      var maResource = rset.createResource(URI.createFileURI(new File(path).getCanonicalPath()));
-      maResource.load(Collections.EMPTY_MAP);
-      return (ModelingAssistant) maResource.getContents().get(0);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
 }
 [/file]
 
@@ -152,7 +123,7 @@ This file contains all mistake types and categories.
 from modelingassistant.modelingassistant import ModelingAssistant, MistakeTypeCategory, MistakeType
 from pyecore.resources import ResourceSet, URI
 
-MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH = "modelingassistant.visualization.instances/MA1.modelingassistant"
+LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test.learningcorpus"
 
 MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[ '[' /]str, MistakeTypeCategory[ ']' /] = {}
 MISTAKE_TYPES_BY_NAME: dict[ '[' /]str, MistakeType[ ']' /] = {}
@@ -162,12 +133,12 @@ _MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
 _MTS = MISTAKE_TYPES_BY_NAME
 
 # Open Modeling Assistant metamodel and instance
-ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+ma_mm_file = "modelingassistant/model/learningcorpus.ecore"
 rset = ResourceSet()
 resource = rset.get_resource(URI(ma_mm_file))
 ma_mm_root = resource.contents[ '[' /]0[ ']' /]
 rset.metamodel_registry[ '[' /]ma_mm_root.nsURI[ ']' /] = ma_mm_root
-resource = rset.get_resource(URI(MODELING_ASSISTANT_WITH_MISTAKE_TYPES_PATH))
+resource = rset.get_resource(URI(LEARNING_CORPUS_PATH))
 modeling_assistant: ModelingAssistant = resource.contents[ '[' /]0[ ']' /]
 modeling_assistant.__class__ = ModelingAssistant
 
@@ -213,6 +184,6 @@ for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[
 [/file]
 
 [file ('../../modelingassistant/corpus_descriptions/README_TOC.md', false, 'UTF-8')]
-[generateMarkdown(learningCorpus)/]
+[generateMarkdown(learningCorpus) /]
 [/file]
 [/template]

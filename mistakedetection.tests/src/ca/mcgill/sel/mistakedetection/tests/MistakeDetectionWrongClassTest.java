@@ -198,7 +198,7 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(solution1.getMistakes().size(), 4);
 
     for (Mistake m : solution1.getMistakes()) {
-      if (m.getMistakeType() == MistakeTypes.USING_PLURAL_OR_LOWERCASE
+      if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
           && m.getStudentElements().get(0).getElement() == studentBusesClass) {
         assertEquals(m.getStudentElements().get(0).getElement(), studentBusesClass);
         assertEquals(m.getInstructorElements().get(0).getElement(), instructorBusClass);
@@ -206,7 +206,7 @@ public class MistakeDetectionWrongClassTest {
         assertEquals(m.getNumDetection(), 1);
         assertFalse(m.isResolved());
       }
-      if (m.getMistakeType() == MistakeTypes.USING_PLURAL_OR_LOWERCASE
+      if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
           && m.getStudentElements().get(0).getElement() == studentDriversClass) {
         assertEquals(m.getStudentElements().get(0).getElement(), studentDriversClass);
         assertEquals(m.getInstructorElements().get(0).getElement(), instructorDriverClass);
@@ -245,7 +245,7 @@ public class MistakeDetectionWrongClassTest {
 
     // mistake
     var expected = MistakeDetection.MAF.createMistake();
-    expected.setMistakeType(MistakeTypes.USING_PLURAL_OR_LOWERCASE);
+    expected.setMistakeType(MistakeTypes.PLURAL_CLASS_NAME);
     studentClass = MistakeDetection.CDF.createClass();
     studentClass.setName("Women");
 
