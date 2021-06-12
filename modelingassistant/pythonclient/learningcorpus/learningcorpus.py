@@ -1,5 +1,6 @@
 """Definition of meta model 'learningcorpus'."""
 from functools import partial
+import itertools
 import pyecore.ecore as Ecore
 from pyecore.ecore import *
 
@@ -122,6 +123,12 @@ class LearningCorpus(EObject, metaclass=MetaEClass):
 
         if umlElements is not None:
             self.umlElements = umlElements
+    
+    def mistakeTypes(self) -> list:
+        """
+        Custom function to return all the mistake types from their categories.
+        """
+        return list(itertools.chain(*[mtc.mistakeTypes for mtc in self.mistakeTypeCategories]))
 
 
 class LearningItem(NamedElement):

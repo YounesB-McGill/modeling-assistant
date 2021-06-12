@@ -2,7 +2,7 @@
 This file contains all mistake types and categories.
 """
 
-from modelingassistant.modelingassistant import ModelingAssistant, MistakeTypeCategory, MistakeType
+from learningcorpus.learningcorpus import LearningCorpus, MistakeTypeCategory, MistakeType
 from pyecore.resources import ResourceSet, URI
 
 LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test.learningcorpus"
@@ -21,12 +21,12 @@ resource = rset.get_resource(URI(ma_mm_file))
 ma_mm_root = resource.contents[0]
 rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
 resource = rset.get_resource(URI(LEARNING_CORPUS_PATH))
-modeling_assistant: ModelingAssistant = resource.contents[0]
-modeling_assistant.__class__ = ModelingAssistant
+learning_corpus: LearningCorpus = resource.contents[0]
+learning_corpus.__class__ = LearningCorpus
 
 # Populate dictionaries
-for mtc in modeling_assistant.mistakeTypeCategories: MISTAKE_TYPE_CATEGORIES_BY_NAME[mtc.name] = mtc
-for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[mt.name] = mt
+for mtc in learning_corpus.mistakeTypeCategories: MISTAKE_TYPE_CATEGORIES_BY_NAME[mtc.name] = mtc
+for mt in learning_corpus.mistakeTypes(): MISTAKE_TYPES_BY_NAME[mt.name] = mt
 
 # Mistake type categories
 WRONG_CLASS: MistakeTypeCategory = _MTCS["Wrong class"]
