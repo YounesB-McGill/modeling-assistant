@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="750d7869-9910-4de9-90e4-c5606a931335" xmi:version="2.0">
-  <solutions xsi:type="modelingassistant:Solution" xmi:id="47572949-ae70-4a96-8823-33d05e5223b2">
+<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="287315a1-3fda-4171-beba-ad3867a980d7" xmi:version="2.0">
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="8c7c571f-871e-4d1f-95ca-15f32f5007fc">
     <classDiagram href="ma_multisolution_from_python1.cdm#_VQRncElSEeuektpDqzDh1Q" xsi:type="classdiagram:ClassDiagram"/>
   </solutions>
-  <solutions xsi:type="modelingassistant:Solution" xmi:id="22b6e10d-e50f-4401-be84-30cec943b8db">
-    <classDiagram href="ma_multisolution_from_python2.cdm#622d70aa-98a3-4f7f-bbe9-78a406f9380e" xsi:type="classdiagram:ClassDiagram"/>
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="2431ba42-3be1-4c07-81d7-25790a973fb6">
+    <classDiagram href="ma_multisolution_from_python2.cdm#428cd47b-fe68-409e-bdb7-aa77f082f763" xsi:type="classdiagram:ClassDiagram"/>
   </solutions>
 </modelingassistant:ModelingAssistant>
