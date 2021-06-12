@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.stream.Collectors;
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -51,8 +52,8 @@ public interface LearningCorpus extends EObject {
    * @generated NOT
    */
   default EList<MistakeTypeCategory> getTopLevelMistakeTypeCategories() {
-    return (EList<MistakeTypeCategory>) getMistakeTypeCategories().stream()
-        .filter(mtc -> mtc.getSupercategory() == null).collect(Collectors.toUnmodifiableList());
+    return ECollections.unmodifiableEList(getMistakeTypeCategories().stream()
+        .filter(mtc -> mtc.getSupercategory() == null).collect(Collectors.toUnmodifiableList()));
   }
 
   /**
@@ -61,8 +62,8 @@ public interface LearningCorpus extends EObject {
    * @generated NOT
    */
   default EList<MistakeType> getMistakeTypes() {
-    return (EList<MistakeType>) getMistakeTypeCategories().stream().map(MistakeTypeCategory::getMistakeTypes)
-        .flatMap(EList::stream).collect(Collectors.toUnmodifiableList());
+    return ECollections.unmodifiableEList(getMistakeTypeCategories().stream().map(MistakeTypeCategory::getMistakeTypes)
+        .flatMap(EList::stream).collect(Collectors.toUnmodifiableList()));
   }
 
   /**

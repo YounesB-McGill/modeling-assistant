@@ -25,6 +25,7 @@ public class MarkdownGenerator {
     var topLevelMTCs = learningCorpus.getTopLevelMistakeTypeCategories();
     return topLevelMTCs.stream().map(mtc -> getNestedTocOutputFor(mtc, 0)).collect(joiner)
         + "\n" + topLevelMTCs.stream().map(mtc -> getNestedBodyOutputFor(mtc, 0)).collect(joiner);
+    //return "# Fake Markdown content\n";
   }
 
   /** Returns the nested table of contents output for the input in a recursive way. */
