@@ -88,6 +88,7 @@ public class NoteImpl extends MinimalEObjectImpl.Container implements Note {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<NamedElement> getNotedElement() {
     if (notedElement == null) {
       notedElement = new EObjectResolvingEList<NamedElement>(NamedElement.class, this, ClassdiagramPackage.NOTE__NOTED_ELEMENT);
@@ -100,6 +101,7 @@ public class NoteImpl extends MinimalEObjectImpl.Container implements Note {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getContent() {
     return content;
   }
@@ -109,6 +111,7 @@ public class NoteImpl extends MinimalEObjectImpl.Container implements Note {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setContent(String newContent) {
     String oldContent = content;
     content = newContent;

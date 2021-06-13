@@ -101,14 +101,12 @@ public interface Student extends NamedElement {
 
   /**
    * Returns the value of the '<em><b>Current Solution</b></em>' reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.Solution#getCurrentStudent <em>Current Student</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Current Solution</em>' reference.
    * @see #setCurrentSolution(Solution)
    * @see modelingassistant.ModelingassistantPackage#getStudent_CurrentSolution()
-   * @see modelingassistant.Solution#getCurrentStudent
-   * @model opposite="currentStudent"
+   * @model
    * @generated
    */
   Solution getCurrentSolution();

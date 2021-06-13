@@ -16,6 +16,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -61,60 +62,12 @@ public class ModelingAssistantItemProvider
     if (itemPropertyDescriptors == null) {
       super.getPropertyDescriptors(object);
 
-      addLearningItemsPropertyDescriptor(object);
-      addLearningResourcesPropertyDescriptor(object);
       addProblemStatementsPropertyDescriptor(object);
       addSolutionsPropertyDescriptor(object);
-      addUmlElementsPropertyDescriptor(object);
       addStudentsPropertyDescriptor(object);
-      addFeedbacksPropertyDescriptor(object);
-      addMistakeTypesPropertyDescriptor(object);
+      addFeedbackItemsPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
-  }
-
-  /**
-   * This adds a property descriptor for the Learning Items feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addLearningItemsPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_ModelingAssistant_learningItems_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_ModelingAssistant_learningItems_feature", "_UI_ModelingAssistant_type"),
-         ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_ITEMS,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Learning Resources feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addLearningResourcesPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_ModelingAssistant_learningResources_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_ModelingAssistant_learningResources_feature", "_UI_ModelingAssistant_type"),
-         ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_RESOURCES,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
   }
 
   /**
@@ -162,28 +115,6 @@ public class ModelingAssistantItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Uml Elements feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addUmlElementsPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_ModelingAssistant_umlElements_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_ModelingAssistant_umlElements_feature", "_UI_ModelingAssistant_type"),
-         ModelingassistantPackage.Literals.MODELING_ASSISTANT__UML_ELEMENTS,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
    * This adds a property descriptor for the Students feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -206,41 +137,19 @@ public class ModelingAssistantItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Feedbacks feature.
+   * This adds a property descriptor for the Feedback Items feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addFeedbacksPropertyDescriptor(Object object) {
+  protected void addFeedbackItemsPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_ModelingAssistant_feedbacks_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_ModelingAssistant_feedbacks_feature", "_UI_ModelingAssistant_type"),
-         ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACKS,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Mistake Types feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addMistakeTypesPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_ModelingAssistant_mistakeTypes_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_ModelingAssistant_mistakeTypes_feature", "_UI_ModelingAssistant_type"),
-         ModelingassistantPackage.Literals.MODELING_ASSISTANT__MISTAKE_TYPES,
+         getString("_UI_ModelingAssistant_feedbackItems_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_ModelingAssistant_feedbackItems_feature", "_UI_ModelingAssistant_type"),
+         ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACK_ITEMS,
          true,
          false,
          true,
@@ -261,16 +170,11 @@ public class ModelingAssistantItemProvider
   public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
     if (childrenFeatures == null) {
       super.getChildrenFeatures(object);
-      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_ITEMS);
-      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_RESOURCES);
       childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__PROBLEM_STATEMENTS);
       childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__SOLUTIONS);
-      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__UML_ELEMENTS);
       childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__STUDENTS);
-      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACKS);
-      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__MISTAKE_TYPES);
       childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__STUDENT_KNOWLEDGES);
-      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__MISTAKE_TYPE_CATEGORIES);
+      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACK_ITEMS);
     }
     return childrenFeatures;
   }
@@ -323,16 +227,11 @@ public class ModelingAssistantItemProvider
     updateChildren(notification);
 
     switch (notification.getFeatureID(ModelingAssistant.class)) {
-      case ModelingassistantPackage.MODELING_ASSISTANT__LEARNING_ITEMS:
-      case ModelingassistantPackage.MODELING_ASSISTANT__LEARNING_RESOURCES:
       case ModelingassistantPackage.MODELING_ASSISTANT__PROBLEM_STATEMENTS:
       case ModelingassistantPackage.MODELING_ASSISTANT__SOLUTIONS:
-      case ModelingassistantPackage.MODELING_ASSISTANT__UML_ELEMENTS:
       case ModelingassistantPackage.MODELING_ASSISTANT__STUDENTS:
-      case ModelingassistantPackage.MODELING_ASSISTANT__FEEDBACKS:
-      case ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPES:
       case ModelingassistantPackage.MODELING_ASSISTANT__STUDENT_KNOWLEDGES:
-      case ModelingassistantPackage.MODELING_ASSISTANT__MISTAKE_TYPE_CATEGORIES:
+      case ModelingassistantPackage.MODELING_ASSISTANT__FEEDBACK_ITEMS:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
     }
@@ -352,36 +251,6 @@ public class ModelingAssistantItemProvider
 
     newChildDescriptors.add
       (createChildParameter
-        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_ITEMS,
-         ModelingassistantFactory.eINSTANCE.createLearningItem()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_RESOURCES,
-         ModelingassistantFactory.eINSTANCE.createLearningResource()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_RESOURCES,
-         ModelingassistantFactory.eINSTANCE.createReference()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_RESOURCES,
-         ModelingassistantFactory.eINSTANCE.createTutorial()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_RESOURCES,
-         ModelingassistantFactory.eINSTANCE.createExample()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__LEARNING_RESOURCES,
-         ModelingassistantFactory.eINSTANCE.createQuiz()));
-
-    newChildDescriptors.add
-      (createChildParameter
         (ModelingassistantPackage.Literals.MODELING_ASSISTANT__PROBLEM_STATEMENTS,
          ModelingassistantFactory.eINSTANCE.createProblemStatement()));
 
@@ -392,38 +261,8 @@ public class ModelingAssistantItemProvider
 
     newChildDescriptors.add
       (createChildParameter
-        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__UML_ELEMENTS,
-         ModelingassistantFactory.eINSTANCE.createUmlElement()));
-
-    newChildDescriptors.add
-      (createChildParameter
         (ModelingassistantPackage.Literals.MODELING_ASSISTANT__STUDENTS,
          ModelingassistantFactory.eINSTANCE.createStudent()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACKS,
-         ModelingassistantFactory.eINSTANCE.createFeedback()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACKS,
-         ModelingassistantFactory.eINSTANCE.createTextResponse()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACKS,
-         ModelingassistantFactory.eINSTANCE.createParametrizedResponse()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACKS,
-         ModelingassistantFactory.eINSTANCE.createResourceResponse()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__MISTAKE_TYPES,
-         ModelingassistantFactory.eINSTANCE.createMistakeType()));
 
     newChildDescriptors.add
       (createChildParameter
@@ -432,8 +271,8 @@ public class ModelingAssistantItemProvider
 
     newChildDescriptors.add
       (createChildParameter
-        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__MISTAKE_TYPE_CATEGORIES,
-         ModelingassistantFactory.eINSTANCE.createMistakeTypeCategory()));
+        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACK_ITEMS,
+         ModelingassistantFactory.eINSTANCE.createFeedbackItem()));
   }
 
   /**

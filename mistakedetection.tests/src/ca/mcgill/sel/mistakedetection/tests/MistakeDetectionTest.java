@@ -12,10 +12,10 @@ import classdiagram.Attribute;
 import classdiagram.ClassDiagram;
 import classdiagram.ClassdiagramPackage;
 import classdiagram.Classifier;
+import learningcorpus.MistakeType;
+import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
-import modelingassistant.MistakeType;
 import modelingassistant.ModelingassistantFactory;
-import modelingassistant.mistaketypes.MistakeTypes;
 import modelingassistant.util.ResourceHelper;
 
 public class MistakeDetectionTest {
@@ -146,12 +146,11 @@ public class MistakeDetectionTest {
     var cdmFile1 = "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution.domain_model.cdm";
     var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
     var classDiagram1 = (ClassDiagram) resource1.getContents().get(0);
-    var maf1 = ModelingassistantFactory.eINSTANCE;
-    var modelingAssistant1 = maf1.createModelingAssistant();
-    var solution1 = maf1.createSolution();
+    var modelingAssistant1 = maf.createModelingAssistant();
+    var solution1 = maf.createSolution();
     solution1.setModelingAssistant(modelingAssistant1);
     solution1.setClassDiagram(classDiagram1);
-    var student = maf1.createStudent();
+    var student = maf.createStudent();
     solution1.setStudent(student);
 
     Classifier instructorBusClass = null;
@@ -189,7 +188,7 @@ public class MistakeDetectionTest {
     cdmFile1 = "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution-a.domain_model.cdm";
     resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
     classDiagram1 = (ClassDiagram) resource1.getContents().get(0);
-    solution1 = maf1.createSolution();
+    solution1 = maf.createSolution();
     solution1.setModelingAssistant(modelingAssistant1);
     solution1.setClassDiagram(classDiagram1);
     solution1.setStudent(student);
@@ -218,7 +217,7 @@ public class MistakeDetectionTest {
 
     assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriversClass));
 
-    comparison = MistakeDetection.compare(solution,solution1);
+    comparison = MistakeDetection.compare(solution, solution1);
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
     assertEquals(comparison.extraStudentClassifier.size(), 0);
     assertEquals(comparison.mappedClassifier.size(), 2);
@@ -228,7 +227,7 @@ public class MistakeDetectionTest {
     assertEquals(solution1.getMistakes().size(), 4);
 
     for (Mistake m : solution1.getMistakes()) {
-      if (m.getMistakeType() == MistakeTypes.USING_PLURAL_OR_LOWERCASE
+      if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
           && m.getStudentElements().get(0).getElement() == studentBusesClass) {
         assertEquals(m.getStudentElements().get(0).getElement(), studentBusesClass);
         assertEquals(m.getInstructorElements().get(0).getElement(), instructorBusClass);
@@ -236,7 +235,7 @@ public class MistakeDetectionTest {
         assertEquals(m.getNumDetection(), 1);
         assertFalse(m.isResolved());
       }
-      if (m.getMistakeType() == MistakeTypes.USING_PLURAL_OR_LOWERCASE
+      if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
           && m.getStudentElements().get(0).getElement() == studentDriversClass) {
         assertEquals(m.getStudentElements().get(0).getElement(), studentDriversClass);
         assertEquals(m.getInstructorElements().get(0).getElement(), instructorDriverClass);
@@ -276,7 +275,7 @@ public class MistakeDetectionTest {
     assertEquals(solution1.getMistakes().size(), 4);
 
     for (Mistake m : solution1.getMistakes()) {
-      if (m.getMistakeType() == MistakeTypes.USING_PLURAL_OR_LOWERCASE
+      if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
           && m.getStudentElements().get(0).getElement() == studentBusesClass) {
         assertEquals(m.getStudentElements().get(0).getElement(), studentBusesClass);
         assertEquals(m.getInstructorElements().get(0).getElement(), instructorBusClass);
@@ -284,7 +283,7 @@ public class MistakeDetectionTest {
         assertEquals(m.getNumDetection(), 2);
         assertFalse(m.isResolved());
       }
-      if (m.getMistakeType() == MistakeTypes.USING_PLURAL_OR_LOWERCASE
+      if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
           && m.getStudentElements().get(0).getElement() == studentDriversClass) {
         assertEquals(m.getStudentElements().get(0).getElement(), studentDriversClass);
         assertEquals(m.getInstructorElements().get(0).getElement(), instructorDriverClass);
@@ -310,7 +309,7 @@ public class MistakeDetectionTest {
       }
     }
 
-    comparison = MistakeDetection.compare(solution,solution1);
+    comparison = MistakeDetection.compare(solution, solution1);
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
     assertEquals(comparison.extraStudentClassifier.size(), 0);
     assertEquals(comparison.mappedClassifier.size(), 2);
@@ -321,7 +320,7 @@ public class MistakeDetectionTest {
     assertEquals(solution1.getMistakes().size(), 4);
 
     for (Mistake m : solution1.getMistakes()) {
-      if (m.getMistakeType() == MistakeTypes.USING_PLURAL_OR_LOWERCASE
+      if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
           && m.getStudentElements().get(0).getElement() == studentBusesClass) {
         assertEquals(m.getStudentElements().get(0).getElement(), studentBusesClass);
         assertEquals(m.getInstructorElements().get(0).getElement(), instructorBusClass);
@@ -329,7 +328,7 @@ public class MistakeDetectionTest {
         assertEquals(m.getNumDetection(), 3);
         assertFalse(m.isResolved());
       }
-      if (m.getMistakeType() == MistakeTypes.USING_PLURAL_OR_LOWERCASE
+      if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
           && m.getStudentElements().get(0).getElement() == studentDriversClass) {
         assertEquals(m.getStudentElements().get(0).getElement(), studentDriversClass);
         assertEquals(m.getInstructorElements().get(0).getElement(), instructorDriverClass);
@@ -359,7 +358,7 @@ public class MistakeDetectionTest {
     cdmFile1 = "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution.domain_model.cdm";
     resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
     classDiagram1 = (ClassDiagram) resource1.getContents().get(0);
-    modelingAssistant1 = maf1.createModelingAssistant();
+    modelingAssistant1 = maf.createModelingAssistant();
     solution1.setModelingAssistant(modelingAssistant1);
     solution1.setClassDiagram(classDiagram1);
     solution1.setStudent(student);
@@ -394,7 +393,7 @@ public class MistakeDetectionTest {
     assertEquals(solution1.getMistakes().size(), 4);
 
     for (Mistake m : solution1.getMistakes()) {
-      if (m.getMistakeType() == MistakeTypes.USING_PLURAL_OR_LOWERCASE
+      if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
           && m.getStudentElements().get(0).getElement() == studentBusesClass) {
         assertEquals(m.getStudentElements().get(0).getElement(), studentBusesClass);
         assertEquals(m.getInstructorElements().get(0).getElement(), instructorBusClass);
@@ -402,7 +401,7 @@ public class MistakeDetectionTest {
         assertEquals(m.getNumDetection(), 3);
         assertTrue(m.isResolved());
       }
-      if (m.getMistakeType() == MistakeTypes.USING_PLURAL_OR_LOWERCASE
+      if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
           && m.getStudentElements().get(0).getElement() == studentDriversClass) {
         assertEquals(m.getStudentElements().get(0).getElement(), studentDriversClass);
         assertEquals(m.getInstructorElements().get(0).getElement(), instructorDriverClass);
@@ -867,13 +866,11 @@ public class MistakeDetectionTest {
     }
     System.out.println();
     System.out.println("Mapped Association : ");
-    comparison.mappedAssociation.forEach((key, value) -> System.out
-        .println(key.getName() + " " + value.getName()));
+    comparison.mappedAssociation.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
 
     System.out.println();
     System.out.println("Mistakes : ");
-    comparison.newMistakes.forEach((m) -> System.out
-        .println(m.getMistakeType()));
+    comparison.newMistakes.forEach((m) -> System.out.println(m.getMistakeType()));
   }
 
   public static boolean mistakesContainMistakeType(List<Mistake> mistakes, MistakeType mistakeType) {

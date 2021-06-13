@@ -222,6 +222,7 @@ public class ContainerMapImpl extends MinimalEObjectImpl.Container implements Ba
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public int getHash() {
     if (hash == -1) {
       Object theKey = getKey();
@@ -235,6 +236,7 @@ public class ContainerMapImpl extends MinimalEObjectImpl.Container implements Ba
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setHash(int hash) {
     this.hash = hash;
   }
@@ -244,6 +246,7 @@ public class ContainerMapImpl extends MinimalEObjectImpl.Container implements Ba
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EObject getKey() {
     return getTypedKey();
   }
@@ -253,6 +256,7 @@ public class ContainerMapImpl extends MinimalEObjectImpl.Container implements Ba
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setKey(EObject key) {
     setTypedKey(key);
   }
@@ -262,6 +266,7 @@ public class ContainerMapImpl extends MinimalEObjectImpl.Container implements Ba
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EMap<EObject, LayoutElement> getValue() {
     return getTypedValue();
   }
@@ -271,6 +276,7 @@ public class ContainerMapImpl extends MinimalEObjectImpl.Container implements Ba
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EMap<EObject, LayoutElement> setValue(EMap<EObject, LayoutElement> value) {
     EMap<EObject, LayoutElement> oldValue = getValue();
     getTypedValue().clear();

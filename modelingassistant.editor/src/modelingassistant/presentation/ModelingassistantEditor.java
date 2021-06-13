@@ -159,6 +159,8 @@ import modelingassistant.provider.ModelingassistantItemProviderAdapterFactory;
 
 import classdiagram.provider.ClassdiagramItemProviderAdapterFactory;
 
+import learningcorpus.provider.LearningcorpusItemProviderAdapterFactory;
+
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 
@@ -327,6 +329,7 @@ public class ModelingassistantEditor
    */
   protected IPartListener partListener =
     new IPartListener() {
+      @Override
       public void partActivated(IWorkbenchPart p) {
         if (p instanceof ContentOutline) {
           if (((ContentOutline)p).getCurrentPage() == contentOutlinePage) {
@@ -345,15 +348,19 @@ public class ModelingassistantEditor
           handleActivate();
         }
       }
+      @Override
       public void partBroughtToTop(IWorkbenchPart p) {
         // Ignore.
       }
+      @Override
       public void partClosed(IWorkbenchPart p) {
         // Ignore.
       }
+      @Override
       public void partDeactivated(IWorkbenchPart p) {
         // Ignore.
       }
+      @Override
       public void partOpened(IWorkbenchPart p) {
         // Ignore.
       }
@@ -439,6 +446,7 @@ public class ModelingassistantEditor
           dispatching = true;
           getSite().getShell().getDisplay().asyncExec
             (new Runnable() {
+               @Override
                public void run() {
                  dispatching = false;
                  updateProblemIndication();
@@ -468,6 +476,7 @@ public class ModelingassistantEditor
    */
   protected IResourceChangeListener resourceChangeListener =
     new IResourceChangeListener() {
+      @Override
       public void resourceChanged(IResourceChangeEvent event) {
         IResourceDelta delta = event.getDelta();
         try {
@@ -476,6 +485,7 @@ public class ModelingassistantEditor
             protected Collection<Resource> changedResources = new ArrayList<Resource>();
             protected Collection<Resource> removedResources = new ArrayList<Resource>();
 
+            @Override
             public boolean visit(IResourceDelta delta) {
               if (delta.getResource().getType() == IResource.FILE) {
                 if (delta.getKind() == IResourceDelta.REMOVED ||
@@ -511,6 +521,7 @@ public class ModelingassistantEditor
           if (!visitor.getRemovedResources().isEmpty()) {
             getSite().getShell().getDisplay().asyncExec
               (new Runnable() {
+                 @Override
                  public void run() {
                    removedResources.addAll(visitor.getRemovedResources());
                    if (!isDirty()) {
@@ -523,6 +534,7 @@ public class ModelingassistantEditor
           if (!visitor.getChangedResources().isEmpty()) {
             getSite().getShell().getDisplay().asyncExec
               (new Runnable() {
+                 @Override
                  public void run() {
                    changedResources.addAll(visitor.getChangedResources());
                    if (getSite().getPage().getActiveEditor() == ModelingassistantEditor.this) {
@@ -704,6 +716,7 @@ public class ModelingassistantEditor
     adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
     adapterFactory.addAdapterFactory(new ModelingassistantItemProviderAdapterFactory());
     adapterFactory.addAdapterFactory(new ClassdiagramItemProviderAdapterFactory());
+    adapterFactory.addAdapterFactory(new LearningcorpusItemProviderAdapterFactory());
     adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
     // Create the command stack that will notify this editor as commands are executed.
@@ -714,9 +727,11 @@ public class ModelingassistantEditor
     //
     commandStack.addCommandStackListener
       (new CommandStackListener() {
+         @Override
          public void commandStackChanged(final EventObject event) {
            getContainer().getDisplay().asyncExec
              (new Runnable() {
+                @Override
                 public void run() {
                   firePropertyChange(IEditorPart.PROP_DIRTY);
 
@@ -769,6 +784,7 @@ public class ModelingassistantEditor
     if (theSelection != null && !theSelection.isEmpty()) {
       Runnable runnable =
         new Runnable() {
+          @Override
           public void run() {
             // Try to select the items in the current content viewer of the editor.
             //
@@ -789,6 +805,7 @@ public class ModelingassistantEditor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EditingDomain getEditingDomain() {
     return editingDomain;
   }
@@ -885,6 +902,7 @@ public class ModelingassistantEditor
           new ISelectionChangedListener() {
             // This just notifies those things that are affected by the section.
             //
+            @Override
             public void selectionChanged(SelectionChangedEvent selectionChangedEvent) {
               setSelection(selectionChangedEvent.getSelection());
             }
@@ -919,6 +937,7 @@ public class ModelingassistantEditor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Viewer getViewer() {
     return currentViewer;
   }
@@ -1224,6 +1243,7 @@ public class ModelingassistantEditor
 
       getSite().getShell().getDisplay().asyncExec
         (new Runnable() {
+           @Override
            public void run() {
              if (!getContainer().isDisposed()) {
                setActivePage(0);
@@ -1250,6 +1270,7 @@ public class ModelingassistantEditor
 
     getSite().getShell().getDisplay().asyncExec
       (new Runnable() {
+         @Override
          public void run() {
            updateProblemIndication();
          }
@@ -1385,6 +1406,7 @@ public class ModelingassistantEditor
         (new ISelectionChangedListener() {
            // This ensures that we handle selections correctly.
            //
+           @Override
            public void selectionChanged(SelectionChangedEvent event) {
              handleContentOutlineSelection(event.getSelection());
            }
@@ -1609,6 +1631,7 @@ public class ModelingassistantEditor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void gotoMarker(IMarker marker) {
     List<?> targetObjects = markerHelper.getTargetObjects(editingDomain, marker);
     if (!targetObjects.isEmpty()) {
@@ -1653,6 +1676,7 @@ public class ModelingassistantEditor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void addSelectionChangedListener(ISelectionChangedListener listener) {
     selectionChangedListeners.add(listener);
   }
@@ -1663,6 +1687,7 @@ public class ModelingassistantEditor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void removeSelectionChangedListener(ISelectionChangedListener listener) {
     selectionChangedListeners.remove(listener);
   }
@@ -1673,6 +1698,7 @@ public class ModelingassistantEditor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ISelection getSelection() {
     return editorSelection;
   }
@@ -1684,6 +1710,7 @@ public class ModelingassistantEditor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSelection(ISelection selection) {
     editorSelection = selection;
 
@@ -1753,6 +1780,7 @@ public class ModelingassistantEditor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void menuAboutToShow(IMenuManager menuManager) {
     ((IMenuListener)getEditorSite().getActionBarContributor()).menuAboutToShow(menuManager);
   }

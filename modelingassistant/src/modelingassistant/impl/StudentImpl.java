@@ -3,6 +3,7 @@
 package modelingassistant.impl;
 
 import java.util.Collection;
+
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.Solution;
@@ -18,6 +19,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -114,6 +116,7 @@ public class StudentImpl extends NamedElementImpl implements Student {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getId() {
     return id;
   }
@@ -123,6 +126,7 @@ public class StudentImpl extends NamedElementImpl implements Student {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setId(String newId) {
     String oldId = id;
     id = newId;
@@ -135,6 +139,7 @@ public class StudentImpl extends NamedElementImpl implements Student {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ModelingAssistant getModelingAssistant() {
     if (eContainerFeatureID() != ModelingassistantPackage.STUDENT__MODELING_ASSISTANT) return null;
     return (ModelingAssistant)eInternalContainer();
@@ -155,6 +160,7 @@ public class StudentImpl extends NamedElementImpl implements Student {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setModelingAssistant(ModelingAssistant newModelingAssistant) {
     if (newModelingAssistant != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.STUDENT__MODELING_ASSISTANT && newModelingAssistant != null)) {
       if (EcoreUtil.isAncestor(this, newModelingAssistant))
@@ -176,6 +182,7 @@ public class StudentImpl extends NamedElementImpl implements Student {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Solution> getSolutions() {
     if (solutions == null) {
       solutions = new EObjectWithInverseResolvingEList<Solution>(Solution.class, this, ModelingassistantPackage.STUDENT__SOLUTIONS, ModelingassistantPackage.SOLUTION__STUDENT);
@@ -188,6 +195,7 @@ public class StudentImpl extends NamedElementImpl implements Student {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<StudentKnowledge> getStudentKnowledges() {
     if (studentKnowledges == null) {
       studentKnowledges = new EObjectWithInverseResolvingEList<StudentKnowledge>(StudentKnowledge.class, this, ModelingassistantPackage.STUDENT__STUDENT_KNOWLEDGES, ModelingassistantPackage.STUDENT_KNOWLEDGE__STUDENT);
@@ -200,6 +208,7 @@ public class StudentImpl extends NamedElementImpl implements Student {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Solution getCurrentSolution() {
     if (currentSolution != null && currentSolution.eIsProxy()) {
       InternalEObject oldCurrentSolution = (InternalEObject)currentSolution;
@@ -226,33 +235,12 @@ public class StudentImpl extends NamedElementImpl implements Student {
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetCurrentSolution(Solution newCurrentSolution, NotificationChain msgs) {
+  @Override
+  public void setCurrentSolution(Solution newCurrentSolution) {
     Solution oldCurrentSolution = currentSolution;
     currentSolution = newCurrentSolution;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT__CURRENT_SOLUTION, oldCurrentSolution, newCurrentSolution);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCurrentSolution(Solution newCurrentSolution) {
-    if (newCurrentSolution != currentSolution) {
-      NotificationChain msgs = null;
-      if (currentSolution != null)
-        msgs = ((InternalEObject)currentSolution).eInverseRemove(this, ModelingassistantPackage.SOLUTION__CURRENT_STUDENT, Solution.class, msgs);
-      if (newCurrentSolution != null)
-        msgs = ((InternalEObject)newCurrentSolution).eInverseAdd(this, ModelingassistantPackage.SOLUTION__CURRENT_STUDENT, Solution.class, msgs);
-      msgs = basicSetCurrentSolution(newCurrentSolution, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT__CURRENT_SOLUTION, newCurrentSolution, newCurrentSolution));
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT__CURRENT_SOLUTION, oldCurrentSolution, currentSolution));
   }
 
   /**
@@ -272,10 +260,6 @@ public class StudentImpl extends NamedElementImpl implements Student {
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getSolutions()).basicAdd(otherEnd, msgs);
       case ModelingassistantPackage.STUDENT__STUDENT_KNOWLEDGES:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getStudentKnowledges()).basicAdd(otherEnd, msgs);
-      case ModelingassistantPackage.STUDENT__CURRENT_SOLUTION:
-        if (currentSolution != null)
-          msgs = ((InternalEObject)currentSolution).eInverseRemove(this, ModelingassistantPackage.SOLUTION__CURRENT_STUDENT, Solution.class, msgs);
-        return basicSetCurrentSolution((Solution)otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -294,8 +278,6 @@ public class StudentImpl extends NamedElementImpl implements Student {
         return ((InternalEList<?>)getSolutions()).basicRemove(otherEnd, msgs);
       case ModelingassistantPackage.STUDENT__STUDENT_KNOWLEDGES:
         return ((InternalEList<?>)getStudentKnowledges()).basicRemove(otherEnd, msgs);
-      case ModelingassistantPackage.STUDENT__CURRENT_SOLUTION:
-        return basicSetCurrentSolution(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }

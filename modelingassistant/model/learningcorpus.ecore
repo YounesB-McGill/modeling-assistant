@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="learningcorpus" nsURI="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0"
+    nsPrefix="learningcorpus">
+  <eClassifiers xsi:type="ecore:EDataType" name="Time" instanceClassName="java.sql.Time"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UmlElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningItems" upperBound="-1"
+        eType="#//LearningItem" eOpposite="#//LearningItem/umlElements"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningCorpus" lowerBound="1"
+        eType="#//LearningCorpus" eOpposite="#//LearningCorpus/umlElements"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LearningItem" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="umlElements" upperBound="-1"
+        eType="#//UmlElement" eOpposite="#//UmlElement/learningItems"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningResources" upperBound="-1"
+        eType="#//LearningResource" eOpposite="#//LearningResource/learningItem"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypes" upperBound="-1"
+        eType="#//MistakeType" eOpposite="#//MistakeType/learningItem"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningCorpus" lowerBound="1"
+        eType="#//LearningCorpus" eOpposite="#//LearningCorpus/learningItems"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MistakeType" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="atomic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeToAddress" eType="#//Time"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numStepsBeforeNotification"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningItem" lowerBound="1"
+        eType="#//LearningItem" eOpposite="#//LearningItem/mistakeTypes"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feedbacks" upperBound="-1"
+        eType="#//Feedback" eOpposite="#//Feedback/mistakeType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypeCategory" lowerBound="1"
+        eType="#//MistakeTypeCategory" eOpposite="#//MistakeTypeCategory/mistakeTypes"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Feedback">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="level" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="congratulatory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usefulness" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="highlightProblem" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="highlightSolution" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeType" lowerBound="1"
+        eType="#//MistakeType" eOpposite="#//MistakeType/feedbacks"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningCorpus" lowerBound="1"
+        eType="#//LearningCorpus" eOpposite="#//LearningCorpus/feedbacks"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TextResponse" eSuperTypes="#//Feedback"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ParametrizedResponse" eSuperTypes="#//Feedback"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ResourceResponse" eSuperTypes="#//Feedback">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningResources" lowerBound="1"
+        upperBound="-1" eType="#//LearningResource" eOpposite="#//LearningResource/resourceResponses"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LearningResource" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningItem" lowerBound="1"
+        eType="#//LearningItem" eOpposite="#//LearningItem/learningResources"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resourceResponses" upperBound="-1"
+        eType="#//ResourceResponse" eOpposite="#//ResourceResponse/learningResources"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningCorpus" lowerBound="1"
+        eType="#//LearningCorpus" eOpposite="#//LearningCorpus/learningResources"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Reference" eSuperTypes="#//LearningResource"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Tutorial" eSuperTypes="#//LearningResource"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Example" eSuperTypes="#//LearningResource"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Quiz" eSuperTypes="#//LearningResource"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MistakeTypeCategory" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypes" upperBound="-1"
+        eType="#//MistakeType" containment="true" eOpposite="#//MistakeType/mistakeTypeCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="supercategory" eType="#//MistakeTypeCategory"
+        eOpposite="#//MistakeTypeCategory/subcategories"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subcategories" upperBound="-1"
+        eType="#//MistakeTypeCategory" eOpposite="#//MistakeTypeCategory/supercategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningCorpus" lowerBound="1"
+        eType="#//LearningCorpus" eOpposite="#//LearningCorpus/mistakeTypeCategories"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LearningCorpus">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypeCategories"
+        upperBound="-1" eType="#//MistakeTypeCategory" containment="true" eOpposite="#//MistakeTypeCategory/learningCorpus"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feedbacks" upperBound="-1"
+        eType="#//Feedback" containment="true" eOpposite="#//Feedback/learningCorpus"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningItems" upperBound="-1"
+        eType="#//LearningItem" containment="true" eOpposite="#//LearningItem/learningCorpus"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningResources" upperBound="-1"
+        eType="#//LearningResource" containment="true" eOpposite="#//LearningResource/learningCorpus"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="umlElements" eType="#//UmlElement"
+        containment="true" eOpposite="#//UmlElement/learningCorpus"/>
+  </eClassifiers>
+</ecore:EPackage>

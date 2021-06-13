@@ -8,8 +8,8 @@ import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.ProblemStatement;
 import modelingassistant.ProblemStatementElement;
-
 import modelingassistant.Solution;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -61,6 +62,7 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
    * @ordered
    */
   protected static final String TEXT_EDEFAULT = null;
+
   /**
    * The cached value of the '{@link #getText() <em>Text</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -115,6 +117,43 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public EList<ProblemStatementElement> getProblemStatementElements() {
+    if (problemStatementElements == null) {
+      problemStatementElements = new EObjectContainmentWithInverseEList<ProblemStatementElement>(ProblemStatementElement.class, this, ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS, ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__PROBLEM_STATEMENT);
+    }
+    return problemStatementElements;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String getText() {
+    return text;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setText(String newText) {
+    String oldText = text;
+    text = newText;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.PROBLEM_STATEMENT__TEXT, oldText, text));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public ModelingAssistant getModelingAssistant() {
     if (eContainerFeatureID() != ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT) return null;
     return (ModelingAssistant)eInternalContainer();
@@ -135,6 +174,7 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setModelingAssistant(ModelingAssistant newModelingAssistant) {
     if (newModelingAssistant != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT && newModelingAssistant != null)) {
       if (EcoreUtil.isAncestor(this, newModelingAssistant))
@@ -156,6 +196,7 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Solution> getStudentSolution() {
     if (studentSolution == null) {
       studentSolution = new EObjectWithInverseResolvingEList<Solution>(Solution.class, this, ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTION, ModelingassistantPackage.SOLUTION__STUDENT_PROBLEM_STATEMENT);
@@ -168,6 +209,7 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Solution getInstructorSolution() {
     if (instructorSolution != null && instructorSolution.eIsProxy()) {
       InternalEObject oldInstructorSolution = (InternalEObject)instructorSolution;
@@ -209,6 +251,7 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setInstructorSolution(Solution newInstructorSolution) {
     if (newInstructorSolution != instructorSolution) {
       NotificationChain msgs = null;
@@ -221,39 +264,6 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
     }
     else if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION, newInstructorSolution, newInstructorSolution));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<ProblemStatementElement> getProblemStatementElements() {
-    if (problemStatementElements == null) {
-      problemStatementElements = new EObjectContainmentWithInverseEList<ProblemStatementElement>(ProblemStatementElement.class, this, ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS, ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__PROBLEM_STATEMENT);
-    }
-    return problemStatementElements;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getText() {
-    return text;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setText(String newText) {
-    String oldText = text;
-    text = newText;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.PROBLEM_STATEMENT__TEXT, oldText, text));
   }
 
   /**

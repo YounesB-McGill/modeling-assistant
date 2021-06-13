@@ -3,27 +3,28 @@ package ca.mcgill.sel.mistakedetection;
 import static classdiagram.ReferenceType.AGGREGATION;
 import static classdiagram.ReferenceType.COMPOSITION;
 import static classdiagram.ReferenceType.REGULAR;
-import static modelingassistant.mistaketypes.MistakeTypes.ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA;
-import static modelingassistant.mistaketypes.MistakeTypes.BAD_ASSOCIATION_NAME_SPELLING;
-import static modelingassistant.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
-import static modelingassistant.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
-import static modelingassistant.mistaketypes.MistakeTypes.EXTRA_CLASS;
-import static modelingassistant.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
-import static modelingassistant.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
-import static modelingassistant.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_NAME_WHEN_ONE_WAS_EXPECTED;
-import static modelingassistant.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
-import static modelingassistant.mistaketypes.MistakeTypes.MISSING_CLASS;
-import static modelingassistant.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
-import static modelingassistant.mistaketypes.MistakeTypes.OTHER_EXTRA_ASSOCIATION;
-import static modelingassistant.mistaketypes.MistakeTypes.OTHER_EXTRA_ATTRIBUTE;
-import static modelingassistant.mistaketypes.MistakeTypes.REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION_OR_VICE_VERSA;
-import static modelingassistant.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
-import static modelingassistant.mistaketypes.MistakeTypes.SIMILAR_CLASS_NAME;
-import static modelingassistant.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
-import static modelingassistant.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION_OR_VICE_VERSA;
-import static modelingassistant.mistaketypes.MistakeTypes.USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION_OR_VICE_VERSA;
-import static modelingassistant.mistaketypes.MistakeTypes.USING_PLURAL_OR_LOWERCASE;
-import static modelingassistant.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
+import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_BE_STATIC;
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_NAME_WHEN_ONE_WAS_EXPECTED;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
+import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ATTRIBUTE;
+import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION;
+import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_CLASS_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -42,8 +43,8 @@ import classdiagram.Classifier;
 import classdiagram.NamedElement;
 import classdiagram.ReferenceType;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
+import learningcorpus.MistakeType;
 import modelingassistant.Mistake;
-import modelingassistant.MistakeType;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
 
@@ -597,7 +598,7 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakePluralClassName(Classifier studentClass, Classifier instructorClass) {
     if (isPlural(studentClass.getName())) {
-      return Optional.of(createMistake(USING_PLURAL_OR_LOWERCASE, studentClass, instructorClass));
+      return Optional.of(createMistake(PLURAL_CLASS_NAME, studentClass, instructorClass));
     }
     return Optional.empty();
   }
@@ -643,7 +644,7 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeLowerClassName(Classifier studentClass, Classifier instructorClass) {
     if (isLowerName(studentClass.getName())) {
-      return Optional.of(createMistake(USING_PLURAL_OR_LOWERCASE, studentClass, instructorClass));
+      return Optional.of(createMistake(LOWERCASE_CLASS_NAME, studentClass, instructorClass));
     }
     return Optional.empty();
   }
@@ -651,8 +652,9 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeWrongEnumerationClass(Classifier studentClass,
       Classifier instructorClass) {
     if (!classEnumStatusesMatch(studentClass, instructorClass)) {
+      // TODO Handle vice versa case
       return Optional
-          .of(createMistake(REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION_OR_VICE_VERSA, studentClass, instructorClass));
+          .of(createMistake(REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION, studentClass, instructorClass));
     }
     return Optional.empty();
   }
@@ -667,8 +669,9 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeAttributeStatic(Attribute studentAttribute,
       Attribute instructorAttribute) {
+    // TODO Handle vice versa case
     if (!attributeStaticPropertiesMatch(studentAttribute, instructorAttribute)) {
-      return Optional.of(createMistake(ATTRIBUTE_EXPECTED_TO_BE_STATIC_BUT_IS_NOT_OR_VICE_VERSA, studentAttribute,
+      return Optional.of(createMistake(ATTRIBUTE_SHOULD_BE_STATIC, studentAttribute,
           instructorAttribute));
     }
     return Optional.empty();
@@ -677,7 +680,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingAssociationInsteadOfComposition(
       AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
     if (!associationEndCompositionPropertyMatch(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION_OR_VICE_VERSA,
+      return Optional.of(createMistake(USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION,
           studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -686,7 +689,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingAssociationInsteadOfAggregation(
       AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
     if (!associationEndAggregationPropertyMatch(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION_OR_VICE_VERSA,
+      return Optional.of(createMistake(USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION,
           studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -696,7 +699,7 @@ public class MistakeDetection {
       AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
     if (!associationEndAggregationCompositionPropertyMatch(studentClassAssocEnd,
         instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_AGGREGATION_INSTEAD_OF_COMPOSITION_OR_VICE_VERSA,
+      return Optional.of(createMistake(USING_AGGREGATION_INSTEAD_OF_COMPOSITION,
           studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -1022,8 +1025,7 @@ public class MistakeDetection {
    */
   private static Mistake createMistake(MistakeType mistakeType, NamedElement studentElement,
       NamedElement instructorElement) {
-    var mistake = MAF.createMistake();
-    mistake.setMistakeType(mistakeType);
+    var mistake = MAF.createMistakeOfType(mistakeType);
 
     // TODO Use existing solution element when available
     if (studentElement != null) {

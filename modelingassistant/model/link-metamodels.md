@@ -1,5 +1,7 @@
  
 # Linking metamodels
+
+:warning: These instructions are now deprecated. An update will follow.
  
 1. Open the destination metamodel ecore file (in this case, modelingassistant.ecore) in the Eclipse Ecore Model editor.
 1. Right-click the top level element ("platform:...modelingassistant.ecore") and select Load Resource > Browse

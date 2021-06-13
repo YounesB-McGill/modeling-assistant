@@ -4,6 +4,8 @@ package modelingassistant;
 
 import java.sql.Time;
 
+import learningcorpus.MistakeType;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -21,12 +23,12 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.Mistake#getTimeToAddress <em>Time To Address</em>}</li>
  *   <li>{@link modelingassistant.Mistake#getNumStepsBeforeNotification <em>Num Steps Before Notification</em>}</li>
  *   <li>{@link modelingassistant.Mistake#getStudentElements <em>Student Elements</em>}</li>
- *   <li>{@link modelingassistant.Mistake#getMistakeType <em>Mistake Type</em>}</li>
  *   <li>{@link modelingassistant.Mistake#getLastFeedback <em>Last Feedback</em>}</li>
  *   <li>{@link modelingassistant.Mistake#getInstructorElements <em>Instructor Elements</em>}</li>
  *   <li>{@link modelingassistant.Mistake#getStudentSolution <em>Student Solution</em>}</li>
  *   <li>{@link modelingassistant.Mistake#getNumDetection <em>Num Detection</em>}</li>
  *   <li>{@link modelingassistant.Mistake#getNumDetectionSinceResolved <em>Num Detection Since Resolved</em>}</li>
+ *   <li>{@link modelingassistant.Mistake#getMistakeType <em>Mistake Type</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getMistake()
@@ -115,42 +117,18 @@ public interface Mistake extends EObject {
   EList<SolutionElement> getStudentElements();
 
   /**
-   * Returns the value of the '<em><b>Mistake Type</b></em>' reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.MistakeType#getMistakes <em>Mistakes</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Mistake Type</em>' reference.
-   * @see #setMistakeType(MistakeType)
-   * @see modelingassistant.ModelingassistantPackage#getMistake_MistakeType()
-   * @see modelingassistant.MistakeType#getMistakes
-   * @model opposite="mistakes" required="true"
-   * @generated
-   */
-  MistakeType getMistakeType();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.Mistake#getMistakeType <em>Mistake Type</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Mistake Type</em>' reference.
-   * @see #getMistakeType()
-   * @generated
-   */
-  void setMistakeType(MistakeType value);
-
-  /**
    * Returns the value of the '<em><b>Last Feedback</b></em>' reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.Feedback#getMistakes <em>Mistakes</em>}'.
+   * It is bidirectional and its opposite is '{@link modelingassistant.FeedbackItem#getMistakes <em>Mistakes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Last Feedback</em>' reference.
-   * @see #setLastFeedback(Feedback)
+   * @see #setLastFeedback(FeedbackItem)
    * @see modelingassistant.ModelingassistantPackage#getMistake_LastFeedback()
-   * @see modelingassistant.Feedback#getMistakes
+   * @see modelingassistant.FeedbackItem#getMistakes
    * @model opposite="mistakes"
    * @generated
    */
-  Feedback getLastFeedback();
+  FeedbackItem getLastFeedback();
 
   /**
    * Sets the value of the '{@link modelingassistant.Mistake#getLastFeedback <em>Last Feedback</em>}' reference.
@@ -160,7 +138,7 @@ public interface Mistake extends EObject {
    * @see #getLastFeedback()
    * @generated
    */
-  void setLastFeedback(Feedback value);
+  void setLastFeedback(FeedbackItem value);
 
   /**
    * Returns the value of the '<em><b>Instructor Elements</b></em>' reference list.
@@ -243,5 +221,27 @@ public interface Mistake extends EObject {
    * @generated
    */
   void setNumDetectionSinceResolved(int value);
+
+  /**
+   * Returns the value of the '<em><b>Mistake Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Mistake Type</em>' reference.
+   * @see #setMistakeType(MistakeType)
+   * @see modelingassistant.ModelingassistantPackage#getMistake_MistakeType()
+   * @model
+   * @generated
+   */
+  MistakeType getMistakeType();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.Mistake#getMistakeType <em>Mistake Type</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Mistake Type</em>' reference.
+   * @see #getMistakeType()
+   * @generated
+   */
+  void setMistakeType(MistakeType value);
 
 } // Mistake
