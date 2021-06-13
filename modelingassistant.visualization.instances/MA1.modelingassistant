@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is deprecated and no longer in use. -->
 <modelingassistant:ModelingAssistant xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmi:id="_Qu12IJHsEeukqv5DhMfmgQ">
   <mistakeTypes xmi:id="_FALA0JHyEeuzx4byvxA1iA" name="Missing class" mistakeTypeCategory="_4xsRwJHxEeuzx4byvxA1iA"/>
   <mistakeTypes xmi:id="_KXsfIJHyEeuzx4byvxA1iA" name="Extra (redundant) class" mistakeTypeCategory="_4xsRwJHxEeuzx4byvxA1iA"/>

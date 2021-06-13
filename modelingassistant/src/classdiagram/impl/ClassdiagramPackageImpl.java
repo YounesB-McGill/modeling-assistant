@@ -46,6 +46,10 @@ import classdiagram.util.ClassdiagramValidator;
 
 import java.util.Map;
 
+import learningcorpus.LearningcorpusPackage;
+
+import learningcorpus.impl.LearningcorpusPackageImpl;
+
 import modelingassistant.ModelingassistantPackage;
 
 import modelingassistant.impl.ModelingassistantPackageImpl;
@@ -397,19 +401,24 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
     // Obtain or create and register interdependencies
     Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ModelingassistantPackage.eNS_URI);
     ModelingassistantPackageImpl theModelingassistantPackage = (ModelingassistantPackageImpl)(registeredPackage instanceof ModelingassistantPackageImpl ? registeredPackage : ModelingassistantPackage.eINSTANCE);
+    registeredPackage = EPackage.Registry.INSTANCE.getEPackage(LearningcorpusPackage.eNS_URI);
+    LearningcorpusPackageImpl theLearningcorpusPackage = (LearningcorpusPackageImpl)(registeredPackage instanceof LearningcorpusPackageImpl ? registeredPackage : LearningcorpusPackage.eINSTANCE);
 
     // Create package meta-data objects
     theClassdiagramPackage.createPackageContents();
     theModelingassistantPackage.createPackageContents();
+    theLearningcorpusPackage.createPackageContents();
 
     // Initialize created meta-data
     theClassdiagramPackage.initializePackageContents();
     theModelingassistantPackage.initializePackageContents();
+    theLearningcorpusPackage.initializePackageContents();
 
     // Register package validator
     EValidator.Registry.INSTANCE.put
       (theClassdiagramPackage,
        new EValidator.Descriptor() {
+         @Override
          public EValidator getEValidator() {
            return ClassdiagramValidator.INSTANCE;
          }
@@ -428,6 +437,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getNamedElement() {
     return namedElementEClass;
   }
@@ -437,6 +447,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getNamedElement_Name() {
     return (EAttribute)namedElementEClass.getEStructuralFeatures().get(0);
   }
@@ -446,6 +457,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTypedElement() {
     return typedElementEClass;
   }
@@ -455,6 +467,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypedElement_Type() {
     return (EReference)typedElementEClass.getEStructuralFeatures().get(0);
   }
@@ -464,6 +477,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getParameter() {
     return parameterEClass;
   }
@@ -473,6 +487,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAttribute() {
     return attributeEClass;
   }
@@ -482,6 +497,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getStructuralFeature() {
     return structuralFeatureEClass;
   }
@@ -491,6 +507,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getStructuralFeature_Static() {
     return (EAttribute)structuralFeatureEClass.getEStructuralFeatures().get(0);
   }
@@ -500,6 +517,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getStructuralFeature_Visibility() {
     return (EAttribute)structuralFeatureEClass.getEStructuralFeatures().get(1);
   }
@@ -509,6 +527,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getType() {
     return typeEClass;
   }
@@ -518,6 +537,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getObjectType() {
     return objectTypeEClass;
   }
@@ -527,6 +547,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPrimitiveType() {
     return primitiveTypeEClass;
   }
@@ -536,6 +557,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getClassifier() {
     return classifierEClass;
   }
@@ -545,6 +567,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClassifier_SuperTypes() {
     return (EReference)classifierEClass.getEStructuralFeatures().get(0);
   }
@@ -554,6 +577,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getClassifier_DataType() {
     return (EAttribute)classifierEClass.getEStructuralFeatures().get(1);
   }
@@ -563,6 +587,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getClassifier_Abstract() {
     return (EAttribute)classifierEClass.getEStructuralFeatures().get(2);
   }
@@ -572,6 +597,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getClassifier_Visibility() {
     return (EAttribute)classifierEClass.getEStructuralFeatures().get(3);
   }
@@ -581,6 +607,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClassifier_Operations() {
     return (EReference)classifierEClass.getEStructuralFeatures().get(4);
   }
@@ -590,6 +617,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClassifier_TypeParameters() {
     return (EReference)classifierEClass.getEStructuralFeatures().get(5);
   }
@@ -599,6 +627,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClassifier_AssociationEnds() {
     return (EReference)classifierEClass.getEStructuralFeatures().get(6);
   }
@@ -608,6 +637,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClassifier_Attributes() {
     return (EReference)classifierEClass.getEStructuralFeatures().get(7);
   }
@@ -617,6 +647,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getOperation() {
     return operationEClass;
   }
@@ -626,6 +657,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getOperation_Abstract() {
     return (EAttribute)operationEClass.getEStructuralFeatures().get(0);
   }
@@ -635,6 +667,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getOperation_Visibility() {
     return (EAttribute)operationEClass.getEStructuralFeatures().get(1);
   }
@@ -644,6 +677,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getOperation_Static() {
     return (EAttribute)operationEClass.getEStructuralFeatures().get(2);
   }
@@ -653,6 +687,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getOperation_OperationType() {
     return (EAttribute)operationEClass.getEStructuralFeatures().get(3);
   }
@@ -662,6 +697,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getOperation_ReturnType() {
     return (EReference)operationEClass.getEStructuralFeatures().get(4);
   }
@@ -671,6 +707,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getOperation_Parameters() {
     return (EReference)operationEClass.getEStructuralFeatures().get(5);
   }
@@ -680,6 +717,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getClass_() {
     return classEClass;
   }
@@ -689,6 +727,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTypeParameter() {
     return typeParameterEClass;
   }
@@ -698,6 +737,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypeParameter_GenericType() {
     return (EReference)typeParameterEClass.getEStructuralFeatures().get(0);
   }
@@ -707,6 +747,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAssociation() {
     return associationEClass;
   }
@@ -716,6 +757,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssociation_Ends() {
     return (EReference)associationEClass.getEStructuralFeatures().get(0);
   }
@@ -725,6 +767,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssociation_AssociationClass() {
     return (EReference)associationEClass.getEStructuralFeatures().get(1);
   }
@@ -734,6 +777,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAssociationEnd() {
     return associationEndEClass;
   }
@@ -743,6 +787,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAssociationEnd_Navigable() {
     return (EAttribute)associationEndEClass.getEStructuralFeatures().get(0);
   }
@@ -752,6 +797,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssociationEnd_Assoc() {
     return (EReference)associationEndEClass.getEStructuralFeatures().get(1);
   }
@@ -761,6 +807,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssociationEnd_Classifier() {
     return (EReference)associationEndEClass.getEStructuralFeatures().get(2);
   }
@@ -770,6 +817,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssociationEnd_Qualifier() {
     return (EReference)associationEndEClass.getEStructuralFeatures().get(3);
   }
@@ -779,6 +827,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAssociationEnd_LowerBound() {
     return (EAttribute)associationEndEClass.getEStructuralFeatures().get(4);
   }
@@ -788,6 +837,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAssociationEnd_UpperBound() {
     return (EAttribute)associationEndEClass.getEStructuralFeatures().get(5);
   }
@@ -797,6 +847,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAssociationEnd_ReferenceType() {
     return (EAttribute)associationEndEClass.getEStructuralFeatures().get(6);
   }
@@ -806,6 +857,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAssociationEnd_Ordered() {
     return (EAttribute)associationEndEClass.getEStructuralFeatures().get(7);
   }
@@ -815,6 +867,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAssociationEnd_Unique() {
     return (EAttribute)associationEndEClass.getEStructuralFeatures().get(8);
   }
@@ -824,6 +877,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getAssociationEnd__GetOppositeEnd() {
     return associationEndEClass.getEOperations().get(0);
   }
@@ -833,6 +887,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getClassDiagram() {
     return classDiagramEClass;
   }
@@ -842,6 +897,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClassDiagram_Classes() {
     return (EReference)classDiagramEClass.getEStructuralFeatures().get(0);
   }
@@ -851,6 +907,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClassDiagram_Types() {
     return (EReference)classDiagramEClass.getEStructuralFeatures().get(1);
   }
@@ -860,6 +917,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClassDiagram_Associations() {
     return (EReference)classDiagramEClass.getEStructuralFeatures().get(2);
   }
@@ -869,6 +927,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClassDiagram_Notes() {
     return (EReference)classDiagramEClass.getEStructuralFeatures().get(3);
   }
@@ -878,6 +937,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClassDiagram_Layout() {
     return (EReference)classDiagramEClass.getEStructuralFeatures().get(4);
   }
@@ -887,6 +947,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getImplementationClass() {
     return implementationClassEClass;
   }
@@ -896,6 +957,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getImplementationClass_InstanceClassName() {
     return (EAttribute)implementationClassEClass.getEStructuralFeatures().get(0);
   }
@@ -905,6 +967,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getImplementationClass_Interface() {
     return (EAttribute)implementationClassEClass.getEStructuralFeatures().get(1);
   }
@@ -914,6 +977,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getNote() {
     return noteEClass;
   }
@@ -923,6 +987,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getNote_NotedElement() {
     return (EReference)noteEClass.getEStructuralFeatures().get(0);
   }
@@ -932,6 +997,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getNote_Content() {
     return (EAttribute)noteEClass.getEStructuralFeatures().get(1);
   }
@@ -941,6 +1007,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getElementMap() {
     return elementMapEClass;
   }
@@ -950,6 +1017,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getElementMap_Key() {
     return (EReference)elementMapEClass.getEStructuralFeatures().get(0);
   }
@@ -959,6 +1027,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getElementMap_Value() {
     return (EReference)elementMapEClass.getEStructuralFeatures().get(1);
   }
@@ -968,6 +1037,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getLayout() {
     return layoutEClass;
   }
@@ -977,6 +1047,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getLayout_Containers() {
     return (EReference)layoutEClass.getEStructuralFeatures().get(0);
   }
@@ -986,6 +1057,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getLayoutElement() {
     return layoutElementEClass;
   }
@@ -995,6 +1067,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getLayoutElement_X() {
     return (EAttribute)layoutElementEClass.getEStructuralFeatures().get(0);
   }
@@ -1004,6 +1077,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getLayoutElement_Y() {
     return (EAttribute)layoutElementEClass.getEStructuralFeatures().get(1);
   }
@@ -1013,6 +1087,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getContainerMap() {
     return containerMapEClass;
   }
@@ -1022,6 +1097,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getContainerMap_Key() {
     return (EReference)containerMapEClass.getEStructuralFeatures().get(0);
   }
@@ -1031,6 +1107,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getContainerMap_Value() {
     return (EReference)containerMapEClass.getEStructuralFeatures().get(1);
   }
@@ -1040,6 +1117,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDBoolean() {
     return cdBooleanEClass;
   }
@@ -1049,6 +1127,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDBoolean__GetName() {
     return cdBooleanEClass.getEOperations().get(0);
   }
@@ -1058,6 +1137,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDBoolean__GetInstanceClassName() {
     return cdBooleanEClass.getEOperations().get(1);
   }
@@ -1067,6 +1147,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDDouble() {
     return cdDoubleEClass;
   }
@@ -1076,6 +1157,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDDouble__GetName() {
     return cdDoubleEClass.getEOperations().get(0);
   }
@@ -1085,6 +1167,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDDouble__GetInstanceClassName() {
     return cdDoubleEClass.getEOperations().get(1);
   }
@@ -1094,6 +1177,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDInt() {
     return cdIntEClass;
   }
@@ -1103,6 +1187,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDInt__GetName() {
     return cdIntEClass.getEOperations().get(0);
   }
@@ -1112,6 +1197,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDInt__GetInstanceClassName() {
     return cdIntEClass.getEOperations().get(1);
   }
@@ -1121,6 +1207,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDLong() {
     return cdLongEClass;
   }
@@ -1130,6 +1217,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDLong__GetName() {
     return cdLongEClass.getEOperations().get(0);
   }
@@ -1139,6 +1227,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDLong__GetInstanceClassName() {
     return cdLongEClass.getEOperations().get(1);
   }
@@ -1148,6 +1237,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDString() {
     return cdStringEClass;
   }
@@ -1157,6 +1247,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDString__GetName() {
     return cdStringEClass.getEOperations().get(0);
   }
@@ -1166,6 +1257,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDString__GetInstanceClassName() {
     return cdStringEClass.getEOperations().get(1);
   }
@@ -1175,6 +1267,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDByte() {
     return cdByteEClass;
   }
@@ -1184,6 +1277,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDByte__GetName() {
     return cdByteEClass.getEOperations().get(0);
   }
@@ -1193,6 +1287,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDByte__GetInstanceClassName() {
     return cdByteEClass.getEOperations().get(1);
   }
@@ -1202,6 +1297,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDFloat() {
     return cdFloatEClass;
   }
@@ -1211,6 +1307,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDFloat__GetName() {
     return cdFloatEClass.getEOperations().get(0);
   }
@@ -1220,6 +1317,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDFloat__GetInstanceClassName() {
     return cdFloatEClass.getEOperations().get(1);
   }
@@ -1229,6 +1327,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDArray() {
     return cdArrayEClass;
   }
@@ -1238,6 +1337,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getCDArray_Size() {
     return (EAttribute)cdArrayEClass.getEStructuralFeatures().get(0);
   }
@@ -1247,6 +1347,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCDArray_Type() {
     return (EReference)cdArrayEClass.getEStructuralFeatures().get(1);
   }
@@ -1256,6 +1357,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDArray__GetName() {
     return cdArrayEClass.getEOperations().get(0);
   }
@@ -1265,6 +1367,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDArray__GetInstanceClassName() {
     return cdArrayEClass.getEOperations().get(1);
   }
@@ -1274,6 +1377,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDChar() {
     return cdCharEClass;
   }
@@ -1283,6 +1387,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDChar__GetName() {
     return cdCharEClass.getEOperations().get(0);
   }
@@ -1292,6 +1397,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDChar__GetInstanceClassName() {
     return cdCharEClass.getEOperations().get(1);
   }
@@ -1301,6 +1407,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDEnum() {
     return cdEnumEClass;
   }
@@ -1310,6 +1417,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCDEnum_Literals() {
     return (EReference)cdEnumEClass.getEStructuralFeatures().get(0);
   }
@@ -1319,6 +1427,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDEnumLiteral() {
     return cdEnumLiteralEClass;
   }
@@ -1328,6 +1437,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCDEnumLiteral_Enum() {
     return (EReference)cdEnumLiteralEClass.getEStructuralFeatures().get(0);
   }
@@ -1337,6 +1447,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDAny() {
     return cdAnyEClass;
   }
@@ -1346,6 +1457,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDAny__GetName() {
     return cdAnyEClass.getEOperations().get(0);
   }
@@ -1355,6 +1467,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDVoid() {
     return cdVoidEClass;
   }
@@ -1364,6 +1477,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDVoid__GetName() {
     return cdVoidEClass.getEOperations().get(0);
   }
@@ -1373,6 +1487,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDCollection() {
     return cdCollectionEClass;
   }
@@ -1382,6 +1497,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCDCollection_Type() {
     return (EReference)cdCollectionEClass.getEStructuralFeatures().get(0);
   }
@@ -1391,6 +1507,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EOperation getCDCollection__GetName() {
     return cdCollectionEClass.getEOperations().get(0);
   }
@@ -1400,6 +1517,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDSet() {
     return cdSetEClass;
   }
@@ -1409,6 +1527,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCDSequence() {
     return cdSequenceEClass;
   }
@@ -1418,6 +1537,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getVisibilityType() {
     return visibilityTypeEEnum;
   }
@@ -1427,6 +1547,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getOperationType() {
     return operationTypeEEnum;
   }
@@ -1436,6 +1557,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getReferenceType() {
     return referenceTypeEEnum;
   }
@@ -1445,6 +1567,7 @@ public class ClassdiagramPackageImpl extends EPackageImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ClassdiagramFactory getClassdiagramFactory() {
     return (ClassdiagramFactory)getEFactoryInstance();
   }

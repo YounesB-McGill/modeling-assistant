@@ -117,6 +117,7 @@ public class ClassDiagramImpl extends NamedElementImpl implements ClassDiagram {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Classifier> getClasses() {
     if (classes == null) {
       classes = new EObjectContainmentEList<Classifier>(Classifier.class, this, ClassdiagramPackage.CLASS_DIAGRAM__CLASSES);
@@ -129,6 +130,7 @@ public class ClassDiagramImpl extends NamedElementImpl implements ClassDiagram {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Type> getTypes() {
     if (types == null) {
       types = new EObjectContainmentEList<Type>(Type.class, this, ClassdiagramPackage.CLASS_DIAGRAM__TYPES);
@@ -141,6 +143,7 @@ public class ClassDiagramImpl extends NamedElementImpl implements ClassDiagram {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Association> getAssociations() {
     if (associations == null) {
       associations = new EObjectContainmentEList<Association>(Association.class, this, ClassdiagramPackage.CLASS_DIAGRAM__ASSOCIATIONS);
@@ -153,6 +156,7 @@ public class ClassDiagramImpl extends NamedElementImpl implements ClassDiagram {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Note> getNotes() {
     if (notes == null) {
       notes = new EObjectContainmentEList<Note>(Note.class, this, ClassdiagramPackage.CLASS_DIAGRAM__NOTES);
@@ -165,6 +169,7 @@ public class ClassDiagramImpl extends NamedElementImpl implements ClassDiagram {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Layout getLayout() {
     return layout;
   }
@@ -189,6 +194,7 @@ public class ClassDiagramImpl extends NamedElementImpl implements ClassDiagram {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setLayout(Layout newLayout) {
     if (newLayout != layout) {
       NotificationChain msgs = null;

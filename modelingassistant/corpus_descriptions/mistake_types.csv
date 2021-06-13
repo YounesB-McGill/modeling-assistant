@@ -3,68 +3,76 @@ Number,Maj,Min,Point,,,,Name,Corpus entry done
 1,,1,,,|,,Missing class,Y
 2,,2,,,|,,Extra (redundant) class,Y
 ,,3,,,L,,Wrong class name,
-3,,,1,,,|,Using plural or lowercase,Y
-4,,,2,,,|,Software engineering term,Y
-5,,,3,,,|,Bad class name spelling,Y
-6,,,4,,,|,Similar (yet incorrect) class name,Y
+3,,,1,,,|,Plural class name,Y
+4,,,2,,,|,Lowercase class name,Y
+5,,,3,,,|,Software engineering term,Y
+6,,,4,,,|,Bad class name spelling,Y
+7,,,5,,,|,Similar (yet incorrect) class name,Y
 ,,4,,,L,,Wrong enumeration,
-7,,,1,,,|,Regular class should be an enumeration or vice versa,Y
-8,,,2,,,|,Wrong enumeration items,Y
+8,,,1,,,|,Regular class should be an enumeration,Y
+9,,,2,,,|,Enumeration should be a regular class,Y
+10,,,3,,,|,Wrong enumeration items,Y
 ,2,,,L,,,Wrong attribute,
-9,,1,,,|,,Missing attribute,Y
+11,,1,,,|,,Missing attribute,Y
 ,,2,,,L,,Extra (redundant) attribute,
-10,,,1,,,|,Plural attribute or attribute list,Y
-11,,,2,,,|,Other extra attribute,Y
+12,,,1,,,|,Plural attribute,Y
+13,,,2,,,|,List attribute,Y
+14,,,2,,,|,Other extra attribute,Y
 ,,3,,,L,,Wrong attribute name,
-12,,,1,,,|,Bad attribute name spelling,Y
-13,,,2,,,|,Similar (yet incorrect) attribute name,Y
-14,,4,,,|,,Wrong attribute type,Y
+15,,,1,,,|,Bad attribute name spelling,Y
+16,,,2,,,|,Similar (yet incorrect) attribute name,Y
+17,,4,,,|,,Wrong attribute type,Y
 ,,5,,,L,,Attribute in wrong class,
-15,,,1,,,|,Attribute misplaced,Y
-16,,,2,,,|,"Attribute duplicated (eg, in a subclass)",Y
-17,,6,,,|,,Attribute expected to be static but is not or vice versa,Y
-,3,,,L,,,Wrong relationships,
+18,,,1,,,|,Attribute misplaced,Y
+19,,,2,,,|,"Attribute duplicated (eg, in a subclass)",Y
+20,,6,,,|,,Attribute should be static,Y
+21,,7,,,|,,Attribute should not be static,Y
+,3,,,L,,,Wrong relationship,
 ,,1,,,L,,Missing relationship of any type,
-18,,,1,,,|,Using an attribute instead of an association,Y
-19,,,2,,,|,Missing composition,Y
-20,,,3,,,|,Missing aggregation,Y
-21,,,4,,,|,Missing association,Y
-22,,2,,,|,,Incomplete containment tree,Y
+22,,,1,,,|,Using an attribute instead of an association,Y
+23,,,2,,,|,Missing composition,Y
+24,,,3,,,|,Missing aggregation,Y
+25,,,4,,,|,Missing association,Y
+26,,2,,,|,,Incomplete containment tree,Y
 ,,3,,,L,,Extra (redundant) association,
-23,,,1,,,|,Representing an action with an association,Y
-24,,,2,,,|,Composed part contained in more than one parent,Y
-25,,,3,,,|,Other extra association,Y
+27,,,1,,,|,Representing an action with an association,Y
+28,,,2,,,|,Composed part contained in more than one parent,Y
+29,,,3,,,|,Other extra association,Y
 ,,4,,,L,,Using wrong relationship type,
-26,,,1,,,|,Using an association instead of an aggregation/composition or vice versa,Y
-27,,,2,,,|,Using a directed association instead of an undirected one or vice versa,Y
-28,,,3,,,|,Using aggregation instead of composition or vice versa,Y
+30,,,1,,,|,Using an association instead of an aggregation/composition,Y
+31,,,2,,,|,Using an aggregation/composition instead of an association,Y
+32,,,3,,,|,Using a directed association instead of an undirected one,Y
+33,,,4,,,|,Using an undirected association instead of a directed one,Y
+34,,,5,,,|,Using aggregation instead of composition,Y
+35,,,6,,,|,Using composition instead of aggregation,Y
 ,,5,,,L,,Wrong association name,
-29,,,1,,,|,Missing association name when one was expected,Y
-30,,,2,,,|,Bad association name spelling,Y
-31,,,3,,,|,Similar (yet incorrect) association name,Y
+36,,,1,,,|,Missing association name when one was expected,Y
+37,,,2,,,|,Bad association name spelling,Y
+38,,,3,,,|,Similar (yet incorrect) association name,Y
 ,,6,,,L,,Wrong multiplicities,
-32,,,1,,,|,Infinite recursive dependency,Y
-33,,,2,,,|,Other wrong multiplicity,Y
+39,,,1,,,|,Infinite recursive dependency,Y
+40,,,2,,,|,Other wrong multiplicity,Y
 ,,7,,,L,,Wrong role names,
-34,,,1,,,|,Missing role names,Y
-35,,,2,,,|,Role names present but incorrect,Y
-36,,,3,,,|,Role expected to be static but is not or vice versa,Y
-37,,,4,,,|,Bad role name spelling,Y
-38,,,5,,,|,Similar (yet incorrect) role name,Y
+41,,,1,,,|,Missing role names,Y
+42,,,2,,,|,Role names present but incorrect,Y
+43,,,3,,,|,Role should be static,Y
+44,,,4,,,|,Role should not be static,Y
+45,,,5,,,|,Bad role name spelling,Y
+46,,,6,,,|,Similar (yet incorrect) role name,Y
 ,,8,,,L,,Wrong association class,
-39,,,1,,,|,Missing association class,Y
-40,,,2,,,|,Extra (redundant) association class,Y
-41,,,3,,,|,Bad association class name spelling,Y
-42,,,4,,,|,Similar (yet incorrect) association class name,Y
+47,,,1,,,|,Missing association class,Y
+48,,,2,,,|,Extra (redundant) association class,Y
+49,,,3,,,|,Bad association class name spelling,Y
+50,,,4,,,|,Similar (yet incorrect) association class name,Y
 ,,9,,,L,,Wrong generalization,
-43,,,1,,,|,Missing generalization,Y
-44,,,2,,,|,"Generalization inapplicable (eg, not following isA rule)",Y
-45,,,3,,,|,Subclass not distinct across lifetime (a full-time student can become part-time),Y
-46,,,4,,,|,Inherited feature does not make sense for subclass,Y
-47,,,5,,,|,Subclass is an instance of superclass,Y
-48,,,6,,,|,Non-differentiated subclass,Y
-49,,,7,,,|,Wrong generalization direction (Person isA Student),Y
-50,,,8,,,|,Wrong superclass (Dog isA Animal when expected to be a Mammal),Y
+51,,,1,,,|,Missing generalization,Y
+52,,,2,,,|,"Generalization inapplicable (eg, not following isA rule)",Y
+53,,,3,,,|,Subclass not distinct across lifetime (a full-time student can become part-time),Y
+54,,,4,,,|,Inherited feature does not make sense for subclass,Y
+55,,,5,,,|,Subclass is an instance of superclass,Y
+56,,,6,,,|,Non-differentiated subclass,Y
+57,,,7,,,|,Wrong generalization direction (Person isA Student),Y
+58,,,8,,,|,Wrong superclass (Dog isA Animal when expected to be a Mammal),Y
 ,4,,,L,,,Modeling antipatterns or misuse of design patterns,
-51,,1,,,|,,Misuse of Player-Role Pattern,Y
-52,,2,,,|,,Misuse of Abstraction-Occurrence,Y
+59,,1,,,|,,Misuse of Player-Role Pattern,Y
+60,,2,,,|,,Misuse of Abstraction-Occurrence,Y

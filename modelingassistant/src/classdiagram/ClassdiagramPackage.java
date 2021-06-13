@@ -392,16 +392,6 @@ public interface ClassdiagramPackage extends EPackage {
   int OBJECT_TYPE_OPERATION_COUNT = TYPE_OPERATION_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link classdiagram.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see classdiagram.impl.PrimitiveTypeImpl
-   * @see classdiagram.impl.ClassdiagramPackageImpl#getPrimitiveType()
-   * @generated
-   */
-  int PRIMITIVE_TYPE = 7;
-
-  /**
    * The meta object id for the '{@link classdiagram.impl.ClassifierImpl <em>Classifier</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -509,66 +499,6 @@ public interface ClassdiagramPackage extends EPackage {
    * @ordered
    */
   int CLASSIFIER_OPERATION_COUNT = OBJECT_TYPE_OPERATION_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link classdiagram.impl.OperationImpl <em>Operation</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see classdiagram.impl.OperationImpl
-   * @see classdiagram.impl.ClassdiagramPackageImpl#getOperation()
-   * @generated
-   */
-  int OPERATION = 9;
-
-  /**
-   * The meta object id for the '{@link classdiagram.impl.ClassImpl <em>Class</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see classdiagram.impl.ClassImpl
-   * @see classdiagram.impl.ClassdiagramPackageImpl#getClass_()
-   * @generated
-   */
-  int CLASS = 10;
-
-  /**
-   * The meta object id for the '{@link classdiagram.impl.TypeParameterImpl <em>Type Parameter</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see classdiagram.impl.TypeParameterImpl
-   * @see classdiagram.impl.ClassdiagramPackageImpl#getTypeParameter()
-   * @generated
-   */
-  int TYPE_PARAMETER = 11;
-
-  /**
-   * The meta object id for the '{@link classdiagram.impl.AssociationImpl <em>Association</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see classdiagram.impl.AssociationImpl
-   * @see classdiagram.impl.ClassdiagramPackageImpl#getAssociation()
-   * @generated
-   */
-  int ASSOCIATION = 12;
-
-  /**
-   * The meta object id for the '{@link classdiagram.impl.AssociationEndImpl <em>Association End</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see classdiagram.impl.AssociationEndImpl
-   * @see classdiagram.impl.ClassdiagramPackageImpl#getAssociationEnd()
-   * @generated
-   */
-  int ASSOCIATION_END = 13;
-
-  /**
-   * The meta object id for the '{@link classdiagram.impl.ClassDiagramImpl <em>Class Diagram</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see classdiagram.impl.ClassDiagramImpl
-   * @see classdiagram.impl.ClassdiagramPackageImpl#getClassDiagram()
-   * @generated
-   */
-  int CLASS_DIAGRAM = 14;
 
   /**
    * The meta object id for the '{@link classdiagram.impl.ImplementationClassImpl <em>Implementation Class</em>}' class.
@@ -698,6 +628,16 @@ public interface ClassdiagramPackage extends EPackage {
   int IMPLEMENTATION_CLASS_OPERATION_COUNT = CLASSIFIER_OPERATION_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link classdiagram.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see classdiagram.impl.PrimitiveTypeImpl
+   * @see classdiagram.impl.ClassdiagramPackageImpl#getPrimitiveType()
+   * @generated
+   */
+  int PRIMITIVE_TYPE = 7;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -815,6 +755,16 @@ public interface ClassdiagramPackage extends EPackage {
   int PRIMITIVE_TYPE_OPERATION_COUNT = IMPLEMENTATION_CLASS_OPERATION_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link classdiagram.impl.OperationImpl <em>Operation</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see classdiagram.impl.OperationImpl
+   * @see classdiagram.impl.ClassdiagramPackageImpl#getOperation()
+   * @generated
+   */
+  int OPERATION = 9;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -894,6 +844,16 @@ public interface ClassdiagramPackage extends EPackage {
    * @ordered
    */
   int OPERATION_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link classdiagram.impl.ClassImpl <em>Class</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see classdiagram.impl.ClassImpl
+   * @see classdiagram.impl.ClassdiagramPackageImpl#getClass_()
+   * @generated
+   */
+  int CLASS = 10;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -995,6 +955,16 @@ public interface ClassdiagramPackage extends EPackage {
   int CLASS_OPERATION_COUNT = CLASSIFIER_OPERATION_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link classdiagram.impl.TypeParameterImpl <em>Type Parameter</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see classdiagram.impl.TypeParameterImpl
+   * @see classdiagram.impl.ClassdiagramPackageImpl#getTypeParameter()
+   * @generated
+   */
+  int TYPE_PARAMETER = 11;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1029,6 +999,16 @@ public interface ClassdiagramPackage extends EPackage {
    * @ordered
    */
   int TYPE_PARAMETER_OPERATION_COUNT = TYPE_OPERATION_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link classdiagram.impl.AssociationImpl <em>Association</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see classdiagram.impl.AssociationImpl
+   * @see classdiagram.impl.ClassdiagramPackageImpl#getAssociation()
+   * @generated
+   */
+  int ASSOCIATION = 12;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1074,6 +1054,16 @@ public interface ClassdiagramPackage extends EPackage {
    * @ordered
    */
   int ASSOCIATION_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link classdiagram.impl.AssociationEndImpl <em>Association End</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see classdiagram.impl.AssociationEndImpl
+   * @see classdiagram.impl.ClassdiagramPackageImpl#getAssociationEnd()
+   * @generated
+   */
+  int ASSOCIATION_END = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1218,6 +1208,16 @@ public interface ClassdiagramPackage extends EPackage {
    * @ordered
    */
   int ASSOCIATION_END_OPERATION_COUNT = STRUCTURAL_FEATURE_OPERATION_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link classdiagram.impl.ClassDiagramImpl <em>Class Diagram</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see classdiagram.impl.ClassDiagramImpl
+   * @see classdiagram.impl.ClassdiagramPackageImpl#getClassDiagram()
+   * @generated
+   */
+  int CLASS_DIAGRAM = 14;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.

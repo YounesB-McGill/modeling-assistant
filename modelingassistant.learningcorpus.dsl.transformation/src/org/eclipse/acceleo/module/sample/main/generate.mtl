@@ -1,0 +1,189 @@
+[comment encoding = UTF-8 /]
+[module generate('http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0')]
+
+[**
+ * Generates Markdown table-of-contents from input modeling assistant via MarkdownGenerator, implemented in Java.
+ */]
+[query public generateMarkdown(learningCorpus : LearningCorpus) : String
+  = invoke('org.eclipse.acceleo.module.sample.main.MarkdownGenerator',
+    'generate(learningcorpus.LearningCorpus)',
+    Sequence{learningCorpus})
+/]
+
+[**
+ * Underscorifies and capitalizes the given input string, omitting any information in parentheses.
+ * Example: "Extra (redundant) class" > "EXTRA_CLASS"
+ */]
+[query public underscorify(s : String) : String
+  = s.replaceAll('\\((.+?)\\)', '').trim()
+     .replaceAll('/', '_').replaceAll('-', '_').replaceAll('\\s+', '_').replaceAll('_+', '_').toUpper()
+/]
+
+[**
+ * Gets all the mistake types of the given learning corpus.
+ */]
+[query public mistakeTypes(learningCorpus : LearningCorpus) : Collection(MistakeType)
+  = invoke('org.eclipse.acceleo.module.sample.main.Generate',
+    'getMistakeTypes(learningcorpus.LearningCorpus)',
+    Sequence{learningCorpus})
+/]
+
+[template public generateElement(learningCorpus : LearningCorpus)]
+[comment @main/]
+[file ('../../modelingassistant/src/learningcorpus/mistaketypes/MistakeTypes.java', false, 'UTF-8')]
+package learningcorpus.mistaketypes;
+
+import java.util.HashMap;
+import java.util.Map;
+import learningcorpus.LearningCorpus;
+import learningcorpus.MistakeType;
+import learningcorpus.MistakeTypeCategory;
+
+/**
+ * This class contains all mistake types and categories.
+ */
+public class MistakeTypes {
+
+  /** The path of the learning corpus instance with mistake types. */
+  public static final String LEARNING_CORPUS_PATH =
+      "../modelingassistant.learningcorpus.dsl.instances/test.learningcorpus";
+
+  /** Map of mistake type categories by name. */
+  public static final Map<String, MistakeTypeCategory> MISTAKE_TYPE_CATEGORIES_BY_NAME =
+      new HashMap<String, MistakeTypeCategory>();
+
+  /** Map of mistake types by name. */
+  public static final Map<String, MistakeType> MISTAKE_TYPES_BY_NAME = new HashMap<String, MistakeType>();
+
+  // Short-name references to the above maps for greater code legibility
+  private static final Map<String, MistakeTypeCategory> MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME;
+  private static final Map<String, MistakeType> MTS = MISTAKE_TYPES_BY_NAME;
+
+  static {
+    var learningCorpus = LearningCorpus.fromFile(LEARNING_CORPUS_PATH);
+
+    learningCorpus.getMistakeTypeCategories().forEach(mtc ->
+        MISTAKE_TYPE_CATEGORIES_BY_NAME.put(mtc.getName(), mtc));
+
+    learningCorpus.getMistakeTypes().forEach(mt ->
+        MISTAKE_TYPES_BY_NAME.put(mt.getName(), mt));
+  }
+
+
+  // Mistake type categories
+
+  [for(mTC : MistakeTypeCategory | learningCorpus.mistakeTypeCategories)]
+  [let lhs : String = 'public static final MistakeTypeCategory ' +
+    underscorify(mTC.name)
+  ]
+  [let rhs : String = 'MTCS.get("' + mTC.name + '");']
+  [let mtcDecl : String = lhs + ' = ' + rhs]
+  /** The [mTC.name.toLower()/] mistake type category. */
+  [if (mtcDecl.size() < 119)]
+  [mtcDecl/]
+  [/if]
+  [if (mtcDecl.size() > 118)]
+  [lhs + ' =\n      ' + rhs/]
+  [/if]
+
+  [/let] 
+  [/let]
+  [/let]
+  [/for]
+
+  // Mistake types
+
+  [for(mT : MistakeType | mistakeTypes(learningCorpus))]
+  [let lhs : String = 'public static final MistakeType ' +
+    underscorify(mT.name)
+  ]
+  [let rhs : String = 'MTS.get("' + mT.name + '");']
+  [let mtDecl : String = lhs + ' = ' + rhs
+  ]
+  /** The [mT.name.toLower()/] mistake type. */
+  [if (mtDecl.size() < 119)]
+  [mtDecl/]
+  [/if]
+  [if (mtDecl.size() > 118)]
+  [lhs + ' =\n      ' + rhs/]
+  [/if]
+
+  [/let] 
+  [/let]
+  [/let]
+  [/for]
+}
+[/file]
+
+[file ('../../modelingassistant/pythonclient/mistaketypes.py', false, 'UTF-8')]
+"""
+This file contains all mistake types and categories.
+"""
+
+from modelingassistant.modelingassistant import ModelingAssistant, MistakeTypeCategory, MistakeType
+from pyecore.resources import ResourceSet, URI
+
+LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test.learningcorpus"
+
+MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[ '[' /]str, MistakeTypeCategory[ ']' /] = {}
+MISTAKE_TYPES_BY_NAME: dict[ '[' /]str, MistakeType[ ']' /] = {}
+
+# Short-name references to the above maps for greater code legibility
+_MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
+_MTS = MISTAKE_TYPES_BY_NAME
+
+# Open Modeling Assistant metamodel and instance
+ma_mm_file = "modelingassistant/model/learningcorpus.ecore"
+rset = ResourceSet()
+resource = rset.get_resource(URI(ma_mm_file))
+ma_mm_root = resource.contents[ '[' /]0[ ']' /]
+rset.metamodel_registry[ '[' /]ma_mm_root.nsURI[ ']' /] = ma_mm_root
+resource = rset.get_resource(URI(LEARNING_CORPUS_PATH))
+modeling_assistant: ModelingAssistant = resource.contents[ '[' /]0[ ']' /]
+modeling_assistant.__class__ = ModelingAssistant
+
+# Populate dictionaries
+for mtc in modeling_assistant.mistakeTypeCategories: MISTAKE_TYPE_CATEGORIES_BY_NAME[ '[' /]mtc.name[ ']' /] = mtc
+for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[ ']' /] = mt
+
+# Mistake type categories
+[for(mTC : MistakeTypeCategory | learningCorpus.mistakeTypeCategories)]
+[let lhs : String = underscorify(mTC.name)
+  + ': MistakeTypeCategory'
+]
+[let rhs : String = '_MTCS["' + mTC.name + '"]']
+[let mtcDecl : String = lhs + ' = ' + rhs]
+[if (mtcDecl.size() < 121)]
+[mtcDecl/]
+[/if]
+[if (mtcDecl.size() > 120)]
+[lhs + ' = \\\n    ' + rhs/]
+[/if]
+[/let] 
+[/let]
+[/let]
+[/for]
+
+# Mistake types
+[for(mT : MistakeType | mistakeTypes(learningCorpus))]
+[let lhs : String = underscorify(mT.name)
+  + ': MistakeType'
+]
+[let rhs : String = '_MTS["' + mT.name + '"]']
+[let mtDecl : String = lhs + ' = ' + rhs]
+[if (mtDecl.size() < 121)]
+[mtDecl/]
+[/if]
+[if (mtDecl.size() > 120)]
+[lhs + ' = \\\n    ' + rhs/]
+[/if]
+[/let] 
+[/let]
+[/let]
+[/for]
+[/file]
+
+[file ('../../modelingassistant/corpus_descriptions/README_TOC.md', false, 'UTF-8')]
+[generateMarkdown(learningCorpus) /]
+[/file]
+[/template]

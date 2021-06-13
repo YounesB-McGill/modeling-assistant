@@ -61,6 +61,7 @@ public class TypeParameterImpl extends TypeImpl implements TypeParameter {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ObjectType getGenericType() {
     if (genericType != null && genericType.eIsProxy()) {
       InternalEObject oldGenericType = (InternalEObject)genericType;
@@ -87,6 +88,7 @@ public class TypeParameterImpl extends TypeImpl implements TypeParameter {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setGenericType(ObjectType newGenericType) {
     ObjectType oldGenericType = genericType;
     genericType = newGenericType;
