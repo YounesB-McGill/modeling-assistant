@@ -167,6 +167,7 @@ public class OperationImpl extends NamedElementImpl implements Operation {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isAbstract() {
     return abstract_;
   }
@@ -176,6 +177,7 @@ public class OperationImpl extends NamedElementImpl implements Operation {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAbstract(boolean newAbstract) {
     boolean oldAbstract = abstract_;
     abstract_ = newAbstract;
@@ -188,6 +190,7 @@ public class OperationImpl extends NamedElementImpl implements Operation {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VisibilityType getVisibility() {
     return visibility;
   }
@@ -197,6 +200,7 @@ public class OperationImpl extends NamedElementImpl implements Operation {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setVisibility(VisibilityType newVisibility) {
     VisibilityType oldVisibility = visibility;
     visibility = newVisibility == null ? VISIBILITY_EDEFAULT : newVisibility;
@@ -209,6 +213,7 @@ public class OperationImpl extends NamedElementImpl implements Operation {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isStatic() {
     return static_;
   }
@@ -218,6 +223,7 @@ public class OperationImpl extends NamedElementImpl implements Operation {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setStatic(boolean newStatic) {
     boolean oldStatic = static_;
     static_ = newStatic;
@@ -230,6 +236,7 @@ public class OperationImpl extends NamedElementImpl implements Operation {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public OperationType getOperationType() {
     return operationType;
   }
@@ -239,6 +246,7 @@ public class OperationImpl extends NamedElementImpl implements Operation {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setOperationType(OperationType newOperationType) {
     OperationType oldOperationType = operationType;
     operationType = newOperationType == null ? OPERATION_TYPE_EDEFAULT : newOperationType;
@@ -251,6 +259,7 @@ public class OperationImpl extends NamedElementImpl implements Operation {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Type getReturnType() {
     if (returnType != null && returnType.eIsProxy()) {
       InternalEObject oldReturnType = (InternalEObject)returnType;
@@ -277,6 +286,7 @@ public class OperationImpl extends NamedElementImpl implements Operation {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setReturnType(Type newReturnType) {
     Type oldReturnType = returnType;
     returnType = newReturnType;
@@ -289,6 +299,7 @@ public class OperationImpl extends NamedElementImpl implements Operation {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Parameter> getParameters() {
     if (parameters == null) {
       parameters = new EObjectContainmentEList<Parameter>(Parameter.class, this, ClassdiagramPackage.OPERATION__PARAMETERS);

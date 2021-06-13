@@ -84,10 +84,6 @@ public class ModelingassistantAdapterFactory extends AdapterFactoryImpl {
         return createProblemStatementElementAdapter();
       }
       @Override
-      public Adapter caseUmlElement(UmlElement object) {
-        return createUmlElementAdapter();
-      }
-      @Override
       public Adapter caseSolution(Solution object) {
         return createSolutionAdapter();
       }
@@ -96,64 +92,20 @@ public class ModelingassistantAdapterFactory extends AdapterFactoryImpl {
         return createSolutionElementAdapter();
       }
       @Override
-      public Adapter caseLearningItem(LearningItem object) {
-        return createLearningItemAdapter();
-      }
-      @Override
       public Adapter caseStudentKnowledge(StudentKnowledge object) {
         return createStudentKnowledgeAdapter();
-      }
-      @Override
-      public Adapter caseMistakeType(MistakeType object) {
-        return createMistakeTypeAdapter();
       }
       @Override
       public Adapter caseMistake(Mistake object) {
         return createMistakeAdapter();
       }
       @Override
-      public Adapter caseFeedback(Feedback object) {
-        return createFeedbackAdapter();
-      }
-      @Override
-      public Adapter caseTextResponse(TextResponse object) {
-        return createTextResponseAdapter();
-      }
-      @Override
-      public Adapter caseParametrizedResponse(ParametrizedResponse object) {
-        return createParametrizedResponseAdapter();
-      }
-      @Override
-      public Adapter caseResourceResponse(ResourceResponse object) {
-        return createResourceResponseAdapter();
-      }
-      @Override
-      public Adapter caseLearningResource(LearningResource object) {
-        return createLearningResourceAdapter();
-      }
-      @Override
-      public Adapter caseReference(Reference object) {
-        return createReferenceAdapter();
-      }
-      @Override
-      public Adapter caseTutorial(Tutorial object) {
-        return createTutorialAdapter();
-      }
-      @Override
-      public Adapter caseExample(Example object) {
-        return createExampleAdapter();
-      }
-      @Override
-      public Adapter caseQuiz(Quiz object) {
-        return createQuizAdapter();
-      }
-      @Override
       public Adapter caseNamedElement(NamedElement object) {
         return createNamedElementAdapter();
       }
       @Override
-      public Adapter caseMistakeTypeCategory(MistakeTypeCategory object) {
-        return createMistakeTypeCategoryAdapter();
+      public Adapter caseFeedbackItem(FeedbackItem object) {
+        return createFeedbackItemAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object) {
@@ -232,20 +184,6 @@ public class ModelingassistantAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link modelingassistant.UmlElement <em>Uml Element</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see modelingassistant.UmlElement
-   * @generated
-   */
-  public Adapter createUmlElementAdapter() {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link modelingassistant.Solution <em>Solution</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -274,20 +212,6 @@ public class ModelingassistantAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link modelingassistant.LearningItem <em>Learning Item</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see modelingassistant.LearningItem
-   * @generated
-   */
-  public Adapter createLearningItemAdapter() {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link modelingassistant.StudentKnowledge <em>Student Knowledge</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -298,20 +222,6 @@ public class ModelingassistantAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createStudentKnowledgeAdapter() {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link modelingassistant.MistakeType <em>Mistake Type</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see modelingassistant.MistakeType
-   * @generated
-   */
-  public Adapter createMistakeTypeAdapter() {
     return null;
   }
 
@@ -330,132 +240,6 @@ public class ModelingassistantAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link modelingassistant.Feedback <em>Feedback</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see modelingassistant.Feedback
-   * @generated
-   */
-  public Adapter createFeedbackAdapter() {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link modelingassistant.TextResponse <em>Text Response</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see modelingassistant.TextResponse
-   * @generated
-   */
-  public Adapter createTextResponseAdapter() {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link modelingassistant.ParametrizedResponse <em>Parametrized Response</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see modelingassistant.ParametrizedResponse
-   * @generated
-   */
-  public Adapter createParametrizedResponseAdapter() {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link modelingassistant.ResourceResponse <em>Resource Response</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see modelingassistant.ResourceResponse
-   * @generated
-   */
-  public Adapter createResourceResponseAdapter() {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link modelingassistant.LearningResource <em>Learning Resource</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see modelingassistant.LearningResource
-   * @generated
-   */
-  public Adapter createLearningResourceAdapter() {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link modelingassistant.Reference <em>Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see modelingassistant.Reference
-   * @generated
-   */
-  public Adapter createReferenceAdapter() {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link modelingassistant.Tutorial <em>Tutorial</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see modelingassistant.Tutorial
-   * @generated
-   */
-  public Adapter createTutorialAdapter() {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link modelingassistant.Example <em>Example</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see modelingassistant.Example
-   * @generated
-   */
-  public Adapter createExampleAdapter() {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link modelingassistant.Quiz <em>Quiz</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see modelingassistant.Quiz
-   * @generated
-   */
-  public Adapter createQuizAdapter() {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link modelingassistant.NamedElement <em>Named Element</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -470,16 +254,16 @@ public class ModelingassistantAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link modelingassistant.MistakeTypeCategory <em>Mistake Type Category</em>}'.
+   * Creates a new adapter for an object of class '{@link modelingassistant.FeedbackItem <em>Feedback Item</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see modelingassistant.MistakeTypeCategory
+   * @see modelingassistant.FeedbackItem
    * @generated
    */
-  public Adapter createMistakeTypeCategoryAdapter() {
+  public Adapter createFeedbackItemAdapter() {
     return null;
   }
 

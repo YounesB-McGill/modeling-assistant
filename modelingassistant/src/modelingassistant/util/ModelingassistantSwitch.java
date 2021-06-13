@@ -93,12 +93,6 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ModelingassistantPackage.UML_ELEMENT: {
-        UmlElement umlElement = (UmlElement)theEObject;
-        T result = caseUmlElement(umlElement);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ModelingassistantPackage.SOLUTION: {
         Solution solution = (Solution)theEObject;
         T result = caseSolution(solution);
@@ -111,23 +105,9 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ModelingassistantPackage.LEARNING_ITEM: {
-        LearningItem learningItem = (LearningItem)theEObject;
-        T result = caseLearningItem(learningItem);
-        if (result == null) result = caseNamedElement(learningItem);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ModelingassistantPackage.STUDENT_KNOWLEDGE: {
         StudentKnowledge studentKnowledge = (StudentKnowledge)theEObject;
         T result = caseStudentKnowledge(studentKnowledge);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ModelingassistantPackage.MISTAKE_TYPE: {
-        MistakeType mistakeType = (MistakeType)theEObject;
-        T result = caseMistakeType(mistakeType);
-        if (result == null) result = caseNamedElement(mistakeType);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -137,82 +117,15 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ModelingassistantPackage.FEEDBACK: {
-        Feedback feedback = (Feedback)theEObject;
-        T result = caseFeedback(feedback);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ModelingassistantPackage.TEXT_RESPONSE: {
-        TextResponse textResponse = (TextResponse)theEObject;
-        T result = caseTextResponse(textResponse);
-        if (result == null) result = caseFeedback(textResponse);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ModelingassistantPackage.PARAMETRIZED_RESPONSE: {
-        ParametrizedResponse parametrizedResponse = (ParametrizedResponse)theEObject;
-        T result = caseParametrizedResponse(parametrizedResponse);
-        if (result == null) result = caseFeedback(parametrizedResponse);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ModelingassistantPackage.RESOURCE_RESPONSE: {
-        ResourceResponse resourceResponse = (ResourceResponse)theEObject;
-        T result = caseResourceResponse(resourceResponse);
-        if (result == null) result = caseFeedback(resourceResponse);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ModelingassistantPackage.LEARNING_RESOURCE: {
-        LearningResource learningResource = (LearningResource)theEObject;
-        T result = caseLearningResource(learningResource);
-        if (result == null) result = caseNamedElement(learningResource);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ModelingassistantPackage.REFERENCE: {
-        Reference reference = (Reference)theEObject;
-        T result = caseReference(reference);
-        if (result == null) result = caseLearningResource(reference);
-        if (result == null) result = caseNamedElement(reference);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ModelingassistantPackage.TUTORIAL: {
-        Tutorial tutorial = (Tutorial)theEObject;
-        T result = caseTutorial(tutorial);
-        if (result == null) result = caseLearningResource(tutorial);
-        if (result == null) result = caseNamedElement(tutorial);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ModelingassistantPackage.EXAMPLE: {
-        Example example = (Example)theEObject;
-        T result = caseExample(example);
-        if (result == null) result = caseLearningResource(example);
-        if (result == null) result = caseNamedElement(example);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ModelingassistantPackage.QUIZ: {
-        Quiz quiz = (Quiz)theEObject;
-        T result = caseQuiz(quiz);
-        if (result == null) result = caseLearningResource(quiz);
-        if (result == null) result = caseNamedElement(quiz);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ModelingassistantPackage.NAMED_ELEMENT: {
         NamedElement namedElement = (NamedElement)theEObject;
         T result = caseNamedElement(namedElement);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ModelingassistantPackage.MISTAKE_TYPE_CATEGORY: {
-        MistakeTypeCategory mistakeTypeCategory = (MistakeTypeCategory)theEObject;
-        T result = caseMistakeTypeCategory(mistakeTypeCategory);
-        if (result == null) result = caseNamedElement(mistakeTypeCategory);
+      case ModelingassistantPackage.FEEDBACK_ITEM: {
+        FeedbackItem feedbackItem = (FeedbackItem)theEObject;
+        T result = caseFeedbackItem(feedbackItem);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -281,21 +194,6 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Uml Element</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Uml Element</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseUmlElement(UmlElement object) {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Solution</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -326,21 +224,6 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Learning Item</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Learning Item</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseLearningItem(LearningItem object) {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Student Knowledge</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -352,21 +235,6 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseStudentKnowledge(StudentKnowledge object) {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Mistake Type</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Mistake Type</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseMistakeType(MistakeType object) {
     return null;
   }
 
@@ -386,141 +254,6 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Feedback</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Feedback</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseFeedback(Feedback object) {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Text Response</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Text Response</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseTextResponse(TextResponse object) {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Parametrized Response</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Parametrized Response</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseParametrizedResponse(ParametrizedResponse object) {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Resource Response</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Resource Response</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseResourceResponse(ResourceResponse object) {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Learning Resource</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Learning Resource</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseLearningResource(LearningResource object) {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Reference</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Reference</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseReference(Reference object) {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Tutorial</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Tutorial</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseTutorial(Tutorial object) {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Example</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Example</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseExample(Example object) {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Quiz</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Quiz</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseQuiz(Quiz object) {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Named Element</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -536,17 +269,17 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Mistake Type Category</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Feedback Item</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Mistake Type Category</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Feedback Item</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseMistakeTypeCategory(MistakeTypeCategory object) {
+  public T caseFeedbackItem(FeedbackItem object) {
     return null;
   }
 

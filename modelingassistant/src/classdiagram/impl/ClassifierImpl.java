@@ -182,6 +182,7 @@ public abstract class ClassifierImpl extends ObjectTypeImpl implements Classifie
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Classifier> getSuperTypes() {
     if (superTypes == null) {
       superTypes = new EObjectResolvingEList<Classifier>(Classifier.class, this, ClassdiagramPackage.CLASSIFIER__SUPER_TYPES);
@@ -194,6 +195,7 @@ public abstract class ClassifierImpl extends ObjectTypeImpl implements Classifie
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isDataType() {
     return dataType;
   }
@@ -203,6 +205,7 @@ public abstract class ClassifierImpl extends ObjectTypeImpl implements Classifie
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDataType(boolean newDataType) {
     boolean oldDataType = dataType;
     dataType = newDataType;
@@ -215,6 +218,7 @@ public abstract class ClassifierImpl extends ObjectTypeImpl implements Classifie
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isAbstract() {
     return abstract_;
   }
@@ -224,6 +228,7 @@ public abstract class ClassifierImpl extends ObjectTypeImpl implements Classifie
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAbstract(boolean newAbstract) {
     boolean oldAbstract = abstract_;
     abstract_ = newAbstract;
@@ -236,6 +241,7 @@ public abstract class ClassifierImpl extends ObjectTypeImpl implements Classifie
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VisibilityType getVisibility() {
     return visibility;
   }
@@ -245,6 +251,7 @@ public abstract class ClassifierImpl extends ObjectTypeImpl implements Classifie
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setVisibility(VisibilityType newVisibility) {
     VisibilityType oldVisibility = visibility;
     visibility = newVisibility == null ? VISIBILITY_EDEFAULT : newVisibility;
@@ -257,6 +264,7 @@ public abstract class ClassifierImpl extends ObjectTypeImpl implements Classifie
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Operation> getOperations() {
     if (operations == null) {
       operations = new EObjectContainmentEList<Operation>(Operation.class, this, ClassdiagramPackage.CLASSIFIER__OPERATIONS);
@@ -269,6 +277,7 @@ public abstract class ClassifierImpl extends ObjectTypeImpl implements Classifie
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<TypeParameter> getTypeParameters() {
     if (typeParameters == null) {
       typeParameters = new EObjectContainmentEList<TypeParameter>(TypeParameter.class, this, ClassdiagramPackage.CLASSIFIER__TYPE_PARAMETERS);
@@ -281,6 +290,7 @@ public abstract class ClassifierImpl extends ObjectTypeImpl implements Classifie
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<AssociationEnd> getAssociationEnds() {
     if (associationEnds == null) {
       associationEnds = new EObjectContainmentWithInverseEList<AssociationEnd>(AssociationEnd.class, this, ClassdiagramPackage.CLASSIFIER__ASSOCIATION_ENDS, ClassdiagramPackage.ASSOCIATION_END__CLASSIFIER);
@@ -293,6 +303,7 @@ public abstract class ClassifierImpl extends ObjectTypeImpl implements Classifie
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Attribute> getAttributes() {
     if (attributes == null) {
       attributes = new EObjectContainmentEList<Attribute>(Attribute.class, this, ClassdiagramPackage.CLASSIFIER__ATTRIBUTES);

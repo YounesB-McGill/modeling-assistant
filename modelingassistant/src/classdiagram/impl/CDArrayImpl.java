@@ -88,6 +88,7 @@ public class CDArrayImpl extends PrimitiveTypeImpl implements CDArray {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public int getSize() {
     return size;
   }
@@ -97,6 +98,7 @@ public class CDArrayImpl extends PrimitiveTypeImpl implements CDArray {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSize(int newSize) {
     int oldSize = size;
     size = newSize;
@@ -109,6 +111,7 @@ public class CDArrayImpl extends PrimitiveTypeImpl implements CDArray {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Type getType() {
     if (type != null && type.eIsProxy()) {
       InternalEObject oldType = (InternalEObject)type;
@@ -135,6 +138,7 @@ public class CDArrayImpl extends PrimitiveTypeImpl implements CDArray {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setType(Type newType) {
     Type oldType = type;
     type = newType;
@@ -157,6 +161,7 @@ public class CDArrayImpl extends PrimitiveTypeImpl implements CDArray {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName() {
     try {
       return (String)GET_NAME__EINVOCATION_DELEGATE.dynamicInvoke(this, null);
@@ -181,6 +186,7 @@ public class CDArrayImpl extends PrimitiveTypeImpl implements CDArray {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getInstanceClassName() {
     try {
       return (String)GET_INSTANCE_CLASS_NAME__EINVOCATION_DELEGATE.dynamicInvoke(this, null);

@@ -66,6 +66,7 @@ public class CDEnumImpl extends PrimitiveTypeImpl implements CDEnum {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<CDEnumLiteral> getLiterals() {
     if (literals == null) {
       literals = new EObjectContainmentWithInverseEList<CDEnumLiteral>(CDEnumLiteral.class, this, ClassdiagramPackage.CD_ENUM__LITERALS, ClassdiagramPackage.CD_ENUM_LITERAL__ENUM);

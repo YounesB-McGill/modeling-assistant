@@ -18,32 +18,19 @@ Time = EDataType('Time', instanceClassName='java.sql.Time')
 
 class ModelingAssistant(EObject, metaclass=MetaEClass):
 
-    learningItems = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
-    learningResources = EReference(ordered=True, unique=True,
-                                   containment=True, derived=False, upper=-1)
     problemStatements = EReference(ordered=True, unique=True,
                                    containment=True, derived=False, upper=-1)
     solutions = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
-    umlElements = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     students = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
-    feedbacks = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
-    mistakeTypes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     studentKnowledges = EReference(ordered=True, unique=True,
                                    containment=True, derived=False, upper=-1)
-    mistakeTypeCategories = EReference(ordered=True, unique=True,
-                                       containment=True, derived=False, upper=-1)
+    feedbackItems = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
 
-    def __init__(self, *, learningItems=None, learningResources=None, problemStatements=None, solutions=None, umlElements=None, students=None, feedbacks=None, mistakeTypes=None, studentKnowledges=None, mistakeTypeCategories=None):
+    def __init__(self, *, problemStatements=None, solutions=None, students=None, studentKnowledges=None, feedbackItems=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
         super().__init__()
-
-        if learningItems:
-            self.learningItems.extend(learningItems)
-
-        if learningResources:
-            self.learningResources.extend(learningResources)
 
         if problemStatements:
             self.problemStatements.extend(problemStatements)
@@ -51,42 +38,14 @@ class ModelingAssistant(EObject, metaclass=MetaEClass):
         if solutions:
             self.solutions.extend(solutions)
 
-        if umlElements:
-            self.umlElements.extend(umlElements)
-
         if students:
             self.students.extend(students)
-
-        if feedbacks:
-            self.feedbacks.extend(feedbacks)
-
-        if mistakeTypes:
-            self.mistakeTypes.extend(mistakeTypes)
 
         if studentKnowledges:
             self.studentKnowledges.extend(studentKnowledges)
 
-        if mistakeTypeCategories:
-            self.mistakeTypeCategories.extend(mistakeTypeCategories)
-
-
-class UmlElement(EObject, metaclass=MetaEClass):
-
-    modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
-    learningItems = EReference(ordered=True, unique=True,
-                               containment=False, derived=False, upper=-1)
-
-    def __init__(self, *, modelingAssistant=None, learningItems=None):
-        # if kwargs:
-        #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
-
-        super().__init__()
-
-        if modelingAssistant is not None:
-            self.modelingAssistant = modelingAssistant
-
-        if learningItems:
-            self.learningItems.extend(learningItems)
+        if feedbackItems:
+            self.feedbackItems.extend(feedbackItems)
 
 
 class Solution(EObject, metaclass=MetaEClass):
@@ -102,9 +61,8 @@ class Solution(EObject, metaclass=MetaEClass):
         ordered=True, unique=True, containment=False, derived=False)
     instructorProblemStatement = EReference(
         ordered=True, unique=True, containment=False, derived=False)
-    currentStudent = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, modelingAssistant=None, student=None, solutionElements=None, classDiagram=None, mistakes=None, currentMistake=None, studentProblemStatement=None, instructorProblemStatement=None, currentStudent=None):
+    def __init__(self, *, modelingAssistant=None, student=None, solutionElements=None, classDiagram=None, mistakes=None, currentMistake=None, studentProblemStatement=None, instructorProblemStatement=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -133,9 +91,6 @@ class Solution(EObject, metaclass=MetaEClass):
 
         if instructorProblemStatement is not None:
             self.instructorProblemStatement = instructorProblemStatement
-
-        if currentStudent is not None:
-            self.currentStudent = currentStudent
 
 
 class SolutionElement(EObject, metaclass=MetaEClass):
@@ -175,10 +130,10 @@ class StudentKnowledge(EObject, metaclass=MetaEClass):
 
     levelOfKnowledge = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
     student = EReference(ordered=True, unique=True, containment=False, derived=False)
-    mistakeType = EReference(ordered=True, unique=True, containment=False, derived=False)
     modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
+    mistakeType = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, levelOfKnowledge=None, student=None, mistakeType=None, modelingAssistant=None):
+    def __init__(self, *, levelOfKnowledge=None, student=None, modelingAssistant=None, mistakeType=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -190,11 +145,11 @@ class StudentKnowledge(EObject, metaclass=MetaEClass):
         if student is not None:
             self.student = student
 
-        if mistakeType is not None:
-            self.mistakeType = mistakeType
-
         if modelingAssistant is not None:
             self.modelingAssistant = modelingAssistant
+
+        if mistakeType is not None:
+            self.mistakeType = mistakeType
 
 
 class Mistake(EObject, metaclass=MetaEClass):
@@ -206,13 +161,13 @@ class Mistake(EObject, metaclass=MetaEClass):
     numDetectionSinceResolved = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
     studentElements = EReference(ordered=True, unique=True,
                                  containment=False, derived=False, upper=-1)
-    mistakeType = EReference(ordered=True, unique=True, containment=False, derived=False)
     lastFeedback = EReference(ordered=True, unique=True, containment=False, derived=False)
     instructorElements = EReference(ordered=True, unique=True,
                                     containment=False, derived=False, upper=-1)
     studentSolution = EReference(ordered=True, unique=True, containment=False, derived=False)
+    mistakeType = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, resolved=None, timeToAddress=None, numStepsBeforeNotification=None, studentElements=None, mistakeType=None, lastFeedback=None, instructorElements=None, studentSolution=None, numDetection=None, numDetectionSinceResolved=None):
+    def __init__(self, *, resolved=None, timeToAddress=None, numStepsBeforeNotification=None, studentElements=None, lastFeedback=None, instructorElements=None, studentSolution=None, numDetection=None, numDetectionSinceResolved=None, mistakeType=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -236,9 +191,6 @@ class Mistake(EObject, metaclass=MetaEClass):
         if studentElements:
             self.studentElements.extend(studentElements)
 
-        if mistakeType is not None:
-            self.mistakeType = mistakeType
-
         if lastFeedback is not None:
             self.lastFeedback = lastFeedback
 
@@ -248,51 +200,8 @@ class Mistake(EObject, metaclass=MetaEClass):
         if studentSolution is not None:
             self.studentSolution = studentSolution
 
-
-class Feedback(EObject, metaclass=MetaEClass):
-
-    level = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
-    congratulatory = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True)
-    usefulness = EAttribute(eType=EDouble, unique=True, derived=False, changeable=True)
-    highlightProblem = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True)
-    highlightSolution = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True)
-    text = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
-    modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
-    mistakeType = EReference(ordered=True, unique=True, containment=False, derived=False)
-    mistakes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
-
-    def __init__(self, *, level=None, congratulatory=None, usefulness=None, highlightProblem=None, highlightSolution=None, modelingAssistant=None, mistakeType=None, mistakes=None, text=None):
-        # if kwargs:
-        #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
-
-        super().__init__()
-
-        if level is not None:
-            self.level = level
-
-        if congratulatory is not None:
-            self.congratulatory = congratulatory
-
-        if usefulness is not None:
-            self.usefulness = usefulness
-
-        if highlightProblem is not None:
-            self.highlightProblem = highlightProblem
-
-        if highlightSolution is not None:
-            self.highlightSolution = highlightSolution
-
-        if text is not None:
-            self.text = text
-
-        if modelingAssistant is not None:
-            self.modelingAssistant = modelingAssistant
-
         if mistakeType is not None:
             self.mistakeType = mistakeType
-
-        if mistakes:
-            self.mistakes.extend(mistakes)
 
 
 @abstract
@@ -308,6 +217,32 @@ class NamedElement(EObject, metaclass=MetaEClass):
 
         if name is not None:
             self.name = name
+
+
+class FeedbackItem(EObject, metaclass=MetaEClass):
+
+    usefulness = EAttribute(eType=EDouble, unique=True, derived=False, changeable=True)
+    mistakes = EReference(ordered=True, unique=True, containment=False, derived=False)
+    modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
+    feedback = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, mistakes=None, modelingAssistant=None, usefulness=None, feedback=None):
+        # if kwargs:
+        #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
+
+        super().__init__()
+
+        if usefulness is not None:
+            self.usefulness = usefulness
+
+        if mistakes is not None:
+            self.mistakes = mistakes
+
+        if modelingAssistant is not None:
+            self.modelingAssistant = modelingAssistant
+
+        if feedback is not None:
+            self.feedback = feedback
 
 
 class Student(NamedElement):
@@ -384,182 +319,3 @@ class ProblemStatementElement(NamedElement):
 
         if solutionElements:
             self.solutionElements.extend(solutionElements)
-
-
-class LearningItem(NamedElement):
-
-    description = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
-    modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
-    umlElements = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
-    learningResources = EReference(ordered=True, unique=True,
-                                   containment=False, derived=False, upper=-1)
-    mistakeTypes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
-
-    def __init__(self, *, modelingAssistant=None, umlElements=None, learningResources=None, mistakeTypes=None, description=None, **kwargs):
-
-        super().__init__(**kwargs)
-
-        if description is not None:
-            self.description = description
-
-        if modelingAssistant is not None:
-            self.modelingAssistant = modelingAssistant
-
-        if umlElements:
-            self.umlElements.extend(umlElements)
-
-        if learningResources:
-            self.learningResources.extend(learningResources)
-
-        if mistakeTypes:
-            self.mistakeTypes.extend(mistakeTypes)
-
-
-class MistakeType(NamedElement):
-
-    atomic = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True)
-    timeToAddress = EAttribute(eType=Time, unique=True, derived=False, changeable=True)
-    numStepsBeforeNotification = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
-    modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
-    learningItem = EReference(ordered=True, unique=True, containment=False, derived=False)
-    studentKnowledges = EReference(ordered=True, unique=True,
-                                   containment=False, derived=False, upper=-1)
-    mistakes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
-    feedbacks = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
-    mistakeTypeCategory = EReference(ordered=True, unique=True, containment=False, derived=False)
-
-    def __init__(self, *, atomic=None, timeToAddress=None, numStepsBeforeNotification=None, modelingAssistant=None, learningItem=None, studentKnowledges=None, mistakes=None, feedbacks=None, mistakeTypeCategory=None, **kwargs):
-
-        super().__init__(**kwargs)
-
-        if atomic is not None:
-            self.atomic = atomic
-
-        if timeToAddress is not None:
-            self.timeToAddress = timeToAddress
-
-        if numStepsBeforeNotification is not None:
-            self.numStepsBeforeNotification = numStepsBeforeNotification
-
-        if modelingAssistant is not None:
-            self.modelingAssistant = modelingAssistant
-
-        if learningItem is not None:
-            self.learningItem = learningItem
-
-        if studentKnowledges:
-            self.studentKnowledges.extend(studentKnowledges)
-
-        if mistakes:
-            self.mistakes.extend(mistakes)
-
-        if feedbacks:
-            self.feedbacks.extend(feedbacks)
-
-        if mistakeTypeCategory is not None:
-            self.mistakeTypeCategory = mistakeTypeCategory
-
-
-class TextResponse(Feedback):
-
-    def __init__(self, **kwargs):
-
-        super().__init__(**kwargs)
-
-
-class ParametrizedResponse(Feedback):
-
-    def __init__(self, **kwargs):
-
-        super().__init__(**kwargs)
-
-
-class ResourceResponse(Feedback):
-
-    learningResources = EReference(ordered=True, unique=True,
-                                   containment=False, derived=False, upper=-1)
-
-    def __init__(self, *, learningResources=None, **kwargs):
-
-        super().__init__(**kwargs)
-
-        if learningResources:
-            self.learningResources.extend(learningResources)
-
-
-class LearningResource(NamedElement):
-
-    content = EAttribute(eType=EJavaObject, unique=True, derived=False, changeable=True)
-    modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
-    learningItem = EReference(ordered=True, unique=True, containment=False, derived=False)
-    resourceResponses = EReference(ordered=True, unique=True,
-                                   containment=False, derived=False, upper=-1)
-
-    def __init__(self, *, modelingAssistant=None, learningItem=None, resourceResponses=None, content=None, **kwargs):
-
-        super().__init__(**kwargs)
-
-        if content is not None:
-            self.content = content
-
-        if modelingAssistant is not None:
-            self.modelingAssistant = modelingAssistant
-
-        if learningItem is not None:
-            self.learningItem = learningItem
-
-        if resourceResponses:
-            self.resourceResponses.extend(resourceResponses)
-
-
-class MistakeTypeCategory(NamedElement):
-
-    mistakeTypes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
-    supercategory = EReference(ordered=True, unique=True, containment=False, derived=False)
-    subcategories = EReference(ordered=True, unique=True,
-                               containment=False, derived=False, upper=-1)
-    modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
-
-    def __init__(self, *, mistakeTypes=None, supercategory=None, subcategories=None, modelingAssistant=None, **kwargs):
-
-        super().__init__(**kwargs)
-
-        if mistakeTypes:
-            self.mistakeTypes.extend(mistakeTypes)
-
-        if supercategory is not None:
-            self.supercategory = supercategory
-
-        if subcategories:
-            self.subcategories.extend(subcategories)
-
-        if modelingAssistant is not None:
-            self.modelingAssistant = modelingAssistant
-
-
-class Reference(LearningResource):
-
-    def __init__(self, **kwargs):
-
-        super().__init__(**kwargs)
-
-
-class Tutorial(LearningResource):
-
-    def __init__(self, **kwargs):
-
-        super().__init__(**kwargs)
-
-
-class Example(LearningResource):
-
-    def __init__(self, **kwargs):
-
-        super().__init__(**kwargs)
-
-
-class Quiz(LearningResource):
-
-    def __init__(self, **kwargs):
-
-        super().__init__(**kwargs)

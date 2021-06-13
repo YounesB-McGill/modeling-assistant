@@ -1,0 +1,31 @@
+Automatic-Model-Name: modelingassistant.dsl.transformation
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Acceleo Sample Module Runtime Plug-in
+Bundle-SymbolicName: modelingassistant.learningcorpus.dsl.transformation
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipse.acceleo.module.sample.Activator
+Bundle-Vendor: Eclipse Modeling Project
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.ocl,
+ org.eclipse.ocl.ecore,
+ org.eclipse.acceleo.common;bundle-version="3.3.0",
+ org.eclipse.acceleo.model;bundle-version="3.3.0",
+ org.eclipse.acceleo.profiler;bundle-version="3.3.0",
+ org.eclipse.acceleo.engine;bundle-version="3.3.0",
+ com.google.guava,
+ modelingassistant;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-ActivationPolicy: lazy
+Eclipse-LazyStart: true
+Export-Package: org.eclipse.acceleo.module.sample.main;
+  uses:="org.eclipse.emf.ecore,
+   org.eclipse.emf.common.util,
+   org.eclipse.acceleo.engine.service,
+   org.eclipse.emf.ecore.resource,
+   org.eclipse.acceleo.engine.generation.strategy"
+Bundle-ClassPath: bin/
+Automatic-Module-Name: modelingassistant.dsl.transformation

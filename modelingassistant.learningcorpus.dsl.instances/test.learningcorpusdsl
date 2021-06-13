@@ -1,0 +1,132 @@
+MistakeTypeCategory 'Wrong class' {
+  mistakeTypes {
+    Mistake 'Missing class' DomainModeling
+    Mistake 'Extra (redundant) class' DomainModeling
+  }
+}
+  MistakeTypeCategory 'Wrong class name -> Wrong class' {
+    mistakeTypes {
+      Mistake 'Plural class name' DomainModeling
+      Mistake 'Lowercase class name' DomainModeling
+      Mistake 'Software engineering term' atomic 3 DomainModeling
+      Mistake 'Bad class name spelling' atomic DomainModeling
+      Mistake 'Similar (yet incorrect) class name' atomic DomainModeling
+    }
+  }
+  MistakeTypeCategory 'Wrong enumeration -> Wrong class' {
+    mistakeTypes {
+      Mistake 'Regular class should be an enumeration' DomainModeling
+      Mistake 'Enumeration should be a regular class' DomainModeling
+      Mistake 'Wrong enumeration items' DomainModeling
+    }
+  }
+  
+  
+MistakeTypeCategory 'Wrong attribute' {
+  mistakeTypes {
+    Mistake 'Missing attribute' DomainModeling
+    Mistake 'Wrong attribute type' DomainModeling
+    Mistake 'Attribute should be static' DomainModeling
+    Mistake 'Attribute should not be static' DomainModeling
+  }
+}
+  MistakeTypeCategory 'Extra (redundant) attribute -> Wrong attribute' {
+    mistakeTypes {
+      Mistake 'Plural attribute' DomainModeling
+      Mistake 'List attribute' DomainModeling
+      Mistake 'Other extra attribute' DomainModeling
+    }
+  }
+  MistakeTypeCategory 'Wrong attribute name -> Wrong attribute' {
+    mistakeTypes {
+      Mistake 'Bad attribute name spelling' DomainModeling
+      Mistake 'Similar (yet incorrect) attribute name' DomainModeling
+    }
+  }
+  MistakeTypeCategory 'Attribute in wrong class -> Wrong attribute' {
+    Mistake 'Attribute duplicated' DomainModeling
+    Mistake 'Attribute misplaced' DomainModeling
+  }
+
+MistakeTypeCategory 'Wrong relationship' {
+  mistakeTypes {
+    Mistake 'Incomplete containment tree' DomainModeling
+  }
+}
+  MistakeTypeCategory 'Missing relationship -> Wrong relationship' {
+    mistakeTypes {
+      Mistake 'Missing association' DomainModeling
+      Mistake 'Missing composition' DomainModeling
+      Mistake 'Missing aggregation' DomainModeling
+      Mistake 'Using an attribute instead of an association' DomainModeling
+    }
+  }
+  MistakeTypeCategory 'Extra (redundant) association -> Wrong relationship' {
+    mistakeTypes {
+      Mistake 'Representing an action with an association' DomainModeling
+      Mistake 'Composed part contained in more than one parent' DomainModeling
+      Mistake 'Other extra association' DomainModeling
+    }
+  }
+  MistakeTypeCategory 'Using wrong relationship type -> Wrong relationship' {
+    mistakeTypes {
+      Mistake 'Using an association instead of an aggregation/composition' DomainModeling
+      Mistake 'Using an aggregation/composition instead of an association' DomainModeling
+      Mistake 'Using a directed association instead of an undirected one' DomainModeling
+      Mistake 'Using an undirected association instead of a directed one' DomainModeling
+      Mistake 'Using aggregation instead of composition' DomainModeling
+      Mistake 'Using composition instead of aggregation' DomainModeling
+    }
+  }
+  MistakeTypeCategory 'Wrong association name -> Wrong relationship' {
+    mistakeTypes {
+      Mistake 'Missing association name when one was expected' DomainModeling
+      Mistake 'Bad association name spelling' DomainModeling
+      Mistake 'Similar (yet incorrect) association name' DomainModeling
+    }
+  }
+  MistakeTypeCategory 'Wrong multiplicities -> Wrong relationship' {
+    mistakeTypes {
+      Mistake 'Infinite recursive dependency' DomainModeling
+      Mistake 'Other wrong multiplicity' DomainModeling
+    }
+  }
+  MistakeTypeCategory 'Wrong role names -> Wrong relationship' {
+    mistakeTypes {
+      Mistake 'Missing role names' DomainModeling
+      Mistake 'Role names present but incorrect' DomainModeling
+      Mistake 'Role should be static' DomainModeling
+      Mistake 'Role should not be static' DomainModeling
+      Mistake 'Bad role name spelling' DomainModeling
+      Mistake 'Similar (yet incorrect) role name' DomainModeling
+    }
+  }
+  MistakeTypeCategory 'Wrong association class -> Wrong relationship' {
+    mistakeTypes {
+      Mistake 'Missing association class' DomainModeling
+      Mistake 'Extra (redundant) association class' DomainModeling
+      Mistake 'Bad association class name spelling' DomainModeling
+      Mistake 'Similar (yet incorrect) association class name' DomainModeling
+    }
+  }
+  MistakeTypeCategory 'Wrong generalization -> Wrong relationship' {
+    mistakeTypes {
+      Mistake 'Missing generalization' DomainModeling
+      Mistake 'Generalization inapplicable' DomainModeling
+      Mistake 'Subclass not distinct across lifetime' DomainModeling
+      Mistake 'Inherited feature does not make sense for subclass' DomainModeling
+      Mistake 'Subclass is an instance of superclass' DomainModeling
+      Mistake 'Non-differentiated subclass' DomainModeling
+      Mistake 'Wrong generalization direction' DomainModeling
+      Mistake 'Wrong superclass' DomainModeling
+    }
+  }
+  
+MistakeTypeCategory 'Misuse of design patterns' {
+   mistakeTypes {
+    Mistake 'Misuse of Player-Role Pattern' DomainModeling
+    Mistake 'Misuse of Abstraction-Occurrence' DomainModeling
+  }
+}
+
+LearningItem 'DomainModeling' 'Description'

@@ -2,7 +2,8 @@
  */
 package modelingassistant.impl;
 
-import modelingassistant.MistakeType;
+import learningcorpus.MistakeType;
+
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.Student;
@@ -16,6 +17,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
@@ -28,8 +30,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * <ul>
  *   <li>{@link modelingassistant.impl.StudentKnowledgeImpl#getLevelOfKnowledge <em>Level Of Knowledge</em>}</li>
  *   <li>{@link modelingassistant.impl.StudentKnowledgeImpl#getStudent <em>Student</em>}</li>
- *   <li>{@link modelingassistant.impl.StudentKnowledgeImpl#getMistakeType <em>Mistake Type</em>}</li>
  *   <li>{@link modelingassistant.impl.StudentKnowledgeImpl#getModelingAssistant <em>Modeling Assistant</em>}</li>
+ *   <li>{@link modelingassistant.impl.StudentKnowledgeImpl#getMistakeType <em>Mistake Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -99,6 +101,7 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public int getLevelOfKnowledge() {
     return levelOfKnowledge;
   }
@@ -108,6 +111,7 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setLevelOfKnowledge(int newLevelOfKnowledge) {
     int oldLevelOfKnowledge = levelOfKnowledge;
     levelOfKnowledge = newLevelOfKnowledge;
@@ -120,6 +124,7 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Student getStudent() {
     if (student != null && student.eIsProxy()) {
       InternalEObject oldStudent = (InternalEObject)student;
@@ -161,6 +166,7 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setStudent(Student newStudent) {
     if (newStudent != student) {
       NotificationChain msgs = null;
@@ -180,6 +186,50 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public ModelingAssistant getModelingAssistant() {
+    if (eContainerFeatureID() != ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELING_ASSISTANT) return null;
+    return (ModelingAssistant)eInternalContainer();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetModelingAssistant(ModelingAssistant newModelingAssistant, NotificationChain msgs) {
+    msgs = eBasicSetContainer((InternalEObject)newModelingAssistant, ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELING_ASSISTANT, msgs);
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setModelingAssistant(ModelingAssistant newModelingAssistant) {
+    if (newModelingAssistant != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELING_ASSISTANT && newModelingAssistant != null)) {
+      if (EcoreUtil.isAncestor(this, newModelingAssistant))
+        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+      NotificationChain msgs = null;
+      if (eInternalContainer() != null)
+        msgs = eBasicRemoveFromContainer(msgs);
+      if (newModelingAssistant != null)
+        msgs = ((InternalEObject)newModelingAssistant).eInverseAdd(this, ModelingassistantPackage.MODELING_ASSISTANT__STUDENT_KNOWLEDGES, ModelingAssistant.class, msgs);
+      msgs = basicSetModelingAssistant(newModelingAssistant, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELING_ASSISTANT, newModelingAssistant, newModelingAssistant));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public MistakeType getMistakeType() {
     if (mistakeType != null && mistakeType.eIsProxy()) {
       InternalEObject oldMistakeType = (InternalEObject)mistakeType;
@@ -206,74 +256,12 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetMistakeType(MistakeType newMistakeType, NotificationChain msgs) {
+  @Override
+  public void setMistakeType(MistakeType newMistakeType) {
     MistakeType oldMistakeType = mistakeType;
     mistakeType = newMistakeType;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE, oldMistakeType, newMistakeType);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setMistakeType(MistakeType newMistakeType) {
-    if (newMistakeType != mistakeType) {
-      NotificationChain msgs = null;
-      if (mistakeType != null)
-        msgs = ((InternalEObject)mistakeType).eInverseRemove(this, ModelingassistantPackage.MISTAKE_TYPE__STUDENT_KNOWLEDGES, MistakeType.class, msgs);
-      if (newMistakeType != null)
-        msgs = ((InternalEObject)newMistakeType).eInverseAdd(this, ModelingassistantPackage.MISTAKE_TYPE__STUDENT_KNOWLEDGES, MistakeType.class, msgs);
-      msgs = basicSetMistakeType(newMistakeType, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE, newMistakeType, newMistakeType));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ModelingAssistant getModelingAssistant() {
-    if (eContainerFeatureID() != ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELING_ASSISTANT) return null;
-    return (ModelingAssistant)eInternalContainer();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetModelingAssistant(ModelingAssistant newModelingAssistant, NotificationChain msgs) {
-    msgs = eBasicSetContainer((InternalEObject)newModelingAssistant, ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELING_ASSISTANT, msgs);
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setModelingAssistant(ModelingAssistant newModelingAssistant) {
-    if (newModelingAssistant != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELING_ASSISTANT && newModelingAssistant != null)) {
-      if (EcoreUtil.isAncestor(this, newModelingAssistant))
-        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-      NotificationChain msgs = null;
-      if (eInternalContainer() != null)
-        msgs = eBasicRemoveFromContainer(msgs);
-      if (newModelingAssistant != null)
-        msgs = ((InternalEObject)newModelingAssistant).eInverseAdd(this, ModelingassistantPackage.MODELING_ASSISTANT__STUDENT_KNOWLEDGES, ModelingAssistant.class, msgs);
-      msgs = basicSetModelingAssistant(newModelingAssistant, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELING_ASSISTANT, newModelingAssistant, newModelingAssistant));
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE, oldMistakeType, mistakeType));
   }
 
   /**
@@ -288,10 +276,6 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
         if (student != null)
           msgs = ((InternalEObject)student).eInverseRemove(this, ModelingassistantPackage.STUDENT__STUDENT_KNOWLEDGES, Student.class, msgs);
         return basicSetStudent((Student)otherEnd, msgs);
-      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE:
-        if (mistakeType != null)
-          msgs = ((InternalEObject)mistakeType).eInverseRemove(this, ModelingassistantPackage.MISTAKE_TYPE__STUDENT_KNOWLEDGES, MistakeType.class, msgs);
-        return basicSetMistakeType((MistakeType)otherEnd, msgs);
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELING_ASSISTANT:
         if (eInternalContainer() != null)
           msgs = eBasicRemoveFromContainer(msgs);
@@ -310,8 +294,6 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
     switch (featureID) {
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__STUDENT:
         return basicSetStudent(null, msgs);
-      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE:
-        return basicSetMistakeType(null, msgs);
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELING_ASSISTANT:
         return basicSetModelingAssistant(null, msgs);
     }
@@ -345,11 +327,11 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__STUDENT:
         if (resolve) return getStudent();
         return basicGetStudent();
+      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELING_ASSISTANT:
+        return getModelingAssistant();
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE:
         if (resolve) return getMistakeType();
         return basicGetMistakeType();
-      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELING_ASSISTANT:
-        return getModelingAssistant();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -368,11 +350,11 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__STUDENT:
         setStudent((Student)newValue);
         return;
-      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE:
-        setMistakeType((MistakeType)newValue);
-        return;
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELING_ASSISTANT:
         setModelingAssistant((ModelingAssistant)newValue);
+        return;
+      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE:
+        setMistakeType((MistakeType)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -392,11 +374,11 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__STUDENT:
         setStudent((Student)null);
         return;
-      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE:
-        setMistakeType((MistakeType)null);
-        return;
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELING_ASSISTANT:
         setModelingAssistant((ModelingAssistant)null);
+        return;
+      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE:
+        setMistakeType((MistakeType)null);
         return;
     }
     super.eUnset(featureID);
@@ -414,10 +396,10 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
         return levelOfKnowledge != LEVEL_OF_KNOWLEDGE_EDEFAULT;
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__STUDENT:
         return student != null;
-      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE:
-        return mistakeType != null;
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__MODELING_ASSISTANT:
         return getModelingAssistant() != null;
+      case ModelingassistantPackage.STUDENT_KNOWLEDGE__MISTAKE_TYPE:
+        return mistakeType != null;
     }
     return super.eIsSet(featureID);
   }

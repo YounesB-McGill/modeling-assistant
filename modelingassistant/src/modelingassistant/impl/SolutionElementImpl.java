@@ -11,6 +11,7 @@ import modelingassistant.ModelingassistantPackage;
 import modelingassistant.ProblemStatementElement;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -108,6 +109,7 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ProblemStatementElement> getProblemStatementElements() {
     if (problemStatementElements == null) {
       problemStatementElements = new EObjectWithInverseResolvingEList.ManyInverse<ProblemStatementElement>(ProblemStatementElement.class, this, ModelingassistantPackage.SOLUTION_ELEMENT__PROBLEM_STATEMENT_ELEMENTS, ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__SOLUTION_ELEMENTS);
@@ -120,6 +122,7 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Solution getSolution() {
     if (eContainerFeatureID() != ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION) return null;
     return (Solution)eInternalContainer();
@@ -140,6 +143,7 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSolution(Solution newSolution) {
     if (newSolution != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.SOLUTION_ELEMENT__SOLUTION && newSolution != null)) {
       if (EcoreUtil.isAncestor(this, newSolution))
@@ -161,6 +165,7 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Mistake> getStudentElementMistakes() {
     if (studentElementMistakes == null) {
       studentElementMistakes = new EObjectWithInverseResolvingEList.ManyInverse<Mistake>(Mistake.class, this, ModelingassistantPackage.SOLUTION_ELEMENT__STUDENT_ELEMENT_MISTAKES, ModelingassistantPackage.MISTAKE__STUDENT_ELEMENTS);
@@ -173,6 +178,7 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedElement getElement() {
     if (element != null && element.eIsProxy()) {
       InternalEObject oldElement = (InternalEObject)element;
@@ -199,6 +205,7 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setElement(NamedElement newElement) {
     NamedElement oldElement = element;
     element = newElement;
@@ -211,6 +218,7 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Mistake> getInstructorElementMistakes() {
     if (instructorElementMistakes == null) {
       instructorElementMistakes = new EObjectWithInverseResolvingEList.ManyInverse<Mistake>(Mistake.class, this, ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES, ModelingassistantPackage.MISTAKE__INSTRUCTOR_ELEMENTS);

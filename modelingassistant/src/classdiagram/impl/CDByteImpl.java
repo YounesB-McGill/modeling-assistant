@@ -55,6 +55,7 @@ public class CDByteImpl extends PrimitiveTypeImpl implements CDByte {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName() {
     try {
       return (String)GET_NAME__EINVOCATION_DELEGATE.dynamicInvoke(this, null);
@@ -79,6 +80,7 @@ public class CDByteImpl extends PrimitiveTypeImpl implements CDByte {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getInstanceClassName() {
     try {
       return (String)GET_INSTANCE_CLASS_NAME__EINVOCATION_DELEGATE.dynamicInvoke(this, null);

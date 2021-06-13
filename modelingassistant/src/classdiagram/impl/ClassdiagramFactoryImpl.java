@@ -168,6 +168,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Parameter createParameter() {
     ParameterImpl parameter = new ParameterImpl();
     return parameter;
@@ -178,6 +179,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Attribute createAttribute() {
     AttributeImpl attribute = new AttributeImpl();
     return attribute;
@@ -188,6 +190,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Operation createOperation() {
     OperationImpl operation = new OperationImpl();
     return operation;
@@ -198,6 +201,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public classdiagram.Class createClass() {
     ClassImpl class_ = new ClassImpl();
     return class_;
@@ -208,6 +212,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeParameter createTypeParameter() {
     TypeParameterImpl typeParameter = new TypeParameterImpl();
     return typeParameter;
@@ -218,6 +223,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Association createAssociation() {
     AssociationImpl association = new AssociationImpl();
     return association;
@@ -228,6 +234,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AssociationEnd createAssociationEnd() {
     AssociationEndImpl associationEnd = new AssociationEndImpl();
     return associationEnd;
@@ -238,6 +245,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ClassDiagram createClassDiagram() {
     ClassDiagramImpl classDiagram = new ClassDiagramImpl();
     return classDiagram;
@@ -248,6 +256,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ImplementationClass createImplementationClass() {
     ImplementationClassImpl implementationClass = new ImplementationClassImpl();
     return implementationClass;
@@ -258,6 +267,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Note createNote() {
     NoteImpl note = new NoteImpl();
     return note;
@@ -278,6 +288,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Layout createLayout() {
     LayoutImpl layout = new LayoutImpl();
     return layout;
@@ -288,6 +299,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public LayoutElement createLayoutElement() {
     LayoutElementImpl layoutElement = new LayoutElementImpl();
     return layoutElement;
@@ -308,6 +320,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDBoolean createCDBoolean() {
     CDBooleanImpl cdBoolean = new CDBooleanImpl();
     return cdBoolean;
@@ -318,6 +331,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDDouble createCDDouble() {
     CDDoubleImpl cdDouble = new CDDoubleImpl();
     return cdDouble;
@@ -328,6 +342,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDInt createCDInt() {
     CDIntImpl cdInt = new CDIntImpl();
     return cdInt;
@@ -338,6 +353,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDLong createCDLong() {
     CDLongImpl cdLong = new CDLongImpl();
     return cdLong;
@@ -348,6 +364,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDString createCDString() {
     CDStringImpl cdString = new CDStringImpl();
     return cdString;
@@ -358,6 +375,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDByte createCDByte() {
     CDByteImpl cdByte = new CDByteImpl();
     return cdByte;
@@ -368,6 +386,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDFloat createCDFloat() {
     CDFloatImpl cdFloat = new CDFloatImpl();
     return cdFloat;
@@ -378,6 +397,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDArray createCDArray() {
     CDArrayImpl cdArray = new CDArrayImpl();
     return cdArray;
@@ -388,6 +408,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDChar createCDChar() {
     CDCharImpl cdChar = new CDCharImpl();
     return cdChar;
@@ -398,6 +419,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDEnum createCDEnum() {
     CDEnumImpl cdEnum = new CDEnumImpl();
     return cdEnum;
@@ -408,6 +430,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDEnumLiteral createCDEnumLiteral() {
     CDEnumLiteralImpl cdEnumLiteral = new CDEnumLiteralImpl();
     return cdEnumLiteral;
@@ -418,6 +441,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDAny createCDAny() {
     CDAnyImpl cdAny = new CDAnyImpl();
     return cdAny;
@@ -428,6 +452,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDVoid createCDVoid() {
     CDVoidImpl cdVoid = new CDVoidImpl();
     return cdVoid;
@@ -438,6 +463,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDSet createCDSet() {
     CDSetImpl cdSet = new CDSetImpl();
     return cdSet;
@@ -448,6 +474,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDSequence createCDSequence() {
     CDSequenceImpl cdSequence = new CDSequenceImpl();
     return cdSequence;
@@ -518,6 +545,7 @@ public class ClassdiagramFactoryImpl extends EFactoryImpl implements Classdiagra
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ClassdiagramPackage getClassdiagramPackage() {
     return (ClassdiagramPackage)getEPackage();
   }

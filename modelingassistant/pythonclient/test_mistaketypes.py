@@ -1,4 +1,4 @@
-from modelingassistant.modelingassistant import MistakeTypeCategory, MistakeType
+from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
 
 import mistaketypes
 
@@ -25,6 +25,6 @@ def test_get_mistake_type_and_mistake_type_category_by_names():
     assert (expected_missing_class_mistake_type.mistakeTypeCategory.name ==
         actual_missing_class_mistake_type.mistakeTypeCategory.name)
     
-    assert actual_wrong_class_mistake_type_category.modelingAssistant
-    assert (actual_wrong_class_mistake_type_category.modelingAssistant ==
-        actual_missing_class_mistake_type.modelingAssistant)
+    assert actual_wrong_class_mistake_type_category.learningCorpus
+    assert (actual_wrong_class_mistake_type_category.learningCorpus ==
+        actual_missing_class_mistake_type.mistakeTypeCategory.learningCorpus)

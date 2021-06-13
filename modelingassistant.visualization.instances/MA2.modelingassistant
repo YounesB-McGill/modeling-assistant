@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is deprecated and no longer in use. -->
 <modelingassistant:ModelingAssistant xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmi:id="_0IVwMKKIEeuqWKxn05FfnQ">
   <mistakeTypes xmi:id="_CwQw8KKLEeuqWKxn05FfnQ" name="Other wrong multiplicity" mistakeTypeCategory="_9cX1cKKKEeuqWKxn05FfnQ"/>
   <mistakeTypes xmi:id="_DE2g4KKLEeuqWKxn05FfnQ" name="Infinite recursive dependency" mistakeTypeCategory="_9cX1cKKKEeuqWKxn05FfnQ"/>
