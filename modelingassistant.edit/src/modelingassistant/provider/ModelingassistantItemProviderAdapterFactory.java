@@ -164,29 +164,6 @@ public class ModelingassistantItemProviderAdapterFactory extends Modelingassista
   }
 
   /**
-   * This keeps track of the one adapter used for all {@link modelingassistant.UmlElement} instances.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected UmlElementItemProvider umlElementItemProvider;
-
-  /**
-   * This creates an adapter for a {@link modelingassistant.UmlElement}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Adapter createUmlElementAdapter() {
-    if (umlElementItemProvider == null) {
-      umlElementItemProvider = new UmlElementItemProvider(this);
-    }
-
-    return umlElementItemProvider;
-  }
-
-  /**
    * This keeps track of the one adapter used for all {@link modelingassistant.Solution} instances.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -233,29 +210,6 @@ public class ModelingassistantItemProviderAdapterFactory extends Modelingassista
   }
 
   /**
-   * This keeps track of the one adapter used for all {@link modelingassistant.LearningItem} instances.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected LearningItemItemProvider learningItemItemProvider;
-
-  /**
-   * This creates an adapter for a {@link modelingassistant.LearningItem}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Adapter createLearningItemAdapter() {
-    if (learningItemItemProvider == null) {
-      learningItemItemProvider = new LearningItemItemProvider(this);
-    }
-
-    return learningItemItemProvider;
-  }
-
-  /**
    * This keeps track of the one adapter used for all {@link modelingassistant.StudentKnowledge} instances.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -276,29 +230,6 @@ public class ModelingassistantItemProviderAdapterFactory extends Modelingassista
     }
 
     return studentKnowledgeItemProvider;
-  }
-
-  /**
-   * This keeps track of the one adapter used for all {@link modelingassistant.MistakeType} instances.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected MistakeTypeItemProvider mistakeTypeItemProvider;
-
-  /**
-   * This creates an adapter for a {@link modelingassistant.MistakeType}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Adapter createMistakeTypeAdapter() {
-    if (mistakeTypeItemProvider == null) {
-      mistakeTypeItemProvider = new MistakeTypeItemProvider(this);
-    }
-
-    return mistakeTypeItemProvider;
   }
 
   /**
@@ -325,233 +256,26 @@ public class ModelingassistantItemProviderAdapterFactory extends Modelingassista
   }
 
   /**
-   * This keeps track of the one adapter used for all {@link modelingassistant.Feedback} instances.
+   * This keeps track of the one adapter used for all {@link modelingassistant.FeedbackItem} instances.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected FeedbackItemProvider feedbackItemProvider;
+  protected FeedbackItemItemProvider feedbackItemItemProvider;
 
   /**
-   * This creates an adapter for a {@link modelingassistant.Feedback}.
+   * This creates an adapter for a {@link modelingassistant.FeedbackItem}.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
   @Override
-  public Adapter createFeedbackAdapter() {
-    if (feedbackItemProvider == null) {
-      feedbackItemProvider = new FeedbackItemProvider(this);
+  public Adapter createFeedbackItemAdapter() {
+    if (feedbackItemItemProvider == null) {
+      feedbackItemItemProvider = new FeedbackItemItemProvider(this);
     }
 
-    return feedbackItemProvider;
-  }
-
-  /**
-   * This keeps track of the one adapter used for all {@link modelingassistant.TextResponse} instances.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected TextResponseItemProvider textResponseItemProvider;
-
-  /**
-   * This creates an adapter for a {@link modelingassistant.TextResponse}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Adapter createTextResponseAdapter() {
-    if (textResponseItemProvider == null) {
-      textResponseItemProvider = new TextResponseItemProvider(this);
-    }
-
-    return textResponseItemProvider;
-  }
-
-  /**
-   * This keeps track of the one adapter used for all {@link modelingassistant.ParametrizedResponse} instances.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected ParametrizedResponseItemProvider parametrizedResponseItemProvider;
-
-  /**
-   * This creates an adapter for a {@link modelingassistant.ParametrizedResponse}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Adapter createParametrizedResponseAdapter() {
-    if (parametrizedResponseItemProvider == null) {
-      parametrizedResponseItemProvider = new ParametrizedResponseItemProvider(this);
-    }
-
-    return parametrizedResponseItemProvider;
-  }
-
-  /**
-   * This keeps track of the one adapter used for all {@link modelingassistant.ResourceResponse} instances.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected ResourceResponseItemProvider resourceResponseItemProvider;
-
-  /**
-   * This creates an adapter for a {@link modelingassistant.ResourceResponse}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Adapter createResourceResponseAdapter() {
-    if (resourceResponseItemProvider == null) {
-      resourceResponseItemProvider = new ResourceResponseItemProvider(this);
-    }
-
-    return resourceResponseItemProvider;
-  }
-
-  /**
-   * This keeps track of the one adapter used for all {@link modelingassistant.LearningResource} instances.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected LearningResourceItemProvider learningResourceItemProvider;
-
-  /**
-   * This creates an adapter for a {@link modelingassistant.LearningResource}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Adapter createLearningResourceAdapter() {
-    if (learningResourceItemProvider == null) {
-      learningResourceItemProvider = new LearningResourceItemProvider(this);
-    }
-
-    return learningResourceItemProvider;
-  }
-
-  /**
-   * This keeps track of the one adapter used for all {@link modelingassistant.Reference} instances.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected ReferenceItemProvider referenceItemProvider;
-
-  /**
-   * This creates an adapter for a {@link modelingassistant.Reference}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Adapter createReferenceAdapter() {
-    if (referenceItemProvider == null) {
-      referenceItemProvider = new ReferenceItemProvider(this);
-    }
-
-    return referenceItemProvider;
-  }
-
-  /**
-   * This keeps track of the one adapter used for all {@link modelingassistant.Tutorial} instances.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected TutorialItemProvider tutorialItemProvider;
-
-  /**
-   * This creates an adapter for a {@link modelingassistant.Tutorial}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Adapter createTutorialAdapter() {
-    if (tutorialItemProvider == null) {
-      tutorialItemProvider = new TutorialItemProvider(this);
-    }
-
-    return tutorialItemProvider;
-  }
-
-  /**
-   * This keeps track of the one adapter used for all {@link modelingassistant.Example} instances.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected ExampleItemProvider exampleItemProvider;
-
-  /**
-   * This creates an adapter for a {@link modelingassistant.Example}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Adapter createExampleAdapter() {
-    if (exampleItemProvider == null) {
-      exampleItemProvider = new ExampleItemProvider(this);
-    }
-
-    return exampleItemProvider;
-  }
-
-  /**
-   * This keeps track of the one adapter used for all {@link modelingassistant.Quiz} instances.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected QuizItemProvider quizItemProvider;
-
-  /**
-   * This creates an adapter for a {@link modelingassistant.Quiz}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Adapter createQuizAdapter() {
-    if (quizItemProvider == null) {
-      quizItemProvider = new QuizItemProvider(this);
-    }
-
-    return quizItemProvider;
-  }
-
-  /**
-   * This keeps track of the one adapter used for all {@link modelingassistant.MistakeTypeCategory} instances.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected MistakeTypeCategoryItemProvider mistakeTypeCategoryItemProvider;
-
-  /**
-   * This creates an adapter for a {@link modelingassistant.MistakeTypeCategory}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Adapter createMistakeTypeCategoryAdapter() {
-    if (mistakeTypeCategoryItemProvider == null) {
-      mistakeTypeCategoryItemProvider = new MistakeTypeCategoryItemProvider(this);
-    }
-
-    return mistakeTypeCategoryItemProvider;
+    return feedbackItemItemProvider;
   }
 
   /**
@@ -560,6 +284,7 @@ public class ModelingassistantItemProviderAdapterFactory extends Modelingassista
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ComposeableAdapterFactory getRootAdapterFactory() {
     return parentAdapterFactory == null ? this : parentAdapterFactory.getRootAdapterFactory();
   }
@@ -570,6 +295,7 @@ public class ModelingassistantItemProviderAdapterFactory extends Modelingassista
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setParentAdapterFactory(ComposedAdapterFactory parentAdapterFactory) {
     this.parentAdapterFactory = parentAdapterFactory;
   }
@@ -618,6 +344,7 @@ public class ModelingassistantItemProviderAdapterFactory extends Modelingassista
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void addListener(INotifyChangedListener notifyChangedListener) {
     changeNotifier.addListener(notifyChangedListener);
   }
@@ -628,6 +355,7 @@ public class ModelingassistantItemProviderAdapterFactory extends Modelingassista
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void removeListener(INotifyChangedListener notifyChangedListener) {
     changeNotifier.removeListener(notifyChangedListener);
   }
@@ -638,6 +366,7 @@ public class ModelingassistantItemProviderAdapterFactory extends Modelingassista
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void fireNotifyChanged(Notification notification) {
     changeNotifier.fireNotifyChanged(notification);
 
@@ -652,28 +381,17 @@ public class ModelingassistantItemProviderAdapterFactory extends Modelingassista
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void dispose() {
     if (modelingAssistantItemProvider != null) modelingAssistantItemProvider.dispose();
     if (studentItemProvider != null) studentItemProvider.dispose();
     if (problemStatementItemProvider != null) problemStatementItemProvider.dispose();
     if (problemStatementElementItemProvider != null) problemStatementElementItemProvider.dispose();
-    if (umlElementItemProvider != null) umlElementItemProvider.dispose();
     if (solutionItemProvider != null) solutionItemProvider.dispose();
     if (solutionElementItemProvider != null) solutionElementItemProvider.dispose();
-    if (learningItemItemProvider != null) learningItemItemProvider.dispose();
     if (studentKnowledgeItemProvider != null) studentKnowledgeItemProvider.dispose();
-    if (mistakeTypeItemProvider != null) mistakeTypeItemProvider.dispose();
     if (mistakeItemProvider != null) mistakeItemProvider.dispose();
-    if (feedbackItemProvider != null) feedbackItemProvider.dispose();
-    if (textResponseItemProvider != null) textResponseItemProvider.dispose();
-    if (parametrizedResponseItemProvider != null) parametrizedResponseItemProvider.dispose();
-    if (resourceResponseItemProvider != null) resourceResponseItemProvider.dispose();
-    if (learningResourceItemProvider != null) learningResourceItemProvider.dispose();
-    if (referenceItemProvider != null) referenceItemProvider.dispose();
-    if (tutorialItemProvider != null) tutorialItemProvider.dispose();
-    if (exampleItemProvider != null) exampleItemProvider.dispose();
-    if (quizItemProvider != null) quizItemProvider.dispose();
-    if (mistakeTypeCategoryItemProvider != null) mistakeTypeCategoryItemProvider.dispose();
+    if (feedbackItemItemProvider != null) feedbackItemItemProvider.dispose();
   }
 
 }

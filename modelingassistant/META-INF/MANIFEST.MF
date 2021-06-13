@@ -11,9 +11,12 @@ Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: classdiagram,
  classdiagram.impl,
  classdiagram.util,
+ learningcorpus,
+ learningcorpus.impl,
+ learningcorpus.mistaketypes,
+ learningcorpus.util,
  modelingassistant,
  modelingassistant.impl,
- modelingassistant.mistaketypes,
  modelingassistant.util
 Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.emf.ecore;visibility:=reexport,

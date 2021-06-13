@@ -54,6 +54,7 @@ public class CDEnumLiteralImpl extends NamedElementImpl implements CDEnumLiteral
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CDEnum getEnum() {
     if (eContainerFeatureID() != ClassdiagramPackage.CD_ENUM_LITERAL__ENUM) return null;
     return (CDEnum)eInternalContainer();
@@ -74,6 +75,7 @@ public class CDEnumLiteralImpl extends NamedElementImpl implements CDEnumLiteral
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setEnum(CDEnum newEnum) {
     if (newEnum != eInternalContainer() || (eContainerFeatureID() != ClassdiagramPackage.CD_ENUM_LITERAL__ENUM && newEnum != null)) {
       if (EcoreUtil.isAncestor(this, newEnum))

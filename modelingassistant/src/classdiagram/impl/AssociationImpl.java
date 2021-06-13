@@ -80,6 +80,7 @@ public class AssociationImpl extends NamedElementImpl implements Association {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<AssociationEnd> getEnds() {
     if (ends == null) {
       ends = new EObjectWithInverseResolvingEList<AssociationEnd>(AssociationEnd.class, this, ClassdiagramPackage.ASSOCIATION__ENDS, ClassdiagramPackage.ASSOCIATION_END__ASSOC);
@@ -92,6 +93,7 @@ public class AssociationImpl extends NamedElementImpl implements Association {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public classdiagram.Class getAssociationClass() {
     if (associationClass != null && associationClass.eIsProxy()) {
       InternalEObject oldAssociationClass = (InternalEObject)associationClass;
@@ -118,6 +120,7 @@ public class AssociationImpl extends NamedElementImpl implements Association {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAssociationClass(classdiagram.Class newAssociationClass) {
     classdiagram.Class oldAssociationClass = associationClass;
     associationClass = newAssociationClass;

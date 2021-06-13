@@ -211,6 +211,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isNavigable() {
     return navigable;
   }
@@ -220,6 +221,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setNavigable(boolean newNavigable) {
     boolean oldNavigable = navigable;
     navigable = newNavigable;
@@ -232,6 +234,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Association getAssoc() {
     if (assoc != null && assoc.eIsProxy()) {
       InternalEObject oldAssoc = (InternalEObject)assoc;
@@ -273,6 +276,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAssoc(Association newAssoc) {
     if (newAssoc != assoc) {
       NotificationChain msgs = null;
@@ -292,6 +296,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Classifier getClassifier() {
     if (eContainerFeatureID() != ClassdiagramPackage.ASSOCIATION_END__CLASSIFIER) return null;
     return (Classifier)eInternalContainer();
@@ -312,6 +317,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setClassifier(Classifier newClassifier) {
     if (newClassifier != eInternalContainer() || (eContainerFeatureID() != ClassdiagramPackage.ASSOCIATION_END__CLASSIFIER && newClassifier != null)) {
       if (EcoreUtil.isAncestor(this, newClassifier))
@@ -333,6 +339,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Type getQualifier() {
     if (qualifier != null && qualifier.eIsProxy()) {
       InternalEObject oldQualifier = (InternalEObject)qualifier;
@@ -359,6 +366,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setQualifier(Type newQualifier) {
     Type oldQualifier = qualifier;
     qualifier = newQualifier;
@@ -371,6 +379,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public int getLowerBound() {
     return lowerBound;
   }
@@ -380,6 +389,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setLowerBound(int newLowerBound) {
     int oldLowerBound = lowerBound;
     lowerBound = newLowerBound;
@@ -392,6 +402,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public int getUpperBound() {
     return upperBound;
   }
@@ -401,6 +412,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setUpperBound(int newUpperBound) {
     int oldUpperBound = upperBound;
     upperBound = newUpperBound;
@@ -413,6 +425,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ReferenceType getReferenceType() {
     return referenceType;
   }
@@ -422,6 +435,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setReferenceType(ReferenceType newReferenceType) {
     ReferenceType oldReferenceType = referenceType;
     referenceType = newReferenceType == null ? REFERENCE_TYPE_EDEFAULT : newReferenceType;
@@ -434,6 +448,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isOrdered() {
     return ordered;
   }
@@ -443,6 +458,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setOrdered(boolean newOrdered) {
     boolean oldOrdered = ordered;
     ordered = newOrdered;
@@ -455,6 +471,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isUnique() {
     return unique;
   }
@@ -464,6 +481,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setUnique(boolean newUnique) {
     boolean oldUnique = unique;
     unique = newUnique;
@@ -486,6 +504,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AssociationEnd getOppositeEnd() {
     try {
       return (AssociationEnd)GET_OPPOSITE_END__EINVOCATION_DELEGATE.dynamicInvoke(this, null);

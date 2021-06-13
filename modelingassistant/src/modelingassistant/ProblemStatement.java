@@ -26,6 +26,42 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface ProblemStatement extends NamedElement {
   /**
+   * Returns the value of the '<em><b>Problem Statement Elements</b></em>' containment reference list.
+   * The list contents are of type {@link modelingassistant.ProblemStatementElement}.
+   * It is bidirectional and its opposite is '{@link modelingassistant.ProblemStatementElement#getProblemStatement <em>Problem Statement</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Problem Statement Elements</em>' containment reference list.
+   * @see modelingassistant.ModelingassistantPackage#getProblemStatement_ProblemStatementElements()
+   * @see modelingassistant.ProblemStatementElement#getProblemStatement
+   * @model opposite="problemStatement" containment="true"
+   * @generated
+   */
+  EList<ProblemStatementElement> getProblemStatementElements();
+
+  /**
+   * Returns the value of the '<em><b>Text</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Text</em>' attribute.
+   * @see #setText(String)
+   * @see modelingassistant.ModelingassistantPackage#getProblemStatement_Text()
+   * @model
+   * @generated
+   */
+  String getText();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.ProblemStatement#getText <em>Text</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Text</em>' attribute.
+   * @see #getText()
+   * @generated
+   */
+  void setText(String value);
+
+  /**
    * Returns the value of the '<em><b>Modeling Assistant</b></em>' container reference.
    * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getProblemStatements <em>Problem Statements</em>}'.
    * <!-- begin-user-doc -->
@@ -86,41 +122,5 @@ public interface ProblemStatement extends NamedElement {
    * @generated
    */
   void setInstructorSolution(Solution value);
-
-  /**
-   * Returns the value of the '<em><b>Problem Statement Elements</b></em>' containment reference list.
-   * The list contents are of type {@link modelingassistant.ProblemStatementElement}.
-   * It is bidirectional and its opposite is '{@link modelingassistant.ProblemStatementElement#getProblemStatement <em>Problem Statement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Problem Statement Elements</em>' containment reference list.
-   * @see modelingassistant.ModelingassistantPackage#getProblemStatement_ProblemStatementElements()
-   * @see modelingassistant.ProblemStatementElement#getProblemStatement
-   * @model opposite="problemStatement" containment="true"
-   * @generated
-   */
-  EList<ProblemStatementElement> getProblemStatementElements();
-
-  /**
-   * Returns the value of the '<em><b>Text</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Text</em>' attribute.
-   * @see #setText(String)
-   * @see modelingassistant.ModelingassistantPackage#getProblemStatement_Text()
-   * @model
-   * @generated
-   */
-  String getText();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.ProblemStatement#getText <em>Text</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Text</em>' attribute.
-   * @see #getText()
-   * @generated
-   */
-  void setText(String value);
 
 } // ProblemStatement

@@ -90,6 +90,7 @@ public class ImplementationClassImpl extends ClassifierImpl implements Implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getInstanceClassName() {
     return instanceClassName;
   }
@@ -99,6 +100,7 @@ public class ImplementationClassImpl extends ClassifierImpl implements Implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setInstanceClassName(String newInstanceClassName) {
     String oldInstanceClassName = instanceClassName;
     instanceClassName = newInstanceClassName;
@@ -111,6 +113,7 @@ public class ImplementationClassImpl extends ClassifierImpl implements Implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isInterface() {
     return interface_;
   }
@@ -120,6 +123,7 @@ public class ImplementationClassImpl extends ClassifierImpl implements Implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setInterface(boolean newInterface) {
     boolean oldInterface = interface_;
     interface_ = newInterface;

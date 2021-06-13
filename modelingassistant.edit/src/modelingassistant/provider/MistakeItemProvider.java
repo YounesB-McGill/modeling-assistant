@@ -64,12 +64,12 @@ public class MistakeItemProvider
       addTimeToAddressPropertyDescriptor(object);
       addNumStepsBeforeNotificationPropertyDescriptor(object);
       addStudentElementsPropertyDescriptor(object);
-      addMistakeTypePropertyDescriptor(object);
       addLastFeedbackPropertyDescriptor(object);
       addInstructorElementsPropertyDescriptor(object);
       addStudentSolutionPropertyDescriptor(object);
       addNumDetectionPropertyDescriptor(object);
       addNumDetectionSinceResolvedPropertyDescriptor(object);
+      addMistakeTypePropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -154,28 +154,6 @@ public class MistakeItemProvider
          getString("_UI_Mistake_studentElements_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_Mistake_studentElements_feature", "_UI_Mistake_type"),
          ModelingassistantPackage.Literals.MISTAKE__STUDENT_ELEMENTS,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Mistake Type feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addMistakeTypePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_Mistake_mistakeType_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_mistakeType_feature", "_UI_Mistake_type"),
-         ModelingassistantPackage.Literals.MISTAKE__MISTAKE_TYPE,
          true,
          false,
          true,
@@ -290,6 +268,28 @@ public class MistakeItemProvider
          false,
          false,
          ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Mistake Type feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addMistakeTypePropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_Mistake_mistakeType_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_mistakeType_feature", "_UI_Mistake_type"),
+         ModelingassistantPackage.Literals.MISTAKE__MISTAKE_TYPE,
+         true,
+         false,
+         true,
+         null,
          null,
          null));
   }

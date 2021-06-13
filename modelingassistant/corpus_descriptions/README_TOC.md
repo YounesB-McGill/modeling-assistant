@@ -1,62 +1,90 @@
 1. [Wrong class](#wrong-class)
-   1. [Wrong enumeration](#wrong-enumeration)
-      1. [Regular class should be an enumeration or vice versa](#regular-class-should-be-an-enumeration-or-vice-versa)
-      1. [Wrong enumeration items](#wrong-enumeration-items)
    1. [Wrong class name](#wrong-class-name)
-      1. [Using plural or lowercase](#using-plural-or-lowercase)
+      1. [Plural class name](#plural-class-name)
+      1. [Lowercase class name](#lowercase-class-name)
       1. [Software engineering term](#software-engineering-term)
       1. [Bad class name spelling](#bad-class-name-spelling)
       1. [Similar (yet incorrect) class name](#similar-class-name)
+   1. [Wrong enumeration](#wrong-enumeration)
+      1. [Regular class should be an enumeration](#regular-class-should-be-an-enumeration)
+      1. [Enumeration should be a regular class](#enumeration-should-be-a-regular-class)
+      1. [Wrong enumeration items](#wrong-enumeration-items)
    1. [Missing class](#missing-class)
    1. [Extra (redundant) class](#extra-redundant-class)
 
 1. [Wrong attribute](#wrong-attribute)
    1. [Extra (redundant) attribute](#extra-redundant-attribute)
+      1. [Plural attribute](#plural-attribute)
+      1. [List attribute](#list-attribute)
       1. [Other extra attribute](#other-extra-attribute)
-      1. [Plural attribute or attribute list](#plural-attribute-or-attribute-list)
    1. [Wrong attribute name](#wrong-attribute-name)
       1. [Bad attribute name spelling](#bad-attribute-name-spelling)
       1. [Similar (yet incorrect) attribute name](#similar-attribute-name)
    1. [Attribute in wrong class](#attribute-in-wrong-class)
-      1. [Attribute duplicated (eg, in a subclass)](#attribute-duplicated-eg-in-a-subclass)
-      1. [Attribute misplaced](#attribute-misplaced)
    1. [Missing attribute](#missing-attribute)
    1. [Wrong attribute type](#wrong-attribute-type)
-   1. [Attribute expected to be static but is not or vice versa](#attribute-expected-to-be-static-but-is-not-or-vice-versa)
+   1. [Attribute should be static](#attribute-should-be-static)
+   1. [Attribute should not be static](#attribute-should-not-be-static)
 
-1. [Wrong relationships](#wrong-relationships)
-   1. [Missing relationship of any type](#missing-relationship-of-any-type)
-      1. [Using an attribute instead of an association](#using-an-attribute-instead-of-an-association)
+1. [Wrong relationship](#wrong-relationship)
+   1. [Missing relationship](#missing-relationship)
+      1. [Missing association](#missing-association)
       1. [Missing composition](#missing-composition)
       1. [Missing aggregation](#missing-aggregation)
-      1. [Missing association](#missing-association)
+      1. [Using an attribute instead of an association](#using-an-attribute-instead-of-an-association)
    1. [Extra (redundant) association](#extra-redundant-association)
       1. [Representing an action with an association](#representing-an-action-with-an-association)
       1. [Composed part contained in more than one parent](#composed-part-contained-in-more-than-one-parent)
       1. [Other extra association](#other-extra-association)
    1. [Using wrong relationship type](#using-wrong-relationship-type)
-      1. [Using an association instead of an aggregation/composition or vice versa](#using-an-association-instead-of-an-aggregation-composition-or-vice-versa)
-      1. [Using a directed association instead of an undirected one or vice versa](#using-a-directed-association-instead-of-an-undirected-one-or-vice-versa)
-      1. [Using aggregation instead of composition or vice versa](#using-aggregation-instead-of-composition-or-vice-versa)
+      1. [Using an association instead of an aggregation/composition](#using-an-association-instead-of-an-aggregation-composition)
+      1. [Using an aggregation/composition instead of an association](#using-an-aggregation-composition-instead-of-an-association)
+      1. [Using a directed association instead of an undirected one](#using-a-directed-association-instead-of-an-undirected-one)
+      1. [Using an undirected association instead of a directed one](#using-an-undirected-association-instead-of-a-directed-one)
+      1. [Using aggregation instead of composition](#using-aggregation-instead-of-composition)
+      1. [Using composition instead of aggregation](#using-composition-instead-of-aggregation)
    1. [Wrong association name](#wrong-association-name)
       1. [Missing association name when one was expected](#missing-association-name-when-one-was-expected)
       1. [Bad association name spelling](#bad-association-name-spelling)
       1. [Similar (yet incorrect) association name](#similar-association-name)
+   1. [Wrong multiplicities](#wrong-multiplicities)
+      1. [Infinite recursive dependency](#infinite-recursive-dependency)
+      1. [Other wrong multiplicity](#other-wrong-multiplicity)
+   1. [Wrong role names](#wrong-role-names)
+      1. [Missing role names](#missing-role-names)
+      1. [Role names present but incorrect](#role-names-present-but-incorrect)
+      1. [Role should be static](#role-should-be-static)
+      1. [Role should not be static](#role-should-not-be-static)
+      1. [Bad role name spelling](#bad-role-name-spelling)
+      1. [Similar (yet incorrect) role name](#similar-role-name)
+   1. [Wrong association class](#wrong-association-class)
+      1. [Missing association class](#missing-association-class)
+      1. [Extra (redundant) association class](#extra-redundant-association-class)
+      1. [Bad association class name spelling](#bad-association-class-name-spelling)
+      1. [Similar (yet incorrect) association class name](#similar-association-class-name)
+   1. [Wrong generalization](#wrong-generalization)
+      1. [Missing generalization](#missing-generalization)
+      1. [Generalization inapplicable](#generalization-inapplicable)
+      1. [Subclass not distinct across lifetime](#subclass-not-distinct-across-lifetime)
+      1. [Inherited feature does not make sense for subclass](#inherited-feature-does-not-make-sense-for-subclass)
+      1. [Subclass is an instance of superclass](#subclass-is-an-instance-of-superclass)
+      1. [Non-differentiated subclass](#non-differentiated-subclass)
+      1. [Wrong generalization direction](#wrong-generalization-direction)
+      1. [Wrong superclass](#wrong-superclass)
    1. [Incomplete containment tree](#incomplete-containment-tree)
+
+1. [Misuse of design patterns](#misuse-of-design-patterns)
+   1. [Misuse of Player-Role Pattern](#misuse-of-player-role-pattern)
+   1. [Misuse of Abstraction-Occurrence](#misuse-of-abstraction-occurrence)
 
 ## Wrong class
 
-### Wrong enumeration
-
-#### Regular class should be an enumeration or vice versa
-
-
-#### Wrong enumeration items
-
-
 ### Wrong class name
 
-#### Using plural or lowercase
+#### Plural class name
+
+
+#### Lowercase class name
 
 
 #### Software engineering term
@@ -66,6 +94,17 @@
 
 
 #### Similar  class name
+
+
+### Wrong enumeration
+
+#### Regular class should be an enumeration
+
+
+#### Enumeration should be a regular class
+
+
+#### Wrong enumeration items
 
 ### Missing class
 
@@ -77,10 +116,13 @@
 
 ### Extra redundant attribute
 
+#### Plural attribute
+
+
+#### List attribute
+
+
 #### Other extra attribute
-
-
-#### Plural attribute or attribute list
 
 
 ### Wrong attribute name
@@ -93,25 +135,23 @@
 
 ### Attribute in wrong class
 
-#### Attribute duplicated eg in a subclass
-
-
-#### Attribute misplaced
-
 ### Missing attribute
 
 
 ### Wrong attribute type
 
 
-### Attribute expected to be static but is not or vice versa
+### Attribute should be static
 
 
-## Wrong relationships
+### Attribute should not be static
 
-### Missing relationship of any type
 
-#### Using an attribute instead of an association
+## Wrong relationship
+
+### Missing relationship
+
+#### Missing association
 
 
 #### Missing composition
@@ -120,7 +160,7 @@
 #### Missing aggregation
 
 
-#### Missing association
+#### Using an attribute instead of an association
 
 
 ### Extra redundant association
@@ -136,13 +176,22 @@
 
 ### Using wrong relationship type
 
-#### Using an association instead of an aggregation/composition or vice versa
+#### Using an association instead of an aggregation/composition
 
 
-#### Using a directed association instead of an undirected one or vice versa
+#### Using an aggregation/composition instead of an association
 
 
-#### Using aggregation instead of composition or vice versa
+#### Using a directed association instead of an undirected one
+
+
+#### Using an undirected association instead of a directed one
+
+
+#### Using aggregation instead of composition
+
+
+#### Using composition instead of aggregation
 
 
 ### Wrong association name
@@ -155,6 +204,82 @@
 
 #### Similar  association name
 
+
+### Wrong multiplicities
+
+#### Infinite recursive dependency
+
+
+#### Other wrong multiplicity
+
+
+### Wrong role names
+
+#### Missing role names
+
+
+#### Role names present but incorrect
+
+
+#### Role should be static
+
+
+#### Role should not be static
+
+
+#### Bad role name spelling
+
+
+#### Similar  role name
+
+
+### Wrong association class
+
+#### Missing association class
+
+
+#### Extra redundant association class
+
+
+#### Bad association class name spelling
+
+
+#### Similar  association class name
+
+
+### Wrong generalization
+
+#### Missing generalization
+
+
+#### Generalization inapplicable
+
+
+#### Subclass not distinct across lifetime
+
+
+#### Inherited feature does not make sense for subclass
+
+
+#### Subclass is an instance of superclass
+
+
+#### Non-differentiated subclass
+
+
+#### Wrong generalization direction
+
+
+#### Wrong superclass
+
 ### Incomplete containment tree
+
+
+## Misuse of design patterns
+
+### Misuse of Player-Role Pattern
+
+
+### Misuse of Abstraction-Occurrence
 
 

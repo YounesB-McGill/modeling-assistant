@@ -91,6 +91,7 @@ public class LayoutElementImpl extends MinimalEObjectImpl.Container implements L
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public float getX() {
     return x;
   }
@@ -100,6 +101,7 @@ public class LayoutElementImpl extends MinimalEObjectImpl.Container implements L
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setX(float newX) {
     float oldX = x;
     x = newX;
@@ -112,6 +114,7 @@ public class LayoutElementImpl extends MinimalEObjectImpl.Container implements L
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public float getY() {
     return y;
   }
@@ -121,6 +124,7 @@ public class LayoutElementImpl extends MinimalEObjectImpl.Container implements L
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setY(float newY) {
     float oldY = y;
     y = newY;
