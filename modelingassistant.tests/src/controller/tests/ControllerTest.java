@@ -36,7 +36,8 @@ import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 public class ControllerTest {
 
   /** The location of the default learning corpus. */
-  public static final String LEARNING_CORPUS_PATH = ""; // TODO
+  public static final String LEARNING_CORPUS_PATH =
+      "../modelingassistant.learningcorpus.dsl.instances/test.learningcorpus";
 
   @Test public void testJunitIsWorking() {
     assertTrue(true);
@@ -823,42 +824,6 @@ public class ControllerTest {
     assertEquals("2222", s2k.getStudent().getId());
     assertEquals(lok2, s2k.getLevelOfKnowledge());
     assertTrue(s2k.getMistakeType().isAtomic());
-  }
-
-  /**
-   * Verifies that a ModelingAssistant instance with references to mistake types can be serialized to an XMI file.
-   *
-   * @deprecated This test is no longer relevant and will be removed in a future commit.
-   */
-  @Deprecated
-  @Disabled
-  @Test public void testPersistingModelingAssistantWithMistakeTypesAndCategories() {
-//    var maPath = "../modelingassistant/instances/ma_mistaketypes_from_java.modelingassistant";
-//    var maFile = new File(maPath);
-//    if (maFile.isFile()) {
-//      assertTrue(maFile.delete());
-//    }
-//
-//    ModelingassistantPackage.eINSTANCE.eClass();
-//    var maf = ModelingassistantFactory.eINSTANCE;
-//
-//    var modelingAssistant = maf.createModelingAssistant();
-//    var wrongClass = MistakeTypes.WRONG_CLASS;
-//    var wrongClassName = MistakeTypes.WRONG_CLASS_NAME;
-//    var missingClass = MistakeTypes.MISSING_CLASS;
-//    var seTerm = MistakeTypes.SOFTWARE_ENGINEERING_TERM;
-//
-//    // Save modeling assistant instance to file and verify contents
-//    var rset = new ResourceSetImpl();
-//    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new ModelingassistantResourceFactoryImpl());
-//    var resource = rset.createResource(URI.createFileURI(maPath));
-//    resource.getContents().add(modelingAssistant);
-//    try {
-//      resource.save(Collections.EMPTY_MAP);
-//      assertTrue(maFile.isFile());
-//    } catch (IOException e) {
-//      fail();
-//    }
   }
 
   /**
