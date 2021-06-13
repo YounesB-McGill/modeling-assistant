@@ -23,8 +23,8 @@ no fancy AST manipulation required).
    * @generated NOT
    */
   default EList<MistakeTypeCategory> getTopLevelMistakeTypeCategories() {
-    return (EList<MistakeTypeCategory>) getMistakeTypeCategories().stream()
-        .filter(mtc -> mtc.getSupercategory() == null).collect(Collectors.toUnmodifiableList());
+    return ECollections.unmodifiableEList(getMistakeTypeCategories().stream()
+        .filter(mtc -> mtc.getSupercategory() == null).collect(Collectors.toUnmodifiableList()));
   }
 
   /**
@@ -33,8 +33,8 @@ no fancy AST manipulation required).
    * @generated NOT
    */
   default EList<MistakeType> getMistakeTypes() {
-    return (EList<MistakeType>) getMistakeTypeCategories().stream().map(MistakeTypeCategory::getMistakeTypes)
-        .flatMap(EList::stream).collect(Collectors.toUnmodifiableList());
+    return ECollections.unmodifiableEList(getMistakeTypeCategories().stream().map(MistakeTypeCategory::getMistakeTypes)
+        .flatMap(EList::stream).collect(Collectors.toUnmodifiableList()));
   }
 
   /**
