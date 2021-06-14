@@ -155,7 +155,7 @@ public class MistakeDetection {
 
     notMatchedMapping(comparison);
     mapRelations(comparison);
-  //  checkMistakesAfterMapping(comparison); // TO BE Discussed
+    checkMistakesAfterMapping(comparison); // TO BE Discussed
     checkMistakeMissingClass(comparison);
     checkMistakeExtraClass(comparison);
     // checkMistakeDuplicateAttributes();
@@ -309,6 +309,7 @@ public class MistakeDetection {
     comparison.mappedClassifier.forEach((key, value) -> {
       // System.out.println(checkElementForMistake(newMistakes,value)+" value: "+ value+" Key: "+key);
       if (!checkStudentElementForMistake(newMistakes, value)) {
+        checkMistakePluralClassName(value, key).ifPresent(newMistakes::add);
         // checkMistakeSimilarYetIncorrectClassName(value,key).ifPresent(comparison.newMistakes::add);
         // TO BE Discussed
       }
