@@ -11,7 +11,7 @@
     <semanticResources>model/learningcorpus.ecore</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_sM2lgGVtEeu25_uYr0tc7g">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uiMFMWVtEeu25_uYr0tc7g" name="modelingassistant" repPath="#_uhm2YGVtEeu25_uYr0tc7g" changeId="e8ac7c89-b6c3-4626-803b-9dc06f33c895">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uiMFMWVtEeu25_uYr0tc7g" name="modelingassistant" repPath="#_uhm2YGVtEeu25_uYr0tc7g" changeId="fa3cf71a-b7b8-4bcb-8073-12cb3339ea91">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/modelingassistant.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -319,7 +319,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_v-XvU2VtEeu25_uYr0tc7g" x="-23" y="46"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_v-YWYGVtEeu25_uYr0tc7g" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_v-YWYWVtEeu25_uYr0tc7g" x="36" y="24"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_v-YWYWVtEeu25_uYr0tc7g" x="16" y="19"/>
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_v-XIQWVtEeu25_uYr0tc7g" routing="Rectilinear"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_v-XIQmVtEeu25_uYr0tc7g" fontName="Noto Sans" fontHeight="8"/>
@@ -428,7 +428,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tfDtEbO1EeufbOs92noeIg" x="-54" y="10"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_tfDtErO1EeufbOs92noeIg" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tfDtE7O1EeufbOs92noeIg" x="24" y="-17"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tfDtE7O1EeufbOs92noeIg" x="13" y="-19"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_tfDtFLO1EeufbOs92noeIg" type="6003">
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tfDtFbO1EeufbOs92noeIg" x="35" y="42"/>
@@ -441,7 +441,7 @@
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_JrUHcLO2EeufbOs92noeIg" type="4001" element="_JrCaoLO2EeufbOs92noeIg" source="_v9flk2VtEeu25_uYr0tc7g" target="_v9lFIGVtEeu25_uYr0tc7g">
           <children xmi:type="notation:Node" xmi:id="_JrUugLO2EeufbOs92noeIg" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_JrUugbO2EeufbOs92noeIg" x="-100" y="-43"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_JrUugbO2EeufbOs92noeIg" x="-56" y="-80"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_JrUugrO2EeufbOs92noeIg" type="6002">
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_JrUug7O2EeufbOs92noeIg" x="-37" y="-10"/>
@@ -1039,7 +1039,7 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC_EReference']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_WdojYLO2EeufbOs92noeIg" sourceNode="_v7QJ4GVtEeu25_uYr0tc7g" targetNode="_v7UbUGVtEeu25_uYr0tc7g" beginLabel="[1..1] studentProblemStatement" endLabel="[0..*] studentSolution">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_WdojYLO2EeufbOs92noeIg" sourceNode="_v7QJ4GVtEeu25_uYr0tc7g" targetNode="_v7UbUGVtEeu25_uYr0tc7g" beginLabel="[0..1] studentProblemStatement" endLabel="[0..*] studentSolution">
       <target xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//ProblemStatement/studentSolution"/>
       <semanticElements xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//Solution/studentProblemStatement"/>
       <semanticElements xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//ProblemStatement/studentSolution"/>
@@ -1050,7 +1050,7 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_kMe5NrO2EeufbOs92noeIg" sourceNode="_v7QJ4GVtEeu25_uYr0tc7g" targetNode="_v7UbUGVtEeu25_uYr0tc7g" beginLabel="[1..1] instructorProblemStatement" endLabel="[1..1] instructorSolution">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_kMe5NrO2EeufbOs92noeIg" sourceNode="_v7QJ4GVtEeu25_uYr0tc7g" targetNode="_v7UbUGVtEeu25_uYr0tc7g" beginLabel="[0..1] instructorProblemStatement" endLabel="[1..1] instructorSolution">
       <target xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//ProblemStatement/instructorSolution"/>
       <semanticElements xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//Solution/instructorProblemStatement"/>
       <semanticElements xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//ProblemStatement/instructorSolution"/>

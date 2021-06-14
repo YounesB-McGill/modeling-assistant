@@ -55,9 +55,9 @@
         eType="#//Mistake" containment="true" eOpposite="#//Mistake/studentSolution"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="currentMistake" eType="#//Mistake"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="studentProblemStatement"
-        lowerBound="1" eType="#//ProblemStatement" eOpposite="#//ProblemStatement/studentSolution"/>
+        eType="#//ProblemStatement" eOpposite="#//ProblemStatement/studentSolution"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="instructorProblemStatement"
-        lowerBound="1" eType="#//ProblemStatement" eOpposite="#//ProblemStatement/instructorSolution"/>
+        eType="#//ProblemStatement" eOpposite="#//ProblemStatement/instructorSolution"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tagGroups" upperBound="-1"
         eType="#//TagGroup" containment="true" eOpposite="#//TagGroup/solution"/>
   </eClassifiers>
