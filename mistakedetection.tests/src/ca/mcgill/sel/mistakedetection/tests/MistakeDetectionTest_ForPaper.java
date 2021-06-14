@@ -52,13 +52,14 @@ public class MistakeDetectionTest_ForPaper {
   assertEquals(comparison.notMappedInstructorAttribute.size(), 1);
   assertEquals(comparison.extraStudentAttribute.size(), 0);
   assertEquals(comparison.mappedAssociation.size(), 6);
-  assertEquals(solution1.getMistakes().size(), 12);
+  assertEquals(solution1.getMistakes().size(), 13);
   EList<MistakeType> mistakeTypes = new BasicEList<MistakeType>();
   for (Mistake m : solution1.getMistakes()) {
     mistakeTypes.add(m.getMistakeType());
   }
   assertTrue(mistakeTypes.contains(MistakeTypes.WRONG_ATTRIBUTE_TYPE));
   assertTrue(mistakeTypes.contains(MistakeTypes.BAD_CLASS_NAME_SPELLING));
+  assertTrue(mistakeTypes.contains(MistakeTypes.PLURAL_CLASS_NAME));
   assertTrue(mistakeTypes.contains(MistakeTypes.PLURAL_CLASS_NAME));
   assertTrue(mistakeTypes.contains(MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING));
   assertTrue(mistakeTypes.contains(MistakeTypes.USING_AN_AGGREGATION_COMPOSITION_INSTEAD_OF_AN_ASSOCIATION));
