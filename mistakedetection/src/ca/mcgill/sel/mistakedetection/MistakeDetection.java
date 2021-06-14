@@ -737,7 +737,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingCompositionInsteadOfAssociation(
       AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
     if (isUsingCompositionInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION,
+      return Optional.of(createMistake(USING_AN_AGGREGATION_COMPOSITION_INSTEAD_OF_AN_ASSOCIATION,
           studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -746,7 +746,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingAggregationInsteadOfAssociation(
       AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
     if (isUsingAggregationInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION,
+      return Optional.of(createMistake(USING_AN_AGGREGATION_COMPOSITION_INSTEAD_OF_AN_ASSOCIATION,
           studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
