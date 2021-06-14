@@ -181,6 +181,8 @@ public class MistakeDetectionTest {
     assertEquals(comparison.mappedClassifier.size(), 2);
     assertEquals(comparison.mappedClassifier.get(instructorBusClass),studentBusClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass),studentDriverClass);
+   
+      
     assertEquals(comparison.newMistakes.size(), 0);
     assertEquals(solution1.getMistakes().size(), 0);
 
@@ -223,8 +225,9 @@ public class MistakeDetectionTest {
     assertEquals(comparison.mappedClassifier.size(), 2);
     assertEquals(comparison.mappedClassifier.get(instructorBusClass),studentBusesClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass),studentDriversClass);
-    assertEquals(comparison.newMistakes.size(), 4);
-    assertEquals(solution1.getMistakes().size(), 4);
+    
+    assertEquals(comparison.newMistakes.size(), 4 + 2); // 2 Bad Role Name Spelling
+    assertEquals(solution1.getMistakes().size(), 4 + 2);
 
     for (Mistake m : solution1.getMistakes()) {
       if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
@@ -262,7 +265,7 @@ public class MistakeDetectionTest {
     }
 
     // Running the second Solution again to check updated attribute values in Mistake in Metamodel
-    assertEquals(solution1.getMistakes().size(), 4);
+    assertEquals(solution1.getMistakes().size(), 4 + 2);
 
     comparison = MistakeDetection.compare(solution,solution1);
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
@@ -271,8 +274,8 @@ public class MistakeDetectionTest {
     assertEquals(comparison.mappedClassifier.get(instructorBusClass),studentBusesClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass),studentDriversClass);
 
-    assertEquals(comparison.newMistakes.size(), 4);
-    assertEquals(solution1.getMistakes().size(), 4);
+    assertEquals(comparison.newMistakes.size(), 6);
+    assertEquals(solution1.getMistakes().size(), 6);
 
     for (Mistake m : solution1.getMistakes()) {
       if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
@@ -316,8 +319,8 @@ public class MistakeDetectionTest {
     assertEquals(comparison.mappedClassifier.get(instructorBusClass),studentBusesClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass),studentDriversClass);
 
-    assertEquals(comparison.newMistakes.size(), 4);
-    assertEquals(solution1.getMistakes().size(), 4);
+    assertEquals(comparison.newMistakes.size(), 6);
+    assertEquals(solution1.getMistakes().size(), 6);
 
     for (Mistake m : solution1.getMistakes()) {
       if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
@@ -390,7 +393,7 @@ public class MistakeDetectionTest {
     assertEquals(comparison.mappedClassifier.get(instructorBusClass),studentBusClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass),studentDriverClass);
     assertEquals(comparison.newMistakes.size(), 0);
-    assertEquals(solution1.getMistakes().size(), 4);
+    assertEquals(solution1.getMistakes().size(), 6);
 
     for (Mistake m : solution1.getMistakes()) {
       if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
@@ -550,6 +553,7 @@ public class MistakeDetectionTest {
     assertEquals(comparison.mappedAttribute.get(instructorBusClassAttributeNumberPlate),studentBusClassAttributeNamberPlate);
     assertEquals(comparison.mappedAttribute.get(instructorDriverClassAttributeName),studentDriverClassAttributeNme);
     assertEquals(comparison.mappedAttribute.get(instructorPassengerClassAttributeName),studentPassengerClassAttributeNam);
+    
     assertEquals(comparison.newMistakes.size(), 4);
     assertEquals(solution1.getMistakes().size(), 4);
 
@@ -711,7 +715,7 @@ public class MistakeDetectionTest {
     assertEquals(comparison.mappedAttribute.get(instructorBusClassAttributeNumberPlate),studentBusClassAttributeNumberPlate);
     assertEquals(comparison.mappedAttribute.get(instructorDriverClassAttributeName),studentDriverClassAttributeName);
     assertEquals(comparison.mappedAttribute.get(instructorPassengerClassAttributeName),studentPassengerClassAttributeName);
-
+    
     assertEquals(comparison.newMistakes.size(), 4);
     assertEquals(solution1.getMistakes().size(), 4);
 
@@ -851,7 +855,7 @@ public class MistakeDetectionTest {
     System.out.println();
     System.out.println("Mapped Attributes : ");
     comparison.mappedAttribute.forEach((key, value) -> System.out
-        .println(key.getType() + " " + key.getName() + " = " + value.getType() + " " + value.getName()));
+        .println(key.getType().getClass()+ " " + key.getName() + " = " + value.getType().getClass() + " " + value.getName()));
 
     System.out.println();
     System.out.print("Not Mapped Association : ");
@@ -870,7 +874,28 @@ public class MistakeDetectionTest {
 
     System.out.println();
     System.out.println("Mistakes : ");
-    comparison.newMistakes.forEach((m) -> System.out.println(m.getMistakeType()));
+    comparison.newMistakes.forEach((m) ->{ 
+      if(!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
+        System.out.print(" ' "+ m.getMistakeType().getName() + " ' "+ " Inst Elements : ");
+        m.getInstructorElements().forEach((IE)->System.out.print(IE.getElement().getName() +" "));
+        System.out.print(" student Elements :");
+        m.getStudentElements().forEach((SE)->System.out.print(SE.getElement().getName() +" "));
+        System.out.println();
+      }
+      else if(!m.getInstructorElements().isEmpty() ) {
+        System.out.print(" ' "+ m.getMistakeType().getName() + " ' "+" Inst Elements : ");
+        m.getInstructorElements().forEach((IE)->System.out.print(IE.getElement().getName() +" "));
+        System.out.println();
+      }
+      else if(!m.getStudentElements().isEmpty()) {
+        System.out.print(" ' "+ m.getMistakeType().getName() +" ' " +" Stud Elements : ");
+        m.getStudentElements().forEach((SE)->System.out.print(SE.getElement().getName() +" "));
+        System.out.println();        
+      } else {
+        System.out.println(" ' "+ m.getMistakeType().getName()+" ' " );
+      }
+     });
+    
   }
 
   public static boolean mistakesContainMistakeType(List<Mistake> mistakes, MistakeType mistakeType) {
