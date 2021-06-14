@@ -1,15 +1,24 @@
 #!/usr/bin/env python3
 
 import os
+import re
 import pyecore
+from pyecore.resources.resource import Resource
 import pytest
+from textwrap import dedent
 
-from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, ImplementationClass, CDInt, CDString,
+from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, CDInt, CDString,
     AssociationEnd, Association, ReferenceType)
 from learningcorpus.learningcorpus import LearningCorpus, MistakeType, MistakeTypeCategory, LearningItem
+from mistaketypes import BAD_CLASS_NAME_SPELLING, WRONG_CLASS_NAME
 from modelingassistant.modelingassistant import ModelingAssistant, Solution, Student, StudentKnowledge
 from pyecore.ecore import EInteger, EString
 from pyecore.resources import ResourceSet, URI
+
+from stringserdes import StringEnabledResourceSet
+
+
+LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test.learningcorpus"
 
 
 def test_pytest_is_working():
@@ -19,7 +28,7 @@ def test_pytest_is_working():
 def test_creating_empty_solution():
     modeling_assistant = ModelingAssistant()
     class_diagram = ClassDiagram(name="Student1_solution")
-    solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
+    Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
     assert "Student1_solution" == modeling_assistant.solutions[0].classDiagram.name
 
 
@@ -34,7 +43,7 @@ def test_creating_one_class_solution():
     """
     modeling_assistant = ModelingAssistant()
     class_diagram = ClassDiagram(name="Student1_solution")
-    solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
+    Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
     cd_int = CDInt()
     cd_string = CDString()
 
@@ -64,7 +73,7 @@ def test_creating_two_class_solution_with_association():
     """
     modeling_assistant = ModelingAssistant()
     class_diagram = ClassDiagram(name="Student1_solution")
-    solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
+    Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
     cd_int = CDInt()
     cd_string = CDString()
 
@@ -120,7 +129,7 @@ def test_creating_two_class_solution_with_generalization():
     """
     modeling_assistant = ModelingAssistant()
     class_diagram = ClassDiagram(name="Student1_solution")
-    solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
+    Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
     cd_int = CDInt()
     cd_string = CDString()
 
@@ -247,7 +256,7 @@ def test_persisting_modeling_assistant_with_one_class_solution():
     # Dynamically create a modeling assistant and link it with a TouchCore class diagram 
     modeling_assistant = ModelingAssistant()
     class_diagram = ClassDiagram(name="Student1_solution")
-    solution = Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
+    Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
     cd_int = CDInt()
     cd_string = CDString()
     class_diagram.types.extend([cd_int, cd_string])
@@ -375,7 +384,7 @@ def test_persisting_modeling_assistant_with_multiclass_solution():
     # Link class_diagram to modeling assistant instance 
     modeling_assistant = ModelingAssistant()
     solution = Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
-    
+
     # Save modeling assistant instance to files
     ma_resource = rset.create_resource(URI(ma_path))
     cd_resource = rset.create_resource(URI(cd_path))
@@ -493,23 +502,16 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
     cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
     class_diagram1: ClassDiagram = rset.get_resource(URI(cdm_file)).contents[0]
     class_diagram1.__class__ = ClassDiagram
-    cdm_by_file[cd1_path] = class_diagram1
-    car_class = driver_class = sports_car_class = part_class = None
-    for c in class_diagram1.classes:
-        if c.name == "Car": car_class = c
-        elif c.name == "Driver": driver_class = c
-        elif c.name == "SportsCar": sports_car_class = c
-        elif c.name == "Part": part_class = c
-    
+    cdm_by_file[cd1_path] = class_diagram1    
 
     # Link first class diagram to modeling assistant instance
     modeling_assistant = ModelingAssistant()
-    solution1 = Solution(classDiagram=class_diagram1, modelingAssistant=modeling_assistant)
+    Solution(classDiagram=class_diagram1, modelingAssistant=modeling_assistant)
 
     # Make and link second class diagram to modeling assistant instance
     class_diagram2 = ClassDiagram(name="Student2_solution")
     cdm_by_file[cd2_path] = class_diagram2
-    solution2 = Solution(classDiagram=class_diagram2, modelingAssistant=modeling_assistant)
+    Solution(classDiagram=class_diagram2, modelingAssistant=modeling_assistant)
     cd_int = CDInt()
     cd_string = CDString()
     class_diagram2.types.extend([cd_int, cd_string])
@@ -640,7 +642,166 @@ def test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java
     assert not expected_class_names2
 
 
-@pytest.mark.skip("This test will be modified in a future commit.")
+def test_persisting_modeling_assistant_with_multiple_solutions_to_one_file():
+    """
+    Verify that a ModelingAssistant instance with multiple solutions can be serialized with
+    everything (including the class diagrams) in one file. This old test was brought back because
+    the file is needed for generating a string to be used in the web app, and so no Java equivalent
+    of this test is required. 
+    """
+    # Remove previously created file (if it exists)
+    ma_path = "modelingassistant/instances/ma_multisolution_all_in_one.modelingassistant"
+    if os.path.exists(ma_path): os.remove(ma_path)
+
+    # Load ClassDiagram and Modeling Assistant metamodels
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+    rset = ResourceSet()
+    cdm_mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
+    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
+    ma_mm_root = rset.get_resource(URI(ma_mm_file)).contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+    
+    # Open premade class diagram from one of the above tests
+    cdm_path = "modelingassistant/testmodels"
+    cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
+    class_diagram: ClassDiagram = rset.get_resource(URI(cdm_file)).contents[0]
+    class_diagram.__class__ = ClassDiagram
+    class_diagram.name = "Student1_solution"
+
+    # Link first class diagram to modeling assistant instance
+    modeling_assistant = ModelingAssistant()
+    Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
+
+    # Make and link second class diagram to modeling assistant instance
+    class_diagram2 = ClassDiagram(name="Student2_solution")
+    Solution(classDiagram=class_diagram2, modelingAssistant=modeling_assistant)
+    cd_int = CDInt()
+    cd_string = CDString()
+    class_diagram2.types.extend([cd_int, cd_string])
+    car_class2 = Class(name="Car", attributes=[
+        Attribute(name="id", type=cd_int),
+        Attribute(name="make", type=cd_string)
+    ])
+    class_diagram2.classes.append(car_class2)
+
+    # Save modeling assistant instance to file
+    resource = rset.create_resource(URI(ma_path))
+    resource.use_uuid = True
+    resource.extend([modeling_assistant, class_diagram, class_diagram2])
+    resource.save()
+
+    assert os.path.exists(ma_path)
+    with open(ma_path) as f:
+        file_contents = f.read()
+        for s in ["Car", "SportsCar", "Part", "Driver", "make", "CDInt", "Student2_solution"]:
+            assert s in file_contents
+
+
+def test_loading_modeling_assistant_deserialized_from_string():
+    """
+    Test loading the instance defined above from a string.
+    """
+    # Open ClassDiagram and Modeling Assistant metamodels
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+    rset = StringEnabledResourceSet()
+    resource: Resource = rset.get_resource(URI(cdm_mm_file))
+    cdm_mm_root = resource.contents[0]
+    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
+    resource = rset.get_resource(URI(ma_mm_file))
+    ma_mm_root = resource.contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+
+    ma_path = "modelingassistant/instances/ma_multisolution_all_in_one.modelingassistant"
+    with open(ma_path, "rb") as f:
+        ma_str = f.read()
+
+    resource = rset.get_string_resource(ma_str)
+    modeling_assistant: ModelingAssistant = resource.contents[0]
+    modeling_assistant.__class__ = ModelingAssistant
+    class_diagram1: ClassDiagram = modeling_assistant.solutions[0].classDiagram
+    class_diagram1.__class__ = ClassDiagram
+    class_diagram2: ClassDiagram = modeling_assistant.solutions[1].classDiagram
+    class_diagram2.__class__ = ClassDiagram
+
+    expected_class_names1 = ["Car", "SportsCar", "Part", "Driver"]
+    for c in class_diagram1.classes:
+        if c.name == "Car":
+            for a in c.attributes:
+                assert type(a.type).__name__ in [CDInt.__name__, CDString.__name__]
+        if c.name == "SportsCar":
+            assert "Car" == c.superTypes[0].name
+        assert c.name in expected_class_names1
+        expected_class_names1.remove(c.name)
+    assert not expected_class_names1
+
+    expected_class_names2 = ["Car"]
+    for c in class_diagram2.classes:
+        if c.name == "Car":
+            for a in c.attributes:
+                assert type(a.type).__name__ in [CDInt.__name__, CDString.__name__]
+        assert c.name in expected_class_names2
+        expected_class_names2.remove(c.name)
+    assert not expected_class_names2
+
+
+def test_persisting_modeling_assistant_to_string():
+    # Open ClassDiagram and Modeling Assistant metamodels
+    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
+    rset = StringEnabledResourceSet()
+    resource: Resource = rset.get_resource(URI(cdm_mm_file))
+    cdm_mm_root = resource.contents[0]
+    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
+    resource = rset.get_resource(URI(ma_mm_file))
+    ma_mm_root = resource.contents[0]
+    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+
+    # Create a ModelingAssistant instance in-memory
+    modeling_assistant = ModelingAssistant()
+    class_diagram = ClassDiagram(name="Student1_solution")
+    Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
+    cd_int = CDInt()
+    cd_string = CDString()
+
+    car_class = Class(name="Car", attributes=[
+        Attribute(name="id", type=cd_int),
+        Attribute(name="make", type=cd_string)
+    ])
+    class_diagram.classes.append(car_class)
+
+    resource = rset.create_string_resource()
+    resource.use_uuid = True
+    resource.extend([modeling_assistant, class_diagram])
+    ma_str = resource.save_to_string().decode()
+
+    # Find, match, and replace these regex patterns in the ma_str
+    # Define and compile the patterns. The compilation allows for faster performance.
+    xmi_id_pattern = re.compile(r'xmi:id="(.*?)"')  # since IDs are different each time test is run
+    cdm_id_pattern = re.compile(r'classDiagram="(.*?)"')  # since cdm is different each time test is run
+    # Use the patterns for find-and-replace
+    ma_str = xmi_id_pattern.sub('xmi:id=""', ma_str)
+    ma_str = cdm_id_pattern.sub('classDiagram=""', ma_str)
+    ma_str = ma_str.replace(' type=""', '')  # since name and type can occur in any order 
+
+    assert dedent('''\
+        <?xml version='1.0' encoding='UTF-8'?>
+        <xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:version="2.0">
+          <modelingassistant:ModelingAssistant xmi:id="">
+            <solutions xsi:type="modelingassistant:Solution" xmi:id="" classDiagram=""/>
+          </modelingassistant:ModelingAssistant>
+          <classdiagram:ClassDiagram xmi:id="" name="Student1_solution">
+            <classes xsi:type="classdiagram:Class" xmi:id="" name="Car">
+              <attributes xsi:type="classdiagram:Attribute" xmi:id="" name="id"/>
+              <attributes xsi:type="classdiagram:Attribute" xmi:id="" name="make"/>
+            </classes>
+          </classdiagram:ClassDiagram>
+        </xmi:XMI>
+        ''') == ma_str
+
+
+#@pytest.mark.skip("This test will be modified in a future commit.")
 def test_student_knowledge_persisted_correctly():
     """
     Verify that StudentKnowledge association classes can be serialized and loaded again correctly.
@@ -652,12 +813,15 @@ def test_student_knowledge_persisted_correctly():
     for p in [ma_path, cd1_path, cd2_path]:
         if os.path.exists(p): os.remove(p)
 
-    # Load ClassDiagram and Modeling Assistant metamodels
+    # Load ClassDiagram, LearningCorpus, and ModelingAssistant metamodels
     cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    lc_mm_file = "modelingassistant/model/learningcorpus.ecore"
     ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = ResourceSet()
     cdm_mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
     rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
+    lc_mm_root = rset.get_resource(URI(lc_mm_file)).contents[0]
+    rset.metamodel_registry[lc_mm_root.nsURI] = lc_mm_root
     ma_mm_root = rset.get_resource(URI(ma_mm_file)).contents[0]
     rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
 
@@ -670,36 +834,34 @@ def test_student_knowledge_persisted_correctly():
     class_diagram1: ClassDiagram = rset.get_resource(URI(cdm_file)).contents[0]
     class_diagram1.__class__ = ClassDiagram
     cdm_by_file[cd1_path] = class_diagram1
-    car_class = driver_class = sports_car_class = part_class = None
-    for c in class_diagram1.classes:
-        if c.name == "Car": car_class = c
-        elif c.name == "Driver": driver_class = c
-        elif c.name == "SportsCar": sports_car_class = c
-        elif c.name == "Part": part_class = c
 
-    # Create modeling assistant and general learning objects associated with it 
-    modeling_assistant = ModelingAssistant()
-    correct_class_naming = LearningItem(modelingAssistant=modeling_assistant)
-    class_naming_mistake_type = MistakeType(name="Wrong class name", learningItem=correct_class_naming,
-                                            atomic=True, modelingAssistant=modeling_assistant)
+    # Open learning corpus and create general learning objects associated with it
+    resource = rset.get_resource(URI(LEARNING_CORPUS_PATH))
+    learning_corpus: LearningCorpus = resource.contents[0]
+    # use static autogenerated classes instead of the dynamic pyecore ones inferred from the metamodel
+    learning_corpus.__class__ = LearningCorpus
+    learning_corpus.learningItems.feature._eType = LearningItem
+
+    correct_class_naming = LearningItem(learningCorpus=learning_corpus)
+    class_naming_mistake_type = BAD_CLASS_NAME_SPELLING
+    class_naming_mistake_type.learningItem = correct_class_naming
 
     # Link first class diagram to modeling assistant instance and related student
+    modeling_assistant = ModelingAssistant()
     student1 = Student(id="1111", modelingAssistant=modeling_assistant)
-    solution1 = Solution(classDiagram=class_diagram1, student=student1, modelingAssistant=modeling_assistant)
+    Solution(classDiagram=class_diagram1, student=student1, modelingAssistant=modeling_assistant)
     lok1 = 10_578_963  # use a large int to detect it in testing 
-    student1_class_naming_knowledge = StudentKnowledge(levelOfKnowledge=lok1, student=student1,
-                                                       mistakeType=class_naming_mistake_type,
-                                                       modelingAssistant=modeling_assistant)
+    StudentKnowledge(levelOfKnowledge=lok1, student=student1, mistakeType=class_naming_mistake_type,
+                     modelingAssistant=modeling_assistant)
 
     # Make and link second class diagram to modeling assistant instance and related student
     class_diagram2 = ClassDiagram(name="Student2_solution")
     cdm_by_file[cd2_path] = class_diagram2
     student2 = Student(id="2222", modelingAssistant=modeling_assistant)
-    solution2 = Solution(classDiagram=class_diagram2, student=student2, modelingAssistant=modeling_assistant)
+    Solution(classDiagram=class_diagram2, student=student2, modelingAssistant=modeling_assistant)
     lok2 = 8_996_541
-    student2_class_naming_knowledge = StudentKnowledge(levelOfKnowledge=lok2, student=student2,
-                                                       mistakeType=class_naming_mistake_type,
-                                                       modelingAssistant=modeling_assistant)
+    StudentKnowledge(levelOfKnowledge=lok2, student=student2, mistakeType=class_naming_mistake_type,
+                     modelingAssistant=modeling_assistant)
     cd_int = CDInt()
     cd_string = CDString()
     class_diagram2.types.extend([cd_int, cd_string])
@@ -727,7 +889,7 @@ def test_student_knowledge_persisted_correctly():
     # TODO modify lists to reflect what should be in each file
     with open(ma_path) as f:
         file_contents = f.read()
-        for s in ["1111", "2222", f"{lok1}", f"{lok2}", "Wrong class name", "atomic"]:
+        for s in ["1111", "2222", f"{lok1}", f"{lok2}", "mistakeType"]:
             assert s in file_contents
     with open(cd1_path) as f:
         file_contents = f.read()
@@ -746,99 +908,10 @@ def test_student_knowledge_persisted_correctly():
 
     assert "1111" == s1k.student.id
     assert lok1 == s1k.levelOfKnowledge
-    assert "Wrong class name" == s1k.mistakeType.name
+    assert "Bad class name spelling" == s1k.mistakeType.name
     assert "2222" == s2k.student.id
     assert lok2 == s2k.levelOfKnowledge
     assert s2k.mistakeType.atomic
-
-
-@pytest.mark.skip("This test is no longer relevant and will be removed in a future commit.")
-def test_persisting_modeling_assistant_with_mistake_types_and_categories():
-    """
-    Verify that a ModelingAssistant instance with mistake types and categories can be serialized
-    to an XMI file.
-    """
-    # Remove previously created file (if it exists)
-    ma_path = "modelingassistant/instances/ma_mistaketypes_from_python.modelingassistant"
-    if os.path.exists(ma_path): os.remove(ma_path)
-
-    # Load Modeling Assistant metamodel
-    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
-    rset = ResourceSet()
-    ma_mm_root = rset.get_resource(URI(ma_mm_file)).contents[0]
-    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
-
-    modeling_assistant = ModelingAssistant()
-    wrong_class = MistakeTypeCategory(name="Wrong class", modelingAssistant=modeling_assistant)
-    wrong_class_name = MistakeTypeCategory(name="Wrong class name", supercategory=wrong_class,
-                                           modelingAssistant=modeling_assistant)
-    missing_class = MistakeType(name="Missing class", mistakeTypeCategory=wrong_class,
-                                modelingAssistant=modeling_assistant)
-    se_term = MistakeType(name="Software engineering term", mistakeTypeCategory=wrong_class_name,
-                          atomic=True, modelingAssistant=modeling_assistant)
-    
-    # Save modeling assistant instance to file
-    ma_resource = rset.create_resource(URI(ma_path))
-    ma_resource.use_uuid = True
-    ma_resource.append(modeling_assistant)
-    ma_resource.save()
-
-    assert os.path.exists(ma_path)
-    with open(ma_path) as f:
-        file_contents = f.read()
-        for s in ["Wrong class name", "Missing class", "Software engineering term", "atomic"]:
-            assert s in file_contents
-
-
-@pytest.mark.skip("The logic covered in this test will be tested in a different way once the refactoring is complete.")
-def test_loading_modeling_assistant_with_mistake_types_and_categories():
-    """
-    Verify that the the modeling assistant instance defined above can be deserialized correctly.
-    """
-    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
-    rset = ResourceSet()
-    resource = rset.get_resource(URI(ma_mm_file))
-    ma_mm_root = resource.contents[0]
-    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
-
-    item_by_name = lambda item_list, name: list(filter(lambda item: item.name == name, item_list))[0]
-
-    ma_path = "modelingassistant/instances"
-    ma_files = [
-        f"{ma_path}/ma_mistaketypes_from_python.modelingassistant",
-        f"{ma_path}/ma_mistaketypes_from_java.modelingassistant"
-    ]
-
-    for ma_file in ma_files:
-        resource = rset.get_resource(URI(ma_file))
-        modeling_assistant: ModelingAssistant = resource.contents[0]
-        modeling_assistant.__class__ = ModelingAssistant
-
-        mtcs = modeling_assistant.mistakeTypeCategories
-        mts = modeling_assistant.mistakeTypes
-        wrong_class = item_by_name(mtcs, "Wrong class")
-        wrong_class_name = item_by_name(mtcs, "Wrong class name")
-        missing_class = item_by_name(mts, "Missing class")
-        se_term = item_by_name(mts, "Software engineering term")
-
-        """
-        Verify all of these relationships (names already correct due to above):
-
-                              Wrong class: MistakeTypeCategory
-                            /                                  \
-            Wrong class name: MistakeTypeCategory       Missing class: MistakeType
-                            |
-            Software engineering term: MistakeType
-        """
-        assert wrong_class_name in wrong_class.subcategories
-        assert wrong_class_name.supercategory is wrong_class
-        assert missing_class in wrong_class.mistakeTypes
-        assert missing_class.mistakeTypeCategory is wrong_class
-        assert se_term in wrong_class_name.mistakeTypes
-        assert se_term.mistakeTypeCategory is wrong_class_name
-        for item in [wrong_class, wrong_class_name, missing_class, se_term]:
-            assert item.modelingAssistant is modeling_assistant
-
 
 
 def associate(class1, class2):
@@ -964,17 +1037,3 @@ def test_check_for_incomplete_containment_tree_failure_case():
 
 if __name__ == "__main__":
     "Main entry point."
-    #test_persisting_modeling_assistant_with_mistake_types_and_categories()
-    #test_loading_modeling_assistant_with_mistake_types_and_categories()
-
-    # Open Modeling Assistant metamodel and instance
-    ma_mm_file = "modelingassistant/model/learningcorpus.ecore"
-    rset = ResourceSet()
-    resource = rset.get_resource(URI(ma_mm_file))
-    ma_mm_root = resource.contents[0]
-    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
-    resource = rset.get_resource(URI("modelingassistant.learningcorpus.dsl.instances/test.learningcorpus"))
-    learning_corpus: LearningCorpus = resource.contents[0]
-    learning_corpus.__class__ = LearningCorpus
-
-    print(learning_corpus.mistakeTypes())

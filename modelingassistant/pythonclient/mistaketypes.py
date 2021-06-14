@@ -7,13 +7,6 @@ from pyecore.resources import ResourceSet, URI
 
 LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test.learningcorpus"
 
-MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[str, MistakeTypeCategory] = {}
-MISTAKE_TYPES_BY_NAME: dict[str, MistakeType] = {}
-
-# Short-name references to the above maps for greater code legibility
-_MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
-_MTS = MISTAKE_TYPES_BY_NAME
-
 # Open Modeling Assistant metamodel and instance
 ma_mm_file = "modelingassistant/model/learningcorpus.ecore"
 rset = ResourceSet()
@@ -21,12 +14,19 @@ resource = rset.get_resource(URI(ma_mm_file))
 ma_mm_root = resource.contents[0]
 rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
 resource = rset.get_resource(URI(LEARNING_CORPUS_PATH))
-learning_corpus: LearningCorpus = resource.contents[0]
-learning_corpus.__class__ = LearningCorpus
+corpus: LearningCorpus = resource.contents[0]
+corpus.__class__ = LearningCorpus
 
 # Populate dictionaries
-for mtc in learning_corpus.mistakeTypeCategories: MISTAKE_TYPE_CATEGORIES_BY_NAME[mtc.name] = mtc
-for mt in learning_corpus.mistakeTypes(): MISTAKE_TYPES_BY_NAME[mt.name] = mt
+MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[str, MistakeTypeCategory] = {c.name: c for c in corpus.mistakeTypeCategories}
+MISTAKE_TYPES_BY_NAME: dict[str, MistakeType] = {mt.name: mt for mt in corpus.mistakeTypes()}
+
+# Short-name references to the above maps for greater code legibility
+_MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
+_MTS = MISTAKE_TYPES_BY_NAME
+
+_dynamic_mtc_type = type(list(_MTCS.values())[0])
+_dynamic_mt_type = type(list(_MTS.values())[0])
 
 # Mistake type categories
 WRONG_CLASS: MistakeTypeCategory = _MTCS["Wrong class"]
@@ -111,3 +111,26 @@ WRONG_GENERALIZATION_DIRECTION: MistakeType = _MTS["Wrong generalization directi
 WRONG_SUPERCLASS: MistakeType = _MTS["Wrong superclass"]
 MISUSE_OF_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Misuse of Player-Role Pattern"]
 MISUSE_OF_ABSTRACTION_OCCURRENCE: MistakeType = _MTS["Misuse of Abstraction-Occurrence"]
+
+
+def _make_static():
+    """
+    Make the mistake types and categories have static types from the generated code instead of
+    dynamic pyecore types.
+    """
+    global _MTCS, _MTS
+    for mtc in _MTCS.values(): mtc.__class__ = MistakeTypeCategory
+    for mt in _MTS.values(): mt.__class__ = MistakeType
+
+
+def _make_dynamic():
+    """
+    Make the mistake types and categories have dynamic pyecore types, the default if
+    `_make_static()` is not called.
+    """
+    global _MTCS, _MTS, _dynamic_mtc_type, _dynamic_mt_type
+    for mtc in _MTCS.values(): mtc.__class__ = _dynamic_mtc_type
+    for mt in _MTS.values(): mt.__class__ = _dynamic_mt_type
+
+
+_make_static()
