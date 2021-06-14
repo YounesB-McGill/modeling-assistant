@@ -36,7 +36,7 @@ public class MistakeDetectionHelperFunctionLogicTest {
     List.of("Car", "Driver").forEach(s -> assertFalse(MistakeDetection.isPlural(s)));
     List.of("Cars", "People", "Men").forEach(s -> assertTrue(MistakeDetection.isPlural(s)));
   }
-
+  
   /**
    * Tests for checking Spelling Mistake in Class Name, eg Cars.
    */
@@ -48,7 +48,7 @@ public class MistakeDetectionHelperFunctionLogicTest {
     class2 = "Cer";
     assertEquals(1, MistakeDetection.levenshteinDistance(class1, class2));
   }
-
+  
   /**
    * Test to check if isLowerName working correctly.
    */
@@ -56,6 +56,5 @@ public class MistakeDetectionHelperFunctionLogicTest {
   public void testCheckLowerCase() {
     assertTrue(MistakeDetection.isLowerName("class1"));
     assertFalse(MistakeDetection.isLowerName("Class1"));
-  }
-  
+  }  
 }

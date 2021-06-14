@@ -40,7 +40,6 @@ public class MistakeDetectionTest {
       else if ("Driver".equals(c.getName()))
         driverClass = c;
     }
-
     assertEquals(busClass, classDiagram.getClasses().get(0));
     assertEquals("Bus", busClass.getName());
     assertEquals(driverClass, classDiagram.getClasses().get(1));
@@ -180,9 +179,7 @@ public class MistakeDetectionTest {
     assertEquals(comparison.extraStudentClassifier.size(), 0);
     assertEquals(comparison.mappedClassifier.size(), 2);
     assertEquals(comparison.mappedClassifier.get(instructorBusClass),studentBusClass);
-    assertEquals(comparison.mappedClassifier.get(instructorDriverClass),studentDriverClass);
-   
-      
+    assertEquals(comparison.mappedClassifier.get(instructorDriverClass),studentDriverClass);        
     assertEquals(comparison.newMistakes.size(), 0);
     assertEquals(solution1.getMistakes().size(), 0);
 
@@ -216,7 +213,6 @@ public class MistakeDetectionTest {
     }
 
     assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusesClass));
-
     assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriversClass));
 
     comparison = MistakeDetection.compare(solution, solution1);
@@ -263,10 +259,8 @@ public class MistakeDetectionTest {
         assertFalse(m.isResolved());
       }
     }
-
     // Running the second Solution again to check updated attribute values in Mistake in Metamodel
     assertEquals(solution1.getMistakes().size(), 4 + 2);
-
     comparison = MistakeDetection.compare(solution,solution1);
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
     assertEquals(comparison.extraStudentClassifier.size(), 0);
