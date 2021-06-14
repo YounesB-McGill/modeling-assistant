@@ -15,6 +15,7 @@ class StringEnabledResourceSet(ResourceSet):
     Extension of a ResourceSet that allows the use of in-memory string resources to reduce disk I/O.
     """
     def create_string_resource(self):
+        "Create a resource that can be used to store a string in-memory."
         resource = StringEnabledXMIResource()
         self.resources["dummy.modelingassistant"] = resource
         resource.resource_set = self
@@ -35,6 +36,11 @@ class StringEnabledResourceSet(ResourceSet):
 
 
 class StringEnabledXMIResource(XMIResource):
+    """
+    XMIResource used to load/save a model instance from/to a string instead of a file.
+    The code is mostly copied from the pyecore library, but with modifications to
+    use strings instead a file. 
+    """
     def load_string(self, string: str, options=None):
         self.options = options or {}
         self.cache_enabled = True
