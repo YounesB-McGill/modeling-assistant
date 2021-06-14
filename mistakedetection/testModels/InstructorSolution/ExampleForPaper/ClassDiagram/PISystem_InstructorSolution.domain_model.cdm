@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_W0FzIMzyEeuzj6fVLsCWEQ" name="PISystem_InstructorSolution">
+  <classes xsi:type="classdiagram:Class" xmi:id="_Xx--wMzyEeuzj6fVLsCWEQ" name="PISystem">
+    <associationEnds xmi:id="_hH4XIczyEeuzj6fVLsCWEQ" name="policeOfficers" assoc="_hH4-MMzyEeuzj6fVLsCWEQ" upperBound="-1" referenceType="Composition"/>
+    <associationEnds xmi:id="_3boGAczyEeuzj6fVLsCWEQ" name="assignments" assoc="_3boGAszyEeuzj6fVLsCWEQ" upperBound="-1" referenceType="Composition"/>
+    <associationEnds xmi:id="_0net8czzEeuzj6fVLsCWEQ" name="policeStations" assoc="_0net8szzEeuzj6fVLsCWEQ" upperBound="-1" referenceType="Composition"/>
+    <associationEnds xmi:id="_KRMoYcz0Eeuzj6fVLsCWEQ" name="people" assoc="_KRMoYsz0Eeuzj6fVLsCWEQ" upperBound="-1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_aJclYMzyEeuzj6fVLsCWEQ" name="PoliceOfficer">
+    <associationEnds xmi:id="_hH4XIMzyEeuzj6fVLsCWEQ" name="PISystem" assoc="_hH4-MMzyEeuzj6fVLsCWEQ" lowerBound="1"/>
+    <associationEnds xmi:id="__tVdgMzyEeuzj6fVLsCWEQ" name="assignments" assoc="__tVdgszyEeuzj6fVLsCWEQ" upperBound="-1"/>
+    <associationEnds xmi:id="_PPotwczzEeuzj6fVLsCWEQ" name="workLocation" assoc="_PPotwszzEeuzj6fVLsCWEQ" lowerBound="1"/>
+    <associationEnds xmi:id="_HlOxYcz0Eeuzj6fVLsCWEQ" name="person" assoc="_HlOxYsz0Eeuzj6fVLsCWEQ" lowerBound="1"/>
+    <attributes xmi:id="_dyER4MzyEeuzj6fVLsCWEQ" name="badgeNumber" type="_W0FzJ8zyEeuzj6fVLsCWEQ"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_2YP9cMzyEeuzj6fVLsCWEQ" name="Assignment">
+    <associationEnds xmi:id="_3boGAMzyEeuzj6fVLsCWEQ" name="PISystem" assoc="_3boGAszyEeuzj6fVLsCWEQ" lowerBound="1"/>
+    <associationEnds xmi:id="__tVdgczyEeuzj6fVLsCWEQ" name="assignedOfficer" assoc="__tVdgszyEeuzj6fVLsCWEQ" lowerBound="1"/>
+    <attributes xmi:id="_eGM5YMzzEeuzj6fVLsCWEQ" name="objective" type="_W0FzJ8zyEeuzj6fVLsCWEQ"/>
+    <attributes xmi:id="_fovDIMzzEeuzj6fVLsCWEQ" name="startDate" type="_W0FzJ8zyEeuzj6fVLsCWEQ"/>
+    <attributes xmi:id="_h6UEMMzzEeuzj6fVLsCWEQ" name="endDate" type="_W0FzJ8zyEeuzj6fVLsCWEQ"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_LMj54MzzEeuzj6fVLsCWEQ" name="PoliceStation">
+    <associationEnds xmi:id="_PPotwMzzEeuzj6fVLsCWEQ" name="officers" assoc="_PPotwszzEeuzj6fVLsCWEQ" upperBound="-1"/>
+    <associationEnds xmi:id="_0net8MzzEeuzj6fVLsCWEQ" name="PISystem" assoc="_0net8szzEeuzj6fVLsCWEQ" lowerBound="1"/>
+    <attributes xmi:id="_N6e4sMzzEeuzj6fVLsCWEQ" name="address" type="_W0FzJ8zyEeuzj6fVLsCWEQ"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_BvshYMz0Eeuzj6fVLsCWEQ" name="Person">
+    <associationEnds xmi:id="_HlOxYMz0Eeuzj6fVLsCWEQ" name="officer" assoc="_HlOxYsz0Eeuzj6fVLsCWEQ"/>
+    <associationEnds xmi:id="_KRMoYMz0Eeuzj6fVLsCWEQ" name="PISystem" assoc="_KRMoYsz0Eeuzj6fVLsCWEQ" lowerBound="1"/>
+    <attributes xmi:id="_EHEocMz0Eeuzj6fVLsCWEQ" name="name" type="_W0FzJ8zyEeuzj6fVLsCWEQ"/>
+    <attributes xmi:id="_E0hkUMz0Eeuzj6fVLsCWEQ" name="address" type="_W0FzJ8zyEeuzj6fVLsCWEQ"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_W0FzIczyEeuzj6fVLsCWEQ"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_W0FzIszyEeuzj6fVLsCWEQ"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_W0FzI8zyEeuzj6fVLsCWEQ"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_W0FzJMzyEeuzj6fVLsCWEQ"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_W0FzJczyEeuzj6fVLsCWEQ"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_W0FzJszyEeuzj6fVLsCWEQ"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_W0FzJ8zyEeuzj6fVLsCWEQ"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_W0FzKMzyEeuzj6fVLsCWEQ"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_W0FzKczyEeuzj6fVLsCWEQ"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_W0FzKszyEeuzj6fVLsCWEQ"/>
+  <associations xmi:id="_hH4-MMzyEeuzj6fVLsCWEQ" name="PoliceOfficer_PISystem" ends="_hH4XIMzyEeuzj6fVLsCWEQ _hH4XIczyEeuzj6fVLsCWEQ"/>
+  <associations xmi:id="_3boGAszyEeuzj6fVLsCWEQ" name="Assignment_PISystem" ends="_3boGAMzyEeuzj6fVLsCWEQ _3boGAczyEeuzj6fVLsCWEQ"/>
+  <associations xmi:id="__tVdgszyEeuzj6fVLsCWEQ" name="PoliceOfficer_Assignment" ends="__tVdgMzyEeuzj6fVLsCWEQ __tVdgczyEeuzj6fVLsCWEQ"/>
+  <associations xmi:id="_PPotwszzEeuzj6fVLsCWEQ" name="PoliceStation_PoliceOfficer" ends="_PPotwMzzEeuzj6fVLsCWEQ _PPotwczzEeuzj6fVLsCWEQ"/>
+  <associations xmi:id="_0net8szzEeuzj6fVLsCWEQ" name="PoliceStation_PISystem" ends="_0net8MzzEeuzj6fVLsCWEQ _0net8czzEeuzj6fVLsCWEQ"/>
+  <associations xmi:id="_HlOxYsz0Eeuzj6fVLsCWEQ" name="Person_PoliceOfficer" ends="_HlOxYMz0Eeuzj6fVLsCWEQ _HlOxYcz0Eeuzj6fVLsCWEQ"/>
+  <associations xmi:id="_KRMoYsz0Eeuzj6fVLsCWEQ" name="Person_PISystem" ends="_KRMoYMz0Eeuzj6fVLsCWEQ _KRMoYcz0Eeuzj6fVLsCWEQ"/>
+  <layout xmi:id="_W0FzK8zyEeuzj6fVLsCWEQ">
+    <containers xmi:id="_W0FzLMzyEeuzj6fVLsCWEQ" key="_W0FzIMzyEeuzj6fVLsCWEQ">
+      <value xmi:id="_XzbJMMzyEeuzj6fVLsCWEQ" key="_Xx--wMzyEeuzj6fVLsCWEQ">
+        <value xmi:id="_XzbJMczyEeuzj6fVLsCWEQ" x="623.9993" y="146.00018"/>
+      </value>
+      <value xmi:id="_aJdMcMzyEeuzj6fVLsCWEQ" key="_aJclYMzyEeuzj6fVLsCWEQ">
+        <value xmi:id="_aJdMcczyEeuzj6fVLsCWEQ" x="545.00037" y="720.0003"/>
+      </value>
+      <value xmi:id="_2YQkgMzyEeuzj6fVLsCWEQ" key="_2YP9cMzyEeuzj6fVLsCWEQ">
+        <value xmi:id="_2YQkgczyEeuzj6fVLsCWEQ" x="751.0314" y="475.0"/>
+      </value>
+      <value xmi:id="_LMkg8MzzEeuzj6fVLsCWEQ" key="_LMj54MzzEeuzj6fVLsCWEQ">
+        <value xmi:id="_LMkg8czzEeuzj6fVLsCWEQ" x="479.48608" y="377.05304"/>
+      </value>
+      <value xmi:id="_BvtIcMz0Eeuzj6fVLsCWEQ" key="_BvshYMz0Eeuzj6fVLsCWEQ">
+        <value xmi:id="_BvtIccz0Eeuzj6fVLsCWEQ" x="360.99976" y="487.98828"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

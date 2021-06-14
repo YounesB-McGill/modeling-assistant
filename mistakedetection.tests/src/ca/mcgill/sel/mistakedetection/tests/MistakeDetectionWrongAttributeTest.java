@@ -904,9 +904,9 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(comparison.mappedAttribute.get(instructorBusClassAttributeNumberPlate),
         studentBusClassAttributeNumberPlate);
     assertEquals(comparison.mappedAttribute.get(instructorDriverClassAttributeName),
-        studentDriverClassAttributeName);
-    assertEquals(comparison.newMistakes.size(), 0);
-    assertEquals(solution1.getMistakes().size(), 0);
+        studentDriverClassAttributeName);   
+    assertEquals(comparison.newMistakes.size(), 0+1); // 1 Incorrect Role Name
+    assertEquals(solution1.getMistakes().size(), 0+1);
   }
 
   /**
@@ -1035,8 +1035,9 @@ public class MistakeDetectionWrongAttributeTest {
         studentVehicleClassAttributeNumberPlate);
     assertEquals(comparison.mappedAttribute.get(instructorDriverClassAttributeName),
         studentPilotClassAttributeName);
-    assertEquals(comparison.newMistakes.size(), 0);
-    assertEquals(solution1.getMistakes().size(), 0);
+   
+    assertEquals(comparison.newMistakes.size(), 0+1); //1 Incorrect Role name 
+    assertEquals(solution1.getMistakes().size(), 0+1);
   }
 
   /**

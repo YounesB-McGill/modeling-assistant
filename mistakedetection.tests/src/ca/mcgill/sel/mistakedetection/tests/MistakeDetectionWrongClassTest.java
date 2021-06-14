@@ -127,8 +127,10 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.mappedClassifier.size(), 2);
     assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriverClass);
+    
     assertEquals(comparison.newMistakes.size(), 0);
     assertEquals(solution1.getMistakes().size(), 0);
+    comparison.newMistakes.forEach((m)->System.out.println("."+m));
   }
 
   /**
@@ -193,9 +195,8 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.mappedClassifier.size(), 2);
     assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusesClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriversClass);
-
-    assertEquals(comparison.newMistakes.size(), 4);
-    assertEquals(solution1.getMistakes().size(), 4);
+    assertEquals(comparison.newMistakes.size(), 4+2); // 2 Bad Role Names    
+    assertEquals(solution1.getMistakes().size(), 4+2);
 
     for (Mistake m : solution1.getMistakes()) {
       if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
