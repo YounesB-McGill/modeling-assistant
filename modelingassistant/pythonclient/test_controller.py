@@ -776,8 +776,11 @@ def test_persisting_modeling_assistant_to_string():
     resource.extend([modeling_assistant, class_diagram])
     ma_str = resource.save_to_string().decode()
 
-    xmi_id_pattern = re.compile(r'xmi:id="(.*?)"')
-    cdm_id_pattern = re.compile(r'classDiagram="(.*?)"')
+    # Find, match, and replace these regex patterns in the ma_str
+    # Define and compile the patterns. The compilation allows for faster performance.
+    xmi_id_pattern = re.compile(r'xmi:id="(.*?)"')  # since IDs are different each time test is run
+    cdm_id_pattern = re.compile(r'classDiagram="(.*?)"')  # since cdm is different each time test is run
+    # Use the patterns for find-and-replace
     ma_str = xmi_id_pattern.sub('xmi:id=""', ma_str)
     ma_str = cdm_id_pattern.sub('classDiagram=""', ma_str)
     ma_str = ma_str.replace(' type=""', '')  # since name and type can occur in any order 
