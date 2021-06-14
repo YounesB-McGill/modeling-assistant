@@ -120,17 +120,10 @@ public class MistakeTypes {
 This file contains all mistake types and categories.
 """
 
-from modelingassistant.modelingassistant import ModelingAssistant, MistakeTypeCategory, MistakeType
+from learningcorpus.learningcorpus import LearningCorpus, MistakeTypeCategory, MistakeType
 from pyecore.resources import ResourceSet, URI
 
 LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test.learningcorpus"
-
-MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[ '[' /]str, MistakeTypeCategory[ ']' /] = {}
-MISTAKE_TYPES_BY_NAME: dict[ '[' /]str, MistakeType[ ']' /] = {}
-
-# Short-name references to the above maps for greater code legibility
-_MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
-_MTS = MISTAKE_TYPES_BY_NAME
 
 # Open Modeling Assistant metamodel and instance
 ma_mm_file = "modelingassistant/model/learningcorpus.ecore"
@@ -139,12 +132,19 @@ resource = rset.get_resource(URI(ma_mm_file))
 ma_mm_root = resource.contents[ '[' /]0[ ']' /]
 rset.metamodel_registry[ '[' /]ma_mm_root.nsURI[ ']' /] = ma_mm_root
 resource = rset.get_resource(URI(LEARNING_CORPUS_PATH))
-modeling_assistant: ModelingAssistant = resource.contents[ '[' /]0[ ']' /]
-modeling_assistant.__class__ = ModelingAssistant
+corpus: LearningCorpus = resource.contents[ '[' /]0[ ']' /]
+corpus.__class__ = LearningCorpus
 
 # Populate dictionaries
-for mtc in modeling_assistant.mistakeTypeCategories: MISTAKE_TYPE_CATEGORIES_BY_NAME[ '[' /]mtc.name[ ']' /] = mtc
-for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[ ']' /] = mt
+MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[ '[' /]str, MistakeTypeCategory[ ']' /] = {c.name: c for c in corpus.mistakeTypeCategories}
+MISTAKE_TYPES_BY_NAME: dict[ '[' /]str, MistakeType[ ']' /] = {mt.name: mt for mt in corpus.mistakeTypes()}
+
+# Short-name references to the above maps for greater code legibility
+_MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
+_MTS = MISTAKE_TYPES_BY_NAME
+
+_dynamic_mtc_type = type(list(_MTCS.values())[ '[' /]0[ ']' /])
+_dynamic_mt_type = type(list(_MTS.values())[ '[' /]0[ ']' /])
 
 # Mistake type categories
 [for(mTC : MistakeTypeCategory | learningCorpus.mistakeTypeCategories)]
@@ -181,6 +181,29 @@ for mt in modeling_assistant.mistakeTypes: MISTAKE_TYPES_BY_NAME[ '[' /]mt.name[
 [/let]
 [/let]
 [/for]
+
+
+def _make_static():
+    """
+    Make the mistake types and categories have static types from the generated code instead of
+    dynamic pyecore types.
+    """
+    global _MTCS, _MTS
+    for mtc in _MTCS.values(): mtc.__class__ = MistakeTypeCategory
+    for mt in _MTS.values(): mt.__class__ = MistakeType
+
+
+def _make_dynamic():
+    """
+    Make the mistake types and categories have dynamic pyecore types, the default if
+    `_make_static()` is not called.
+    """
+    global _MTCS, _MTS, _dynamic_mtc_type, _dynamic_mt_type
+    for mtc in _MTCS.values(): mtc.__class__ = _dynamic_mtc_type
+    for mt in _MTS.values(): mt.__class__ = _dynamic_mt_type
+
+
+_make_static()
 [/file]
 
 [file ('../../modelingassistant/corpus_descriptions/README_TOC.md', false, 'UTF-8')]

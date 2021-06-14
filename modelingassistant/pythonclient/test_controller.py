@@ -841,7 +841,6 @@ def test_student_knowledge_persisted_correctly():
 
     correct_class_naming = LearningItem(learningCorpus=learning_corpus)
     class_naming_mistake_type = BAD_CLASS_NAME_SPELLING
-    class_naming_mistake_type.__class__ = MistakeType
     class_naming_mistake_type.learningItem = correct_class_naming
 
     # Link first class diagram to modeling assistant instance and related student
