@@ -4,6 +4,7 @@ import static classdiagram.ReferenceType.AGGREGATION;
 import static classdiagram.ReferenceType.COMPOSITION;
 import static classdiagram.ReferenceType.REGULAR;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_BE_STATIC;
+import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
@@ -19,12 +20,24 @@ import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION;
+import static learningcorpus.mistaketypes.MistakeTypes.ENUMERATION_SHOULD_BE_A_REGULAR_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_AN_AGGREGATION_COMPOSITION_INSTEAD_OF_AN_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
+import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_MULTIPLICITY;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
+import static learningcorpus.mistaketypes.MistakeTypes.ROLE_NAMES_PRESENT_BUT_INCORRECT;
+import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
+import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOCIATION_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_CLASS_NAME_SPELLING;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -116,7 +129,8 @@ public class MistakeDetection {
           checkMistakeSoftwareEngineeringTerm(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
           checkMistakePluralClassName(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
           checkMistakeLowerClassName(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
-          checkMistakeWrongEnumerationClass(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
+          checkMistakeRegularBeEnumerationClass(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);        
+          checkMistakeEnumerationBeRegularClass(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
           // checkMistakeWrongEnumerationClassItems(studentClassifier,instructorClassifier).ifPresent(newMistakes::add);
 
           EList<Attribute> studentAttributes = studentClassifier.getAttributes();
@@ -127,7 +141,8 @@ public class MistakeDetection {
               if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
                 checkMistakeAttributeSpelling(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
                 checkMistakeWrongAttributeType(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
-                checkMistakeAttributeStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
+                checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
+                checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
               }
             }
           }
@@ -222,14 +237,22 @@ public class MistakeDetection {
               .ifPresent(comparison.newMistakes::add);
           checkMistakeUsingAssociationInsteadOfAggregation(studentClassifierAssocEnd, instructorClassifierAssocEnd)
               .ifPresent(comparison.newMistakes::add);
+          checkMistakeUsingCompositionInsteadOfAssociation(studentClassifierAssocEnd, instructorClassifierAssocEnd)
+              .ifPresent(comparison.newMistakes::add);
+          checkMistakeUsingAggregationInsteadOfAssociation(studentClassifierAssocEnd, instructorClassifierAssocEnd)
+              .ifPresent(comparison.newMistakes::add);
           checkMistakeUsingAggregationInsteadOfComposition(studentClassifierAssocEnd, instructorClassifierAssocEnd)
               .ifPresent(comparison.newMistakes::add);
+          checkMistakeUsingCompositionInsteadOfAggregation(studentClassifierAssocEnd, instructorClassifierAssocEnd)
+          .ifPresent(comparison.newMistakes::add);
           checkMistakeOtherWrongMultiplicity(studentClassifierAssocEnd, instructorClassifierAssocEnd)
               .ifPresent(comparison.newMistakes::add);
           checkMistakeMissingRoleName(studentClassifierAssocEnd, instructorClassifierAssocEnd)
               .ifPresent(comparison.newMistakes::add);
           checkMistakeRoleNameExpectedStactic(studentClassifierAssocEnd, instructorClassifierAssocEnd)
               .ifPresent(comparison.newMistakes::add);
+          checkMistakeRoleNameNotExpectedStactic(studentClassifierAssocEnd, instructorClassifierAssocEnd)
+             .ifPresent(comparison.newMistakes::add);
           checkMistakeRoleNamePresentButIncorrect(studentClassifierAssocEnd, instructorClassifierAssocEnd)
               .ifPresent(comparison.newMistakes::add);
           // checkMistakeRoleNameSimilarYetIncorrect(studentClassifierAssocEnd, instructorClassifierAssocEnd)
@@ -649,10 +672,19 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-  public static Optional<Mistake> checkMistakeWrongEnumerationClass(Classifier studentClass,
+  public static Optional<Mistake> checkMistakeEnumerationBeRegularClass(Classifier studentClass,
       Classifier instructorClass) {
-    if (!classEnumStatusesMatch(studentClass, instructorClass)) {
-      // TODO Handle vice versa case
+    if (isClassEnumInsteadOfRegular(studentClass, instructorClass)) {
+      
+      return Optional
+          .of(createMistake(ENUMERATION_SHOULD_BE_A_REGULAR_CLASS, studentClass, instructorClass));
+    }
+    return Optional.empty();
+  }
+  public static Optional<Mistake> checkMistakeRegularBeEnumerationClass(Classifier studentClass,
+      Classifier instructorClass) {
+    if (isClassRegularInsteadOfEnum(studentClass, instructorClass)) {
+      
       return Optional
           .of(createMistake(REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION, studentClass, instructorClass));
     }
@@ -667,11 +699,18 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-  public static Optional<Mistake> checkMistakeAttributeStatic(Attribute studentAttribute,
+  public static Optional<Mistake> checkMistakeAttributeExpectedStatic(Attribute studentAttribute,
       Attribute instructorAttribute) {
-    // TODO Handle vice versa case
-    if (!attributeStaticPropertiesMatch(studentAttribute, instructorAttribute)) {
+     if (isAttributeExpectedStatic(studentAttribute, instructorAttribute)) {
       return Optional.of(createMistake(ATTRIBUTE_SHOULD_BE_STATIC, studentAttribute,
+          instructorAttribute));
+    }
+    return Optional.empty();
+  }
+  public static Optional<Mistake> checkMistakeAttributeNotExpectedStatic(Attribute studentAttribute,
+      Attribute instructorAttribute) {
+     if (isAttributeNotExpectedStatic(studentAttribute, instructorAttribute)) {
+      return Optional.of(createMistake(ATTRIBUTE_SHOULD_NOT_BE_STATIC, studentAttribute,
           instructorAttribute));
     }
     return Optional.empty();
@@ -679,7 +718,7 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeUsingAssociationInsteadOfComposition(
       AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
-    if (!associationEndCompositionPropertyMatch(studentClassAssocEnd, instructorClassAssocEnd)) {
+    if (isUsingAssociationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd)) {
       return Optional.of(createMistake(USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION,
           studentClassAssocEnd, instructorClassAssocEnd));
     }
@@ -688,7 +727,25 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeUsingAssociationInsteadOfAggregation(
       AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
-    if (!associationEndAggregationPropertyMatch(studentClassAssocEnd, instructorClassAssocEnd)) {
+    if (isUsingAssociationInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd)) {
+      return Optional.of(createMistake(USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION,
+          studentClassAssocEnd, instructorClassAssocEnd));
+    }
+    return Optional.empty();
+  }
+  
+  public static Optional<Mistake> checkMistakeUsingCompositionInsteadOfAssociation(
+      AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
+    if (isUsingCompositionInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd)) {
+      return Optional.of(createMistake(USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION,
+          studentClassAssocEnd, instructorClassAssocEnd));
+    }
+    return Optional.empty();
+  }
+
+  public static Optional<Mistake> checkMistakeUsingAggregationInsteadOfAssociation(
+      AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
+    if (isUsingAggregationInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd)) {
       return Optional.of(createMistake(USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION,
           studentClassAssocEnd, instructorClassAssocEnd));
     }
@@ -697,9 +754,18 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeUsingAggregationInsteadOfComposition(
       AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
-    if (!associationEndAggregationCompositionPropertyMatch(studentClassAssocEnd,
+    if (isUsingAggregationInsteadOfComposition(studentClassAssocEnd,
         instructorClassAssocEnd)) {
       return Optional.of(createMistake(USING_AGGREGATION_INSTEAD_OF_COMPOSITION,
+          studentClassAssocEnd, instructorClassAssocEnd));
+    }
+    return Optional.empty();
+  }
+  public static Optional<Mistake> checkMistakeUsingCompositionInsteadOfAggregation(
+      AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
+    if (isUsingCompositionInsteadOfAggregation(studentClassAssocEnd,
+        instructorClassAssocEnd)) {
+      return Optional.of(createMistake(USING_COMPOSITION_INSTEAD_OF_AGGREGATION,
           studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -708,8 +774,8 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeOtherWrongMultiplicity(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (!associationEndMultiplicityMatch(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.empty();// Optional.of(createMistake(,
-                              // studentClassAssocEnd,instructorClassAssocEnd));
+      return Optional.of(
+          createMistake(OTHER_WRONG_MULTIPLICITY, studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
   }
@@ -717,20 +783,26 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeMissingRoleName(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (!roleNamePresent(studentClassAssocEnd, instructorClassAssocEnd)) {
-      // return Optional.of(createMistake(MissingRoleName,
-      // studentClassAssocEnd,instructorClassAssocEnd));
-      return Optional.empty();
-    }
+      return Optional.of(
+          createMistake(MISSING_ROLE_NAMES, studentClassAssocEnd, instructorClassAssocEnd));
+     }
     return Optional.empty();
   }
 
   public static Optional<Mistake> checkMistakeRoleNameExpectedStactic(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
-    if (!roleNameStaticPropertyMatch(studentClassAssocEnd, instructorClassAssocEnd)) {
-      // return Optional.of(createMistake(roleNameStaticPropertyMismatch,
-      // studentClassAssocEnd,instructorClassAssocEnd));
-      return Optional.empty();
-    }
+    if (isroleNameExpectedStatic(studentClassAssocEnd, instructorClassAssocEnd)) {
+      return Optional
+          .of(createMistake(ROLE_SHOULD_BE_STATIC, studentClassAssocEnd, instructorClassAssocEnd));
+       }
+    return Optional.empty();
+  }
+  public static Optional<Mistake> checkMistakeRoleNameNotExpectedStactic(AssociationEnd studentClassAssocEnd,
+      AssociationEnd instructorClassAssocEnd) {
+    if (isroleNameNotExpectedStatic(studentClassAssocEnd, instructorClassAssocEnd)) {
+      return Optional.of(
+          createMistake(ROLE_SHOULD_NOT_BE_STATIC, studentClassAssocEnd, instructorClassAssocEnd));
+      }
     return Optional.empty();
   }
 
@@ -739,11 +811,9 @@ public class MistakeDetection {
     int lDistance =
         levenshteinDistance(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName());
     if (lDistance > 0 && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-      // return Optional.of(createMistake(BAD_ROLENAME_NAME_SPELLING,
-      // studentClassAssocEnd,instructorClassAssocEnd));
-      return Optional.empty();
-    }
-
+      return Optional
+          .of(createMistake(BAD_ROLE_NAME_SPELLING, studentClassAssocEnd, instructorClassAssocEnd));
+      }
     return Optional.empty();
   }
 
@@ -752,9 +822,8 @@ public class MistakeDetection {
     int lDistance =
         levenshteinDistance(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName());
     if (lDistance > MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-      // return Optional.of(createMistake(BAD_ROLENAME_Present_But_Incorrect,
-      // studentClassAssocEnd,instructorClassAssocEnd));
-      return Optional.empty();
+      return Optional.of(
+          createMistake(ROLE_NAMES_PRESENT_BUT_INCORRECT, studentClassAssocEnd, instructorClassAssocEnd));
     }
 
     return Optional.empty();
@@ -796,8 +865,8 @@ public class MistakeDetection {
     int lDistance = levenshteinDistance(studentClassAssoc.getAssociationClass().getName(),
         instructorClassAssoc.getAssociationClass().getName());
     if (lDistance > 0 && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-      // return Optional.of(createMistake(BAD_ASSOCIATION_CLASS_NAME_SPELLING,
-      // studentClassAssoc.getAssociationClass(),instructorClassAssoc.getAssociationClass()));
+      return Optional.of(createMistake(BAD_ASSOCIATION_CLASS_NAME_SPELLING,
+          studentClassAssoc.getAssociationClass(), instructorClassAssoc.getAssociationClass()));
     }
     return Optional.empty();
   }
@@ -807,8 +876,8 @@ public class MistakeDetection {
     int lDistance = levenshteinDistance(studentClassAssoc.getAssociationClass().getName(),
         instructorClassAssoc.getAssociationClass().getName());
     if (lDistance != 0) {
-      // return Optional.of(createMistake(SIMILAR_ASSOCIATION_CLASS_NAME,
-      // studentClassAssoc,instructorClassAssoc));
+     // return Optional.of(createMistake(,
+     //     studentClassAssoc.getAssociationClass(), instructorClassAssoc.getAssociationClass()));
     }
     return Optional.empty();
   }
@@ -816,8 +885,8 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeMissingAssociationClass(Association studentClassAssoc,
       Association instructorClassAssoc) {
     if (!associationClassMissing(studentClassAssoc, instructorClassAssoc)) {
-      // return Optional.of(createMistake(MISING_ASSOCIATION_CLASS,
-      // studentClassAssoc.getAssociationClass(),instructorClassAssoc.getAssociationClass()));
+      return Optional.of(createMistake(MISSING_ASSOCIATION_CLASS,
+          studentClassAssoc.getAssociationClass(), instructorClassAssoc.getAssociationClass()));
     }
     return Optional.empty();
   }
@@ -825,8 +894,8 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeExtraAssociationClass(Association studentClassAssoc,
       Association instructorClassAssoc) {
     if (!associationClassExtra(studentClassAssoc, instructorClassAssoc)) {
-      // return Optional.of(createMistake(MISING_ASSOCIATION_CLASS,
-      // studentClassAssoc.getAssociationClass(),instructorClassAssoc.getAssociationClass()));
+      return Optional.of(createMistake(EXTRA_ASSOCIATION_CLASS,
+          studentClassAssoc.getAssociationClass(), instructorClassAssoc.getAssociationClass()));
     }
     return Optional.empty();
   }
@@ -863,8 +932,8 @@ public class MistakeDetection {
         comparison.newMistakes.add(createMistake(MISSING_ASSOCIATION, null, association));
       }
       if (association.getAssociationClass() != null) {
-        // comparison.newMistakes.add(createMistake(MISSING_ASSOCIATION_CLASS, null,
-        // association.getAssociationClass()));
+        comparison.newMistakes
+            .add(createMistake(MISSING_ASSOCIATION_CLASS, null, association.getAssociationClass()));
       }
     }
   }
@@ -873,8 +942,8 @@ public class MistakeDetection {
     for (Association association : comparison.extraStudentAssociation) {
       comparison.newMistakes.add(createMistake(OTHER_EXTRA_ASSOCIATION, association, null));
       if (association.getAssociationClass() != null) {
-        // comparison.newMistakes.add(createMistake(EXTRA_ASSOCIATION_CLASS,
-        // association.getAssociationClass(), null));
+        comparison.newMistakes
+            .add(createMistake(EXTRA_ASSOCIATION_CLASS, association.getAssociationClass(), null));
       }
     }
   }
@@ -921,56 +990,68 @@ public class MistakeDetection {
   public static boolean attributeTypesMatch(Attribute studentAttribute, Attribute instructorAttribute) {
     return studentAttribute.getType().getClass().equals(instructorAttribute.getType().getClass());
   }
-
-  /** Returns true if both classes are enum classes or if both are not. */
-  public static boolean classEnumStatusesMatch(Classifier studentClassifier, Classifier instructorClassifier) {
-    return instructorClassifier instanceof CDEnum == studentClassifier instanceof CDEnum;
+  
+  /** Returns true if student has defined class as type enum instead of regular. */
+  public static boolean isClassEnumInsteadOfRegular(Classifier studentClassifier, Classifier instructorClassifier) {
+    return !(instructorClassifier instanceof CDEnum) && studentClassifier instanceof CDEnum;
+  }
+  /** Returns true if student has defined class  as regular instead of type enum  . */
+  public static boolean isClassRegularInsteadOfEnum(Classifier studentClassifier, Classifier instructorClassifier) {
+    return instructorClassifier instanceof CDEnum && !(studentClassifier instanceof CDEnum);
   }
 
-  /** Returns true if the student and instructor attributes' static properties match. */
-  public static boolean attributeStaticPropertiesMatch(Attribute studentAttribute, Attribute instructorAttribute) {
-    return studentAttribute.isStatic() == instructorAttribute.isStatic();
+  /** Returns true if the student has made attribute not static but static is required. */
+  public static boolean isAttributeExpectedStatic(Attribute studentAttribute, Attribute instructorAttribute) {
+    return !studentAttribute.isStatic()  && instructorAttribute.isStatic();
+  }
+  /** Returns true if the student has made attribute static but static is not required. */
+  public static boolean isAttributeNotExpectedStatic(Attribute studentAttribute, Attribute instructorAttribute) {
+    return studentAttribute.isStatic()  && !instructorAttribute.isStatic();
   }
 
-  public static boolean associationEndCompositionPropertyMatch(AssociationEnd studentClassAssocEnd,
+  public static boolean isUsingAssociationInsteadOfComposition(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
-    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, COMPOSITION);
+    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, REGULAR, COMPOSITION);
   }
 
-  public static boolean associationEndAggregationPropertyMatch(AssociationEnd studentClassAssocEnd,
+  public static boolean isUsingAssociationInsteadOfAggregation(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
-    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, AGGREGATION);
+    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, REGULAR, AGGREGATION);
+  }
+  public static boolean isUsingCompositionInsteadOfAssociation(AssociationEnd studentClassAssocEnd,
+      AssociationEnd instructorClassAssocEnd) {
+    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, COMPOSITION, REGULAR );
   }
 
-  public static boolean associationEndAggregationCompositionPropertyMatch(AssociationEnd studentClassAssocEnd,
+  public static boolean isUsingAggregationInsteadOfAssociation(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
-    if (studentClassAssocEnd.getReferenceType().equals(AGGREGATION)
-        && instructorClassAssocEnd.getReferenceType().equals(COMPOSITION)) {
-      return false;
-    } else if (studentClassAssocEnd.getReferenceType().equals(COMPOSITION)
-        && instructorClassAssocEnd.getReferenceType().equals(AGGREGATION)) {
-      return false;
-    }
-    return true;
+    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd,AGGREGATION, REGULAR );
+  }
+  public static boolean isUsingAggregationInsteadOfComposition(AssociationEnd studentClassAssocEnd,
+      AssociationEnd instructorClassAssocEnd) {
+    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd,AGGREGATION, COMPOSITION );
+  }
+  public static boolean isUsingCompositionInsteadOfAggregation(AssociationEnd studentClassAssocEnd,
+      AssociationEnd instructorClassAssocEnd) {
+    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, COMPOSITION, AGGREGATION );
   }
 
   public static boolean associationEndAssociationPropertyMatch(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
-    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, REGULAR);
+    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, REGULAR, REGULAR);
   }
 
   /** Returns true if both association ends have the same reference type. */
-  public static boolean associationEndsMatch(AssociationEnd studentClassAssocEnd,
+  public static boolean associationEndsMatchType(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     return studentClassAssocEnd.getReferenceType().equals(instructorClassAssocEnd.getReferenceType());
   }
 
   /** Returns true if both association ends match the given reference type or not. */
   public static boolean associationEndsMatchType(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd, ReferenceType assocType) {
-    // TODO Shouldn't the == be replaced by &&?
-    return studentClassAssocEnd.getReferenceType().equals(assocType) == instructorClassAssocEnd.getReferenceType()
-        .equals(assocType);
+      AssociationEnd instructorClassAssocEnd, ReferenceType assocTypeS , ReferenceType assocTypeI) {
+    return studentClassAssocEnd.getReferenceType().equals(assocTypeS) && instructorClassAssocEnd.getReferenceType()
+        .equals(assocTypeI);
   }
 
   public static boolean associationEndMultiplicityMatch(AssociationEnd studentClassAssocEnd,
@@ -993,9 +1074,13 @@ public class MistakeDetection {
     return studentClassAssocEnd.getName() == instructorClassAssocEnd.getName();
   }
 
-  public static boolean roleNameStaticPropertyMatch(AssociationEnd studentClassAssocEnd,
+  public static boolean isroleNameExpectedStatic(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
-    return studentClassAssocEnd.isStatic() == instructorClassAssocEnd.isStatic();
+    return !studentClassAssocEnd.isStatic() && instructorClassAssocEnd.isStatic();
+  }
+  public static boolean isroleNameNotExpectedStatic(AssociationEnd studentClassAssocEnd,
+      AssociationEnd instructorClassAssocEnd) {
+    return studentClassAssocEnd.isStatic() && !instructorClassAssocEnd.isStatic();
   }
 
   public static boolean associationNamePresent(Association studentClassAssoc, Association instructorClassAssoc) {
