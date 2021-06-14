@@ -1,4 +1,6 @@
-from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
+from pyecore.resources.resource import ResourceSet, URI
+from learningcorpus.learningcorpus import LearningCorpus, MistakeTypeCategory, MistakeType
+from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, WRONG_CLASS, WRONG_CLASS_NAME
 
 import mistaketypes
 
@@ -28,3 +30,41 @@ def test_get_mistake_type_and_mistake_type_category_by_names():
     assert actual_wrong_class_mistake_type_category.learningCorpus
     assert (actual_wrong_class_mistake_type_category.learningCorpus ==
         actual_missing_class_mistake_type.mistakeTypeCategory.learningCorpus)
+
+
+
+def test_learning_corpus_mistake_types_and_categories_hierarchy():
+    """
+    Verify mistake types and categories hierarchy in the default learning corpus instance used in mistaketypes.py.
+    """
+    lc_mm_file = "modelingassistant/model/learningcorpus.ecore"
+    rset = ResourceSet()
+    resource = rset.get_resource(URI(lc_mm_file))
+    lc_mm_root = resource.contents[0]
+    rset.metamodel_registry[lc_mm_root.nsURI] = lc_mm_root
+    learning_corpus = WRONG_CLASS.learningCorpus
+
+    assert "Wrong class" == WRONG_CLASS.name
+    assert "Wrong class name" == WRONG_CLASS_NAME.name
+    assert "Missing class" == MISSING_CLASS.name
+    assert "Software engineering term" == SOFTWARE_ENGINEERING_TERM.name
+
+    """
+    Verify all of these relationships:
+
+                          Wrong class: MistakeTypeCategory
+                        /                                  \
+        Wrong class name: MistakeTypeCategory       Missing class: MistakeType
+                        |
+        Software engineering term: MistakeType
+    """
+    assert WRONG_CLASS_NAME in WRONG_CLASS.subcategories
+    assert WRONG_CLASS_NAME.supercategory is WRONG_CLASS
+    assert MISSING_CLASS in WRONG_CLASS.mistakeTypes
+    assert MISSING_CLASS.mistakeTypeCategory is WRONG_CLASS
+    assert SOFTWARE_ENGINEERING_TERM in WRONG_CLASS_NAME.mistakeTypes
+    assert SOFTWARE_ENGINEERING_TERM.mistakeTypeCategory is WRONG_CLASS_NAME
+    for mtc in [WRONG_CLASS, WRONG_CLASS_NAME]:
+        assert mtc.learningCorpus is learning_corpus
+    for mt in [MISSING_CLASS, SOFTWARE_ENGINEERING_TERM]:
+        assert mt.mistakeTypeCategory.learningCorpus is learning_corpus

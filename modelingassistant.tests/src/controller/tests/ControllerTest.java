@@ -1,5 +1,9 @@
 package controller.tests;
 
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -19,7 +23,6 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.util.CdmResourceFactoryImpl;
 import classdiagram.Attribute;
@@ -928,58 +931,34 @@ public class ControllerTest {
   }
 
   /**
-   * Verifies that the the modeling assistant instance defined above can be deserialized correctly.
-   *
-   * @deprecated The logic covered in this test will be tested in a different way once the refactoring is complete.
+   * Verifies mistake types and categories hierarchy in the default learning corpus instance used in the
+   * MistakeTypes class.
    */
-  @Deprecated
-  @Disabled
-  @Test public void testLoadingModelingAssistantWithMistakeTypesAndCategories() {
-//    ModelingassistantPackage.eINSTANCE.eClass();
-//    var maPaths = List.of(
-//        "../modelingassistant/instances/ma_mistaketypes_from_java.modelingassistant",
-//        "../modelingassistant/instances/ma_mistaketypes_from_python.modelingassistant"
-//    );
-//    var rset = new ResourceSetImpl();
-//    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("modelingassistant",
-//        new ModelingassistantResourceFactoryImpl());
-//
-//    final BiFunction<List<? extends NamedElement>, String, NamedElement> itemByName = (itemList, name) ->
-//      itemList.stream().filter(item -> item.getName().equals(name)).findFirst().orElse(null);
-//
-//    maPaths.forEach(maPath -> {
-//      try {
-//        var maResource = rset.createResource(URI.createFileURI(new File(maPath).getCanonicalPath()));
-//        maResource.load(Collections.EMPTY_MAP);
-//
-//        var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
-//        var mtcs = modelingAssistant.getMistakeTypeCategories();
-//        var mts = modelingAssistant.getMistakeTypes();
-//        var wrongClass = (MistakeTypeCategory) itemByName.apply(mtcs, "Wrong class");
-//        var wrongClassName = (MistakeTypeCategory) itemByName.apply(mtcs, "Wrong class name");
-//        var missingClass = (MistakeType) itemByName.apply(mts, "Missing class");
-//        var seTerm = (MistakeType) itemByName.apply(mts, "Software engineering term");
-//
-//        /* Verify all of these relationships (names already correct due to above):
-//         *
-//         *                         Wrong class: MistakeTypeCategory
-//         *                       /                                  \
-//         *     Wrong class name: MistakeTypeCategory       Missing class: MistakeType
-//         *                     |
-//         *     Software engineering term: MistakeType
-//         */
-//        assertTrue(wrongClass.getSubcategories().contains(wrongClassName));
-//        assertTrue(wrongClassName.getSupercategory() == wrongClass); // should be same object, not just equal
-//        assertTrue(wrongClass.getMistakeTypes().contains(missingClass));
-//        assertTrue(missingClass.getMistakeTypeCategory() == wrongClass);
-//        assertTrue(wrongClassName.getMistakeTypes().contains(seTerm));
-//        assertTrue(seTerm.getMistakeTypeCategory() == wrongClassName);
-//        List.of(wrongClass, wrongClassName).forEach(mtc -> assertTrue(mtc.getModelingAssistant() == modelingAssistant));
-//        List.of(missingClass, seTerm).forEach(mt -> assertTrue(mt.getModelingAssistant() == modelingAssistant));
-//      } catch (IOException e) {
-//        fail();
-//      }
-//    });
+  @Test public void testLearningCorpusMistakeTypesAndCategoriesHierarchy() {
+    LearningcorpusPackage.eINSTANCE.eClass();
+    var learningCorpus = WRONG_CLASS.getLearningCorpus();
+    assertEquals("Wrong class", WRONG_CLASS.getName());
+    assertEquals("Wrong class name", WRONG_CLASS_NAME.getName());
+    assertEquals("Missing class", MISSING_CLASS.getName());
+    assertEquals("Software engineering term", SOFTWARE_ENGINEERING_TERM.getName());
+
+    /* Verify all of these relationships (names already correct due to above):
+     *
+     *                         Wrong class: MistakeTypeCategory
+     *                       /                                  \
+     *     Wrong class name: MistakeTypeCategory       Missing class: MistakeType
+     *                     |
+     *     Software engineering term: MistakeType
+     */
+    assertTrue(WRONG_CLASS.getSubcategories().contains(WRONG_CLASS_NAME));
+    assertTrue(WRONG_CLASS_NAME.getSupercategory() == WRONG_CLASS); // should be same object, not just equal
+    assertTrue(WRONG_CLASS.getMistakeTypes().contains(MISSING_CLASS));
+    assertTrue(MISSING_CLASS.getMistakeTypeCategory() == WRONG_CLASS);
+    assertTrue(WRONG_CLASS_NAME.getMistakeTypes().contains(SOFTWARE_ENGINEERING_TERM));
+    assertTrue(SOFTWARE_ENGINEERING_TERM.getMistakeTypeCategory() == WRONG_CLASS_NAME);
+    List.of(WRONG_CLASS, WRONG_CLASS_NAME).forEach(mtc -> assertTrue(mtc.getLearningCorpus() == learningCorpus));
+    List.of(MISSING_CLASS, SOFTWARE_ENGINEERING_TERM).forEach(mt ->
+      assertTrue(mt.getMistakeTypeCategory().getLearningCorpus() == learningCorpus));
   }
 
   /**
