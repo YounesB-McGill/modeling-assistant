@@ -46,81 +46,37 @@ public class MistakeDetectionWrongAttributeTest {
     var student = maf1.createStudent();
     solution1.setStudent(student);
 
-    Classifier instructorBusClass = null;
-    Classifier instructorDriverClass = null;
-    Classifier instructorPassangerClass = null;
+    Classifier instructorBusClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram);
+    Classifier instructorDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram);
+    Classifier instructorPassangerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram);
 
-    Attribute instructorBusClassAttributeCapacity = null;
-    Attribute instructorBusClassAttributeNumberPlate = null;
-    Attribute instructorDriverClassAttributeName = null;
-    Attribute instructorPassengerClassAttributeName = null;
+    Attribute instructorBusClassAttributeCapacity =
+        MistakeDetectionTest.getAttributeFromClass("capacity", instructorBusClass);
+    Attribute instructorBusClassAttributeNumberPlate =
+        MistakeDetectionTest.getAttributeFromClass("numberPlate", instructorBusClass);
+    Attribute instructorDriverClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorDriverClass);
+    Attribute instructorPassengerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorPassangerClass);
 
-    for (var c : classDiagram.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        instructorBusClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("capacity".equals(a.getName())) {
-            instructorBusClassAttributeCapacity = a;
-          }
-          if ("numberPlate".equals(a.getName())) {
-            instructorBusClassAttributeNumberPlate = a;
-          }
-        }
-      } else if ("Driver".equals(c.getName())) {
-        instructorDriverClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorDriverClassAttributeName = a;
-          }
+    Classifier studentBusClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram1);
+    Classifier studentDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram1);
+    Classifier studentPassangerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram1);
 
-        }
-      } else if ("Passanger".equals(c.getName())) {
-        instructorPassangerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorPassengerClassAttributeName = a;
-          }
-        }
-      }
-    }
-
-    Classifier studentBusClass = null;
-    Classifier studentDriverClass = null;
-    Classifier studentPassangerClass = null;
-
-    Attribute studentBusClassAttributeCapacity = null;
-    Attribute studentBusClassAttributeNumberPlate = null;
-    Attribute studentDriverClassAttributeName = null;
-    Attribute studentPassengerClassAttributeName = null;
-
-    for (var c : classDiagram1.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        studentBusClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("capacity".equals(a.getName())) {
-            studentBusClassAttributeCapacity = a;
-          }
-          if ("numberPlate".equals(a.getName())) {
-            studentBusClassAttributeNumberPlate = a;
-          }
-        }
-      } else if ("Driver".equals(c.getName())) {
-        studentDriverClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            studentDriverClassAttributeName = a;
-          }
-
-        }
-      } else if ("Passanger".equals(c.getName())) {
-        studentPassangerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            studentPassengerClassAttributeName = a;
-          }
-        }
-      }
-    }
+    Attribute studentBusClassAttributeCapacity =
+        MistakeDetectionTest.getAttributeFromClass("capacity", studentBusClass);
+    Attribute studentBusClassAttributeNumberPlate =
+        MistakeDetectionTest.getAttributeFromClass("numberPlate", studentBusClass);
+    Attribute studentDriverClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", studentDriverClass);
+    Attribute studentPassengerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", studentPassangerClass);
 
     assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusClass));
     assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriverClass));
@@ -181,69 +137,33 @@ public class MistakeDetectionWrongAttributeTest {
     var student = maf1.createStudent();
     solution1.setStudent(student);
 
-    Classifier instructorBusClass = null;
-    Classifier instructorDriverClass = null;
-    Classifier instructorPassangerClass = null;
+    Classifier instructorBusClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram);
+    Classifier instructorDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram);
+    Classifier instructorPassangerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram);
 
-    Attribute instructorBusClassAttributeCapacity = null;
-    Attribute instructorBusClassAttributeNumberPlate = null;
-    Attribute instructorDriverClassAttributeName = null;
-    Attribute instructorPassengerClassAttributeName = null;
+    Attribute instructorBusClassAttributeCapacity =
+        MistakeDetectionTest.getAttributeFromClass("capacity", instructorBusClass);
+    Attribute instructorBusClassAttributeNumberPlate =
+        MistakeDetectionTest.getAttributeFromClass("numberPlate", instructorBusClass);
+    Attribute instructorDriverClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorDriverClass);
+    Attribute instructorPassengerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorPassangerClass);
 
-    for (var c : classDiagram.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        instructorBusClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("capacity".equals(a.getName())) {
-            instructorBusClassAttributeCapacity = a;
-          }
-          if ("numberPlate".equals(a.getName())) {
-            instructorBusClassAttributeNumberPlate = a;
-          }
-        }
-      } else if ("Driver".equals(c.getName())) {
-        instructorDriverClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorDriverClassAttributeName = a;
-          }
-        }
-      } else if ("Passanger".equals(c.getName())) {
-        instructorPassangerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorPassengerClassAttributeName = a;
-          }
-        }
-      }
-    }
+    Classifier studentBusClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram1);
+    Classifier studentDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram1);
+    Classifier studentPassangerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram1);
 
-    Classifier studentBusClass = null;
-    Classifier studentDriverClass = null;
-    Classifier studentPassangerClass = null;
-
-    Attribute studentBusClassAttributeCapacity = null;
-    Attribute studentPassengerClassAttributeName = null;
-
-    for (var c : classDiagram1.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        studentBusClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("capacity".equals(a.getName())) {
-            studentBusClassAttributeCapacity = a;
-          }
-        }
-      } else if ("Driver".equals(c.getName())) {
-        studentDriverClass = c;
-      } else if ("Passanger".equals(c.getName())) {
-        studentPassangerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            studentPassengerClassAttributeName = a;
-          }
-        }
-      }
-    }
+    Attribute studentBusClassAttributeCapacity =
+        MistakeDetectionTest.getAttributeFromClass("capacity", studentBusClass);
+    Attribute studentPassengerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", studentPassangerClass);
 
     assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusClass));
     assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriverClass));
@@ -281,8 +201,8 @@ public class MistakeDetectionWrongAttributeTest {
         assertEquals(m.getNumDetection(), 1);
         assertFalse(m.isResolved());
       }
-      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE
-          && m.getInstructorElements().get(0).getElement() == instructorBusClassAttributeNumberPlate) {
+      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE && m.getInstructorElements().get(0)
+          .getElement() == instructorBusClassAttributeNumberPlate) {
         assertEquals(m.getInstructorElements().get(0).getElement(),
             instructorBusClassAttributeNumberPlate);
         assertEquals(m.getNumDetectionSinceResolved(), 0);
@@ -320,60 +240,29 @@ public class MistakeDetectionWrongAttributeTest {
     var student = maf1.createStudent();
     solution1.setStudent(student);
 
-    Classifier instructorBusClass = null;
-    Classifier instructorDriverClass = null;
-    Classifier instructorPassangerClass = null;
+    Classifier instructorBusClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram);
+    Classifier instructorDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram);
+    Classifier instructorPassangerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram);
 
-    Attribute instructorBusClassAttributeCapacity = null;
-    Attribute instructorBusClassAttributeNumberPlate = null;
-    Attribute instructorDriverClassAttributeName = null;
-    Attribute instructorPassengerClassAttributeName = null;
+    Attribute instructorBusClassAttributeCapacity =
+        MistakeDetectionTest.getAttributeFromClass("capacity", instructorBusClass);
+    Attribute instructorBusClassAttributeNumberPlate =
+        MistakeDetectionTest.getAttributeFromClass("numberPlate", instructorBusClass);
+    Attribute instructorDriverClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorDriverClass);
+    Attribute instructorPassengerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorPassangerClass);
 
-    for (var c : classDiagram.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        instructorBusClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("capacity".equals(a.getName())) {
-            instructorBusClassAttributeCapacity = a;
-          }
-          if ("numberPlate".equals(a.getName())) {
-            instructorBusClassAttributeNumberPlate = a;
-          }
-        }
-      } else if ("Driver".equals(c.getName())) {
-        instructorDriverClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorDriverClassAttributeName = a;
-          }
-        }
-      } else if ("Passanger".equals(c.getName())) {
-        instructorPassangerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorPassengerClassAttributeName = a;
-          }
-        }
-      }
-    }
-    Association instructorBusPassangerAssociation=null;
-    Association instructorDriverBusAssociation=null;
+    Classifier studentDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram1);
 
-    for (var assoc : classDiagram.getAssociations()) {
-      if("Passanger_Bus".equals(assoc.getName())) {
-        instructorBusPassangerAssociation=assoc;
-      }
-      if("Driver_Bus".equals(assoc.getName())) {
-        instructorDriverBusAssociation=assoc;
-      }
-    }
-
-    Classifier studentDriverClass = null;
-
-    for (var c : classDiagram1.getClasses()) {
-      if ("Driver".equals(c.getName()))
-        studentDriverClass = c;
-    }
+    Association instructorBusPassangerAssociation = MistakeDetectionTest
+        .getAssociationFromClassDiagram(instructorBusClass, instructorPassangerClass, classDiagram);
+    Association instructorDriverBusAssociation = MistakeDetectionTest
+        .getAssociationFromClassDiagram(instructorBusClass, instructorDriverClass, classDiagram);
 
     var comparison = MistakeDetection.compare(solution, solution1);
 
@@ -428,16 +317,16 @@ public class MistakeDetectionWrongAttributeTest {
         assertEquals(m.getNumDetection(), 1);
         assertFalse(m.isResolved());
       }
-      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE
-          && m.getInstructorElements().get(0).getElement() == instructorBusClassAttributeNumberPlate) {
+      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE && m.getInstructorElements().get(0)
+          .getElement() == instructorBusClassAttributeNumberPlate) {
         assertEquals(m.getInstructorElements().get(0).getElement(),
             instructorBusClassAttributeNumberPlate);
         assertEquals(m.getNumDetectionSinceResolved(), 0);
         assertEquals(m.getNumDetection(), 1);
         assertFalse(m.isResolved());
       }
-      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE
-          && m.getInstructorElements().get(0).getElement() == instructorPassengerClassAttributeName) {
+      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE && m.getInstructorElements().get(0)
+          .getElement() == instructorPassengerClassAttributeName) {
         assertEquals(m.getInstructorElements().get(0).getElement(),
             instructorPassengerClassAttributeName);
         assertEquals(m.getNumDetectionSinceResolved(), 0);
@@ -461,7 +350,8 @@ public class MistakeDetectionWrongAttributeTest {
       }
       if (m.getMistakeType() == MistakeTypes.MISSING_ASSOCIATION
           && m.getInstructorElements().get(0).getElement() == instructorBusPassangerAssociation) {
-        assertEquals(m.getInstructorElements().get(0).getElement(), instructorBusPassangerAssociation);
+        assertEquals(m.getInstructorElements().get(0).getElement(),
+            instructorBusPassangerAssociation);
         assertEquals(m.getNumDetectionSinceResolved(), 0);
         assertEquals(m.getNumDetection(), 1);
         assertFalse(m.isResolved());
@@ -499,69 +389,33 @@ public class MistakeDetectionWrongAttributeTest {
     var student = maf1.createStudent();
     solution1.setStudent(student);
 
-    Classifier instructorBusClass = null;
-    Classifier instructorDriverClass = null;
-    Classifier instructorPassangerClass = null;
+    Classifier instructorBusClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram);
+    Classifier instructorDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram);
+    Classifier instructorPassangerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram);
 
-    Attribute instructorBusClassAttributeCapacity = null;
-    Attribute instructorBusClassAttributeNumberPlate = null;
-    Attribute instructorDriverClassAttributeName = null;
-    Attribute instructorPassengerClassAttributeName = null;
+    Attribute instructorBusClassAttributeCapacity =
+        MistakeDetectionTest.getAttributeFromClass("capacity", instructorBusClass);
+    Attribute instructorBusClassAttributeNumberPlate =
+        MistakeDetectionTest.getAttributeFromClass("numberPlate", instructorBusClass);
+    Attribute instructorDriverClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorDriverClass);
+    Attribute instructorPassengerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorPassangerClass);
 
-    for (var c : classDiagram.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        instructorBusClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("capacity".equals(a.getName())) {
-            instructorBusClassAttributeCapacity = a;
-          }
-          if ("numberPlate".equals(a.getName())) {
-            instructorBusClassAttributeNumberPlate = a;
-          }
-        }
-      } else if ("Driver".equals(c.getName())) {
-        instructorDriverClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorDriverClassAttributeName = a;
-          }
-        }
-      } else if ("Passanger".equals(c.getName())) {
-        instructorPassangerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorPassengerClassAttributeName = a;
-          }
-        }
-      }
-    }
+    Classifier studentBusClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram1);
+    Classifier studentDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram1);
+    Classifier studentPassangerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram1);
 
-    Classifier studentBusClass = null;
-    Classifier studentDriverClass = null;
-    Classifier studentPassangerClass = null;
-
-    Attribute studentBusClassAttributeCapacity = null;
-    Attribute studentPassengerClassAttributeName = null;
-
-    for (var c : classDiagram1.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        studentBusClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("capacity".equals(a.getName())) {
-            studentBusClassAttributeCapacity = a;
-          }
-        }
-      } else if ("Driver".equals(c.getName())) {
-        studentDriverClass = c;
-      } else if ("Passanger".equals(c.getName())) {
-        studentPassangerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            studentPassengerClassAttributeName = a;
-          }
-        }
-      }
-    }
+    Attribute studentBusClassAttributeCapacity =
+        MistakeDetectionTest.getAttributeFromClass("capacity", studentBusClass);
+    Attribute studentPassengerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", studentPassangerClass);
 
     var comparison = MistakeDetection.compare(solution, solution1);
 
@@ -595,8 +449,8 @@ public class MistakeDetectionWrongAttributeTest {
         assertEquals(m.getNumDetection(), 1);
         assertFalse(m.isResolved());
       }
-      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE
-          && m.getInstructorElements().get(0).getElement() == instructorBusClassAttributeNumberPlate) {
+      if (m.getMistakeType() == MistakeTypes.MISSING_ATTRIBUTE && m.getInstructorElements().get(0)
+          .getElement() == instructorBusClassAttributeNumberPlate) {
         assertEquals(m.getInstructorElements().get(0).getElement(),
             instructorBusClassAttributeNumberPlate);
         assertEquals(m.getNumDetectionSinceResolved(), 0);
@@ -634,96 +488,45 @@ public class MistakeDetectionWrongAttributeTest {
     var student = maf1.createStudent();
     solution1.setStudent(student);
 
-    Classifier instructorBusClass = null;
-    Classifier instructorDriverClass = null;
-    Classifier instructorPassangerClass = null;
+    Classifier instructorBusClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram);
+    Classifier instructorDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram);
+    Classifier instructorPassangerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram);
 
-    Attribute instructorBusClassAttributeCapacity = null;
-    Attribute instructorBusClassAttributeNumberPlate = null;
-    Attribute instructorDriverClassAttributeName = null;
-    Attribute instructorPassengerClassAttributeName = null;
+    Attribute instructorBusClassAttributeCapacity =
+        MistakeDetectionTest.getAttributeFromClass("capacity", instructorBusClass);
+    Attribute instructorBusClassAttributeNumberPlate =
+        MistakeDetectionTest.getAttributeFromClass("numberPlate", instructorBusClass);
+    Attribute instructorDriverClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorDriverClass);
+    Attribute instructorPassengerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorPassangerClass);
 
-    for (var c : classDiagram.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        instructorBusClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("capacity".equals(a.getName())) {
-            instructorBusClassAttributeCapacity = a;
-          }
-          if ("numberPlate".equals(a.getName())) {
-            instructorBusClassAttributeNumberPlate = a;
-          }
-        }
-      } else if ("Driver".equals(c.getName())) {
-        instructorDriverClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorDriverClassAttributeName = a;
-          }
-        }
-      } else if ("Passanger".equals(c.getName())) {
-        instructorPassangerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorPassengerClassAttributeName = a;
-          }
-        }
-      }
-    }
+    Classifier studentBusClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram1);
+    Classifier studentDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram1);
+    Classifier studentPassangerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram1);
+    Classifier studentCustomerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Customer", classDiagram1);
 
-    Classifier studentBusClass = null;
-    Classifier studentDriverClass = null;
-    Classifier studentPassangerClass = null;
-    Classifier studentCustomerClass = null;
+    Attribute studentBusClassAttributeCapacity =
+        MistakeDetectionTest.getAttributeFromClass("capacity", studentBusClass);
+    Attribute studentBusClassAttributeNumberPlate =
+        MistakeDetectionTest.getAttributeFromClass("numberPlate", studentBusClass);
+    Attribute studentDriverClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", studentDriverClass);
+    Attribute studentPassengerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", studentPassangerClass);
+    Attribute studentCustomerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", studentCustomerClass);
 
-    Attribute studentBusClassAttributeCapacity = null;
-    Attribute studentBusClassAttributeNumberPlate = null;
-    Attribute studentDriverClassAttributeName = null;
-    Attribute studentPassengerClassAttributeName = null;
-    Attribute studentCustomerClassAttributeName = null;
+    Association studentBusCustomerAssociation = MistakeDetectionTest
+        .getAssociationFromClassDiagram(studentBusClass, studentCustomerClass, classDiagram1);
 
-    for (var c : classDiagram1.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        studentBusClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("capacity".equals(a.getName())) {
-            studentBusClassAttributeCapacity = a;
-          }
-          if ("numberPlate".equals(a.getName())) {
-            studentBusClassAttributeNumberPlate = a;
-          }
-        }
-      } else if ("Driver".equals(c.getName())) {
-        studentDriverClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            studentDriverClassAttributeName = a;
-          }
-
-        }
-      } else if ("Passanger".equals(c.getName())) {
-        studentPassangerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            studentPassengerClassAttributeName = a;
-          }
-        }
-      } else if ("Customer".equals(c.getName())) {
-        studentCustomerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            studentCustomerClassAttributeName = a;
-          }
-        }
-      }
-    }
-    Association studentBusCustomerAssociation=null;
-
-    for (var assoc : classDiagram1.getAssociations()) {
-      if("Bus_Customer".equals(assoc.getName())) {
-        studentBusCustomerAssociation=assoc;
-      }
-    }
     var comparison = MistakeDetection.compare(solution, solution1);
 
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
@@ -809,79 +612,37 @@ public class MistakeDetectionWrongAttributeTest {
     var student = maf1.createStudent();
     solution1.setStudent(student);
 
-    Classifier instructorBusClass = null;
-    Classifier instructorDriverClass = null;
-    Classifier instructorPassangerClass = null;
+    Classifier instructorBusClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram);
+    Classifier instructorDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram);
+    Classifier instructorPassangerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram);
 
-    Attribute instructorBusClassAttributeCapacity = null;
-    Attribute instructorBusClassAttributeNumberPlate = null;
-    Attribute instructorDriverClassAttributeName = null;
-    Attribute instructorPassengerClassAttributeName = null;
+    Attribute instructorBusClassAttributeCapacity =
+        MistakeDetectionTest.getAttributeFromClass("capacity", instructorBusClass);
+    Attribute instructorBusClassAttributeNumberPlate =
+        MistakeDetectionTest.getAttributeFromClass("numberPlate", instructorBusClass);
+    Attribute instructorDriverClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorDriverClass);
+    Attribute instructorPassengerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorPassangerClass);
 
-    for (var c : classDiagram.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        instructorBusClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("capacity".equals(a.getName())) {
-            instructorBusClassAttributeCapacity = a;
-          }
-          if ("numberPlate".equals(a.getName())) {
-            instructorBusClassAttributeNumberPlate = a;
-          }
-        }
-      } else if ("Driver".equals(c.getName())) {
-        instructorDriverClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorDriverClassAttributeName = a;
-          }
-        }
-      } else if ("Passanger".equals(c.getName())) {
-        instructorPassangerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorPassengerClassAttributeName = a;
-          }
-        }
-      }
-    }
+    Classifier studentBusClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram1);
+    Classifier studentDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram1);
+    Classifier studentCustomerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Customer", classDiagram1);
 
-    Classifier studentBusClass = null;
-    Classifier studentDriverClass = null;
-    Classifier studentCustomerClass = null;
-
-    Attribute studentBusClassAttributeCapacity = null;
-    Attribute studentBusClassAttributeNumberPlate = null;
-    Attribute studentDriverClassAttributeName = null;
-    Attribute studentCustomerClassAttributeName = null;
-
-    for (var c : classDiagram1.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        studentBusClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("capacity".equals(a.getName())) {
-            studentBusClassAttributeCapacity = a;
-          }
-          if ("numberPlate".equals(a.getName())) {
-            studentBusClassAttributeNumberPlate = a;
-          }
-        }
-      } else if ("Driver".equals(c.getName())) {
-        studentDriverClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            studentDriverClassAttributeName = a;
-          }
-        }
-      } else if ("Customer".equals(c.getName())) {
-        studentCustomerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            studentCustomerClassAttributeName = a;
-          }
-        }
-      }
-    }
+    Attribute studentBusClassAttributeCapacity =
+        MistakeDetectionTest.getAttributeFromClass("capacity", studentBusClass);
+    Attribute studentBusClassAttributeNumberPlate =
+        MistakeDetectionTest.getAttributeFromClass("numberPlate", studentBusClass);
+    Attribute studentDriverClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", studentDriverClass);
+    Attribute studentCustomerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", studentCustomerClass);
 
     var comparison = MistakeDetection.compare(solution, solution1);
 
@@ -904,9 +665,9 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(comparison.mappedAttribute.get(instructorBusClassAttributeNumberPlate),
         studentBusClassAttributeNumberPlate);
     assertEquals(comparison.mappedAttribute.get(instructorDriverClassAttributeName),
-        studentDriverClassAttributeName);   
-    assertEquals(comparison.newMistakes.size(), 0+1); // 1 Incorrect Role Name
-    assertEquals(solution1.getMistakes().size(), 0+1);
+        studentDriverClassAttributeName);
+    assertEquals(comparison.newMistakes.size(), 1); // 1 Incorrect Role Name
+    assertEquals(solution1.getMistakes().size(), 1);
   }
 
   /**
@@ -939,79 +700,37 @@ public class MistakeDetectionWrongAttributeTest {
     var student = maf1.createStudent();
     solution1.setStudent(student);
 
-    Classifier instructorBusClass = null;
-    Classifier instructorDriverClass = null;
-    Classifier instructorPassangerClass = null;
+    Classifier instructorBusClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram);
+    Classifier instructorDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram);
+    Classifier instructorPassangerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram);
 
-    Attribute instructorBusClassAttributeCapacity = null;
-    Attribute instructorBusClassAttributeNumberPlate = null;
-    Attribute instructorDriverClassAttributeName = null;
-    Attribute instructorPassengerClassAttributeName = null;
+    Attribute instructorBusClassAttributeCapacity =
+        MistakeDetectionTest.getAttributeFromClass("capacity", instructorBusClass);
+    Attribute instructorBusClassAttributeNumberPlate =
+        MistakeDetectionTest.getAttributeFromClass("numberPlate", instructorBusClass);
+    Attribute instructorDriverClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorDriverClass);
+    Attribute instructorPassengerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorPassangerClass);
 
-    for (var c : classDiagram.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        instructorBusClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("capacity".equals(a.getName())) {
-            instructorBusClassAttributeCapacity = a;
-          }
-          if ("numberPlate".equals(a.getName())) {
-            instructorBusClassAttributeNumberPlate = a;
-          }
-        }
-      } else if ("Driver".equals(c.getName())) {
-        instructorDriverClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorDriverClassAttributeName = a;
-          }
-        }
-      } else if ("Passanger".equals(c.getName())) {
-        instructorPassangerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorPassengerClassAttributeName = a;
-          }
-        }
-      }
-    }
+    Classifier studentVehicleClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Vehicle", classDiagram1);
+    Classifier studentPilotClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Pilot", classDiagram1);
+    Classifier studentCustomerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Customer", classDiagram1);
 
-    Classifier studentVehicleClass = null;
-    Classifier studentPilotClass = null;
-    Classifier studentCustomerClass = null;
-
-    Attribute studentVehicleClassAttributeCapacity = null;
-    Attribute studentVehicleClassAttributeNumberPlate = null;
-    Attribute studentPilotClassAttributeName = null;
-    Attribute studentCustomerClassAttributeName = null;
-
-    for (var c : classDiagram1.getClasses()) {
-      if ("Vehicle".equals(c.getName())) {
-        studentVehicleClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("capacity".equals(a.getName())) {
-            studentVehicleClassAttributeCapacity = a;
-          }
-          if ("numberPlate".equals(a.getName())) {
-            studentVehicleClassAttributeNumberPlate = a;
-          }
-        }
-      } else if ("Pilot".equals(c.getName())) {
-        studentPilotClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            studentPilotClassAttributeName = a;
-          }
-        }
-      } else if ("Customer".equals(c.getName())) {
-        studentCustomerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            studentCustomerClassAttributeName = a;
-          }
-        }
-      }
-    }
+    Attribute studentVehicleClassAttributeCapacity =
+        MistakeDetectionTest.getAttributeFromClass("capacity", studentVehicleClass);
+    Attribute studentVehicleClassAttributeNumberPlate =
+        MistakeDetectionTest.getAttributeFromClass("numberPlate", studentVehicleClass);
+    Attribute studentPilotClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", studentPilotClass);
+    Attribute studentCustomerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", studentCustomerClass);
 
     var comparison = MistakeDetection.compare(solution, solution1);
 
@@ -1035,9 +754,9 @@ public class MistakeDetectionWrongAttributeTest {
         studentVehicleClassAttributeNumberPlate);
     assertEquals(comparison.mappedAttribute.get(instructorDriverClassAttributeName),
         studentPilotClassAttributeName);
-   
-    assertEquals(comparison.newMistakes.size(), 0+1); //1 Incorrect Role name 
-    assertEquals(solution1.getMistakes().size(), 0+1);
+
+    assertEquals(comparison.newMistakes.size(), 1); // 1 Incorrect Role name
+    assertEquals(solution1.getMistakes().size(), 1);
   }
 
   /**
@@ -1071,80 +790,37 @@ public class MistakeDetectionWrongAttributeTest {
     var student = maf1.createStudent();
     solution1.setStudent(student);
 
-    Classifier instructorBusClass = null;
-    Classifier instructorDriverClass = null;
-    Classifier instructorPassangerClass = null;
+    Classifier instructorBusClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram);
+    Classifier instructorDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram);
+    Classifier instructorPassangerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram);
 
-    Attribute instructorBusClassAttributeCapacity = null;
-    Attribute instructorBusClassAttributeNumberPlate = null;
-    Attribute instructorDriverClassAttributeName = null;
-    Attribute instructorPassengerClassAttributeName = null;
+    Attribute instructorBusClassAttributeCapacity =
+        MistakeDetectionTest.getAttributeFromClass("capacity", instructorBusClass);
+    Attribute instructorBusClassAttributeNumberPlate =
+        MistakeDetectionTest.getAttributeFromClass("numberPlate", instructorBusClass);
+    Attribute instructorDriverClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorDriverClass);
+    Attribute instructorPassengerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", instructorPassangerClass);
 
-    for (var c : classDiagram.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        instructorBusClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("capacity".equals(a.getName())) {
-            instructorBusClassAttributeCapacity = a;
-          }
-          if ("numberPlate".equals(a.getName())) {
-            instructorBusClassAttributeNumberPlate = a;
-          }
-        }
-      } else if ("Driver".equals(c.getName())) {
-        instructorDriverClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorDriverClassAttributeName = a;
-          }
-        }
-      } else if ("Passanger".equals(c.getName())) {
-        instructorPassangerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            instructorPassengerClassAttributeName = a;
-          }
-        }
-      }
-    }
+    Classifier studentBusClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram1);
+    Classifier studentDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram1);
+    Classifier studentPassangerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram1);
 
-    Classifier studentBusClass = null;
-    Classifier studentDriverClass = null;
-    Classifier studentPassangerClass = null;
-
-    Attribute studentBusClassAttributeCapacity = null;
-    Attribute studentBusClassAttributeNumberPlate = null;
-    Attribute studentDriverClassAttributeName = null;
-    Attribute studentPassengerClassAttributeName = null;
-
-    for (var c : classDiagram1.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        studentBusClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("capacity".equals(a.getName())) {
-            studentBusClassAttributeCapacity = a;
-          }
-          if ("numberPlate".equals(a.getName())) {
-            studentBusClassAttributeNumberPlate = a;
-          }
-        }
-      } else if ("Driver".equals(c.getName())) {
-        studentDriverClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            studentDriverClassAttributeName = a;
-          }
-        }
-      } else if ("Passanger".equals(c.getName())) {
-        studentPassangerClass = c;
-        for (Attribute a : c.getAttributes()) {
-          if ("name".equals(a.getName())) {
-            studentPassengerClassAttributeName = a;
-          }
-        }
-      }
-    }
-
+    Attribute studentBusClassAttributeCapacity =
+        MistakeDetectionTest.getAttributeFromClass("capacity", studentBusClass);
+    Attribute studentBusClassAttributeNumberPlate =
+        MistakeDetectionTest.getAttributeFromClass("numberPlate", studentBusClass);
+    Attribute studentDriverClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", studentDriverClass);
+    Attribute studentPassengerClassAttributeName =
+        MistakeDetectionTest.getAttributeFromClass("name", studentPassangerClass);
     var comparison = MistakeDetection.compare(solution, solution1);
 
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);

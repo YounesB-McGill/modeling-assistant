@@ -2,7 +2,6 @@ package ca.mcgill.sel.mistakedetection.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import classdiagram.Association;
@@ -47,29 +46,25 @@ public class MistakeDetectionWrongRelationshipsTest {
     var student = maf1.createStudent();
     solution1.setStudent(student);
 
-    Association instructorBusDriverAssociation=null;
-    Association instructorBusPassangerAssociation=null;
+    Classifier instructorBusClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram);
+    Classifier instructorDriverClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram);
+    Classifier instructorPassangerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram);
 
-    for (var assoc : classDiagram.getAssociations()) {
-      if("Driver_Bus".equals(assoc.getName())) {
-        instructorBusDriverAssociation=assoc;
-      }
-      if("Passanger_Bus".equals(assoc.getName())) {
-        instructorBusPassangerAssociation=assoc;
-      }
-    }
+    Association instructorBusDriverAssociation = MistakeDetectionTest.getAssociationFromClassDiagram(instructorBusClass, instructorDriverClass, classDiagram);
+    Association instructorBusPassangerAssociation = MistakeDetectionTest.getAssociationFromClassDiagram(instructorBusClass,
+            instructorPassangerClass, classDiagram);
 
-    Association studentBusDriverAssociation=null;
-    Association studentBusPassangerAssociation=null;
+    Classifier studentBusClass = MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram1);
+    Classifier studentDriverClass = MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram1);
+    Classifier studentPassangerClass = MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram1);
 
-    for (var assoc : classDiagram1.getAssociations()) {
-      if("Driver_Bus".equals(assoc.getName())) {
-        studentBusDriverAssociation=assoc;
-      }
-      if("Bus_Passanger".equals(assoc.getName())) {
-        studentBusPassangerAssociation=assoc;
-      }
-    }
+    Association studentBusDriverAssociation =
+        MistakeDetectionTest.getAssociationFromClassDiagram(studentBusClass, studentDriverClass, classDiagram1);
+    Association studentBusPassangerAssociation =
+        MistakeDetectionTest.getAssociationFromClassDiagram(studentBusClass, studentPassangerClass, classDiagram1);
 
     var comparison = MistakeDetection.compare(solution, solution1);
 
@@ -86,12 +81,15 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(comparison.extraStudentAssociation.size(), 0);
     assertEquals(comparison.mappedAssociation.size(), 2);
 
-    assertEquals(comparison.mappedAssociation.get(instructorBusDriverAssociation), studentBusDriverAssociation);
-    assertEquals(comparison.mappedAssociation.get(instructorBusPassangerAssociation), studentBusPassangerAssociation);
+    assertEquals(comparison.mappedAssociation.get(instructorBusDriverAssociation),
+        studentBusDriverAssociation);
+    assertEquals(comparison.mappedAssociation.get(instructorBusPassangerAssociation),
+        studentBusPassangerAssociation);
 
     assertEquals(comparison.newMistakes.size(), 0);
     assertEquals(solution1.getMistakes().size(), 0);
   }
+
   /**
    * Test for checking mapping between instructor classifier(Bus, Driver) and Student
    * classifier(Buses, Drivr) and Mistake WrongClassName and WrongAssociationName
@@ -122,30 +120,16 @@ public class MistakeDetectionWrongRelationshipsTest {
     var student = maf1.createStudent();
     solution1.setStudent(student);
 
-    Classifier instructorBusClass = null;
-    Classifier instructorDriverClass = null;
-    AssociationEnd instructorMyDriverAssociation =null;
-    for (var c : classDiagram.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        instructorBusClass = c;
-        instructorMyDriverAssociation =c.getAssociationEnds().get(0);
-      }else if ("Driver".equals(c.getName()))
-        instructorDriverClass = c;
-    }
+    Classifier instructorBusClass = MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram);
+    Classifier instructorDriverClass = MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram);
 
-    Classifier studentBusClass = null;
-    Classifier studentDrivrClass = null;
-    AssociationEnd StudentMyDrivrAssociation =null;
-    for (var c : classDiagram1.getClasses()) {
-      if ("Bus".equals(c.getName())) {
-        studentBusClass = c;
-        StudentMyDrivrAssociation =c.getAssociationEnds().get(0);
-      }else if ("Drivr".equals(c.getName()))
-        studentDrivrClass = c;
-    }   
-    
-    assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusClass));
-    assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDrivrClass));
+    Classifier studentBusClass = MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram1);
+    Classifier studentDrivrClass = MistakeDetectionTest.getClassFromClassDiagram("Drivr", classDiagram1);
+
+    AssociationEnd instructorMyDriverAssociationEnd = MistakeDetectionTest.getAssociationEndFromClass("myDriver", instructorBusClass);
+
+    AssociationEnd StudentMyDrivrAssociationEnd = MistakeDetectionTest.getAssociationEndFromClass("myDrivr", studentBusClass);
+
 
     var comparison = MistakeDetection.compare(solution, solution1);
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
@@ -167,18 +151,11 @@ public class MistakeDetectionWrongRelationshipsTest {
         assertEquals(m.getNumDetection(), 1);
         assertFalse(m.isResolved());
       }
-      if (m.getMistakeType() == MistakeTypes.BAD_ASSOCIATION_NAME_SPELLING
-          && m.getStudentElements().get(0).getElement() == studentDrivrClass) {
-        assertEquals(m.getStudentElements().get(0).getElement(), studentDrivrClass);
-        assertEquals(m.getInstructorElements().get(0).getElement(), instructorDriverClass);
-        assertEquals(m.getNumDetectionSinceResolved(), 0);
-        assertEquals(m.getNumDetection(), 1);
-        assertFalse(m.isResolved());
-      }
       if (m.getMistakeType() == MistakeTypes.BAD_ROLE_NAME_SPELLING
-          && m.getStudentElements().get(0).getElement() == StudentMyDrivrAssociation) {
-        assertEquals(m.getStudentElements().get(0).getElement(), StudentMyDrivrAssociation);
-        assertEquals(m.getInstructorElements().get(0).getElement(), instructorMyDriverAssociation);
+          && m.getStudentElements().get(0).getElement() == StudentMyDrivrAssociationEnd) {
+        assertEquals(m.getStudentElements().get(0).getElement(), StudentMyDrivrAssociationEnd);
+        assertEquals(m.getInstructorElements().get(0).getElement(),
+            instructorMyDriverAssociationEnd);
         assertEquals(m.getNumDetectionSinceResolved(), 0);
         assertEquals(m.getNumDetection(), 1);
         assertFalse(m.isResolved());
