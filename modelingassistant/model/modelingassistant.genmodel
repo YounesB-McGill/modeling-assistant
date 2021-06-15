@@ -24,10 +24,9 @@
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//ProblemStatement">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ProblemStatement/problemStatementElements"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//ProblemStatement/text"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference modelingassistant.ecore#//ProblemStatement/modelingAssistant"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ProblemStatement/studentSolution"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ProblemStatement/instructorSolution"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ProblemStatement/studentSolutions"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//ProblemStatementElement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ProblemStatementElement/problemStatement"/>
@@ -40,7 +39,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/classDiagram"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/mistakes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/currentMistake"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/studentProblemStatement"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/instructorProblemStatement"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/tagGroups"/>
     </genClasses>
