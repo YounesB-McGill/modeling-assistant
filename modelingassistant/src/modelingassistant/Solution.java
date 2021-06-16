@@ -23,8 +23,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.Solution#getClassDiagram <em>Class Diagram</em>}</li>
  *   <li>{@link modelingassistant.Solution#getMistakes <em>Mistakes</em>}</li>
  *   <li>{@link modelingassistant.Solution#getCurrentMistake <em>Current Mistake</em>}</li>
- *   <li>{@link modelingassistant.Solution#getStudentProblemStatement <em>Student Problem Statement</em>}</li>
- *   <li>{@link modelingassistant.Solution#getInstructorProblemStatement <em>Instructor Problem Statement</em>}</li>
+ *   <li>{@link modelingassistant.Solution#getTagGroups <em>Tag Groups</em>}</li>
+ *   <li>{@link modelingassistant.Solution#getProblemStatement <em>Problem Statement</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getSolution()
@@ -153,51 +153,39 @@ public interface Solution extends EObject {
   void setCurrentMistake(Mistake value);
 
   /**
-   * Returns the value of the '<em><b>Student Problem Statement</b></em>' reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.ProblemStatement#getStudentSolution <em>Student Solution</em>}'.
+   * Returns the value of the '<em><b>Tag Groups</b></em>' containment reference list.
+   * The list contents are of type {@link modelingassistant.TagGroup}.
+   * It is bidirectional and its opposite is '{@link modelingassistant.TagGroup#getSolution <em>Solution</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Student Problem Statement</em>' reference.
-   * @see #setStudentProblemStatement(ProblemStatement)
-   * @see modelingassistant.ModelingassistantPackage#getSolution_StudentProblemStatement()
-   * @see modelingassistant.ProblemStatement#getStudentSolution
-   * @model opposite="studentSolution" required="true"
+   * @return the value of the '<em>Tag Groups</em>' containment reference list.
+   * @see modelingassistant.ModelingassistantPackage#getSolution_TagGroups()
+   * @see modelingassistant.TagGroup#getSolution
+   * @model opposite="solution" containment="true"
    * @generated
    */
-  ProblemStatement getStudentProblemStatement();
+  EList<TagGroup> getTagGroups();
 
   /**
-   * Sets the value of the '{@link modelingassistant.Solution#getStudentProblemStatement <em>Student Problem Statement</em>}' reference.
+   * Returns the value of the '<em><b>Problem Statement</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Student Problem Statement</em>' reference.
-   * @see #getStudentProblemStatement()
+   * @return the value of the '<em>Problem Statement</em>' reference.
+   * @see #setProblemStatement(ProblemStatement)
+   * @see modelingassistant.ModelingassistantPackage#getSolution_ProblemStatement()
+   * @model required="true"
    * @generated
    */
-  void setStudentProblemStatement(ProblemStatement value);
+  ProblemStatement getProblemStatement();
 
   /**
-   * Returns the value of the '<em><b>Instructor Problem Statement</b></em>' reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.ProblemStatement#getInstructorSolution <em>Instructor Solution</em>}'.
+   * Sets the value of the '{@link modelingassistant.Solution#getProblemStatement <em>Problem Statement</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Instructor Problem Statement</em>' reference.
-   * @see #setInstructorProblemStatement(ProblemStatement)
-   * @see modelingassistant.ModelingassistantPackage#getSolution_InstructorProblemStatement()
-   * @see modelingassistant.ProblemStatement#getInstructorSolution
-   * @model opposite="instructorSolution" required="true"
+   * @param value the new value of the '<em>Problem Statement</em>' reference.
+   * @see #getProblemStatement()
    * @generated
    */
-  ProblemStatement getInstructorProblemStatement();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.Solution#getInstructorProblemStatement <em>Instructor Problem Statement</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Instructor Problem Statement</em>' reference.
-   * @see #getInstructorProblemStatement()
-   * @generated
-   */
-  void setInstructorProblemStatement(ProblemStatement value);
+  void setProblemStatement(ProblemStatement value);
 
 } // Solution

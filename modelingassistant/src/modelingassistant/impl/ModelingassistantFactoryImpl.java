@@ -3,6 +3,7 @@
 package modelingassistant.impl;
 
 import java.sql.Time;
+import modelingassistant.*;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -74,6 +75,8 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
       case ModelingassistantPackage.STUDENT_KNOWLEDGE: return createStudentKnowledge();
       case ModelingassistantPackage.MISTAKE: return createMistake();
       case ModelingassistantPackage.FEEDBACK_ITEM: return createFeedbackItem();
+      case ModelingassistantPackage.TAG: return createTag();
+      case ModelingassistantPackage.TAG_GROUP: return createTagGroup();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -206,6 +209,28 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
   public FeedbackItem createFeedbackItem() {
     FeedbackItemImpl feedbackItem = new FeedbackItemImpl();
     return feedbackItem;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Tag createTag() {
+    TagImpl tag = new TagImpl();
+    return tag;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public TagGroup createTagGroup() {
+    TagGroupImpl tagGroup = new TagGroupImpl();
+    return tagGroup;
   }
 
   /**

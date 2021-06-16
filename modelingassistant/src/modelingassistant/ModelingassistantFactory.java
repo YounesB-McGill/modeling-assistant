@@ -115,6 +115,24 @@ public interface ModelingassistantFactory extends EFactory {
   FeedbackItem createFeedbackItem();
 
   /**
+   * Returns a new object of class '<em>Tag</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Tag</em>'.
+   * @generated
+   */
+  Tag createTag();
+
+  /**
+   * Returns a new object of class '<em>Tag Group</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Tag Group</em>'.
+   * @generated
+   */
+  TagGroup createTagGroup();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
