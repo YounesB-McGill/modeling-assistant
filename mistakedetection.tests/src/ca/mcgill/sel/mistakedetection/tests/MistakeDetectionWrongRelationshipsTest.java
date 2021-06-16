@@ -50,21 +50,21 @@ public class MistakeDetectionWrongRelationshipsTest {
         MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram);
     Classifier instructorDriverClass =
         MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram);
-    Classifier instructorPassangerClass =
-        MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram);
+    Classifier instructorPassengerClass =
+        MistakeDetectionTest.getClassFromClassDiagram("Passenger", classDiagram);
 
     Association instructorBusDriverAssociation = MistakeDetectionTest.getAssociationFromClassDiagram(instructorBusClass, instructorDriverClass, classDiagram);
-    Association instructorBusPassangerAssociation = MistakeDetectionTest.getAssociationFromClassDiagram(instructorBusClass,
-            instructorPassangerClass, classDiagram);
+    Association instructorBusPassengerAssociation = MistakeDetectionTest.getAssociationFromClassDiagram(instructorBusClass,
+            instructorPassengerClass, classDiagram);
 
     Classifier studentBusClass = MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram1);
     Classifier studentDriverClass = MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram1);
-    Classifier studentPassangerClass = MistakeDetectionTest.getClassFromClassDiagram("Passanger", classDiagram1);
+    Classifier studentPassengerClass = MistakeDetectionTest.getClassFromClassDiagram("Passenger", classDiagram1);
 
     Association studentBusDriverAssociation =
         MistakeDetectionTest.getAssociationFromClassDiagram(studentBusClass, studentDriverClass, classDiagram1);
-    Association studentBusPassangerAssociation =
-        MistakeDetectionTest.getAssociationFromClassDiagram(studentBusClass, studentPassangerClass, classDiagram1);
+    Association studentBusPassengerAssociation =
+        MistakeDetectionTest.getAssociationFromClassDiagram(studentBusClass, studentPassengerClass, classDiagram1);
 
     var comparison = MistakeDetection.compare(solution, solution1);
 
@@ -83,8 +83,8 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     assertEquals(comparison.mappedAssociation.get(instructorBusDriverAssociation),
         studentBusDriverAssociation);
-    assertEquals(comparison.mappedAssociation.get(instructorBusPassangerAssociation),
-        studentBusPassangerAssociation);
+    assertEquals(comparison.mappedAssociation.get(instructorBusPassengerAssociation),
+        studentBusPassengerAssociation);
 
     assertEquals(comparison.newMistakes.size(), 0);
     assertEquals(solution1.getMistakes().size(), 0);

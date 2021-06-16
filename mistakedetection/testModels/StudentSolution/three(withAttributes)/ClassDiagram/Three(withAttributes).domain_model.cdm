@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_rCqm4L3sEeu5L_I95B1uRg" name="Three(withAttributes)-a">
-  <classes xsi:type="classdiagram:Class" xmi:id="_sagjkL3sEeu5L_I95B1uRg" name="Passanger">
+  <classes xsi:type="classdiagram:Class" xmi:id="_sagjkL3sEeu5L_I95B1uRg" name="Passenger">
     <associationEnds xmi:id="_87EL0b3sEeu5L_I95B1uRg" name="myBus" assoc="_87EL0r3sEeu5L_I95B1uRg" lowerBound="1"/>
     <attributes xmi:id="_yxmogL3sEeu5L_I95B1uRg" name="nam" type="_rCqm573sEeu5L_I95B1uRg"/>
   </classes>
@@ -10,7 +10,7 @@
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_v58e4L3sEeu5L_I95B1uRg" name="Bus">
     <associationEnds xmi:id="_8k-nEL3sEeu5L_I95B1uRg" name="myDriver" assoc="_8k-nEr3sEeu5L_I95B1uRg" lowerBound="1"/>
-    <associationEnds xmi:id="_87EL0L3sEeu5L_I95B1uRg" name="myPassanger" assoc="_87EL0r3sEeu5L_I95B1uRg" lowerBound="1"/>
+    <associationEnds xmi:id="_87EL0L3sEeu5L_I95B1uRg" name="myPassenger" assoc="_87EL0r3sEeu5L_I95B1uRg" lowerBound="1"/>
     <attributes xmi:id="_04KsYL3sEeu5L_I95B1uRg" name="capacty" type="_rCqm5b3sEeu5L_I95B1uRg"/>
     <attributes xmi:id="_58LY0L3sEeu5L_I95B1uRg" name="namberPlate" type="_rCqm573sEeu5L_I95B1uRg"/>
   </classes>
@@ -25,7 +25,7 @@
   <types xsi:type="classdiagram:CDFloat" xmi:id="_rCqm6b3sEeu5L_I95B1uRg"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_rCqm6r3sEeu5L_I95B1uRg"/>
   <associations xmi:id="_8k-nEr3sEeu5L_I95B1uRg" name="Bus_Driver" ends="_8k-nEL3sEeu5L_I95B1uRg _8k-nEb3sEeu5L_I95B1uRg"/>
-  <associations xmi:id="_87EL0r3sEeu5L_I95B1uRg" name="Bus_Passanger" ends="_87EL0L3sEeu5L_I95B1uRg _87EL0b3sEeu5L_I95B1uRg"/>
+  <associations xmi:id="_87EL0r3sEeu5L_I95B1uRg" name="Bus_Passenger" ends="_87EL0L3sEeu5L_I95B1uRg _87EL0b3sEeu5L_I95B1uRg"/>
   <layout xmi:id="_rCqm673sEeu5L_I95B1uRg">
     <containers xmi:id="_rCqm7L3sEeu5L_I95B1uRg" key="_rCqm4L3sEeu5L_I95B1uRg">
       <value xmi:id="_sb2nYL3sEeu5L_I95B1uRg" key="_sagjkL3sEeu5L_I95B1uRg">
