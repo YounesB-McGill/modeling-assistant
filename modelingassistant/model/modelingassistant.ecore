@@ -30,9 +30,9 @@
         upperBound="-1" eType="#//ProblemStatementElement" containment="true" eOpposite="#//ProblemStatementElement/problemStatement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
         eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/problemStatements"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="instructorSolution" lowerBound="1"
-        eType="#//Solution" eOpposite="#//Solution/instructorProblemStatement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="studentSolutions" upperBound="-1"
+        eType="#//Solution"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instructorSolution" lowerBound="1"
         eType="#//Solution"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProblemStatementElement" eSuperTypes="#//NamedElement">
@@ -53,10 +53,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakes" upperBound="-1"
         eType="#//Mistake" containment="true" eOpposite="#//Mistake/studentSolution"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="currentMistake" eType="#//Mistake"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="instructorProblemStatement"
-        eType="#//ProblemStatement" eOpposite="#//ProblemStatement/instructorSolution"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tagGroups" upperBound="-1"
         eType="#//TagGroup" containment="true" eOpposite="#//TagGroup/solution"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatement" lowerBound="1"
+        eType="#//ProblemStatement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SolutionElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatementElements"
