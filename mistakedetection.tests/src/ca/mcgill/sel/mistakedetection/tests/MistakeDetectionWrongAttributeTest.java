@@ -16,7 +16,7 @@ import classdiagram.Classifier;
 import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantFactory;
-import modelingassistant.util.ResourceHelper;;
+import modelingassistant.util.ResourceHelper;
 
 public class MistakeDetectionWrongAttributeTest {
   /**

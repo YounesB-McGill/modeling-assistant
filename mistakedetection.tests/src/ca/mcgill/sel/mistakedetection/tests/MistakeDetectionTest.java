@@ -147,7 +147,6 @@ public class MistakeDetectionTest {
     Classifier studentBusClass = getClassFromClassDiagram("Bus", classDiagram1);
     Classifier studentDriverClass = getClassFromClassDiagram("Driver", classDiagram1);
 
-
     assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusClass));
     assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriverClass));
 
@@ -835,22 +834,22 @@ public class MistakeDetectionTest {
 
     System.out.println();
     System.out.println("Mistakes : ");
-    comparison.newMistakes.forEach((m) -> {
+    comparison.newMistakes.forEach(m -> {
       if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
         System.out.print(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements : ");
         m.getInstructorElements()
-            .forEach((ie) -> System.out.print(ie.getElement().getName() + " "));
+            .forEach(ie -> System.out.print(ie.getElement().getName() + " "));
         System.out.print(" student Elements :");
-        m.getStudentElements().forEach((se) -> System.out.print(se.getElement().getName() + " "));
+        m.getStudentElements().forEach(se -> System.out.print(se.getElement().getName() + " "));
         System.out.println();
       } else if (!m.getInstructorElements().isEmpty()) {
         System.out.print(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements : ");
         m.getInstructorElements()
-            .forEach((ie) -> System.out.print(ie.getElement().getName() + " "));
+            .forEach(ie -> System.out.print(ie.getElement().getName() + " "));
         System.out.println();
       } else if (!m.getStudentElements().isEmpty()) {
         System.out.print(" ' " + m.getMistakeType().getName() + " ' " + " Stud Elements : ");
-        m.getStudentElements().forEach((se) -> System.out.print(se.getElement().getName() + " "));
+        m.getStudentElements().forEach(se -> System.out.print(se.getElement().getName() + " "));
         System.out.println();
       } else {
         System.out.println(" ' " + m.getMistakeType().getName() + " ' ");
