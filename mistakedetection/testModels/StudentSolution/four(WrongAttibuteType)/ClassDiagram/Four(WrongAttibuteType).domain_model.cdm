@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_REdmML3xEeu5L_I95B1uRg" name="Four(WrongAttibuteType)a">
   <classes xsi:type="classdiagram:Class" xmi:id="_R5kpQL3xEeu5L_I95B1uRg" name="Bus">
-    <associationEnds xmi:id="_bSm1ML3xEeu5L_I95B1uRg" name="myPassanger" assoc="_bSm1Mr3xEeu5L_I95B1uRg" lowerBound="1"/>
+    <associationEnds xmi:id="_bSm1ML3xEeu5L_I95B1uRg" name="myPassenger" assoc="_bSm1Mr3xEeu5L_I95B1uRg" lowerBound="1"/>
     <associationEnds xmi:id="_bhjQIL3xEeu5L_I95B1uRg" name="myDriver" assoc="_bhj3Mb3xEeu5L_I95B1uRg" lowerBound="1"/>
     <attributes xmi:id="_THf08L3xEeu5L_I95B1uRg" name="capacity" type="_REdmN73xEeu5L_I95B1uRg"/>
     <attributes xmi:id="_Vh4zwL3xEeu5L_I95B1uRg" name="numberPlate" type="_REdmNb3xEeu5L_I95B1uRg"/>
@@ -10,7 +10,7 @@
     <associationEnds xmi:id="_bhj3ML3xEeu5L_I95B1uRg" name="myBus" assoc="_bhj3Mb3xEeu5L_I95B1uRg" lowerBound="1"/>
     <attributes xmi:id="_XOSrML3xEeu5L_I95B1uRg" name="name" type="_REdmNb3xEeu5L_I95B1uRg"/>
   </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="_Ym9HQL3xEeu5L_I95B1uRg" name="Passanger">
+  <classes xsi:type="classdiagram:Class" xmi:id="_Ym9HQL3xEeu5L_I95B1uRg" name="Passenger">
     <associationEnds xmi:id="_bSm1Mb3xEeu5L_I95B1uRg" name="myBus" assoc="_bSm1Mr3xEeu5L_I95B1uRg" lowerBound="1"/>
     <attributes xmi:id="_Z03E0L3xEeu5L_I95B1uRg" name="name" type="_REdmNb3xEeu5L_I95B1uRg"/>
   </classes>
@@ -24,7 +24,7 @@
   <types xsi:type="classdiagram:CDByte" xmi:id="_REdmOL3xEeu5L_I95B1uRg"/>
   <types xsi:type="classdiagram:CDFloat" xmi:id="_REdmOb3xEeu5L_I95B1uRg"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_REdmOr3xEeu5L_I95B1uRg"/>
-  <associations xmi:id="_bSm1Mr3xEeu5L_I95B1uRg" name="Bus_Passanger" ends="_bSm1ML3xEeu5L_I95B1uRg _bSm1Mb3xEeu5L_I95B1uRg"/>
+  <associations xmi:id="_bSm1Mr3xEeu5L_I95B1uRg" name="Bus_Passenger" ends="_bSm1ML3xEeu5L_I95B1uRg _bSm1Mb3xEeu5L_I95B1uRg"/>
   <associations xmi:id="_bhj3Mb3xEeu5L_I95B1uRg" name="Bus_Driver" ends="_bhjQIL3xEeu5L_I95B1uRg _bhj3ML3xEeu5L_I95B1uRg"/>
   <layout xmi:id="_REdmO73xEeu5L_I95B1uRg">
     <containers xmi:id="_REdmPL3xEeu5L_I95B1uRg" key="_REdmML3xEeu5L_I95B1uRg">
