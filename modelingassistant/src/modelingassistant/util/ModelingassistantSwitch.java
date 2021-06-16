@@ -129,6 +129,18 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ModelingassistantPackage.TAG: {
+        Tag tag = (Tag)theEObject;
+        T result = caseTag(tag);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ModelingassistantPackage.TAG_GROUP: {
+        TagGroup tagGroup = (TagGroup)theEObject;
+        T result = caseTagGroup(tagGroup);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
@@ -280,6 +292,36 @@ public class ModelingassistantSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseFeedbackItem(FeedbackItem object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tag</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tag</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTag(Tag object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tag Group</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tag Group</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTagGroup(TagGroup object) {
     return null;
   }
 

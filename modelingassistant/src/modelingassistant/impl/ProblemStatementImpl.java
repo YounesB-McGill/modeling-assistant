@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -34,9 +34,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link modelingassistant.impl.ProblemStatementImpl#getProblemStatementElements <em>Problem Statement Elements</em>}</li>
- *   <li>{@link modelingassistant.impl.ProblemStatementImpl#getText <em>Text</em>}</li>
  *   <li>{@link modelingassistant.impl.ProblemStatementImpl#getModelingAssistant <em>Modeling Assistant</em>}</li>
- *   <li>{@link modelingassistant.impl.ProblemStatementImpl#getStudentSolution <em>Student Solution</em>}</li>
+ *   <li>{@link modelingassistant.impl.ProblemStatementImpl#getStudentSolutions <em>Student Solutions</em>}</li>
  *   <li>{@link modelingassistant.impl.ProblemStatementImpl#getInstructorSolution <em>Instructor Solution</em>}</li>
  * </ul>
  *
@@ -54,34 +53,14 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
   protected EList<ProblemStatementElement> problemStatementElements;
 
   /**
-   * The default value of the '{@link #getText() <em>Text</em>}' attribute.
+   * The cached value of the '{@link #getStudentSolutions() <em>Student Solutions</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getText()
+   * @see #getStudentSolutions()
    * @generated
    * @ordered
    */
-  protected static final String TEXT_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getText() <em>Text</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getText()
-   * @generated
-   * @ordered
-   */
-  protected String text = TEXT_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getStudentSolution() <em>Student Solution</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getStudentSolution()
-   * @generated
-   * @ordered
-   */
-  protected EList<Solution> studentSolution;
+  protected EList<Solution> studentSolutions;
 
   /**
    * The cached value of the '{@link #getInstructorSolution() <em>Instructor Solution</em>}' reference.
@@ -123,29 +102,6 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
       problemStatementElements = new EObjectContainmentWithInverseEList<ProblemStatementElement>(ProblemStatementElement.class, this, ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS, ModelingassistantPackage.PROBLEM_STATEMENT_ELEMENT__PROBLEM_STATEMENT);
     }
     return problemStatementElements;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String getText() {
-    return text;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setText(String newText) {
-    String oldText = text;
-    text = newText;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.PROBLEM_STATEMENT__TEXT, oldText, text));
   }
 
   /**
@@ -197,11 +153,11 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
    * @generated
    */
   @Override
-  public EList<Solution> getStudentSolution() {
-    if (studentSolution == null) {
-      studentSolution = new EObjectWithInverseResolvingEList<Solution>(Solution.class, this, ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTION, ModelingassistantPackage.SOLUTION__STUDENT_PROBLEM_STATEMENT);
+  public EList<Solution> getStudentSolutions() {
+    if (studentSolutions == null) {
+      studentSolutions = new EObjectResolvingEList<Solution>(Solution.class, this, ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTIONS);
     }
-    return studentSolution;
+    return studentSolutions;
   }
 
   /**
@@ -236,34 +192,12 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetInstructorSolution(Solution newInstructorSolution, NotificationChain msgs) {
-    Solution oldInstructorSolution = instructorSolution;
-    instructorSolution = newInstructorSolution;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION, oldInstructorSolution, newInstructorSolution);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public void setInstructorSolution(Solution newInstructorSolution) {
-    if (newInstructorSolution != instructorSolution) {
-      NotificationChain msgs = null;
-      if (instructorSolution != null)
-        msgs = ((InternalEObject)instructorSolution).eInverseRemove(this, ModelingassistantPackage.SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT, Solution.class, msgs);
-      if (newInstructorSolution != null)
-        msgs = ((InternalEObject)newInstructorSolution).eInverseAdd(this, ModelingassistantPackage.SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT, Solution.class, msgs);
-      msgs = basicSetInstructorSolution(newInstructorSolution, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION, newInstructorSolution, newInstructorSolution));
+    Solution oldInstructorSolution = instructorSolution;
+    instructorSolution = newInstructorSolution;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION, oldInstructorSolution, instructorSolution));
   }
 
   /**
@@ -281,12 +215,6 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
         if (eInternalContainer() != null)
           msgs = eBasicRemoveFromContainer(msgs);
         return basicSetModelingAssistant((ModelingAssistant)otherEnd, msgs);
-      case ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTION:
-        return ((InternalEList<InternalEObject>)(InternalEList<?>)getStudentSolution()).basicAdd(otherEnd, msgs);
-      case ModelingassistantPackage.PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION:
-        if (instructorSolution != null)
-          msgs = ((InternalEObject)instructorSolution).eInverseRemove(this, ModelingassistantPackage.SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT, Solution.class, msgs);
-        return basicSetInstructorSolution((Solution)otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -303,10 +231,6 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
         return ((InternalEList<?>)getProblemStatementElements()).basicRemove(otherEnd, msgs);
       case ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT:
         return basicSetModelingAssistant(null, msgs);
-      case ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTION:
-        return ((InternalEList<?>)getStudentSolution()).basicRemove(otherEnd, msgs);
-      case ModelingassistantPackage.PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION:
-        return basicSetInstructorSolution(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -335,12 +259,10 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
     switch (featureID) {
       case ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS:
         return getProblemStatementElements();
-      case ModelingassistantPackage.PROBLEM_STATEMENT__TEXT:
-        return getText();
       case ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT:
         return getModelingAssistant();
-      case ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTION:
-        return getStudentSolution();
+      case ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTIONS:
+        return getStudentSolutions();
       case ModelingassistantPackage.PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION:
         if (resolve) return getInstructorSolution();
         return basicGetInstructorSolution();
@@ -361,15 +283,12 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
         getProblemStatementElements().clear();
         getProblemStatementElements().addAll((Collection<? extends ProblemStatementElement>)newValue);
         return;
-      case ModelingassistantPackage.PROBLEM_STATEMENT__TEXT:
-        setText((String)newValue);
-        return;
       case ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT:
         setModelingAssistant((ModelingAssistant)newValue);
         return;
-      case ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTION:
-        getStudentSolution().clear();
-        getStudentSolution().addAll((Collection<? extends Solution>)newValue);
+      case ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTIONS:
+        getStudentSolutions().clear();
+        getStudentSolutions().addAll((Collection<? extends Solution>)newValue);
         return;
       case ModelingassistantPackage.PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION:
         setInstructorSolution((Solution)newValue);
@@ -389,14 +308,11 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
       case ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS:
         getProblemStatementElements().clear();
         return;
-      case ModelingassistantPackage.PROBLEM_STATEMENT__TEXT:
-        setText(TEXT_EDEFAULT);
-        return;
       case ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT:
         setModelingAssistant((ModelingAssistant)null);
         return;
-      case ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTION:
-        getStudentSolution().clear();
+      case ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTIONS:
+        getStudentSolutions().clear();
         return;
       case ModelingassistantPackage.PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION:
         setInstructorSolution((Solution)null);
@@ -415,32 +331,14 @@ public class ProblemStatementImpl extends NamedElementImpl implements ProblemSta
     switch (featureID) {
       case ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS:
         return problemStatementElements != null && !problemStatementElements.isEmpty();
-      case ModelingassistantPackage.PROBLEM_STATEMENT__TEXT:
-        return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
       case ModelingassistantPackage.PROBLEM_STATEMENT__MODELING_ASSISTANT:
         return getModelingAssistant() != null;
-      case ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTION:
-        return studentSolution != null && !studentSolution.isEmpty();
+      case ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTIONS:
+        return studentSolutions != null && !studentSolutions.isEmpty();
       case ModelingassistantPackage.PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION:
         return instructorSolution != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString() {
-    if (eIsProxy()) return super.toString();
-
-    StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (text: ");
-    result.append(text);
-    result.append(')');
-    return result.toString();
   }
 
 } //ProblemStatementImpl

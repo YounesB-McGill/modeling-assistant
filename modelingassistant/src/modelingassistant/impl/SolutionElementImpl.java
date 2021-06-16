@@ -12,6 +12,7 @@ import modelingassistant.ProblemStatementElement;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
 
+import modelingassistant.Tag;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -23,6 +24,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -40,6 +42,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link modelingassistant.impl.SolutionElementImpl#getStudentElementMistakes <em>Student Element Mistakes</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionElementImpl#getElement <em>Element</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionElementImpl#getInstructorElementMistakes <em>Instructor Element Mistakes</em>}</li>
+ *   <li>{@link modelingassistant.impl.SolutionElementImpl#getTags <em>Tags</em>}</li>
  * </ul>
  *
  * @generated
@@ -84,6 +87,16 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected EList<Mistake> instructorElementMistakes;
+
+  /**
+   * The cached value of the '{@link #getTags() <em>Tags</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTags()
+   * @generated
+   * @ordered
+   */
+  protected EList<Tag> tags;
 
   /**
    * <!-- begin-user-doc -->
@@ -231,6 +244,19 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public EList<Tag> getTags() {
+    if (tags == null) {
+      tags = new EObjectContainmentWithInverseEList<Tag>(Tag.class, this, ModelingassistantPackage.SOLUTION_ELEMENT__TAGS, ModelingassistantPackage.TAG__SOLUTIONELEMENT);
+    }
+    return tags;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -245,6 +271,8 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getStudentElementMistakes()).basicAdd(otherEnd, msgs);
       case ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getInstructorElementMistakes()).basicAdd(otherEnd, msgs);
+      case ModelingassistantPackage.SOLUTION_ELEMENT__TAGS:
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getTags()).basicAdd(otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -265,6 +293,8 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
         return ((InternalEList<?>)getStudentElementMistakes()).basicRemove(otherEnd, msgs);
       case ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES:
         return ((InternalEList<?>)getInstructorElementMistakes()).basicRemove(otherEnd, msgs);
+      case ModelingassistantPackage.SOLUTION_ELEMENT__TAGS:
+        return ((InternalEList<?>)getTags()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -302,6 +332,8 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
         return basicGetElement();
       case ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES:
         return getInstructorElementMistakes();
+      case ModelingassistantPackage.SOLUTION_ELEMENT__TAGS:
+        return getTags();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -333,6 +365,10 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
         getInstructorElementMistakes().clear();
         getInstructorElementMistakes().addAll((Collection<? extends Mistake>)newValue);
         return;
+      case ModelingassistantPackage.SOLUTION_ELEMENT__TAGS:
+        getTags().clear();
+        getTags().addAll((Collection<? extends Tag>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -360,6 +396,9 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
       case ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES:
         getInstructorElementMistakes().clear();
         return;
+      case ModelingassistantPackage.SOLUTION_ELEMENT__TAGS:
+        getTags().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -382,6 +421,8 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
         return element != null;
       case ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES:
         return instructorElementMistakes != null && !instructorElementMistakes.isEmpty();
+      case ModelingassistantPackage.SOLUTION_ELEMENT__TAGS:
+        return tags != null && !tags.isEmpty();
     }
     return super.eIsSet(featureID);
   }

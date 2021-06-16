@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -49,8 +48,7 @@ public class ProblemStatementItemProvider extends NamedElementItemProvider {
       super.getPropertyDescriptors(object);
 
       addProblemStatementElementsPropertyDescriptor(object);
-      addTextPropertyDescriptor(object);
-      addStudentSolutionPropertyDescriptor(object);
+      addStudentSolutionsPropertyDescriptor(object);
       addInstructorSolutionPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
@@ -79,41 +77,19 @@ public class ProblemStatementItemProvider extends NamedElementItemProvider {
   }
 
   /**
-   * This adds a property descriptor for the Text feature.
+   * This adds a property descriptor for the Student Solutions feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addTextPropertyDescriptor(Object object) {
+  protected void addStudentSolutionsPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_ProblemStatement_text_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_ProblemStatement_text_feature", "_UI_ProblemStatement_type"),
-         ModelingassistantPackage.Literals.PROBLEM_STATEMENT__TEXT,
-         true,
-         false,
-         false,
-         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Student Solution feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addStudentSolutionPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_ProblemStatement_studentSolution_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_ProblemStatement_studentSolution_feature", "_UI_ProblemStatement_type"),
-         ModelingassistantPackage.Literals.PROBLEM_STATEMENT__STUDENT_SOLUTION,
+         getString("_UI_ProblemStatement_studentSolutions_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_ProblemStatement_studentSolutions_feature", "_UI_ProblemStatement_type"),
+         ModelingassistantPackage.Literals.PROBLEM_STATEMENT__STUDENT_SOLUTIONS,
          true,
          false,
          true,
@@ -212,9 +188,6 @@ public class ProblemStatementItemProvider extends NamedElementItemProvider {
     updateChildren(notification);
 
     switch (notification.getFeatureID(ProblemStatement.class)) {
-      case ModelingassistantPackage.PROBLEM_STATEMENT__TEXT:
-        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-        return;
       case ModelingassistantPackage.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
