@@ -481,7 +481,7 @@ public class MistakeDetection {
       return false;
     }
     for (int i = 0; i < existingMistake.getInstructorElements().size(); i++) {
-      if (!compareElement(existingMistake.getInstructorElements().get(i),newMistake.getInstructorElements().get(i))) {
+      if (!compareElement(existingMistake.getInstructorElements().get(i), newMistake.getInstructorElements().get(i))) {
         return false;
       }
     }
@@ -494,12 +494,13 @@ public class MistakeDetection {
       return false;
     }
     for (int i = 0; i < existingMistake.getStudentElements().size(); i++) {
-      if (!compareElement(existingMistake.getStudentElements().get(i),newMistake.getStudentElements().get(i))) {
+      if (!compareElement(existingMistake.getStudentElements().get(i), newMistake.getStudentElements().get(i))) {
         return false;
       }
     }
     return true;
   }
+
 /**
  * Function returns true if both elements are equal
  *
@@ -508,18 +509,15 @@ public class MistakeDetection {
  * @return boolean
  */
   private static boolean compareElement(SolutionElement existingElement, SolutionElement newElement) {
-    if(existingElement.getElement().equals(newElement.getElement())) {
-      return true;
-    }
-    return false;
+    return existingElement.getElement().equals(newElement.getElement());
   }
 
   /** Sets the properties of a mistake. */
   private static void setMistakeProperties(Mistake mistake, boolean isResolved, int numDetection,
-      int numDetectionSiceResolved) {
+      int numDetectionSinceResolved) {
     mistake.setResolved(isResolved);
     mistake.setNumDetection(numDetection);
-    mistake.setNumDetectionSinceResolved(numDetectionSiceResolved);
+    mistake.setNumDetectionSinceResolved(numDetectionSinceResolved);
   }
 
   /**

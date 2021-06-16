@@ -4,14 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import classdiagram.Attribute;
-import classdiagram.Classifier;
-import modelingassistant.ModelingassistantFactory;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 
 public class MistakeDetectionHelperFunctionLogicTest {
 
@@ -36,7 +30,7 @@ public class MistakeDetectionHelperFunctionLogicTest {
     List.of("Car", "Driver").forEach(s -> assertFalse(MistakeDetection.isPlural(s)));
     List.of("Cars", "People", "Men").forEach(s -> assertTrue(MistakeDetection.isPlural(s)));
   }
-  
+
   /**
    * Tests for checking Spelling Mistake in Class Name, eg Cars.
    */
@@ -48,7 +42,7 @@ public class MistakeDetectionHelperFunctionLogicTest {
     class2 = "Cer";
     assertEquals(1, MistakeDetection.levenshteinDistance(class1, class2));
   }
-  
+
   /**
    * Test to check if isLowerName working correctly.
    */
@@ -56,5 +50,5 @@ public class MistakeDetectionHelperFunctionLogicTest {
   public void testCheckLowerCase() {
     assertTrue(MistakeDetection.isLowerName("class1"));
     assertFalse(MistakeDetection.isLowerName("Class1"));
-  }  
+  }
 }
