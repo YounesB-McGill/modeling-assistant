@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_Xh6GIHU0EeuKi-O_HNyfjA" name="Two(withAttribute)">
-  <classes xsi:type="classdiagram:Class" xmi:id="_X3-cwHU0EeuKi-O_HNyfjA" name="Passanger">
+  <classes xsi:type="classdiagram:Class" xmi:id="_X3-cwHU0EeuKi-O_HNyfjA" name="Passenger">
     <associationEnds xmi:id="_Dt4skXU1EeuKi-O_HNyfjA" name="myBus" assoc="_Dt4sknU1EeuKi-O_HNyfjA" lowerBound="1"/>
     <attributes xmi:id="_CjJXwHU1EeuKi-O_HNyfjA" name="name" type="_Xh6GJ3U0EeuKi-O_HNyfjA"/>
   </classes>
@@ -9,7 +9,7 @@
     <attributes xmi:id="_-mf8AHU0EeuKi-O_HNyfjA" name="name" type="_Xh6GJ3U0EeuKi-O_HNyfjA"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_aRhHAHU0EeuKi-O_HNyfjA" name="Bus">
-    <associationEnds xmi:id="_Dt4skHU1EeuKi-O_HNyfjA" name="myPassanger" assoc="_Dt4sknU1EeuKi-O_HNyfjA" lowerBound="1"/>
+    <associationEnds xmi:id="_Dt4skHU1EeuKi-O_HNyfjA" name="myPassenger" assoc="_Dt4sknU1EeuKi-O_HNyfjA" lowerBound="1"/>
     <associationEnds xmi:id="_EO9ZUXU1EeuKi-O_HNyfjA" name="myDriver" assoc="_EO9ZUnU1EeuKi-O_HNyfjA" lowerBound="1"/>
     <attributes xmi:id="_7QfpgHU0EeuKi-O_HNyfjA" name="capacity" type="_Xh6GJXU0EeuKi-O_HNyfjA"/>
     <attributes xmi:id="_Bokl4HU1EeuKi-O_HNyfjA" name="numberPlate" type="_Xh6GJ3U0EeuKi-O_HNyfjA"/>
@@ -24,7 +24,7 @@
   <types xsi:type="classdiagram:CDByte" xmi:id="_Xh6GKHU0EeuKi-O_HNyfjA"/>
   <types xsi:type="classdiagram:CDFloat" xmi:id="_Xh6GKXU0EeuKi-O_HNyfjA"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_Xh6GKnU0EeuKi-O_HNyfjA"/>
-  <associations xmi:id="_Dt4sknU1EeuKi-O_HNyfjA" name="Bus_Passanger" ends="_Dt4skHU1EeuKi-O_HNyfjA _Dt4skXU1EeuKi-O_HNyfjA"/>
+  <associations xmi:id="_Dt4sknU1EeuKi-O_HNyfjA" name="Bus_Passenger" ends="_Dt4skHU1EeuKi-O_HNyfjA _Dt4skXU1EeuKi-O_HNyfjA"/>
   <associations xmi:id="_EO9ZUnU1EeuKi-O_HNyfjA" name="Driver_Bus" ends="_EO9ZUHU1EeuKi-O_HNyfjA _EO9ZUXU1EeuKi-O_HNyfjA"/>
   <layout xmi:id="_Xh6GK3U0EeuKi-O_HNyfjA">
     <containers xmi:id="_Xh6GLHU0EeuKi-O_HNyfjA" key="_Xh6GIHU0EeuKi-O_HNyfjA">

@@ -47,8 +47,7 @@ public class MistakeDetectionTest {
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    List.of(busClass, driverClass)
-        .forEach(c -> assertTrue(solution.getClassDiagram().getClasses().contains(c)));
+    assertTrue(solution.getClassDiagram().getClasses().containsAll(List.of(busClass, driverClass)));
   }
 
   /**
@@ -93,14 +92,14 @@ public class MistakeDetectionTest {
 
     Classifier busClass = getClassFromClassDiagram("Bus", classDiagram);
     Classifier driverClass = getClassFromClassDiagram("Driver", classDiagram);
-    Classifier passangerClass = getClassFromClassDiagram("Passanger", classDiagram);
+    Classifier passangerClass = getClassFromClassDiagram("Passenger", classDiagram);
 
     assertEquals(busClass, classDiagram.getClasses().get(0));
     assertEquals("Bus", busClass.getName());
     assertEquals(driverClass, classDiagram.getClasses().get(1));
     assertEquals("Driver", driverClass.getName());
     assertEquals(passangerClass, classDiagram.getClasses().get(2));
-    assertEquals("Passanger", passangerClass.getName());
+    assertEquals("Passenger", passangerClass.getName());
 
     var maf = ModelingassistantFactory.eINSTANCE;
     var modelingAssistant = maf.createModelingAssistant();
@@ -142,10 +141,8 @@ public class MistakeDetectionTest {
     var student = maf.createStudent();
     solution1.setStudent(student);
 
-    Classifier instructorBusClass =
-        instructorBusClass = getClassFromClassDiagram("Bus", classDiagram);
-    Classifier instructorDriverClass =
-        instructorDriverClass = getClassFromClassDiagram("Driver", classDiagram);
+    Classifier instructorBusClass = getClassFromClassDiagram("Bus", classDiagram);
+    Classifier instructorDriverClass = getClassFromClassDiagram("Driver", classDiagram);
 
     Classifier studentBusClass = getClassFromClassDiagram("Bus", classDiagram1);
     Classifier studentDriverClass = getClassFromClassDiagram("Driver", classDiagram1);
@@ -380,7 +377,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Test to check for mapped classifiers(Passanger,Bus,Driver) and attributes Spelling Mistakes
+   * Test to check for mapped classifiers(Passenger,Bus,Driver) and attributes Spelling Mistakes
    * (nam,capacty,nme,noPlate)
    */
   @Test
@@ -410,7 +407,7 @@ public class MistakeDetectionTest {
 
     Classifier instructorBusClass = getClassFromClassDiagram("Bus", classDiagram);
     Classifier instructorDriverClass = getClassFromClassDiagram("Driver", classDiagram);
-    Classifier instructorPassangerClass = getClassFromClassDiagram("Passanger", classDiagram);
+    Classifier instructorPassengerClass = getClassFromClassDiagram("Passenger", classDiagram);
 
     Attribute instructorBusClassAttributeCapacity =
         getAttributeFromClass("capacity", instructorBusClass);
@@ -419,22 +416,22 @@ public class MistakeDetectionTest {
     Attribute instructorDriverClassAttributeName =
         getAttributeFromClass("name", instructorDriverClass);
     Attribute instructorPassengerClassAttributeName =
-        getAttributeFromClass("name", instructorPassangerClass);
+        getAttributeFromClass("name", instructorPassengerClass);
 
     Classifier studentBusClass = getClassFromClassDiagram("Bus", classDiagram1);
     Classifier studentDriverClass = getClassFromClassDiagram("Driver", classDiagram1);
-    Classifier studentPassangerClass = getClassFromClassDiagram("Passanger", classDiagram1);
+    Classifier studentPassengerClass = getClassFromClassDiagram("Passenger", classDiagram1);
 
     Attribute studentBusClassAttributeCapacty = getAttributeFromClass("capacty", studentBusClass);
     Attribute studentBusClassAttributeNamberPlate =
         getAttributeFromClass("namberPlate", studentBusClass);
     Attribute studentDriverClassAttributeNme = getAttributeFromClass("nme", studentDriverClass);
     Attribute studentPassengerClassAttributeNam =
-        getAttributeFromClass("nam", studentPassangerClass);
+        getAttributeFromClass("nam", studentPassengerClass);
 
     assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusClass));
     assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriverClass));
-    assertTrue(MistakeDetection.checkCorrectTest(instructorPassangerClass, studentPassangerClass));
+    assertTrue(MistakeDetection.checkCorrectTest(instructorPassengerClass, studentPassengerClass));
 
     var comparison = MistakeDetection.compare(solution, solution1);
 
@@ -444,7 +441,7 @@ public class MistakeDetectionTest {
 
     assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriverClass);
-    assertEquals(comparison.mappedClassifier.get(instructorPassangerClass), studentPassangerClass);
+    assertEquals(comparison.mappedClassifier.get(instructorPassengerClass), studentPassengerClass);
 
     assertEquals(comparison.notMappedInstructorAttribute.size(), 0);
     assertEquals(comparison.extraStudentAttribute.size(), 0);
@@ -504,7 +501,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Test to check for mapped classifiers(Passanger,Bus,Driver) and
+   * Test to check for mapped classifiers(Passenger,Bus,Driver) and
    * attributes(name,capacity,name,numberPlate) with Wrong Attribute Types
    */
   @Test
@@ -535,7 +532,7 @@ public class MistakeDetectionTest {
 
     Classifier instructorBusClass = getClassFromClassDiagram("Bus", classDiagram);
     Classifier instructorDriverClass = getClassFromClassDiagram("Driver", classDiagram);
-    Classifier instructorPassangerClass = getClassFromClassDiagram("Passanger", classDiagram);
+    Classifier instructorPassengerClass = getClassFromClassDiagram("Passenger", classDiagram);
 
     Attribute instructorBusClassAttributeCapacity =
         getAttributeFromClass("capacity", instructorBusClass);
@@ -544,22 +541,22 @@ public class MistakeDetectionTest {
     Attribute instructorDriverClassAttributeName =
         getAttributeFromClass("name", instructorDriverClass);
     Attribute instructorPassengerClassAttributeName =
-        getAttributeFromClass("name", instructorPassangerClass);
+        getAttributeFromClass("name", instructorPassengerClass);
 
     Classifier studentBusClass = getClassFromClassDiagram("Bus", classDiagram1);
     Classifier studentDriverClass = getClassFromClassDiagram("Driver", classDiagram1);
-    Classifier studentPassangerClass = getClassFromClassDiagram("Passanger", classDiagram1);
+    Classifier studentPassengerClass = getClassFromClassDiagram("Passenger", classDiagram1);
 
     Attribute studentBusClassAttributeCapacity = getAttributeFromClass("capacity", studentBusClass);
     Attribute studentBusClassAttributeNumberPlate =
         getAttributeFromClass("numberPlate", studentBusClass);
     Attribute studentDriverClassAttributeName = getAttributeFromClass("name", studentDriverClass);
     Attribute studentPassengerClassAttributeName =
-        getAttributeFromClass("name", studentPassangerClass);
+        getAttributeFromClass("name", studentPassengerClass);
 
     assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusClass));
     assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriverClass));
-    assertTrue(MistakeDetection.checkCorrectTest(instructorPassangerClass, studentPassangerClass));
+    assertTrue(MistakeDetection.checkCorrectTest(instructorPassengerClass, studentPassengerClass));
 
     var comparison = MistakeDetection.compare(solution, solution1);
 
@@ -569,7 +566,7 @@ public class MistakeDetectionTest {
 
     assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriverClass);
-    assertEquals(comparison.mappedClassifier.get(instructorPassangerClass), studentPassangerClass);
+    assertEquals(comparison.mappedClassifier.get(instructorPassengerClass), studentPassengerClass);
 
     assertEquals(comparison.notMappedInstructorAttribute.size(), 0);
     assertEquals(comparison.extraStudentAttribute.size(), 0);
@@ -638,7 +635,7 @@ public class MistakeDetectionTest {
 
     assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriverClass);
-    assertEquals(comparison.mappedClassifier.get(instructorPassangerClass), studentPassangerClass);
+    assertEquals(comparison.mappedClassifier.get(instructorPassengerClass), studentPassengerClass);
 
     assertEquals(comparison.notMappedInstructorAttribute.size(), 0);
     assertEquals(comparison.extraStudentAttribute.size(), 0);
@@ -714,7 +711,6 @@ public class MistakeDetectionTest {
     if (seekedClass == null) {
       throw new IllegalArgumentException("No Class Found, Please check the class name");
     }
-
     return seekedClass;
   }
 
@@ -843,18 +839,18 @@ public class MistakeDetectionTest {
       if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
         System.out.print(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements : ");
         m.getInstructorElements()
-            .forEach((IE) -> System.out.print(IE.getElement().getName() + " "));
+            .forEach((ie) -> System.out.print(ie.getElement().getName() + " "));
         System.out.print(" student Elements :");
-        m.getStudentElements().forEach((SE) -> System.out.print(SE.getElement().getName() + " "));
+        m.getStudentElements().forEach((se) -> System.out.print(se.getElement().getName() + " "));
         System.out.println();
       } else if (!m.getInstructorElements().isEmpty()) {
         System.out.print(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements : ");
         m.getInstructorElements()
-            .forEach((IE) -> System.out.print(IE.getElement().getName() + " "));
+            .forEach((ie) -> System.out.print(ie.getElement().getName() + " "));
         System.out.println();
       } else if (!m.getStudentElements().isEmpty()) {
         System.out.print(" ' " + m.getMistakeType().getName() + " ' " + " Stud Elements : ");
-        m.getStudentElements().forEach((SE) -> System.out.print(SE.getElement().getName() + " "));
+        m.getStudentElements().forEach((se) -> System.out.print(se.getElement().getName() + " "));
         System.out.println();
       } else {
         System.out.println(" ' " + m.getMistakeType().getName() + " ' ");

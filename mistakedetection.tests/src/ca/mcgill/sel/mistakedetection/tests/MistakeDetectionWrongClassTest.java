@@ -1,5 +1,6 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -98,25 +99,11 @@ public class MistakeDetectionWrongClassTest {
     var student = maf1.createStudent();
     solution1.setStudent(student);
 
-    Classifier instructorBusClass = null;
-    Classifier instructorDriverClass = null;
+    Classifier instructorBusClass = getClassFromClassDiagram("Bus", classDiagram);
+    Classifier instructorDriverClass = getClassFromClassDiagram("Driver", classDiagram);
 
-    for (var c : classDiagram.getClasses()) {
-      if ("Bus".equals(c.getName()))
-        instructorBusClass = c;
-      else if ("Driver".equals(c.getName()))
-        instructorDriverClass = c;
-    }
-
-    Classifier studentBusClass = null;
-    Classifier studentDriverClass = null;
-
-    for (var c : classDiagram1.getClasses()) {
-      if ("Bus".equals(c.getName()))
-        studentBusClass = c;
-      else if ("Driver".equals(c.getName()))
-        studentDriverClass = c;
-    }
+    Classifier studentBusClass = getClassFromClassDiagram("Bus", classDiagram1);
+    Classifier studentDriverClass = getClassFromClassDiagram("Driver", classDiagram1);
 
     assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusClass));
     assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriverClass));
@@ -162,25 +149,11 @@ public class MistakeDetectionWrongClassTest {
     var student = maf1.createStudent();
     solution1.setStudent(student);
 
-    Classifier instructorBusClass = null;
-    Classifier instructorDriverClass = null;
+    Classifier instructorBusClass = getClassFromClassDiagram("Bus", classDiagram);
+    Classifier instructorDriverClass = getClassFromClassDiagram("Driver", classDiagram);
 
-    for (var c : classDiagram.getClasses()) {
-      if ("Bus".equals(c.getName()))
-        instructorBusClass = c;
-      else if ("Driver".equals(c.getName()))
-        instructorDriverClass = c;
-    }
-
-    Classifier studentBusesClass = null;
-    Classifier studentDriversClass = null;
-
-    for (var c : classDiagram1.getClasses()) {
-      if ("Buses".equals(c.getName()))
-        studentBusesClass = c;
-      else if ("Drivers".equals(c.getName()))
-        studentDriversClass = c;
-    }
+    Classifier studentBusesClass = getClassFromClassDiagram("Buses", classDiagram1);
+    Classifier studentDriversClass = getClassFromClassDiagram("Drivers", classDiagram1);
 
     assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusesClass));
     assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriversClass));

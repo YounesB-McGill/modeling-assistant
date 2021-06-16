@@ -6,12 +6,12 @@
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_YrkXkMdfEeuRYuvNZbXRdg" name="Bus">
     <associationEnds xmi:id="_khO-AMdfEeuRYuvNZbXRdg" name="myCustomer" assoc="_khO-AsdfEeuRYuvNZbXRdg" lowerBound="1"/>
-    <associationEnds xmi:id="_l9wmYMdfEeuRYuvNZbXRdg" name="myPassanger" assoc="_l9wmYsdfEeuRYuvNZbXRdg" lowerBound="1"/>
+    <associationEnds xmi:id="_l9wmYMdfEeuRYuvNZbXRdg" name="myPassenger" assoc="_l9wmYsdfEeuRYuvNZbXRdg" lowerBound="1"/>
     <associationEnds xmi:id="_mSHs0MdfEeuRYuvNZbXRdg" name="myDriver" assoc="_mSHs0sdfEeuRYuvNZbXRdg" lowerBound="1"/>
     <attributes xmi:id="_iS3pAMdfEeuRYuvNZbXRdg" name="capacity" type="_Vt-lFcdfEeuRYuvNZbXRdg"/>
     <attributes xmi:id="_jeK-gMdfEeuRYuvNZbXRdg" name="numberPlate" type="_Vt-lF8dfEeuRYuvNZbXRdg"/>
   </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="_ZSqz0MdfEeuRYuvNZbXRdg" name="Passanger">
+  <classes xsi:type="classdiagram:Class" xmi:id="_ZSqz0MdfEeuRYuvNZbXRdg" name="Passenger">
     <associationEnds xmi:id="_l9wmYcdfEeuRYuvNZbXRdg" name="myBus" assoc="_l9wmYsdfEeuRYuvNZbXRdg" lowerBound="1"/>
     <attributes xmi:id="_fYMAkMdfEeuRYuvNZbXRdg" name="name" type="_Vt-lF8dfEeuRYuvNZbXRdg"/>
   </classes>
@@ -30,7 +30,7 @@
   <types xsi:type="classdiagram:CDFloat" xmi:id="_Vt-lGcdfEeuRYuvNZbXRdg"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_Vt-lGsdfEeuRYuvNZbXRdg"/>
   <associations xmi:id="_khO-AsdfEeuRYuvNZbXRdg" name="Bus_Customer" ends="_khO-AMdfEeuRYuvNZbXRdg _khO-AcdfEeuRYuvNZbXRdg"/>
-  <associations xmi:id="_l9wmYsdfEeuRYuvNZbXRdg" name="Bus_Passanger" ends="_l9wmYMdfEeuRYuvNZbXRdg _l9wmYcdfEeuRYuvNZbXRdg"/>
+  <associations xmi:id="_l9wmYsdfEeuRYuvNZbXRdg" name="Bus_Passenger" ends="_l9wmYMdfEeuRYuvNZbXRdg _l9wmYcdfEeuRYuvNZbXRdg"/>
   <associations xmi:id="_mSHs0sdfEeuRYuvNZbXRdg" name="Bus_Driver" ends="_mSHs0MdfEeuRYuvNZbXRdg _mSHs0cdfEeuRYuvNZbXRdg"/>
   <layout xmi:id="_Vt-lG8dfEeuRYuvNZbXRdg">
     <containers xmi:id="_Vt-lHMdfEeuRYuvNZbXRdg" key="_Vt-lEMdfEeuRYuvNZbXRdg">
