@@ -28,13 +28,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="ProblemStatement" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatementElements"
         upperBound="-1" eType="#//ProblemStatementElement" containment="true" eOpposite="#//ProblemStatementElement/problemStatement"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
         eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/problemStatements"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="studentSolution" upperBound="-1"
-        eType="#//Solution" eOpposite="#//Solution/studentProblemStatement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="studentSolutions" upperBound="-1"
+        eType="#//Solution"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="instructorSolution" lowerBound="1"
-        eType="#//Solution" eOpposite="#//Solution/instructorProblemStatement"/>
+        eType="#//Solution"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProblemStatementElement" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatement" lowerBound="1"
@@ -54,10 +53,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakes" upperBound="-1"
         eType="#//Mistake" containment="true" eOpposite="#//Mistake/studentSolution"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="currentMistake" eType="#//Mistake"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="studentProblemStatement"
-        lowerBound="1" eType="#//ProblemStatement" eOpposite="#//ProblemStatement/studentSolution"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="instructorProblemStatement"
-        lowerBound="1" eType="#//ProblemStatement" eOpposite="#//ProblemStatement/instructorSolution"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tagGroups" upperBound="-1"
+        eType="#//TagGroup" containment="true" eOpposite="#//TagGroup/solution"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatement" lowerBound="1"
+        eType="#//ProblemStatement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SolutionElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatementElements"
@@ -70,6 +69,8 @@
         eType="ecore:EClass classdiagram.ecore#//NamedElement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="instructorElementMistakes"
         upperBound="-1" eType="#//Mistake" eOpposite="#//Mistake/instructorElements"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tags" upperBound="-1" eType="#//Tag"
+        containment="true" eOpposite="#//Tag/solutionelement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StudentKnowledge">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="levelOfKnowledge" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -107,5 +108,17 @@
         eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/feedbackItems"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="usefulness" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feedback" eType="ecore:EClass learningcorpus.ecore#//Feedback"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Tag">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="solutionelement" lowerBound="1"
+        eType="#//SolutionElement" eOpposite="#//SolutionElement/tags"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tagGroup" lowerBound="1"
+        eType="#//TagGroup" eOpposite="#//TagGroup/tags"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TagGroup">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tags" upperBound="-1" eType="#//Tag"
+        eOpposite="#//Tag/tagGroup"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="solution" lowerBound="1"
+        eType="#//Solution" eOpposite="#//Solution/tagGroups"/>
   </eClassifiers>
 </ecore:EPackage>
