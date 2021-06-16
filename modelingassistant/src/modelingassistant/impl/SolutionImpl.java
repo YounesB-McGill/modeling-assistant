@@ -14,6 +14,7 @@ import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
 import modelingassistant.Student;
 
+import modelingassistant.TagGroup;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -43,8 +44,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link modelingassistant.impl.SolutionImpl#getClassDiagram <em>Class Diagram</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionImpl#getMistakes <em>Mistakes</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionImpl#getCurrentMistake <em>Current Mistake</em>}</li>
- *   <li>{@link modelingassistant.impl.SolutionImpl#getStudentProblemStatement <em>Student Problem Statement</em>}</li>
- *   <li>{@link modelingassistant.impl.SolutionImpl#getInstructorProblemStatement <em>Instructor Problem Statement</em>}</li>
+ *   <li>{@link modelingassistant.impl.SolutionImpl#getTagGroups <em>Tag Groups</em>}</li>
+ *   <li>{@link modelingassistant.impl.SolutionImpl#getProblemStatement <em>Problem Statement</em>}</li>
  * </ul>
  *
  * @generated
@@ -101,24 +102,24 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
   protected Mistake currentMistake;
 
   /**
-   * The cached value of the '{@link #getStudentProblemStatement() <em>Student Problem Statement</em>}' reference.
+   * The cached value of the '{@link #getTagGroups() <em>Tag Groups</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getStudentProblemStatement()
+   * @see #getTagGroups()
    * @generated
    * @ordered
    */
-  protected ProblemStatement studentProblemStatement;
+  protected EList<TagGroup> tagGroups;
 
   /**
-   * The cached value of the '{@link #getInstructorProblemStatement() <em>Instructor Problem Statement</em>}' reference.
+   * The cached value of the '{@link #getProblemStatement() <em>Problem Statement</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getInstructorProblemStatement()
+   * @see #getProblemStatement()
    * @generated
    * @ordered
    */
-  protected ProblemStatement instructorProblemStatement;
+  protected ProblemStatement problemStatement;
 
   /**
    * <!-- begin-user-doc -->
@@ -356,16 +357,29 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
    * @generated
    */
   @Override
-  public ProblemStatement getStudentProblemStatement() {
-    if (studentProblemStatement != null && studentProblemStatement.eIsProxy()) {
-      InternalEObject oldStudentProblemStatement = (InternalEObject)studentProblemStatement;
-      studentProblemStatement = (ProblemStatement)eResolveProxy(oldStudentProblemStatement);
-      if (studentProblemStatement != oldStudentProblemStatement) {
+  public EList<TagGroup> getTagGroups() {
+    if (tagGroups == null) {
+      tagGroups = new EObjectContainmentWithInverseEList<TagGroup>(TagGroup.class, this, ModelingassistantPackage.SOLUTION__TAG_GROUPS, ModelingassistantPackage.TAG_GROUP__SOLUTION);
+    }
+    return tagGroups;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public ProblemStatement getProblemStatement() {
+    if (problemStatement != null && problemStatement.eIsProxy()) {
+      InternalEObject oldProblemStatement = (InternalEObject)problemStatement;
+      problemStatement = (ProblemStatement)eResolveProxy(oldProblemStatement);
+      if (problemStatement != oldProblemStatement) {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.SOLUTION__STUDENT_PROBLEM_STATEMENT, oldStudentProblemStatement, studentProblemStatement));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.SOLUTION__PROBLEM_STATEMENT, oldProblemStatement, problemStatement));
       }
     }
-    return studentProblemStatement;
+    return problemStatement;
   }
 
   /**
@@ -373,23 +387,8 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
    * <!-- end-user-doc -->
    * @generated
    */
-  public ProblemStatement basicGetStudentProblemStatement() {
-    return studentProblemStatement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetStudentProblemStatement(ProblemStatement newStudentProblemStatement, NotificationChain msgs) {
-    ProblemStatement oldStudentProblemStatement = studentProblemStatement;
-    studentProblemStatement = newStudentProblemStatement;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.SOLUTION__STUDENT_PROBLEM_STATEMENT, oldStudentProblemStatement, newStudentProblemStatement);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
+  public ProblemStatement basicGetProblemStatement() {
+    return problemStatement;
   }
 
   /**
@@ -398,80 +397,11 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
    * @generated
    */
   @Override
-  public void setStudentProblemStatement(ProblemStatement newStudentProblemStatement) {
-    if (newStudentProblemStatement != studentProblemStatement) {
-      NotificationChain msgs = null;
-      if (studentProblemStatement != null)
-        msgs = ((InternalEObject)studentProblemStatement).eInverseRemove(this, ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTION, ProblemStatement.class, msgs);
-      if (newStudentProblemStatement != null)
-        msgs = ((InternalEObject)newStudentProblemStatement).eInverseAdd(this, ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTION, ProblemStatement.class, msgs);
-      msgs = basicSetStudentProblemStatement(newStudentProblemStatement, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.SOLUTION__STUDENT_PROBLEM_STATEMENT, newStudentProblemStatement, newStudentProblemStatement));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public ProblemStatement getInstructorProblemStatement() {
-    if (instructorProblemStatement != null && instructorProblemStatement.eIsProxy()) {
-      InternalEObject oldInstructorProblemStatement = (InternalEObject)instructorProblemStatement;
-      instructorProblemStatement = (ProblemStatement)eResolveProxy(oldInstructorProblemStatement);
-      if (instructorProblemStatement != oldInstructorProblemStatement) {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT, oldInstructorProblemStatement, instructorProblemStatement));
-      }
-    }
-    return instructorProblemStatement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ProblemStatement basicGetInstructorProblemStatement() {
-    return instructorProblemStatement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetInstructorProblemStatement(ProblemStatement newInstructorProblemStatement, NotificationChain msgs) {
-    ProblemStatement oldInstructorProblemStatement = instructorProblemStatement;
-    instructorProblemStatement = newInstructorProblemStatement;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT, oldInstructorProblemStatement, newInstructorProblemStatement);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setInstructorProblemStatement(ProblemStatement newInstructorProblemStatement) {
-    if (newInstructorProblemStatement != instructorProblemStatement) {
-      NotificationChain msgs = null;
-      if (instructorProblemStatement != null)
-        msgs = ((InternalEObject)instructorProblemStatement).eInverseRemove(this, ModelingassistantPackage.PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION, ProblemStatement.class, msgs);
-      if (newInstructorProblemStatement != null)
-        msgs = ((InternalEObject)newInstructorProblemStatement).eInverseAdd(this, ModelingassistantPackage.PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION, ProblemStatement.class, msgs);
-      msgs = basicSetInstructorProblemStatement(newInstructorProblemStatement, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT, newInstructorProblemStatement, newInstructorProblemStatement));
+  public void setProblemStatement(ProblemStatement newProblemStatement) {
+    ProblemStatement oldProblemStatement = problemStatement;
+    problemStatement = newProblemStatement;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.SOLUTION__PROBLEM_STATEMENT, oldProblemStatement, problemStatement));
   }
 
   /**
@@ -495,14 +425,8 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getSolutionElements()).basicAdd(otherEnd, msgs);
       case ModelingassistantPackage.SOLUTION__MISTAKES:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getMistakes()).basicAdd(otherEnd, msgs);
-      case ModelingassistantPackage.SOLUTION__STUDENT_PROBLEM_STATEMENT:
-        if (studentProblemStatement != null)
-          msgs = ((InternalEObject)studentProblemStatement).eInverseRemove(this, ModelingassistantPackage.PROBLEM_STATEMENT__STUDENT_SOLUTION, ProblemStatement.class, msgs);
-        return basicSetStudentProblemStatement((ProblemStatement)otherEnd, msgs);
-      case ModelingassistantPackage.SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT:
-        if (instructorProblemStatement != null)
-          msgs = ((InternalEObject)instructorProblemStatement).eInverseRemove(this, ModelingassistantPackage.PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION, ProblemStatement.class, msgs);
-        return basicSetInstructorProblemStatement((ProblemStatement)otherEnd, msgs);
+      case ModelingassistantPackage.SOLUTION__TAG_GROUPS:
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getTagGroups()).basicAdd(otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -523,10 +447,8 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         return ((InternalEList<?>)getSolutionElements()).basicRemove(otherEnd, msgs);
       case ModelingassistantPackage.SOLUTION__MISTAKES:
         return ((InternalEList<?>)getMistakes()).basicRemove(otherEnd, msgs);
-      case ModelingassistantPackage.SOLUTION__STUDENT_PROBLEM_STATEMENT:
-        return basicSetStudentProblemStatement(null, msgs);
-      case ModelingassistantPackage.SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT:
-        return basicSetInstructorProblemStatement(null, msgs);
+      case ModelingassistantPackage.SOLUTION__TAG_GROUPS:
+        return ((InternalEList<?>)getTagGroups()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -568,12 +490,11 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
       case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
         if (resolve) return getCurrentMistake();
         return basicGetCurrentMistake();
-      case ModelingassistantPackage.SOLUTION__STUDENT_PROBLEM_STATEMENT:
-        if (resolve) return getStudentProblemStatement();
-        return basicGetStudentProblemStatement();
-      case ModelingassistantPackage.SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT:
-        if (resolve) return getInstructorProblemStatement();
-        return basicGetInstructorProblemStatement();
+      case ModelingassistantPackage.SOLUTION__TAG_GROUPS:
+        return getTagGroups();
+      case ModelingassistantPackage.SOLUTION__PROBLEM_STATEMENT:
+        if (resolve) return getProblemStatement();
+        return basicGetProblemStatement();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -607,11 +528,12 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
       case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
         setCurrentMistake((Mistake)newValue);
         return;
-      case ModelingassistantPackage.SOLUTION__STUDENT_PROBLEM_STATEMENT:
-        setStudentProblemStatement((ProblemStatement)newValue);
+      case ModelingassistantPackage.SOLUTION__TAG_GROUPS:
+        getTagGroups().clear();
+        getTagGroups().addAll((Collection<? extends TagGroup>)newValue);
         return;
-      case ModelingassistantPackage.SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT:
-        setInstructorProblemStatement((ProblemStatement)newValue);
+      case ModelingassistantPackage.SOLUTION__PROBLEM_STATEMENT:
+        setProblemStatement((ProblemStatement)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -643,11 +565,11 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
       case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
         setCurrentMistake((Mistake)null);
         return;
-      case ModelingassistantPackage.SOLUTION__STUDENT_PROBLEM_STATEMENT:
-        setStudentProblemStatement((ProblemStatement)null);
+      case ModelingassistantPackage.SOLUTION__TAG_GROUPS:
+        getTagGroups().clear();
         return;
-      case ModelingassistantPackage.SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT:
-        setInstructorProblemStatement((ProblemStatement)null);
+      case ModelingassistantPackage.SOLUTION__PROBLEM_STATEMENT:
+        setProblemStatement((ProblemStatement)null);
         return;
     }
     super.eUnset(featureID);
@@ -673,10 +595,10 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         return mistakes != null && !mistakes.isEmpty();
       case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
         return currentMistake != null;
-      case ModelingassistantPackage.SOLUTION__STUDENT_PROBLEM_STATEMENT:
-        return studentProblemStatement != null;
-      case ModelingassistantPackage.SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT:
-        return instructorProblemStatement != null;
+      case ModelingassistantPackage.SOLUTION__TAG_GROUPS:
+        return tagGroups != null && !tagGroups.isEmpty();
+      case ModelingassistantPackage.SOLUTION__PROBLEM_STATEMENT:
+        return problemStatement != null;
     }
     return super.eIsSet(featureID);
   }

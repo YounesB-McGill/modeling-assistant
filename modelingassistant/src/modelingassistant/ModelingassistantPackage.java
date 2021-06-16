@@ -278,31 +278,22 @@ public interface ModelingassistantPackage extends EPackage {
   int PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Text</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROBLEM_STATEMENT__TEXT = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
    * The feature id for the '<em><b>Modeling Assistant</b></em>' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT__MODELING_ASSISTANT = NAMED_ELEMENT_FEATURE_COUNT + 2;
+  int PROBLEM_STATEMENT__MODELING_ASSISTANT = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Student Solution</b></em>' reference list.
+   * The feature id for the '<em><b>Student Solutions</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT__STUDENT_SOLUTION = NAMED_ELEMENT_FEATURE_COUNT + 3;
+  int PROBLEM_STATEMENT__STUDENT_SOLUTIONS = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Instructor Solution</b></em>' reference.
@@ -311,7 +302,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION = NAMED_ELEMENT_FEATURE_COUNT + 4;
+  int PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Problem Statement</em>' class.
@@ -320,7 +311,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int PROBLEM_STATEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 5;
+  int PROBLEM_STATEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The number of operations of the '<em>Problem Statement</em>' class.
@@ -451,22 +442,22 @@ public interface ModelingassistantPackage extends EPackage {
   int SOLUTION__CURRENT_MISTAKE = 5;
 
   /**
-   * The feature id for the '<em><b>Student Problem Statement</b></em>' reference.
+   * The feature id for the '<em><b>Tag Groups</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SOLUTION__STUDENT_PROBLEM_STATEMENT = 6;
+  int SOLUTION__TAG_GROUPS = 6;
 
   /**
-   * The feature id for the '<em><b>Instructor Problem Statement</b></em>' reference.
+   * The feature id for the '<em><b>Problem Statement</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT = 7;
+  int SOLUTION__PROBLEM_STATEMENT = 7;
 
   /**
    * The number of structural features of the '<em>Solution</em>' class.
@@ -542,13 +533,22 @@ public interface ModelingassistantPackage extends EPackage {
   int SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES = 4;
 
   /**
+   * The feature id for the '<em><b>Tags</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SOLUTION_ELEMENT__TAGS = 5;
+
+  /**
    * The number of structural features of the '<em>Solution Element</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SOLUTION_ELEMENT_FEATURE_COUNT = 5;
+  int SOLUTION_ELEMENT_FEATURE_COUNT = 6;
 
   /**
    * The number of operations of the '<em>Solution Element</em>' class.
@@ -806,6 +806,98 @@ public interface ModelingassistantPackage extends EPackage {
   int FEEDBACK_ITEM_OPERATION_COUNT = 0;
 
   /**
+   * The meta object id for the '{@link modelingassistant.impl.TagImpl <em>Tag</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see modelingassistant.impl.TagImpl
+   * @see modelingassistant.impl.ModelingassistantPackageImpl#getTag()
+   * @generated
+   */
+  int TAG = 10;
+
+  /**
+   * The feature id for the '<em><b>Solutionelement</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TAG__SOLUTIONELEMENT = 0;
+
+  /**
+   * The feature id for the '<em><b>Tag Group</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TAG__TAG_GROUP = 1;
+
+  /**
+   * The number of structural features of the '<em>Tag</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TAG_FEATURE_COUNT = 2;
+
+  /**
+   * The number of operations of the '<em>Tag</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TAG_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link modelingassistant.impl.TagGroupImpl <em>Tag Group</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see modelingassistant.impl.TagGroupImpl
+   * @see modelingassistant.impl.ModelingassistantPackageImpl#getTagGroup()
+   * @generated
+   */
+  int TAG_GROUP = 11;
+
+  /**
+   * The feature id for the '<em><b>Tags</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TAG_GROUP__TAGS = 0;
+
+  /**
+   * The feature id for the '<em><b>Solution</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TAG_GROUP__SOLUTION = 1;
+
+  /**
+   * The number of structural features of the '<em>Tag Group</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TAG_GROUP_FEATURE_COUNT = 2;
+
+  /**
+   * The number of operations of the '<em>Tag Group</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TAG_GROUP_OPERATION_COUNT = 0;
+
+  /**
    * The meta object id for the '<em>Time</em>' data type.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -813,7 +905,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @see modelingassistant.impl.ModelingassistantPackageImpl#getTime()
    * @generated
    */
-  int TIME = 10;
+  int TIME = 12;
 
 
   /**
@@ -968,17 +1060,6 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getProblemStatement_ProblemStatementElements();
 
   /**
-   * Returns the meta object for the attribute '{@link modelingassistant.ProblemStatement#getText <em>Text</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Text</em>'.
-   * @see modelingassistant.ProblemStatement#getText()
-   * @see #getProblemStatement()
-   * @generated
-   */
-  EAttribute getProblemStatement_Text();
-
-  /**
    * Returns the meta object for the container reference '{@link modelingassistant.ProblemStatement#getModelingAssistant <em>Modeling Assistant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -990,15 +1071,15 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getProblemStatement_ModelingAssistant();
 
   /**
-   * Returns the meta object for the reference list '{@link modelingassistant.ProblemStatement#getStudentSolution <em>Student Solution</em>}'.
+   * Returns the meta object for the reference list '{@link modelingassistant.ProblemStatement#getStudentSolutions <em>Student Solutions</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Student Solution</em>'.
-   * @see modelingassistant.ProblemStatement#getStudentSolution()
+   * @return the meta object for the reference list '<em>Student Solutions</em>'.
+   * @see modelingassistant.ProblemStatement#getStudentSolutions()
    * @see #getProblemStatement()
    * @generated
    */
-  EReference getProblemStatement_StudentSolution();
+  EReference getProblemStatement_StudentSolutions();
 
   /**
    * Returns the meta object for the reference '{@link modelingassistant.ProblemStatement#getInstructorSolution <em>Instructor Solution</em>}'.
@@ -1120,26 +1201,26 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getSolution_CurrentMistake();
 
   /**
-   * Returns the meta object for the reference '{@link modelingassistant.Solution#getStudentProblemStatement <em>Student Problem Statement</em>}'.
+   * Returns the meta object for the containment reference list '{@link modelingassistant.Solution#getTagGroups <em>Tag Groups</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Student Problem Statement</em>'.
-   * @see modelingassistant.Solution#getStudentProblemStatement()
+   * @return the meta object for the containment reference list '<em>Tag Groups</em>'.
+   * @see modelingassistant.Solution#getTagGroups()
    * @see #getSolution()
    * @generated
    */
-  EReference getSolution_StudentProblemStatement();
+  EReference getSolution_TagGroups();
 
   /**
-   * Returns the meta object for the reference '{@link modelingassistant.Solution#getInstructorProblemStatement <em>Instructor Problem Statement</em>}'.
+   * Returns the meta object for the reference '{@link modelingassistant.Solution#getProblemStatement <em>Problem Statement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Instructor Problem Statement</em>'.
-   * @see modelingassistant.Solution#getInstructorProblemStatement()
+   * @return the meta object for the reference '<em>Problem Statement</em>'.
+   * @see modelingassistant.Solution#getProblemStatement()
    * @see #getSolution()
    * @generated
    */
-  EReference getSolution_InstructorProblemStatement();
+  EReference getSolution_ProblemStatement();
 
   /**
    * Returns the meta object for class '{@link modelingassistant.SolutionElement <em>Solution Element</em>}'.
@@ -1205,6 +1286,17 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EReference getSolutionElement_InstructorElementMistakes();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link modelingassistant.SolutionElement#getTags <em>Tags</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Tags</em>'.
+   * @see modelingassistant.SolutionElement#getTags()
+   * @see #getSolutionElement()
+   * @generated
+   */
+  EReference getSolutionElement_Tags();
 
   /**
    * Returns the meta object for class '{@link modelingassistant.StudentKnowledge <em>Student Knowledge</em>}'.
@@ -1456,6 +1548,70 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getFeedbackItem_Feedback();
 
   /**
+   * Returns the meta object for class '{@link modelingassistant.Tag <em>Tag</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Tag</em>'.
+   * @see modelingassistant.Tag
+   * @generated
+   */
+  EClass getTag();
+
+  /**
+   * Returns the meta object for the container reference '{@link modelingassistant.Tag#getSolutionelement <em>Solutionelement</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the container reference '<em>Solutionelement</em>'.
+   * @see modelingassistant.Tag#getSolutionelement()
+   * @see #getTag()
+   * @generated
+   */
+  EReference getTag_Solutionelement();
+
+  /**
+   * Returns the meta object for the reference '{@link modelingassistant.Tag#getTagGroup <em>Tag Group</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Tag Group</em>'.
+   * @see modelingassistant.Tag#getTagGroup()
+   * @see #getTag()
+   * @generated
+   */
+  EReference getTag_TagGroup();
+
+  /**
+   * Returns the meta object for class '{@link modelingassistant.TagGroup <em>Tag Group</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Tag Group</em>'.
+   * @see modelingassistant.TagGroup
+   * @generated
+   */
+  EClass getTagGroup();
+
+  /**
+   * Returns the meta object for the reference list '{@link modelingassistant.TagGroup#getTags <em>Tags</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Tags</em>'.
+   * @see modelingassistant.TagGroup#getTags()
+   * @see #getTagGroup()
+   * @generated
+   */
+  EReference getTagGroup_Tags();
+
+  /**
+   * Returns the meta object for the container reference '{@link modelingassistant.TagGroup#getSolution <em>Solution</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the container reference '<em>Solution</em>'.
+   * @see modelingassistant.TagGroup#getSolution()
+   * @see #getTagGroup()
+   * @generated
+   */
+  EReference getTagGroup_Solution();
+
+  /**
    * Returns the meta object for data type '{@link java.sql.Time <em>Time</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1608,14 +1764,6 @@ public interface ModelingassistantPackage extends EPackage {
     EReference PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS = eINSTANCE.getProblemStatement_ProblemStatementElements();
 
     /**
-     * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute PROBLEM_STATEMENT__TEXT = eINSTANCE.getProblemStatement_Text();
-
-    /**
      * The meta object literal for the '<em><b>Modeling Assistant</b></em>' container reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1624,12 +1772,12 @@ public interface ModelingassistantPackage extends EPackage {
     EReference PROBLEM_STATEMENT__MODELING_ASSISTANT = eINSTANCE.getProblemStatement_ModelingAssistant();
 
     /**
-     * The meta object literal for the '<em><b>Student Solution</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Student Solutions</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PROBLEM_STATEMENT__STUDENT_SOLUTION = eINSTANCE.getProblemStatement_StudentSolution();
+    EReference PROBLEM_STATEMENT__STUDENT_SOLUTIONS = eINSTANCE.getProblemStatement_StudentSolutions();
 
     /**
      * The meta object literal for the '<em><b>Instructor Solution</b></em>' reference feature.
@@ -1724,20 +1872,20 @@ public interface ModelingassistantPackage extends EPackage {
     EReference SOLUTION__CURRENT_MISTAKE = eINSTANCE.getSolution_CurrentMistake();
 
     /**
-     * The meta object literal for the '<em><b>Student Problem Statement</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Tag Groups</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SOLUTION__STUDENT_PROBLEM_STATEMENT = eINSTANCE.getSolution_StudentProblemStatement();
+    EReference SOLUTION__TAG_GROUPS = eINSTANCE.getSolution_TagGroups();
 
     /**
-     * The meta object literal for the '<em><b>Instructor Problem Statement</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Problem Statement</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT = eINSTANCE.getSolution_InstructorProblemStatement();
+    EReference SOLUTION__PROBLEM_STATEMENT = eINSTANCE.getSolution_ProblemStatement();
 
     /**
      * The meta object literal for the '{@link modelingassistant.impl.SolutionElementImpl <em>Solution Element</em>}' class.
@@ -1788,6 +1936,14 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES = eINSTANCE.getSolutionElement_InstructorElementMistakes();
+
+    /**
+     * The meta object literal for the '<em><b>Tags</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SOLUTION_ELEMENT__TAGS = eINSTANCE.getSolutionElement_Tags();
 
     /**
      * The meta object literal for the '{@link modelingassistant.impl.StudentKnowledgeImpl <em>Student Knowledge</em>}' class.
@@ -1980,6 +2136,58 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference FEEDBACK_ITEM__FEEDBACK = eINSTANCE.getFeedbackItem_Feedback();
+
+    /**
+     * The meta object literal for the '{@link modelingassistant.impl.TagImpl <em>Tag</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see modelingassistant.impl.TagImpl
+     * @see modelingassistant.impl.ModelingassistantPackageImpl#getTag()
+     * @generated
+     */
+    EClass TAG = eINSTANCE.getTag();
+
+    /**
+     * The meta object literal for the '<em><b>Solutionelement</b></em>' container reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TAG__SOLUTIONELEMENT = eINSTANCE.getTag_Solutionelement();
+
+    /**
+     * The meta object literal for the '<em><b>Tag Group</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TAG__TAG_GROUP = eINSTANCE.getTag_TagGroup();
+
+    /**
+     * The meta object literal for the '{@link modelingassistant.impl.TagGroupImpl <em>Tag Group</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see modelingassistant.impl.TagGroupImpl
+     * @see modelingassistant.impl.ModelingassistantPackageImpl#getTagGroup()
+     * @generated
+     */
+    EClass TAG_GROUP = eINSTANCE.getTagGroup();
+
+    /**
+     * The meta object literal for the '<em><b>Tags</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TAG_GROUP__TAGS = eINSTANCE.getTagGroup_Tags();
+
+    /**
+     * The meta object literal for the '<em><b>Solution</b></em>' container reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TAG_GROUP__SOLUTION = eINSTANCE.getTagGroup_Solution();
 
     /**
      * The meta object literal for the '<em>Time</em>' data type.
