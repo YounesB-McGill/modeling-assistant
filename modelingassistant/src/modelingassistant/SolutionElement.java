@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.SolutionElement#getStudentElementMistakes <em>Student Element Mistakes</em>}</li>
  *   <li>{@link modelingassistant.SolutionElement#getElement <em>Element</em>}</li>
  *   <li>{@link modelingassistant.SolutionElement#getInstructorElementMistakes <em>Instructor Element Mistakes</em>}</li>
+ *   <li>{@link modelingassistant.SolutionElement#getTags <em>Tags</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getSolutionElement()
@@ -116,5 +117,19 @@ public interface SolutionElement extends EObject {
    * @generated
    */
   EList<Mistake> getInstructorElementMistakes();
+
+  /**
+   * Returns the value of the '<em><b>Tags</b></em>' containment reference list.
+   * The list contents are of type {@link modelingassistant.Tag}.
+   * It is bidirectional and its opposite is '{@link modelingassistant.Tag#getSolutionelement <em>Solutionelement</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Tags</em>' containment reference list.
+   * @see modelingassistant.ModelingassistantPackage#getSolutionElement_Tags()
+   * @see modelingassistant.Tag#getSolutionelement
+   * @model opposite="solutionelement" containment="true"
+   * @generated
+   */
+  EList<Tag> getTags();
 
 } // SolutionElement
