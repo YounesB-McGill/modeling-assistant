@@ -19,33 +19,6 @@ if sys.version_info[:2] < (3, 9):
     exit(1)
 
 
-def test2():
-    """
-    Test the metamodel integration with class diagram ecore.
-    """
-    cdm_mm, ma_mm = load_metamodels([CLASS_DIAGRAM_ECORE_MM, MODELING_ASSISTANT_ECORE_MM])
-    
-    ClassDiagram = get_classifier_by_name(cdm_mm, "ClassDiagram")
-    Class = get_classifier_by_name(cdm_mm, "Class")
-    SolutionElement = get_classifier_by_name(ma_mm, "SolutionElement")
-
-    instructor_cdm = ClassDiagram()
-    instructor_cdm.classes.append(Class(name="Employee"))
-    student_cdm = EClass("ClassDiagram")
-    student_cdm.classes.append(Class(name="EmployeeData"))
-
-    student_sol = Solution()
-
-    cdm_types = DynamicEPackage(cdm_mm)
-    ClassDiagram = cdm_types.ClassDiagram
-
-    
-    student_sol.classDiagram = student_cdm
-    print(type(student_sol.classDiagram))
-    
-    print(SolutionElement.eStructuralFeatures)
-
-
 def give_feedback(solution):
     # Decide which mistake to address based on student state
     # How to address the mistake
@@ -80,5 +53,3 @@ if __name__ == '__main__':
     metamodels = load_metamodels(["modelingassistant/model/classdiagram.ecore",
                                   "modelingassistant/model/modelingassistant.ecore"])
     print(metamodels)
-    test2()
-
