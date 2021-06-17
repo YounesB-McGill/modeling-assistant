@@ -9,4 +9,6 @@ Require-Bundle: org.eclipse.emf.common,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  modelingassistant,
- mistakedetection
+ mistakedetection,
+ ca.mcgill.sel.classdiagram.util,
+ ca.mcgill.sel.classdiagram
