@@ -10,7 +10,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_NAME_SPEL
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
-import static learningcorpus.mistaketypes.MistakeTypes.ENUMERATION_SHOULD_BE_A_REGULAR_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_REGULAR_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOCIATION_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
@@ -25,17 +25,17 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_MULTIPLICITY;
+import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION;
-import static learningcorpus.mistaketypes.MistakeTypes.ROLE_NAMES_PRESENT_BUT_INCORRECT;
+import static learningcorpus.mistaketypes.MistakeTypes.REGULAR_CLASS_SHOULD_BE_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_AN_AGGREGATION_COMPOSITION_INSTEAD_OF_AN_ASSOCIATION;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import java.io.IOException;
@@ -699,18 +699,15 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeEnumerationBeRegularClass(Classifier studentClass,
       Classifier instructorClass) {
     if (isClassEnumInsteadOfRegular(studentClass, instructorClass)) {
-
-      return Optional
-          .of(createMistake(ENUMERATION_SHOULD_BE_A_REGULAR_CLASS, studentClass, instructorClass));
+      return Optional.of(createMistake(ENUM_SHOULD_BE_REGULAR_CLASS, studentClass, instructorClass));
     }
     return Optional.empty();
   }
+
   public static Optional<Mistake> checkMistakeRegularBeEnumerationClass(Classifier studentClass,
       Classifier instructorClass) {
     if (isClassRegularInsteadOfEnum(studentClass, instructorClass)) {
-
-      return Optional
-          .of(createMistake(REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION, studentClass, instructorClass));
+      return Optional.of(createMistake(REGULAR_CLASS_SHOULD_BE_ENUM, studentClass, instructorClass));
     }
     return Optional.empty();
   }
@@ -743,7 +740,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingAssociationInsteadOfComposition(
       AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
     if (isUsingAssociationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION,
+      return Optional.of(createMistake(USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION,
           studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -752,7 +749,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingAssociationInsteadOfAggregation(
       AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
     if (isUsingAssociationInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION,
+      return Optional.of(createMistake(USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION,
           studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -761,7 +758,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingCompositionInsteadOfAssociation(
       AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
     if (isUsingCompositionInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_AN_AGGREGATION_COMPOSITION_INSTEAD_OF_AN_ASSOCIATION,
+      return Optional.of(createMistake(USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION,
           studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -770,7 +767,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingAggregationInsteadOfAssociation(
       AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
     if (isUsingAggregationInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_AN_AGGREGATION_COMPOSITION_INSTEAD_OF_AN_ASSOCIATION,
+      return Optional.of(createMistake(USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION,
           studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -847,7 +844,7 @@ public class MistakeDetection {
         levenshteinDistance(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName());
     if (lDistance > MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
       return Optional.of(
-          createMistake(ROLE_NAMES_PRESENT_BUT_INCORRECT, studentClassAssocEnd, instructorClassAssocEnd));
+          createMistake(OTHER_WRONG_ROLE_NAME, studentClassAssocEnd, instructorClassAssocEnd));
     }
 
     return Optional.empty();
@@ -862,7 +859,6 @@ public class MistakeDetection {
       // studentClassAssocEnd,instructorClassAssocEnd));
       return Optional.empty();
     }
-
     return Optional.empty();
   }
 
