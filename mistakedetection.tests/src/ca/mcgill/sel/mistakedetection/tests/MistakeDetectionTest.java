@@ -3,8 +3,14 @@ package ca.mcgill.sel.mistakedetection.tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.junit.jupiter.api.Test;
+import ca.mcgill.sel.classdiagram.util.CdmResourceFactoryImpl;
 import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import classdiagram.Association;
@@ -30,8 +36,7 @@ public class MistakeDetectionTest {
     ClassdiagramPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm";
-    var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
-    var classDiagram = (ClassDiagram) resource.getContents().get(0);
+    var classDiagram = cdmFromFile(cdmFile);
 
     Classifier busClass = getClassFromClassDiagram("Bus", classDiagram);
     Classifier driverClass = getClassFromClassDiagram("Driver", classDiagram);
@@ -58,8 +63,7 @@ public class MistakeDetectionTest {
     ClassdiagramPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution.domain_model.cdm";
-    var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
-    var classDiagram = (ClassDiagram) resource.getContents().get(0);
+    var classDiagram = cdmFromFile(cdmFile);
 
     Classifier busClass = getClassFromClassDiagram("Bus", classDiagram);
     Classifier driverClass = getClassFromClassDiagram("Driver", classDiagram);
@@ -777,6 +781,34 @@ public class MistakeDetectionTest {
     return seekedAssociationEnd;
   }
 
+  public static boolean mistakesContainMistakeType(List<Mistake> mistakes,
+      MistakeType mistakeType) {
+    return mistakes.stream().anyMatch(mistake -> mistake.getMistakeType().equals(mistakeType));
+  }
+
+  /**
+   * Returns the class diagram at the given *.cdm file.
+   */
+  public static ClassDiagram cdmFromFile(File file) {
+    ClassdiagramPackage.eINSTANCE.eClass();
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm", new CdmResourceFactoryImpl());
+    try {
+      var cdmResource = rset.createResource(URI.createFileURI(file.getCanonicalPath()));
+      cdmResource.load(Collections.EMPTY_MAP);
+      return (ClassDiagram) cdmResource.getContents().get(0);
+    } catch (IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * Returns the class diagram at the given *.cdm file path.
+   */
+  static ClassDiagram cdmFromFile(String path) {
+    return cdmFromFile(new File(path));
+  }
+
   /**
    * Function to print the mapped, unmapped classifier or attributes.
    */
@@ -856,11 +888,6 @@ public class MistakeDetectionTest {
       }
     });
 
-  }
-
-  public static boolean mistakesContainMistakeType(List<Mistake> mistakes,
-      MistakeType mistakeType) {
-    return mistakes.stream().anyMatch(mistake -> mistake.getMistakeType().equals(mistakeType));
   }
 
 }
