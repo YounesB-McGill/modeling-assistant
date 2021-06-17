@@ -6,9 +6,9 @@
       1. [Bad class name spelling](#bad-class-name-spelling)
       1. [Similar (yet incorrect) class name](#similar-class-name)
    1. [Wrong enumeration](#wrong-enumeration)
-      1. [Regular class should be an enumeration](#regular-class-should-be-an-enumeration)
-      1. [Enumeration should be a regular class](#enumeration-should-be-a-regular-class)
-      1. [Wrong enumeration items](#wrong-enumeration-items)
+      1. [Regular class should be enum](#regular-class-should-be-enum)
+      1. [Enum should be regular class](#enum-should-be-regular-class)
+      1. [Wrong enum items](#wrong-enum-items)
    1. [Missing class](#missing-class)
    1. [Extra (redundant) class](#extra-redundant-class)
 
@@ -37,10 +37,10 @@
       1. [Composed part contained in more than one parent](#composed-part-contained-in-more-than-one-parent)
       1. [Other extra association](#other-extra-association)
    1. [Using wrong relationship type](#using-wrong-relationship-type)
-      1. [Using an association instead of an aggregation/composition](#using-an-association-instead-of-an-aggregation-composition)
-      1. [Using an aggregation/composition instead of an association](#using-an-aggregation-composition-instead-of-an-association)
-      1. [Using a directed association instead of an undirected one](#using-a-directed-association-instead-of-an-undirected-one)
-      1. [Using an undirected association instead of a directed one](#using-an-undirected-association-instead-of-a-directed-one)
+      1. [Using association instead of aggregation/composition](#using-association-instead-of-aggregation-composition)
+      1. [Using aggregation/composition instead of association](#using-aggregation-composition-instead-of-association)
+      1. [Using directed association instead of undirected](#using-directed-association-instead-of-undirected)
+      1. [Using undirected association instead of directed](#using-undirected-association-instead-of-directed)
       1. [Using aggregation instead of composition](#using-aggregation-instead-of-composition)
       1. [Using composition instead of aggregation](#using-composition-instead-of-aggregation)
    1. [Wrong association name](#wrong-association-name)
@@ -52,11 +52,11 @@
       1. [Other wrong multiplicity](#other-wrong-multiplicity)
    1. [Wrong role names](#wrong-role-names)
       1. [Missing role names](#missing-role-names)
-      1. [Role names present but incorrect](#role-names-present-but-incorrect)
       1. [Role should be static](#role-should-be-static)
       1. [Role should not be static](#role-should-not-be-static)
       1. [Bad role name spelling](#bad-role-name-spelling)
       1. [Similar (yet incorrect) role name](#similar-role-name)
+      1. [Other wrong role name](#other-wrong-role-name)
    1. [Wrong association class](#wrong-association-class)
       1. [Missing association class](#missing-association-class)
       1. [Extra (redundant) association class](#extra-redundant-association-class)
@@ -98,13 +98,13 @@
 
 ### Wrong enumeration
 
-#### Regular class should be an enumeration
+#### Regular class should be enum
 
 
-#### Enumeration should be a regular class
+#### Enum should be regular class
 
 
-#### Wrong enumeration items
+#### Wrong enum items
 
 ### Missing class
 
@@ -176,16 +176,16 @@
 
 ### Using wrong relationship type
 
-#### Using an association instead of an aggregation/composition
+#### Using association instead of aggregation/composition
 
 
-#### Using an aggregation/composition instead of an association
+#### Using aggregation/composition instead of association
 
 
-#### Using a directed association instead of an undirected one
+#### Using directed association instead of undirected
 
 
-#### Using an undirected association instead of a directed one
+#### Using undirected association instead of directed
 
 
 #### Using aggregation instead of composition
@@ -218,9 +218,6 @@
 #### Missing role names
 
 
-#### Role names present but incorrect
-
-
 #### Role should be static
 
 
@@ -231,6 +228,9 @@
 
 
 #### Similar  role name
+
+
+#### Other wrong role name
 
 
 ### Wrong association class
