@@ -2,9 +2,9 @@
 'Mistake'=15
 'MistakeTypeCategory'=11
 'atomic'=17
-'mistakeTypes'=14
-'{'=13
-'}'=12
+'mistakeTypes'=13
+'{'=12
+'}'=14
 RULE_ANY_OTHER=10
 RULE_ID=5
 RULE_INT=7

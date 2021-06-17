@@ -15,9 +15,9 @@ MistakeTypeCategory 'Wrong class' {
   }
   MistakeTypeCategory 'Wrong enumeration -> Wrong class' {
     mistakeTypes {
-      Mistake 'Regular class should be an enumeration' DomainModeling
-      Mistake 'Enumeration should be a regular class' DomainModeling
-      Mistake 'Wrong enumeration items' DomainModeling
+      Mistake 'Regular class should be enum' DomainModeling
+      Mistake 'Enum should be regular class' DomainModeling
+      Mistake 'Wrong enum items' DomainModeling
     }
   }
   
@@ -70,14 +70,15 @@ MistakeTypeCategory 'Wrong relationship' {
   }
   MistakeTypeCategory 'Using wrong relationship type -> Wrong relationship' {
     mistakeTypes {
-      Mistake 'Using an association instead of an aggregation/composition' DomainModeling
-      Mistake 'Using an aggregation/composition instead of an association' DomainModeling
-      Mistake 'Using a directed association instead of an undirected one' DomainModeling
-      Mistake 'Using an undirected association instead of a directed one' DomainModeling
+      Mistake 'Using association instead of aggregation/composition' DomainModeling
+      Mistake 'Using aggregation/composition instead of association' DomainModeling
+      Mistake 'Using directed association instead of undirected' DomainModeling
+      Mistake 'Using undirected association instead of directed' DomainModeling
       Mistake 'Using aggregation instead of composition' DomainModeling
       Mistake 'Using composition instead of aggregation' DomainModeling
     }
   }
+  // Not used in actual app, but kept for completeness
   MistakeTypeCategory 'Wrong association name -> Wrong relationship' {
     mistakeTypes {
       Mistake 'Missing association name when one was expected' DomainModeling
@@ -94,11 +95,11 @@ MistakeTypeCategory 'Wrong relationship' {
   MistakeTypeCategory 'Wrong role names -> Wrong relationship' {
     mistakeTypes {
       Mistake 'Missing role names' DomainModeling
-      Mistake 'Role names present but incorrect' DomainModeling
       Mistake 'Role should be static' DomainModeling
       Mistake 'Role should not be static' DomainModeling
       Mistake 'Bad role name spelling' DomainModeling
       Mistake 'Similar (yet incorrect) role name' DomainModeling
+      Mistake 'Other wrong role name' DomainModeling
     }
   }
   MistakeTypeCategory 'Wrong association class -> Wrong relationship' {
@@ -122,11 +123,16 @@ MistakeTypeCategory 'Wrong relationship' {
     }
   }
   
-MistakeTypeCategory 'Misuse of design patterns' {
-   mistakeTypes {
-    Mistake 'Misuse of Player-Role Pattern' DomainModeling
-    Mistake 'Misuse of Abstraction-Occurrence' DomainModeling
+MistakeTypeCategory 'Misuse of design patterns'
+  MistakeTypeCategory 'Misuse of Player-Role Pattern -> Misuse of design patterns' {
+    mistakeTypes {
+      // TODO Add mistake types here
+    }
   }
-}
+  MistakeTypeCategory 'Misuse of Abstraction-Occurrence -> Misuse of design patterns' {
+    mistakeTypes {
+      // TODO Add mistake types here
+    }
+  }
 
 LearningItem 'DomainModeling' 'Description'
