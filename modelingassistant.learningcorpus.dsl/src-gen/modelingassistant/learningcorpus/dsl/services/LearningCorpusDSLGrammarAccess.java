@@ -65,7 +65,7 @@ public class LearningCorpusDSLGrammarAccess extends AbstractElementFinder.Abstra
 		private final Assignment cMistakeTypesAssignment_2_4 = (Assignment)cGroup_2.eContents().get(4);
 		private final RuleCall cMistakeTypesMistakeTypeParserRuleCall_2_4_0 = (RuleCall)cMistakeTypesAssignment_2_4.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_2_5 = (Keyword)cGroup_2.eContents().get(5);
-		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cRightCurlyBracketKeyword_2_6 = (Keyword)cGroup_2.eContents().get(6);
 		
 		///**
 		// * Creates a mistake type category. Since Xtext does not support recursion,
@@ -75,15 +75,16 @@ public class LearningCorpusDSLGrammarAccess extends AbstractElementFinder.Abstra
 		// * 
 		// * To generate the final output with the correct names, run the script in the instances project
 		// */ MistakeTypeCategory learningcorpus::MistakeTypeCategory:
-		//	'MistakeTypeCategory' name=EString ('{' // TODO Refactor to somehow include parent/children MTCs
+		//	'MistakeTypeCategory' name=EString ('{'
+		//	// ('parent' supercategory=[learningcorpus::MistakeTypeCategory])? // fails at runtime
 		//	'mistakeTypes' WS* '{'
 		//	mistakeTypes+=MistakeType*
-		//	'}')?
-		//	'}';
+		//	'}'
+		//	'}')?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'MistakeTypeCategory' name=EString ('{' // TODO Refactor to somehow include parent/children MTCs
-		//'mistakeTypes' WS* '{' mistakeTypes+=MistakeType* '}')? '}'
+		//'MistakeTypeCategory' name=EString ('{' // ('parent' supercategory=[learningcorpus::MistakeTypeCategory])? // fails at runtime
+		//'mistakeTypes' WS* '{' mistakeTypes+=MistakeType* '}' '}')?
 		public Group getGroup() { return cGroup; }
 		
 		//'MistakeTypeCategory'
@@ -95,14 +96,14 @@ public class LearningCorpusDSLGrammarAccess extends AbstractElementFinder.Abstra
 		//EString
 		public RuleCall getNameEStringParserRuleCall_1_0() { return cNameEStringParserRuleCall_1_0; }
 		
-		//('{' // TODO Refactor to somehow include parent/children MTCs
-		//'mistakeTypes' WS* '{' mistakeTypes+=MistakeType* '}')?
+		//('{' // ('parent' supercategory=[learningcorpus::MistakeTypeCategory])? // fails at runtime
+		//'mistakeTypes' WS* '{' mistakeTypes+=MistakeType* '}' '}')?
 		public Group getGroup_2() { return cGroup_2; }
 		
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_2_0() { return cLeftCurlyBracketKeyword_2_0; }
 		
-		//// TODO Refactor to somehow include parent/children MTCs
+		//// ('parent' supercategory=[learningcorpus::MistakeTypeCategory])? // fails at runtime
 		//'mistakeTypes'
 		public Keyword getMistakeTypesKeyword_2_1() { return cMistakeTypesKeyword_2_1; }
 		
@@ -122,7 +123,7 @@ public class LearningCorpusDSLGrammarAccess extends AbstractElementFinder.Abstra
 		public Keyword getRightCurlyBracketKeyword_2_5() { return cRightCurlyBracketKeyword_2_5; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
+		public Keyword getRightCurlyBracketKeyword_2_6() { return cRightCurlyBracketKeyword_2_6; }
 	}
 	public class MistakeTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "modelingassistant.learningcorpus.dsl.LearningCorpusDSL.MistakeType");
@@ -297,11 +298,12 @@ public class LearningCorpusDSLGrammarAccess extends AbstractElementFinder.Abstra
 	// * 
 	// * To generate the final output with the correct names, run the script in the instances project
 	// */ MistakeTypeCategory learningcorpus::MistakeTypeCategory:
-	//	'MistakeTypeCategory' name=EString ('{' // TODO Refactor to somehow include parent/children MTCs
+	//	'MistakeTypeCategory' name=EString ('{'
+	//	// ('parent' supercategory=[learningcorpus::MistakeTypeCategory])? // fails at runtime
 	//	'mistakeTypes' WS* '{'
 	//	mistakeTypes+=MistakeType*
-	//	'}')?
-	//	'}';
+	//	'}'
+	//	'}')?;
 	public MistakeTypeCategoryElements getMistakeTypeCategoryAccess() {
 		return pMistakeTypeCategory;
 	}
