@@ -25,6 +25,8 @@ import modelingassistant.SolutionElement;
 import modelingassistant.Student;
 import modelingassistant.StudentKnowledge;
 
+import modelingassistant.Tag;
+import modelingassistant.TagGroup;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -109,6 +111,20 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   private EClass feedbackItemEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass tagEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass tagGroupEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -334,8 +350,8 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   @Override
-  public EAttribute getProblemStatement_Text() {
-    return (EAttribute)problemStatementEClass.getEStructuralFeatures().get(1);
+  public EReference getProblemStatement_ModelingAssistant() {
+    return (EReference)problemStatementEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -344,7 +360,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   @Override
-  public EReference getProblemStatement_ModelingAssistant() {
+  public EReference getProblemStatement_StudentSolutions() {
     return (EReference)problemStatementEClass.getEStructuralFeatures().get(2);
   }
 
@@ -354,18 +370,8 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   @Override
-  public EReference getProblemStatement_StudentSolution() {
-    return (EReference)problemStatementEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public EReference getProblemStatement_InstructorSolution() {
-    return (EReference)problemStatementEClass.getEStructuralFeatures().get(4);
+    return (EReference)problemStatementEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -474,7 +480,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   @Override
-  public EReference getSolution_StudentProblemStatement() {
+  public EReference getSolution_TagGroups() {
     return (EReference)solutionEClass.getEStructuralFeatures().get(6);
   }
 
@@ -484,7 +490,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   @Override
-  public EReference getSolution_InstructorProblemStatement() {
+  public EReference getSolution_ProblemStatement() {
     return (EReference)solutionEClass.getEStructuralFeatures().get(7);
   }
 
@@ -546,6 +552,16 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
   @Override
   public EReference getSolutionElement_InstructorElementMistakes() {
     return (EReference)solutionElementEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getSolutionElement_Tags() {
+    return (EReference)solutionElementEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -784,6 +800,66 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   @Override
+  public EClass getTag() {
+    return tagEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTag_Solutionelement() {
+    return (EReference)tagEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTag_TagGroup() {
+    return (EReference)tagEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getTagGroup() {
+    return tagGroupEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTagGroup_Tags() {
+    return (EReference)tagGroupEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTagGroup_Solution() {
+    return (EReference)tagGroupEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EDataType getTime() {
     return timeEDataType;
   }
@@ -833,9 +909,8 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
 
     problemStatementEClass = createEClass(PROBLEM_STATEMENT);
     createEReference(problemStatementEClass, PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS);
-    createEAttribute(problemStatementEClass, PROBLEM_STATEMENT__TEXT);
     createEReference(problemStatementEClass, PROBLEM_STATEMENT__MODELING_ASSISTANT);
-    createEReference(problemStatementEClass, PROBLEM_STATEMENT__STUDENT_SOLUTION);
+    createEReference(problemStatementEClass, PROBLEM_STATEMENT__STUDENT_SOLUTIONS);
     createEReference(problemStatementEClass, PROBLEM_STATEMENT__INSTRUCTOR_SOLUTION);
 
     problemStatementElementEClass = createEClass(PROBLEM_STATEMENT_ELEMENT);
@@ -849,8 +924,8 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(solutionEClass, SOLUTION__CLASS_DIAGRAM);
     createEReference(solutionEClass, SOLUTION__MISTAKES);
     createEReference(solutionEClass, SOLUTION__CURRENT_MISTAKE);
-    createEReference(solutionEClass, SOLUTION__STUDENT_PROBLEM_STATEMENT);
-    createEReference(solutionEClass, SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT);
+    createEReference(solutionEClass, SOLUTION__TAG_GROUPS);
+    createEReference(solutionEClass, SOLUTION__PROBLEM_STATEMENT);
 
     solutionElementEClass = createEClass(SOLUTION_ELEMENT);
     createEReference(solutionElementEClass, SOLUTION_ELEMENT__PROBLEM_STATEMENT_ELEMENTS);
@@ -858,6 +933,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(solutionElementEClass, SOLUTION_ELEMENT__STUDENT_ELEMENT_MISTAKES);
     createEReference(solutionElementEClass, SOLUTION_ELEMENT__ELEMENT);
     createEReference(solutionElementEClass, SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES);
+    createEReference(solutionElementEClass, SOLUTION_ELEMENT__TAGS);
 
     studentKnowledgeEClass = createEClass(STUDENT_KNOWLEDGE);
     createEAttribute(studentKnowledgeEClass, STUDENT_KNOWLEDGE__LEVEL_OF_KNOWLEDGE);
@@ -885,6 +961,14 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(feedbackItemEClass, FEEDBACK_ITEM__MODELING_ASSISTANT);
     createEAttribute(feedbackItemEClass, FEEDBACK_ITEM__USEFULNESS);
     createEReference(feedbackItemEClass, FEEDBACK_ITEM__FEEDBACK);
+
+    tagEClass = createEClass(TAG);
+    createEReference(tagEClass, TAG__SOLUTIONELEMENT);
+    createEReference(tagEClass, TAG__TAG_GROUP);
+
+    tagGroupEClass = createEClass(TAG_GROUP);
+    createEReference(tagGroupEClass, TAG_GROUP__TAGS);
+    createEReference(tagGroupEClass, TAG_GROUP__SOLUTION);
 
     // Create data types
     timeEDataType = createEDataType(TIME);
@@ -943,10 +1027,9 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
 
     initEClass(problemStatementEClass, ProblemStatement.class, "ProblemStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getProblemStatement_ProblemStatementElements(), this.getProblemStatementElement(), this.getProblemStatementElement_ProblemStatement(), "problemStatementElements", null, 0, -1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getProblemStatement_Text(), ecorePackage.getEString(), "text", null, 0, 1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getProblemStatement_ModelingAssistant(), this.getModelingAssistant(), this.getModelingAssistant_ProblemStatements(), "modelingAssistant", null, 1, 1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getProblemStatement_StudentSolution(), this.getSolution(), this.getSolution_StudentProblemStatement(), "studentSolution", null, 0, -1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getProblemStatement_InstructorSolution(), this.getSolution(), this.getSolution_InstructorProblemStatement(), "instructorSolution", null, 1, 1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getProblemStatement_StudentSolutions(), this.getSolution(), null, "studentSolutions", null, 0, -1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getProblemStatement_InstructorSolution(), this.getSolution(), null, "instructorSolution", null, 1, 1, ProblemStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(problemStatementElementEClass, ProblemStatementElement.class, "ProblemStatementElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getProblemStatementElement_ProblemStatement(), this.getProblemStatement(), this.getProblemStatement_ProblemStatementElements(), "problemStatement", null, 1, 1, ProblemStatementElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -959,8 +1042,8 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getSolution_ClassDiagram(), theClassdiagramPackage.getClassDiagram(), null, "classDiagram", null, 1, 1, Solution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSolution_Mistakes(), this.getMistake(), this.getMistake_StudentSolution(), "mistakes", null, 0, -1, Solution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSolution_CurrentMistake(), this.getMistake(), null, "currentMistake", null, 0, 1, Solution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSolution_StudentProblemStatement(), this.getProblemStatement(), this.getProblemStatement_StudentSolution(), "studentProblemStatement", null, 1, 1, Solution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSolution_InstructorProblemStatement(), this.getProblemStatement(), this.getProblemStatement_InstructorSolution(), "instructorProblemStatement", null, 1, 1, Solution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSolution_TagGroups(), this.getTagGroup(), this.getTagGroup_Solution(), "tagGroups", null, 0, -1, Solution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSolution_ProblemStatement(), this.getProblemStatement(), null, "problemStatement", null, 1, 1, Solution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(solutionElementEClass, SolutionElement.class, "SolutionElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getSolutionElement_ProblemStatementElements(), this.getProblemStatementElement(), this.getProblemStatementElement_SolutionElements(), "problemStatementElements", null, 0, -1, SolutionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -968,6 +1051,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getSolutionElement_StudentElementMistakes(), this.getMistake(), this.getMistake_StudentElements(), "studentElementMistakes", null, 0, -1, SolutionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSolutionElement_Element(), theClassdiagramPackage.getNamedElement(), null, "element", null, 1, 1, SolutionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSolutionElement_InstructorElementMistakes(), this.getMistake(), this.getMistake_InstructorElements(), "instructorElementMistakes", null, 0, -1, SolutionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSolutionElement_Tags(), this.getTag(), this.getTag_Solutionelement(), "tags", null, 0, -1, SolutionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(studentKnowledgeEClass, StudentKnowledge.class, "StudentKnowledge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getStudentKnowledge_LevelOfKnowledge(), ecorePackage.getEInt(), "levelOfKnowledge", null, 0, 1, StudentKnowledge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -995,6 +1079,14 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getFeedbackItem_ModelingAssistant(), this.getModelingAssistant(), this.getModelingAssistant_FeedbackItems(), "modelingAssistant", null, 1, 1, FeedbackItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getFeedbackItem_Usefulness(), ecorePackage.getEDouble(), "usefulness", null, 0, 1, FeedbackItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFeedbackItem_Feedback(), theLearningcorpusPackage.getFeedback(), null, "feedback", null, 0, 1, FeedbackItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(tagEClass, Tag.class, "Tag", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTag_Solutionelement(), this.getSolutionElement(), this.getSolutionElement_Tags(), "solutionelement", null, 1, 1, Tag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTag_TagGroup(), this.getTagGroup(), this.getTagGroup_Tags(), "tagGroup", null, 1, 1, Tag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(tagGroupEClass, TagGroup.class, "TagGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTagGroup_Tags(), this.getTag(), this.getTag_TagGroup(), "tags", null, 0, -1, TagGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTagGroup_Solution(), this.getSolution(), this.getSolution_TagGroups(), "solution", null, 1, 1, TagGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize data types
     initEDataType(timeEDataType, Time.class, "Time", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

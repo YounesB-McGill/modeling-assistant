@@ -279,6 +279,52 @@ public class ModelingassistantItemProviderAdapterFactory extends Modelingassista
   }
 
   /**
+   * This keeps track of the one adapter used for all {@link modelingassistant.Tag} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected TagItemProvider tagItemProvider;
+
+  /**
+   * This creates an adapter for a {@link modelingassistant.Tag}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createTagAdapter() {
+    if (tagItemProvider == null) {
+      tagItemProvider = new TagItemProvider(this);
+    }
+
+    return tagItemProvider;
+  }
+
+  /**
+   * This keeps track of the one adapter used for all {@link modelingassistant.TagGroup} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected TagGroupItemProvider tagGroupItemProvider;
+
+  /**
+   * This creates an adapter for a {@link modelingassistant.TagGroup}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createTagGroupAdapter() {
+    if (tagGroupItemProvider == null) {
+      tagGroupItemProvider = new TagGroupItemProvider(this);
+    }
+
+    return tagGroupItemProvider;
+  }
+
+  /**
    * This returns the root adapter factory that contains this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -392,6 +438,8 @@ public class ModelingassistantItemProviderAdapterFactory extends Modelingassista
     if (studentKnowledgeItemProvider != null) studentKnowledgeItemProvider.dispose();
     if (mistakeItemProvider != null) mistakeItemProvider.dispose();
     if (feedbackItemItemProvider != null) feedbackItemItemProvider.dispose();
+    if (tagItemProvider != null) tagItemProvider.dispose();
+    if (tagGroupItemProvider != null) tagGroupItemProvider.dispose();
   }
 
 }

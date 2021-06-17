@@ -14,9 +14,8 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link modelingassistant.ProblemStatement#getProblemStatementElements <em>Problem Statement Elements</em>}</li>
- *   <li>{@link modelingassistant.ProblemStatement#getText <em>Text</em>}</li>
  *   <li>{@link modelingassistant.ProblemStatement#getModelingAssistant <em>Modeling Assistant</em>}</li>
- *   <li>{@link modelingassistant.ProblemStatement#getStudentSolution <em>Student Solution</em>}</li>
+ *   <li>{@link modelingassistant.ProblemStatement#getStudentSolutions <em>Student Solutions</em>}</li>
  *   <li>{@link modelingassistant.ProblemStatement#getInstructorSolution <em>Instructor Solution</em>}</li>
  * </ul>
  *
@@ -38,28 +37,6 @@ public interface ProblemStatement extends NamedElement {
    * @generated
    */
   EList<ProblemStatementElement> getProblemStatementElements();
-
-  /**
-   * Returns the value of the '<em><b>Text</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Text</em>' attribute.
-   * @see #setText(String)
-   * @see modelingassistant.ModelingassistantPackage#getProblemStatement_Text()
-   * @model
-   * @generated
-   */
-  String getText();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.ProblemStatement#getText <em>Text</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Text</em>' attribute.
-   * @see #getText()
-   * @generated
-   */
-  void setText(String value);
 
   /**
    * Returns the value of the '<em><b>Modeling Assistant</b></em>' container reference.
@@ -86,29 +63,25 @@ public interface ProblemStatement extends NamedElement {
   void setModelingAssistant(ModelingAssistant value);
 
   /**
-   * Returns the value of the '<em><b>Student Solution</b></em>' reference list.
+   * Returns the value of the '<em><b>Student Solutions</b></em>' reference list.
    * The list contents are of type {@link modelingassistant.Solution}.
-   * It is bidirectional and its opposite is '{@link modelingassistant.Solution#getStudentProblemStatement <em>Student Problem Statement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Student Solution</em>' reference list.
-   * @see modelingassistant.ModelingassistantPackage#getProblemStatement_StudentSolution()
-   * @see modelingassistant.Solution#getStudentProblemStatement
-   * @model opposite="studentProblemStatement"
+   * @return the value of the '<em>Student Solutions</em>' reference list.
+   * @see modelingassistant.ModelingassistantPackage#getProblemStatement_StudentSolutions()
+   * @model
    * @generated
    */
-  EList<Solution> getStudentSolution();
+  EList<Solution> getStudentSolutions();
 
   /**
    * Returns the value of the '<em><b>Instructor Solution</b></em>' reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.Solution#getInstructorProblemStatement <em>Instructor Problem Statement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Instructor Solution</em>' reference.
    * @see #setInstructorSolution(Solution)
    * @see modelingassistant.ModelingassistantPackage#getProblemStatement_InstructorSolution()
-   * @see modelingassistant.Solution#getInstructorProblemStatement
-   * @model opposite="instructorProblemStatement" required="true"
+   * @model required="true"
    * @generated
    */
   Solution getInstructorSolution();

@@ -1,5 +1,6 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -98,25 +99,11 @@ public class MistakeDetectionWrongClassTest {
     var student = maf1.createStudent();
     solution1.setStudent(student);
 
-    Classifier instructorBusClass = null;
-    Classifier instructorDriverClass = null;
+    Classifier instructorBusClass = getClassFromClassDiagram("Bus", classDiagram);
+    Classifier instructorDriverClass = getClassFromClassDiagram("Driver", classDiagram);
 
-    for (var c : classDiagram.getClasses()) {
-      if ("Bus".equals(c.getName()))
-        instructorBusClass = c;
-      else if ("Driver".equals(c.getName()))
-        instructorDriverClass = c;
-    }
-
-    Classifier studentBusClass = null;
-    Classifier studentDriverClass = null;
-
-    for (var c : classDiagram1.getClasses()) {
-      if ("Bus".equals(c.getName()))
-        studentBusClass = c;
-      else if ("Driver".equals(c.getName()))
-        studentDriverClass = c;
-    }
+    Classifier studentBusClass = getClassFromClassDiagram("Bus", classDiagram1);
+    Classifier studentDriverClass = getClassFromClassDiagram("Driver", classDiagram1);
 
     assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusClass));
     assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriverClass));
@@ -127,6 +114,7 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.mappedClassifier.size(), 2);
     assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriverClass);
+
     assertEquals(comparison.newMistakes.size(), 0);
     assertEquals(solution1.getMistakes().size(), 0);
   }
@@ -161,25 +149,11 @@ public class MistakeDetectionWrongClassTest {
     var student = maf1.createStudent();
     solution1.setStudent(student);
 
-    Classifier instructorBusClass = null;
-    Classifier instructorDriverClass = null;
+    Classifier instructorBusClass = getClassFromClassDiagram("Bus", classDiagram);
+    Classifier instructorDriverClass = getClassFromClassDiagram("Driver", classDiagram);
 
-    for (var c : classDiagram.getClasses()) {
-      if ("Bus".equals(c.getName()))
-        instructorBusClass = c;
-      else if ("Driver".equals(c.getName()))
-        instructorDriverClass = c;
-    }
-
-    Classifier studentBusesClass = null;
-    Classifier studentDriversClass = null;
-
-    for (var c : classDiagram1.getClasses()) {
-      if ("Buses".equals(c.getName()))
-        studentBusesClass = c;
-      else if ("Drivers".equals(c.getName()))
-        studentDriversClass = c;
-    }
+    Classifier studentBusesClass = getClassFromClassDiagram("Buses", classDiagram1);
+    Classifier studentDriversClass = getClassFromClassDiagram("Drivers", classDiagram1);
 
     assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusesClass));
     assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriversClass));
@@ -193,9 +167,8 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.mappedClassifier.size(), 2);
     assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusesClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriversClass);
-
-    assertEquals(comparison.newMistakes.size(), 4);
-    assertEquals(solution1.getMistakes().size(), 4);
+    assertEquals(comparison.newMistakes.size(), 6); // 2 Bad Role Names
+    assertEquals(solution1.getMistakes().size(), 6);
 
     for (Mistake m : solution1.getMistakes()) {
       if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
@@ -241,7 +214,8 @@ public class MistakeDetectionWrongClassTest {
     var instructorClass = MistakeDetection.CDF.createClass();
     instructorClass.setName("Woman");
 
-    assertTrue(MistakeDetection.checkMistakePluralClassName(studentClass,instructorClass).isEmpty());
+    assertTrue(
+        MistakeDetection.checkMistakePluralClassName(studentClass, instructorClass).isEmpty());
 
     // mistake
     var expected = MistakeDetection.MAF.createMistake();
@@ -252,7 +226,7 @@ public class MistakeDetectionWrongClassTest {
     instructorClass = MistakeDetection.CDF.createClass();
     instructorClass.setName("Woman");
 
-    var actual = MistakeDetection.checkMistakePluralClassName(studentClass,instructorClass).get();
+    var actual = MistakeDetection.checkMistakePluralClassName(studentClass, instructorClass).get();
     assertEquals(expected.getMistakeType(), actual.getMistakeType());
   }
 

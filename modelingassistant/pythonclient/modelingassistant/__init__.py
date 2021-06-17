@@ -1,15 +1,15 @@
 
 from .modelingassistant import getEClassifier, eClassifiers
 from .modelingassistant import name, nsURI, nsPrefix, eClass
-from .modelingassistant import Time, ModelingAssistant, Student, ProblemStatement, ProblemStatementElement, Solution, SolutionElement, StudentKnowledge, Mistake, NamedElement, FeedbackItem
+from .modelingassistant import Time, ModelingAssistant, Student, ProblemStatement, ProblemStatementElement, Solution, SolutionElement, StudentKnowledge, Mistake, NamedElement, FeedbackItem, Tag, TagGroup
 
 from learningcorpus import MistakeType, Feedback
 from classdiagram import NamedElement, ClassDiagram
 
 from . import modelingassistant
 
-__all__ = ['Time', 'ModelingAssistant', 'Student', 'ProblemStatement', 'ProblemStatementElement',
-           'Solution', 'SolutionElement', 'StudentKnowledge', 'Mistake', 'NamedElement', 'FeedbackItem']
+__all__ = ['Time', 'ModelingAssistant', 'Student', 'ProblemStatement', 'ProblemStatementElement', 'Solution',
+           'SolutionElement', 'StudentKnowledge', 'Mistake', 'NamedElement', 'FeedbackItem', 'Tag', 'TagGroup']
 
 eSubpackages = []
 eSuperPackage = None
@@ -17,8 +17,11 @@ modelingassistant.eSubpackages = eSubpackages
 modelingassistant.eSuperPackage = eSuperPackage
 
 Student.currentSolution.eType = Solution
+ProblemStatement.studentSolutions.eType = Solution
+ProblemStatement.instructorSolution.eType = Solution
 Solution.classDiagram.eType = ClassDiagram
 Solution.currentMistake.eType = Mistake
+Solution.problemStatement.eType = ProblemStatement
 SolutionElement.element.eType = NamedElement
 StudentKnowledge.mistakeType.eType = MistakeType
 Mistake.mistakeType.eType = MistakeType
@@ -35,8 +38,6 @@ Student.studentKnowledges.eType = StudentKnowledge
 ProblemStatement.problemStatementElements.eType = ProblemStatementElement
 ProblemStatement.modelingAssistant.eType = ModelingAssistant
 ProblemStatement.modelingAssistant.eOpposite = ModelingAssistant.problemStatements
-ProblemStatement.studentSolution.eType = Solution
-ProblemStatement.instructorSolution.eType = Solution
 ProblemStatementElement.problemStatement.eType = ProblemStatement
 ProblemStatementElement.problemStatement.eOpposite = ProblemStatement.problemStatementElements
 ProblemStatementElement.solutionElements.eType = SolutionElement
@@ -46,16 +47,14 @@ Solution.student.eType = Student
 Solution.student.eOpposite = Student.solutions
 Solution.solutionElements.eType = SolutionElement
 Solution.mistakes.eType = Mistake
-Solution.studentProblemStatement.eType = ProblemStatement
-Solution.studentProblemStatement.eOpposite = ProblemStatement.studentSolution
-Solution.instructorProblemStatement.eType = ProblemStatement
-Solution.instructorProblemStatement.eOpposite = ProblemStatement.instructorSolution
+Solution.tagGroups.eType = TagGroup
 SolutionElement.problemStatementElements.eType = ProblemStatementElement
 SolutionElement.problemStatementElements.eOpposite = ProblemStatementElement.solutionElements
 SolutionElement.solution.eType = Solution
 SolutionElement.solution.eOpposite = Solution.solutionElements
 SolutionElement.studentElementMistakes.eType = Mistake
 SolutionElement.instructorElementMistakes.eType = Mistake
+SolutionElement.tags.eType = Tag
 StudentKnowledge.student.eType = Student
 StudentKnowledge.student.eOpposite = Student.studentKnowledges
 StudentKnowledge.modelingAssistant.eType = ModelingAssistant
@@ -71,6 +70,13 @@ FeedbackItem.mistakes.eType = Mistake
 FeedbackItem.mistakes.eOpposite = Mistake.lastFeedback
 FeedbackItem.modelingAssistant.eType = ModelingAssistant
 FeedbackItem.modelingAssistant.eOpposite = ModelingAssistant.feedbackItems
+Tag.solutionelement.eType = SolutionElement
+Tag.solutionelement.eOpposite = SolutionElement.tags
+Tag.tagGroup.eType = TagGroup
+TagGroup.tags.eType = Tag
+TagGroup.tags.eOpposite = Tag.tagGroup
+TagGroup.solution.eType = Solution
+TagGroup.solution.eOpposite = Solution.tagGroups
 
 otherClassifiers = [Time]
 

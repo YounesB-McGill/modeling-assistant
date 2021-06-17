@@ -108,6 +108,14 @@ public class ModelingassistantAdapterFactory extends AdapterFactoryImpl {
         return createFeedbackItemAdapter();
       }
       @Override
+      public Adapter caseTag(Tag object) {
+        return createTagAdapter();
+      }
+      @Override
+      public Adapter caseTagGroup(TagGroup object) {
+        return createTagGroupAdapter();
+      }
+      @Override
       public Adapter defaultCase(EObject object) {
         return createEObjectAdapter();
       }
@@ -264,6 +272,34 @@ public class ModelingassistantAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createFeedbackItemAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link modelingassistant.Tag <em>Tag</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see modelingassistant.Tag
+   * @generated
+   */
+  public Adapter createTagAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link modelingassistant.TagGroup <em>Tag Group</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see modelingassistant.TagGroup
+   * @generated
+   */
+  public Adapter createTagGroupAdapter() {
     return null;
   }
 

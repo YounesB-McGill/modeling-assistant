@@ -51,5 +51,4 @@ public class MistakeDetectionHelperFunctionLogicTest {
     assertTrue(MistakeDetection.isLowerName("class1"));
     assertFalse(MistakeDetection.isLowerName("Class1"));
   }
-
 }
