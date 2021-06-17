@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_WS", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ANY_OTHER", "'MistakeTypeCategory'", "'}'", "'{'", "'mistakeTypes'", "'Mistake'", "'LearningItem'", "'atomic'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_WS", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ANY_OTHER", "'MistakeTypeCategory'", "'{'", "'mistakeTypes'", "'}'", "'Mistake'", "'LearningItem'", "'atomic'"
     };
     public static final int RULE_ID=5;
     public static final int RULE_WS=6;
@@ -893,22 +893,17 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
 
 
     // $ANTLR start "rule__MistakeTypeCategory__Group__2"
-    // InternalLearningCorpusDSL.g:306:1: rule__MistakeTypeCategory__Group__2 : rule__MistakeTypeCategory__Group__2__Impl rule__MistakeTypeCategory__Group__3 ;
+    // InternalLearningCorpusDSL.g:306:1: rule__MistakeTypeCategory__Group__2 : rule__MistakeTypeCategory__Group__2__Impl ;
     public final void rule__MistakeTypeCategory__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalLearningCorpusDSL.g:310:1: ( rule__MistakeTypeCategory__Group__2__Impl rule__MistakeTypeCategory__Group__3 )
-            // InternalLearningCorpusDSL.g:311:2: rule__MistakeTypeCategory__Group__2__Impl rule__MistakeTypeCategory__Group__3
+            // InternalLearningCorpusDSL.g:310:1: ( rule__MistakeTypeCategory__Group__2__Impl )
+            // InternalLearningCorpusDSL.g:311:2: rule__MistakeTypeCategory__Group__2__Impl
             {
-            pushFollow(FOLLOW_7);
-            rule__MistakeTypeCategory__Group__2__Impl();
-
-            state._fsp--;
-
             pushFollow(FOLLOW_2);
-            rule__MistakeTypeCategory__Group__3();
+            rule__MistakeTypeCategory__Group__2__Impl();
 
             state._fsp--;
 
@@ -931,29 +926,29 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
 
 
     // $ANTLR start "rule__MistakeTypeCategory__Group__2__Impl"
-    // InternalLearningCorpusDSL.g:318:1: rule__MistakeTypeCategory__Group__2__Impl : ( ( rule__MistakeTypeCategory__Group_2__0 )? ) ;
+    // InternalLearningCorpusDSL.g:317:1: rule__MistakeTypeCategory__Group__2__Impl : ( ( rule__MistakeTypeCategory__Group_2__0 )? ) ;
     public final void rule__MistakeTypeCategory__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalLearningCorpusDSL.g:322:1: ( ( ( rule__MistakeTypeCategory__Group_2__0 )? ) )
-            // InternalLearningCorpusDSL.g:323:1: ( ( rule__MistakeTypeCategory__Group_2__0 )? )
+            // InternalLearningCorpusDSL.g:321:1: ( ( ( rule__MistakeTypeCategory__Group_2__0 )? ) )
+            // InternalLearningCorpusDSL.g:322:1: ( ( rule__MistakeTypeCategory__Group_2__0 )? )
             {
-            // InternalLearningCorpusDSL.g:323:1: ( ( rule__MistakeTypeCategory__Group_2__0 )? )
-            // InternalLearningCorpusDSL.g:324:2: ( rule__MistakeTypeCategory__Group_2__0 )?
+            // InternalLearningCorpusDSL.g:322:1: ( ( rule__MistakeTypeCategory__Group_2__0 )? )
+            // InternalLearningCorpusDSL.g:323:2: ( rule__MistakeTypeCategory__Group_2__0 )?
             {
              before(grammarAccess.getMistakeTypeCategoryAccess().getGroup_2()); 
-            // InternalLearningCorpusDSL.g:325:2: ( rule__MistakeTypeCategory__Group_2__0 )?
+            // InternalLearningCorpusDSL.g:324:2: ( rule__MistakeTypeCategory__Group_2__0 )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
-            if ( (LA4_0==13) ) {
+            if ( (LA4_0==12) ) {
                 alt4=1;
             }
             switch (alt4) {
                 case 1 :
-                    // InternalLearningCorpusDSL.g:325:3: rule__MistakeTypeCategory__Group_2__0
+                    // InternalLearningCorpusDSL.g:324:3: rule__MistakeTypeCategory__Group_2__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__MistakeTypeCategory__Group_2__0();
@@ -988,85 +983,15 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
     // $ANTLR end "rule__MistakeTypeCategory__Group__2__Impl"
 
 
-    // $ANTLR start "rule__MistakeTypeCategory__Group__3"
-    // InternalLearningCorpusDSL.g:333:1: rule__MistakeTypeCategory__Group__3 : rule__MistakeTypeCategory__Group__3__Impl ;
-    public final void rule__MistakeTypeCategory__Group__3() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalLearningCorpusDSL.g:337:1: ( rule__MistakeTypeCategory__Group__3__Impl )
-            // InternalLearningCorpusDSL.g:338:2: rule__MistakeTypeCategory__Group__3__Impl
-            {
-            pushFollow(FOLLOW_2);
-            rule__MistakeTypeCategory__Group__3__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__MistakeTypeCategory__Group__3"
-
-
-    // $ANTLR start "rule__MistakeTypeCategory__Group__3__Impl"
-    // InternalLearningCorpusDSL.g:344:1: rule__MistakeTypeCategory__Group__3__Impl : ( '}' ) ;
-    public final void rule__MistakeTypeCategory__Group__3__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalLearningCorpusDSL.g:348:1: ( ( '}' ) )
-            // InternalLearningCorpusDSL.g:349:1: ( '}' )
-            {
-            // InternalLearningCorpusDSL.g:349:1: ( '}' )
-            // InternalLearningCorpusDSL.g:350:2: '}'
-            {
-             before(grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_3()); 
-            match(input,12,FOLLOW_2); 
-             after(grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_3()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__MistakeTypeCategory__Group__3__Impl"
-
-
     // $ANTLR start "rule__MistakeTypeCategory__Group_2__0"
-    // InternalLearningCorpusDSL.g:360:1: rule__MistakeTypeCategory__Group_2__0 : rule__MistakeTypeCategory__Group_2__0__Impl rule__MistakeTypeCategory__Group_2__1 ;
+    // InternalLearningCorpusDSL.g:333:1: rule__MistakeTypeCategory__Group_2__0 : rule__MistakeTypeCategory__Group_2__0__Impl rule__MistakeTypeCategory__Group_2__1 ;
     public final void rule__MistakeTypeCategory__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalLearningCorpusDSL.g:364:1: ( rule__MistakeTypeCategory__Group_2__0__Impl rule__MistakeTypeCategory__Group_2__1 )
-            // InternalLearningCorpusDSL.g:365:2: rule__MistakeTypeCategory__Group_2__0__Impl rule__MistakeTypeCategory__Group_2__1
+            // InternalLearningCorpusDSL.g:337:1: ( rule__MistakeTypeCategory__Group_2__0__Impl rule__MistakeTypeCategory__Group_2__1 )
+            // InternalLearningCorpusDSL.g:338:2: rule__MistakeTypeCategory__Group_2__0__Impl rule__MistakeTypeCategory__Group_2__1
             {
             pushFollow(FOLLOW_8);
             rule__MistakeTypeCategory__Group_2__0__Impl();
@@ -1097,20 +1022,20 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
 
 
     // $ANTLR start "rule__MistakeTypeCategory__Group_2__0__Impl"
-    // InternalLearningCorpusDSL.g:372:1: rule__MistakeTypeCategory__Group_2__0__Impl : ( '{' ) ;
+    // InternalLearningCorpusDSL.g:345:1: rule__MistakeTypeCategory__Group_2__0__Impl : ( '{' ) ;
     public final void rule__MistakeTypeCategory__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalLearningCorpusDSL.g:376:1: ( ( '{' ) )
-            // InternalLearningCorpusDSL.g:377:1: ( '{' )
+            // InternalLearningCorpusDSL.g:349:1: ( ( '{' ) )
+            // InternalLearningCorpusDSL.g:350:1: ( '{' )
             {
-            // InternalLearningCorpusDSL.g:377:1: ( '{' )
-            // InternalLearningCorpusDSL.g:378:2: '{'
+            // InternalLearningCorpusDSL.g:350:1: ( '{' )
+            // InternalLearningCorpusDSL.g:351:2: '{'
             {
              before(grammarAccess.getMistakeTypeCategoryAccess().getLeftCurlyBracketKeyword_2_0()); 
-            match(input,13,FOLLOW_2); 
+            match(input,12,FOLLOW_2); 
              after(grammarAccess.getMistakeTypeCategoryAccess().getLeftCurlyBracketKeyword_2_0()); 
 
             }
@@ -1134,14 +1059,14 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
 
 
     // $ANTLR start "rule__MistakeTypeCategory__Group_2__1"
-    // InternalLearningCorpusDSL.g:387:1: rule__MistakeTypeCategory__Group_2__1 : rule__MistakeTypeCategory__Group_2__1__Impl rule__MistakeTypeCategory__Group_2__2 ;
+    // InternalLearningCorpusDSL.g:360:1: rule__MistakeTypeCategory__Group_2__1 : rule__MistakeTypeCategory__Group_2__1__Impl rule__MistakeTypeCategory__Group_2__2 ;
     public final void rule__MistakeTypeCategory__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalLearningCorpusDSL.g:391:1: ( rule__MistakeTypeCategory__Group_2__1__Impl rule__MistakeTypeCategory__Group_2__2 )
-            // InternalLearningCorpusDSL.g:392:2: rule__MistakeTypeCategory__Group_2__1__Impl rule__MistakeTypeCategory__Group_2__2
+            // InternalLearningCorpusDSL.g:364:1: ( rule__MistakeTypeCategory__Group_2__1__Impl rule__MistakeTypeCategory__Group_2__2 )
+            // InternalLearningCorpusDSL.g:365:2: rule__MistakeTypeCategory__Group_2__1__Impl rule__MistakeTypeCategory__Group_2__2
             {
             pushFollow(FOLLOW_9);
             rule__MistakeTypeCategory__Group_2__1__Impl();
@@ -1172,20 +1097,20 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
 
 
     // $ANTLR start "rule__MistakeTypeCategory__Group_2__1__Impl"
-    // InternalLearningCorpusDSL.g:399:1: rule__MistakeTypeCategory__Group_2__1__Impl : ( 'mistakeTypes' ) ;
+    // InternalLearningCorpusDSL.g:372:1: rule__MistakeTypeCategory__Group_2__1__Impl : ( 'mistakeTypes' ) ;
     public final void rule__MistakeTypeCategory__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalLearningCorpusDSL.g:403:1: ( ( 'mistakeTypes' ) )
-            // InternalLearningCorpusDSL.g:404:1: ( 'mistakeTypes' )
+            // InternalLearningCorpusDSL.g:376:1: ( ( 'mistakeTypes' ) )
+            // InternalLearningCorpusDSL.g:377:1: ( 'mistakeTypes' )
             {
-            // InternalLearningCorpusDSL.g:404:1: ( 'mistakeTypes' )
-            // InternalLearningCorpusDSL.g:405:2: 'mistakeTypes'
+            // InternalLearningCorpusDSL.g:377:1: ( 'mistakeTypes' )
+            // InternalLearningCorpusDSL.g:378:2: 'mistakeTypes'
             {
              before(grammarAccess.getMistakeTypeCategoryAccess().getMistakeTypesKeyword_2_1()); 
-            match(input,14,FOLLOW_2); 
+            match(input,13,FOLLOW_2); 
              after(grammarAccess.getMistakeTypeCategoryAccess().getMistakeTypesKeyword_2_1()); 
 
             }
@@ -1209,14 +1134,14 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
 
 
     // $ANTLR start "rule__MistakeTypeCategory__Group_2__2"
-    // InternalLearningCorpusDSL.g:414:1: rule__MistakeTypeCategory__Group_2__2 : rule__MistakeTypeCategory__Group_2__2__Impl rule__MistakeTypeCategory__Group_2__3 ;
+    // InternalLearningCorpusDSL.g:387:1: rule__MistakeTypeCategory__Group_2__2 : rule__MistakeTypeCategory__Group_2__2__Impl rule__MistakeTypeCategory__Group_2__3 ;
     public final void rule__MistakeTypeCategory__Group_2__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalLearningCorpusDSL.g:418:1: ( rule__MistakeTypeCategory__Group_2__2__Impl rule__MistakeTypeCategory__Group_2__3 )
-            // InternalLearningCorpusDSL.g:419:2: rule__MistakeTypeCategory__Group_2__2__Impl rule__MistakeTypeCategory__Group_2__3
+            // InternalLearningCorpusDSL.g:391:1: ( rule__MistakeTypeCategory__Group_2__2__Impl rule__MistakeTypeCategory__Group_2__3 )
+            // InternalLearningCorpusDSL.g:392:2: rule__MistakeTypeCategory__Group_2__2__Impl rule__MistakeTypeCategory__Group_2__3
             {
             pushFollow(FOLLOW_9);
             rule__MistakeTypeCategory__Group_2__2__Impl();
@@ -1247,20 +1172,20 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
 
 
     // $ANTLR start "rule__MistakeTypeCategory__Group_2__2__Impl"
-    // InternalLearningCorpusDSL.g:426:1: rule__MistakeTypeCategory__Group_2__2__Impl : ( ( RULE_WS )* ) ;
+    // InternalLearningCorpusDSL.g:399:1: rule__MistakeTypeCategory__Group_2__2__Impl : ( ( RULE_WS )* ) ;
     public final void rule__MistakeTypeCategory__Group_2__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalLearningCorpusDSL.g:430:1: ( ( ( RULE_WS )* ) )
-            // InternalLearningCorpusDSL.g:431:1: ( ( RULE_WS )* )
+            // InternalLearningCorpusDSL.g:403:1: ( ( ( RULE_WS )* ) )
+            // InternalLearningCorpusDSL.g:404:1: ( ( RULE_WS )* )
             {
-            // InternalLearningCorpusDSL.g:431:1: ( ( RULE_WS )* )
-            // InternalLearningCorpusDSL.g:432:2: ( RULE_WS )*
+            // InternalLearningCorpusDSL.g:404:1: ( ( RULE_WS )* )
+            // InternalLearningCorpusDSL.g:405:2: ( RULE_WS )*
             {
              before(grammarAccess.getMistakeTypeCategoryAccess().getWSTerminalRuleCall_2_2()); 
-            // InternalLearningCorpusDSL.g:433:2: ( RULE_WS )*
+            // InternalLearningCorpusDSL.g:406:2: ( RULE_WS )*
             loop5:
             do {
                 int alt5=2;
@@ -1273,7 +1198,7 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
 
                 switch (alt5) {
             	case 1 :
-            	    // InternalLearningCorpusDSL.g:433:3: RULE_WS
+            	    // InternalLearningCorpusDSL.g:406:3: RULE_WS
             	    {
             	    match(input,RULE_WS,FOLLOW_10); 
 
@@ -1308,14 +1233,14 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
 
 
     // $ANTLR start "rule__MistakeTypeCategory__Group_2__3"
-    // InternalLearningCorpusDSL.g:441:1: rule__MistakeTypeCategory__Group_2__3 : rule__MistakeTypeCategory__Group_2__3__Impl rule__MistakeTypeCategory__Group_2__4 ;
+    // InternalLearningCorpusDSL.g:414:1: rule__MistakeTypeCategory__Group_2__3 : rule__MistakeTypeCategory__Group_2__3__Impl rule__MistakeTypeCategory__Group_2__4 ;
     public final void rule__MistakeTypeCategory__Group_2__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalLearningCorpusDSL.g:445:1: ( rule__MistakeTypeCategory__Group_2__3__Impl rule__MistakeTypeCategory__Group_2__4 )
-            // InternalLearningCorpusDSL.g:446:2: rule__MistakeTypeCategory__Group_2__3__Impl rule__MistakeTypeCategory__Group_2__4
+            // InternalLearningCorpusDSL.g:418:1: ( rule__MistakeTypeCategory__Group_2__3__Impl rule__MistakeTypeCategory__Group_2__4 )
+            // InternalLearningCorpusDSL.g:419:2: rule__MistakeTypeCategory__Group_2__3__Impl rule__MistakeTypeCategory__Group_2__4
             {
             pushFollow(FOLLOW_11);
             rule__MistakeTypeCategory__Group_2__3__Impl();
@@ -1346,20 +1271,20 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
 
 
     // $ANTLR start "rule__MistakeTypeCategory__Group_2__3__Impl"
-    // InternalLearningCorpusDSL.g:453:1: rule__MistakeTypeCategory__Group_2__3__Impl : ( '{' ) ;
+    // InternalLearningCorpusDSL.g:426:1: rule__MistakeTypeCategory__Group_2__3__Impl : ( '{' ) ;
     public final void rule__MistakeTypeCategory__Group_2__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalLearningCorpusDSL.g:457:1: ( ( '{' ) )
-            // InternalLearningCorpusDSL.g:458:1: ( '{' )
+            // InternalLearningCorpusDSL.g:430:1: ( ( '{' ) )
+            // InternalLearningCorpusDSL.g:431:1: ( '{' )
             {
-            // InternalLearningCorpusDSL.g:458:1: ( '{' )
-            // InternalLearningCorpusDSL.g:459:2: '{'
+            // InternalLearningCorpusDSL.g:431:1: ( '{' )
+            // InternalLearningCorpusDSL.g:432:2: '{'
             {
              before(grammarAccess.getMistakeTypeCategoryAccess().getLeftCurlyBracketKeyword_2_3()); 
-            match(input,13,FOLLOW_2); 
+            match(input,12,FOLLOW_2); 
              after(grammarAccess.getMistakeTypeCategoryAccess().getLeftCurlyBracketKeyword_2_3()); 
 
             }
@@ -1383,14 +1308,14 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
 
 
     // $ANTLR start "rule__MistakeTypeCategory__Group_2__4"
-    // InternalLearningCorpusDSL.g:468:1: rule__MistakeTypeCategory__Group_2__4 : rule__MistakeTypeCategory__Group_2__4__Impl rule__MistakeTypeCategory__Group_2__5 ;
+    // InternalLearningCorpusDSL.g:441:1: rule__MistakeTypeCategory__Group_2__4 : rule__MistakeTypeCategory__Group_2__4__Impl rule__MistakeTypeCategory__Group_2__5 ;
     public final void rule__MistakeTypeCategory__Group_2__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalLearningCorpusDSL.g:472:1: ( rule__MistakeTypeCategory__Group_2__4__Impl rule__MistakeTypeCategory__Group_2__5 )
-            // InternalLearningCorpusDSL.g:473:2: rule__MistakeTypeCategory__Group_2__4__Impl rule__MistakeTypeCategory__Group_2__5
+            // InternalLearningCorpusDSL.g:445:1: ( rule__MistakeTypeCategory__Group_2__4__Impl rule__MistakeTypeCategory__Group_2__5 )
+            // InternalLearningCorpusDSL.g:446:2: rule__MistakeTypeCategory__Group_2__4__Impl rule__MistakeTypeCategory__Group_2__5
             {
             pushFollow(FOLLOW_11);
             rule__MistakeTypeCategory__Group_2__4__Impl();
@@ -1421,20 +1346,20 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
 
 
     // $ANTLR start "rule__MistakeTypeCategory__Group_2__4__Impl"
-    // InternalLearningCorpusDSL.g:480:1: rule__MistakeTypeCategory__Group_2__4__Impl : ( ( rule__MistakeTypeCategory__MistakeTypesAssignment_2_4 )* ) ;
+    // InternalLearningCorpusDSL.g:453:1: rule__MistakeTypeCategory__Group_2__4__Impl : ( ( rule__MistakeTypeCategory__MistakeTypesAssignment_2_4 )* ) ;
     public final void rule__MistakeTypeCategory__Group_2__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalLearningCorpusDSL.g:484:1: ( ( ( rule__MistakeTypeCategory__MistakeTypesAssignment_2_4 )* ) )
-            // InternalLearningCorpusDSL.g:485:1: ( ( rule__MistakeTypeCategory__MistakeTypesAssignment_2_4 )* )
+            // InternalLearningCorpusDSL.g:457:1: ( ( ( rule__MistakeTypeCategory__MistakeTypesAssignment_2_4 )* ) )
+            // InternalLearningCorpusDSL.g:458:1: ( ( rule__MistakeTypeCategory__MistakeTypesAssignment_2_4 )* )
             {
-            // InternalLearningCorpusDSL.g:485:1: ( ( rule__MistakeTypeCategory__MistakeTypesAssignment_2_4 )* )
-            // InternalLearningCorpusDSL.g:486:2: ( rule__MistakeTypeCategory__MistakeTypesAssignment_2_4 )*
+            // InternalLearningCorpusDSL.g:458:1: ( ( rule__MistakeTypeCategory__MistakeTypesAssignment_2_4 )* )
+            // InternalLearningCorpusDSL.g:459:2: ( rule__MistakeTypeCategory__MistakeTypesAssignment_2_4 )*
             {
              before(grammarAccess.getMistakeTypeCategoryAccess().getMistakeTypesAssignment_2_4()); 
-            // InternalLearningCorpusDSL.g:487:2: ( rule__MistakeTypeCategory__MistakeTypesAssignment_2_4 )*
+            // InternalLearningCorpusDSL.g:460:2: ( rule__MistakeTypeCategory__MistakeTypesAssignment_2_4 )*
             loop6:
             do {
                 int alt6=2;
@@ -1447,7 +1372,7 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
 
                 switch (alt6) {
             	case 1 :
-            	    // InternalLearningCorpusDSL.g:487:3: rule__MistakeTypeCategory__MistakeTypesAssignment_2_4
+            	    // InternalLearningCorpusDSL.g:460:3: rule__MistakeTypeCategory__MistakeTypesAssignment_2_4
             	    {
             	    pushFollow(FOLLOW_12);
             	    rule__MistakeTypeCategory__MistakeTypesAssignment_2_4();
@@ -1486,17 +1411,22 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
 
 
     // $ANTLR start "rule__MistakeTypeCategory__Group_2__5"
-    // InternalLearningCorpusDSL.g:495:1: rule__MistakeTypeCategory__Group_2__5 : rule__MistakeTypeCategory__Group_2__5__Impl ;
+    // InternalLearningCorpusDSL.g:468:1: rule__MistakeTypeCategory__Group_2__5 : rule__MistakeTypeCategory__Group_2__5__Impl rule__MistakeTypeCategory__Group_2__6 ;
     public final void rule__MistakeTypeCategory__Group_2__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalLearningCorpusDSL.g:499:1: ( rule__MistakeTypeCategory__Group_2__5__Impl )
-            // InternalLearningCorpusDSL.g:500:2: rule__MistakeTypeCategory__Group_2__5__Impl
+            // InternalLearningCorpusDSL.g:472:1: ( rule__MistakeTypeCategory__Group_2__5__Impl rule__MistakeTypeCategory__Group_2__6 )
+            // InternalLearningCorpusDSL.g:473:2: rule__MistakeTypeCategory__Group_2__5__Impl rule__MistakeTypeCategory__Group_2__6
             {
-            pushFollow(FOLLOW_2);
+            pushFollow(FOLLOW_13);
             rule__MistakeTypeCategory__Group_2__5__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__MistakeTypeCategory__Group_2__6();
 
             state._fsp--;
 
@@ -1519,20 +1449,20 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
 
 
     // $ANTLR start "rule__MistakeTypeCategory__Group_2__5__Impl"
-    // InternalLearningCorpusDSL.g:506:1: rule__MistakeTypeCategory__Group_2__5__Impl : ( '}' ) ;
+    // InternalLearningCorpusDSL.g:480:1: rule__MistakeTypeCategory__Group_2__5__Impl : ( '}' ) ;
     public final void rule__MistakeTypeCategory__Group_2__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalLearningCorpusDSL.g:510:1: ( ( '}' ) )
-            // InternalLearningCorpusDSL.g:511:1: ( '}' )
+            // InternalLearningCorpusDSL.g:484:1: ( ( '}' ) )
+            // InternalLearningCorpusDSL.g:485:1: ( '}' )
             {
-            // InternalLearningCorpusDSL.g:511:1: ( '}' )
-            // InternalLearningCorpusDSL.g:512:2: '}'
+            // InternalLearningCorpusDSL.g:485:1: ( '}' )
+            // InternalLearningCorpusDSL.g:486:2: '}'
             {
              before(grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_2_5()); 
-            match(input,12,FOLLOW_2); 
+            match(input,14,FOLLOW_2); 
              after(grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_2_5()); 
 
             }
@@ -1553,6 +1483,76 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
         return ;
     }
     // $ANTLR end "rule__MistakeTypeCategory__Group_2__5__Impl"
+
+
+    // $ANTLR start "rule__MistakeTypeCategory__Group_2__6"
+    // InternalLearningCorpusDSL.g:495:1: rule__MistakeTypeCategory__Group_2__6 : rule__MistakeTypeCategory__Group_2__6__Impl ;
+    public final void rule__MistakeTypeCategory__Group_2__6() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalLearningCorpusDSL.g:499:1: ( rule__MistakeTypeCategory__Group_2__6__Impl )
+            // InternalLearningCorpusDSL.g:500:2: rule__MistakeTypeCategory__Group_2__6__Impl
+            {
+            pushFollow(FOLLOW_2);
+            rule__MistakeTypeCategory__Group_2__6__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__MistakeTypeCategory__Group_2__6"
+
+
+    // $ANTLR start "rule__MistakeTypeCategory__Group_2__6__Impl"
+    // InternalLearningCorpusDSL.g:506:1: rule__MistakeTypeCategory__Group_2__6__Impl : ( '}' ) ;
+    public final void rule__MistakeTypeCategory__Group_2__6__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalLearningCorpusDSL.g:510:1: ( ( '}' ) )
+            // InternalLearningCorpusDSL.g:511:1: ( '}' )
+            {
+            // InternalLearningCorpusDSL.g:511:1: ( '}' )
+            // InternalLearningCorpusDSL.g:512:2: '}'
+            {
+             before(grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_2_6()); 
+            match(input,14,FOLLOW_2); 
+             after(grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_2_6()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__MistakeTypeCategory__Group_2__6__Impl"
 
 
     // $ANTLR start "rule__MistakeType__Group__0"
@@ -1640,7 +1640,7 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
             // InternalLearningCorpusDSL.g:553:1: ( rule__MistakeType__Group__1__Impl rule__MistakeType__Group__2 )
             // InternalLearningCorpusDSL.g:554:2: rule__MistakeType__Group__1__Impl rule__MistakeType__Group__2
             {
-            pushFollow(FOLLOW_13);
+            pushFollow(FOLLOW_14);
             rule__MistakeType__Group__1__Impl();
 
             state._fsp--;
@@ -1725,7 +1725,7 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
             // InternalLearningCorpusDSL.g:580:1: ( rule__MistakeType__Group__2__Impl rule__MistakeType__Group__3 )
             // InternalLearningCorpusDSL.g:581:2: rule__MistakeType__Group__2__Impl rule__MistakeType__Group__3
             {
-            pushFollow(FOLLOW_13);
+            pushFollow(FOLLOW_14);
             rule__MistakeType__Group__2__Impl();
 
             state._fsp--;
@@ -1821,7 +1821,7 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
             // InternalLearningCorpusDSL.g:607:1: ( rule__MistakeType__Group__3__Impl rule__MistakeType__Group__4 )
             // InternalLearningCorpusDSL.g:608:2: rule__MistakeType__Group__3__Impl rule__MistakeType__Group__4
             {
-            pushFollow(FOLLOW_13);
+            pushFollow(FOLLOW_14);
             rule__MistakeType__Group__3__Impl();
 
             state._fsp--;
@@ -2072,7 +2072,7 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
             // InternalLearningCorpusDSL.g:688:1: ( rule__LearningItem__Group__1__Impl rule__LearningItem__Group__2 )
             // InternalLearningCorpusDSL.g:689:2: rule__LearningItem__Group__1__Impl rule__LearningItem__Group__2
             {
-            pushFollow(FOLLOW_14);
+            pushFollow(FOLLOW_15);
             rule__LearningItem__Group__1__Impl();
 
             state._fsp--;
@@ -2647,13 +2647,14 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalContentAssi
     public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000000802L});
     public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000010002L});
     public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000000030L});
-    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000003000L});
-    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000002040L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000001040L});
     public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000000042L});
-    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000009000L});
+    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x000000000000C000L});
     public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x00000000000200A0L});
-    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x00000000000200A0L});
+    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000000010L});
 
 }

@@ -46,6 +46,8 @@ WRONG_ROLE_NAMES: MistakeTypeCategory = _MTCS["Wrong role names"]
 WRONG_ASSOCIATION_CLASS: MistakeTypeCategory = _MTCS["Wrong association class"]
 WRONG_GENERALIZATION: MistakeTypeCategory = _MTCS["Wrong generalization"]
 MISUSE_OF_DESIGN_PATTERNS: MistakeTypeCategory = _MTCS["Misuse of design patterns"]
+MISUSE_OF_PLAYER_ROLE_PATTERN: MistakeTypeCategory = _MTCS["Misuse of Player-Role Pattern"]
+MISUSE_OF_ABSTRACTION_OCCURRENCE: MistakeTypeCategory = _MTCS["Misuse of Abstraction-Occurrence"]
 
 # Mistake types
 MISSING_CLASS: MistakeType = _MTS["Missing class"]
@@ -55,9 +57,9 @@ LOWERCASE_CLASS_NAME: MistakeType = _MTS["Lowercase class name"]
 SOFTWARE_ENGINEERING_TERM: MistakeType = _MTS["Software engineering term"]
 BAD_CLASS_NAME_SPELLING: MistakeType = _MTS["Bad class name spelling"]
 SIMILAR_CLASS_NAME: MistakeType = _MTS["Similar (yet incorrect) class name"]
-REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION: MistakeType = _MTS["Regular class should be an enumeration"]
-ENUMERATION_SHOULD_BE_A_REGULAR_CLASS: MistakeType = _MTS["Enumeration should be a regular class"]
-WRONG_ENUMERATION_ITEMS: MistakeType = _MTS["Wrong enumeration items"]
+REGULAR_CLASS_SHOULD_BE_ENUM: MistakeType = _MTS["Regular class should be enum"]
+ENUM_SHOULD_BE_REGULAR_CLASS: MistakeType = _MTS["Enum should be regular class"]
+WRONG_ENUM_ITEMS: MistakeType = _MTS["Wrong enum items"]
 MISSING_ATTRIBUTE: MistakeType = _MTS["Missing attribute"]
 WRONG_ATTRIBUTE_TYPE: MistakeType = _MTS["Wrong attribute type"]
 ATTRIBUTE_SHOULD_BE_STATIC: MistakeType = _MTS["Attribute should be static"]
@@ -75,14 +77,12 @@ USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION: MistakeType = _MTS["Using an attri
 REPRESENTING_AN_ACTION_WITH_AN_ASSOCIATION: MistakeType = _MTS["Representing an action with an association"]
 COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT: MistakeType = _MTS["Composed part contained in more than one parent"]
 OTHER_EXTRA_ASSOCIATION: MistakeType = _MTS["Other extra association"]
-USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION: MistakeType = \
-    _MTS["Using an association instead of an aggregation/composition"]
-USING_AN_AGGREGATION_COMPOSITION_INSTEAD_OF_AN_ASSOCIATION: MistakeType = \
-    _MTS["Using an aggregation/composition instead of an association"]
-USING_A_DIRECTED_ASSOCIATION_INSTEAD_OF_AN_UNDIRECTED_ONE: MistakeType = \
-    _MTS["Using a directed association instead of an undirected one"]
-USING_AN_UNDIRECTED_ASSOCIATION_INSTEAD_OF_A_DIRECTED_ONE: MistakeType = \
-    _MTS["Using an undirected association instead of a directed one"]
+USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION: MistakeType = \
+    _MTS["Using association instead of aggregation/composition"]
+USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION: MistakeType = \
+    _MTS["Using aggregation/composition instead of association"]
+USING_DIRECTED_ASSOCIATION_INSTEAD_OF_UNDIRECTED: MistakeType = _MTS["Using directed association instead of undirected"]
+USING_UNDIRECTED_ASSOCIATION_INSTEAD_OF_DIRECTED: MistakeType = _MTS["Using undirected association instead of directed"]
 USING_AGGREGATION_INSTEAD_OF_COMPOSITION: MistakeType = _MTS["Using aggregation instead of composition"]
 USING_COMPOSITION_INSTEAD_OF_AGGREGATION: MistakeType = _MTS["Using composition instead of aggregation"]
 MISSING_ASSOCIATION_NAME_WHEN_ONE_WAS_EXPECTED: MistakeType = _MTS["Missing association name when one was expected"]
@@ -91,11 +91,11 @@ SIMILAR_ASSOCIATION_NAME: MistakeType = _MTS["Similar (yet incorrect) associatio
 INFINITE_RECURSIVE_DEPENDENCY: MistakeType = _MTS["Infinite recursive dependency"]
 OTHER_WRONG_MULTIPLICITY: MistakeType = _MTS["Other wrong multiplicity"]
 MISSING_ROLE_NAMES: MistakeType = _MTS["Missing role names"]
-ROLE_NAMES_PRESENT_BUT_INCORRECT: MistakeType = _MTS["Role names present but incorrect"]
 ROLE_SHOULD_BE_STATIC: MistakeType = _MTS["Role should be static"]
 ROLE_SHOULD_NOT_BE_STATIC: MistakeType = _MTS["Role should not be static"]
 BAD_ROLE_NAME_SPELLING: MistakeType = _MTS["Bad role name spelling"]
 SIMILAR_ROLE_NAME: MistakeType = _MTS["Similar (yet incorrect) role name"]
+OTHER_WRONG_ROLE_NAME: MistakeType = _MTS["Other wrong role name"]
 MISSING_ASSOCIATION_CLASS: MistakeType = _MTS["Missing association class"]
 EXTRA_ASSOCIATION_CLASS: MistakeType = _MTS["Extra (redundant) association class"]
 BAD_ASSOCIATION_CLASS_NAME_SPELLING: MistakeType = _MTS["Bad association class name spelling"]
@@ -109,8 +109,6 @@ SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS: MistakeType = _MTS["Subclass is an instan
 NON_DIFFERENTIATED_SUBCLASS: MistakeType = _MTS["Non-differentiated subclass"]
 WRONG_GENERALIZATION_DIRECTION: MistakeType = _MTS["Wrong generalization direction"]
 WRONG_SUPERCLASS: MistakeType = _MTS["Wrong superclass"]
-MISUSE_OF_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Misuse of Player-Role Pattern"]
-MISUSE_OF_ABSTRACTION_OCCURRENCE: MistakeType = _MTS["Misuse of Abstraction-Occurrence"]
 
 
 def _make_static():

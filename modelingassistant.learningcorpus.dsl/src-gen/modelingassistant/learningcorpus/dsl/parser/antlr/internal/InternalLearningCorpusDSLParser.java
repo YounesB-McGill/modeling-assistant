@@ -291,7 +291,7 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalAntlrParser
 
 
     // $ANTLR start "ruleMistakeTypeCategory"
-    // InternalLearningCorpusDSL.g:128:1: ruleMistakeTypeCategory returns [EObject current=null] : (otherlv_0= 'MistakeTypeCategory' ( (lv_name_1_0= ruleEString ) ) (otherlv_2= '{' otherlv_3= 'mistakeTypes' (this_WS_4= RULE_WS )* otherlv_5= '{' ( (lv_mistakeTypes_6_0= ruleMistakeType ) )* otherlv_7= '}' )? otherlv_8= '}' ) ;
+    // InternalLearningCorpusDSL.g:128:1: ruleMistakeTypeCategory returns [EObject current=null] : (otherlv_0= 'MistakeTypeCategory' ( (lv_name_1_0= ruleEString ) ) (otherlv_2= '{' otherlv_3= 'mistakeTypes' (this_WS_4= RULE_WS )* otherlv_5= '{' ( (lv_mistakeTypes_6_0= ruleMistakeType ) )* otherlv_7= '}' otherlv_8= '}' )? ) ;
     public final EObject ruleMistakeTypeCategory() throws RecognitionException {
         EObject current = null;
 
@@ -311,11 +311,11 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalAntlrParser
         	enterRule();
 
         try {
-            // InternalLearningCorpusDSL.g:134:2: ( (otherlv_0= 'MistakeTypeCategory' ( (lv_name_1_0= ruleEString ) ) (otherlv_2= '{' otherlv_3= 'mistakeTypes' (this_WS_4= RULE_WS )* otherlv_5= '{' ( (lv_mistakeTypes_6_0= ruleMistakeType ) )* otherlv_7= '}' )? otherlv_8= '}' ) )
-            // InternalLearningCorpusDSL.g:135:2: (otherlv_0= 'MistakeTypeCategory' ( (lv_name_1_0= ruleEString ) ) (otherlv_2= '{' otherlv_3= 'mistakeTypes' (this_WS_4= RULE_WS )* otherlv_5= '{' ( (lv_mistakeTypes_6_0= ruleMistakeType ) )* otherlv_7= '}' )? otherlv_8= '}' )
+            // InternalLearningCorpusDSL.g:134:2: ( (otherlv_0= 'MistakeTypeCategory' ( (lv_name_1_0= ruleEString ) ) (otherlv_2= '{' otherlv_3= 'mistakeTypes' (this_WS_4= RULE_WS )* otherlv_5= '{' ( (lv_mistakeTypes_6_0= ruleMistakeType ) )* otherlv_7= '}' otherlv_8= '}' )? ) )
+            // InternalLearningCorpusDSL.g:135:2: (otherlv_0= 'MistakeTypeCategory' ( (lv_name_1_0= ruleEString ) ) (otherlv_2= '{' otherlv_3= 'mistakeTypes' (this_WS_4= RULE_WS )* otherlv_5= '{' ( (lv_mistakeTypes_6_0= ruleMistakeType ) )* otherlv_7= '}' otherlv_8= '}' )? )
             {
-            // InternalLearningCorpusDSL.g:135:2: (otherlv_0= 'MistakeTypeCategory' ( (lv_name_1_0= ruleEString ) ) (otherlv_2= '{' otherlv_3= 'mistakeTypes' (this_WS_4= RULE_WS )* otherlv_5= '{' ( (lv_mistakeTypes_6_0= ruleMistakeType ) )* otherlv_7= '}' )? otherlv_8= '}' )
-            // InternalLearningCorpusDSL.g:136:3: otherlv_0= 'MistakeTypeCategory' ( (lv_name_1_0= ruleEString ) ) (otherlv_2= '{' otherlv_3= 'mistakeTypes' (this_WS_4= RULE_WS )* otherlv_5= '{' ( (lv_mistakeTypes_6_0= ruleMistakeType ) )* otherlv_7= '}' )? otherlv_8= '}'
+            // InternalLearningCorpusDSL.g:135:2: (otherlv_0= 'MistakeTypeCategory' ( (lv_name_1_0= ruleEString ) ) (otherlv_2= '{' otherlv_3= 'mistakeTypes' (this_WS_4= RULE_WS )* otherlv_5= '{' ( (lv_mistakeTypes_6_0= ruleMistakeType ) )* otherlv_7= '}' otherlv_8= '}' )? )
+            // InternalLearningCorpusDSL.g:136:3: otherlv_0= 'MistakeTypeCategory' ( (lv_name_1_0= ruleEString ) ) (otherlv_2= '{' otherlv_3= 'mistakeTypes' (this_WS_4= RULE_WS )* otherlv_5= '{' ( (lv_mistakeTypes_6_0= ruleMistakeType ) )* otherlv_7= '}' otherlv_8= '}' )?
             {
             otherlv_0=(Token)match(input,11,FOLLOW_5); 
 
@@ -352,7 +352,7 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalAntlrParser
 
             }
 
-            // InternalLearningCorpusDSL.g:159:3: (otherlv_2= '{' otherlv_3= 'mistakeTypes' (this_WS_4= RULE_WS )* otherlv_5= '{' ( (lv_mistakeTypes_6_0= ruleMistakeType ) )* otherlv_7= '}' )?
+            // InternalLearningCorpusDSL.g:159:3: (otherlv_2= '{' otherlv_3= 'mistakeTypes' (this_WS_4= RULE_WS )* otherlv_5= '{' ( (lv_mistakeTypes_6_0= ruleMistakeType ) )* otherlv_7= '}' otherlv_8= '}' )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -361,7 +361,7 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalAntlrParser
             }
             switch (alt5) {
                 case 1 :
-                    // InternalLearningCorpusDSL.g:160:4: otherlv_2= '{' otherlv_3= 'mistakeTypes' (this_WS_4= RULE_WS )* otherlv_5= '{' ( (lv_mistakeTypes_6_0= ruleMistakeType ) )* otherlv_7= '}'
+                    // InternalLearningCorpusDSL.g:160:4: otherlv_2= '{' otherlv_3= 'mistakeTypes' (this_WS_4= RULE_WS )* otherlv_5= '{' ( (lv_mistakeTypes_6_0= ruleMistakeType ) )* otherlv_7= '}' otherlv_8= '}'
                     {
                     otherlv_2=(Token)match(input,12,FOLLOW_7); 
 
@@ -456,16 +456,16 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalAntlrParser
 
                     				newLeafNode(otherlv_7, grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_2_5());
                     			
+                    otherlv_8=(Token)match(input,14,FOLLOW_2); 
+
+                    				newLeafNode(otherlv_8, grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_2_6());
+                    			
 
                     }
                     break;
 
             }
 
-            otherlv_8=(Token)match(input,14,FOLLOW_2); 
-
-            			newLeafNode(otherlv_8, grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_3());
-            		
 
             }
 
@@ -958,7 +958,7 @@ public class InternalLearningCorpusDSLParser extends AbstractInternalAntlrParser
     public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000020802L});
     public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000020002L});
     public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x00000000000000C0L});
-    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000005000L});
+    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000001002L});
     public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000002000L});
     public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000001010L});
     public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x000000000000C000L});
