@@ -68,8 +68,8 @@ public class SolutionItemProvider
       addClassDiagramPropertyDescriptor(object);
       addMistakesPropertyDescriptor(object);
       addCurrentMistakePropertyDescriptor(object);
-      addStudentProblemStatementPropertyDescriptor(object);
-      addInstructorProblemStatementPropertyDescriptor(object);
+      addTagGroupsPropertyDescriptor(object);
+      addProblemStatementPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -207,19 +207,19 @@ public class SolutionItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Student Problem Statement feature.
+   * This adds a property descriptor for the Tag Groups feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addStudentProblemStatementPropertyDescriptor(Object object) {
+  protected void addTagGroupsPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_Solution_studentProblemStatement_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Solution_studentProblemStatement_feature", "_UI_Solution_type"),
-         ModelingassistantPackage.Literals.SOLUTION__STUDENT_PROBLEM_STATEMENT,
+         getString("_UI_Solution_tagGroups_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Solution_tagGroups_feature", "_UI_Solution_type"),
+         ModelingassistantPackage.Literals.SOLUTION__TAG_GROUPS,
          true,
          false,
          true,
@@ -229,19 +229,19 @@ public class SolutionItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Instructor Problem Statement feature.
+   * This adds a property descriptor for the Problem Statement feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addInstructorProblemStatementPropertyDescriptor(Object object) {
+  protected void addProblemStatementPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_Solution_instructorProblemStatement_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Solution_instructorProblemStatement_feature", "_UI_Solution_type"),
-         ModelingassistantPackage.Literals.SOLUTION__INSTRUCTOR_PROBLEM_STATEMENT,
+         getString("_UI_Solution_problemStatement_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Solution_problemStatement_feature", "_UI_Solution_type"),
+         ModelingassistantPackage.Literals.SOLUTION__PROBLEM_STATEMENT,
          true,
          false,
          true,
@@ -264,6 +264,7 @@ public class SolutionItemProvider
       super.getChildrenFeatures(object);
       childrenFeatures.add(ModelingassistantPackage.Literals.SOLUTION__SOLUTION_ELEMENTS);
       childrenFeatures.add(ModelingassistantPackage.Literals.SOLUTION__MISTAKES);
+      childrenFeatures.add(ModelingassistantPackage.Literals.SOLUTION__TAG_GROUPS);
     }
     return childrenFeatures;
   }
@@ -318,6 +319,7 @@ public class SolutionItemProvider
     switch (notification.getFeatureID(Solution.class)) {
       case ModelingassistantPackage.SOLUTION__SOLUTION_ELEMENTS:
       case ModelingassistantPackage.SOLUTION__MISTAKES:
+      case ModelingassistantPackage.SOLUTION__TAG_GROUPS:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
     }
@@ -344,6 +346,11 @@ public class SolutionItemProvider
       (createChildParameter
         (ModelingassistantPackage.Literals.SOLUTION__MISTAKES,
          ModelingassistantFactory.eINSTANCE.createMistake()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.SOLUTION__TAG_GROUPS,
+         ModelingassistantFactory.eINSTANCE.createTagGroup()));
   }
 
   /**

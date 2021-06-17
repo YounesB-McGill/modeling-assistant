@@ -57,12 +57,10 @@ class Solution(EObject, metaclass=MetaEClass):
     classDiagram = EReference(ordered=True, unique=True, containment=False, derived=False)
     mistakes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     currentMistake = EReference(ordered=True, unique=True, containment=False, derived=False)
-    studentProblemStatement = EReference(
-        ordered=True, unique=True, containment=False, derived=False)
-    instructorProblemStatement = EReference(
-        ordered=True, unique=True, containment=False, derived=False)
+    tagGroups = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    problemStatement = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, modelingAssistant=None, student=None, solutionElements=None, classDiagram=None, mistakes=None, currentMistake=None, studentProblemStatement=None, instructorProblemStatement=None):
+    def __init__(self, *, modelingAssistant=None, student=None, solutionElements=None, classDiagram=None, mistakes=None, currentMistake=None, tagGroups=None, problemStatement=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -86,11 +84,11 @@ class Solution(EObject, metaclass=MetaEClass):
         if currentMistake is not None:
             self.currentMistake = currentMistake
 
-        if studentProblemStatement is not None:
-            self.studentProblemStatement = studentProblemStatement
+        if tagGroups:
+            self.tagGroups.extend(tagGroups)
 
-        if instructorProblemStatement is not None:
-            self.instructorProblemStatement = instructorProblemStatement
+        if problemStatement is not None:
+            self.problemStatement = problemStatement
 
 
 class SolutionElement(EObject, metaclass=MetaEClass):
@@ -103,8 +101,9 @@ class SolutionElement(EObject, metaclass=MetaEClass):
     element = EReference(ordered=True, unique=True, containment=False, derived=False)
     instructorElementMistakes = EReference(
         ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    tags = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
 
-    def __init__(self, *, problemStatementElements=None, solution=None, studentElementMistakes=None, element=None, instructorElementMistakes=None):
+    def __init__(self, *, problemStatementElements=None, solution=None, studentElementMistakes=None, element=None, instructorElementMistakes=None, tags=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -124,6 +123,9 @@ class SolutionElement(EObject, metaclass=MetaEClass):
 
         if instructorElementMistakes:
             self.instructorElementMistakes.extend(instructorElementMistakes)
+
+        if tags:
+            self.tags.extend(tags)
 
 
 class StudentKnowledge(EObject, metaclass=MetaEClass):
@@ -245,6 +247,42 @@ class FeedbackItem(EObject, metaclass=MetaEClass):
             self.feedback = feedback
 
 
+class Tag(EObject, metaclass=MetaEClass):
+
+    solutionelement = EReference(ordered=True, unique=True, containment=False, derived=False)
+    tagGroup = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, solutionelement=None, tagGroup=None):
+        # if kwargs:
+        #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
+
+        super().__init__()
+
+        if solutionelement is not None:
+            self.solutionelement = solutionelement
+
+        if tagGroup is not None:
+            self.tagGroup = tagGroup
+
+
+class TagGroup(EObject, metaclass=MetaEClass):
+
+    tags = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    solution = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, tags=None, solution=None):
+        # if kwargs:
+        #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
+
+        super().__init__()
+
+        if tags:
+            self.tags.extend(tags)
+
+        if solution is not None:
+            self.solution = solution
+
+
 class Student(NamedElement):
 
     id = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
@@ -276,20 +314,16 @@ class Student(NamedElement):
 
 class ProblemStatement(NamedElement):
 
-    text = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
     problemStatementElements = EReference(
         ordered=True, unique=True, containment=True, derived=False, upper=-1)
     modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
-    studentSolution = EReference(ordered=True, unique=True,
-                                 containment=False, derived=False, upper=-1)
+    studentSolutions = EReference(ordered=True, unique=True,
+                                  containment=False, derived=False, upper=-1)
     instructorSolution = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, problemStatementElements=None, text=None, modelingAssistant=None, studentSolution=None, instructorSolution=None, **kwargs):
+    def __init__(self, *, problemStatementElements=None, modelingAssistant=None, studentSolutions=None, instructorSolution=None, **kwargs):
 
         super().__init__(**kwargs)
-
-        if text is not None:
-            self.text = text
 
         if problemStatementElements:
             self.problemStatementElements.extend(problemStatementElements)
@@ -297,8 +331,8 @@ class ProblemStatement(NamedElement):
         if modelingAssistant is not None:
             self.modelingAssistant = modelingAssistant
 
-        if studentSolution:
-            self.studentSolution.extend(studentSolution)
+        if studentSolutions:
+            self.studentSolutions.extend(studentSolutions)
 
         if instructorSolution is not None:
             self.instructorSolution = instructorSolution

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_uc03oMz1Eeuzj6fVLsCWEQ" name="PISystem_StudentSolution" featureModel="_uc03ocz1Eeuzj6fVLsCWEQ" impactModel="_uc03o8z1Eeuzj6fVLsCWEQ">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_uc03ocz1Eeuzj6fVLsCWEQ" root="_uc03osz1Eeuzj6fVLsCWEQ">
+    <features xmi:id="_uc03osz1Eeuzj6fVLsCWEQ" name="PISystem_StudentSolution" realizedBy="_u_9Z4cz1Eeuzj6fVLsCWEQ"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_uc03o8z1Eeuzj6fVLsCWEQ" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_u_9Z4Mz1Eeuzj6fVLsCWEQ" name="PISystem_StudentSolution" scene="_u_9Z4cz1Eeuzj6fVLsCWEQ" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/PISystem_StudentSolution.domain_model.cdm#_vAMqcMz1Eeuzj6fVLsCWEQ"/>
+  </artefacts>
+  <scenes xmi:id="_u_9Z4cz1Eeuzj6fVLsCWEQ" name="PISystem_StudentSolution" realizes="_uc03osz1Eeuzj6fVLsCWEQ" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_u_9Z4sz1Eeuzj6fVLsCWEQ" value="_u_9Z4Mz1Eeuzj6fVLsCWEQ" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
