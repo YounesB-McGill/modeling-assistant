@@ -90,6 +90,13 @@ public class MistakeTypes {
   /** The misuse of design patterns mistake type category. */
   public static final MistakeTypeCategory MISUSE_OF_DESIGN_PATTERNS = MTCS.get("Misuse of design patterns");
 
+  /** The misuse of player-role pattern mistake type category. */
+  public static final MistakeTypeCategory MISUSE_OF_PLAYER_ROLE_PATTERN = MTCS.get("Misuse of Player-Role Pattern");
+
+  /** The misuse of abstraction-occurrence mistake type category. */
+  public static final MistakeTypeCategory MISUSE_OF_ABSTRACTION_OCCURRENCE =
+      MTCS.get("Misuse of Abstraction-Occurrence");
+
 
   // Mistake types
 
@@ -114,16 +121,14 @@ public class MistakeTypes {
   /** The similar (yet incorrect) class name mistake type. */
   public static final MistakeType SIMILAR_CLASS_NAME = MTS.get("Similar (yet incorrect) class name");
 
-  /** The regular class should be an enumeration mistake type. */
-  public static final MistakeType REGULAR_CLASS_SHOULD_BE_AN_ENUMERATION =
-      MTS.get("Regular class should be an enumeration");
+  /** The regular class should be enum mistake type. */
+  public static final MistakeType REGULAR_CLASS_SHOULD_BE_ENUM = MTS.get("Regular class should be enum");
 
-  /** The enumeration should be a regular class mistake type. */
-  public static final MistakeType ENUMERATION_SHOULD_BE_A_REGULAR_CLASS =
-      MTS.get("Enumeration should be a regular class");
+  /** The enum should be regular class mistake type. */
+  public static final MistakeType ENUM_SHOULD_BE_REGULAR_CLASS = MTS.get("Enum should be regular class");
 
-  /** The wrong enumeration items mistake type. */
-  public static final MistakeType WRONG_ENUMERATION_ITEMS = MTS.get("Wrong enumeration items");
+  /** The wrong enum items mistake type. */
+  public static final MistakeType WRONG_ENUM_ITEMS = MTS.get("Wrong enum items");
 
   /** The missing attribute mistake type. */
   public static final MistakeType MISSING_ATTRIBUTE = MTS.get("Missing attribute");
@@ -179,21 +184,21 @@ public class MistakeTypes {
   /** The other extra association mistake type. */
   public static final MistakeType OTHER_EXTRA_ASSOCIATION = MTS.get("Other extra association");
 
-  /** The using an association instead of an aggregation/composition mistake type. */
-  public static final MistakeType USING_AN_ASSOCIATION_INSTEAD_OF_AN_AGGREGATION_COMPOSITION =
-      MTS.get("Using an association instead of an aggregation/composition");
+  /** The using association instead of aggregation/composition mistake type. */
+  public static final MistakeType USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION =
+      MTS.get("Using association instead of aggregation/composition");
 
-  /** The using an aggregation/composition instead of an association mistake type. */
-  public static final MistakeType USING_AN_AGGREGATION_COMPOSITION_INSTEAD_OF_AN_ASSOCIATION =
-      MTS.get("Using an aggregation/composition instead of an association");
+  /** The using aggregation/composition instead of association mistake type. */
+  public static final MistakeType USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION =
+      MTS.get("Using aggregation/composition instead of association");
 
-  /** The using a directed association instead of an undirected one mistake type. */
-  public static final MistakeType USING_A_DIRECTED_ASSOCIATION_INSTEAD_OF_AN_UNDIRECTED_ONE =
-      MTS.get("Using a directed association instead of an undirected one");
+  /** The using directed association instead of undirected mistake type. */
+  public static final MistakeType USING_DIRECTED_ASSOCIATION_INSTEAD_OF_UNDIRECTED =
+      MTS.get("Using directed association instead of undirected");
 
-  /** The using an undirected association instead of a directed one mistake type. */
-  public static final MistakeType USING_AN_UNDIRECTED_ASSOCIATION_INSTEAD_OF_A_DIRECTED_ONE =
-      MTS.get("Using an undirected association instead of a directed one");
+  /** The using undirected association instead of directed mistake type. */
+  public static final MistakeType USING_UNDIRECTED_ASSOCIATION_INSTEAD_OF_DIRECTED =
+      MTS.get("Using undirected association instead of directed");
 
   /** The using aggregation instead of composition mistake type. */
   public static final MistakeType USING_AGGREGATION_INSTEAD_OF_COMPOSITION =
@@ -222,9 +227,6 @@ public class MistakeTypes {
   /** The missing role names mistake type. */
   public static final MistakeType MISSING_ROLE_NAMES = MTS.get("Missing role names");
 
-  /** The role names present but incorrect mistake type. */
-  public static final MistakeType ROLE_NAMES_PRESENT_BUT_INCORRECT = MTS.get("Role names present but incorrect");
-
   /** The role should be static mistake type. */
   public static final MistakeType ROLE_SHOULD_BE_STATIC = MTS.get("Role should be static");
 
@@ -236,6 +238,9 @@ public class MistakeTypes {
 
   /** The similar (yet incorrect) role name mistake type. */
   public static final MistakeType SIMILAR_ROLE_NAME = MTS.get("Similar (yet incorrect) role name");
+
+  /** The other wrong role name mistake type. */
+  public static final MistakeType OTHER_WRONG_ROLE_NAME = MTS.get("Other wrong role name");
 
   /** The missing association class mistake type. */
   public static final MistakeType MISSING_ASSOCIATION_CLASS = MTS.get("Missing association class");
@@ -276,11 +281,5 @@ public class MistakeTypes {
 
   /** The wrong superclass mistake type. */
   public static final MistakeType WRONG_SUPERCLASS = MTS.get("Wrong superclass");
-
-  /** The misuse of player-role pattern mistake type. */
-  public static final MistakeType MISUSE_OF_PLAYER_ROLE_PATTERN = MTS.get("Misuse of Player-Role Pattern");
-
-  /** The misuse of abstraction-occurrence mistake type. */
-  public static final MistakeType MISUSE_OF_ABSTRACTION_OCCURRENCE = MTS.get("Misuse of Abstraction-Occurrence");
 
 }

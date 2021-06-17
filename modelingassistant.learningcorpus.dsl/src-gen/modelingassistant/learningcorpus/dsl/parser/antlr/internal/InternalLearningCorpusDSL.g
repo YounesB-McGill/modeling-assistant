@@ -198,11 +198,11 @@ ruleMistakeTypeCategory returns [EObject current=null]
 			{
 				newLeafNode(otherlv_7, grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_2_5());
 			}
+			otherlv_8='}'
+			{
+				newLeafNode(otherlv_8, grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_2_6());
+			}
 		)?
-		otherlv_8='}'
-		{
-			newLeafNode(otherlv_8, grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_3());
-		}
 	)
 ;
 

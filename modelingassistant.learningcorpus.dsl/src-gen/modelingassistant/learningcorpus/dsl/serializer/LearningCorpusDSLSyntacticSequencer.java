@@ -22,13 +22,13 @@ public class LearningCorpusDSLSyntacticSequencer extends AbstractSyntacticSequen
 
 	protected LearningCorpusDSLGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_MistakeTypeCategory_WSTerminalRuleCall_2_2_a;
-	protected AbstractElementAlias match_MistakeTypeCategory___LeftCurlyBracketKeyword_2_0_MistakeTypesKeyword_2_1_WSTerminalRuleCall_2_2_a_LeftCurlyBracketKeyword_2_3_RightCurlyBracketKeyword_2_5__q;
+	protected AbstractElementAlias match_MistakeTypeCategory___LeftCurlyBracketKeyword_2_0_MistakeTypesKeyword_2_1_WSTerminalRuleCall_2_2_a_LeftCurlyBracketKeyword_2_3_RightCurlyBracketKeyword_2_5_RightCurlyBracketKeyword_2_6__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (LearningCorpusDSLGrammarAccess) access;
 		match_MistakeTypeCategory_WSTerminalRuleCall_2_2_a = new TokenAlias(true, true, grammarAccess.getMistakeTypeCategoryAccess().getWSTerminalRuleCall_2_2());
-		match_MistakeTypeCategory___LeftCurlyBracketKeyword_2_0_MistakeTypesKeyword_2_1_WSTerminalRuleCall_2_2_a_LeftCurlyBracketKeyword_2_3_RightCurlyBracketKeyword_2_5__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getMistakeTypeCategoryAccess().getLeftCurlyBracketKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getMistakeTypeCategoryAccess().getMistakeTypesKeyword_2_1()), new TokenAlias(true, true, grammarAccess.getMistakeTypeCategoryAccess().getWSTerminalRuleCall_2_2()), new TokenAlias(false, false, grammarAccess.getMistakeTypeCategoryAccess().getLeftCurlyBracketKeyword_2_3()), new TokenAlias(false, false, grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_2_5()));
+		match_MistakeTypeCategory___LeftCurlyBracketKeyword_2_0_MistakeTypesKeyword_2_1_WSTerminalRuleCall_2_2_a_LeftCurlyBracketKeyword_2_3_RightCurlyBracketKeyword_2_5_RightCurlyBracketKeyword_2_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getMistakeTypeCategoryAccess().getLeftCurlyBracketKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getMistakeTypeCategoryAccess().getMistakeTypesKeyword_2_1()), new TokenAlias(true, true, grammarAccess.getMistakeTypeCategoryAccess().getWSTerminalRuleCall_2_2()), new TokenAlias(false, false, grammarAccess.getMistakeTypeCategoryAccess().getLeftCurlyBracketKeyword_2_3()), new TokenAlias(false, false, grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_2_5()), new TokenAlias(false, false, grammarAccess.getMistakeTypeCategoryAccess().getRightCurlyBracketKeyword_2_6()));
 	}
 	
 	@Override
@@ -55,8 +55,8 @@ public class LearningCorpusDSLSyntacticSequencer extends AbstractSyntacticSequen
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
 			if (match_MistakeTypeCategory_WSTerminalRuleCall_2_2_a.equals(syntax))
 				emit_MistakeTypeCategory_WSTerminalRuleCall_2_2_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_MistakeTypeCategory___LeftCurlyBracketKeyword_2_0_MistakeTypesKeyword_2_1_WSTerminalRuleCall_2_2_a_LeftCurlyBracketKeyword_2_3_RightCurlyBracketKeyword_2_5__q.equals(syntax))
-				emit_MistakeTypeCategory___LeftCurlyBracketKeyword_2_0_MistakeTypesKeyword_2_1_WSTerminalRuleCall_2_2_a_LeftCurlyBracketKeyword_2_3_RightCurlyBracketKeyword_2_5__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_MistakeTypeCategory___LeftCurlyBracketKeyword_2_0_MistakeTypesKeyword_2_1_WSTerminalRuleCall_2_2_a_LeftCurlyBracketKeyword_2_3_RightCurlyBracketKeyword_2_5_RightCurlyBracketKeyword_2_6__q.equals(syntax))
+				emit_MistakeTypeCategory___LeftCurlyBracketKeyword_2_0_MistakeTypesKeyword_2_1_WSTerminalRuleCall_2_2_a_LeftCurlyBracketKeyword_2_3_RightCurlyBracketKeyword_2_5_RightCurlyBracketKeyword_2_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -74,12 +74,19 @@ public class LearningCorpusDSLSyntacticSequencer extends AbstractSyntacticSequen
 	
 	/**
 	 * Ambiguous syntax:
-	 *     ('{' 'mistakeTypes' WS* '{' '}')?
+	 *     (
+	  *         '{' 
+	  *         'mistakeTypes' 
+	  *         WS* 
+	  *         '{' 
+	  *         '}' 
+	  *         '}'
+	  *     )?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     name=EString (ambiguity) '}' (rule end)
+	 *     name=EString (ambiguity) (rule end)
 	 */
-	protected void emit_MistakeTypeCategory___LeftCurlyBracketKeyword_2_0_MistakeTypesKeyword_2_1_WSTerminalRuleCall_2_2_a_LeftCurlyBracketKeyword_2_3_RightCurlyBracketKeyword_2_5__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_MistakeTypeCategory___LeftCurlyBracketKeyword_2_0_MistakeTypesKeyword_2_1_WSTerminalRuleCall_2_2_a_LeftCurlyBracketKeyword_2_3_RightCurlyBracketKeyword_2_5_RightCurlyBracketKeyword_2_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
