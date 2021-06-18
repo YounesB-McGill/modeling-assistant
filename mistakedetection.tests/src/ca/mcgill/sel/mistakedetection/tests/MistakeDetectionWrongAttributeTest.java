@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import ca.mcgill.sel.classdiagram.Association;
+import ca.mcgill.sel.classdiagram.Attribute;
+import ca.mcgill.sel.classdiagram.CdmPackage;
+import ca.mcgill.sel.classdiagram.ClassDiagram;
+import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import classdiagram.Association;
-import classdiagram.Attribute;
-import classdiagram.ClassDiagram;
-import classdiagram.ClassdiagramPackage;
-import classdiagram.Classifier;
 import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantFactory;
@@ -25,7 +25,7 @@ public class MistakeDetectionWrongAttributeTest {
    */
   @Test
   public void checkCorrectTestWithSolution1_withAttributes() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -36,7 +36,7 @@ public class MistakeDetectionWrongAttributeTest {
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile1 =
         "../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute).domain_model.cdm";
     var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
@@ -108,7 +108,7 @@ public class MistakeDetectionWrongAttributeTest {
    */
   @Test
   public void checkCorrectTestWithSolution2_withAttributes() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -119,7 +119,7 @@ public class MistakeDetectionWrongAttributeTest {
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile1 =
         "../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute)-a.domain_model.cdm";
     var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
@@ -204,7 +204,7 @@ public class MistakeDetectionWrongAttributeTest {
    */
   @Test
   public void checkCorrectTestWithSolution3_withAttributes_compare() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -215,7 +215,7 @@ public class MistakeDetectionWrongAttributeTest {
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile1 =
         "../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute)-b.domain_model.cdm";
     var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
@@ -349,7 +349,7 @@ public class MistakeDetectionWrongAttributeTest {
   @Test
   public void checkCorrectTestWithSolution2_withAttributes_Compare() {
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -360,7 +360,7 @@ public class MistakeDetectionWrongAttributeTest {
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile1 =
         "../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute)-a.domain_model.cdm";
     var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
@@ -441,7 +441,7 @@ public class MistakeDetectionWrongAttributeTest {
    */
   @Test
   public void checkCorrectTestWithSolution4_withAttributes_Compare() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -452,7 +452,7 @@ public class MistakeDetectionWrongAttributeTest {
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile1 =
         "../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute)-c.domain_model.cdm";
     var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
@@ -556,7 +556,7 @@ public class MistakeDetectionWrongAttributeTest {
    */
   @Test
   public void checkCorrectTestWithSolution5_withAttributes_Compare() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -567,7 +567,7 @@ public class MistakeDetectionWrongAttributeTest {
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile1 =
         "../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute)-d.domain_model.cdm";
     var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
@@ -636,7 +636,7 @@ public class MistakeDetectionWrongAttributeTest {
   @Test
   public void checkCorrectTestWithSolution6_withAttributes_Compare() {
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -647,7 +647,7 @@ public class MistakeDetectionWrongAttributeTest {
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile1 =
         "../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute)-e.domain_model.cdm";
     var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
@@ -719,7 +719,7 @@ public class MistakeDetectionWrongAttributeTest {
   @Test
   public void checkCorrectTestWithSolution1_withAttributes_Compare() {
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -730,7 +730,7 @@ public class MistakeDetectionWrongAttributeTest {
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile1 =
         "../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute).domain_model.cdm";
     var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);

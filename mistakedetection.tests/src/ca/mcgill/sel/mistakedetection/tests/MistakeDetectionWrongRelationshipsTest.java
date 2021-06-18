@@ -3,12 +3,12 @@ package ca.mcgill.sel.mistakedetection.tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.Test;
+import ca.mcgill.sel.classdiagram.Association;
+import ca.mcgill.sel.classdiagram.AssociationEnd;
+import ca.mcgill.sel.classdiagram.CdmPackage;
+import ca.mcgill.sel.classdiagram.ClassDiagram;
+import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import classdiagram.Association;
-import classdiagram.AssociationEnd;
-import classdiagram.ClassDiagram;
-import classdiagram.ClassdiagramPackage;
-import classdiagram.Classifier;
 import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantFactory;
@@ -22,7 +22,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    */
   @Test
   public void testToCheckRelationshipMapping() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -33,7 +33,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile1 =
         "../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute).domain_model.cdm";
     var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
@@ -96,7 +96,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    */
   @Test
   public void checkCorrectTestWithSolution3() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -107,7 +107,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile1 =
         "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution-b.domain_model.cdm";
     var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);

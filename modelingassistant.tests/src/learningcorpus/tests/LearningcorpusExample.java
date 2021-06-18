@@ -8,8 +8,6 @@ import java.io.IOException;
 import learningcorpus.LearningcorpusFactory;
 import learningcorpus.LearningcorpusPackage;
 import learningcorpus.UmlElement;
-
-import learningcorpus.util.LearningcorpusResourceFactoryImpl;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 
@@ -21,6 +19,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -45,7 +44,7 @@ public class LearningcorpusExample {
     //
     resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put
       (Resource.Factory.Registry.DEFAULT_EXTENSION, 
-       new LearningcorpusResourceFactoryImpl());
+       new XMIResourceFactoryImpl());
 
     // Register the package to ensure it is available during loading.
     //

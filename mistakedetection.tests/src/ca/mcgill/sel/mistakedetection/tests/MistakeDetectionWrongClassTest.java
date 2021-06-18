@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import ca.mcgill.sel.classdiagram.CdmPackage;
+import ca.mcgill.sel.classdiagram.ClassDiagram;
+import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import classdiagram.ClassDiagram;
-import classdiagram.ClassdiagramPackage;
-import classdiagram.Classifier;
 import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantFactory;
@@ -21,7 +21,7 @@ public class MistakeDetectionWrongClassTest {
    */
   @Test
   public void testStudentSolution_1_PluralClassName() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution-a.domain_model.cdm";
     // Contains Class Buses and Drivers
@@ -32,7 +32,7 @@ public class MistakeDetectionWrongClassTest {
       assertTrue(MistakeDetection.isPlural(c.getName()));
     }
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     cdmFile =
         "../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm";
     // Contains Class Buses and Driver
@@ -51,7 +51,7 @@ public class MistakeDetectionWrongClassTest {
    */
   @Test
   public void checkCorrectTest() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution.domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -75,7 +75,7 @@ public class MistakeDetectionWrongClassTest {
    */
   @Test
   public void checkCorrectTestWithSolution1() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -86,7 +86,7 @@ public class MistakeDetectionWrongClassTest {
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile1 =
         "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution.domain_model.cdm";
     var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
@@ -125,7 +125,7 @@ public class MistakeDetectionWrongClassTest {
    */
   @Test
   public void checkCorrectTestWithSolution2() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile =
         "../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
@@ -136,7 +136,7 @@ public class MistakeDetectionWrongClassTest {
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile1 =
         "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution-a.domain_model.cdm";
     var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);

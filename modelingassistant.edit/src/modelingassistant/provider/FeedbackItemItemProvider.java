@@ -5,7 +5,6 @@ package modelingassistant.provider;
 
 import java.util.Collection;
 import java.util.List;
-
 import modelingassistant.FeedbackItem;
 import modelingassistant.ModelingassistantPackage;
 
@@ -61,7 +60,6 @@ public class FeedbackItemItemProvider
       super.getPropertyDescriptors(object);
 
       addMistakesPropertyDescriptor(object);
-      addModelingAssistantPropertyDescriptor(object);
       addUsefulnessPropertyDescriptor(object);
       addFeedbackPropertyDescriptor(object);
     }
@@ -82,28 +80,6 @@ public class FeedbackItemItemProvider
          getString("_UI_FeedbackItem_mistakes_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_FeedbackItem_mistakes_feature", "_UI_FeedbackItem_type"),
          ModelingassistantPackage.Literals.FEEDBACK_ITEM__MISTAKES,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Modeling Assistant feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addModelingAssistantPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_FeedbackItem_modelingAssistant_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_FeedbackItem_modelingAssistant_feature", "_UI_FeedbackItem_type"),
-         ModelingassistantPackage.Literals.FEEDBACK_ITEM__MODELING_ASSISTANT,
          true,
          false,
          true,

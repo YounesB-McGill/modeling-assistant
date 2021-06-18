@@ -8,9 +8,6 @@ import java.util.List;
 
 import learningcorpus.LearningcorpusPackage;
 import learningcorpus.NamedElement;
-
-import modelingassistant.provider.ModelingassistantEditPlugin;
-
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
@@ -143,7 +140,7 @@ public class NamedElementItemProvider
    */
   @Override
   public ResourceLocator getResourceLocator() {
-    return ModelingassistantEditPlugin.INSTANCE;
+    return learningcorpus.provider.ModelingassistantEditPlugin.INSTANCE;
   }
 
 }

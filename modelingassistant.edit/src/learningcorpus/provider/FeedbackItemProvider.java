@@ -8,9 +8,6 @@ import java.util.List;
 
 import learningcorpus.Feedback;
 import learningcorpus.LearningcorpusPackage;
-
-import modelingassistant.provider.ModelingassistantEditPlugin;
-
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
@@ -295,7 +292,7 @@ public class FeedbackItemProvider
    */
   @Override
   public ResourceLocator getResourceLocator() {
-    return ModelingassistantEditPlugin.INSTANCE;
+    return learningcorpus.provider.ModelingassistantEditPlugin.INSTANCE;
   }
 
 }

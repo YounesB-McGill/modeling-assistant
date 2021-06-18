@@ -5,7 +5,6 @@ package modelingassistant.provider;
 
 import java.util.Collection;
 import java.util.List;
-
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.Solution;
@@ -62,38 +61,12 @@ public class SolutionItemProvider
     if (itemPropertyDescriptors == null) {
       super.getPropertyDescriptors(object);
 
-      addModelingAssistantPropertyDescriptor(object);
       addStudentPropertyDescriptor(object);
-      addSolutionElementsPropertyDescriptor(object);
       addClassDiagramPropertyDescriptor(object);
-      addMistakesPropertyDescriptor(object);
       addCurrentMistakePropertyDescriptor(object);
-      addTagGroupsPropertyDescriptor(object);
       addProblemStatementPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
-  }
-
-  /**
-   * This adds a property descriptor for the Modeling Assistant feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addModelingAssistantPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_Solution_modelingAssistant_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Solution_modelingAssistant_feature", "_UI_Solution_type"),
-         ModelingassistantPackage.Literals.SOLUTION__MODELING_ASSISTANT,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
   }
 
   /**
@@ -110,28 +83,6 @@ public class SolutionItemProvider
          getString("_UI_Solution_student_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_Solution_student_feature", "_UI_Solution_type"),
          ModelingassistantPackage.Literals.SOLUTION__STUDENT,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Solution Elements feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addSolutionElementsPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_Solution_solutionElements_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Solution_solutionElements_feature", "_UI_Solution_type"),
-         ModelingassistantPackage.Literals.SOLUTION__SOLUTION_ELEMENTS,
          true,
          false,
          true,
@@ -163,28 +114,6 @@ public class SolutionItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Mistakes feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addMistakesPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_Solution_mistakes_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Solution_mistakes_feature", "_UI_Solution_type"),
-         ModelingassistantPackage.Literals.SOLUTION__MISTAKES,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
    * This adds a property descriptor for the Current Mistake feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -198,28 +127,6 @@ public class SolutionItemProvider
          getString("_UI_Solution_currentMistake_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_Solution_currentMistake_feature", "_UI_Solution_type"),
          ModelingassistantPackage.Literals.SOLUTION__CURRENT_MISTAKE,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Tag Groups feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addTagGroupsPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_Solution_tagGroups_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Solution_tagGroups_feature", "_UI_Solution_type"),
-         ModelingassistantPackage.Literals.SOLUTION__TAG_GROUPS,
          true,
          false,
          true,

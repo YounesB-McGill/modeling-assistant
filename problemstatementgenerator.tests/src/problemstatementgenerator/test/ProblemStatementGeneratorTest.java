@@ -1,11 +1,10 @@
 package problemstatementgenerator.test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import classdiagram.ClassDiagram;
-import classdiagram.ClassdiagramPackage;
+import ca.mcgill.sel.classdiagram.CdmPackage;
+import ca.mcgill.sel.classdiagram.ClassDiagram;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.util.ResourceHelper;
 import problemstatementgenerator.ProblemStatementGenerator;
@@ -13,9 +12,9 @@ import problemstatementgenerator.ProblemStatementGenerator;
 public class ProblemStatementGeneratorTest {
 
   @Test public void checkClassDiagramExists() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    
+
     var cdPath = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdPath);
     var classDiagram = (ClassDiagram) resource.getContents().get(0);
