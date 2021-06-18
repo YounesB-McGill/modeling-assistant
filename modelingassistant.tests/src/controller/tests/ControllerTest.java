@@ -811,7 +811,8 @@ public class ControllerTest {
       maStr = xmiIdPattern.matcher(maStr).replaceAll("xmi:id=\"\"");
       maStr = cdmIdPattern.matcher(maStr).replaceAll("classDiagram=\"\"");
       maStr = typePattern.matcher(maStr).replaceAll(""); // since name and type can occur in any order
-
+      maStr = maStr.replace("\r", "");
+      
       // TODO Replace ugly string concatenation with """text block""" after upgrading to Java 16+
       assertEquals("<?xml version=\"1.0\" encoding=\"ASCII\"?>\n"
           + "<xmi:XMI xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:classdiagram=\"http://cs.mcgill.ca/sel/cdm/1.0\" xmlns:modelingassistant=\"http://cs.mcgill.ca/sel/modelingassistant/1.0\">\n"

@@ -2,7 +2,7 @@
  */
 package modelingassistant.tests;
 
-import ca.mcgill.sel.classdiagram.tests.ClassdiagramTests;
+import ca.mcgill.sel.classdiagram.tests.ClassdiagramAllTests;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
@@ -31,7 +31,7 @@ public class ModelingassistantAllTests extends TestSuite {
    */
   public static Test suite() {
     TestSuite suite = new ModelingassistantAllTests("Modelingassistant Tests");
-    suite.addTest(ClassdiagramTests.suite());
+    suite.addTest(ClassdiagramAllTests.suite());
     return suite;
   }
 
