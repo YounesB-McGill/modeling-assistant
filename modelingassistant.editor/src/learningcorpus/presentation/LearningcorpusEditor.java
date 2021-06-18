@@ -157,10 +157,8 @@ import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 
 import learningcorpus.provider.LearningcorpusItemProviderAdapterFactory;
 
-import classdiagram.provider.ClassdiagramItemProviderAdapterFactory;
-
-import modelingassistant.presentation.ModelingassistantEditorPlugin;
-
+import ca.mcgill.sel.classdiagram.provider.CdmItemProviderAdapterFactory;
+import ca.mcgill.sel.core.provider.CoreItemProviderAdapterFactory;
 import modelingassistant.provider.ModelingassistantItemProviderAdapterFactory;
 
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
@@ -547,7 +545,7 @@ public class LearningcorpusEditor
           }
         }
         catch (CoreException exception) {
-          ModelingassistantEditorPlugin.INSTANCE.log(exception);
+          learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.log(exception);
         }
       }
     };
@@ -664,7 +662,7 @@ public class LearningcorpusEditor
           showTabs();
         }
         catch (PartInitException exception) {
-          ModelingassistantEditorPlugin.INSTANCE.log(exception);
+          learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.log(exception);
         }
       }
 
@@ -673,7 +671,7 @@ public class LearningcorpusEditor
           markerHelper.updateMarkers(diagnostic);
         }
         catch (CoreException exception) {
-          ModelingassistantEditorPlugin.INSTANCE.log(exception);
+          learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.log(exception);
         }
       }
     }
@@ -716,9 +714,10 @@ public class LearningcorpusEditor
     adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 
     adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
-    adapterFactory.addAdapterFactory(new ModelingassistantItemProviderAdapterFactory());
-    adapterFactory.addAdapterFactory(new ClassdiagramItemProviderAdapterFactory());
     adapterFactory.addAdapterFactory(new LearningcorpusItemProviderAdapterFactory());
+    adapterFactory.addAdapterFactory(new ModelingassistantItemProviderAdapterFactory());
+    adapterFactory.addAdapterFactory(new CdmItemProviderAdapterFactory());
+    adapterFactory.addAdapterFactory(new CoreItemProviderAdapterFactory());
     adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
     // Create the command stack that will notify this editor as commands are executed.
@@ -1554,7 +1553,7 @@ public class LearningcorpusEditor
     catch (Exception exception) {
       // Something went wrong that shouldn't.
       //
-      ModelingassistantEditorPlugin.INSTANCE.log(exception);
+      learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.log(exception);
     }
     updateProblemIndication = true;
     updateProblemIndication();
@@ -1763,7 +1762,7 @@ public class LearningcorpusEditor
    * @generated
    */
   private static String getString(String key) {
-    return ModelingassistantEditorPlugin.INSTANCE.getString(key);
+    return learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString(key);
   }
 
   /**
@@ -1773,7 +1772,7 @@ public class LearningcorpusEditor
    * @generated
    */
   private static String getString(String key, Object s1) {
-    return ModelingassistantEditorPlugin.INSTANCE.getString(key, new Object [] { s1 });
+    return learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString(key, new Object [] { s1 });
   }
 
   /**

@@ -8,8 +8,6 @@ import java.io.IOException;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
-
-import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 
@@ -21,6 +19,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -45,7 +44,7 @@ public class ModelingassistantExample {
     //
     resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put
       (Resource.Factory.Registry.DEFAULT_EXTENSION, 
-       new ModelingassistantResourceFactoryImpl());
+       new XMIResourceFactoryImpl());
 
     // Register the package to ensure it is available during loading.
     //

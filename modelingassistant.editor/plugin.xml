@@ -40,34 +40,6 @@
             id="org.eclipse.emf.ecore.Wizard.category.ID"
             name="%_UI_Wizard_category"/>
       <wizard
-            id="classdiagram.presentation.ClassdiagramModelWizardID"
-            name="%_UI_ClassdiagramModelWizard_label"
-            class="classdiagram.presentation.ClassdiagramModelWizard"
-            category="org.eclipse.emf.ecore.Wizard.category.ID"
-            icon="icons/full/obj16/ClassdiagramModelFile.gif">
-         <description>%_UI_ClassdiagramModelWizard_description</description>
-         <selection class="org.eclipse.core.resources.IResource"/>
-      </wizard>
-   </extension>
-
-   <extension point="org.eclipse.ui.editors">
-      <!-- @generated modelingassistant -->
-      <editor
-            id="classdiagram.presentation.ClassdiagramEditorID"
-            name="%_UI_ClassdiagramEditor_label"
-            icon="icons/full/obj16/ClassdiagramModelFile.gif"
-            extensions="classdiagram"
-            class="classdiagram.presentation.ClassdiagramEditor"
-            contributorClass="classdiagram.presentation.ClassdiagramActionBarContributor">
-      </editor>
-   </extension>
-
-   <extension point="org.eclipse.ui.newWizards">
-      <!-- @generated modelingassistant -->
-      <category
-            id="org.eclipse.emf.ecore.Wizard.category.ID"
-            name="%_UI_Wizard_category"/>
-      <wizard
             id="learningcorpus.presentation.LearningcorpusModelWizardID"
             name="%_UI_LearningcorpusModelWizard_label"
             class="learningcorpus.presentation.LearningcorpusModelWizard"

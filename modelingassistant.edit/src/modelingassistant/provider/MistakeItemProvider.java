@@ -5,7 +5,6 @@ package modelingassistant.provider;
 
 import java.util.Collection;
 import java.util.List;
-
 import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantPackage;
 
@@ -66,7 +65,6 @@ public class MistakeItemProvider
       addStudentElementsPropertyDescriptor(object);
       addLastFeedbackPropertyDescriptor(object);
       addInstructorElementsPropertyDescriptor(object);
-      addStudentSolutionPropertyDescriptor(object);
       addNumDetectionPropertyDescriptor(object);
       addNumDetectionSinceResolvedPropertyDescriptor(object);
       addMistakeTypePropertyDescriptor(object);
@@ -198,28 +196,6 @@ public class MistakeItemProvider
          getString("_UI_Mistake_instructorElements_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_Mistake_instructorElements_feature", "_UI_Mistake_type"),
          ModelingassistantPackage.Literals.MISTAKE__INSTRUCTOR_ELEMENTS,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Student Solution feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addStudentSolutionPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_Mistake_studentSolution_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_studentSolution_feature", "_UI_Mistake_type"),
-         ModelingassistantPackage.Literals.MISTAKE__STUDENT_SOLUTION,
          true,
          false,
          true,

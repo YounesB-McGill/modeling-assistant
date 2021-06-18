@@ -47,33 +47,10 @@ public class ProblemStatementItemProvider extends NamedElementItemProvider {
     if (itemPropertyDescriptors == null) {
       super.getPropertyDescriptors(object);
 
-      addProblemStatementElementsPropertyDescriptor(object);
       addStudentSolutionsPropertyDescriptor(object);
       addInstructorSolutionPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
-  }
-
-  /**
-   * This adds a property descriptor for the Problem Statement Elements feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addProblemStatementElementsPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_ProblemStatement_problemStatementElements_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_ProblemStatement_problemStatementElements_feature", "_UI_ProblemStatement_type"),
-         ModelingassistantPackage.Literals.PROBLEM_STATEMENT__PROBLEM_STATEMENT_ELEMENTS,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
   }
 
   /**

@@ -72,10 +72,6 @@ import org.eclipse.ui.part.ISetSelectionTarget;
 import learningcorpus.LearningcorpusFactory;
 import learningcorpus.LearningcorpusPackage;
 import modelingassistant.provider.ModelingassistantEditPlugin;
-
-
-import modelingassistant.presentation.ModelingassistantEditorPlugin;
-
 import org.eclipse.core.runtime.Path;
 
 import org.eclipse.jface.viewers.ISelection;
@@ -101,7 +97,7 @@ public class LearningcorpusModelWizard extends Wizard implements INewWizard {
    * @generated
    */
   public static final List<String> FILE_EXTENSIONS =
-    Collections.unmodifiableList(Arrays.asList(ModelingassistantEditorPlugin.INSTANCE.getString("_UI_LearningcorpusEditorFilenameExtensions").split("\\s*,\\s*")));
+    Collections.unmodifiableList(Arrays.asList(learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString("_UI_LearningcorpusEditorFilenameExtensions").split("\\s*,\\s*")));
 
   /**
    * A formatted list of supported file extensions, suitable for display.
@@ -110,7 +106,7 @@ public class LearningcorpusModelWizard extends Wizard implements INewWizard {
    * @generated
    */
   public static final String FORMATTED_FILE_EXTENSIONS =
-    ModelingassistantEditorPlugin.INSTANCE.getString("_UI_LearningcorpusEditorFilenameExtensions").replaceAll("\\s*,\\s*", ", ");
+    learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString("_UI_LearningcorpusEditorFilenameExtensions").replaceAll("\\s*,\\s*", ", ");
 
   /**
    * This caches an instance of the model package.
@@ -178,8 +174,8 @@ public class LearningcorpusModelWizard extends Wizard implements INewWizard {
   public void init(IWorkbench workbench, IStructuredSelection selection) {
     this.workbench = workbench;
     this.selection = selection;
-    setWindowTitle(ModelingassistantEditorPlugin.INSTANCE.getString("_UI_Wizard_label"));
-    setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(ModelingassistantEditorPlugin.INSTANCE.getImage("full/wizban/NewLearningcorpus")));
+    setWindowTitle(learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString("_UI_Wizard_label"));
+    setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getImage("full/wizban/NewLearningcorpus")));
   }
 
   /**
@@ -262,7 +258,7 @@ public class LearningcorpusModelWizard extends Wizard implements INewWizard {
               resource.save(options);
             }
             catch (Exception exception) {
-              ModelingassistantEditorPlugin.INSTANCE.log(exception);
+              learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.log(exception);
             }
             finally {
               progressMonitor.done();
@@ -296,14 +292,14 @@ public class LearningcorpusModelWizard extends Wizard implements INewWizard {
            workbench.getEditorRegistry().getDefaultEditor(modelFile.getFullPath().toString()).getId());					 	 
       }
       catch (PartInitException exception) {
-        MessageDialog.openError(workbenchWindow.getShell(), ModelingassistantEditorPlugin.INSTANCE.getString("_UI_OpenEditorError_label"), exception.getMessage());
+        MessageDialog.openError(workbenchWindow.getShell(), learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString("_UI_OpenEditorError_label"), exception.getMessage());
         return false;
       }
 
       return true;
     }
     catch (Exception exception) {
-      ModelingassistantEditorPlugin.INSTANCE.log(exception);
+      learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.log(exception);
       return false;
     }
   }
@@ -337,7 +333,7 @@ public class LearningcorpusModelWizard extends Wizard implements INewWizard {
         String extension = new Path(getFileName()).getFileExtension();
         if (extension == null || !FILE_EXTENSIONS.contains(extension)) {
           String key = FILE_EXTENSIONS.size() > 1 ? "_WARN_FilenameExtensions" : "_WARN_FilenameExtension";
-          setErrorMessage(ModelingassistantEditorPlugin.INSTANCE.getString(key, new Object [] { FORMATTED_FILE_EXTENSIONS }));
+          setErrorMessage(learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString(key, new Object [] { FORMATTED_FILE_EXTENSIONS }));
           return false;
         }
         return true;
@@ -415,7 +411,7 @@ public class LearningcorpusModelWizard extends Wizard implements INewWizard {
 
       Label containerLabel = new Label(composite, SWT.LEFT);
       {
-        containerLabel.setText(ModelingassistantEditorPlugin.INSTANCE.getString("_UI_ModelObject"));
+        containerLabel.setText(learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString("_UI_ModelObject"));
 
         GridData data = new GridData();
         data.horizontalAlignment = GridData.FILL;
@@ -441,7 +437,7 @@ public class LearningcorpusModelWizard extends Wizard implements INewWizard {
 
       Label encodingLabel = new Label(composite, SWT.LEFT);
       {
-        encodingLabel.setText(ModelingassistantEditorPlugin.INSTANCE.getString("_UI_XMLEncoding"));
+        encodingLabel.setText(learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString("_UI_XMLEncoding"));
 
         GridData data = new GridData();
         data.horizontalAlignment = GridData.FILL;
@@ -544,7 +540,7 @@ public class LearningcorpusModelWizard extends Wizard implements INewWizard {
         return ModelingassistantEditPlugin.INSTANCE.getString("_UI_" + typeName + "_type");
       }
       catch(MissingResourceException mre) {
-        ModelingassistantEditorPlugin.INSTANCE.log(mre);
+        learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.log(mre);
       }
       return typeName;
     }
@@ -557,7 +553,7 @@ public class LearningcorpusModelWizard extends Wizard implements INewWizard {
     protected Collection<String> getEncodings() {
       if (encodings == null) {
         encodings = new ArrayList<String>();
-        for (StringTokenizer stringTokenizer = new StringTokenizer(ModelingassistantEditorPlugin.INSTANCE.getString("_UI_XMLEncodingChoices")); stringTokenizer.hasMoreTokens(); ) {
+        for (StringTokenizer stringTokenizer = new StringTokenizer(learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString("_UI_XMLEncodingChoices")); stringTokenizer.hasMoreTokens(); ) {
           encodings.add(stringTokenizer.nextToken());
         }
       }
@@ -576,9 +572,9 @@ public class LearningcorpusModelWizard extends Wizard implements INewWizard {
     // Create a page, set the title, and the initial model file name.
     //
     newFileCreationPage = new LearningcorpusModelWizardNewFileCreationPage("Whatever", selection);
-    newFileCreationPage.setTitle(ModelingassistantEditorPlugin.INSTANCE.getString("_UI_LearningcorpusModelWizard_label"));
-    newFileCreationPage.setDescription(ModelingassistantEditorPlugin.INSTANCE.getString("_UI_LearningcorpusModelWizard_description"));
-    newFileCreationPage.setFileName(ModelingassistantEditorPlugin.INSTANCE.getString("_UI_LearningcorpusEditorFilenameDefaultBase") + "." + FILE_EXTENSIONS.get(0));
+    newFileCreationPage.setTitle(learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString("_UI_LearningcorpusModelWizard_label"));
+    newFileCreationPage.setDescription(learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString("_UI_LearningcorpusModelWizard_description"));
+    newFileCreationPage.setFileName(learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString("_UI_LearningcorpusEditorFilenameDefaultBase") + "." + FILE_EXTENSIONS.get(0));
     addPage(newFileCreationPage);
 
     // Try and get the resource selection to determine a current directory for the file dialog.
@@ -604,7 +600,7 @@ public class LearningcorpusModelWizard extends Wizard implements INewWizard {
 
           // Make up a unique new name here.
           //
-          String defaultModelBaseFilename = ModelingassistantEditorPlugin.INSTANCE.getString("_UI_LearningcorpusEditorFilenameDefaultBase");
+          String defaultModelBaseFilename = learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString("_UI_LearningcorpusEditorFilenameDefaultBase");
           String defaultModelFilenameExtension = FILE_EXTENSIONS.get(0);
           String modelFilename = defaultModelBaseFilename + "." + defaultModelFilenameExtension;
           for (int i = 1; ((IContainer)selectedResource).findMember(modelFilename) != null; ++i) {
@@ -615,8 +611,8 @@ public class LearningcorpusModelWizard extends Wizard implements INewWizard {
       }
     }
     initialObjectCreationPage = new LearningcorpusModelWizardInitialObjectCreationPage("Whatever2");
-    initialObjectCreationPage.setTitle(ModelingassistantEditorPlugin.INSTANCE.getString("_UI_LearningcorpusModelWizard_label"));
-    initialObjectCreationPage.setDescription(ModelingassistantEditorPlugin.INSTANCE.getString("_UI_Wizard_initial_object_description"));
+    initialObjectCreationPage.setTitle(learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString("_UI_LearningcorpusModelWizard_label"));
+    initialObjectCreationPage.setDescription(learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString("_UI_Wizard_initial_object_description"));
     addPage(initialObjectCreationPage);
   }
 

@@ -8,10 +8,7 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Export-Package: classdiagram,
- classdiagram.impl,
- classdiagram.util,
- learningcorpus,
+Export-Package: learningcorpus,
  learningcorpus.impl,
  learningcorpus.mistaketypes,
  learningcorpus.util,
@@ -20,5 +17,7 @@ Export-Package: classdiagram,
  modelingassistant.util
 Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.emf.ecore;visibility:=reexport,
+ ca.mcgill.sel.classdiagram;visibility:=reexport,
+ ca.mcgill.sel.core;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;bundle-version="2.16.0";visibility:=reexport
 Bundle-ActivationPolicy: lazy

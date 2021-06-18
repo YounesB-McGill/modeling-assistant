@@ -24,15 +24,15 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.junit.jupiter.api.Test;
+import ca.mcgill.sel.classdiagram.Attribute;
+import ca.mcgill.sel.classdiagram.CDInt;
+import ca.mcgill.sel.classdiagram.CDString;
+import ca.mcgill.sel.classdiagram.CdmFactory;
+import ca.mcgill.sel.classdiagram.CdmPackage;
+import ca.mcgill.sel.classdiagram.ClassDiagram;
+import ca.mcgill.sel.classdiagram.Classifier;
+import ca.mcgill.sel.classdiagram.ReferenceType;
 import ca.mcgill.sel.classdiagram.util.CdmResourceFactoryImpl;
-import classdiagram.Attribute;
-import classdiagram.CDInt;
-import classdiagram.CDString;
-import classdiagram.ClassDiagram;
-import classdiagram.ClassdiagramFactory;
-import classdiagram.ClassdiagramPackage;
-import classdiagram.Classifier;
-import classdiagram.ReferenceType;
 import learningcorpus.LearningCorpus;
 import learningcorpus.LearningcorpusPackage;
 import learningcorpus.mistaketypes.MistakeTypes;
@@ -53,7 +53,7 @@ public class ControllerTest {
 
   @Test public void testCreatingEmptySolution() {
     var maf = ModelingassistantFactory.eINSTANCE;
-    var cdf = ClassdiagramFactory.eINSTANCE;
+    var cdf = CdmFactory.eINSTANCE;
     var modelingAssistant = maf.createModelingAssistant();
     var classDiagram = cdf.createClassDiagram();
     var solution = maf.createSolution();
@@ -73,7 +73,7 @@ public class ControllerTest {
    */
   @Test public void testCreatingOneClassSolution() {
     var maf = ModelingassistantFactory.eINSTANCE;
-    var cdf = ClassdiagramFactory.eINSTANCE;
+    var cdf = CdmFactory.eINSTANCE;
     var modelingAssistant = maf.createModelingAssistant();
     var classDiagram = cdf.createClassDiagram();
     var solution = maf.createSolution();
@@ -114,7 +114,7 @@ public class ControllerTest {
    */
   @Test public void testCreatingTwoClassSolutionWithAssociation() {
     var maf = ModelingassistantFactory.eINSTANCE;
-    var cdf = ClassdiagramFactory.eINSTANCE;
+    var cdf = CdmFactory.eINSTANCE;
     var modelingAssistant = maf.createModelingAssistant();
     var classDiagram = cdf.createClassDiagram();
     var solution = maf.createSolution();
@@ -197,7 +197,7 @@ public class ControllerTest {
   @Test
   public void testCreatingTwoClassSolutionWithGeneralization() {
     var maf = ModelingassistantFactory.eINSTANCE;
-    var cdf = ClassdiagramFactory.eINSTANCE;
+    var cdf = CdmFactory.eINSTANCE;
     var modelingAssistant = maf.createModelingAssistant();
     var classDiagram = cdf.createClassDiagram();
     var solution = maf.createSolution();
@@ -246,7 +246,7 @@ public class ControllerTest {
    * single class domain model.
    */
   @Test public void testCreatingOneClassSolutionFromSerializedClassDiagram() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile = "../modelingassistant/testmodels/car.domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
     var classDiagram = (ClassDiagram) resource.getContents().get(0);
@@ -273,7 +273,7 @@ public class ControllerTest {
    * multiclass domain model.
    */
   @Test public void testCreatingMulticlassSolutionFromSerializedClassDiagram() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
     var classDiagram = (ClassDiagram) resource.getContents().get(0);
@@ -329,9 +329,9 @@ public class ControllerTest {
     }
 
     // Dynamically create a modeling assistant and link it with a TouchCore class diagram
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    var cdf = ClassdiagramFactory.eINSTANCE;
+    var cdf = CdmFactory.eINSTANCE;
     var maf = ModelingassistantFactory.eINSTANCE;
 
     var modelingAssistant = maf.createModelingAssistant();
@@ -385,7 +385,7 @@ public class ControllerTest {
    * Verifies that the modeling assistant instance defined above can be deserialized correctly.
    */
   @Test public void testLoadingModelingAssistantWithOneClassSolution() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_one_class_from_java.xmi";
     var rset = new ResourceSetImpl();
@@ -413,7 +413,7 @@ public class ControllerTest {
    * Verifies that the pyecore version of the modeling assistant instance defined above can be deserialized correctly.
    */
   @Test public void testLoadingModelingAssistantWithOneClassSolutionSerializedWithPyecore() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_one_class_from_python.xmi";
     var rset = new ResourceSetImpl();
@@ -452,7 +452,7 @@ public class ControllerTest {
       assertTrue(cdFile.delete());
     }
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
 
     // Open premade class diagram from one of the above tests
@@ -495,7 +495,7 @@ public class ControllerTest {
    * Verifies that the modeling assistant instance defined above can be deserialized correctly.
    */
   @Test public void testLoadingModelingAssistantWithMulticlassSolution() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_multiclass_from_java.xmi";
     var rset = new ResourceSetImpl();
@@ -531,7 +531,7 @@ public class ControllerTest {
    * Verifies that the pyecore version of the modeling assistant instance defined above can be deserialized correctly.
    */
   @Test public void testLoadingModelingAssistantWithMulticlassSolutionSerializedWithPyecore() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_multiclass_from_python.xmi";
     var rset = new ResourceSetImpl();
@@ -575,9 +575,9 @@ public class ControllerTest {
     var cd2File = new File(cd2Path);
     List.of(maFile, cd1File, cd2File).stream().filter(File::isFile).forEach(f -> assertTrue(f.delete()));
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    var cdf = ClassdiagramFactory.eINSTANCE;
+    var cdf = CdmFactory.eINSTANCE;
     var maf = ModelingassistantFactory.eINSTANCE;
 
     // Open premade class diagram from one of the above tests
@@ -646,7 +646,7 @@ public class ControllerTest {
    * Verifies that the modeling assistant instance defined above can be deserialized correctly.
    */
   @Test public void testLoadingModelingAssistantWithMultipleSolutions() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_multisolution_from_java.xmi";
     var rset = new ResourceSetImpl();
@@ -693,7 +693,7 @@ public class ControllerTest {
    * Verifies that the pyecore version of the modeling assistant instance defined above can be deserialized correctly.
    */
   @Test public void testLoadingModelingAssistantWithMultipleSolutionsSerializedWithPyecore() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_multisolution_from_python.xmi";
     var rset = new ResourceSetImpl();
@@ -741,7 +741,7 @@ public class ControllerTest {
    * This will be used in the web app.
    */
   @Test public void testLoadingModelingAssistantDeserializedFromString() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_multisolution_all_in_one.modelingassistant";
     var rset = new ResourceSetImpl();
@@ -769,10 +769,10 @@ public class ControllerTest {
    * Verifies that a modeling assistant instance can be serialized to a string. This will be used in the web app.
    */
   @Test public void testPersistingModelingAssistantToString() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maf = ModelingassistantFactory.eINSTANCE;
-    var cdf = ClassdiagramFactory.eINSTANCE;
+    var cdf = CdmFactory.eINSTANCE;
     var modelingAssistant = maf.createModelingAssistant();
     var classDiagram = cdf.createClassDiagram();
     var solution = maf.createSolution();
@@ -811,7 +811,8 @@ public class ControllerTest {
       maStr = xmiIdPattern.matcher(maStr).replaceAll("xmi:id=\"\"");
       maStr = cdmIdPattern.matcher(maStr).replaceAll("classDiagram=\"\"");
       maStr = typePattern.matcher(maStr).replaceAll(""); // since name and type can occur in any order
-
+      maStr = maStr.replace("\r", "");
+      
       // TODO Replace ugly string concatenation with """text block""" after upgrading to Java 16+
       assertEquals("<?xml version=\"1.0\" encoding=\"ASCII\"?>\n"
           + "<xmi:XMI xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:classdiagram=\"http://cs.mcgill.ca/sel/cdm/1.0\" xmlns:modelingassistant=\"http://cs.mcgill.ca/sel/modelingassistant/1.0\">\n"
@@ -842,10 +843,10 @@ public class ControllerTest {
       assertTrue(maFile.delete());
     }
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     LearningcorpusPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    var cdf = ClassdiagramFactory.eINSTANCE;
+    var cdf = CdmFactory.eINSTANCE;
     var maf = ModelingassistantFactory.eINSTANCE;
 
     // Open premade class diagram from one of the above tests
@@ -965,7 +966,7 @@ public class ControllerTest {
    * Associates the two classes in memory (modifies classes and returns nothing).
    */
   public static void associate(Classifier class1, Classifier class2) {
-    var cdf = ClassdiagramFactory.eINSTANCE;
+    var cdf = CdmFactory.eINSTANCE;
     var class12AssociationEnd = cdf.createAssociationEnd();
     class12AssociationEnd.setClassifier(class1);
     class12AssociationEnd.setNavigable(true); // hardcoded for brevity
@@ -985,7 +986,7 @@ public class ControllerTest {
   }
 
   public void contain(Classifier containedClass, Classifier containerClass) {
-    var cdf = ClassdiagramFactory.eINSTANCE;
+    var cdf = CdmFactory.eINSTANCE;
     var containerClassAssociationEnd = cdf.createAssociationEnd();
     containerClassAssociationEnd.setClassifier(containerClass);
     containerClassAssociationEnd.setNavigable(true);
