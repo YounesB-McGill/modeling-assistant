@@ -46,7 +46,6 @@ public class StudentItemProvider extends NamedElementItemProvider {
       super.getPropertyDescriptors(object);
 
       addIdPropertyDescriptor(object);
-      addModelingAssistantPropertyDescriptor(object);
       addSolutionsPropertyDescriptor(object);
       addStudentKnowledgesPropertyDescriptor(object);
       addCurrentSolutionPropertyDescriptor(object);
@@ -72,28 +71,6 @@ public class StudentItemProvider extends NamedElementItemProvider {
          false,
          false,
          ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Modeling Assistant feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addModelingAssistantPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_Student_modelingAssistant_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Student_modelingAssistant_feature", "_UI_Student_type"),
-         ModelingassistantPackage.Literals.STUDENT__MODELING_ASSISTANT,
-         true,
-         false,
-         true,
-         null,
          null,
          null));
   }

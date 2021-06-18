@@ -1,8 +1,8 @@
 package ca.mcgill.sel.mistakedetection;
 
-import static classdiagram.ReferenceType.AGGREGATION;
-import static classdiagram.ReferenceType.COMPOSITION;
-import static classdiagram.ReferenceType.REGULAR;
+import static ca.mcgill.sel.classdiagram.ReferenceType.AGGREGATION;
+import static ca.mcgill.sel.classdiagram.ReferenceType.COMPOSITION;
+import static ca.mcgill.sel.classdiagram.ReferenceType.REGULAR;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_CLASS_NAME_SPELLING;
@@ -47,15 +47,15 @@ import java.util.Optional;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import classdiagram.Association;
-import classdiagram.AssociationEnd;
-import classdiagram.Attribute;
-import classdiagram.CDEnum;
-import classdiagram.Class;
-import classdiagram.ClassdiagramFactory;
-import classdiagram.Classifier;
-import classdiagram.NamedElement;
-import classdiagram.ReferenceType;
+import ca.mcgill.sel.classdiagram.Association;
+import ca.mcgill.sel.classdiagram.AssociationEnd;
+import ca.mcgill.sel.classdiagram.Attribute;
+import ca.mcgill.sel.classdiagram.CDEnum;
+import ca.mcgill.sel.classdiagram.CdmFactory;
+import ca.mcgill.sel.classdiagram.Class;
+import ca.mcgill.sel.classdiagram.Classifier;
+import ca.mcgill.sel.classdiagram.NamedElement;
+import ca.mcgill.sel.classdiagram.ReferenceType;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import learningcorpus.MistakeType;
 import modelingassistant.Mistake;
@@ -73,7 +73,7 @@ import modelingassistant.SolutionElement;
  */
 public class MistakeDetection {
 
-  public static final ClassdiagramFactory CDF = ClassdiagramFactory.eINSTANCE;
+  public static final CdmFactory CDF = CdmFactory.eINSTANCE;
   public static final ModelingassistantFactory MAF = ModelingassistantFactory.eINSTANCE;
 
   /** The maximum limit after which a resolved mistake will be removed from student solution. */

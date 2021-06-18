@@ -5,7 +5,6 @@ package modelingassistant.provider;
 
 import java.util.Collection;
 import java.util.List;
-
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
 
@@ -62,11 +61,9 @@ public class SolutionElementItemProvider
       super.getPropertyDescriptors(object);
 
       addProblemStatementElementsPropertyDescriptor(object);
-      addSolutionPropertyDescriptor(object);
       addStudentElementMistakesPropertyDescriptor(object);
       addElementPropertyDescriptor(object);
       addInstructorElementMistakesPropertyDescriptor(object);
-      addTagsPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -85,28 +82,6 @@ public class SolutionElementItemProvider
          getString("_UI_SolutionElement_problemStatementElements_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_SolutionElement_problemStatementElements_feature", "_UI_SolutionElement_type"),
          ModelingassistantPackage.Literals.SOLUTION_ELEMENT__PROBLEM_STATEMENT_ELEMENTS,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Solution feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addSolutionPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_SolutionElement_solution_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_SolutionElement_solution_feature", "_UI_SolutionElement_type"),
-         ModelingassistantPackage.Literals.SOLUTION_ELEMENT__SOLUTION,
          true,
          false,
          true,
@@ -173,28 +148,6 @@ public class SolutionElementItemProvider
          getString("_UI_SolutionElement_instructorElementMistakes_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_SolutionElement_instructorElementMistakes_feature", "_UI_SolutionElement_type"),
          ModelingassistantPackage.Literals.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Tags feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addTagsPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_SolutionElement_tags_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_SolutionElement_tags_feature", "_UI_SolutionElement_type"),
-         ModelingassistantPackage.Literals.SOLUTION_ELEMENT__TAGS,
          true,
          false,
          true,

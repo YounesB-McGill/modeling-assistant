@@ -5,7 +5,6 @@ package modelingassistant.provider;
 
 import java.util.Collection;
 import java.util.List;
-
 import modelingassistant.ModelingassistantPackage;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -57,32 +56,9 @@ public class TagItemProvider
     if (itemPropertyDescriptors == null) {
       super.getPropertyDescriptors(object);
 
-      addSolutionelementPropertyDescriptor(object);
       addTagGroupPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
-  }
-
-  /**
-   * This adds a property descriptor for the Solutionelement feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addSolutionelementPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_Tag_solutionelement_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Tag_solutionelement_feature", "_UI_Tag_type"),
-         ModelingassistantPackage.Literals.TAG__SOLUTIONELEMENT,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
   }
 
   /**
