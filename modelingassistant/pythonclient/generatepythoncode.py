@@ -2,15 +2,18 @@
 
 from textwrap import dedent
 import ast
+import json
 import os
 
 from learningcorpus.learningcorpus import LearningCorpus
 
 def generate_pyecore():
-    metamodel_names = ["classdiagram", "learningcorpus", "modelingassistant"]
+    # TODO Add automatic code generation for the now external "classdiagram.ecore" metamodel
+    pyecoregen_cmd = lambda mdl: f"""pyecoregen -e {mdl
+                                  } -o modelingassistant/pythonclient --with-dependencies"""    
+    metamodel_names = ["learningcorpus", "modelingassistant"]
     for mm in metamodel_names:
-        os.system(f"pyecoregen -e modelingassistant/model/{mm}.ecore "
-                   "-o modelingassistant/pythonclient --with-dependencies")
+        os.system(pyecoregen_cmd(f"modelingassistant/model/{mm}.ecore"))
 
 
 def customize_generated_code():
