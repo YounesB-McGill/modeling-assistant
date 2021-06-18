@@ -164,7 +164,7 @@ def test_creating_one_class_solution_from_serialized_class_diagram():
     domain model.
     """
     # Open ClassDiagram metamodel
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
     rset = ResourceSet()
     mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
     rset.metamodel_registry[mm_root.nsURI] = mm_root  # ecore is loaded in the 'rset' as a metamodel here
@@ -195,7 +195,7 @@ def test_creating_multiclass_solution_from_serialized_class_diagram():
     domain model.
     """
     # Open ClassDiagram metamodel
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
     rset = ResourceSet()
     resource = rset.get_resource(URI(cdm_mm_file))
     mm_root = resource.contents[0]
@@ -245,7 +245,7 @@ def test_persisting_modeling_assistant_with_one_class_solution():
         os.remove(cd_path)
 
     # Load ClassDiagram metamodel
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
     ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = ResourceSet()
     cdm_mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
@@ -289,7 +289,7 @@ def test_loading_modeling_assistant_with_one_class_solution():
     Verify that the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
     ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = ResourceSet()
     resource = rset.get_resource(URI(cdm_mm_file))
@@ -321,7 +321,7 @@ def test_loading_modeling_assistant_with_one_class_solution_serialized_in_java()
     Verify that the Java version of the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
     ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = ResourceSet()
     resource = rset.get_resource(URI(cdm_mm_file))
@@ -359,7 +359,7 @@ def test_persisting_modeling_assistant_with_multiclass_solution():
     if os.path.exists(cd_path): os.remove(cd_path)
 
     # Load ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
     ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = ResourceSet()
     cdm_mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
@@ -407,7 +407,7 @@ def test_loading_modeling_assistant_with_multiclass_solution():
     Verify that the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
     ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = ResourceSet()
     resource = rset.get_resource(URI(cdm_mm_file))
@@ -443,7 +443,7 @@ def test_loading_modeling_assistant_with_multiclass_solution_serialized_in_java(
     Verify that the Java version of the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
     ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = ResourceSet()
     resource = rset.get_resource(URI(cdm_mm_file))
@@ -486,7 +486,7 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
         if os.path.exists(p): os.remove(p)
 
     # Load ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
     ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = ResourceSet()
     cdm_mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
@@ -551,7 +551,7 @@ def test_loading_modeling_assistant_with_multiple_solutions():
     Verify that the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
     ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = ResourceSet()
     resource = rset.get_resource(URI(cdm_mm_file))
@@ -600,7 +600,7 @@ def test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java
     Verify that the Java version of the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
     ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = ResourceSet()
     resource = rset.get_resource(URI(cdm_mm_file))
@@ -654,7 +654,7 @@ def test_persisting_modeling_assistant_with_multiple_solutions_to_one_file():
     if os.path.exists(ma_path): os.remove(ma_path)
 
     # Load ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
     ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = ResourceSet()
     cdm_mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
@@ -703,7 +703,7 @@ def test_loading_modeling_assistant_deserialized_from_string():
     Test loading the instance defined above from a string.
     """
     # Open ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
     ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = StringEnabledResourceSet()
     resource: Resource = rset.get_resource(URI(cdm_mm_file))
@@ -748,7 +748,7 @@ def test_loading_modeling_assistant_deserialized_from_string():
 
 def test_persisting_modeling_assistant_to_string():
     # Open ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
     ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = StringEnabledResourceSet()
     resource: Resource = rset.get_resource(URI(cdm_mm_file))
@@ -814,7 +814,7 @@ def test_student_knowledge_persisted_correctly():
         if os.path.exists(p): os.remove(p)
 
     # Load ClassDiagram, LearningCorpus, and ModelingAssistant metamodels
-    cdm_mm_file = "modelingassistant/model/classdiagram.ecore"
+    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
     lc_mm_file = "modelingassistant/model/learningcorpus.ecore"
     ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
     rset = ResourceSet()
@@ -932,7 +932,7 @@ def contains(container_class, contained_class):
     Associate the two classes in memory (modify classes and return None).
     """
     class12_association_end = AssociationEnd(
-        classifier=container_class, navigable=True, lowerBound=1, upperBound=1, referenceType=ReferenceType.Composition)
+        classifier=container_class, navigable=True, lowerBound=1, upperBound=1, referenceType=ReferenceType.Composition)  # pylint: disable=no-member
     class21_association_end = AssociationEnd(classifier=contained_class, navigable=True, lowerBound=0, upperBound=-1)
     container_class.associationEnds.append(class12_association_end)
     contained_class.associationEnds.append(class21_association_end)
