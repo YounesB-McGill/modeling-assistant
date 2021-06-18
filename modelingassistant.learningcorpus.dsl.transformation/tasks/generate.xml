@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="generate" name="modelingassistant.learningcorpus.dsl.transformation">
-    <property name="ECLIPSE_HOME" value="../../../../eclipse-modeling-tools/eclipse"/>
+    <property name="ECLIPSE_HOME" value="../../../../eclipse-modeling-2021-06"/>
     <property name="ECLIPSE_WORKSPACE" value="../../../../eclipse-modeling-ws"/>
 
     <!-- The classpath with only the dependencies used by the project -->
     <path id="modelingassistant.learningcorpus.dsl.transformation.libraryclasspath">
         <pathelement location="${ECLIPSE_WORKSPACE}/modelingassistant.learningcorpus.dsl.transformation/bin"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_16.0.1.v20210528-1205/jre/lib/jrt-fs.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.runtime_3.22.0.v20210506-1025.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.osgi_3.16.300.v20210525-1715.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.fx.osgi_3.7.0.202010120720.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.osgi.compatibility.state_1.2.400.v20210401-1438.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.common_3.15.0.v20210518-0604.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.jobs_3.11.0.v20210420-1453.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.registry_3.10.200.v20210503-1606.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.preferences_3.8.200.v20210212-1143.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.contenttype_3.7.1000.v20210409-1722.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.app_1.5.100.v20210212-1143.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.ecore_2.24.0.v20210405-0628.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.common_2.22.0.v20210319-0732.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.ecore.xmi_2.16.0.v20190528-0725.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.ocl_3.16.100.v20210609-1442.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/lpg.runtime.java_2.0.17.v201004271640.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.ocl.common_1.8.700.v20210609-1442.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.ocl.ecore_3.16.100.v20210609-1442.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.acceleo.common_3.7.11.202102190929.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.acceleo.model_3.7.11.202102190929.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.acceleo.profiler_3.7.11.202102190929.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.acceleo.engine_3.7.11.202102190929.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.codegen.ecore_2.26.0.v20210506-1425.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.codegen_2.22.0.v20210420-0623.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.guava_30.1.0.v20210127-2300.jar"/>
     </path>
 
     <path id="modelingassistant.learningcorpus.dsl.transformation.classpath">

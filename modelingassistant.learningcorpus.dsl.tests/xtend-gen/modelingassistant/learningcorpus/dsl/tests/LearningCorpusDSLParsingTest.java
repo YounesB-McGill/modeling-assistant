@@ -5,7 +5,6 @@ package modelingassistant.learningcorpus.dsl.tests;
 
 import com.google.inject.Inject;
 import learningcorpus.LearningCorpus;
-import modelingassistant.learningcorpus.dsl.tests.LearningCorpusDSLInjectorProvider;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;

@@ -71,9 +71,8 @@ import org.eclipse.ui.part.ISetSelectionTarget;
 
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
-import modelingassistant.provider.ModelingassistantEditPlugin;
-
-
+import learningcorpus.provider.ModelingassistantEditPlugin;
+import learningcorpus.presentation.ModelingassistantEditorPlugin;
 import org.eclipse.core.runtime.Path;
 
 import org.eclipse.jface.viewers.ISelection;

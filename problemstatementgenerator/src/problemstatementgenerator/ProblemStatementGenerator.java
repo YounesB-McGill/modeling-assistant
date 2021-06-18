@@ -1,27 +1,25 @@
 package problemstatementgenerator;
 
 import org.eclipse.emf.common.util.EList;
-
-import classdiagram.Association;
-import classdiagram.AssociationEnd;
-import classdiagram.ClassDiagram;
-import classdiagram.ClassdiagramPackage;
-import classdiagram.Classifier;
-import classdiagram.ReferenceType;
-import modelingassistant.ModelingAssistant;
+import ca.mcgill.sel.classdiagram.Association;
+import ca.mcgill.sel.classdiagram.AssociationEnd;
+import ca.mcgill.sel.classdiagram.CdmPackage;
+import ca.mcgill.sel.classdiagram.ClassDiagram;
+import ca.mcgill.sel.classdiagram.Classifier;
+import ca.mcgill.sel.classdiagram.ReferenceType;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.util.ResourceHelper;
 
 /**
  * Generates a natural language problem statement from a class diagram.
- * 
+ *
  * @author Thomas Woodfine-MacPherson
  */
 public class ProblemStatementGenerator {
 
   /** Example usage of methods below. */
   public static void main(String[] args) {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
 
     var cdPath = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
@@ -33,7 +31,7 @@ public class ProblemStatementGenerator {
       System.out.println(print);
     }
   }
-  
+
   public static String generateProblemStatement(ClassDiagram classDiagram) {
     // TODO Complete using the methods below after making the necessary changes to them
     return "Car Part Driver."; // hardcoded response to pass test
@@ -41,7 +39,7 @@ public class ProblemStatementGenerator {
 
   /**
    * Describe an Association
-   * 
+   *
    * @param An Asssociation
    * @return A String description of an Association
    */
@@ -60,7 +58,7 @@ public class ProblemStatementGenerator {
 
   /**
    * Describe an AssociationEnd's Classifier
-   * 
+   *
    * @param AssociationEnd
    * @return A String description of an AssociationEnd's Classifier
    */
@@ -99,7 +97,7 @@ public class ProblemStatementGenerator {
 
   /**
    * Describe the reference between two AssociationEnds
-   * 
+   *
    * @param EList<AssociationEnd> aEnds
    * @return A String description of two AssociationEnds
    */
@@ -146,8 +144,6 @@ public class ProblemStatementGenerator {
 
     return referenceTypeDescription;
   }
-
-
 
   public static void printClasses(ClassDiagram cd) {
     for (var clazz : cd.getClasses()) {

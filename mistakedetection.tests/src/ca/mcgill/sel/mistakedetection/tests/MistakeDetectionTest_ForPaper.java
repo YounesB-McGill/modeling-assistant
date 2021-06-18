@@ -16,9 +16,9 @@ import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.junit.jupiter.api.Test;
+import ca.mcgill.sel.classdiagram.CdmPackage;
+import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import classdiagram.ClassDiagram;
-import classdiagram.ClassdiagramPackage;
 import learningcorpus.MistakeType;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantFactory;
@@ -28,7 +28,7 @@ public class MistakeDetectionTest_ForPaper {
 
   @Test
   public void mistakeDetection_ForPaperExample() {
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var instructorCdmFile =
         "../mistakedetection/testModels/InstructorSolution/ExampleForPaper/ClassDiagram/PISystem_InstructorSolution.domain_model.cdm";
     var resource = ResourceHelper.INSTANCE.loadResource(instructorCdmFile);
@@ -39,7 +39,7 @@ public class MistakeDetectionTest_ForPaper {
     instructorSolution.setModelingAssistant(modelingAssistant);
     instructorSolution.setClassDiagram(classDiagram);
 
-    ClassdiagramPackage.eINSTANCE.eClass();
+    CdmPackage.eINSTANCE.eClass();
     var studentCdmFile =
         "../mistakedetection/testModels/StudentSolution/ExampleForPaper/ClassDiagram/PISystem_StudentSolution.domain_model.cdm";
     resource = ResourceHelper.INSTANCE.loadResource(studentCdmFile);
