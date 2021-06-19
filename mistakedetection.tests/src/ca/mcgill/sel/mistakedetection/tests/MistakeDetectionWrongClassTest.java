@@ -22,13 +22,13 @@ public class MistakeDetectionWrongClassTest {
 	public void testStudentSolution_1_PluralClassName() {
 
 		var classDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution-a.domain_model.cdm");
+				"../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution-a.domain_model.cdm");
 		for (var c : classDiagram.getClasses()) {
 			assertTrue(MistakeDetection.isPlural(c.getName()));
 		}
 
 		classDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm");
+				"../mistakedetection/testModels/InstructorSolution/One/Class Diagram/InstructorSolution.domain_model.cdm");
 		for (var c : classDiagram.getClasses()) {
 			assertFalse(MistakeDetection.isPlural(c.getName()));
 		}
@@ -41,11 +41,11 @@ public class MistakeDetectionWrongClassTest {
 	@Test
 	public void testCheckMapping() {
 		var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm");
+				"../mistakedetection/testModels/InstructorSolution/One/Class Diagram/InstructorSolution.domain_model.cdm");
 		var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
 
 		var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution.domain_model.cdm");
+				"../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution.domain_model.cdm");
 		var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
 
 		Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
@@ -75,11 +75,11 @@ public class MistakeDetectionWrongClassTest {
 	@Test
 	public void testPluralClassNames() {
 		var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm");
+				"../mistakedetection/testModels/InstructorSolution/One/Class Diagram/InstructorSolution.domain_model.cdm");
 		var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
 
 		var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution-a.domain_model.cdm");
+				"../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution-a.domain_model.cdm");
 		var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
 
 		Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
