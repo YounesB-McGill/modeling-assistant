@@ -127,8 +127,8 @@ public class MistakeDetectionTest {
 		assertEquals(studentSolution.getMistakes().size(), 4);
 
 		for (Mistake m : studentSolution.getMistakes()) {
-			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 1, false);
 		}
 		// Running the second Solution again to check updated attribute values in
 		// Mistake in Metamodel
@@ -139,8 +139,8 @@ public class MistakeDetectionTest {
 		assertEquals(studentSolution.getMistakes().size(), 4);
 
 		for (Mistake m : studentSolution.getMistakes()) {
-			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 2, false);
-			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 2, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 2, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 2, false);
 		}
 
 		comparison = MistakeDetection.compare(instructorSolution, studentSolution);
@@ -149,8 +149,8 @@ public class MistakeDetectionTest {
 		assertEquals(studentSolution.getMistakes().size(), 4);
 
 		for (Mistake m : studentSolution.getMistakes()) {
-			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 3, false);
-			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 3, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 3, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 3, false);
 		}
 
 		// checking with perfect solution
@@ -168,8 +168,8 @@ public class MistakeDetectionTest {
 		// next meeting
 
 		for (Mistake m : studentSolution.getMistakes()) {
-			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 1, 3, false);
-			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 1, 3, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 1, 3, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 1, 3, false);
 		}
 	}
 
@@ -216,10 +216,10 @@ public class MistakeDetectionTest {
 
 		for (Mistake m : studentSolution.getMistakes()) {
 
-			MistakeDetectionTest.assertMistake(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity, instructorBusClassAttributeCapacity, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate, instructorBusClassAttributeNumberPlate, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName, instructorDriverClassAttributeName, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName, instructorPassengerClassAttributeName, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity, instructorBusClassAttributeCapacity, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate, instructorBusClassAttributeNumberPlate, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName, instructorDriverClassAttributeName, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName, instructorPassengerClassAttributeName, 0, 1, false);
 
 		}
 
@@ -230,10 +230,10 @@ public class MistakeDetectionTest {
 		assertEquals(studentSolution.getMistakes().size(), 4);
 
 		for (Mistake m : studentSolution.getMistakes()) {
-			MistakeDetectionTest.assertMistake(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity, instructorBusClassAttributeCapacity, 0, 2, false);
-			MistakeDetectionTest.assertMistake(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate, instructorBusClassAttributeNumberPlate, 0, 2, false);
-			MistakeDetectionTest.assertMistake(m, WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName, instructorDriverClassAttributeName, 0, 2, false);
-			MistakeDetectionTest.assertMistake(m, WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName, instructorPassengerClassAttributeName, 0, 2, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity, instructorBusClassAttributeCapacity, 0, 2, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate, instructorBusClassAttributeNumberPlate, 0, 2, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName, instructorDriverClassAttributeName, 0, 2, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName, instructorPassengerClassAttributeName, 0, 2, false);
 
 		}
 	}
@@ -488,47 +488,50 @@ public class MistakeDetectionTest {
 			return null;
 		}
 	}
+
 	/**
-	 * Asserts a mistake with only single instructor and student element .
+	 * Asserts a mistake with only single instructor and student element.
+	 *
 	 * @param mistake
 	 * @param mistakeType
 	 * @param element
 	 * @param numSinceResolved
 	 * @param numDetections
-	 * @param Resloved
+	 * @param resloved
 	 */
-	public static void assertMistake(Mistake mistake, MistakeType mistakeType, NamedElement studentElement,
-			NamedElement instructorElement, int numSinceResolved, int numDetections, boolean Resloved) {
-		if (mistake.getMistakeType() == mistakeType
-				&& mistake.getStudentElements().get(0).getElement() == studentElement) {
-			assertEquals(mistake.getStudentElements().get(0).getElement(), studentElement);
-			assertEquals(mistake.getInstructorElements().get(0).getElement(), instructorElement);
-			assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
-			assertEquals(mistake.getNumDetection(), numDetections);
-			assertEquals(mistake.isResolved(), Resloved);
-		}
+	public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, NamedElement studentElement,
+			NamedElement instructorElement, int numSinceResolved, int numDetections, boolean resloved) {
+
+		assertEquals(mistake.getMistakeType(), mistakeType);
+		assertEquals(mistake.getStudentElements().get(0).getElement(), studentElement);
+		assertEquals(mistake.getInstructorElements().get(0).getElement(), instructorElement);
+		assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
+		assertEquals(mistake.getNumDetection(), numDetections);
+		assertEquals(mistake.isResolved(), resloved);
+		return true;
 	}
 
 	/**
-	 * Asserts a mistake with multiple instructor and student element .
+	 * Asserts a mistake with multiple single instructor and student element.
+	 *
 	 * @param mistake
 	 * @param mistakeType
 	 * @param element
 	 * @param numSinceResolved
 	 * @param numDetections
-	 * @param Resloved
+	 * @param resloved
 	 */
-	public static void assertMistake(Mistake mistake, MistakeType mistakeType, EList<NamedElement> studentElements,
-			EList<NamedElement> instructorElements, int numSinceResolved, int numDetections, boolean Resloved) {
-		if (mistake.getMistakeType() == mistakeType
-				&& compareList(mistake.getStudentElements(), studentElements)) {
-			assertTrue( compareList(mistake.getStudentElements(), studentElements));
-			assertTrue( compareList(mistake.getInstructorElements(), instructorElements));
-			assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
-			assertEquals(mistake.getNumDetection(), numDetections);
-			assertEquals(mistake.isResolved(), Resloved);
-		}
+	public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, EList<NamedElement> studentElements,
+			EList<NamedElement> instructorElements, int numSinceResolved, int numDetections, boolean resloved) {
+
+		assertTrue(compareList(mistake.getStudentElements(), studentElements));
+		assertTrue(compareList(mistake.getInstructorElements(), instructorElements));
+		assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
+		assertEquals(mistake.getNumDetection(), numDetections);
+		assertEquals(mistake.isResolved(), resloved);
+		return true;
 	}
+
 	/**
 	 * Asserts a mistake with only single instructor or student element .
 	 * @param mistake
@@ -536,26 +539,122 @@ public class MistakeDetectionTest {
 	 * @param element
 	 * @param numSinceResolved
 	 * @param numDetections
-	 * @param Resloved
+	 * @param resloved
 	 */
-	public static void assertMistake(Mistake mistake, MistakeType mistakeType, NamedElement element,
-			int numSinceResolved, int numDetections, boolean Resloved) {
+	public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, NamedElement element,
+			int numSinceResolved, int numDetections, boolean resloved) {
 		if (mistake.getStudentElements().isEmpty()) {
-			if (mistake.getMistakeType() == mistakeType
-					&& mistake.getInstructorElements().get(0).getElement() == element) {
 				assertEquals(mistake.getInstructorElements().get(0).getElement(), element);
 				assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
 				assertEquals(mistake.getNumDetection(), numDetections);
-				assertEquals(mistake.isResolved(), Resloved);
+				assertEquals(mistake.isResolved(), resloved);
+				return true;
+		}
+
+		if (mistake.getInstructorElements().isEmpty()) {
+				assertEquals(mistake.getStudentElements().get(0).getElement(), element);
+				assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
+				assertEquals(mistake.getNumDetection(), numDetections);
+				assertEquals(mistake.isResolved(), resloved);
+				return true;
+		}
+		return false;
+	}
+	/**
+	 * Asserts a mistake with multiple instructor or student element .
+	 *
+	 * @param mistake
+	 * @param mistakeType
+	 * @param element
+	 * @param numSinceResolved
+	 * @param numDetections
+	 * @param resloved
+	 */
+	public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements,
+			int numSinceResolved, int numDetections, boolean resloved) {
+		if (mistake.getStudentElements().isEmpty()) {
+				assertTrue(compareList(mistake.getInstructorElements(), elements));
+				assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
+				assertEquals(mistake.getNumDetection(), numDetections);
+				assertEquals(mistake.isResolved(), resloved);
+				return true;
+
+		}
+		if (mistake.getInstructorElements().isEmpty()) {
+				assertTrue(compareList(mistake.getStudentElements(), elements));
+				assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
+				assertEquals(mistake.getNumDetection(), numDetections);
+				assertEquals(mistake.isResolved(), resloved);
+				return true;
+		}
+		return false;
+	}
+
+	//------------
+	/*
+	 * assertMistakeInLoop are to be used for asserting mistakes in loop because they contain if conditions,
+	 * The if conditions are necessary to match only the correct mistake type and solution elements.
+	 *
+	 */
+	//------------
+	/**
+	 * Asserts a mistake in loop with only single instructor and student element.
+	 *
+	 * @param mistake
+	 * @param mistakeType
+	 * @param element
+	 * @param numSinceResolved
+	 * @param numDetections
+	 * @param resloved
+	 */
+	public static void assertMistakeInLoop(Mistake mistake, MistakeType mistakeType, NamedElement studentElement,
+			NamedElement instructorElement, int numSinceResolved, int numDetections, boolean resloved) {
+		if (mistake.getMistakeType() == mistakeType
+				&& mistake.getStudentElements().get(0).getElement() == studentElement) {
+			assertTrue(assertMistake(mistake, mistakeType, studentElement, instructorElement, numSinceResolved, numDetections, resloved));
+		}
+	}
+
+	/**
+	 * Asserts a mistake in loop with multiple instructor and student element .
+	 *
+	 * @param mistake
+	 * @param mistakeType
+	 * @param element
+	 * @param numSinceResolved
+	 * @param numDetections
+	 * @param resloved
+	 */
+	public static void assertMistakeInLoop(Mistake mistake, MistakeType mistakeType, EList<NamedElement> studentElements,
+			EList<NamedElement> instructorElements, int numSinceResolved, int numDetections, boolean resloved) {
+		if (mistake.getMistakeType() == mistakeType
+				&& compareList(mistake.getStudentElements(), studentElements)) {
+			assertTrue(assertMistake(mistake, mistakeType, studentElements, instructorElements, numSinceResolved, numDetections, resloved));
+
+		}
+	}
+	/**
+	 * Asserts a mistake in loop with only single instructor or student element .
+	 * @param mistake
+	 * @param mistakeType
+	 * @param element
+	 * @param numSinceResolved
+	 * @param numDetections
+	 * @param resloved
+	 */
+	public static void assertMistakeInLoop(Mistake mistake, MistakeType mistakeType, NamedElement element,
+			int numSinceResolved, int numDetections, boolean resloved) {
+		if (mistake.getStudentElements().isEmpty()) {
+			if (mistake.getMistakeType() == mistakeType
+					&& mistake.getInstructorElements().get(0).getElement() == element) {
+				assertTrue(assertMistake(mistake, mistakeType, element, numSinceResolved, numDetections, resloved));
+
 			}
 		}
 		if (mistake.getInstructorElements().isEmpty()) {
 			if (mistake.getMistakeType() == mistakeType
 					&& mistake.getStudentElements().get(0).getElement() == element) {
-				assertEquals(mistake.getStudentElements().get(0).getElement(), element);
-				assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
-				assertEquals(mistake.getNumDetection(), numDetections);
-				assertEquals(mistake.isResolved(), Resloved);
+				assertTrue(assertMistake(mistake, mistakeType, element, numSinceResolved, numDetections, resloved));
 			}
 		}
 	}
@@ -566,26 +665,21 @@ public class MistakeDetectionTest {
 	 * @param element
 	 * @param numSinceResolved
 	 * @param numDetections
-	 * @param Resloved
+	 * @param resloved
 	 */
-	public static void assertMistake(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements,
-			int numSinceResolved, int numDetections, boolean Resloved) {
+	public static void assertMistakeInLoop(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements,
+			int numSinceResolved, int numDetections, boolean resloved) {
 		if (mistake.getStudentElements().isEmpty()) {
 			if (mistake.getMistakeType() == mistakeType
 					&& compareList(mistake.getInstructorElements(), elements)){
-				assertTrue(compareList(mistake.getInstructorElements(), elements));
-				assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
-				assertEquals(mistake.getNumDetection(), numDetections);
-				assertEquals(mistake.isResolved(), Resloved);
+				assertMistake(mistake, mistakeType, elements, numSinceResolved, numDetections, resloved);
+
 			}
 		}
 		if (mistake.getInstructorElements().isEmpty()) {
 			if (mistake.getMistakeType() == mistakeType
 					&& compareList(mistake.getStudentElements(), elements)) {
-				assertTrue(compareList(mistake.getStudentElements(), elements));
-				assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
-				assertEquals(mistake.getNumDetection(), numDetections);
-				assertEquals(mistake.isResolved(), Resloved);
+				assertMistake(mistake, mistakeType, elements, numSinceResolved, numDetections, resloved);
 			}
 		}
 	}
