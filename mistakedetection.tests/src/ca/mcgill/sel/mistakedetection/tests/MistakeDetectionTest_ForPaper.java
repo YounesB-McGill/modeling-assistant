@@ -24,11 +24,11 @@ public class MistakeDetectionTest_ForPaper {
 	@Test
 	public void mistakeDetection_ForPaperExample() {
 		var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/InstructorSolution/ExampleForPaper/ClassDiagram/PISystem_InstructorSolution.domain_model.cdm");
+				"../mistakedetection/testModels/InstructorSolution/ExampleForPaper/Class Diagram/PISystem_InstructorSolution.domain_model.cdm");
 		var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
 
 		var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/StudentSolution/ExampleForPaper/ClassDiagram/PISystem_StudentSolution.domain_model.cdm");
+				"../mistakedetection/testModels/StudentSolution/ExampleForPaper/Class Diagram/PISystem_StudentSolution.domain_model.cdm");
 		var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
 
 		Classifier instructorPoliceOfficerClass = MistakeDetectionTest.getClassFromClassDiagram("PoliceOfficer", instructorClassDiagram);

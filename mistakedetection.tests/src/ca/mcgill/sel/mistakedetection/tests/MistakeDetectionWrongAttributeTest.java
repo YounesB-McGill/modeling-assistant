@@ -25,11 +25,11 @@ public class MistakeDetectionWrongAttributeTest {
 	@Test
 	public void testNoAttributeMistake() {
 		var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm");
+				"../mistakedetection/testModels/InstructorSolution/two(withAttributes)/Class Diagram/Two(withAttributes).domain_model.cdm");
 		var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
 
 		var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute).domain_model.cdm");
+				"../mistakedetection/testModels/StudentSolution/two(withAttribute)/Class Diagram/Two(withAttribute).domain_model.cdm");
 		var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
 
 		var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
@@ -44,11 +44,11 @@ public class MistakeDetectionWrongAttributeTest {
 	@Test
 	public void testAttributeWrongSpelling() {
 		var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm");
+				"../mistakedetection/testModels/InstructorSolution/two(withAttributes)/Class Diagram/Two(withAttributes).domain_model.cdm");
 		var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
 
 		var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/StudentSolution/three(withAttributes)/ClassDiagram/Three(withAttributes).domain_model.cdm");
+				"../mistakedetection/testModels/StudentSolution/three(withAttributes)/Class Diagram/Three(withAttributes).domain_model.cdm");
 		var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
 
 		Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
@@ -89,11 +89,11 @@ public class MistakeDetectionWrongAttributeTest {
 	@Test
 	public void testMistakeMissingAttribute() {
 		var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm");
+				"../mistakedetection/testModels/InstructorSolution/two(withAttributes)/Class Diagram/Two(withAttributes).domain_model.cdm");
 		var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
 
 		var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute)-a.domain_model.cdm");
+				"../mistakedetection/testModels/StudentSolution/two(withAttribute)/Class Diagram/Two(withAttribute)-a.domain_model.cdm");
 		var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
 
 		Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
@@ -112,18 +112,18 @@ public class MistakeDetectionWrongAttributeTest {
 		}
 	}
 
-	// TODO Refractor Recreate Test
+
 	/**
 	 * Test to detect other extra Attribute.
 	 */
 	@Test
 	public void testMistakeExtraAttribute() {
 		var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm");
+				"../mistakedetection/testModels/InstructorSolution/two(withAttributes)/Class Diagram/Two(withAttributes).domain_model.cdm");
 		var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
 
 		var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute)-c.domain_model.cdm");
+				"../mistakedetection/testModels/StudentSolution/two(withAttribute)/Class Diagram/Two(withAttribute)-c.domain_model.cdm");
 		var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
 
 		Classifier instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
