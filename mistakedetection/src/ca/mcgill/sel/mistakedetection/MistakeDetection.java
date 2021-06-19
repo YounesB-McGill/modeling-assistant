@@ -210,6 +210,9 @@ public class MistakeDetection {
         }
         var otherStudentClassifier = otherStudentClassifierAssocEnd.getClassifier();
 
+        if(comparison.mappedClassifier.get(otherInstructorClassifier)== null) {
+        	return;
+        }
         if (comparison.mappedClassifier.get(otherInstructorClassifier)
             .equals(otherStudentClassifier)) {
           comparison.mappedAssociation.put(instructorClassifierAssoc, studentClassifierAssoc);
