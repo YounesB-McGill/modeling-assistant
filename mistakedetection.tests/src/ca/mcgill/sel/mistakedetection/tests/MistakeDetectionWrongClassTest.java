@@ -1,233 +1,133 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
+import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import ca.mcgill.sel.classdiagram.CdmPackage;
-import ca.mcgill.sel.classdiagram.ClassDiagram;
+
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
-import modelingassistant.ModelingassistantFactory;
-import modelingassistant.util.ResourceHelper;
 
 public class MistakeDetectionWrongClassTest {
 
-  /**
-   * Test to check for plural class names in student solution
-   */
-  @Test
-  public void testStudentSolution_1_PluralClassName() {
-    CdmPackage.eINSTANCE.eClass();
-    var cdmFile =
-        "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution-a.domain_model.cdm";
-    // Contains Class Buses and Drivers
-    var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
-    var classDiagram = (ClassDiagram) resource.getContents().get(0);
+	/**
+	 * Test to check for plural class names in student solution
+	 */
+	@Test
+	public void testStudentSolution_1_PluralClassName() {
 
-    for (var c : classDiagram.getClasses()) {
-      assertTrue(MistakeDetection.isPlural(c.getName()));
-    }
+		var classDiagram = MistakeDetectionTest.cdmFromFile(
+				"../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution-a.domain_model.cdm");
+		for (var c : classDiagram.getClasses()) {
+			assertTrue(MistakeDetection.isPlural(c.getName()));
+		}
 
-    CdmPackage.eINSTANCE.eClass();
-    cdmFile =
-        "../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm";
-    // Contains Class Buses and Driver
-    resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
-    classDiagram = (ClassDiagram) resource.getContents().get(0);
+		classDiagram = MistakeDetectionTest.cdmFromFile(
+				"../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm");
+		for (var c : classDiagram.getClasses()) {
+			assertFalse(MistakeDetection.isPlural(c.getName()));
+		}
+	}
 
-    for (var c : classDiagram.getClasses()) {
-      assertFalse(MistakeDetection.isPlural(c.getName()));
-    }
-  }
+	/**
+	 * Test for checking mapping between instructor classifier(Bus, Driver) and
+	 * Student classifier(Bus, Driver)
+	 */
+	@Test
+	public void testCheckMapping() {
+		var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
+				"../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm");
+		var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-  /**
-   * Test to check mapping function(checkCorrect) that will be called with .compare. For testing
-   * checkCorrectTest is created and called. It has same functionality as checkCorrect. This test
-   * check for mapping b/w Bus = Bus and Driver != Bus.
-   */
-  @Test
-  public void checkCorrectTest() {
-    CdmPackage.eINSTANCE.eClass();
-    var cdmFile =
-        "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution.domain_model.cdm";
-    var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
-    var classDiagram = (ClassDiagram) resource.getContents().get(0);
-    var maf = ModelingassistantFactory.eINSTANCE;
-    var modelingAssistant = maf.createModelingAssistant();
-    var solution = maf.createSolution();
-    solution.setModelingAssistant(modelingAssistant);
-    solution.setClassDiagram(classDiagram);
+		var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
+				"../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution.domain_model.cdm");
+		var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
 
-    Classifier studentBusClass = solution.getClassDiagram().getClasses().get(0);
-    Classifier studentDriverClass = solution.getClassDiagram().getClasses().get(1);
+		Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+		Classifier instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
 
-    assertTrue(MistakeDetection.checkCorrectTest(studentBusClass, studentBusClass));
-    assertFalse(MistakeDetection.checkCorrectTest(studentBusClass, studentDriverClass));
-  }
+		Classifier studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
+		Classifier studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
 
-  /**
-   * Test for checking mapping between instructor classifier(Bus, Driver) and Student
-   * classifier(Bus, Driver)
-   */
-  @Test
-  public void checkCorrectTestWithSolution1() {
-    CdmPackage.eINSTANCE.eClass();
-    var cdmFile =
-        "../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm";
-    var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
-    var classDiagram = (ClassDiagram) resource.getContents().get(0);
-    var maf = ModelingassistantFactory.eINSTANCE;
-    var modelingAssistant = maf.createModelingAssistant();
-    var solution = maf.createSolution();
-    solution.setModelingAssistant(modelingAssistant);
-    solution.setClassDiagram(classDiagram);
+		assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusClass));
+		assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriverClass));
 
-    CdmPackage.eINSTANCE.eClass();
-    var cdmFile1 =
-        "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution.domain_model.cdm";
-    var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
-    var classDiagram1 = (ClassDiagram) resource1.getContents().get(0);
-    var maf1 = ModelingassistantFactory.eINSTANCE;
-    var modelingAssistant1 = maf1.createModelingAssistant();
-    var solution1 = maf1.createSolution();
-    solution1.setModelingAssistant(modelingAssistant1);
-    solution1.setClassDiagram(classDiagram1);
-    var student = maf1.createStudent();
-    solution1.setStudent(student);
+		var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+		assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
+		assertEquals(comparison.extraStudentClassifier.size(), 0);
+		assertEquals(comparison.mappedClassifier.size(), 2);
+		assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusClass);
+		assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriverClass);
 
-    Classifier instructorBusClass = getClassFromClassDiagram("Bus", classDiagram);
-    Classifier instructorDriverClass = getClassFromClassDiagram("Driver", classDiagram);
+		assertEquals(comparison.newMistakes.size(), 0);
+		assertEquals(studentSolution.getMistakes().size(), 0);
+	}
 
-    Classifier studentBusClass = getClassFromClassDiagram("Bus", classDiagram1);
-    Classifier studentDriverClass = getClassFromClassDiagram("Driver", classDiagram1);
+	/**
+	 * Test for checking mapping between instructor classifier(Bus, Driver) and
+	 * Student classifier(Buses, Drivers) and plural Class names
+	 */
+	@Test
+	public void testPluralClassNames() {
+		var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
+				"../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm");
+		var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusClass));
-    assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriverClass));
+		var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
+				"../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution-a.domain_model.cdm");
+		var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(solution, solution1);
-    assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
-    assertEquals(comparison.extraStudentClassifier.size(), 0);
-    assertEquals(comparison.mappedClassifier.size(), 2);
-    assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusClass);
-    assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriverClass);
+		Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+		Classifier instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
 
-    assertEquals(comparison.newMistakes.size(), 0);
-    assertEquals(solution1.getMistakes().size(), 0);
-  }
+		Classifier studentBusesClass = getClassFromClassDiagram("Buses", studentClassDiagram);
+		Classifier studentDriversClass = getClassFromClassDiagram("Drivers", studentClassDiagram);
 
-  /**
-   * Test for checking mapping between instructor classifier(Bus, Driver) and Student
-   * classifier(Buses, Drivers)
-   */
-  @Test
-  public void checkCorrectTestWithSolution2() {
-    CdmPackage.eINSTANCE.eClass();
-    var cdmFile =
-        "../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm";
-    var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
-    var classDiagram = (ClassDiagram) resource.getContents().get(0);
-    var maf = ModelingassistantFactory.eINSTANCE;
-    var modelingAssistant = maf.createModelingAssistant();
-    var solution = maf.createSolution();
-    solution.setModelingAssistant(modelingAssistant);
-    solution.setClassDiagram(classDiagram);
+		assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusesClass));
+		assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriversClass));
 
-    CdmPackage.eINSTANCE.eClass();
-    var cdmFile1 =
-        "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution-a.domain_model.cdm";
-    var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
-    var classDiagram1 = (ClassDiagram) resource1.getContents().get(0);
-    var maf1 = ModelingassistantFactory.eINSTANCE;
-    var modelingAssistant1 = maf1.createModelingAssistant();
-    var solution1 = maf1.createSolution();
-    solution1.setModelingAssistant(modelingAssistant1);
-    solution1.setClassDiagram(classDiagram1);
-    var student = maf1.createStudent();
-    solution1.setStudent(student);
+		var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    Classifier instructorBusClass = getClassFromClassDiagram("Bus", classDiagram);
-    Classifier instructorDriverClass = getClassFromClassDiagram("Driver", classDiagram);
+		assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
+		assertEquals(comparison.extraStudentClassifier.size(), 0);
+		assertEquals(comparison.mappedClassifier.size(), 2);
+		assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusesClass);
+		assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriversClass);
+		assertEquals(comparison.newMistakes.size(), 6); // 2 Bad Role Names
+		assertEquals(studentSolution.getMistakes().size(), 6);
 
-    Classifier studentBusesClass = getClassFromClassDiagram("Buses", classDiagram1);
-    Classifier studentDriversClass = getClassFromClassDiagram("Drivers", classDiagram1);
+		for (Mistake m : studentSolution.getMistakes()) {
+			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
+			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 1, false);
+		}
+	}
 
-    assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusesClass));
-    assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriversClass));
+	@Test
+	void testCheckMistakePluralClassName() {
+		// no mistake
+		var studentClass = MistakeDetection.CDF.createClass();
+		studentClass.setName("Woman");
 
-    var comparison = MistakeDetection.compare(solution, solution1);
-    // var comparison = MistakeDetection.compare(solution, solution1);
-    // assertEquals(comparison.mappedClassifier.size(), 2);
+		var instructorClass = MistakeDetection.CDF.createClass();
+		instructorClass.setName("Woman");
 
-    assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
-    assertEquals(comparison.extraStudentClassifier.size(), 0);
-    assertEquals(comparison.mappedClassifier.size(), 2);
-    assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusesClass);
-    assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriversClass);
-    assertEquals(comparison.newMistakes.size(), 6); // 2 Bad Role Names
-    assertEquals(solution1.getMistakes().size(), 6);
+		assertTrue(MistakeDetection.checkMistakePluralClassName(studentClass, instructorClass).isEmpty());
 
-    for (Mistake m : solution1.getMistakes()) {
-      if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
-          && m.getStudentElements().get(0).getElement() == studentBusesClass) {
-        assertEquals(m.getStudentElements().get(0).getElement(), studentBusesClass);
-        assertEquals(m.getInstructorElements().get(0).getElement(), instructorBusClass);
-        assertEquals(m.getNumDetectionSinceResolved(), 0);
-        assertEquals(m.getNumDetection(), 1);
-        assertFalse(m.isResolved());
-      }
-      if (m.getMistakeType() == MistakeTypes.PLURAL_CLASS_NAME
-          && m.getStudentElements().get(0).getElement() == studentDriversClass) {
-        assertEquals(m.getStudentElements().get(0).getElement(), studentDriversClass);
-        assertEquals(m.getInstructorElements().get(0).getElement(), instructorDriverClass);
-        assertEquals(m.getNumDetectionSinceResolved(), 0);
-        assertEquals(m.getNumDetection(), 1);
-        assertFalse(m.isResolved());
-      }
-      if (m.getMistakeType() == MistakeTypes.BAD_CLASS_NAME_SPELLING
-          && m.getStudentElements().get(0).getElement() == studentBusesClass) {
-        assertEquals(m.getStudentElements().get(0).getElement(), studentBusesClass);
-        assertEquals(m.getInstructorElements().get(0).getElement(), instructorBusClass);
-        assertEquals(m.getNumDetectionSinceResolved(), 0);
-        assertEquals(m.getNumDetection(), 1);
-        assertFalse(m.isResolved());
-      }
-      if (m.getMistakeType() == MistakeTypes.BAD_CLASS_NAME_SPELLING
-          && m.getStudentElements().get(0).getElement() == studentDriversClass) {
-        assertEquals(m.getStudentElements().get(0).getElement(), studentDriversClass);
-        assertEquals(m.getNumDetectionSinceResolved(), 0);
-        assertEquals(m.getNumDetection(), 1);
-        assertFalse(m.isResolved());
-      }
-    }
-  }
+		// mistake
+		var expected = MistakeDetection.MAF.createMistake();
+		expected.setMistakeType(MistakeTypes.PLURAL_CLASS_NAME);
+		studentClass = MistakeDetection.CDF.createClass();
+		studentClass.setName("Women");
 
-  @Test
-  void testCheckMistakePluralClassName() {
-    // no mistake
-    var studentClass = MistakeDetection.CDF.createClass();
-    studentClass.setName("Woman");
+		instructorClass = MistakeDetection.CDF.createClass();
+		instructorClass.setName("Woman");
 
-    var instructorClass = MistakeDetection.CDF.createClass();
-    instructorClass.setName("Woman");
-
-    assertTrue(
-        MistakeDetection.checkMistakePluralClassName(studentClass, instructorClass).isEmpty());
-
-    // mistake
-    var expected = MistakeDetection.MAF.createMistake();
-    expected.setMistakeType(MistakeTypes.PLURAL_CLASS_NAME);
-    studentClass = MistakeDetection.CDF.createClass();
-    studentClass.setName("Women");
-
-    instructorClass = MistakeDetection.CDF.createClass();
-    instructorClass.setName("Woman");
-
-    var actual = MistakeDetection.checkMistakePluralClassName(studentClass, instructorClass).get();
-    assertEquals(expected.getMistakeType(), actual.getMistakeType());
-  }
-
+		var actual = MistakeDetection.checkMistakePluralClassName(studentClass, instructorClass).get();
+		assertEquals(expected.getMistakeType(), actual.getMistakeType());
+	}
 }

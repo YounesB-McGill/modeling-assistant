@@ -5,7 +5,7 @@
     <attributes xmi:id="_8e4eEHXKEeuY_PpV95KZPg" name="name" type="_6eqSx3XKEeuY_PpV95KZPg"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_819hUHXKEeuY_PpV95KZPg" name="Bus">
-    <associationEnds xmi:id="_CWaSIXXLEeuY_PpV95KZPg" name="myCustomer" assoc="_CWaSInXLEeuY_PpV95KZPg" lowerBound="1"/>
+    <associationEnds xmi:id="_CWaSIXXLEeuY_PpV95KZPg" name="myPassenger" assoc="_CWaSInXLEeuY_PpV95KZPg" lowerBound="1"/>
     <associationEnds xmi:id="_CqpcwHXLEeuY_PpV95KZPg" name="myDriver" assoc="_CqpcwnXLEeuY_PpV95KZPg" lowerBound="1"/>
     <attributes xmi:id="_-uAoEHXKEeuY_PpV95KZPg" name="capacity" type="_6eqSxXXKEeuY_PpV95KZPg"/>
     <attributes xmi:id="__w2lIHXKEeuY_PpV95KZPg" name="numberPlate" type="_6eqSx3XKEeuY_PpV95KZPg"/>
