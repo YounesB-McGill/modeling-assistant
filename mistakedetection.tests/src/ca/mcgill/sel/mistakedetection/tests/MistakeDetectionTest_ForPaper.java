@@ -74,7 +74,7 @@ public class MistakeDetectionTest_ForPaper {
 		assertEquals(comparison.notMappedInstructorAttribute.size(), 1);
 		assertEquals(comparison.extraStudentAttribute.size(), 0);
 		assertEquals(comparison.mappedAssociation.size(), 6);
-		assertEquals(studentSolution.getMistakes().size(), 13);
+		assertEquals(studentSolution.getMistakes().size(), 12);
 
 		for (Mistake m : studentSolution.getMistakes()) {
 			MistakeDetectionTest.assertMistake(m, WRONG_ATTRIBUTE_TYPE, studentBadgeNumberAttribute, instructorBadgeNumberAttribute, 0, 1, false);

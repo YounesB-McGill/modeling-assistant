@@ -98,8 +98,8 @@ public class MistakeDetectionWrongClassTest {
 		assertEquals(comparison.mappedClassifier.size(), 2);
 		assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusesClass);
 		assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriversClass);
-		assertEquals(comparison.newMistakes.size(), 6); // 2 Bad Role Names
-		assertEquals(studentSolution.getMistakes().size(), 6);
+		assertEquals(comparison.newMistakes.size(), 4); // 2 Bad Role Names
+		assertEquals(studentSolution.getMistakes().size(), 4);
 
 		for (Mistake m : studentSolution.getMistakes()) {
 			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
