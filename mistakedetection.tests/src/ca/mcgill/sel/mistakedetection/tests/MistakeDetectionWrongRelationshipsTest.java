@@ -1,6 +1,7 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -59,7 +60,7 @@ public class MistakeDetectionWrongRelationshipsTest {
 		assertEquals(studentSolution.getMistakes().size(), 1);
 
 		for (Mistake m : studentSolution.getMistakes()) {
-			MistakeDetectionTest.assertMistake(m, BAD_ROLE_NAME_SPELLING, studentMyDrivrAssociationEnd, instructorMyDriverAssociationEnd, 0, 1, false);
+			assertTrue(MistakeDetectionTest.assertMistake(m, BAD_ROLE_NAME_SPELLING, studentMyDrivrAssociationEnd, instructorMyDriverAssociationEnd, 0, 1, false));
 		}
 	}
 

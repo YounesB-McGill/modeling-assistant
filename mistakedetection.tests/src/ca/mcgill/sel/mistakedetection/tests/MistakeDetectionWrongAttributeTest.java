@@ -1,21 +1,18 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAssociationFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAttributeFromClass;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ATTRIBUTE;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
-import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
 
 public class MistakeDetectionWrongAttributeTest {
@@ -75,10 +72,10 @@ public class MistakeDetectionWrongAttributeTest {
 		assertEquals(studentSolution.getMistakes().size(), 4);
 
 		for (Mistake m : studentSolution.getMistakes()) {
-			MistakeDetectionTest.assertMistake(m, BAD_ATTRIBUTE_NAME_SPELLING, studentBusClassAttributeCapacty, instructorBusClassAttributeCapacity, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, BAD_ATTRIBUTE_NAME_SPELLING, studentBusClassAttributeNamberPlate, instructorBusClassAttributeNumberPlate, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, BAD_ATTRIBUTE_NAME_SPELLING, studentDriverClassAttributeNme, instructorDriverClassAttributeName, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, BAD_ATTRIBUTE_NAME_SPELLING, studentPassengerClassAttributeNam, instructorPassengerClassAttributeName, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentBusClassAttributeCapacty, instructorBusClassAttributeCapacity, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentBusClassAttributeNamberPlate, instructorBusClassAttributeNumberPlate, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentDriverClassAttributeNme, instructorDriverClassAttributeName, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentPassengerClassAttributeNam, instructorPassengerClassAttributeName, 0, 1, false);
 		}
 	}
 
@@ -107,8 +104,8 @@ public class MistakeDetectionWrongAttributeTest {
 		assertEquals(comparison.newMistakes.size(), 2);
 		assertEquals(studentSolution.getMistakes().size(), 2);
 		for (Mistake m : studentSolution.getMistakes()) {
-			MistakeDetectionTest.assertMistake(m, MISSING_ATTRIBUTE, instructorDriverClassAttributeName, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, MISSING_ATTRIBUTE, instructorBusClassAttributeNumberPlate, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, MISSING_ATTRIBUTE, instructorDriverClassAttributeName, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, MISSING_ATTRIBUTE, instructorBusClassAttributeNumberPlate, 0, 1, false);
 		}
 	}
 
@@ -119,52 +116,26 @@ public class MistakeDetectionWrongAttributeTest {
 	@Test
 	public void testMistakeExtraAttribute() {
 		var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/InstructorSolution/two(withAttributes)/Class Diagram/Two(withAttributes).domain_model.cdm");
+				"../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_person_nameAttribute/Class Diagram/Instructor_person_nameAttribute.domain_model.cdm");
 		var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
 
 		var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
-				"../mistakedetection/testModels/StudentSolution/two(withAttribute)/Class Diagram/Two(withAttribute)-c.domain_model.cdm");
+				"../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_extraAttribute/Class Diagram/Student_extraAttribute.domain_model.cdm");
 		var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
 
-		Classifier instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+		Classifier studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
 
-		getAttributeFromClass("name", instructorPassengerClass);
-
-		Classifier studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
-		Classifier studentCustomerClass = getClassFromClassDiagram("Customer", studentClassDiagram);
-
-		Attribute studentCustomerClassAttributeName = getAttributeFromClass("name", studentCustomerClass);
-
-		Association studentBusCustomerAssociation = getAssociationFromClassDiagram(studentBusClass,
-				studentCustomerClass, studentClassDiagram);
+		Attribute studentDateOfBirthAttribute= getAttributeFromClass("dateOfBirth", studentPersonClass);
 
 		var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-		assertEquals(comparison.newMistakes.size(), 3);
-		assertEquals(studentSolution.getMistakes().size(), 3);
+		assertEquals(comparison.newMistakes.size(), 1);
+		assertEquals(studentSolution.getMistakes().size(), 1);
 
-		assertEquals(comparison.notMappedInstructorAssociation.size(), 0);
-		assertEquals(comparison.extraStudentAssociation.size(), 1);
-		assertEquals(comparison.mappedAssociation.size(), 2);
 
-		for (Mistake m : studentSolution.getMistakes()) {
+	    assertTrue(MistakeDetectionTest.assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentDateOfBirthAttribute, 0, 1, false));
 
-			if (m.getMistakeType() == MistakeTypes.EXTRA_CLASS
-					&& m.getStudentElements().get(0).getElement() == studentCustomerClass) {
-				assertEquals(m.getStudentElements().get(0).getElement(), studentCustomerClass);
-				assertEquals(m.getNumDetectionSinceResolved(), 0);
-				assertEquals(m.getNumDetection(), 1);
-				assertFalse(m.isResolved());
-			}
-			MistakeDetectionTest.assertMistake(m, OTHER_EXTRA_ATTRIBUTE, studentCustomerClassAttributeName, 0, 1, false);
 
-			if (m.getMistakeType() == MistakeTypes.OTHER_EXTRA_ASSOCIATION
-					&& m.getStudentElements().get(0).getElement() == studentBusCustomerAssociation) {
-				assertEquals(m.getStudentElements().get(0).getElement(), studentBusCustomerAssociation);
-				assertEquals(m.getNumDetectionSinceResolved(), 0);
-				assertEquals(m.getNumDetection(), 1);
-				assertFalse(m.isResolved());
-			}
-		}
+
 	}
 }

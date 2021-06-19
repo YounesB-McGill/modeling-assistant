@@ -77,17 +77,17 @@ public class MistakeDetectionTest_ForPaper {
 		assertEquals(studentSolution.getMistakes().size(), 11);
 
 		for (Mistake m : studentSolution.getMistakes()) {
-			MistakeDetectionTest.assertMistake(m, WRONG_ATTRIBUTE_TYPE, studentBadgeNumberAttribute, instructorBadgeNumberAttribute, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME,studentAssignementsClass, instructorAssignementClass, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentPeopleClass, instructorPersonClass, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, BAD_ATTRIBUTE_NAME_SPELLING, studentAddresAttribute, instructorAddressAttribute, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, OTHER_WRONG_MULTIPLICITY, studentAssocEndOfficers, instructorAssocEndAssignedOfficer, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, OTHER_WRONG_ROLE_NAME, studentAssocEndOfficers, instructorAssocEndAssignedOfficer, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, OTHER_WRONG_ROLE_NAME, studentAssocEndStations, instructorAssocEndPoliceStation, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION, studentAssocEndOfficer, instructorAssocEndOfficer, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, OTHER_WRONG_ROLE_NAME, studentAssocEndWorkAt, instructorAsscocEndWorkLocation, 0, 1, false);
-			MistakeDetectionTest.assertMistake(m, MISSING_ATTRIBUTE, instructorEndDateAttribute,0, 1, false);
-			MistakeDetectionTest.assertMistake(m, MISSING_COMPOSITION, instructorPoliceOfficer_PISystem,0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBadgeNumberAttribute, instructorBadgeNumberAttribute, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME,studentAssignementsClass, instructorAssignementClass, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentPeopleClass, instructorPersonClass, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentAddresAttribute, instructorAddressAttribute, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, OTHER_WRONG_MULTIPLICITY, studentAssocEndOfficers, instructorAssocEndAssignedOfficer, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, OTHER_WRONG_ROLE_NAME, studentAssocEndOfficers, instructorAssocEndAssignedOfficer, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, OTHER_WRONG_ROLE_NAME, studentAssocEndStations, instructorAssocEndPoliceStation, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION, studentAssocEndOfficer, instructorAssocEndOfficer, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, OTHER_WRONG_ROLE_NAME, studentAssocEndWorkAt, instructorAsscocEndWorkLocation, 0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, MISSING_ATTRIBUTE, instructorEndDateAttribute,0, 1, false);
+			MistakeDetectionTest.assertMistakeInLoop(m, MISSING_COMPOSITION, instructorPoliceOfficer_PISystem,0, 1, false);
 		}
 
 	}
