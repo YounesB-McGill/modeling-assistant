@@ -3,7 +3,6 @@ package ca.mcgill.sel.mistakedetection.tests;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -27,7 +26,6 @@ import ca.mcgill.sel.classdiagram.util.CdmResourceFactoryImpl;
 import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import learningcorpus.MistakeType;
-import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
@@ -125,86 +123,34 @@ public class MistakeDetectionTest {
 
 		comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-		assertEquals(comparison.newMistakes.size(), 6); // 2 Bad Role Name Spelling
-		assertEquals(studentSolution.getMistakes().size(), 6);
+		assertEquals(comparison.newMistakes.size(), 4); // 2 Bad Role Name Spelling
+		assertEquals(studentSolution.getMistakes().size(), 4);
 
 		for (Mistake m : studentSolution.getMistakes()) {
 			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
 			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 1, false);
-
-
-			if (m.getMistakeType() == MistakeTypes.BAD_CLASS_NAME_SPELLING
-					&& m.getStudentElements().get(0).getElement() == studentBusesClass) {
-				assertEquals(m.getStudentElements().get(0).getElement(), studentBusesClass);
-				assertEquals(m.getInstructorElements().get(0).getElement(), instructorBusClass);
-				assertEquals(m.getNumDetectionSinceResolved(), 0);
-				assertEquals(m.getNumDetection(), 1);
-				assertFalse(m.isResolved());
-			}
-			if (m.getMistakeType() == MistakeTypes.BAD_CLASS_NAME_SPELLING
-					&& m.getStudentElements().get(0).getElement() == studentDriversClass) {
-				assertEquals(m.getStudentElements().get(0).getElement(), studentDriversClass);
-				assertEquals(m.getInstructorElements().get(0).getElement(), instructorDriverClass);
-				assertEquals(m.getNumDetectionSinceResolved(), 0);
-				assertEquals(m.getNumDetection(), 1);
-				assertFalse(m.isResolved());
-			}
 		}
 		// Running the second Solution again to check updated attribute values in
 		// Mistake in Metamodel
-		assertEquals(studentSolution.getMistakes().size(), 6);
+		assertEquals(studentSolution.getMistakes().size(), 4);
 		comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-		assertEquals(comparison.newMistakes.size(), 6);
-		assertEquals(studentSolution.getMistakes().size(), 6);
+		assertEquals(comparison.newMistakes.size(), 4);
+		assertEquals(studentSolution.getMistakes().size(), 4);
 
 		for (Mistake m : studentSolution.getMistakes()) {
 			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 2, false);
 			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 2, false);
-
-			if (m.getMistakeType() == MistakeTypes.BAD_CLASS_NAME_SPELLING
-					&& m.getStudentElements().get(0).getElement() == studentBusesClass) {
-				assertEquals(m.getStudentElements().get(0).getElement(), studentBusesClass);
-				assertEquals(m.getInstructorElements().get(0).getElement(), instructorBusClass);
-				assertEquals(m.getNumDetectionSinceResolved(), 0);
-				assertEquals(m.getNumDetection(), 2);
-				assertFalse(m.isResolved());
-			}
-			if (m.getMistakeType() == MistakeTypes.BAD_CLASS_NAME_SPELLING
-					&& m.getStudentElements().get(0).getElement() == studentDriversClass) {
-				assertEquals(m.getStudentElements().get(0).getElement(), studentDriversClass);
-				assertEquals(m.getInstructorElements().get(0).getElement(), instructorDriverClass);
-				assertEquals(m.getNumDetectionSinceResolved(), 0);
-				assertEquals(m.getNumDetection(), 2);
-				assertFalse(m.isResolved());
-			}
 		}
 
 		comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-		assertEquals(comparison.newMistakes.size(), 6);
-		assertEquals(studentSolution.getMistakes().size(), 6);
+		assertEquals(comparison.newMistakes.size(), 4);
+		assertEquals(studentSolution.getMistakes().size(), 4);
 
 		for (Mistake m : studentSolution.getMistakes()) {
 			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 3, false);
 			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 3, false);
-
-			if (m.getMistakeType() == MistakeTypes.BAD_CLASS_NAME_SPELLING
-					&& m.getStudentElements().get(0).getElement() == studentBusesClass) {
-				assertEquals(m.getStudentElements().get(0).getElement(), studentBusesClass);
-				assertEquals(m.getInstructorElements().get(0).getElement(), instructorBusClass);
-				assertEquals(m.getNumDetectionSinceResolved(), 0);
-				assertEquals(m.getNumDetection(), 3);
-				assertFalse(m.isResolved());
-			}
-			if (m.getMistakeType() == MistakeTypes.BAD_CLASS_NAME_SPELLING
-					&& m.getStudentElements().get(0).getElement() == studentDriversClass) {
-				assertEquals(m.getStudentElements().get(0).getElement(), studentDriversClass);
-				assertEquals(m.getInstructorElements().get(0).getElement(), instructorDriverClass);
-				assertEquals(m.getNumDetectionSinceResolved(), 0);
-				assertEquals(m.getNumDetection(), 3);
-				assertFalse(m.isResolved());
-			}
 		}
 
 		// checking with perfect solution
@@ -224,23 +170,6 @@ public class MistakeDetectionTest {
 		for (Mistake m : studentSolution.getMistakes()) {
 			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 1, 3, false);
 			MistakeDetectionTest.assertMistake(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 1, 3, false);
-
-			if (m.getMistakeType() == MistakeTypes.BAD_CLASS_NAME_SPELLING
-					&& m.getStudentElements().get(0).getElement() == studentBusesClass) {
-				assertEquals(m.getStudentElements().get(0).getElement(), studentBusesClass);
-				assertEquals(m.getInstructorElements().get(0).getElement(), instructorBusClass);
-				assertEquals(m.getNumDetectionSinceResolved(), 1);
-				assertEquals(m.getNumDetection(), 3);
-				assertTrue(m.isResolved());
-			}
-			if (m.getMistakeType() == MistakeTypes.BAD_CLASS_NAME_SPELLING
-					&& m.getStudentElements().get(0).getElement() == studentDriversClass) {
-				assertEquals(m.getStudentElements().get(0).getElement(), studentDriversClass);
-				assertEquals(m.getInstructorElements().get(0).getElement(), instructorDriverClass);
-				assertEquals(m.getNumDetectionSinceResolved(), 1);
-				assertEquals(m.getNumDetection(), 3);
-				assertTrue(m.isResolved());
-			}
 		}
 	}
 
