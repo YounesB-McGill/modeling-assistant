@@ -55,8 +55,8 @@ public class MistakeDetectionWrongRelationshipsTest {
 				studentBusClass);
 
 		var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-		assertEquals(comparison.newMistakes.size(), 2);
-		assertEquals(studentSolution.getMistakes().size(), 2);
+		assertEquals(comparison.newMistakes.size(), 1);
+		assertEquals(studentSolution.getMistakes().size(), 1);
 
 		for (Mistake m : studentSolution.getMistakes()) {
 			MistakeDetectionTest.assertMistake(m, BAD_ROLE_NAME_SPELLING, studentMyDrivrAssociationEnd, instructorMyDriverAssociationEnd, 0, 1, false);

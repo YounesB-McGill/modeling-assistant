@@ -6,7 +6,6 @@ import static ca.mcgill.sel.classdiagram.ReferenceType.REGULAR;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_CLASS_NAME_SPELLING;
-import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
@@ -17,7 +16,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_CLASS;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_NAME_WHEN_ONE_WAS_EXPECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
@@ -220,11 +218,6 @@ public class MistakeDetection {
           comparison.extraStudentAssociation.remove(studentClassifierAssoc);
 
           if (!checkStudentElementForMistake(comparison.newMistakes, studentClassifierAssoc)) {
-            checkMistakeMissingAssociationNameWhenExpected(studentClassifierAssoc,
-                instructorClassifierAssoc).ifPresent(comparison.newMistakes::add);
-            checkMistakeBadAssociationNameSpelling(studentClassifierAssoc,
-                instructorClassifierAssoc).ifPresent(comparison.newMistakes::add);
-            // checkMistakeSimilarYetIncorrectAssociationName(studentClassifierAssoc,instructorClassifierAssoc).ifPresent(comparison.newMistakes::add);
 
             checkMistakeExtraAssociationClass(studentClassifierAssoc, instructorClassifierAssoc)
                 .ifPresent(comparison.newMistakes::add);
@@ -868,23 +861,6 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-  public static Optional<Mistake> checkMistakeMissingAssociationNameWhenExpected(Association studentClassAssoc,
-      Association instructorClassAssoc) {
-    if (!associationNamePresent(studentClassAssoc, instructorClassAssoc)) {
-      return Optional
-          .of(createMistake(MISSING_ASSOCIATION_NAME_WHEN_ONE_WAS_EXPECTED, studentClassAssoc, instructorClassAssoc));
-    }
-    return Optional.empty();
-  }
-
-  public static Optional<Mistake> checkMistakeBadAssociationNameSpelling(Association studentClassAssoc,
-      Association instructorClassAssoc) {
-    int lDistance = levenshteinDistance(studentClassAssoc.getName(), instructorClassAssoc.getName());
-    if (lDistance > 0 && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-      return Optional.of(createMistake(BAD_ASSOCIATION_NAME_SPELLING, studentClassAssoc, instructorClassAssoc));
-    }
-    return Optional.empty();
-  }
 
   public static Optional<Mistake> checkMistakeBadAssociationClassNameSpelling(Association studentClassAssoc,
       Association instructorClassAssoc) {
@@ -1107,10 +1083,6 @@ public class MistakeDetection {
   public static boolean isRoleNameNotExpectedStatic(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     return studentClassAssocEnd.isStatic() && !instructorClassAssocEnd.isStatic();
-  }
-
-  public static boolean associationNamePresent(Association studentClassAssoc, Association instructorClassAssoc) {
-    return !studentClassAssoc.getName().isEmpty() && !instructorClassAssoc.getName().isEmpty();
   }
 
   /**
