@@ -5,13 +5,16 @@ Bundle-SymbolicName: modelingassistant.edit;singleton:=true
 Automatic-Module-Name: modelingassistant.edit
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: modelingassistant.provider.ModelingassistantEditPlugin$Implementation
+Bundle-Activator: learningcorpus.provider.ModelingassistantEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: classdiagram.provider,
- learningcorpus.provider,
+Export-Package: learningcorpus.provider,
  modelingassistant.provider
 Require-Bundle: org.eclipse.core.runtime,
  modelingassistant;visibility:=reexport,
- org.eclipse.emf.edit;visibility:=reexport
+ org.eclipse.emf.edit;visibility:=reexport,
+ ca.mcgill.sel.classdiagram;visibility:=reexport,
+ ca.mcgill.sel.classdiagram.edit;visibility:=reexport,
+ ca.mcgill.sel.core;visibility:=reexport,
+ ca.mcgill.sel.core.edit;visibility:=reexport
 Bundle-ActivationPolicy: lazy

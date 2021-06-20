@@ -15,6 +15,7 @@ import org.eclipse.emf.edit.provider.ChangeNotifier;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IChangeNotifier;
+import org.eclipse.emf.edit.provider.IDisposable;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
@@ -31,7 +32,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
  * <!-- end-user-doc -->
  * @generated
  */
-public class LearningcorpusItemProviderAdapterFactory extends LearningcorpusAdapterFactory implements ComposeableAdapterFactory, IChangeNotifier {
+public class LearningcorpusItemProviderAdapterFactory extends LearningcorpusAdapterFactory implements ComposeableAdapterFactory, IChangeNotifier, IDisposable {
   /**
    * This keeps track of the root adapter factory that delegates to this adapter factory.
    * <!-- begin-user-doc -->
@@ -487,6 +488,30 @@ public class LearningcorpusItemProviderAdapterFactory extends LearningcorpusAdap
     if (parentAdapterFactory != null) {
       parentAdapterFactory.fireNotifyChanged(notification);
     }
+  }
+
+  /**
+   * This disposes all of the item providers created by this factory. 
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void dispose() {
+    if (umlElementItemProvider != null) umlElementItemProvider.dispose();
+    if (learningItemItemProvider != null) learningItemItemProvider.dispose();
+    if (mistakeTypeItemProvider != null) mistakeTypeItemProvider.dispose();
+    if (feedbackItemProvider != null) feedbackItemProvider.dispose();
+    if (textResponseItemProvider != null) textResponseItemProvider.dispose();
+    if (parametrizedResponseItemProvider != null) parametrizedResponseItemProvider.dispose();
+    if (resourceResponseItemProvider != null) resourceResponseItemProvider.dispose();
+    if (learningResourceItemProvider != null) learningResourceItemProvider.dispose();
+    if (referenceItemProvider != null) referenceItemProvider.dispose();
+    if (tutorialItemProvider != null) tutorialItemProvider.dispose();
+    if (exampleItemProvider != null) exampleItemProvider.dispose();
+    if (quizItemProvider != null) quizItemProvider.dispose();
+    if (mistakeTypeCategoryItemProvider != null) mistakeTypeCategoryItemProvider.dispose();
+    if (learningCorpusItemProvider != null) learningCorpusItemProvider.dispose();
   }
 
 }

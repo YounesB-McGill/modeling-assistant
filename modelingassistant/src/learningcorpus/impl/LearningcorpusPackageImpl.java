@@ -2,10 +2,8 @@
  */
 package learningcorpus.impl;
 
-import classdiagram.ClassdiagramPackage;
-
-import classdiagram.impl.ClassdiagramPackageImpl;
-
+import ca.mcgill.sel.classdiagram.CdmPackage;
+import ca.mcgill.sel.core.CorePackage;
 import java.sql.Time;
 
 import learningcorpus.Example;
@@ -204,21 +202,21 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
 
     isInited = true;
 
+    // Initialize simple dependencies
+    CdmPackage.eINSTANCE.eClass();
+    CorePackage.eINSTANCE.eClass();
+
     // Obtain or create and register interdependencies
     Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ModelingassistantPackage.eNS_URI);
     ModelingassistantPackageImpl theModelingassistantPackage = (ModelingassistantPackageImpl)(registeredPackage instanceof ModelingassistantPackageImpl ? registeredPackage : ModelingassistantPackage.eINSTANCE);
-    registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ClassdiagramPackage.eNS_URI);
-    ClassdiagramPackageImpl theClassdiagramPackage = (ClassdiagramPackageImpl)(registeredPackage instanceof ClassdiagramPackageImpl ? registeredPackage : ClassdiagramPackage.eINSTANCE);
 
     // Create package meta-data objects
     theLearningcorpusPackage.createPackageContents();
     theModelingassistantPackage.createPackageContents();
-    theClassdiagramPackage.createPackageContents();
 
     // Initialize created meta-data
     theLearningcorpusPackage.initializePackageContents();
     theModelingassistantPackage.initializePackageContents();
-    theClassdiagramPackage.initializePackageContents();
 
     // Mark meta-data to indicate it can't be changed
     theLearningcorpusPackage.freeze();

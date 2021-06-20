@@ -5,6 +5,7 @@ package modelingassistant.presentation;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import learningcorpus.presentation.ModelingassistantEditorPlugin;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 
 import org.eclipse.emf.edit.domain.EditingDomain;

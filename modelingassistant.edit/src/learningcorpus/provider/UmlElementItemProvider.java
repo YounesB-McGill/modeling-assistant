@@ -7,9 +7,6 @@ import java.util.Collection;
 import java.util.List;
 
 import learningcorpus.LearningcorpusPackage;
-
-import modelingassistant.provider.ModelingassistantEditPlugin;
-
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
@@ -142,7 +139,7 @@ public class UmlElementItemProvider
    */
   @Override
   public ResourceLocator getResourceLocator() {
-    return ModelingassistantEditPlugin.INSTANCE;
+    return learningcorpus.provider.ModelingassistantEditPlugin.INSTANCE;
   }
 
 }

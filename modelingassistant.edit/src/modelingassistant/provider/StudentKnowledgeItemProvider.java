@@ -5,7 +5,6 @@ package modelingassistant.provider;
 
 import java.util.Collection;
 import java.util.List;
-
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.StudentKnowledge;
 

@@ -6,7 +6,7 @@ Bundle-Version: 0.1.0.qualifier
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.core.runtime,
  modelingassistant
-Import-Package: classdiagram,
+Import-Package: ca.mcgill.sel.classdiagram,
  learningcorpus,
  modelingassistant
 Export-Package: ca.mcgill.sel.mistakedetection
