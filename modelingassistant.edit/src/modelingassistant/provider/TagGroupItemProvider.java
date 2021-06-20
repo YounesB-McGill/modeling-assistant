@@ -5,7 +5,6 @@ package modelingassistant.provider;
 
 import java.util.Collection;
 import java.util.List;
-
 import modelingassistant.ModelingassistantPackage;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -58,7 +57,6 @@ public class TagGroupItemProvider
       super.getPropertyDescriptors(object);
 
       addTagsPropertyDescriptor(object);
-      addSolutionPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -77,28 +75,6 @@ public class TagGroupItemProvider
          getString("_UI_TagGroup_tags_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_TagGroup_tags_feature", "_UI_TagGroup_type"),
          ModelingassistantPackage.Literals.TAG_GROUP__TAGS,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Solution feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addSolutionPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_TagGroup_solution_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_TagGroup_solution_feature", "_UI_TagGroup_type"),
-         ModelingassistantPackage.Literals.TAG_GROUP__SOLUTION,
          true,
          false,
          true,

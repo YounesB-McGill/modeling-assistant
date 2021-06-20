@@ -2,8 +2,6 @@
  */
 package modelingassistant;
 
-import classdiagram.ClassDiagram;
-
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -99,12 +97,12 @@ public interface Solution extends EObject {
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Class Diagram</em>' reference.
-   * @see #setClassDiagram(ClassDiagram)
+   * @see #setClassDiagram(ca.mcgill.sel.classdiagram.ClassDiagram)
    * @see modelingassistant.ModelingassistantPackage#getSolution_ClassDiagram()
    * @model required="true"
    * @generated
    */
-  ClassDiagram getClassDiagram();
+  ca.mcgill.sel.classdiagram.ClassDiagram getClassDiagram();
 
   /**
    * Sets the value of the '{@link modelingassistant.Solution#getClassDiagram <em>Class Diagram</em>}' reference.
@@ -114,7 +112,7 @@ public interface Solution extends EObject {
    * @see #getClassDiagram()
    * @generated
    */
-  void setClassDiagram(ClassDiagram value);
+  void setClassDiagram(ca.mcgill.sel.classdiagram.ClassDiagram value);
 
   /**
    * Returns the value of the '<em><b>Mistakes</b></em>' containment reference list.

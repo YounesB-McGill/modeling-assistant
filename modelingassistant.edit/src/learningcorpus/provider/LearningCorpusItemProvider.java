@@ -9,9 +9,6 @@ import java.util.List;
 import learningcorpus.LearningCorpus;
 import learningcorpus.LearningcorpusFactory;
 import learningcorpus.LearningcorpusPackage;
-
-import modelingassistant.provider.ModelingassistantEditPlugin;
-
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
@@ -227,7 +224,7 @@ public class LearningCorpusItemProvider
    */
   @Override
   public ResourceLocator getResourceLocator() {
-    return ModelingassistantEditPlugin.INSTANCE;
+    return learningcorpus.provider.ModelingassistantEditPlugin.INSTANCE;
   }
 
 }

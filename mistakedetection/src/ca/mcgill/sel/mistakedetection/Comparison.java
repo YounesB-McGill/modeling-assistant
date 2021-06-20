@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import classdiagram.Association;
-import classdiagram.Attribute;
-import classdiagram.Classifier;
+import ca.mcgill.sel.classdiagram.Association;
+import ca.mcgill.sel.classdiagram.Attribute;
+import ca.mcgill.sel.classdiagram.Classifier;
 import modelingassistant.Mistake;
 
 /**
@@ -31,7 +31,7 @@ public class Comparison {
   public EList<Attribute> notMappedInstructorAttribute = new BasicEList<Attribute>();
   public EList<Attribute> extraStudentAttribute = new BasicEList<Attribute>();
   public EList<Attribute> duplicateStudentAttribute = new BasicEList<Attribute>();
-  
+
   public EList<Association> notMappedInstructorAssociation = new BasicEList<Association>();
   public EList<Association> extraStudentAssociation = new BasicEList<Association>();
 

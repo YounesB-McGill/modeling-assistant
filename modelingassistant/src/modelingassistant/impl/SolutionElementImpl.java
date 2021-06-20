@@ -2,8 +2,6 @@
  */
 package modelingassistant.impl;
 
-import classdiagram.NamedElement;
-
 import java.util.Collection;
 
 import modelingassistant.Mistake;
@@ -76,7 +74,7 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * @generated
    * @ordered
    */
-  protected NamedElement element;
+  protected ca.mcgill.sel.classdiagram.NamedElement element;
 
   /**
    * The cached value of the '{@link #getInstructorElementMistakes() <em>Instructor Element Mistakes</em>}' reference list.
@@ -192,10 +190,10 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * @generated
    */
   @Override
-  public NamedElement getElement() {
+  public ca.mcgill.sel.classdiagram.NamedElement getElement() {
     if (element != null && element.eIsProxy()) {
       InternalEObject oldElement = (InternalEObject)element;
-      element = (NamedElement)eResolveProxy(oldElement);
+      element = (ca.mcgill.sel.classdiagram.NamedElement)eResolveProxy(oldElement);
       if (element != oldElement) {
         if (eNotificationRequired())
           eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.SOLUTION_ELEMENT__ELEMENT, oldElement, element));
@@ -209,7 +207,7 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public NamedElement basicGetElement() {
+  public ca.mcgill.sel.classdiagram.NamedElement basicGetElement() {
     return element;
   }
 
@@ -219,8 +217,8 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * @generated
    */
   @Override
-  public void setElement(NamedElement newElement) {
-    NamedElement oldElement = element;
+  public void setElement(ca.mcgill.sel.classdiagram.NamedElement newElement) {
+    ca.mcgill.sel.classdiagram.NamedElement oldElement = element;
     element = newElement;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.SOLUTION_ELEMENT__ELEMENT, oldElement, element));
@@ -359,7 +357,7 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
         getStudentElementMistakes().addAll((Collection<? extends Mistake>)newValue);
         return;
       case ModelingassistantPackage.SOLUTION_ELEMENT__ELEMENT:
-        setElement((NamedElement)newValue);
+        setElement((ca.mcgill.sel.classdiagram.NamedElement)newValue);
         return;
       case ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES:
         getInstructorElementMistakes().clear();
@@ -391,7 +389,7 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
         getStudentElementMistakes().clear();
         return;
       case ModelingassistantPackage.SOLUTION_ELEMENT__ELEMENT:
-        setElement((NamedElement)null);
+        setElement((ca.mcgill.sel.classdiagram.NamedElement)null);
         return;
       case ModelingassistantPackage.SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES:
         getInstructorElementMistakes().clear();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
-<modelingassistant:ModelingAssistant xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmi:id="_ESce4MzcEeu7nMDqdwAPmw">
-  <solutions xmi:id="_ESce4czcEeu7nMDqdwAPmw">
+<modelingassistant:ModelingAssistant xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmi:id="_3O9T0M_jEeuSwZvAAfsoIw">
+  <solutions xmi:id="_3O9T0c_jEeuSwZvAAfsoIw">
     <classDiagram href="ma_multiclass_from_java.cdm#_VQRncElSEeuektpDqzDh1Q"/>
   </solutions>
 </modelingassistant:ModelingAssistant>
