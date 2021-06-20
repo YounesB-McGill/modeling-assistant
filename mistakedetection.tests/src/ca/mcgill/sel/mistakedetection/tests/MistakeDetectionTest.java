@@ -514,6 +514,43 @@ public class MistakeDetectionTest {
   }
 
   /**
+   * Asserts a mistake's Links.
+   *
+   * @param mistake
+   * @param mistakeType
+   * @param element
+   * @param numSinceResolved
+   * @param numDetections
+   * @param resolved
+   */
+  public static boolean assertMistakeLinks(Mistake mistake, MistakeType mistakeType, NamedElement studentElement,
+      NamedElement instructorElement) {
+
+    assertEquals(mistake.getMistakeType(), mistakeType);
+    assertEquals(mistake.getStudentElements().get(0).getElement(), studentElement);
+    assertEquals(mistake.getInstructorElements().get(0).getElement(), instructorElement);
+    return true;
+  }
+
+  /**
+   * Asserts a mistake's Attributes with only single instructor and student element.
+   *
+   * @param mistake
+   * @param mistakeType
+   * @param element
+   * @param numSinceResolved
+   * @param numDetections
+   * @param resolved
+   */
+  public static boolean assertMistakeAttribute(Mistake mistake, int numSinceResolved, int numDetections, boolean resolved) {
+
+    assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
+    assertEquals(mistake.getNumDetection(), numDetections);
+    assertEquals(mistake.isResolved(), resolved);
+    return true;
+  }
+
+  /**
    * Asserts a mistake with multiple single instructor and student element.
    *
    * @param mistake

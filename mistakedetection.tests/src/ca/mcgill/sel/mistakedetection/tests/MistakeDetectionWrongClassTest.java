@@ -6,9 +6,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
-
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import learningcorpus.mistaketypes.MistakeTypes;
@@ -126,8 +124,9 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(studentSolution.getMistakes().size(), 1);
 
 
-    assertTrue(MistakeDetectionTest.assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING,
-        studentBuseClass, instructorBusClass, 0, 1, false));
+    assertTrue(MistakeDetectionTest.assertMistakeLinks(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING,
+        studentBuseClass, instructorBusClass));
+    assertTrue(MistakeDetectionTest.assertMistakeAttribute(studentSolution.getMistakes().get(0), 0, 1, false));
 
 
   }
