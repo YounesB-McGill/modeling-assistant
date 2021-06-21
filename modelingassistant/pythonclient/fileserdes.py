@@ -45,7 +45,7 @@ def load_ma(ma_file: str) -> ModelingAssistant:
     """
     if not ma_file.endswith(".modelingassistant"):
         print(f"Warning: attempting to open {ma_file} with unexpected extension as a *.modelingassistant file.")
-    rset = load_metamodels(MODELING_ASSISTANT_MM)
+    rset = load_metamodels(CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM)
     resource = rset.get_resource(URI(ma_file))
     modeling_assistant = resource.contents[0]
     modeling_assistant.__class__ = ModelingAssistant
