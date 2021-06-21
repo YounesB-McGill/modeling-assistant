@@ -273,23 +273,9 @@ def test_loading_modeling_assistant_with_one_class_solution_serialized_in_java()
     """
     Verify that the Java version of the modeling assistant instance defined above can be deserialized correctly.
     """
-    # Open ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
-    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
-    rset = ResourceSet()
-    resource = rset.get_resource(URI(cdm_mm_file))
-    cdm_mm_root = resource.contents[0]
-    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
-    resource = rset.get_resource(URI(ma_mm_file))
-    ma_mm_root = resource.contents[0]
-    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
-
     # Open a Modeling Assistant instance
-    ma_path = "modelingassistant/instances"
     ma_file = f"{ma_path}/ma_one_class_from_java.xmi"
-    resource = rset.get_resource(URI(ma_file))
-    modeling_assistant: ModelingAssistant = resource.contents[0]
-    modeling_assistant.__class__ = ModelingAssistant
+    modeling_assistant = load_ma(ma_file)
     class_diagram: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram.__class__ = ClassDiagram
 
@@ -306,50 +292,27 @@ def test_persisting_modeling_assistant_with_multiclass_solution():
     Verify that a ModelingAssistant instance with a multiclass solution can be serialized to an XMI file.
     """
     # Remove previously created file (if it exists)
-    ma_path = "modelingassistant/instances/ma_multiclass_from_python.xmi"
-    cd_path = "modelingassistant/instances/ma_multiclass_from_python.cdm"
-    if os.path.exists(ma_path): os.remove(ma_path)
-    if os.path.exists(cd_path): os.remove(cd_path)
-
-    # Load ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
-    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
-    rset = ResourceSet()
-    cdm_mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
-    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
-    ma_mm_root = rset.get_resource(URI(ma_mm_file)).contents[0]
-    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+    ma_file = "modelingassistant/instances/ma_multiclass_from_python.xmi"
+    cd_file = "modelingassistant/instances/ma_multiclass_from_python.cdm"
+    if os.path.exists(ma_file): os.remove(ma_file)
+    if os.path.exists(cd_file): os.remove(cd_file)
 
     # Open premade class diagram from one of the above tests
-    cdm_path = "modelingassistant/testmodels"
-    cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
-    class_diagram: ClassDiagram = rset.get_resource(URI(cdm_file)).contents[0]
+    premade_cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
+    class_diagram = load_cdm(premade_cdm_file)
     class_diagram.__class__ = ClassDiagram
-    car_class = driver_class = sports_car_class = part_class = None
-    for c in class_diagram.classes:
-        if c.name == "Car": car_class = c
-        elif c.name == "Driver": driver_class = c
-        elif c.name == "SportsCar": sports_car_class = c
-        elif c.name == "Part": part_class = c
 
     assert "Car" == class_diagram.classes[0].name
 
     # Link class_diagram to modeling assistant instance
     modeling_assistant = ModelingAssistant()
-    solution = Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
+    Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
 
-    # Save modeling assistant instance to files
-    ma_resource = rset.create_resource(URI(ma_path))
-    cd_resource = rset.create_resource(URI(cd_path))
-    ma_resource.use_uuid = cd_resource.use_uuid = True
-    ma_resource.append(modeling_assistant)
-    cd_resource.append(class_diagram)
-    ma_resource.save()
-    cd_resource.save()
+    save_to_files({ma_file: [modeling_assistant], cd_file: [class_diagram]})
 
-    assert os.path.exists(ma_path)
-    assert os.path.exists(cd_path)
-    with open(cd_path) as f:
+    assert os.path.exists(ma_file)
+    assert os.path.exists(cd_file)
+    with open(cd_file) as f:
         file_contents = f.read()
         for s in ["Car", "SportsCar", "Part", "Driver", "make", "CDInt"]:
             assert s in file_contents
@@ -359,23 +322,9 @@ def test_loading_modeling_assistant_with_multiclass_solution():
     """
     Verify that the modeling assistant instance defined above can be deserialized correctly.
     """
-    # Open ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
-    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
-    rset = ResourceSet()
-    resource = rset.get_resource(URI(cdm_mm_file))
-    cdm_mm_root = resource.contents[0]
-    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
-    resource = rset.get_resource(URI(ma_mm_file))
-    ma_mm_root = resource.contents[0]
-    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
-
     # Open a Modeling Assistant instance
-    ma_path = "modelingassistant/instances"
     ma_file = f"{ma_path}/ma_multiclass_from_python.xmi"
-    resource = rset.get_resource(URI(ma_file))
-    modeling_assistant: ModelingAssistant = resource.contents[0]
-    modeling_assistant.__class__ = ModelingAssistant
+    modeling_assistant = load_ma(ma_file)
     class_diagram: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram.__class__ = ClassDiagram
 
