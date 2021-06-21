@@ -1,13 +1,10 @@
-#!/usr/bin/env python3
+"""
+Helper file used to create learning corpus.
+"""
 
 from learningcorpus.learningcorpus import LearningCorpus, MistakeTypeCategory, MistakeType
 
-
-def create_corpus() -> LearningCorpus:
-    """
-    Create a learning corpus with specific learning items.
-    """
-    corpus = LearningCorpus(mistakeTypeCategories=[
+corpus = LearningCorpus(mistakeTypeCategories=[
     wrong_class := MistakeTypeCategory(name="Wrong class"),
     wrong_class_name := MistakeTypeCategory(name="Wrong class name", supercategory=wrong_class),
     wrong_enumeration := MistakeTypeCategory(name="Wrong enumeration", supercategory=wrong_class),
@@ -86,7 +83,3 @@ def create_corpus() -> LearningCorpus:
     wrong_superclass := MistakeType(name="Wrong superclass", mistakeTypeCategory=wrong_generalization),
 ])
 
-    return corpus
-
-if __name__ == "__main__":
-    "Main entry point."

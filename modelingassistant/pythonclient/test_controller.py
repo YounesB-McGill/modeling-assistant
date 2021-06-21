@@ -5,22 +5,19 @@ import re
 from textwrap import dedent
 
 import pytest
-from pyecore.resources.resource import Resource
-from pyecore.resources import ResourceSet, URI
-
 from stringserdes import StringEnabledResourceSet
 from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, CDInt, CDString,
     AssociationEnd, Association, ReferenceType)
-from fileserdes import CLASS_DIAGRAM_MM, MODELING_ASSISTANT_MM, load_cdm, load_lc, load_ma, load_metamodels, save_to_files
-from learningcorpus.learningcorpus import LearningCorpus, LearningItem
+from fileserdes import load_cdm, load_lc, load_ma, save_to_files
+from learningcorpus.learningcorpus import LearningItem
 from mistaketypes import BAD_CLASS_NAME_SPELLING
 from modelingassistant.modelingassistant import ModelingAssistant, Solution, Student, StudentKnowledge
 
 
 LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test.learningcorpus"
 
-cdm_path = "modelingassistant/testmodels"
-ma_path = "modelingassistant/instances"
+CDM_PATH = "modelingassistant/testmodels"
+MA_PATH = "modelingassistant/instances"
 
 
 def test_pytest_is_working():
@@ -167,7 +164,7 @@ def test_creating_one_class_solution_from_serialized_class_diagram():
     Verify that it is possible to create a modeling assistant solution from a serialized TouchCORE single class
     domain model.
     """
-    cdm_file = f"{cdm_path}/car.domain_model.cdm"
+    cdm_file = f"{CDM_PATH}/car.domain_model.cdm"
     class_diagram = load_cdm(cdm_file)
 
     car_class = class_diagram.classes[0]
@@ -189,7 +186,7 @@ def test_creating_multiclass_solution_from_serialized_class_diagram():
     domain model.
     """
     # Open a class diagram instance
-    cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
+    cdm_file = f"{CDM_PATH}/car_sportscar_part_driver.domain_model.cdm"
     class_diagram = load_cdm(cdm_file)
 
     car_class = driver_class = sports_car_class = part_class = None
@@ -256,7 +253,7 @@ def test_loading_modeling_assistant_with_one_class_solution():
     Verify that the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open a Modeling Assistant instance
-    ma_file = f"{ma_path}/ma_one_class_from_python.xmi"
+    ma_file = f"{MA_PATH}/ma_one_class_from_python.xmi"
     modeling_assistant = load_ma(ma_file)
     class_diagram: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram.__class__ = ClassDiagram
@@ -274,7 +271,7 @@ def test_loading_modeling_assistant_with_one_class_solution_serialized_in_java()
     Verify that the Java version of the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open a Modeling Assistant instance
-    ma_file = f"{ma_path}/ma_one_class_from_java.xmi"
+    ma_file = f"{MA_PATH}/ma_one_class_from_java.xmi"
     modeling_assistant = load_ma(ma_file)
     class_diagram: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram.__class__ = ClassDiagram
@@ -298,7 +295,7 @@ def test_persisting_modeling_assistant_with_multiclass_solution():
     if os.path.exists(cd_file): os.remove(cd_file)
 
     # Open premade class diagram from one of the above tests
-    premade_cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
+    premade_cdm_file = f"{CDM_PATH}/car_sportscar_part_driver.domain_model.cdm"
     class_diagram = load_cdm(premade_cdm_file)
     class_diagram.__class__ = ClassDiagram
 
@@ -323,7 +320,7 @@ def test_loading_modeling_assistant_with_multiclass_solution():
     Verify that the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open a Modeling Assistant instance
-    ma_file = f"{ma_path}/ma_multiclass_from_python.xmi"
+    ma_file = f"{MA_PATH}/ma_multiclass_from_python.xmi"
     modeling_assistant = load_ma(ma_file)
     class_diagram: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram.__class__ = ClassDiagram
@@ -345,7 +342,7 @@ def test_loading_modeling_assistant_with_multiclass_solution_serialized_in_java(
     Verify that the Java version of the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open a Modeling Assistant instance
-    ma_file = f"{ma_path}/ma_multiclass_from_java.xmi"
+    ma_file = f"{MA_PATH}/ma_multiclass_from_java.xmi"
     modeling_assistant = load_ma(ma_file)
     class_diagram: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram.__class__ = ClassDiagram
@@ -377,7 +374,7 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
     cdm_by_file: dict[str, ClassDiagram] = {}
 
     # Open premade class diagram from one of the above tests
-    premade_cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
+    premade_cdm_file = f"{CDM_PATH}/car_sportscar_part_driver.domain_model.cdm"
     class_diagram1 = load_cdm(premade_cdm_file)
     cdm_by_file[cd1_path] = class_diagram1
 
@@ -422,7 +419,7 @@ def test_loading_modeling_assistant_with_multiple_solutions():
     Verify that the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open a Modeling Assistant instance
-    ma_file = f"{ma_path}/ma_multisolution_from_python.xmi"
+    ma_file = f"{MA_PATH}/ma_multisolution_from_python.xmi"
     modeling_assistant = load_ma(ma_file)
     class_diagram1: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram1.__class__ = ClassDiagram
@@ -457,7 +454,7 @@ def test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java
     Verify that the Java version of the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open a Modeling Assistant instance
-    ma_file = f"{ma_path}/ma_multisolution_from_java.xmi"
+    ma_file = f"{MA_PATH}/ma_multisolution_from_java.xmi"
     modeling_assistant = load_ma(ma_file)
     class_diagram1: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram1.__class__ = ClassDiagram
@@ -493,11 +490,11 @@ def test_persisting_modeling_assistant_with_multiple_solutions_to_one_file():
     of this test is required.
     """
     # Remove previously created file (if it exists)
-    ma_file = f"{ma_path}/ma_multisolution_all_in_one.modelingassistant"
+    ma_file = f"{MA_PATH}/ma_multisolution_all_in_one.modelingassistant"
     if os.path.exists(ma_file): os.remove(ma_file)
 
     # Open premade class diagram from one of the above tests
-    cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
+    cdm_file = f"{CDM_PATH}/car_sportscar_part_driver.domain_model.cdm"
     class_diagram1 = load_cdm(cdm_file)
     class_diagram1.name = "Student1_solution"
 
@@ -530,7 +527,7 @@ def test_loading_modeling_assistant_deserialized_from_string():
     """
     Test loading the instance defined above from a string.
     """
-    ma_file = f"{ma_path}/ma_multisolution_all_in_one.modelingassistant"
+    ma_file = f"{MA_PATH}/ma_multisolution_all_in_one.modelingassistant"
     with open(ma_file, "rb") as f:
         ma_str = f.read()
 
@@ -617,9 +614,9 @@ def test_student_knowledge_persisted_correctly():
     Verify that StudentKnowledge association classes can be serialized and loaded again correctly.
     """
     # Remove previously created files (if they exist)
-    ma_file = f"{ma_path}/ma_studentknowledge_from_python.xmi"
-    cd1_file = f"{ma_path}/ma_studentknowledge_from_python1.cdm"
-    cd2_file = f"{ma_path}/ma_studentknowledge_from_python2.cdm"
+    ma_file = f"{MA_PATH}/ma_studentknowledge_from_python.xmi"
+    cd1_file = f"{MA_PATH}/ma_studentknowledge_from_python1.cdm"
+    cd2_file = f"{MA_PATH}/ma_studentknowledge_from_python2.cdm"
     for p in [ma_file, cd1_file, cd2_file]:
         if os.path.exists(p): os.remove(p)
 
@@ -627,7 +624,7 @@ def test_student_knowledge_persisted_correctly():
     cdm_by_file: dict[str, ClassDiagram] = {}
 
     # Open premade class diagram from one of the above tests
-    cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
+    cdm_file = f"{CDM_PATH}/car_sportscar_part_driver.domain_model.cdm"
     class_diagram1 = load_cdm(cdm_file)
     cdm_by_file[cd1_file] = class_diagram1
 
