@@ -530,21 +530,11 @@ def test_loading_modeling_assistant_deserialized_from_string():
     """
     Test loading the instance defined above from a string.
     """
-    # Open ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
-    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
-    rset = StringEnabledResourceSet()
-    resource: Resource = rset.get_resource(URI(cdm_mm_file))
-    cdm_mm_root = resource.contents[0]
-    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
-    resource = rset.get_resource(URI(ma_mm_file))
-    ma_mm_root = resource.contents[0]
-    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
-
-    ma_path = "modelingassistant/instances/ma_multisolution_all_in_one.modelingassistant"
-    with open(ma_path, "rb") as f:
+    ma_file = f"{ma_path}/ma_multisolution_all_in_one.modelingassistant"
+    with open(ma_file, "rb") as f:
         ma_str = f.read()
 
+    rset = StringEnabledResourceSet()
     resource = rset.get_string_resource(ma_str)
     modeling_assistant: ModelingAssistant = resource.contents[0]
     modeling_assistant.__class__ = ModelingAssistant
@@ -575,17 +565,9 @@ def test_loading_modeling_assistant_deserialized_from_string():
 
 
 def test_persisting_modeling_assistant_to_string():
-    # Open ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
-    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
-    rset = StringEnabledResourceSet()
-    resource: Resource = rset.get_resource(URI(cdm_mm_file))
-    cdm_mm_root = resource.contents[0]
-    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
-    resource = rset.get_resource(URI(ma_mm_file))
-    ma_mm_root = resource.contents[0]
-    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
-
+    """
+    Test saving the above instance back to a string.
+    """
     # Create a ModelingAssistant instance in-memory
     modeling_assistant = ModelingAssistant()
     class_diagram = ClassDiagram(name="Student1_solution")
@@ -599,8 +581,8 @@ def test_persisting_modeling_assistant_to_string():
     ])
     class_diagram.classes.append(car_class)
 
+    rset = StringEnabledResourceSet()
     resource = rset.create_string_resource()
-    resource.use_uuid = True
     resource.extend([modeling_assistant, class_diagram])
     ma_str = resource.save_to_string().decode()
 
