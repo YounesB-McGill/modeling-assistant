@@ -2,84 +2,113 @@
 Helper file used to create learning corpus.
 """
 
-from learningcorpus.learningcorpus import LearningCorpus, MistakeTypeCategory, MistakeType
+from learningcorpus.learningcorpus import LearningCorpus, MistakeTypeCategory, MistakeType, LearningItem
+
+
+domain_modeling = LearningItem(name="DomainModeling")
+
+
+def mtc(n, s=None, **kwargs) -> MistakeTypeCategory:
+    "Shorthand for MistakeTypeCategory initializer."
+    return MistakeTypeCategory(name=n, supercategory=s, **kwargs)
+
+
+def mt(n, **kwargs) -> MistakeType:
+    "Shorthand for MistakeType initializer."
+    return MistakeType(name=n, **kwargs)
+
 
 corpus = LearningCorpus(mistakeTypeCategories=[
-    wrong_class := MistakeTypeCategory(name="Wrong class"),
-    wrong_class_name := MistakeTypeCategory(name="Wrong class name", supercategory=wrong_class),
-    wrong_enumeration := MistakeTypeCategory(name="Wrong enumeration", supercategory=wrong_class),
-    wrong_attribute := MistakeTypeCategory(name="Wrong attribute"),
-    extra_attribute := MistakeTypeCategory(name="Extra (redundant) attribute", supercategory=wrong_attribute),
-    wrong_attribute_name := MistakeTypeCategory(name="Wrong attribute name", supercategory=wrong_attribute),
-    attribute_in_wrong_class := MistakeTypeCategory(name="Attribute in wrong class", supercategory=wrong_attribute),
-    wrong_relationship := MistakeTypeCategory(name="Wrong relationship"),
-    missing_relationship := MistakeTypeCategory(name="Missing relationship", supercategory=wrong_relationship),
-    extra_association := MistakeTypeCategory(name="Extra (redundant) association", supercategory=wrong_relationship),
-    using_wrong_relationship_type := MistakeTypeCategory(name="Using wrong relationship type", supercategory=wrong_relationship),
-    wrong_association_name := MistakeTypeCategory(name="Wrong association name", supercategory=wrong_relationship),
-    wrong_multiplicities := MistakeTypeCategory(name="Wrong multiplicities", supercategory=wrong_relationship),
-    wrong_role_names := MistakeTypeCategory(name="Wrong role names", supercategory=wrong_relationship),
-    wrong_association_class := MistakeTypeCategory(name="Wrong association class", supercategory=wrong_relationship),
-    wrong_generalization := MistakeTypeCategory(name="Wrong generalization", supercategory=wrong_relationship),
-    misuse_of_design_patterns := MistakeTypeCategory(name="Misuse of design patterns"),
-    misuse_of_player_role_pattern := MistakeTypeCategory(name="Misuse of Player-Role Pattern", supercategory=misuse_of_design_patterns),
-    misuse_of_abstraction_occurrence := MistakeTypeCategory(name="Misuse of Abstraction-Occurrence", supercategory=misuse_of_design_patterns),
-
-    missing_class := MistakeType(name="Missing class", mistakeTypeCategory=wrong_class),
-    extra_class := MistakeType(name="Extra (redundant) class", mistakeTypeCategory=wrong_class),
-    plural_class_name := MistakeType(name="Plural class name", mistakeTypeCategory=wrong_class_name),
-    lowercase_class_name := MistakeType(name="Lowercase class name", mistakeTypeCategory=wrong_class_name),
-    software_engineering_term := MistakeType(name="Software engineering term", mistakeTypeCategory=wrong_class_name),
-    bad_class_name_spelling := MistakeType(name="Bad class name spelling", mistakeTypeCategory=wrong_class_name),
-    similar_class_name := MistakeType(name="Similar (yet incorrect) class name", mistakeTypeCategory=wrong_class_name),
-    regular_class_should_be_enum := MistakeType(name="Regular class should be enum", mistakeTypeCategory=wrong_enumeration),
-    enum_should_be_regular_class := MistakeType(name="Enum should be regular class", mistakeTypeCategory=wrong_enumeration),
-    wrong_enum_items := MistakeType(name="Wrong enum items", mistakeTypeCategory=wrong_enumeration),
-    missing_attribute := MistakeType(name="Missing attribute", mistakeTypeCategory=wrong_attribute),
-    wrong_attribute_type := MistakeType(name="Wrong attribute type", mistakeTypeCategory=wrong_attribute),
-    attribute_should_be_static := MistakeType(name="Attribute should be static", mistakeTypeCategory=wrong_attribute),
-    attribute_should_not_be_static := MistakeType(name="Attribute should not be static", mistakeTypeCategory=wrong_attribute),
-    plural_attribute := MistakeType(name="Plural attribute", mistakeTypeCategory=extra_attribute),
-    list_attribute := MistakeType(name="List attribute", mistakeTypeCategory=extra_attribute),
-    other_extra_attribute := MistakeType(name="Other extra attribute", mistakeTypeCategory=extra_attribute),
-    bad_attribute_name_spelling := MistakeType(name="Bad attribute name spelling", mistakeTypeCategory=wrong_attribute_name),
-    similar_attribute_name := MistakeType(name="Similar (yet incorrect) attribute name", mistakeTypeCategory=wrong_attribute_name),
-    incomplete_containment_tree := MistakeType(name="Incomplete containment tree", mistakeTypeCategory=wrong_relationship),
-    missing_association := MistakeType(name="Missing association", mistakeTypeCategory=missing_relationship),
-    missing_composition := MistakeType(name="Missing composition", mistakeTypeCategory=missing_relationship),
-    missing_aggregation := MistakeType(name="Missing aggregation", mistakeTypeCategory=missing_relationship),
-    using_an_attribute_instead_of_an_association := MistakeType(name="Using an attribute instead of an association", mistakeTypeCategory=missing_relationship),
-    representing_an_action_with_an_association := MistakeType(name="Representing an action with an association", mistakeTypeCategory=extra_association),
-    composed_part_contained_in_more_than_one_parent := MistakeType(name="Composed part contained in more than one parent", mistakeTypeCategory=extra_association),
-    other_extra_association := MistakeType(name="Other extra association", mistakeTypeCategory=extra_association),
-    using_association_instead_of_aggregation_composition := MistakeType(name="Using association instead of aggregation/composition", mistakeTypeCategory=using_wrong_relationship_type),
-    using_aggregation_composition_instead_of_association := MistakeType(name="Using aggregation/composition instead of association", mistakeTypeCategory=using_wrong_relationship_type),
-    using_directed_association_instead_of_undirected := MistakeType(name="Using directed association instead of undirected", mistakeTypeCategory=using_wrong_relationship_type),
-    using_undirected_association_instead_of_directed := MistakeType(name="Using undirected association instead of directed", mistakeTypeCategory=using_wrong_relationship_type),
-    using_aggregation_instead_of_composition := MistakeType(name="Using aggregation instead of composition", mistakeTypeCategory=using_wrong_relationship_type),
-    using_composition_instead_of_aggregation := MistakeType(name="Using composition instead of aggregation", mistakeTypeCategory=using_wrong_relationship_type),
-    missing_association_name_when_one_was_expected := MistakeType(name="Missing association name when one was expected", mistakeTypeCategory=wrong_association_name),
-    bad_association_name_spelling := MistakeType(name="Bad association name spelling", mistakeTypeCategory=wrong_association_name),
-    similar_association_name := MistakeType(name="Similar (yet incorrect) association name", mistakeTypeCategory=wrong_association_name),
-    infinite_recursive_dependency := MistakeType(name="Infinite recursive dependency", mistakeTypeCategory=wrong_multiplicities),
-    other_wrong_multiplicity := MistakeType(name="Other wrong multiplicity", mistakeTypeCategory=wrong_multiplicities),
-    missing_role_names := MistakeType(name="Missing role names", mistakeTypeCategory=wrong_role_names),
-    role_should_be_static := MistakeType(name="Role should be static", mistakeTypeCategory=wrong_role_names),
-    role_should_not_be_static := MistakeType(name="Role should not be static", mistakeTypeCategory=wrong_role_names),
-    bad_role_name_spelling := MistakeType(name="Bad role name spelling", mistakeTypeCategory=wrong_role_names),
-    similar_role_name := MistakeType(name="Similar (yet incorrect) role name", mistakeTypeCategory=wrong_role_names),
-    other_wrong_role_name := MistakeType(name="Other wrong role name", mistakeTypeCategory=wrong_role_names),
-    missing_association_class := MistakeType(name="Missing association class", mistakeTypeCategory=wrong_association_class),
-    extra_association_class := MistakeType(name="Extra (redundant) association class", mistakeTypeCategory=wrong_association_class),
-    bad_association_class_name_spelling := MistakeType(name="Bad association class name spelling", mistakeTypeCategory=wrong_association_class),
-    similar_association_class_name := MistakeType(name="Similar (yet incorrect) association class name", mistakeTypeCategory=wrong_association_class),
-    missing_generalization := MistakeType(name="Missing generalization", mistakeTypeCategory=wrong_generalization),
-    generalization_inapplicable := MistakeType(name="Generalization inapplicable", mistakeTypeCategory=wrong_generalization),
-    subclass_not_distinct_across_lifetime := MistakeType(name="Subclass not distinct across lifetime", mistakeTypeCategory=wrong_generalization),
-    inherited_feature_does_not_make_sense_for_subclass := MistakeType(name="Inherited feature does not make sense for subclass", mistakeTypeCategory=wrong_generalization),
-    subclass_is_an_instance_of_superclass := MistakeType(name="Subclass is an instance of superclass", mistakeTypeCategory=wrong_generalization),
-    non_differentiated_subclass := MistakeType(name="Non-differentiated subclass", mistakeTypeCategory=wrong_generalization),
-    wrong_generalization_direction := MistakeType(name="Wrong generalization direction", mistakeTypeCategory=wrong_generalization),
-    wrong_superclass := MistakeType(name="Wrong superclass", mistakeTypeCategory=wrong_generalization),
+    wrong_class := mtc(n="Wrong class", mistakeTypes=[
+        missing_class := mt(n="Missing class"),
+        extra_class := mt(n="Extra (redundant) class"),
+    ]),
+    wrong_class_name := mtc(n="Wrong class name", s=wrong_class, mistakeTypes=[
+        plural_class_name := mt(n="Plural class name"),
+        lowercase_class_name := mt(n="Lowercase class name"),
+        software_engineering_term := mt(n="Software engineering term"),
+        bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True),
+        similar_class_name := mt(n="Similar (yet incorrect) class name"),
+    ]),
+    wrong_enumeration := mtc(n="Wrong enumeration", s=wrong_class, mistakeTypes=[
+        regular_class_should_be_enum := mt(n="Regular class should be enum"),
+        enum_should_be_regular_class := mt(n="Enum should be regular class"),
+        wrong_enum_items := mt(n="Wrong enum items"),
+    ]),
+    wrong_attribute := mtc(n="Wrong attribute", mistakeTypes=[
+        missing_attribute := mt(n="Missing attribute"),
+        wrong_attribute_type := mt(n="Wrong attribute type"),
+        attribute_should_be_static := mt(n="Attribute should be static"),
+        attribute_should_not_be_static := mt(n="Attribute should not be static"),
+    ]),
+    extra_attribute := mtc(n="Extra (redundant) attribute", s=wrong_attribute, mistakeTypes=[
+        plural_attribute := mt(n="Plural attribute"),
+        list_attribute := mt(n="List attribute"),
+        other_extra_attribute := mt(n="Other extra attribute"),
+    ]),
+    wrong_attribute_name := mtc(n="Wrong attribute name", s=wrong_attribute, mistakeTypes=[
+        bad_attribute_name_spelling := mt(n="Bad attribute name spelling"),
+        similar_attribute_name := mt(n="Similar (yet incorrect) attribute name"),
+    ]),
+    attribute_in_wrong_class := mtc(n="Attribute in wrong class", s=wrong_attribute),
+    wrong_relationship := mtc(n="Wrong relationship", mistakeTypes=[
+        incomplete_containment_tree := mt(n="Incomplete containment tree"),
+    ]),
+    missing_relationship := mtc(n="Missing relationship", s=wrong_relationship, mistakeTypes=[
+        missing_association := mt(n="Missing association"),
+        missing_composition := mt(n="Missing composition"),
+        missing_aggregation := mt(n="Missing aggregation"),
+        using_an_attribute_instead_of_an_association := mt(n="Using an attribute instead of an association"),
+    ]),
+    extra_association := mtc(n="Extra (redundant) association", s=wrong_relationship, mistakeTypes=[
+        representing_an_action_with_an_association := mt(n="Representing an action with an association"),
+        composed_part_contained_in_more_than_one_parent := mt(n="Composed part contained in more than one parent"),
+        other_extra_association := mt(n="Other extra association"),
+    ]),
+    using_wrong_relationship_type := mtc(n="Using wrong relationship type", s=wrong_relationship, mistakeTypes=[
+        using_association_instead_of_aggregation_composition := mt(n="Using association instead of aggregation/composition"),
+        using_aggregation_composition_instead_of_association := mt(n="Using aggregation/composition instead of association"),
+        using_directed_association_instead_of_undirected := mt(n="Using directed association instead of undirected"),
+        using_undirected_association_instead_of_directed := mt(n="Using undirected association instead of directed"),
+        using_aggregation_instead_of_composition := mt(n="Using aggregation instead of composition"),
+        using_composition_instead_of_aggregation := mt(n="Using composition instead of aggregation"),
+    ]),
+    wrong_association_name := mtc(n="Wrong association name", s=wrong_relationship, mistakeTypes=[
+        missing_association_name_when_one_was_expected := mt(n="Missing association name when one was expected"),
+        bad_association_name_spelling := mt(n="Bad association name spelling"),
+        similar_association_name := mt(n="Similar (yet incorrect) association name"),
+    ]),
+    wrong_multiplicities := mtc(n="Wrong multiplicities", s=wrong_relationship, mistakeTypes=[
+        infinite_recursive_dependency := mt(n="Infinite recursive dependency"),
+        other_wrong_multiplicity := mt(n="Other wrong multiplicity"),
+    ]),
+    wrong_role_names := mtc(n="Wrong role names", s=wrong_relationship, mistakeTypes=[
+        missing_role_names := mt(n="Missing role names"),
+        role_should_be_static := mt(n="Role should be static"),
+        role_should_not_be_static := mt(n="Role should not be static"),
+        bad_role_name_spelling := mt(n="Bad role name spelling"),
+        similar_role_name := mt(n="Similar (yet incorrect) role name"),
+        other_wrong_role_name := mt(n="Other wrong role name"),
+    ]),
+    wrong_association_class := mtc(n="Wrong association class", s=wrong_relationship, mistakeTypes=[
+        missing_association_class := mt(n="Missing association class"),
+        extra_association_class := mt(n="Extra (redundant) association class"),
+        bad_association_class_name_spelling := mt(n="Bad association class name spelling"),
+        similar_association_class_name := mt(n="Similar (yet incorrect) association class name"),
+    ]),
+    wrong_generalization := mtc(n="Wrong generalization", s=wrong_relationship, mistakeTypes=[
+        missing_generalization := mt(n="Missing generalization"),
+        generalization_inapplicable := mt(n="Generalization inapplicable"),
+        subclass_not_distinct_across_lifetime := mt(n="Subclass not distinct across lifetime"),
+        inherited_feature_does_not_make_sense_for_subclass := mt(n="Inherited feature does not make sense for subclass"),
+        subclass_is_an_instance_of_superclass := mt(n="Subclass is an instance of superclass"),
+        non_differentiated_subclass := mt(n="Non-differentiated subclass"),
+        wrong_generalization_direction := mt(n="Wrong generalization direction"),
+        wrong_superclass := mt(n="Wrong superclass"),
+    ]),
+    misuse_of_design_patterns := mtc(n="Misuse of design patterns"),
+    misuse_of_player_role_pattern := mtc(n="Misuse of Player-Role Pattern", s=misuse_of_design_patterns),
+    misuse_of_abstraction_occurrence := mtc(n="Misuse of Abstraction-Occurrence", s=misuse_of_design_patterns),
 ])
 
+domain_modeling.learningCorpus = corpus
