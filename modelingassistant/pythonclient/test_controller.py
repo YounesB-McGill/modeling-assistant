@@ -456,23 +456,9 @@ def test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java
     """
     Verify that the Java version of the modeling assistant instance defined above can be deserialized correctly.
     """
-    # Open ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
-    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
-    rset = ResourceSet()
-    resource = rset.get_resource(URI(cdm_mm_file))
-    cdm_mm_root = resource.contents[0]
-    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
-    resource = rset.get_resource(URI(ma_mm_file))
-    ma_mm_root = resource.contents[0]
-    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
-
     # Open a Modeling Assistant instance
-    ma_path = "modelingassistant/instances"
     ma_file = f"{ma_path}/ma_multisolution_from_java.xmi"
-    resource = rset.get_resource(URI(ma_file))
-    modeling_assistant: ModelingAssistant = resource.contents[0]
-    modeling_assistant.__class__ = ModelingAssistant
+    modeling_assistant = load_ma(ma_file)
     class_diagram1: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram1.__class__ = ClassDiagram
     class_diagram2: ClassDiagram = modeling_assistant.solutions[1].classDiagram
@@ -507,28 +493,17 @@ def test_persisting_modeling_assistant_with_multiple_solutions_to_one_file():
     of this test is required.
     """
     # Remove previously created file (if it exists)
-    ma_path = "modelingassistant/instances/ma_multisolution_all_in_one.modelingassistant"
-    if os.path.exists(ma_path): os.remove(ma_path)
-
-    # Load ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
-    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
-    rset = ResourceSet()
-    cdm_mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
-    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
-    ma_mm_root = rset.get_resource(URI(ma_mm_file)).contents[0]
-    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
+    ma_file = f"{ma_path}/ma_multisolution_all_in_one.modelingassistant"
+    if os.path.exists(ma_file): os.remove(ma_file)
 
     # Open premade class diagram from one of the above tests
-    cdm_path = "modelingassistant/testmodels"
     cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
-    class_diagram: ClassDiagram = rset.get_resource(URI(cdm_file)).contents[0]
-    class_diagram.__class__ = ClassDiagram
-    class_diagram.name = "Student1_solution"
+    class_diagram1 = load_cdm(cdm_file)
+    class_diagram1.name = "Student1_solution"
 
     # Link first class diagram to modeling assistant instance
     modeling_assistant = ModelingAssistant()
-    Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
+    Solution(classDiagram=class_diagram1, modelingAssistant=modeling_assistant)
 
     # Make and link second class diagram to modeling assistant instance
     class_diagram2 = ClassDiagram(name="Student2_solution")
@@ -542,14 +517,10 @@ def test_persisting_modeling_assistant_with_multiple_solutions_to_one_file():
     ])
     class_diagram2.classes.append(car_class2)
 
-    # Save modeling assistant instance to file
-    resource = rset.create_resource(URI(ma_path))
-    resource.use_uuid = True
-    resource.extend([modeling_assistant, class_diagram, class_diagram2])
-    resource.save()
+    save_to_files({ma_file: [modeling_assistant, class_diagram1, class_diagram2]})
 
-    assert os.path.exists(ma_path)
-    with open(ma_path) as f:
+    assert os.path.exists(ma_file)
+    with open(ma_file) as f:
         file_contents = f.read()
         for s in ["Car", "SportsCar", "Part", "Driver", "make", "CDInt", "Student2_solution"]:
             assert s in file_contents
