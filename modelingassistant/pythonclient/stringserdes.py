@@ -2,7 +2,7 @@
 Module for custom, string-friendly pyecore items.
 """
 
-from lxml.etree import Element, ElementTree, QName, fromstring, tostring
+from lxml.etree import Element, ElementTree, QName, fromstring, tostring  # pylint: disable=no-name-in-module
 from pyecore.ecore import EProxy
 from pyecore.resources.resource import  ResourceSet
 from pyecore.resources.xmi import XMI, XMIOptions, XMIResource, XMI_URL, XSI
@@ -39,7 +39,7 @@ class StringEnabledXMIResource(XMIResource):
     """
     XMIResource used to load/save a model instance from/to a string instead of a file.
     The code is mostly copied from the pyecore library, but with modifications to
-    use strings instead a file. 
+    use strings instead a file.
     """
     def load_string(self, string: str, options=None):
         self.options = options or {}
