@@ -2,7 +2,7 @@
 Helper file used to create learning corpus.
 """
 
-from learningcorpus.learningcorpus import LearningCorpus, MistakeTypeCategory, MistakeType, LearningItem
+from learningcorpus.learningcorpus import Feedback, LearningCorpus, MistakeTypeCategory, MistakeType, LearningItem, ParametrizedResponse, TextResponse
 
 
 domain_modeling = LearningItem(name="DomainModeling")
@@ -20,7 +20,12 @@ def mt(n, **kwargs) -> MistakeType:
 
 corpus = LearningCorpus(mistakeTypeCategories=[
     wrong_class := mtc(n="Wrong class", mistakeTypes=[
-        missing_class := mt(n="Missing class"),
+        missing_class := mt(n="Missing class", feedbacks=[
+            Feedback(level=1, highlightSolution=True),
+            TextResponse(level=2, text="Make sure you have modeled all the classes in the problem description."),
+            Feedback(level=3, highlightProblem=True),
+            ParametrizedResponse(level=4, text="Remember to add the ${{className}} class.")
+        ]),
         extra_class := mt(n="Extra (redundant) class"),
     ]),
     wrong_class_name := mtc(n="Wrong class name", s=wrong_class, mistakeTypes=[
@@ -112,3 +117,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
 ])
 
 domain_modeling.learningCorpus = corpus
+
+for _mt in corpus.mistakeTypes():
+    for feedback in _mt.feedbacks:
+        feedback.learningCorpus = corpus

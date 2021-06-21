@@ -255,6 +255,10 @@ corpus = LearningCorpus(mistakeTypeCategories=[ '[' /]
 [ ']' /])
 
 domain_modeling.learningCorpus = corpus
+
+for _mt in corpus.mistakeTypes():
+    for feedback in _mt.feedbacks:
+        feedback.learningCorpus = corpus
 [/file]
 
 [file ('../../modelingassistant/corpus_descriptions/README_TOC.md', false, 'UTF-8')]
