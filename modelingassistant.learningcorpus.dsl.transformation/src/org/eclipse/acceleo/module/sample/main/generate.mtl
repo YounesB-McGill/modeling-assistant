@@ -11,6 +11,15 @@
 /]
 
 [**
+ * Generates mistake types from input category via PythonGenerator, implemented in Java.
+ */]
+[query public generatePythonMistakeTypes(mtc : MistakeTypeCategory) : String
+  = invoke('org.eclipse.acceleo.module.sample.main.PythonGenerator',
+    'generatePythonMistakeTypes(learningcorpus.MistakeTypeCategory)',
+    Sequence{mtc})
+/]
+
+[**
  * Underscorifies and capitalizes the given input string, omitting any information in parentheses.
  * Example: "Extra (redundant) class" > "EXTRA_CLASS"
  */]
@@ -211,35 +220,41 @@ _make_static()
 Helper file used to create learning corpus.
 """
 
-from learningcorpus.learningcorpus import LearningCorpus, MistakeTypeCategory, MistakeType
+from learningcorpus.learningcorpus import LearningCorpus, MistakeTypeCategory, MistakeType, LearningItem
+
+
+domain_modeling = LearningItem(name="DomainModeling")
+
+
+def mtc(n, s=None, **kwargs) -> MistakeTypeCategory:
+    "Shorthand for MistakeTypeCategory initializer."
+    return MistakeTypeCategory(name=n, supercategory=s, **kwargs)
+
+
+def mt(n, **kwargs) -> MistakeType:
+    "Shorthand for MistakeType initializer."
+    return MistakeType(name=n, **kwargs)
+
 
 corpus = LearningCorpus(mistakeTypeCategories=[ '[' /]
 [for(mTC : MistakeTypeCategory | learningCorpus.mistakeTypeCategories)]
   [let par : String = if (not mTC.supercategory.oclIsUndefined()) then
-    ', supercategory=' + underscorify(mTC.supercategory.name).toLower()
+    ', s=' + underscorify(mTC.supercategory.name).toLower()
   else '' endif]
+  [let mts : String = generatePythonMistakeTypes(mTC)]
   [let lhs : String = underscorify(mTC.name).toLower()]
-  [let rhs : String = 'MistakeTypeCategory(name="' + mTC.name + '"' + par + '),']
+  [let rhs : String = 'mtc(n="' + mTC.name + '"' + par + mts + '),']
   [let mtcDecl : String = lhs + ' := ' + rhs]
     [mtcDecl/]
   [/let] 
   [/let]
   [/let]
   [/let]
-[/for]
-
-[for(mT : MistakeType | mistakeTypes(learningCorpus))]
-  [let lhs : String = underscorify(mT.name).toLower()]
-  [let rhs : String = 'MistakeType(name="' + mT.name + '", mistakeTypeCategory='
-      + underscorify(mT.mistakeTypeCategory.name).toLower() + '),']
-  [let mtDecl : String = lhs + ' := ' + rhs]
-    [mtDecl/]
-  [/let] 
-  [/let]
   [/let]
 [/for]
 [ ']' /])
 
+domain_modeling.learningCorpus = corpus
 [/file]
 
 [file ('../../modelingassistant/corpus_descriptions/README_TOC.md', false, 'UTF-8')]

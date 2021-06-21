@@ -238,7 +238,7 @@ def test_persisting_modeling_assistant_with_one_class_solution():
     assert "Student1_solution" == modeling_assistant.solutions[0].classDiagram.name
     assert "Car" == class_diagram.classes[0].name
 
-    save_to_files({ma_path: [modeling_assistant], cd_path: [class_diagram]})
+    save_to_files({ma_path: modeling_assistant, cd_path: class_diagram})
 
     assert os.path.exists(ma_path)
     assert os.path.exists(cd_path)
@@ -305,7 +305,7 @@ def test_persisting_modeling_assistant_with_multiclass_solution():
     modeling_assistant = ModelingAssistant()
     Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
 
-    save_to_files({ma_file: [modeling_assistant], cd_file: [class_diagram]})
+    save_to_files({ma_file: modeling_assistant, cd_file: class_diagram})
 
     assert os.path.exists(ma_file)
     assert os.path.exists(cd_file)
@@ -396,9 +396,9 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
     class_diagram2.classes.append(car_class2)
 
     save_to_files({
-        cd1_path: [cdm_by_file[cd1_path]],
-        cd2_path: [cdm_by_file[cd2_path]],
-        ma_path: [modeling_assistant]
+        cd1_path: cdm_by_file[cd1_path],
+        cd2_path: cdm_by_file[cd2_path],
+        ma_path: modeling_assistant
     })
 
     assert os.path.exists(ma_path)
@@ -661,9 +661,9 @@ def test_student_knowledge_persisted_correctly():
     class_diagram2.classes.append(car_class2)
 
     save_to_files({
-        cd1_file: [class_diagram1],
-        cd2_file: [class_diagram2],
-        ma_file: [modeling_assistant]
+        cd1_file: class_diagram1,
+        cd2_file: class_diagram2,
+        ma_file: modeling_assistant
     })
 
     for p in [ma_file, cd1_file, cd2_file]:
