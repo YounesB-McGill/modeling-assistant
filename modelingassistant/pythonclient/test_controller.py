@@ -2,30 +2,31 @@
 
 import os
 import re
-import pyecore
-from pyecore.resources.resource import Resource
-import pytest
 from textwrap import dedent
 
-from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, CDInt, CDString,
-    AssociationEnd, Association, ReferenceType)
-from learningcorpus.learningcorpus import LearningCorpus, MistakeType, MistakeTypeCategory, LearningItem
-from mistaketypes import BAD_CLASS_NAME_SPELLING, WRONG_CLASS_NAME
-from modelingassistant.modelingassistant import ModelingAssistant, Solution, Student, StudentKnowledge
-from pyecore.ecore import EInteger, EString
+import pytest
+from pyecore.resources.resource import Resource
 from pyecore.resources import ResourceSet, URI
+from modelingassistant_client import CLASS_DIAGRAM_MM, load_metamodels
 
 from stringserdes import StringEnabledResourceSet
+from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, CDInt, CDString,
+    AssociationEnd, Association, ReferenceType)
+from learningcorpus.learningcorpus import LearningCorpus, LearningItem
+from mistaketypes import BAD_CLASS_NAME_SPELLING
+from modelingassistant.modelingassistant import ModelingAssistant, Solution, Student, StudentKnowledge
 
 
 LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test.learningcorpus"
 
 
 def test_pytest_is_working():
+    "Trivial test to very test setup is working."
     assert True
 
 
 def test_creating_empty_solution():
+    "Test creating an empty solution in memory."
     modeling_assistant = ModelingAssistant()
     class_diagram = ClassDiagram(name="Student1_solution")
     Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
@@ -95,7 +96,7 @@ def test_creating_two_class_solution_with_association():
 
     assert "Student1_solution" == modeling_assistant.solutions[0].classDiagram.name
     assert class_diagram == modeling_assistant.solutions[0].classDiagram
-    
+
     assert car_class == class_diagram.classes[0]
     assert "Car" == car_class.name
     assert "id" == car_class.attributes[0].name
@@ -119,11 +120,11 @@ def test_creating_two_class_solution_with_association():
     assert 0 == driver_car_association_end.lowerBound
     assert -1 == driver_car_association_end.upperBound
 
-       
-def test_creating_two_class_solution_with_generalization(): 
+
+def test_creating_two_class_solution_with_generalization():
     """
     Test that a solution with these two classes can be created:
-   
+
     class Car {} // see above
     class SportsCar { isA Car; }
     """
@@ -143,7 +144,7 @@ def test_creating_two_class_solution_with_generalization():
 
     assert "Student1_solution" == modeling_assistant.solutions[0].classDiagram.name
     assert class_diagram == modeling_assistant.solutions[0].classDiagram
-    
+
     assert car_class == class_diagram.classes[0]
     assert "Car" == car_class.name
     assert "id" == car_class.attributes[0].name
@@ -164,10 +165,12 @@ def test_creating_one_class_solution_from_serialized_class_diagram():
     domain model.
     """
     # Open ClassDiagram metamodel
-    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
-    rset = ResourceSet()
-    mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
-    rset.metamodel_registry[mm_root.nsURI] = mm_root  # ecore is loaded in the 'rset' as a metamodel here
+    # cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
+    # rset = ResourceSet()
+    # mm_root = rset.get_resource(URI(cdm_mm_file)).contents[0]
+    # rset.metamodel_registry[mm_root.nsURI] = mm_root  # ecore is loaded in the 'rset' as a metamodel here
+
+    rset = load_metamodels(CLASS_DIAGRAM_MM)
 
     # Open a class diagram instance
     cdm_path = "modelingassistant/testmodels"
@@ -175,7 +178,7 @@ def test_creating_one_class_solution_from_serialized_class_diagram():
     resource = rset.get_resource(URI(cdm_file))
     class_diagram = resource.contents[0]
     class_diagram.__class__ = ClassDiagram
-    
+
     car_class = class_diagram.classes[0]
     assert "Car" == car_class.name
     assert "id" == car_class.attributes[0].name
@@ -187,7 +190,7 @@ def test_creating_one_class_solution_from_serialized_class_diagram():
     solution = Solution(modelingAssistant=modeling_assistant, classDiagram=class_diagram)
 
     assert car_class == solution.classDiagram.classes[0]
-    
+
 
 def test_creating_multiclass_solution_from_serialized_class_diagram():
     """
@@ -207,7 +210,7 @@ def test_creating_multiclass_solution_from_serialized_class_diagram():
     resource = rset.get_resource(URI(cdm_file))
     class_diagram = resource.contents[0]
     class_diagram.__class__ = ClassDiagram
-    
+
     car_class = driver_class = sports_car_class = part_class = None
     for c in class_diagram.classes:
         if c.name == "Car": car_class = c
@@ -230,7 +233,7 @@ def test_creating_multiclass_solution_from_serialized_class_diagram():
 
     for c in [car_class, driver_class, sports_car_class, part_class]:
         assert c in solution.classDiagram.classes
-    
+
 
 def test_persisting_modeling_assistant_with_one_class_solution():
     """
@@ -253,7 +256,7 @@ def test_persisting_modeling_assistant_with_one_class_solution():
     ma_mm_root = rset.get_resource(URI(ma_mm_file)).contents[0]
     rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
 
-    # Dynamically create a modeling assistant and link it with a TouchCore class diagram 
+    # Dynamically create a modeling assistant and link it with a TouchCore class diagram
     modeling_assistant = ModelingAssistant()
     class_diagram = ClassDiagram(name="Student1_solution")
     Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
@@ -381,7 +384,7 @@ def test_persisting_modeling_assistant_with_multiclass_solution():
 
     assert "Car" == class_diagram.classes[0].name
 
-    # Link class_diagram to modeling assistant instance 
+    # Link class_diagram to modeling assistant instance
     modeling_assistant = ModelingAssistant()
     solution = Solution(classDiagram=class_diagram, modelingAssistant=modeling_assistant)
 
@@ -496,13 +499,13 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
 
     # Define mapping from destination filenames to class diagram instances
     cdm_by_file: dict[str, ClassDiagram] = {}
-    
+
     # Open premade class diagram from one of the above tests
     cdm_path = "modelingassistant/testmodels"
     cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
     class_diagram1: ClassDiagram = rset.get_resource(URI(cdm_file)).contents[0]
     class_diagram1.__class__ = ClassDiagram
-    cdm_by_file[cd1_path] = class_diagram1    
+    cdm_by_file[cd1_path] = class_diagram1
 
     # Link first class diagram to modeling assistant instance
     modeling_assistant = ModelingAssistant()
@@ -527,7 +530,7 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
         cd_resource.use_uuid = True
         cd_resource.append(cdm_by_file[cd_path])
         cd_resource.save()
-    
+
     ma_resource = rset.create_resource(URI(ma_path))
     ma_resource.use_uuid = True
     ma_resource.append(modeling_assistant)
@@ -647,7 +650,7 @@ def test_persisting_modeling_assistant_with_multiple_solutions_to_one_file():
     Verify that a ModelingAssistant instance with multiple solutions can be serialized with
     everything (including the class diagrams) in one file. This old test was brought back because
     the file is needed for generating a string to be used in the web app, and so no Java equivalent
-    of this test is required. 
+    of this test is required.
     """
     # Remove previously created file (if it exists)
     ma_path = "modelingassistant/instances/ma_multisolution_all_in_one.modelingassistant"
@@ -661,7 +664,7 @@ def test_persisting_modeling_assistant_with_multiple_solutions_to_one_file():
     rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
     ma_mm_root = rset.get_resource(URI(ma_mm_file)).contents[0]
     rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
-    
+
     # Open premade class diagram from one of the above tests
     cdm_path = "modelingassistant/testmodels"
     cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
@@ -783,7 +786,7 @@ def test_persisting_modeling_assistant_to_string():
     # Use the patterns for find-and-replace
     ma_str = xmi_id_pattern.sub('xmi:id=""', ma_str)
     ma_str = cdm_id_pattern.sub('classDiagram=""', ma_str)
-    ma_str = ma_str.replace(' type=""', '')  # since name and type can occur in any order 
+    ma_str = ma_str.replace(' type=""', '')  # since name and type can occur in any order
 
     assert dedent('''\
         <?xml version='1.0' encoding='UTF-8'?>
@@ -827,7 +830,7 @@ def test_student_knowledge_persisted_correctly():
 
     # Define mapping from destination filenames to class diagram instances
     cdm_by_file: dict[str, ClassDiagram] = {}
-    
+
     # Open premade class diagram from one of the above tests
     cdm_path = "modelingassistant/testmodels"
     cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
@@ -850,7 +853,7 @@ def test_student_knowledge_persisted_correctly():
     modeling_assistant = ModelingAssistant()
     student1 = Student(id="1111", modelingAssistant=modeling_assistant)
     Solution(classDiagram=class_diagram1, student=student1, modelingAssistant=modeling_assistant)
-    lok1 = 10_578_963  # use a large int to detect it in testing 
+    lok1 = 10_578_963  # use a large int to detect it in testing
     StudentKnowledge(levelOfKnowledge=lok1, student=student1, mistakeType=class_naming_mistake_type,
                      modelingAssistant=modeling_assistant)
 
@@ -877,7 +880,7 @@ def test_student_knowledge_persisted_correctly():
         cd_resource.use_uuid = True
         cd_resource.append(cdm_by_file[cd_path])
         cd_resource.save()
-    
+
     ma_resource = rset.create_resource(URI(ma_path))
     ma_resource.use_uuid = True
     ma_resource.append(modeling_assistant)
@@ -952,12 +955,12 @@ def check_for_incomplete_containment_tree(solution: Solution) -> bool:
         for ae in c.associationEnds:
             if str(ae.referenceType) == "Composition":
                 num_compositions[c] += 1
-    
+
     classes_with_most_compositions = [c for c, n in num_compositions.items() if n == max(num_compositions.values())]
     if len(classes_with_most_compositions) != 1:
         return False
     root_class = classes_with_most_compositions[0]
-    
+
     # Check every assoc end to see if they connect to all other classes and reference type is Composition
     for ae in root_class.associationEnds:
         if str(ae.referenceType) != "Composition":
@@ -974,7 +977,7 @@ def check_for_incomplete_containment_tree(solution: Solution) -> bool:
                 contained = True
         if not contained:
             return False
-    
+
     return True
 
 
@@ -994,7 +997,7 @@ def test_check_for_incomplete_containment_tree_success_case():
       * -- * Customer;
     }
     """
-    # Dynamically create a modeling assistant and link it with a TouchCore class diagram 
+    # Dynamically create a modeling assistant and link it with a TouchCore class diagram
     modeling_assistant = ModelingAssistant()
     solution = Solution()
     class_diagram = ClassDiagram(name="Instructor_solution")
@@ -1031,7 +1034,7 @@ def test_check_for_incomplete_containment_tree_failure_case():
     for c in [owner_class, customer_class]:
         contains(flexibook_class, c)
     class_diagram.classes.extend([flexibook_class, owner_class, customer_class, service_class])
-    
+
     assert not check_for_incomplete_containment_tree(solution)
 
 
