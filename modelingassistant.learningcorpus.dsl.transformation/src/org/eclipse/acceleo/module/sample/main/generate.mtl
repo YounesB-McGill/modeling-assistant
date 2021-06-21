@@ -206,6 +206,42 @@ def _make_dynamic():
 _make_static()
 [/file]
 
+[file ('../../modelingassistant/pythonclient/corpus_creation.py', false, 'UTF-8')]
+"""
+Helper file used to create learning corpus.
+"""
+
+from learningcorpus.learningcorpus import LearningCorpus, MistakeTypeCategory, MistakeType
+
+corpus = LearningCorpus(mistakeTypeCategories=[ '[' /]
+[for(mTC : MistakeTypeCategory | learningCorpus.mistakeTypeCategories)]
+  [let par : String = if (not mTC.supercategory.oclIsUndefined()) then
+    ', supercategory=' + underscorify(mTC.supercategory.name).toLower()
+  else '' endif]
+  [let lhs : String = underscorify(mTC.name).toLower()]
+  [let rhs : String = 'MistakeTypeCategory(name="' + mTC.name + '"' + par + '),']
+  [let mtcDecl : String = lhs + ' := ' + rhs]
+    [mtcDecl/]
+  [/let] 
+  [/let]
+  [/let]
+  [/let]
+[/for]
+
+[for(mT : MistakeType | mistakeTypes(learningCorpus))]
+  [let lhs : String = underscorify(mT.name).toLower()]
+  [let rhs : String = 'MistakeType(name="' + mT.name + '", mistakeTypeCategory='
+      + underscorify(mT.mistakeTypeCategory.name).toLower() + '),']
+  [let mtDecl : String = lhs + ' := ' + rhs]
+    [mtDecl/]
+  [/let] 
+  [/let]
+  [/let]
+[/for]
+[ ']' /])
+
+[/file]
+
 [file ('../../modelingassistant/corpus_descriptions/README_TOC.md', false, 'UTF-8')]
 [generateMarkdown(learningCorpus) /]
 [/file]
