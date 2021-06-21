@@ -492,6 +492,101 @@ public class MistakeDetectionTest {
   }
 
   /**
+   * Asserts a mistake's Links.
+   *
+   * @param mistake
+   * @param mistakeType
+   * @param studentElement
+   * @param instructorElement
+   */
+  public static boolean assertMistakeLinks(Mistake mistake, MistakeType mistakeType, NamedElement studentElement,
+      NamedElement instructorElement) {
+
+    assertEquals(mistake.getMistakeType(), mistakeType);
+    assertEquals(mistake.getStudentElements().get(0).getElement(), studentElement);
+    assertEquals(mistake.getInstructorElements().get(0).getElement(), instructorElement);
+    return true;
+  }
+
+  /**
+   * Asserts a mistake's Links with single student or instructor element.
+   *
+   * @param mistake
+   * @param mistakeType
+   * @param element
+   */
+  public static boolean assertMistakeLinks(Mistake mistake, MistakeType mistakeType, NamedElement element) {
+
+    assertEquals(mistake.getMistakeType(), mistakeType);
+    if (mistake.getStudentElements().isEmpty()) {
+      assertEquals(mistake.getInstructorElements().get(0).getElement(), element);
+      return true;
+    }
+
+    if (mistake.getInstructorElements().isEmpty()) {
+      assertEquals(mistake.getStudentElements().get(0).getElement(), element);
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Asserts a mistake's Links with multiple student and instructor element.
+   *
+   * @param mistake
+   * @param mistakeType
+   * @param studentElements
+   * @param instructorElements
+   */
+  public static boolean assertMistakeLinks(Mistake mistake, MistakeType mistakeType,
+      EList<NamedElement> studentElements, EList<NamedElement> instructorElements) {
+
+    assertEquals(mistake.getMistakeType(), mistakeType);
+    assertTrue(compareList(mistake.getStudentElements(), studentElements));
+    assertTrue(compareList(mistake.getInstructorElements(), instructorElements));
+    return true;
+  }
+
+  /**
+   * Asserts a mistake's Links with multiple student or instructor element.
+   *
+   * @param mistake
+   * @param mistakeType
+   * @param elements
+   */
+  public static boolean assertMistakeLinks(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements) {
+
+    assertEquals(mistake.getMistakeType(), mistakeType);
+    if (mistake.getStudentElements().isEmpty()) {
+      assertTrue(compareList(mistake.getInstructorElements(), elements));
+      return true;
+    }
+
+    if (mistake.getInstructorElements().isEmpty()) {
+      assertTrue(compareList(mistake.getStudentElements(), elements));
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Asserts a mistake's Attributes with only single instructor and student element.
+   *
+   * @param mistake
+   * @param numSinceResolved
+   * @param numDetections
+   * @param resolved
+   */
+  public static boolean assertMistakeAttribute(Mistake mistake, int numSinceResolved, int numDetections,
+      boolean resolved) {
+
+    assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
+    assertEquals(mistake.getNumDetection(), numDetections);
+    assertEquals(mistake.isResolved(), resolved);
+    return true;
+  }
+
+  /**
    * Asserts a mistake with only single instructor and student element.
    *
    * @param mistake
@@ -504,49 +599,8 @@ public class MistakeDetectionTest {
   public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, NamedElement studentElement,
       NamedElement instructorElement, int numSinceResolved, int numDetections, boolean resolved) {
 
-    assertEquals(mistake.getMistakeType(), mistakeType);
-    assertEquals(mistake.getStudentElements().get(0).getElement(), studentElement);
-    assertEquals(mistake.getInstructorElements().get(0).getElement(), instructorElement);
-    assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
-    assertEquals(mistake.getNumDetection(), numDetections);
-    assertEquals(mistake.isResolved(), resolved);
-    return true;
-  }
-
-  /**
-   * Asserts a mistake's Links.
-   *
-   * @param mistake
-   * @param mistakeType
-   * @param element
-   * @param numSinceResolved
-   * @param numDetections
-   * @param resolved
-   */
-  public static boolean assertMistakeLinks(Mistake mistake, MistakeType mistakeType, NamedElement studentElement,
-      NamedElement instructorElement) {
-
-    assertEquals(mistake.getMistakeType(), mistakeType);
-    assertEquals(mistake.getStudentElements().get(0).getElement(), studentElement);
-    assertEquals(mistake.getInstructorElements().get(0).getElement(), instructorElement);
-    return true;
-  }
-
-  /**
-   * Asserts a mistake's Attributes with only single instructor and student element.
-   *
-   * @param mistake
-   * @param mistakeType
-   * @param element
-   * @param numSinceResolved
-   * @param numDetections
-   * @param resolved
-   */
-  public static boolean assertMistakeAttribute(Mistake mistake, int numSinceResolved, int numDetections, boolean resolved) {
-
-    assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
-    assertEquals(mistake.getNumDetection(), numDetections);
-    assertEquals(mistake.isResolved(), resolved);
+    assertMistakeLinks(mistake, mistakeType, studentElement, instructorElement);
+    assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
     return true;
   }
 
@@ -563,11 +617,8 @@ public class MistakeDetectionTest {
   public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, EList<NamedElement> studentElements,
       EList<NamedElement> instructorElements, int numSinceResolved, int numDetections, boolean resolved) {
 
-    assertTrue(compareList(mistake.getStudentElements(), studentElements));
-    assertTrue(compareList(mistake.getInstructorElements(), instructorElements));
-    assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
-    assertEquals(mistake.getNumDetection(), numDetections);
-    assertEquals(mistake.isResolved(), resolved);
+    assertMistakeLinks(mistake, mistakeType, studentElements, instructorElements);
+    assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
     return true;
   }
 
@@ -583,22 +634,10 @@ public class MistakeDetectionTest {
    */
   public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, NamedElement element,
       int numSinceResolved, int numDetections, boolean resolved) {
-    if (mistake.getStudentElements().isEmpty()) {
-      assertEquals(mistake.getInstructorElements().get(0).getElement(), element);
-      assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
-      assertEquals(mistake.getNumDetection(), numDetections);
-      assertEquals(mistake.isResolved(), resolved);
-      return true;
-    }
 
-    if (mistake.getInstructorElements().isEmpty()) {
-      assertEquals(mistake.getStudentElements().get(0).getElement(), element);
-      assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
-      assertEquals(mistake.getNumDetection(), numDetections);
-      assertEquals(mistake.isResolved(), resolved);
-      return true;
-    }
-    return false;
+    assertMistakeLinks(mistake, mistakeType, element);
+    assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
+    return true;
   }
 
   /**
@@ -613,22 +652,11 @@ public class MistakeDetectionTest {
    */
   public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements,
       int numSinceResolved, int numDetections, boolean resolved) {
-    if (mistake.getStudentElements().isEmpty()) {
-      assertTrue(compareList(mistake.getInstructorElements(), elements));
-      assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
-      assertEquals(mistake.getNumDetection(), numDetections);
-      assertEquals(mistake.isResolved(), resolved);
-      return true;
 
-    }
-    if (mistake.getInstructorElements().isEmpty()) {
-      assertTrue(compareList(mistake.getStudentElements(), elements));
-      assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
-      assertEquals(mistake.getNumDetection(), numDetections);
-      assertEquals(mistake.isResolved(), resolved);
-      return true;
-    }
-    return false;
+    assertMistakeLinks(mistake, mistakeType, elements);
+    assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
+    return true;
+
   }
 
   // ------------
@@ -742,7 +770,7 @@ public class MistakeDetectionTest {
    */
   public static boolean compareList(EList<SolutionElement> mistakeElements, EList<NamedElement> givenElements) {
     for (SolutionElement element : mistakeElements) {
-      if (!givenElements.contains(element)) {
+      if (!givenElements.contains((NamedElement)element)) {
         return false;
       }
     }
