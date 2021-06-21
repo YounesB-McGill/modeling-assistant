@@ -11,16 +11,16 @@ from pyecore.resources import ResourceSet, URI
 from stringserdes import StringEnabledResourceSet
 from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, CDInt, CDString,
     AssociationEnd, Association, ReferenceType)
-from fileserdes import CLASS_DIAGRAM_MM, MODELING_ASSISTANT_MM, load_cdm, load_metamodels, save_to_file, save_to_files
+from fileserdes import CLASS_DIAGRAM_MM, MODELING_ASSISTANT_MM, load_cdm, load_ma, load_metamodels, save_to_files
 from learningcorpus.learningcorpus import LearningCorpus, LearningItem
 from mistaketypes import BAD_CLASS_NAME_SPELLING
 from modelingassistant.modelingassistant import ModelingAssistant, Solution, Student, StudentKnowledge
 
 
-
 LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test.learningcorpus"
 
 cdm_path = "modelingassistant/testmodels"
+ma_path = "modelingassistant/instances"
 
 
 def test_pytest_is_working():
@@ -188,19 +188,9 @@ def test_creating_multiclass_solution_from_serialized_class_diagram():
     Verify that it is possible to create a modeling assistant solution from a serialized TouchCORE multiclass
     domain model.
     """
-    # Open ClassDiagram metamodel
-    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
-    rset = ResourceSet()
-    resource = rset.get_resource(URI(cdm_mm_file))
-    mm_root = resource.contents[0]
-    rset.metamodel_registry[mm_root.nsURI] = mm_root  # ecore is loaded in the 'rset' as a metamodel here
-
     # Open a class diagram instance
-    cdm_path = "modelingassistant/testmodels"
     cdm_file = f"{cdm_path}/car_sportscar_part_driver.domain_model.cdm"
-    resource = rset.get_resource(URI(cdm_file))
-    class_diagram = resource.contents[0]
-    class_diagram.__class__ = ClassDiagram
+    class_diagram = load_cdm(cdm_file)
 
     car_class = driver_class = sports_car_class = part_class = None
     for c in class_diagram.classes:
@@ -238,8 +228,6 @@ def test_persisting_modeling_assistant_with_one_class_solution():
     if os.path.exists(cd_path):
         os.remove(cd_path)
 
-    rset = load_metamodels(CLASS_DIAGRAM_MM, MODELING_ASSISTANT_MM)
-
     # Dynamically create a modeling assistant and link it with a TouchCore class diagram
     modeling_assistant = ModelingAssistant()
     class_diagram = ClassDiagram(name="Student1_solution")
@@ -267,23 +255,9 @@ def test_loading_modeling_assistant_with_one_class_solution():
     """
     Verify that the modeling assistant instance defined above can be deserialized correctly.
     """
-    # Open ClassDiagram and Modeling Assistant metamodels
-    cdm_mm_file = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
-    ma_mm_file = "modelingassistant/model/modelingassistant.ecore"
-    rset = ResourceSet()
-    resource = rset.get_resource(URI(cdm_mm_file))
-    cdm_mm_root = resource.contents[0]
-    rset.metamodel_registry[cdm_mm_root.nsURI] = cdm_mm_root
-    resource = rset.get_resource(URI(ma_mm_file))
-    ma_mm_root = resource.contents[0]
-    rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
-
     # Open a Modeling Assistant instance
-    ma_path = "modelingassistant/instances"
     ma_file = f"{ma_path}/ma_one_class_from_python.xmi"
-    resource = rset.get_resource(URI(ma_file))
-    modeling_assistant: ModelingAssistant = resource.contents[0]
-    modeling_assistant.__class__ = ModelingAssistant
+    modeling_assistant = load_ma(ma_file)
     class_diagram: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram.__class__ = ClassDiagram
 
