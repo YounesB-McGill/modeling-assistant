@@ -1,165 +1,65 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistake;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.cdmFromFile;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAssociationEndFromClass;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.Test;
-import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
-import ca.mcgill.sel.classdiagram.CdmPackage;
-import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
-import modelingassistant.ModelingassistantFactory;
-import modelingassistant.util.ResourceHelper;
 
 public class MistakeDetectionWrongRelationshipsTest {
 
-
   /**
-   * Test to check mapping of relationships (No Mistakes)
+   * Test to check mapping of relationships (No Mistakes).
    */
   @Test
   public void testToCheckRelationshipMapping() {
-    CdmPackage.eINSTANCE.eClass();
-    var cdmFile =
-        "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/ClassDiagram/Two(withAttributes).domain_model.cdm";
-    var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
-    var classDiagram = (ClassDiagram) resource.getContents().get(0);
-    var maf = ModelingassistantFactory.eINSTANCE;
-    var modelingAssistant = maf.createModelingAssistant();
-    var solution = maf.createSolution();
-    solution.setModelingAssistant(modelingAssistant);
-    solution.setClassDiagram(classDiagram);
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/Class Diagram/Two(withAttributes).domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    CdmPackage.eINSTANCE.eClass();
-    var cdmFile1 =
-        "../mistakedetection/testModels/StudentSolution/two(withAttribute)/ClassDiagram/Two(withAttribute).domain_model.cdm";
-    var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
-    var classDiagram1 = (ClassDiagram) resource1.getContents().get(0);
-    var maf1 = ModelingassistantFactory.eINSTANCE;
-    var modelingAssistant1 = maf1.createModelingAssistant();
-    var solution1 = maf1.createSolution();
-    solution1.setModelingAssistant(modelingAssistant1);
-    solution1.setClassDiagram(classDiagram1);
-    var student = maf1.createStudent();
-    solution1.setStudent(student);
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/two(withAttribute)/Class Diagram/Two(withAttribute).domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    Classifier instructorBusClass =
-        MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram);
-    Classifier instructorDriverClass =
-        MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram);
-    Classifier instructorPassengerClass =
-        MistakeDetectionTest.getClassFromClassDiagram("Passenger", classDiagram);
-
-    Association instructorBusDriverAssociation = MistakeDetectionTest.getAssociationFromClassDiagram(instructorBusClass, instructorDriverClass, classDiagram);
-    Association instructorBusPassengerAssociation = MistakeDetectionTest.getAssociationFromClassDiagram(instructorBusClass,
-            instructorPassengerClass, classDiagram);
-
-    Classifier studentBusClass = MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram1);
-    Classifier studentDriverClass = MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram1);
-    Classifier studentPassengerClass = MistakeDetectionTest.getClassFromClassDiagram("Passenger", classDiagram1);
-
-    Association studentBusDriverAssociation =
-        MistakeDetectionTest.getAssociationFromClassDiagram(studentBusClass, studentDriverClass, classDiagram1);
-    Association studentBusPassengerAssociation =
-        MistakeDetectionTest.getAssociationFromClassDiagram(studentBusClass, studentPassengerClass, classDiagram1);
-
-    var comparison = MistakeDetection.compare(solution, solution1);
-
-    assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
-    assertEquals(comparison.extraStudentClassifier.size(), 0);
-    assertEquals(comparison.mappedClassifier.size(), 3);
-
-    assertEquals(comparison.notMappedInstructorAttribute.size(), 0);
-    assertEquals(comparison.extraStudentAttribute.size(), 0);
-    assertEquals(comparison.duplicateStudentAttribute.size(), 0);
-    assertEquals(comparison.mappedAttribute.size(), 4);
-
-    assertEquals(comparison.notMappedInstructorAssociation.size(), 0);
-    assertEquals(comparison.extraStudentAssociation.size(), 0);
-    assertEquals(comparison.mappedAssociation.size(), 2);
-
-    assertEquals(comparison.mappedAssociation.get(instructorBusDriverAssociation),
-        studentBusDriverAssociation);
-    assertEquals(comparison.mappedAssociation.get(instructorBusPassengerAssociation),
-        studentBusPassengerAssociation);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(comparison.newMistakes.size(), 0);
-    assertEquals(solution1.getMistakes().size(), 0);
+    assertEquals(studentSolution.getMistakes().size(), 0);
   }
 
   /**
-   * Test for checking mapping between instructor classifier(Bus, Driver) and Student
-   * classifier(Buses, Drivr) and Mistake WrongClassName and WrongAssociationName
+   * Test to check bad role name spelling.
    */
   @Test
-  public void checkCorrectTestWithSolution3() {
-    CdmPackage.eINSTANCE.eClass();
-    var cdmFile =
-        "../mistakedetection/testModels/InstructorSolution/One/ClassDiagram/InstructorSolution.domain_model.cdm";
-    var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
-    var classDiagram = (ClassDiagram) resource.getContents().get(0);
-    var maf = ModelingassistantFactory.eINSTANCE;
-    var modelingAssistant = maf.createModelingAssistant();
-    var solution = maf.createSolution();
-    solution.setModelingAssistant(modelingAssistant);
-    solution.setClassDiagram(classDiagram);
+  public void testMistakeIncorrectRoleName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/One/Class Diagram/InstructorSolution.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    CdmPackage.eINSTANCE.eClass();
-    var cdmFile1 =
-        "../mistakedetection/testModels/StudentSolution/One/ClassDiagram/StudentSolution-b.domain_model.cdm";
-    var resource1 = ResourceHelper.INSTANCE.loadResource(cdmFile1);
-    var classDiagram1 = (ClassDiagram) resource1.getContents().get(0);
-    var maf1 = ModelingassistantFactory.eINSTANCE;
-    var modelingAssistant1 = maf1.createModelingAssistant();
-    var solution1 = maf1.createSolution();
-    solution1.setModelingAssistant(modelingAssistant1);
-    solution1.setClassDiagram(classDiagram1);
-    var student = maf1.createStudent();
-    solution1.setStudent(student);
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution-b.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    Classifier instructorBusClass = MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram);
-    Classifier instructorDriverClass = MistakeDetectionTest.getClassFromClassDiagram("Driver", classDiagram);
+    Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+    Classifier studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
+    AssociationEnd instructorMyDriverAssociationEnd = getAssociationEndFromClass("myDriver", instructorBusClass);
+    AssociationEnd studentMyDrivrAssociationEnd = getAssociationEndFromClass("myDrivr", studentBusClass);
 
-    Classifier studentBusClass = MistakeDetectionTest.getClassFromClassDiagram("Bus", classDiagram1);
-    Classifier studentDrivrClass = MistakeDetectionTest.getClassFromClassDiagram("Drivr", classDiagram1);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(comparison.newMistakes.size(), 1);
+    assertEquals(studentSolution.getMistakes().size(), 1);
 
-    AssociationEnd instructorMyDriverAssociationEnd = MistakeDetectionTest.getAssociationEndFromClass("myDriver", instructorBusClass);
-
-    AssociationEnd StudentMyDrivrAssociationEnd = MistakeDetectionTest.getAssociationEndFromClass("myDrivr", studentBusClass);
-
-
-    var comparison = MistakeDetection.compare(solution, solution1);
-    assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
-    assertEquals(comparison.extraStudentClassifier.size(), 0);
-    assertEquals(comparison.mappedClassifier.size(), 2);
-    assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusClass);
-    assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDrivrClass);
-    assertEquals(comparison.mappedAssociation.size(), 1);
-    assertEquals(comparison.newMistakes.size(), 3);
-    assertEquals(solution1.getMistakes().size(), 3);
-
-
-    for (Mistake m : solution1.getMistakes()) {
-      if (m.getMistakeType() == MistakeTypes.BAD_CLASS_NAME_SPELLING
-          && m.getStudentElements().get(0).getElement() == studentDrivrClass) {
-        assertEquals(m.getStudentElements().get(0).getElement(), studentDrivrClass);
-        assertEquals(m.getInstructorElements().get(0).getElement(), instructorDriverClass);
-        assertEquals(m.getNumDetectionSinceResolved(), 0);
-        assertEquals(m.getNumDetection(), 1);
-        assertFalse(m.isResolved());
-      }
-      if (m.getMistakeType() == MistakeTypes.BAD_ROLE_NAME_SPELLING
-          && m.getStudentElements().get(0).getElement() == StudentMyDrivrAssociationEnd) {
-        assertEquals(m.getStudentElements().get(0).getElement(), StudentMyDrivrAssociationEnd);
-        assertEquals(m.getInstructorElements().get(0).getElement(),
-            instructorMyDriverAssociationEnd);
-        assertEquals(m.getNumDetectionSinceResolved(), 0);
-        assertEquals(m.getNumDetection(), 1);
-        assertFalse(m.isResolved());
-      }
+    for (Mistake m : studentSolution.getMistakes()) {
+      assertMistake(m, BAD_ROLE_NAME_SPELLING, studentMyDrivrAssociationEnd, instructorMyDriverAssociationEnd, 0, 1,
+          false);
     }
   }
 

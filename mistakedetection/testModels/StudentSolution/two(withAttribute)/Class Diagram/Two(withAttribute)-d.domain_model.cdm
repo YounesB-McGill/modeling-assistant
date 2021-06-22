@@ -4,13 +4,13 @@
     <associationEnds xmi:id="_CWaSIHXLEeuY_PpV95KZPg" name="myBus" assoc="_CWaSInXLEeuY_PpV95KZPg" lowerBound="1"/>
     <attributes xmi:id="_8e4eEHXKEeuY_PpV95KZPg" name="name" type="_6eqSx3XKEeuY_PpV95KZPg"/>
   </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="_819hUHXKEeuY_PpV95KZPg" name="Vehicle">
-    <associationEnds xmi:id="_CWaSIXXLEeuY_PpV95KZPg" name="myCustomer" assoc="_CWaSInXLEeuY_PpV95KZPg" lowerBound="1"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_819hUHXKEeuY_PpV95KZPg" name="Bus">
+    <associationEnds xmi:id="_CWaSIXXLEeuY_PpV95KZPg" name="myPassenger" assoc="_CWaSInXLEeuY_PpV95KZPg" lowerBound="1"/>
     <associationEnds xmi:id="_CqpcwHXLEeuY_PpV95KZPg" name="myDriver" assoc="_CqpcwnXLEeuY_PpV95KZPg" lowerBound="1"/>
     <attributes xmi:id="_-uAoEHXKEeuY_PpV95KZPg" name="capacity" type="_6eqSxXXKEeuY_PpV95KZPg"/>
     <attributes xmi:id="__w2lIHXKEeuY_PpV95KZPg" name="numberPlate" type="_6eqSx3XKEeuY_PpV95KZPg"/>
   </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="_AJPP8HXLEeuY_PpV95KZPg" name="Pilot">
+  <classes xsi:type="classdiagram:Class" xmi:id="_AJPP8HXLEeuY_PpV95KZPg" name="Driver">
     <associationEnds xmi:id="_CqpcwXXLEeuY_PpV95KZPg" name="myBus" assoc="_CqpcwnXLEeuY_PpV95KZPg" lowerBound="1"/>
     <attributes xmi:id="_BU6_8HXLEeuY_PpV95KZPg" name="name" type="_6eqSx3XKEeuY_PpV95KZPg"/>
   </classes>

@@ -14,8 +14,7 @@ public class MistakeDetectionHelperFunctionLogicTest {
    */
   @Test
   public void testCheckingSoftwareEngineeringTerm() {
-    List.of("Car", "Driver", "Part")
-        .forEach(s -> assertFalse(MistakeDetection.isSoftwareEngineeringTerm(s)));
+    List.of("Car", "Driver", "Part").forEach(s -> assertFalse(MistakeDetection.isSoftwareEngineeringTerm(s)));
     List.of("CarData", "DriverRecord", "PartInfo")
         .forEach(s -> assertTrue(MistakeDetection.isSoftwareEngineeringTerm(s)));
   }
