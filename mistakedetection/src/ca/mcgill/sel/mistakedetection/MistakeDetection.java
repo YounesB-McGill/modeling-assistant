@@ -50,7 +50,6 @@ import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.CDEnum;
 import ca.mcgill.sel.classdiagram.CdmFactory;
-import ca.mcgill.sel.classdiagram.Class;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.classdiagram.NamedElement;
 import ca.mcgill.sel.classdiagram.ReferenceType;
@@ -1067,18 +1066,16 @@ public class MistakeDetection {
    * Returns true if association class is extra.
    */
   public static boolean isAssociationClassExtra(Association studentClassAssoc, Association instructorClassAssoc) {
-    Class Classnull = null; // getAssociationClass() return null class named "Classnull" if it does not exist.
-    return studentClassAssoc.getAssociationClass() != Classnull
-        && instructorClassAssoc.getAssociationClass() == Classnull;
+    return studentClassAssoc.getAssociationClass() != null
+        && instructorClassAssoc.getAssociationClass() == null;
   }
 
   /**
    * Returns true if association class is missing.
    */
   public static boolean isAssociationClassMissing(Association studentClassAssoc, Association instructorClassAssoc) {
-    Class Classnull = null; // getAssociationClass() return null class named "Classnull" if it does not exist
-    return studentClassAssoc.getAssociationClass() == Classnull
-        && instructorClassAssoc.getAssociationClass() != Classnull;
+    return studentClassAssoc.getAssociationClass() == null
+        && instructorClassAssoc.getAssociationClass() != null;
   }
 
   /**

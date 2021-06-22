@@ -1,6 +1,7 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeInLoop;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistake;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeConditional;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.cdmFromFile;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAttributeFromClass;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
@@ -9,7 +10,6 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentS
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ATTRIBUTE;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Attribute;
@@ -75,13 +75,13 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(studentSolution.getMistakes().size(), 4);
 
     for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentBusClassAttributeCapacty,
+      assertMistakeConditional(m, BAD_ATTRIBUTE_NAME_SPELLING, studentBusClassAttributeCapacty,
           instructorBusClassAttributeCapacity, 0, 1, false);
-      assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentBusClassAttributeNamberPlate,
+      assertMistakeConditional(m, BAD_ATTRIBUTE_NAME_SPELLING, studentBusClassAttributeNamberPlate,
           instructorBusClassAttributeNumberPlate, 0, 1, false);
-      assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentDriverClassAttributeNme,
+      assertMistakeConditional(m, BAD_ATTRIBUTE_NAME_SPELLING, studentDriverClassAttributeNme,
           instructorDriverClassAttributeName, 0, 1, false);
-      assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentPassengerClassAttributeNam,
+      assertMistakeConditional(m, BAD_ATTRIBUTE_NAME_SPELLING, studentPassengerClassAttributeNam,
           instructorPassengerClassAttributeName, 0, 1, false);
     }
   }
@@ -110,8 +110,8 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(comparison.newMistakes.size(), 2);
     assertEquals(studentSolution.getMistakes().size(), 2);
     for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeInLoop(m, MISSING_ATTRIBUTE, instructorDriverClassAttributeName, 0, 1, false);
-      assertMistakeInLoop(m, MISSING_ATTRIBUTE, instructorBusClassAttributeNumberPlate, 0, 1, false);
+      assertMistakeConditional(m, MISSING_ATTRIBUTE, instructorDriverClassAttributeName, 0, 1, false);
+      assertMistakeConditional(m, MISSING_ATTRIBUTE, instructorBusClassAttributeNumberPlate, 0, 1, false);
     }
   }
 
@@ -137,9 +137,8 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
 
-
-    assertTrue(MistakeDetectionTest.assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE,
-        studentDateOfBirthAttribute, 0, 1, false));
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentDateOfBirthAttribute, 0, 1,
+        false);
   }
 
 }

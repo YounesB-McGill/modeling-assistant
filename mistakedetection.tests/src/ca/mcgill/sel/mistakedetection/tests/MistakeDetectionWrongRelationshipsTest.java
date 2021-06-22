@@ -7,7 +7,6 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClass
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
@@ -50,11 +49,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
-
     Classifier studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
-
     AssociationEnd instructorMyDriverAssociationEnd = getAssociationEndFromClass("myDriver", instructorBusClass);
-
     AssociationEnd studentMyDrivrAssociationEnd = getAssociationEndFromClass("myDrivr", studentBusClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
@@ -62,8 +58,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(studentSolution.getMistakes().size(), 1);
 
     for (Mistake m : studentSolution.getMistakes()) {
-      assertTrue(assertMistake(m, BAD_ROLE_NAME_SPELLING, studentMyDrivrAssociationEnd,
-          instructorMyDriverAssociationEnd, 0, 1, false));
+      assertMistake(m, BAD_ROLE_NAME_SPELLING, studentMyDrivrAssociationEnd, instructorMyDriverAssociationEnd, 0, 1,
+          false);
     }
   }
 
