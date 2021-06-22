@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -518,8 +519,8 @@ public class MistakeDetectionTest {
    *
    * @param mistake
    * @param mistakeType
-   * @param studentElem_s a NamedElement or an EList of NamedElements
-   * @param instructorElem_s a NamedElement or an EList of NamedElements
+   * @param studentElem_s a NamedElement or a List of NamedElements
+   * @param instructorElem_s a NamedElement or a List of NamedElements
    */
   @SuppressWarnings("unchecked") // need to do this to get around lack of union types in Java
   public static void assertMistakeLinks(Mistake mistake, MistakeType mistakeType, Object studentElem_s,
@@ -528,19 +529,20 @@ public class MistakeDetectionTest {
 
     if (studentElem_s instanceof NamedElement) {
       assertEquals(mistake.getStudentElements().get(0).getElement(), studentElem_s);
-    } else if (studentElem_s instanceof EList) {
-      assertTrue(mistakeElemsContainGivenElems(mistake.getStudentElements(), (EList<NamedElement>) studentElem_s));
+    } else if (studentElem_s instanceof List) {
+      assertTrue(mistakeElemsContainGivenElems(mistake.getStudentElements(),
+          ECollections.unmodifiableEList((List<NamedElement>) studentElem_s)));
     } else {
-      fail("Wrong type for studentElem(s): NamedElement or EList<NamedElement> expected");
+      fail("Wrong type for studentElem(s): NamedElement or List<NamedElement> expected");
     }
 
     if (instructorElem_s instanceof NamedElement) {
       assertEquals(mistake.getInstructorElements().get(0).getElement(), instructorElem_s);
-    } else if (instructorElem_s instanceof EList) {
+    } else if (instructorElem_s instanceof List) {
       assertTrue(mistakeElemsContainGivenElems(mistake.getInstructorElements(),
-          (EList<NamedElement>) instructorElem_s));
+          ECollections.unmodifiableEList((EList<NamedElement>) instructorElem_s)));
     } else {
-      fail("Wrong type for instructorElem(s): NamedElement or EList<NamedElement> expected");
+      fail("Wrong type for instructorElem(s): NamedElement or List<NamedElement> expected");
     }
   }
 
