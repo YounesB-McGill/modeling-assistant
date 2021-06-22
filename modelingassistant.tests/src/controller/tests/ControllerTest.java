@@ -48,16 +48,20 @@ public class ControllerTest {
   public static final String LEARNING_CORPUS_PATH =
       "../modelingassistant.learningcorpus.dsl.instances/test.learningcorpus";
 
+  /** Shorthand for CdmFactory.eINSTANCE. */
+  public static final CdmFactory CDF = CdmFactory.eINSTANCE;
+
+  /** Shorthand for ModelingassistantFactory.eINSTANCE. */
+  public static final ModelingassistantFactory MAF = ModelingassistantFactory.eINSTANCE;
+
   @Test public void testJunitIsWorking() {
     assertTrue(true);
   }
 
   @Test public void testCreatingEmptySolution() {
-    var maf = ModelingassistantFactory.eINSTANCE;
-    var cdf = CdmFactory.eINSTANCE;
-    var modelingAssistant = maf.createModelingAssistant();
-    var classDiagram = cdf.createClassDiagram();
-    var solution = maf.createSolution();
+    var modelingAssistant = MAF.createModelingAssistant();
+    var classDiagram = CDF.createClassDiagram();
+    var solution = MAF.createSolution();
     classDiagram.setName("Student1_solution");
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
@@ -73,24 +77,22 @@ public class ControllerTest {
    * }
    */
   @Test public void testCreatingOneClassSolution() {
-    var maf = ModelingassistantFactory.eINSTANCE;
-    var cdf = CdmFactory.eINSTANCE;
-    var modelingAssistant = maf.createModelingAssistant();
-    var classDiagram = cdf.createClassDiagram();
-    var solution = maf.createSolution();
+    var modelingAssistant = MAF.createModelingAssistant();
+    var classDiagram = CDF.createClassDiagram();
+    var solution = MAF.createSolution();
     classDiagram.setName("Student1_solution");
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    var carClass = cdf.createClass();
+    var carClass = CDF.createClass();
     carClass.setName("Car");
-    var carId = cdf.createAttribute();
+    var carId = CDF.createAttribute();
     carId.setName("id");
-    var intType = cdf.createCDInt();
+    var intType = CDF.createCDInt();
     carId.setType(intType);
-    var carMake = cdf.createAttribute();
+    var carMake = CDF.createAttribute();
     carMake.setName("make");
-    var stringType = cdf.createCDString();
+    var stringType = CDF.createCDString();
     carMake.setType(stringType);
     carClass.getAttributes().add(carId);
     carClass.getAttributes().add(carMake);
@@ -114,48 +116,46 @@ public class ControllerTest {
    * }
    */
   @Test public void testCreatingTwoClassSolutionWithAssociation() {
-    var maf = ModelingassistantFactory.eINSTANCE;
-    var cdf = CdmFactory.eINSTANCE;
-    var modelingAssistant = maf.createModelingAssistant();
-    var classDiagram = cdf.createClassDiagram();
-    var solution = maf.createSolution();
-    var cdInt = cdf.createCDInt();
-    var cdString = cdf.createCDString();
+    var modelingAssistant = MAF.createModelingAssistant();
+    var classDiagram = CDF.createClassDiagram();
+    var solution = MAF.createSolution();
+    var cdInt = CDF.createCDInt();
+    var cdString = CDF.createCDString();
     classDiagram.setName("Student1_solution");
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    var carClass = cdf.createClass();
+    var carClass = CDF.createClass();
     carClass.setName("Car");
-    var carId = cdf.createAttribute();
+    var carId = CDF.createAttribute();
     carId.setName("id");
     carId.setType(cdInt);
-    var carMake = cdf.createAttribute();
+    var carMake = CDF.createAttribute();
     carMake.setName("make");
     carMake.setType(cdString);
     carClass.getAttributes().add(carId);
     carClass.getAttributes().add(carMake);
 
-    var driverClass = cdf.createClass();
+    var driverClass = CDF.createClass();
     driverClass.setName("Driver");
-    var driverName = cdf.createAttribute();
+    var driverName = CDF.createAttribute();
     driverName.setName("name");
     driverName.setType(cdString);
     driverClass.getAttributes().add(driverName);
 
-    var carDriverAssociationEnd = cdf.createAssociationEnd();
+    var carDriverAssociationEnd = CDF.createAssociationEnd();
     carDriverAssociationEnd.setClassifier(carClass);
     carDriverAssociationEnd.setNavigable(true);
     carDriverAssociationEnd.setLowerBound(1);
     carDriverAssociationEnd.setUpperBound(1);
-    var driverCarAssociationEnd = cdf.createAssociationEnd();
+    var driverCarAssociationEnd = CDF.createAssociationEnd();
     driverCarAssociationEnd.setClassifier(driverClass);
     driverCarAssociationEnd.setNavigable(true);
     driverCarAssociationEnd.setLowerBound(0);
     driverCarAssociationEnd.setUpperBound(-1);
     carClass.getAssociationEnds().add(carDriverAssociationEnd);
     driverClass.getAssociationEnds().add(driverCarAssociationEnd);
-    var carDriverAssociation = cdf.createAssociation();
+    var carDriverAssociation = CDF.createAssociation();
     carDriverAssociation.getEnds().addAll(List.of(carDriverAssociationEnd, driverCarAssociationEnd));
     carDriverAssociationEnd.setAssoc(carDriverAssociation);
     driverCarAssociationEnd.setAssoc(carDriverAssociation);
@@ -197,29 +197,27 @@ public class ControllerTest {
    */
   @Test
   public void testCreatingTwoClassSolutionWithGeneralization() {
-    var maf = ModelingassistantFactory.eINSTANCE;
-    var cdf = CdmFactory.eINSTANCE;
-    var modelingAssistant = maf.createModelingAssistant();
-    var classDiagram = cdf.createClassDiagram();
-    var solution = maf.createSolution();
-    var cdInt = cdf.createCDInt();
-    var cdString = cdf.createCDString();
+    var modelingAssistant = MAF.createModelingAssistant();
+    var classDiagram = CDF.createClassDiagram();
+    var solution = MAF.createSolution();
+    var cdInt = CDF.createCDInt();
+    var cdString = CDF.createCDString();
     classDiagram.setName("Student1_solution");
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    var carClass = cdf.createClass();
+    var carClass = CDF.createClass();
     carClass.setName("Car");
-    var carId = cdf.createAttribute();
+    var carId = CDF.createAttribute();
     carId.setName("id");
     carId.setType(cdInt);
-    var carMake = cdf.createAttribute();
+    var carMake = CDF.createAttribute();
     carMake.setName("make");
     carMake.setType(cdString);
     carClass.getAttributes().add(carId);
     carClass.getAttributes().add(carMake);
 
-    var sportsCarClass = cdf.createClass();
+    var sportsCarClass = CDF.createClass();
     sportsCarClass.setName("SportsCar");
     sportsCarClass.getSuperTypes().add(carClass);
 
@@ -259,9 +257,8 @@ public class ControllerTest {
     assertTrue(carClass.getAttributes().get(0).getType() instanceof CDInt);
     assertTrue(carClass.getAttributes().get(1).getType() instanceof CDString);
 
-    var maf = ModelingassistantFactory.eINSTANCE;
-    var modelingAssistant = maf.createModelingAssistant();
-    var solution = maf.createSolution();
+    var modelingAssistant = MAF.createModelingAssistant();
+    var solution = MAF.createSolution();
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
@@ -299,9 +296,8 @@ public class ControllerTest {
     assertEquals(ReferenceType.COMPOSITION, carClass.getAssociationEnds().stream()
         .filter(ae -> "parts".equals(ae.getName())).collect(Collectors.toList()).get(0).getReferenceType());
 
-    var maf = ModelingassistantFactory.eINSTANCE;
-    var modelingAssistant = maf.createModelingAssistant();
-    var solution = maf.createSolution();
+    var modelingAssistant = MAF.createModelingAssistant();
+    var solution = MAF.createSolution();
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
@@ -330,24 +326,22 @@ public class ControllerTest {
     // Dynamically create a modeling assistant and link it with a TouchCore class diagram
     CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    var cdf = CdmFactory.eINSTANCE;
-    var maf = ModelingassistantFactory.eINSTANCE;
 
-    var modelingAssistant = maf.createModelingAssistant();
-    var solution = maf.createSolution();
-    var classDiagram = cdf.createClassDiagram();
+    var modelingAssistant = MAF.createModelingAssistant();
+    var solution = MAF.createSolution();
+    var classDiagram = CDF.createClassDiagram();
     classDiagram.setName("Student1_solution");
     solution.setClassDiagram(classDiagram);
     solution.setModelingAssistant(modelingAssistant);
-    var cdInt = cdf.createCDInt();
-    var cdString = cdf.createCDString();
+    var cdInt = CDF.createCDInt();
+    var cdString = CDF.createCDString();
 
-    var carClass = cdf.createClass();
+    var carClass = CDF.createClass();
     carClass.setName("Car");
-    var carId = cdf.createAttribute();
+    var carId = CDF.createAttribute();
     carId.setName("id");
     carId.setType(cdInt);
-    var carMake = cdf.createAttribute();
+    var carMake = CDF.createAttribute();
     carMake.setName("make");
     carMake.setType(cdString);
     carClass.getAttributes().addAll(List.of(carId, carMake));
@@ -466,9 +460,8 @@ public class ControllerTest {
     var classDiagram = (ClassDiagram) resource.getContents().get(0);
 
     // Link class_diagram to modeling assistant instance
-    var maf = ModelingassistantFactory.eINSTANCE;
-    var modelingAssistant = maf.createModelingAssistant();
-    var solution = maf.createSolution();
+    var modelingAssistant = MAF.createModelingAssistant();
+    var solution = MAF.createSolution();
     solution.setClassDiagram(classDiagram);
     solution.setModelingAssistant(modelingAssistant);
 
@@ -576,8 +569,6 @@ public class ControllerTest {
 
     CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    var cdf = CdmFactory.eINSTANCE;
-    var maf = ModelingassistantFactory.eINSTANCE;
 
     // Open premade class diagram from one of the above tests
     // Can't reuse ResourceHelper.INSTANCE here to load duplicate resource
@@ -591,28 +582,28 @@ public class ControllerTest {
     var classDiagram1 = (ClassDiagram) resource.getContents().get(0);
 
     // Link first class diagram to modeling assistant instance
-    var modelingAssistant = maf.createModelingAssistant();
-    var solution1 = maf.createSolution();
+    var modelingAssistant = MAF.createModelingAssistant();
+    var solution1 = MAF.createSolution();
     solution1.setClassDiagram(classDiagram1);
     modelingAssistant.getSolutions().add(solution1);
 
     // Make and link second class diagram to modeling assistant instance
-    var classDiagram2 = cdf.createClassDiagram();
+    var classDiagram2 = CDF.createClassDiagram();
     classDiagram2.setName("Student2_solution");
-    var solution2 = maf.createSolution();
+    var solution2 = MAF.createSolution();
     solution2.setClassDiagram(classDiagram2);
     modelingAssistant.getSolutions().add(solution2);
 
-    var cdInt = cdf.createCDInt();
-    var cdString = cdf.createCDString();
+    var cdInt = CDF.createCDInt();
+    var cdString = CDF.createCDString();
     classDiagram2.getTypes().addAll(List.of(cdInt, cdString));
 
-    var carClass2 = cdf.createClass();
+    var carClass2 = CDF.createClass();
     carClass2.setName("Car");
-    var carId = cdf.createAttribute();
+    var carId = CDF.createAttribute();
     carId.setName("id");
     carId.setType(cdInt);
-    var carMake = cdf.createAttribute();
+    var carMake = CDF.createAttribute();
     carMake.setName("make");
     carMake.setType(cdString);
     carClass2.getAttributes().addAll(List.of(carId, carMake));
@@ -770,24 +761,22 @@ public class ControllerTest {
   @Test public void testPersistingModelingAssistantToString() {
     CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    var maf = ModelingassistantFactory.eINSTANCE;
-    var cdf = CdmFactory.eINSTANCE;
-    var modelingAssistant = maf.createModelingAssistant();
-    var classDiagram = cdf.createClassDiagram();
-    var solution = maf.createSolution();
+    var modelingAssistant = MAF.createModelingAssistant();
+    var classDiagram = CDF.createClassDiagram();
+    var solution = MAF.createSolution();
     classDiagram.setName("Student1_solution");
     solution.setModelingAssistant(modelingAssistant);
     solution.setClassDiagram(classDiagram);
 
-    var carClass = cdf.createClass();
+    var carClass = CDF.createClass();
     carClass.setName("Car");
-    var carId = cdf.createAttribute();
+    var carId = CDF.createAttribute();
     carId.setName("id");
-    var cdInt = cdf.createCDInt();
+    var cdInt = CDF.createCDInt();
     carId.setType(cdInt);
-    var carMake = cdf.createAttribute();
+    var carMake = CDF.createAttribute();
     carMake.setName("make");
-    var cdString = cdf.createCDString();
+    var cdString = CDF.createCDString();
     carMake.setType(cdString);
     carClass.getAttributes().addAll(List.of(carId, carMake));
     classDiagram.getTypes().addAll(List.of(cdInt, cdString));
@@ -845,8 +834,6 @@ public class ControllerTest {
     CdmPackage.eINSTANCE.eClass();
     LearningcorpusPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    var cdf = CdmFactory.eINSTANCE;
-    var maf = ModelingassistantFactory.eINSTANCE;
 
     // Open premade class diagram from one of the above tests
     // Can't reuse ResourceHelper.INSTANCE here to load duplicate resource
@@ -857,48 +844,48 @@ public class ControllerTest {
     var classDiagram = (ClassDiagram) resource.getContents().get(0);
 
     // Link first class diagram to modeling assistant instance and related student
-    var modelingAssistant = maf.createModelingAssistant();
-    var student1 = maf.createStudent();
+    var modelingAssistant = MAF.createModelingAssistant();
+    var student1 = MAF.createStudent();
     student1.setId("1111");
     student1.setModelingAssistant(modelingAssistant);
-    var solution1 = maf.createSolution();
+    var solution1 = MAF.createSolution();
     solution1.setClassDiagram(classDiagram);
     solution1.setStudent(student1);
     solution1.setModelingAssistant(modelingAssistant);
     var lok1 = 10_578_963; // use a large int to detect it in testing
-    var student1ClassNamingKnowledge = maf.createStudentKnowledge();
+    var student1ClassNamingKnowledge = MAF.createStudentKnowledge();
     student1ClassNamingKnowledge.setLevelOfKnowledge(lok1);
     student1ClassNamingKnowledge.setStudent(student1);
     student1ClassNamingKnowledge.setMistakeType(MistakeTypes.BAD_CLASS_NAME_SPELLING);
     student1ClassNamingKnowledge.setModelingAssistant(modelingAssistant);
 
     // Make and link second class diagram to modeling assistant instance and related student
-    var classDiagram2 = cdf.createClassDiagram();
+    var classDiagram2 = CDF.createClassDiagram();
     classDiagram2.setName("Student2_solution");
-    var student2 = maf.createStudent();
+    var student2 = MAF.createStudent();
     student2.setId("2222");
     student2.setModelingAssistant(modelingAssistant);
-    var solution2 = maf.createSolution();
+    var solution2 = MAF.createSolution();
     solution2.setClassDiagram(classDiagram2);
     solution2.setStudent(student2);
     solution2.setModelingAssistant(modelingAssistant);
     var lok2 = 8_996_541;
-    var student2ClassNamingKnowledge = maf.createStudentKnowledge();
+    var student2ClassNamingKnowledge = MAF.createStudentKnowledge();
     student2ClassNamingKnowledge.setLevelOfKnowledge(lok2);
     student2ClassNamingKnowledge.setStudent(student2);
     student2ClassNamingKnowledge.setMistakeType(MistakeTypes.BAD_CLASS_NAME_SPELLING);
     student2ClassNamingKnowledge.setModelingAssistant(modelingAssistant);
 
-    var cdInt = cdf.createCDInt();
-    var cdString = cdf.createCDString();
+    var cdInt = CDF.createCDInt();
+    var cdString = CDF.createCDString();
     classDiagram2.getTypes().addAll(List.of(cdInt, cdString));
 
-    var carClass2 = cdf.createClass();
+    var carClass2 = CDF.createClass();
     carClass2.setName("Car");
-    var carId = cdf.createAttribute();
+    var carId = CDF.createAttribute();
     carId.setName("id");
     carId.setType(cdInt);
-    var carMake = cdf.createAttribute();
+    var carMake = CDF.createAttribute();
     carMake.setName("make");
     carMake.setType(cdString);
     carClass2.getAttributes().addAll(List.of(carId, carMake));
