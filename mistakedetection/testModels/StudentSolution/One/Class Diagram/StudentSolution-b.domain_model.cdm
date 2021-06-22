@@ -3,7 +3,7 @@
   <classes xsi:type="classdiagram:Class" xmi:id="__tvnAHBJEeu54OJjlEl1yg" name="Bus">
     <associationEnds xmi:id="_B0yzEXBKEeu54OJjlEl1yg" name="myDrivr" assoc="_B0yzEnBKEeu54OJjlEl1yg" lowerBound="1"/>
   </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="_Aa7dIHBKEeu54OJjlEl1yg" name="Drivr">
+  <classes xsi:type="classdiagram:Class" xmi:id="_Aa7dIHBKEeu54OJjlEl1yg" name="Driver">
     <associationEnds xmi:id="_B0yzEHBKEeu54OJjlEl1yg" name="myBus" assoc="_B0yzEnBKEeu54OJjlEl1yg" lowerBound="1"/>
   </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="__UPh4XBJEeu54OJjlEl1yg"/>
