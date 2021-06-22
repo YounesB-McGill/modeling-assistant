@@ -1,33 +1,36 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeInLoop;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.cdmFromFile;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAttributeFromClass;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ATTRIBUTE;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
-
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import modelingassistant.Mistake;
 
 public class MistakeDetectionWrongAttributeTest {
+
   /**
    * Test to check for attributes(name,capacity,name,numberPlate)
    */
   @Test
   public void testNoAttributeMistake() {
-    var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
+    var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/Class Diagram/Two(withAttributes).domain_model.cdm");
-    var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
+    var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/two(withAttribute)/Class Diagram/Two(withAttribute).domain_model.cdm");
-    var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -40,13 +43,13 @@ public class MistakeDetectionWrongAttributeTest {
    */
   @Test
   public void testAttributeWrongSpelling() {
-    var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
+    var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/Class Diagram/Two(withAttributes).domain_model.cdm");
-    var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
+    var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/three(withAttributes)/Class Diagram/Three(withAttributes).domain_model.cdm");
-    var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     Classifier instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
@@ -72,13 +75,13 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(studentSolution.getMistakes().size(), 4);
 
     for (Mistake m : studentSolution.getMistakes()) {
-      MistakeDetectionTest.assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentBusClassAttributeCapacty,
+      assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentBusClassAttributeCapacty,
           instructorBusClassAttributeCapacity, 0, 1, false);
-      MistakeDetectionTest.assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentBusClassAttributeNamberPlate,
+      assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentBusClassAttributeNamberPlate,
           instructorBusClassAttributeNumberPlate, 0, 1, false);
-      MistakeDetectionTest.assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentDriverClassAttributeNme,
+      assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentDriverClassAttributeNme,
           instructorDriverClassAttributeName, 0, 1, false);
-      MistakeDetectionTest.assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentPassengerClassAttributeNam,
+      assertMistakeInLoop(m, BAD_ATTRIBUTE_NAME_SPELLING, studentPassengerClassAttributeNam,
           instructorPassengerClassAttributeName, 0, 1, false);
     }
   }
@@ -88,13 +91,13 @@ public class MistakeDetectionWrongAttributeTest {
    */
   @Test
   public void testMistakeMissingAttribute() {
-    var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
+    var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/Class Diagram/Two(withAttributes).domain_model.cdm");
-    var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
+    var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/two(withAttribute)/Class Diagram/Two(withAttribute)-a.domain_model.cdm");
-    var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     Classifier instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
@@ -107,25 +110,23 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(comparison.newMistakes.size(), 2);
     assertEquals(studentSolution.getMistakes().size(), 2);
     for (Mistake m : studentSolution.getMistakes()) {
-      MistakeDetectionTest.assertMistakeInLoop(m, MISSING_ATTRIBUTE, instructorDriverClassAttributeName, 0, 1, false);
-      MistakeDetectionTest.assertMistakeInLoop(m, MISSING_ATTRIBUTE, instructorBusClassAttributeNumberPlate, 0, 1,
-          false);
+      assertMistakeInLoop(m, MISSING_ATTRIBUTE, instructorDriverClassAttributeName, 0, 1, false);
+      assertMistakeInLoop(m, MISSING_ATTRIBUTE, instructorBusClassAttributeNumberPlate, 0, 1, false);
     }
   }
-
 
   /**
    * Test to detect other extra Attribute.
    */
   @Test
   public void testMistakeExtraAttribute() {
-    var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
+    var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_person_nameAttribute/Class Diagram/Instructor_person_nameAttribute.domain_model.cdm");
-    var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
+    var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_extraAttribute/Class Diagram/Student_extraAttribute.domain_model.cdm");
-    var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     Classifier studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
 
@@ -139,8 +140,6 @@ public class MistakeDetectionWrongAttributeTest {
 
     assertTrue(MistakeDetectionTest.assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE,
         studentDateOfBirthAttribute, 0, 1, false));
-
-
-
   }
+
 }

@@ -1,6 +1,12 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeAttribute;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeInLoop;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeLinks;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.cdmFromFile;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,14 +25,13 @@ public class MistakeDetectionWrongClassTest {
    */
   @Test
   public void testStudentSolution_1_PluralClassName() {
-
-    var classDiagram = MistakeDetectionTest.cdmFromFile(
+    var classDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution-a.domain_model.cdm");
     for (var c : classDiagram.getClasses()) {
       assertTrue(MistakeDetection.isPlural(c.getName()));
     }
 
-    classDiagram = MistakeDetectionTest.cdmFromFile(
+    classDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/One/Class Diagram/InstructorSolution.domain_model.cdm");
     for (var c : classDiagram.getClasses()) {
       assertFalse(MistakeDetection.isPlural(c.getName()));
@@ -38,13 +43,13 @@ public class MistakeDetectionWrongClassTest {
    */
   @Test
   public void testCheckMapping() {
-    var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
+    var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/One/Class Diagram/InstructorSolution.domain_model.cdm");
-    var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
+    var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution.domain_model.cdm");
-    var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     Classifier instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
@@ -69,13 +74,13 @@ public class MistakeDetectionWrongClassTest {
    */
   @Test
   public void testPluralClassNames() {
-    var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
+    var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/One/Class Diagram/InstructorSolution.domain_model.cdm");
-    var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
+    var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution-a.domain_model.cdm");
-    var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     Classifier instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
@@ -94,10 +99,8 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(studentSolution.getMistakes().size(), 4);
 
     for (Mistake m : studentSolution.getMistakes()) {
-      MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1,
-          false);
-      MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 1,
-          false);
+      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
+      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 1, false);
     }
   }
 
@@ -106,16 +109,15 @@ public class MistakeDetectionWrongClassTest {
    */
   @Test
   public void testWrongClassName() {
-    var instructorClassDiagram = MistakeDetectionTest.cdmFromFile(
+    var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBus/Class Diagram/Instructor_classBus.domain_model.cdm");
-    var instructorSolution = MistakeDetectionTest.instructorSolutionFromClassDiagram(instructorClassDiagram);
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var studentClassDiagram = MistakeDetectionTest.cdmFromFile(
+    var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_wrongClassName/Class Diagram/Student_wrongClassName.domain_model.cdm");
-    var studentSolution = MistakeDetectionTest.studentSolutionFromClassDiagram(studentClassDiagram);
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
-
     Classifier studentBuseClass = getClassFromClassDiagram("Buse", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
@@ -123,12 +125,9 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
 
-
-    assertTrue(MistakeDetectionTest.assertMistakeLinks(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING,
+    assertTrue(assertMistakeLinks(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING,
         studentBuseClass, instructorBusClass));
-    assertTrue(MistakeDetectionTest.assertMistakeAttribute(studentSolution.getMistakes().get(0), 0, 1, false));
-
-
+    assertTrue(assertMistakeAttribute(studentSolution.getMistakes().get(0), 0, 1, false));
   }
 
   @Test
@@ -154,4 +153,5 @@ public class MistakeDetectionWrongClassTest {
     var actual = MistakeDetection.checkMistakePluralClassName(studentClass, instructorClass).get();
     assertEquals(expected.getMistakeType(), actual.getMistakeType());
   }
+
 }
