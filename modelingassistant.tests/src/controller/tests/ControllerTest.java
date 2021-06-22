@@ -4,6 +4,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
+import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -248,8 +249,7 @@ public class ControllerTest {
   @Test public void testCreatingOneClassSolutionFromSerializedClassDiagram() {
     CdmPackage.eINSTANCE.eClass();
     var cdmFile = "../modelingassistant/testmodels/car.domain_model.cdm";
-    var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
-    var classDiagram = (ClassDiagram) resource.getContents().get(0);
+    var classDiagram = cdmFromFile(cdmFile);
     var carClass = classDiagram.getClasses().get(0);
 
     assertEquals(carClass, classDiagram.getClasses().get(0));
@@ -275,8 +275,7 @@ public class ControllerTest {
   @Test public void testCreatingMulticlassSolutionFromSerializedClassDiagram() {
     CdmPackage.eINSTANCE.eClass();
     var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
-    var resource = ResourceHelper.INSTANCE.loadResource(cdmFile);
-    var classDiagram = (ClassDiagram) resource.getContents().get(0);
+    var classDiagram = cdmFromFile(cdmFile);
 
     Classifier carClass = null;
     Classifier driverClass = null;
@@ -812,7 +811,7 @@ public class ControllerTest {
       maStr = cdmIdPattern.matcher(maStr).replaceAll("classDiagram=\"\"");
       maStr = typePattern.matcher(maStr).replaceAll(""); // since name and type can occur in any order
       maStr = maStr.replace("\r", "");
-      
+
       // TODO Replace ugly string concatenation with """text block""" after upgrading to Java 16+
       assertEquals("<?xml version=\"1.0\" encoding=\"ASCII\"?>\n"
           + "<xmi:XMI xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:classdiagram=\"http://cs.mcgill.ca/sel/cdm/1.0\" xmlns:modelingassistant=\"http://cs.mcgill.ca/sel/modelingassistant/1.0\">\n"

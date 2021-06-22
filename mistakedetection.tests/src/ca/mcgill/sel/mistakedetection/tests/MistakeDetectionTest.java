@@ -2,27 +2,21 @@ package ca.mcgill.sel.mistakedetection.tests;
 
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
+import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import java.io.File;
-import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Attribute;
-import ca.mcgill.sel.classdiagram.CdmPackage;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.classdiagram.NamedElement;
-import ca.mcgill.sel.classdiagram.util.CdmResourceFactoryImpl;
 import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import learningcorpus.MistakeType;
@@ -464,22 +458,6 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Returns the class diagram at the given *.cdm file.
-   */
-  public static ClassDiagram cdmFromFile(File file) {
-    CdmPackage.eINSTANCE.eClass();
-    var rset = new ResourceSetImpl();
-    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm", new CdmResourceFactoryImpl());
-    try {
-      var cdmResource = rset.createResource(URI.createFileURI(file.getCanonicalPath()));
-      cdmResource.load(Collections.EMPTY_MAP);
-      return (ClassDiagram) cdmResource.getContents().get(0);
-    } catch (IOException e) {
-      return null;
-    }
-  }
-
-  /**
    * Asserts a mistake's links with single student or instructor element.
    *
    * @param mistake
@@ -710,13 +688,6 @@ public class MistakeDetectionTest {
         assertMistake(mistake, mistakeType, elements, numSinceResolved, numDetections, resolved);
       }
     }
-  }
-
-  /**
-   * Returns the class diagram at the given *.cdm file path.
-   */
-  static ClassDiagram cdmFromFile(String path) {
-    return cdmFromFile(new File(path));
   }
 
   /**
