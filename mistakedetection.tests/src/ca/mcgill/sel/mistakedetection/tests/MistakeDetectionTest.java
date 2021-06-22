@@ -31,6 +31,9 @@ import modelingassistant.SolutionElement;
 
 public class MistakeDetectionTest {
 
+  /** The ModelingassistantFactory instance. */
+  private static final ModelingassistantFactory maf = ModelingassistantFactory.eINSTANCE;
+
   /**
    * Test to check if all the classes exist in Instructor solution are loaded in cdmFile
    */
@@ -90,11 +93,10 @@ public class MistakeDetectionTest {
         "../mistakedetection/testModels/InstructorSolution/One/Class Diagram/InstructorSolution.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var maf = ModelingassistantFactory.eINSTANCE;
     var modelingAssistant = maf.createModelingAssistant();
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution.domain_model.cdm");
-    var studentSolution = studentSolutionFromClassDiagram(maf, modelingAssistant, studentClassDiagram);
+    var studentSolution = studentSolutionFromClassDiagram(modelingAssistant, studentClassDiagram);
 
     Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     Classifier instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
@@ -107,7 +109,7 @@ public class MistakeDetectionTest {
     // Loading 2nd Solution to check Mistakes Update in Metamodel
     studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution-a.domain_model.cdm");
-    studentSolution = studentSolutionFromClassDiagram(maf, modelingAssistant, studentClassDiagram);
+    studentSolution = studentSolutionFromClassDiagram(modelingAssistant, studentClassDiagram);
 
     instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
@@ -121,13 +123,10 @@ public class MistakeDetectionTest {
     assertEquals(studentSolution.getMistakes().size(), 4);
 
     for (Mistake m : studentSolution.getMistakes()) {
-      MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1,
-          false);
-      MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 1,
-          false);
+      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
+      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 1, false);
     }
-    // Running the second Solution again to check updated attribute values in
-    // Mistake in Metamodel
+    // Running the second Solution again to check updated attribute values in Mistake in Metamodel
     assertEquals(studentSolution.getMistakes().size(), 4);
     comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -135,10 +134,8 @@ public class MistakeDetectionTest {
     assertEquals(studentSolution.getMistakes().size(), 4);
 
     for (Mistake m : studentSolution.getMistakes()) {
-      MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 2,
-          false);
-      MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 2,
-          false);
+      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 2, false);
+      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 2, false);
     }
 
     comparison = MistakeDetection.compare(instructorSolution, studentSolution);
@@ -147,16 +144,14 @@ public class MistakeDetectionTest {
     assertEquals(studentSolution.getMistakes().size(), 4);
 
     for (Mistake m : studentSolution.getMistakes()) {
-      MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 3,
-          false);
-      MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 3,
-          false);
+      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 3, false);
+      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 3, false);
     }
 
     // checking with perfect solution
     studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution.domain_model.cdm");
-    studentSolution = studentSolutionFromClassDiagram(maf, modelingAssistant, studentClassDiagram);
+    studentSolution = studentSolutionFromClassDiagram(modelingAssistant, studentClassDiagram);
 
     instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
@@ -168,10 +163,8 @@ public class MistakeDetectionTest {
     // next meeting
 
     for (Mistake m : studentSolution.getMistakes()) {
-      MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 1, 3,
-          false);
-      MistakeDetectionTest.assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 1, 3,
-          false);
+      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 1, 3, false);
+      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 1, 3, false);
     }
   }
 
@@ -216,16 +209,14 @@ public class MistakeDetectionTest {
     assertEquals(studentSolution.getMistakes().size(), 4);
 
     for (Mistake m : studentSolution.getMistakes()) {
-
-      MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity,
+      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity,
           instructorBusClassAttributeCapacity, 0, 1, false);
-      MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate,
+      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate,
           instructorBusClassAttributeNumberPlate, 0, 1, false);
-      MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName,
+      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName,
           instructorDriverClassAttributeName, 0, 1, false);
-      MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName,
+      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName,
           instructorPassengerClassAttributeName, 0, 1, false);
-
     }
 
     // ---------Second iteration to test update of mistake Properties---
@@ -235,15 +226,14 @@ public class MistakeDetectionTest {
     assertEquals(studentSolution.getMistakes().size(), 4);
 
     for (Mistake m : studentSolution.getMistakes()) {
-      MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity,
+      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity,
           instructorBusClassAttributeCapacity, 0, 2, false);
-      MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate,
+      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate,
           instructorBusClassAttributeNumberPlate, 0, 2, false);
-      MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName,
+      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName,
           instructorDriverClassAttributeName, 0, 2, false);
-      MistakeDetectionTest.assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName,
+      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName,
           instructorPassengerClassAttributeName, 0, 2, false);
-
     }
   }
 
@@ -300,7 +290,6 @@ public class MistakeDetectionTest {
     assertEquals(comparison.mappedAttribute.get(instructorDriverClassAttributeName), studentDriverClassAttributeName);
     assertEquals(comparison.newMistakes.size(), 0);
     assertEquals(studentSolution.getMistakes().size(), 0);
-
   }
 
   /**
@@ -358,7 +347,6 @@ public class MistakeDetectionTest {
 
     assertEquals(comparison.newMistakes.size(), 0);
     assertEquals(studentSolution.getMistakes().size(), 0);
-
   }
 
   /**
@@ -375,7 +363,7 @@ public class MistakeDetectionTest {
         seekedClass = c;
     }
     if (seekedClass == null) {
-      throw new IllegalArgumentException("No Class Found, Please check the class name");
+      throw new IllegalArgumentException("No Class Found, please check the class name");
     }
     return seekedClass;
   }
@@ -395,7 +383,7 @@ public class MistakeDetectionTest {
       }
     }
     if (seekedAttribute == null) {
-      throw new IllegalArgumentException("No Attribute Found, Please check the attribute name");
+      throw new IllegalArgumentException("No Attribute Found, please check the attribute name");
     }
     return seekedAttribute;
   }
@@ -416,7 +404,7 @@ public class MistakeDetectionTest {
       }
     }
     if (seekedAssociation == null) {
-      throw new IllegalArgumentException("No Association Found, Please check the association name");
+      throw new IllegalArgumentException("No Association Found, please check the association name");
     }
     return seekedAssociation;
   }
@@ -446,7 +434,6 @@ public class MistakeDetectionTest {
   }
 
   public static Solution instructorSolutionFromClassDiagram(ClassDiagram classDiagram) {
-    var maf = ModelingassistantFactory.eINSTANCE;
     var modelingAssistant = maf.createModelingAssistant();
     var instructorSolution = maf.createSolution();
     instructorSolution.setModelingAssistant(modelingAssistant);
@@ -455,7 +442,6 @@ public class MistakeDetectionTest {
   }
 
   public static Solution studentSolutionFromClassDiagram(ClassDiagram classDiagram) {
-    var maf = ModelingassistantFactory.eINSTANCE;
     var modelingAssistant = maf.createModelingAssistant();
     var studentSolution = maf.createSolution();
     studentSolution.setModelingAssistant(modelingAssistant);
@@ -465,8 +451,7 @@ public class MistakeDetectionTest {
     return studentSolution;
   }
 
-  public static Solution studentSolutionFromClassDiagram(ModelingassistantFactory maf, ModelingAssistant ma,
-      ClassDiagram classDiagram) {
+  public static Solution studentSolutionFromClassDiagram(ModelingAssistant ma, ClassDiagram classDiagram) {
     var studentSolution = maf.createSolution();
     studentSolution.setModelingAssistant(ma);
     studentSolution.setClassDiagram(classDiagram);
@@ -492,7 +477,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Asserts a mistake's Links.
+   * Asserts a mistake's links.
    *
    * @param mistake
    * @param mistakeType
@@ -501,7 +486,6 @@ public class MistakeDetectionTest {
    */
   public static boolean assertMistakeLinks(Mistake mistake, MistakeType mistakeType, NamedElement studentElement,
       NamedElement instructorElement) {
-
     assertEquals(mistake.getMistakeType(), mistakeType);
     assertEquals(mistake.getStudentElements().get(0).getElement(), studentElement);
     assertEquals(mistake.getInstructorElements().get(0).getElement(), instructorElement);
@@ -509,20 +493,18 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Asserts a mistake's Links with single student or instructor element.
+   * Asserts a mistake's links with single student or instructor element.
    *
    * @param mistake
    * @param mistakeType
    * @param element
    */
   public static boolean assertMistakeLinks(Mistake mistake, MistakeType mistakeType, NamedElement element) {
-
     assertEquals(mistake.getMistakeType(), mistakeType);
     if (mistake.getStudentElements().isEmpty()) {
       assertEquals(mistake.getInstructorElements().get(0).getElement(), element);
       return true;
     }
-
     if (mistake.getInstructorElements().isEmpty()) {
       assertEquals(mistake.getStudentElements().get(0).getElement(), element);
       return true;
@@ -531,7 +513,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Asserts a mistake's Links with multiple student and instructor element.
+   * Asserts a mistake's links with multiple student and instructor element.
    *
    * @param mistake
    * @param mistakeType
@@ -540,7 +522,6 @@ public class MistakeDetectionTest {
    */
   public static boolean assertMistakeLinks(Mistake mistake, MistakeType mistakeType,
       EList<NamedElement> studentElements, EList<NamedElement> instructorElements) {
-
     assertEquals(mistake.getMistakeType(), mistakeType);
     assertTrue(compareList(mistake.getStudentElements(), studentElements));
     assertTrue(compareList(mistake.getInstructorElements(), instructorElements));
@@ -548,20 +529,18 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Asserts a mistake's Links with multiple student or instructor element.
+   * Asserts a mistake's links with multiple student or instructor element.
    *
    * @param mistake
    * @param mistakeType
    * @param elements
    */
   public static boolean assertMistakeLinks(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements) {
-
     assertEquals(mistake.getMistakeType(), mistakeType);
     if (mistake.getStudentElements().isEmpty()) {
       assertTrue(compareList(mistake.getInstructorElements(), elements));
       return true;
     }
-
     if (mistake.getInstructorElements().isEmpty()) {
       assertTrue(compareList(mistake.getStudentElements(), elements));
       return true;
@@ -579,7 +558,6 @@ public class MistakeDetectionTest {
    */
   public static boolean assertMistakeAttribute(Mistake mistake, int numSinceResolved, int numDetections,
       boolean resolved) {
-
     assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
     assertEquals(mistake.getNumDetection(), numDetections);
     assertEquals(mistake.isResolved(), resolved);
@@ -598,7 +576,6 @@ public class MistakeDetectionTest {
    */
   public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, NamedElement studentElement,
       NamedElement instructorElement, int numSinceResolved, int numDetections, boolean resolved) {
-
     assertMistakeLinks(mistake, mistakeType, studentElement, instructorElement);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
     return true;
@@ -616,7 +593,6 @@ public class MistakeDetectionTest {
    */
   public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, EList<NamedElement> studentElements,
       EList<NamedElement> instructorElements, int numSinceResolved, int numDetections, boolean resolved) {
-
     assertMistakeLinks(mistake, mistakeType, studentElements, instructorElements);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
     return true;
@@ -634,7 +610,6 @@ public class MistakeDetectionTest {
    */
   public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, NamedElement element,
       int numSinceResolved, int numDetections, boolean resolved) {
-
     assertMistakeLinks(mistake, mistakeType, element);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
     return true;
@@ -652,11 +627,9 @@ public class MistakeDetectionTest {
    */
   public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements,
       int numSinceResolved, int numDetections, boolean resolved) {
-
     assertMistakeLinks(mistake, mistakeType, elements);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
     return true;
-
   }
 
   // ------------
@@ -699,7 +672,6 @@ public class MistakeDetectionTest {
     if (mistake.getMistakeType() == mistakeType && compareList(mistake.getStudentElements(), studentElements)) {
       assertTrue(assertMistake(mistake, mistakeType, studentElements, instructorElements, numSinceResolved,
           numDetections, resolved));
-
     }
   }
 
@@ -718,7 +690,6 @@ public class MistakeDetectionTest {
     if (mistake.getStudentElements().isEmpty()) {
       if (mistake.getMistakeType() == mistakeType && mistake.getInstructorElements().get(0).getElement() == element) {
         assertTrue(assertMistake(mistake, mistakeType, element, numSinceResolved, numDetections, resolved));
-
       }
     }
     if (mistake.getInstructorElements().isEmpty()) {
@@ -743,7 +714,6 @@ public class MistakeDetectionTest {
     if (mistake.getStudentElements().isEmpty()) {
       if (mistake.getMistakeType() == mistakeType && compareList(mistake.getInstructorElements(), elements)) {
         assertMistake(mistake, mistakeType, elements, numSinceResolved, numDetections, resolved);
-
       }
     }
     if (mistake.getInstructorElements().isEmpty()) {
@@ -851,7 +821,6 @@ public class MistakeDetectionTest {
         System.out.println(" ' " + m.getMistakeType().getName() + " ' ");
       }
     });
-
   }
 
 }
