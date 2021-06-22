@@ -1,5 +1,6 @@
 package problemstatementgenerator;
 
+import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import org.eclipse.emf.common.util.EList;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
@@ -8,7 +9,6 @@ import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.classdiagram.ReferenceType;
 import modelingassistant.ModelingassistantPackage;
-import modelingassistant.util.ResourceHelper;
 
 /**
  * Generates a natural language problem statement from a class diagram.
@@ -23,12 +23,11 @@ public class ProblemStatementGenerator {
     ModelingassistantPackage.eINSTANCE.eClass();
 
     var cdPath = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
-    var resource = ResourceHelper.INSTANCE.loadResource(cdPath);
-    var classDiagram = (ClassDiagram) resource.getContents().get(0);
+    var classDiagram = cdmFromFile(cdPath);
 
-    for (var t : classDiagram.getAssociations()) {
-      var print = describeAssociation(t);
-      System.out.println(print);
+    for (var a : classDiagram.getAssociations()) {
+      var assocDescription = describeAssociation(a);
+      System.out.println(assocDescription);
     }
   }
 
@@ -158,7 +157,6 @@ public class ProblemStatementGenerator {
     for (int i = 0; i < a; i++) {
       System.out.print("   ");
     }
-
   }
 
   public static void printAssocs(ClassDiagram cd) {
