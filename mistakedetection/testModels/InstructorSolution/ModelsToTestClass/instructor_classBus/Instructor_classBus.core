@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_hlOasNE1EeuxqLJhH57y3g" name="Instructor_classBus" featureModel="_hlOasdE1EeuxqLJhH57y3g" impactModel="_hlOas9E1EeuxqLJhH57y3g">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_hlOasdE1EeuxqLJhH57y3g" root="_hlOastE1EeuxqLJhH57y3g">
+    <features xmi:id="_hlOastE1EeuxqLJhH57y3g" name="Instructor_classBus" realizedBy="_idgtkdE1EeuxqLJhH57y3g"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_hlOas9E1EeuxqLJhH57y3g" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_idgtkNE1EeuxqLJhH57y3g" name="Instructor_classBus" scene="_idgtkdE1EeuxqLJhH57y3g" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_classBus.domain_model.cdm#_idhUoNE1EeuxqLJhH57y3g"/>
+  </artefacts>
+  <scenes xmi:id="_idgtkdE1EeuxqLJhH57y3g" name="Instructor_classBus" realizes="_hlOastE1EeuxqLJhH57y3g" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_idgtktE1EeuxqLJhH57y3g" value="_idgtkNE1EeuxqLJhH57y3g" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
