@@ -4,10 +4,12 @@ import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -123,8 +125,8 @@ public class MistakeDetectionTest {
     assertEquals(studentSolution.getMistakes().size(), 4);
 
     for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
-      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 1, false);
+      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
+      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 1, false);
     }
     // Running the second Solution again to check updated attribute values in Mistake in Metamodel
     assertEquals(studentSolution.getMistakes().size(), 4);
@@ -134,8 +136,8 @@ public class MistakeDetectionTest {
     assertEquals(studentSolution.getMistakes().size(), 4);
 
     for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 2, false);
-      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 2, false);
+      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 2, false);
+      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 2, false);
     }
 
     comparison = MistakeDetection.compare(instructorSolution, studentSolution);
@@ -144,8 +146,8 @@ public class MistakeDetectionTest {
     assertEquals(studentSolution.getMistakes().size(), 4);
 
     for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 3, false);
-      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 3, false);
+      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 3, false);
+      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 3, false);
     }
 
     // checking with perfect solution
@@ -163,8 +165,8 @@ public class MistakeDetectionTest {
     // next meeting
 
     for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 1, 3, false);
-      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 1, 3, false);
+      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 1, 3, false);
+      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 1, 3, false);
     }
   }
 
@@ -209,13 +211,13 @@ public class MistakeDetectionTest {
     assertEquals(studentSolution.getMistakes().size(), 4);
 
     for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity,
+      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity,
           instructorBusClassAttributeCapacity, 0, 1, false);
-      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate,
+      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate,
           instructorBusClassAttributeNumberPlate, 0, 1, false);
-      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName,
+      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName,
           instructorDriverClassAttributeName, 0, 1, false);
-      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName,
+      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName,
           instructorPassengerClassAttributeName, 0, 1, false);
     }
 
@@ -226,13 +228,13 @@ public class MistakeDetectionTest {
     assertEquals(studentSolution.getMistakes().size(), 4);
 
     for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity,
+      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity,
           instructorBusClassAttributeCapacity, 0, 2, false);
-      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate,
+      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate,
           instructorBusClassAttributeNumberPlate, 0, 2, false);
-      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName,
+      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName,
           instructorDriverClassAttributeName, 0, 2, false);
-      assertMistakeInLoop(m, WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName,
+      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName,
           instructorPassengerClassAttributeName, 0, 2, false);
     }
   }
@@ -477,55 +479,20 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Asserts a mistake's links.
-   *
-   * @param mistake
-   * @param mistakeType
-   * @param studentElement
-   * @param instructorElement
-   */
-  public static boolean assertMistakeLinks(Mistake mistake, MistakeType mistakeType, NamedElement studentElement,
-      NamedElement instructorElement) {
-    assertEquals(mistake.getMistakeType(), mistakeType);
-    assertEquals(mistake.getStudentElements().get(0).getElement(), studentElement);
-    assertEquals(mistake.getInstructorElements().get(0).getElement(), instructorElement);
-    return true;
-  }
-
-  /**
    * Asserts a mistake's links with single student or instructor element.
    *
    * @param mistake
    * @param mistakeType
    * @param element
    */
-  public static boolean assertMistakeLinks(Mistake mistake, MistakeType mistakeType, NamedElement element) {
+  public static void assertMistakeLinks(Mistake mistake, MistakeType mistakeType, NamedElement element) {
     assertEquals(mistake.getMistakeType(), mistakeType);
     if (mistake.getStudentElements().isEmpty()) {
       assertEquals(mistake.getInstructorElements().get(0).getElement(), element);
-      return true;
     }
     if (mistake.getInstructorElements().isEmpty()) {
       assertEquals(mistake.getStudentElements().get(0).getElement(), element);
-      return true;
     }
-    return false;
-  }
-
-  /**
-   * Asserts a mistake's links with multiple student and instructor element.
-   *
-   * @param mistake
-   * @param mistakeType
-   * @param studentElements
-   * @param instructorElements
-   */
-  public static boolean assertMistakeLinks(Mistake mistake, MistakeType mistakeType,
-      EList<NamedElement> studentElements, EList<NamedElement> instructorElements) {
-    assertEquals(mistake.getMistakeType(), mistakeType);
-    assertTrue(compareList(mistake.getStudentElements(), studentElements));
-    assertTrue(compareList(mistake.getInstructorElements(), instructorElements));
-    return true;
   }
 
   /**
@@ -535,17 +502,46 @@ public class MistakeDetectionTest {
    * @param mistakeType
    * @param elements
    */
-  public static boolean assertMistakeLinks(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements) {
+  public static void assertMistakeLinks(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements) {
     assertEquals(mistake.getMistakeType(), mistakeType);
     if (mistake.getStudentElements().isEmpty()) {
-      assertTrue(compareList(mistake.getInstructorElements(), elements));
-      return true;
+      assertTrue(mistakeElemsContainGivenElems(mistake.getInstructorElements(), elements));
     }
     if (mistake.getInstructorElements().isEmpty()) {
-      assertTrue(compareList(mistake.getStudentElements(), elements));
-      return true;
+      assertTrue(mistakeElemsContainGivenElems(mistake.getStudentElements(), elements));
     }
-    return false;
+  }
+
+
+  /**
+   * Asserts a mistake's links with student and instructor element(s).
+   *
+   * @param mistake
+   * @param mistakeType
+   * @param studentElem_s a NamedElement or an EList of NamedElements
+   * @param instructorElem_s a NamedElement or an EList of NamedElements
+   */
+  @SuppressWarnings("unchecked") // need to do this to get around lack of union types in Java
+  public static void assertMistakeLinks(Mistake mistake, MistakeType mistakeType, Object studentElem_s,
+      Object instructorElem_s) {
+    assertEquals(mistake.getMistakeType(), mistakeType);
+
+    if (studentElem_s instanceof NamedElement) {
+      assertEquals(mistake.getStudentElements().get(0).getElement(), studentElem_s);
+    } else if (studentElem_s instanceof EList) {
+      assertTrue(mistakeElemsContainGivenElems(mistake.getStudentElements(), (EList<NamedElement>) studentElem_s));
+    } else {
+      fail("Wrong type for studentElem(s): NamedElement or EList<NamedElement> expected");
+    }
+
+    if (instructorElem_s instanceof NamedElement) {
+      assertEquals(mistake.getInstructorElements().get(0).getElement(), instructorElem_s);
+    } else if (instructorElem_s instanceof EList) {
+      assertTrue(mistakeElemsContainGivenElems(mistake.getInstructorElements(),
+          (EList<NamedElement>) instructorElem_s));
+    } else {
+      fail("Wrong type for instructorElem(s): NamedElement or EList<NamedElement> expected");
+    }
   }
 
   /**
@@ -556,12 +552,11 @@ public class MistakeDetectionTest {
    * @param numDetections
    * @param resolved
    */
-  public static boolean assertMistakeAttribute(Mistake mistake, int numSinceResolved, int numDetections,
+  public static void assertMistakeAttribute(Mistake mistake, int numSinceResolved, int numDetections,
       boolean resolved) {
     assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
     assertEquals(mistake.getNumDetection(), numDetections);
     assertEquals(mistake.isResolved(), resolved);
-    return true;
   }
 
   /**
@@ -574,11 +569,10 @@ public class MistakeDetectionTest {
    * @param numDetections
    * @param resolved
    */
-  public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, NamedElement studentElement,
+  public static void assertMistake(Mistake mistake, MistakeType mistakeType, NamedElement studentElement,
       NamedElement instructorElement, int numSinceResolved, int numDetections, boolean resolved) {
     assertMistakeLinks(mistake, mistakeType, studentElement, instructorElement);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
-    return true;
   }
 
   /**
@@ -591,11 +585,10 @@ public class MistakeDetectionTest {
    * @param numDetections
    * @param resolved
    */
-  public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, EList<NamedElement> studentElements,
+  public static void assertMistake(Mistake mistake, MistakeType mistakeType, EList<NamedElement> studentElements,
       EList<NamedElement> instructorElements, int numSinceResolved, int numDetections, boolean resolved) {
     assertMistakeLinks(mistake, mistakeType, studentElements, instructorElements);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
-    return true;
   }
 
   /**
@@ -608,11 +601,10 @@ public class MistakeDetectionTest {
    * @param numDetections
    * @param resolved
    */
-  public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, NamedElement element,
+  public static void assertMistake(Mistake mistake, MistakeType mistakeType, NamedElement element,
       int numSinceResolved, int numDetections, boolean resolved) {
     assertMistakeLinks(mistake, mistakeType, element);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
-    return true;
   }
 
   /**
@@ -625,20 +617,12 @@ public class MistakeDetectionTest {
    * @param numDetections
    * @param resolved
    */
-  public static boolean assertMistake(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements,
+  public static void assertMistake(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements,
       int numSinceResolved, int numDetections, boolean resolved) {
     assertMistakeLinks(mistake, mistakeType, elements);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
-    return true;
   }
 
-  // ------------
-  /*
-   * assertMistakeInLoop are to be used for asserting mistakes in loop because they contain if conditions, The if
-   * conditions are necessary to match only the correct mistake type and solution elements.
-   *
-   */
-  // ------------
   /**
    * Asserts a mistake in loop with only single instructor and student element.
    *
@@ -649,11 +633,10 @@ public class MistakeDetectionTest {
    * @param numDetections
    * @param resolved
    */
-  public static void assertMistakeInLoop(Mistake mistake, MistakeType mistakeType, NamedElement studentElement,
+  public static void assertMistakeConditional(Mistake mistake, MistakeType mistakeType, NamedElement studentElement,
       NamedElement instructorElement, int numSinceResolved, int numDetections, boolean resolved) {
     if (mistake.getMistakeType() == mistakeType && mistake.getStudentElements().get(0).getElement() == studentElement) {
-      assertTrue(assertMistake(mistake, mistakeType, studentElement, instructorElement, numSinceResolved, numDetections,
-          resolved));
+      assertMistake(mistake, mistakeType, studentElement, instructorElement, numSinceResolved, numDetections, resolved);
     }
   }
 
@@ -667,11 +650,13 @@ public class MistakeDetectionTest {
    * @param numDetections
    * @param resolved
    */
-  public static void assertMistakeInLoop(Mistake mistake, MistakeType mistakeType, EList<NamedElement> studentElements,
-      EList<NamedElement> instructorElements, int numSinceResolved, int numDetections, boolean resolved) {
-    if (mistake.getMistakeType() == mistakeType && compareList(mistake.getStudentElements(), studentElements)) {
-      assertTrue(assertMistake(mistake, mistakeType, studentElements, instructorElements, numSinceResolved,
-          numDetections, resolved));
+  public static void assertMistakeConditional(Mistake mistake, MistakeType mistakeType,
+      EList<NamedElement> studentElements, EList<NamedElement> instructorElements, int numSinceResolved,
+      int numDetections, boolean resolved) {
+    if (mistake.getMistakeType() == mistakeType
+        && mistakeElemsContainGivenElems(mistake.getStudentElements(), studentElements)) {
+      assertMistake(mistake, mistakeType, studentElements, instructorElements, numSinceResolved, numDetections,
+          resolved);
     }
   }
 
@@ -685,16 +670,16 @@ public class MistakeDetectionTest {
    * @param numDetections
    * @param resolved
    */
-  public static void assertMistakeInLoop(Mistake mistake, MistakeType mistakeType, NamedElement element,
+  public static void assertMistakeConditional(Mistake mistake, MistakeType mistakeType, NamedElement element,
       int numSinceResolved, int numDetections, boolean resolved) {
     if (mistake.getStudentElements().isEmpty()) {
       if (mistake.getMistakeType() == mistakeType && mistake.getInstructorElements().get(0).getElement() == element) {
-        assertTrue(assertMistake(mistake, mistakeType, element, numSinceResolved, numDetections, resolved));
+        assertMistake(mistake, mistakeType, element, numSinceResolved, numDetections, resolved);
       }
     }
     if (mistake.getInstructorElements().isEmpty()) {
       if (mistake.getMistakeType() == mistakeType && mistake.getStudentElements().get(0).getElement() == element) {
-        assertTrue(assertMistake(mistake, mistakeType, element, numSinceResolved, numDetections, resolved));
+        assertMistake(mistake, mistakeType, element, numSinceResolved, numDetections, resolved);
       }
     }
   }
@@ -709,15 +694,17 @@ public class MistakeDetectionTest {
    * @param numDetections
    * @param resolved
    */
-  public static void assertMistakeInLoop(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements,
+  public static void assertMistakeConditional(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements,
       int numSinceResolved, int numDetections, boolean resolved) {
     if (mistake.getStudentElements().isEmpty()) {
-      if (mistake.getMistakeType() == mistakeType && compareList(mistake.getInstructorElements(), elements)) {
+      if (mistake.getMistakeType() == mistakeType
+          && mistakeElemsContainGivenElems(mistake.getInstructorElements(), elements)) {
         assertMistake(mistake, mistakeType, elements, numSinceResolved, numDetections, resolved);
       }
     }
     if (mistake.getInstructorElements().isEmpty()) {
-      if (mistake.getMistakeType() == mistakeType && compareList(mistake.getStudentElements(), elements)) {
+      if (mistake.getMistakeType() == mistakeType
+          && mistakeElemsContainGivenElems(mistake.getStudentElements(), elements)) {
         assertMistake(mistake, mistakeType, elements, numSinceResolved, numDetections, resolved);
       }
     }
@@ -731,20 +718,17 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Compares the list of elements of mistake with the given elements. This function is to be used when testing mistake
-   * types with more than one element.
+   * Compares the list of elements of one mistake with the given elements. This function is to be used when testing
+   * mistake types with more than one element.
    *
    * @param mistakeElements
    * @param givenElements
-   * @return
+   * @return true if mistakeElements contain givenElements
    */
-  public static boolean compareList(EList<SolutionElement> mistakeElements, EList<NamedElement> givenElements) {
-    for (SolutionElement element : mistakeElements) {
-      if (!givenElements.contains((NamedElement)element)) {
-        return false;
-      }
-    }
-    return true;
+  public static boolean mistakeElemsContainGivenElems(EList<SolutionElement> mistakeElements,
+      EList<NamedElement> givenElements) {
+    var namedElemsFromMistake = mistakeElements.stream().map(SolutionElement::getElement).collect(Collectors.toList());
+    return namedElemsFromMistake.containsAll(givenElements);
   }
 
   /**

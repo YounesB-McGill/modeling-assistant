@@ -1,7 +1,7 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeAttribute;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeInLoop;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeConditional;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeLinks;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.cdmFromFile;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
@@ -99,8 +99,8 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(studentSolution.getMistakes().size(), 4);
 
     for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
-      assertMistakeInLoop(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 1, false);
+      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
+      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 1, false);
     }
   }
 
@@ -125,9 +125,9 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
 
-    assertTrue(assertMistakeLinks(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING,
-        studentBuseClass, instructorBusClass));
-    assertTrue(assertMistakeAttribute(studentSolution.getMistakes().get(0), 0, 1, false));
+    assertMistakeLinks(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentBuseClass,
+        instructorBusClass);
+    assertMistakeAttribute(studentSolution.getMistakes().get(0), 0, 1, false);
   }
 
   @Test
