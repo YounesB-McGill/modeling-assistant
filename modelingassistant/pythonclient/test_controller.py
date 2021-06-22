@@ -629,7 +629,7 @@ def test_student_knowledge_persisted_correctly():
     cdm_by_file[cd1_file] = class_diagram1
 
     # Open learning corpus and create general learning objects associated with it
-    learning_corpus = load_lc(LEARNING_CORPUS_PATH)    
+    learning_corpus = load_lc(LEARNING_CORPUS_PATH)
 
     correct_class_naming = LearningItem(learningCorpus=learning_corpus)
     class_naming_mistake_type = BAD_CLASS_NAME_SPELLING
