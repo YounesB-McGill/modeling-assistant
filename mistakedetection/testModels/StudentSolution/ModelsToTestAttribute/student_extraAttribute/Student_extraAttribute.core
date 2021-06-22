@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_bU8oENE4EeuawPOA1JgzNA" name="Student_extraAttribute" featureModel="_bU9PINE4EeuawPOA1JgzNA" impactModel="_bU9PItE4EeuawPOA1JgzNA">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_bU9PINE4EeuawPOA1JgzNA" root="_bU9PIdE4EeuawPOA1JgzNA">
+    <features xmi:id="_bU9PIdE4EeuawPOA1JgzNA" name="Student_extraAttribute" realizedBy="_b7lxUdE4EeuawPOA1JgzNA"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_bU9PItE4EeuawPOA1JgzNA" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_b7lxUNE4EeuawPOA1JgzNA" name="Student_extraAttribute" scene="_b7lxUdE4EeuawPOA1JgzNA" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_extraAttribute.domain_model.cdm#_b7mYYdE4EeuawPOA1JgzNA"/>
+  </artefacts>
+  <scenes xmi:id="_b7lxUdE4EeuawPOA1JgzNA" name="Student_extraAttribute" realizes="_bU9PIdE4EeuawPOA1JgzNA" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_b7mYYNE4EeuawPOA1JgzNA" value="_b7lxUNE4EeuawPOA1JgzNA" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
