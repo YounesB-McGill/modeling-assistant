@@ -178,7 +178,5 @@ public class MistakeDetectionWrongClassTest {
 
     assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentBusesClass,
         instructorBusClass, 0, 1, false);
-
   }
-
 }
