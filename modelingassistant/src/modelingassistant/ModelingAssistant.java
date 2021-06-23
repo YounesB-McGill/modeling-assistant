@@ -2,9 +2,16 @@
  */
 package modelingassistant;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
 import org.eclipse.emf.common.util.EList;
-
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import ca.mcgill.sel.classdiagram.util.CdmResourceFactoryImpl;
+import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -96,5 +103,63 @@ public interface ModelingAssistant extends EObject {
    * @generated
    */
   EList<FeedbackItem> getFeedbackItems();
+
+  /**
+   * Returns the modeling assistant at the given *.modelingassistant file.
+   *
+   * @generated NOT
+   */
+  static ModelingAssistant fromFile(File file) {
+    ModelingassistantPackage.eINSTANCE.eClass();
+    // rset is local to avoid duplicate resource issues
+    // this may need to change in the future to improve performance
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().putAll(Map.of(
+        "cdm", new CdmResourceFactoryImpl(),
+        ModelingassistantPackage.eNAME, new ModelingassistantResourceFactoryImpl()));
+    try {
+      var maResource = rset.createResource(URI.createFileURI(file.getCanonicalPath()));
+      maResource.load(Collections.EMPTY_MAP);
+      return (ModelingAssistant) maResource.getContents().get(0);
+    } catch (IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * Returns the modeling assistant at the given *.modelingassistant file path.
+   *
+   * @generated NOT
+   */
+  static ModelingAssistant fromFile(String path) {
+    return fromFile(new File(path));
+  }
+
+  /**
+   * Save the modeling assistant instance to the given *.modelingassistant file.
+   *
+   * @generated NOT
+   */
+  default void toFile(File file) {
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().putAll(Map.of(
+        "cdm", new CdmResourceFactoryImpl(),
+        ModelingassistantPackage.eNAME, new ModelingassistantResourceFactoryImpl()));
+    try {
+      var maResource = rset.createResource(URI.createFileURI(file.getCanonicalPath()));
+      maResource.getContents().add(this);
+      maResource.save(Collections.EMPTY_MAP);
+    } catch (IOException e) {
+    }
+  }
+
+  /**
+   * Save the modeling assistant instance to the given *.modelingassistant file path.
+   *
+   * @generated NOT
+   */
+  default void toFile(String path) {
+    toFile(new File(path));
+  }
 
 } // ModelingAssistant
