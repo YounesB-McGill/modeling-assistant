@@ -218,7 +218,7 @@ def test_persisting_modeling_assistant_with_one_class_solution():
     Verify that a ModelingAssistant instance with a one class solution can be serialized to an XMI file.
     """
     # Remove previously created files (if they exist)
-    ma_path = "modelingassistant/instances/ma_one_class_from_python.xmi"
+    ma_path = "modelingassistant/instances/ma_one_class_from_python.modelingassistant"
     cd_path = "modelingassistant/instances/ma_one_class_from_python.cdm"
     if os.path.exists(ma_path):
         os.remove(ma_path)
@@ -253,7 +253,7 @@ def test_loading_modeling_assistant_with_one_class_solution():
     Verify that the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open a Modeling Assistant instance
-    ma_file = f"{MA_PATH}/ma_one_class_from_python.xmi"
+    ma_file = f"{MA_PATH}/ma_one_class_from_python.modelingassistant"
     modeling_assistant = load_ma(ma_file)
     class_diagram: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram.__class__ = ClassDiagram
@@ -271,7 +271,7 @@ def test_loading_modeling_assistant_with_one_class_solution_serialized_in_java()
     Verify that the Java version of the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open a Modeling Assistant instance
-    ma_file = f"{MA_PATH}/ma_one_class_from_java.xmi"
+    ma_file = f"{MA_PATH}/ma_one_class_from_java.modelingassistant"
     modeling_assistant = load_ma(ma_file)
     class_diagram: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram.__class__ = ClassDiagram
@@ -289,7 +289,7 @@ def test_persisting_modeling_assistant_with_multiclass_solution():
     Verify that a ModelingAssistant instance with a multiclass solution can be serialized to an XMI file.
     """
     # Remove previously created file (if it exists)
-    ma_file = "modelingassistant/instances/ma_multiclass_from_python.xmi"
+    ma_file = "modelingassistant/instances/ma_multiclass_from_python.modelingassistant"
     cd_file = "modelingassistant/instances/ma_multiclass_from_python.cdm"
     if os.path.exists(ma_file): os.remove(ma_file)
     if os.path.exists(cd_file): os.remove(cd_file)
@@ -320,7 +320,7 @@ def test_loading_modeling_assistant_with_multiclass_solution():
     Verify that the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open a Modeling Assistant instance
-    ma_file = f"{MA_PATH}/ma_multiclass_from_python.xmi"
+    ma_file = f"{MA_PATH}/ma_multiclass_from_python.modelingassistant"
     modeling_assistant = load_ma(ma_file)
     class_diagram: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram.__class__ = ClassDiagram
@@ -342,7 +342,7 @@ def test_loading_modeling_assistant_with_multiclass_solution_serialized_in_java(
     Verify that the Java version of the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open a Modeling Assistant instance
-    ma_file = f"{MA_PATH}/ma_multiclass_from_java.xmi"
+    ma_file = f"{MA_PATH}/ma_multiclass_from_java.modelingassistant"
     modeling_assistant = load_ma(ma_file)
     class_diagram: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram.__class__ = ClassDiagram
@@ -364,7 +364,7 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
     Verify that a ModelingAssistant instance with multiple solutions can be serialized to an XMI file.
     """
     # Remove previously created file (if it exists)
-    ma_path = "modelingassistant/instances/ma_multisolution_from_python.xmi"
+    ma_path = "modelingassistant/instances/ma_multisolution_from_python.modelingassistant"
     cd1_path = "modelingassistant/instances/ma_multisolution_from_python1.cdm"
     cd2_path = "modelingassistant/instances/ma_multisolution_from_python2.cdm"
     for p in [ma_path, cd1_path, cd2_path]:
@@ -419,7 +419,7 @@ def test_loading_modeling_assistant_with_multiple_solutions():
     Verify that the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open a Modeling Assistant instance
-    ma_file = f"{MA_PATH}/ma_multisolution_from_python.xmi"
+    ma_file = f"{MA_PATH}/ma_multisolution_from_python.modelingassistant"
     modeling_assistant = load_ma(ma_file)
     class_diagram1: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram1.__class__ = ClassDiagram
@@ -454,7 +454,7 @@ def test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java
     Verify that the Java version of the modeling assistant instance defined above can be deserialized correctly.
     """
     # Open a Modeling Assistant instance
-    ma_file = f"{MA_PATH}/ma_multisolution_from_java.xmi"
+    ma_file = f"{MA_PATH}/ma_multisolution_from_java.modelingassistant"
     modeling_assistant = load_ma(ma_file)
     class_diagram1: ClassDiagram = modeling_assistant.solutions[0].classDiagram
     class_diagram1.__class__ = ClassDiagram
@@ -608,13 +608,12 @@ def test_persisting_modeling_assistant_to_string():
         ''') == ma_str
 
 
-#@pytest.mark.skip("This test will be modified in a future commit.")
 def test_student_knowledge_persisted_correctly():
     """
     Verify that StudentKnowledge association classes can be serialized and loaded again correctly.
     """
     # Remove previously created files (if they exist)
-    ma_file = f"{MA_PATH}/ma_studentknowledge_from_python.xmi"
+    ma_file = f"{MA_PATH}/ma_studentknowledge_from_python.modelingassistant"
     cd1_file = f"{MA_PATH}/ma_studentknowledge_from_python1.cdm"
     cd2_file = f"{MA_PATH}/ma_studentknowledge_from_python2.cdm"
     for p in [ma_file, cd1_file, cd2_file]:
