@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<classdiagram:ClassDiagram xmlns:xmi="http://www.omg.org/XMI" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmi:id="4a5484bf-c786-4afc-945b-368973a93f76" name="Student2_solution" xmi:version="2.0">
-  <types xsi:type="classdiagram:CDInt" xmi:id="b7cc86db-1169-4bfc-896c-0b6d11ce2c87"/>
-  <types xsi:type="classdiagram:CDString" xmi:id="b29306b3-acca-4907-9a48-9a85947551f9"/>
-  <classes xsi:type="classdiagram:Class" xmi:id="ee7ed241-3c04-48ac-a8e8-48cb0a87dd9c" name="Car">
-    <attributes xsi:type="classdiagram:Attribute" xmi:id="591c7e38-8e11-496e-a903-b21d855320ef" name="id" type="b7cc86db-1169-4bfc-896c-0b6d11ce2c87"/>
-    <attributes xsi:type="classdiagram:Attribute" xmi:id="201a87bd-58ad-4f56-9f73-7f6619f218c5" name="make" type="b29306b3-acca-4907-9a48-9a85947551f9"/>
+<classdiagram:ClassDiagram xmlns:xmi="http://www.omg.org/XMI" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmi:id="e20256be-48d6-4aac-bbd0-6dcc0b926f43" name="Student2_solution" xmi:version="2.0">
+  <classes xsi:type="classdiagram:Class" xmi:id="6ce8a668-5dc8-4386-88a6-444fc31678c3" name="Car">
+    <attributes xsi:type="classdiagram:Attribute" xmi:id="60463471-f038-49ef-8106-0f7bcb2483c4" type="27dfa1e2-61cb-4494-9fbf-e0411ff53e27" name="id"/>
+    <attributes xsi:type="classdiagram:Attribute" xmi:id="48dba91c-17f8-407c-a47e-c599eeca4306" type="9d073120-b62e-4739-88aa-4f66f5ec2927" name="make"/>
   </classes>
+  <types xsi:type="classdiagram:CDInt" xmi:id="27dfa1e2-61cb-4494-9fbf-e0411ff53e27"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="9d073120-b62e-4739-88aa-4f66f5ec2927"/>
 </classdiagram:ClassDiagram>

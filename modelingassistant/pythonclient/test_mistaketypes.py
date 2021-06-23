@@ -21,12 +21,12 @@ def test_get_mistake_type_and_mistake_type_category_by_names():
     actual_missing_class_mistake_type: MistakeType = mistaketypes.MISSING_CLASS
 
     assert expected_wrong_class_mistake_type_category.name == actual_wrong_class_mistake_type_category.name
-    
+
     assert expected_missing_class_mistake_type.name == actual_missing_class_mistake_type.name
     assert expected_missing_class_mistake_type.atomic == actual_missing_class_mistake_type.atomic
     assert (expected_missing_class_mistake_type.mistakeTypeCategory.name ==
         actual_missing_class_mistake_type.mistakeTypeCategory.name)
-    
+
     assert actual_wrong_class_mistake_type_category.learningCorpus
     assert (actual_wrong_class_mistake_type_category.learningCorpus ==
         actual_missing_class_mistake_type.mistakeTypeCategory.learningCorpus)

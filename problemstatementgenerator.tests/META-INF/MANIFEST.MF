@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
+Automatic-Module-Name: problemstatementgenerator.test
 Bundle-ManifestVersion: 2
 Bundle-Name: problemstatementgenerator.test
 Bundle-SymbolicName: problemstatementgenerator.test; singleton:=true

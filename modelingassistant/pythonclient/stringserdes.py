@@ -2,10 +2,12 @@
 Module for custom, string-friendly pyecore items.
 """
 
-from lxml.etree import Element, ElementTree, QName, fromstring, tostring
+from lxml.etree import Element, ElementTree, QName, fromstring, tostring  # pylint: disable=no-name-in-module
 from pyecore.ecore import EProxy
-from pyecore.resources.resource import  ResourceSet
+from pyecore.resources.resource import  Resource, ResourceSet, URI
 from pyecore.resources.xmi import XMI, XMIOptions, XMIResource, XMI_URL, XSI
+
+from fileserdes import CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM
 
 MA_USE_STRING_SERDES = "MA_USE_STRING_SERDES"
 
@@ -14,15 +16,25 @@ class StringEnabledResourceSet(ResourceSet):
     """
     Extension of a ResourceSet that allows the use of in-memory string resources to reduce disk I/O.
     """
+    def __init__(self):
+        super().__init__()
+        for mm in [CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM]:
+            resource: Resource = self.get_resource(URI(mm))
+            mm_root = resource.contents[0]
+            self.metamodel_registry[mm_root.nsURI] = mm_root
+
+
     def create_string_resource(self):
         "Create a resource that can be used to store a string in-memory."
         resource = StringEnabledXMIResource()
         self.resources["dummy.modelingassistant"] = resource
         resource.resource_set = self
         resource.decoders.insert(0, self)
+        resource.use_uuid = True
         return resource
 
     def get_string_resource(self, string: str, options=None):
+        "Return a resource from the given string."
         options = options or {}
         options[MA_USE_STRING_SERDES] = True
 
@@ -39,7 +51,7 @@ class StringEnabledXMIResource(XMIResource):
     """
     XMIResource used to load/save a model instance from/to a string instead of a file.
     The code is mostly copied from the pyecore library, but with modifications to
-    use strings instead a file. 
+    use strings instead a file.
     """
     def load_string(self, string: str, options=None):
         self.options = options or {}
