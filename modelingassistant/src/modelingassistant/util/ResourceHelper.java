@@ -104,6 +104,18 @@ public final class ResourceHelper {
     return cdmFromFile(new File(path));
   }
 
+  /**
+   * Saves the given EObject models to the given files. This method should be used like this:
+   *
+   * <pre>
+   * ResourceHelper.saveToFiles(
+   *     file1String, model1ToBeSavedInFile1, model2ToBeSavedInFile1, model3ToBeSavedInFile1,
+   *     file2String, modelToBeSavedInFile2
+   * );
+   * </pre>
+   *
+   * where fileString is a string representing the relative path of the file where the EObject model(s) will be saved.
+   */
   public static void saveToFiles(Object... params) {
     if (params == null || params.length == 0) {
       return;
@@ -141,6 +153,21 @@ public final class ResourceHelper {
     });
   }
 
+  /**
+   * Helper method to transform the input parameters from this form:
+   *
+   * <pre>[file1, eObject1ForFile1, eObject2ForFile1, ..., eObjectNForFile1,
+   * file2, eObject1ForFile2, eObject2ForFile2, ..., eObjectNForFile2,
+   * ...,
+   * fileM, eObject1ForFileM, eObject2ForFileM, ..., eObjectNForFileM]</pre>
+   *
+   * to this one:
+   *
+   * <pre>[file1, list1, ..., fileM, listM]</pre>
+   *
+   * where listK refers to the list of EObjects intended to be saved in fileK.
+   *
+   */
   private static Map<String, List<EObject>> mapFileNamesToEObjects(Object... params) {
     var filesToEObjects = new HashMap<String, List<EObject>>();
     String mostRecentFile = null;
