@@ -166,5 +166,4 @@ public class MistakeDetectionWrongAttributeTest {
     assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructorNameAttribute, 0, 1,
         false);
   }
-
 }
