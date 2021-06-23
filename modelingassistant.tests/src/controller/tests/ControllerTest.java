@@ -8,10 +8,8 @@ import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,7 +20,6 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Attribute;
@@ -33,7 +30,6 @@ import ca.mcgill.sel.classdiagram.CdmPackage;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.classdiagram.ReferenceType;
-import ca.mcgill.sel.classdiagram.util.CdmResourceFactoryImpl;
 import learningcorpus.LearningCorpus;
 import learningcorpus.LearningcorpusPackage;
 import learningcorpus.mistaketypes.MistakeTypes;
@@ -637,16 +633,10 @@ public class ControllerTest {
     CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
     var maPath = "../modelingassistant/instances/ma_multisolution_all_in_one.modelingassistant";
-    var rset = new ResourceSetImpl();
-    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("modelingassistant",
-        new ModelingassistantResourceFactoryImpl());
-    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm", new CdmResourceFactoryImpl());
     try {
-      var maResource = rset.createResource(URI.createFileURI("*.modelingassistant"));
       var maString = Files.readString(Path.of(maPath));
-      maResource.load(new URIConverter.ReadableInputStream(maString), Collections.EMPTY_MAP);
 
-      var modelingAssistant = (ModelingAssistant) maResource.getContents().get(0);
+      var modelingAssistant = ModelingAssistant.fromEcoreString(maString);
       var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
 
       assertEquals("Student1_solution", classDiagram.getName());
@@ -686,42 +676,31 @@ public class ControllerTest {
     classDiagram.getClasses().add(carClass);
 
     // Write modeling assistant instance to string and verify contents
-    var rset = new ResourceSetImpl();
-    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("modelingassistant",
-        new ModelingassistantResourceFactoryImpl());
-    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm", new CdmResourceFactoryImpl());
-    var resource = rset.createResource(URI.createFileURI("*.modelingassistant"));
-    resource.getContents().addAll(List.of(modelingAssistant, classDiagram));
-    var outputStream = new ByteArrayOutputStream();
-    try {
-      resource.save(outputStream, Collections.EMPTY_MAP);
-      var maStr = outputStream.toString(StandardCharsets.UTF_8);
-      var xmiIdPattern = Pattern.compile("xmi:id=\"(.*?)\"");
-      var cdmIdPattern = Pattern.compile("classDiagram=\"(.*?)\"");
-      var typePattern = Pattern.compile(" type=\"(.*?)\"");
-      maStr = xmiIdPattern.matcher(maStr).replaceAll("xmi:id=\"\"");
-      maStr = cdmIdPattern.matcher(maStr).replaceAll("classDiagram=\"\"");
-      maStr = typePattern.matcher(maStr).replaceAll(""); // since name and type can occur in any order
-      maStr = maStr.replace("\r", "");
+    var maStr = modelingAssistant.toEcoreString();
 
-      // TODO Replace ugly string concatenation with """text block""" after upgrading to Java 16+
-      assertEquals("<?xml version=\"1.0\" encoding=\"ASCII\"?>\n"
-          + "<xmi:XMI xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:classdiagram=\"http://cs.mcgill.ca/sel/cdm/1.0\" xmlns:modelingassistant=\"http://cs.mcgill.ca/sel/modelingassistant/1.0\">\n"
-          + "  <modelingassistant:ModelingAssistant xmi:id=\"\">\n"
-          + "    <solutions xmi:id=\"\" classDiagram=\"\"/>\n"
-          + "  </modelingassistant:ModelingAssistant>\n"
-          + "  <classdiagram:ClassDiagram xmi:id=\"\" name=\"Student1_solution\">\n"
-          + "    <classes xsi:type=\"classdiagram:Class\" xmi:id=\"\" name=\"Car\">\n"
-          + "      <attributes xmi:id=\"\" name=\"id\"/>\n"
-          + "      <attributes xmi:id=\"\" name=\"make\"/>\n"
-          + "    </classes>\n"
-          + "    <types xsi:type=\"classdiagram:CDInt\" xmi:id=\"\"/>\n"
-          + "    <types xsi:type=\"classdiagram:CDString\" xmi:id=\"\"/>\n"
-          + "  </classdiagram:ClassDiagram>\n"
-          + "</xmi:XMI>\n", maStr);
-    } catch (IOException e) {
-      fail();
-    }
+    var xmiIdPattern = Pattern.compile("xmi:id=\"(.*?)\"");
+    var cdmIdPattern = Pattern.compile("classDiagram=\"(.*?)\"");
+    var typePattern = Pattern.compile(" type=\"(.*?)\"");
+    maStr = xmiIdPattern.matcher(maStr).replaceAll("xmi:id=\"\"");
+    maStr = cdmIdPattern.matcher(maStr).replaceAll("classDiagram=\"\"");
+    maStr = typePattern.matcher(maStr).replaceAll(""); // since name and type can occur in any order
+    maStr = maStr.replace("\r", "");
+
+    // TODO Replace ugly string concatenation with """text block""" after upgrading to Java 16+
+    assertEquals("<?xml version=\"1.0\" encoding=\"ASCII\"?>\n"
+        + "<xmi:XMI xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:classdiagram=\"http://cs.mcgill.ca/sel/cdm/1.0\" xmlns:modelingassistant=\"http://cs.mcgill.ca/sel/modelingassistant/1.0\">\n"
+        + "  <modelingassistant:ModelingAssistant xmi:id=\"\">\n"
+        + "    <solutions xmi:id=\"\" classDiagram=\"\"/>\n"
+        + "  </modelingassistant:ModelingAssistant>\n"
+        + "  <classdiagram:ClassDiagram xmi:id=\"\" name=\"Student1_solution\">\n"
+        + "    <classes xsi:type=\"classdiagram:Class\" xmi:id=\"\" name=\"Car\">\n"
+        + "      <attributes xmi:id=\"\" name=\"id\"/>\n"
+        + "      <attributes xmi:id=\"\" name=\"make\"/>\n"
+        + "    </classes>\n"
+        + "    <types xsi:type=\"classdiagram:CDInt\" xmi:id=\"\"/>\n"
+        + "    <types xsi:type=\"classdiagram:CDString\" xmi:id=\"\"/>\n"
+        + "  </classdiagram:ClassDiagram>\n"
+        + "</xmi:XMI>\n", maStr);
   }
 
   /**
