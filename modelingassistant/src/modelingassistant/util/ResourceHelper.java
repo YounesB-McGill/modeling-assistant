@@ -2,7 +2,11 @@ package modelingassistant.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -12,12 +16,16 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import ca.mcgill.sel.classdiagram.CdmPackage;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.util.CdmResourceFactoryImpl;
+import learningcorpus.LearningcorpusPackage;
+import learningcorpus.util.LearningcorpusResourceFactoryImpl;
+import modelingassistant.ModelingassistantPackage;
 
 /**
  * Utility class that provides means to load and save resources. It uses the default XMI resource factory for any kind
  * of resource, however, specific resource factories can be registered for specific file extensions.
  *
  * @author Matthias Schoettle <mschoettle (at) cs.mcgill.ca>
+ * @author Younes Boubekeur
  *
  * @generated NOT
  */
@@ -93,6 +101,57 @@ public final class ResourceHelper {
    */
   public static ClassDiagram cdmFromFile(String path) {
     return cdmFromFile(new File(path));
+  }
+
+  @SuppressWarnings("unchecked") // needed due to lack of union types in Java
+  public static void saveToFiles(Object... params) {
+    if (params == null || params.length == 0) {
+      return;
+    }
+    var paramList = Arrays.asList(params);
+    if (!paramList.stream().allMatch(p -> p instanceof String || p instanceof EObject)
+        || !(params[0] instanceof String) || params[params.length - 1] instanceof String) {
+      throw new IllegalArgumentException("Invalid input type, only String or EObject allowed.");
+    }
+
+    paramList = new ArrayList<Object>();
+    List<EObject> models = new ArrayList<EObject>();
+    for (var p: params) {
+      if (p instanceof String) {
+        if (!models.isEmpty()) {
+          paramList.add(models);
+        }
+        paramList.add(p);
+        models = new ArrayList<EObject>();
+      } else {
+        models.add((EObject) p);
+      }
+    }
+    paramList.add(models);
+
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().putAll(Map.of(
+        "cdm", new CdmResourceFactoryImpl(),
+        LearningcorpusPackage.eNAME, new LearningcorpusResourceFactoryImpl(),
+        ModelingassistantPackage.eNAME, new ModelingassistantResourceFactoryImpl()));
+
+    String filePath = null;
+    for (var p: paramList) {
+      if (p instanceof String) {
+        filePath = (String) p;
+      } else if (p instanceof List) {
+        try {
+          var resource = rset.createResource(URI.createFileURI(new File(filePath).getCanonicalPath()));
+          resource.getContents().addAll((List<EObject>) p);
+          System.out.println(
+              ((EObject) ((List) p).get(0)).eResource()
+              );
+          resource.save(Collections.EMPTY_MAP);
+        } catch (IOException e) {
+          System.err.println("Failed to save model(s) to file " + filePath + " with error: " + e);
+        }
+      }
+    }
   }
 
 }
