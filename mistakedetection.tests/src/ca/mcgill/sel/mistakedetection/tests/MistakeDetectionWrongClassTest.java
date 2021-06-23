@@ -1,5 +1,6 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistake;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeAttribute;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeConditional;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeLinks;
@@ -152,6 +153,32 @@ public class MistakeDetectionWrongClassTest {
 
     var actual = MistakeDetection.checkMistakePluralClassName(studentClass, instructorClass).get();
     assertEquals(expected.getMistakeType(), actual.getMistakeType());
+  }
+
+  /**
+   * Test to check Plural class name mistake
+   */
+  @Test
+  public void testPluralClassName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBus/Class Diagram/Instructor_classBus.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_pluralClassName/Class Diagram/Student_pluralClassName.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+    Classifier studentBusesClass = getClassFromClassDiagram("Buses", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(comparison.newMistakes.size(), 1);
+    assertEquals(studentSolution.getMistakes().size(), 1);
+
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentBusesClass,
+        instructorBusClass, 0, 1, false);
+
   }
 
 }

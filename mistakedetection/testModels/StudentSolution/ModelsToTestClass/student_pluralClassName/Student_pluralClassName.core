@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_6kPqgNRKEeuLU7jos0-FOQ" name="Student_pluralClassName" featureModel="_6kQRkNRKEeuLU7jos0-FOQ" impactModel="_6kQRktRKEeuLU7jos0-FOQ">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_6kQRkNRKEeuLU7jos0-FOQ" root="_6kQRkdRKEeuLU7jos0-FOQ">
+    <features xmi:id="_6kQRkdRKEeuLU7jos0-FOQ" name="Student_pluralClassName" realizedBy="_9_lI8NRKEeuLU7jos0-FOQ"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_6kQRktRKEeuLU7jos0-FOQ" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_9_g3gNRKEeuLU7jos0-FOQ" name="Student_pluralClassName" scene="_9_lI8NRKEeuLU7jos0-FOQ" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_pluralClassName.domain_model.cdm#_9_sdsNRKEeuLU7jos0-FOQ"/>
+  </artefacts>
+  <scenes xmi:id="_9_lI8NRKEeuLU7jos0-FOQ" name="Student_pluralClassName" realizes="_6kQRkdRKEeuLU7jos0-FOQ" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_9_lI8dRKEeuLU7jos0-FOQ" value="_9_g3gNRKEeuLU7jos0-FOQ" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

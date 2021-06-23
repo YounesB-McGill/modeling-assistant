@@ -90,7 +90,7 @@ public class MistakeDetectionWrongAttributeTest {
    * Test to check classifier and attribute mapping (2 Attributes unmapped, all classes mapped)
    */
   @Test
-  public void testMistakeMissingAttribute() {
+  public void testMistakeMissingAttributes() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/Class Diagram/Two(withAttributes).domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -138,6 +138,32 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(studentSolution.getMistakes().size(), 1);
 
     assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentDateOfBirthAttribute, 0, 1,
+        false);
+  }
+
+  /**
+   * Test to detect Missing Attribute.
+   */
+  @Test
+  public void testMistakeMissingAttribute() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_person_nameAttribute/Class Diagram/Instructor_person_nameAttribute.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_missingAtterbute/Class Diagram/Student_missingAtterbute.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+
+    Attribute instructorNameAttribute = getAttributeFromClass("name", instructorPersonClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(comparison.newMistakes.size(), 1);
+    assertEquals(studentSolution.getMistakes().size(), 1);
+
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructorNameAttribute, 0, 1,
         false);
   }
 
