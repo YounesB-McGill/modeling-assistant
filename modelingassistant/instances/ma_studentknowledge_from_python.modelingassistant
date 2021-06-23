@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:learningcorpus="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="bb9603b3-9ff6-4d69-bc58-d45aeb59c13d" xmi:version="2.0">
+  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="93e676cd-ac25-4a1d-9c3f-fe5e0bd2d6de" levelOfKnowledge="10578963" student="08341447-51d5-4bc4-b7d0-13030db50ae5">
+    <mistakeType href="../../modelingassistant.learningcorpus.dsl.instances/test.learningcorpus#_a5wtB88sEeu746qPJ_2H3Q" xsi:type="learningcorpus:MistakeType"/>
+  </studentKnowledges>
+  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="521b117f-f947-4a0d-b298-0c379219243e" levelOfKnowledge="8996541" student="0f631f26-9a02-4969-9fd9-5c6d71441a8d">
+    <mistakeType href="../../modelingassistant.learningcorpus.dsl.instances/test.learningcorpus#_a5wtB88sEeu746qPJ_2H3Q" xsi:type="learningcorpus:MistakeType"/>
+  </studentKnowledges>
+  <students xsi:type="modelingassistant:Student" xmi:id="08341447-51d5-4bc4-b7d0-13030db50ae5" solutions="9866f856-c7d4-4028-ad37-7bf4249a32dc" id="1111" studentKnowledges="93e676cd-ac25-4a1d-9c3f-fe5e0bd2d6de"/>
+  <students xsi:type="modelingassistant:Student" xmi:id="0f631f26-9a02-4969-9fd9-5c6d71441a8d" solutions="d77433f9-b1de-4b45-a278-b4a03ff83bae" id="2222" studentKnowledges="521b117f-f947-4a0d-b298-0c379219243e"/>
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="9866f856-c7d4-4028-ad37-7bf4249a32dc" student="08341447-51d5-4bc4-b7d0-13030db50ae5">
+    <classDiagram href="ma_studentknowledge_from_python1.cdm#_VQRncElSEeuektpDqzDh1Q" xsi:type="classdiagram:ClassDiagram"/>
+  </solutions>
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="d77433f9-b1de-4b45-a278-b4a03ff83bae" student="0f631f26-9a02-4969-9fd9-5c6d71441a8d">
+    <classDiagram href="ma_studentknowledge_from_python2.cdm#e20256be-48d6-4aac-bbd0-6dcc0b926f43" xsi:type="classdiagram:ClassDiagram"/>
+  </solutions>
+</modelingassistant:ModelingAssistant>
