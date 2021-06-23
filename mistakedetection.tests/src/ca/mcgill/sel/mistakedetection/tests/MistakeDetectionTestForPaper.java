@@ -1,7 +1,6 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeConditional;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.cdmFromFile;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAssociationEndFromClass;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAssociationFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAttributeFromClass;
@@ -16,6 +15,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
+import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Association;

@@ -11,6 +11,7 @@ pyecoregen = "*"
 pytest = "*"
 atomicwrites = "*"
 flask = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.9"

@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 DEBUG_MODE = True
 PORT = 8538
 
 app = Flask(__name__)
+CORS(app)  # TODO Make this more secure later
 
 
 @app.route("/helloworld")

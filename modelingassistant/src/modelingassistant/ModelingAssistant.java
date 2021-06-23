@@ -2,9 +2,23 @@
  */
 package modelingassistant;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.EList;
-
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.URIConverter;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import ca.mcgill.sel.classdiagram.util.CdmResourceFactoryImpl;
+import learningcorpus.LearningcorpusPackage;
+import learningcorpus.util.LearningcorpusResourceFactoryImpl;
+import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -96,5 +110,81 @@ public interface ModelingAssistant extends EObject {
    * @generated
    */
   EList<FeedbackItem> getFeedbackItems();
+
+  /**
+   * Returns the modeling assistant at the given *.modelingassistant file.
+   *
+   * @generated NOT
+   */
+  static ModelingAssistant fromFile(File file) {
+    ModelingassistantPackage.eINSTANCE.eClass();
+    // rset is local to avoid duplicate resource issues
+    // this may need to change in the future to improve performance
+    var rset = getResourceSetWithExtensions();
+    try {
+      var maResource = rset.createResource(URI.createFileURI(file.getCanonicalPath()));
+      maResource.load(Collections.EMPTY_MAP);
+      return (ModelingAssistant) maResource.getContents().get(0);
+    } catch (IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * Returns the modeling assistant at the given *.modelingassistant file path.
+   *
+   * @generated NOT
+   */
+  static ModelingAssistant fromFile(String path) {
+    return fromFile(new File(path));
+  }
+
+  /**
+   * Returns a modeling assistant instance (along with associated class diagrams if present) from an XMI string.
+   *
+   * @generated NOT
+   */
+  static ModelingAssistant fromEcoreString(String maString) {
+    var resource = getResourceSetWithExtensions().createResource(URI.createFileURI("*.modelingassistant"));
+    try {
+      resource.load(new URIConverter.ReadableInputStream(maString), Collections.EMPTY_MAP);
+      return (ModelingAssistant) resource.getContents().get(0);
+    } catch (IOException e) {
+    }
+    return null;
+  }
+
+  /**
+   * Saves the modeling assistant instance and associated class diagrams to a string.
+   *
+   * @generated NOT
+   */
+  default String toEcoreString() {
+    var resource = getResourceSetWithExtensions().createResource(URI.createFileURI("*.modelingassistant"));
+    resource.getContents().add(this);
+    resource.getContents().addAll(getSolutions().stream().map(Solution::getClassDiagram)
+        .collect(Collectors.toUnmodifiableList()));
+    var outputStream = new ByteArrayOutputStream();
+    try {
+      resource.save(outputStream, Collections.EMPTY_MAP);
+      return outputStream.toString(StandardCharsets.UTF_8);
+    } catch (IOException e) {
+    }
+    return null;
+  }
+
+  /**
+   * Returns a ResourceSet with cdm, learningcorpus, and modelingassistant extensions.
+   *
+   * @generated NOT
+   */
+  private static ResourceSet getResourceSetWithExtensions() {
+    var rset = new ResourceSetImpl();
+    rset.getResourceFactoryRegistry().getExtensionToFactoryMap().putAll(Map.of(
+        "cdm", new CdmResourceFactoryImpl(),
+        LearningcorpusPackage.eNAME, new LearningcorpusResourceFactoryImpl(),
+        ModelingassistantPackage.eNAME, new ModelingassistantResourceFactoryImpl()));
+    return rset;
+  }
 
 } // ModelingAssistant
