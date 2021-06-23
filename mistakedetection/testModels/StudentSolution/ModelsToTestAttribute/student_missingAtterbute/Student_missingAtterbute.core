@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_q_CTYNROEeuyHucA4EFT3Q" name="Student_missingAtterbute" featureModel="_q_C6cNROEeuyHucA4EFT3Q" impactModel="_q_C6ctROEeuyHucA4EFT3Q">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_q_C6cNROEeuyHucA4EFT3Q" root="_q_C6cdROEeuyHucA4EFT3Q">
+    <features xmi:id="_q_C6cdROEeuyHucA4EFT3Q" name="Student_missingAtterbute" realizedBy="_svF7wNROEeuyHucA4EFT3Q"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_q_C6ctROEeuyHucA4EFT3Q" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_svAcMNROEeuyHucA4EFT3Q" name="Student_missingAtterbute" scene="_svF7wNROEeuyHucA4EFT3Q" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_missingAtterbute.domain_model.cdm#_svNQgNROEeuyHucA4EFT3Q"/>
+  </artefacts>
+  <scenes xmi:id="_svF7wNROEeuyHucA4EFT3Q" name="Student_missingAtterbute" realizes="_q_C6cdROEeuyHucA4EFT3Q" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_svGi0NROEeuyHucA4EFT3Q" value="_svAcMNROEeuyHucA4EFT3Q" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
