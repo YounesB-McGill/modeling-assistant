@@ -354,8 +354,8 @@ public class ControllerTest {
     assertEquals("Car", classDiagram.getClasses().get(0).getName());
 
     ResourceHelper.saveToFiles(
-        maFilename, modelingAssistant,
-        cdFilename, classDiagram);
+        maPath, modelingAssistant,
+        cdPath, classDiagram);
 
     assertTrue(maFile.isFile());
     assertTrue(cdFile.isFile());
