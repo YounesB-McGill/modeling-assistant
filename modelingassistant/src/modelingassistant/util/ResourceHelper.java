@@ -104,26 +104,13 @@ public final class ResourceHelper {
     return cdmFromFile(new File(path));
   }
 
-  @SuppressWarnings("unchecked") // needed due to lack of union types in Java
   public static void saveToFiles(Object... params) {
     if (params == null || params.length == 0) {
       return;
     }
-    var paramList = Arrays.asList(params);
-    if (!paramList.stream().allMatch(p -> p instanceof String || p instanceof EObject)
+    if (!Arrays.asList(params).stream().allMatch(p -> p instanceof String || p instanceof EObject)
         || !(params[0] instanceof String) || params[params.length - 1] instanceof String) {
       throw new IllegalArgumentException("Invalid input type, only String or EObject allowed.");
-    }
-
-    Map<String, List<EObject>> filesToEObjects = new HashMap<String, List<EObject>>();
-    String mostRecentFile = null;
-    for (var p: paramList) {
-      if (p instanceof String) {
-        mostRecentFile = (String) p; // rewrite in Java 16+
-        filesToEObjects.put(mostRecentFile, new ArrayList<EObject>());
-      } else {
-        filesToEObjects.get(mostRecentFile).add((EObject) p);
-      }
     }
 
     var rset = new ResourceSetImpl();
@@ -132,7 +119,9 @@ public final class ResourceHelper {
         LearningcorpusPackage.eNAME, new LearningcorpusResourceFactoryImpl(),
         ModelingassistantPackage.eNAME, new ModelingassistantResourceFactoryImpl()));
 
+    Map<String, List<EObject>> filesToEObjects = mapFileNamesToEObjects(params);
     Map<String, Resource> filesToResources = new HashMap<String, Resource>();
+
     filesToEObjects.forEach((file, itemList) -> {
       try {
         var resource = rset.createResource(URI.createFileURI(new File(file).getCanonicalPath()));
@@ -150,6 +139,20 @@ public final class ResourceHelper {
         System.err.println("Failed to save model(s) to file " + file + " with error: " + e);
       }
     });
+  }
+
+  private static Map<String, List<EObject>> mapFileNamesToEObjects(Object... params) {
+    var filesToEObjects = new HashMap<String, List<EObject>>();
+    String mostRecentFile = null;
+    for (var p: params) {
+      if (p instanceof String) {
+        mostRecentFile = (String) p; // rewrite in Java 16+
+        filesToEObjects.put(mostRecentFile, new ArrayList<EObject>());
+      } else {
+        filesToEObjects.get(mostRecentFile).add((EObject) p);
+      }
+    }
+    return filesToEObjects;
   }
 
 }
