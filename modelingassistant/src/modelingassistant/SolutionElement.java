@@ -2,6 +2,7 @@
  */
 package modelingassistant;
 
+import ca.mcgill.sel.classdiagram.NamedElement;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -85,12 +86,12 @@ public interface SolutionElement extends EObject {
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Element</em>' reference.
-   * @see #setElement(ca.mcgill.sel.classdiagram.NamedElement)
+   * @see #setElement(NamedElement)
    * @see modelingassistant.ModelingassistantPackage#getSolutionElement_Element()
    * @model required="true"
    * @generated
    */
-  ca.mcgill.sel.classdiagram.NamedElement getElement();
+  NamedElement getElement();
 
   /**
    * Sets the value of the '{@link modelingassistant.SolutionElement#getElement <em>Element</em>}' reference.
@@ -100,7 +101,7 @@ public interface SolutionElement extends EObject {
    * @see #getElement()
    * @generated
    */
-  void setElement(ca.mcgill.sel.classdiagram.NamedElement value);
+  void setElement(NamedElement value);
 
   /**
    * Returns the value of the '<em><b>Instructor Element Mistakes</b></em>' reference list.
