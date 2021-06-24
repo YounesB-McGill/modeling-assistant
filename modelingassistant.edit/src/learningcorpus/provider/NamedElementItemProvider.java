@@ -140,7 +140,7 @@ public class NamedElementItemProvider
    */
   @Override
   public ResourceLocator getResourceLocator() {
-    return learningcorpus.provider.ModelingassistantEditPlugin.INSTANCE;
+    return ModelingassistantEditPlugin.INSTANCE;
   }
 
 }

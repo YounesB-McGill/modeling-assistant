@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link learningcorpus.MistakeType#getLearningItem <em>Learning Item</em>}</li>
  *   <li>{@link learningcorpus.MistakeType#getFeedbacks <em>Feedbacks</em>}</li>
  *   <li>{@link learningcorpus.MistakeType#getMistakeTypeCategory <em>Mistake Type Category</em>}</li>
+ *   <li>{@link learningcorpus.MistakeType#getPriority <em>Priority</em>}</li>
  * </ul>
  *
  * @see learningcorpus.LearningcorpusPackage#getMistakeType()
@@ -155,5 +156,27 @@ public interface MistakeType extends NamedElement {
    * @generated
    */
   void setMistakeTypeCategory(MistakeTypeCategory value);
+
+  /**
+   * Returns the value of the '<em><b>Priority</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Priority</em>' attribute.
+   * @see #setPriority(int)
+   * @see learningcorpus.LearningcorpusPackage#getMistakeType_Priority()
+   * @model
+   * @generated
+   */
+  int getPriority();
+
+  /**
+   * Sets the value of the '{@link learningcorpus.MistakeType#getPriority <em>Priority</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Priority</em>' attribute.
+   * @see #getPriority()
+   * @generated
+   */
+  void setPriority(int value);
 
 } // MistakeType
