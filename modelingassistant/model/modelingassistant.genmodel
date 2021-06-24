@@ -27,6 +27,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeType/learningItem"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeType/feedbacks"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeType/mistakeTypeCategory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//MistakeType/priority"/>
     </genClasses>
     <genClasses ecoreClass="learningcorpus.ecore#//Feedback">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//Feedback/level"/>
