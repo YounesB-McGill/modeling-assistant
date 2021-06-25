@@ -1,5 +1,4 @@
-from pyecore.resources.resource import ResourceSet, URI
-from learningcorpus.learningcorpus import LearningCorpus, MistakeTypeCategory, MistakeType
+from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
 from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, WRONG_CLASS, WRONG_CLASS_NAME
 from corpus_creation import mts_by_priority
 
