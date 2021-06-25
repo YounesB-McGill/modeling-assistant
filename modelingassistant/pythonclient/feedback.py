@@ -3,6 +3,10 @@
 from learningcorpus.learningcorpus import TextResponse
 from modelingassistant.modelingassistant import FeedbackItem, Mistake, Solution
 
+
+MAX_STUDENT_LEVEL_OF_KNOWLEDGE = 10
+
+
 def give_feedback(student_solution: Solution) -> FeedbackItem:
     "Give feedback on the given student solution."
     if student_solution is not student_solution.student.currentSolution:
@@ -19,14 +23,23 @@ def give_feedback(student_solution: Solution) -> FeedbackItem:
     highest_priority_mistakes = sorted([m for m in mistakes if m.mistakeType.priority == highest_priority],
                                        key=lambda m: m.numDetection, reverse=True)
 
+    result = FeedbackItem(feedback=TextResponse(text=f"""Found mistake of type {
+        highest_priority_mistakes[0].mistakeType.name}"""))
     for m in highest_priority_mistakes:
         curr_feedback_level = m.lastFeedback.feedback.level + 1 if m.lastFeedback else 1
         curr_feedbacks = [f for f in m.mistakeType.feedbacks if f.level == curr_feedback_level]
         if curr_feedbacks:
-            return curr_feedbacks[0]
+            result = curr_feedbacks[0]
 
-    return FeedbackItem(feedback=TextResponse(
-        text=f"Found mistake of type {highest_priority_mistakes[0].mistakeType.name}"))
+    resolved_mistakes: list[Mistake] = [m for m in student_solution.mistakes if m.resolved]
+    for m in resolved_mistakes:
+        sks = student_solution.student.studentKnowledges
+        sk = [sk for sk in sks if sk.mistakeType == m.mistakeType]
+        if sk:
+            sk = sk[0]
+            sk.levelOfKnowledge = MAX_STUDENT_LEVEL_OF_KNOWLEDGE - m.lastFeedback.level
+
+    return result
 
 
 if __name__ == '__main__':
