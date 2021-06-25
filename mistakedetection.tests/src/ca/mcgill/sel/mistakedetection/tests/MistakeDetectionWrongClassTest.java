@@ -185,7 +185,7 @@ public class MistakeDetectionWrongClassTest {
    * Test to detect other extra Class.
    */
   @Test
-  public void testMistakeExtraClasse() {
+  public void testMistakeExtraClass() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBus/Class Diagram/Instructor_classBus.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -194,16 +194,13 @@ public class MistakeDetectionWrongClassTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_extraClassName/Class Diagram/Student_extraClassName.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    Classifier studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
-
+    var studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
-
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS, studentDriverClass, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS, studentDriverClass, 0, 1, false);
   }
 
   /**
@@ -219,15 +216,12 @@ public class MistakeDetectionWrongClassTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_missingAtterbute/Class Diagram/Student_missingAtterbute.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
-
+    var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
-
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS,instructorBusClass, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS,instructorBusClass, 0, 1, false);
   }
 }
