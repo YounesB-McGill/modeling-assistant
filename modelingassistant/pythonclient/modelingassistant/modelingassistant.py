@@ -12,6 +12,8 @@ eClass = EPackage(name=name, nsURI=nsURI, nsPrefix=nsPrefix)
 
 eClassifiers = {}
 getEClassifier = partial(Ecore.getEClassifier, searchspace=eClassifiers)
+TagType = EEnum('TagType', literals=['Abstraction', 'Occurrencce', 'Player', 'Role'])
+
 
 Time = EDataType('Time', instanceClassName='java.sql.Time')
 
@@ -249,14 +251,18 @@ class FeedbackItem(EObject, metaclass=MetaEClass):
 
 class Tag(EObject, metaclass=MetaEClass):
 
+    tagType = EAttribute(eType=TagType, unique=True, derived=False, changeable=True)
     solutionelement = EReference(ordered=True, unique=True, containment=False, derived=False)
     tagGroup = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, solutionelement=None, tagGroup=None):
+    def __init__(self, *, solutionelement=None, tagGroup=None, tagType=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
         super().__init__()
+
+        if tagType is not None:
+            self.tagType = tagType
 
         if solutionelement is not None:
             self.solutionelement = solutionelement

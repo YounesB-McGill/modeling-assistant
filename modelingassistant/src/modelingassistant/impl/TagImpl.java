@@ -7,6 +7,7 @@ import modelingassistant.SolutionElement;
 import modelingassistant.Tag;
 import modelingassistant.TagGroup;
 
+import modelingassistant.TagType;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -28,6 +29,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * <ul>
  *   <li>{@link modelingassistant.impl.TagImpl#getSolutionelement <em>Solutionelement</em>}</li>
  *   <li>{@link modelingassistant.impl.TagImpl#getTagGroup <em>Tag Group</em>}</li>
+ *   <li>{@link modelingassistant.impl.TagImpl#getTagType <em>Tag Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -42,6 +44,25 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
    * @ordered
    */
   protected TagGroup tagGroup;
+
+  /**
+   * The default value of the '{@link #getTagType() <em>Tag Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTagType()
+   * @generated
+   * @ordered
+   */
+  protected static final TagType TAG_TYPE_EDEFAULT = TagType.ABSTRACTION;
+  /**
+   * The cached value of the '{@link #getTagType() <em>Tag Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTagType()
+   * @generated
+   * @ordered
+   */
+  protected TagType tagType = TAG_TYPE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -173,6 +194,29 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
    * @generated
    */
   @Override
+  public TagType getTagType() {
+    return tagType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setTagType(TagType newTagType) {
+    TagType oldTagType = tagType;
+    tagType = newTagType == null ? TAG_TYPE_EDEFAULT : newTagType;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.TAG__TAG_TYPE, oldTagType, tagType));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
     switch (featureID) {
       case ModelingassistantPackage.TAG__SOLUTIONELEMENT:
@@ -230,6 +274,8 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
       case ModelingassistantPackage.TAG__TAG_GROUP:
         if (resolve) return getTagGroup();
         return basicGetTagGroup();
+      case ModelingassistantPackage.TAG__TAG_TYPE:
+        return getTagType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -247,6 +293,9 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
         return;
       case ModelingassistantPackage.TAG__TAG_GROUP:
         setTagGroup((TagGroup)newValue);
+        return;
+      case ModelingassistantPackage.TAG__TAG_TYPE:
+        setTagType((TagType)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -266,6 +315,9 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
       case ModelingassistantPackage.TAG__TAG_GROUP:
         setTagGroup((TagGroup)null);
         return;
+      case ModelingassistantPackage.TAG__TAG_TYPE:
+        setTagType(TAG_TYPE_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -282,8 +334,26 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
         return getSolutionelement() != null;
       case ModelingassistantPackage.TAG__TAG_GROUP:
         return tagGroup != null;
+      case ModelingassistantPackage.TAG__TAG_TYPE:
+        return tagType != TAG_TYPE_EDEFAULT;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString() {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (tagType: ");
+    result.append(tagType);
+    result.append(')');
+    return result.toString();
   }
 
 } //TagImpl

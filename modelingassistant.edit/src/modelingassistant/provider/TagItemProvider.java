@@ -8,6 +8,8 @@ import java.util.List;
 import learningcorpus.provider.ModelingassistantEditPlugin;
 import modelingassistant.ModelingassistantPackage;
 
+import modelingassistant.Tag;
+import modelingassistant.TagType;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
@@ -20,7 +22,9 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link modelingassistant.Tag} object.
@@ -58,6 +62,7 @@ public class TagItemProvider
       super.getPropertyDescriptors(object);
 
       addTagGroupPropertyDescriptor(object);
+      addTagTypePropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -85,6 +90,28 @@ public class TagItemProvider
   }
 
   /**
+   * This adds a property descriptor for the Tag Type feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addTagTypePropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_Tag_tagType_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Tag_tagType_feature", "_UI_Tag_type"),
+         ModelingassistantPackage.Literals.TAG__TAG_TYPE,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This returns Tag.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -103,7 +130,11 @@ public class TagItemProvider
    */
   @Override
   public String getText(Object object) {
-    return getString("_UI_Tag_type");
+    TagType labelValue = ((Tag)object).getTagType();
+    String label = labelValue == null ? null : labelValue.toString();
+    return label == null || label.length() == 0 ?
+      getString("_UI_Tag_type") :
+      getString("_UI_Tag_type") + " " + label;
   }
 
 
@@ -117,6 +148,12 @@ public class TagItemProvider
   @Override
   public void notifyChanged(Notification notification) {
     updateChildren(notification);
+
+    switch (notification.getFeatureID(Tag.class)) {
+      case ModelingassistantPackage.TAG__TAG_TYPE:
+        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+        return;
+    }
     super.notifyChanged(notification);
   }
 
