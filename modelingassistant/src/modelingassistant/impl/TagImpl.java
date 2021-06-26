@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link modelingassistant.impl.TagImpl#getSolutionelement <em>Solutionelement</em>}</li>
+ *   <li>{@link modelingassistant.impl.TagImpl#getSolutionElement <em>Solution Element</em>}</li>
  *   <li>{@link modelingassistant.impl.TagImpl#getTagGroup <em>Tag Group</em>}</li>
  *   <li>{@link modelingassistant.impl.TagImpl#getTagType <em>Tag Type</em>}</li>
  * </ul>
@@ -89,8 +89,8 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
    * @generated
    */
   @Override
-  public SolutionElement getSolutionelement() {
-    if (eContainerFeatureID() != ModelingassistantPackage.TAG__SOLUTIONELEMENT) return null;
+  public SolutionElement getSolutionElement() {
+    if (eContainerFeatureID() != ModelingassistantPackage.TAG__SOLUTION_ELEMENT) return null;
     return (SolutionElement)eInternalContainer();
   }
 
@@ -99,8 +99,8 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetSolutionelement(SolutionElement newSolutionelement, NotificationChain msgs) {
-    msgs = eBasicSetContainer((InternalEObject)newSolutionelement, ModelingassistantPackage.TAG__SOLUTIONELEMENT, msgs);
+  public NotificationChain basicSetSolutionElement(SolutionElement newSolutionElement, NotificationChain msgs) {
+    msgs = eBasicSetContainer((InternalEObject)newSolutionElement, ModelingassistantPackage.TAG__SOLUTION_ELEMENT, msgs);
     return msgs;
   }
 
@@ -110,20 +110,20 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
    * @generated
    */
   @Override
-  public void setSolutionelement(SolutionElement newSolutionelement) {
-    if (newSolutionelement != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.TAG__SOLUTIONELEMENT && newSolutionelement != null)) {
-      if (EcoreUtil.isAncestor(this, newSolutionelement))
+  public void setSolutionElement(SolutionElement newSolutionElement) {
+    if (newSolutionElement != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.TAG__SOLUTION_ELEMENT && newSolutionElement != null)) {
+      if (EcoreUtil.isAncestor(this, newSolutionElement))
         throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
       NotificationChain msgs = null;
       if (eInternalContainer() != null)
         msgs = eBasicRemoveFromContainer(msgs);
-      if (newSolutionelement != null)
-        msgs = ((InternalEObject)newSolutionelement).eInverseAdd(this, ModelingassistantPackage.SOLUTION_ELEMENT__TAGS, SolutionElement.class, msgs);
-      msgs = basicSetSolutionelement(newSolutionelement, msgs);
+      if (newSolutionElement != null)
+        msgs = ((InternalEObject)newSolutionElement).eInverseAdd(this, ModelingassistantPackage.SOLUTION_ELEMENT__TAGS, SolutionElement.class, msgs);
+      msgs = basicSetSolutionElement(newSolutionElement, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.TAG__SOLUTIONELEMENT, newSolutionelement, newSolutionelement));
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.TAG__SOLUTION_ELEMENT, newSolutionElement, newSolutionElement));
   }
 
   /**
@@ -219,10 +219,10 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
     switch (featureID) {
-      case ModelingassistantPackage.TAG__SOLUTIONELEMENT:
+      case ModelingassistantPackage.TAG__SOLUTION_ELEMENT:
         if (eInternalContainer() != null)
           msgs = eBasicRemoveFromContainer(msgs);
-        return basicSetSolutionelement((SolutionElement)otherEnd, msgs);
+        return basicSetSolutionElement((SolutionElement)otherEnd, msgs);
       case ModelingassistantPackage.TAG__TAG_GROUP:
         if (tagGroup != null)
           msgs = ((InternalEObject)tagGroup).eInverseRemove(this, ModelingassistantPackage.TAG_GROUP__TAGS, TagGroup.class, msgs);
@@ -239,8 +239,8 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
     switch (featureID) {
-      case ModelingassistantPackage.TAG__SOLUTIONELEMENT:
-        return basicSetSolutionelement(null, msgs);
+      case ModelingassistantPackage.TAG__SOLUTION_ELEMENT:
+        return basicSetSolutionElement(null, msgs);
       case ModelingassistantPackage.TAG__TAG_GROUP:
         return basicSetTagGroup(null, msgs);
     }
@@ -255,7 +255,7 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
   @Override
   public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
     switch (eContainerFeatureID()) {
-      case ModelingassistantPackage.TAG__SOLUTIONELEMENT:
+      case ModelingassistantPackage.TAG__SOLUTION_ELEMENT:
         return eInternalContainer().eInverseRemove(this, ModelingassistantPackage.SOLUTION_ELEMENT__TAGS, SolutionElement.class, msgs);
     }
     return super.eBasicRemoveFromContainerFeature(msgs);
@@ -269,8 +269,8 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
     switch (featureID) {
-      case ModelingassistantPackage.TAG__SOLUTIONELEMENT:
-        return getSolutionelement();
+      case ModelingassistantPackage.TAG__SOLUTION_ELEMENT:
+        return getSolutionElement();
       case ModelingassistantPackage.TAG__TAG_GROUP:
         if (resolve) return getTagGroup();
         return basicGetTagGroup();
@@ -288,8 +288,8 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
   @Override
   public void eSet(int featureID, Object newValue) {
     switch (featureID) {
-      case ModelingassistantPackage.TAG__SOLUTIONELEMENT:
-        setSolutionelement((SolutionElement)newValue);
+      case ModelingassistantPackage.TAG__SOLUTION_ELEMENT:
+        setSolutionElement((SolutionElement)newValue);
         return;
       case ModelingassistantPackage.TAG__TAG_GROUP:
         setTagGroup((TagGroup)newValue);
@@ -309,8 +309,8 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
   @Override
   public void eUnset(int featureID) {
     switch (featureID) {
-      case ModelingassistantPackage.TAG__SOLUTIONELEMENT:
-        setSolutionelement((SolutionElement)null);
+      case ModelingassistantPackage.TAG__SOLUTION_ELEMENT:
+        setSolutionElement((SolutionElement)null);
         return;
       case ModelingassistantPackage.TAG__TAG_GROUP:
         setTagGroup((TagGroup)null);
@@ -330,8 +330,8 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
   @Override
   public boolean eIsSet(int featureID) {
     switch (featureID) {
-      case ModelingassistantPackage.TAG__SOLUTIONELEMENT:
-        return getSolutionelement() != null;
+      case ModelingassistantPackage.TAG__SOLUTION_ELEMENT:
+        return getSolutionElement() != null;
       case ModelingassistantPackage.TAG__TAG_GROUP:
         return tagGroup != null;
       case ModelingassistantPackage.TAG__TAG_TYPE:

@@ -246,7 +246,7 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
   @Override
   public EList<Tag> getTags() {
     if (tags == null) {
-      tags = new EObjectContainmentWithInverseEList<Tag>(Tag.class, this, ModelingassistantPackage.SOLUTION_ELEMENT__TAGS, ModelingassistantPackage.TAG__SOLUTIONELEMENT);
+      tags = new EObjectContainmentWithInverseEList<Tag>(Tag.class, this, ModelingassistantPackage.SOLUTION_ELEMENT__TAGS, ModelingassistantPackage.TAG__SOLUTION_ELEMENT);
     }
     return tags;
   }

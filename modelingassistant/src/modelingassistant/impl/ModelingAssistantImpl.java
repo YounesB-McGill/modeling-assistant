@@ -3,8 +3,6 @@
 package modelingassistant.impl;
 
 import java.util.Collection;
-
-import modelingassistant.FeedbackItem;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.ProblemStatement;
@@ -36,7 +34,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link modelingassistant.impl.ModelingAssistantImpl#getSolutions <em>Solutions</em>}</li>
  *   <li>{@link modelingassistant.impl.ModelingAssistantImpl#getStudents <em>Students</em>}</li>
  *   <li>{@link modelingassistant.impl.ModelingAssistantImpl#getStudentKnowledges <em>Student Knowledges</em>}</li>
- *   <li>{@link modelingassistant.impl.ModelingAssistantImpl#getFeedbackItems <em>Feedback Items</em>}</li>
  * </ul>
  *
  * @generated
@@ -81,16 +78,6 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
    * @ordered
    */
   protected EList<StudentKnowledge> studentKnowledges;
-
-  /**
-   * The cached value of the '{@link #getFeedbackItems() <em>Feedback Items</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFeedbackItems()
-   * @generated
-   * @ordered
-   */
-  protected EList<FeedbackItem> feedbackItems;
 
   /**
    * <!-- begin-user-doc -->
@@ -168,19 +155,6 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
-  @Override
-  public EList<FeedbackItem> getFeedbackItems() {
-    if (feedbackItems == null) {
-      feedbackItems = new EObjectContainmentWithInverseEList<FeedbackItem>(FeedbackItem.class, this, ModelingassistantPackage.MODELING_ASSISTANT__FEEDBACK_ITEMS, ModelingassistantPackage.FEEDBACK_ITEM__MODELING_ASSISTANT);
-    }
-    return feedbackItems;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -193,8 +167,6 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getStudents()).basicAdd(otherEnd, msgs);
       case ModelingassistantPackage.MODELING_ASSISTANT__STUDENT_KNOWLEDGES:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getStudentKnowledges()).basicAdd(otherEnd, msgs);
-      case ModelingassistantPackage.MODELING_ASSISTANT__FEEDBACK_ITEMS:
-        return ((InternalEList<InternalEObject>)(InternalEList<?>)getFeedbackItems()).basicAdd(otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -215,8 +187,6 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
         return ((InternalEList<?>)getStudents()).basicRemove(otherEnd, msgs);
       case ModelingassistantPackage.MODELING_ASSISTANT__STUDENT_KNOWLEDGES:
         return ((InternalEList<?>)getStudentKnowledges()).basicRemove(otherEnd, msgs);
-      case ModelingassistantPackage.MODELING_ASSISTANT__FEEDBACK_ITEMS:
-        return ((InternalEList<?>)getFeedbackItems()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -237,8 +207,6 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
         return getStudents();
       case ModelingassistantPackage.MODELING_ASSISTANT__STUDENT_KNOWLEDGES:
         return getStudentKnowledges();
-      case ModelingassistantPackage.MODELING_ASSISTANT__FEEDBACK_ITEMS:
-        return getFeedbackItems();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -268,10 +236,6 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
         getStudentKnowledges().clear();
         getStudentKnowledges().addAll((Collection<? extends StudentKnowledge>)newValue);
         return;
-      case ModelingassistantPackage.MODELING_ASSISTANT__FEEDBACK_ITEMS:
-        getFeedbackItems().clear();
-        getFeedbackItems().addAll((Collection<? extends FeedbackItem>)newValue);
-        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -296,9 +260,6 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
       case ModelingassistantPackage.MODELING_ASSISTANT__STUDENT_KNOWLEDGES:
         getStudentKnowledges().clear();
         return;
-      case ModelingassistantPackage.MODELING_ASSISTANT__FEEDBACK_ITEMS:
-        getFeedbackItems().clear();
-        return;
     }
     super.eUnset(featureID);
   }
@@ -319,8 +280,6 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
         return students != null && !students.isEmpty();
       case ModelingassistantPackage.MODELING_ASSISTANT__STUDENT_KNOWLEDGES:
         return studentKnowledges != null && !studentKnowledges.isEmpty();
-      case ModelingassistantPackage.MODELING_ASSISTANT__FEEDBACK_ITEMS:
-        return feedbackItems != null && !feedbackItems.isEmpty();
     }
     return super.eIsSet(featureID);
   }

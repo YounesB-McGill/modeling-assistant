@@ -120,13 +120,13 @@ public interface SolutionElement extends EObject {
   /**
    * Returns the value of the '<em><b>Tags</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.Tag}.
-   * It is bidirectional and its opposite is '{@link modelingassistant.Tag#getSolutionelement <em>Solutionelement</em>}'.
+   * It is bidirectional and its opposite is '{@link modelingassistant.Tag#getSolutionElement <em>Solution Element</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Tags</em>' containment reference list.
    * @see modelingassistant.ModelingassistantPackage#getSolutionElement_Tags()
-   * @see modelingassistant.Tag#getSolutionelement
-   * @model opposite="solutionelement" containment="true"
+   * @see modelingassistant.Tag#getSolutionElement
+   * @model opposite="solutionElement" containment="true"
    * @generated
    */
   EList<Tag> getTags();
