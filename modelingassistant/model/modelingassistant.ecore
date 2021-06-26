@@ -114,11 +114,18 @@
         eType="#//SolutionElement" eOpposite="#//SolutionElement/tags"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tagGroup" lowerBound="1"
         eType="#//TagGroup" eOpposite="#//TagGroup/tags"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tagType" eType="#//TagType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TagGroup">
     <eStructuralFeatures xsi:type="ecore:EReference" name="tags" upperBound="-1" eType="#//Tag"
         eOpposite="#//Tag/tagGroup"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="solution" lowerBound="1"
         eType="#//Solution" eOpposite="#//Solution/tagGroups"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TagType">
+    <eLiterals name="Abstraction" literal="Abstraction"/>
+    <eLiterals name="Occurrencce" value="1"/>
+    <eLiterals name="Player" value="2"/>
+    <eLiterals name="Role" value="3"/>
   </eClassifiers>
 </ecore:EPackage>
