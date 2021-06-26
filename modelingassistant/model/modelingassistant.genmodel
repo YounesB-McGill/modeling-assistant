@@ -71,6 +71,12 @@
     </genClasses>
   </genPackages>
   <genPackages prefix="Modelingassistant" disposableProviderFactory="true" ecorePackage="modelingassistant.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="modelingassistant.ecore#//TagType">
+      <genEnumLiterals ecoreEnumLiteral="modelingassistant.ecore#//TagType/Abstraction"/>
+      <genEnumLiterals ecoreEnumLiteral="modelingassistant.ecore#//TagType/Occurrencce"/>
+      <genEnumLiterals ecoreEnumLiteral="modelingassistant.ecore#//TagType/Player"/>
+      <genEnumLiterals ecoreEnumLiteral="modelingassistant.ecore#//TagType/Role"/>
+    </genEnums>
     <genDataTypes ecoreDataType="modelingassistant.ecore#//Time"/>
     <genClasses ecoreClass="modelingassistant.ecore#//ModelingAssistant">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//ModelingAssistant/problemStatements"/>
@@ -144,6 +150,7 @@
     <genClasses ecoreClass="modelingassistant.ecore#//Tag">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference modelingassistant.ecore#//Tag/solutionelement"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Tag/tagGroup"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Tag/tagType"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//TagGroup">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//TagGroup/tags"/>
