@@ -25,9 +25,11 @@ import modelingassistant.StudentKnowledge;
 
 import modelingassistant.Tag;
 import modelingassistant.TagGroup;
+import modelingassistant.TagType;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -123,6 +125,13 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   private EClass tagGroupEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EEnum tagTypeEEnum = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -828,6 +837,16 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   @Override
+  public EAttribute getTag_TagType() {
+    return (EAttribute)tagEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getTagGroup() {
     return tagGroupEClass;
   }
@@ -850,6 +869,16 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
   @Override
   public EReference getTagGroup_Solution() {
     return (EReference)tagGroupEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EEnum getTagType() {
+    return tagTypeEEnum;
   }
 
   /**
@@ -963,10 +992,14 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     tagEClass = createEClass(TAG);
     createEReference(tagEClass, TAG__SOLUTIONELEMENT);
     createEReference(tagEClass, TAG__TAG_GROUP);
+    createEAttribute(tagEClass, TAG__TAG_TYPE);
 
     tagGroupEClass = createEClass(TAG_GROUP);
     createEReference(tagGroupEClass, TAG_GROUP__TAGS);
     createEReference(tagGroupEClass, TAG_GROUP__SOLUTION);
+
+    // Create enums
+    tagTypeEEnum = createEEnum(TAG_TYPE);
 
     // Create data types
     timeEDataType = createEDataType(TIME);
@@ -1081,10 +1114,18 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEClass(tagEClass, Tag.class, "Tag", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTag_Solutionelement(), this.getSolutionElement(), this.getSolutionElement_Tags(), "solutionelement", null, 1, 1, Tag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTag_TagGroup(), this.getTagGroup(), this.getTagGroup_Tags(), "tagGroup", null, 1, 1, Tag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTag_TagType(), this.getTagType(), "tagType", null, 0, 1, Tag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(tagGroupEClass, TagGroup.class, "TagGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTagGroup_Tags(), this.getTag(), this.getTag_TagGroup(), "tags", null, 0, -1, TagGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTagGroup_Solution(), this.getSolution(), this.getSolution_TagGroups(), "solution", null, 1, 1, TagGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    // Initialize enums and add enum literals
+    initEEnum(tagTypeEEnum, TagType.class, "TagType");
+    addEEnumLiteral(tagTypeEEnum, TagType.ABSTRACTION);
+    addEEnumLiteral(tagTypeEEnum, TagType.OCCURRENCCE);
+    addEEnumLiteral(tagTypeEEnum, TagType.PLAYER);
+    addEEnumLiteral(tagTypeEEnum, TagType.ROLE);
 
     // Initialize data types
     initEDataType(timeEDataType, Time.class, "Time", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

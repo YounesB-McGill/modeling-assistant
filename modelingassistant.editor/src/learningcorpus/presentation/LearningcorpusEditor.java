@@ -545,7 +545,7 @@ public class LearningcorpusEditor
           }
         }
         catch (CoreException exception) {
-          learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.log(exception);
+          ModelingassistantEditorPlugin.INSTANCE.log(exception);
         }
       }
     };
@@ -662,7 +662,7 @@ public class LearningcorpusEditor
           showTabs();
         }
         catch (PartInitException exception) {
-          learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.log(exception);
+          ModelingassistantEditorPlugin.INSTANCE.log(exception);
         }
       }
 
@@ -671,7 +671,7 @@ public class LearningcorpusEditor
           markerHelper.updateMarkers(diagnostic);
         }
         catch (CoreException exception) {
-          learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.log(exception);
+          ModelingassistantEditorPlugin.INSTANCE.log(exception);
         }
       }
     }
@@ -1553,7 +1553,7 @@ public class LearningcorpusEditor
     catch (Exception exception) {
       // Something went wrong that shouldn't.
       //
-      learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.log(exception);
+      ModelingassistantEditorPlugin.INSTANCE.log(exception);
     }
     updateProblemIndication = true;
     updateProblemIndication();
@@ -1762,7 +1762,7 @@ public class LearningcorpusEditor
    * @generated
    */
   private static String getString(String key) {
-    return learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString(key);
+    return ModelingassistantEditorPlugin.INSTANCE.getString(key);
   }
 
   /**
@@ -1772,7 +1772,7 @@ public class LearningcorpusEditor
    * @generated
    */
   private static String getString(String key, Object s1) {
-    return learningcorpus.presentation.ModelingassistantEditorPlugin.INSTANCE.getString(key, new Object [] { s1 });
+    return ModelingassistantEditorPlugin.INSTANCE.getString(key, new Object [] { s1 });
   }
 
   /**
