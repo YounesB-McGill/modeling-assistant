@@ -6,9 +6,9 @@ import learningcorpus.Feedback;
 
 import modelingassistant.FeedbackItem;
 import modelingassistant.Mistake;
-import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
 
+import modelingassistant.Solution;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -29,9 +29,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * </p>
  * <ul>
  *   <li>{@link modelingassistant.impl.FeedbackItemImpl#getMistakes <em>Mistakes</em>}</li>
- *   <li>{@link modelingassistant.impl.FeedbackItemImpl#getModelingAssistant <em>Modeling Assistant</em>}</li>
  *   <li>{@link modelingassistant.impl.FeedbackItemImpl#getUsefulness <em>Usefulness</em>}</li>
  *   <li>{@link modelingassistant.impl.FeedbackItemImpl#getFeedback <em>Feedback</em>}</li>
+ *   <li>{@link modelingassistant.impl.FeedbackItemImpl#getSolution <em>Solution</em>}</li>
  * </ul>
  *
  * @generated
@@ -164,49 +164,6 @@ public class FeedbackItemImpl extends MinimalEObjectImpl.Container implements Fe
    * @generated
    */
   @Override
-  public ModelingAssistant getModelingAssistant() {
-    if (eContainerFeatureID() != ModelingassistantPackage.FEEDBACK_ITEM__MODELING_ASSISTANT) return null;
-    return (ModelingAssistant)eInternalContainer();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetModelingAssistant(ModelingAssistant newModelingAssistant, NotificationChain msgs) {
-    msgs = eBasicSetContainer((InternalEObject)newModelingAssistant, ModelingassistantPackage.FEEDBACK_ITEM__MODELING_ASSISTANT, msgs);
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setModelingAssistant(ModelingAssistant newModelingAssistant) {
-    if (newModelingAssistant != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.FEEDBACK_ITEM__MODELING_ASSISTANT && newModelingAssistant != null)) {
-      if (EcoreUtil.isAncestor(this, newModelingAssistant))
-        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-      NotificationChain msgs = null;
-      if (eInternalContainer() != null)
-        msgs = eBasicRemoveFromContainer(msgs);
-      if (newModelingAssistant != null)
-        msgs = ((InternalEObject)newModelingAssistant).eInverseAdd(this, ModelingassistantPackage.MODELING_ASSISTANT__FEEDBACK_ITEMS, ModelingAssistant.class, msgs);
-      msgs = basicSetModelingAssistant(newModelingAssistant, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.FEEDBACK_ITEM__MODELING_ASSISTANT, newModelingAssistant, newModelingAssistant));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public double getUsefulness() {
     return usefulness;
   }
@@ -270,16 +227,59 @@ public class FeedbackItemImpl extends MinimalEObjectImpl.Container implements Fe
    * @generated
    */
   @Override
+  public Solution getSolution() {
+    if (eContainerFeatureID() != ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION) return null;
+    return (Solution)eInternalContainer();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetSolution(Solution newSolution, NotificationChain msgs) {
+    msgs = eBasicSetContainer((InternalEObject)newSolution, ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION, msgs);
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setSolution(Solution newSolution) {
+    if (newSolution != eInternalContainer() || (eContainerFeatureID() != ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION && newSolution != null)) {
+      if (EcoreUtil.isAncestor(this, newSolution))
+        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+      NotificationChain msgs = null;
+      if (eInternalContainer() != null)
+        msgs = eBasicRemoveFromContainer(msgs);
+      if (newSolution != null)
+        msgs = ((InternalEObject)newSolution).eInverseAdd(this, ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS, Solution.class, msgs);
+      msgs = basicSetSolution(newSolution, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION, newSolution, newSolution));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
     switch (featureID) {
       case ModelingassistantPackage.FEEDBACK_ITEM__MISTAKES:
         if (mistakes != null)
           msgs = ((InternalEObject)mistakes).eInverseRemove(this, ModelingassistantPackage.MISTAKE__LAST_FEEDBACK, Mistake.class, msgs);
         return basicSetMistakes((Mistake)otherEnd, msgs);
-      case ModelingassistantPackage.FEEDBACK_ITEM__MODELING_ASSISTANT:
+      case ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION:
         if (eInternalContainer() != null)
           msgs = eBasicRemoveFromContainer(msgs);
-        return basicSetModelingAssistant((ModelingAssistant)otherEnd, msgs);
+        return basicSetSolution((Solution)otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -294,8 +294,8 @@ public class FeedbackItemImpl extends MinimalEObjectImpl.Container implements Fe
     switch (featureID) {
       case ModelingassistantPackage.FEEDBACK_ITEM__MISTAKES:
         return basicSetMistakes(null, msgs);
-      case ModelingassistantPackage.FEEDBACK_ITEM__MODELING_ASSISTANT:
-        return basicSetModelingAssistant(null, msgs);
+      case ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION:
+        return basicSetSolution(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -308,8 +308,8 @@ public class FeedbackItemImpl extends MinimalEObjectImpl.Container implements Fe
   @Override
   public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
     switch (eContainerFeatureID()) {
-      case ModelingassistantPackage.FEEDBACK_ITEM__MODELING_ASSISTANT:
-        return eInternalContainer().eInverseRemove(this, ModelingassistantPackage.MODELING_ASSISTANT__FEEDBACK_ITEMS, ModelingAssistant.class, msgs);
+      case ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION:
+        return eInternalContainer().eInverseRemove(this, ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS, Solution.class, msgs);
     }
     return super.eBasicRemoveFromContainerFeature(msgs);
   }
@@ -325,13 +325,13 @@ public class FeedbackItemImpl extends MinimalEObjectImpl.Container implements Fe
       case ModelingassistantPackage.FEEDBACK_ITEM__MISTAKES:
         if (resolve) return getMistakes();
         return basicGetMistakes();
-      case ModelingassistantPackage.FEEDBACK_ITEM__MODELING_ASSISTANT:
-        return getModelingAssistant();
       case ModelingassistantPackage.FEEDBACK_ITEM__USEFULNESS:
         return getUsefulness();
       case ModelingassistantPackage.FEEDBACK_ITEM__FEEDBACK:
         if (resolve) return getFeedback();
         return basicGetFeedback();
+      case ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION:
+        return getSolution();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -347,14 +347,14 @@ public class FeedbackItemImpl extends MinimalEObjectImpl.Container implements Fe
       case ModelingassistantPackage.FEEDBACK_ITEM__MISTAKES:
         setMistakes((Mistake)newValue);
         return;
-      case ModelingassistantPackage.FEEDBACK_ITEM__MODELING_ASSISTANT:
-        setModelingAssistant((ModelingAssistant)newValue);
-        return;
       case ModelingassistantPackage.FEEDBACK_ITEM__USEFULNESS:
         setUsefulness((Double)newValue);
         return;
       case ModelingassistantPackage.FEEDBACK_ITEM__FEEDBACK:
         setFeedback((Feedback)newValue);
+        return;
+      case ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION:
+        setSolution((Solution)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -371,14 +371,14 @@ public class FeedbackItemImpl extends MinimalEObjectImpl.Container implements Fe
       case ModelingassistantPackage.FEEDBACK_ITEM__MISTAKES:
         setMistakes((Mistake)null);
         return;
-      case ModelingassistantPackage.FEEDBACK_ITEM__MODELING_ASSISTANT:
-        setModelingAssistant((ModelingAssistant)null);
-        return;
       case ModelingassistantPackage.FEEDBACK_ITEM__USEFULNESS:
         setUsefulness(USEFULNESS_EDEFAULT);
         return;
       case ModelingassistantPackage.FEEDBACK_ITEM__FEEDBACK:
         setFeedback((Feedback)null);
+        return;
+      case ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION:
+        setSolution((Solution)null);
         return;
     }
     super.eUnset(featureID);
@@ -394,12 +394,12 @@ public class FeedbackItemImpl extends MinimalEObjectImpl.Container implements Fe
     switch (featureID) {
       case ModelingassistantPackage.FEEDBACK_ITEM__MISTAKES:
         return mistakes != null;
-      case ModelingassistantPackage.FEEDBACK_ITEM__MODELING_ASSISTANT:
-        return getModelingAssistant() != null;
       case ModelingassistantPackage.FEEDBACK_ITEM__USEFULNESS:
         return usefulness != USEFULNESS_EDEFAULT;
       case ModelingassistantPackage.FEEDBACK_ITEM__FEEDBACK:
         return feedback != null;
+      case ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION:
+        return getSolution() != null;
     }
     return super.eIsSet(featureID);
   }

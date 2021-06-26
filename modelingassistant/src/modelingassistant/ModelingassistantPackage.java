@@ -105,22 +105,13 @@ public interface ModelingassistantPackage extends EPackage {
   int MODELING_ASSISTANT__STUDENT_KNOWLEDGES = 3;
 
   /**
-   * The feature id for the '<em><b>Feedback Items</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MODELING_ASSISTANT__FEEDBACK_ITEMS = 4;
-
-  /**
    * The number of structural features of the '<em>Modeling Assistant</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODELING_ASSISTANT_FEATURE_COUNT = 5;
+  int MODELING_ASSISTANT_FEATURE_COUNT = 4;
 
   /**
    * The number of operations of the '<em>Modeling Assistant</em>' class.
@@ -461,13 +452,22 @@ public interface ModelingassistantPackage extends EPackage {
   int SOLUTION__PROBLEM_STATEMENT = 7;
 
   /**
+   * The feature id for the '<em><b>Feedback Items</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SOLUTION__FEEDBACK_ITEMS = 8;
+
+  /**
    * The number of structural features of the '<em>Solution</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SOLUTION_FEATURE_COUNT = 8;
+  int SOLUTION_FEATURE_COUNT = 9;
 
   /**
    * The number of operations of the '<em>Solution</em>' class.
@@ -762,22 +762,13 @@ public interface ModelingassistantPackage extends EPackage {
   int FEEDBACK_ITEM__MISTAKES = 0;
 
   /**
-   * The feature id for the '<em><b>Modeling Assistant</b></em>' container reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FEEDBACK_ITEM__MODELING_ASSISTANT = 1;
-
-  /**
    * The feature id for the '<em><b>Usefulness</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FEEDBACK_ITEM__USEFULNESS = 2;
+  int FEEDBACK_ITEM__USEFULNESS = 1;
 
   /**
    * The feature id for the '<em><b>Feedback</b></em>' reference.
@@ -786,7 +777,16 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int FEEDBACK_ITEM__FEEDBACK = 3;
+  int FEEDBACK_ITEM__FEEDBACK = 2;
+
+  /**
+   * The feature id for the '<em><b>Solution</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FEEDBACK_ITEM__SOLUTION = 3;
 
   /**
    * The number of structural features of the '<em>Feedback Item</em>' class.
@@ -817,13 +817,13 @@ public interface ModelingassistantPackage extends EPackage {
   int TAG = 10;
 
   /**
-   * The feature id for the '<em><b>Solutionelement</b></em>' container reference.
+   * The feature id for the '<em><b>Solution Element</b></em>' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TAG__SOLUTIONELEMENT = 0;
+  int TAG__SOLUTION_ELEMENT = 0;
 
   /**
    * The feature id for the '<em><b>Tag Group</b></em>' reference.
@@ -981,17 +981,6 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EReference getModelingAssistant_StudentKnowledges();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link modelingassistant.ModelingAssistant#getFeedbackItems <em>Feedback Items</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Feedback Items</em>'.
-   * @see modelingassistant.ModelingAssistant#getFeedbackItems()
-   * @see #getModelingAssistant()
-   * @generated
-   */
-  EReference getModelingAssistant_FeedbackItems();
 
   /**
    * Returns the meta object for class '{@link modelingassistant.Student <em>Student</em>}'.
@@ -1241,6 +1230,17 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EReference getSolution_ProblemStatement();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link modelingassistant.Solution#getFeedbackItems <em>Feedback Items</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Feedback Items</em>'.
+   * @see modelingassistant.Solution#getFeedbackItems()
+   * @see #getSolution()
+   * @generated
+   */
+  EReference getSolution_FeedbackItems();
 
   /**
    * Returns the meta object for class '{@link modelingassistant.SolutionElement <em>Solution Element</em>}'.
@@ -1535,17 +1535,6 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getFeedbackItem_Mistakes();
 
   /**
-   * Returns the meta object for the container reference '{@link modelingassistant.FeedbackItem#getModelingAssistant <em>Modeling Assistant</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the container reference '<em>Modeling Assistant</em>'.
-   * @see modelingassistant.FeedbackItem#getModelingAssistant()
-   * @see #getFeedbackItem()
-   * @generated
-   */
-  EReference getFeedbackItem_ModelingAssistant();
-
-  /**
    * Returns the meta object for the attribute '{@link modelingassistant.FeedbackItem#getUsefulness <em>Usefulness</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1568,6 +1557,17 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getFeedbackItem_Feedback();
 
   /**
+   * Returns the meta object for the container reference '{@link modelingassistant.FeedbackItem#getSolution <em>Solution</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the container reference '<em>Solution</em>'.
+   * @see modelingassistant.FeedbackItem#getSolution()
+   * @see #getFeedbackItem()
+   * @generated
+   */
+  EReference getFeedbackItem_Solution();
+
+  /**
    * Returns the meta object for class '{@link modelingassistant.Tag <em>Tag</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1578,15 +1578,15 @@ public interface ModelingassistantPackage extends EPackage {
   EClass getTag();
 
   /**
-   * Returns the meta object for the container reference '{@link modelingassistant.Tag#getSolutionelement <em>Solutionelement</em>}'.
+   * Returns the meta object for the container reference '{@link modelingassistant.Tag#getSolutionElement <em>Solution Element</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the container reference '<em>Solutionelement</em>'.
-   * @see modelingassistant.Tag#getSolutionelement()
+   * @return the meta object for the container reference '<em>Solution Element</em>'.
+   * @see modelingassistant.Tag#getSolutionElement()
    * @see #getTag()
    * @generated
    */
-  EReference getTag_Solutionelement();
+  EReference getTag_SolutionElement();
 
   /**
    * Returns the meta object for the reference '{@link modelingassistant.Tag#getTagGroup <em>Tag Group</em>}'.
@@ -1727,14 +1727,6 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference MODELING_ASSISTANT__STUDENT_KNOWLEDGES = eINSTANCE.getModelingAssistant_StudentKnowledges();
-
-    /**
-     * The meta object literal for the '<em><b>Feedback Items</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MODELING_ASSISTANT__FEEDBACK_ITEMS = eINSTANCE.getModelingAssistant_FeedbackItems();
 
     /**
      * The meta object literal for the '{@link modelingassistant.impl.StudentImpl <em>Student</em>}' class.
@@ -1927,6 +1919,14 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference SOLUTION__PROBLEM_STATEMENT = eINSTANCE.getSolution_ProblemStatement();
+
+    /**
+     * The meta object literal for the '<em><b>Feedback Items</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SOLUTION__FEEDBACK_ITEMS = eINSTANCE.getSolution_FeedbackItems();
 
     /**
      * The meta object literal for the '{@link modelingassistant.impl.SolutionElementImpl <em>Solution Element</em>}' class.
@@ -2155,14 +2155,6 @@ public interface ModelingassistantPackage extends EPackage {
     EReference FEEDBACK_ITEM__MISTAKES = eINSTANCE.getFeedbackItem_Mistakes();
 
     /**
-     * The meta object literal for the '<em><b>Modeling Assistant</b></em>' container reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FEEDBACK_ITEM__MODELING_ASSISTANT = eINSTANCE.getFeedbackItem_ModelingAssistant();
-
-    /**
      * The meta object literal for the '<em><b>Usefulness</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2179,6 +2171,14 @@ public interface ModelingassistantPackage extends EPackage {
     EReference FEEDBACK_ITEM__FEEDBACK = eINSTANCE.getFeedbackItem_Feedback();
 
     /**
+     * The meta object literal for the '<em><b>Solution</b></em>' container reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FEEDBACK_ITEM__SOLUTION = eINSTANCE.getFeedbackItem_Solution();
+
+    /**
      * The meta object literal for the '{@link modelingassistant.impl.TagImpl <em>Tag</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2189,12 +2189,12 @@ public interface ModelingassistantPackage extends EPackage {
     EClass TAG = eINSTANCE.getTag();
 
     /**
-     * The meta object literal for the '<em><b>Solutionelement</b></em>' container reference feature.
+     * The meta object literal for the '<em><b>Solution Element</b></em>' container reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference TAG__SOLUTIONELEMENT = eINSTANCE.getTag_Solutionelement();
+    EReference TAG__SOLUTION_ELEMENT = eINSTANCE.getTag_SolutionElement();
 
     /**
      * The meta object literal for the '<em><b>Tag Group</b></em>' reference feature.

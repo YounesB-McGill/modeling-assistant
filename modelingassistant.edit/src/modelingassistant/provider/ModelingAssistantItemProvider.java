@@ -80,7 +80,6 @@ public class ModelingAssistantItemProvider
       childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__SOLUTIONS);
       childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__STUDENTS);
       childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__STUDENT_KNOWLEDGES);
-      childrenFeatures.add(ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACK_ITEMS);
     }
     return childrenFeatures;
   }
@@ -137,7 +136,6 @@ public class ModelingAssistantItemProvider
       case ModelingassistantPackage.MODELING_ASSISTANT__SOLUTIONS:
       case ModelingassistantPackage.MODELING_ASSISTANT__STUDENTS:
       case ModelingassistantPackage.MODELING_ASSISTANT__STUDENT_KNOWLEDGES:
-      case ModelingassistantPackage.MODELING_ASSISTANT__FEEDBACK_ITEMS:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
     }
@@ -174,11 +172,6 @@ public class ModelingAssistantItemProvider
       (createChildParameter
         (ModelingassistantPackage.Literals.MODELING_ASSISTANT__STUDENT_KNOWLEDGES,
          ModelingassistantFactory.eINSTANCE.createStudentKnowledge()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (ModelingassistantPackage.Literals.MODELING_ASSISTANT__FEEDBACK_ITEMS,
-         ModelingassistantFactory.eINSTANCE.createFeedbackItem()));
   }
 
   /**
