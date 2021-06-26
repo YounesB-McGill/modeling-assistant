@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link modelingassistant.Tag#getSolutionelement <em>Solutionelement</em>}</li>
  *   <li>{@link modelingassistant.Tag#getTagGroup <em>Tag Group</em>}</li>
+ *   <li>{@link modelingassistant.Tag#getTagType <em>Tag Type</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getTag()
@@ -69,5 +70,30 @@ public interface Tag extends EObject {
    * @generated
    */
   void setTagGroup(TagGroup value);
+
+  /**
+   * Returns the value of the '<em><b>Tag Type</b></em>' attribute.
+   * The literals are from the enumeration {@link modelingassistant.TagType}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Tag Type</em>' attribute.
+   * @see modelingassistant.TagType
+   * @see #setTagType(TagType)
+   * @see modelingassistant.ModelingassistantPackage#getTag_TagType()
+   * @model
+   * @generated
+   */
+  TagType getTagType();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.Tag#getTagType <em>Tag Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Tag Type</em>' attribute.
+   * @see modelingassistant.TagType
+   * @see #getTagType()
+   * @generated
+   */
+  void setTagType(TagType value);
 
 } // Tag
