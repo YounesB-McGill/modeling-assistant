@@ -90,6 +90,8 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
   @Override
   public Object createFromString(EDataType eDataType, String initialValue) {
     switch (eDataType.getClassifierID()) {
+      case ModelingassistantPackage.TAG_TYPE:
+        return createTagTypeFromString(eDataType, initialValue);
       case ModelingassistantPackage.TIME:
         return createTimeFromString(eDataType, initialValue);
       default:
@@ -105,6 +107,8 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
   @Override
   public String convertToString(EDataType eDataType, Object instanceValue) {
     switch (eDataType.getClassifierID()) {
+      case ModelingassistantPackage.TAG_TYPE:
+        return convertTagTypeToString(eDataType, instanceValue);
       case ModelingassistantPackage.TIME:
         return convertTimeToString(eDataType, instanceValue);
       default:
@@ -231,6 +235,26 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
   public TagGroup createTagGroup() {
     TagGroupImpl tagGroup = new TagGroupImpl();
     return tagGroup;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TagType createTagTypeFromString(EDataType eDataType, String initialValue) {
+    TagType result = TagType.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertTagTypeToString(EDataType eDataType, Object instanceValue) {
+    return instanceValue == null ? null : instanceValue.toString();
   }
 
   /**
