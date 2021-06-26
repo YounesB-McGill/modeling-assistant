@@ -2,6 +2,7 @@
  */
 package modelingassistant.impl;
 
+import ca.mcgill.sel.classdiagram.ClassDiagram;
 import java.util.Collection;
 
 import modelingassistant.Mistake;
@@ -77,7 +78,7 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
    * @generated
    * @ordered
    */
-  protected ca.mcgill.sel.classdiagram.ClassDiagram classDiagram;
+  protected ClassDiagram classDiagram;
 
   /**
    * The cached value of the '{@link #getMistakes() <em>Mistakes</em>}' containment reference list.
@@ -262,10 +263,10 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
    * @generated
    */
   @Override
-  public ca.mcgill.sel.classdiagram.ClassDiagram getClassDiagram() {
+  public ClassDiagram getClassDiagram() {
     if (classDiagram != null && classDiagram.eIsProxy()) {
       InternalEObject oldClassDiagram = (InternalEObject)classDiagram;
-      classDiagram = (ca.mcgill.sel.classdiagram.ClassDiagram)eResolveProxy(oldClassDiagram);
+      classDiagram = (ClassDiagram)eResolveProxy(oldClassDiagram);
       if (classDiagram != oldClassDiagram) {
         if (eNotificationRequired())
           eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.SOLUTION__CLASS_DIAGRAM, oldClassDiagram, classDiagram));
@@ -279,7 +280,7 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
    * <!-- end-user-doc -->
    * @generated
    */
-  public ca.mcgill.sel.classdiagram.ClassDiagram basicGetClassDiagram() {
+  public ClassDiagram basicGetClassDiagram() {
     return classDiagram;
   }
 
@@ -289,8 +290,8 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
    * @generated
    */
   @Override
-  public void setClassDiagram(ca.mcgill.sel.classdiagram.ClassDiagram newClassDiagram) {
-    ca.mcgill.sel.classdiagram.ClassDiagram oldClassDiagram = classDiagram;
+  public void setClassDiagram(ClassDiagram newClassDiagram) {
+    ClassDiagram oldClassDiagram = classDiagram;
     classDiagram = newClassDiagram;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.SOLUTION__CLASS_DIAGRAM, oldClassDiagram, classDiagram));
@@ -517,7 +518,7 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         getSolutionElements().addAll((Collection<? extends SolutionElement>)newValue);
         return;
       case ModelingassistantPackage.SOLUTION__CLASS_DIAGRAM:
-        setClassDiagram((ca.mcgill.sel.classdiagram.ClassDiagram)newValue);
+        setClassDiagram((ClassDiagram)newValue);
         return;
       case ModelingassistantPackage.SOLUTION__MISTAKES:
         getMistakes().clear();
@@ -555,7 +556,7 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         getSolutionElements().clear();
         return;
       case ModelingassistantPackage.SOLUTION__CLASS_DIAGRAM:
-        setClassDiagram((ca.mcgill.sel.classdiagram.ClassDiagram)null);
+        setClassDiagram((ClassDiagram)null);
         return;
       case ModelingassistantPackage.SOLUTION__MISTAKES:
         getMistakes().clear();

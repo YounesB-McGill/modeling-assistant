@@ -5,6 +5,7 @@ package modelingassistant.provider;
 
 import java.util.Collection;
 import java.util.List;
+import learningcorpus.provider.ModelingassistantEditPlugin;
 import modelingassistant.ModelingassistantPackage;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
