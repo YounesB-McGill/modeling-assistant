@@ -1,7 +1,7 @@
 
 from .modelingassistant import getEClassifier, eClassifiers
 from .modelingassistant import name, nsURI, nsPrefix, eClass
-from .modelingassistant import Time, ModelingAssistant, Student, ProblemStatement, ProblemStatementElement, Solution, SolutionElement, StudentKnowledge, Mistake, NamedElement, FeedbackItem, Tag, TagGroup
+from .modelingassistant import Time, ModelingAssistant, Student, ProblemStatement, ProblemStatementElement, Solution, SolutionElement, StudentKnowledge, Mistake, NamedElement, FeedbackItem, Tag, TagGroup, TagType
 
 from learningcorpus import MistakeType, Feedback
 from classdiagram import NamedElement, ClassDiagram
@@ -9,7 +9,7 @@ from classdiagram import NamedElement, ClassDiagram
 from . import modelingassistant
 
 __all__ = ['Time', 'ModelingAssistant', 'Student', 'ProblemStatement', 'ProblemStatementElement', 'Solution',
-           'SolutionElement', 'StudentKnowledge', 'Mistake', 'NamedElement', 'FeedbackItem', 'Tag', 'TagGroup']
+           'SolutionElement', 'StudentKnowledge', 'Mistake', 'NamedElement', 'FeedbackItem', 'Tag', 'TagGroup', 'TagType']
 
 eSubpackages = []
 eSuperPackage = None
@@ -78,7 +78,7 @@ TagGroup.tags.eOpposite = Tag.tagGroup
 TagGroup.solution.eType = Solution
 TagGroup.solution.eOpposite = Solution.tagGroups
 
-otherClassifiers = [Time]
+otherClassifiers = [Time, TagType]
 
 for classif in otherClassifiers:
     eClassifiers[classif.name] = classif
