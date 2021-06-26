@@ -12,8 +12,6 @@
         eType="#//Student" containment="true" eOpposite="#//Student/modelingAssistant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="studentKnowledges" upperBound="-1"
         eType="#//StudentKnowledge" containment="true" eOpposite="#//StudentKnowledge/modelingAssistant"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="feedbackItems" upperBound="-1"
-        eType="#//FeedbackItem" containment="true" eOpposite="#//FeedbackItem/modelingAssistant"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Student" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -57,6 +55,8 @@
         eType="#//TagGroup" containment="true" eOpposite="#//TagGroup/solution"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatement" lowerBound="1"
         eType="#//ProblemStatement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feedbackItems" eType="#//FeedbackItem"
+        containment="true" eOpposite="#//FeedbackItem/solution"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SolutionElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatementElements"
@@ -104,8 +104,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="FeedbackItem">
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakes" eType="#//Mistake"
         eOpposite="#//Mistake/lastFeedback"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
-        eType="#//ModelingAssistant" eOpposite="#//ModelingAssistant/feedbackItems"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="solution" lowerBound="1"
+        eType="#//Solution" eOpposite="#//Solution/feedbackItems"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="usefulness" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feedback" eType="ecore:EClass learningcorpus.ecore#//Feedback"/>
   </eClassifiers>
@@ -124,7 +124,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TagType">
     <eLiterals name="Abstraction" literal="Abstraction"/>
-    <eLiterals name="Occurrencce" value="1"/>
+    <eLiterals name="Occurrence" value="1"/>
     <eLiterals name="Player" value="2"/>
     <eLiterals name="Role" value="3"/>
   </eClassifiers>
