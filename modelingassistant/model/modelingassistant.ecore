@@ -55,8 +55,8 @@
         eType="#//TagGroup" containment="true" eOpposite="#//TagGroup/solution"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatement" lowerBound="1"
         eType="#//ProblemStatement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="feedbackItems" eType="#//FeedbackItem"
-        containment="true" eOpposite="#//FeedbackItem/solution"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feedbackItems" upperBound="-1"
+        eType="#//FeedbackItem" containment="true" eOpposite="#//FeedbackItem/solution"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SolutionElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatementElements"
@@ -70,7 +70,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="instructorElementMistakes"
         upperBound="-1" eType="#//Mistake" eOpposite="#//Mistake/instructorElements"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tags" upperBound="-1" eType="#//Tag"
-        containment="true" eOpposite="#//Tag/solutionelement"/>
+        containment="true" eOpposite="#//Tag/solutionElement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StudentKnowledge">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="levelOfKnowledge" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -104,13 +104,13 @@
   <eClassifiers xsi:type="ecore:EClass" name="FeedbackItem">
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakes" eType="#//Mistake"
         eOpposite="#//Mistake/lastFeedback"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="solution" lowerBound="1"
-        eType="#//Solution" eOpposite="#//Solution/feedbackItems"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="usefulness" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feedback" eType="ecore:EClass learningcorpus.ecore#//Feedback"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="solution" lowerBound="1"
+        eType="#//Solution" eOpposite="#//Solution/feedbackItems"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Tag">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="solutionelement" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="solutionElement" lowerBound="1"
         eType="#//SolutionElement" eOpposite="#//SolutionElement/tags"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tagGroup" lowerBound="1"
         eType="#//TagGroup" eOpposite="#//TagGroup/tags"/>
