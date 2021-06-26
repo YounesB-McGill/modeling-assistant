@@ -13,7 +13,7 @@ def give_feedback(student_solution: Solution) -> FeedbackItem:
         return None  # do not give feedback for other unrelated solutions
     if not student_solution.mistakes:
         # emoji to test serdes
-        return FeedbackItem(feedback=TextResponse(text="All good, no mistakes found! 🎉"))
+        return FeedbackItem(feedback=TextResponse(text="All good, no mistakes found! 🎉"), solution=student_solution)
 
     # sort mistakes by priority and filter out mistakes which are already resolved
     mistakes: list[Mistake] = [m for m in sorted(student_solution.mistakes, key=lambda m: m.mistakeType.priority)
@@ -23,8 +23,9 @@ def give_feedback(student_solution: Solution) -> FeedbackItem:
     highest_priority_mistakes = sorted([m for m in mistakes if m.mistakeType.priority == highest_priority],
                                        key=lambda m: m.numDetection, reverse=True)
 
-    result = FeedbackItem(feedback=TextResponse(text=f"""Found mistake of type {
-        highest_priority_mistakes[0].mistakeType.name}"""))
+    result = FeedbackItem(feedback=TextResponse(
+        text=f"Found mistake of type {highest_priority_mistakes[0].mistakeType.name}"),
+        solution=student_solution)
     for m in highest_priority_mistakes:
         curr_feedback_level = m.lastFeedback.feedback.level + 1 if m.lastFeedback else 1
         curr_feedbacks = [f for f in m.mistakeType.feedbacks if f.level == curr_feedback_level]
