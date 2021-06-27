@@ -29,7 +29,7 @@
   <associations xmi:id="_cwaGIklUEeuektpDqzDh1Q" ends="_cwaGIElUEeuektpDqzDh1Q _cwaGIUlUEeuektpDqzDh1Q" name="Car_Driver"/>
   <associations xmi:id="_8e54MklUEeuektpDqzDh1Q" ends="_8e54MUlUEeuektpDqzDh1Q _8e54MElUEeuektpDqzDh1Q" name="Part_Car"/>
   <classes xsi:type="classdiagram:Class" xmi:id="_WHVLQElSEeuektpDqzDh1Q" name="Car">
-    <associationEnds xmi:id="_cwaGIElUEeuektpDqzDh1Q" upperBound="-1" assoc="_cwaGIklUEeuektpDqzDh1Q" name="drivers"/>
+    <associationEnds xmi:id="_cwaGIElUEeuektpDqzDh1Q" upperBound="-1" name="drivers" assoc="_cwaGIklUEeuektpDqzDh1Q"/>
     <associationEnds xmi:id="_8e54MUlUEeuektpDqzDh1Q" upperBound="-1" name="parts" assoc="_8e54MklUEeuektpDqzDh1Q" referenceType="Composition"/>
     <attributes xmi:id="_e2D18ElSEeuektpDqzDh1Q" type="_VQRndUlSEeuektpDqzDh1Q" name="id"/>
     <attributes xmi:id="_gzbhkElSEeuektpDqzDh1Q" type="_VQRnd0lSEeuektpDqzDh1Q" name="make"/>

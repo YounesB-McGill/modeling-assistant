@@ -5,6 +5,7 @@ package modelingassistant;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -834,13 +835,22 @@ public interface ModelingassistantPackage extends EPackage {
   int TAG__TAG_GROUP = 1;
 
   /**
+   * The feature id for the '<em><b>Tag Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TAG__TAG_TYPE = 2;
+
+  /**
    * The number of structural features of the '<em>Tag</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TAG_FEATURE_COUNT = 2;
+  int TAG_FEATURE_COUNT = 3;
 
   /**
    * The number of operations of the '<em>Tag</em>' class.
@@ -898,6 +908,16 @@ public interface ModelingassistantPackage extends EPackage {
   int TAG_GROUP_OPERATION_COUNT = 0;
 
   /**
+   * The meta object id for the '{@link modelingassistant.TagType <em>Tag Type</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see modelingassistant.TagType
+   * @see modelingassistant.impl.ModelingassistantPackageImpl#getTagType()
+   * @generated
+   */
+  int TAG_TYPE = 12;
+
+  /**
    * The meta object id for the '<em>Time</em>' data type.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -905,7 +925,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @see modelingassistant.impl.ModelingassistantPackageImpl#getTime()
    * @generated
    */
-  int TIME = 12;
+  int TIME = 13;
 
 
   /**
@@ -1580,6 +1600,17 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getTag_TagGroup();
 
   /**
+   * Returns the meta object for the attribute '{@link modelingassistant.Tag#getTagType <em>Tag Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Tag Type</em>'.
+   * @see modelingassistant.Tag#getTagType()
+   * @see #getTag()
+   * @generated
+   */
+  EAttribute getTag_TagType();
+
+  /**
    * Returns the meta object for class '{@link modelingassistant.TagGroup <em>Tag Group</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1610,6 +1641,16 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EReference getTagGroup_Solution();
+
+  /**
+   * Returns the meta object for enum '{@link modelingassistant.TagType <em>Tag Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Tag Type</em>'.
+   * @see modelingassistant.TagType
+   * @generated
+   */
+  EEnum getTagType();
 
   /**
    * Returns the meta object for data type '{@link java.sql.Time <em>Time</em>}'.
@@ -2164,6 +2205,14 @@ public interface ModelingassistantPackage extends EPackage {
     EReference TAG__TAG_GROUP = eINSTANCE.getTag_TagGroup();
 
     /**
+     * The meta object literal for the '<em><b>Tag Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TAG__TAG_TYPE = eINSTANCE.getTag_TagType();
+
+    /**
      * The meta object literal for the '{@link modelingassistant.impl.TagGroupImpl <em>Tag Group</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2188,6 +2237,16 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference TAG_GROUP__SOLUTION = eINSTANCE.getTagGroup_Solution();
+
+    /**
+     * The meta object literal for the '{@link modelingassistant.TagType <em>Tag Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see modelingassistant.TagType
+     * @see modelingassistant.impl.ModelingassistantPackageImpl#getTagType()
+     * @generated
+     */
+    EEnum TAG_TYPE = eINSTANCE.getTagType();
 
     /**
      * The meta object literal for the '<em>Time</em>' data type.
