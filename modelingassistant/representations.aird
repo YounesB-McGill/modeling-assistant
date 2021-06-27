@@ -13,7 +13,7 @@
     <semanticResources>platform:/resource/ca.mcgill.sel.core/model/CORE.genmodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_sM2lgGVtEeu25_uYr0tc7g">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uiMFMWVtEeu25_uYr0tc7g" name="modelingassistant" repPath="#_uhm2YGVtEeu25_uYr0tc7g" changeId="c195171e-5448-4ff6-882e-befcf4975eea">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uiMFMWVtEeu25_uYr0tc7g" name="modelingassistant" repPath="#_uhm2YGVtEeu25_uYr0tc7g" changeId="77a3c93a-d0ba-46ec-9751-2d7bc014b0bd">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/modelingassistant.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -981,10 +981,10 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_v9GkA2VtEeu25_uYr0tc7g" sourceNode="_v7bJAGVtEeu25_uYr0tc7g" targetNode="_ETx-gMlhEeuy_vhQ3TK-kg" beginLabel="[0..1] mistakes" endLabel="[0..1] lastFeedback">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_v9GkA2VtEeu25_uYr0tc7g" sourceNode="_v7bJAGVtEeu25_uYr0tc7g" targetNode="_ETx-gMlhEeuy_vhQ3TK-kg" beginLabel="[0..1] mistake" endLabel="[0..1] lastFeedback">
       <target xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//Mistake/lastFeedback"/>
       <semanticElements xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//Mistake/lastFeedback"/>
-      <semanticElements xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//FeedbackItem/mistakes"/>
+      <semanticElements xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//FeedbackItem/mistake"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_v9GkBGVtEeu25_uYr0tc7g" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" uid="_v9GkBWVtEeu25_uYr0tc7g" showIcon="false"/>
