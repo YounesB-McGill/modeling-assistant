@@ -108,11 +108,12 @@ class MistakeType(NamedElement):
     atomic = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True)
     timeToAddress = EAttribute(eType=Time, unique=True, derived=False, changeable=True)
     numStepsBeforeNotification = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
+    priority = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
     learningItem = EReference(ordered=True, unique=True, containment=False, derived=False)
     feedbacks = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
     mistakeTypeCategory = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, atomic=None, timeToAddress=None, numStepsBeforeNotification=None, learningItem=None, feedbacks=None, mistakeTypeCategory=None, **kwargs):
+    def __init__(self, *, atomic=None, timeToAddress=None, numStepsBeforeNotification=None, learningItem=None, feedbacks=None, mistakeTypeCategory=None, priority=None, **kwargs):
         super().__init__(**kwargs)
         if atomic is not None:
             self.atomic = atomic
@@ -120,6 +121,8 @@ class MistakeType(NamedElement):
             self.timeToAddress = timeToAddress
         if numStepsBeforeNotification is not None:
             self.numStepsBeforeNotification = numStepsBeforeNotification
+        if priority is not None:
+            self.priority = priority
         if learningItem is not None:
             self.learningItem = learningItem
         if feedbacks:

@@ -118,14 +118,14 @@ public interface Mistake extends EObject {
 
   /**
    * Returns the value of the '<em><b>Last Feedback</b></em>' reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.FeedbackItem#getMistakes <em>Mistakes</em>}'.
+   * It is bidirectional and its opposite is '{@link modelingassistant.FeedbackItem#getMistake <em>Mistake</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Last Feedback</em>' reference.
    * @see #setLastFeedback(FeedbackItem)
    * @see modelingassistant.ModelingassistantPackage#getMistake_LastFeedback()
-   * @see modelingassistant.FeedbackItem#getMistakes
-   * @model opposite="mistakes"
+   * @see modelingassistant.FeedbackItem#getMistake
+   * @model opposite="mistake"
    * @generated
    */
   FeedbackItem getLastFeedback();

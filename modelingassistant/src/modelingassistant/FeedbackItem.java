@@ -15,10 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link modelingassistant.FeedbackItem#getMistakes <em>Mistakes</em>}</li>
- *   <li>{@link modelingassistant.FeedbackItem#getModelingAssistant <em>Modeling Assistant</em>}</li>
+ *   <li>{@link modelingassistant.FeedbackItem#getMistake <em>Mistake</em>}</li>
  *   <li>{@link modelingassistant.FeedbackItem#getUsefulness <em>Usefulness</em>}</li>
  *   <li>{@link modelingassistant.FeedbackItem#getFeedback <em>Feedback</em>}</li>
+ *   <li>{@link modelingassistant.FeedbackItem#getSolution <em>Solution</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getFeedbackItem()
@@ -27,52 +27,28 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface FeedbackItem extends EObject {
   /**
-   * Returns the value of the '<em><b>Mistakes</b></em>' reference.
+   * Returns the value of the '<em><b>Mistake</b></em>' reference.
    * It is bidirectional and its opposite is '{@link modelingassistant.Mistake#getLastFeedback <em>Last Feedback</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Mistakes</em>' reference.
-   * @see #setMistakes(Mistake)
-   * @see modelingassistant.ModelingassistantPackage#getFeedbackItem_Mistakes()
+   * @return the value of the '<em>Mistake</em>' reference.
+   * @see #setMistake(Mistake)
+   * @see modelingassistant.ModelingassistantPackage#getFeedbackItem_Mistake()
    * @see modelingassistant.Mistake#getLastFeedback
    * @model opposite="lastFeedback"
    * @generated
    */
-  Mistake getMistakes();
+  Mistake getMistake();
 
   /**
-   * Sets the value of the '{@link modelingassistant.FeedbackItem#getMistakes <em>Mistakes</em>}' reference.
+   * Sets the value of the '{@link modelingassistant.FeedbackItem#getMistake <em>Mistake</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Mistakes</em>' reference.
-   * @see #getMistakes()
+   * @param value the new value of the '<em>Mistake</em>' reference.
+   * @see #getMistake()
    * @generated
    */
-  void setMistakes(Mistake value);
-
-  /**
-   * Returns the value of the '<em><b>Modeling Assistant</b></em>' container reference.
-   * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getFeedbackItems <em>Feedback Items</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Modeling Assistant</em>' container reference.
-   * @see #setModelingAssistant(ModelingAssistant)
-   * @see modelingassistant.ModelingassistantPackage#getFeedbackItem_ModelingAssistant()
-   * @see modelingassistant.ModelingAssistant#getFeedbackItems
-   * @model opposite="feedbackItems" required="true" transient="false"
-   * @generated
-   */
-  ModelingAssistant getModelingAssistant();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.FeedbackItem#getModelingAssistant <em>Modeling Assistant</em>}' container reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Modeling Assistant</em>' container reference.
-   * @see #getModelingAssistant()
-   * @generated
-   */
-  void setModelingAssistant(ModelingAssistant value);
+  void setMistake(Mistake value);
 
   /**
    * Returns the value of the '<em><b>Usefulness</b></em>' attribute.
@@ -117,5 +93,29 @@ public interface FeedbackItem extends EObject {
    * @generated
    */
   void setFeedback(Feedback value);
+
+  /**
+   * Returns the value of the '<em><b>Solution</b></em>' container reference.
+   * It is bidirectional and its opposite is '{@link modelingassistant.Solution#getFeedbackItems <em>Feedback Items</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Solution</em>' container reference.
+   * @see #setSolution(Solution)
+   * @see modelingassistant.ModelingassistantPackage#getFeedbackItem_Solution()
+   * @see modelingassistant.Solution#getFeedbackItems
+   * @model opposite="feedbackItems" required="true" transient="false"
+   * @generated
+   */
+  Solution getSolution();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.FeedbackItem#getSolution <em>Solution</em>}' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Solution</em>' container reference.
+   * @see #getSolution()
+   * @generated
+   */
+  void setSolution(Solution value);
 
 } // FeedbackItem
