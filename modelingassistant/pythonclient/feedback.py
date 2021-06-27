@@ -1,19 +1,23 @@
 #!/usr/bin/env python3
 
-from learningcorpus.learningcorpus import TextResponse
+from typing import Union
+from learningcorpus.learningcorpus import Feedback, TextResponse
 from modelingassistant.modelingassistant import FeedbackItem, Mistake, Solution
 
 
 MAX_STUDENT_LEVEL_OF_KNOWLEDGE = 10
 
 
-def give_feedback(student_solution: Solution) -> FeedbackItem:
+def give_feedback(student_solution: Solution) -> Union[FeedbackItem, list[FeedbackItem]]:
     "Give feedback on the given student solution."
     if student_solution is not student_solution.student.currentSolution:
         return None  # do not give feedback for other unrelated solutions
     if not student_solution.mistakes:
         # emoji to test serdes
         return FeedbackItem(feedback=TextResponse(text="All good, no mistakes found! 🎉"), solution=student_solution)
+
+    if student_solution.currentMistake:
+        return next_feedback(student_solution.currentMistake)
 
     # sort mistakes by priority and filter out mistakes which are already resolved
     mistakes: list[Mistake] = [m for m in sorted(student_solution.mistakes, key=lambda m: m.mistakeType.priority)
@@ -41,6 +45,18 @@ def give_feedback(student_solution: Solution) -> FeedbackItem:
             sk.levelOfKnowledge = MAX_STUDENT_LEVEL_OF_KNOWLEDGE - m.lastFeedback.level
 
     return result
+
+
+def next_feedback(mistake: Mistake) -> FeedbackItem:
+    """
+    Return the feedback item at the next level for the given mistake, eg,
+
+        next_feedback(mistake with lastFeedback.level = 2) = feedback at level 3
+    """
+    target_level = mistake.lastFeedback.feedback.level + 1 if mistake.lastFeedback else 1
+    next_fb = next(fb for fb in mistake.mistakeType.feedbacks if fb.level == target_level)
+    next_fb.__class__ = Feedback
+    return FeedbackItem(feedback=next_fb, solution=mistake.studentSolution)
 
 
 if __name__ == '__main__':
