@@ -3,14 +3,13 @@
 import os
 import sys
 
-from learningcorpus.learningcorpus import Feedback, TextResponse
-
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from feedback import give_feedback
 from classdiagram.classdiagram import Class
+from learningcorpus.learningcorpus import Feedback, TextResponse
 from mistaketypes import SOFTWARE_ENGINEERING_TERM
-from modelingassistant.modelingassistant import Mistake, ModelingAssistant, ProblemStatement, Solution, SolutionElement, Student, StudentKnowledge
+from modelingassistant.modelingassistant import FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, Solution, SolutionElement, Student, StudentKnowledge
 
 
 def make_ma_without_mistakes() -> ModelingAssistant:
@@ -25,12 +24,14 @@ def make_ma_without_mistakes() -> ModelingAssistant:
 
 
 def make_ma_with_1_new_mistake(num_detection: int=1) -> ModelingAssistant:
-    "Make a simple Modeling Assistant instance with one mistake."
+    "Make a simple Modeling Assistant instance with one mistake, detected `num_detection` times."
     ma = make_ma_without_mistakes()
     alice_bus_sol = ma.solutions[0]
     bus_data_cls = SolutionElement(solution=alice_bus_sol, element=Class(name="BusData"))
     set_mistake = Mistake(studentSolution=alice_bus_sol, mistakeType=SOFTWARE_ENGINEERING_TERM,
                           numDetection=num_detection, studentElements=[bus_data_cls])
+    if num_detection > 1:
+        set_mistake.lastFeedback = FeedbackItem(feedback=Feedback(level=num_detection - 1))
     alice_bus_sol.currentMistake = set_mistake
     return ma
 
@@ -63,7 +64,7 @@ def test_feedback_with_1_mistake_level_1():
     assert curr_mistake.mistakeType is feedback.mistakeType
 
 
-def tst_feedback_with_1_mistake_level_2():
+def test_feedback_with_1_mistake_level_2():
     """
     Test feedback for a solution with one mistake made a second time.
 
@@ -75,6 +76,7 @@ def tst_feedback_with_1_mistake_level_2():
 
     feedback_item = give_feedback(solution)
     assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
     feedback = feedback_item.feedback
     assert isinstance(feedback, TextResponse)
     assert 2 == feedback.level
