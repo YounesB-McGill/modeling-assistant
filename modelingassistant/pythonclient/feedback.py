@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from typing import Union
-from learningcorpus.learningcorpus import Feedback, TextResponse
+from learningcorpus.learningcorpus import TextResponse
 from modelingassistant.modelingassistant import FeedbackItem, Mistake, Solution
 
 
