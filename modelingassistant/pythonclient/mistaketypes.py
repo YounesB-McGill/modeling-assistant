@@ -102,6 +102,7 @@ WRONG_GENERALIZATION_DIRECTION: MistakeType = _MTS["Wrong generalization directi
 WRONG_SUPERCLASS: MistakeType = _MTS["Wrong superclass"]
 
 
+# deprecated: this function will be removed soon
 def _make_static():
     """
     Make the mistake types and categories have static types from the generated code instead of
@@ -112,6 +113,7 @@ def _make_static():
     for mt in _MTS.values(): mt.__class__ = MistakeType
 
 
+# deprecated: this function will be removed soon
 def _make_dynamic():
     """
     Make the mistake types and categories have dynamic pyecore types, the default if
@@ -122,4 +124,4 @@ def _make_dynamic():
     for mt in _MTS.values(): mt.__class__ = _dynamic_mt_type
 
 
-_make_static()
+#_make_static()
