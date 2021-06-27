@@ -174,6 +174,8 @@ mts_by_priority: list[MistakeType] = [
     bad_association_name_spelling,
     similar_association_name,
 
+    incomplete_containment_tree,
+
     # extra items
     extra_class,
     extra_association_class,
@@ -190,7 +192,6 @@ mts_by_priority: list[MistakeType] = [
     missing_composition,
     missing_association,
     missing_aggregation,
-    incomplete_containment_tree,
     missing_role_names,
     missing_association_name_when_one_was_expected,
 ]
