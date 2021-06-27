@@ -5,6 +5,7 @@ package modelingassistant.impl;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import java.util.Collection;
 
+import modelingassistant.FeedbackItem;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
@@ -45,6 +46,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link modelingassistant.impl.SolutionImpl#getCurrentMistake <em>Current Mistake</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionImpl#getTagGroups <em>Tag Groups</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionImpl#getProblemStatement <em>Problem Statement</em>}</li>
+ *   <li>{@link modelingassistant.impl.SolutionImpl#getFeedbackItems <em>Feedback Items</em>}</li>
  * </ul>
  *
  * @generated
@@ -119,6 +121,16 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
    * @ordered
    */
   protected ProblemStatement problemStatement;
+
+  /**
+   * The cached value of the '{@link #getFeedbackItems() <em>Feedback Items</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFeedbackItems()
+   * @generated
+   * @ordered
+   */
+  protected EList<FeedbackItem> feedbackItems;
 
   /**
    * <!-- begin-user-doc -->
@@ -408,6 +420,19 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public EList<FeedbackItem> getFeedbackItems() {
+    if (feedbackItems == null) {
+      feedbackItems = new EObjectContainmentWithInverseEList<FeedbackItem>(FeedbackItem.class, this, ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS, ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION);
+    }
+    return feedbackItems;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -426,6 +451,8 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getMistakes()).basicAdd(otherEnd, msgs);
       case ModelingassistantPackage.SOLUTION__TAG_GROUPS:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getTagGroups()).basicAdd(otherEnd, msgs);
+      case ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS:
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getFeedbackItems()).basicAdd(otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -448,6 +475,8 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         return ((InternalEList<?>)getMistakes()).basicRemove(otherEnd, msgs);
       case ModelingassistantPackage.SOLUTION__TAG_GROUPS:
         return ((InternalEList<?>)getTagGroups()).basicRemove(otherEnd, msgs);
+      case ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS:
+        return ((InternalEList<?>)getFeedbackItems()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -494,6 +523,8 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
       case ModelingassistantPackage.SOLUTION__PROBLEM_STATEMENT:
         if (resolve) return getProblemStatement();
         return basicGetProblemStatement();
+      case ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS:
+        return getFeedbackItems();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -534,6 +565,10 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
       case ModelingassistantPackage.SOLUTION__PROBLEM_STATEMENT:
         setProblemStatement((ProblemStatement)newValue);
         return;
+      case ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS:
+        getFeedbackItems().clear();
+        getFeedbackItems().addAll((Collection<? extends FeedbackItem>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -570,6 +605,9 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
       case ModelingassistantPackage.SOLUTION__PROBLEM_STATEMENT:
         setProblemStatement((ProblemStatement)null);
         return;
+      case ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS:
+        getFeedbackItems().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -598,6 +636,8 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         return tagGroups != null && !tagGroups.isEmpty();
       case ModelingassistantPackage.SOLUTION__PROBLEM_STATEMENT:
         return problemStatement != null;
+      case ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS:
+        return feedbackItems != null && !feedbackItems.isEmpty();
     }
     return super.eIsSet(featureID);
   }

@@ -66,6 +66,7 @@ public class SolutionItemProvider
       addClassDiagramPropertyDescriptor(object);
       addCurrentMistakePropertyDescriptor(object);
       addProblemStatementPropertyDescriptor(object);
+      addFeedbackItemsPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -159,6 +160,28 @@ public class SolutionItemProvider
   }
 
   /**
+   * This adds a property descriptor for the Feedback Items feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addFeedbackItemsPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_Solution_feedbackItems_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Solution_feedbackItems_feature", "_UI_Solution_type"),
+         ModelingassistantPackage.Literals.SOLUTION__FEEDBACK_ITEMS,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
    * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
    * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
    * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -173,6 +196,7 @@ public class SolutionItemProvider
       childrenFeatures.add(ModelingassistantPackage.Literals.SOLUTION__SOLUTION_ELEMENTS);
       childrenFeatures.add(ModelingassistantPackage.Literals.SOLUTION__MISTAKES);
       childrenFeatures.add(ModelingassistantPackage.Literals.SOLUTION__TAG_GROUPS);
+      childrenFeatures.add(ModelingassistantPackage.Literals.SOLUTION__FEEDBACK_ITEMS);
     }
     return childrenFeatures;
   }
@@ -228,6 +252,7 @@ public class SolutionItemProvider
       case ModelingassistantPackage.SOLUTION__SOLUTION_ELEMENTS:
       case ModelingassistantPackage.SOLUTION__MISTAKES:
       case ModelingassistantPackage.SOLUTION__TAG_GROUPS:
+      case ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
     }
@@ -259,6 +284,11 @@ public class SolutionItemProvider
       (createChildParameter
         (ModelingassistantPackage.Literals.SOLUTION__TAG_GROUPS,
          ModelingassistantFactory.eINSTANCE.createTagGroup()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (ModelingassistantPackage.Literals.SOLUTION__FEEDBACK_ITEMS,
+         ModelingassistantFactory.eINSTANCE.createFeedbackItem()));
   }
 
   /**

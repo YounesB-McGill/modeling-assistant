@@ -1,6 +1,6 @@
-from pyecore.resources.resource import ResourceSet, URI
-from learningcorpus.learningcorpus import LearningCorpus, MistakeTypeCategory, MistakeType
+from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
 from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, WRONG_CLASS, WRONG_CLASS_NAME
+from corpus_creation import mts_by_priority
 
 import mistaketypes
 
@@ -37,11 +37,6 @@ def test_learning_corpus_mistake_types_and_categories_hierarchy():
     """
     Verify mistake types and categories hierarchy in the default learning corpus instance used in mistaketypes.py.
     """
-    lc_mm_file = "modelingassistant/model/learningcorpus.ecore"
-    rset = ResourceSet()
-    resource = rset.get_resource(URI(lc_mm_file))
-    lc_mm_root = resource.contents[0]
-    rset.metamodel_registry[lc_mm_root.nsURI] = lc_mm_root
     learning_corpus = WRONG_CLASS.learningCorpus
 
     assert "Wrong class" == WRONG_CLASS.name
@@ -68,3 +63,14 @@ def test_learning_corpus_mistake_types_and_categories_hierarchy():
         assert mtc.learningCorpus is learning_corpus
     for mt in [MISSING_CLASS, SOFTWARE_ENGINEERING_TERM]:
         assert mt.mistakeTypeCategory.learningCorpus is learning_corpus
+
+
+def test_mistake_type_priorities():
+    """
+    Verify that all mistake types are assigned a priority.
+    """
+    assert len(set(mts_by_priority)) == len(WRONG_CLASS.learningCorpus.mistakeTypes())
+    for mt in mts_by_priority:
+        if mt:
+            assert isinstance(mt, MistakeType)
+            assert mt.priority

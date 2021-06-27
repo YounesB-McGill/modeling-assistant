@@ -129,20 +129,11 @@ public class MistakeTypes {
 This file contains all mistake types and categories.
 """
 
-from learningcorpus.learningcorpus import LearningCorpus, MistakeTypeCategory, MistakeType
-from pyecore.resources import ResourceSet, URI
+from fileserdes import load_lc
+from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
 
 LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test.learningcorpus"
-
-# Open Modeling Assistant metamodel and instance
-ma_mm_file = "modelingassistant/model/learningcorpus.ecore"
-rset = ResourceSet()
-resource = rset.get_resource(URI(ma_mm_file))
-ma_mm_root = resource.contents[ '[' /]0[ ']' /]
-rset.metamodel_registry[ '[' /]ma_mm_root.nsURI[ ']' /] = ma_mm_root
-resource = rset.get_resource(URI(LEARNING_CORPUS_PATH))
-corpus: LearningCorpus = resource.contents[ '[' /]0[ ']' /]
-corpus.__class__ = LearningCorpus
+corpus = load_lc(LEARNING_CORPUS_PATH)
 
 # Populate dictionaries
 MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[ '[' /]str, MistakeTypeCategory[ ']' /] = {c.name: c for c in corpus.mistakeTypeCategories}
@@ -192,6 +183,7 @@ _dynamic_mt_type = type(list(_MTS.values())[ '[' /]0[ ']' /])
 [/for]
 
 
+# deprecated: this function will be removed soon
 def _make_static():
     """
     Make the mistake types and categories have static types from the generated code instead of
@@ -202,6 +194,7 @@ def _make_static():
     for mt in _MTS.values(): mt.__class__ = MistakeType
 
 
+# deprecated: this function will be removed soon
 def _make_dynamic():
     """
     Make the mistake types and categories have dynamic pyecore types, the default if
@@ -212,7 +205,7 @@ def _make_dynamic():
     for mt in _MTS.values(): mt.__class__ = _dynamic_mt_type
 
 
-_make_static()
+#_make_static()
 [/file]
 
 [file ('../../modelingassistant/pythonclient/corpus_creation.py', false, 'UTF-8')]
@@ -259,6 +252,83 @@ domain_modeling.learningCorpus = corpus
 for _mt in corpus.mistakeTypes():
     for feedback in _mt.feedbacks:
         feedback.learningCorpus = corpus
+
+
+# mistake types by priority, from most to least important
+mts_by_priority: list[ '[' /]MistakeType[ ']' /] = [ '[' /]
+    # mistakes in an existing class
+    bad_class_name_spelling,
+    lowercase_class_name,
+    plural_class_name,
+    software_engineering_term,
+    similar_class_name,
+    bad_association_class_name_spelling,
+    similar_association_class_name,
+    regular_class_should_be_enum,
+    enum_should_be_regular_class,
+    wrong_enum_items,
+
+    # mistakes in an existing attribute
+    bad_attribute_name_spelling,
+    plural_attribute,
+    similar_attribute_name,
+    #attribute_misplaced,
+    wrong_attribute_type,
+    attribute_should_not_be_static,
+    attribute_should_be_static,
+
+    # mistakes in an existing relationship
+    infinite_recursive_dependency,
+    composed_part_contained_in_more_than_one_parent,
+    using_an_attribute_instead_of_an_association,
+    list_attribute,
+    generalization_inapplicable,
+    using_association_instead_of_aggregation_composition,
+    using_aggregation_composition_instead_of_association,
+    using_directed_association_instead_of_undirected,
+    using_undirected_association_instead_of_directed,
+    using_aggregation_instead_of_composition,
+    using_composition_instead_of_aggregation,
+    wrong_generalization_direction,
+    wrong_superclass,
+    subclass_is_an_instance_of_superclass,
+    non_differentiated_subclass,
+    subclass_not_distinct_across_lifetime,
+    inherited_feature_does_not_make_sense_for_subclass,
+    other_wrong_multiplicity,
+    missing_role_names,
+    bad_role_name_spelling,
+    similar_role_name,
+    other_wrong_role_name,
+    role_should_not_be_static,
+    role_should_be_static,
+    bad_association_name_spelling,
+    similar_association_name,
+
+    incomplete_containment_tree,
+
+    # extra items
+    extra_class,
+    extra_association_class,
+    representing_an_action_with_an_association,
+    other_extra_association,
+    #attribute_duplicated,
+    other_extra_attribute,
+
+    # missing items
+    missing_class,
+    missing_attribute,
+    missing_association_class,
+    missing_generalization,
+    missing_composition,
+    missing_association,
+    missing_aggregation,
+    missing_role_names,
+    missing_association_name_when_one_was_expected,
+[ ']' /]
+
+for i, _mt in enumerate(mts_by_priority, start=1):
+    _mt.priority = i
 [/file]
 
 [file ('../../modelingassistant/corpus_descriptions/README_TOC.md', false, 'UTF-8')]

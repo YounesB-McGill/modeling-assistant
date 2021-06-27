@@ -2,20 +2,11 @@
 This file contains all mistake types and categories.
 """
 
-from learningcorpus.learningcorpus import LearningCorpus, MistakeTypeCategory, MistakeType
-from pyecore.resources import ResourceSet, URI
+from fileserdes import load_lc
+from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
 
-LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test.learningcorpus"
-
-# Open Modeling Assistant metamodel and instance
-ma_mm_file = "modelingassistant/model/learningcorpus.ecore"
-rset = ResourceSet()
-resource = rset.get_resource(URI(ma_mm_file))
-ma_mm_root = resource.contents[0]
-rset.metamodel_registry[ma_mm_root.nsURI] = ma_mm_root
-resource = rset.get_resource(URI(LEARNING_CORPUS_PATH))
-corpus: LearningCorpus = resource.contents[0]
-corpus.__class__ = LearningCorpus
+LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test2.learningcorpus"
+corpus = load_lc(LEARNING_CORPUS_PATH)
 
 # Populate dictionaries
 MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[str, MistakeTypeCategory] = {c.name: c for c in corpus.mistakeTypeCategories}
@@ -111,6 +102,7 @@ WRONG_GENERALIZATION_DIRECTION: MistakeType = _MTS["Wrong generalization directi
 WRONG_SUPERCLASS: MistakeType = _MTS["Wrong superclass"]
 
 
+# deprecated: this function will be removed soon
 def _make_static():
     """
     Make the mistake types and categories have static types from the generated code instead of
@@ -121,6 +113,7 @@ def _make_static():
     for mt in _MTS.values(): mt.__class__ = MistakeType
 
 
+# deprecated: this function will be removed soon
 def _make_dynamic():
     """
     Make the mistake types and categories have dynamic pyecore types, the default if
@@ -131,4 +124,4 @@ def _make_dynamic():
     for mt in _MTS.values(): mt.__class__ = _dynamic_mt_type
 
 
-_make_static()
+#_make_static()
