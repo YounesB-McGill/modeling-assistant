@@ -32,7 +32,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     wrong_class_name := mtc(n="Wrong class name", s=wrong_class, mistakeTypes=[
         plural_class_name := mt(n="Plural class name"),
         lowercase_class_name := mt(n="Lowercase class name"),
-        software_engineering_term := mt(n="Software engineering term", feedbacks=[
+        software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=[
             Feedback(level=1, highlightSolution=True),
             TextResponse(level=2, text="Remember that a domain model should not contain software engineering terms."),
             ParametrizedResponse(level=3, text="${{className}} is a software engineering term, which does not belong in a domain model."),
