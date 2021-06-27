@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_1c6IwNd1Eeua254ZLEQWjg" name="Student_lowercaseClasssName">
+  <classes xsi:type="classdiagram:Class" xmi:id="_1_eDQNd1Eeua254ZLEQWjg" name="car"/>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_1c6Iwdd1Eeua254ZLEQWjg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_1c6Iwtd1Eeua254ZLEQWjg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_1c6Iw9d1Eeua254ZLEQWjg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_1c6IxNd1Eeua254ZLEQWjg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_1c6Ixdd1Eeua254ZLEQWjg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_1c6Ixtd1Eeua254ZLEQWjg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_1c6Ix9d1Eeua254ZLEQWjg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_1c6IyNd1Eeua254ZLEQWjg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_1c6Iydd1Eeua254ZLEQWjg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_1c6Iytd1Eeua254ZLEQWjg"/>
+  <layout xmi:id="_1c6Iy9d1Eeua254ZLEQWjg">
+    <containers xmi:id="_1c6IzNd1Eeua254ZLEQWjg" key="_1c6IwNd1Eeua254ZLEQWjg">
+      <value xmi:id="_1_htoNd1Eeua254ZLEQWjg" key="_1_eDQNd1Eeua254ZLEQWjg">
+        <value xmi:id="_1_htodd1Eeua254ZLEQWjg" x="924.0" y="193.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
