@@ -5,6 +5,7 @@ package modelingassistant.provider;
 
 import java.util.Collection;
 import java.util.List;
+import learningcorpus.provider.ModelingassistantEditPlugin;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
