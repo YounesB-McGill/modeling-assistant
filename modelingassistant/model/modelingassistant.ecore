@@ -88,7 +88,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="studentElements" upperBound="-1"
         eType="#//SolutionElement" eOpposite="#//SolutionElement/studentElementMistakes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="lastFeedback" eType="#//FeedbackItem"
-        eOpposite="#//FeedbackItem/mistakes"/>
+        eOpposite="#//FeedbackItem/mistake"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="instructorElements" upperBound="-1"
         eType="#//SolutionElement" eOpposite="#//SolutionElement/instructorElementMistakes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="studentSolution" lowerBound="1"
@@ -102,7 +102,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeedbackItem">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakes" eType="#//Mistake"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistake" eType="#//Mistake"
         eOpposite="#//Mistake/lastFeedback"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="usefulness" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feedback" eType="ecore:EClass learningcorpus.ecore#//Feedback"/>
