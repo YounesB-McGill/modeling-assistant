@@ -55,7 +55,6 @@ def next_feedback(mistake: Mistake) -> FeedbackItem:
     """
     target_level = mistake.lastFeedback.feedback.level + 1 if mistake.lastFeedback else 1
     next_fb = next(fb for fb in mistake.mistakeType.feedbacks if fb.level == target_level)
-    next_fb.__class__ = Feedback
     return FeedbackItem(feedback=next_fb, solution=mistake.studentSolution)
 
 

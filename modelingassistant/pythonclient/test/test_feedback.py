@@ -56,7 +56,7 @@ def test_feedback_with_1_mistake_level_1():
     solution = ma.solutions[0]
     curr_mistake = solution.currentMistake
     assert curr_mistake is solution.mistakes[0]
-    
+
     feedback_item = give_feedback(solution)
     assert feedback_item.solution is solution
     feedback = feedback_item.feedback
