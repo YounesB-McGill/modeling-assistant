@@ -2,7 +2,8 @@
 Helper file used to create learning corpus.
 """
 
-from learningcorpus.learningcorpus import Feedback, LearningCorpus, MistakeTypeCategory, MistakeType, LearningItem, ParametrizedResponse, TextResponse
+from textwrap import dedent
+from learningcorpus.learningcorpus import Example, Feedback, LearningCorpus, MistakeTypeCategory, MistakeType, LearningItem, ParametrizedResponse, ResourceResponse, TextResponse
 
 
 domain_modeling = LearningItem(name="DomainModeling")
@@ -31,7 +32,18 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     wrong_class_name := mtc(n="Wrong class name", s=wrong_class, mistakeTypes=[
         plural_class_name := mt(n="Plural class name"),
         lowercase_class_name := mt(n="Lowercase class name"),
-        software_engineering_term := mt(n="Software engineering term"),
+        software_engineering_term := mt(n="Software engineering term", feedbacks=[
+            Feedback(level=1, highlightSolution=True),
+            TextResponse(level=2, text="Remember that a domain model should not contain software engineering terms."),
+            ParametrizedResponse(level=3, text="${{className}} is a software engineering term, which does not belong in a domain model."),
+            ResourceResponse(level=4, learningResources=[Example(content=dedent("""\
+                Please note these examples of correct vs incorrect class naming:
+                :x: Examples to avoid | :heavy_check_mark: Good class names
+                --- | ---
+                pilot | Pilot
+                Airplanes | Airplane 
+                AirlineData | Airline"""))]),
+        ]),
         bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True),
         similar_class_name := mt(n="Similar (yet incorrect) class name"),
     ]),
@@ -121,6 +133,9 @@ domain_modeling.learningCorpus = corpus
 for _mt in corpus.mistakeTypes():
     for feedback in _mt.feedbacks:
         feedback.learningCorpus = corpus
+        if isinstance(feedback, ResourceResponse):
+            for lr in feedback.learningResources:
+                lr.learningCorpus = corpus
 
 
 # mistake types by priority, from most to least important
