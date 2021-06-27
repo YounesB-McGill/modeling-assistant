@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link learningcorpus.impl.MistakeTypeImpl#getLearningItem <em>Learning Item</em>}</li>
  *   <li>{@link learningcorpus.impl.MistakeTypeImpl#getFeedbacks <em>Feedbacks</em>}</li>
  *   <li>{@link learningcorpus.impl.MistakeTypeImpl#getMistakeTypeCategory <em>Mistake Type Category</em>}</li>
+ *   <li>{@link learningcorpus.impl.MistakeTypeImpl#getPriority <em>Priority</em>}</li>
  * </ul>
  *
  * @generated
@@ -124,6 +125,26 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
    * @ordered
    */
   protected EList<Feedback> feedbacks;
+
+  /**
+   * The default value of the '{@link #getPriority() <em>Priority</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPriority()
+   * @generated
+   * @ordered
+   */
+  protected static final int PRIORITY_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getPriority() <em>Priority</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPriority()
+   * @generated
+   * @ordered
+   */
+  protected int priority = PRIORITY_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -336,6 +357,29 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public int getPriority() {
+    return priority;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setPriority(int newPriority) {
+    int oldPriority = priority;
+    priority = newPriority;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, LearningcorpusPackage.MISTAKE_TYPE__PRIORITY, oldPriority, priority));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -407,6 +451,8 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         return getFeedbacks();
       case LearningcorpusPackage.MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY:
         return getMistakeTypeCategory();
+      case LearningcorpusPackage.MISTAKE_TYPE__PRIORITY:
+        return getPriority();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -439,6 +485,9 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
       case LearningcorpusPackage.MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY:
         setMistakeTypeCategory((MistakeTypeCategory)newValue);
         return;
+      case LearningcorpusPackage.MISTAKE_TYPE__PRIORITY:
+        setPriority((Integer)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -469,6 +518,9 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
       case LearningcorpusPackage.MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY:
         setMistakeTypeCategory((MistakeTypeCategory)null);
         return;
+      case LearningcorpusPackage.MISTAKE_TYPE__PRIORITY:
+        setPriority(PRIORITY_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -493,6 +545,8 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         return feedbacks != null && !feedbacks.isEmpty();
       case LearningcorpusPackage.MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY:
         return getMistakeTypeCategory() != null;
+      case LearningcorpusPackage.MISTAKE_TYPE__PRIORITY:
+        return priority != PRIORITY_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -513,6 +567,8 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
     result.append(timeToAddress);
     result.append(", numStepsBeforeNotification: ");
     result.append(numStepsBeforeNotification);
+    result.append(", priority: ");
+    result.append(priority);
     result.append(')');
     return result.toString();
   }

@@ -345,9 +345,9 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
     if (newLastFeedback != lastFeedback) {
       NotificationChain msgs = null;
       if (lastFeedback != null)
-        msgs = ((InternalEObject)lastFeedback).eInverseRemove(this, ModelingassistantPackage.FEEDBACK_ITEM__MISTAKES, FeedbackItem.class, msgs);
+        msgs = ((InternalEObject)lastFeedback).eInverseRemove(this, ModelingassistantPackage.FEEDBACK_ITEM__MISTAKE, FeedbackItem.class, msgs);
       if (newLastFeedback != null)
-        msgs = ((InternalEObject)newLastFeedback).eInverseAdd(this, ModelingassistantPackage.FEEDBACK_ITEM__MISTAKES, FeedbackItem.class, msgs);
+        msgs = ((InternalEObject)newLastFeedback).eInverseAdd(this, ModelingassistantPackage.FEEDBACK_ITEM__MISTAKE, FeedbackItem.class, msgs);
       msgs = basicSetLastFeedback(newLastFeedback, msgs);
       if (msgs != null) msgs.dispatch();
     }
@@ -510,7 +510,7 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getStudentElements()).basicAdd(otherEnd, msgs);
       case ModelingassistantPackage.MISTAKE__LAST_FEEDBACK:
         if (lastFeedback != null)
-          msgs = ((InternalEObject)lastFeedback).eInverseRemove(this, ModelingassistantPackage.FEEDBACK_ITEM__MISTAKES, FeedbackItem.class, msgs);
+          msgs = ((InternalEObject)lastFeedback).eInverseRemove(this, ModelingassistantPackage.FEEDBACK_ITEM__MISTAKE, FeedbackItem.class, msgs);
         return basicSetLastFeedback((FeedbackItem)otherEnd, msgs);
       case ModelingassistantPackage.MISTAKE__INSTRUCTOR_ELEMENTS:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getInstructorElements()).basicAdd(otherEnd, msgs);

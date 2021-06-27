@@ -2,7 +2,8 @@
 Helper file used to create learning corpus.
 """
 
-from learningcorpus.learningcorpus import Feedback, LearningCorpus, MistakeTypeCategory, MistakeType, LearningItem, ParametrizedResponse, TextResponse
+from textwrap import dedent
+from learningcorpus.learningcorpus import Example, Feedback, LearningCorpus, MistakeTypeCategory, MistakeType, LearningItem, ParametrizedResponse, ResourceResponse, TextResponse
 
 
 domain_modeling = LearningItem(name="DomainModeling")
@@ -31,7 +32,18 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     wrong_class_name := mtc(n="Wrong class name", s=wrong_class, mistakeTypes=[
         plural_class_name := mt(n="Plural class name"),
         lowercase_class_name := mt(n="Lowercase class name"),
-        software_engineering_term := mt(n="Software engineering term"),
+        software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=[
+            Feedback(level=1, highlightSolution=True),
+            TextResponse(level=2, text="Remember that a domain model should not contain software engineering terms."),
+            ParametrizedResponse(level=3, text="${{className}} is a software engineering term, which does not belong in a domain model."),
+            ResourceResponse(level=4, learningResources=[Example(content=dedent("""\
+                Please note these examples of correct vs incorrect class naming:
+                :x: Examples to avoid | :heavy_check_mark: Good class names
+                --- | ---
+                pilot | Pilot
+                Airplanes | Airplane 
+                AirlineData | Airline"""))]),
+        ]),
         bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True),
         similar_class_name := mt(n="Similar (yet incorrect) class name"),
     ]),
@@ -121,3 +133,83 @@ domain_modeling.learningCorpus = corpus
 for _mt in corpus.mistakeTypes():
     for feedback in _mt.feedbacks:
         feedback.learningCorpus = corpus
+        if isinstance(feedback, ResourceResponse):
+            for lr in feedback.learningResources:
+                lr.learningCorpus = corpus
+
+
+# mistake types by priority, from most to least important
+mts_by_priority: list[MistakeType] = [
+    # mistakes in an existing class
+    bad_class_name_spelling,
+    lowercase_class_name,
+    plural_class_name,
+    software_engineering_term,
+    similar_class_name,
+    bad_association_class_name_spelling,
+    similar_association_class_name,
+    regular_class_should_be_enum,
+    enum_should_be_regular_class,
+    wrong_enum_items,
+
+    # mistakes in an existing attribute
+    bad_attribute_name_spelling,
+    plural_attribute,
+    similar_attribute_name,
+    #attribute_misplaced,
+    wrong_attribute_type,
+    attribute_should_not_be_static,
+    attribute_should_be_static,
+
+    # mistakes in an existing relationship
+    infinite_recursive_dependency,
+    composed_part_contained_in_more_than_one_parent,
+    using_an_attribute_instead_of_an_association,
+    list_attribute,
+    generalization_inapplicable,
+    using_association_instead_of_aggregation_composition,
+    using_aggregation_composition_instead_of_association,
+    using_directed_association_instead_of_undirected,
+    using_undirected_association_instead_of_directed,
+    using_aggregation_instead_of_composition,
+    using_composition_instead_of_aggregation,
+    wrong_generalization_direction,
+    wrong_superclass,
+    subclass_is_an_instance_of_superclass,
+    non_differentiated_subclass,
+    subclass_not_distinct_across_lifetime,
+    inherited_feature_does_not_make_sense_for_subclass,
+    other_wrong_multiplicity,
+    missing_role_names,
+    bad_role_name_spelling,
+    similar_role_name,
+    other_wrong_role_name,
+    role_should_not_be_static,
+    role_should_be_static,
+    bad_association_name_spelling,
+    similar_association_name,
+
+    incomplete_containment_tree,
+
+    # extra items
+    extra_class,
+    extra_association_class,
+    representing_an_action_with_an_association,
+    other_extra_association,
+    #attribute_duplicated,
+    other_extra_attribute,
+
+    # missing items
+    missing_class,
+    missing_attribute,
+    missing_association_class,
+    missing_generalization,
+    missing_composition,
+    missing_association,
+    missing_aggregation,
+    missing_role_names,
+    missing_association_name_when_one_was_expected,
+]
+
+for i, _mt in enumerate(mts_by_priority, start=1):
+    _mt.priority = i

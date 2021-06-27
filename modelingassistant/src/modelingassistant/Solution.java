@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.Solution#getCurrentMistake <em>Current Mistake</em>}</li>
  *   <li>{@link modelingassistant.Solution#getTagGroups <em>Tag Groups</em>}</li>
  *   <li>{@link modelingassistant.Solution#getProblemStatement <em>Problem Statement</em>}</li>
+ *   <li>{@link modelingassistant.Solution#getFeedbackItems <em>Feedback Items</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getSolution()
@@ -186,5 +187,19 @@ public interface Solution extends EObject {
    * @generated
    */
   void setProblemStatement(ProblemStatement value);
+
+  /**
+   * Returns the value of the '<em><b>Feedback Items</b></em>' containment reference list.
+   * The list contents are of type {@link modelingassistant.FeedbackItem}.
+   * It is bidirectional and its opposite is '{@link modelingassistant.FeedbackItem#getSolution <em>Solution</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Feedback Items</em>' containment reference list.
+   * @see modelingassistant.ModelingassistantPackage#getSolution_FeedbackItems()
+   * @see modelingassistant.FeedbackItem#getSolution
+   * @model opposite="solution" containment="true"
+   * @generated
+   */
+  EList<FeedbackItem> getFeedbackItems();
 
 } // Solution

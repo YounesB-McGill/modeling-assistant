@@ -33,7 +33,6 @@ import modelingassistant.util.ModelingassistantResourceFactoryImpl;
  *   <li>{@link modelingassistant.ModelingAssistant#getSolutions <em>Solutions</em>}</li>
  *   <li>{@link modelingassistant.ModelingAssistant#getStudents <em>Students</em>}</li>
  *   <li>{@link modelingassistant.ModelingAssistant#getStudentKnowledges <em>Student Knowledges</em>}</li>
- *   <li>{@link modelingassistant.ModelingAssistant#getFeedbackItems <em>Feedback Items</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getModelingAssistant()
@@ -96,20 +95,6 @@ public interface ModelingAssistant extends EObject {
    * @generated
    */
   EList<StudentKnowledge> getStudentKnowledges();
-
-  /**
-   * Returns the value of the '<em><b>Feedback Items</b></em>' containment reference list.
-   * The list contents are of type {@link modelingassistant.FeedbackItem}.
-   * It is bidirectional and its opposite is '{@link modelingassistant.FeedbackItem#getModelingAssistant <em>Modeling Assistant</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Feedback Items</em>' containment reference list.
-   * @see modelingassistant.ModelingassistantPackage#getModelingAssistant_FeedbackItems()
-   * @see modelingassistant.FeedbackItem#getModelingAssistant
-   * @model opposite="modelingAssistant" containment="true"
-   * @generated
-   */
-  EList<FeedbackItem> getFeedbackItems();
 
   /**
    * Returns the modeling assistant at the given *.modelingassistant file.
