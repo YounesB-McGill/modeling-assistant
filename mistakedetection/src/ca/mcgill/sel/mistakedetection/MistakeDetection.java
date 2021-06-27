@@ -190,7 +190,7 @@ public class MistakeDetection {
       }
 
       var otherInstructorClassifier = otherInstructorClassifierAssocEnd.getClassifier();
-
+      Map<Association, EList<AssociationEnd>> possibleAssocMatch = new HashMap<Association, EList<AssociationEnd>>();
       for (AssociationEnd studentClassifierAssocEnd : studentClassifierAssocEnds) {
         var studentClassifierAssoc = studentClassifierAssocEnd.getAssoc();
         AssociationEnd otherStudentClassifierAssocEnd;
@@ -202,43 +202,94 @@ public class MistakeDetection {
         var otherStudentClassifier = otherStudentClassifierAssocEnd.getClassifier();
 
         if (comparison.mappedClassifier.get(otherInstructorClassifier) == null) {
-          return;
+          continue;
+        }
+        if (comparison.mappedAssociation.containsKey(instructorClassifierAssoc)) {
+          continue;
+        }
+        if (comparison.mappedAssociation.containsValue(studentClassifierAssoc)) {
+          continue;
         }
         if (comparison.mappedClassifier.get(otherInstructorClassifier).equals(otherStudentClassifier)) {
-          comparison.mappedAssociation.put(instructorClassifierAssoc, studentClassifierAssoc);
-          comparison.notMappedInstructorAssociation.remove(instructorClassifierAssoc);
-          comparison.extraStudentAssociation.remove(studentClassifierAssoc);
-
-          if (!checkStudentElementForMistake(comparison.newMistakes, studentClassifierAssoc)) {
-
-            checkMistakeExtraAssociationClass(studentClassifierAssoc, instructorClassifierAssoc)
-                .ifPresent(comparison.newMistakes::add);
-            if (studentClassifierAssoc.getAssociationClass() != null
-                && instructorClassifierAssoc.getAssociationClass() != null) {
-              checkMistakeBadAssociationClassNameSpelling(studentClassifierAssoc, instructorClassifierAssoc)
-                  .ifPresent(comparison.newMistakes::add);
-              checkMistakeSimilarYetIncorrectAssociationClassName(studentClassifierAssoc, instructorClassifierAssoc)
-                  .ifPresent(comparison.newMistakes::add);
-            }
-          }
-
-          if (!checkInstructorElementForMistake(comparison.newMistakes, instructorClassifierAssoc)) {
-            checkMistakeMissingAssociationClass(studentClassifierAssoc, instructorClassifierAssoc)
-                .ifPresent(comparison.newMistakes::add);
-          }
-
-          if (!checkInstructorElementForMistake(comparison.newMistakes, instructorClassifierAssocEnd)) {
-            checkMistakesForAssociationEnds(studentClassifierAssocEnd, instructorClassifierAssocEnd, comparison);
-          }
-
-          // -- Check for Other Assoc End-----
-          if (!checkInstructorElementForMistake(comparison.newMistakes, otherInstructorClassifierAssocEnd)) {
-            checkMistakesForAssociationEnds(otherStudentClassifierAssocEnd, otherInstructorClassifierAssocEnd,
-                comparison);
-          }
+          EList<AssociationEnd> matchedAssocEnds = new BasicEList<AssociationEnd>();
+          matchedAssocEnds.add(studentClassifierAssocEnd);
+          matchedAssocEnds.add(instructorClassifierAssocEnd);
+          matchedAssocEnds.add(otherStudentClassifierAssocEnd);
+          matchedAssocEnds.add(otherInstructorClassifierAssocEnd);
+          possibleAssocMatch.put(studentClassifierAssoc, matchedAssocEnds);
         }
       }
+      if (!possibleAssocMatch.isEmpty()) {
+        var values = getMatchedAssoc(possibleAssocMatch);
+        mapAssociation(comparison, instructorClassifierAssoc, (Association) values.get(0));
+        detectMistakeInAssoc(comparison, (Association) values.get(0), instructorClassifierAssoc,
+            (AssociationEnd) values.get(1), (AssociationEnd) values.get(2), (AssociationEnd) values.get(3),
+            (AssociationEnd) values.get(4));
+      }
     }
+  }
+
+  private static void detectMistakeInAssoc(Comparison comparison, Association studentClassifierAssoc,
+      Association instructorClassifierAssoc, AssociationEnd studentClassifierAssocEnd,
+      AssociationEnd instructorClassifierAssocEnd, AssociationEnd otherStudentClassifierAssocEnd,
+      AssociationEnd otherInstructorClassifierAssocEnd) {
+    if (!checkStudentElementForMistake(comparison.newMistakes, studentClassifierAssoc)) {
+
+      checkMistakeExtraAssociationClass(studentClassifierAssoc, instructorClassifierAssoc)
+          .ifPresent(comparison.newMistakes::add);
+      if (studentClassifierAssoc.getAssociationClass() != null
+          && instructorClassifierAssoc.getAssociationClass() != null) {
+        checkMistakeBadAssociationClassNameSpelling(studentClassifierAssoc, instructorClassifierAssoc)
+            .ifPresent(comparison.newMistakes::add);
+        checkMistakeSimilarYetIncorrectAssociationClassName(studentClassifierAssoc, instructorClassifierAssoc)
+            .ifPresent(comparison.newMistakes::add);
+      }
+    }
+
+    if (!checkInstructorElementForMistake(comparison.newMistakes, instructorClassifierAssoc)) {
+      checkMistakeMissingAssociationClass(studentClassifierAssoc, instructorClassifierAssoc)
+          .ifPresent(comparison.newMistakes::add);
+    }
+
+    if (!checkInstructorElementForMistake(comparison.newMistakes, instructorClassifierAssocEnd)) {
+      checkMistakesForAssociationEnds(studentClassifierAssocEnd, instructorClassifierAssocEnd, comparison);
+    }
+
+    // -- Check for Other Assoc End-----
+    if (!checkInstructorElementForMistake(comparison.newMistakes, otherInstructorClassifierAssocEnd)) {
+      checkMistakesForAssociationEnds(otherStudentClassifierAssocEnd, otherInstructorClassifierAssocEnd, comparison);
+    }
+
+  }
+
+  private static void mapAssociation(Comparison comparison, Association instructorClassifierAssoc,
+      Association studentClassifierAssoc) {
+    comparison.mappedAssociation.put(instructorClassifierAssoc, studentClassifierAssoc);
+    comparison.notMappedInstructorAssociation.remove(instructorClassifierAssoc);
+    comparison.extraStudentAssociation.remove(studentClassifierAssoc);
+  }
+
+  private static EList<Object> getMatchedAssoc(Map<Association, EList<AssociationEnd>> possibleAssocMatch) {
+    EList<Object> seekedAssocAndEnds = new BasicEList<Object>();
+    for (Map.Entry<Association, EList<AssociationEnd>> entry : possibleAssocMatch.entrySet()) {
+      seekedAssocAndEnds.add(entry.getKey());
+      seekedAssocAndEnds.add(entry.getValue().get(0));
+      seekedAssocAndEnds.add(entry.getValue().get(1));
+      seekedAssocAndEnds.add(entry.getValue().get(2));
+      seekedAssocAndEnds.add(entry.getValue().get(3));
+      if (associationEndMultiplicityMatch(entry.getValue().get(0), entry.getValue().get(1))
+          && associationEndMultiplicityMatch(entry.getValue().get(2), entry.getValue().get(3))) {
+        seekedAssocAndEnds.clear();
+        seekedAssocAndEnds.add(entry.getKey());
+        seekedAssocAndEnds.add(entry.getValue().get(0));
+        seekedAssocAndEnds.add(entry.getValue().get(1));
+        seekedAssocAndEnds.add(entry.getValue().get(2));
+        seekedAssocAndEnds.add(entry.getValue().get(3));
+        break;
+      }
+    } ;
+
+    return seekedAssocAndEnds;
   }
 
   private static void checkMistakesForAssociationEnds(AssociationEnd studentClassifierAssocEnd,
@@ -520,28 +571,17 @@ public class MistakeDetection {
     float lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
     if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
       isMapped = true;
-      comparison.mappedClassifier.put(instructorClass, studentClass);
-      comparison.notMappedInstructorClassifier.remove(instructorClass);
-      comparison.extraStudentClassifier.remove(studentClass);
-    }
-
-    // Commented print statements for debugging
-    if (isMapped) { // Map attributes if classifiers map.
+      mapClasses(comparison, studentClass, instructorClass);
       for (Attribute instructorAttribute : instructorAttributes) { // To check association -> Not at present.
-        // System.out.println("Instructor "+ instructorAttribute +" "
-        // +instructorClassifier.getName());
         for (Attribute studentAttribute : studentAttributes) {
-          // System.out.println("Student "+ studentAttribute+" " +studentClassifier.getName());
           lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
           if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED
               && comparison.mappedAttribute.get(instructorAttribute) == studentAttribute) {
             comparison.duplicateStudentAttribute.add(studentAttribute);
             comparison.extraStudentAttribute.remove(studentAttribute);
           } else if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-            // System.out.println("Mapped");
-            comparison.mappedAttribute.put(instructorAttribute, studentAttribute);
-            comparison.notMappedInstructorAttribute.remove(instructorAttribute);
-            comparison.extraStudentAttribute.remove(studentAttribute);
+
+            mapAttributes(comparison, studentAttribute, instructorAttribute);
             break;
           }
         }
@@ -559,16 +599,18 @@ public class MistakeDetection {
 
     int counter = 1;
     for (int k = 0; k < counter; k++) {
+      // System.out.println("List "+ comparison.notMappedInstructorClassifier.size());
       for (int i = 0; i < comparison.notMappedInstructorClassifier.size(); i++) {
         Classifier instructorClassifier = comparison.notMappedInstructorClassifier.get(i);
         EList<Attribute> instructorAttributes = instructorClassifier.getAttributes();
-        // System.out.println("Instructor " + instructorClassifier.getName());
         int totalAttributes = instructorAttributes.size();
-
+        Map<Classifier, Double> possibleClassMatch = new HashMap<Classifier, Double>();
+        // System.out.println("NotMapped "+ instructorClassifier.getName());
         for (int j = 0; j < comparison.extraStudentClassifier.size(); j++) {
+
           Classifier studentClassifier = comparison.extraStudentClassifier.get(j);
+          // System.out.println("Extra "+ studentClassifier.getName());
           EList<Attribute> studentAttributes = studentClassifier.getAttributes();
-          // System.out.println("Student " + studentClassifier.getName());
           int correctAttribute = 0;
           for (Attribute instructorAttribute : instructorAttributes) { // To check association ->
                                                                        // Not at present.
@@ -580,37 +622,174 @@ public class MistakeDetection {
               }
             }
           }
-          // System.out.println("CorrectAttribute "+ " "+ instructorClassifier.getName() +" "+
-          // studentClassifier.getName()+" "+ correctAttribute);
           if (totalAttributes != 0) {
             if ((double) correctAttribute / (double) totalAttributes >= 0.5) {
-              comparison.mappedClassifier.put(instructorClassifier, studentClassifier);
-              comparison.notMappedInstructorClassifier.remove(instructorClassifier);
-              comparison.extraStudentClassifier.remove(studentClassifier);
-              // Similar Mistake Can be placed here as well.
-              counter++;
-              for (Attribute instructorAttribute : instructorAttributes) { // To check association
-                                                                           // -> Not at present.
-                for (Attribute studentAttribute : studentAttributes) {
-                  float lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-                  if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-                    // System.out.println(instructorClassifier.getName() + " " +
-                    // studentAttribute.getName()+ " " + instructorAttribute.getName());
-                    comparison.mappedAttribute.put(instructorAttribute, studentAttribute);
-                    comparison.notMappedInstructorAttribute.remove(instructorAttribute);
-                    comparison.extraStudentAttribute.remove(studentAttribute);
-                    break;
-                  }
-                }
-              }
+              // System.out.println("possibleClassMatch "+ studentClassifier.getName() + (double) correctAttribute /
+              // (double) totalAttributes);
 
-
+              possibleClassMatch.put(studentClassifier, (double) correctAttribute / (double) totalAttributes);
             }
           }
         }
+        // System.out.println("__"+possibleClassMatch.size()+"___");
+        var values = getMatchedClassifier(possibleClassMatch, instructorClassifier);
+        // System.out.println("values "+ values);
+        if ((Boolean) values.get(0)) {
+          Classifier studentClassifier = (Classifier) values.get(1);
+          counter++;
+          // System.out.println(studentClassifier.getName()+" "+ instructorClassifier.getName());
+          mapClasses(comparison, studentClassifier, instructorClassifier);
+          // Similar Mistake Can be placed here as well.
+          EList<Attribute> studentAttributes = studentClassifier.getAttributes();
+          for (Attribute instructorAttribute : instructorAttributes) { // To check association
+                                                                       // -> Not at present.
+            for (Attribute studentAttribute : studentAttributes) {
+              float lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
+              if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+                mapAttributes(comparison, studentAttribute, instructorAttribute);
 
+              }
+            }
+          }
+        }
+        // System.out.println("**************"+ i +"+");
       }
     }
+  }
+
+  private static List<Object> getMatchedClassifier(Map<Classifier, Double> possibleClassMatch,
+      Classifier instructorClass) {
+    List<Object> returnElements = new BasicEList<Object>();
+    // System.out.println("----");
+    var elements = maxAttributeMatch(possibleClassMatch);
+    // System.out.println(elements.size());
+    // System.out.println("----");
+    if (!elements.isEmpty() && elements.size() == 1) {
+      returnElements.add(true);
+      returnElements.add(elements.get(0));
+      return returnElements;
+    } else if (elements.size() > 1) {
+      // System.out.println("Case2");
+      returnElements.add(true);
+      returnElements.add(classWithAssociationEndsMatch(elements, instructorClass));
+      // System.out.println(classWithAssociationEndsMatch(elements,instructorClass));
+      return returnElements;
+
+    }
+    returnElements.add(false);
+    return returnElements;
+  }
+
+  private static Classifier classWithAssociationEndsMatch(List<Classifier> studentClasses, Classifier instructorClass) {
+
+    int instAssocEnds = instructorClass.getAssociationEnds().size();
+    Classifier seekedClassifier = null;
+    List<Integer> assocEndValues = new BasicEList<Integer>();
+    studentClasses.forEach(sc -> {
+      assocEndValues.add(sc.getAssociationEnds().size());
+      // System.out.println(sc.getName() +" " + sc.getAssociationEnds().size());
+    });
+    var closestAssocValue = findClosest(assocEndValues, instAssocEnds);
+    // System.out.println(closestAssocValue);
+    for (Classifier sc : studentClasses) {
+      if (sc.getAssociationEnds().size() == closestAssocValue) {
+        seekedClassifier = sc;
+        break;
+      }
+    }
+    // System.out.println(seekedClassifier.getName());
+
+    return seekedClassifier;
+  }
+
+  public static List<Classifier> maxAttributeMatch(Map<Classifier, Double> map) {
+    Map.Entry<Classifier, Double> entryWithMaxValue = null;
+    EList<Classifier> topMatchedElements = new BasicEList<Classifier>();
+    for (Map.Entry<Classifier, Double> entry : map.entrySet()) {
+      if (entryWithMaxValue == null || entry.getValue() > entryWithMaxValue.getValue()) {
+        entryWithMaxValue = entry;
+        // System.out.println("MAX"+entry.getValue());
+      }
+    }
+    final double maxValue = entryWithMaxValue.getValue();
+    map.forEach((key, value) -> {
+      if (value == maxValue) {
+        topMatchedElements.add(key);
+        // System.out.println(key);
+      }
+    });
+
+
+    // System.out.println(topMatchedElements.size());
+    return topMatchedElements;
+  }
+
+  // Returns element closest to target in arr[]
+  public static int findClosest(List<Integer> assocEndValues, int target) {
+    int n = assocEndValues.size();
+
+    // Corner cases
+    if (target <= assocEndValues.get(0))
+      return assocEndValues.get(0);
+    if (target >= assocEndValues.get(n - 1))
+      return assocEndValues.get(n - 1);
+
+    // Doing binary search
+    int i = 0, j = n, mid = 0;
+    while (i < j) {
+      mid = (i + j) / 2;
+
+      if (assocEndValues.get(mid) == target)
+        return assocEndValues.get(mid);
+
+      /*
+       * If target is less than array element, then search in left
+       */
+      if (target < assocEndValues.get(mid)) {
+
+        // If target is greater than previous
+        // to mid, return closest of two
+        if (mid > 0 && target > assocEndValues.get(mid - 1))
+          return getClosest(assocEndValues.get(mid - 1), assocEndValues.get(mid - 1), target);
+
+        /* Repeat for left half */
+        j = mid;
+      }
+
+      // If target is greater than mid
+      else {
+        if (mid < n - 1 && target < assocEndValues.get(mid + 1))
+          return getClosest(assocEndValues.get(mid + 1), assocEndValues.get(mid + 1), target);
+        i = mid + 1; // update i
+      }
+    }
+
+    // Only single element left after search
+    return assocEndValues.get(mid);
+  }
+
+  // Method to compare which one is the more close
+  // We find the closest by taking the difference
+  // between the target and both values. It assumes
+  // that val2 is greater than val1 and target lies
+  // between these two.
+  public static int getClosest(int val1, int val2, int target) {
+    if (target - val1 >= val2 - target)
+      return val2;
+    else
+      return val1;
+  }
+
+  public static void mapAttributes(Comparison comparison, Attribute studentAttribute, Attribute instructorAttribute) {
+    comparison.mappedAttribute.put(instructorAttribute, studentAttribute);
+    comparison.notMappedInstructorAttribute.remove(instructorAttribute);
+    comparison.extraStudentAttribute.remove(studentAttribute);
+  }
+
+  public static void mapClasses(Comparison comparison, Classifier studentClass, Classifier instructorClass) {
+    comparison.mappedClassifier.put(instructorClass, studentClass);
+    comparison.notMappedInstructorClassifier.remove(instructorClass);
+    comparison.extraStudentClassifier.remove(studentClass);
   }
 
   /**
@@ -1066,16 +1245,14 @@ public class MistakeDetection {
    * Returns true if association class is extra.
    */
   public static boolean isAssociationClassExtra(Association studentClassAssoc, Association instructorClassAssoc) {
-    return studentClassAssoc.getAssociationClass() != null
-        && instructorClassAssoc.getAssociationClass() == null;
+    return studentClassAssoc.getAssociationClass() != null && instructorClassAssoc.getAssociationClass() == null;
   }
 
   /**
    * Returns true if association class is missing.
    */
   public static boolean isAssociationClassMissing(Association studentClassAssoc, Association instructorClassAssoc) {
-    return studentClassAssoc.getAssociationClass() == null
-        && instructorClassAssoc.getAssociationClass() != null;
+    return studentClassAssoc.getAssociationClass() == null && instructorClassAssoc.getAssociationClass() != null;
   }
 
   /**
