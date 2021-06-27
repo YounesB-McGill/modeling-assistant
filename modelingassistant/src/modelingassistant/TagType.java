@@ -29,16 +29,14 @@ public enum TagType implements Enumerator {
   ABSTRACTION(0, "Abstraction", "Abstraction"),
 
   /**
-   * The '<em><b>Occurrencce</b></em>' literal object.
+   * The '<em><b>Occurrence</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #OCCURRENCCE_VALUE
+   * @see #OCCURRENCE_VALUE
    * @generated
    * @ordered
    */
-  OCCURRENCCE(1, "Occurrencce", "Occurrencce"),
-
-  /**
+  OCCURRENCE(1, "Occurrence", "Occurrence"), /**
    * The '<em><b>Player</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -70,15 +68,15 @@ public enum TagType implements Enumerator {
   public static final int ABSTRACTION_VALUE = 0;
 
   /**
-   * The '<em><b>Occurrencce</b></em>' literal value.
+   * The '<em><b>Occurrence</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #OCCURRENCCE
-   * @model name="Occurrencce"
+   * @see #OCCURRENCE
+   * @model name="Occurrence"
    * @generated
    * @ordered
    */
-  public static final int OCCURRENCCE_VALUE = 1;
+  public static final int OCCURRENCE_VALUE = 1;
 
   /**
    * The '<em><b>Player</b></em>' literal value.
@@ -111,7 +109,7 @@ public enum TagType implements Enumerator {
   private static final TagType[] VALUES_ARRAY =
     new TagType[] {
       ABSTRACTION,
-      OCCURRENCCE,
+      OCCURRENCE,
       PLAYER,
       ROLE,
     };
@@ -171,7 +169,7 @@ public enum TagType implements Enumerator {
   public static TagType get(int value) {
     switch (value) {
       case ABSTRACTION_VALUE: return ABSTRACTION;
-      case OCCURRENCCE_VALUE: return OCCURRENCCE;
+      case OCCURRENCE_VALUE: return OCCURRENCE;
       case PLAYER_VALUE: return PLAYER;
       case ROLE_VALUE: return ROLE;
     }

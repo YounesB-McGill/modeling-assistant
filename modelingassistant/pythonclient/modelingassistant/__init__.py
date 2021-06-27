@@ -3,8 +3,8 @@ from .modelingassistant import getEClassifier, eClassifiers
 from .modelingassistant import name, nsURI, nsPrefix, eClass
 from .modelingassistant import Time, ModelingAssistant, Student, ProblemStatement, ProblemStatementElement, Solution, SolutionElement, StudentKnowledge, Mistake, NamedElement, FeedbackItem, Tag, TagGroup, TagType
 
+from classdiagram import ClassDiagram, NamedElement
 from learningcorpus import MistakeType, Feedback
-from classdiagram import NamedElement, ClassDiagram
 
 from . import modelingassistant
 
@@ -30,7 +30,6 @@ ModelingAssistant.problemStatements.eType = ProblemStatement
 ModelingAssistant.solutions.eType = Solution
 ModelingAssistant.students.eType = Student
 ModelingAssistant.studentKnowledges.eType = StudentKnowledge
-ModelingAssistant.feedbackItems.eType = FeedbackItem
 Student.modelingAssistant.eType = ModelingAssistant
 Student.modelingAssistant.eOpposite = ModelingAssistant.students
 Student.solutions.eType = Solution
@@ -48,6 +47,7 @@ Solution.student.eOpposite = Student.solutions
 Solution.solutionElements.eType = SolutionElement
 Solution.mistakes.eType = Mistake
 Solution.tagGroups.eType = TagGroup
+Solution.feedbackItems.eType = FeedbackItem
 SolutionElement.problemStatementElements.eType = ProblemStatementElement
 SolutionElement.problemStatementElements.eOpposite = ProblemStatementElement.solutionElements
 SolutionElement.solution.eType = Solution
@@ -66,12 +66,12 @@ Mistake.instructorElements.eType = SolutionElement
 Mistake.instructorElements.eOpposite = SolutionElement.instructorElementMistakes
 Mistake.studentSolution.eType = Solution
 Mistake.studentSolution.eOpposite = Solution.mistakes
-FeedbackItem.mistakes.eType = Mistake
-FeedbackItem.mistakes.eOpposite = Mistake.lastFeedback
-FeedbackItem.modelingAssistant.eType = ModelingAssistant
-FeedbackItem.modelingAssistant.eOpposite = ModelingAssistant.feedbackItems
-Tag.solutionelement.eType = SolutionElement
-Tag.solutionelement.eOpposite = SolutionElement.tags
+FeedbackItem.mistake.eType = Mistake
+FeedbackItem.mistake.eOpposite = Mistake.lastFeedback
+FeedbackItem.solution.eType = Solution
+FeedbackItem.solution.eOpposite = Solution.feedbackItems
+Tag.solutionElement.eType = SolutionElement
+Tag.solutionElement.eOpposite = SolutionElement.tags
 Tag.tagGroup.eType = TagGroup
 TagGroup.tags.eType = Tag
 TagGroup.tags.eOpposite = Tag.tagGroup

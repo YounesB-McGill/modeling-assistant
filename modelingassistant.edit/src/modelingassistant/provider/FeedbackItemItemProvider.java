@@ -60,27 +60,28 @@ public class FeedbackItemItemProvider
     if (itemPropertyDescriptors == null) {
       super.getPropertyDescriptors(object);
 
-      addMistakesPropertyDescriptor(object);
+      addMistakePropertyDescriptor(object);
       addUsefulnessPropertyDescriptor(object);
       addFeedbackPropertyDescriptor(object);
+      addSolutionPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
 
   /**
-   * This adds a property descriptor for the Mistakes feature.
+   * This adds a property descriptor for the Mistake feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addMistakesPropertyDescriptor(Object object) {
+  protected void addMistakePropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_FeedbackItem_mistakes_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_FeedbackItem_mistakes_feature", "_UI_FeedbackItem_type"),
-         ModelingassistantPackage.Literals.FEEDBACK_ITEM__MISTAKES,
+         getString("_UI_FeedbackItem_mistake_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_FeedbackItem_mistake_feature", "_UI_FeedbackItem_type"),
+         ModelingassistantPackage.Literals.FEEDBACK_ITEM__MISTAKE,
          true,
          false,
          true,
@@ -125,6 +126,28 @@ public class FeedbackItemItemProvider
          getString("_UI_FeedbackItem_feedback_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_FeedbackItem_feedback_feature", "_UI_FeedbackItem_type"),
          ModelingassistantPackage.Literals.FEEDBACK_ITEM__FEEDBACK,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Solution feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addSolutionPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_FeedbackItem_solution_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_FeedbackItem_solution_feature", "_UI_FeedbackItem_type"),
+         ModelingassistantPackage.Literals.FEEDBACK_ITEM__SOLUTION,
          true,
          false,
          true,

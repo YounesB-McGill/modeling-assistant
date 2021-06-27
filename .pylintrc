@@ -349,9 +349,16 @@ good-names=a,
            Run,
            _,
            ae,
+           fb,
+           li,
+           lr,
            ma,
            mm,
-           mt
+           mt,
+           pr,
+           ps,
+           sk,
+           tr
 
 # Good variable names regexes, separated by a comma. If names match any regex,
 # they will always be accepted
