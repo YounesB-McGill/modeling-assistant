@@ -2,11 +2,11 @@
 <project default="generate" name="modelingassistant.learningcorpus.dsl.transformation">
     <property name="ECLIPSE_HOME" value="../../../../eclipse-modeling-2021-06"/>
     <property name="ECLIPSE_WORKSPACE" value="../../../../eclipse-modeling-ws"/>
-	
+
     <!-- The classpath with only the dependencies used by the project -->
     <path id="modelingassistant.learningcorpus.dsl.transformation.libraryclasspath">
         <pathelement location="${ECLIPSE_WORKSPACE}/modelingassistant.learningcorpus.dsl.transformation/bin"/>
-    	<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_16.0.1.v20210528-1205/jre/lib/jrt-fs.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_16.0.1.v20210528-1205/jre/lib/jrt-fs.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.runtime_3.22.0.v20210506-1025.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.osgi_3.16.300.v20210525-1715.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.fx.osgi_3.7.0.202010120720.jar"/>
