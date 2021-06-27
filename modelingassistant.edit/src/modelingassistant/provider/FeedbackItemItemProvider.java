@@ -60,7 +60,7 @@ public class FeedbackItemItemProvider
     if (itemPropertyDescriptors == null) {
       super.getPropertyDescriptors(object);
 
-      addMistakesPropertyDescriptor(object);
+      addMistakePropertyDescriptor(object);
       addUsefulnessPropertyDescriptor(object);
       addFeedbackPropertyDescriptor(object);
       addSolutionPropertyDescriptor(object);
@@ -69,19 +69,19 @@ public class FeedbackItemItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Mistakes feature.
+   * This adds a property descriptor for the Mistake feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addMistakesPropertyDescriptor(Object object) {
+  protected void addMistakePropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_FeedbackItem_mistakes_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_FeedbackItem_mistakes_feature", "_UI_FeedbackItem_type"),
-         ModelingassistantPackage.Literals.FEEDBACK_ITEM__MISTAKES,
+         getString("_UI_FeedbackItem_mistake_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_FeedbackItem_mistake_feature", "_UI_FeedbackItem_type"),
+         ModelingassistantPackage.Literals.FEEDBACK_ITEM__MISTAKE,
          true,
          false,
          true,

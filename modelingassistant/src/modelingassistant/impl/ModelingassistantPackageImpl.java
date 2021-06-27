@@ -767,7 +767,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   @Override
-  public EReference getFeedbackItem_Mistakes() {
+  public EReference getFeedbackItem_Mistake() {
     return (EReference)feedbackItemEClass.getEStructuralFeatures().get(0);
   }
 
@@ -984,7 +984,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEAttribute(namedElementEClass, NAMED_ELEMENT__NAME);
 
     feedbackItemEClass = createEClass(FEEDBACK_ITEM);
-    createEReference(feedbackItemEClass, FEEDBACK_ITEM__MISTAKES);
+    createEReference(feedbackItemEClass, FEEDBACK_ITEM__MISTAKE);
     createEAttribute(feedbackItemEClass, FEEDBACK_ITEM__USEFULNESS);
     createEReference(feedbackItemEClass, FEEDBACK_ITEM__FEEDBACK);
     createEReference(feedbackItemEClass, FEEDBACK_ITEM__SOLUTION);
@@ -1095,7 +1095,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEAttribute(getMistake_TimeToAddress(), this.getTime(), "timeToAddress", null, 0, 1, Mistake.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMistake_NumStepsBeforeNotification(), ecorePackage.getEInt(), "numStepsBeforeNotification", null, 0, 1, Mistake.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMistake_StudentElements(), this.getSolutionElement(), this.getSolutionElement_StudentElementMistakes(), "studentElements", null, 0, -1, Mistake.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMistake_LastFeedback(), this.getFeedbackItem(), this.getFeedbackItem_Mistakes(), "lastFeedback", null, 0, 1, Mistake.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMistake_LastFeedback(), this.getFeedbackItem(), this.getFeedbackItem_Mistake(), "lastFeedback", null, 0, 1, Mistake.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMistake_InstructorElements(), this.getSolutionElement(), this.getSolutionElement_InstructorElementMistakes(), "instructorElements", null, 0, -1, Mistake.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMistake_StudentSolution(), this.getSolution(), this.getSolution_Mistakes(), "studentSolution", null, 1, 1, Mistake.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMistake_NumDetection(), ecorePackage.getEInt(), "numDetection", null, 0, 1, Mistake.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1106,7 +1106,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEAttribute(getNamedElement_Name(), ecorePackage.getEString(), "name", null, 0, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(feedbackItemEClass, FeedbackItem.class, "FeedbackItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFeedbackItem_Mistakes(), this.getMistake(), this.getMistake_LastFeedback(), "mistakes", null, 0, 1, FeedbackItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFeedbackItem_Mistake(), this.getMistake(), this.getMistake_LastFeedback(), "mistake", null, 0, 1, FeedbackItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getFeedbackItem_Usefulness(), ecorePackage.getEDouble(), "usefulness", null, 0, 1, FeedbackItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFeedbackItem_Feedback(), theLearningcorpusPackage.getFeedback(), null, "feedback", null, 0, 1, FeedbackItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFeedbackItem_Solution(), this.getSolution(), this.getSolution_FeedbackItems(), "solution", null, 1, 1, FeedbackItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

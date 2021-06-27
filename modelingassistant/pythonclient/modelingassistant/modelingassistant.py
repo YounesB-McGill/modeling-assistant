@@ -226,11 +226,11 @@ class NamedElement(EObject, metaclass=MetaEClass):
 class FeedbackItem(EObject, metaclass=MetaEClass):
 
     usefulness = EAttribute(eType=EDouble, unique=True, derived=False, changeable=True)
-    mistakes = EReference(ordered=True, unique=True, containment=False, derived=False)
+    mistake = EReference(ordered=True, unique=True, containment=False, derived=False)
     feedback = EReference(ordered=True, unique=True, containment=False, derived=False)
     solution = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, mistakes=None, usefulness=None, feedback=None, solution=None):
+    def __init__(self, *, mistake=None, usefulness=None, feedback=None, solution=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -239,8 +239,8 @@ class FeedbackItem(EObject, metaclass=MetaEClass):
         if usefulness is not None:
             self.usefulness = usefulness
 
-        if mistakes is not None:
-            self.mistakes = mistakes
+        if mistake is not None:
+            self.mistake = mistake
 
         if feedback is not None:
             self.feedback = feedback
