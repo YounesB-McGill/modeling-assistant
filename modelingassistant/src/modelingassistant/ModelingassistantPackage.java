@@ -753,13 +753,13 @@ public interface ModelingassistantPackage extends EPackage {
   int FEEDBACK_ITEM = 9;
 
   /**
-   * The feature id for the '<em><b>Mistakes</b></em>' reference.
+   * The feature id for the '<em><b>Mistake</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FEEDBACK_ITEM__MISTAKES = 0;
+  int FEEDBACK_ITEM__MISTAKE = 0;
 
   /**
    * The feature id for the '<em><b>Usefulness</b></em>' attribute.
@@ -1524,15 +1524,15 @@ public interface ModelingassistantPackage extends EPackage {
   EClass getFeedbackItem();
 
   /**
-   * Returns the meta object for the reference '{@link modelingassistant.FeedbackItem#getMistakes <em>Mistakes</em>}'.
+   * Returns the meta object for the reference '{@link modelingassistant.FeedbackItem#getMistake <em>Mistake</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Mistakes</em>'.
-   * @see modelingassistant.FeedbackItem#getMistakes()
+   * @return the meta object for the reference '<em>Mistake</em>'.
+   * @see modelingassistant.FeedbackItem#getMistake()
    * @see #getFeedbackItem()
    * @generated
    */
-  EReference getFeedbackItem_Mistakes();
+  EReference getFeedbackItem_Mistake();
 
   /**
    * Returns the meta object for the attribute '{@link modelingassistant.FeedbackItem#getUsefulness <em>Usefulness</em>}'.
@@ -2147,12 +2147,12 @@ public interface ModelingassistantPackage extends EPackage {
     EClass FEEDBACK_ITEM = eINSTANCE.getFeedbackItem();
 
     /**
-     * The meta object literal for the '<em><b>Mistakes</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Mistake</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference FEEDBACK_ITEM__MISTAKES = eINSTANCE.getFeedbackItem_Mistakes();
+    EReference FEEDBACK_ITEM__MISTAKE = eINSTANCE.getFeedbackItem_Mistake();
 
     /**
      * The meta object literal for the '<em><b>Usefulness</b></em>' attribute feature.
