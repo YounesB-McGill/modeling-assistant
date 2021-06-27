@@ -7,9 +7,10 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from feedback import give_feedback
 from classdiagram.classdiagram import Class
-from learningcorpus.learningcorpus import Feedback, TextResponse
+from learningcorpus.learningcorpus import Feedback, ParametrizedResponse, ResourceResponse, TextResponse
 from mistaketypes import SOFTWARE_ENGINEERING_TERM
-from modelingassistant.modelingassistant import FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, Solution, SolutionElement, Student, StudentKnowledge
+from modelingassistant.modelingassistant import (FeedbackItem, Mistake, ModelingAssistant,
+    ProblemStatement, Solution, SolutionElement, Student, StudentKnowledge)
 
 
 def make_ma_without_mistakes() -> ModelingAssistant:
@@ -68,7 +69,7 @@ def test_feedback_with_1_mistake_level_2():
     """
     Test feedback for a solution with one mistake made a second time.
 
-    BusData detected for first time -> text response
+    BusData (or similar) detected for second time -> text response
     """
     ma = make_ma_with_1_new_mistake(2)
     solution = ma.solutions[0]
@@ -84,6 +85,51 @@ def test_feedback_with_1_mistake_level_2():
     assert "software engineering term" in feedback.text
     assert curr_mistake.mistakeType is feedback.mistakeType
 
+
+def test_feedback_with_1_mistake_level_3():
+    """
+    Test feedback for a solution with one mistake made a third time.
+
+    BusData (or similar) detected for third time -> parameterized response
+    """
+    ma = make_ma_with_1_new_mistake(3)
+    solution = ma.solutions[0]
+    curr_mistake = solution.currentMistake
+
+    feedback_item = give_feedback(solution)
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ParametrizedResponse)
+    assert 3 == feedback.level
+    assert not feedback.highlightSolution
+    assert "software engineering term" in feedback.text
+    #assert "BusData" in feedback.text  # TODO Implement parameterized response later
+    assert curr_mistake.mistakeType is feedback.mistakeType
+
+
+def test_feedback_with_1_mistake_level_4():
+    """
+    Test feedback for a solution with one mistake made a fourth time.
+
+    BusData (or similar) detected for fourth time -> resource response with example
+    """
+    ma = make_ma_with_1_new_mistake(4)
+    solution = ma.solutions[0]
+    curr_mistake = solution.currentMistake
+
+    feedback_item = give_feedback(solution)
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert 4 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert "incorrect class naming" in resource_content
+    # TODO Determine exact emoji serialization mechanism
+    assert ":x: Examples to avoid | :heavy_check_mark: Good class names" in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
 
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
