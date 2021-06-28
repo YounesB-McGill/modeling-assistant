@@ -6,8 +6,8 @@ import modelingassistant.ModelingassistantPackage;
 import modelingassistant.SolutionElement;
 import modelingassistant.Tag;
 import modelingassistant.TagGroup;
-
 import modelingassistant.TagType;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -54,6 +54,7 @@ public class TagImpl extends MinimalEObjectImpl.Container implements Tag {
    * @ordered
    */
   protected static final TagType TAG_TYPE_EDEFAULT = TagType.ABSTRACTION;
+
   /**
    * The cached value of the '{@link #getTagType() <em>Tag Type</em>}' attribute.
    * <!-- begin-user-doc -->

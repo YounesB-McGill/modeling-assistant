@@ -3,6 +3,7 @@
 package modelingassistant.impl;
 
 import ca.mcgill.sel.classdiagram.NamedElement;
+
 import java.util.Collection;
 
 import modelingassistant.Mistake;
@@ -10,8 +11,8 @@ import modelingassistant.ModelingassistantPackage;
 import modelingassistant.ProblemStatementElement;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
-
 import modelingassistant.Tag;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
