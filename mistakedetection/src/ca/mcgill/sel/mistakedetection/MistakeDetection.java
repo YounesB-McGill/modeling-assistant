@@ -64,6 +64,8 @@ import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
+import modelingassistant.Tag;
+import modelingassistant.TagGroup;
 
 /**
  * This is the main class of Mistake Detection System. This class contains functions that maps and find mistakes in the
@@ -189,18 +191,30 @@ public class MistakeDetection {
     if (instructorSolution.getTagGroups().isEmpty()) {
       return;
     }
+    String instPattern = null;
     instructorSolution.getTagGroups().forEach(tg -> {
-       tg.getTags().forEach(tag->{
+      for(Tag tag : tg.getTags()){
         if(tag.getTagType().equals(PLAYER)) {
           System.out.print("worked");
+          checkPattern(tg);
+          break;
         }
-
-
-        });
+        }
     });
 
   }
 
+  public static String checkPattern(TagGroup tg) {
+   NamedElement playerSolutionElement;
+   List<NamedElement> roleSolutionElements = new BasicEList<NamedElement>();
+    for(Tag tag : tg.getTags()){
+      if(tag.getTagType().equals(PLAYER)) {
+       // playerSolutionElement = ;
+       break;
+      }
+    }
+    return null;
+  }
   /**
    * Maps associations for mapped classes
    */
@@ -645,12 +659,12 @@ public class MistakeDetection {
     for (int i = 0; i < comparison.notMappedInstructorClassifier.size(); i++) {
       Classifier instructorClassifier = comparison.notMappedInstructorClassifier.get(i);
       EList<Attribute> instructorAttributes = instructorClassifier.getAttributes();
-
+      String instructorClassName = instructorClassifier.getName();
       for (int j = 0; j < comparison.extraStudentClassifier.size(); j++) {
-
         Classifier studentClassifier = comparison.extraStudentClassifier.get(j);
         EList<Attribute> studentAttributes = studentClassifier.getAttributes();
-        if (studentClassifier.getName().contains(instructorClassifier.getName())) {
+        String studentClassName = studentClassifier.getName();
+        if (studentClassName.toLowerCase().contains(instructorClassName.toLowerCase())) {
           mapClasses(comparison, studentClassifier, instructorClassifier);
           checkMistakesInClassifier(studentClassifier, instructorClassifier,  comparison.newMistakes);
           for (Attribute instructorAttribute : instructorAttributes) {
@@ -675,6 +689,7 @@ public class MistakeDetection {
     }
 
     int counter = 1;
+    int MAX_ATTRIBUTE_ALLOWED = 2;
     for (int k = 0; k < counter; k++) {
       // System.out.println("List "+ comparison.notMappedInstructorClassifier.size());
       for (int i = 0; i < comparison.notMappedInstructorClassifier.size(); i++) {
@@ -682,6 +697,7 @@ public class MistakeDetection {
         EList<Attribute> instructorAttributes = instructorClassifier.getAttributes();
         int totalAttributes = instructorAttributes.size();
         Map<Classifier, Double> possibleClassMatch = new LinkedHashMap<Classifier, Double>();
+        HashMap<Classifier, Integer> possibleClassMatchWithNoAttribute = new HashMap<Classifier, Integer>();
         // System.out.println("NotMapped "+ instructorClassifier.getName());
         for (int j = 0; j < comparison.extraStudentClassifier.size(); j++) {
 
@@ -689,6 +705,14 @@ public class MistakeDetection {
           // System.out.println("Extra "+ studentClassifier.getName());
           EList<Attribute> studentAttributes = studentClassifier.getAttributes();
           int correctAttribute = 0;
+          if(totalAttributes == 0) {
+            if(studentAttributes.size() <= MAX_ATTRIBUTE_ALLOWED ) {
+              possibleClassMatchWithNoAttribute.put(studentClassifier, studentAttributes.size());
+            }
+            else {
+              continue;
+            }
+          }
           for (Attribute instructorAttribute : instructorAttributes) { // To check association ->
                                                                        // Not at present.
             for (Attribute studentAttribute : studentAttributes) {
@@ -707,6 +731,10 @@ public class MistakeDetection {
               possibleClassMatch.put(studentClassifier, (double) correctAttribute / (double) totalAttributes);
             }
           }
+        }
+        if(totalAttributes == 0 && possibleClassMatchWithNoAttribute.size() != 0) {
+          Map<Classifier, Integer> sortedClosestClasssifier = sortByValueClassifier(possibleClassMatchWithNoAttribute);
+          mapClasses(comparison,  sortedClosestClasssifier.keySet().stream().findFirst().get(), instructorClassifier);
         }
         // System.out.println("__"+possibleClassMatch.size()+"___");
         var values = getMatchedClassifier(possibleClassMatch, instructorClassifier);
@@ -841,6 +869,27 @@ public class MistakeDetection {
     }
     return temp;
   }
+
+  //function to sort hash map by values
+ public static HashMap<Classifier, Integer> sortByValueClassifier(HashMap<Classifier, Integer> hm) {
+   // Create a list from elements of HashMap
+   List<Map.Entry<Classifier, Integer>> list = new LinkedList<Map.Entry<Classifier, Integer>>(hm.entrySet());
+
+   // Sort the list
+   Collections.sort(list, new Comparator<Map.Entry<Classifier, Integer>>() {
+     @Override
+     public int compare(Map.Entry<Classifier, Integer> o1, Map.Entry<Classifier, Integer> o2) {
+       return (o1.getValue()).compareTo(o2.getValue());
+     }
+   });
+
+   // put data from sorted list to hash map
+   HashMap<Classifier, Integer> temp = new LinkedHashMap<Classifier, Integer>();
+   for (Map.Entry<Classifier, Integer> aa : list) {
+     temp.put(aa.getKey(), aa.getValue());
+   }
+   return temp;
+ }
   public static void mapAttributes(Comparison comparison, Attribute studentAttribute, Attribute instructorAttribute) {
     comparison.mappedAttribute.put(instructorAttribute, studentAttribute);
     comparison.notMappedInstructorAttribute.remove(instructorAttribute);
