@@ -28,13 +28,10 @@ def give_feedback(student_solution: Solution) -> Union[FeedbackItem, list[Feedba
                                        key=lambda m: m.numDetection, reverse=True)
 
     student_solution.currentMistake = highest_priority_mistakes[0]
-    result = next_feedback(student_solution.currentMistake)
+    result = []
 
     for m in highest_priority_mistakes:
-        curr_feedback_level = m.lastFeedback.feedback.level + 1 if m.lastFeedback else 1
-        curr_feedbacks = [f for f in m.mistakeType.feedbacks if f.level == curr_feedback_level]
-        # if curr_feedbacks:
-        #     result = curr_feedbacks[0]
+        result.append(next_feedback(student_solution.currentMistake))
 
     resolved_mistakes: list[Mistake] = [m for m in student_solution.mistakes if m.resolved]
     for m in resolved_mistakes:
@@ -44,7 +41,7 @@ def give_feedback(student_solution: Solution) -> Union[FeedbackItem, list[Feedba
             sk = sk[0]
             sk.levelOfKnowledge = MAX_STUDENT_LEVEL_OF_KNOWLEDGE - m.lastFeedback.level
 
-    return result
+    return result[0] if len(result) == 1 else result
 
 
 def next_feedback(mistake: Mistake) -> FeedbackItem:
