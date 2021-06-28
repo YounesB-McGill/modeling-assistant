@@ -36,7 +36,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
-import  static modelingassistant.TagType.PLAYER;
+import static modelingassistant.TagType.PLAYER;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -129,7 +129,7 @@ public class MistakeDetection {
         }
         if (checkCorrect(instructorClassifier, studentClassifier, comparison)) {
           checkMistakeClassSpelling(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
-          checkMistakesInClassifier(studentClassifier, instructorClassifier,  newMistakes);
+          checkMistakesInClassifier(studentClassifier, instructorClassifier, newMistakes);
 
           EList<Attribute> studentAttributes = studentClassifier.getAttributes();
           for (Attribute instructorAttribute : instructorAttributes) {
@@ -170,8 +170,7 @@ public class MistakeDetection {
       EList<Mistake> newMistakes) {
     checkMistakeWrongAttributeType(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
-    checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute)
-        .ifPresent(newMistakes::add);
+    checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
 
   }
 
@@ -187,34 +186,37 @@ public class MistakeDetection {
 
   }
 
+  // TODO Work in Progress
   private static void mapPatterns(Solution instructorSolution, Solution studentSolution, Comparison comparison) {
     if (instructorSolution.getTagGroups().isEmpty()) {
       return;
     }
     String instPattern = null;
     instructorSolution.getTagGroups().forEach(tg -> {
-      for(Tag tag : tg.getTags()){
-        if(tag.getTagType().equals(PLAYER)) {
+      for (Tag tag : tg.getTags()) {
+        if (tag.getTagType().equals(PLAYER)) {
           System.out.print("worked");
           checkPattern(tg);
           break;
         }
-        }
+      }
     });
 
   }
 
+  // TODO Work in Progress
   public static String checkPattern(TagGroup tg) {
-   NamedElement playerSolutionElement;
-   List<NamedElement> roleSolutionElements = new BasicEList<NamedElement>();
-    for(Tag tag : tg.getTags()){
-      if(tag.getTagType().equals(PLAYER)) {
-       // playerSolutionElement = ;
-       break;
+    NamedElement playerSolutionElement;
+    List<NamedElement> roleSolutionElements = new BasicEList<NamedElement>();
+    for (Tag tag : tg.getTags()) {
+      if (tag.getTagType().equals(PLAYER)) {
+        // playerSolutionElement = ;
+        break;
       }
     }
     return null;
   }
+
   /**
    * Maps associations for mapped classes
    */
@@ -327,6 +329,7 @@ public class MistakeDetection {
       seekedAssocAndEnds.add(entry.getValue().get(1));
       seekedAssocAndEnds.add(entry.getValue().get(2));
       seekedAssocAndEnds.add(entry.getValue().get(3));
+      // TODO To be updated in coming pull requests
       if (assocEndMultiplicityAndRoleNameMatch(entry.getValue().get(0), entry.getValue().get(1),
           entry.getValue().get(2), entry.getValue().get(3))) {
         seekedAssocAndEnds.clear();
@@ -650,7 +653,7 @@ public class MistakeDetection {
     return isMapped;
   }
 
-  /** Maps if instructor class name is present in a student class name*/
+  /** Maps if instructor class name is present in a student class name */
   public static void mappingBasedOnSubStrings(Comparison comparison) {
     if (comparison.notMappedInstructorClassifier.isEmpty() || comparison.extraStudentClassifier.isEmpty()) {
       return;
@@ -666,7 +669,7 @@ public class MistakeDetection {
         String studentClassName = studentClassifier.getName();
         if (studentClassName.toLowerCase().contains(instructorClassName.toLowerCase())) {
           mapClasses(comparison, studentClassifier, instructorClassifier);
-          checkMistakesInClassifier(studentClassifier, instructorClassifier,  comparison.newMistakes);
+          checkMistakesInClassifier(studentClassifier, instructorClassifier, comparison.newMistakes);
           for (Attribute instructorAttribute : instructorAttributes) {
             for (Attribute studentAttribute : studentAttributes) {
               var lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
@@ -682,7 +685,7 @@ public class MistakeDetection {
     }
   }
 
-  /** Finds mappings in previously unmapped elements by comparing Attributes and Association Ends*/
+  /** Finds mappings in previously unmapped elements by comparing Attributes and Association Ends */
   public static void mappingBasedOnAtribsAndAssocEnds(Comparison comparison) {
     if (comparison.notMappedInstructorClassifier.isEmpty() || comparison.extraStudentClassifier.isEmpty()) {
       return;
@@ -705,16 +708,14 @@ public class MistakeDetection {
           // System.out.println("Extra "+ studentClassifier.getName());
           EList<Attribute> studentAttributes = studentClassifier.getAttributes();
           int correctAttribute = 0;
-          if(totalAttributes == 0) {
-            if(studentAttributes.size() <= MAX_ATTRIBUTE_ALLOWED ) {
+          if (totalAttributes == 0) {
+            if (studentAttributes.size() <= MAX_ATTRIBUTE_ALLOWED) {
               possibleClassMatchWithNoAttribute.put(studentClassifier, studentAttributes.size());
-            }
-            else {
+            } else {
               continue;
             }
           }
-          for (Attribute instructorAttribute : instructorAttributes) { // To check association ->
-                                                                       // Not at present.
+          for (Attribute instructorAttribute : instructorAttributes) {
             for (Attribute studentAttribute : studentAttributes) {
               float lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
               if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
@@ -732,9 +733,9 @@ public class MistakeDetection {
             }
           }
         }
-        if(totalAttributes == 0 && possibleClassMatchWithNoAttribute.size() != 0) {
+        if (totalAttributes == 0 && possibleClassMatchWithNoAttribute.size() != 0) {
           Map<Classifier, Integer> sortedClosestClasssifier = sortByValueClassifier(possibleClassMatchWithNoAttribute);
-          mapClasses(comparison,  sortedClosestClasssifier.keySet().stream().findFirst().get(), instructorClassifier);
+          mapClasses(comparison, sortedClosestClasssifier.keySet().stream().findFirst().get(), instructorClassifier);
         }
         // System.out.println("__"+possibleClassMatch.size()+"___");
         var values = getMatchedClassifier(possibleClassMatch, instructorClassifier);
@@ -764,6 +765,15 @@ public class MistakeDetection {
     }
   }
 
+  /**
+   * returns the nearest matching student class to the instructorClass
+   *
+   * If a match is found then zeroth element of list will be True else False
+   *
+   * @param possibleClassMatch
+   * @param instructorClass
+   * @return list of objects
+   */
   private static List<Object> getMatchedClassifier(Map<Classifier, Double> possibleClassMatch,
       Classifier instructorClass) {
     List<Object> returnElements = new BasicEList<Object>();
@@ -786,13 +796,14 @@ public class MistakeDetection {
     returnElements.add(false);
     return returnElements;
   }
-/**
- * returns the class with closest number of association ends with that of a instructor class
- *
- * @param studentClasses
- * @param instructorClass
- * @return class
- */
+
+  /**
+   * returns the class with closest number of association ends with that of a instructor class
+   *
+   * @param studentClasses
+   * @param instructorClass
+   * @return class
+   */
   private static Classifier classWithAssociationEndsMatch(List<Classifier> studentClasses, Classifier instructorClass) {
 
     int instAssocEnds = instructorClass.getAssociationEnds().size();
@@ -814,12 +825,13 @@ public class MistakeDetection {
 
     return seekedClassifier;
   }
-/**
- * returns the classifiers with maximum number of matched attributes
- *
- * @param map
- * @return List of classifiers
- */
+
+  /**
+   * returns the classifiers with maximum number of matched attributes
+   *
+   * @param map
+   * @return List of classifiers
+   */
   public static List<Classifier> maxAttributeMatch(Map<Classifier, Double> map) {
     Map.Entry<Classifier, Double> entryWithMaxValue = null;
     EList<Classifier> topMatchedElements = new BasicEList<Classifier>();
@@ -840,15 +852,16 @@ public class MistakeDetection {
 
   // Returns element closest to target in arr[]
   public static int findClosest(List<Integer> assocEndValues, int target) {
-   HashMap<Integer, Integer> closestNumbDiffMap = new HashMap<Integer, Integer>();
-   assocEndValues.forEach(value->{
-     int diff = target - value;
-     closestNumbDiffMap.put(value, Math.abs(diff));
-   });
-   Map<Integer, Integer> sortedClosestNumbDiffMap = sortByValue(closestNumbDiffMap);
+    HashMap<Integer, Integer> closestNumbDiffMap = new HashMap<Integer, Integer>();
+    assocEndValues.forEach(value -> {
+      int diff = target - value;
+      closestNumbDiffMap.put(value, Math.abs(diff));
+    });
+    Map<Integer, Integer> sortedClosestNumbDiffMap = sortByValue(closestNumbDiffMap);
 
-  return sortedClosestNumbDiffMap.keySet().stream().findFirst().get();
+    return sortedClosestNumbDiffMap.keySet().stream().findFirst().get();
   }
+
   // function to sort hash map by values
   public static HashMap<Integer, Integer> sortByValue(HashMap<Integer, Integer> hm) {
     // Create a list from elements of HashMap
@@ -870,26 +883,27 @@ public class MistakeDetection {
     return temp;
   }
 
-  //function to sort hash map by values
- public static HashMap<Classifier, Integer> sortByValueClassifier(HashMap<Classifier, Integer> hm) {
-   // Create a list from elements of HashMap
-   List<Map.Entry<Classifier, Integer>> list = new LinkedList<Map.Entry<Classifier, Integer>>(hm.entrySet());
+  // function to sort hash map by values
+  public static HashMap<Classifier, Integer> sortByValueClassifier(HashMap<Classifier, Integer> hm) {
+    // Create a list from elements of HashMap
+    List<Map.Entry<Classifier, Integer>> list = new LinkedList<Map.Entry<Classifier, Integer>>(hm.entrySet());
 
-   // Sort the list
-   Collections.sort(list, new Comparator<Map.Entry<Classifier, Integer>>() {
-     @Override
-     public int compare(Map.Entry<Classifier, Integer> o1, Map.Entry<Classifier, Integer> o2) {
-       return (o1.getValue()).compareTo(o2.getValue());
-     }
-   });
+    // Sort the list
+    Collections.sort(list, new Comparator<Map.Entry<Classifier, Integer>>() {
+      @Override
+      public int compare(Map.Entry<Classifier, Integer> o1, Map.Entry<Classifier, Integer> o2) {
+        return (o1.getValue()).compareTo(o2.getValue());
+      }
+    });
 
-   // put data from sorted list to hash map
-   HashMap<Classifier, Integer> temp = new LinkedHashMap<Classifier, Integer>();
-   for (Map.Entry<Classifier, Integer> aa : list) {
-     temp.put(aa.getKey(), aa.getValue());
-   }
-   return temp;
- }
+    // put data from sorted list to hash map
+    HashMap<Classifier, Integer> temp = new LinkedHashMap<Classifier, Integer>();
+    for (Map.Entry<Classifier, Integer> aa : list) {
+      temp.put(aa.getKey(), aa.getValue());
+    }
+    return temp;
+  }
+
   public static void mapAttributes(Comparison comparison, Attribute studentAttribute, Attribute instructorAttribute) {
     comparison.mappedAttribute.put(instructorAttribute, studentAttribute);
     comparison.notMappedInstructorAttribute.remove(instructorAttribute);
