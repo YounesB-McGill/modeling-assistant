@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 
+"""
+Module containing feedback algorithm for modeling assistant.
+"""
+
 from typing import Union
 from learningcorpus.learningcorpus import TextResponse
-from modelingassistant.modelingassistant import FeedbackItem, Mistake, Solution
+from modelingassistant.modelingassistant import FeedbackItem, Mistake, Solution, StudentKnowledge
 
 
 MAX_STUDENT_LEVEL_OF_KNOWLEDGE = 10
+BEGINNER_LEVEL_OF_KNOWLEDGE = 7
 
 
 def give_feedback(student_solution: Solution) -> Union[FeedbackItem, list[FeedbackItem]]:
@@ -16,35 +21,34 @@ def give_feedback(student_solution: Solution) -> Union[FeedbackItem, list[Feedba
         # emoji to test serdes
         return FeedbackItem(feedback=TextResponse(text="All good, no mistakes found! 🎉"), solution=student_solution)
 
-    if student_solution.currentMistake:
-        return next_feedback(student_solution.currentMistake)
-
     # sort mistakes by priority and filter out mistakes which are already resolved
-    mistakes: list[Mistake] = [m for m in sorted(student_solution.mistakes, key=lambda m: m.mistakeType.priority)
-                               if not m.resolved]
-    highest_priority = mistakes[0].mistakeType.priority
+    mistake_priority = lambda m: m.mistakeType.priority
+    unresolved_mistakes: list[Mistake] = [m for m in sorted(student_solution.mistakes, key=mistake_priority)
+                                          if not m.resolved]
+
+    # update student knowledge for each unresolved mistake type
+    for m in unresolved_mistakes:
+        student_knowledge_for(m).levelOfKnowledge = MAX_STUDENT_LEVEL_OF_KNOWLEDGE - m.numDetection
+
     # sort highest priority mistakes based on number of detections (start with those detected the most times)
-    highest_priority_mistakes = sorted([m for m in mistakes if m.mistakeType.priority == highest_priority],
+    highest_priority = unresolved_mistakes[0].mistakeType.priority
+    highest_priority_mistakes = sorted([m for m in unresolved_mistakes if m.mistakeType.priority == highest_priority],
                                        key=lambda m: m.numDetection, reverse=True)
 
-    result = FeedbackItem(feedback=TextResponse(
-        text=f"Found mistake of type {highest_priority_mistakes[0].mistakeType.name}"),
-        solution=student_solution)
+    result: list[FeedbackItem] = []
+
     for m in highest_priority_mistakes:
-        curr_feedback_level = m.lastFeedback.feedback.level + 1 if m.lastFeedback else 1
-        curr_feedbacks = [f for f in m.mistakeType.feedbacks if f.level == curr_feedback_level]
-        if curr_feedbacks:
-            result = curr_feedbacks[0]
+        student_solution.currentMistake = m
+        result.append(next_feedback(m))
+        if student_knowledge_for(m).levelOfKnowledge < BEGINNER_LEVEL_OF_KNOWLEDGE:
+            break
 
     resolved_mistakes: list[Mistake] = [m for m in student_solution.mistakes if m.resolved]
     for m in resolved_mistakes:
-        sks = student_solution.student.studentKnowledges
-        sk = [sk for sk in sks if sk.mistakeType == m.mistakeType]
-        if sk:
-            sk = sk[0]
-            sk.levelOfKnowledge = MAX_STUDENT_LEVEL_OF_KNOWLEDGE - m.lastFeedback.level
+        if sk := student_knowledge_for(m):
+            sk.levelOfKnowledge -= m.lastFeedback.level / 2
 
-    return result
+    return result[0] if len(result) == 1 else result
 
 
 def next_feedback(mistake: Mistake) -> FeedbackItem:
@@ -56,6 +60,16 @@ def next_feedback(mistake: Mistake) -> FeedbackItem:
     target_level = mistake.lastFeedback.feedback.level + 1 if mistake.lastFeedback else 1
     next_fb = next(fb for fb in mistake.mistakeType.feedbacks if fb.level == target_level)
     return FeedbackItem(feedback=next_fb, solution=mistake.studentSolution, mistake=mistake)
+
+
+def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:
+    """
+    Return the student knowledge object for the given mistake (a mistake is made by a specific student).
+    """
+    # TODO Rename Mistake.studentSolution -> solution
+    # TODO Cache studentknowledges or redesign metamodel to access them in O(1) time instead of O(n) 
+    student = mistake.studentSolution.student
+    return next(sk for sk in student.studentKnowledges if sk.mistakeType == mistake.mistakeType)
 
 
 if __name__ == '__main__':
