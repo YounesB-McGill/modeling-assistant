@@ -159,7 +159,7 @@ public class MistakeDetectionTest {
     comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(comparison.newMistakes.size(), 0);
-    // assertEquals(studentSolution.getMistakes().size(), 6); // TODO Discuss in meeting
+    // assertEquals(studentSolution.getMistakes().size(), 4); // TODO Discuss in meeting
     // next meeting
 
     for (Mistake m : studentSolution.getMistakes()) {
