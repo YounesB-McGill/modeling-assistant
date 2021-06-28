@@ -346,6 +346,11 @@ public class MistakeDetectionTest {
 
     assertEquals(comparison.newMistakes.size(), 0);
     assertEquals(studentSolution.getMistakes().size(), 0);
+/*
+    List<Integer> list=new BasicEList<Integer>();
+    list.add(1);list.add(2);list.add(3);list.add(6);list.add(5);
+    System.out.print(MistakeDetection.findClosest(list, 4));
+*/
   }
 
   /**
