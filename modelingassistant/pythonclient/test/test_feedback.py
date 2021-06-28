@@ -61,6 +61,7 @@ def test_feedback_with_1_mistake_level_1():
     assert 1 == feedback.level
     assert feedback.highlightSolution
     assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
 
 def test_feedback_with_1_mistake_level_2():
@@ -82,6 +83,7 @@ def test_feedback_with_1_mistake_level_2():
     assert not feedback.highlightSolution
     assert "software engineering term" in feedback.text
     assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 8 == ma.studentKnowledges[0].levelOfKnowledge
 
 
 def test_feedback_with_1_mistake_level_3():
@@ -104,6 +106,7 @@ def test_feedback_with_1_mistake_level_3():
     assert "software engineering term" in feedback.text
     #assert "BusData" in feedback.text  # TODO Implement parameterized response later
     assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 7 == ma.studentKnowledges[0].levelOfKnowledge
 
 
 def test_feedback_with_1_mistake_level_4():
@@ -128,6 +131,7 @@ def test_feedback_with_1_mistake_level_4():
     # TODO Determine exact emoji serialization mechanism
     assert ":x: Examples to avoid | :heavy_check_mark: Good class names" in resource_content
     assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 6 == ma.studentKnowledges[0].levelOfKnowledge
 
 
 def test_feedback_with_1_mistake_levels_1_4():
@@ -148,6 +152,7 @@ def test_feedback_with_1_mistake_levels_1_4():
     assert 1 == feedback.level
     assert feedback.highlightSolution
     assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
     ma.solutions[0].mistakes[0].numDetection += 1
     feedback_item = give_feedback(solution)
@@ -160,6 +165,7 @@ def test_feedback_with_1_mistake_levels_1_4():
     assert not feedback.highlightSolution
     assert "software engineering term" in feedback.text
     assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 8 == ma.studentKnowledges[0].levelOfKnowledge
 
     ma.solutions[0].mistakes[0].numDetection += 1
     feedback_item = give_feedback(solution)
@@ -173,6 +179,7 @@ def test_feedback_with_1_mistake_levels_1_4():
     assert "software engineering term" in feedback.text
     #assert "BusData" in feedback.text  # TODO Implement parameterized response later
     assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 7 == ma.studentKnowledges[0].levelOfKnowledge
 
     ma.solutions[0].mistakes[0].numDetection += 1
     feedback_item = give_feedback(solution)
@@ -188,8 +195,9 @@ def test_feedback_with_1_mistake_levels_1_4():
     # TODO Determine exact emoji serialization mechanism
     assert ":x: Examples to avoid | :heavy_check_mark: Good class names" in resource_content
     assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 6 == ma.studentKnowledges[0].levelOfKnowledge
 
 
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
-    test_feedback_with_1_mistake_level_1()
+    test_feedback_with_1_mistake_levels_1_4()
