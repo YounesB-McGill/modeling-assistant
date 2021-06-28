@@ -33,7 +33,6 @@ def make_ma_with_1_new_mistake(num_detection: int=1) -> ModelingAssistant:
                           numDetection=num_detection, studentElements=[bus_data_cls])
     if num_detection > 1:
         set_mistake.lastFeedback = FeedbackItem(feedback=Feedback(level=num_detection - 1))
-    #alice_bus_sol.currentMistake = set_mistake
     return ma
 
 
@@ -117,6 +116,66 @@ def test_feedback_with_1_mistake_level_4():
     solution = ma.solutions[0]
     feedback_item = give_feedback(solution)
     curr_mistake = solution.currentMistake
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert 4 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert "incorrect class naming" in resource_content
+    # TODO Determine exact emoji serialization mechanism
+    assert ":x: Examples to avoid | :heavy_check_mark: Good class names" in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
+
+
+def test_feedback_with_1_mistake_levels_1_4():
+    """
+    Test feedback for a solution with one mistake made four times in a row.
+
+    BusData detected 4 times -> 4 levels of feedback, given one at a time.
+    """
+    ma = make_ma_with_1_new_mistake(1)
+    solution = ma.solutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = solution.currentMistake
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, Feedback)
+    assert 1 == feedback.level
+    assert feedback.highlightSolution
+    assert curr_mistake.mistakeType is feedback.mistakeType
+
+    ma.solutions[0].mistakes[0].numDetection += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, TextResponse)
+    assert 2 == feedback.level
+    assert not feedback.highlightSolution
+    assert "software engineering term" in feedback.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+
+    ma.solutions[0].mistakes[0].numDetection += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ParametrizedResponse)
+    assert 3 == feedback.level
+    assert not feedback.highlightSolution
+    assert "software engineering term" in feedback.text
+    #assert "BusData" in feedback.text  # TODO Implement parameterized response later
+    assert curr_mistake.mistakeType is feedback.mistakeType
+
+    ma.solutions[0].mistakes[0].numDetection += 1
+    feedback_item = give_feedback(solution)
 
     assert feedback_item.solution is solution
     assert curr_mistake.lastFeedback is feedback_item
