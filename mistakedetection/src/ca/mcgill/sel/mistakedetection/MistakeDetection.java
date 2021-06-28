@@ -174,8 +174,12 @@ public class MistakeDetection {
     }
     instructorSolution.getTagGroups().forEach(tg -> {
        tg.getTags().forEach(tag->{
-        if(tag.getTagType().equals(PLAYER));
-       });
+        if(tag.getTagType().equals(PLAYER)) {
+          System.out.print("worked");
+        }
+
+
+        });
     });
 
   }
