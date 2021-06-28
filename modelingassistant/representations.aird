@@ -13,7 +13,7 @@
     <semanticResources>platform:/resource/ca.mcgill.sel.core/model/CORE.genmodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_sM2lgGVtEeu25_uYr0tc7g">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uiMFMWVtEeu25_uYr0tc7g" name="modelingassistant" repPath="#_uhm2YGVtEeu25_uYr0tc7g" changeId="9100ccfb-d10b-4cbf-9207-87c541e760d1">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uiMFMWVtEeu25_uYr0tc7g" name="modelingassistant" repPath="#_uhm2YGVtEeu25_uYr0tc7g" changeId="05d17a33-b55d-47b5-af4a-eb769068a64e">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/modelingassistant.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -455,7 +455,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tfDtEbO1EeufbOs92noeIg" x="103" y="10"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_tfDtErO1EeufbOs92noeIg" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tfDtE7O1EeufbOs92noeIg" x="-55" y="65"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tfDtE7O1EeufbOs92noeIg" x="-51" y="44"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_tfDtFLO1EeufbOs92noeIg" type="6003">
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tfDtFbO1EeufbOs92noeIg" x="55" y="47"/>
@@ -862,17 +862,17 @@
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
       </ownedElements>
-      <ownedElements xmi:type="diagram:DNodeListElement" uid="_lQJgALO3EeufbOs92noeIg" name="numDetection : EInt" tooltipText="">
-        <target xmi:type="ecore:EAttribute" href="model/modelingassistant.ecore#//Mistake/numDetection"/>
-        <semanticElements xmi:type="ecore:EAttribute" href="model/modelingassistant.ecore#//Mistake/numDetection"/>
+      <ownedElements xmi:type="diagram:DNodeListElement" uid="_lQJgALO3EeufbOs92noeIg" name="numDetections : EInt" tooltipText="">
+        <target xmi:type="ecore:EAttribute" href="model/modelingassistant.ecore#//Mistake/numDetections"/>
+        <semanticElements xmi:type="ecore:EAttribute" href="model/modelingassistant.ecore#//Mistake/numDetections"/>
         <ownedStyle xmi:type="diagram:BundledImage" uid="_nfDAgbO3EeufbOs92noeIg" labelAlignment="LEFT">
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
       </ownedElements>
-      <ownedElements xmi:type="diagram:DNodeListElement" uid="_stBhQLO3EeufbOs92noeIg" name="numDetectionSinceResolved : EInt" tooltipText="">
-        <target xmi:type="ecore:EAttribute" href="model/modelingassistant.ecore#//Mistake/numDetectionSinceResolved"/>
-        <semanticElements xmi:type="ecore:EAttribute" href="model/modelingassistant.ecore#//Mistake/numDetectionSinceResolved"/>
+      <ownedElements xmi:type="diagram:DNodeListElement" uid="_stBhQLO3EeufbOs92noeIg" name="numSinceResolved : EInt" tooltipText="">
+        <target xmi:type="ecore:EAttribute" href="model/modelingassistant.ecore#//Mistake/numSinceResolved"/>
+        <semanticElements xmi:type="ecore:EAttribute" href="model/modelingassistant.ecore#//Mistake/numSinceResolved"/>
         <ownedStyle xmi:type="diagram:BundledImage" uid="_wWtkx7O3EeufbOs92noeIg" labelAlignment="LEFT">
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']/@style"/>
         </ownedStyle>
@@ -1060,10 +1060,10 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_tetHzLO1EeufbOs92noeIg" sourceNode="_v7UbUGVtEeu25_uYr0tc7g" targetNode="_v7bJAGVtEeu25_uYr0tc7g" beginLabel="[1..1] studentSolution" endLabel="[0..*] mistakes">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_tetHzLO1EeufbOs92noeIg" sourceNode="_v7UbUGVtEeu25_uYr0tc7g" targetNode="_v7bJAGVtEeu25_uYr0tc7g" beginLabel="[1..1] solution" endLabel="[0..*] mistakes">
       <target xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//Solution/mistakes"/>
       <semanticElements xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//Solution/mistakes"/>
-      <semanticElements xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//Mistake/studentSolution"/>
+      <semanticElements xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//Mistake/solution"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_4m0rv7O1EeufbOs92noeIg" description="_p9hKtmVuEeu25_uYr0tc7g" sourceArrow="FillDiamond" routingStyle="manhattan" strokeColor="0,0,0">
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" uid="_4m0rwLO1EeufbOs92noeIg" showIcon="false"/>
         <endLabelStyle xmi:type="diagram:EndLabelStyle" uid="_4m0rwbO1EeufbOs92noeIg" showIcon="false"/>
@@ -1220,7 +1220,7 @@
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_uOUidc5yEeuqNLAibkAIRw" showIcon="false">
           <customFeatures>labelFormat</customFeatures>
         </centerLabelStyle>
-        <endLabelStyle xmi:type="diagram:EndLabelStyle" uid="_uOUidM5yEeuqNLAibkAIRw" showIcon="false" labelColor="39,76,114">
+        <endLabelStyle xmi:type="diagram:EndLabelStyle" uid="_uOUidM5yEeuqNLAibkAIRw" labelSize="6" showIcon="false" labelColor="39,76,114">
           <customFeatures>labelFormat</customFeatures>
         </endLabelStyle>
       </ownedStyle>
@@ -1233,7 +1233,7 @@
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_7G5Xes5yEeuqNLAibkAIRw" showIcon="false">
           <customFeatures>labelFormat</customFeatures>
         </centerLabelStyle>
-        <endLabelStyle xmi:type="diagram:EndLabelStyle" uid="_7G5Xec5yEeuqNLAibkAIRw" showIcon="false" labelColor="39,76,114">
+        <endLabelStyle xmi:type="diagram:EndLabelStyle" uid="_7G5Xec5yEeuqNLAibkAIRw" labelSize="6" showIcon="false" labelColor="39,76,114">
           <customFeatures>labelFormat</customFeatures>
         </endLabelStyle>
       </ownedStyle>
