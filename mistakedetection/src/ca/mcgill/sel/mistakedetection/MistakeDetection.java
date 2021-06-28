@@ -668,7 +668,7 @@ public class MistakeDetection {
     }
   }
 
-  /** Finds mappings in previously unmapped elements by comparing Attrbutes and Associiation Ends*/
+  /** Finds mappings in previously unmapped elements by comparing Attributes and Association Ends*/
   public static void mappingBasedOnAtribsAndAssocEnds(Comparison comparison) {
     if (comparison.notMappedInstructorClassifier.isEmpty() || comparison.extraStudentClassifier.isEmpty()) {
       return;
