@@ -119,13 +119,13 @@ public interface Solution extends EObject {
   /**
    * Returns the value of the '<em><b>Mistakes</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.Mistake}.
-   * It is bidirectional and its opposite is '{@link modelingassistant.Mistake#getStudentSolution <em>Student Solution</em>}'.
+   * It is bidirectional and its opposite is '{@link modelingassistant.Mistake#getSolution <em>Solution</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Mistakes</em>' containment reference list.
    * @see modelingassistant.ModelingassistantPackage#getSolution_Mistakes()
-   * @see modelingassistant.Mistake#getStudentSolution
-   * @model opposite="studentSolution" containment="true"
+   * @see modelingassistant.Mistake#getSolution
+   * @model opposite="solution" containment="true"
    * @generated
    */
   EList<Mistake> getMistakes();

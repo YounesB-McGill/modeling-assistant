@@ -7,8 +7,8 @@ import learningcorpus.Feedback;
 import modelingassistant.FeedbackItem;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantPackage;
-
 import modelingassistant.Solution;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
