@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_JtSc0NfmEeuG8czVoCvS-g" name="Instructor_subClassPR_Pattern" featureModel="_JtTD4NfmEeuG8czVoCvS-g" impactModel="_JtTD4tfmEeuG8czVoCvS-g">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_JtTD4NfmEeuG8czVoCvS-g" root="_JtTD4dfmEeuG8czVoCvS-g">
+    <features xmi:id="_JtTD4dfmEeuG8czVoCvS-g" name="Instructor_subClassPR_Pattern" realizedBy="_KYf9ANfmEeuG8czVoCvS-g"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_JtTD4tfmEeuG8czVoCvS-g" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_KYeu4NfmEeuG8czVoCvS-g" name="Instructor_subClassPR_Pattern" scene="_KYf9ANfmEeuG8czVoCvS-g" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_subClassPR_Pattern.domain_model.cdm#_KYhyMNfmEeuG8czVoCvS-g"/>
+  </artefacts>
+  <scenes xmi:id="_KYf9ANfmEeuG8czVoCvS-g" name="Instructor_subClassPR_Pattern" realizes="_JtTD4dfmEeuG8czVoCvS-g" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_KYf9AdfmEeuG8czVoCvS-g" value="_KYeu4NfmEeuG8czVoCvS-g" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
