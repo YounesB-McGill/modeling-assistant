@@ -36,6 +36,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
+import  static modelingassistant.TagType.PLAYER;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -150,6 +151,7 @@ public class MistakeDetection {
 
     notMatchedMapping(comparison);
     mapRelations(comparison);
+    mapPatterns(instructorSolution, studentSolution, comparison);
     checkMistakesAfterMapping(comparison); // TO BE Discussed
     checkMistakeMissingClass(comparison);
     checkMistakeExtraClass(comparison);
@@ -164,6 +166,18 @@ public class MistakeDetection {
 
     updateMistakes(studentSolution, comparison);
     return comparison;
+  }
+
+  private static void mapPatterns(Solution instructorSolution, Solution studentSolution, Comparison comparison) {
+    if (instructorSolution.getTagGroups().isEmpty()) {
+      return;
+    }
+    instructorSolution.getTagGroups().forEach(tg -> {
+       tg.getTags().forEach(tag->{
+        if(tag.getTagType().equals(PLAYER));
+       });
+    });
+
   }
 
   /**
@@ -278,8 +292,8 @@ public class MistakeDetection {
       seekedAssocAndEnds.add(entry.getValue().get(1));
       seekedAssocAndEnds.add(entry.getValue().get(2));
       seekedAssocAndEnds.add(entry.getValue().get(3));
-      if (associationEndMultiplicityMatch(entry.getValue().get(0), entry.getValue().get(1))
-          && associationEndMultiplicityMatch(entry.getValue().get(2), entry.getValue().get(3))) {
+      if (assocEndMultiplicityAndRoleNameMatch(entry.getValue().get(0), entry.getValue().get(1),
+          entry.getValue().get(2), entry.getValue().get(3))) {
         seekedAssocAndEnds.clear();
         seekedAssocAndEnds.add(entry.getKey());
         seekedAssocAndEnds.add(entry.getValue().get(0));
@@ -291,6 +305,15 @@ public class MistakeDetection {
     } ;
 
     return seekedAssocAndEnds;
+  }
+
+  private static boolean assocEndMultiplicityAndRoleNameMatch(AssociationEnd studentAssocEnd,
+      AssociationEnd instAssocEnd, AssociationEnd otherStudentAssocEnd, AssociationEnd otherInstAssocEnd) {
+
+    return associationEndMultiplicityMatch(studentAssocEnd, instAssocEnd)
+        && associationEndMultiplicityMatch(otherStudentAssocEnd, otherInstAssocEnd)
+        && spellingMistakeCheck(studentAssocEnd.getName(), instAssocEnd.getName())
+        && spellingMistakeCheck(otherStudentAssocEnd.getName(), otherInstAssocEnd.getName());
   }
 
   private static void checkMistakesForAssociationEnds(AssociationEnd studentClassifierAssocEnd,
@@ -813,8 +836,8 @@ public class MistakeDetection {
   }
 
   public static Optional<Mistake> checkMistakeClassSpelling(Classifier studentClass, Classifier instructorClass) {
-    int lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
-    if (lDistance > 0 && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED && !isPlural(studentClass.getName()) && !isLowerName(studentClass.getName())) {
+    if (spellingMistakeCheck(studentClass.getName(), instructorClass.getName()) && !isPlural(studentClass.getName())
+        && !isLowerName(studentClass.getName())) {
       return Optional.of(createMistake(BAD_CLASS_NAME_SPELLING, studentClass, instructorClass));
     }
     return Optional.empty();
@@ -840,8 +863,7 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeAttributeSpelling(Attribute studentAttribute,
       Attribute instructorAttribute) {
-    int lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-    if (lDistance > 0 && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+    if (spellingMistakeCheck(studentAttribute.getName(), instructorAttribute.getName())) {
       return Optional.of(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, studentAttribute, instructorAttribute));
     }
     return Optional.empty();
@@ -986,8 +1008,7 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeBadRoleNameSpelling(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
-    int lDistance = levenshteinDistance(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName());
-    if (lDistance > 0 && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+    if (spellingMistakeCheck(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName())) {
       return Optional.of(createMistake(BAD_ROLE_NAME_SPELLING, studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -1017,9 +1038,8 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeBadAssociationClassNameSpelling(Association studentClassAssoc,
       Association instructorClassAssoc) {
-    int lDistance = levenshteinDistance(studentClassAssoc.getAssociationClass().getName(),
-        instructorClassAssoc.getAssociationClass().getName());
-    if (lDistance > 0 && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+    if (spellingMistakeCheck(studentClassAssoc.getAssociationClass().getName(),
+        instructorClassAssoc.getAssociationClass().getName())) {
       return Optional.of(createMistake(BAD_ASSOCIATION_CLASS_NAME_SPELLING, studentClassAssoc.getAssociationClass(),
           instructorClassAssoc.getAssociationClass()));
     }
@@ -1142,6 +1162,11 @@ public class MistakeDetection {
 
   public static boolean attributeTypesMatch(Attribute studentAttribute, Attribute instructorAttribute) {
     return studentAttribute.getType().getClass().equals(instructorAttribute.getType().getClass());
+  }
+
+  private static boolean spellingMistakeCheck(String name1, String name2) {
+    int lDistance = levenshteinDistance(name1, name2);
+    return lDistance > 0 && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED;
   }
 
   /** Returns true if student has defined class as type enum instead of regular. */
