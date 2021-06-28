@@ -601,8 +601,8 @@ public class MistakeDetectionTest {
    */
   public static void assertMistakeAttribute(Mistake mistake, int numSinceResolved, int numDetections,
       boolean resolved) {
-    assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
-    assertEquals(mistake.getNumDetection(), numDetections);
+    assertEquals(mistake.getNumSinceResolved(), numSinceResolved);
+    assertEquals(mistake.getNumDetections(), numDetections);
     assertEquals(mistake.isResolved(), resolved);
   }
 

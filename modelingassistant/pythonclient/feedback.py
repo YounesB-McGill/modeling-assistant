@@ -28,12 +28,12 @@ def give_feedback(student_solution: Solution) -> Union[FeedbackItem, list[Feedba
 
     # update student knowledge for each unresolved mistake type
     for m in unresolved_mistakes:
-        student_knowledge_for(m).levelOfKnowledge = MAX_STUDENT_LEVEL_OF_KNOWLEDGE - m.numDetection
+        student_knowledge_for(m).levelOfKnowledge = MAX_STUDENT_LEVEL_OF_KNOWLEDGE - m.numDetections
 
     # sort highest priority mistakes based on number of detections (start with those detected the most times)
     highest_priority = unresolved_mistakes[0].mistakeType.priority
     highest_priority_mistakes = sorted([m for m in unresolved_mistakes if m.mistakeType.priority == highest_priority],
-                                       key=lambda m: m.numDetection, reverse=True)
+                                       key=lambda m: m.numDetections, reverse=True)
 
     result: list[FeedbackItem] = []
 
@@ -46,7 +46,7 @@ def give_feedback(student_solution: Solution) -> Union[FeedbackItem, list[Feedba
     resolved_mistakes: list[Mistake] = [m for m in student_solution.mistakes if m.resolved]
     for m in resolved_mistakes:
         if sk := student_knowledge_for(m):
-            sk.levelOfKnowledge -= m.lastFeedback.level / 2
+            sk.levelOfKnowledge += m.lastFeedback.level / 2
 
     return result[0] if len(result) == 1 else result
 
@@ -59,16 +59,15 @@ def next_feedback(mistake: Mistake) -> FeedbackItem:
     """
     target_level = mistake.lastFeedback.feedback.level + 1 if mistake.lastFeedback else 1
     next_fb = next(fb for fb in mistake.mistakeType.feedbacks if fb.level == target_level)
-    return FeedbackItem(feedback=next_fb, solution=mistake.studentSolution, mistake=mistake)
+    return FeedbackItem(feedback=next_fb, solution=mistake.solution, mistake=mistake)
 
 
 def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:
     """
     Return the student knowledge object for the given mistake (a mistake is made by a specific student).
     """
-    # TODO Rename Mistake.studentSolution -> solution
     # TODO Cache studentknowledges or redesign metamodel to access them in O(1) time instead of O(n) 
-    student = mistake.studentSolution.student
+    student = mistake.solution.student
     return next(sk for sk in student.studentKnowledges if sk.mistakeType == mistake.mistakeType)
 
 

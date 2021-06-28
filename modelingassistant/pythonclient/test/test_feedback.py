@@ -29,8 +29,8 @@ def make_ma_with_1_new_mistake(num_detection: int=1) -> ModelingAssistant:
     ma = make_ma_without_mistakes()
     alice_bus_sol = ma.solutions[0]
     bus_data_cls = SolutionElement(solution=alice_bus_sol, element=Class(name="BusData"))
-    set_mistake = Mistake(studentSolution=alice_bus_sol, mistakeType=SOFTWARE_ENGINEERING_TERM,
-                          numDetection=num_detection, studentElements=[bus_data_cls])
+    set_mistake = Mistake(solution=alice_bus_sol, mistakeType=SOFTWARE_ENGINEERING_TERM,
+                          numDetections=num_detection, studentElements=[bus_data_cls])
     if num_detection > 1:
         set_mistake.lastFeedback = FeedbackItem(feedback=Feedback(level=num_detection - 1))
     return ma
@@ -154,7 +154,7 @@ def test_feedback_with_1_mistake_levels_1_4():
     assert curr_mistake.mistakeType is feedback.mistakeType
     assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
-    ma.solutions[0].mistakes[0].numDetection += 1
+    ma.solutions[0].mistakes[0].numDetections += 1
     feedback_item = give_feedback(solution)
 
     assert feedback_item.solution is solution
@@ -167,7 +167,7 @@ def test_feedback_with_1_mistake_levels_1_4():
     assert curr_mistake.mistakeType is feedback.mistakeType
     assert 8 == ma.studentKnowledges[0].levelOfKnowledge
 
-    ma.solutions[0].mistakes[0].numDetection += 1
+    ma.solutions[0].mistakes[0].numDetections += 1
     feedback_item = give_feedback(solution)
 
     assert feedback_item.solution is solution
@@ -181,7 +181,7 @@ def test_feedback_with_1_mistake_levels_1_4():
     assert curr_mistake.mistakeType is feedback.mistakeType
     assert 7 == ma.studentKnowledges[0].levelOfKnowledge
 
-    ma.solutions[0].mistakes[0].numDetection += 1
+    ma.solutions[0].mistakes[0].numDetections += 1
     feedback_item = give_feedback(solution)
 
     assert feedback_item.solution is solution

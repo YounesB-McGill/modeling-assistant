@@ -3,24 +3,17 @@
 package modelingassistant.impl;
 
 import java.sql.Time;
+
 import modelingassistant.*;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import modelingassistant.FeedbackItem;
-import modelingassistant.Mistake;
-import modelingassistant.ModelingAssistant;
-import modelingassistant.ModelingassistantFactory;
-import modelingassistant.ModelingassistantPackage;
-import modelingassistant.ProblemStatement;
-import modelingassistant.ProblemStatementElement;
-import modelingassistant.Solution;
-import modelingassistant.SolutionElement;
-import modelingassistant.Student;
-import modelingassistant.StudentKnowledge;
 
 /**
  * <!-- begin-user-doc -->

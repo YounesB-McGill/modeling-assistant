@@ -454,7 +454,7 @@ public class MistakeDetection {
     if (existingMistakes.size() == 0 && newMistakes.size() != 0) {
       for (Mistake newMistake : newMistakes) {
         setMistakeProperties(newMistake, false, 1, 0);
-        newMistake.setStudentSolution(studentSolution);
+        newMistake.setSolution(studentSolution);
       }
     } else if (!existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
       for (Mistake existingMistake : existingMistakes) {
@@ -462,21 +462,21 @@ public class MistakeDetection {
           if (existingMistake.getMistakeType() == newMistake.getMistakeType()) {
             if (haveInstructorAndStudentElements(existingMistake, newMistake)) {
               if (compareInstructorElements(newMistake, existingMistake)) {
-                setMistakeProperties(existingMistake, false, existingMistake.getNumDetection() + 1, 0);
+                setMistakeProperties(existingMistake, false, existingMistake.getNumDetections() + 1, 0);
                 updateElementsOfExistingMistake(newMistake, existingMistake);
                 existingMistakesProcessed.add(existingMistake);
                 newMistakesProcessed.add(newMistake);
               }
             } else if (haveOnlyStudentElements(existingMistake, newMistake)) {
               if (compareStudentElements(newMistake, existingMistake)) {
-                setMistakeProperties(existingMistake, false, existingMistake.getNumDetection() + 1, 0);
+                setMistakeProperties(existingMistake, false, existingMistake.getNumDetections() + 1, 0);
                 updateElementsOfExistingMistake(newMistake, existingMistake);
                 existingMistakesProcessed.add(existingMistake);
                 newMistakesProcessed.add(newMistake);
               }
             } else if (haveOnlyInstructorElements(existingMistake, newMistake)) {
               if (compareInstructorElements(newMistake, existingMistake)) {
-                setMistakeProperties(existingMistake, false, existingMistake.getNumDetection() + 1, 0);
+                setMistakeProperties(existingMistake, false, existingMistake.getNumDetections() + 1, 0);
                 existingMistakesProcessed.add(existingMistake);
                 newMistakesProcessed.add(newMistake);
               }
@@ -487,18 +487,18 @@ public class MistakeDetection {
       for (Mistake newMistake : newMistakes) {
         if (!newMistakesProcessed.contains(newMistake)) {
           setMistakeProperties(newMistake, false, 1, 0);
-          newMistake.setStudentSolution(studentSolution);
+          newMistake.setSolution(studentSolution);
         }
       }
       for (int i = 0; i < existingMistakes.size(); i++) {
         if (!existingMistakesProcessed.contains(existingMistakes.get(i))) {
-          if (existingMistakes.get(i).getNumDetectionSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION
+          if (existingMistakes.get(i).getNumSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION
               && existingMistakes.get(i).isResolved()) {
             existingMistakes.get(i).setResolved(true);
             existingMistakes.get(i)
-                .setNumDetectionSinceResolved(existingMistakes.get(i).getNumDetectionSinceResolved() + 1);
+                .setNumSinceResolved(existingMistakes.get(i).getNumSinceResolved() + 1);
           } else {
-            existingMistakes.get(i).setStudentSolution(null);
+            existingMistakes.get(i).setSolution(null);
             existingMistakes.get(i).getInstructorElements().clear();
             existingMistakes.get(i).getStudentElements().clear();
           }
@@ -506,11 +506,11 @@ public class MistakeDetection {
       }
     } else if (existingMistakes.size() != 0 && newMistakes.size() == 0) {
       for (Mistake existingMistake : existingMistakes) {
-        if (existingMistake.getNumDetectionSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION) {
+        if (existingMistake.getNumSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION) {
           existingMistake.setResolved(true);
-          existingMistake.setNumDetectionSinceResolved(existingMistake.getNumDetectionSinceResolved() + 1);
+          existingMistake.setNumSinceResolved(existingMistake.getNumSinceResolved() + 1);
         } else {
-          existingMistake.setStudentSolution(null);
+          existingMistake.setSolution(null);
           existingMistake.getInstructorElements().clear();
           existingMistake.getStudentElements().clear();
         }
@@ -613,8 +613,8 @@ public class MistakeDetection {
   private static void setMistakeProperties(Mistake mistake, boolean isResolved, int numDetection,
       int numDetectionSinceResolved) {
     mistake.setResolved(isResolved);
-    mistake.setNumDetection(numDetection);
-    mistake.setNumDetectionSinceResolved(numDetectionSinceResolved);
+    mistake.setNumDetections(numDetection);
+    mistake.setNumSinceResolved(numDetectionSinceResolved);
   }
 
   /**
