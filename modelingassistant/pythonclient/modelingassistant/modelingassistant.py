@@ -161,17 +161,17 @@ class Mistake(EObject, metaclass=MetaEClass):
     resolved = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True)
     timeToAddress = EAttribute(eType=Time, unique=True, derived=False, changeable=True)
     numStepsBeforeNotification = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
-    numDetection = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
-    numDetectionSinceResolved = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
+    numDetections = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
+    numSinceResolved = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
     studentElements = EReference(ordered=True, unique=True,
                                  containment=False, derived=False, upper=-1)
     lastFeedback = EReference(ordered=True, unique=True, containment=False, derived=False)
     instructorElements = EReference(ordered=True, unique=True,
                                     containment=False, derived=False, upper=-1)
-    studentSolution = EReference(ordered=True, unique=True, containment=False, derived=False)
+    solution = EReference(ordered=True, unique=True, containment=False, derived=False)
     mistakeType = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, resolved=None, timeToAddress=None, numStepsBeforeNotification=None, studentElements=None, lastFeedback=None, instructorElements=None, studentSolution=None, numDetection=None, numDetectionSinceResolved=None, mistakeType=None):
+    def __init__(self, *, resolved=None, timeToAddress=None, numStepsBeforeNotification=None, studentElements=None, lastFeedback=None, instructorElements=None, solution=None, numDetections=None, numSinceResolved=None, mistakeType=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -186,11 +186,11 @@ class Mistake(EObject, metaclass=MetaEClass):
         if numStepsBeforeNotification is not None:
             self.numStepsBeforeNotification = numStepsBeforeNotification
 
-        if numDetection is not None:
-            self.numDetection = numDetection
+        if numDetections is not None:
+            self.numDetections = numDetections
 
-        if numDetectionSinceResolved is not None:
-            self.numDetectionSinceResolved = numDetectionSinceResolved
+        if numSinceResolved is not None:
+            self.numSinceResolved = numSinceResolved
 
         if studentElements:
             self.studentElements.extend(studentElements)
@@ -201,8 +201,8 @@ class Mistake(EObject, metaclass=MetaEClass):
         if instructorElements:
             self.instructorElements.extend(instructorElements)
 
-        if studentSolution is not None:
-            self.studentSolution = studentSolution
+        if solution is not None:
+            self.solution = solution
 
         if mistakeType is not None:
             self.mistakeType = mistakeType
