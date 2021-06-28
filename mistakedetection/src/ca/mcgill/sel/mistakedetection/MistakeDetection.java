@@ -570,7 +570,7 @@ public class MistakeDetection {
 
 
     float lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
-    if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+    if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || studentClass.getName().contains(instructorClass.getName())) {
       isMapped = true;
       mapClasses(comparison, studentClass, instructorClass);
       for (Attribute instructorAttribute : instructorAttributes) { // To check association -> Not at present.
@@ -814,7 +814,7 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeClassSpelling(Classifier studentClass, Classifier instructorClass) {
     int lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
-    if (lDistance > 0 && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED && !isPlural(studentClass.getName())) {
+    if (lDistance > 0 && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED && !isPlural(studentClass.getName()) && !isLowerName(studentClass.getName())) {
       return Optional.of(createMistake(BAD_CLASS_NAME_SPELLING, studentClass, instructorClass));
     }
     return Optional.empty();
