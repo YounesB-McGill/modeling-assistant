@@ -39,6 +39,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -604,7 +605,7 @@ public class MistakeDetection {
         Classifier instructorClassifier = comparison.notMappedInstructorClassifier.get(i);
         EList<Attribute> instructorAttributes = instructorClassifier.getAttributes();
         int totalAttributes = instructorAttributes.size();
-        Map<Classifier, Double> possibleClassMatch = new HashMap<Classifier, Double>();
+        Map<Classifier, Double> possibleClassMatch = new LinkedHashMap<Classifier, Double>();
         // System.out.println("NotMapped "+ instructorClassifier.getName());
         for (int j = 0; j < comparison.extraStudentClassifier.size(); j++) {
 
