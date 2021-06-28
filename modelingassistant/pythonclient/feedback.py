@@ -28,8 +28,7 @@ def give_feedback(student_solution: Solution) -> Union[FeedbackItem, list[Feedba
 
     # update student knowledge for each unresolved mistake type
     for m in unresolved_mistakes:
-        sk = student_knowledge_for(m)
-        sk.levelOfKnowledge = MAX_STUDENT_LEVEL_OF_KNOWLEDGE - m.numDetection
+        student_knowledge_for(m).levelOfKnowledge = MAX_STUDENT_LEVEL_OF_KNOWLEDGE - m.numDetection
 
     # sort highest priority mistakes based on number of detections (start with those detected the most times)
     highest_priority = unresolved_mistakes[0].mistakeType.priority
@@ -46,8 +45,7 @@ def give_feedback(student_solution: Solution) -> Union[FeedbackItem, list[Feedba
 
     resolved_mistakes: list[Mistake] = [m for m in student_solution.mistakes if m.resolved]
     for m in resolved_mistakes:
-        sks = student_solution.student.studentKnowledges
-        if sk := next(sk for sk in sks if sk.mistakeType == m.mistakeType):
+        if sk := next(sk for sk in student_solution.student.studentKnowledges if sk.mistakeType == m.mistakeType):
             sk.levelOfKnowledge -= m.lastFeedback.level / 2
 
     return result[0] if len(result) == 1 else result
