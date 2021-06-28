@@ -33,7 +33,7 @@ def make_ma_with_1_new_mistake(num_detection: int=1) -> ModelingAssistant:
                           numDetection=num_detection, studentElements=[bus_data_cls])
     if num_detection > 1:
         set_mistake.lastFeedback = FeedbackItem(feedback=Feedback(level=num_detection - 1))
-    alice_bus_sol.currentMistake = set_mistake
+    #alice_bus_sol.currentMistake = set_mistake
     return ma
 
 
@@ -52,10 +52,9 @@ def test_feedback_with_1_mistake_level_1():
     """
     ma = make_ma_with_1_new_mistake(1)
     solution = ma.solutions[0]
-    curr_mistake = solution.currentMistake
-    assert curr_mistake is solution.mistakes[0]
-
     feedback_item = give_feedback(solution)
+    curr_mistake = solution.currentMistake
+
     assert feedback_item.solution is solution
     assert curr_mistake.lastFeedback is feedback_item
     feedback = feedback_item.feedback
@@ -73,9 +72,9 @@ def test_feedback_with_1_mistake_level_2():
     """
     ma = make_ma_with_1_new_mistake(2)
     solution = ma.solutions[0]
+    feedback_item = give_feedback(solution)
     curr_mistake = solution.currentMistake
 
-    feedback_item = give_feedback(solution)
     assert feedback_item.solution is solution
     assert curr_mistake.lastFeedback is feedback_item
     feedback = feedback_item.feedback
@@ -94,9 +93,9 @@ def test_feedback_with_1_mistake_level_3():
     """
     ma = make_ma_with_1_new_mistake(3)
     solution = ma.solutions[0]
+    feedback_item = give_feedback(solution)
     curr_mistake = solution.currentMistake
 
-    feedback_item = give_feedback(solution)
     assert feedback_item.solution is solution
     assert curr_mistake.lastFeedback is feedback_item
     feedback = feedback_item.feedback
@@ -116,9 +115,9 @@ def test_feedback_with_1_mistake_level_4():
     """
     ma = make_ma_with_1_new_mistake(4)
     solution = ma.solutions[0]
+    feedback_item = give_feedback(solution)
     curr_mistake = solution.currentMistake
 
-    feedback_item = give_feedback(solution)
     assert feedback_item.solution is solution
     assert curr_mistake.lastFeedback is feedback_item
     feedback = feedback_item.feedback
@@ -130,6 +129,7 @@ def test_feedback_with_1_mistake_level_4():
     # TODO Determine exact emoji serialization mechanism
     assert ":x: Examples to avoid | :heavy_check_mark: Good class names" in resource_content
     assert curr_mistake.mistakeType is feedback.mistakeType
+
 
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
