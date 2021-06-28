@@ -45,7 +45,7 @@ def give_feedback(student_solution: Solution) -> Union[FeedbackItem, list[Feedba
 
     resolved_mistakes: list[Mistake] = [m for m in student_solution.mistakes if m.resolved]
     for m in resolved_mistakes:
-        if sk := next(sk for sk in student_solution.student.studentKnowledges if sk.mistakeType == m.mistakeType):
+        if sk := student_knowledge_for(m):
             sk.levelOfKnowledge -= m.lastFeedback.level / 2
 
     return result[0] if len(result) == 1 else result
