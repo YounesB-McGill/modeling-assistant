@@ -17,7 +17,7 @@
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/modelingassistant.ecore#/"/>
       </ownedRepresentationDescriptors>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_F26PEMlqEeuy_vhQ3TK-kg" name="learningcorpus" repPath="#_F2v3AMlqEeuy_vhQ3TK-kg" changeId="c321f718-ead5-472b-9274-09cd5085884e">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_F26PEMlqEeuy_vhQ3TK-kg" name="learningcorpus" repPath="#_F2v3AMlqEeuy_vhQ3TK-kg" changeId="243bf592-07eb-4a63-9948-f465d5e62d2c">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/learningcorpus.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -1403,7 +1403,7 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="_GTut88lqEeuy_vhQ3TK-kg"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_GTuG5clqEeuy_vhQ3TK-kg" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GTuG5slqEeuy_vhQ3TK-kg" x="1428" y="780" width="132" height="75"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GTuG5slqEeuy_vhQ3TK-kg" x="1428" y="780" width="156" height="75"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_GTut9MlqEeuy_vhQ3TK-kg" type="2003" element="_GTGb08lqEeuy_vhQ3TK-kg">
           <children xmi:type="notation:Node" xmi:id="_GTvVAMlqEeuy_vhQ3TK-kg" type="5007"/>
@@ -1549,7 +1549,7 @@
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_GT-llclqEeuy_vhQ3TK-kg" routing="Tree"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_GT-llslqEeuy_vhQ3TK-kg" fontName="Noto Sans" fontHeight="8"/>
           <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_GT-ll8lqEeuy_vhQ3TK-kg" points="[-1, 0, -371, 60]$[369, -60, -1, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GT-lnslqEeuy_vhQ3TK-kg" id="(0.5538461538461539,0.0)"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GT-lnslqEeuy_vhQ3TK-kg" id="(0.4675324675324675,0.0)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GT_MoMlqEeuy_vhQ3TK-kg" id="(0.5023696682464455,0.9375)"/>
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_GT_MoclqEeuy_vhQ3TK-kg" type="4001" element="_GTak5slqEeuy_vhQ3TK-kg" source="_GTut9MlqEeuy_vhQ3TK-kg" target="_GTtf18lqEeuy_vhQ3TK-kg">
