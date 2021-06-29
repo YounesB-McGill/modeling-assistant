@@ -18,7 +18,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.Classifier;
@@ -56,7 +55,7 @@ public class MistakeDetectionTestForPaper {
     Classifier instructorPIClass = getClassFromClassDiagram("PISystem", instructorClassDiagram);
     AssociationEnd instructorAssocEndPoliceStation = getAssociationEndFromClass("policeStations", instructorPIClass);
 
-    Association instructorPoliceOfficer_PISystem = getAssociationFromClassDiagram(instructorPoliceOfficerClass,
+    var instructorPoliceOfficer_PISystem = getAssociationFromClassDiagram(instructorPoliceOfficerClass,
         instructorPIClass, instructorClassDiagram);
 
     Classifier studentPoliceOfficerClass = getClassFromClassDiagram("PoliceOfficer", studentClassDiagram);
@@ -104,7 +103,7 @@ public class MistakeDetectionTestForPaper {
       assertMistakeConditional(m, OTHER_WRONG_ROLE_NAME, studentAssocEndWorkAt,
           instructorAsscocEndWorkLocation, 0, 1, false);
       assertMistakeConditional(m, MISSING_ATTRIBUTE, instructorEndDateAttribute, 0, 1, false);
-      assertMistakeConditional(m, MISSING_COMPOSITION, instructorPoliceOfficer_PISystem, 0, 1, false);
+      assertMistakeConditional(m, MISSING_COMPOSITION, instructorPoliceOfficer_PISystem.get(0), 0, 1, false);
     }
   }
 

@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.junit.jupiter.api.Test;
@@ -418,12 +419,12 @@ public class MistakeDetectionTest {
    * @param classDiagram
    * @return Association
    */
-  public static Association getAssociationFromClassDiagram(Classifier class1, Classifier class2,
+  public static List<Association> getAssociationFromClassDiagram(Classifier class1, Classifier class2,
       ClassDiagram classDiagram) {
-    Association seekedAssociation = null;
+    List<Association> seekedAssociation = new BasicEList<Association>();
     for (var assoc : classDiagram.getAssociations()) {
       if (assoc.getName().contains(class1.getName()) && assoc.getName().contains(class2.getName())) {
-        seekedAssociation = assoc;
+        seekedAssociation.add(assoc);
       }
     }
     if (seekedAssociation == null) {
