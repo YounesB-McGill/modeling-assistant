@@ -13,7 +13,7 @@
     <semanticResources>platform:/resource/ca.mcgill.sel.core/model/CORE.genmodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_sM2lgGVtEeu25_uYr0tc7g">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uiMFMWVtEeu25_uYr0tc7g" name="modelingassistant" repPath="#_uhm2YGVtEeu25_uYr0tc7g" changeId="05d17a33-b55d-47b5-af4a-eb769068a64e">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uiMFMWVtEeu25_uYr0tc7g" name="modelingassistant" repPath="#_uhm2YGVtEeu25_uYr0tc7g" changeId="dbac7c27-69af-4868-ad4e-ce8b9bddc2cf">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/modelingassistant.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -811,7 +811,7 @@
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
-      <ownedElements xmi:type="diagram:DNodeListElement" uid="_v8KI0GVtEeu25_uYr0tc7g" name="levelOfKnowledge : EInt" tooltipText="">
+      <ownedElements xmi:type="diagram:DNodeListElement" uid="_v8KI0GVtEeu25_uYr0tc7g" name="levelOfKnowledge : EInt = 5" tooltipText="">
         <target xmi:type="ecore:EAttribute" href="model/modelingassistant.ecore#//StudentKnowledge/levelOfKnowledge"/>
         <semanticElements xmi:type="ecore:EAttribute" href="model/modelingassistant.ecore#//StudentKnowledge/levelOfKnowledge"/>
         <ownedStyle xmi:type="diagram:BundledImage" uid="_v8Kv4GVtEeu25_uYr0tc7g" labelAlignment="LEFT">
