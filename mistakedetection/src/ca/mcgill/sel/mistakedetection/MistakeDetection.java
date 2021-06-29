@@ -323,35 +323,41 @@ public class MistakeDetection {
 
   private static EList<Object> getMatchedAssoc(Map<Association, EList<AssociationEnd>> possibleAssocMatch) {
     EList<Object> seekedAssocAndEnds = new BasicEList<Object>();
+    Map<Association, Double> assocScoreMap = new LinkedHashMap<Association, Double>();
     for (Map.Entry<Association, EList<AssociationEnd>> entry : possibleAssocMatch.entrySet()) {
+      double score = 0;
+      // TODO To be updated in coming pull requests
+      if(associationEndMultiplicityUpperBoundsMatch(entry.getValue().get(0),  entry.getValue().get(1))) {
+        score = score + 0.15;
+      }
+      if(associationEndMultiplicityLowerBoundsMatch(entry.getValue().get(0),  entry.getValue().get(1))) {
+        score = score + 0.15;
+      }
+      if(spellingMistakeCheck(entry.getValue().get(0).getName(),  entry.getValue().get(1).getName())) {
+        score = score + 0.20;
+      }
+      if(associationEndMultiplicityUpperBoundsMatch(entry.getValue().get(2),  entry.getValue().get(3))) {
+        score = score + 0.15;
+      }
+      if(associationEndMultiplicityLowerBoundsMatch(entry.getValue().get(2),  entry.getValue().get(3))) {
+        score = score + 0.15;
+      }
+      if(spellingMistakeCheck(entry.getValue().get(2).getName(),  entry.getValue().get(3).getName())) {
+        score = score + 0.20;
+      }
+      assocScoreMap.put(entry.getKey(), score);
+    } ;
+    var matchedAssoc = maxAssociationMatch(assocScoreMap);
+    for (Map.Entry<Association, EList<AssociationEnd>> entry : possibleAssocMatch.entrySet()) {
+      if(entry.getKey() == matchedAssoc.get(0)) {
       seekedAssocAndEnds.add(entry.getKey());
       seekedAssocAndEnds.add(entry.getValue().get(0));
       seekedAssocAndEnds.add(entry.getValue().get(1));
       seekedAssocAndEnds.add(entry.getValue().get(2));
       seekedAssocAndEnds.add(entry.getValue().get(3));
-      // TODO To be updated in coming pull requests
-      if (assocEndMultiplicityAndRoleNameMatch(entry.getValue().get(0), entry.getValue().get(1),
-          entry.getValue().get(2), entry.getValue().get(3))) {
-        seekedAssocAndEnds.clear();
-        seekedAssocAndEnds.add(entry.getKey());
-        seekedAssocAndEnds.add(entry.getValue().get(0));
-        seekedAssocAndEnds.add(entry.getValue().get(1));
-        seekedAssocAndEnds.add(entry.getValue().get(2));
-        seekedAssocAndEnds.add(entry.getValue().get(3));
-        break;
       }
-    } ;
-
+    }
     return seekedAssocAndEnds;
-  }
-
-  private static boolean assocEndMultiplicityAndRoleNameMatch(AssociationEnd studentAssocEnd,
-      AssociationEnd instAssocEnd, AssociationEnd otherStudentAssocEnd, AssociationEnd otherInstAssocEnd) {
-
-    return associationEndMultiplicityMatch(studentAssocEnd, instAssocEnd)
-        && associationEndMultiplicityMatch(otherStudentAssocEnd, otherInstAssocEnd)
-        && spellingMistakeCheck(studentAssocEnd.getName(), instAssocEnd.getName())
-        && spellingMistakeCheck(otherStudentAssocEnd.getName(), otherInstAssocEnd.getName());
   }
 
   private static void checkMistakesForAssociationEnds(AssociationEnd studentClassifierAssocEnd,
@@ -836,6 +842,30 @@ public class MistakeDetection {
     Map.Entry<Classifier, Double> entryWithMaxValue = null;
     EList<Classifier> topMatchedElements = new BasicEList<Classifier>();
     for (Map.Entry<Classifier, Double> entry : map.entrySet()) {
+      if (entryWithMaxValue == null || entry.getValue() > entryWithMaxValue.getValue()) {
+        entryWithMaxValue = entry;
+      }
+    }
+    final double maxValue = entryWithMaxValue.getValue();
+    map.forEach((key, value) -> {
+      if (value == maxValue) {
+        topMatchedElements.add(key);
+      }
+    });
+
+    return topMatchedElements;
+  }
+
+  /**
+   * returns the associations with maximum number of score
+   *
+   * @param map
+   * @return List of association
+   */
+  public static List<Association> maxAssociationMatch(Map<Association, Double> map) {
+    Map.Entry<Association, Double> entryWithMaxValue = null;
+    EList<Association> topMatchedElements = new BasicEList<Association>();
+    for (Map.Entry<Association, Double> entry : map.entrySet()) {
       if (entryWithMaxValue == null || entry.getValue() > entryWithMaxValue.getValue()) {
         entryWithMaxValue = entry;
       }
