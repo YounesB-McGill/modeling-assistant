@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0">
-  <modelingassistant:ModelingAssistant xmi:id="_lhiXcNaUEeuMT88RR499Zg">
-    <solutions xmi:id="_lhiXcdaUEeuMT88RR499Zg" student="_lhiXc9aUEeuMT88RR499Zg" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
-    <solutions xmi:id="_lhiXctaUEeuMT88RR499Zg" student="_lhiXdNaUEeuMT88RR499Zg" classDiagram="_lhi-gNaUEeuMT88RR499Zg"/>
-    <students xmi:id="_lhiXc9aUEeuMT88RR499Zg" id="1111" solutions="_lhiXcdaUEeuMT88RR499Zg" studentKnowledges="_lhiXddaUEeuMT88RR499Zg"/>
-    <students xmi:id="_lhiXdNaUEeuMT88RR499Zg" id="2222" solutions="_lhiXctaUEeuMT88RR499Zg" studentKnowledges="_lhiXdtaUEeuMT88RR499Zg"/>
-    <studentKnowledges xmi:id="_lhiXddaUEeuMT88RR499Zg" levelOfKnowledge="10578963" student="_lhiXc9aUEeuMT88RR499Zg">
+  <modelingassistant:ModelingAssistant xmi:id="_0exWYNhCEeuwzs3D_93yWg">
+    <solutions xmi:id="_0exWYdhCEeuwzs3D_93yWg" student="_0exWY9hCEeuwzs3D_93yWg" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
+    <solutions xmi:id="_0exWYthCEeuwzs3D_93yWg" student="_0exWZNhCEeuwzs3D_93yWg" classDiagram="_0exWZ9hCEeuwzs3D_93yWg"/>
+    <students xmi:id="_0exWY9hCEeuwzs3D_93yWg" id="1111" solutions="_0exWYdhCEeuwzs3D_93yWg" studentKnowledges="_0exWZdhCEeuwzs3D_93yWg"/>
+    <students xmi:id="_0exWZNhCEeuwzs3D_93yWg" id="2222" solutions="_0exWYthCEeuwzs3D_93yWg" studentKnowledges="_0exWZthCEeuwzs3D_93yWg"/>
+    <studentKnowledges xmi:id="_0exWZdhCEeuwzs3D_93yWg" levelOfKnowledge="10578963" student="_0exWY9hCEeuwzs3D_93yWg">
       <mistakeType href="file:/media/Storage/McGill/MastersThesis/ModelingAssistant/modeling-assistant/modelingassistant.learningcorpus.dsl.instances/test.learningcorpus#_a5wtB88sEeu746qPJ_2H3Q"/>
     </studentKnowledges>
-    <studentKnowledges xmi:id="_lhiXdtaUEeuMT88RR499Zg" levelOfKnowledge="8996541" student="_lhiXdNaUEeuMT88RR499Zg">
+    <studentKnowledges xmi:id="_0exWZthCEeuwzs3D_93yWg" levelOfKnowledge="8996541" student="_0exWZNhCEeuwzs3D_93yWg">
       <mistakeType href="file:/media/Storage/McGill/MastersThesis/ModelingAssistant/modeling-assistant/modelingassistant.learningcorpus.dsl.instances/test.learningcorpus#_a5wtB88sEeu746qPJ_2H3Q"/>
     </studentKnowledges>
   </modelingassistant:ModelingAssistant>
@@ -56,12 +56,12 @@
       </containers>
     </layout>
   </classdiagram:ClassDiagram>
-  <classdiagram:ClassDiagram xmi:id="_lhi-gNaUEeuMT88RR499Zg" name="Student2_solution">
-    <classes xsi:type="classdiagram:Class" xmi:id="_lhi-gdaUEeuMT88RR499Zg" name="Car">
-      <attributes xmi:id="_lhi-gtaUEeuMT88RR499Zg" name="id" type="_lhi-hNaUEeuMT88RR499Zg"/>
-      <attributes xmi:id="_lhi-g9aUEeuMT88RR499Zg" name="make" type="_lhi-hdaUEeuMT88RR499Zg"/>
+  <classdiagram:ClassDiagram xmi:id="_0exWZ9hCEeuwzs3D_93yWg" name="Student2_solution">
+    <classes xsi:type="classdiagram:Class" xmi:id="_0exWaNhCEeuwzs3D_93yWg" name="Car">
+      <attributes xmi:id="_0exWadhCEeuwzs3D_93yWg" name="id" type="_0exWa9hCEeuwzs3D_93yWg"/>
+      <attributes xmi:id="_0exWathCEeuwzs3D_93yWg" name="make" type="_0exWbNhCEeuwzs3D_93yWg"/>
     </classes>
-    <types xsi:type="classdiagram:CDInt" xmi:id="_lhi-hNaUEeuMT88RR499Zg"/>
-    <types xsi:type="classdiagram:CDString" xmi:id="_lhi-hdaUEeuMT88RR499Zg"/>
+    <types xsi:type="classdiagram:CDInt" xmi:id="_0exWa9hCEeuwzs3D_93yWg"/>
+    <types xsi:type="classdiagram:CDString" xmi:id="_0exWbNhCEeuwzs3D_93yWg"/>
   </classdiagram:ClassDiagram>
 </xmi:XMI>

@@ -2,6 +2,8 @@ package ca.mcgill.sel.mistakedetection.tests;
 
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
+import static modelingassistant.TagType.PLAYER;
+import static modelingassistant.TagType.ROLE;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,6 +27,7 @@ import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
+import modelingassistant.TagGroup;
 
 public class MistakeDetectionTest {
 
@@ -156,7 +159,7 @@ public class MistakeDetectionTest {
     comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(comparison.newMistakes.size(), 0);
-    // assertEquals(studentSolution.getMistakes().size(), 6); // TODO Discuss in meeting
+    // assertEquals(studentSolution.getMistakes().size(), 4); // TODO Discuss in meeting
     // next meeting
 
     for (Mistake m : studentSolution.getMistakes()) {
@@ -321,7 +324,6 @@ public class MistakeDetectionTest {
     Attribute studentCustomerClassAttributeName = getAttributeFromClass("name", studentCustomerClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
     assertEquals(comparison.extraStudentClassifier.size(), 0);
     assertEquals(comparison.mappedClassifier.size(), 3);
@@ -344,6 +346,11 @@ public class MistakeDetectionTest {
 
     assertEquals(comparison.newMistakes.size(), 0);
     assertEquals(studentSolution.getMistakes().size(), 0);
+/*
+    List<Integer> list=new BasicEList<Integer>();
+    list.add(1);list.add(2);list.add(3);list.add(6);list.add(5);
+    System.out.print(MistakeDetection.findClosest(list, 4));
+*/
   }
 
   /**
@@ -361,6 +368,25 @@ public class MistakeDetectionTest {
     }
     if (seekedClass == null) {
       throw new IllegalArgumentException("No Class Found, please check the class name");
+    }
+    return seekedClass;
+  }
+
+  /**
+   * Helper function returns a solution Element from a solution based on class name.
+   *
+   * @param className
+   * @param classDiagram
+   * @return Classifier
+   */
+  public static SolutionElement getSEelementfromSolution(String className, Solution solution) {
+    SolutionElement seekedClass = null;
+    for (var c : solution.getSolutionElements()) {
+      if (c.getElement().getName().equals(className))
+        seekedClass = c;
+    }
+    if (seekedClass == null) {
+      throw new IllegalArgumentException("No Solution Element Found, please check the class name");
     }
     return seekedClass;
   }
@@ -458,6 +484,47 @@ public class MistakeDetectionTest {
   }
 
   /**
+   * Helper function to create a new tag group and set an solution element to player tag in that tag group
+   *
+   * @param className
+   * @param classDiagram
+   * @param instructorSolution
+   * @return tagGroup
+   */
+  public static TagGroup setPlayerTagToClassInClassDiag(String className, ClassDiagram classDiagram,
+      Solution instructorSolution) {
+    var tagGroup = maf.createTagGroup();
+    tagGroup.setSolution(instructorSolution);
+    var tag = maf.createTag();
+    tag.setTagType(PLAYER);
+    var instClass = getClassFromClassDiagram(className, classDiagram);
+    var se = maf.createSolutionElement();
+    se.setElement(instClass);
+    se.setSolution(instructorSolution);
+    tag.setSolutionElement(se);
+    tag.setTagGroup(tagGroup);
+    return tagGroup;
+  }
+
+  /**
+   * set Role tag to a class in tagGroup
+   *
+   * @param className
+   * @param tagGroup
+   * @param classDiagram
+   */
+  public static void setRoleTagToClassInClassDiag(String className, TagGroup tagGroup, ClassDiagram classDiagram) {
+    var tag = maf.createTag();
+    tag.setTagType(ROLE);
+    var instClass = getClassFromClassDiagram(className, classDiagram);
+    var se = maf.createSolutionElement();
+    se.setElement(instClass);
+    tag.setSolutionElement(se);
+    tag.setTagGroup(tagGroup);
+    se.setSolution(tag.getTagGroup().getSolution());
+  }
+
+  /**
    * Asserts a mistake's links with single student or instructor element.
    *
    * @param mistake
@@ -534,8 +601,8 @@ public class MistakeDetectionTest {
    */
   public static void assertMistakeAttribute(Mistake mistake, int numSinceResolved, int numDetections,
       boolean resolved) {
-    assertEquals(mistake.getNumDetectionSinceResolved(), numSinceResolved);
-    assertEquals(mistake.getNumDetection(), numDetections);
+    assertEquals(mistake.getNumSinceResolved(), numSinceResolved);
+    assertEquals(mistake.getNumDetections(), numDetections);
     assertEquals(mistake.isResolved(), resolved);
   }
 
@@ -581,8 +648,8 @@ public class MistakeDetectionTest {
    * @param numDetections
    * @param resolved
    */
-  public static void assertMistake(Mistake mistake, MistakeType mistakeType, NamedElement element,
-      int numSinceResolved, int numDetections, boolean resolved) {
+  public static void assertMistake(Mistake mistake, MistakeType mistakeType, NamedElement element, int numSinceResolved,
+      int numDetections, boolean resolved) {
     assertMistakeLinks(mistake, mistakeType, element);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
   }

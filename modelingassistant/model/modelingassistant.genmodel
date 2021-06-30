@@ -134,9 +134,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Mistake/studentElements"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Mistake/lastFeedback"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Mistake/instructorElements"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference modelingassistant.ecore#//Mistake/studentSolution"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Mistake/numDetection"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Mistake/numDetectionSinceResolved"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference modelingassistant.ecore#//Mistake/solution"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Mistake/numDetections"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Mistake/numSinceResolved"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Mistake/mistakeType"/>
     </genClasses>
     <genClasses image="false" ecoreClass="modelingassistant.ecore#//NamedElement">
