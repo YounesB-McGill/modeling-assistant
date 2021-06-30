@@ -532,16 +532,28 @@ public class MistakeDetectionTest {
    * @param assocClass
    * @param tagGroup
    */
-  public static void setRoleTagToAssocEndInClass(String AssocEndName, TagGroup tagGroup, Classifier assocClass) {
+  public static void setRoleTagToAssocEndInClass(String assocEndName, TagGroup tagGroup, Classifier assocClass) {
     var tag = maf.createTag();
     tag.setTagType(ROLE);
-    var instClass = getAssociationEndFromClass(AssocEndName, assocClass);
+    var instClass = getAssociationEndFromClass(assocEndName, assocClass);
     var se = maf.createSolutionElement();
     se.setElement(instClass);
     tag.setSolutionElement(se);
     tag.setTagGroup(tagGroup);
     se.setSolution(tag.getTagGroup().getSolution());
   }
+
+  public static void setRoleTagToAtribInClass(String attributeName, TagGroup tagGroup, Classifier assocClass) {
+    var tag = maf.createTag();
+    tag.setTagType(ROLE);
+    var instClass = getAttributeFromClass(attributeName, assocClass);
+    var se = maf.createSolutionElement();
+    se.setElement(instClass);
+    tag.setSolutionElement(se);
+    tag.setTagGroup(tagGroup);
+    se.setSolution(tag.getTagGroup().getSolution());
+  }
+
   /**
    * Asserts a mistake's links with single student or instructor element.
    *

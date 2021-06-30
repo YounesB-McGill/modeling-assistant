@@ -1,6 +1,7 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.ASSOC_PR_PATTERN;
+import static ca.mcgill.sel.mistakedetection.MistakeDetection.ENUM_PR_PATTERN;
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.FULL_PR_PATTERN;
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.SUB_CLASS_PR_PATTERN;
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.checkPattern;
@@ -9,6 +10,7 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getSEele
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setPlayerTagToClassInClassDiag;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToAssocEndInClass;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToAtribInClass;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToClassInClassDiag;
 import static modelingassistant.TagType.PLAYER;
 import static modelingassistant.TagType.ROLE;
@@ -90,6 +92,22 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("managers", tagGroup, projectClass);
 
    assertTrue(checkPattern(tagGroup).equals(ASSOC_PR_PATTERN));
+   }
+
+  /**
+   * Test to detect Enumeration role pattern
+   */
+  @Test
+  public void testEnumPRPattern() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSolution);
+    var studentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
+    setRoleTagToAtribInClass("level", tagGroup, studentClass);
+
+    assertTrue(checkPattern(tagGroup).equals(ENUM_PR_PATTERN));
    }
 
 }
