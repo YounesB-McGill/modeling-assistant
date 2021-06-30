@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_3ow88NmREeuihpv-j2laQg" name="Student_softwareEngineeringTerm1">
+  <classes xsi:type="classdiagram:Class" xmi:id="_4M_rYNmREeuihpv-j2laQg" name="Bus"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_6Bo40NmREeuihpv-j2laQg" name="DriverData"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_8K0y4NmREeuihpv-j2laQg" name="Passenger"/>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_3ow88dmREeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_3ow88tmREeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_3ow889mREeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_3ow89NmREeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_3ow89dmREeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_3ow89tmREeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_3ow899mREeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_3ow8-NmREeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_3ow8-dmREeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_3ow8-tmREeuihpv-j2laQg"/>
+  <layout xmi:id="_3ow8-9mREeuihpv-j2laQg">
+    <containers xmi:id="_3oxkANmREeuihpv-j2laQg" key="_3ow88NmREeuihpv-j2laQg">
+      <value xmi:id="_4NDVwNmREeuihpv-j2laQg" key="_4M_rYNmREeuihpv-j2laQg">
+        <value xmi:id="_4NDVwdmREeuihpv-j2laQg" x="924.0" y="39.0"/>
+      </value>
+      <value xmi:id="_6BrVENmREeuihpv-j2laQg" key="_6Bo40NmREeuihpv-j2laQg">
+        <value xmi:id="_6BrVEdmREeuihpv-j2laQg" x="917.0" y="113.0"/>
+      </value>
+      <value xmi:id="_8K5EUNmREeuihpv-j2laQg" key="_8K0y4NmREeuihpv-j2laQg">
+        <value xmi:id="_8K5EUdmREeuihpv-j2laQg" x="1041.0" y="182.00006"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
