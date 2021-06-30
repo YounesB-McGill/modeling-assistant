@@ -427,7 +427,7 @@ public class MistakeDetectionTest {
         seekedAssociation.add(assoc);
       }
     }
-    if (seekedAssociation == null) {
+    if (seekedAssociation.isEmpty()) {
       throw new IllegalArgumentException("No Association Found, please check the association name");
     }
     return seekedAssociation;
@@ -525,6 +525,23 @@ public class MistakeDetectionTest {
     se.setSolution(tag.getTagGroup().getSolution());
   }
 
+  /**
+   * set Role tag to a association end in tagGroup
+   *
+   * @param AssocEndName
+   * @param assocClass
+   * @param tagGroup
+   */
+  public static void setRoleTagToAssocEndInClass(String AssocEndName, TagGroup tagGroup, Classifier assocClass) {
+    var tag = maf.createTag();
+    tag.setTagType(ROLE);
+    var instClass = getAssociationEndFromClass(AssocEndName, assocClass);
+    var se = maf.createSolutionElement();
+    se.setElement(instClass);
+    tag.setSolutionElement(se);
+    tag.setTagGroup(tagGroup);
+    se.setSolution(tag.getTagGroup().getSolution());
+  }
   /**
    * Asserts a mistake's links with single student or instructor element.
    *
