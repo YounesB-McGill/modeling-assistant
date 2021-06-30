@@ -3,6 +3,7 @@
 package modelingassistant.impl;
 
 import ca.mcgill.sel.classdiagram.ClassDiagram;
+
 import java.util.Collection;
 
 import modelingassistant.FeedbackItem;
@@ -13,8 +14,8 @@ import modelingassistant.ProblemStatement;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
 import modelingassistant.Student;
-
 import modelingassistant.TagGroup;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -317,7 +318,7 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
   @Override
   public EList<Mistake> getMistakes() {
     if (mistakes == null) {
-      mistakes = new EObjectContainmentWithInverseEList<Mistake>(Mistake.class, this, ModelingassistantPackage.SOLUTION__MISTAKES, ModelingassistantPackage.MISTAKE__STUDENT_SOLUTION);
+      mistakes = new EObjectContainmentWithInverseEList<Mistake>(Mistake.class, this, ModelingassistantPackage.SOLUTION__MISTAKES, ModelingassistantPackage.MISTAKE__SOLUTION);
     }
     return mistakes;
   }

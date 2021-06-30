@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_XsNOwNfmEeuG8czVoCvS-g" name="Instructor_FullPR_Pattern" featureModel="_XsNOwdfmEeuG8czVoCvS-g" impactModel="_XsNOw9fmEeuG8czVoCvS-g">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_XsNOwdfmEeuG8czVoCvS-g" root="_XsNOwtfmEeuG8czVoCvS-g">
+    <features xmi:id="_XsNOwtfmEeuG8czVoCvS-g" name="Instructor_FullPR_Pattern" realizedBy="_YKtvsdfmEeuG8czVoCvS-g"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_XsNOw9fmEeuG8czVoCvS-g" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_YKtvsNfmEeuG8czVoCvS-g" name="Instructor_FullPR_Pattern" scene="_YKtvsdfmEeuG8czVoCvS-g" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_FullPR_Pattern.domain_model.cdm#_YKuWwNfmEeuG8czVoCvS-g"/>
+  </artefacts>
+  <scenes xmi:id="_YKtvsdfmEeuG8czVoCvS-g" name="Instructor_FullPR_Pattern" realizes="_XsNOwtfmEeuG8czVoCvS-g" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_YKtvstfmEeuG8czVoCvS-g" value="_YKtvsNfmEeuG8czVoCvS-g" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

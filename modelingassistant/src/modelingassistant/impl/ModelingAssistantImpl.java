@@ -3,6 +3,7 @@
 package modelingassistant.impl;
 
 import java.util.Collection;
+
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.ProblemStatement;

@@ -689,31 +689,31 @@ public interface ModelingassistantPackage extends EPackage {
   int MISTAKE__INSTRUCTOR_ELEMENTS = 5;
 
   /**
-   * The feature id for the '<em><b>Student Solution</b></em>' container reference.
+   * The feature id for the '<em><b>Solution</b></em>' container reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MISTAKE__STUDENT_SOLUTION = 6;
+  int MISTAKE__SOLUTION = 6;
 
   /**
-   * The feature id for the '<em><b>Num Detection</b></em>' attribute.
+   * The feature id for the '<em><b>Num Detections</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MISTAKE__NUM_DETECTION = 7;
+  int MISTAKE__NUM_DETECTIONS = 7;
 
   /**
-   * The feature id for the '<em><b>Num Detection Since Resolved</b></em>' attribute.
+   * The feature id for the '<em><b>Num Since Resolved</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MISTAKE__NUM_DETECTION_SINCE_RESOLVED = 8;
+  int MISTAKE__NUM_SINCE_RESOLVED = 8;
 
   /**
    * The feature id for the '<em><b>Mistake Type</b></em>' reference.
@@ -1449,37 +1449,37 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getMistake_InstructorElements();
 
   /**
-   * Returns the meta object for the container reference '{@link modelingassistant.Mistake#getStudentSolution <em>Student Solution</em>}'.
+   * Returns the meta object for the container reference '{@link modelingassistant.Mistake#getSolution <em>Solution</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the container reference '<em>Student Solution</em>'.
-   * @see modelingassistant.Mistake#getStudentSolution()
+   * @return the meta object for the container reference '<em>Solution</em>'.
+   * @see modelingassistant.Mistake#getSolution()
    * @see #getMistake()
    * @generated
    */
-  EReference getMistake_StudentSolution();
+  EReference getMistake_Solution();
 
   /**
-   * Returns the meta object for the attribute '{@link modelingassistant.Mistake#getNumDetection <em>Num Detection</em>}'.
+   * Returns the meta object for the attribute '{@link modelingassistant.Mistake#getNumDetections <em>Num Detections</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Num Detection</em>'.
-   * @see modelingassistant.Mistake#getNumDetection()
+   * @return the meta object for the attribute '<em>Num Detections</em>'.
+   * @see modelingassistant.Mistake#getNumDetections()
    * @see #getMistake()
    * @generated
    */
-  EAttribute getMistake_NumDetection();
+  EAttribute getMistake_NumDetections();
 
   /**
-   * Returns the meta object for the attribute '{@link modelingassistant.Mistake#getNumDetectionSinceResolved <em>Num Detection Since Resolved</em>}'.
+   * Returns the meta object for the attribute '{@link modelingassistant.Mistake#getNumSinceResolved <em>Num Since Resolved</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Num Detection Since Resolved</em>'.
-   * @see modelingassistant.Mistake#getNumDetectionSinceResolved()
+   * @return the meta object for the attribute '<em>Num Since Resolved</em>'.
+   * @see modelingassistant.Mistake#getNumSinceResolved()
    * @see #getMistake()
    * @generated
    */
-  EAttribute getMistake_NumDetectionSinceResolved();
+  EAttribute getMistake_NumSinceResolved();
 
   /**
    * Returns the meta object for the reference '{@link modelingassistant.Mistake#getMistakeType <em>Mistake Type</em>}'.
@@ -2087,28 +2087,28 @@ public interface ModelingassistantPackage extends EPackage {
     EReference MISTAKE__INSTRUCTOR_ELEMENTS = eINSTANCE.getMistake_InstructorElements();
 
     /**
-     * The meta object literal for the '<em><b>Student Solution</b></em>' container reference feature.
+     * The meta object literal for the '<em><b>Solution</b></em>' container reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MISTAKE__STUDENT_SOLUTION = eINSTANCE.getMistake_StudentSolution();
+    EReference MISTAKE__SOLUTION = eINSTANCE.getMistake_Solution();
 
     /**
-     * The meta object literal for the '<em><b>Num Detection</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Num Detections</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute MISTAKE__NUM_DETECTION = eINSTANCE.getMistake_NumDetection();
+    EAttribute MISTAKE__NUM_DETECTIONS = eINSTANCE.getMistake_NumDetections();
 
     /**
-     * The meta object literal for the '<em><b>Num Detection Since Resolved</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Num Since Resolved</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute MISTAKE__NUM_DETECTION_SINCE_RESOLVED = eINSTANCE.getMistake_NumDetectionSinceResolved();
+    EAttribute MISTAKE__NUM_SINCE_RESOLVED = eINSTANCE.getMistake_NumSinceResolved();
 
     /**
      * The meta object literal for the '<em><b>Mistake Type</b></em>' reference feature.

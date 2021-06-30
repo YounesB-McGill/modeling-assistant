@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_YKuWwNfmEeuG8czVoCvS-g" name="Instructor_FullPR_Pattern">
+  <classes xsi:type="classdiagram:Class" xmi:id="_Zq7lQNfmEeuG8czVoCvS-g" name="AttendanceRole" abstract="true">
+    <associationEnds xmi:id="_fcD2YNfmEeuG8czVoCvS-g" name="myStudent" navigable="false" assoc="_fcD2YtfmEeuG8czVoCvS-g" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_c_mbANfmEeuG8czVoCvS-g" name="Student">
+    <associationEnds xmi:id="_fcD2YdfmEeuG8czVoCvS-g" name="attendanceRole" assoc="_fcD2YtfmEeuG8czVoCvS-g" lowerBound="1"/>
+    <attributes xmi:id="_eh3fANfmEeuG8czVoCvS-g" name="name" type="_YKuWx9fmEeuG8czVoCvS-g"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_kyYa0NfmEeuG8czVoCvS-g" name="FulllTimeStudent" superTypes="_Zq7lQNfmEeuG8czVoCvS-g"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_l49BUNfmEeuG8czVoCvS-g" name="PartTimeStudent" superTypes="_Zq7lQNfmEeuG8czVoCvS-g"/>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_YKuWwdfmEeuG8czVoCvS-g"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_YKuWwtfmEeuG8czVoCvS-g"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_YKuWw9fmEeuG8czVoCvS-g"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_YKuWxNfmEeuG8czVoCvS-g"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_YKuWxdfmEeuG8czVoCvS-g"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_YKuWxtfmEeuG8czVoCvS-g"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_YKuWx9fmEeuG8czVoCvS-g"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_YKuWyNfmEeuG8czVoCvS-g"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_YKuWydfmEeuG8czVoCvS-g"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_YKuWytfmEeuG8czVoCvS-g"/>
+  <associations xmi:id="_fcD2YtfmEeuG8czVoCvS-g" name="AttendanceRole_Student" ends="_fcD2YNfmEeuG8czVoCvS-g _fcD2YdfmEeuG8czVoCvS-g"/>
+  <layout xmi:id="_YKuWy9fmEeuG8czVoCvS-g">
+    <containers xmi:id="_YKuWzNfmEeuG8czVoCvS-g" key="_YKuWwNfmEeuG8czVoCvS-g">
+      <value xmi:id="_Zq8MUNfmEeuG8czVoCvS-g" key="_Zq7lQNfmEeuG8czVoCvS-g">
+        <value xmi:id="_Zq8MUdfmEeuG8czVoCvS-g" x="725.99994" y="187.98438"/>
+      </value>
+      <value xmi:id="_c_nCENfmEeuG8czVoCvS-g" key="_c_mbANfmEeuG8czVoCvS-g">
+        <value xmi:id="_c_nCEdfmEeuG8czVoCvS-g" x="1212.0002" y="173.0"/>
+      </value>
+      <value xmi:id="_kyYa0dfmEeuG8czVoCvS-g" key="_kyYa0NfmEeuG8czVoCvS-g">
+        <value xmi:id="_kyZB4NfmEeuG8czVoCvS-g" x="558.0" y="383.97464"/>
+      </value>
+      <value xmi:id="_l49oYNfmEeuG8czVoCvS-g" key="_l49BUNfmEeuG8czVoCvS-g">
+        <value xmi:id="_l49oYdfmEeuG8czVoCvS-g" x="878.00006" y="383.97464"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

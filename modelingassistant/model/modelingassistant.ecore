@@ -49,7 +49,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="classDiagram" lowerBound="1"
         eType="ecore:EClass ../../ca.mcgill.sel.classdiagram/model/classdiagram.ecore#//ClassDiagram"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakes" upperBound="-1"
-        eType="#//Mistake" containment="true" eOpposite="#//Mistake/studentSolution"/>
+        eType="#//Mistake" containment="true" eOpposite="#//Mistake/solution"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="currentMistake" eType="#//Mistake"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tagGroups" upperBound="-1"
         eType="#//TagGroup" containment="true" eOpposite="#//TagGroup/solution"/>
@@ -91,11 +91,10 @@
         eOpposite="#//FeedbackItem/mistake"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="instructorElements" upperBound="-1"
         eType="#//SolutionElement" eOpposite="#//SolutionElement/instructorElementMistakes"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="studentSolution" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="solution" lowerBound="1"
         eType="#//Solution" eOpposite="#//Solution/mistakes"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numDetection" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numDetectionSinceResolved"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numDetections" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numSinceResolved" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeType" eType="ecore:EClass learningcorpus.ecore#//MistakeType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true">

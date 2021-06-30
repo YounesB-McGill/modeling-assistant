@@ -66,8 +66,8 @@ public class MistakeItemProvider
       addStudentElementsPropertyDescriptor(object);
       addLastFeedbackPropertyDescriptor(object);
       addInstructorElementsPropertyDescriptor(object);
-      addNumDetectionPropertyDescriptor(object);
-      addNumDetectionSinceResolvedPropertyDescriptor(object);
+      addNumDetectionsPropertyDescriptor(object);
+      addNumSinceResolvedPropertyDescriptor(object);
       addMistakeTypePropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
@@ -206,19 +206,19 @@ public class MistakeItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Num Detection feature.
+   * This adds a property descriptor for the Num Detections feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addNumDetectionPropertyDescriptor(Object object) {
+  protected void addNumDetectionsPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_Mistake_numDetection_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_numDetection_feature", "_UI_Mistake_type"),
-         ModelingassistantPackage.Literals.MISTAKE__NUM_DETECTION,
+         getString("_UI_Mistake_numDetections_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_numDetections_feature", "_UI_Mistake_type"),
+         ModelingassistantPackage.Literals.MISTAKE__NUM_DETECTIONS,
          true,
          false,
          false,
@@ -228,19 +228,19 @@ public class MistakeItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Num Detection Since Resolved feature.
+   * This adds a property descriptor for the Num Since Resolved feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addNumDetectionSinceResolvedPropertyDescriptor(Object object) {
+  protected void addNumSinceResolvedPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_Mistake_numDetectionSinceResolved_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_numDetectionSinceResolved_feature", "_UI_Mistake_type"),
-         ModelingassistantPackage.Literals.MISTAKE__NUM_DETECTION_SINCE_RESOLVED,
+         getString("_UI_Mistake_numSinceResolved_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_numSinceResolved_feature", "_UI_Mistake_type"),
+         ModelingassistantPackage.Literals.MISTAKE__NUM_SINCE_RESOLVED,
          true,
          false,
          false,
@@ -310,8 +310,8 @@ public class MistakeItemProvider
       case ModelingassistantPackage.MISTAKE__RESOLVED:
       case ModelingassistantPackage.MISTAKE__TIME_TO_ADDRESS:
       case ModelingassistantPackage.MISTAKE__NUM_STEPS_BEFORE_NOTIFICATION:
-      case ModelingassistantPackage.MISTAKE__NUM_DETECTION:
-      case ModelingassistantPackage.MISTAKE__NUM_DETECTION_SINCE_RESOLVED:
+      case ModelingassistantPackage.MISTAKE__NUM_DETECTIONS:
+      case ModelingassistantPackage.MISTAKE__NUM_SINCE_RESOLVED:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }
