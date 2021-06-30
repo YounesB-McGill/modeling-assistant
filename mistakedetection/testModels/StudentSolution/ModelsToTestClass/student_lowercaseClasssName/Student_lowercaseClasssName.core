@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_0lvQMNd1Eeua254ZLEQWjg" name="Student_lowercaseClasssName" featureModel="_0lvQMdd1Eeua254ZLEQWjg" impactModel="_0lvQM9d1Eeua254ZLEQWjg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_0lvQMdd1Eeua254ZLEQWjg" root="_0lvQMtd1Eeua254ZLEQWjg">
+    <features xmi:id="_0lvQMtd1Eeua254ZLEQWjg" name="Student_lowercaseClasssName" realizedBy="_1c4Tkdd1Eeua254ZLEQWjg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_0lvQM9d1Eeua254ZLEQWjg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_1c4TkNd1Eeua254ZLEQWjg" name="Student_lowercaseClasssName" scene="_1c4Tkdd1Eeua254ZLEQWjg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_lowercaseClasssName.domain_model.cdm#_1c6IwNd1Eeua254ZLEQWjg"/>
+  </artefacts>
+  <scenes xmi:id="_1c4Tkdd1Eeua254ZLEQWjg" name="Student_lowercaseClasssName" realizes="_0lvQMtd1Eeua254ZLEQWjg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_1c4Tktd1Eeua254ZLEQWjg" value="_1c4TkNd1Eeua254ZLEQWjg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
