@@ -9,8 +9,10 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instruct
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -182,6 +184,55 @@ public class MistakeDetectionWrongClassTest {
   }
 
   /**
+   * Test to check Plural class name mistake
+   //mistake not detected
+   */
+  @Test
+  public void testPluralClassName1() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBusandPerson/Class Diagram/Instructor_classBusandPerson.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_pluralClassName1/Class Diagram/Student_pluralClassName1.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+    var studentPeopleClass = getClassFromClassDiagram("People", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentPeopleClass,
+        instructorPersonClass, 0, 1, false);
+  }
+
+  /**
+   * Test to check Plural class name mistake
+   */
+  @Test
+  public void testPluralClassName2() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBusDriverAndPassenger/Class Diagram/Instructor_classBusDriverAndPassenger.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_pluralClassName2/Class Diagram/Student_pluralClassName2.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+    var studentPassengersClass = getClassFromClassDiagram("Passengers", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentPassengersClass,
+        instructorPassengerClass, 0, 1, false);
+  }
+
+  /**
    * Test to detect other extra Class.
    */
   @Test
@@ -201,6 +252,28 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
     assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS, studentDriverClass, 0, 1, false);
+  }
+
+  /**
+   * Test to detect other extra Class.
+   */
+  @Test
+  public void testMistakeExtraClass1() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBusandPerson/Class Diagram/Instructor_classBusandPerson.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_extraClass1/Class Diagram/Student_extraClass1.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS, studentCarClass, 0, 1, false);
   }
 
   /**
@@ -224,4 +297,101 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(studentSolution.getMistakes().size(), 1);
     assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS,instructorBusClass, 0, 1, false);
   }
+
+  /**
+   * Test to check Software Engineering term name mistake
+   // its detecting plural class name
+   */
+  @Test
+  public void testSoftwareEngineeringTerm() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBus/Class Diagram/Instructor_classBus.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_softwareEngineeringTerm/Class Diagram/Student_softwareEngineeringTerm.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+    var studentBusClassClass = getClassFromClassDiagram("BusClass", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    MistakeDetectionTest.log(comparison);
+    assertEquals(comparison.newMistakes.size(), 1);
+    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertMistake(studentSolution.getMistakes().get(0), SOFTWARE_ENGINEERING_TERM, studentBusClassClass,
+        instructorBusClass, 0, 1, false);
+  }
+
+  /**
+   * Test to check Software Engineering term name mistake
+   */
+  @Test
+  public void testSoftwareEngineeringTerm1() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBusDriverAndPassenger/Class Diagram/Instructor_classBusDriverAndPassenger.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_softwareEngineeringTerm1/Class Diagram/Student_softwareEngineeringTerm1.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
+    var studentDriverDataClass = getClassFromClassDiagram("DriverData", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(comparison.newMistakes.size(), 1);
+    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertMistake(studentSolution.getMistakes().get(0), SOFTWARE_ENGINEERING_TERM, studentDriverDataClass,
+        instructorDriverClass, 0, 1, false);
+  }
+
+   /**
+    * Test to check Lowercase class name mistake
+    */
+   @Test
+   public void testLowercaseClassName() {
+     var instructorClassDiagram = cdmFromFile(
+         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classCar/Class Diagram/Instructor_classCar.domain_model.cdm");
+     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+     var studentClassDiagram = cdmFromFile(
+         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_lowercaseClasssName/Class Diagram/Student_lowercaseClasssName.domain_model.cdm");
+     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
+     var studentcarClass = getClassFromClassDiagram("car", studentClassDiagram);
+
+     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+     assertEquals(comparison.newMistakes.size(), 1);
+     assertEquals(studentSolution.getMistakes().size(), 1);
+     assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentcarClass,
+         instructorCarClass, 0, 1, false);
+   }
+
+   /**
+    * Test to check Lowercase class name mistake
+    */
+   @Test
+   public void testLowercaseClassName1() {
+     var instructorClassDiagram = cdmFromFile(
+         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBusDriverAndPassenger/Class Diagram/Instructor_classBusDriverAndPassenger.domain_model.cdm");
+     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+     var studentClassDiagram = cdmFromFile(
+         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_lowercaseClassName1/Class Diagram/Student_lowercaseClassName1.domain_model.cdm");
+     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+     var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+     var studentcpassengerClass = getClassFromClassDiagram("passenger", studentClassDiagram);
+
+     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+     assertEquals(1, comparison.newMistakes.size());
+     assertEquals(1, studentSolution.getMistakes().size());
+     assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentcpassengerClass,
+         instructorPassengerClass, 0, 1, false);
+   }
 }
