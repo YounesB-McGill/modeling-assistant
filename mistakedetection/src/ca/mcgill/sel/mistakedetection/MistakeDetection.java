@@ -245,8 +245,15 @@ public class MistakeDetection {
 
   private static boolean enumPattern(SolutionElement playerSolutionElement,
       List<SolutionElement> roleSolutionElements) {
-    // TODO Auto-generated method stub
-    return false;
+    if(playerSolutionElement.getElement() instanceof Classifier) {
+      for(SolutionElement se : roleSolutionElements) {
+        Attribute atrib = (Attribute)se.getElement();
+        if(!(atrib.getType() instanceof CDEnum )) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   private static boolean assocPattern(SolutionElement playerSolutionElement,
@@ -1636,7 +1643,7 @@ public class MistakeDetection {
 
   private static MaxentTagger getMaxentTagger() {
     try {
-      return new MaxentTagger("taggers/left3words-wsj-0-18.tagger");
+      return new MaxentTagger("taggers/bidirectional-distsim-wsj-0-18.tagger");
     } catch (ClassNotFoundException | IOException e) {
       e.printStackTrace();
     }
