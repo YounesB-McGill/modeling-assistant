@@ -7,7 +7,7 @@
     <associationEnds xmi:id="_fcD2YdfmEeuG8czVoCvS-g" name="attendanceRole" assoc="_fcD2YtfmEeuG8czVoCvS-g" lowerBound="1"/>
     <attributes xmi:id="_eh3fANfmEeuG8czVoCvS-g" name="name" type="_YKuWx9fmEeuG8czVoCvS-g"/>
   </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="_kyYa0NfmEeuG8czVoCvS-g" name="FulllTimeStudent" superTypes="_Zq7lQNfmEeuG8czVoCvS-g"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_kyYa0NfmEeuG8czVoCvS-g" name="FullTimeStudent" superTypes="_Zq7lQNfmEeuG8czVoCvS-g"/>
   <classes xsi:type="classdiagram:Class" xmi:id="_l49BUNfmEeuG8czVoCvS-g" name="PartTimeStudent" superTypes="_Zq7lQNfmEeuG8czVoCvS-g"/>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_YKuWwdfmEeuG8czVoCvS-g"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_YKuWwtfmEeuG8czVoCvS-g"/>

@@ -1,14 +1,22 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
+import static ca.mcgill.sel.mistakedetection.MistakeDetection.ASSOC_PR_PATTERN;
+import static ca.mcgill.sel.mistakedetection.MistakeDetection.FULL_PR_PATTERN;
+import static ca.mcgill.sel.mistakedetection.MistakeDetection.SUB_CLASS_PR_PATTERN;
+import static ca.mcgill.sel.mistakedetection.MistakeDetection.checkPattern;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getSEelementfromSolution;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setPlayerTagToClassInClassDiag;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToAssocEndInClass;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToClassInClassDiag;
 import static modelingassistant.TagType.PLAYER;
 import static modelingassistant.TagType.ROLE;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
+
 
 /**
  * This class will be used to test Modeling AntiPatterns or misuse of design patterns.
@@ -34,5 +42,54 @@ public class MistakeDetectionPatternTest {
     assertEquals(ROLE, getSEelementfromSolution("FullTimeStudent", instructorSolution).getTags().get(0).getTagType());
     assertEquals(ROLE, getSEelementfromSolution("PartTimeStudent", instructorSolution).getTags().get(0).getTagType());
   }
+
+  /**
+   * Test to detect subClass player role pattern
+   */
+  @Test
+  public void testSubClassPRPattern() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
+
+   assertTrue(checkPattern(tagGroup).equals(SUB_CLASS_PR_PATTERN));
+  }
+
+  /**
+   * Test to detect full player role pattern
+   */
+  @Test
+  public void testFullPRPattern() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
+
+   assertTrue(checkPattern(tagGroup).equals(FULL_PR_PATTERN));
+   }
+
+  /**
+   * Test to detect Association role pattern
+   */
+  @Test
+  public void testAssocPRPattern() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Person", instructorClassDiagram, instructorSolution);
+    var projectClass = getClassFromClassDiagram("Project", instructorClassDiagram);
+    setRoleTagToAssocEndInClass("employees", tagGroup, projectClass);
+    setRoleTagToAssocEndInClass("managers", tagGroup, projectClass);
+
+   assertTrue(checkPattern(tagGroup).equals(ASSOC_PR_PATTERN));
+   }
 
 }
