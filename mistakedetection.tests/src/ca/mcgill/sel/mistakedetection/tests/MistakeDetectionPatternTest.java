@@ -12,12 +12,14 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setPlaye
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToAssocEndInClass;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToAtribInClass;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToClassInClassDiag;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static modelingassistant.TagType.PLAYER;
 import static modelingassistant.TagType.ROLE;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
+import ca.mcgill.sel.mistakedetection.MistakeDetection;
 
 
 /**
@@ -112,4 +114,29 @@ public class MistakeDetectionPatternTest {
     assertTrue(checkPattern(tagGroup).equals(ENUM_PR_PATTERN));
    }
 
+  /**
+   * Test to check subClass player role pattern in studentSolution
+   */
+  @Test
+  public void testStudentSubClassPRPattern() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
+
+   assertTrue(checkPattern(tagGroup).equals(SUB_CLASS_PR_PATTERN));
+
+   var studentClassDiagram = cdmFromFile(
+       "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
+   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+   var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+   assertEquals(comparison.newMistakes.size(), 0);
+   assertEquals(studentSolution.getMistakes().size(), 0);
+
+  }
 }
