@@ -106,9 +106,7 @@ public class MistakeDetectionPatternTest {
     var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSolution);
     var studentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
     setRoleTagToAtribInClass("level", tagGroup, studentClass);
-    tagGroup.getTags().forEach(tag->{
-      System.out.println(tag.getSolutionElement().getElement().equals(studentClass));
-    });
+
     assertTrue(checkPattern(tagGroup).equals(ENUM_PR_PATTERN));
    }
 
