@@ -209,7 +209,7 @@ public class MistakeDetection {
           System.out.print("worked");
           instPattern = checkPattern(tg);
           if (instPattern.equals(FULL_PR_PATTERN)) {
-
+            checkStudentFullPattern(tg, comparison, instPattern);
           }
           else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
             checkStudentSubClassPattern(tg, comparison, instPattern);
@@ -224,6 +224,46 @@ public class MistakeDetection {
         }
       }
     }
+
+  }
+
+  private static void checkStudentFullPattern(TagGroup tg, Comparison comparison, String instPattern) {
+    int totalMatcheExpected = tg.getTags().size();
+    int totalMatched = 0;
+    int minMatchRequired = 2;
+    EList<Classifier> studentRoleClasses = new BasicEList<Classifier>();
+    Classifier studentPlayerClass = null;
+    Classifier studentAbstractClass = null;
+    for (Tag tag : tg.getTags()) {
+         if(comparison.mappedClassifier.containsKey(tag.getSolutionElement().getElement())){
+           if(tag.getTagType().equals(PLAYER)) {
+             studentPlayerClass = comparison.mappedClassifier.get(tag.getSolutionElement().getElement());
+           }else {
+             studentRoleClasses.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
+           }
+           totalMatched = totalMatched + 1;
+         }
+      }
+    studentAbstractClass = studentRoleClasses.get(0).getSuperTypes().get(0);
+    if(totalMatched == totalMatcheExpected) {
+      if(!subClassPatternCorrect(studentAbstractClass, studentRoleClasses)) {
+         //createMistake(incorrect patter)
+        System.out.println("Incorrect Pattern");
+        return;
+      }else {
+        if(!assocExists(studentPlayerClass, studentAbstractClass)) {
+          System.out.println("Incorrect Pattern");
+        }else {
+        System.out.println("Success Full");
+        return;
+        }
+      }
+    }else if (minMatchRequired < totalMatched && studentPlayerClass != null && studentAbstractClass != null) {
+       //createMistake(incorrect patter)
+      System.out.println("Incorrect Pattern");
+      return;
+    }
+    checkOtherPattern(tg, comparison, instPattern);
 
   }
 
@@ -249,7 +289,7 @@ public class MistakeDetection {
         System.out.println("Incorrect Pattern");
         return;
       }else {
-        System.out.println("Success");
+        System.out.println("Success Sub");
         return;
       }
     }else if (minMatchRequired < totalMatched && studentPlayerClass != null) {

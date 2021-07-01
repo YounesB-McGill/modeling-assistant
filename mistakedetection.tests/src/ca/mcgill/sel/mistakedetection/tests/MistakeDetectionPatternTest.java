@@ -137,4 +137,30 @@ public class MistakeDetectionPatternTest {
    assertEquals(studentSolution.getMistakes().size(), 0);
 
   }
+
+  /**
+   * Test to check Full player role pattern in studentSolution
+   */
+  @Test
+  public void testStudentFullPRPattern() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
+
+   assertTrue(checkPattern(tagGroup).equals(FULL_PR_PATTERN));
+
+   var studentClassDiagram = cdmFromFile(
+       "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
+   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+   var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+   assertEquals(comparison.newMistakes.size(), 0);
+   assertEquals(studentSolution.getMistakes().size(), 0);
+
+  }
 }
