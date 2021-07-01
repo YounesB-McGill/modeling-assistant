@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_24G7ANpgEeuihpv-j2laQg" name="Instructor_pilot_genderAtterbute" featureModel="_24HiENpgEeuihpv-j2laQg" impactModel="_24HiEtpgEeuihpv-j2laQg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_24HiENpgEeuihpv-j2laQg" root="_24HiEdpgEeuihpv-j2laQg">
+    <features xmi:id="_24HiEdpgEeuihpv-j2laQg" name="Instructor_pilot_genderAtterbute" realizedBy="_31uZ0NpgEeuihpv-j2laQg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_24HiEtpgEeuihpv-j2laQg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_31tywNpgEeuihpv-j2laQg" name="Instructor_pilot_genderAtterbute" scene="_31uZ0NpgEeuihpv-j2laQg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_pilot_genderAtterbute.domain_model.cdm#_31wPANpgEeuihpv-j2laQg"/>
+  </artefacts>
+  <scenes xmi:id="_31uZ0NpgEeuihpv-j2laQg" name="Instructor_pilot_genderAtterbute" realizes="_24HiEdpgEeuihpv-j2laQg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_31uZ0dpgEeuihpv-j2laQg" value="_31tywNpgEeuihpv-j2laQg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
