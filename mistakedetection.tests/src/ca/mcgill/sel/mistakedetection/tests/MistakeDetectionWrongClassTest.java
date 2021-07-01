@@ -17,7 +17,6 @@ import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
@@ -186,9 +185,8 @@ public class MistakeDetectionWrongClassTest {
 
   /**
    * Test to check Plural class name mistake
-   //mistake not detected
+
    */
-  @Disabled
   @Test
   public void testPluralClassName1() {
     var instructorClassDiagram = cdmFromFile(
@@ -302,9 +300,8 @@ public class MistakeDetectionWrongClassTest {
 
   /**
    * Test to check Software Engineering term name mistake
-   // its detecting plural class name
+
    */
-  @Disabled
   @Test
   public void testSoftwareEngineeringTerm() {
     var instructorClassDiagram = cdmFromFile(
