@@ -166,4 +166,31 @@ public class MistakeDetectionWrongAttributeTest {
     assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructorNameAttribute, 0, 1,
         false);
   }
+
+  /**
+   * Test to detect other extra Attribute.
+   */
+  @Test
+  public void testMistakeExtraAttribute1() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_pilot_genderAtterbute/Class Diagram/Instructor_pilot_genderAtterbute.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_extraAtterbute1/Class Diagram/Student_extraAtterbute1.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
+
+    Attribute studentnameAttribute = getAttributeFromClass("name", studentPilotClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(comparison.newMistakes.size(), 1);
+    assertEquals(studentSolution.getMistakes().size(), 1);
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentnameAttribute, 0, 1,
+        false);
+  }
+
 }
