@@ -8,17 +8,22 @@
   <foreignModel>learningcorpus.ecore</foreignModel>
   <foreignModel>modelingassistant.ecore</foreignModel>
   <genPackages prefix="Learningcorpus" disposableProviderFactory="true" ecorePackage="learningcorpus.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="learningcorpus.ecore#//ElementType">
+      <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/Class"/>
+      <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/Attribute"/>
+      <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/Association"/>
+      <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/AssociationEnd"/>
+      <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/Composition"/>
+      <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/Generalization"/>
+      <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/Pattern"/>
+    </genEnums>
     <genDataTypes ecoreDataType="learningcorpus.ecore#//Time"/>
-    <genClasses ecoreClass="learningcorpus.ecore#//UmlElement">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//UmlElement/learningItems"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference learningcorpus.ecore#//UmlElement/learningCorpus"/>
-    </genClasses>
     <genClasses ecoreClass="learningcorpus.ecore#//LearningItem">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningItem/umlElements"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningItem/learningResources"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningItem/mistakeTypes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//LearningItem/description"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningItem/learningCorpus"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//LearningItem/elementType"/>
     </genClasses>
     <genClasses ecoreClass="learningcorpus.ecore#//MistakeType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//MistakeType/atomic"/>
@@ -68,7 +73,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningCorpus/feedbacks"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningCorpus/learningItems"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningCorpus/learningResources"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningCorpus/umlElements"/>
     </genClasses>
   </genPackages>
   <genPackages prefix="Modelingassistant" disposableProviderFactory="true" ecorePackage="modelingassistant.ecore#/">
@@ -108,7 +112,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/solutionElements"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/classDiagram"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/mistakes"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/currentMistake"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/tagGroups"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/problemStatement"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Solution/feedbackItems"/>
