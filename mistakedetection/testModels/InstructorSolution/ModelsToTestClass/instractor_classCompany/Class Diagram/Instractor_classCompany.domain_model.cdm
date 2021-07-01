@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_j-IZwNpfEeuihpv-j2laQg" name="Instractor_classCompany">
+  <classes xsi:type="classdiagram:Class" xmi:id="_kZ6W0NpfEeuihpv-j2laQg" name="Company"/>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_j-IZwdpfEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_j-IZwtpfEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_j-IZw9pfEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_j-IZxNpfEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_j-IZxdpfEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_j-IZxtpfEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_j-IZx9pfEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_j-IZyNpfEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_j-IZydpfEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_j-IZytpfEeuihpv-j2laQg"/>
+  <layout xmi:id="_j-IZy9pfEeuihpv-j2laQg">
+    <containers xmi:id="_j-IZzNpfEeuihpv-j2laQg" key="_j-IZwNpfEeuihpv-j2laQg">
+      <value xmi:id="_kZ-BMNpfEeuihpv-j2laQg" key="_kZ6W0NpfEeuihpv-j2laQg">
+        <value xmi:id="_kZ-BMdpfEeuihpv-j2laQg" x="946.0" y="178.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
