@@ -133,9 +133,8 @@ public class MistakeDetectionPatternTest {
 
    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-   assertEquals(comparison.newMistakes.size(), 0);
-   assertEquals(studentSolution.getMistakes().size(), 0);
-
+   assertEquals(0, comparison.newMistakes.size());
+   assertEquals(0, studentSolution.getMistakes().size());
   }
 
   /**
@@ -159,8 +158,33 @@ public class MistakeDetectionPatternTest {
 
    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-   assertEquals(comparison.newMistakes.size(), 0);
-   assertEquals(studentSolution.getMistakes().size(), 0);
+   assertEquals(0, comparison.newMistakes.size());
+   assertEquals(0, studentSolution.getMistakes().size());
+  }
 
+  /**
+   * Test to check association player role pattern in studentSolution
+   */
+  @Test
+  public void testStudentAssocPRPattern() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Person", instructorClassDiagram, instructorSolution);
+    var projectClass = getClassFromClassDiagram("Project", instructorClassDiagram);
+    setRoleTagToAssocEndInClass("employees", tagGroup, projectClass);
+    setRoleTagToAssocEndInClass("managers", tagGroup, projectClass);
+
+   assertTrue(checkPattern(tagGroup).equals(ASSOC_PR_PATTERN));
+
+   var studentClassDiagram = cdmFromFile(
+       "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
+   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+   var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+   assertEquals(0, comparison.newMistakes.size());
+   assertEquals(0, studentSolution.getMistakes().size());
   }
 }

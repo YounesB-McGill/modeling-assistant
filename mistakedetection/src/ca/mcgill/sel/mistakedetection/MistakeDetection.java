@@ -85,6 +85,9 @@ public class MistakeDetection {
   /** The maximum number of difference two words can have in terms of letters. */
   public static final int MAX_LEVENSHTEIN_DISTANCE_ALLOWED = 2;
 
+  /** The minimum number of roles and player required for a pattern match. */
+  public static final int MIN_MATCH_REQIUIRED = 2;
+
   public static final String SUB_CLASS_PR_PATTERN = "subClassPlayerRolePattern";
 
   public static final String FULL_PR_PATTERN = "fullPlayerRolePattern";
@@ -215,7 +218,7 @@ public class MistakeDetection {
             checkStudentSubClassPattern(tg, comparison, instPattern);
           }
           else if (instPattern.equals(ASSOC_PR_PATTERN)) {
-
+            checkStudentAssocPattern(tg, comparison, instPattern);
           }
           else if (instPattern.equals(ENUM_PR_PATTERN)) {
 
@@ -227,10 +230,58 @@ public class MistakeDetection {
 
   }
 
+  private static void checkStudentAssocPattern(TagGroup tg, Comparison comparison, String instPattern) {
+    int totalMatcheExpected = tg.getTags().size();
+    int totalMatched = 0;
+    EList<String> studentRoleAssocEnd = new BasicEList<String>();
+    Classifier studentPlayerClass = null;
+    for (Tag tag : tg.getTags()) {
+        if (tag.getTagType().equals(PLAYER) && comparison.mappedClassifier.containsKey(tag.getSolutionElement().getElement())) {
+          studentPlayerClass = comparison.mappedClassifier.get(tag.getSolutionElement().getElement());
+          totalMatched = totalMatched + 1;
+        } else {
+          if (tag.getSolutionElement().getElement() instanceof AssociationEnd) {
+            AssociationEnd assocEnd = (AssociationEnd) tag.getSolutionElement().getElement();
+            if (comparison.mappedAssociation.containsKey(assocEnd.getAssoc())) {
+              studentRoleAssocEnd.add(assocEnd.getName());
+              totalMatched = totalMatched + 1;
+            }
+          }
+        }
+    }
+    if (totalMatched == totalMatcheExpected) {
+      if (!assocPatternCorrect(studentPlayerClass, studentRoleAssocEnd)) {
+        // TODO createMistake(incorrect patter)
+        System.out.println("Incorrect Pattern");
+        return;
+      }else {
+        System.out.println("Success Assoc");
+        return;
+      }
+    }else if (MIN_MATCH_REQIUIRED < totalMatched && studentPlayerClass != null) {
+       //TODO createMistake(incorrect patter)
+      System.out.println("Incorrect Pattern");
+      return;
+    }
+    checkOtherPattern(tg, comparison, instPattern);
+
+  }
+
+  private static boolean assocPatternCorrect(Classifier studentPlayerClass, EList<String> studentRoleAssocEnd) {
+   int count = 0;
+   for(AssociationEnd assocEnd: studentPlayerClass.getAssociationEnds()) {
+     Association assoc = assocEnd.getAssoc();
+     AssociationEnd otherAssocEnd = getOtherAssocEnd(assoc, assocEnd);
+     if(studentRoleAssocEnd.contains(otherAssocEnd.getName())) {
+       count = count + 1;
+     }
+    }
+    return count == studentRoleAssocEnd.size();
+  }
+
   private static void checkStudentFullPattern(TagGroup tg, Comparison comparison, String instPattern) {
     int totalMatcheExpected = tg.getTags().size();
     int totalMatched = 0;
-    int minMatchRequired = 2;
     EList<Classifier> studentRoleClasses = new BasicEList<Classifier>();
     Classifier studentPlayerClass = null;
     Classifier studentAbstractClass = null;
@@ -247,7 +298,7 @@ public class MistakeDetection {
     studentAbstractClass = studentRoleClasses.get(0).getSuperTypes().get(0);
     if(totalMatched == totalMatcheExpected) {
       if(!subClassPatternCorrect(studentAbstractClass, studentRoleClasses)) {
-         //createMistake(incorrect patter)
+         //TODO createMistake(incorrect patter)
         System.out.println("Incorrect Pattern");
         return;
       }else {
@@ -258,8 +309,8 @@ public class MistakeDetection {
         return;
         }
       }
-    }else if (minMatchRequired < totalMatched && studentPlayerClass != null && studentAbstractClass != null) {
-       //createMistake(incorrect patter)
+    }else if (MIN_MATCH_REQIUIRED < totalMatched && studentPlayerClass != null && studentAbstractClass != null) {
+       //TODO createMistake(incorrect patter)
       System.out.println("Incorrect Pattern");
       return;
     }
@@ -270,7 +321,6 @@ public class MistakeDetection {
   private static void checkStudentSubClassPattern(TagGroup tg, Comparison comparison, String instPattern) {
     int totalMatcheExpected = tg.getTags().size();
     int totalMatched = 0;
-    int minMatchRequired = 2;
     EList<Classifier> studentRoleClasses = new BasicEList<Classifier>();
     Classifier studentPlayerClass = null;
     for (Tag tag : tg.getTags()) {
@@ -285,15 +335,15 @@ public class MistakeDetection {
       }
     if(totalMatched == totalMatcheExpected) {
       if(!subClassPatternCorrect(studentPlayerClass, studentRoleClasses)) {
-         //createMistake(incorrect patter)
+         //TODO createMistake(incorrect patter)
         System.out.println("Incorrect Pattern");
         return;
       }else {
         System.out.println("Success Sub");
         return;
       }
-    }else if (minMatchRequired < totalMatched && studentPlayerClass != null) {
-       //createMistake(incorrect patter)
+    }else if (MIN_MATCH_REQIUIRED < totalMatched && studentPlayerClass != null) {
+       //TODO createMistake(incorrect patter)
       System.out.println("Incorrect Pattern");
       return;
     }
@@ -481,7 +531,7 @@ public class MistakeDetection {
           matchedAssocEnds.add(otherStudentClassifierAssocEnd);
           matchedAssocEnds.add(otherInstructorClassifierAssocEnd);
           possibleAssocMatch.put(studentClassifierAssoc, matchedAssocEnds);
-        }
+          }
       }
       if (!possibleAssocMatch.isEmpty()) {
         var values = getMatchedAssoc(possibleAssocMatch);
@@ -548,13 +598,15 @@ public class MistakeDetection {
     Map<Association, Double> assocScoreMap = new LinkedHashMap<Association, Double>();
     for (Map.Entry<Association, EList<AssociationEnd>> entry : possibleAssocMatch.entrySet()) {
       double score = 0;
+      int lDistance1 = levenshteinDistance(entry.getValue().get(0).getName(), entry.getValue().get(1).getName());
+      int lDistance2 = levenshteinDistance(entry.getValue().get(2).getName(), entry.getValue().get(3).getName());
       if (associationEndMultiplicityUpperBoundsMatch(entry.getValue().get(0), entry.getValue().get(1))) {
         score = score + 0.15;
       }
       if (associationEndMultiplicityLowerBoundsMatch(entry.getValue().get(0), entry.getValue().get(1))) {
         score = score + 0.15;
       }
-      if (spellingMistakeCheck(entry.getValue().get(0).getName(), entry.getValue().get(1).getName())) {
+      if (lDistance1 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED ) {
         score = score + 0.20;
       }
       if (associationEndMultiplicityUpperBoundsMatch(entry.getValue().get(2), entry.getValue().get(3))) {
@@ -563,7 +615,7 @@ public class MistakeDetection {
       if (associationEndMultiplicityLowerBoundsMatch(entry.getValue().get(2), entry.getValue().get(3))) {
         score = score + 0.15;
       }
-      if (spellingMistakeCheck(entry.getValue().get(2).getName(), entry.getValue().get(3).getName())) {
+      if (lDistance2 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
         score = score + 0.20;
       }
       assocScoreMap.put(entry.getKey(), score);
