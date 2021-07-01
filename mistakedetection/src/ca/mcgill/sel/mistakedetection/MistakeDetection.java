@@ -208,11 +208,11 @@ public class MistakeDetection {
         if (tag.getTagType().equals(PLAYER)) {
           System.out.print("worked");
           instPattern = checkPattern(tg);
-          if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
-            checkStudentSubClassPattern(tg, comparison);
-          }
-          else if (instPattern.equals(FULL_PR_PATTERN)) {
+          if (instPattern.equals(FULL_PR_PATTERN)) {
 
+          }
+          else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
+            checkStudentSubClassPattern(tg, comparison, instPattern);
           }
           else if (instPattern.equals(ASSOC_PR_PATTERN)) {
 
@@ -227,19 +227,52 @@ public class MistakeDetection {
 
   }
 
-  private static void checkStudentSubClassPattern(TagGroup tg, Comparison comparison) {
+  private static void checkStudentSubClassPattern(TagGroup tg, Comparison comparison, String instPattern) {
     int totalMatcheExpected = tg.getTags().size();
     int totalMatched = 0;
+    int minMatchRequired = 2;
+    EList<Classifier> studentRoleClasses = new BasicEList<Classifier>();
+    Classifier studentPlayerClass = null;
     for (Tag tag : tg.getTags()) {
-         if(comparison.mappedClassifier.containsValue(tag.getSolutionElement().getElement())){
+         if(comparison.mappedClassifier.containsKey(tag.getSolutionElement().getElement())){
+           if(tag.getTagType().equals(PLAYER)) {
+             studentPlayerClass = comparison.mappedClassifier.get(tag.getSolutionElement().getElement());
+           }else {
+             studentRoleClasses.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
+           }
            totalMatched = totalMatched + 1;
          }
       }
     if(totalMatched == totalMatcheExpected) {
-
+      if(!subClassPatternCorrect(studentPlayerClass, studentRoleClasses)) {
+         //createMistake(incorrect patter)
+        System.out.println("Incorrect Pattern");
+        return;
+      }else {
+        System.out.println("Success");
+        return;
+      }
+    }else if (minMatchRequired < totalMatched && studentPlayerClass != null) {
+       //createMistake(incorrect patter)
+      System.out.println("Incorrect Pattern");
+      return;
     }
-
+    checkOtherPattern(tg, comparison, instPattern);
    }
+
+  private static void checkOtherPattern(TagGroup tg, Comparison comparison, String instPattern) {
+
+
+  }
+
+  private static boolean subClassPatternCorrect(Classifier studentPlayerClass, EList<Classifier> studentRoleClasses) {
+    for(Classifier roleClass : studentRoleClasses) {
+      if(!roleClass.getSuperTypes().contains(studentPlayerClass)) {
+        return false;
+      }
+    }
+    return true;
+  }
 
   /**
    * returns the pattern detected in the instructor solution
