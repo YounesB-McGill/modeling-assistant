@@ -17,7 +17,7 @@
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/modelingassistant.ecore#/"/>
       </ownedRepresentationDescriptors>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_F26PEMlqEeuy_vhQ3TK-kg" name="learningcorpus" repPath="#_F2v3AMlqEeuy_vhQ3TK-kg" changeId="c2ced292-738d-45d6-87bc-76a31d182e99">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_F26PEMlqEeuy_vhQ3TK-kg" name="learningcorpus" repPath="#_F2v3AMlqEeuy_vhQ3TK-kg" changeId="e6c8cbf2-0cf9-450c-b49e-b9808c981c61">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/learningcorpus.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -1499,11 +1499,15 @@
               <styles xmi:type="notation:FontStyle" xmi:id="_U68CYdqWEeuu-NoshocRIA" fontName="Noto Sans" fontHeight="8"/>
               <layoutConstraint xmi:type="notation:Location" xmi:id="_U68CYtqWEeuu-NoshocRIA"/>
             </children>
+            <children xmi:type="notation:Node" xmi:id="_HWlwUNsJEeuu-NoshocRIA" type="3010" element="_HWPyENsJEeuu-NoshocRIA">
+              <styles xmi:type="notation:FontStyle" xmi:id="_HWlwUdsJEeuu-NoshocRIA" fontName="Noto Sans" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_HWlwUtsJEeuu-NoshocRIA"/>
+            </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_DXWP0dqWEeuu-NoshocRIA"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_DXWP0tqWEeuu-NoshocRIA"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_DW0EUdqWEeuu-NoshocRIA" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DW0EUtqWEeuu-NoshocRIA" x="1134" y="792" width="191" height="184"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DW0EUtqWEeuu-NoshocRIA" x="1110" y="780" width="221" height="196"/>
         </children>
         <styles xmi:type="notation:DiagramStyle" xmi:id="_F3HqcslqEeuy_vhQ3TK-kg"/>
         <edges xmi:type="notation:Edge" xmi:id="_GT9XfclqEeuy_vhQ3TK-kg" type="4001" element="_GTZ91slqEeuy_vhQ3TK-kg" source="_GTsRs8lqEeuy_vhQ3TK-kg" target="_GTy_YMlqEeuy_vhQ3TK-kg">
@@ -2481,10 +2485,18 @@
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EEnum']/@subNodeMappings[name='EC%20EEnumLiteral']"/>
       </ownedElements>
-      <ownedElements xmi:type="diagram:DNodeListElement" uid="_U6mrMNqWEeuu-NoshocRIA" name="Pattern" tooltipText="">
-        <target xmi:type="ecore:EEnumLiteral" href="model/learningcorpus.ecore#//ElementType/Pattern"/>
-        <semanticElements xmi:type="ecore:EEnumLiteral" href="model/learningcorpus.ecore#//ElementType/Pattern"/>
+      <ownedElements xmi:type="diagram:DNodeListElement" uid="_U6mrMNqWEeuu-NoshocRIA" name="PlayerRolePattern" tooltipText="">
+        <target xmi:type="ecore:EEnumLiteral" href="model/learningcorpus.ecore#//ElementType/PlayerRolePattern"/>
+        <semanticElements xmi:type="ecore:EEnumLiteral" href="model/learningcorpus.ecore#//ElementType/PlayerRolePattern"/>
         <ownedStyle xmi:type="diagram:BundledImage" uid="_U6mrMdqWEeuu-NoshocRIA" labelAlignment="LEFT">
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EEnum']/@subNodeMappings[name='EC%20EEnumLiteral']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EEnum']/@subNodeMappings[name='EC%20EEnumLiteral']"/>
+      </ownedElements>
+      <ownedElements xmi:type="diagram:DNodeListElement" uid="_HWPyENsJEeuu-NoshocRIA" name="AbstractionOccurrencePattern" tooltipText="">
+        <target xmi:type="ecore:EEnumLiteral" href="model/learningcorpus.ecore#//ElementType/AbstractionOccurrencePattern"/>
+        <semanticElements xmi:type="ecore:EEnumLiteral" href="model/learningcorpus.ecore#//ElementType/AbstractionOccurrencePattern"/>
+        <ownedStyle xmi:type="diagram:BundledImage" uid="_HWRAMNsJEeuu-NoshocRIA" labelAlignment="LEFT">
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EEnum']/@subNodeMappings[name='EC%20EEnumLiteral']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EEnum']/@subNodeMappings[name='EC%20EEnumLiteral']"/>

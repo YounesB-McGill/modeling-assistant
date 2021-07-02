@@ -87,6 +87,7 @@
     <eLiterals name="AssociationEnd" value="3"/>
     <eLiterals name="Composition" value="4"/>
     <eLiterals name="Generalization" value="5"/>
-    <eLiterals name="Pattern" value="6"/>
+    <eLiterals name="PlayerRolePattern" value="6"/>
+    <eLiterals name="AbstractionOccurrencePattern" value="7"/>
   </eClassifiers>
 </ecore:EPackage>
