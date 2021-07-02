@@ -17,6 +17,8 @@ import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Attribute;
+import ca.mcgill.sel.classdiagram.CDEnum;
+import ca.mcgill.sel.classdiagram.CDEnumLiteral;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.classdiagram.NamedElement;
@@ -853,6 +855,36 @@ public class MistakeDetectionTest {
     System.out.println();
     System.out.println("Mapped Association : ");
     comparison.mappedAssociation.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
+
+    System.out.println();
+    System.out.println("Mapped Enumerations : ");
+    comparison.mappedEnumeration.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
+
+    System.out.println();
+    System.out.print("Not Mapped Enumerations : ");
+    for (CDEnum c : comparison.notMappedInstructorEnum) {
+      System.out.print(c.getName() + " ");
+    }
+    System.out.println();
+    System.out.print("Extra Enumeration : ");
+    for (CDEnum c : comparison.extraStudentEnum) {
+      System.out.print(c.getName() + " ");
+    }
+
+    System.out.println();
+    System.out.println("Mapped Enumerations items: ");
+    comparison.mappedEnumerationItems.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
+
+    System.out.println();
+    System.out.print("Not Mapped Enumerations items : ");
+    for (CDEnumLiteral c : comparison.notMappedInstructorEnumLiterals) {
+      System.out.print(c.getName() + " ");
+    }
+    System.out.println();
+    System.out.print("Extra Enumeration items: ");
+    for (CDEnumLiteral c : comparison.extraStudentEnumLiterals) {
+      System.out.print(c.getName() + " ");
+    }
 
     System.out.println();
     System.out.println("Mistakes : ");

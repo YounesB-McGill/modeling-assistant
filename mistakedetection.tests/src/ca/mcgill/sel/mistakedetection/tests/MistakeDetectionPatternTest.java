@@ -5,6 +5,7 @@ import static ca.mcgill.sel.mistakedetection.MistakeDetection.ENUM_PR_PATTERN;
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.FULL_PR_PATTERN;
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.SUB_CLASS_PR_PATTERN;
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.checkPattern;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAttributeFromClass;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getSEelementfromSolution;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
@@ -108,6 +109,7 @@ public class MistakeDetectionPatternTest {
     var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSolution);
     var studentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
     setRoleTagToAtribInClass("level", tagGroup, studentClass);
+    var levelAtrib = getAttributeFromClass("level", studentClass);
 
     assertTrue(checkPattern(tagGroup).equals(ENUM_PR_PATTERN));
    }
@@ -187,4 +189,29 @@ public class MistakeDetectionPatternTest {
    assertEquals(0, comparison.newMistakes.size());
    assertEquals(0, studentSolution.getMistakes().size());
   }
+
+  /**
+   * Test to check enumeration player role pattern in studentSolution
+   */
+  @Test
+  public void testStudentEnumPRPattern() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSolution);
+    var studentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
+    setRoleTagToAtribInClass("level", tagGroup, studentClass);
+
+    assertTrue(checkPattern(tagGroup).equals(ENUM_PR_PATTERN));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
+        var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(0, comparison.newMistakes.size());
+    assertEquals(0, studentSolution.getMistakes().size());
+   }
 }
