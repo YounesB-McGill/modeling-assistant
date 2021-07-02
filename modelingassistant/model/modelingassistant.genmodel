@@ -15,7 +15,8 @@
       <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/AssociationEnd"/>
       <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/Composition"/>
       <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/Generalization"/>
-      <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/Pattern"/>
+      <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/PlayerRolePattern"/>
+      <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/AbstractionOccurrencePattern"/>
     </genEnums>
     <genDataTypes ecoreDataType="learningcorpus.ecore#//Time"/>
     <genClasses ecoreClass="learningcorpus.ecore#//LearningItem">
