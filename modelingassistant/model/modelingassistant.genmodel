@@ -151,6 +151,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//FeedbackItem/usefulness"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//FeedbackItem/feedback"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//FeedbackItem/solution"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//FeedbackItem/text"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//Tag">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference modelingassistant.ecore#//Tag/solutionElement"/>
