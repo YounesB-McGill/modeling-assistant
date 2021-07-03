@@ -107,6 +107,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="feedback" eType="ecore:EClass learningcorpus.ecore#//Feedback"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="solution" lowerBound="1"
         eType="#//Solution" eOpposite="#//Solution/feedbackItems"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Tag">
     <eStructuralFeatures xsi:type="ecore:EReference" name="solutionElement" lowerBound="1"
