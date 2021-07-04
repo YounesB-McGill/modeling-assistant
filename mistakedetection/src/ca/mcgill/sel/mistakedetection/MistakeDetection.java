@@ -275,7 +275,6 @@ public class MistakeDetection {
     for (TagGroup tg : instructorSolution.getTagGroups()) {
       for (Tag tag : tg.getTags()) {
         if (tag.getTagType().equals(PLAYER)) {
-          System.out.print("worked");
           instPattern = checkPattern(tg);
           if (instPattern.equals(FULL_PR_PATTERN)) {
             checkStudentFullPattern(tg, comparison, instPattern);
@@ -307,7 +306,8 @@ public class MistakeDetection {
           && comparison.mappedAttribute.containsKey(tag.getSolutionElement().getElement())) {
         Attribute atrib = (Attribute) tag.getSolutionElement().getElement();
         studentRoleAttribute.add(comparison.mappedAttribute.get(atrib));
-        CDEnum enumClass = getEnumFromAttribute(atrib.getType().getName(), tag.getTagGroup().getSolution().getClassDiagram());
+        CDEnum enumClass =
+            getEnumFromAttribute(atrib.getType().getName(), tag.getTagGroup().getSolution().getClassDiagram());
         totalMatcheExpected = totalMatcheExpected + enumClass.getLiterals().size();
         for (CDEnumLiteral enumClassLiteral : enumClass.getLiterals()) {
           if (comparison.mappedEnumerationItems.containsKey(enumClassLiteral)) {
@@ -317,14 +317,15 @@ public class MistakeDetection {
       }
     }
 
-    if (totalMatched == totalMatcheExpected) {
-      //TODO TO be removed, just for checking purpose
+    if (totalMatched == totalMatcheExpected && totalMatched != 1) {
+
       System.out.println("Success Enum");
       return;
     }
 
-    if (totalMatched != totalMatcheExpected) {
-      //TODO Create Mistake Incorect Patter
+    if (totalMatched != totalMatcheExpected && totalMatched != 1) {
+      // TODO Create Mistake Incorect Patter
+      System.out.println("Incorrect Pattern Enum");
       return;
     } else if (MIN_MATCH_REQIUIRED < totalMatched && studentPlayerClass != null) {
       // TODO createMistake(incorrect patter)
@@ -334,11 +335,6 @@ public class MistakeDetection {
     checkOtherPattern(tg, comparison, instPattern);
 
 
-  }
-
-  private static boolean enumPatternCorrect(Classifier studentPlayerClass, EList<Attribute> studentRoleAttribute) {
-    // TODO Auto-generated method stub
-    return false;
   }
 
   private static void checkStudentAssocPattern(TagGroup tg, Comparison comparison, String instPattern) {
@@ -408,8 +404,24 @@ public class MistakeDetection {
         totalMatched = totalMatched + 1;
       }
     }
+    if (studentRoleClasses.isEmpty()) {
+      checkOtherPattern(tg, comparison, instPattern);
+      return;
+    }
+    if (studentRoleClasses.get(0).getSuperTypes().isEmpty()) {
+      checkOtherPattern(tg, comparison, instPattern);
+      return;
+    }
     studentAbstractClass = studentRoleClasses.get(0).getSuperTypes().get(0);
     if (totalMatched == totalMatcheExpected) {
+      if (studentAbstractClass == studentPlayerClass && studentPlayerClass != null) {
+        System.out.println("Using subClasses instead of Full Player-Role Pattern");
+        return;
+      }
+      if (!studentAbstractClass.isAbstract()) {
+        System.out.println("Incorrect Pattern Full");
+        return;
+      }
       if (!subClassPatternCorrect(studentAbstractClass, studentRoleClasses)) {
         // TODO createMistake(incorrect patter)
         System.out.println("Incorrect Pattern full");
@@ -449,6 +461,12 @@ public class MistakeDetection {
     if (totalMatched == totalMatcheExpected) {
       if (!subClassPatternCorrect(studentPlayerClass, studentRoleClasses)) {
         // TODO createMistake(incorrect patter)
+        if (studentRoleClasses.get(0).getSuperTypes().get(0).isAbstract()) {
+          if (assocExists(studentRoleClasses.get(0).getSuperTypes().get(0), studentPlayerClass)) {
+            System.out.println("Using Full Pattern instead of SubClasses");
+            return;
+          }
+        }
         System.out.println("Incorrect Pattern sub");
         return;
       } else {
@@ -464,8 +482,140 @@ public class MistakeDetection {
   }
 
   private static void checkOtherPattern(TagGroup tg, Comparison comparison, String instPattern) {
+    int studentSubClassesPatternScore = 0;
+    int studentEnumsPatternScore = 0;
+    int studentFullPatternScore = 0;
+    int studentAssocPatternScore = 0;
+    Classifier studPlayerClass = null;
+    EList<Classifier> studRoleClass = new BasicEList<Classifier>();
+    EList<String> instEnumLiterals = new BasicEList<String>();
 
+    for (Tag tag : tg.getTags()) {
+      if (tag.getTagType().equals(PLAYER)) {
+        if (comparison.mappedClassifier.containsKey(tag.getSolutionElement().getElement())) {
+          studPlayerClass = comparison.mappedClassifier.get(tag.getSolutionElement().getElement());
+        }
+      }
+      if (tag.getTagType().equals(ROLE) && tag.getSolutionElement().getElement() instanceof Attribute) {
+        Attribute instAtrib = (Attribute) tag.getSolutionElement().getElement();
+        if (instAtrib.getType() instanceof CDEnum) {
+          CDEnum instEnum =
+              getEnumFromAttribute(instAtrib.getType().getName(), tag.getTagGroup().getSolution().getClassDiagram());
+          for (CDEnumLiteral enumLitral : instEnum.getLiterals()) {
+            instEnumLiterals.add(enumLitral.getName());
+          }
+        }
+      }
+      for (Classifier studClass : comparison.extraStudentClassifier) {
+        if (studClass.getName().toLowerCase().equals(tag.getSolutionElement().getElement().getName().toLowerCase())) {
+          if (tag.getTagType().equals(PLAYER)) {
+            if (!comparison.mappedClassifier.containsKey(tag.getSolutionElement().getElement())) {
+              studPlayerClass = studClass;
+            }
+          } else {
+            studRoleClass.add(studClass);
+          }
+          studentSubClassesPatternScore = studentSubClassesPatternScore + 1;
+          studentFullPatternScore = studentFullPatternScore + 1;
+        }
+      }
+      for (Association studAssoc : comparison.extraStudentAssociation) {
+        for (AssociationEnd studAssocEnd : studAssoc.getEnds()) {
+          if (studAssocEnd.getName().toLowerCase()
+              .equals(tag.getSolutionElement().getElement().getName().toLowerCase())) {
+            studentAssocPatternScore = studentAssocPatternScore + 1;
+          }
+        }
+      }
 
+      for (CDEnum studEnum : comparison.extraStudentEnum) {
+        if (studEnum.getName().toLowerCase().equals(tag.getSolutionElement().getElement().getName().toLowerCase())) {
+          studentEnumsPatternScore = studentEnumsPatternScore + 1;
+        }
+      }
+
+      for (CDEnumLiteral studEnumLiteral : comparison.extraStudentEnumLiterals) {
+        if (tag.getSolutionElement().getElement().getName().toLowerCase()
+            .equals(studEnumLiteral.getName().toLowerCase())) {
+          studentEnumsPatternScore = studentEnumsPatternScore + 1;
+        }
+      }
+    }
+    if (!instEnumLiterals.isEmpty()) {
+      for (String enumLiteralName : instEnumLiterals) {
+        for (Classifier studClass : comparison.extraStudentClassifier) {
+          if (studClass.getName().toLowerCase().equals(enumLiteralName.toLowerCase())) {
+            studRoleClass.add(studClass);
+          studentSubClassesPatternScore = studentSubClassesPatternScore + 1;
+          studentFullPatternScore = studentFullPatternScore + 1;
+          }
+        }
+
+        for (Association studAssoc : comparison.extraStudentAssociation) {
+          for (AssociationEnd studAssocEnd : studAssoc.getEnds()) {
+            if (studAssocEnd.getName().toLowerCase().equals(enumLiteralName.toLowerCase())) {
+              studentAssocPatternScore = studentAssocPatternScore + 1;
+            }
+          }
+        }
+
+        for (CDEnum studEnum : comparison.extraStudentEnum) {
+          if (studEnum.getName().toLowerCase().equals(enumLiteralName.toLowerCase())) {
+            studentEnumsPatternScore = studentEnumsPatternScore + 1;
+          }
+        }
+
+        for (CDEnumLiteral studEnumLiteral : comparison.extraStudentEnumLiterals) {
+          if (enumLiteralName.toLowerCase().equals(studEnumLiteral.getName().toLowerCase())) {
+            studentEnumsPatternScore = studentEnumsPatternScore + 1;
+          }
+        }
+      }
+    }
+    int scores[] =
+        {studentSubClassesPatternScore, studentFullPatternScore, studentEnumsPatternScore, studentAssocPatternScore};
+    int highestScore = getHighestScore(scores);
+    if (highestScore == 0) {
+      System.out.println("Missing Pattern");
+      return;
+    }
+    if (studentSubClassesPatternScore == studentFullPatternScore && studentFullPatternScore == highestScore) {
+      if (studPlayerClass != null) {
+        if (subClassPatternCorrect(studPlayerClass, studRoleClass)) {
+          studentSubClassesPatternScore = studentSubClassesPatternScore + 1;
+          highestScore = highestScore + 1;
+        }
+        if (!studRoleClass.get(0).getSuperTypes().contains(studPlayerClass)
+            && subClassPatternCorrect(studRoleClass.get(0).getSuperTypes().get(0), studRoleClass)) {
+          studentFullPatternScore = studentFullPatternScore + 1;
+          highestScore = highestScore + 1;
+        }
+      } else {
+        System.out.println("Missing Pattern");
+        return;
+      }
+    }
+    if (studentSubClassesPatternScore == highestScore) {
+      System.out.println(SUB_CLASS_PR_PATTERN + " instead of " + instPattern);
+      return;
+    } else if (studentAssocPatternScore == highestScore) {
+      System.out.println(ASSOC_PR_PATTERN + " instead of " + instPattern);
+      return;
+    } else if (studentFullPatternScore == highestScore) {
+      System.out.println(FULL_PR_PATTERN + " instead of " + instPattern);
+      return;
+    } else if (studentEnumsPatternScore == highestScore) {
+      System.out.println(ENUM_PR_PATTERN + " instead of " + instPattern);
+      return;
+    } else {
+      System.out.println("Missing Pattern");
+      return;
+    }
+  }
+
+  private static int getHighestScore(int[] scores) {
+    Arrays.sort(scores);
+    return scores[scores.length - 1];
   }
 
   private static boolean subClassPatternCorrect(Classifier studentPlayerClass, EList<Classifier> studentRoleClasses) {

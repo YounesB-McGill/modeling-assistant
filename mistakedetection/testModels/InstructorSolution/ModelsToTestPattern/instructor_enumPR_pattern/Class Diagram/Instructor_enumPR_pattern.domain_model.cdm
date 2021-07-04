@@ -15,8 +15,8 @@
   <types xsi:type="classdiagram:CDFloat" xmi:id="_vy2erNfmEeuG8czVoCvS-g"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_vy2erdfmEeuG8czVoCvS-g"/>
   <types xsi:type="classdiagram:CDEnum" xmi:id="_xPh4ANfmEeuG8czVoCvS-g" name="StudentLevel">
-    <literals xmi:id="_1jN6wNfmEeuG8czVoCvS-g" name="Graduate"/>
-    <literals xmi:id="_37y7sNfmEeuG8czVoCvS-g" name="UnderGraduate"/>
+    <literals xmi:id="_1jN6wNfmEeuG8czVoCvS-g" name="FullTimeStudent"/>
+    <literals xmi:id="_37y7sNfmEeuG8czVoCvS-g" name="PartTimeStudent"/>
   </types>
   <layout xmi:id="_vy2ertfmEeuG8czVoCvS-g">
     <containers xmi:id="_vy2er9fmEeuG8czVoCvS-g" key="_vy2eo9fmEeuG8czVoCvS-g">
