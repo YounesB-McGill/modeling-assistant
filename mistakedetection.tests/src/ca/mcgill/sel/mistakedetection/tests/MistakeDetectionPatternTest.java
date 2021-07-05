@@ -236,8 +236,8 @@ public class MistakeDetectionPatternTest {
     System.out.println("---Test to check Full PR insted of SubClass --");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     System.out.println("---------------");
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
   }
 
   /**
@@ -286,8 +286,8 @@ public class MistakeDetectionPatternTest {
     System.out.println("---Test to check Assoc PR insted of SubClass --");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     System.out.println("---------------");
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
   }
 
   /**
@@ -311,8 +311,8 @@ public class MistakeDetectionPatternTest {
     System.out.println("---Test to check Sub Class PR insted of Full PR--");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     System.out.println("---------------");
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
   }
 
   /**
@@ -336,8 +336,8 @@ public class MistakeDetectionPatternTest {
     System.out.println("---Test to check Assoc PR insted of Full PR--");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     System.out.println("---------------");
-    assertEquals(7, comparison.newMistakes.size());
-    assertEquals(7, studentSolution.getMistakes().size());
+    assertEquals(8, comparison.newMistakes.size());
+    assertEquals(8, studentSolution.getMistakes().size());
   }
 
   /**
@@ -361,8 +361,8 @@ public class MistakeDetectionPatternTest {
     System.out.println("---Test to check Enum PR insted of Full PR--");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     System.out.println("---------------");
-    assertEquals(7, comparison.newMistakes.size());
-    assertEquals(7, studentSolution.getMistakes().size());
+    assertEquals(8, comparison.newMistakes.size());
+    assertEquals(8, studentSolution.getMistakes().size());
   }
 
   /**
@@ -387,8 +387,8 @@ public class MistakeDetectionPatternTest {
     System.out.println("---Test to check Sub Class PR insted of Assoc PR--");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     System.out.println("---------------");
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
   }
 
   /**
@@ -413,8 +413,8 @@ public class MistakeDetectionPatternTest {
     System.out.println("---Test to check Full PR insted of Assoc PR--");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     System.out.println("---------------");
-    assertEquals(5, comparison.newMistakes.size());
-    assertEquals(5, studentSolution.getMistakes().size());
+    assertEquals(7, comparison.newMistakes.size());
+    assertEquals(7, studentSolution.getMistakes().size());
   }
 
   /**
@@ -439,8 +439,8 @@ public class MistakeDetectionPatternTest {
     System.out.println("---Test to check Enum PR insted of Assoc PR--");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     System.out.println("---------------");
-    assertEquals(6, comparison.newMistakes.size());
-    assertEquals(6, studentSolution.getMistakes().size());
+    assertEquals(7, comparison.newMistakes.size());
+    assertEquals(7, studentSolution.getMistakes().size());
   }
 
   /**
@@ -491,8 +491,8 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     System.out.println("---------------");
-    assertEquals(7, comparison.newMistakes.size());
-    assertEquals(7, studentSolution.getMistakes().size());
+    assertEquals(8, comparison.newMistakes.size());
+    assertEquals(8, studentSolution.getMistakes().size());
   }
 
   /**
@@ -516,7 +516,7 @@ public class MistakeDetectionPatternTest {
     System.out.println("---Test to check Assoc PR insted of Enum PR--");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     System.out.println("--------");
-    assertEquals(6, comparison.newMistakes.size());
-    assertEquals(6, studentSolution.getMistakes().size());
+    assertEquals(7, comparison.newMistakes.size());
+    assertEquals(7, studentSolution.getMistakes().size());
   }
 }

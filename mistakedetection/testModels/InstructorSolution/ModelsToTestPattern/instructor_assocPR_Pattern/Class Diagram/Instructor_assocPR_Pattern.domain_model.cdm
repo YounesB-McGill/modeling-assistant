@@ -3,11 +3,17 @@
   <classes xsi:type="classdiagram:Class" xmi:id="_JxgZANfnEeuG8czVoCvS-g" name="Student">
     <associationEnds xmi:id="_PBZlUdfnEeuG8czVoCvS-g" name="managed" assoc="_PBZlUtfnEeuG8czVoCvS-g" upperBound="-1"/>
     <associationEnds xmi:id="_PXGIgdfnEeuG8czVoCvS-g" name="workedFor" assoc="_PXGIgtfnEeuG8czVoCvS-g" upperBound="-1"/>
+    <associationEnds xmi:id="_mH3eoN2aEeu7asz7hr5Mzg" name="myRoot" assoc="_mH3eot2aEeu7asz7hr5Mzg" lowerBound="1"/>
     <attributes xmi:id="_NMcO0NfnEeuG8czVoCvS-g" name="name" type="_JczUV9fnEeuG8czVoCvS-g"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_NuGxcNfnEeuG8czVoCvS-g" name="Project">
     <associationEnds xmi:id="_PBZlUNfnEeuG8czVoCvS-g" name="fullTimeStudent" assoc="_PBZlUtfnEeuG8czVoCvS-g" upperBound="-1"/>
     <associationEnds xmi:id="_PXGIgNfnEeuG8czVoCvS-g" name="partTimeStudent" assoc="_PXGIgtfnEeuG8czVoCvS-g" upperBound="-1"/>
+    <associationEnds xmi:id="_nIGMkN2aEeu7asz7hr5Mzg" name="myRoot" assoc="_nIGMkt2aEeu7asz7hr5Mzg" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_lGgvUN2aEeu7asz7hr5Mzg" name="Root">
+    <associationEnds xmi:id="_mH3eod2aEeu7asz7hr5Mzg" name="myStudent" assoc="_mH3eot2aEeu7asz7hr5Mzg" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_nIGMkd2aEeu7asz7hr5Mzg" name="myProject" assoc="_nIGMkt2aEeu7asz7hr5Mzg" lowerBound="1" referenceType="Composition"/>
   </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_JczUUdfnEeuG8czVoCvS-g"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_JczUUtfnEeuG8czVoCvS-g"/>
@@ -21,13 +27,18 @@
   <types xsi:type="classdiagram:CDChar" xmi:id="_JczUWtfnEeuG8czVoCvS-g"/>
   <associations xmi:id="_PBZlUtfnEeuG8czVoCvS-g" name="Project_Person" ends="_PBZlUNfnEeuG8czVoCvS-g _PBZlUdfnEeuG8czVoCvS-g"/>
   <associations xmi:id="_PXGIgtfnEeuG8czVoCvS-g" name="Project_Person" ends="_PXGIgNfnEeuG8czVoCvS-g _PXGIgdfnEeuG8czVoCvS-g"/>
+  <associations xmi:id="_mH3eot2aEeu7asz7hr5Mzg" name="Student_Root" ends="_mH3eoN2aEeu7asz7hr5Mzg _mH3eod2aEeu7asz7hr5Mzg"/>
+  <associations xmi:id="_nIGMkt2aEeu7asz7hr5Mzg" name="Project_Root" ends="_nIGMkN2aEeu7asz7hr5Mzg _nIGMkd2aEeu7asz7hr5Mzg"/>
   <layout xmi:id="_JczUW9fnEeuG8czVoCvS-g">
     <containers xmi:id="_JczUXNfnEeuG8czVoCvS-g" key="_JczUUNfnEeuG8czVoCvS-g">
       <value xmi:id="_JxhAENfnEeuG8czVoCvS-g" key="_JxgZANfnEeuG8czVoCvS-g">
-        <value xmi:id="_JxhAEdfnEeuG8czVoCvS-g" x="742.0" y="183.0"/>
+        <value xmi:id="_JxhAEdfnEeuG8czVoCvS-g" x="429.0" y="566.0003"/>
       </value>
       <value xmi:id="_NuHYgNfnEeuG8czVoCvS-g" key="_NuGxcNfnEeuG8czVoCvS-g">
-        <value xmi:id="_NuHYgdfnEeuG8czVoCvS-g" x="742.0" y="544.0003"/>
+        <value xmi:id="_NuHYgdfnEeuG8czVoCvS-g" x="844.99994" y="802.0003"/>
+      </value>
+      <value xmi:id="_lGhWYN2aEeu7asz7hr5Mzg" key="_lGgvUN2aEeu7asz7hr5Mzg">
+        <value xmi:id="_lGh9cN2aEeu7asz7hr5Mzg" x="753.00024" y="371.00015"/>
       </value>
     </containers>
   </layout>
