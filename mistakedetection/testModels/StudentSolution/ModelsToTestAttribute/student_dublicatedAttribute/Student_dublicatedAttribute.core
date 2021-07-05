@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_W56bAN3MEeuTLOme1e-z-w" name="Student_dublicatedAttribute" featureModel="_W57CEN3MEeuTLOme1e-z-w" impactModel="_W57CEt3MEeuTLOme1e-z-w">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_W57CEN3MEeuTLOme1e-z-w" root="_W57CEd3MEeuTLOme1e-z-w">
+    <features xmi:id="_W57CEd3MEeuTLOme1e-z-w" name="Student_dublicatedAttribute" realizedBy="_X04Ocd3MEeuTLOme1e-z-w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_W57CEt3MEeuTLOme1e-z-w" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_X04OcN3MEeuTLOme1e-z-w" name="Student_dublicatedAttribute" scene="_X04Ocd3MEeuTLOme1e-z-w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_dublicatedAttribute.domain_model.cdm#_X06DoN3MEeuTLOme1e-z-w"/>
+  </artefacts>
+  <scenes xmi:id="_X04Ocd3MEeuTLOme1e-z-w" name="Student_dublicatedAttribute" realizes="_W57CEd3MEeuTLOme1e-z-w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_X04Oct3MEeuTLOme1e-z-w" value="_X04OcN3MEeuTLOme1e-z-w" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
