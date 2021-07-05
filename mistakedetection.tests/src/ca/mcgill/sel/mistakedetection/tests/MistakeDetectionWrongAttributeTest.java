@@ -236,12 +236,13 @@ public class MistakeDetectionWrongAttributeTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+    var studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
 
     Attribute instructornameAttribute = getAttributeFromClass("name", instructorPersonClass);
     Attribute studentnamesAttribute = getAttributeFromClass("names", studentPersonClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-MistakeDetectionTest.log(comparison);
+
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size(), 1);
 
@@ -356,7 +357,7 @@ MistakeDetectionTest.log(comparison);
     Attribute studentGenderAttribute = getAttributeFromClass("Gender", studentPilotClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-    MistakeDetectionTest.log(comparison);
+
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size(), 1);
 
