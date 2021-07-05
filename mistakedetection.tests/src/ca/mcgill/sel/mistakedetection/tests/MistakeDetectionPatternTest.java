@@ -5,9 +5,8 @@ import static ca.mcgill.sel.mistakedetection.MistakeDetection.ENUM_PR_PATTERN;
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.FULL_PR_PATTERN;
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.SUB_CLASS_PR_PATTERN;
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.checkPattern;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAttributeFromClass;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getSEelementfromSolution;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getSolutionElementfromSolution;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setPlayerTagToClassInClassDiag;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToAssocEndInClass;
@@ -43,9 +42,11 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-    assertEquals(PLAYER, getSEelementfromSolution("Student", instructorSolution).getTags().get(0).getTagType());
-    assertEquals(ROLE, getSEelementfromSolution("FullTimeStudent", instructorSolution).getTags().get(0).getTagType());
-    assertEquals(ROLE, getSEelementfromSolution("PartTimeStudent", instructorSolution).getTags().get(0).getTagType());
+    assertEquals(PLAYER, getSolutionElementfromSolution("Student", instructorSolution).getTags().get(0).getTagType());
+    assertEquals(ROLE,
+        getSolutionElementfromSolution("FullTimeStudent", instructorSolution).getTags().get(0).getTagType());
+    assertEquals(ROLE,
+        getSolutionElementfromSolution("PartTimeStudent", instructorSolution).getTags().get(0).getTagType());
   }
 
   /**
@@ -61,7 +62,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-   assertTrue(checkPattern(tagGroup).equals(SUB_CLASS_PR_PATTERN));
+    assertTrue(checkPattern(tagGroup).equals(SUB_CLASS_PR_PATTERN));
   }
 
   /**
@@ -77,8 +78,8 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-   assertTrue(checkPattern(tagGroup).equals(FULL_PR_PATTERN));
-   }
+    assertTrue(checkPattern(tagGroup).equals(FULL_PR_PATTERN));
+  }
 
   /**
    * Test to detect Association role pattern
@@ -94,8 +95,8 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("fullTimeStudent", tagGroup, projectClass);
     setRoleTagToAssocEndInClass("partTimeStudent", tagGroup, projectClass);
 
-   assertTrue(checkPattern(tagGroup).equals(ASSOC_PR_PATTERN));
-   }
+    assertTrue(checkPattern(tagGroup).equals(ASSOC_PR_PATTERN));
+  }
 
   /**
    * Test to detect Enumeration role pattern
@@ -109,10 +110,9 @@ public class MistakeDetectionPatternTest {
     var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSolution);
     var studentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
     setRoleTagToAtribInClass("level", tagGroup, studentClass);
-    var levelAtrib = getAttributeFromClass("level", studentClass);
 
     assertTrue(checkPattern(tagGroup).equals(ENUM_PR_PATTERN));
-   }
+  }
 
   /**
    * Test to check subClass player role pattern in studentSolution
@@ -127,16 +127,16 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-   assertTrue(checkPattern(tagGroup).equals(SUB_CLASS_PR_PATTERN));
+    assertTrue(checkPattern(tagGroup).equals(SUB_CLASS_PR_PATTERN));
 
-   var studentClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
-   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-   var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-   assertEquals(0, comparison.newMistakes.size());
-   assertEquals(0, studentSolution.getMistakes().size());
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    System.out.println("---Test to inst subClass - student subClass pattern --");
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    System.out.println("-----");
+    assertEquals(0, comparison.newMistakes.size());
+    assertEquals(0, studentSolution.getMistakes().size());
   }
 
   /**
@@ -152,16 +152,16 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-   assertTrue(checkPattern(tagGroup).equals(FULL_PR_PATTERN));
+    assertTrue(checkPattern(tagGroup).equals(FULL_PR_PATTERN));
 
-   var studentClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
-   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-   var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-   assertEquals(0, comparison.newMistakes.size());
-   assertEquals(0, studentSolution.getMistakes().size());
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    System.out.println("---Test to inst Full - student Full pattern --");
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    System.out.println("-----");
+    assertEquals(0, comparison.newMistakes.size());
+    assertEquals(0, studentSolution.getMistakes().size());
   }
 
   /**
@@ -178,16 +178,16 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("fullTimeStudent", tagGroup, projectClass);
     setRoleTagToAssocEndInClass("partTimeStudent", tagGroup, projectClass);
 
-   assertTrue(checkPattern(tagGroup).equals(ASSOC_PR_PATTERN));
+    assertTrue(checkPattern(tagGroup).equals(ASSOC_PR_PATTERN));
 
-   var studentClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
-   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-   var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-   assertEquals(0, comparison.newMistakes.size());
-   assertEquals(0, studentSolution.getMistakes().size());
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    System.out.println("---Test to inst Assoc - student Assoc pattern --");
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    System.out.println("-----");
+    assertEquals(0, comparison.newMistakes.size());
+    assertEquals(0, studentSolution.getMistakes().size());
   }
 
   /**
@@ -207,13 +207,13 @@ public class MistakeDetectionPatternTest {
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
-        var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    System.out.println("---Test to inst enum- student enum pattern --");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
+    System.out.println("-----");
     assertEquals(0, comparison.newMistakes.size());
     assertEquals(0, studentSolution.getMistakes().size());
-   }
+  }
 
   /**
    * Test to check Full player role pattern instead of SubClass in studentSolution
@@ -228,16 +228,16 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-   assertTrue(checkPattern(tagGroup).equals(SUB_CLASS_PR_PATTERN));
+    assertTrue(checkPattern(tagGroup).equals(SUB_CLASS_PR_PATTERN));
 
-   var studentClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
-   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-   System.out.println("---Test to check Full PR insted of SubClass --");
-   var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-   System.out.println("---------------");
-   assertEquals(2, comparison.newMistakes.size());
-   assertEquals(2, studentSolution.getMistakes().size());
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    System.out.println("---Test to check Full PR insted of SubClass --");
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    System.out.println("---------------");
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
   }
 
   /**
@@ -253,16 +253,16 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-   assertTrue(checkPattern(tagGroup).equals(SUB_CLASS_PR_PATTERN));
+    assertTrue(checkPattern(tagGroup).equals(SUB_CLASS_PR_PATTERN));
 
-   var studentClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
-   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-   System.out.println("---Test to check Enum PR insted of SubClass --");
-   var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-   System.out.println("---------------");
-   assertEquals(5, comparison.newMistakes.size());
-   assertEquals(5, studentSolution.getMistakes().size());
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    System.out.println("---Test to check Enum PR insted of SubClass --");
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    System.out.println("---------------");
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
   }
 
   /**
@@ -278,16 +278,16 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-   assertTrue(checkPattern(tagGroup).equals(SUB_CLASS_PR_PATTERN));
+    assertTrue(checkPattern(tagGroup).equals(SUB_CLASS_PR_PATTERN));
 
-   var studentClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
-   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-   System.out.println("---Test to check Assoc PR insted of SubClass --");
-   var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-   System.out.println("---------------");
-   assertEquals(3, comparison.newMistakes.size());
-   assertEquals(3, studentSolution.getMistakes().size());
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    System.out.println("---Test to check Assoc PR insted of SubClass --");
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    System.out.println("---------------");
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
   }
 
   /**
@@ -303,16 +303,16 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-   assertTrue(checkPattern(tagGroup).equals(FULL_PR_PATTERN));
+    assertTrue(checkPattern(tagGroup).equals(FULL_PR_PATTERN));
 
-   var studentClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
-   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-   System.out.println("---Test to check Sub Class PR insted of Full PR--");
-   var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-   System.out.println("---------------");
-   assertEquals(2, comparison.newMistakes.size());
-   assertEquals(2, studentSolution.getMistakes().size());
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    System.out.println("---Test to check Sub Class PR insted of Full PR--");
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    System.out.println("---------------");
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
   }
 
   /**
@@ -328,16 +328,16 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-   assertTrue(checkPattern(tagGroup).equals(FULL_PR_PATTERN));
+    assertTrue(checkPattern(tagGroup).equals(FULL_PR_PATTERN));
 
-   var studentClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
-   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-   System.out.println("---Test to check Assoc PR insted of Full PR--");
-   var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-   System.out.println("---------------");
-   assertEquals(7, comparison.newMistakes.size());
-   assertEquals(7, studentSolution.getMistakes().size());
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    System.out.println("---Test to check Assoc PR insted of Full PR--");
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    System.out.println("---------------");
+    assertEquals(7, comparison.newMistakes.size());
+    assertEquals(7, studentSolution.getMistakes().size());
   }
 
   /**
@@ -353,16 +353,16 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-   assertTrue(checkPattern(tagGroup).equals(FULL_PR_PATTERN));
+    assertTrue(checkPattern(tagGroup).equals(FULL_PR_PATTERN));
 
-   var studentClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
-   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-   System.out.println("---Test to check Enum PR insted of Full PR--");
-   var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-   System.out.println("---------------");
-   assertEquals(7, comparison.newMistakes.size());
-   assertEquals(7, studentSolution.getMistakes().size());
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    System.out.println("---Test to check Enum PR insted of Full PR--");
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    System.out.println("---------------");
+    assertEquals(7, comparison.newMistakes.size());
+    assertEquals(7, studentSolution.getMistakes().size());
   }
 
   /**
@@ -379,16 +379,16 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("fullTimeStudent", tagGroup, projectClass);
     setRoleTagToAssocEndInClass("partTimeStudent", tagGroup, projectClass);
 
-   assertTrue(checkPattern(tagGroup).equals(ASSOC_PR_PATTERN));
+    assertTrue(checkPattern(tagGroup).equals(ASSOC_PR_PATTERN));
 
-   var studentClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
-   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-   System.out.println("---Test to check Sub Class PR insted of Assoc PR--");
-   var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-   System.out.println("---------------");
-   assertEquals(3, comparison.newMistakes.size());
-   assertEquals(3, studentSolution.getMistakes().size());
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    System.out.println("---Test to check Sub Class PR insted of Assoc PR--");
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    System.out.println("---------------");
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
   }
 
   /**
@@ -405,16 +405,16 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("fullTimeStudent", tagGroup, projectClass);
     setRoleTagToAssocEndInClass("partTimeStudent", tagGroup, projectClass);
 
-   assertTrue(checkPattern(tagGroup).equals(ASSOC_PR_PATTERN));
+    assertTrue(checkPattern(tagGroup).equals(ASSOC_PR_PATTERN));
 
-   var studentClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
-   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-   System.out.println("---Test to check Full PR insted of Assoc PR--");
-   var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-   System.out.println("---------------");
-   assertEquals(5, comparison.newMistakes.size());
-   assertEquals(5, studentSolution.getMistakes().size());
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    System.out.println("---Test to check Full PR insted of Assoc PR--");
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    System.out.println("---------------");
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
   }
 
   /**
@@ -431,16 +431,16 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("fullTimeStudent", tagGroup, projectClass);
     setRoleTagToAssocEndInClass("partTimeStudent", tagGroup, projectClass);
 
-   assertTrue(checkPattern(tagGroup).equals(ASSOC_PR_PATTERN));
+    assertTrue(checkPattern(tagGroup).equals(ASSOC_PR_PATTERN));
 
-   var studentClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
-   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-   System.out.println("---Test to check Enum PR insted of Assoc PR--");
-   var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-   System.out.println("---------------");
-   assertEquals(6, comparison.newMistakes.size());
-   assertEquals(6, studentSolution.getMistakes().size());
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    System.out.println("---Test to check Enum PR insted of Assoc PR--");
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    System.out.println("---------------");
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
   }
 
   /**
@@ -465,8 +465,8 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     System.out.println("---------------");
-   assertEquals(5, comparison.newMistakes.size());
-   assertEquals(5, studentSolution.getMistakes().size());
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
   }
 
   /**
@@ -491,8 +491,8 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     System.out.println("---------------");
-   assertEquals(7, comparison.newMistakes.size());
-   assertEquals(7, studentSolution.getMistakes().size());
+    assertEquals(7, comparison.newMistakes.size());
+    assertEquals(7, studentSolution.getMistakes().size());
   }
 
   /**
@@ -515,8 +515,8 @@ public class MistakeDetectionPatternTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
     System.out.println("---Test to check Assoc PR insted of Enum PR--");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-   assertEquals(6, comparison.newMistakes.size());
-   assertEquals(6, studentSolution.getMistakes().size());
+    System.out.println("--------");
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
   }
 }

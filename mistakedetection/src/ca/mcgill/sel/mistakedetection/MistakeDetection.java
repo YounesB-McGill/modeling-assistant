@@ -232,7 +232,6 @@ public class MistakeDetection {
         }
       }
     });
-
   }
 
   public static CDEnum getEnumFromAttribute(String atribName, ClassDiagram classDiagram) {
@@ -251,7 +250,6 @@ public class MistakeDetection {
     checkMistakeWrongAttributeType(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
-
   }
 
   private static void checkMistakesInClassifier(Classifier studentClassifier, Classifier instructorClassifier,
@@ -263,10 +261,15 @@ public class MistakeDetection {
     checkMistakeRegularBeEnumerationClass(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
     checkMistakeEnumerationBeRegularClass(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
     // checkMistakeWrongEnumerationClassItems(studentClassifier,instructorClassifier).ifPresent(newMistakes::add);
-
   }
 
-  // TODO Work in Progress
+/**
+ * Function maps patterns if exist in instructor solution
+ *
+ * @param instructorSolution
+ * @param studentSolution
+ * @param comparison
+ */
   private static void mapPatterns(Solution instructorSolution, Solution studentSolution, Comparison comparison) {
     if (instructorSolution.getTagGroups().isEmpty()) {
       return;
@@ -289,7 +292,6 @@ public class MistakeDetection {
         }
       }
     }
-
   }
 
   private static void checkStudentEnumPattern(TagGroup tg, Comparison comparison, String instPattern) {
@@ -316,13 +318,10 @@ public class MistakeDetection {
         }
       }
     }
-
     if (totalMatched == totalMatcheExpected && totalMatched != 1) {
-
       System.out.println("Success Enum");
       return;
     }
-
     if (totalMatched != totalMatcheExpected && totalMatched != 1) {
       // TODO Create Mistake Incorect Patter
       System.out.println("Incorrect Pattern Enum");
@@ -333,8 +332,6 @@ public class MistakeDetection {
       return;
     }
     checkOtherPattern(tg, comparison, instPattern);
-
-
   }
 
   private static void checkStudentAssocPattern(TagGroup tg, Comparison comparison, String instPattern) {
@@ -356,7 +353,6 @@ public class MistakeDetection {
           }
         }
       }
-
     }
     if (totalMatched == totalMatcheExpected) {
       if (!assocPatternCorrect(studentPlayerClass, studentRoleAssocEnd)) {
@@ -373,9 +369,16 @@ public class MistakeDetection {
       return;
     }
     checkOtherPattern(tg, comparison, instPattern);
-
   }
 
+/**
+ * Function checks if associations are linked to player class
+ *
+ *
+ * @param studentPlayerClass
+ * @param studentRoleAssocEnd
+ * @return
+ */
   private static boolean assocPatternCorrect(Classifier studentPlayerClass, EList<String> studentRoleAssocEnd) {
     int count = 0;
     for (AssociationEnd assocEnd : studentPlayerClass.getAssociationEnds()) {
@@ -440,7 +443,6 @@ public class MistakeDetection {
       return;
     }
     checkOtherPattern(tg, comparison, instPattern);
-
   }
 
   private static void checkStudentSubClassPattern(TagGroup tg, Comparison comparison, String instPattern) {
@@ -488,6 +490,7 @@ public class MistakeDetection {
     int studentAssocPatternScore = 0;
     Classifier studPlayerClass = null;
     EList<Classifier> studRoleClass = new BasicEList<Classifier>();
+    EList<String> studRoleAssocEndName = new BasicEList<String>();
     EList<String> instEnumLiterals = new BasicEList<String>();
 
     for (Tag tag : tg.getTags()) {
@@ -524,6 +527,7 @@ public class MistakeDetection {
           if (studAssocEnd.getName().toLowerCase()
               .equals(tag.getSolutionElement().getElement().getName().toLowerCase())) {
             studentAssocPatternScore = studentAssocPatternScore + 1;
+            studRoleAssocEndName.add(studAssocEnd.getName());
           }
         }
       }
@@ -546,25 +550,23 @@ public class MistakeDetection {
         for (Classifier studClass : comparison.extraStudentClassifier) {
           if (studClass.getName().toLowerCase().equals(enumLiteralName.toLowerCase())) {
             studRoleClass.add(studClass);
-          studentSubClassesPatternScore = studentSubClassesPatternScore + 1;
-          studentFullPatternScore = studentFullPatternScore + 1;
+            studentSubClassesPatternScore = studentSubClassesPatternScore + 1;
+            studentFullPatternScore = studentFullPatternScore + 1;
           }
         }
-
         for (Association studAssoc : comparison.extraStudentAssociation) {
           for (AssociationEnd studAssocEnd : studAssoc.getEnds()) {
             if (studAssocEnd.getName().toLowerCase().equals(enumLiteralName.toLowerCase())) {
               studentAssocPatternScore = studentAssocPatternScore + 1;
+              studRoleAssocEndName.add(studAssocEnd.getName());
             }
           }
         }
-
         for (CDEnum studEnum : comparison.extraStudentEnum) {
           if (studEnum.getName().toLowerCase().equals(enumLiteralName.toLowerCase())) {
             studentEnumsPatternScore = studentEnumsPatternScore + 1;
           }
         }
-
         for (CDEnumLiteral studEnumLiteral : comparison.extraStudentEnumLiterals) {
           if (enumLiteralName.toLowerCase().equals(studEnumLiteral.getName().toLowerCase())) {
             studentEnumsPatternScore = studentEnumsPatternScore + 1;
@@ -599,8 +601,13 @@ public class MistakeDetection {
       System.out.println(SUB_CLASS_PR_PATTERN + " instead of " + instPattern);
       return;
     } else if (studentAssocPatternScore == highestScore) {
+      if(assocPatternCorrect(studPlayerClass, studRoleAssocEndName)) {
       System.out.println(ASSOC_PR_PATTERN + " instead of " + instPattern);
       return;
+      }else {
+        System.out.println("Missing Pattern");
+        return;
+      }
     } else if (studentFullPatternScore == highestScore) {
       System.out.println(FULL_PR_PATTERN + " instead of " + instPattern);
       return;
@@ -775,21 +782,16 @@ public class MistakeDetection {
 
         var otherStudentClassifier = otherStudentClassifierAssocEnd.getClassifier();
 
-        if (comparison.mappedClassifier.get(otherInstructorClassifier) == null) {
+        if (comparison.mappedClassifier.get(otherInstructorClassifier) == null
+            || comparison.mappedAssociation.containsKey(instructorClassifierAssoc)
+            || comparison.mappedAssociation.containsValue(studentClassifierAssoc)) {
           continue;
         }
-        if (comparison.mappedAssociation.containsKey(instructorClassifierAssoc)) {
-          continue;
-        }
-        if (comparison.mappedAssociation.containsValue(studentClassifierAssoc)) {
-          continue;
-        }
+
         if (comparison.mappedClassifier.get(otherInstructorClassifier).equals(otherStudentClassifier)) {
           EList<AssociationEnd> matchedAssocEnds = new BasicEList<AssociationEnd>();
-          matchedAssocEnds.add(studentClassifierAssocEnd);
-          matchedAssocEnds.add(instructorClassifierAssocEnd);
-          matchedAssocEnds.add(otherStudentClassifierAssocEnd);
-          matchedAssocEnds.add(otherInstructorClassifierAssocEnd);
+          matchedAssocEnds.addAll(List.of(studentClassifierAssocEnd, instructorClassifierAssocEnd,
+              otherStudentClassifierAssocEnd, otherInstructorClassifierAssocEnd));
           possibleAssocMatch.put(studentClassifierAssoc, matchedAssocEnds);
         }
       }
@@ -818,7 +820,6 @@ public class MistakeDetection {
       AssociationEnd instructorClassifierAssocEnd, AssociationEnd otherStudentClassifierAssocEnd,
       AssociationEnd otherInstructorClassifierAssocEnd) {
     if (!checkStudentElementForMistake(comparison.newMistakes, studentClassifierAssoc)) {
-
       checkMistakeExtraAssociationClass(studentClassifierAssoc, instructorClassifierAssoc)
           .ifPresent(comparison.newMistakes::add);
       if (studentClassifierAssoc.getAssociationClass() != null
@@ -829,21 +830,17 @@ public class MistakeDetection {
             .ifPresent(comparison.newMistakes::add);
       }
     }
-
     if (!checkInstructorElementForMistake(comparison.newMistakes, instructorClassifierAssoc)) {
       checkMistakeMissingAssociationClass(studentClassifierAssoc, instructorClassifierAssoc)
           .ifPresent(comparison.newMistakes::add);
     }
-
     if (!checkInstructorElementForMistake(comparison.newMistakes, instructorClassifierAssocEnd)) {
       checkMistakesForAssociationEnds(studentClassifierAssocEnd, instructorClassifierAssocEnd, comparison);
     }
-
     // -- Check for Other Assoc End-----
     if (!checkInstructorElementForMistake(comparison.newMistakes, otherInstructorClassifierAssocEnd)) {
       checkMistakesForAssociationEnds(otherStudentClassifierAssocEnd, otherInstructorClassifierAssocEnd, comparison);
     }
-
   }
 
   private static void mapAssociation(Comparison comparison, Association instructorClassifierAssoc,
@@ -883,11 +880,8 @@ public class MistakeDetection {
     var matchedAssoc = maxAssociationMatch(assocScoreMap);
     for (Map.Entry<Association, EList<AssociationEnd>> entry : possibleAssocMatch.entrySet()) {
       if (entry.getKey() == matchedAssoc.get(0)) {
-        seekedAssocAndEnds.add(entry.getKey());
-        seekedAssocAndEnds.add(entry.getValue().get(0));
-        seekedAssocAndEnds.add(entry.getValue().get(1));
-        seekedAssocAndEnds.add(entry.getValue().get(2));
-        seekedAssocAndEnds.add(entry.getValue().get(3));
+        seekedAssocAndEnds.addAll(List.of(entry.getKey(), entry.getValue().get(0), entry.getValue().get(1),
+            entry.getValue().get(2), entry.getValue().get(3)));
       }
     }
     return seekedAssocAndEnds;
@@ -1228,22 +1222,17 @@ public class MistakeDetection {
     if (comparison.notMappedInstructorClassifier.isEmpty() || comparison.extraStudentClassifier.isEmpty()) {
       return;
     }
-
     int counter = 1;
     int MAX_ATTRIBUTE_ALLOWED = 2;
     for (int k = 0; k < counter; k++) {
-      // System.out.println("List "+ comparison.notMappedInstructorClassifier.size());
       for (int i = 0; i < comparison.notMappedInstructorClassifier.size(); i++) {
         Classifier instructorClassifier = comparison.notMappedInstructorClassifier.get(i);
         EList<Attribute> instructorAttributes = instructorClassifier.getAttributes();
         int totalAttributes = instructorAttributes.size();
         Map<Classifier, Double> possibleClassMatch = new LinkedHashMap<Classifier, Double>();
         HashMap<Classifier, Integer> possibleClassMatchWithNoAttribute = new HashMap<Classifier, Integer>();
-        // System.out.println("NotMapped "+ instructorClassifier.getName());
         for (int j = 0; j < comparison.extraStudentClassifier.size(); j++) {
-
           Classifier studentClassifier = comparison.extraStudentClassifier.get(j);
-          // System.out.println("Extra "+ studentClassifier.getName());
           EList<Attribute> studentAttributes = studentClassifier.getAttributes();
           int correctAttribute = 0;
           if (totalAttributes == 0) {
@@ -1264,9 +1253,6 @@ public class MistakeDetection {
           }
           if (totalAttributes != 0) {
             if ((double) correctAttribute / (double) totalAttributes >= 0.5) {
-              // System.out.println("possibleClassMatch "+ studentClassifier.getName() + (double) correctAttribute /
-              // (double) totalAttributes);
-
               possibleClassMatch.put(studentClassifier, (double) correctAttribute / (double) totalAttributes);
             }
           }
@@ -1278,16 +1264,11 @@ public class MistakeDetection {
         if (totalAttributes == 0) {
           continue;
         }
-        // System.out.println("__"+possibleClassMatch.size()+"___");
-        var values = getMatchedClassifier(possibleClassMatch, instructorClassifier);
-        // System.out.println("values "+ values);
-        if ((Boolean) values.get(0)) {
-          Classifier studentClassifier = (Classifier) values.get(1);
+        if (nearestMatchExist(possibleClassMatch)) {
+          Classifier studentClassifier = getMatchedClassifier(possibleClassMatch, instructorClassifier);
           counter++;
-          // System.out.println(studentClassifier.getName()+" "+ instructorClassifier.getName());
           mapClasses(comparison, studentClassifier, instructorClassifier);
           checkMistakesInClassifier(studentClassifier, instructorClassifier, comparison.newMistakes);
-          // Similar Mistake Can be placed here as well.
           EList<Attribute> studentAttributes = studentClassifier.getAttributes();
           for (Attribute instructorAttribute : instructorAttributes) { // To check association
                                                                        // -> Not at present.
@@ -1301,9 +1282,23 @@ public class MistakeDetection {
             }
           }
         }
-        // System.out.println("**************"+ i +"+");
       }
     }
+  }
+
+  /**
+   * returns true if nearest matching student class to the instructorClass exists
+   **
+   * @param possibleClassMatch
+   * @param instructorClass
+   * @return boolean
+   */
+  private static boolean nearestMatchExist(Map<Classifier, Double> possibleClassMatch) {
+    var elements = maxAttributeMatch(possibleClassMatch);
+    if (!elements.isEmpty()) {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -1315,27 +1310,15 @@ public class MistakeDetection {
    * @param instructorClass
    * @return list of objects
    */
-  private static List<Object> getMatchedClassifier(Map<Classifier, Double> possibleClassMatch,
+  private static Classifier getMatchedClassifier(Map<Classifier, Double> possibleClassMatch,
       Classifier instructorClass) {
-    List<Object> returnElements = new BasicEList<Object>();
-    // System.out.println("----");
     var elements = maxAttributeMatch(possibleClassMatch);
-    // System.out.println(elements.size());
-    // System.out.println("----");
     if (!elements.isEmpty() && elements.size() == 1) {
-      returnElements.add(true);
-      returnElements.add(elements.get(0));
-      return returnElements;
+      return elements.get(0);
     } else if (elements.size() > 1) {
-      // System.out.println("Case2");
-      returnElements.add(true);
-      returnElements.add(classWithAssociationEndsMatch(elements, instructorClass));
-      // System.out.println(classWithAssociationEndsMatch(elements,instructorClass));
-      return returnElements;
-
+      return classWithAssociationEndsMatch(elements, instructorClass);
     }
-    returnElements.add(false);
-    return returnElements;
+    return null;
   }
 
   /**
@@ -1387,7 +1370,6 @@ public class MistakeDetection {
         topMatchedElements.add(key);
       }
     });
-
     return topMatchedElements;
   }
 
@@ -1411,7 +1393,6 @@ public class MistakeDetection {
         topMatchedElements.add(key);
       }
     });
-
     return topMatchedElements;
   }
 
@@ -1423,7 +1404,6 @@ public class MistakeDetection {
       closestNumbDiffMap.put(value, Math.abs(diff));
     });
     Map<Integer, Integer> sortedClosestNumbDiffMap = sortByValue(closestNumbDiffMap);
-
     return sortedClosestNumbDiffMap.keySet().stream().findFirst().get();
   }
 
@@ -1431,7 +1411,6 @@ public class MistakeDetection {
   public static HashMap<Integer, Integer> sortByValue(HashMap<Integer, Integer> hm) {
     // Create a list from elements of HashMap
     List<Map.Entry<Integer, Integer>> list = new LinkedList<Map.Entry<Integer, Integer>>(hm.entrySet());
-
     // Sort the list
     Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
       @Override
@@ -1439,7 +1418,6 @@ public class MistakeDetection {
         return (o1.getValue()).compareTo(o2.getValue());
       }
     });
-
     // put data from sorted list to hash map
     HashMap<Integer, Integer> temp = new LinkedHashMap<Integer, Integer>();
     for (Map.Entry<Integer, Integer> aa : list) {
@@ -1447,12 +1425,10 @@ public class MistakeDetection {
     }
     return temp;
   }
-
   // function to sort hash map by values
   public static HashMap<Classifier, Integer> sortByValueClassifier(HashMap<Classifier, Integer> hm) {
     // Create a list from elements of HashMap
     List<Map.Entry<Classifier, Integer>> list = new LinkedList<Map.Entry<Classifier, Integer>>(hm.entrySet());
-
     // Sort the list
     Collections.sort(list, new Comparator<Map.Entry<Classifier, Integer>>() {
       @Override
@@ -1460,7 +1436,6 @@ public class MistakeDetection {
         return (o1.getValue()).compareTo(o2.getValue());
       }
     });
-
     // put data from sorted list to hash map
     HashMap<Classifier, Integer> temp = new LinkedHashMap<Classifier, Integer>();
     for (Map.Entry<Classifier, Integer> aa : list) {
