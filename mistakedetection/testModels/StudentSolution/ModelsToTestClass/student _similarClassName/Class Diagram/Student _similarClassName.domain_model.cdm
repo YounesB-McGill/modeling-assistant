@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_KalIANpUEeuihpv-j2laQg" name="Student _similarClassName">
-  <classes xsi:type="classdiagram:Class" xmi:id="_K5cOQNpUEeuihpv-j2laQg" name="Flyer"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_K5cOQNpUEeuihpv-j2laQg" name="Flyer">
+    <associationEnds xmi:id="_Y5aaIN23EeuVoonRXmsiAQ" name="myRoot" assoc="_Y5aaIt23EeuVoonRXmsiAQ" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_X4gWwN23EeuVoonRXmsiAQ" name="Root">
+    <associationEnds xmi:id="_Y5aaId23EeuVoonRXmsiAQ" name="myPilot" assoc="_Y5aaIt23EeuVoonRXmsiAQ" lowerBound="1"/>
+  </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_KalIAdpUEeuihpv-j2laQg"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_KalIAtpUEeuihpv-j2laQg"/>
   <types xsi:type="classdiagram:CDBoolean" xmi:id="_KalIA9pUEeuihpv-j2laQg"/>
@@ -11,10 +16,14 @@
   <types xsi:type="classdiagram:CDByte" xmi:id="_KalICNpUEeuihpv-j2laQg"/>
   <types xsi:type="classdiagram:CDFloat" xmi:id="_KalICdpUEeuihpv-j2laQg"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_KalICtpUEeuihpv-j2laQg"/>
+  <associations xmi:id="_Y5aaIt23EeuVoonRXmsiAQ" name="Flyer_Root" ends="_Y5aaIN23EeuVoonRXmsiAQ _Y5aaId23EeuVoonRXmsiAQ"/>
   <layout xmi:id="_KalIC9pUEeuihpv-j2laQg">
     <containers xmi:id="_KalIDNpUEeuihpv-j2laQg" key="_KalIANpUEeuihpv-j2laQg">
       <value xmi:id="_K5eqgNpUEeuihpv-j2laQg" key="_K5cOQNpUEeuihpv-j2laQg">
-        <value xmi:id="_K5eqgdpUEeuihpv-j2laQg" x="892.0" y="162.0"/>
+        <value xmi:id="_K5eqgdpUEeuihpv-j2laQg" x="880.0" y="358.00003"/>
+      </value>
+      <value xmi:id="_X4g90N23EeuVoonRXmsiAQ" key="_X4gWwN23EeuVoonRXmsiAQ">
+        <value xmi:id="_X4g90d23EeuVoonRXmsiAQ" x="880.0" y="157.00018"/>
       </value>
     </containers>
   </layout>

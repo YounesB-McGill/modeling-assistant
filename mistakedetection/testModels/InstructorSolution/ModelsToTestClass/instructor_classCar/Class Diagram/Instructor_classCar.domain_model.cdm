@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_mJdM0Nd1Eeua254ZLEQWjg" name="Instructor_classCar">
-  <classes xsi:type="classdiagram:Class" xmi:id="_mmrUUNd1Eeua254ZLEQWjg" name="Car"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_mmrUUNd1Eeua254ZLEQWjg" name="Car">
+    <associationEnds xmi:id="_NxRWIN25EeuVoonRXmsiAQ" name="myRoot" assoc="_NxRWIt25EeuVoonRXmsiAQ" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_MtPtUN25EeuVoonRXmsiAQ" name="Root">
+    <associationEnds xmi:id="_NxRWId25EeuVoonRXmsiAQ" name="myCar" assoc="_NxRWIt25EeuVoonRXmsiAQ" lowerBound="1" referenceType="Composition"/>
+  </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_mJdM0dd1Eeua254ZLEQWjg"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_mJdM0td1Eeua254ZLEQWjg"/>
   <types xsi:type="classdiagram:CDBoolean" xmi:id="_mJdM09d1Eeua254ZLEQWjg"/>
@@ -11,10 +16,14 @@
   <types xsi:type="classdiagram:CDByte" xmi:id="_mJdM2Nd1Eeua254ZLEQWjg"/>
   <types xsi:type="classdiagram:CDFloat" xmi:id="_mJdM2dd1Eeua254ZLEQWjg"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_mJdM2td1Eeua254ZLEQWjg"/>
+  <associations xmi:id="_NxRWIt25EeuVoonRXmsiAQ" name="Car_Root" ends="_NxRWIN25EeuVoonRXmsiAQ _NxRWId25EeuVoonRXmsiAQ"/>
   <layout xmi:id="_mJdM29d1Eeua254ZLEQWjg">
     <containers xmi:id="_mJdM3Nd1Eeua254ZLEQWjg" key="_mJdM0Nd1Eeua254ZLEQWjg">
       <value xmi:id="_mpVmwNd1Eeua254ZLEQWjg" key="_mmrUUNd1Eeua254ZLEQWjg">
-        <value xmi:id="_mpVmwdd1Eeua254ZLEQWjg" x="964.0" y="121.0"/>
+        <value xmi:id="_mpVmwdd1Eeua254ZLEQWjg" x="1039.9999" y="380.00006"/>
+      </value>
+      <value xmi:id="_MtQUYN25EeuVoonRXmsiAQ" key="_MtPtUN25EeuVoonRXmsiAQ">
+        <value xmi:id="_MtQUYd25EeuVoonRXmsiAQ" x="414.99973" y="380.00006"/>
       </value>
     </containers>
   </layout>
