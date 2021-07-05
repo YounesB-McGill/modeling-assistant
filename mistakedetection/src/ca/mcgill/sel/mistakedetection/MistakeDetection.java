@@ -211,8 +211,8 @@ public class MistakeDetection {
     }
     comparison.mappedAttribute.forEach((key, value) -> {
       if (key.getType() instanceof CDEnum && value.getType() instanceof CDEnum) {
-        CDEnum instEnum = getEnumFromAttribute(key.getType().getName(), instructorClassDiagram);
-        CDEnum studEnum = getEnumFromAttribute(value.getType().getName(), studentClassDiagram);
+        CDEnum instEnum = getEnumFromClassDiagram(key.getType().getName(), instructorClassDiagram);
+        CDEnum studEnum = getEnumFromClassDiagram(value.getType().getName(), studentClassDiagram);
         if (instEnum != null && studEnum != null) {
           comparison.mappedEnumeration.put(instEnum, studEnum);
           comparison.notMappedInstructorEnum.remove(instEnum);
@@ -234,10 +234,10 @@ public class MistakeDetection {
     });
   }
 
-  public static CDEnum getEnumFromAttribute(String atribName, ClassDiagram classDiagram) {
+  public static CDEnum getEnumFromClassDiagram(String name, ClassDiagram classDiagram) {
     for (Type type : classDiagram.getTypes()) {
       if (type instanceof CDEnum) {
-        if (type.getName().equals(atribName)) {
+        if (type.getName().equals(name)) {
           return (CDEnum) type;
         }
       }
@@ -309,7 +309,7 @@ public class MistakeDetection {
         Attribute atrib = (Attribute) tag.getSolutionElement().getElement();
         studentRoleAttribute.add(comparison.mappedAttribute.get(atrib));
         CDEnum enumClass =
-            getEnumFromAttribute(atrib.getType().getName(), tag.getTagGroup().getSolution().getClassDiagram());
+            getEnumFromClassDiagram(atrib.getType().getName(), tag.getTagGroup().getSolution().getClassDiagram());
         totalMatcheExpected = totalMatcheExpected + enumClass.getLiterals().size();
         for (CDEnumLiteral enumClassLiteral : enumClass.getLiterals()) {
           if (comparison.mappedEnumerationItems.containsKey(enumClassLiteral)) {
@@ -503,7 +503,7 @@ public class MistakeDetection {
         Attribute instAtrib = (Attribute) tag.getSolutionElement().getElement();
         if (instAtrib.getType() instanceof CDEnum) {
           CDEnum instEnum =
-              getEnumFromAttribute(instAtrib.getType().getName(), tag.getTagGroup().getSolution().getClassDiagram());
+              getEnumFromClassDiagram(instAtrib.getType().getName(), tag.getTagGroup().getSolution().getClassDiagram());
           for (CDEnumLiteral enumLitral : instEnum.getLiterals()) {
             instEnumLiterals.add(enumLitral.getName());
           }
