@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_vy2eo9fmEeuG8czVoCvS-g" name="Instructor_enumPR_pattern">
   <classes xsi:type="classdiagram:Class" xmi:id="_5qM-QNfmEeuG8czVoCvS-g" name="Student">
+    <associationEnds xmi:id="_rp6K4N2aEeu7asz7hr5Mzg" name="myRoot" assoc="_rp6K4t2aEeu7asz7hr5Mzg" lowerBound="1"/>
     <attributes xmi:id="_6_nSANfmEeuG8czVoCvS-g" name="name" type="_vy2eqtfmEeuG8czVoCvS-g"/>
     <attributes xmi:id="_BW-csNfnEeuG8czVoCvS-g" name="level" type="_xPh4ANfmEeuG8czVoCvS-g"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_q1x_QN2aEeu7asz7hr5Mzg" name="Root">
+    <associationEnds xmi:id="_rp6K4d2aEeu7asz7hr5Mzg" name="myStudent" assoc="_rp6K4t2aEeu7asz7hr5Mzg" lowerBound="1" referenceType="Composition"/>
   </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_vy2epNfmEeuG8czVoCvS-g"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_vy2epdfmEeuG8czVoCvS-g"/>
@@ -18,13 +22,17 @@
     <literals xmi:id="_1jN6wNfmEeuG8czVoCvS-g" name="FullTimeStudent"/>
     <literals xmi:id="_37y7sNfmEeuG8czVoCvS-g" name="PartTimeStudent"/>
   </types>
+  <associations xmi:id="_rp6K4t2aEeu7asz7hr5Mzg" name="Student_Root" ends="_rp6K4N2aEeu7asz7hr5Mzg _rp6K4d2aEeu7asz7hr5Mzg"/>
   <layout xmi:id="_vy2ertfmEeuG8czVoCvS-g">
     <containers xmi:id="_vy2er9fmEeuG8czVoCvS-g" key="_vy2eo9fmEeuG8czVoCvS-g">
       <value xmi:id="_xPv6cNfmEeuG8czVoCvS-g" key="_xPh4ANfmEeuG8czVoCvS-g">
-        <value xmi:id="_xPv6cdfmEeuG8czVoCvS-g" x="963.0005" y="228.00012"/>
+        <value xmi:id="_xPv6cdfmEeuG8czVoCvS-g" x="977.00037" y="445.00027"/>
       </value>
       <value xmi:id="_5qNlUNfmEeuG8czVoCvS-g" key="_5qM-QNfmEeuG8czVoCvS-g">
-        <value xmi:id="_5qNlUdfmEeuG8czVoCvS-g" x="514.0001" y="234.50012"/>
+        <value xmi:id="_5qNlUdfmEeuG8czVoCvS-g" x="515.0003" y="451.50027"/>
+      </value>
+      <value xmi:id="_q1ymUN2aEeu7asz7hr5Mzg" key="_q1x_QN2aEeu7asz7hr5Mzg">
+        <value xmi:id="_q1ymUd2aEeu7asz7hr5Mzg" x="762.99994" y="200.00006"/>
       </value>
     </containers>
   </layout>
