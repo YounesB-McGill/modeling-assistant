@@ -349,11 +349,6 @@ public class MistakeDetectionTest {
 
     assertEquals(comparison.newMistakes.size(), 0);
     assertEquals(studentSolution.getMistakes().size(), 0);
-/*
-    List<Integer> list=new BasicEList<Integer>();
-    list.add(1);list.add(2);list.add(3);list.add(6);list.add(5);
-    System.out.print(MistakeDetection.findClosest(list, 4));
-*/
   }
 
   /**
@@ -382,7 +377,7 @@ public class MistakeDetectionTest {
    * @param classDiagram
    * @return Classifier
    */
-  public static SolutionElement getSEelementfromSolution(String className, Solution solution) {
+  public static SolutionElement getSolutionElementfromSolution(String className, Solution solution) {
     SolutionElement seekedClass = null;
     for (var c : solution.getSolutionElements()) {
       if (c.getElement().getName().equals(className))
