@@ -9,8 +9,10 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentS
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ATTRIBUTE;
+import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.Classifier;
@@ -193,4 +195,200 @@ public class MistakeDetectionWrongAttributeTest {
         false);
   }
 
+  /**
+   * Test to detect other extra Attribute.
+   */
+  @Test
+  public void testMistakeExtraAttribute2() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_car_priceAttribute/Class Diagram/Instructor_car_priceAttribute.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_extraAttribute2/Class Diagram/Student_extraAttribute2.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+
+    Attribute studenttypeAttribute = getAttributeFromClass("type", studentCarClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(comparison.newMistakes.size(), 1);
+    assertEquals(studentSolution.getMistakes().size(), 1);
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studenttypeAttribute, 0, 1,
+        false);
+  }
+
+  /**
+   * Test to detect wrong Attribute name.
+   */
+  @Disabled
+  @Test
+  public void testMistakeWrongAttribute() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_person_nameAttribute/Class Diagram/Instructor_person_nameAttribute.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram); //cdm file was modified by prabhsimran pull request
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_wrongAttributeName/Class Diagram/Student_wrongAttributeName.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+
+    Attribute instructornameAttribute = getAttributeFromClass("name", instructorPersonClass);
+    Attribute studentnamesAttribute = getAttributeFromClass("names", studentPersonClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+MistakeDetectionTest.log(comparison);
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size(), 1);
+
+    assertMistake(studentSolution.getMistakes().get(0), BAD_ATTRIBUTE_NAME_SPELLING, studentnamesAttribute, instructornameAttribute,  0, 1,
+        false);
+  }
+
+  /**
+   * Test to detect wrong Attribute name.
+   */
+  @Test
+  public void testMistakeWorngAttribute1() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_car_typeAndColorAttribute/Class Diagram/Instructor_car_typeAndColorAttribute.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_wrongAttributeName1/Class Diagram/Student_wrongAttributeName1.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
+    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+
+    Attribute instructorcolorAttribute = getAttributeFromClass("color", instructorCarClass);
+    Attribute studentcolerAttribute = getAttributeFromClass("coler", studentCarClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size(), 1);
+
+    assertMistake(studentSolution.getMistakes().get(0), BAD_ATTRIBUTE_NAME_SPELLING, studentcolerAttribute, instructorcolorAttribute,  0, 1,
+        false);
+  }
+
+  /**
+   * Test to detect similar Attribute.
+   */
+  @Disabled
+  @Test
+  public void testMistakeSimilarAttribute() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_car_typeAndColorAttribute/Class Diagram/Instructor_car_typeAndColorAttribute.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_similarAttribute/Class Diagram/Student_similarAttribute.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
+    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+
+    Attribute instructortypeAttribute = getAttributeFromClass("type", instructorCarClass);
+    Attribute studentkindAttribute = getAttributeFromClass("kind", studentCarClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size(), 1);
+
+    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentkindAttribute, instructortypeAttribute,  0, 1,
+        false);
+  }
+
+  /**
+   * Test to detect similar Attribute.
+   */
+  @Disabled
+  @Test
+  public void testMistakeSimilarAttribute1() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_car_priceAttribute/Class Diagram/Instructor_car_priceAttribute.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_similarAttribute1/Class Diagram/Student_similarAttribute1.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
+    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+
+    Attribute instructorpriceAttribute = getAttributeFromClass("price", instructorCarClass);
+    Attribute studentcostAttribute = getAttributeFromClass("cost", studentCarClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size(), 1);
+
+    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentcostAttribute, instructorpriceAttribute,  0, 1,
+        false);
+  }
+
+  /**
+   * Test to detect similar Attribute.
+   */
+  @Disabled
+  @Test
+  public void testMistakeSimilarAttribute2() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_pilot_genderAtterbute/Class Diagram/Instructor_pilot_genderAtterbute.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_similarAttribute2/Class Diagram/Student_similarAttribute2.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
+    var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
+
+    Attribute instructorgenderAttribute = getAttributeFromClass("gender", instructorPilotClass);
+    Attribute studentGenderAttribute = getAttributeFromClass("Gender", studentPilotClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    MistakeDetectionTest.log(comparison);
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size(), 1);
+
+    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentGenderAttribute, instructorgenderAttribute,  0, 1,
+        false);
+  }
+
+  /**
+   * Test to detect  Attribute.
+   */
+  @Disabled
+  @Test
+  public void testMistakeMisplacedAttribute() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_pilot_genderAtterbute/Class Diagram/Instructor_pilot_genderAtterbute.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_similarAttribute2/Class Diagram/Student_similarAttribute2.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    //var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+
+    //Attribute instructorcapacityAttribute = getAttributeFromClass("capacity", instructorBusClass);
+    var studentcapacityAttribute = getAttributeFromClass("capacity", studentCarClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size(), 1);
+
+   //TODO assertMistake(studentSolution.getMistakes().get(0), , studentcapacityAttribute, 0, 1, false);
+  }
 }
