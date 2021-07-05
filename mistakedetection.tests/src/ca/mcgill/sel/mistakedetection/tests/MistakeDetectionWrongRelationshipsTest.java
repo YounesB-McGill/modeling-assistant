@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import modelingassistant.Mistake;
 
 public class MistakeDetectionWrongRelationshipsTest {
 
@@ -32,7 +31,8 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
-    var instructorAssociations = getAssociationFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
+    var instructorAssociations =
+        getAssociationFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
     var instructorAssociation_1 = instructorAssociations.get(0);
     var instructorAssociation_2 = instructorAssociations.get(1);
 
@@ -65,7 +65,8 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
-    var instructorAssociations = getAssociationFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
+    var instructorAssociations =
+        getAssociationFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
     var instructorAssociation_1 = instructorAssociations.get(0);
     var instructorAssociation_2 = instructorAssociations.get(1);
 
@@ -104,10 +105,10 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
 
-    for (Mistake m : studentSolution.getMistakes()) {
-      assertMistake(m, BAD_ROLE_NAME_SPELLING, studentMyDrivrAssociationEnd, instructorMyDriverAssociationEnd, 0, 1,
-          false);
-    }
+
+    assertMistake(studentSolution.getMistakes().get(0), BAD_ROLE_NAME_SPELLING, studentMyDrivrAssociationEnd,
+        instructorMyDriverAssociationEnd, 0, 1, false);
+
   }
 
 }
