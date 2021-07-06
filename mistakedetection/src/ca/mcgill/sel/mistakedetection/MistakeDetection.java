@@ -524,8 +524,8 @@ public class MistakeDetection {
       }
       for (Association studAssoc : comparison.extraStudentAssociation) {
         for (AssociationEnd studAssocEnd : studAssoc.getEnds()) {
-          if (studAssocEnd.getName().toLowerCase()
-              .equals(tag.getSolutionElement().getElement().getName().toLowerCase())) {
+          var levenshteinDistance = levenshteinDistance(studAssocEnd.getName().toLowerCase(), tag.getSolutionElement().getElement().getName().toLowerCase());
+          if (levenshteinDistance <=  MAX_LEVENSHTEIN_DISTANCE_ALLOWED ) {
             studentAssocPatternScore = studentAssocPatternScore + 1;
             studRoleAssocEndName.add(studAssocEnd.getName());
           }
@@ -533,14 +533,15 @@ public class MistakeDetection {
       }
 
       for (CDEnum studEnum : comparison.extraStudentEnum) {
-        if (studEnum.getName().toLowerCase().equals(tag.getSolutionElement().getElement().getName().toLowerCase())) {
+        var levenshteinDistance = levenshteinDistance(studEnum.getName().toLowerCase(), tag.getSolutionElement().getElement().getName().toLowerCase());
+        if (levenshteinDistance <=  MAX_LEVENSHTEIN_DISTANCE_ALLOWED ) {
           studentEnumsPatternScore = studentEnumsPatternScore + 1;
         }
       }
 
       for (CDEnumLiteral studEnumLiteral : comparison.extraStudentEnumLiterals) {
-        if (tag.getSolutionElement().getElement().getName().toLowerCase()
-            .equals(studEnumLiteral.getName().toLowerCase())) {
+        var levenshteinDistance = levenshteinDistance(studEnumLiteral.getName().toLowerCase(), tag.getSolutionElement().getElement().getName().toLowerCase());
+        if (levenshteinDistance <=  MAX_LEVENSHTEIN_DISTANCE_ALLOWED ) {
           studentEnumsPatternScore = studentEnumsPatternScore + 1;
         }
       }
@@ -548,7 +549,8 @@ public class MistakeDetection {
     if (!instEnumLiterals.isEmpty()) {
       for (String enumLiteralName : instEnumLiterals) {
         for (Classifier studClass : comparison.extraStudentClassifier) {
-          if (studClass.getName().toLowerCase().equals(enumLiteralName.toLowerCase())) {
+          var levenshteinDistance = levenshteinDistance(studClass.getName().toLowerCase(), enumLiteralName.toLowerCase());
+          if (levenshteinDistance <=  MAX_LEVENSHTEIN_DISTANCE_ALLOWED ) {
             studRoleClass.add(studClass);
             studentSubClassesPatternScore = studentSubClassesPatternScore + 1;
             studentFullPatternScore = studentFullPatternScore + 1;
@@ -556,19 +558,22 @@ public class MistakeDetection {
         }
         for (Association studAssoc : comparison.extraStudentAssociation) {
           for (AssociationEnd studAssocEnd : studAssoc.getEnds()) {
-            if (studAssocEnd.getName().toLowerCase().equals(enumLiteralName.toLowerCase())) {
+            var levenshteinDistance = levenshteinDistance(studAssocEnd.getName().toLowerCase(), enumLiteralName.toLowerCase());
+            if (levenshteinDistance <=  MAX_LEVENSHTEIN_DISTANCE_ALLOWED ) {
               studentAssocPatternScore = studentAssocPatternScore + 1;
               studRoleAssocEndName.add(studAssocEnd.getName());
             }
           }
         }
         for (CDEnum studEnum : comparison.extraStudentEnum) {
-          if (studEnum.getName().toLowerCase().equals(enumLiteralName.toLowerCase())) {
+          var levenshteinDistance = levenshteinDistance(studEnum.getName().toLowerCase(), enumLiteralName.toLowerCase());
+          if (levenshteinDistance <=  MAX_LEVENSHTEIN_DISTANCE_ALLOWED ) {
             studentEnumsPatternScore = studentEnumsPatternScore + 1;
           }
         }
         for (CDEnumLiteral studEnumLiteral : comparison.extraStudentEnumLiterals) {
-          if (enumLiteralName.toLowerCase().equals(studEnumLiteral.getName().toLowerCase())) {
+          var levenshteinDistance = levenshteinDistance(enumLiteralName.toLowerCase(), studEnumLiteral.getName().toLowerCase());
+          if (levenshteinDistance <=  MAX_LEVENSHTEIN_DISTANCE_ALLOWED ) {
             studentEnumsPatternScore = studentEnumsPatternScore + 1;
           }
         }
