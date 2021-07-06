@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_F-Y28N4tEeuTLOme1e-z-w" name="Instructor_student_addressAttribute" featureModel="_F-Y28d4tEeuTLOme1e-z-w" impactModel="_F-Y2894tEeuTLOme1e-z-w">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_F-Y28d4tEeuTLOme1e-z-w" root="_F-Y28t4tEeuTLOme1e-z-w">
+    <features xmi:id="_F-Y28t4tEeuTLOme1e-z-w" name="Instructor_student_addressAttribute" realizedBy="_GvOeAd4tEeuTLOme1e-z-w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_F-Y2894tEeuTLOme1e-z-w" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_GvOeAN4tEeuTLOme1e-z-w" name="Instructor_student_addressAttribute" scene="_GvOeAd4tEeuTLOme1e-z-w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_student_addressAttribute.domain_model.cdm#_GvQTMN4tEeuTLOme1e-z-w"/>
+  </artefacts>
+  <scenes xmi:id="_GvOeAd4tEeuTLOme1e-z-w" name="Instructor_student_addressAttribute" realizes="_F-Y28t4tEeuTLOme1e-z-w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_GvOeAt4tEeuTLOme1e-z-w" value="_GvOeAN4tEeuTLOme1e-z-w" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
