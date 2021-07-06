@@ -10,7 +10,7 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getSolut
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setPlayerTagToClassInClassDiag;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToAssocEndInClass;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToAtribInClass;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToAttribInClass;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToClassInClassDiag;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static modelingassistant.TagType.PLAYER;
@@ -53,7 +53,7 @@ public class MistakeDetectionPatternTest {
    * Test to detect subClass player role pattern
    */
   @Test
-  public void testSubClassPRPattern() {
+  public void testSubclassPRPattern() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -109,7 +109,7 @@ public class MistakeDetectionPatternTest {
 
     var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSolution);
     var studentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
-    setRoleTagToAtribInClass("level", tagGroup, studentClass);
+    setRoleTagToAttribInClass("level", tagGroup, studentClass);
 
     assertTrue(checkPattern(tagGroup).equals(ENUM_PR_PATTERN));
   }
@@ -118,7 +118,7 @@ public class MistakeDetectionPatternTest {
    * Test to check subClass player role pattern in studentSolution
    */
   @Test
-  public void testStudentSubClassPRPattern() {
+  public void testStudentSubclassPRPattern() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -201,7 +201,7 @@ public class MistakeDetectionPatternTest {
 
     var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSolution);
     var studentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
-    setRoleTagToAtribInClass("level", tagGroup, studentClass);
+    setRoleTagToAttribInClass("level", tagGroup, studentClass);
 
     assertTrue(checkPattern(tagGroup).equals(ENUM_PR_PATTERN));
 
@@ -216,10 +216,10 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Full player role pattern instead of SubClass in studentSolution
+   * Test to check Full player role pattern instead of Subclass in studentSolution
    */
   @Test
-  public void testFullPRInsteadOfSubClassPattern() {
+  public void testFullPRInsteadOfSubclassPattern() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -233,7 +233,7 @@ public class MistakeDetectionPatternTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    System.out.println("---Test to check Full PR insted of SubClass --");
+    System.out.println("---Test to check Full PR insted of Subclass --");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     System.out.println("---------------");
     assertEquals(3, comparison.newMistakes.size());
@@ -241,10 +241,10 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Enum player role pattern instead of SubClass in studentSolution
+   * Test to check Enum player role pattern instead of Subclass in studentSolution
    */
   @Test
-  public void testEnumPRInsteadOfSubClassPattern() {
+  public void testEnumPRInsteadOfSubclassPattern() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -258,7 +258,7 @@ public class MistakeDetectionPatternTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    System.out.println("---Test to check Enum PR insted of SubClass --");
+    System.out.println("---Test to check Enum PR insted of Subclass --");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     System.out.println("---------------");
     assertEquals(5, comparison.newMistakes.size());
@@ -266,10 +266,10 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Assoc player role pattern instead of SubClass in studentSolution
+   * Test to check Assoc player role pattern instead of Subclass in studentSolution
    */
   @Test
-  public void testAssocPRInsteadOfSubClassPattern() {
+  public void testAssocPRInsteadOfSubclassPattern() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -283,7 +283,7 @@ public class MistakeDetectionPatternTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    System.out.println("---Test to check Assoc PR insted of SubClass --");
+    System.out.println("---Test to check Assoc PR insted of Subclass --");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     System.out.println("---------------");
     assertEquals(4, comparison.newMistakes.size());
@@ -447,14 +447,14 @@ public class MistakeDetectionPatternTest {
    * Test to check sub class player role pattern instead of Enum in studentSolution
    */
   @Test
-  public void testSubClassPRInsteadOfEnumClassPattern() {
+  public void testSubclassPRInsteadOfEnumClassPattern() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSolution);
     var studentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
-    setRoleTagToAtribInClass("level", tagGroup, studentClass);
+    setRoleTagToAttribInClass("level", tagGroup, studentClass);
 
     assertTrue(checkPattern(tagGroup).equals(ENUM_PR_PATTERN));
 
@@ -480,7 +480,7 @@ public class MistakeDetectionPatternTest {
 
     var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSolution);
     var studentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
-    setRoleTagToAtribInClass("level", tagGroup, studentClass);
+    setRoleTagToAttribInClass("level", tagGroup, studentClass);
 
     assertTrue(checkPattern(tagGroup).equals(ENUM_PR_PATTERN));
 
@@ -506,7 +506,7 @@ public class MistakeDetectionPatternTest {
 
     var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSolution);
     var studentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
-    setRoleTagToAtribInClass("level", tagGroup, studentClass);
+    setRoleTagToAttribInClass("level", tagGroup, studentClass);
 
     assertTrue(checkPattern(tagGroup).equals(ENUM_PR_PATTERN));
 

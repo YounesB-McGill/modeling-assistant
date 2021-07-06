@@ -165,7 +165,7 @@ public class MistakeDetection {
       processed = true;
     }
     mappingBasedOnSubStrings(comparison);
-    mappingBasedOnAtribsAndAssocEnds(comparison);
+    mappingBasedOnAttribsAndAssocEnds(comparison);
     mapRelations(comparison);
     mapEnumerations(instructorSolution, studentSolution, comparison);
     mapPatterns(instructorSolution, studentSolution, comparison);
@@ -282,7 +282,7 @@ public class MistakeDetection {
           if (instPattern.equals(FULL_PR_PATTERN)) {
             checkStudentFullPattern(tg, comparison, instPattern);
           } else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
-            checkStudentSubClassPattern(tg, comparison, instPattern);
+            checkStudentSubclassPattern(tg, comparison, instPattern);
           } else if (instPattern.equals(ASSOC_PR_PATTERN)) {
             checkStudentAssocPattern(tg, comparison, instPattern);
           } else if (instPattern.equals(ENUM_PR_PATTERN)) {
@@ -445,7 +445,7 @@ public class MistakeDetection {
     checkOtherPattern(tg, comparison, instPattern);
   }
 
-  private static void checkStudentSubClassPattern(TagGroup tg, Comparison comparison, String instPattern) {
+  private static void checkStudentSubclassPattern(TagGroup tg, Comparison comparison, String instPattern) {
     int totalMatcheExpected = tg.getTags().size();
     int totalMatched = 0;
     EList<Classifier> studentRoleClasses = new BasicEList<Classifier>();
@@ -465,7 +465,7 @@ public class MistakeDetection {
         // TODO createMistake(incorrect patter)
         if (studentRoleClasses.get(0).getSuperTypes().get(0).isAbstract()) {
           if (assocExists(studentRoleClasses.get(0).getSuperTypes().get(0), studentPlayerClass)) {
-            System.out.println("Using Full Pattern instead of SubClasses");
+            System.out.println("Using Full Pattern instead of Subclasses");
             return;
           }
         }
@@ -484,7 +484,7 @@ public class MistakeDetection {
   }
 
   private static void checkOtherPattern(TagGroup tg, Comparison comparison, String instPattern) {
-    int studentSubClassesPatternScore = 0;
+    int studentSubclassesPatternScore = 0;
     int studentEnumsPatternScore = 0;
     int studentFullPatternScore = 0;
     int studentAssocPatternScore = 0;
@@ -500,10 +500,10 @@ public class MistakeDetection {
         }
       }
       if (tag.getTagType().equals(ROLE) && tag.getSolutionElement().getElement() instanceof Attribute) {
-        Attribute instAtrib = (Attribute) tag.getSolutionElement().getElement();
-        if (instAtrib.getType() instanceof CDEnum) {
+        Attribute instAttrib = (Attribute) tag.getSolutionElement().getElement();
+        if (instAttrib.getType() instanceof CDEnum) {
           CDEnum instEnum =
-              getEnumFromClassDiagram(instAtrib.getType().getName(), tag.getTagGroup().getSolution().getClassDiagram());
+              getEnumFromClassDiagram(instAttrib.getType().getName(), tag.getTagGroup().getSolution().getClassDiagram());
           for (CDEnumLiteral enumLitral : instEnum.getLiterals()) {
             instEnumLiterals.add(enumLitral.getName());
           }
@@ -518,7 +518,7 @@ public class MistakeDetection {
           } else {
             studRoleClass.add(studClass);
           }
-          studentSubClassesPatternScore = studentSubClassesPatternScore + 1;
+          studentSubclassesPatternScore = studentSubclassesPatternScore + 1;
           studentFullPatternScore = studentFullPatternScore + 1;
         }
       }
@@ -552,7 +552,7 @@ public class MistakeDetection {
           var levenshteinDistance = levenshteinDistance(studClass.getName().toLowerCase(), enumLiteralName.toLowerCase());
           if (levenshteinDistance <=  MAX_LEVENSHTEIN_DISTANCE_ALLOWED ) {
             studRoleClass.add(studClass);
-            studentSubClassesPatternScore = studentSubClassesPatternScore + 1;
+            studentSubclassesPatternScore = studentSubclassesPatternScore + 1;
             studentFullPatternScore = studentFullPatternScore + 1;
           }
         }
@@ -580,16 +580,16 @@ public class MistakeDetection {
       }
     }
     int scores[] =
-        {studentSubClassesPatternScore, studentFullPatternScore, studentEnumsPatternScore, studentAssocPatternScore};
+        {studentSubclassesPatternScore, studentFullPatternScore, studentEnumsPatternScore, studentAssocPatternScore};
     int highestScore = getHighestScore(scores);
     if (highestScore == 0) {
       System.out.println("Missing Pattern");
       return;
     }
-    if (studentSubClassesPatternScore == studentFullPatternScore && studentFullPatternScore == highestScore) {
+    if (studentSubclassesPatternScore == studentFullPatternScore && studentFullPatternScore == highestScore) {
       if (studPlayerClass != null) {
         if (subClassPatternCorrect(studPlayerClass, studRoleClass)) {
-          studentSubClassesPatternScore = studentSubClassesPatternScore + 1;
+          studentSubclassesPatternScore = studentSubclassesPatternScore + 1;
           highestScore = highestScore + 1;
         }
         if (!studRoleClass.get(0).getSuperTypes().contains(studPlayerClass)
@@ -602,7 +602,7 @@ public class MistakeDetection {
         return;
       }
     }
-    if (studentSubClassesPatternScore == highestScore) {
+    if (studentSubclassesPatternScore == highestScore) {
       System.out.println(SUB_CLASS_PR_PATTERN + " instead of " + instPattern);
       return;
     } else if (studentAssocPatternScore == highestScore) {
@@ -1223,7 +1223,7 @@ public class MistakeDetection {
   }
 
   /** Finds mappings in previously unmapped elements by comparing Attributes and Association Ends */
-  public static void mappingBasedOnAtribsAndAssocEnds(Comparison comparison) {
+  public static void mappingBasedOnAttribsAndAssocEnds(Comparison comparison) {
     if (comparison.notMappedInstructorClassifier.isEmpty() || comparison.extraStudentClassifier.isEmpty()) {
       return;
     }

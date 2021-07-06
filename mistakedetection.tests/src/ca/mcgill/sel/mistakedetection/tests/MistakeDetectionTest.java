@@ -540,7 +540,7 @@ public class MistakeDetectionTest {
     se.setSolution(tag.getTagGroup().getSolution());
   }
 
-  public static void setRoleTagToAtribInClass(String attributeName, TagGroup tagGroup, Classifier assocClass) {
+  public static void setRoleTagToAttribInClass(String attributeName, TagGroup tagGroup, Classifier assocClass) {
     var tag = maf.createTag();
     tag.setTagType(ROLE);
     var instClass = getAttributeFromClass(attributeName, assocClass);
