@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="__14lAN6XEeuTLOme1e-z-w" name="Instructor_companyAndEmployeeClass" featureModel="__14lAd6XEeuTLOme1e-z-w" impactModel="__14lA96XEeuTLOme1e-z-w">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="__14lAd6XEeuTLOme1e-z-w" root="__14lAt6XEeuTLOme1e-z-w">
+    <features xmi:id="__14lAt6XEeuTLOme1e-z-w" name="Instructor_companyAndEmployeeClass" realizedBy="_A7m28d6YEeuTLOme1e-z-w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="__14lA96XEeuTLOme1e-z-w" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_A7m28N6YEeuTLOme1e-z-w" name="Instructor_companyAndEmployeeClass" scene="_A7m28d6YEeuTLOme1e-z-w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_companyAndEmployeeClass.domain_model.cdm#_A7pTMN6YEeuTLOme1e-z-w"/>
+  </artefacts>
+  <scenes xmi:id="_A7m28d6YEeuTLOme1e-z-w" name="Instructor_companyAndEmployeeClass" realizes="__14lAt6XEeuTLOme1e-z-w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_A7m28t6YEeuTLOme1e-z-w" value="_A7m28N6YEeuTLOme1e-z-w" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
