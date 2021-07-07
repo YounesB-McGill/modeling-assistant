@@ -18,9 +18,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-import ca.mcgill.sel.classdiagram.AssociationEnd;
-import ca.mcgill.sel.classdiagram.Attribute;
-import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import modelingassistant.Mistake;
 
@@ -36,43 +33,41 @@ public class MistakeDetectionTestForPaper {
         "../mistakedetection/testModels/StudentSolution/ExampleForPaper/Class Diagram/PISystem_StudentSolution.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    Classifier instructorPoliceOfficerClass = getClassFromClassDiagram("PoliceOfficer", instructorClassDiagram);
-    Attribute instructorBadgeNumberAttribute = getAttributeFromClass("badgeNumber", instructorPoliceOfficerClass);
-    AssociationEnd instructorAsscocEndWorkLocation =
-        getAssociationEndFromClass("workLocation", instructorPoliceOfficerClass);
+    var instructorPoliceOfficerClass = getClassFromClassDiagram("PoliceOfficer", instructorClassDiagram);
+    var instructorBadgeNumberAttribute = getAttributeFromClass("badgeNumber", instructorPoliceOfficerClass);
+    var instructorAssocEndWorkLocation = getAssociationEndFromClass("workLocation", instructorPoliceOfficerClass);
 
-    Classifier instructorAssignementClass = getClassFromClassDiagram("Assignment", instructorClassDiagram);
-    Attribute instructorEndDateAttribute = getAttributeFromClass("endDate", instructorAssignementClass);
-    AssociationEnd instructorAssocEndAssignedOfficer =
-        getAssociationEndFromClass("assignedOfficer", instructorAssignementClass);
+    var instructorAssignementClass = getClassFromClassDiagram("Assignment", instructorClassDiagram);
+    var instructorEndDateAttribute = getAttributeFromClass("endDate", instructorAssignementClass);
+    var instructorAssocEndAssignedOfficer = getAssociationEndFromClass("assignedOfficer", instructorAssignementClass);
 
-    Classifier instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
-    AssociationEnd instructorAssocEndOfficer = getAssociationEndFromClass("officer", instructorPersonClass);
+    var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+    var instructorAssocEndOfficer = getAssociationEndFromClass("officer", instructorPersonClass);
 
-    Classifier instructorPoliceStationClass = getClassFromClassDiagram("PoliceStation", instructorClassDiagram);
-    Attribute instructorAddressAttribute = getAttributeFromClass("address", instructorPoliceStationClass);
+    var instructorPoliceStationClass = getClassFromClassDiagram("PoliceStation", instructorClassDiagram);
+    var instructorAddressAttribute = getAttributeFromClass("address", instructorPoliceStationClass);
 
-    Classifier instructorPIClass = getClassFromClassDiagram("PISystem", instructorClassDiagram);
-    AssociationEnd instructorAssocEndPoliceStation = getAssociationEndFromClass("policeStations", instructorPIClass);
+    var instructorPIClass = getClassFromClassDiagram("PISystem", instructorClassDiagram);
+    var instructorAssocEndPoliceStation = getAssociationEndFromClass("policeStations", instructorPIClass);
 
-    var instructorPoliceOfficer_PISystem = getAssociationFromClassDiagram(instructorPoliceOfficerClass,
+    var instructorPoliceOfficerPISystem = getAssociationFromClassDiagram(instructorPoliceOfficerClass,
         instructorPIClass, instructorClassDiagram);
 
-    Classifier studentPoliceOfficerClass = getClassFromClassDiagram("PoliceOfficer", studentClassDiagram);
-    Attribute studentBadgeNumberAttribute = getAttributeFromClass("badgeNumber", studentPoliceOfficerClass);
-    AssociationEnd studentAssocEndWorkAt = getAssociationEndFromClass("workAt", studentPoliceOfficerClass);
+    var studentPoliceOfficerClass = getClassFromClassDiagram("PoliceOfficer", studentClassDiagram);
+    var studentBadgeNumberAttribute = getAttributeFromClass("badgeNumber", studentPoliceOfficerClass);
+    var studentAssocEndWorkAt = getAssociationEndFromClass("workAt", studentPoliceOfficerClass);
 
-    Classifier studentAssignementsClass = getClassFromClassDiagram("Assignments", studentClassDiagram);
-    AssociationEnd studentAssocEndOfficers = getAssociationEndFromClass("officers", studentAssignementsClass);
+    var studentAssignementsClass = getClassFromClassDiagram("Assignments", studentClassDiagram);
+    var studentAssocEndOfficers = getAssociationEndFromClass("officers", studentAssignementsClass);
 
-    Classifier studentPeopleClass = getClassFromClassDiagram("People", studentClassDiagram);
-    AssociationEnd studentAssocEndOfficer = getAssociationEndFromClass("officer", studentPeopleClass);
+    var studentPeopleClass = getClassFromClassDiagram("People", studentClassDiagram);
+    var studentAssocEndOfficer = getAssociationEndFromClass("officer", studentPeopleClass);
 
-    Classifier studentPIClass = getClassFromClassDiagram("PISystem", studentClassDiagram);
-    AssociationEnd studentAssocEndStations = getAssociationEndFromClass("station", studentPIClass);
+    var studentPIClass = getClassFromClassDiagram("PISystem", studentClassDiagram);
+    var studentAssocEndStations = getAssociationEndFromClass("station", studentPIClass);
 
-    Classifier studentPoliceStationClass = getClassFromClassDiagram("PoliceStation", studentClassDiagram);
-    Attribute studentAddresAttribute = getAttributeFromClass("adress", studentPoliceStationClass);
+    var studentPoliceStationClass = getClassFromClassDiagram("PoliceStation", studentClassDiagram);
+    var studentAdressAttribute = getAttributeFromClass("adress", studentPoliceStationClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
@@ -90,7 +85,7 @@ public class MistakeDetectionTestForPaper {
       assertMistakeConditional(m, PLURAL_CLASS_NAME, studentAssignementsClass,
           instructorAssignementClass, 0, 1, false);
       assertMistakeConditional(m, PLURAL_CLASS_NAME, studentPeopleClass, instructorPersonClass, 0, 1, false);
-      assertMistakeConditional(m, BAD_ATTRIBUTE_NAME_SPELLING, studentAddresAttribute,
+      assertMistakeConditional(m, BAD_ATTRIBUTE_NAME_SPELLING, studentAdressAttribute,
           instructorAddressAttribute, 0, 1, false);
       assertMistakeConditional(m, OTHER_WRONG_MULTIPLICITY, studentAssocEndOfficers,
           instructorAssocEndAssignedOfficer, 0, 1, false);
@@ -101,9 +96,9 @@ public class MistakeDetectionTestForPaper {
       assertMistakeConditional(m, USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION,
           studentAssocEndOfficer, instructorAssocEndOfficer, 0, 1, false);
       assertMistakeConditional(m, OTHER_WRONG_ROLE_NAME, studentAssocEndWorkAt,
-          instructorAsscocEndWorkLocation, 0, 1, false);
+          instructorAssocEndWorkLocation, 0, 1, false);
       assertMistakeConditional(m, MISSING_ATTRIBUTE, instructorEndDateAttribute, 0, 1, false);
-      assertMistakeConditional(m, MISSING_COMPOSITION, instructorPoliceOfficer_PISystem.get(0), 0, 1, false);
+      assertMistakeConditional(m, MISSING_COMPOSITION, instructorPoliceOfficerPISystem.get(0), 0, 1, false);
     }
   }
 

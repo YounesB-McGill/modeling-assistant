@@ -296,7 +296,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Test to check mapping for Bus = Vehicle , Passenger = Customer, Driver = Pilot
+   * Test to check mapping for Bus = Vehicle, Passenger = Customer, Driver = Pilot.
    */
   @Test
   public void testCheckMappingWithMultiDiffNames() {
@@ -482,7 +482,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Helper function to create a new tag group and set an solution element to player tag in that tag group
+   * Helper function to create a new tag group and set an solution element to player tag in that tag group.
    *
    * @param className
    * @param classDiagram
@@ -505,7 +505,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * set Role tag to a class in tagGroup
+   * Sets Role tag to a class in tagGroup.
    *
    * @param className
    * @param tagGroup
@@ -523,7 +523,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * set Role tag to a association end in tagGroup
+   * Sets Role tag to a association end in tagGroup.
    *
    * @param AssocEndName
    * @param assocClass
