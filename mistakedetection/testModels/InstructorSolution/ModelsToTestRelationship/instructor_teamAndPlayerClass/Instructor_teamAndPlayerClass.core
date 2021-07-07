@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_zlfF8N89EeuTLOme1e-z-w" name="Instructor_teamAndPlayerClass" featureModel="_zlfF8d89EeuTLOme1e-z-w" impactModel="_zlfF8989EeuTLOme1e-z-w">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_zlfF8d89EeuTLOme1e-z-w" root="_zlfF8t89EeuTLOme1e-z-w">
+    <features xmi:id="_zlfF8t89EeuTLOme1e-z-w" name="Instructor_teamAndPlayerClass" realizedBy="_0bncsd89EeuTLOme1e-z-w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_zlfF8989EeuTLOme1e-z-w" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_0bncsN89EeuTLOme1e-z-w" name="Instructor_teamAndPlayerClass" scene="_0bncsd89EeuTLOme1e-z-w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_teamAndPlayerClass.domain_model.cdm#_0bpR4N89EeuTLOme1e-z-w"/>
+  </artefacts>
+  <scenes xmi:id="_0bncsd89EeuTLOme1e-z-w" name="Instructor_teamAndPlayerClass" realizes="_zlfF8t89EeuTLOme1e-z-w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_0bncst89EeuTLOme1e-z-w" value="_0bncsN89EeuTLOme1e-z-w" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

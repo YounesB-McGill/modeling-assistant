@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_m96hcN89EeuTLOme1e-z-w" name="Student_missingComposition1">
+  <classes xsi:type="classdiagram:Class" xmi:id="_nbgcYN89EeuTLOme1e-z-w" name="Root">
+    <associationEnds xmi:id="_rTXewd89EeuTLOme1e-z-w" name="myBook" assoc="_rTXewt89EeuTLOme1e-z-w" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_oLyCwN89EeuTLOme1e-z-w" name="Book">
+    <associationEnds xmi:id="_q1sEQd89EeuTLOme1e-z-w" name="myChapter" assoc="_q1sEQt89EeuTLOme1e-z-w" lowerBound="1"/>
+    <associationEnds xmi:id="_rTXewN89EeuTLOme1e-z-w" name="myRoot" assoc="_rTXewt89EeuTLOme1e-z-w" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_pjD-wN89EeuTLOme1e-z-w" name="Chapter">
+    <associationEnds xmi:id="_q1sEQN89EeuTLOme1e-z-w" name="myBook" assoc="_q1sEQt89EeuTLOme1e-z-w" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_m96hcd89EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_m96hct89EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_m96hc989EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_m96hdN89EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_m96hdd89EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_m96hdt89EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_m96hd989EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_m96heN89EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_m96hed89EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_m96het89EeuTLOme1e-z-w"/>
+  <associations xmi:id="_q1sEQt89EeuTLOme1e-z-w" name="Chapter_Book" ends="_q1sEQN89EeuTLOme1e-z-w _q1sEQd89EeuTLOme1e-z-w"/>
+  <associations xmi:id="_rTXewt89EeuTLOme1e-z-w" name="Book_Root" ends="_rTXewN89EeuTLOme1e-z-w _rTXewd89EeuTLOme1e-z-w"/>
+  <layout xmi:id="_m96he989EeuTLOme1e-z-w">
+    <containers xmi:id="_m96hfN89EeuTLOme1e-z-w" key="_m96hcN89EeuTLOme1e-z-w">
+      <value xmi:id="_nbi4oN89EeuTLOme1e-z-w" key="_nbgcYN89EeuTLOme1e-z-w">
+        <value xmi:id="_nbi4od89EeuTLOme1e-z-w" x="984.0" y="268.0"/>
+      </value>
+      <value xmi:id="_oLz38N89EeuTLOme1e-z-w" key="_oLyCwN89EeuTLOme1e-z-w">
+        <value xmi:id="_oLz38d89EeuTLOme1e-z-w" x="984.0" y="473.99997"/>
+      </value>
+      <value xmi:id="_pjGbAN89EeuTLOme1e-z-w" key="_pjD-wN89EeuTLOme1e-z-w">
+        <value xmi:id="_pjGbAd89EeuTLOme1e-z-w" x="984.0" y="694.0001"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
