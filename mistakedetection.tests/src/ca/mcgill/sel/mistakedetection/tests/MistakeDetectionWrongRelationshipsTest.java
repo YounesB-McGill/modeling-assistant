@@ -33,21 +33,21 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
     var instructorAssociations =
         getAssociationFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
-    var instructorAssociation_1 = instructorAssociations.get(0);
-    var instructorAssociation_2 = instructorAssociations.get(1);
+    var instructorAssociation0 = instructorAssociations.get(0);
+    var instructorAssociation1 = instructorAssociations.get(1);
 
     var studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
     var studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
     var studentAssociations = getAssociationFromClassDiagram(studentBusClass, studentDriverClass, studentClassDiagram);
-    var studentAssociation_1 = instructorAssociations.get(0);
-    var studentAssociation_2 = instructorAssociations.get(1);
+    var studentAssociation0 = instructorAssociations.get(0);
+    var studentAssociation1 = instructorAssociations.get(1);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(0, comparison.newMistakes.size());
     assertEquals(0, studentSolution.getMistakes().size());
-    assertEquals(instructorAssociation_1, studentAssociation_1);
-    assertEquals(instructorAssociation_2, studentAssociation_2);
+    assertEquals(instructorAssociation0, studentAssociation0);
+    assertEquals(instructorAssociation1, studentAssociation1);
   }
 
   /**
