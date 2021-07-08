@@ -38,7 +38,7 @@ WRONG_ASSOCIATION_CLASS: MistakeTypeCategory = _MTCS["Wrong association class"]
 WRONG_GENERALIZATION: MistakeTypeCategory = _MTCS["Wrong generalization"]
 MISUSE_OF_DESIGN_PATTERNS: MistakeTypeCategory = _MTCS["Misuse of design patterns"]
 WRONG_PLAYER_ROLE_PATTERN: MistakeTypeCategory = _MTCS["Wrong Player-Role Pattern"]
-MISUSE_OF_ABSTRACTION_OCCURRENCE: MistakeTypeCategory = _MTCS["Misuse of Abstraction-Occurrence"]
+WRONG_ABSTRACTION_OCCURRENCE_PATTERN: MistakeTypeCategory = _MTCS["Wrong Abstraction-Occurrence pattern"]
 
 # Mistake types
 MISSING_CLASS: MistakeType = _MTS["Missing class"]
@@ -110,6 +110,24 @@ SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS: MistakeType = _MTS["Subclass is an instan
 NON_DIFFERENTIATED_SUBCLASS: MistakeType = _MTS["Non-differentiated subclass"]
 WRONG_GENERALIZATION_DIRECTION: MistakeType = _MTS["Wrong generalization direction"]
 WRONG_SUPERCLASS: MistakeType = _MTS["Wrong superclass"]
+MISSING_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Missing Player-Role pattern"]
+INCOMPLETE_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Incomplete Player-Role pattern"]
+SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Subclass should be full Player-Role pattern"]
+SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN: MistakeType = \
+    _MTS["Subclass should be association Player-Role pattern"]
+SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Subclass should be enum Player-Role pattern"]
+ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Association should be full Player-Role pattern"]
+ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN: MistakeType = \
+    _MTS["Association should be subclass Player-Role pattern"]
+ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Association should be enum Player-Role pattern"]
+ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Enum should be full Player-Role pattern"]
+ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Enum should be subclass Player-Role pattern"]
+ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Enum should be association Player-Role pattern"]
+FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS: MistakeType = _MTS["Full Player-Role pattern should be subclass"]
+FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION: MistakeType = _MTS["Full Player-Role pattern should be association"]
+FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM: MistakeType = _MTS["Full Player-Role pattern should be enum"]
+MISSING_ABSTRACTION_OCCURRENCE_PATTERN: MistakeType = _MTS["Missing Abstraction-Occurrence pattern"]
+INCOMPLETE_ABSTRACTION_OCCURRENCE_PATTERN: MistakeType = _MTS["Incomplete Abstraction-Occurrence pattern"]
 
 
 # deprecated: this function will be removed soon

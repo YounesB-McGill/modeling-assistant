@@ -138,10 +138,26 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         wrong_superclass := mt(n="Wrong superclass"),
     ]),
     misuse_of_design_patterns := mtc(n="Misuse of design patterns"),
-    misuse_of_player_role_pattern := mtc(n="Wrong Player-Role Pattern", s=misuse_of_design_patterns, mistakeTypes=[
-
+    wrong_player_role_pattern := mtc(n="Wrong Player-Role Pattern", s=misuse_of_design_patterns, mistakeTypes=[
+        missing_player_role_pattern := mt(n="Missing Player-Role pattern"),
+        incomplete_player_role_pattern := mt(n="Incomplete Player-Role pattern"),
+        subclass_should_be_full_player_role_pattern := mt(n="Subclass should be full Player-Role pattern"),
+        subclass_should_be_association_player_role_pattern := mt(n="Subclass should be association Player-Role pattern"),
+        subclass_should_be_enum_player_role_pattern := mt(n="Subclass should be enum Player-Role pattern"),
+        association_should_be_full_player_role_pattern := mt(n="Association should be full Player-Role pattern"),
+        association_should_be_subclass_player_role_pattern := mt(n="Association should be subclass Player-Role pattern"),
+        association_should_be_enum_player_role_pattern := mt(n="Association should be enum Player-Role pattern"),
+        enum_should_be_full_player_role_pattern := mt(n="Enum should be full Player-Role pattern"),
+        enum_should_be_subclass_player_role_pattern := mt(n="Enum should be subclass Player-Role pattern"),
+        enum_should_be_association_player_role_pattern := mt(n="Enum should be association Player-Role pattern"),
+        full_player_role_pattern_should_be_subclass := mt(n="Full Player-Role pattern should be subclass"),
+        full_player_role_pattern_should_be_association := mt(n="Full Player-Role pattern should be association"),
+        full_player_role_pattern_should_be_enum := mt(n="Full Player-Role pattern should be enum"),
     ]),
-    misuse_of_abstraction_occurrence := mtc(n="Misuse of Abstraction-Occurrence", s=misuse_of_design_patterns),
+    wrong_abstraction_occurrence_pattern := mtc(n="Wrong Abstraction-Occurrence pattern", s=misuse_of_design_patterns, mistakeTypes=[
+        missing_abstraction_occurrence_pattern := mt(n="Missing Abstraction-Occurrence pattern"),
+        incomplete_abstraction_occurrence_pattern := mt(n="Incomplete Abstraction-Occurrence pattern"),
+    ]),
 ])
 
 domain_modeling.learningCorpus = corpus
@@ -208,8 +224,21 @@ mts_by_priority: list[MistakeType] = [
     role_should_be_static,
     bad_association_name_spelling,
     similar_association_name,
-
     incomplete_containment_tree,
+
+    # design pattern mistakes
+    subclass_should_be_full_player_role_pattern,
+    subclass_should_be_association_player_role_pattern,
+    subclass_should_be_enum_player_role_pattern,
+    association_should_be_full_player_role_pattern,
+    association_should_be_subclass_player_role_pattern,
+    association_should_be_enum_player_role_pattern,
+    enum_should_be_full_player_role_pattern,
+    enum_should_be_subclass_player_role_pattern,
+    enum_should_be_association_player_role_pattern,
+    full_player_role_pattern_should_be_subclass,
+    full_player_role_pattern_should_be_association,
+    full_player_role_pattern_should_be_enum,
 
     # extra items
     extra_class,
@@ -233,6 +262,12 @@ mts_by_priority: list[MistakeType] = [
     missing_aggregation,
     missing_role_names,
     missing_association_name_when_one_was_expected,
+
+    # missing/incomplete patterns
+    incomplete_player_role_pattern,
+    incomplete_abstraction_occurrence_pattern,
+    missing_player_role_pattern,
+    missing_abstraction_occurrence_pattern,
 ]
 
 for i, _mt in enumerate(mts_by_priority, start=1):
