@@ -6,7 +6,6 @@ import static ca.mcgill.sel.mistakedetection.MistakeDetection.FULL_PR_PATTERN;
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.SUB_CLASS_PR_PATTERN;
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.checkPattern;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getSolutionElementfromSolution;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setPlayerTagToClassInClassDiag;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToAssocEndInClass;
@@ -35,15 +34,15 @@ public class MistakeDetectionPatternTest {
   public void testPluralClassName() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
-    var instructorSol = instructorSolutionFromClassDiagram(instructorClassDiagram);
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSol);
+    var tagGroup = setPlayerTagToClassInClassDiag("Student", instructorClassDiagram, instructorSolution);
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-    assertEquals(PLAYER, getSolutionElementfromSolution("Student", instructorSol).getTags().get(0).getTagType());
-    assertEquals(ROLE, getSolutionElementfromSolution("FullTimeStudent", instructorSol).getTags().get(0).getTagType());
-    assertEquals(ROLE, getSolutionElementfromSolution("PartTimeStudent", instructorSol).getTags().get(0).getTagType());
+    assertEquals(PLAYER, instructorSolution.getSolutionElementByName("Student").getTags().get(0).getTagType());
+    assertEquals(ROLE, instructorSolution.getSolutionElementByName("FullTimeStudent").getTags().get(0).getTagType());
+    assertEquals(ROLE, instructorSolution.getSolutionElementByName("PartTimeStudent").getTags().get(0).getTagType());
   }
 
   /**

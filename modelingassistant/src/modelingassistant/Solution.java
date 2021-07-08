@@ -2,10 +2,11 @@
  */
 package modelingassistant;
 
-import ca.mcgill.sel.classdiagram.ClassDiagram;
+import java.util.stream.Collectors;
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
+import ca.mcgill.sel.classdiagram.ClassDiagram;
 
 /**
  * <!-- begin-user-doc -->
@@ -93,6 +94,31 @@ public interface Solution extends EObject {
    * @generated
    */
   EList<SolutionElement> getSolutionElements();
+
+  /**
+   * Returns the first solution element with the given name.
+   *
+   * @generated NOT
+   */
+  default SolutionElement getSolutionElementByName(String name) {
+    var matchingElements = getSolutionElementsByName(name);
+    if (matchingElements.isEmpty()) {
+      throw new IllegalArgumentException("Solution does not contain an element with the name " + name);
+    }
+    return matchingElements.get(0);
+  }
+
+  /**
+   * Returns the solution elements with the given name.
+   *
+   * @generated NOT
+   */
+  default EList<SolutionElement> getSolutionElementsByName(String name) {
+    return ECollections.unmodifiableEList(getSolutionElements().stream()
+        .filter(e -> e.getElement().getName().equals(name))
+        //.toList()); // TODO Use this after upgrade to Java 16+ and remove line below
+        .collect(Collectors.toUnmodifiableList()));
+  }
 
   /**
    * Returns the value of the '<em><b>Class Diagram</b></em>' reference.

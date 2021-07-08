@@ -56,7 +56,7 @@ public class MistakeDetectionTest {
    * Test to check if all the classes exist in Student solution are loaded in cdmFile
    */
   @Test
-  public void testLoadingStudentSolution1() {
+  public void testLoadingStudentSolution() {
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution.domain_model.cdm");
@@ -366,25 +366,6 @@ public class MistakeDetectionTest {
     }
     if (seekedClass == null) {
       throw new IllegalArgumentException("No Class Found, please check the class name");
-    }
-    return seekedClass;
-  }
-
-  /**
-   * Helper function returns a solution Element from a solution based on class name.
-   *
-   * @param className
-   * @param classDiagram
-   * @return Classifier
-   */
-  public static SolutionElement getSolutionElementfromSolution(String className, Solution solution) {
-    SolutionElement seekedClass = null;
-    for (var c : solution.getSolutionElements()) {
-      if (c.getElement().getName().equals(className))
-        seekedClass = c;
-    }
-    if (seekedClass == null) {
-      throw new IllegalArgumentException("No Solution Element Found, please check the class name");
     }
     return seekedClass;
   }
