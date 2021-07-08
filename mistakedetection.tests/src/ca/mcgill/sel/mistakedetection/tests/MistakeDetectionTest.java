@@ -549,7 +549,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Asserts a mistake with only single instructor or student element .
+   * Asserts a mistake with only single instructor or student element.
    *
    * @param mistake
    * @param mistakeType
@@ -565,7 +565,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Asserts a mistake with multiple instructor or student element .
+   * Asserts a mistake with multiple instructor or student element.
    *
    * @param mistake
    * @param mistakeType
@@ -598,7 +598,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Asserts a mistake in loop with multiple instructor and student element .
+   * Asserts a mistake in loop with multiple instructor and student element.
    *
    * @param mistake
    * @param mistakeType
@@ -618,7 +618,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Asserts a mistake in loop with only single instructor or student element .
+   * Asserts a mistake in loop with only single instructor or student element.
    *
    * @param mistake
    * @param mistakeType
