@@ -53,7 +53,14 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     wrong_enumeration := mtc(n="Wrong enumeration", s=wrong_class, mistakeTypes=[
         regular_class_should_be_enum := mt(n="Regular class should be enum"),
         enum_should_be_regular_class := mt(n="Enum should be regular class"),
-        wrong_enum_items := mt(n="Wrong enum items"),
+        missing_enum := mt(n="Missing enum"),
+        extra_enum := mt(n="Extra enum"),
+        bad_enum_name_spelling := mt(n="Bad enum name spelling"),
+        similar_enum_name := mt(n="Similar enum name"),
+        missing_enum_item := mt(n="Missing enum item"),
+        extra_enum_item := mt(n="Extra enum item"),
+        bad_enum_item_spelling := mt(n="Bad enum item spelling"),
+        similar_enum_item := mt(n="Similar enum item"),
     ]),
     wrong_attribute := mtc(n="Wrong attribute", mistakeTypes=[
         missing_attribute := mt(n="Missing attribute"),
@@ -158,7 +165,10 @@ mts_by_priority: list[MistakeType] = [
     similar_association_class_name,
     regular_class_should_be_enum,
     enum_should_be_regular_class,
-    wrong_enum_items,
+    bad_enum_name_spelling,
+    bad_enum_item_spelling,
+    similar_enum_name,
+    similar_enum_item,
 
     # mistakes in an existing attribute
     bad_attribute_name_spelling,
@@ -202,6 +212,8 @@ mts_by_priority: list[MistakeType] = [
     # extra items
     extra_class,
     extra_association_class,
+    extra_enum,
+    extra_enum_item,
     representing_an_action_with_an_association,
     other_extra_association,
     attribute_duplicated,
@@ -211,6 +223,8 @@ mts_by_priority: list[MistakeType] = [
     missing_class,
     missing_attribute,
     missing_association_class,
+    missing_enum,
+    missing_enum_item,
     missing_generalization,
     missing_composition,
     missing_association,
