@@ -1692,7 +1692,8 @@ public class MistakeDetection {
 //
 //    comparison.extraStudentEnumLiterals
 //        .forEach(cls -> comparison.newMistakes.add(createMistake(WRONG_ENUM_ITEMS, cls, null)));
-    throw new RuntimeException("Not yet implemented.");
+
+    // TODO Implement enum logic
   }
 
 
