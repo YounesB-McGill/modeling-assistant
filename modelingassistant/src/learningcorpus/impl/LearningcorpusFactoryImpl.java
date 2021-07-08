@@ -59,7 +59,6 @@ public class LearningcorpusFactoryImpl extends EFactoryImpl implements Learningc
   @Override
   public EObject create(EClass eClass) {
     switch (eClass.getClassifierID()) {
-      case LearningcorpusPackage.UML_ELEMENT: return createUmlElement();
       case LearningcorpusPackage.LEARNING_ITEM: return createLearningItem();
       case LearningcorpusPackage.MISTAKE_TYPE: return createMistakeType();
       case LearningcorpusPackage.FEEDBACK: return createFeedback();
@@ -86,6 +85,8 @@ public class LearningcorpusFactoryImpl extends EFactoryImpl implements Learningc
   @Override
   public Object createFromString(EDataType eDataType, String initialValue) {
     switch (eDataType.getClassifierID()) {
+      case LearningcorpusPackage.ELEMENT_TYPE:
+        return createElementTypeFromString(eDataType, initialValue);
       case LearningcorpusPackage.TIME:
         return createTimeFromString(eDataType, initialValue);
       default:
@@ -101,22 +102,13 @@ public class LearningcorpusFactoryImpl extends EFactoryImpl implements Learningc
   @Override
   public String convertToString(EDataType eDataType, Object instanceValue) {
     switch (eDataType.getClassifierID()) {
+      case LearningcorpusPackage.ELEMENT_TYPE:
+        return convertElementTypeToString(eDataType, instanceValue);
       case LearningcorpusPackage.TIME:
         return convertTimeToString(eDataType, instanceValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public UmlElement createUmlElement() {
-    UmlElementImpl umlElement = new UmlElementImpl();
-    return umlElement;
   }
 
   /**
@@ -260,6 +252,26 @@ public class LearningcorpusFactoryImpl extends EFactoryImpl implements Learningc
   public LearningCorpus createLearningCorpus() {
     LearningCorpusImpl learningCorpus = new LearningCorpusImpl();
     return learningCorpus;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ElementType createElementTypeFromString(EDataType eDataType, String initialValue) {
+    ElementType result = ElementType.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertElementTypeToString(EDataType eDataType, Object instanceValue) {
+    return instanceValue == null ? null : instanceValue.toString();
   }
 
   /**

@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link modelingassistant.impl.FeedbackItemImpl#getUsefulness <em>Usefulness</em>}</li>
  *   <li>{@link modelingassistant.impl.FeedbackItemImpl#getFeedback <em>Feedback</em>}</li>
  *   <li>{@link modelingassistant.impl.FeedbackItemImpl#getSolution <em>Solution</em>}</li>
+ *   <li>{@link modelingassistant.impl.FeedbackItemImpl#getText <em>Text</em>}</li>
  * </ul>
  *
  * @generated
@@ -76,6 +77,26 @@ public class FeedbackItemImpl extends MinimalEObjectImpl.Container implements Fe
    * @ordered
    */
   protected Feedback feedback;
+
+  /**
+   * The default value of the '{@link #getText() <em>Text</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getText()
+   * @generated
+   * @ordered
+   */
+  protected static final String TEXT_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getText() <em>Text</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getText()
+   * @generated
+   * @ordered
+   */
+  protected String text = TEXT_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -270,6 +291,29 @@ public class FeedbackItemImpl extends MinimalEObjectImpl.Container implements Fe
    * @generated
    */
   @Override
+  public String getText() {
+    return text;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setText(String newText) {
+    String oldText = text;
+    text = newText;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.FEEDBACK_ITEM__TEXT, oldText, text));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
     switch (featureID) {
       case ModelingassistantPackage.FEEDBACK_ITEM__MISTAKE:
@@ -332,6 +376,8 @@ public class FeedbackItemImpl extends MinimalEObjectImpl.Container implements Fe
         return basicGetFeedback();
       case ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION:
         return getSolution();
+      case ModelingassistantPackage.FEEDBACK_ITEM__TEXT:
+        return getText();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -355,6 +401,9 @@ public class FeedbackItemImpl extends MinimalEObjectImpl.Container implements Fe
         return;
       case ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION:
         setSolution((Solution)newValue);
+        return;
+      case ModelingassistantPackage.FEEDBACK_ITEM__TEXT:
+        setText((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -380,6 +429,9 @@ public class FeedbackItemImpl extends MinimalEObjectImpl.Container implements Fe
       case ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION:
         setSolution((Solution)null);
         return;
+      case ModelingassistantPackage.FEEDBACK_ITEM__TEXT:
+        setText(TEXT_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -400,6 +452,8 @@ public class FeedbackItemImpl extends MinimalEObjectImpl.Container implements Fe
         return feedback != null;
       case ModelingassistantPackage.FEEDBACK_ITEM__SOLUTION:
         return getSolution() != null;
+      case ModelingassistantPackage.FEEDBACK_ITEM__TEXT:
+        return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
     }
     return super.eIsSet(featureID);
   }
@@ -416,6 +470,8 @@ public class FeedbackItemImpl extends MinimalEObjectImpl.Container implements Fe
     StringBuilder result = new StringBuilder(super.toString());
     result.append(" (usefulness: ");
     result.append(usefulness);
+    result.append(", text: ");
+    result.append(text);
     result.append(')');
     return result.toString();
   }

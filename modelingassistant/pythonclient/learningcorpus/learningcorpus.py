@@ -8,18 +8,8 @@ nsPrefix = 'learningcorpus'
 eClass = EPackage(name=name, nsURI=nsURI, nsPrefix=nsPrefix)
 eClassifiers = {}
 getEClassifier = partial(Ecore.getEClassifier, searchspace=eClassifiers)
+ElementType = EEnum('ElementType', literals=['Class', 'Attribute', 'Association', 'AssociationEnd', 'Composition', 'Generalization', 'PlayerRolePattern', 'AbstractionOccurrencePattern'])
 Time = EDataType('Time', instanceClassName='java.sql.Time')
-
-class UmlElement(EObject, metaclass=MetaEClass):
-    learningItems = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
-    learningCorpus = EReference(ordered=True, unique=True, containment=False, derived=False)
-
-    def __init__(self, *, learningItems=None, learningCorpus=None):
-        super().__init__()
-        if learningItems:
-            self.learningItems.extend(learningItems)
-        if learningCorpus is not None:
-            self.learningCorpus = learningCorpus
 
 class Feedback(EObject, metaclass=MetaEClass):
     level = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
@@ -64,9 +54,8 @@ class LearningCorpus(EObject, metaclass=MetaEClass):
     feedbacks = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     learningItems = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     learningResources = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
-    umlElements = EReference(ordered=True, unique=True, containment=True, derived=False)
 
-    def __init__(self, *, mistakeTypeCategories=None, feedbacks=None, learningItems=None, learningResources=None, umlElements=None):
+    def __init__(self, *, mistakeTypeCategories=None, feedbacks=None, learningItems=None, learningResources=None):
         super().__init__()
         if mistakeTypeCategories:
             self.mistakeTypeCategories.extend(mistakeTypeCategories)
@@ -76,8 +65,6 @@ class LearningCorpus(EObject, metaclass=MetaEClass):
             self.learningItems.extend(learningItems)
         if learningResources:
             self.learningResources.extend(learningResources)
-        if umlElements is not None:
-            self.umlElements = umlElements
 
     def mistakeTypes(self) -> list:
         """Custom function to return all the mistake types from their categories."""
@@ -86,17 +73,17 @@ class LearningCorpus(EObject, metaclass=MetaEClass):
 
 class LearningItem(NamedElement):
     description = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
-    umlElements = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    elementType = EAttribute(eType=ElementType, unique=True, derived=False, changeable=True)
     learningResources = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
     mistakeTypes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
     learningCorpus = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, umlElements=None, learningResources=None, mistakeTypes=None, description=None, learningCorpus=None, **kwargs):
+    def __init__(self, *, learningResources=None, mistakeTypes=None, description=None, learningCorpus=None, elementType=None, **kwargs):
         super().__init__(**kwargs)
         if description is not None:
             self.description = description
-        if umlElements:
-            self.umlElements.extend(umlElements)
+        if elementType is not None:
+            self.elementType = elementType
         if learningResources:
             self.learningResources.extend(learningResources)
         if mistakeTypes:

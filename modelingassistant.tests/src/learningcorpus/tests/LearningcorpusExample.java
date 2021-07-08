@@ -5,9 +5,9 @@ package learningcorpus.tests;
 import java.io.File;
 import java.io.IOException;
 
+import learningcorpus.LearningItem;
 import learningcorpus.LearningcorpusFactory;
 import learningcorpus.LearningcorpusPackage;
-import learningcorpus.UmlElement;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 
@@ -58,7 +58,7 @@ public class LearningcorpusExample {
       System.out.println("Enter a list of file paths or URIs that have content like this:");
       try {
         Resource resource = resourceSet.createResource(URI.createURI("http:///My.learningcorpus"));
-        UmlElement root = LearningcorpusFactory.eINSTANCE.createUmlElement();
+        LearningItem root = LearningcorpusFactory.eINSTANCE.createLearningItem();
         resource.getContents().add(root);
         resource.save(System.out, null);
       }

@@ -22,10 +22,10 @@ import ca.mcgill.sel.classdiagram.ClassDiagram;
  *   <li>{@link modelingassistant.Solution#getSolutionElements <em>Solution Elements</em>}</li>
  *   <li>{@link modelingassistant.Solution#getClassDiagram <em>Class Diagram</em>}</li>
  *   <li>{@link modelingassistant.Solution#getMistakes <em>Mistakes</em>}</li>
- *   <li>{@link modelingassistant.Solution#getCurrentMistake <em>Current Mistake</em>}</li>
  *   <li>{@link modelingassistant.Solution#getTagGroups <em>Tag Groups</em>}</li>
  *   <li>{@link modelingassistant.Solution#getProblemStatement <em>Problem Statement</em>}</li>
  *   <li>{@link modelingassistant.Solution#getFeedbackItems <em>Feedback Items</em>}</li>
+ *   <li>{@link modelingassistant.Solution#getCurrentMistake <em>Current Mistake</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getSolution()
