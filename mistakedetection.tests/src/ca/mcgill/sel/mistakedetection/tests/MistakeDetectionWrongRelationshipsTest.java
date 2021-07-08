@@ -1,12 +1,12 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistake;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAssociationEndFromClass;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAssociationFromClassDiagram;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
+import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
+import static modelingassistant.util.ClassDiagramUtils.getAssociationsFromClassDiagram;
+import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
@@ -32,13 +32,13 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
     var instructorAssociations =
-        getAssociationFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
+        getAssociationsFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
     var instructorAssociation0 = instructorAssociations.get(0);
     var instructorAssociation1 = instructorAssociations.get(1);
 
     var studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
     var studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
-    var studentAssociations = getAssociationFromClassDiagram(studentBusClass, studentDriverClass, studentClassDiagram);
+    var studentAssociations = getAssociationsFromClassDiagram(studentBusClass, studentDriverClass, studentClassDiagram);
     var studentAssociation0 = instructorAssociations.get(0);
     var studentAssociation1 = instructorAssociations.get(1);
 
@@ -66,20 +66,20 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
     var instructorAssociations =
-        getAssociationFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
-    var instructorAssociation_1 = instructorAssociations.get(0);
-    var instructorAssociation_2 = instructorAssociations.get(1);
+        getAssociationsFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
+    var instructorAssociation0 = instructorAssociations.get(0);
+    var instructorAssociation1 = instructorAssociations.get(1);
 
     var studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
     var studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
-    var studentAssociations = getAssociationFromClassDiagram(studentBusClass, studentDriverClass, studentClassDiagram);
-    var studentAssociation_1 = instructorAssociations.get(0);
+    var studentAssociations = getAssociationsFromClassDiagram(studentBusClass, studentDriverClass, studentClassDiagram);
+    var studentAssociation0 = instructorAssociations.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(3, comparison.newMistakes.size()); // Missing association, 2 X Wrong Role Names
     assertEquals(3, studentSolution.getMistakes().size());
-    assertEquals(instructorAssociation_1, studentAssociation_1);
+    assertEquals(instructorAssociation0, studentAssociation0);
 
   }
 

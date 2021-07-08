@@ -1,10 +1,6 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeConditional;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAssociationEndFromClass;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAssociationFromClassDiagram;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAttributeFromClass;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
@@ -15,6 +11,10 @@ import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
+import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
+import static modelingassistant.util.ClassDiagramUtils.getAssociationsFromClassDiagram;
+import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
+import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
@@ -50,7 +50,7 @@ public class MistakeDetectionTestForPaper {
     var instructorPIClass = getClassFromClassDiagram("PISystem", instructorClassDiagram);
     var instructorAssocEndPoliceStation = getAssociationEndFromClass("policeStations", instructorPIClass);
 
-    var instructorPoliceOfficerPISystem = getAssociationFromClassDiagram(instructorPoliceOfficerClass,
+    var instructorPoliceOfficerPISystem = getAssociationsFromClassDiagram(instructorPoliceOfficerClass,
         instructorPIClass, instructorClassDiagram);
 
     var studentPoliceOfficerClass = getClassFromClassDiagram("PoliceOfficer", studentClassDiagram);

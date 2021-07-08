@@ -4,18 +4,19 @@ import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.TagType.PLAYER;
 import static modelingassistant.TagType.ROLE;
+import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
+import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
+import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Association;
-import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.CDEnum;
 import ca.mcgill.sel.classdiagram.CDEnumLiteral;
@@ -349,86 +350,6 @@ public class MistakeDetectionTest {
 
     assertEquals(comparison.newMistakes.size(), 0);
     assertEquals(studentSolution.getMistakes().size(), 0);
-  }
-
-  /**
-   * Helper function returns a classifier from a class diagram based on class name.
-   *
-   * @param className
-   * @param classDiagram
-   * @return Classifier
-   */
-  public static Classifier getClassFromClassDiagram(String className, ClassDiagram classDiagram) {
-    Classifier seekedClass = null;
-    for (var c : classDiagram.getClasses()) {
-      if (className.equals(c.getName()))
-        seekedClass = c;
-    }
-    if (seekedClass == null) {
-      throw new IllegalArgumentException("No Class Found, please check the class name");
-    }
-    return seekedClass;
-  }
-
-  /**
-   * Helper function returns an attribute from a class based on attribute name.
-   *
-   * @param className
-   * @param classDiagram
-   * @return Attribute
-   */
-  public static Attribute getAttributeFromClass(String attributeName, Classifier givenClass) {
-    Attribute seekedAttribute = null;
-    for (var a : givenClass.getAttributes()) {
-      if (attributeName.equals(a.getName())) {
-        seekedAttribute = a;
-      }
-    }
-    if (seekedAttribute == null) {
-      throw new IllegalArgumentException("No Attribute Found, please check the attribute name");
-    }
-    return seekedAttribute;
-  }
-
-  /**
-   * Helper function returns an association between 2 classes from a class diagram.
-   *
-   * @param className
-   * @param classDiagram
-   * @return Association
-   */
-  public static List<Association> getAssociationFromClassDiagram(Classifier class1, Classifier class2,
-      ClassDiagram classDiagram) {
-    List<Association> seekedAssociation = new BasicEList<Association>();
-    for (var assoc : classDiagram.getAssociations()) {
-      if (assoc.getName().contains(class1.getName()) && assoc.getName().contains(class2.getName())) {
-        seekedAssociation.add(assoc);
-      }
-    }
-    if (seekedAssociation.isEmpty()) {
-      throw new IllegalArgumentException("No Association Found, please check the association name");
-    }
-    return seekedAssociation;
-  }
-
-  /**
-   * Helper function returns an association end of a class based on association end name.
-   *
-   * @param className
-   * @param classDiagram
-   * @return AssociationEnd
-   */
-  public static AssociationEnd getAssociationEndFromClass(String associationEndName, Classifier givenClass) {
-    AssociationEnd seekedAssociationEnd = null;
-    for (var assocEnd : givenClass.getAssociationEnds()) {
-      if (associationEndName.equals(assocEnd.getName())) {
-        seekedAssociationEnd = assocEnd;
-      }
-    }
-    if (seekedAssociationEnd == null) {
-      throw new IllegalArgumentException("No Association End Found, Please check the association end name");
-    }
-    return seekedAssociationEnd;
   }
 
   public static boolean mistakesContainMistakeType(List<Mistake> mistakes, MistakeType mistakeType) {
