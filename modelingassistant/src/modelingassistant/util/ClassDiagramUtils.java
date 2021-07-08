@@ -13,6 +13,8 @@ import ca.mcgill.sel.classdiagram.Classifier;
  *
  * @author Prabhsimran Singh
  * @author Younes Boubekeur
+ *
+ * @generated NOT
  */
 public class ClassDiagramUtils {
 
