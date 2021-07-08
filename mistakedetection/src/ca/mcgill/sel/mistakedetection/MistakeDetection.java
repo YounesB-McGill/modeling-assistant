@@ -163,6 +163,7 @@ public class MistakeDetection {
       }
       processed = true;
     }
+    mappingBasedOnSpellingError(comparison);
     mappingBasedOnSubStrings(comparison);
     mappingBasedOnAttribsAndAssocEnds(comparison);
     mapRelations(comparison);
@@ -1144,7 +1145,6 @@ public class MistakeDetection {
     EList<Attribute> instructorAttributes = instructorClass.getAttributes();
     EList<Attribute> studentAttributes = studentClass.getAttributes();
 
-
     float lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
     if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
       isMapped = true;
@@ -1164,8 +1164,38 @@ public class MistakeDetection {
         }
       }
     }
-
     return isMapped;
+  }
+
+  public static void mappingBasedOnSpellingError(Comparison comparison) {
+
+    if (comparison.notMappedInstructorClassifier.isEmpty() || comparison.extraStudentClassifier.isEmpty()) {
+      return;
+    }
+    for (int i = 0; i < comparison.notMappedInstructorClassifier.size(); i++) {
+      Classifier instructorClassifier = comparison.notMappedInstructorClassifier.get(i);
+      EList<Attribute> instructorAttributes = instructorClassifier.getAttributes();
+      for (int j = 0; j < comparison.extraStudentClassifier.size(); j++) {
+        Classifier studentClassifier = comparison.extraStudentClassifier.get(j);
+        EList<Attribute> studentAttributes = studentClassifier.getAttributes();
+        float lDistance = levenshteinDistance(studentClassifier.getName(), instructorClassifier.getName());
+        if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED){
+          mapClasses(comparison, studentClassifier, instructorClassifier);
+          checkMistakesInClassifier(studentClassifier, instructorClassifier, comparison.newMistakes);
+          for (Attribute instructorAttribute : instructorAttributes) {
+            for (Attribute studentAttribute : studentAttributes) {
+              lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
+              if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+                mapAttributes(comparison, studentAttribute, instructorAttribute);
+                checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison.newMistakes);
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
+
   }
 
   /** Maps if instructor class name is present in a student class name */
