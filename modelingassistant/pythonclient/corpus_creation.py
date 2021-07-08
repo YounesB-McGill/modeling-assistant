@@ -36,13 +36,16 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             Feedback(level=1, highlightSolution=True),
             TextResponse(level=2, text="Remember that a domain model should not contain software engineering terms."),
             ParametrizedResponse(level=3, text="${{className}} is a software engineering term, which does not belong in a domain model."),
-            ResourceResponse(level=4, learningResources=[Example(content=dedent("""\
-                Please note these examples of correct vs incorrect class naming:
-                :x: Examples to avoid | :heavy_check_mark: Good class names
-                --- | ---
-                pilot | Pilot
-                Airplanes | Airplane 
-                AirlineData | Airline"""))]),
+            ResourceResponse(level=4,
+                # TODO Change type of `content` to allow correct deserialization
+                # learningResources=[Example(content=dedent("""\
+                #     Please note these examples of correct vs incorrect class naming:
+                #     :x: Examples to avoid | :heavy_check_mark: Good class names
+                #     --- | ---
+                #     pilot | Pilot
+                #     Airplanes | Airplane 
+                #     AirlineData | Airline"""))]
+            ),
         ]),
         bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True),
         similar_class_name := mt(n="Similar (yet incorrect) class name"),
@@ -67,7 +70,10 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         bad_attribute_name_spelling := mt(n="Bad attribute name spelling"),
         similar_attribute_name := mt(n="Similar (yet incorrect) attribute name"),
     ]),
-    attribute_in_wrong_class := mtc(n="Attribute in wrong class", s=wrong_attribute),
+    attribute_in_wrong_class := mtc(n="Attribute in wrong class", s=wrong_attribute, mistakeTypes=[
+        attribute_misplaced := mt(n="Attribute misplaced"),
+        attribute_duplicated := mt(n="Attribute duplicated")
+    ]),
     wrong_relationship := mtc(n="Wrong relationship", mistakeTypes=[
         incomplete_containment_tree := mt(n="Incomplete containment tree"),
     ]),
@@ -124,7 +130,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         wrong_superclass := mt(n="Wrong superclass"),
     ]),
     misuse_of_design_patterns := mtc(n="Misuse of design patterns"),
-    misuse_of_player_role_pattern := mtc(n="Misuse of Player-Role Pattern", s=misuse_of_design_patterns),
+    misuse_of_player_role_pattern := mtc(n="Wrong Player-Role Pattern", s=misuse_of_design_patterns, mistakeTypes=[
+
+    ]),
     misuse_of_abstraction_occurrence := mtc(n="Misuse of Abstraction-Occurrence", s=misuse_of_design_patterns),
 ])
 
@@ -156,7 +164,7 @@ mts_by_priority: list[MistakeType] = [
     bad_attribute_name_spelling,
     plural_attribute,
     similar_attribute_name,
-    #attribute_misplaced,
+    attribute_misplaced,
     wrong_attribute_type,
     attribute_should_not_be_static,
     attribute_should_be_static,
@@ -196,7 +204,7 @@ mts_by_priority: list[MistakeType] = [
     extra_association_class,
     representing_an_action_with_an_association,
     other_extra_association,
-    #attribute_duplicated,
+    attribute_duplicated,
     other_extra_attribute,
 
     # missing items

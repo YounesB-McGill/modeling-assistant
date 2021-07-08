@@ -14,7 +14,7 @@ from mistaketypes import BAD_CLASS_NAME_SPELLING
 from modelingassistant.modelingassistant import ModelingAssistant, Solution, Student, StudentKnowledge
 
 
-LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test.learningcorpus"
+LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/default.learningcorpus"
 
 CDM_PATH = "modelingassistant/testmodels"
 MA_PATH = "modelingassistant/instances"
