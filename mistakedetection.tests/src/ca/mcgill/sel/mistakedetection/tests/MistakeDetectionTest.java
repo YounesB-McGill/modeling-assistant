@@ -58,7 +58,6 @@ public class MistakeDetectionTest {
    */
   @Test
   public void testLoadingStudentSolution() {
-
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
@@ -74,7 +73,6 @@ public class MistakeDetectionTest {
    */
   @Test
   public void testLoadingSolutionWithAttributes() {
-
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/Class Diagram/Two(withAttributes).domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -91,8 +89,7 @@ public class MistakeDetectionTest {
    * Test to check Mistakes in Metamodel
    */
   @Test
-  public void test_UpdateInMistakeAttributes() {
-
+  public void testUpdateInMistakeAttributes() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/One/Class Diagram/InstructorSolution.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -383,14 +380,9 @@ public class MistakeDetectionTest {
     return studentSolution;
   }
 
-  /**
-   * Helper function to create a new tag group and set an solution element to player tag in that tag group.
-   *
-   * @param className
-   * @param classDiagram
-   * @param instructorSolution
-   * @return tagGroup
-   */
+  // TODO Remove deprecated methods after migration to TagUtils.
+
+  @Deprecated
   public static TagGroup setPlayerTagToClassInClassDiag(String className, ClassDiagram classDiagram,
       Solution instructorSolution) {
     var tagGroup = maf.createTagGroup();
@@ -406,13 +398,7 @@ public class MistakeDetectionTest {
     return tagGroup;
   }
 
-  /**
-   * Sets Role tag to a class in tagGroup.
-   *
-   * @param className
-   * @param tagGroup
-   * @param classDiagram
-   */
+  @Deprecated
   public static void setRoleTagToClassInClassDiag(String className, TagGroup tagGroup, ClassDiagram classDiagram) {
     var tag = maf.createTag();
     tag.setTagType(ROLE);
@@ -424,13 +410,7 @@ public class MistakeDetectionTest {
     se.setSolution(tag.getTagGroup().getSolution());
   }
 
-  /**
-   * Sets Role tag to a association end in tagGroup.
-   *
-   * @param AssocEndName
-   * @param assocClass
-   * @param tagGroup
-   */
+  @Deprecated
   public static void setRoleTagToAssocEndInClass(String assocEndName, TagGroup tagGroup, Classifier assocClass) {
     var tag = maf.createTag();
     tag.setTagType(ROLE);
@@ -442,6 +422,7 @@ public class MistakeDetectionTest {
     se.setSolution(tag.getTagGroup().getSolution());
   }
 
+  @Deprecated
   public static void setRoleTagToAttribInClass(String attributeName, TagGroup tagGroup, Classifier assocClass) {
     var tag = maf.createTag();
     tag.setTagType(ROLE);
