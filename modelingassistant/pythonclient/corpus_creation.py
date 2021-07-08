@@ -75,6 +75,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     ]),
     wrong_attribute_name := mtc(n="Wrong attribute name", s=wrong_attribute, mistakeTypes=[
         bad_attribute_name_spelling := mt(n="Bad attribute name spelling"),
+        uppercase_attribute_name := mt(n="Uppercase attribute name"),
         similar_attribute_name := mt(n="Similar (yet incorrect) attribute name"),
     ]),
     attribute_in_wrong_class := mtc(n="Attribute in wrong class", s=wrong_attribute, mistakeTypes=[
@@ -172,6 +173,7 @@ mts_by_priority: list[MistakeType] = [
 
     # mistakes in an existing attribute
     bad_attribute_name_spelling,
+    uppercase_attribute_name,
     plural_attribute,
     similar_attribute_name,
     attribute_misplaced,
