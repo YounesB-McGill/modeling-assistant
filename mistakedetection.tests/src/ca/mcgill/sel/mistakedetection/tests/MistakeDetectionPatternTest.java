@@ -5,21 +5,31 @@ import static ca.mcgill.sel.mistakedetection.MistakeDetection.ENUM_PR_PATTERN;
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.FULL_PR_PATTERN;
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.SUB_CLASS_PR_PATTERN;
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.checkPattern;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistake;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeConditional;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
-// TODO Remove the below deprecated imports (and this comment) and replace with the commented line.
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setPlayerTagToClassInClassDiag;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToAssocEndInClass;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToAttribInClass;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.setRoleTagToClassInClassDiag;
-//import static modelingassistant.util.TagUtils.*;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
+import static learningcorpus.mistaketypes.MistakeTypes.ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN;
 import static modelingassistant.TagType.PLAYER;
 import static modelingassistant.TagType.ROLE;
+import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
+import static modelingassistant.util.TagUtils.setPlayerTagToClassInClassDiag;
+import static modelingassistant.util.TagUtils.setRoleTagToAssocEndInClass;
+import static modelingassistant.util.TagUtils.setRoleTagToAttribInClass;
+import static modelingassistant.util.TagUtils.setRoleTagToClassInClassDiag;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.junit.jupiter.api.Test;
+import ca.mcgill.sel.classdiagram.NamedElement;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
+import modelingassistant.Mistake;
 
 
 /**
@@ -130,9 +140,7 @@ public class MistakeDetectionPatternTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    System.out.println("---Test to inst subClass - student subClass pattern --");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-    System.out.println("-----");
     assertEquals(0, comparison.newMistakes.size());
     assertEquals(0, studentSolution.getMistakes().size());
   }
@@ -155,9 +163,7 @@ public class MistakeDetectionPatternTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    System.out.println("---Test to inst Full - student Full pattern --");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-    System.out.println("-----");
     assertEquals(0, comparison.newMistakes.size());
     assertEquals(0, studentSolution.getMistakes().size());
   }
@@ -181,9 +187,7 @@ public class MistakeDetectionPatternTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    System.out.println("---Test to inst Assoc - student Assoc pattern --");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-    System.out.println("-----");
     assertEquals(0, comparison.newMistakes.size());
     assertEquals(0, studentSolution.getMistakes().size());
   }
@@ -206,9 +210,7 @@ public class MistakeDetectionPatternTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    System.out.println("---Test to inst enum- student enum pattern --");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-    System.out.println("-----");
     assertEquals(0, comparison.newMistakes.size());
     assertEquals(0, studentSolution.getMistakes().size());
   }
@@ -231,11 +233,31 @@ public class MistakeDetectionPatternTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    System.out.println("---Test to check Full PR insted of Subclass --");
+
+    var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
+    var instFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", instructorClassDiagram);
+    var instPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instStudentClass);
+    instElements.add(instFullTimeStudentClass);
+    instElements.add(instPartTimeStudentClass);
+
+    var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
+    var studFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", studentClassDiagram);
+    var studPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studStudentClass);
+    studElements.add(studFullTimeStudentClass);
+    studElements.add(studPartTimeStudentClass);
+
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-    System.out.println("---------------");
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS,
+        studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -255,12 +277,28 @@ public class MistakeDetectionPatternTest {
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
+
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    System.out.println("---Test to check Enum PR insted of Subclass --");
+    var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
+    var instFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", instructorClassDiagram);
+    var instPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instStudentClass);
+    instElements.add(instFullTimeStudentClass);
+    instElements.add(instPartTimeStudentClass);
+
+    var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studStudentClass);
+
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-    System.out.println("---------------");
-    assertEquals(5, comparison.newMistakes.size());
-    assertEquals(5, studentSolution.getMistakes().size());
+
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN,
+        studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -281,11 +319,33 @@ public class MistakeDetectionPatternTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    System.out.println("---Test to check Assoc PR insted of Subclass --");
+
+    var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
+    var instFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", instructorClassDiagram);
+    var instPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instStudentClass);
+    instElements.add(instFullTimeStudentClass);
+    instElements.add(instPartTimeStudentClass);
+
+    var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
+    var studProjectClass = getClassFromClassDiagram("Project", studentClassDiagram);
+    var studFullTimeStudentAssocEnd = getAssociationEndFromClass("fullTimeStudent", studProjectClass);
+    var studPartTimeStudentAssocEnd = getAssociationEndFromClass("partTimeStudent", studProjectClass);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studStudentClass);
+    studElements.add(studFullTimeStudentAssocEnd);
+    studElements.add(studPartTimeStudentAssocEnd);
+
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-    System.out.println("---------------");
-    assertEquals(4, comparison.newMistakes.size());
-    assertEquals(4, studentSolution.getMistakes().size());
+
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN,
+        studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -306,11 +366,31 @@ public class MistakeDetectionPatternTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    System.out.println("---Test to check Sub Class PR insted of Full PR--");
+
+    var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
+    var instFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", instructorClassDiagram);
+    var instPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instStudentClass);
+    instElements.add(instFullTimeStudentClass);
+    instElements.add(instPartTimeStudentClass);
+
+    var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
+    var studFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", studentClassDiagram);
+    var studPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studStudentClass);
+    studElements.add(studFullTimeStudentClass);
+    studElements.add(studPartTimeStudentClass);
+
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-    System.out.println("---------------");
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN,
+        studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -331,11 +411,32 @@ public class MistakeDetectionPatternTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    System.out.println("---Test to check Assoc PR insted of Full PR--");
+
+    var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
+    var instFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", instructorClassDiagram);
+    var instPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instStudentClass);
+    instElements.add(instFullTimeStudentClass);
+    instElements.add(instPartTimeStudentClass);
+
+    var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
+    var studProjectClass = getClassFromClassDiagram("Project", studentClassDiagram);
+    var studFullTimeStudentAssocEnd = getAssociationEndFromClass("fullTimeStudent", studProjectClass);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studStudentClass);
+    studElements.add(studFullTimeStudentAssocEnd);
+
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-    System.out.println("---------------");
-    assertEquals(8, comparison.newMistakes.size());
-    assertEquals(8, studentSolution.getMistakes().size());
+MistakeDetectionTest.log(comparison);
+    assertEquals(9, comparison.newMistakes.size());
+    assertEquals(9, studentSolution.getMistakes().size());
+    for(Mistake m : studentSolution.getMistakes()) {
+    assertMistakeConditional(m, ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN,
+        studElements, instElements, 0, 1, false);
+    }
   }
 
   /**
@@ -358,6 +459,7 @@ public class MistakeDetectionPatternTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
     System.out.println("---Test to check Enum PR insted of Full PR--");
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    MistakeDetectionTest.log(comparison);
     System.out.println("---------------");
     assertEquals(8, comparison.newMistakes.size());
     assertEquals(8, studentSolution.getMistakes().size());
