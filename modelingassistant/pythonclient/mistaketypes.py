@@ -5,7 +5,7 @@ This file contains all mistake types and categories.
 from fileserdes import load_lc
 from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
 
-LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test2.learningcorpus"
+LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/default.learningcorpus"
 corpus = load_lc(LEARNING_CORPUS_PATH)
 
 # Populate dictionaries
@@ -37,7 +37,7 @@ WRONG_ROLE_NAMES: MistakeTypeCategory = _MTCS["Wrong role names"]
 WRONG_ASSOCIATION_CLASS: MistakeTypeCategory = _MTCS["Wrong association class"]
 WRONG_GENERALIZATION: MistakeTypeCategory = _MTCS["Wrong generalization"]
 MISUSE_OF_DESIGN_PATTERNS: MistakeTypeCategory = _MTCS["Misuse of design patterns"]
-MISUSE_OF_PLAYER_ROLE_PATTERN: MistakeTypeCategory = _MTCS["Misuse of Player-Role Pattern"]
+WRONG_PLAYER_ROLE_PATTERN: MistakeTypeCategory = _MTCS["Wrong Player-Role Pattern"]
 MISUSE_OF_ABSTRACTION_OCCURRENCE: MistakeTypeCategory = _MTCS["Misuse of Abstraction-Occurrence"]
 
 # Mistake types
@@ -60,6 +60,8 @@ LIST_ATTRIBUTE: MistakeType = _MTS["List attribute"]
 OTHER_EXTRA_ATTRIBUTE: MistakeType = _MTS["Other extra attribute"]
 BAD_ATTRIBUTE_NAME_SPELLING: MistakeType = _MTS["Bad attribute name spelling"]
 SIMILAR_ATTRIBUTE_NAME: MistakeType = _MTS["Similar (yet incorrect) attribute name"]
+ATTRIBUTE_MISPLACED: MistakeType = _MTS["Attribute misplaced"]
+ATTRIBUTE_DUPLICATED: MistakeType = _MTS["Attribute duplicated"]
 INCOMPLETE_CONTAINMENT_TREE: MistakeType = _MTS["Incomplete containment tree"]
 MISSING_ASSOCIATION: MistakeType = _MTS["Missing association"]
 MISSING_COMPOSITION: MistakeType = _MTS["Missing composition"]

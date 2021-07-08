@@ -21,6 +21,8 @@
       1. [Bad attribute name spelling](#bad-attribute-name-spelling)
       1. [Similar (yet incorrect) attribute name](#similar-attribute-name)
    1. [Attribute in wrong class](#attribute-in-wrong-class)
+      1. [Attribute misplaced](#attribute-misplaced)
+      1. [Attribute duplicated](#attribute-duplicated)
    1. [Missing attribute](#missing-attribute)
    1. [Wrong attribute type](#wrong-attribute-type)
    1. [Attribute should be static](#attribute-should-be-static)
@@ -74,7 +76,7 @@
    1. [Incomplete containment tree](#incomplete-containment-tree)
 
 1. [Misuse of design patterns](#misuse-of-design-patterns)
-   1. [Misuse of Player-Role Pattern](#misuse-of-player-role-pattern)
+   1. [Wrong Player-Role Pattern](#wrong-player-role-pattern)
    1. [Misuse of Abstraction-Occurrence](#misuse-of-abstraction-occurrence)
 
 ## Wrong class
@@ -134,6 +136,11 @@
 
 
 ### Attribute in wrong class
+
+#### Attribute misplaced
+
+
+#### Attribute duplicated
 
 ### Missing attribute
 
@@ -277,7 +284,7 @@
 
 ## Misuse of design patterns
 
-### Misuse of Player-Role Pattern
+### Wrong Player-Role Pattern
 
 
 ### Misuse of Abstraction-Occurrence

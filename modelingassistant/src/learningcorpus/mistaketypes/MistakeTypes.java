@@ -13,7 +13,7 @@ public class MistakeTypes {
 
   /** The path of the learning corpus instance with mistake types. */
   public static final String LEARNING_CORPUS_PATH =
-      "../modelingassistant.learningcorpus.dsl.instances/test.learningcorpus";
+      "../modelingassistant.learningcorpus.dsl.instances/default.learningcorpus";
 
   /** Map of mistake type categories by name. */
   public static final Map<String, MistakeTypeCategory> MISTAKE_TYPE_CATEGORIES_BY_NAME =
@@ -90,8 +90,8 @@ public class MistakeTypes {
   /** The misuse of design patterns mistake type category. */
   public static final MistakeTypeCategory MISUSE_OF_DESIGN_PATTERNS = MTCS.get("Misuse of design patterns");
 
-  /** The misuse of player-role pattern mistake type category. */
-  public static final MistakeTypeCategory MISUSE_OF_PLAYER_ROLE_PATTERN = MTCS.get("Misuse of Player-Role Pattern");
+  /** The wrong player-role pattern mistake type category. */
+  public static final MistakeTypeCategory WRONG_PLAYER_ROLE_PATTERN = MTCS.get("Wrong Player-Role Pattern");
 
   /** The misuse of abstraction-occurrence mistake type category. */
   public static final MistakeTypeCategory MISUSE_OF_ABSTRACTION_OCCURRENCE =
@@ -156,6 +156,12 @@ public class MistakeTypes {
 
   /** The similar (yet incorrect) attribute name mistake type. */
   public static final MistakeType SIMILAR_ATTRIBUTE_NAME = MTS.get("Similar (yet incorrect) attribute name");
+
+  /** The attribute misplaced mistake type. */
+  public static final MistakeType ATTRIBUTE_MISPLACED = MTS.get("Attribute misplaced");
+
+  /** The attribute duplicated mistake type. */
+  public static final MistakeType ATTRIBUTE_DUPLICATED = MTS.get("Attribute duplicated");
 
   /** The incomplete containment tree mistake type. */
   public static final MistakeType INCOMPLETE_CONTAINMENT_TREE = MTS.get("Incomplete containment tree");

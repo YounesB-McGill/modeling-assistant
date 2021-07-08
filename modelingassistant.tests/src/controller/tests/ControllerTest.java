@@ -43,7 +43,7 @@ public class ControllerTest {
 
   /** The location of the default learning corpus. */
   public static final String LEARNING_CORPUS_PATH =
-      "../modelingassistant.learningcorpus.dsl.instances/test.learningcorpus";
+      "../modelingassistant.learningcorpus.dsl.instances/default.learningcorpus";
 
   /** Shorthand for CdmFactory.eINSTANCE. */
   public static final CdmFactory CDF = CdmFactory.eINSTANCE;
