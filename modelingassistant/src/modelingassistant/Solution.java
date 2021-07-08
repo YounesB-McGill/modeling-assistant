@@ -2,6 +2,8 @@
  */
 package modelingassistant;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
@@ -33,6 +35,14 @@ import ca.mcgill.sel.classdiagram.ClassDiagram;
  * @generated
  */
 public interface Solution extends EObject {
+
+  /**
+   * Reverse mapping of class diagrams to solutions.
+   *
+   * @generated NOT
+   */
+  Map<ClassDiagram, Solution> classDiagramsToSolutions = new HashMap<ClassDiagram, Solution>();
+
   /**
    * Returns the value of the '<em><b>Modeling Assistant</b></em>' container reference.
    * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getSolutions <em>Solutions</em>}'.
@@ -141,6 +151,15 @@ public interface Solution extends EObject {
    * @generated
    */
   void setClassDiagram(ClassDiagram value);
+
+  /**
+   * Returns the solution of a given class diagram, if any.
+   *
+   * @generated NOT
+   */
+  static Solution forClassDiagram(ClassDiagram classDiagram) {
+    return classDiagramsToSolutions.getOrDefault(classDiagram, null);
+  }
 
   /**
    * Returns the value of the '<em><b>Mistakes</b></em>' containment reference list.

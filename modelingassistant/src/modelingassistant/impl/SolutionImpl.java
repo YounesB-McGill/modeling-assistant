@@ -2,10 +2,18 @@
  */
 package modelingassistant.impl;
 
-import ca.mcgill.sel.classdiagram.ClassDiagram;
-
 import java.util.Collection;
-
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.InternalEList;
+import ca.mcgill.sel.classdiagram.ClassDiagram;
 import modelingassistant.FeedbackItem;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingAssistant;
@@ -15,21 +23,6 @@ import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
 import modelingassistant.Student;
 import modelingassistant.TagGroup;
-
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -298,14 +291,15 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
+   * Sets the solution class diagram to the given one.
+   *
+   * @generated NOT
    */
   @Override
   public void setClassDiagram(ClassDiagram newClassDiagram) {
     ClassDiagram oldClassDiagram = classDiagram;
     classDiagram = newClassDiagram;
+    classDiagramsToSolutions.put(newClassDiagram, this);
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.SOLUTION__CLASS_DIAGRAM, oldClassDiagram, classDiagram));
   }
