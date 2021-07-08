@@ -66,12 +66,6 @@ public class LearningcorpusSwitch<T> extends Switch<T> {
   @Override
   protected T doSwitch(int classifierID, EObject theEObject) {
     switch (classifierID) {
-      case LearningcorpusPackage.UML_ELEMENT: {
-        UmlElement umlElement = (UmlElement)theEObject;
-        T result = caseUmlElement(umlElement);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case LearningcorpusPackage.LEARNING_ITEM: {
         LearningItem learningItem = (LearningItem)theEObject;
         T result = caseLearningItem(learningItem);
@@ -173,21 +167,6 @@ public class LearningcorpusSwitch<T> extends Switch<T> {
       }
       default: return defaultCase(theEObject);
     }
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Uml Element</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Uml Element</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseUmlElement(UmlElement object) {
-    return null;
   }
 
   /**

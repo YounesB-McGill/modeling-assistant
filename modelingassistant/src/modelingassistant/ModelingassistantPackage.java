@@ -425,22 +425,13 @@ public interface ModelingassistantPackage extends EPackage {
   int SOLUTION__MISTAKES = 4;
 
   /**
-   * The feature id for the '<em><b>Current Mistake</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SOLUTION__CURRENT_MISTAKE = 5;
-
-  /**
    * The feature id for the '<em><b>Tag Groups</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SOLUTION__TAG_GROUPS = 6;
+  int SOLUTION__TAG_GROUPS = 5;
 
   /**
    * The feature id for the '<em><b>Problem Statement</b></em>' reference.
@@ -449,7 +440,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SOLUTION__PROBLEM_STATEMENT = 7;
+  int SOLUTION__PROBLEM_STATEMENT = 6;
 
   /**
    * The feature id for the '<em><b>Feedback Items</b></em>' containment reference list.
@@ -458,7 +449,16 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SOLUTION__FEEDBACK_ITEMS = 8;
+  int SOLUTION__FEEDBACK_ITEMS = 7;
+
+  /**
+   * The feature id for the '<em><b>Current Mistake</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SOLUTION__CURRENT_MISTAKE = 8;
 
   /**
    * The number of structural features of the '<em>Solution</em>' class.
@@ -789,13 +789,22 @@ public interface ModelingassistantPackage extends EPackage {
   int FEEDBACK_ITEM__SOLUTION = 3;
 
   /**
+   * The feature id for the '<em><b>Text</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FEEDBACK_ITEM__TEXT = 4;
+
+  /**
    * The number of structural features of the '<em>Feedback Item</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FEEDBACK_ITEM_FEATURE_COUNT = 4;
+  int FEEDBACK_ITEM_FEATURE_COUNT = 5;
 
   /**
    * The number of operations of the '<em>Feedback Item</em>' class.
@@ -1568,6 +1577,17 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getFeedbackItem_Solution();
 
   /**
+   * Returns the meta object for the attribute '{@link modelingassistant.FeedbackItem#getText <em>Text</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Text</em>'.
+   * @see modelingassistant.FeedbackItem#getText()
+   * @see #getFeedbackItem()
+   * @generated
+   */
+  EAttribute getFeedbackItem_Text();
+
+  /**
    * Returns the meta object for class '{@link modelingassistant.Tag <em>Tag</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2177,6 +2197,14 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference FEEDBACK_ITEM__SOLUTION = eINSTANCE.getFeedbackItem_Solution();
+
+    /**
+     * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FEEDBACK_ITEM__TEXT = eINSTANCE.getFeedbackItem_Text();
 
     /**
      * The meta object literal for the '{@link modelingassistant.impl.TagImpl <em>Tag</em>}' class.

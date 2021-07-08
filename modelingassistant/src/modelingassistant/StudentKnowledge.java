@@ -28,15 +28,16 @@ import org.eclipse.emf.ecore.EObject;
 public interface StudentKnowledge extends EObject {
   /**
    * Returns the value of the '<em><b>Level Of Knowledge</b></em>' attribute.
+   * The default value is <code>"5.0"</code>.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Level Of Knowledge</em>' attribute.
-   * @see #setLevelOfKnowledge(int)
+   * @see #setLevelOfKnowledge(double)
    * @see modelingassistant.ModelingassistantPackage#getStudentKnowledge_LevelOfKnowledge()
-   * @model
+   * @model default="5.0"
    * @generated
    */
-  int getLevelOfKnowledge();
+  double getLevelOfKnowledge();
 
   /**
    * Sets the value of the '{@link modelingassistant.StudentKnowledge#getLevelOfKnowledge <em>Level Of Knowledge</em>}' attribute.
@@ -46,7 +47,7 @@ public interface StudentKnowledge extends EObject {
    * @see #getLevelOfKnowledge()
    * @generated
    */
-  void setLevelOfKnowledge(int value);
+  void setLevelOfKnowledge(double value);
 
   /**
    * Returns the value of the '<em><b>Student</b></em>' reference.

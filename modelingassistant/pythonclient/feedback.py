@@ -9,8 +9,8 @@ from learningcorpus.learningcorpus import TextResponse
 from modelingassistant.modelingassistant import FeedbackItem, Mistake, Solution, StudentKnowledge
 
 
-MAX_STUDENT_LEVEL_OF_KNOWLEDGE = 10
-BEGINNER_LEVEL_OF_KNOWLEDGE = 7
+MAX_STUDENT_LEVEL_OF_KNOWLEDGE = 10.0
+BEGINNER_LEVEL_OF_KNOWLEDGE = 7.0
 
 
 def give_feedback(student_solution: Solution) -> Union[FeedbackItem, list[FeedbackItem]]:

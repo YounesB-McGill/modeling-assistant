@@ -734,7 +734,7 @@ public class ControllerTest {
     solution1.setClassDiagram(classDiagram);
     solution1.setStudent(student1);
     solution1.setModelingAssistant(modelingAssistant);
-    var lok1 = 10_578_963; // use a large int to detect it in testing
+    var lok1 = 10_578_963.0; // use a large float to detect it in testing
     var student1ClassNamingKnowledge = MAF.createStudentKnowledge();
     student1ClassNamingKnowledge.setLevelOfKnowledge(lok1);
     student1ClassNamingKnowledge.setStudent(student1);
@@ -751,7 +751,7 @@ public class ControllerTest {
     solution2.setClassDiagram(classDiagram2);
     solution2.setStudent(student2);
     solution2.setModelingAssistant(modelingAssistant);
-    var lok2 = 8_996_541;
+    var lok2 = 8_996_541.0;
     var student2ClassNamingKnowledge = MAF.createStudentKnowledge();
     student2ClassNamingKnowledge.setLevelOfKnowledge(lok2);
     student2ClassNamingKnowledge.setStudent(student2);
@@ -781,7 +781,7 @@ public class ControllerTest {
       assertTrue(maFile.isFile());
       var fileContent = Files.readString(Paths.get(maPath));
       List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt", "Student2_solution", "1111", "2222",
-          Integer.toString(lok1), Integer.toString(lok2)).forEach(s -> assertTrue(fileContent.contains(s)));
+          Double.toString(lok1), Double.toString(lok2)).forEach(s -> assertTrue(fileContent.contains(s)));
     } catch (IOException e) {
       fail();
     }
