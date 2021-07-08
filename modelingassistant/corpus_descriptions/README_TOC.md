@@ -85,20 +85,21 @@
 
 1. [Misuse of design patterns](#misuse-of-design-patterns)
    1. [Wrong Player-Role Pattern](#wrong-player-role-pattern)
+      1. [Using different Player-Role pattern](#using-different-player-role-pattern)
+         1. [Subclass should be full Player-Role pattern](#subclass-should-be-full-player-role-pattern)
+         1. [Subclass should be association Player-Role pattern](#subclass-should-be-association-player-role-pattern)
+         1. [Subclass should be enum Player-Role pattern](#subclass-should-be-enum-player-role-pattern)
+         1. [Association should be full Player-Role pattern](#association-should-be-full-player-role-pattern)
+         1. [Association should be subclass Player-Role pattern](#association-should-be-subclass-player-role-pattern)
+         1. [Association should be enum Player-Role pattern](#association-should-be-enum-player-role-pattern)
+         1. [Enum should be full Player-Role pattern](#enum-should-be-full-player-role-pattern)
+         1. [Enum should be subclass Player-Role pattern](#enum-should-be-subclass-player-role-pattern)
+         1. [Enum should be association Player-Role pattern](#enum-should-be-association-player-role-pattern)
+         1. [Full Player-Role pattern should be subclass](#full-player-role-pattern-should-be-subclass)
+         1. [Full Player-Role pattern should be association](#full-player-role-pattern-should-be-association)
+         1. [Full Player-Role pattern should be enum](#full-player-role-pattern-should-be-enum)
       1. [Missing Player-Role pattern](#missing-player-role-pattern)
       1. [Incomplete Player-Role pattern](#incomplete-player-role-pattern)
-      1. [Subclass should be full Player-Role pattern](#subclass-should-be-full-player-role-pattern)
-      1. [Subclass should be association Player-Role pattern](#subclass-should-be-association-player-role-pattern)
-      1. [Subclass should be enum Player-Role pattern](#subclass-should-be-enum-player-role-pattern)
-      1. [Association should be full Player-Role pattern](#association-should-be-full-player-role-pattern)
-      1. [Association should be subclass Player-Role pattern](#association-should-be-subclass-player-role-pattern)
-      1. [Association should be enum Player-Role pattern](#association-should-be-enum-player-role-pattern)
-      1. [Enum should be full Player-Role pattern](#enum-should-be-full-player-role-pattern)
-      1. [Enum should be subclass Player-Role pattern](#enum-should-be-subclass-player-role-pattern)
-      1. [Enum should be association Player-Role pattern](#enum-should-be-association-player-role-pattern)
-      1. [Full Player-Role pattern should be subclass](#full-player-role-pattern-should-be-subclass)
-      1. [Full Player-Role pattern should be association](#full-player-role-pattern-should-be-association)
-      1. [Full Player-Role pattern should be enum](#full-player-role-pattern-should-be-enum)
    1. [Wrong Abstraction-Occurrence pattern](#wrong-abstraction-occurrence-pattern)
       1. [Missing Abstraction-Occurrence pattern](#missing-abstraction-occurrence-pattern)
       1. [Incomplete Abstraction-Occurrence pattern](#incomplete-abstraction-occurrence-pattern)
@@ -334,46 +335,47 @@
 
 ### Wrong Player-Role Pattern
 
+#### Using different Player-Role pattern
+
+##### Subclass should be full Player-Role pattern
+
+
+##### Subclass should be association Player-Role pattern
+
+
+##### Subclass should be enum Player-Role pattern
+
+
+##### Association should be full Player-Role pattern
+
+
+##### Association should be subclass Player-Role pattern
+
+
+##### Association should be enum Player-Role pattern
+
+
+##### Enum should be full Player-Role pattern
+
+
+##### Enum should be subclass Player-Role pattern
+
+
+##### Enum should be association Player-Role pattern
+
+
+##### Full Player-Role pattern should be subclass
+
+
+##### Full Player-Role pattern should be association
+
+
+##### Full Player-Role pattern should be enum
+
 #### Missing Player-Role pattern
 
 
 #### Incomplete Player-Role pattern
-
-
-#### Subclass should be full Player-Role pattern
-
-
-#### Subclass should be association Player-Role pattern
-
-
-#### Subclass should be enum Player-Role pattern
-
-
-#### Association should be full Player-Role pattern
-
-
-#### Association should be subclass Player-Role pattern
-
-
-#### Association should be enum Player-Role pattern
-
-
-#### Enum should be full Player-Role pattern
-
-
-#### Enum should be subclass Player-Role pattern
-
-
-#### Enum should be association Player-Role pattern
-
-
-#### Full Player-Role pattern should be subclass
-
-
-#### Full Player-Role pattern should be association
-
-
-#### Full Player-Role pattern should be enum
 
 
 ### Wrong Abstraction-Occurrence pattern

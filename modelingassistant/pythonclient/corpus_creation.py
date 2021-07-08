@@ -141,6 +141,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     wrong_player_role_pattern := mtc(n="Wrong Player-Role Pattern", s=misuse_of_design_patterns, mistakeTypes=[
         missing_player_role_pattern := mt(n="Missing Player-Role pattern"),
         incomplete_player_role_pattern := mt(n="Incomplete Player-Role pattern"),
+    ]),
+    using_different_player_role_pattern := mtc(n="Using different Player-Role pattern", s=wrong_player_role_pattern, mistakeTypes=[
         subclass_should_be_full_player_role_pattern := mt(n="Subclass should be full Player-Role pattern"),
         subclass_should_be_association_player_role_pattern := mt(n="Subclass should be association Player-Role pattern"),
         subclass_should_be_enum_player_role_pattern := mt(n="Subclass should be enum Player-Role pattern"),

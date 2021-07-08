@@ -38,6 +38,7 @@ WRONG_ASSOCIATION_CLASS: MistakeTypeCategory = _MTCS["Wrong association class"]
 WRONG_GENERALIZATION: MistakeTypeCategory = _MTCS["Wrong generalization"]
 MISUSE_OF_DESIGN_PATTERNS: MistakeTypeCategory = _MTCS["Misuse of design patterns"]
 WRONG_PLAYER_ROLE_PATTERN: MistakeTypeCategory = _MTCS["Wrong Player-Role Pattern"]
+USING_DIFFERENT_PLAYER_ROLE_PATTERN: MistakeTypeCategory = _MTCS["Using different Player-Role pattern"]
 WRONG_ABSTRACTION_OCCURRENCE_PATTERN: MistakeTypeCategory = _MTCS["Wrong Abstraction-Occurrence pattern"]
 
 # Mistake types

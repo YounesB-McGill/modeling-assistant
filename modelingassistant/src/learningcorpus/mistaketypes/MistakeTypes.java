@@ -93,6 +93,10 @@ public class MistakeTypes {
   /** The wrong player-role pattern mistake type category. */
   public static final MistakeTypeCategory WRONG_PLAYER_ROLE_PATTERN = MTCS.get("Wrong Player-Role Pattern");
 
+  /** The using different player-role pattern mistake type category. */
+  public static final MistakeTypeCategory USING_DIFFERENT_PLAYER_ROLE_PATTERN =
+      MTCS.get("Using different Player-Role pattern");
+
   /** The wrong abstraction-occurrence pattern mistake type category. */
   public static final MistakeTypeCategory WRONG_ABSTRACTION_OCCURRENCE_PATTERN =
       MTCS.get("Wrong Abstraction-Occurrence pattern");
