@@ -36,7 +36,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
-import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ENUM_ITEMS;
 import static modelingassistant.TagType.PLAYER;
 import static modelingassistant.TagType.ROLE;
 import java.io.IOException;
@@ -1688,11 +1687,12 @@ public class MistakeDetection {
   }
 
   public static void checkMistakeWrongEnumerationItems(Comparison comparison) {
-    comparison.notMappedInstructorEnumLiterals
-        .forEach(cls -> comparison.newMistakes.add(createMistake(WRONG_ENUM_ITEMS, null, cls)));
-
-    comparison.extraStudentEnumLiterals
-        .forEach(cls -> comparison.newMistakes.add(createMistake(WRONG_ENUM_ITEMS, cls, null)));
+//    comparison.notMappedInstructorEnumLiterals
+//        .forEach(cls -> comparison.newMistakes.add(createMistake(WRONG_ENUM_ITEMS, null, cls)));
+//
+//    comparison.extraStudentEnumLiterals
+//        .forEach(cls -> comparison.newMistakes.add(createMistake(WRONG_ENUM_ITEMS, cls, null)));
+    throw new RuntimeException("Not yet implemented.");
   }
 
 

@@ -127,8 +127,29 @@ public class MistakeTypes {
   /** The enum should be regular class mistake type. */
   public static final MistakeType ENUM_SHOULD_BE_REGULAR_CLASS = MTS.get("Enum should be regular class");
 
-  /** The wrong enum items mistake type. */
-  public static final MistakeType WRONG_ENUM_ITEMS = MTS.get("Wrong enum items");
+  /** The missing enum mistake type. */
+  public static final MistakeType MISSING_ENUM = MTS.get("Missing enum");
+
+  /** The extra enum mistake type. */
+  public static final MistakeType EXTRA_ENUM = MTS.get("Extra enum");
+
+  /** The bad enum name spelling mistake type. */
+  public static final MistakeType BAD_ENUM_NAME_SPELLING = MTS.get("Bad enum name spelling");
+
+  /** The similar enum name mistake type. */
+  public static final MistakeType SIMILAR_ENUM_NAME = MTS.get("Similar enum name");
+
+  /** The missing enum item mistake type. */
+  public static final MistakeType MISSING_ENUM_ITEM = MTS.get("Missing enum item");
+
+  /** The extra enum item mistake type. */
+  public static final MistakeType EXTRA_ENUM_ITEM = MTS.get("Extra enum item");
+
+  /** The bad enum item spelling mistake type. */
+  public static final MistakeType BAD_ENUM_ITEM_SPELLING = MTS.get("Bad enum item spelling");
+
+  /** The similar enum item mistake type. */
+  public static final MistakeType SIMILAR_ENUM_ITEM = MTS.get("Similar enum item");
 
   /** The missing attribute mistake type. */
   public static final MistakeType MISSING_ATTRIBUTE = MTS.get("Missing attribute");

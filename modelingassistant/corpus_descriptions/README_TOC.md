@@ -8,7 +8,14 @@
    1. [Wrong enumeration](#wrong-enumeration)
       1. [Regular class should be enum](#regular-class-should-be-enum)
       1. [Enum should be regular class](#enum-should-be-regular-class)
-      1. [Wrong enum items](#wrong-enum-items)
+      1. [Missing enum](#missing-enum)
+      1. [Extra enum](#extra-enum)
+      1. [Bad enum name spelling](#bad-enum-name-spelling)
+      1. [Similar enum name](#similar-enum-name)
+      1. [Missing enum item](#missing-enum-item)
+      1. [Extra enum item](#extra-enum-item)
+      1. [Bad enum item spelling](#bad-enum-item-spelling)
+      1. [Similar enum item](#similar-enum-item)
    1. [Missing class](#missing-class)
    1. [Extra (redundant) class](#extra-redundant-class)
 
@@ -106,7 +113,28 @@
 #### Enum should be regular class
 
 
-#### Wrong enum items
+#### Missing enum
+
+
+#### Extra enum
+
+
+#### Bad enum name spelling
+
+
+#### Similar enum name
+
+
+#### Missing enum item
+
+
+#### Extra enum item
+
+
+#### Bad enum item spelling
+
+
+#### Similar enum item
 
 ### Missing class
 
