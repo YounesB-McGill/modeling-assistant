@@ -26,6 +26,7 @@
       1. [Other extra attribute](#other-extra-attribute)
    1. [Wrong attribute name](#wrong-attribute-name)
       1. [Bad attribute name spelling](#bad-attribute-name-spelling)
+      1. [Uppercase attribute name](#uppercase-attribute-name)
       1. [Similar (yet incorrect) attribute name](#similar-attribute-name)
    1. [Attribute in wrong class](#attribute-in-wrong-class)
       1. [Attribute misplaced](#attribute-misplaced)
@@ -158,6 +159,9 @@
 ### Wrong attribute name
 
 #### Bad attribute name spelling
+
+
+#### Uppercase attribute name
 
 
 #### Similar  attribute name

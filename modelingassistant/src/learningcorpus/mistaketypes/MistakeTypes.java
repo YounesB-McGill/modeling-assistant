@@ -175,6 +175,9 @@ public class MistakeTypes {
   /** The bad attribute name spelling mistake type. */
   public static final MistakeType BAD_ATTRIBUTE_NAME_SPELLING = MTS.get("Bad attribute name spelling");
 
+  /** The uppercase attribute name mistake type. */
+  public static final MistakeType UPPERCASE_ATTRIBUTE_NAME = MTS.get("Uppercase attribute name");
+
   /** The similar (yet incorrect) attribute name mistake type. */
   public static final MistakeType SIMILAR_ATTRIBUTE_NAME = MTS.get("Similar (yet incorrect) attribute name");
 
