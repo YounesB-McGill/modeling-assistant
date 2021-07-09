@@ -39,15 +39,15 @@ public class MistakeDetectionWrongRelationshipsTest {
     var studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
     var studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
     var studentAssociations = getAssociationsFromClassDiagram(studentBusClass, studentDriverClass, studentClassDiagram);
-    var studentAssociation0 = instructorAssociations.get(0);
-    var studentAssociation1 = instructorAssociations.get(1);
+    var studentAssociation0 = studentAssociations.get(0);
+    var studentAssociation1 = studentAssociations.get(1);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(0, comparison.newMistakes.size());
     assertEquals(0, studentSolution.getMistakes().size());
-    assertEquals(instructorAssociation0, studentAssociation0);
-    assertEquals(instructorAssociation1, studentAssociation1);
+    assertEquals(studentAssociation0, comparison.mappedAssociation.get(instructorAssociation0));
+    assertEquals(studentAssociation1, comparison.mappedAssociation.get(instructorAssociation1));
   }
 
   /**
@@ -68,19 +68,17 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorAssociations =
         getAssociationsFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
     var instructorAssociation0 = instructorAssociations.get(0);
-    var instructorAssociation1 = instructorAssociations.get(1);
 
     var studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
     var studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
     var studentAssociations = getAssociationsFromClassDiagram(studentBusClass, studentDriverClass, studentClassDiagram);
-    var studentAssociation0 = instructorAssociations.get(0);
+    var studentAssociation0 = studentAssociations.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(3, comparison.newMistakes.size()); // Missing association, 2 X Wrong Role Names
+    assertEquals(3, comparison.newMistakes.size());
     assertEquals(3, studentSolution.getMistakes().size());
-    assertEquals(instructorAssociation0, studentAssociation0);
-
+    assertEquals(studentAssociation0, comparison.mappedAssociation.get(instructorAssociation0));
   }
 
   /**
@@ -105,10 +103,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
 
-
     assertMistake(studentSolution.getMistakes().get(0), BAD_ROLE_NAME_SPELLING, studentMyDrivrAssociationEnd,
         instructorMyDriverAssociationEnd, 0, 1, false);
-
   }
 
 }
