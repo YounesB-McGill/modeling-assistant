@@ -464,7 +464,7 @@ public class MistakeDetection {
         } else {
           studentRoleClasses.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
         }
-        totalMatched +=1 ;
+        totalMatched += 1;
         studentMatchedElements.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
       }
     }
@@ -613,7 +613,7 @@ public class MistakeDetection {
       checkMistakeMissingPattern(tg, comparison);
       return;
     }
-    if(studPlayerClass != null) {
+    if (studPlayerClass != null) {
       studAssocElements.add(studPlayerClass);
       studEnumElements.add(studPlayerClass);
       studFullElements.add(studPlayerClass);
@@ -692,7 +692,8 @@ public class MistakeDetection {
     if (!(playerSolutionElement.getElement() instanceof Classifier)) {
       return true;
     }
-    return roleSolutionElements.stream().allMatch(se -> se.getElement() instanceof Attribute && ((Attribute) se.getElement()).getType() instanceof CDEnum);
+    return roleSolutionElements.stream().allMatch(
+        se -> se.getElement() instanceof Attribute && ((Attribute) se.getElement()).getType() instanceof CDEnum);
   }
 
   private static boolean assocPattern(SolutionElement playerSolutionElement,
@@ -736,8 +737,7 @@ public class MistakeDetection {
    * Returns true if an association exists between two classes in a solution.
    */
   private static boolean assocExists(Classifier class1, Classifier class2) {
-    return class1.getAssociationEnds().stream()
-        .anyMatch(ae -> getOtherAssocEnd(ae).getClassifier().equals(class2));
+    return class1.getAssociationEnds().stream().anyMatch(ae -> getOtherAssocEnd(ae).getClassifier().equals(class2));
   }
 
   public static boolean subclassPattern(SolutionElement playerSolutionElement,
@@ -1292,7 +1292,8 @@ public class MistakeDetection {
         }
         if (totalAttributes == 0 && possibleClassMatchWithNoAttribute.size() != 0) {
           EList<Classifier> sortedClosestClasssifier = sortByValueClassifier(possibleClassMatchWithNoAttribute);
-          mapClasses(comparison, classWithAssociationEndsMatch(sortedClosestClasssifier, instructorClassifier), instructorClassifier);
+          mapClasses(comparison, classWithAssociationEndsMatch(sortedClosestClasssifier, instructorClassifier),
+              instructorClassifier);
         }
         if (totalAttributes == 0) {
           continue;
@@ -1737,11 +1738,11 @@ public class MistakeDetection {
   }
 
   public static void checkMistakeWrongEnumerationItems(Comparison comparison) {
-     comparison.notMappedInstructorEnumLiterals
-     .forEach(cls -> comparison.newMistakes.add(createMistake(MISSING_ENUM, null, cls)));
+    comparison.notMappedInstructorEnumLiterals
+        .forEach(cls -> comparison.newMistakes.add(createMistake(MISSING_ENUM, null, cls)));
 
-     comparison.extraStudentEnumLiterals
-     .forEach(cls -> comparison.newMistakes.add(createMistake(EXTRA_ENUM, cls, null)));
+    comparison.extraStudentEnumLiterals
+        .forEach(cls -> comparison.newMistakes.add(createMistake(EXTRA_ENUM, cls, null)));
 
 
   }
@@ -1800,56 +1801,58 @@ public class MistakeDetection {
         .add(createMistake(INCOMPLETE_PLAYER_ROLE_PATTERN, studentMissingElements, instructorElements));
   }
 
-  public static void checkMistakeUsingEnumPattern(String instPattern, EList<NamedElement> studentElements, EList<NamedElement> isntElements,
-      Comparison comparison) {
-   if(instPattern.equals(ASSOC_PR_PATTERN)) {
-     comparison.newMistakes.add(createMistake(ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studentElements, isntElements));
-   }
-   else if(instPattern.equals(FULL_PR_PATTERN)) {
-     comparison.newMistakes.add(createMistake(ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studentElements, isntElements));
-   }
-   else if(instPattern.equals(SUB_CLASS_PR_PATTERN)) {
-     comparison.newMistakes.add(createMistake(ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studentElements, isntElements));
-   }
+  public static void checkMistakeUsingEnumPattern(String instPattern, EList<NamedElement> studentElements,
+      EList<NamedElement> isntElements, Comparison comparison) {
+    if (instPattern.equals(ASSOC_PR_PATTERN)) {
+      comparison.newMistakes
+          .add(createMistake(ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+    } else if (instPattern.equals(FULL_PR_PATTERN)) {
+      comparison.newMistakes.add(createMistake(ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+    } else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
+      comparison.newMistakes
+          .add(createMistake(ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+    }
   }
 
-  public static void checkMistakeUsingFullPattern(String instPattern, EList<NamedElement> studentElements, EList<NamedElement> isntElements,
-      Comparison comparison) {
-   if(instPattern.equals(ASSOC_PR_PATTERN)) {
-     comparison.newMistakes.add(createMistake(FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION, studentElements, isntElements));
-   }
-   else if(instPattern.equals(ENUM_PR_PATTERN)) {
-     comparison.newMistakes.add(createMistake(FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM, studentElements, isntElements));
-   }
-   else if(instPattern.equals(SUB_CLASS_PR_PATTERN)) {
-     comparison.newMistakes.add(createMistake(FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS, studentElements, isntElements));
-   }
+  public static void checkMistakeUsingFullPattern(String instPattern, EList<NamedElement> studentElements,
+      EList<NamedElement> isntElements, Comparison comparison) {
+    if (instPattern.equals(ASSOC_PR_PATTERN)) {
+      comparison.newMistakes
+          .add(createMistake(FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION, studentElements, isntElements));
+    } else if (instPattern.equals(ENUM_PR_PATTERN)) {
+      comparison.newMistakes.add(createMistake(FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM, studentElements, isntElements));
+    } else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
+      comparison.newMistakes
+          .add(createMistake(FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS, studentElements, isntElements));
+    }
   }
 
-  public static void checkMistakeUsingSubclassPattern(String instPattern, EList<NamedElement> studentElements, EList<NamedElement> isntElements,
-      Comparison comparison) {
-   if(instPattern.equals(ASSOC_PR_PATTERN)) {
-     comparison.newMistakes.add(createMistake(SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studentElements, isntElements));
-   }
-   else if(instPattern.equals(FULL_PR_PATTERN)) {
-     comparison.newMistakes.add(createMistake(SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studentElements, isntElements));
-   }
-   else if(instPattern.equals(ENUM_PR_PATTERN)) {
-     comparison.newMistakes.add(createMistake(SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studentElements, isntElements));
-   }
+  public static void checkMistakeUsingSubclassPattern(String instPattern, EList<NamedElement> studentElements,
+      EList<NamedElement> isntElements, Comparison comparison) {
+    if (instPattern.equals(ASSOC_PR_PATTERN)) {
+      comparison.newMistakes
+          .add(createMistake(SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+    } else if (instPattern.equals(FULL_PR_PATTERN)) {
+      comparison.newMistakes
+          .add(createMistake(SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+    } else if (instPattern.equals(ENUM_PR_PATTERN)) {
+      comparison.newMistakes
+          .add(createMistake(SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+    }
   }
 
-  public static void checkMistakeUsingAssocPattern(String instPattern, EList<NamedElement> studentElements, EList<NamedElement> isntElements,
-      Comparison comparison) {
-   if(instPattern.equals(ENUM_PR_PATTERN)) {
-     comparison.newMistakes.add(createMistake(ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studentElements, isntElements));
-   }
-   else if(instPattern.equals(FULL_PR_PATTERN)) {
-     comparison.newMistakes.add(createMistake(ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studentElements, isntElements));
-   }
-   else if(instPattern.equals(SUB_CLASS_PR_PATTERN)) {
-     comparison.newMistakes.add(createMistake(ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studentElements, isntElements));
-   }
+  public static void checkMistakeUsingAssocPattern(String instPattern, EList<NamedElement> studentElements,
+      EList<NamedElement> isntElements, Comparison comparison) {
+    if (instPattern.equals(ENUM_PR_PATTERN)) {
+      comparison.newMistakes
+          .add(createMistake(ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+    } else if (instPattern.equals(FULL_PR_PATTERN)) {
+      comparison.newMistakes
+          .add(createMistake(ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+    } else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
+      comparison.newMistakes
+          .add(createMistake(ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+    }
   }
 
   /**
