@@ -179,9 +179,9 @@ public class MistakeDetection {
       }
       processed = true;
     }
-    mappingBasedOnSpellingError(comparison);
-    mappingBasedOnSubStrings(comparison);
-    mappingBasedOnAttribsAndAssocEnds(comparison);
+    mapClassAndAttribBasedOnSpellingError(comparison);
+    mapClassAndAttribBasedOnSubStrings(comparison);
+    mapClassAndAttribBasedOnAttribsAndAssocEnds(comparison);
     mapRelations(comparison);
     mapEnumerations(instructorSolution, studentSolution, comparison);
     mapPatterns(instructorSolution, studentSolution, comparison);
@@ -210,52 +210,49 @@ public class MistakeDetection {
       if (instElementType instanceof CDEnum) {
         CDEnum instEnumClass = (CDEnum) instElementType;
         comparison.notMappedInstructorEnum.add(instEnumClass);
-        instEnumClass.getLiterals().forEach(lit -> {
-          comparison.notMappedInstructorEnumLiterals.add(lit);
-        });
+        comparison.notMappedInstructorEnumLiterals.addAll(instEnumClass.getLiterals());
       }
       for (Type studElementType : studentClassDiagram.getTypes()) {
         if (studElementType instanceof CDEnum && !processed) {
           CDEnum studEnumClass = (CDEnum) studElementType;
           comparison.extraStudentEnum.add(studEnumClass);
-          studEnumClass.getLiterals().forEach(lit -> {
-            comparison.extraStudentEnumLiterals.add(lit);
-          });
+          comparison.extraStudentEnumLiterals.addAll(studEnumClass.getLiterals());
         }
       }
       processed = true;
     }
     comparison.mappedAttribute.forEach((key, value) -> {
-      if (key.getType() instanceof CDEnum && value.getType() instanceof CDEnum) {
-        CDEnum instEnum = getEnumFromClassDiagram(key.getType().getName(), instructorClassDiagram);
-        CDEnum studEnum = getEnumFromClassDiagram(value.getType().getName(), studentClassDiagram);
-        if (instEnum != null && studEnum != null) {
-          comparison.mappedEnumeration.put(instEnum, studEnum);
-          comparison.notMappedInstructorEnum.remove(instEnum);
-          comparison.extraStudentEnum.remove(studEnum);
+      if (!(key.getType() instanceof CDEnum && value.getType() instanceof CDEnum)) {
+        return;
+      }
+      CDEnum instEnum = getEnumFromClassDiagram(key.getType().getName(), instructorClassDiagram);
+      CDEnum studEnum = getEnumFromClassDiagram(value.getType().getName(), studentClassDiagram);
+      if (instEnum == null && studEnum == null) {
+        return;
+      }
+      comparison.mappedEnumeration.put(instEnum, studEnum);
+      comparison.notMappedInstructorEnum.remove(instEnum);
+      comparison.extraStudentEnum.remove(studEnum);
 
-          for (CDEnumLiteral instEnumLiteral : instEnum.getLiterals()) {
-            for (CDEnumLiteral studEnumLiteral : studEnum.getLiterals()) {
-              var lDistance = levenshteinDistance(instEnumLiteral.getName(), studEnumLiteral.getName());
-              if (lDistance < MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-                comparison.mappedEnumerationItems.put(instEnumLiteral, studEnumLiteral);
-                comparison.notMappedInstructorEnumLiterals.remove(instEnumLiteral);
-                comparison.extraStudentEnumLiterals.remove(studEnumLiteral);
-              }
-            }
+      for (CDEnumLiteral instEnumLiteral : instEnum.getLiterals()) {
+        for (CDEnumLiteral studEnumLiteral : studEnum.getLiterals()) {
+          var lDistance = levenshteinDistance(instEnumLiteral.getName(), studEnumLiteral.getName());
+          if (lDistance < MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+            comparison.mappedEnumerationItems.put(instEnumLiteral, studEnumLiteral);
+            comparison.notMappedInstructorEnumLiterals.remove(instEnumLiteral);
+            comparison.extraStudentEnumLiterals.remove(studEnumLiteral);
           }
         }
       }
     });
   }
 
+  /**
+   * Returns an enumeration from class diagram.
+   */
   public static CDEnum getEnumFromClassDiagram(String name, ClassDiagram classDiagram) {
-    for (Type type : classDiagram.getTypes()) {
-      if (type instanceof CDEnum && type.getName().equals(name)) {
-        return (CDEnum) type;
-      }
-    }
-    return null;
+    return (CDEnum) classDiagram.getTypes().stream()
+        .filter(type -> type instanceof CDEnum && type.getName().equals(name)).findFirst().orElse(null);
   }
 
   private static void checkMistakesInAttributes(Attribute studentAttribute, Attribute instructorAttribute,
@@ -316,7 +313,7 @@ public class MistakeDetection {
       if (tag.getTagType().equals(PLAYER)
           && comparison.mappedClassifier.containsKey(tag.getSolutionElement().getElement())) {
         studentPlayerClass = comparison.mappedClassifier.get(tag.getSolutionElement().getElement());
-        totalMatched = totalMatched + 1;
+        totalMatched += 1;
         studentMatchedElements.add(studentPlayerClass);
       } else if (tag.getTagType().equals(ROLE)
           && comparison.mappedAttribute.containsKey(tag.getSolutionElement().getElement())) {
@@ -327,7 +324,7 @@ public class MistakeDetection {
         totalMatchesExpected = totalMatchesExpected + enumClass.getLiterals().size();
         for (CDEnumLiteral enumClassLiteral : enumClass.getLiterals()) {
           if (comparison.mappedEnumerationItems.containsKey(enumClassLiteral)) {
-            totalMatched = totalMatched + 1;
+            totalMatched += 1;
           }
         }
       }
@@ -355,14 +352,14 @@ public class MistakeDetection {
       if (tag.getTagType().equals(PLAYER)
           && comparison.mappedClassifier.containsKey(tag.getSolutionElement().getElement())) {
         studentPlayerClass = comparison.mappedClassifier.get(tag.getSolutionElement().getElement());
-        totalMatched = totalMatched + 1;
+        totalMatched += 1;
         studentMatchedElements.add(studentPlayerClass);
       } else {
         if (tag.getSolutionElement().getElement() instanceof AssociationEnd) {
           AssociationEnd assocEnd = (AssociationEnd) tag.getSolutionElement().getElement();
           if (comparison.mappedAssociation.containsKey(assocEnd.getAssoc())) {
             studentRoleAssocEnd.add(assocEnd.getName());
-            totalMatched = totalMatched + 1;
+            totalMatched += 1;
             studentMatchedElements.add(assocEnd);
           }
         }
@@ -390,7 +387,7 @@ public class MistakeDetection {
     for (AssociationEnd assocEnd : studentPlayerClass.getAssociationEnds()) {
       AssociationEnd otherAssocEnd = getOtherAssocEnd(assocEnd);
       if (studentRoleAssocEnd.contains(otherAssocEnd.getName())) {
-        count = count + 1;
+        count += 1;
       }
     }
     return count == studentRoleAssocEnd.size();
@@ -412,7 +409,7 @@ public class MistakeDetection {
         } else {
           studentRoleClasses.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
         }
-        totalMatched = totalMatched + 1;
+        totalMatched += 1;
         studentMatchedElements.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
       }
     }
@@ -428,7 +425,6 @@ public class MistakeDetection {
     if (totalMatched == totalMatcheExpected) {
       if (studentAbstractClass == studentPlayerClass && studentPlayerClass != null) {
         checkMistakeUsingSubclassPattern(instPattern, studentMatchedElements, instElements, comparison);
-        System.out.println("Using subClasses instead of Full Player-Role Pattern");
         return;
       }
       if (!studentAbstractClass.isAbstract()) {
@@ -468,7 +464,7 @@ public class MistakeDetection {
         } else {
           studentRoleClasses.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
         }
-        totalMatched = totalMatched + 1;
+        totalMatched +=1 ;
         studentMatchedElements.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
       }
     }
@@ -477,7 +473,6 @@ public class MistakeDetection {
         if (studentRoleClasses.get(0).getSuperTypes().get(0).isAbstract()) {
           if (assocExists(studentRoleClasses.get(0).getSuperTypes().get(0), studentPlayerClass)) {
             checkMistakeUsingFullPattern(instPattern, studentMatchedElements, instElements, comparison);
-            System.out.println("Using Full Pattern instead of Subclasses");
             return;
           }
         }
@@ -534,8 +529,8 @@ public class MistakeDetection {
           } else {
             studRoleClass.add(studClass);
           }
-          studentSubclassesPatternScore = studentSubclassesPatternScore + 1;
-          studentFullPatternScore = studentFullPatternScore + 1;
+          studentSubclassesPatternScore += 1;
+          studentFullPatternScore += 1;
           studSubclassElements.add(studClass);
           studFullElements.add(studClass);
         }
@@ -545,7 +540,7 @@ public class MistakeDetection {
           var levenshteinDistance = levenshteinDistance(studAssocEnd.getName().toLowerCase(),
               tag.getSolutionElement().getElement().getName().toLowerCase());
           if (levenshteinDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-            studentAssocPatternScore = studentAssocPatternScore + 1;
+            studentAssocPatternScore += 1;
             studRoleAssocEndName.add(studAssocEnd.getName());
             studAssocElements.add(studAssocEnd);
           }
@@ -556,7 +551,7 @@ public class MistakeDetection {
         var levenshteinDistance = levenshteinDistance(studEnum.getName().toLowerCase(),
             tag.getSolutionElement().getElement().getName().toLowerCase());
         if (levenshteinDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-          studentEnumsPatternScore = studentEnumsPatternScore + 1;
+          studentEnumsPatternScore += 1;
           studEnumElements.add(studEnum);
         }
       }
@@ -565,7 +560,7 @@ public class MistakeDetection {
         var levenshteinDistance = levenshteinDistance(studEnumLiteral.getName().toLowerCase(),
             tag.getSolutionElement().getElement().getName().toLowerCase());
         if (levenshteinDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-          studentEnumsPatternScore = studentEnumsPatternScore + 1;
+          studentEnumsPatternScore += 1;
         }
       }
     }
@@ -576,8 +571,8 @@ public class MistakeDetection {
               levenshteinDistance(studClass.getName().toLowerCase(), enumLiteralName.toLowerCase());
           if (levenshteinDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
             studRoleClass.add(studClass);
-            studentSubclassesPatternScore = studentSubclassesPatternScore + 1;
-            studentFullPatternScore = studentFullPatternScore + 1;
+            studentSubclassesPatternScore += 1;
+            studentFullPatternScore += 1;
             studSubclassElements.add(studClass);
             studFullElements.add(studClass);
           }
@@ -587,7 +582,7 @@ public class MistakeDetection {
             var levenshteinDistance =
                 levenshteinDistance(studAssocEnd.getName().toLowerCase(), enumLiteralName.toLowerCase());
             if (levenshteinDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-              studentAssocPatternScore = studentAssocPatternScore + 1;
+              studentAssocPatternScore += 1;
               studRoleAssocEndName.add(studAssocEnd.getName());
               studAssocElements.add(studAssocEnd);
             }
@@ -597,7 +592,7 @@ public class MistakeDetection {
           var levenshteinDistance =
               levenshteinDistance(studEnum.getName().toLowerCase(), enumLiteralName.toLowerCase());
           if (levenshteinDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-            studentEnumsPatternScore = studentEnumsPatternScore + 1;
+            studentEnumsPatternScore += 1;
             studEnumElements.add(studEnum);
           }
         }
@@ -605,7 +600,7 @@ public class MistakeDetection {
           var levenshteinDistance =
               levenshteinDistance(enumLiteralName.toLowerCase(), studEnumLiteral.getName().toLowerCase());
           if (levenshteinDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-            studentEnumsPatternScore = studentEnumsPatternScore + 1;
+            studentEnumsPatternScore += 1;
           }
         }
       }
@@ -627,13 +622,13 @@ public class MistakeDetection {
     if (studentSubclassesPatternScore == studentFullPatternScore && studentFullPatternScore == highestScore) {
       if (studPlayerClass != null) {
         if (subClassPatternCorrect(studPlayerClass, studRoleClass)) {
-          studentSubclassesPatternScore = studentSubclassesPatternScore + 1;
-          highestScore = highestScore + 1;
+          studentSubclassesPatternScore += 1;
+          highestScore += 1;
         }
         if (!studRoleClass.get(0).getSuperTypes().contains(studPlayerClass)
             && subClassPatternCorrect(studRoleClass.get(0).getSuperTypes().get(0), studRoleClass)) {
-          studentFullPatternScore = studentFullPatternScore + 1;
-          highestScore = highestScore + 1;
+          studentFullPatternScore += 1;
+          highestScore += 1;
         }
       } else {
         checkMistakeMissingPattern(tg, comparison);
@@ -642,12 +637,10 @@ public class MistakeDetection {
     }
     if (studentSubclassesPatternScore == highestScore) {
       checkMistakeUsingSubclassPattern(instPattern, studSubclassElements, instElements, comparison);
-      System.out.println(SUB_CLASS_PR_PATTERN + " instead of " + instPattern);
       return;
     } else if (studentAssocPatternScore == highestScore) {
       if (assocPatternCorrect(studPlayerClass, studRoleAssocEndName)) {
         checkMistakeUsingAssocPattern(instPattern, studAssocElements, instElements, comparison);
-        System.out.println(ASSOC_PR_PATTERN + " instead of " + instPattern);
         return;
       } else {
         checkMistakeMissingPattern(tg, comparison);
@@ -655,11 +648,9 @@ public class MistakeDetection {
       }
     } else if (studentFullPatternScore == highestScore) {
       checkMistakeUsingFullPattern(instPattern, studFullElements, instElements, comparison);
-      System.out.println(FULL_PR_PATTERN + " instead of " + instPattern);
       return;
     } else if (studentEnumsPatternScore == highestScore) {
       checkMistakeUsingEnumPattern(instPattern, studSubclassElements, instElements, comparison);
-      System.out.println(ENUM_PR_PATTERN + " instead of " + instPattern);
       return;
     } else {
       checkMistakeMissingPattern(tg, comparison);
@@ -668,12 +659,7 @@ public class MistakeDetection {
   }
 
   private static boolean subClassPatternCorrect(Classifier studentPlayerClass, EList<Classifier> studentRoleClasses) {
-    for (Classifier roleClass : studentRoleClasses) {
-      if (!roleClass.getSuperTypes().contains(studentPlayerClass)) {
-        return false;
-      }
-    }
-    return true;
+    return studentRoleClasses.stream().allMatch(rc -> rc.getSuperTypes().contains(studentPlayerClass));
   }
 
   /**
@@ -703,27 +689,18 @@ public class MistakeDetection {
 
   private static boolean enumPattern(SolutionElement playerSolutionElement,
       List<SolutionElement> roleSolutionElements) {
-    if (playerSolutionElement.getElement() instanceof Classifier) {
-      for (SolutionElement se : roleSolutionElements) {
-        Attribute atrib = (Attribute) se.getElement();
-        if (!(atrib.getType() instanceof CDEnum)) {
-          return false;
-        }
-      }
+    if (!(playerSolutionElement.getElement() instanceof Classifier)) {
+      return true;
     }
-    return true;
+    return roleSolutionElements.stream().allMatch(se -> se.getElement() instanceof Attribute && ((Attribute) se.getElement()).getType() instanceof CDEnum);
   }
 
   private static boolean assocPattern(SolutionElement playerSolutionElement,
       List<SolutionElement> roleSolutionElements) {
-    if (playerSolutionElement.getElement() instanceof Classifier) {
-      for (SolutionElement se : roleSolutionElements) {
-        if (!(se.getElement() instanceof AssociationEnd)) {
-          return false;
-        }
-      }
+    if (!(playerSolutionElement.getElement() instanceof Classifier)) {
+      return true;
     }
-    return true;
+    return roleSolutionElements.stream().allMatch(se -> se.getElement() instanceof AssociationEnd);
   }
 
   private static boolean fullPattern(SolutionElement playerSolutionElement,
@@ -759,16 +736,8 @@ public class MistakeDetection {
    * Returns true if an association exists between two classes in a solution.
    */
   private static boolean assocExists(Classifier class1, Classifier class2) {
-    var classifierAssocEnds = class1.getAssociationEnds();
-
-    for (AssociationEnd classifierAssocEnd : classifierAssocEnds) {
-      var otherClassifierAssocEnd = getOtherAssocEnd(classifierAssocEnd);
-      var otherClassifier = otherClassifierAssocEnd.getClassifier();
-      if (otherClassifier.equals(class2)) {
-        return true;
-      }
-    }
-    return false;
+    return class1.getAssociationEnds().stream()
+        .anyMatch(ae -> getOtherAssocEnd(ae).getClassifier().equals(class2));
   }
 
   public static boolean subclassPattern(SolutionElement playerSolutionElement,
@@ -887,25 +856,27 @@ public class MistakeDetection {
     Map<Association, Double> assocScoreMap = new LinkedHashMap<Association, Double>();
     for (Map.Entry<Association, EList<AssociationEnd>> entry : possibleAssocMatch.entrySet()) {
       double score = 0;
+      double multiplicityWeightage = 0.15;
+      double roleNameWeightage = 0.20;
       int lDistance1 = levenshteinDistance(entry.getValue().get(0).getName(), entry.getValue().get(1).getName());
       int lDistance2 = levenshteinDistance(entry.getValue().get(2).getName(), entry.getValue().get(3).getName());
       if (associationEndMultiplicityUpperBoundsMatch(entry.getValue().get(0), entry.getValue().get(1))) {
-        score = score + 0.15;
+        score = score + multiplicityWeightage;
       }
       if (associationEndMultiplicityLowerBoundsMatch(entry.getValue().get(0), entry.getValue().get(1))) {
-        score = score + 0.15;
+        score = score + multiplicityWeightage;
       }
       if (lDistance1 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-        score = score + 0.20;
+        score = score + roleNameWeightage;
       }
       if (associationEndMultiplicityUpperBoundsMatch(entry.getValue().get(2), entry.getValue().get(3))) {
-        score = score + 0.15;
+        score = score + multiplicityWeightage;
       }
       if (associationEndMultiplicityLowerBoundsMatch(entry.getValue().get(2), entry.getValue().get(3))) {
-        score = score + 0.15;
+        score = score + multiplicityWeightage;
       }
       if (lDistance2 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-        score = score + 0.20;
+        score = score + roleNameWeightage;
       }
       assocScoreMap.put(entry.getKey(), score);
     } ;
@@ -1215,7 +1186,8 @@ public class MistakeDetection {
     return isMapped;
   }
 
-  public static void mappingBasedOnSpellingError(Comparison comparison) {
+  /** Map classes with levenshtein distance less than or eqauls to MAX_LEVENSHTEIN_DISTANCE_ALLOWED */
+  public static void mapClassAndAttribBasedOnSpellingError(Comparison comparison) {
 
     if (comparison.notMappedInstructorClassifier.isEmpty() || comparison.extraStudentClassifier.isEmpty()) {
       return;
@@ -1247,7 +1219,7 @@ public class MistakeDetection {
   }
 
   /** Maps if instructor class name is present in a student class name */
-  public static void mappingBasedOnSubStrings(Comparison comparison) {
+  public static void mapClassAndAttribBasedOnSubStrings(Comparison comparison) {
     if (comparison.notMappedInstructorClassifier.isEmpty() || comparison.extraStudentClassifier.isEmpty()) {
       return;
     }
@@ -1278,8 +1250,8 @@ public class MistakeDetection {
     }
   }
 
-  /** Finds mappings in previously unmapped elements by comparing Attributes and Association Ends */
-  public static void mappingBasedOnAttribsAndAssocEnds(Comparison comparison) {
+  /** Finds mappings in previously unmapped classes and attributes by comparing Attributes and Association Ends */
+  public static void mapClassAndAttribBasedOnAttribsAndAssocEnds(Comparison comparison) {
     if (comparison.notMappedInstructorClassifier.isEmpty() || comparison.extraStudentClassifier.isEmpty()) {
       return;
     }
@@ -1319,8 +1291,8 @@ public class MistakeDetection {
           }
         }
         if (totalAttributes == 0 && possibleClassMatchWithNoAttribute.size() != 0) {
-          Map<Classifier, Integer> sortedClosestClasssifier = sortByValueClassifier(possibleClassMatchWithNoAttribute);
-          mapClasses(comparison, sortedClosestClasssifier.keySet().stream().findFirst().get(), instructorClassifier);
+          EList<Classifier> sortedClosestClasssifier = sortByValueClassifier(possibleClassMatchWithNoAttribute);
+          mapClasses(comparison, classWithAssociationEndsMatch(sortedClosestClasssifier, instructorClassifier), instructorClassifier);
         }
         if (totalAttributes == 0) {
           continue;
@@ -1465,15 +1437,15 @@ public class MistakeDetection {
   /**
    * Sorts hash map by values.
    */
-  public static Map<Classifier, Integer> sortByValueClassifier(HashMap<Classifier, Integer> hm) {
+  public static EList<Classifier> sortByValueClassifier(HashMap<Classifier, Integer> hm) {
     // Create a list from elements of HashMap
     List<Map.Entry<Classifier, Integer>> list = new LinkedList<Map.Entry<Classifier, Integer>>(hm.entrySet());
     // Sort the list
     Collections.sort(list, Comparator.comparing(Map.Entry::getValue));
     // Put data from sorted list to hash map
-    Map<Classifier, Integer> result = new LinkedHashMap<Classifier, Integer>();
+    EList<Classifier> result = new BasicEList<Classifier>();
     for (var entry : list) {
-      result.put(entry.getKey(), entry.getValue());
+      result.add(entry.getKey());
     }
     return result;
   }
