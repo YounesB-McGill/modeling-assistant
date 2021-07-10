@@ -6,6 +6,7 @@ import ca.mcgill.sel.classdiagram.CdmPackage;
 import ca.mcgill.sel.core.CorePackage;
 import java.sql.Time;
 
+import learningcorpus.ElementType;
 import learningcorpus.Example;
 import learningcorpus.Feedback;
 import learningcorpus.LearningCorpus;
@@ -22,8 +23,6 @@ import learningcorpus.Reference;
 import learningcorpus.ResourceResponse;
 import learningcorpus.TextResponse;
 import learningcorpus.Tutorial;
-import learningcorpus.UmlElement;
-
 import modelingassistant.ModelingassistantPackage;
 
 import modelingassistant.impl.ModelingassistantPackageImpl;
@@ -31,6 +30,7 @@ import modelingassistant.impl.ModelingassistantPackageImpl;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -43,13 +43,6 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * @generated
  */
 public class LearningcorpusPackageImpl extends EPackageImpl implements LearningcorpusPackage {
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass umlElementEClass = null;
-
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -153,6 +146,13 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
    * <!-- end-user-doc -->
    * @generated
    */
+  private EEnum elementTypeEEnum = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EDataType timeEDataType = null;
 
   /**
@@ -232,36 +232,6 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
    * @generated
    */
   @Override
-  public EClass getUmlElement() {
-    return umlElementEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReference getUmlElement_LearningItems() {
-    return (EReference)umlElementEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReference getUmlElement_LearningCorpus() {
-    return (EReference)umlElementEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public EClass getLearningItem() {
     return learningItemEClass;
   }
@@ -272,7 +242,7 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
    * @generated
    */
   @Override
-  public EReference getLearningItem_UmlElements() {
+  public EReference getLearningItem_LearningResources() {
     return (EReference)learningItemEClass.getEStructuralFeatures().get(0);
   }
 
@@ -282,7 +252,7 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
    * @generated
    */
   @Override
-  public EReference getLearningItem_LearningResources() {
+  public EReference getLearningItem_MistakeTypes() {
     return (EReference)learningItemEClass.getEStructuralFeatures().get(1);
   }
 
@@ -292,18 +262,8 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
    * @generated
    */
   @Override
-  public EReference getLearningItem_MistakeTypes() {
-    return (EReference)learningItemEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public EAttribute getLearningItem_Description() {
-    return (EAttribute)learningItemEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)learningItemEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -313,7 +273,17 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
    */
   @Override
   public EReference getLearningItem_LearningCorpus() {
-    return (EReference)learningItemEClass.getEStructuralFeatures().get(4);
+    return (EReference)learningItemEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getLearningItem_ElementType() {
+    return (EAttribute)learningItemEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -742,8 +712,8 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
    * @generated
    */
   @Override
-  public EReference getLearningCorpus_UmlElements() {
-    return (EReference)learningCorpusEClass.getEStructuralFeatures().get(4);
+  public EEnum getElementType() {
+    return elementTypeEEnum;
   }
 
   /**
@@ -785,16 +755,12 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     isCreated = true;
 
     // Create classes and their features
-    umlElementEClass = createEClass(UML_ELEMENT);
-    createEReference(umlElementEClass, UML_ELEMENT__LEARNING_ITEMS);
-    createEReference(umlElementEClass, UML_ELEMENT__LEARNING_CORPUS);
-
     learningItemEClass = createEClass(LEARNING_ITEM);
-    createEReference(learningItemEClass, LEARNING_ITEM__UML_ELEMENTS);
     createEReference(learningItemEClass, LEARNING_ITEM__LEARNING_RESOURCES);
     createEReference(learningItemEClass, LEARNING_ITEM__MISTAKE_TYPES);
     createEAttribute(learningItemEClass, LEARNING_ITEM__DESCRIPTION);
     createEReference(learningItemEClass, LEARNING_ITEM__LEARNING_CORPUS);
+    createEAttribute(learningItemEClass, LEARNING_ITEM__ELEMENT_TYPE);
 
     mistakeTypeEClass = createEClass(MISTAKE_TYPE);
     createEAttribute(mistakeTypeEClass, MISTAKE_TYPE__ATOMIC);
@@ -850,7 +816,9 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     createEReference(learningCorpusEClass, LEARNING_CORPUS__FEEDBACKS);
     createEReference(learningCorpusEClass, LEARNING_CORPUS__LEARNING_ITEMS);
     createEReference(learningCorpusEClass, LEARNING_CORPUS__LEARNING_RESOURCES);
-    createEReference(learningCorpusEClass, LEARNING_CORPUS__UML_ELEMENTS);
+
+    // Create enums
+    elementTypeEEnum = createEEnum(ELEMENT_TYPE);
 
     // Create data types
     timeEDataType = createEDataType(TIME);
@@ -897,16 +865,12 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     mistakeTypeCategoryEClass.getESuperTypes().add(this.getNamedElement());
 
     // Initialize classes, features, and operations; add parameters
-    initEClass(umlElementEClass, UmlElement.class, "UmlElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getUmlElement_LearningItems(), this.getLearningItem(), this.getLearningItem_UmlElements(), "learningItems", null, 0, -1, UmlElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getUmlElement_LearningCorpus(), this.getLearningCorpus(), this.getLearningCorpus_UmlElements(), "learningCorpus", null, 1, 1, UmlElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(learningItemEClass, LearningItem.class, "LearningItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getLearningItem_UmlElements(), this.getUmlElement(), this.getUmlElement_LearningItems(), "umlElements", null, 0, -1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningItem_LearningResources(), this.getLearningResource(), this.getLearningResource_LearningItem(), "learningResources", null, 0, -1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningItem_MistakeTypes(), this.getMistakeType(), this.getMistakeType_LearningItem(), "mistakeTypes", null, 0, -1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getLearningItem_Description(), ecorePackage.getEString(), "description", null, 0, 1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningItem_LearningCorpus(), this.getLearningCorpus(), this.getLearningCorpus_LearningItems(), "learningCorpus", null, 1, 1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getLearningItem_ElementType(), this.getElementType(), "elementType", null, 0, 1, LearningItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(mistakeTypeEClass, MistakeType.class, "MistakeType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getMistakeType_Atomic(), ecorePackage.getEBoolean(), "atomic", null, 0, 1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -962,7 +926,17 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     initEReference(getLearningCorpus_Feedbacks(), this.getFeedback(), this.getFeedback_LearningCorpus(), "feedbacks", null, 0, -1, LearningCorpus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningCorpus_LearningItems(), this.getLearningItem(), this.getLearningItem_LearningCorpus(), "learningItems", null, 0, -1, LearningCorpus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningCorpus_LearningResources(), this.getLearningResource(), this.getLearningResource_LearningCorpus(), "learningResources", null, 0, -1, LearningCorpus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getLearningCorpus_UmlElements(), this.getUmlElement(), this.getUmlElement_LearningCorpus(), "umlElements", null, 0, 1, LearningCorpus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    // Initialize enums and add enum literals
+    initEEnum(elementTypeEEnum, ElementType.class, "ElementType");
+    addEEnumLiteral(elementTypeEEnum, ElementType.CLASS);
+    addEEnumLiteral(elementTypeEEnum, ElementType.ATTRIBUTE);
+    addEEnumLiteral(elementTypeEEnum, ElementType.ASSOCIATION);
+    addEEnumLiteral(elementTypeEEnum, ElementType.ASSOCIATION_END);
+    addEEnumLiteral(elementTypeEEnum, ElementType.COMPOSITION);
+    addEEnumLiteral(elementTypeEEnum, ElementType.GENERALIZATION);
+    addEEnumLiteral(elementTypeEEnum, ElementType.PLAYER_ROLE_PATTERN);
+    addEEnumLiteral(elementTypeEEnum, ElementType.ABSTRACTION_OCCURRENCE_PATTERN);
 
     // Initialize data types
     initEDataType(timeEDataType, Time.class, "Time", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

@@ -2,10 +2,18 @@
  */
 package modelingassistant.impl;
 
-import ca.mcgill.sel.classdiagram.ClassDiagram;
-
 import java.util.Collection;
-
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.InternalEList;
+import ca.mcgill.sel.classdiagram.ClassDiagram;
 import modelingassistant.FeedbackItem;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingAssistant;
@@ -15,21 +23,6 @@ import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
 import modelingassistant.Student;
 import modelingassistant.TagGroup;
-
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -44,10 +37,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link modelingassistant.impl.SolutionImpl#getSolutionElements <em>Solution Elements</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionImpl#getClassDiagram <em>Class Diagram</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionImpl#getMistakes <em>Mistakes</em>}</li>
- *   <li>{@link modelingassistant.impl.SolutionImpl#getCurrentMistake <em>Current Mistake</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionImpl#getTagGroups <em>Tag Groups</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionImpl#getProblemStatement <em>Problem Statement</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionImpl#getFeedbackItems <em>Feedback Items</em>}</li>
+ *   <li>{@link modelingassistant.impl.SolutionImpl#getCurrentMistake <em>Current Mistake</em>}</li>
  * </ul>
  *
  * @generated
@@ -94,16 +87,6 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
   protected EList<Mistake> mistakes;
 
   /**
-   * The cached value of the '{@link #getCurrentMistake() <em>Current Mistake</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getCurrentMistake()
-   * @generated
-   * @ordered
-   */
-  protected Mistake currentMistake;
-
-  /**
    * The cached value of the '{@link #getTagGroups() <em>Tag Groups</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -132,6 +115,16 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
    * @ordered
    */
   protected EList<FeedbackItem> feedbackItems;
+
+  /**
+   * The cached value of the '{@link #getCurrentMistake() <em>Current Mistake</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCurrentMistake()
+   * @generated
+   * @ordered
+   */
+  protected Mistake currentMistake;
 
   /**
    * <!-- begin-user-doc -->
@@ -298,14 +291,15 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
+   * Sets the solution class diagram to the given one.
+   *
+   * @generated NOT
    */
   @Override
   public void setClassDiagram(ClassDiagram newClassDiagram) {
     ClassDiagram oldClassDiagram = classDiagram;
     classDiagram = newClassDiagram;
+    classDiagramsToSolutions.put(newClassDiagram, this);
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.SOLUTION__CLASS_DIAGRAM, oldClassDiagram, classDiagram));
   }
@@ -516,9 +510,6 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         return basicGetClassDiagram();
       case ModelingassistantPackage.SOLUTION__MISTAKES:
         return getMistakes();
-      case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
-        if (resolve) return getCurrentMistake();
-        return basicGetCurrentMistake();
       case ModelingassistantPackage.SOLUTION__TAG_GROUPS:
         return getTagGroups();
       case ModelingassistantPackage.SOLUTION__PROBLEM_STATEMENT:
@@ -526,6 +517,9 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         return basicGetProblemStatement();
       case ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS:
         return getFeedbackItems();
+      case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
+        if (resolve) return getCurrentMistake();
+        return basicGetCurrentMistake();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -556,9 +550,6 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         getMistakes().clear();
         getMistakes().addAll((Collection<? extends Mistake>)newValue);
         return;
-      case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
-        setCurrentMistake((Mistake)newValue);
-        return;
       case ModelingassistantPackage.SOLUTION__TAG_GROUPS:
         getTagGroups().clear();
         getTagGroups().addAll((Collection<? extends TagGroup>)newValue);
@@ -569,6 +560,9 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
       case ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS:
         getFeedbackItems().clear();
         getFeedbackItems().addAll((Collection<? extends FeedbackItem>)newValue);
+        return;
+      case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
+        setCurrentMistake((Mistake)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -597,9 +591,6 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
       case ModelingassistantPackage.SOLUTION__MISTAKES:
         getMistakes().clear();
         return;
-      case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
-        setCurrentMistake((Mistake)null);
-        return;
       case ModelingassistantPackage.SOLUTION__TAG_GROUPS:
         getTagGroups().clear();
         return;
@@ -608,6 +599,9 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         return;
       case ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS:
         getFeedbackItems().clear();
+        return;
+      case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
+        setCurrentMistake((Mistake)null);
         return;
     }
     super.eUnset(featureID);
@@ -631,14 +625,14 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         return classDiagram != null;
       case ModelingassistantPackage.SOLUTION__MISTAKES:
         return mistakes != null && !mistakes.isEmpty();
-      case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
-        return currentMistake != null;
       case ModelingassistantPackage.SOLUTION__TAG_GROUPS:
         return tagGroups != null && !tagGroups.isEmpty();
       case ModelingassistantPackage.SOLUTION__PROBLEM_STATEMENT:
         return problemStatement != null;
       case ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS:
         return feedbackItems != null && !feedbackItems.isEmpty();
+      case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
+        return currentMistake != null;
     }
     return super.eIsSet(featureID);
   }

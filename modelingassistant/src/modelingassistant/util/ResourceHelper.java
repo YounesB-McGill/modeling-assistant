@@ -163,7 +163,7 @@ public final class ResourceHelper {
    *
    * to this one:
    *
-   * <pre>[file1, list1, ..., fileM, listM]</pre>
+   * <pre>{file1: list1, ..., fileM: listM}</pre>
    *
    * where listK refers to the list of EObjects intended to be saved in fileK.
    *

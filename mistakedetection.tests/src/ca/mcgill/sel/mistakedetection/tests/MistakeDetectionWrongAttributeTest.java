@@ -2,13 +2,14 @@ package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistake;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeConditional;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAttributeFromClass;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentMistakeFor;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ATTRIBUTE;
+import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
+import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
@@ -74,16 +75,14 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(comparison.newMistakes.size(), 4);
     assertEquals(studentSolution.getMistakes().size(), 4);
 
-    for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeConditional(m, BAD_ATTRIBUTE_NAME_SPELLING, studentBusClassAttributeCapacty,
-          instructorBusClassAttributeCapacity, 0, 1, false);
-      assertMistakeConditional(m, BAD_ATTRIBUTE_NAME_SPELLING, studentBusClassAttributeNamberPlate,
-          instructorBusClassAttributeNumberPlate, 0, 1, false);
-      assertMistakeConditional(m, BAD_ATTRIBUTE_NAME_SPELLING, studentDriverClassAttributeNme,
-          instructorDriverClassAttributeName, 0, 1, false);
-      assertMistakeConditional(m, BAD_ATTRIBUTE_NAME_SPELLING, studentPassengerClassAttributeNam,
-          instructorPassengerClassAttributeName, 0, 1, false);
-    }
+    assertMistake(studentMistakeFor(studentBusClassAttributeCapacty), BAD_ATTRIBUTE_NAME_SPELLING,
+        studentBusClassAttributeCapacty, instructorBusClassAttributeCapacity, 0, 1, false);
+    assertMistake(studentMistakeFor(studentBusClassAttributeNamberPlate), BAD_ATTRIBUTE_NAME_SPELLING,
+        studentBusClassAttributeNamberPlate, instructorBusClassAttributeNumberPlate, 0, 1, false);
+    assertMistake(studentMistakeFor(studentDriverClassAttributeNme), BAD_ATTRIBUTE_NAME_SPELLING,
+        studentDriverClassAttributeNme, instructorDriverClassAttributeName, 0, 1, false);
+    assertMistake(studentMistakeFor(studentPassengerClassAttributeNam), BAD_ATTRIBUTE_NAME_SPELLING,
+        studentPassengerClassAttributeNam, instructorPassengerClassAttributeName, 0, 1, false);
   }
 
   /**

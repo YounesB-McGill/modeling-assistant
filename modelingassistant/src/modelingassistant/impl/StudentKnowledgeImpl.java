@@ -45,7 +45,7 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
    * @generated
    * @ordered
    */
-  protected static final int LEVEL_OF_KNOWLEDGE_EDEFAULT = 0;
+  protected static final double LEVEL_OF_KNOWLEDGE_EDEFAULT = 5.0;
 
   /**
    * The cached value of the '{@link #getLevelOfKnowledge() <em>Level Of Knowledge</em>}' attribute.
@@ -55,7 +55,7 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
    * @generated
    * @ordered
    */
-  protected int levelOfKnowledge = LEVEL_OF_KNOWLEDGE_EDEFAULT;
+  protected double levelOfKnowledge = LEVEL_OF_KNOWLEDGE_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getStudent() <em>Student</em>}' reference.
@@ -102,7 +102,7 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
    * @generated
    */
   @Override
-  public int getLevelOfKnowledge() {
+  public double getLevelOfKnowledge() {
     return levelOfKnowledge;
   }
 
@@ -112,8 +112,8 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
    * @generated
    */
   @Override
-  public void setLevelOfKnowledge(int newLevelOfKnowledge) {
-    int oldLevelOfKnowledge = levelOfKnowledge;
+  public void setLevelOfKnowledge(double newLevelOfKnowledge) {
+    double oldLevelOfKnowledge = levelOfKnowledge;
     levelOfKnowledge = newLevelOfKnowledge;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.STUDENT_KNOWLEDGE__LEVEL_OF_KNOWLEDGE, oldLevelOfKnowledge, levelOfKnowledge));
@@ -345,7 +345,7 @@ public class StudentKnowledgeImpl extends MinimalEObjectImpl.Container implement
   public void eSet(int featureID, Object newValue) {
     switch (featureID) {
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__LEVEL_OF_KNOWLEDGE:
-        setLevelOfKnowledge((Integer)newValue);
+        setLevelOfKnowledge((Double)newValue);
         return;
       case ModelingassistantPackage.STUDENT_KNOWLEDGE__STUDENT:
         setStudent((Student)newValue);

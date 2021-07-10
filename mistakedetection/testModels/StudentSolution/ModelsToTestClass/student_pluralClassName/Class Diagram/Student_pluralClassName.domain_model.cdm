@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_9_sdsNRKEeuLU7jos0-FOQ" name="Student_pluralClassName">
-  <classes xsi:type="classdiagram:Class" xmi:id="__Nu-INRKEeuLU7jos0-FOQ" name="Buses"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="__Nu-INRKEeuLU7jos0-FOQ" name="Buses">
+    <associationEnds xmi:id="_9wBVgN23EeuVoonRXmsiAQ" name="myRoot" assoc="_9wBVgt23EeuVoonRXmsiAQ" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_8quhYN23EeuVoonRXmsiAQ" name="Root">
+    <associationEnds xmi:id="_9wBVgd23EeuVoonRXmsiAQ" name="myBus" assoc="_9wBVgt23EeuVoonRXmsiAQ" lowerBound="1" referenceType="Composition"/>
+  </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_9_sdsdRKEeuLU7jos0-FOQ"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_9_sdstRKEeuLU7jos0-FOQ"/>
   <types xsi:type="classdiagram:CDBoolean" xmi:id="_9_sds9RKEeuLU7jos0-FOQ"/>
@@ -11,10 +16,14 @@
   <types xsi:type="classdiagram:CDByte" xmi:id="_9_tExNRKEeuLU7jos0-FOQ"/>
   <types xsi:type="classdiagram:CDFloat" xmi:id="_9_tExdRKEeuLU7jos0-FOQ"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_9_tExtRKEeuLU7jos0-FOQ"/>
+  <associations xmi:id="_9wBVgt23EeuVoonRXmsiAQ" name="Buses_Root" ends="_9wBVgN23EeuVoonRXmsiAQ _9wBVgd23EeuVoonRXmsiAQ"/>
   <layout xmi:id="_9_tEx9RKEeuLU7jos0-FOQ">
     <containers xmi:id="_9_tEyNRKEeuLU7jos0-FOQ" key="_9_sdsNRKEeuLU7jos0-FOQ">
       <value xmi:id="__PZLANRKEeuLU7jos0-FOQ" key="__Nu-INRKEeuLU7jos0-FOQ">
         <value xmi:id="__PZLAdRKEeuLU7jos0-FOQ" x="770.0" y="177.0"/>
+      </value>
+      <value xmi:id="_8qvIcN23EeuVoonRXmsiAQ" key="_8quhYN23EeuVoonRXmsiAQ">
+        <value xmi:id="_8qvIcd23EeuVoonRXmsiAQ" x="318.0002" y="177.0"/>
       </value>
     </containers>
   </layout>
