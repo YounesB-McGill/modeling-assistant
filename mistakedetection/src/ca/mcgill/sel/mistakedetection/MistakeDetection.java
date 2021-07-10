@@ -161,7 +161,6 @@ public class MistakeDetection {
           });
         }
         if (checkCorrect(instructorClassifier, studentClassifier, comparison)) {
-          checkMistakeClassSpelling(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
           checkMistakesInClassifier(studentClassifier, instructorClassifier, newMistakes);
 
           EList<Attribute> studentAttributes = studentClassifier.getAttributes();
@@ -1164,13 +1163,12 @@ public class MistakeDetection {
     EList<Attribute> instructorAttributes = instructorClass.getAttributes();
     EList<Attribute> studentAttributes = studentClass.getAttributes();
 
-    float lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
-    if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+    if (instructorClass.getName().equals(studentClass.getName())) {
       isMapped = true;
       mapClasses(comparison, studentClass, instructorClass);
       for (Attribute instructorAttribute : instructorAttributes) { // To check association -> Not at present.
         for (Attribute studentAttribute : studentAttributes) {
-          lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
+          var lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
           if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED
               && comparison.mappedAttribute.get(instructorAttribute) == studentAttribute) {
             comparison.duplicateStudentAttribute.add(studentAttribute);
@@ -1201,6 +1199,7 @@ public class MistakeDetection {
         float lDistance = levenshteinDistance(studentClassifier.getName(), instructorClassifier.getName());
         if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
           mapClasses(comparison, studentClassifier, instructorClassifier);
+          checkMistakeClassSpelling(studentClassifier, instructorClassifier).ifPresent(comparison.newMistakes::add);
           checkMistakesInClassifier(studentClassifier, instructorClassifier, comparison.newMistakes);
           for (Attribute instructorAttribute : instructorAttributes) {
             for (Attribute studentAttribute : studentAttributes) {
