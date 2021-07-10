@@ -168,7 +168,6 @@ public class MistakeDetection {
             for (Attribute studentAttribute : studentAttributes) {
               float lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
               if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-                checkMistakeAttributeSpelling(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
                 checkMistakesInAttributes(studentAttribute, instructorAttribute, newMistakes);
                 break;
               }
@@ -259,6 +258,7 @@ public class MistakeDetection {
     checkMistakeWrongAttributeType(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
+    checkMistakeAttributeSpelling(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
   }
 
   private static void checkMistakesInClassifier(Classifier studentClassifier, Classifier instructorClassifier,
