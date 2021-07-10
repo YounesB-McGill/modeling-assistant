@@ -610,6 +610,41 @@ public class MistakeDetectionTest {
   }
 
   /**
+   * Returns the zeroth student mistake for a given cdm element, if any. This is equivalent to
+   *
+   * <pre>studentMistakesFor(cdmElement).get(0)</pre>
+   *
+   * @throws IndexOutOfBoundsException if the cdm element has no student mistakes
+   */
+  public static Mistake studentMistakeFor(NamedElement cdmElement) {
+    return studentMistakeFor(cdmElement, 0);
+  }
+
+  /**
+   * Returns the student mistake at the given position for a given cdm element, if any. This is equivalent to
+   *
+   * <pre>studentMistakesFor(cdmElement).get(position)</pre>
+   *
+   * @throws IndexOutOfBoundsException if the index is out of range
+   */
+  public static Mistake studentMistakeFor(NamedElement cdmElement, int position) {
+    var mistakes = studentMistakesFor(cdmElement);
+    if (0 <= position && position < mistakes.size()) {
+      return mistakes.get(position);
+    } else {
+      throw new IndexOutOfBoundsException("The given cdm element " + cdmElement.getName()
+          + " does not have a student mistake at position " + position);
+    }
+  }
+
+  /**
+   * Returns the student mistakes for a given cdm element.
+   */
+  public static EList<Mistake> studentMistakesFor(NamedElement cdmElement) {
+    return SolutionElement.forCdmElement(cdmElement).getStudentElementMistakes();
+  }
+
+  /**
    * Compares the list of elements of one mistake with the given elements. This function is to be used when testing
    * mistake types with more than one element.
    *

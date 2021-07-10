@@ -4,6 +4,7 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMi
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeAttribute;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeLinks;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentMistakeFor;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
@@ -22,7 +23,6 @@ import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import learningcorpus.mistaketypes.MistakeTypes;
-import modelingassistant.SolutionElement;
 
 public class MistakeDetectionWrongClassTest {
 
@@ -105,11 +105,11 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(studentSolution.getMistakes().size(), 4);
 
     // Replacements for assertMistakeConditional()
-    var studentBusesMistake = SolutionElement.forCdmElement(studentBusesClass).getStudentElementMistakes().get(0);
+    var studentBusesMistake = studentMistakeFor(studentBusesClass);
     assertMistake(studentBusesMistake, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
 
-    assertMistake(SolutionElement.forCdmElement(studentDriversClass).getStudentElementMistakes().get(0),
-        PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 1, false);
+    assertMistake(studentMistakeFor(studentDriversClass), PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass,
+        0, 1, false);
   }
 
   /**
