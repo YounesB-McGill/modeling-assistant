@@ -2,9 +2,6 @@ package ca.mcgill.sel.mistakedetection.tests;
 
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
-import static modelingassistant.TagType.PLAYER;
-import static modelingassistant.TagType.ROLE;
-import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
@@ -31,7 +28,6 @@ import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
-import modelingassistant.TagGroup;
 
 public class MistakeDetectionTest {
 
@@ -378,60 +374,6 @@ public class MistakeDetectionTest {
     var student = maf.createStudent();
     studentSolution.setStudent(student);
     return studentSolution;
-  }
-
-  // TODO Remove deprecated methods after migration to TagUtils.
-
-  @Deprecated
-  public static TagGroup setPlayerTagToClassInClassDiag(String className, ClassDiagram classDiagram,
-      Solution instructorSolution) {
-    var tagGroup = maf.createTagGroup();
-    tagGroup.setSolution(instructorSolution);
-    var tag = maf.createTag();
-    tag.setTagType(PLAYER);
-    var instClass = getClassFromClassDiagram(className, classDiagram);
-    var se = maf.createSolutionElement();
-    se.setElement(instClass);
-    se.setSolution(instructorSolution);
-    tag.setSolutionElement(se);
-    tag.setTagGroup(tagGroup);
-    return tagGroup;
-  }
-
-  @Deprecated
-  public static void setRoleTagToClassInClassDiag(String className, TagGroup tagGroup, ClassDiagram classDiagram) {
-    var tag = maf.createTag();
-    tag.setTagType(ROLE);
-    var instClass = getClassFromClassDiagram(className, classDiagram);
-    var se = maf.createSolutionElement();
-    se.setElement(instClass);
-    tag.setSolutionElement(se);
-    tag.setTagGroup(tagGroup);
-    se.setSolution(tag.getTagGroup().getSolution());
-  }
-
-  @Deprecated
-  public static void setRoleTagToAssocEndInClass(String assocEndName, TagGroup tagGroup, Classifier assocClass) {
-    var tag = maf.createTag();
-    tag.setTagType(ROLE);
-    var instClass = getAssociationEndFromClass(assocEndName, assocClass);
-    var se = maf.createSolutionElement();
-    se.setElement(instClass);
-    tag.setSolutionElement(se);
-    tag.setTagGroup(tagGroup);
-    se.setSolution(tag.getTagGroup().getSolution());
-  }
-
-  @Deprecated
-  public static void setRoleTagToAttribInClass(String attributeName, TagGroup tagGroup, Classifier assocClass) {
-    var tag = maf.createTag();
-    tag.setTagType(ROLE);
-    var instClass = getAttributeFromClass(attributeName, assocClass);
-    var se = maf.createSolutionElement();
-    se.setElement(instClass);
-    tag.setSolutionElement(se);
-    tag.setTagGroup(tagGroup);
-    se.setSolution(tag.getTagGroup().getSolution());
   }
 
   /**
