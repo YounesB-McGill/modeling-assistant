@@ -3,8 +3,8 @@ from .modelingassistant import getEClassifier, eClassifiers
 from .modelingassistant import name, nsURI, nsPrefix, eClass
 from .modelingassistant import Time, ModelingAssistant, Student, ProblemStatement, ProblemStatementElement, Solution, SolutionElement, StudentKnowledge, Mistake, NamedElement, FeedbackItem, Tag, TagGroup, TagType
 
-from learningcorpus import MistakeType, Feedback
-from classdiagram import NamedElement, ClassDiagram
+from learningcorpus import Feedback, MistakeType
+from classdiagram import ClassDiagram, NamedElement
 
 from . import modelingassistant
 
@@ -20,8 +20,8 @@ Student.currentSolution.eType = Solution
 ProblemStatement.studentSolutions.eType = Solution
 ProblemStatement.instructorSolution.eType = Solution
 Solution.classDiagram.eType = ClassDiagram
-Solution.currentMistake.eType = Mistake
 Solution.problemStatement.eType = ProblemStatement
+Solution.currentMistake.eType = Mistake
 SolutionElement.element.eType = NamedElement
 StudentKnowledge.mistakeType.eType = MistakeType
 Mistake.mistakeType.eType = MistakeType

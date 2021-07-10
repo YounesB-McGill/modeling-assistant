@@ -50,13 +50,13 @@
         eType="ecore:EClass ../../ca.mcgill.sel.classdiagram/model/classdiagram.ecore#//ClassDiagram"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakes" upperBound="-1"
         eType="#//Mistake" containment="true" eOpposite="#//Mistake/solution"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="currentMistake" eType="#//Mistake"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tagGroups" upperBound="-1"
         eType="#//TagGroup" containment="true" eOpposite="#//TagGroup/solution"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatement" lowerBound="1"
         eType="#//ProblemStatement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feedbackItems" upperBound="-1"
         eType="#//FeedbackItem" containment="true" eOpposite="#//FeedbackItem/solution"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="currentMistake" eType="#//Mistake"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SolutionElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatementElements"
@@ -73,7 +73,8 @@
         containment="true" eOpposite="#//Tag/solutionElement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StudentKnowledge">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="levelOfKnowledge" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="levelOfKnowledge" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="5.0"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="student" lowerBound="1"
         eType="#//Student" eOpposite="#//Student/studentKnowledges"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelingAssistant" lowerBound="1"
@@ -107,6 +108,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="feedback" eType="ecore:EClass learningcorpus.ecore#//Feedback"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="solution" lowerBound="1"
         eType="#//Solution" eOpposite="#//Solution/feedbackItems"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Tag">
     <eStructuralFeatures xsi:type="ecore:EReference" name="solutionElement" lowerBound="1"

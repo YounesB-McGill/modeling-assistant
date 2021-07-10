@@ -2,10 +2,11 @@
  */
 package modelingassistant;
 
-import ca.mcgill.sel.classdiagram.NamedElement;
+import java.util.HashMap;
+import java.util.Map;
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
+import ca.mcgill.sel.classdiagram.NamedElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,6 +30,14 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface SolutionElement extends EObject {
+
+  /**
+   * Reverse mapping of class diagram elements to solution elements.
+   *
+   * @generated NOT
+   */
+  Map<NamedElement, SolutionElement> cdmElementsToSolutionElements = new HashMap<NamedElement, SolutionElement>();
+
   /**
    * Returns the value of the '<em><b>Problem Statement Elements</b></em>' reference list.
    * The list contents are of type {@link modelingassistant.ProblemStatementElement}.
@@ -102,6 +111,15 @@ public interface SolutionElement extends EObject {
    * @generated
    */
   void setElement(NamedElement value);
+
+  /**
+   * Returns the solution element of a given class diagram element, if any.
+   *
+   * @generated NOT
+   */
+  static SolutionElement forCdmElement(NamedElement namedElement) {
+    return cdmElementsToSolutionElements.getOrDefault(namedElement, null);
+  }
 
   /**
    * Returns the value of the '<em><b>Instructor Element Mistakes</b></em>' reference list.

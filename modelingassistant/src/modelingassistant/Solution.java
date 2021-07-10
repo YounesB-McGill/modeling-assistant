@@ -2,10 +2,13 @@
  */
 package modelingassistant;
 
-import ca.mcgill.sel.classdiagram.ClassDiagram;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
+import ca.mcgill.sel.classdiagram.ClassDiagram;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,10 +24,10 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.Solution#getSolutionElements <em>Solution Elements</em>}</li>
  *   <li>{@link modelingassistant.Solution#getClassDiagram <em>Class Diagram</em>}</li>
  *   <li>{@link modelingassistant.Solution#getMistakes <em>Mistakes</em>}</li>
- *   <li>{@link modelingassistant.Solution#getCurrentMistake <em>Current Mistake</em>}</li>
  *   <li>{@link modelingassistant.Solution#getTagGroups <em>Tag Groups</em>}</li>
  *   <li>{@link modelingassistant.Solution#getProblemStatement <em>Problem Statement</em>}</li>
  *   <li>{@link modelingassistant.Solution#getFeedbackItems <em>Feedback Items</em>}</li>
+ *   <li>{@link modelingassistant.Solution#getCurrentMistake <em>Current Mistake</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getSolution()
@@ -32,6 +35,14 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Solution extends EObject {
+
+  /**
+   * Reverse mapping of class diagrams to solutions.
+   *
+   * @generated NOT
+   */
+  Map<ClassDiagram, Solution> classDiagramsToSolutions = new HashMap<ClassDiagram, Solution>();
+
   /**
    * Returns the value of the '<em><b>Modeling Assistant</b></em>' container reference.
    * It is bidirectional and its opposite is '{@link modelingassistant.ModelingAssistant#getSolutions <em>Solutions</em>}'.
@@ -95,6 +106,31 @@ public interface Solution extends EObject {
   EList<SolutionElement> getSolutionElements();
 
   /**
+   * Returns the first solution element with the given name.
+   *
+   * @generated NOT
+   */
+  default SolutionElement getSolutionElementByName(String name) {
+    var matchingElements = getSolutionElementsByName(name);
+    if (matchingElements.isEmpty()) {
+      throw new IllegalArgumentException("Solution does not contain an element with the name " + name);
+    }
+    return matchingElements.get(0);
+  }
+
+  /**
+   * Returns the solution elements with the given name.
+   *
+   * @generated NOT
+   */
+  default EList<SolutionElement> getSolutionElementsByName(String name) {
+    return ECollections.unmodifiableEList(getSolutionElements().stream()
+        .filter(e -> e.getElement().getName().equals(name))
+        //.toList()); // TODO Use this after upgrade to Java 16+ and remove line below
+        .collect(Collectors.toUnmodifiableList()));
+  }
+
+  /**
    * Returns the value of the '<em><b>Class Diagram</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -115,6 +151,15 @@ public interface Solution extends EObject {
    * @generated
    */
   void setClassDiagram(ClassDiagram value);
+
+  /**
+   * Returns the solution of a given class diagram, if any.
+   *
+   * @generated NOT
+   */
+  static Solution forClassDiagram(ClassDiagram classDiagram) {
+    return classDiagramsToSolutions.getOrDefault(classDiagram, null);
+  }
 
   /**
    * Returns the value of the '<em><b>Mistakes</b></em>' containment reference list.

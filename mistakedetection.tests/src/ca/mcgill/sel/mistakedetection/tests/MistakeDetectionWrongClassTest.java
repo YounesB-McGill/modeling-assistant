@@ -2,10 +2,9 @@ package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistake;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeAttribute;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeConditional;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeLinks;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentMistakeFor;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
@@ -14,6 +13,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
+import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -23,12 +23,11 @@ import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import learningcorpus.mistaketypes.MistakeTypes;
-import modelingassistant.Mistake;
 
 public class MistakeDetectionWrongClassTest {
 
   /**
-   * Test to check for plural class names in student solution
+   * Test to check for plural class names in student solution.
    */
   @Test
   public void testStudentSolution_1_PluralClassName() {
@@ -46,7 +45,7 @@ public class MistakeDetectionWrongClassTest {
   }
 
   /**
-   * Test for checking mapping between instructor classifier(Bus, Driver) and Student classifier(Bus, Driver)
+   * Test for checking mapping between instructor classifier(Bus, Driver) and Student classifier(Bus, Driver).
    */
   @Test
   public void testCheckMapping() {
@@ -77,7 +76,7 @@ public class MistakeDetectionWrongClassTest {
 
   /**
    * Test for checking mapping between instructor classifier(Bus, Driver) and Student classifier(Buses, Drivers) and
-   * plural Class names
+   * plural Class names.
    */
   @Test
   public void testPluralClassNames() {
@@ -105,14 +104,16 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.newMistakes.size(), 4); // 2 Bad Role Names
     assertEquals(studentSolution.getMistakes().size(), 4);
 
-    for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
-      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 1, false);
-    }
+    // Replacements for assertMistakeConditional()
+    var studentBusesMistake = studentMistakeFor(studentBusesClass);
+    assertMistake(studentBusesMistake, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
+
+    assertMistake(studentMistakeFor(studentDriversClass), PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass,
+        0, 1, false);
   }
 
   /**
-   * Test to check Wrong class name mistake
+   * Test to check Wrong class name mistake.
    */
   @Test
   public void testWrongClassName() {
@@ -162,7 +163,7 @@ public class MistakeDetectionWrongClassTest {
   }
 
   /**
-   * Test to check Plural class name mistake
+   * Test to check Plural class name mistake.
    */
   @Test
   public void testPluralClassName() {
@@ -179,17 +180,15 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(comparison.newMistakes.size(), 1);
-    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentBusesClass,
         instructorBusClass, 0, 1, false);
   }
 
   /**
-   * Test to check Plural class name mistake
-   //mistake not detected
+   * Test to check Plural class name mistake.
    */
-  @Disabled
   @Test
   public void testPluralClassName1() {
     var instructorClassDiagram = cdmFromFile(
@@ -252,8 +251,8 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(comparison.newMistakes.size(), 1);
-    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS, studentDriverClass, 0, 1, false);
   }
 
@@ -274,8 +273,8 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(1, comparison.newMistakes.size());
-    assertEquals(1, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size()); // 1 mistake for extra class
     assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS, studentCarClass, 0, 1, false);
   }
 
@@ -296,16 +295,15 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(comparison.newMistakes.size(), 1);
-    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size()); // Missing Composition.
     assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS,instructorBusClass, 0, 1, false);
   }
 
   /**
    * Test to check Software Engineering term name mistake
-   // its detecting plural class name
+
    */
-  @Disabled
   @Test
   public void testSoftwareEngineeringTerm() {
     var instructorClassDiagram = cdmFromFile(
@@ -320,14 +318,14 @@ public class MistakeDetectionWrongClassTest {
     var studentBusClassClass = getClassFromClassDiagram("BusClass", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-    assertEquals(comparison.newMistakes.size(), 1);
-    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), SOFTWARE_ENGINEERING_TERM, studentBusClassClass,
         instructorBusClass, 0, 1, false);
   }
 
   /**
-   * Test to check Software Engineering term name mistake
+   * Test to check Software Engineering term name mistake.
    */
   @Test
   public void testSoftwareEngineeringTerm1() {
@@ -344,14 +342,14 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(comparison.newMistakes.size(), 1);
-    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), SOFTWARE_ENGINEERING_TERM, studentDriverDataClass,
         instructorDriverClass, 0, 1, false);
   }
 
    /**
-    * Test to check Lowercase class name mistake
+    * Test to check Lowercase class name mistake.
     */
    @Test
    public void testLowercaseClassName() {
@@ -368,14 +366,14 @@ public class MistakeDetectionWrongClassTest {
 
      var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-     assertEquals(comparison.newMistakes.size(), 1);
-     assertEquals(studentSolution.getMistakes().size(), 1);
+     assertEquals(1, comparison.newMistakes.size());
+     assertEquals(1, studentSolution.getMistakes().size());
      assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentcarClass,
          instructorCarClass, 0, 1, false);
    }
 
    /**
-    * Test to check Lowercase class name mistake
+    * Test to check Lowercase class name mistake.
     */
    @Test
    public void testLowercaseClassName1() {
@@ -399,7 +397,7 @@ public class MistakeDetectionWrongClassTest {
    }
 
    /**
-    * Test to check similar class name mistake
+    * Test to check similar class name mistake.
     */
    @Disabled
    @Test
@@ -449,7 +447,7 @@ public class MistakeDetectionWrongClassTest {
    }
 
    /**
-    * Test to check wrong class name mistake
+    * Test to check wrong class name mistake.
     */
    @Test
    public void testWrongClassName1() {
@@ -473,7 +471,7 @@ public class MistakeDetectionWrongClassTest {
    }
 
    /**
-    * Test to check wrong class name mistake
+    * Test to check wrong class name mistake.
     */
    @Test
    public void testWrongClassName2() {

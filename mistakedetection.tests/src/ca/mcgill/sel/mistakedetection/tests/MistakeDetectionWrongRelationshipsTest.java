@@ -1,18 +1,18 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistake;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getAssociationEndFromClass;
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.getClassFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
+import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
+import static modelingassistant.util.ClassDiagramUtils.getAssociationsFromClassDiagram;
+import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import modelingassistant.Mistake;
 
 public class MistakeDetectionWrongRelationshipsTest {
 
@@ -20,19 +20,65 @@ public class MistakeDetectionWrongRelationshipsTest {
    * Test to check mapping of relationships (No Mistakes).
    */
   @Test
-  public void testToCheckRelationshipMapping() {
+  public void testToCheckRelationshipMappings() {
     var instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/Class Diagram/Two(withAttributes).domain_model.cdm");
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_bus_driver_associ/Class Diagram/Instructor_bus_driver_associ.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/two(withAttribute)/Class Diagram/Two(withAttribute).domain_model.cdm");
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_bus_driver_associ/Class Diagram/Instructor_bus_driver_associ.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+    var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
+    var instructorAssociations =
+        getAssociationsFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
+    var instructorAssociation0 = instructorAssociations.get(0);
+    var instructorAssociation1 = instructorAssociations.get(1);
+
+    var studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
+    var studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
+    var studentAssociations = getAssociationsFromClassDiagram(studentBusClass, studentDriverClass, studentClassDiagram);
+    var studentAssociation0 = studentAssociations.get(0);
+    var studentAssociation1 = studentAssociations.get(1);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(comparison.newMistakes.size(), 0);
-    assertEquals(studentSolution.getMistakes().size(), 0);
+    assertEquals(0, comparison.newMistakes.size());
+    assertEquals(0, studentSolution.getMistakes().size());
+    assertEquals(studentAssociation0, comparison.mappedAssociation.get(instructorAssociation0));
+    assertEquals(studentAssociation1, comparison.mappedAssociation.get(instructorAssociation1));
+  }
+
+  /**
+   * Test to check mapping of relationships .
+   */
+  @Test
+  public void testToCheckRelationshipMapping() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_bus_driver_associ/Class Diagram/Instructor_bus_driver_associ.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_bus_driver_assoc/Class Diagram/Student_bus_driver_assoc.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+    var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
+    var instructorAssociations =
+        getAssociationsFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
+    var instructorAssociation0 = instructorAssociations.get(0);
+
+    var studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
+    var studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
+    var studentAssociations = getAssociationsFromClassDiagram(studentBusClass, studentDriverClass, studentClassDiagram);
+    var studentAssociation0 = studentAssociations.get(0);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(studentAssociation0, comparison.mappedAssociation.get(instructorAssociation0));
   }
 
   /**
@@ -57,10 +103,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
 
-    for (Mistake m : studentSolution.getMistakes()) {
-      assertMistake(m, BAD_ROLE_NAME_SPELLING, studentMyDrivrAssociationEnd, instructorMyDriverAssociationEnd, 0, 1,
-          false);
-    }
+    assertMistake(studentSolution.getMistakes().get(0), BAD_ROLE_NAME_SPELLING, studentMyDrivrAssociationEnd,
+        instructorMyDriverAssociationEnd, 0, 1, false);
   }
 
 }

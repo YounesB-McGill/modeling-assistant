@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_KYhyMNfmEeuG8czVoCvS-g" name="Instructor_subClassPR_Pattern">
   <classes xsi:type="classdiagram:Class" xmi:id="_Llhw0NfmEeuG8czVoCvS-g" name="Student">
+    <associationEnds xmi:id="_y9QcsN2aEeu7asz7hr5Mzg" name="myRoot" assoc="_y9Qcst2aEeu7asz7hr5Mzg" lowerBound="1"/>
     <attributes xmi:id="_RaCGENfmEeuG8czVoCvS-g" name="name" type="_KYhyN9fmEeuG8czVoCvS-g"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_MzKooNfmEeuG8czVoCvS-g" name="FullTimeStudent" superTypes="_Llhw0NfmEeuG8czVoCvS-g"/>
   <classes xsi:type="classdiagram:Class" xmi:id="_OMfzENfmEeuG8czVoCvS-g" name="PartTimeStudent" superTypes="_Llhw0NfmEeuG8czVoCvS-g"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_xWRQwN2aEeu7asz7hr5Mzg" name="Root">
+    <associationEnds xmi:id="_y9Qcsd2aEeu7asz7hr5Mzg" name="myStudent" assoc="_y9Qcst2aEeu7asz7hr5Mzg" lowerBound="1" referenceType="Composition"/>
+  </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_KYhyMdfmEeuG8czVoCvS-g"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_KYhyMtfmEeuG8czVoCvS-g"/>
   <types xsi:type="classdiagram:CDBoolean" xmi:id="_KYhyM9fmEeuG8czVoCvS-g"/>
@@ -15,16 +19,20 @@
   <types xsi:type="classdiagram:CDByte" xmi:id="_KYhyONfmEeuG8czVoCvS-g"/>
   <types xsi:type="classdiagram:CDFloat" xmi:id="_KYhyOdfmEeuG8czVoCvS-g"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_KYhyOtfmEeuG8czVoCvS-g"/>
+  <associations xmi:id="_y9Qcst2aEeu7asz7hr5Mzg" name="Student_Root" ends="_y9QcsN2aEeu7asz7hr5Mzg _y9Qcsd2aEeu7asz7hr5Mzg"/>
   <layout xmi:id="_KYhyO9fmEeuG8czVoCvS-g">
     <containers xmi:id="_KYhyPNfmEeuG8czVoCvS-g" key="_KYhyMNfmEeuG8czVoCvS-g">
       <value xmi:id="_LzX_kNfmEeuG8czVoCvS-g" key="_Llhw0NfmEeuG8czVoCvS-g">
-        <value xmi:id="_LzX_kdfmEeuG8czVoCvS-g" x="717.0" y="170.0"/>
+        <value xmi:id="_LzX_kdfmEeuG8czVoCvS-g" x="736.99976" y="342.0002"/>
       </value>
       <value xmi:id="_MzL2wNfmEeuG8czVoCvS-g" key="_MzKooNfmEeuG8czVoCvS-g">
-        <value xmi:id="_MzL2wdfmEeuG8czVoCvS-g" x="514.0002" y="389.00003"/>
+        <value xmi:id="_MzL2wdfmEeuG8czVoCvS-g" x="514.99994" y="497.00012"/>
       </value>
       <value xmi:id="_OMgaINfmEeuG8czVoCvS-g" key="_OMfzENfmEeuG8czVoCvS-g">
-        <value xmi:id="_OMgaIdfmEeuG8czVoCvS-g" x="931.9999" y="389.00003"/>
+        <value xmi:id="_OMgaIdfmEeuG8czVoCvS-g" x="932.99963" y="497.00012"/>
+      </value>
+      <value xmi:id="_xWR30N2aEeu7asz7hr5Mzg" key="_xWRQwN2aEeu7asz7hr5Mzg">
+        <value xmi:id="_xWR30d2aEeu7asz7hr5Mzg" x="736.99976" y="86.00021"/>
       </value>
     </containers>
   </layout>

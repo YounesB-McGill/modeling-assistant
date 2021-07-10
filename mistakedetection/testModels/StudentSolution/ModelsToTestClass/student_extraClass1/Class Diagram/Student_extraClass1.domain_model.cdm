@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_IWRq0NmMEeuihpv-j2laQg" name="Student_extraClass1">
-  <classes xsi:type="classdiagram:Class" xmi:id="_KJxowNmMEeuihpv-j2laQg" name="Bus"/>
-  <classes xsi:type="classdiagram:Class" xmi:id="_L3iyINmMEeuihpv-j2laQg" name="Person"/>
-  <classes xsi:type="classdiagram:Class" xmi:id="_Q3rEINmMEeuihpv-j2laQg" name="Car"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_KJxowNmMEeuihpv-j2laQg" name="Bus">
+    <associationEnds xmi:id="_osEIoN25EeuVoonRXmsiAQ" name="myRoot" assoc="_osEIot25EeuVoonRXmsiAQ" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_L3iyINmMEeuihpv-j2laQg" name="Person">
+    <associationEnds xmi:id="_p3-iIN25EeuVoonRXmsiAQ" name="myRoot" assoc="_p3-iIt25EeuVoonRXmsiAQ" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_Q3rEINmMEeuihpv-j2laQg" name="Car">
+    <associationEnds xmi:id="_pSLtcN25EeuVoonRXmsiAQ" name="myRoot" assoc="_pSLtct25EeuVoonRXmsiAQ" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_nx0G4N25EeuVoonRXmsiAQ" name="Root">
+    <associationEnds xmi:id="_osEIod25EeuVoonRXmsiAQ" name="myBus" assoc="_osEIot25EeuVoonRXmsiAQ" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_pSLtcd25EeuVoonRXmsiAQ" name="myCar" assoc="_pSLtct25EeuVoonRXmsiAQ" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_p3-iId25EeuVoonRXmsiAQ" name="myPerson" assoc="_p3-iIt25EeuVoonRXmsiAQ" lowerBound="1" referenceType="Composition"/>
+  </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_IWRq0dmMEeuihpv-j2laQg"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_IWRq0tmMEeuihpv-j2laQg"/>
   <types xsi:type="classdiagram:CDBoolean" xmi:id="_IWRq09mMEeuihpv-j2laQg"/>
@@ -13,16 +24,22 @@
   <types xsi:type="classdiagram:CDByte" xmi:id="_IWRq2NmMEeuihpv-j2laQg"/>
   <types xsi:type="classdiagram:CDFloat" xmi:id="_IWRq2dmMEeuihpv-j2laQg"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_IWRq2tmMEeuihpv-j2laQg"/>
+  <associations xmi:id="_osEIot25EeuVoonRXmsiAQ" name="Bus_Root" ends="_osEIoN25EeuVoonRXmsiAQ _osEIod25EeuVoonRXmsiAQ"/>
+  <associations xmi:id="_pSLtct25EeuVoonRXmsiAQ" name="Car_Root" ends="_pSLtcN25EeuVoonRXmsiAQ _pSLtcd25EeuVoonRXmsiAQ"/>
+  <associations xmi:id="_p3-iIt25EeuVoonRXmsiAQ" name="Person_Root" ends="_p3-iIN25EeuVoonRXmsiAQ _p3-iId25EeuVoonRXmsiAQ"/>
   <layout xmi:id="_IWRq29mMEeuihpv-j2laQg">
     <containers xmi:id="_IWRq3NmMEeuihpv-j2laQg" key="_IWRq0NmMEeuihpv-j2laQg">
       <value xmi:id="_KJ0FANmMEeuihpv-j2laQg" key="_KJxowNmMEeuihpv-j2laQg">
         <value xmi:id="_KJ0FAdmMEeuihpv-j2laQg" x="951.0" y="116.0"/>
       </value>
       <value xmi:id="_L3mcgNmMEeuihpv-j2laQg" key="_L3iyINmMEeuihpv-j2laQg">
-        <value xmi:id="_L3mcgdmMEeuihpv-j2laQg" x="1029.0" y="187.00006"/>
+        <value xmi:id="_L3mcgdmMEeuihpv-j2laQg" x="767.99963" y="512.0005"/>
       </value>
       <value xmi:id="_Q3vVkNmMEeuihpv-j2laQg" key="_Q3rEINmMEeuihpv-j2laQg">
-        <value xmi:id="_Q3vVkdmMEeuihpv-j2laQg" x="766.9999" y="187.00006"/>
+        <value xmi:id="_Q3vVkdmMEeuihpv-j2laQg" x="767.99963" y="361.0002"/>
+      </value>
+      <value xmi:id="_nx1VAN25EeuVoonRXmsiAQ" key="_nx0G4N25EeuVoonRXmsiAQ">
+        <value xmi:id="_nx1VAd25EeuVoonRXmsiAQ" x="302.00015" y="221.00002"/>
       </value>
     </containers>
   </layout>

@@ -80,7 +80,6 @@ public class LearningCorpusItemProvider
       childrenFeatures.add(LearningcorpusPackage.Literals.LEARNING_CORPUS__FEEDBACKS);
       childrenFeatures.add(LearningcorpusPackage.Literals.LEARNING_CORPUS__LEARNING_ITEMS);
       childrenFeatures.add(LearningcorpusPackage.Literals.LEARNING_CORPUS__LEARNING_RESOURCES);
-      childrenFeatures.add(LearningcorpusPackage.Literals.LEARNING_CORPUS__UML_ELEMENTS);
     }
     return childrenFeatures;
   }
@@ -137,7 +136,6 @@ public class LearningCorpusItemProvider
       case LearningcorpusPackage.LEARNING_CORPUS__FEEDBACKS:
       case LearningcorpusPackage.LEARNING_CORPUS__LEARNING_ITEMS:
       case LearningcorpusPackage.LEARNING_CORPUS__LEARNING_RESOURCES:
-      case LearningcorpusPackage.LEARNING_CORPUS__UML_ELEMENTS:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
     }
@@ -209,11 +207,6 @@ public class LearningCorpusItemProvider
       (createChildParameter
         (LearningcorpusPackage.Literals.LEARNING_CORPUS__LEARNING_RESOURCES,
          LearningcorpusFactory.eINSTANCE.createQuiz()));
-
-    newChildDescriptors.add
-      (createChildParameter
-        (LearningcorpusPackage.Literals.LEARNING_CORPUS__UML_ELEMENTS,
-         LearningcorpusFactory.eINSTANCE.createUmlElement()));
   }
 
   /**

@@ -5,7 +5,7 @@ This file contains all mistake types and categories.
 from fileserdes import load_lc
 from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
 
-LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test2.learningcorpus"
+LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/default.learningcorpus"
 corpus = load_lc(LEARNING_CORPUS_PATH)
 
 # Populate dictionaries
@@ -37,8 +37,9 @@ WRONG_ROLE_NAMES: MistakeTypeCategory = _MTCS["Wrong role names"]
 WRONG_ASSOCIATION_CLASS: MistakeTypeCategory = _MTCS["Wrong association class"]
 WRONG_GENERALIZATION: MistakeTypeCategory = _MTCS["Wrong generalization"]
 MISUSE_OF_DESIGN_PATTERNS: MistakeTypeCategory = _MTCS["Misuse of design patterns"]
-MISUSE_OF_PLAYER_ROLE_PATTERN: MistakeTypeCategory = _MTCS["Misuse of Player-Role Pattern"]
-MISUSE_OF_ABSTRACTION_OCCURRENCE: MistakeTypeCategory = _MTCS["Misuse of Abstraction-Occurrence"]
+WRONG_PLAYER_ROLE_PATTERN: MistakeTypeCategory = _MTCS["Wrong Player-Role Pattern"]
+USING_DIFFERENT_PLAYER_ROLE_PATTERN: MistakeTypeCategory = _MTCS["Using different Player-Role pattern"]
+WRONG_ABSTRACTION_OCCURRENCE_PATTERN: MistakeTypeCategory = _MTCS["Wrong Abstraction-Occurrence pattern"]
 
 # Mistake types
 MISSING_CLASS: MistakeType = _MTS["Missing class"]
@@ -50,7 +51,14 @@ BAD_CLASS_NAME_SPELLING: MistakeType = _MTS["Bad class name spelling"]
 SIMILAR_CLASS_NAME: MistakeType = _MTS["Similar (yet incorrect) class name"]
 REGULAR_CLASS_SHOULD_BE_ENUM: MistakeType = _MTS["Regular class should be enum"]
 ENUM_SHOULD_BE_REGULAR_CLASS: MistakeType = _MTS["Enum should be regular class"]
-WRONG_ENUM_ITEMS: MistakeType = _MTS["Wrong enum items"]
+MISSING_ENUM: MistakeType = _MTS["Missing enum"]
+EXTRA_ENUM: MistakeType = _MTS["Extra enum"]
+BAD_ENUM_NAME_SPELLING: MistakeType = _MTS["Bad enum name spelling"]
+SIMILAR_ENUM_NAME: MistakeType = _MTS["Similar enum name"]
+MISSING_ENUM_ITEM: MistakeType = _MTS["Missing enum item"]
+EXTRA_ENUM_ITEM: MistakeType = _MTS["Extra enum item"]
+BAD_ENUM_ITEM_SPELLING: MistakeType = _MTS["Bad enum item spelling"]
+SIMILAR_ENUM_ITEM: MistakeType = _MTS["Similar enum item"]
 MISSING_ATTRIBUTE: MistakeType = _MTS["Missing attribute"]
 WRONG_ATTRIBUTE_TYPE: MistakeType = _MTS["Wrong attribute type"]
 ATTRIBUTE_SHOULD_BE_STATIC: MistakeType = _MTS["Attribute should be static"]
@@ -59,7 +67,10 @@ PLURAL_ATTRIBUTE: MistakeType = _MTS["Plural attribute"]
 LIST_ATTRIBUTE: MistakeType = _MTS["List attribute"]
 OTHER_EXTRA_ATTRIBUTE: MistakeType = _MTS["Other extra attribute"]
 BAD_ATTRIBUTE_NAME_SPELLING: MistakeType = _MTS["Bad attribute name spelling"]
+UPPERCASE_ATTRIBUTE_NAME: MistakeType = _MTS["Uppercase attribute name"]
 SIMILAR_ATTRIBUTE_NAME: MistakeType = _MTS["Similar (yet incorrect) attribute name"]
+ATTRIBUTE_MISPLACED: MistakeType = _MTS["Attribute misplaced"]
+ATTRIBUTE_DUPLICATED: MistakeType = _MTS["Attribute duplicated"]
 INCOMPLETE_CONTAINMENT_TREE: MistakeType = _MTS["Incomplete containment tree"]
 MISSING_ASSOCIATION: MistakeType = _MTS["Missing association"]
 MISSING_COMPOSITION: MistakeType = _MTS["Missing composition"]
@@ -100,6 +111,24 @@ SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS: MistakeType = _MTS["Subclass is an instan
 NON_DIFFERENTIATED_SUBCLASS: MistakeType = _MTS["Non-differentiated subclass"]
 WRONG_GENERALIZATION_DIRECTION: MistakeType = _MTS["Wrong generalization direction"]
 WRONG_SUPERCLASS: MistakeType = _MTS["Wrong superclass"]
+MISSING_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Missing Player-Role pattern"]
+INCOMPLETE_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Incomplete Player-Role pattern"]
+SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Subclass should be full Player-Role pattern"]
+SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN: MistakeType = \
+    _MTS["Subclass should be association Player-Role pattern"]
+SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Subclass should be enum Player-Role pattern"]
+ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Association should be full Player-Role pattern"]
+ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN: MistakeType = \
+    _MTS["Association should be subclass Player-Role pattern"]
+ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Association should be enum Player-Role pattern"]
+ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Enum should be full Player-Role pattern"]
+ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Enum should be subclass Player-Role pattern"]
+ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN: MistakeType = _MTS["Enum should be association Player-Role pattern"]
+FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS: MistakeType = _MTS["Full Player-Role pattern should be subclass"]
+FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION: MistakeType = _MTS["Full Player-Role pattern should be association"]
+FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM: MistakeType = _MTS["Full Player-Role pattern should be enum"]
+MISSING_ABSTRACTION_OCCURRENCE_PATTERN: MistakeType = _MTS["Missing Abstraction-Occurrence pattern"]
+INCOMPLETE_ABSTRACTION_OCCURRENCE_PATTERN: MistakeType = _MTS["Incomplete Abstraction-Occurrence pattern"]
 
 
 # deprecated: this function will be removed soon

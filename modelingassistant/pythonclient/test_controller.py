@@ -14,7 +14,7 @@ from mistaketypes import BAD_CLASS_NAME_SPELLING
 from modelingassistant.modelingassistant import ModelingAssistant, Solution, Student, StudentKnowledge
 
 
-LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test.learningcorpus"
+LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/default.learningcorpus"
 
 CDM_PATH = "modelingassistant/testmodels"
 MA_PATH = "modelingassistant/instances"
@@ -638,7 +638,7 @@ def test_student_knowledge_persisted_correctly():
     modeling_assistant = ModelingAssistant()
     student1 = Student(id="1111", modelingAssistant=modeling_assistant)
     Solution(classDiagram=class_diagram1, student=student1, modelingAssistant=modeling_assistant)
-    lok1 = 10_578_963  # use a large int to detect it in testing
+    lok1 = 10_578_963.0  # use a large float to detect it in testing
     StudentKnowledge(levelOfKnowledge=lok1, student=student1, mistakeType=class_naming_mistake_type,
                      modelingAssistant=modeling_assistant)
 
@@ -647,7 +647,7 @@ def test_student_knowledge_persisted_correctly():
     cdm_by_file[cd2_file] = class_diagram2
     student2 = Student(id="2222", modelingAssistant=modeling_assistant)
     Solution(classDiagram=class_diagram2, student=student2, modelingAssistant=modeling_assistant)
-    lok2 = 8_996_541
+    lok2 = 8_996_541.0
     StudentKnowledge(levelOfKnowledge=lok2, student=student2, mistakeType=class_naming_mistake_type,
                      modelingAssistant=modeling_assistant)
     cd_int = CDInt()

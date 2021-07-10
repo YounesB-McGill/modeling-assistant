@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_5Vb14NpcEeuihpv-j2laQg" name="Student_badClassName1">
-  <classes xsi:type="classdiagram:Class" xmi:id="_5ydJENpcEeuihpv-j2laQg" name="Companey"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_5ydJENpcEeuihpv-j2laQg" name="Companey">
+    <associationEnds xmi:id="_i4M-gN23EeuVoonRXmsiAQ" name="myRoot" assoc="_i4Nlkd23EeuVoonRXmsiAQ" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_iI0wAN23EeuVoonRXmsiAQ" name="Root">
+    <associationEnds xmi:id="_i4NlkN23EeuVoonRXmsiAQ" name="myCompany" assoc="_i4Nlkd23EeuVoonRXmsiAQ" lowerBound="1" referenceType="Composition"/>
+  </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_5Vb14dpcEeuihpv-j2laQg"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_5Vb14tpcEeuihpv-j2laQg"/>
   <types xsi:type="classdiagram:CDBoolean" xmi:id="_5Vb149pcEeuihpv-j2laQg"/>
@@ -11,10 +16,14 @@
   <types xsi:type="classdiagram:CDByte" xmi:id="_5Vb16NpcEeuihpv-j2laQg"/>
   <types xsi:type="classdiagram:CDFloat" xmi:id="_5Vb16dpcEeuihpv-j2laQg"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_5Vb16tpcEeuihpv-j2laQg"/>
+  <associations xmi:id="_i4Nlkd23EeuVoonRXmsiAQ" name="Companey_Root" ends="_i4M-gN23EeuVoonRXmsiAQ _i4NlkN23EeuVoonRXmsiAQ"/>
   <layout xmi:id="_5Vb169pcEeuihpv-j2laQg">
     <containers xmi:id="_5Vb17NpcEeuihpv-j2laQg" key="_5Vb14NpcEeuihpv-j2laQg">
       <value xmi:id="_5yhagNpcEeuihpv-j2laQg" key="_5ydJENpcEeuihpv-j2laQg">
         <value xmi:id="_5yhagdpcEeuihpv-j2laQg" x="890.0" y="320.0"/>
+      </value>
+      <value xmi:id="_iI1XEN23EeuVoonRXmsiAQ" key="_iI0wAN23EeuVoonRXmsiAQ">
+        <value xmi:id="_iI1XEd23EeuVoonRXmsiAQ" x="510.00024" y="320.0"/>
       </value>
     </containers>
   </layout>
