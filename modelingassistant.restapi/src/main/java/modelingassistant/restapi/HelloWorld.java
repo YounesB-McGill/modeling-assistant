@@ -33,8 +33,8 @@ class HelloWorldController {
   private static final String template = "Hello, %s!";
   private final AtomicLong counter = new AtomicLong();
 
-  @GetMapping("/greeting")
-  public HelloWorld greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+  @GetMapping("/helloworld")
+  public HelloWorld helloWorld(@RequestParam(value = "name", defaultValue = "World") String name) {
     return new HelloWorld(counter.incrementAndGet(), String.format(template, name));
   }
 }
