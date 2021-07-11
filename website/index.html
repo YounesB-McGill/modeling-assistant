@@ -15,7 +15,7 @@
       #ma_main {
         flex: 1;
       }
-      #cde_loc {
+      #cde {
         flex: 1.1;
       }
     </style>
@@ -23,25 +23,27 @@
     <script>
       window.onload = () => {
         const iFrame = document.createElement("iframe");
-        iFrame.style = "";
-        iFrame.src = "http://localhost/"; // "cdmeditor.html";
-        iFrame.id = iFrame.name = "cdm_editor";
-        iFrame.height = `${0.95 * window.innerHeight}px`;
-        iFrame.width = "100%";
-        iFrame.frameBorder = 0;
-        document.getElementById("cde_loc").appendChild(iFrame);
+        Object.assign(iFrame, {
+          style: "",
+          src: "http://localhost/", // "cdmeditor.html",
+          id: "cdm_editor",
+          name: "cdm_editor",
+          height: `${0.95 * window.innerHeight}px`,
+          width: "100%",
+          frameBorder: 0,
+        });
+        document.getElementById("cde").appendChild(iFrame);
       }
     </script>
   </head>
+
   <body>
-  
-  <!-- <span id="cde_loc"></span> -->
   <div id="ma_wrapper">
     <div id="ma_main">
       <h1>Modeling Assistant</h1>
       <p>This is the top-level part of the Modeling Assistant Web App GUI.</p>
     </div>
-    <div id="cde_loc"></div>
+    <div id="cde"></div>
   </div>
   </body>
 </html>
