@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_7LWdUOJtEeufL7bKC5uA6w" name="Student_badRoleNameSpelling1" featureModel="_7LWdUeJtEeufL7bKC5uA6w" impactModel="_7LWdU-JtEeufL7bKC5uA6w">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_7LWdUeJtEeufL7bKC5uA6w" root="_7LWdUuJtEeufL7bKC5uA6w">
+    <features xmi:id="_7LWdUuJtEeufL7bKC5uA6w" name="Student_badRoleNameSpelling1" realizedBy="_775JceJtEeufL7bKC5uA6w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_7LWdU-JtEeufL7bKC5uA6w" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_775JcOJtEeufL7bKC5uA6w" name="Student_badRoleNameSpelling1" scene="_775JceJtEeufL7bKC5uA6w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_badRoleNameSpelling1.domain_model.cdm#_776-oOJtEeufL7bKC5uA6w"/>
+  </artefacts>
+  <scenes xmi:id="_775JceJtEeufL7bKC5uA6w" name="Student_badRoleNameSpelling1" realizes="_7LWdUuJtEeufL7bKC5uA6w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_775JcuJtEeufL7bKC5uA6w" value="_775JcOJtEeufL7bKC5uA6w" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

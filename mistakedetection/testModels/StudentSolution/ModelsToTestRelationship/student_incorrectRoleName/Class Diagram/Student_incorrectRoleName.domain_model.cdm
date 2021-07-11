@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_jpkAQOJoEeufL7bKC5uA6w" name="Student_incorrectRoleName">
+  <classes xsi:type="classdiagram:Class" xmi:id="_kCW6wOJoEeufL7bKC5uA6w" name="Root">
+    <associationEnds xmi:id="_nLB74OJoEeufL7bKC5uA6w" name="myCar" assoc="_nLCi8OJoEeufL7bKC5uA6w" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_oW0ZkeJoEeufL7bKC5uA6w" name="myOwner" assoc="_oW0ZkuJoEeufL7bKC5uA6w" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_lVOQ0OJoEeufL7bKC5uA6w" name="Car">
+    <associationEnds xmi:id="_nLBU0OJoEeufL7bKC5uA6w" name="myRoot" assoc="_nLCi8OJoEeufL7bKC5uA6w" lowerBound="1"/>
+    <associationEnds xmi:id="_prRrEOJoEeufL7bKC5uA6w" name="CarOwner" assoc="_prRrEuJoEeufL7bKC5uA6w" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_mPKJgOJoEeufL7bKC5uA6w" name="Owner">
+    <associationEnds xmi:id="_oW0ZkOJoEeufL7bKC5uA6w" name="myRoot" assoc="_oW0ZkuJoEeufL7bKC5uA6w" lowerBound="1"/>
+    <associationEnds xmi:id="_prRrEeJoEeufL7bKC5uA6w" name="myCar" assoc="_prRrEuJoEeufL7bKC5uA6w" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_jpkAQeJoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_jpkAQuJoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_jpkAQ-JoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_jpkAROJoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_jpkAReJoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_jpkARuJoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_jpkAR-JoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_jpkASOJoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_jpkASeJoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_jpkASuJoEeufL7bKC5uA6w"/>
+  <associations xmi:id="_nLCi8OJoEeufL7bKC5uA6w" name="Car_Root" ends="_nLBU0OJoEeufL7bKC5uA6w _nLB74OJoEeufL7bKC5uA6w"/>
+  <associations xmi:id="_oW0ZkuJoEeufL7bKC5uA6w" name="Owner_Root" ends="_oW0ZkOJoEeufL7bKC5uA6w _oW0ZkeJoEeufL7bKC5uA6w"/>
+  <associations xmi:id="_prRrEuJoEeufL7bKC5uA6w" name="Car_Owner" ends="_prRrEOJoEeufL7bKC5uA6w _prRrEeJoEeufL7bKC5uA6w"/>
+  <layout xmi:id="_jpkAS-JoEeufL7bKC5uA6w">
+    <containers xmi:id="_jpkATOJoEeufL7bKC5uA6w" key="_jpkAQOJoEeufL7bKC5uA6w">
+      <value xmi:id="_kCbMMOJoEeufL7bKC5uA6w" key="_kCW6wOJoEeufL7bKC5uA6w">
+        <value xmi:id="_kCbzQOJoEeufL7bKC5uA6w" x="1062.0" y="138.0"/>
+      </value>
+      <value xmi:id="_lVR7MOJoEeufL7bKC5uA6w" key="_lVOQ0OJoEeufL7bKC5uA6w">
+        <value xmi:id="_lVR7MeJoEeufL7bKC5uA6w" x="840.0" y="239.0"/>
+      </value>
+      <value xmi:id="_mPNz4OJoEeufL7bKC5uA6w" key="_mPKJgOJoEeufL7bKC5uA6w">
+        <value xmi:id="_mPNz4eJoEeufL7bKC5uA6w" x="1195.0004" y="469.00012"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

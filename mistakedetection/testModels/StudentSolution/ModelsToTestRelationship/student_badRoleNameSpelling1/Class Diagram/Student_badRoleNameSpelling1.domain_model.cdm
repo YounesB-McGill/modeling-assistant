@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_776-oOJtEeufL7bKC5uA6w" name="Student_badRoleNameSpelling1">
+  <classes xsi:type="classdiagram:Class" xmi:id="_8xacMOJtEeufL7bKC5uA6w" name="Root">
+    <associationEnds xmi:id="_AZdg8eJuEeufL7bKC5uA6w" name="myCompany" assoc="_AZeIAOJuEeufL7bKC5uA6w" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_A6mfIeJuEeufL7bKC5uA6w" name="myEmployee" assoc="_A6mfIuJuEeufL7bKC5uA6w" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_9bXYIOJtEeufL7bKC5uA6w" name="Company">
+    <associationEnds xmi:id="_AZdg8OJuEeufL7bKC5uA6w" name="myRoot" assoc="_AZeIAOJuEeufL7bKC5uA6w" lowerBound="1"/>
+    <associationEnds xmi:id="_Bwe-QeJuEeufL7bKC5uA6w" name="myEmployee" assoc="_Bwe-QuJuEeufL7bKC5uA6w" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="__ER2sOJtEeufL7bKC5uA6w" name="Employee">
+    <associationEnds xmi:id="_A6mfIOJuEeufL7bKC5uA6w" name="myRoot" assoc="_A6mfIuJuEeufL7bKC5uA6w" lowerBound="1"/>
+    <associationEnds xmi:id="_Bwe-QOJuEeufL7bKC5uA6w" name="myCompaney" assoc="_Bwe-QuJuEeufL7bKC5uA6w" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_776-oeJtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_776-ouJtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_776-o-JtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_776-pOJtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_776-peJtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_776-puJtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_776-p-JtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_776-qOJtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_776-qeJtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_776-quJtEeufL7bKC5uA6w"/>
+  <associations xmi:id="_AZeIAOJuEeufL7bKC5uA6w" name="Company_Root" ends="_AZdg8OJuEeufL7bKC5uA6w _AZdg8eJuEeufL7bKC5uA6w"/>
+  <associations xmi:id="_A6mfIuJuEeufL7bKC5uA6w" name="Employee_Root" ends="_A6mfIOJuEeufL7bKC5uA6w _A6mfIeJuEeufL7bKC5uA6w"/>
+  <associations xmi:id="_Bwe-QuJuEeufL7bKC5uA6w" name="Employee_Company" ends="_Bwe-QOJuEeufL7bKC5uA6w _Bwe-QeJuEeufL7bKC5uA6w"/>
+  <layout xmi:id="_776-q-JtEeufL7bKC5uA6w">
+    <containers xmi:id="_776-rOJtEeufL7bKC5uA6w" key="_776-oOJtEeufL7bKC5uA6w">
+      <value xmi:id="_8xbDQOJtEeufL7bKC5uA6w" key="_8xacMOJtEeufL7bKC5uA6w">
+        <value xmi:id="_8xbDQeJtEeufL7bKC5uA6w" x="898.0" y="162.0"/>
+      </value>
+      <value xmi:id="_9bX_MOJtEeufL7bKC5uA6w" key="_9bXYIOJtEeufL7bKC5uA6w">
+        <value xmi:id="_9bX_MeJtEeufL7bKC5uA6w" x="481.0" y="380.0"/>
+      </value>
+      <value xmi:id="__ETE0OJtEeufL7bKC5uA6w" key="__ER2sOJtEeufL7bKC5uA6w">
+        <value xmi:id="__ETE0eJtEeufL7bKC5uA6w" x="898.0" y="596.00006"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
