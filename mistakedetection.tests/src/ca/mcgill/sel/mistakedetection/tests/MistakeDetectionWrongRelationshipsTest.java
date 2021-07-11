@@ -11,6 +11,8 @@ import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
+import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_ROLE_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION;
@@ -464,4 +466,143 @@ public class MistakeDetectionWrongRelationshipsTest {
   }
   }
 
+  /**
+   * Test to check present but incorrect role name.
+   */
+  @Test
+  public void testMistakePresentButIncorrectRoleName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_carAndOwnerClass/Class Diagram/Instructor_carAndOwnerClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_incorrectRoleName/Class Diagram/Student_incorrectRoleName.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
+    Classifier studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+    AssociationEnd instructorMyOwnerAssociationEnd = getAssociationEndFromClass("myOwner", instructorCarClass);
+    AssociationEnd studentCarOwnerAssociationEnd = getAssociationEndFromClass("CarOwner", studentCarClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    for (Mistake m : studentSolution.getMistakes()) {
+      assertMistake(m, OTHER_WRONG_ROLE_NAME, studentCarOwnerAssociationEnd, instructorMyOwnerAssociationEnd, 0, 1,
+          false);
+    }
+  }
+
+  /**
+   * Test to check present but incorrect role name.
+   */
+  @Test
+  public void testMistakePresentButIncorrectRoleName1() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_passengerAndAirplanClass/Class Diagram/Instructor_passengerAndAirplanClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_incorrectRoleName1/Class Diagram/Student_incorrectRoleName1.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorAirplanClass = getClassFromClassDiagram("Airplan", instructorClassDiagram);
+    Classifier studentAirplanClass = getClassFromClassDiagram("Airplan", studentClassDiagram);
+    AssociationEnd instructorMyPassengerAssociationEnd = getAssociationEndFromClass("myPassenger", instructorAirplanClass);
+    AssociationEnd studentPeopleAssociationEnd = getAssociationEndFromClass("People", studentAirplanClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    for (Mistake m : studentSolution.getMistakes()) {
+      assertMistake(m, OTHER_WRONG_ROLE_NAME, studentPeopleAssociationEnd, instructorMyPassengerAssociationEnd, 0, 1,
+          false);
+    }
+  }
+  /**
+   * Test to check bad role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectRoleName1() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_carAndEngineClass/Class Diagram/Instructor_carAndEngineClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_badRoleNameSpelling/Class Diagram/Student_badRoleNameSpelling.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
+    Classifier studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+    AssociationEnd instructormyEngineAssociationEnd = getAssociationEndFromClass("myEngine", instructorCarClass);
+    AssociationEnd studentmyengineAssociationEnd = getAssociationEndFromClass("myengine", studentCarClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    for (Mistake m : studentSolution.getMistakes()) {
+      assertMistake(m, BAD_ROLE_NAME_SPELLING, studentmyengineAssociationEnd, instructormyEngineAssociationEnd, 0, 1,
+          false);
+    }
+  }
+
+  /**
+   * Test to check bad role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectRoleName2() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_companyAndEmployeeClass/Class Diagram/Instructor_companyAndEmployeeClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_badRoleNameSpelling1/Class Diagram/Student_badRoleNameSpelling1.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    Classifier studentEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
+    AssociationEnd instructormyCompanyAssociationEnd = getAssociationEndFromClass("myCompany", instructorEmployeeClass);
+    AssociationEnd studentmyCompaneyAssociationEnd = getAssociationEndFromClass("myCompaney", studentEmployeeClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    for (Mistake m : studentSolution.getMistakes()) {
+      assertMistake(m, BAD_ROLE_NAME_SPELLING, studentmyCompaneyAssociationEnd, instructormyCompanyAssociationEnd, 0, 1,
+          false);
+    }
+  }
+
+  /**
+   * Test to check mistake Role name Should Not be statc.
+   */
+  @Test
+  public void testMistakeRoleNameShouldNotBeStatic() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_teamAndPlayerClass/Class Diagram/Instructor_teamAndPlayerClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_shouldNotBeStaticRoleName/Class Diagram/Student_shouldNotBeStaticRoleName.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var  instructorTeamClass = getClassFromClassDiagram("Team", instructorClassDiagram);
+    var  studentTeamClass = getClassFromClassDiagram("Team", studentClassDiagram);
+    AssociationEnd instructorMyPlayerAssociationEnd = getAssociationEndFromClass("myPlayer", instructorTeamClass);
+    AssociationEnd studentMyPlayerAssociationEnd = getAssociationEndFromClass("myPlayer", studentTeamClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    for (Mistake m : studentSolution.getMistakes()) {
+      assertMistake(m, ROLE_SHOULD_NOT_BE_STATIC,  studentMyPlayerAssociationEnd, instructorMyPlayerAssociationEnd , 0, 1,
+          false);
+  }
+  }
 }
