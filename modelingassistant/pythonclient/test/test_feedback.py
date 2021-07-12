@@ -219,27 +219,44 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     student_cdm = load_cdm("mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_wrongClassName/"
                            "Class Diagram/Student_wrongClassName.domain_model.cdm")
     ma = ModelingAssistant()
-    bus_ps = ProblemStatement(name="Bus Management System", modelingAssistant=ma)
-    alice = Student(name="Alice", modelingAssistant=ma)
-    StudentKnowledge(mistakeType=BAD_CLASS_NAME_SPELLING, student=alice, modelingAssistant=ma)
-    Solution(modelingAssistant=ma, problemStatement=bus_ps, classDiagram=instructor_cdm)
-    Solution(modelingAssistant=ma, problemStatement=bus_ps, classDiagram=student_cdm, student=alice)
+    bob = Student(name="Bob", modelingAssistant=ma)
+    StudentKnowledge(mistakeType=BAD_CLASS_NAME_SPELLING, student=bob, modelingAssistant=ma)
+    instructor_sol = Solution(modelingAssistant=ma, classDiagram=instructor_cdm)
+    bob_sol = Solution(modelingAssistant=ma, classDiagram=student_cdm, student=bob)
+    bus_ps = ProblemStatement(name="Bus Management System", modelingAssistant=ma,
+                              instructorSolution=instructor_sol,
+                              studentSolutions=[bob_sol])
+    instructor_sol.problemStatement = bus_ps
+    bob_sol.problemStatement = bus_ps
 
     resource = StringEnabledResourceSet().create_string_resource()
     resource.extend([ma, instructor_cdm, student_cdm])
     ma_str = resource.save_to_string().decode()
     assert ma_str
 
+    old_ma_str = ma_str
+
     # TODO Automatically turn on server if not already running
     # assume for now that MA MDS Java server is ON
     req = requests.get("http://localhost:8539/detectmistakes", {"modelingassistant": ma_str})
     assert 200 == req.status_code
 
-    ma_str = bytes(f"{json.loads(req.content)['modelingAssistantXmi']}", "utf-8")
+    new_ma_str = json.loads(req.content)['modelingAssistantXmi']
+
+    import difflib
+    html = difflib.HtmlDiff()
+    with open("html_diff.html", "w") as f:
+        f.write(html.make_file(old_ma_str.split("\n"), new_ma_str.split("\n")))
+
+    #exit()
+
+    ma_str = bytes(json.loads(req.content)['modelingAssistantXmi'], "utf-8")
     resource = SRSET.get_string_resource(ma_str)
     ma: ModelingAssistant = resource.contents[0]
     ma.__class__ = ModelingAssistant
     assert ma.problemStatements[0]
+
+    print(ma_str.decode())
 
     # TODO To be continued...
 
