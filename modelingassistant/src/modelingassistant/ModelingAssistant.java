@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import ca.mcgill.sel.classdiagram.CdmPackage;
 import ca.mcgill.sel.classdiagram.util.CdmResourceFactoryImpl;
 import learningcorpus.LearningcorpusPackage;
 import learningcorpus.util.LearningcorpusResourceFactoryImpl;
@@ -130,11 +131,15 @@ public interface ModelingAssistant extends EObject {
    * @generated NOT
    */
   static ModelingAssistant fromEcoreString(String maString) {
+    CdmPackage.eINSTANCE.eClass();
+    LearningcorpusPackage.eINSTANCE.eClass();
+    ModelingassistantPackage.eINSTANCE.eClass();
     var resource = getResourceSetWithExtensions().createResource(URI.createFileURI("*.modelingassistant"));
     try {
       resource.load(new URIConverter.ReadableInputStream(maString), Collections.EMPTY_MAP);
       return (ModelingAssistant) resource.getContents().get(0);
     } catch (IOException e) {
+      e.printStackTrace();
     }
     return null;
   }
