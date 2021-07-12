@@ -159,6 +159,7 @@ public interface ModelingAssistant extends EObject {
       resource.save(outputStream, Collections.EMPTY_MAP);
       return outputStream.toString(StandardCharsets.UTF_8);
     } catch (IOException e) {
+      e.printStackTrace();
     }
     return null;
   }

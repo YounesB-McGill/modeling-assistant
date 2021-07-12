@@ -64,6 +64,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -138,10 +139,8 @@ public class MistakeDetection {
     for (Classifier instructorClassifier : instructorClassifiers) {
       comparison.notMappedInstructorClassifier.add(instructorClassifier);
       EList<Attribute> instructorAttributes = instructorClassifier.getAttributes();
-      for (Attribute attribute : instructorAttributes) {
-        comparison.notMappedInstructorAttribute.add(attribute);
-      }
-      instructorClassifier.getAssociationEnds().forEach((assoc) -> {
+      comparison.notMappedInstructorAttribute.addAll(instructorAttributes);
+      instructorClassifier.getAssociationEnds().forEach(assoc -> {
         if (!comparison.notMappedInstructorAssociation.contains(assoc.getAssoc())) {
           comparison.notMappedInstructorAssociation.add(assoc.getAssoc());
         }
@@ -151,9 +150,7 @@ public class MistakeDetection {
         if (!processed) { // To stop duplicate entries.
           comparison.extraStudentClassifier.add(studentClassifier);
           EList<Attribute> studentAttributes = studentClassifier.getAttributes();
-          for (Attribute attribute : studentAttributes) {
-            comparison.extraStudentAttribute.add(attribute);
-          }
+          comparison.extraStudentAttribute.addAll(studentAttributes);
           studentClassifier.getAssociationEnds().forEach((assoc) -> {
             if (!comparison.extraStudentAssociation.contains(assoc.getAssoc())) {
               comparison.extraStudentAssociation.add(assoc.getAssoc());
@@ -197,7 +194,7 @@ public class MistakeDetection {
     checkMistakeMissingAssociationCompositionAggregation(comparison);
     checkMistakeExtraAssociation(comparison);
 
-    updateMistakes(studentSolution, comparison);
+    updateMistakes(instructorSolution, studentSolution, comparison);
     return comparison;
   }
 
@@ -889,37 +886,22 @@ public class MistakeDetection {
     return seekedAssocAndEnds;
   }
 
-  private static void checkMistakesForAssociationEnds(AssociationEnd studentClassifierAssocEnd,
-      AssociationEnd instructorClassifierAssocEnd, Comparison comparison) {
-
-    checkMistakeUsingAssociationInsteadOfComposition(studentClassifierAssocEnd, instructorClassifierAssocEnd)
-        .ifPresent(comparison.newMistakes::add);
-    checkMistakeUsingAssociationInsteadOfAggregation(studentClassifierAssocEnd, instructorClassifierAssocEnd)
-        .ifPresent(comparison.newMistakes::add);
-    checkMistakeUsingCompositionInsteadOfAssociation(studentClassifierAssocEnd, instructorClassifierAssocEnd)
-        .ifPresent(comparison.newMistakes::add);
-    checkMistakeUsingAggregationInsteadOfAssociation(studentClassifierAssocEnd, instructorClassifierAssocEnd)
-        .ifPresent(comparison.newMistakes::add);
-    checkMistakeUsingAggregationInsteadOfComposition(studentClassifierAssocEnd, instructorClassifierAssocEnd)
-        .ifPresent(comparison.newMistakes::add);
-    checkMistakeUsingCompositionInsteadOfAggregation(studentClassifierAssocEnd, instructorClassifierAssocEnd)
-        .ifPresent(comparison.newMistakes::add);
-    checkMistakeOtherWrongMultiplicity(studentClassifierAssocEnd, instructorClassifierAssocEnd)
-        .ifPresent(comparison.newMistakes::add);
-    checkMistakeMissingRoleName(studentClassifierAssocEnd, instructorClassifierAssocEnd)
-        .ifPresent(comparison.newMistakes::add);
-    checkMistakeRoleNameExpectedStactic(studentClassifierAssocEnd, instructorClassifierAssocEnd)
-        .ifPresent(comparison.newMistakes::add);
-    checkMistakeRoleNameNotExpectedStactic(studentClassifierAssocEnd, instructorClassifierAssocEnd)
-        .ifPresent(comparison.newMistakes::add);
-    checkMistakeRoleNamePresentButIncorrect(studentClassifierAssocEnd, instructorClassifierAssocEnd)
-        .ifPresent(comparison.newMistakes::add);
-    // checkMistakeRoleNameSimilarYetIncorrect(studentClassifierAssocEnd,
-    // instructorClassifierAssocEnd)
-    // .ifPresent(comparison.newMistakes::add);
-    checkMistakeBadRoleNameSpelling(studentClassifierAssocEnd, instructorClassifierAssocEnd)
-        .ifPresent(comparison.newMistakes::add);
-
+  private static void checkMistakesForAssociationEnds(AssociationEnd studentClassAssocEnd,
+      AssociationEnd instructorClassAssocEnd, Comparison comparison) {
+    final Consumer<? super Mistake> addMist = comparison.newMistakes::add; // method reference to save space
+    checkMistakeUsingAssociationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeUsingAssociationInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeUsingCompositionInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeUsingAggregationInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeUsingAggregationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeUsingCompositionInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeOtherWrongMultiplicity(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeMissingRoleName(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeRoleNameExpectedStactic(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeRoleNameNotExpectedStactic(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeRoleNamePresentButIncorrect(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    // checkMistakeRoleNameSimilarYetIncorrect(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeBadRoleNameSpelling(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
   }
 
   /** Finds Mistakes in newly mapped elements */
@@ -973,11 +955,18 @@ public class MistakeDetection {
   }
 
   /** This function updates new and older mistakes in the metamodel and comparison. */
-  private static void updateMistakes(Solution studentSolution, Comparison comparison) {
+  private static void updateMistakes(Solution instructorSolution, Solution studentSolution, Comparison comparison) {
+    final Consumer<? super Mistake> setSolutionForElems = m -> {
+      m.getInstructorElements().forEach(ie -> ie.setSolution(instructorSolution));
+      m.getStudentElements().forEach(se -> se.setSolution(studentSolution));
+    };
+
     // List containing mistakes associated with a student Solution
     var existingMistakes = studentSolution.getMistakes();
-
     var newMistakes = comparison.newMistakes;
+
+    existingMistakes.forEach(setSolutionForElems);
+    newMistakes.forEach(setSolutionForElems);
 
     // List containing existing mistakes that are equal to newMistakes
     EList<Mistake> existingMistakesProcessed = new BasicEList<Mistake>();
@@ -2044,20 +2033,16 @@ public class MistakeDetection {
       EList<NamedElement> instructorElements) {
     var mistake = MAF.createMistakeOfType(mistakeType);
 
-    if (!studentElements.isEmpty()) {
-      studentElements.forEach(se -> {
-        var solutionElement = MAF.createSolutionElement();
-        solutionElement.setElement(se);
-        mistake.getStudentElements().add(solutionElement);
-      });
-    }
-    if (!instructorElements.isEmpty()) {
-      instructorElements.forEach(ie -> {
-        var solutionElement = MAF.createSolutionElement();
-        solutionElement.setElement(ie);
-        mistake.getInstructorElements().add(solutionElement);
-      });
-    }
+    studentElements.forEach(se -> {
+      var solutionElement = MAF.createSolutionElement();
+      solutionElement.setElement(se);
+      mistake.getStudentElements().add(solutionElement);
+    });
+    instructorElements.forEach(ie -> {
+      var solutionElement = MAF.createSolutionElement();
+      solutionElement.setElement(ie);
+      mistake.getInstructorElements().add(solutionElement);
+    });
 
     return mistake;
   }
@@ -2148,7 +2133,7 @@ public class MistakeDetection {
 
   private static MaxentTagger getMaxentTagger() {
     try {
-      return new MaxentTagger("taggers/bidirectional-distsim-wsj-0-18.tagger");
+      return new MaxentTagger(MistakeDetectionConfig.taggerPath);
     } catch (ClassNotFoundException | IOException e) {
       e.printStackTrace();
     }
