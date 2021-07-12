@@ -12,6 +12,7 @@ pytest = "*"
 atomicwrites = "*"
 flask = "*"
 flask-cors = "*"
+requests = "*"
 
 [requires]
 python_version = "3.9"

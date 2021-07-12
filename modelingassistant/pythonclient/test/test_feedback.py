@@ -6,7 +6,9 @@ Tests for feedback algorithm.
 """
 
 import os
+import json
 import sys
+import requests
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -15,7 +17,7 @@ from classdiagram.classdiagram import Class
 from fileserdes import load_cdm
 from learningcorpus.learningcorpus import Feedback, ParametrizedResponse, ResourceResponse, TextResponse
 from mistaketypes import BAD_CLASS_NAME_SPELLING, SOFTWARE_ENGINEERING_TERM
-from stringserdes import StringEnabledResourceSet
+from stringserdes import SRSET, StringEnabledResourceSet
 from modelingassistant.modelingassistant import (FeedbackItem, Mistake, ModelingAssistant,
     ProblemStatement, Solution, SolutionElement, Student, StudentKnowledge)
 
@@ -226,9 +228,18 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     resource = StringEnabledResourceSet().create_string_resource()
     resource.extend([ma, instructor_cdm, student_cdm])
     ma_str = resource.save_to_string().decode()
-
-    print(ma_str)
     assert ma_str
+
+    # TODO Automatically turn on server if not already running
+    # assume for now that MA MDS Java server is ON
+    req = requests.get("http://localhost:8539/detectmistakes", {"modelingassistant": ma_str})
+    assert 200 == req.status_code
+
+    ma_str = bytes(f"{json.loads(req.content)['modelingAssistantXmi']}", "utf-8")
+    resource = SRSET.get_string_resource(ma_str)
+    ma: ModelingAssistant = resource.contents[0]
+    ma.__class__ = ModelingAssistant
+    assert ma.problemStatements[0]
 
     # TODO To be continued...
 
