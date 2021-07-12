@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+# pylint: disable=wrong-import-position
+
+"""
+Tests for feedback algorithm.
+"""
 
 import os
 import sys
@@ -7,8 +12,10 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from feedback import give_feedback
 from classdiagram.classdiagram import Class
+from fileserdes import load_cdm
 from learningcorpus.learningcorpus import Feedback, ParametrizedResponse, ResourceResponse, TextResponse
-from mistaketypes import SOFTWARE_ENGINEERING_TERM
+from mistaketypes import BAD_CLASS_NAME_SPELLING, SOFTWARE_ENGINEERING_TERM
+from stringserdes import StringEnabledResourceSet
 from modelingassistant.modelingassistant import (FeedbackItem, Mistake, ModelingAssistant,
     ProblemStatement, Solution, SolutionElement, Student, StudentKnowledge)
 
@@ -200,6 +207,32 @@ def test_feedback_with_1_mistake_levels_1_4():
     assert 6 == ma.studentKnowledges[0].levelOfKnowledge
 
 
+def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
+    """
+    Test feedback for a modeling assistant instance with mistakes detected from the actual mistake detection system.
+    """
+    # TODO Extract common functionality into helper functions
+    instructor_cdm = load_cdm("mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBus/"
+                              "Class Diagram/Instructor_classBus.domain_model.cdm")
+    student_cdm = load_cdm("mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_wrongClassName/"
+                           "Class Diagram/Student_wrongClassName.domain_model.cdm")
+    ma = ModelingAssistant()
+    bus_ps = ProblemStatement(name="Bus Management System", modelingAssistant=ma)
+    alice = Student(name="Alice", modelingAssistant=ma)
+    StudentKnowledge(mistakeType=BAD_CLASS_NAME_SPELLING, student=alice, modelingAssistant=ma)
+    Solution(modelingAssistant=ma, problemStatement=bus_ps, classDiagram=instructor_cdm)
+    Solution(modelingAssistant=ma, problemStatement=bus_ps, classDiagram=student_cdm, student=alice)
+
+    resource = StringEnabledResourceSet().create_string_resource()
+    resource.extend([ma, instructor_cdm, student_cdm])
+    ma_str = resource.save_to_string().decode()
+
+    print(ma_str)
+    assert ma_str
+
+    # TODO To be continued...
+
+
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
-    test_feedback_with_1_mistake_levels_1_4()
+    test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system()

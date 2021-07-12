@@ -1,3 +1,5 @@
+# pylint: disable=attribute-defined-outside-init,too-many-instance-attributes
+
 """
 Module for custom, string-friendly pyecore items.
 """
@@ -7,7 +9,7 @@ from pyecore.ecore import EProxy
 from pyecore.resources.resource import  Resource, ResourceSet, URI
 from pyecore.resources.xmi import XMI, XMIOptions, XMIResource, XMI_URL, XSI
 
-from fileserdes import CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM
+from constants import CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM
 
 MA_USE_STRING_SERDES = "MA_USE_STRING_SERDES"
 
@@ -54,6 +56,9 @@ class StringEnabledXMIResource(XMIResource):
     use strings instead a file.
     """
     def load_string(self, string: str, options=None):
+        """
+        Loads the given XMI string to this StringEnabledXMIResource.
+        """
         self.options = options or {}
         self.cache_enabled = True
         tree = fromstring(string, base_url="")  # TODO Setup URL
@@ -99,6 +104,12 @@ class StringEnabledXMIResource(XMIResource):
         self.prefixes.clear()
         self.reverse_nsmap.clear()
 
+        # Set relative path as URI if not already set
+        self_rset = self.resource_set
+        self.resource_set = None  # temporarily disable rset to avoid dereferencing nonexistant old URI
+        self.uri = self.uri or URI(".")
+        self.resource_set = self_rset
+
         serialize_default = self.options.get(XMIOptions.SERIALIZE_DEFAULT_VALUES, False)
         nsmap = {XMI: XMI_URL}
 
@@ -121,5 +132,9 @@ class StringEnabledXMIResource(XMIResource):
         xmi_version = QName(XMI_URL, 'version')
         xmi_root.attrib[xmi_version] = '2.0'
         tree = ElementTree(xmi_root)
-        # TODO Set pretty_print=False in production 
+        # TODO Set pretty_print=False in production
         return tostring(tree, pretty_print=True, xml_declaration=True, encoding=tree.docinfo.encoding)
+
+
+# The StringEnabledResourceSet singleton instance
+SRSET = StringEnabledResourceSet()
