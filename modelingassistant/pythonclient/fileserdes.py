@@ -5,7 +5,7 @@ Helper module for easy serialization and deserialization of models and metamodel
 import importlib
 import inspect
 from collections.abc import Iterable
-from typing import Type, Union
+from typing import Union
 from pyecore.ecore import EObject
 from pyecore.resources.resource import Resource, ResourceSet, URI
 
@@ -13,14 +13,10 @@ from classdiagram import classdiagram
 from classdiagram.classdiagram import ClassDiagram
 from learningcorpus import learningcorpus
 from learningcorpus.learningcorpus import LearningCorpus, LearningItem
+from stringserdes import SRSET
+from constants import CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM
 from modelingassistant import modelingassistant
 from modelingassistant.modelingassistant import ModelingAssistant
-
-
-MM_PATH = "modelingassistant/model"
-CLASS_DIAGRAM_MM = "ca.mcgill.sel.classdiagram/model/classdiagram.ecore"
-LEARNING_CORPUS_MM = f"{MM_PATH}/learningcorpus.ecore"
-MODELING_ASSISTANT_MM = f"{MM_PATH}/modelingassistant.ecore"
 
 
 static_classes_by_name: dict[str, EObject] = {}
@@ -35,7 +31,7 @@ def load_metamodels(*ecore_files: str) -> ResourceSet:
     """
     Return a ResourceSet loaded with the given metamodels from the ecore file paths.
     """
-    rset = ResourceSet()
+    rset = SRSET
     for ecore_file in ecore_files:
         mm_root = rset.get_resource(URI(ecore_file)).contents[0]
         rset.metamodel_registry[mm_root.nsURI] = mm_root  # ecore loaded in rset as a metamodel here
@@ -56,7 +52,7 @@ def load_cdm(cdm_file: str) -> ClassDiagram:
     """
     if not cdm_file.endswith(".cdm"):
         print(f"Warning: attempting to open {cdm_file} with unexpected extension as a *.cdm file.")
-    rset = load_metamodels(CLASS_DIAGRAM_MM)  # TODO Factor out rset if needed for performace reasons
+    rset = load_metamodels(CLASS_DIAGRAM_MM)
     resource = rset.get_resource(URI(cdm_file))
     class_diagram = resource.contents[0]
     class_diagram.__class__ = ClassDiagram
