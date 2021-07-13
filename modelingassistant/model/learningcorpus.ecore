@@ -3,15 +3,7 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="learningcorpus" nsURI="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0"
     nsPrefix="learningcorpus">
   <eClassifiers xsi:type="ecore:EDataType" name="Time" instanceClassName="java.sql.Time"/>
-  <eClassifiers xsi:type="ecore:EClass" name="UmlElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="learningItems" upperBound="-1"
-        eType="#//LearningItem" eOpposite="#//LearningItem/umlElements"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="learningCorpus" lowerBound="1"
-        eType="#//LearningCorpus" eOpposite="#//LearningCorpus/umlElements"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LearningItem" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="umlElements" upperBound="-1"
-        eType="#//UmlElement" eOpposite="#//UmlElement/learningItems"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="learningResources" upperBound="-1"
         eType="#//LearningResource" eOpposite="#//LearningResource/learningItem"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeTypes" upperBound="-1"
@@ -19,6 +11,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="learningCorpus" lowerBound="1"
         eType="#//LearningCorpus" eOpposite="#//LearningCorpus/learningItems"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="elementType" eType="#//ElementType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MistakeType" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="atomic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -86,7 +79,15 @@
         eType="#//LearningItem" containment="true" eOpposite="#//LearningItem/learningCorpus"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="learningResources" upperBound="-1"
         eType="#//LearningResource" containment="true" eOpposite="#//LearningResource/learningCorpus"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="umlElements" eType="#//UmlElement"
-        containment="true" eOpposite="#//UmlElement/learningCorpus"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ElementType">
+    <eLiterals name="Class"/>
+    <eLiterals name="Attribute" value="1"/>
+    <eLiterals name="Association" value="2"/>
+    <eLiterals name="AssociationEnd" value="3"/>
+    <eLiterals name="Composition" value="4"/>
+    <eLiterals name="Generalization" value="5"/>
+    <eLiterals name="PlayerRolePattern" value="6"/>
+    <eLiterals name="AbstractionOccurrencePattern" value="7"/>
   </eClassifiers>
 </ecore:EPackage>

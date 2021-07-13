@@ -54,12 +54,12 @@ class Solution(EObject, metaclass=MetaEClass):
                                   containment=True, derived=False, upper=-1)
     classDiagram = EReference(ordered=True, unique=True, containment=False, derived=False)
     mistakes = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
-    currentMistake = EReference(ordered=True, unique=True, containment=False, derived=False)
     tagGroups = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     problemStatement = EReference(ordered=True, unique=True, containment=False, derived=False)
     feedbackItems = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    currentMistake = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, modelingAssistant=None, student=None, solutionElements=None, classDiagram=None, mistakes=None, currentMistake=None, tagGroups=None, problemStatement=None, feedbackItems=None):
+    def __init__(self, *, modelingAssistant=None, student=None, solutionElements=None, classDiagram=None, mistakes=None, tagGroups=None, problemStatement=None, feedbackItems=None, currentMistake=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -80,9 +80,6 @@ class Solution(EObject, metaclass=MetaEClass):
         if mistakes:
             self.mistakes.extend(mistakes)
 
-        if currentMistake is not None:
-            self.currentMistake = currentMistake
-
         if tagGroups:
             self.tagGroups.extend(tagGroups)
 
@@ -91,6 +88,9 @@ class Solution(EObject, metaclass=MetaEClass):
 
         if feedbackItems:
             self.feedbackItems.extend(feedbackItems)
+
+        if currentMistake is not None:
+            self.currentMistake = currentMistake
 
 
 class SolutionElement(EObject, metaclass=MetaEClass):
@@ -132,7 +132,8 @@ class SolutionElement(EObject, metaclass=MetaEClass):
 
 class StudentKnowledge(EObject, metaclass=MetaEClass):
 
-    levelOfKnowledge = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
+    levelOfKnowledge = EAttribute(eType=EDouble, unique=True,
+                                  derived=False, changeable=True, default_value=5.0)
     student = EReference(ordered=True, unique=True, containment=False, derived=False)
     modelingAssistant = EReference(ordered=True, unique=True, containment=False, derived=False)
     mistakeType = EReference(ordered=True, unique=True, containment=False, derived=False)
@@ -226,11 +227,12 @@ class NamedElement(EObject, metaclass=MetaEClass):
 class FeedbackItem(EObject, metaclass=MetaEClass):
 
     usefulness = EAttribute(eType=EDouble, unique=True, derived=False, changeable=True)
+    text = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
     mistake = EReference(ordered=True, unique=True, containment=False, derived=False)
     feedback = EReference(ordered=True, unique=True, containment=False, derived=False)
     solution = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, mistake=None, usefulness=None, feedback=None, solution=None):
+    def __init__(self, *, mistake=None, usefulness=None, feedback=None, solution=None, text=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -238,6 +240,9 @@ class FeedbackItem(EObject, metaclass=MetaEClass):
 
         if usefulness is not None:
             self.usefulness = usefulness
+
+        if text is not None:
+            self.text = text
 
         if mistake is not None:
             self.mistake = mistake

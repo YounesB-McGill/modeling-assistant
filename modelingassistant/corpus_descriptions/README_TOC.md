@@ -8,7 +8,14 @@
    1. [Wrong enumeration](#wrong-enumeration)
       1. [Regular class should be enum](#regular-class-should-be-enum)
       1. [Enum should be regular class](#enum-should-be-regular-class)
-      1. [Wrong enum items](#wrong-enum-items)
+      1. [Missing enum](#missing-enum)
+      1. [Extra enum](#extra-enum)
+      1. [Bad enum name spelling](#bad-enum-name-spelling)
+      1. [Similar enum name](#similar-enum-name)
+      1. [Missing enum item](#missing-enum-item)
+      1. [Extra enum item](#extra-enum-item)
+      1. [Bad enum item spelling](#bad-enum-item-spelling)
+      1. [Similar enum item](#similar-enum-item)
    1. [Missing class](#missing-class)
    1. [Extra (redundant) class](#extra-redundant-class)
 
@@ -19,8 +26,11 @@
       1. [Other extra attribute](#other-extra-attribute)
    1. [Wrong attribute name](#wrong-attribute-name)
       1. [Bad attribute name spelling](#bad-attribute-name-spelling)
+      1. [Uppercase attribute name](#uppercase-attribute-name)
       1. [Similar (yet incorrect) attribute name](#similar-attribute-name)
    1. [Attribute in wrong class](#attribute-in-wrong-class)
+      1. [Attribute misplaced](#attribute-misplaced)
+      1. [Attribute duplicated](#attribute-duplicated)
    1. [Missing attribute](#missing-attribute)
    1. [Wrong attribute type](#wrong-attribute-type)
    1. [Attribute should be static](#attribute-should-be-static)
@@ -74,8 +84,25 @@
    1. [Incomplete containment tree](#incomplete-containment-tree)
 
 1. [Misuse of design patterns](#misuse-of-design-patterns)
-   1. [Misuse of Player-Role Pattern](#misuse-of-player-role-pattern)
-   1. [Misuse of Abstraction-Occurrence](#misuse-of-abstraction-occurrence)
+   1. [Wrong Player-Role Pattern](#wrong-player-role-pattern)
+      1. [Using different Player-Role pattern](#using-different-player-role-pattern)
+         1. [Subclass should be full Player-Role pattern](#subclass-should-be-full-player-role-pattern)
+         1. [Subclass should be association Player-Role pattern](#subclass-should-be-association-player-role-pattern)
+         1. [Subclass should be enum Player-Role pattern](#subclass-should-be-enum-player-role-pattern)
+         1. [Association should be full Player-Role pattern](#association-should-be-full-player-role-pattern)
+         1. [Association should be subclass Player-Role pattern](#association-should-be-subclass-player-role-pattern)
+         1. [Association should be enum Player-Role pattern](#association-should-be-enum-player-role-pattern)
+         1. [Enum should be full Player-Role pattern](#enum-should-be-full-player-role-pattern)
+         1. [Enum should be subclass Player-Role pattern](#enum-should-be-subclass-player-role-pattern)
+         1. [Enum should be association Player-Role pattern](#enum-should-be-association-player-role-pattern)
+         1. [Full Player-Role pattern should be subclass](#full-player-role-pattern-should-be-subclass)
+         1. [Full Player-Role pattern should be association](#full-player-role-pattern-should-be-association)
+         1. [Full Player-Role pattern should be enum](#full-player-role-pattern-should-be-enum)
+      1. [Missing Player-Role pattern](#missing-player-role-pattern)
+      1. [Incomplete Player-Role pattern](#incomplete-player-role-pattern)
+   1. [Wrong Abstraction-Occurrence pattern](#wrong-abstraction-occurrence-pattern)
+      1. [Missing Abstraction-Occurrence pattern](#missing-abstraction-occurrence-pattern)
+      1. [Incomplete Abstraction-Occurrence pattern](#incomplete-abstraction-occurrence-pattern)
 
 ## Wrong class
 
@@ -104,7 +131,28 @@
 #### Enum should be regular class
 
 
-#### Wrong enum items
+#### Missing enum
+
+
+#### Extra enum
+
+
+#### Bad enum name spelling
+
+
+#### Similar enum name
+
+
+#### Missing enum item
+
+
+#### Extra enum item
+
+
+#### Bad enum item spelling
+
+
+#### Similar enum item
 
 ### Missing class
 
@@ -130,10 +178,18 @@
 #### Bad attribute name spelling
 
 
+#### Uppercase attribute name
+
+
 #### Similar  attribute name
 
 
 ### Attribute in wrong class
+
+#### Attribute misplaced
+
+
+#### Attribute duplicated
 
 ### Missing attribute
 
@@ -277,9 +333,56 @@
 
 ## Misuse of design patterns
 
-### Misuse of Player-Role Pattern
+### Wrong Player-Role Pattern
+
+#### Using different Player-Role pattern
+
+##### Subclass should be full Player-Role pattern
 
 
-### Misuse of Abstraction-Occurrence
+##### Subclass should be association Player-Role pattern
+
+
+##### Subclass should be enum Player-Role pattern
+
+
+##### Association should be full Player-Role pattern
+
+
+##### Association should be subclass Player-Role pattern
+
+
+##### Association should be enum Player-Role pattern
+
+
+##### Enum should be full Player-Role pattern
+
+
+##### Enum should be subclass Player-Role pattern
+
+
+##### Enum should be association Player-Role pattern
+
+
+##### Full Player-Role pattern should be subclass
+
+
+##### Full Player-Role pattern should be association
+
+
+##### Full Player-Role pattern should be enum
+
+#### Missing Player-Role pattern
+
+
+#### Incomplete Player-Role pattern
+
+
+### Wrong Abstraction-Occurrence pattern
+
+#### Missing Abstraction-Occurrence pattern
+
+
+#### Incomplete Abstraction-Occurrence pattern
 
 

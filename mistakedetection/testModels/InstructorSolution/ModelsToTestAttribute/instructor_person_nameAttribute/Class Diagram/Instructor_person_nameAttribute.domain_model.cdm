@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_VFomINE4EeuawPOA1JgzNA" name="Instructor_person_nameAttribute">
   <classes xsi:type="classdiagram:Class" xmi:id="_VcvekNE4EeuawPOA1JgzNA" name="Person">
+    <associationEnds xmi:id="_TO7cMN26EeuVoonRXmsiAQ" name="myRoot" assoc="_TO7cMt26EeuVoonRXmsiAQ" lowerBound="1"/>
     <attributes xmi:id="_XFOfUNE4EeuawPOA1JgzNA" name="name" type="_VFomJ9E4EeuawPOA1JgzNA"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_SMfu0N26EeuVoonRXmsiAQ" name="Root">
+    <associationEnds xmi:id="_TO7cMd26EeuVoonRXmsiAQ" name="myPerson" assoc="_TO7cMt26EeuVoonRXmsiAQ" lowerBound="1" referenceType="Composition"/>
   </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_VFomIdE4EeuawPOA1JgzNA"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_VFomItE4EeuawPOA1JgzNA"/>
@@ -13,10 +17,14 @@
   <types xsi:type="classdiagram:CDByte" xmi:id="_VFomKNE4EeuawPOA1JgzNA"/>
   <types xsi:type="classdiagram:CDFloat" xmi:id="_VFomKdE4EeuawPOA1JgzNA"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_VFomKtE4EeuawPOA1JgzNA"/>
+  <associations xmi:id="_TO7cMt26EeuVoonRXmsiAQ" name="Person_Root" ends="_TO7cMN26EeuVoonRXmsiAQ _TO7cMd26EeuVoonRXmsiAQ"/>
   <layout xmi:id="_VFomK9E4EeuawPOA1JgzNA">
     <containers xmi:id="_VFomLNE4EeuawPOA1JgzNA" key="_VFomINE4EeuawPOA1JgzNA">
       <value xmi:id="_VeJMwNE4EeuawPOA1JgzNA" key="_VcvekNE4EeuawPOA1JgzNA">
-        <value xmi:id="_VeJMwdE4EeuawPOA1JgzNA" x="696.0" y="242.99997"/>
+        <value xmi:id="_VeJMwdE4EeuawPOA1JgzNA" x="1037.0002" y="281.00015"/>
+      </value>
+      <value xmi:id="_SMg88N26EeuVoonRXmsiAQ" key="_SMfu0N26EeuVoonRXmsiAQ">
+        <value xmi:id="_SMg88d26EeuVoonRXmsiAQ" x="353.99985" y="296.00015"/>
       </value>
     </containers>
   </layout>

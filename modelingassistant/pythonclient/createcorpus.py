@@ -5,4 +5,5 @@ from corpus_creation import corpus
 
 if __name__ == "__main__":
     "Main entry point."
-    save_to_files({"modelingassistant.learningcorpus.dsl.instances/test2.learningcorpus": corpus})
+    save_to_files({"modelingassistant.learningcorpus.dsl.instances/default.learningcorpus": corpus})
+    print(f"Created learning corpus with {len(corpus.mistakeTypes())} mistake types.")

@@ -36,13 +36,16 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             Feedback(level=1, highlightSolution=True),
             TextResponse(level=2, text="Remember that a domain model should not contain software engineering terms."),
             ParametrizedResponse(level=3, text="${{className}} is a software engineering term, which does not belong in a domain model."),
-            ResourceResponse(level=4, learningResources=[Example(content=dedent("""\
-                Please note these examples of correct vs incorrect class naming:
-                :x: Examples to avoid | :heavy_check_mark: Good class names
-                --- | ---
-                pilot | Pilot
-                Airplanes | Airplane 
-                AirlineData | Airline"""))]),
+            ResourceResponse(level=4,
+                # TODO Change type of `content` to allow correct deserialization
+                # learningResources=[Example(content=dedent("""\
+                #     Please note these examples of correct vs incorrect class naming:
+                #     :x: Examples to avoid | :heavy_check_mark: Good class names
+                #     --- | ---
+                #     pilot | Pilot
+                #     Airplanes | Airplane 
+                #     AirlineData | Airline"""))]
+            ),
         ]),
         bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True),
         similar_class_name := mt(n="Similar (yet incorrect) class name"),
@@ -50,7 +53,14 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     wrong_enumeration := mtc(n="Wrong enumeration", s=wrong_class, mistakeTypes=[
         regular_class_should_be_enum := mt(n="Regular class should be enum"),
         enum_should_be_regular_class := mt(n="Enum should be regular class"),
-        wrong_enum_items := mt(n="Wrong enum items"),
+        missing_enum := mt(n="Missing enum"),
+        extra_enum := mt(n="Extra enum"),
+        bad_enum_name_spelling := mt(n="Bad enum name spelling"),
+        similar_enum_name := mt(n="Similar enum name"),
+        missing_enum_item := mt(n="Missing enum item"),
+        extra_enum_item := mt(n="Extra enum item"),
+        bad_enum_item_spelling := mt(n="Bad enum item spelling"),
+        similar_enum_item := mt(n="Similar enum item"),
     ]),
     wrong_attribute := mtc(n="Wrong attribute", mistakeTypes=[
         missing_attribute := mt(n="Missing attribute"),
@@ -65,9 +75,13 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     ]),
     wrong_attribute_name := mtc(n="Wrong attribute name", s=wrong_attribute, mistakeTypes=[
         bad_attribute_name_spelling := mt(n="Bad attribute name spelling"),
+        uppercase_attribute_name := mt(n="Uppercase attribute name"),
         similar_attribute_name := mt(n="Similar (yet incorrect) attribute name"),
     ]),
-    attribute_in_wrong_class := mtc(n="Attribute in wrong class", s=wrong_attribute),
+    attribute_in_wrong_class := mtc(n="Attribute in wrong class", s=wrong_attribute, mistakeTypes=[
+        attribute_misplaced := mt(n="Attribute misplaced"),
+        attribute_duplicated := mt(n="Attribute duplicated")
+    ]),
     wrong_relationship := mtc(n="Wrong relationship", mistakeTypes=[
         incomplete_containment_tree := mt(n="Incomplete containment tree"),
     ]),
@@ -124,8 +138,28 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         wrong_superclass := mt(n="Wrong superclass"),
     ]),
     misuse_of_design_patterns := mtc(n="Misuse of design patterns"),
-    misuse_of_player_role_pattern := mtc(n="Misuse of Player-Role Pattern", s=misuse_of_design_patterns),
-    misuse_of_abstraction_occurrence := mtc(n="Misuse of Abstraction-Occurrence", s=misuse_of_design_patterns),
+    wrong_player_role_pattern := mtc(n="Wrong Player-Role Pattern", s=misuse_of_design_patterns, mistakeTypes=[
+        missing_player_role_pattern := mt(n="Missing Player-Role pattern"),
+        incomplete_player_role_pattern := mt(n="Incomplete Player-Role pattern"),
+    ]),
+    using_different_player_role_pattern := mtc(n="Using different Player-Role pattern", s=wrong_player_role_pattern, mistakeTypes=[
+        subclass_should_be_full_player_role_pattern := mt(n="Subclass should be full Player-Role pattern"),
+        subclass_should_be_association_player_role_pattern := mt(n="Subclass should be association Player-Role pattern"),
+        subclass_should_be_enum_player_role_pattern := mt(n="Subclass should be enum Player-Role pattern"),
+        association_should_be_full_player_role_pattern := mt(n="Association should be full Player-Role pattern"),
+        association_should_be_subclass_player_role_pattern := mt(n="Association should be subclass Player-Role pattern"),
+        association_should_be_enum_player_role_pattern := mt(n="Association should be enum Player-Role pattern"),
+        enum_should_be_full_player_role_pattern := mt(n="Enum should be full Player-Role pattern"),
+        enum_should_be_subclass_player_role_pattern := mt(n="Enum should be subclass Player-Role pattern"),
+        enum_should_be_association_player_role_pattern := mt(n="Enum should be association Player-Role pattern"),
+        full_player_role_pattern_should_be_subclass := mt(n="Full Player-Role pattern should be subclass"),
+        full_player_role_pattern_should_be_association := mt(n="Full Player-Role pattern should be association"),
+        full_player_role_pattern_should_be_enum := mt(n="Full Player-Role pattern should be enum"),
+    ]),
+    wrong_abstraction_occurrence_pattern := mtc(n="Wrong Abstraction-Occurrence pattern", s=misuse_of_design_patterns, mistakeTypes=[
+        missing_abstraction_occurrence_pattern := mt(n="Missing Abstraction-Occurrence pattern"),
+        incomplete_abstraction_occurrence_pattern := mt(n="Incomplete Abstraction-Occurrence pattern"),
+    ]),
 ])
 
 domain_modeling.learningCorpus = corpus
@@ -150,13 +184,17 @@ mts_by_priority: list[MistakeType] = [
     similar_association_class_name,
     regular_class_should_be_enum,
     enum_should_be_regular_class,
-    wrong_enum_items,
+    bad_enum_name_spelling,
+    bad_enum_item_spelling,
+    similar_enum_name,
+    similar_enum_item,
 
     # mistakes in an existing attribute
     bad_attribute_name_spelling,
+    uppercase_attribute_name,
     plural_attribute,
     similar_attribute_name,
-    #attribute_misplaced,
+    attribute_misplaced,
     wrong_attribute_type,
     attribute_should_not_be_static,
     attribute_should_be_static,
@@ -188,27 +226,50 @@ mts_by_priority: list[MistakeType] = [
     role_should_be_static,
     bad_association_name_spelling,
     similar_association_name,
-
     incomplete_containment_tree,
+
+    # design pattern mistakes
+    subclass_should_be_full_player_role_pattern,
+    subclass_should_be_association_player_role_pattern,
+    subclass_should_be_enum_player_role_pattern,
+    association_should_be_full_player_role_pattern,
+    association_should_be_subclass_player_role_pattern,
+    association_should_be_enum_player_role_pattern,
+    enum_should_be_full_player_role_pattern,
+    enum_should_be_subclass_player_role_pattern,
+    enum_should_be_association_player_role_pattern,
+    full_player_role_pattern_should_be_subclass,
+    full_player_role_pattern_should_be_association,
+    full_player_role_pattern_should_be_enum,
 
     # extra items
     extra_class,
     extra_association_class,
+    extra_enum,
+    extra_enum_item,
     representing_an_action_with_an_association,
     other_extra_association,
-    #attribute_duplicated,
+    attribute_duplicated,
     other_extra_attribute,
 
     # missing items
     missing_class,
     missing_attribute,
     missing_association_class,
+    missing_enum,
+    missing_enum_item,
     missing_generalization,
     missing_composition,
     missing_association,
     missing_aggregation,
     missing_role_names,
     missing_association_name_when_one_was_expected,
+
+    # missing/incomplete patterns
+    incomplete_player_role_pattern,
+    incomplete_abstraction_occurrence_pattern,
+    missing_player_role_pattern,
+    missing_abstraction_occurrence_pattern,
 ]
 
 for i, _mt in enumerate(mts_by_priority, start=1):

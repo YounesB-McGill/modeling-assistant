@@ -2,8 +2,8 @@ package ca.mcgill.sel.mistakedetection.tests;
 
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
-import static modelingassistant.TagType.PLAYER;
-import static modelingassistant.TagType.ROLE;
+import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
+import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -14,8 +14,9 @@ import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Association;
-import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Attribute;
+import ca.mcgill.sel.classdiagram.CDEnum;
+import ca.mcgill.sel.classdiagram.CDEnumLiteral;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.classdiagram.NamedElement;
@@ -27,7 +28,6 @@ import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
-import modelingassistant.TagGroup;
 
 public class MistakeDetectionTest {
 
@@ -53,8 +53,7 @@ public class MistakeDetectionTest {
    * Test to check if all the classes exist in Student solution are loaded in cdmFile
    */
   @Test
-  public void testLoadingStudentSolution1() {
-
+  public void testLoadingStudentSolution() {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
@@ -70,7 +69,6 @@ public class MistakeDetectionTest {
    */
   @Test
   public void testLoadingSolutionWithAttributes() {
-
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/Class Diagram/Two(withAttributes).domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -87,8 +85,7 @@ public class MistakeDetectionTest {
    * Test to check Mistakes in Metamodel
    */
   @Test
-  public void test_UpdateInMistakeAttributes() {
-
+  public void testUpdateInMistakeAttributes() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/One/Class Diagram/InstructorSolution.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -293,7 +290,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Test to check mapping for Bus = Vehicle , Passenger = Customer, Driver = Pilot
+   * Test to check mapping for Bus = Vehicle, Passenger = Customer, Driver = Pilot.
    */
   @Test
   public void testCheckMappingWithMultiDiffNames() {
@@ -346,110 +343,6 @@ public class MistakeDetectionTest {
 
     assertEquals(comparison.newMistakes.size(), 0);
     assertEquals(studentSolution.getMistakes().size(), 0);
-/*
-    List<Integer> list=new BasicEList<Integer>();
-    list.add(1);list.add(2);list.add(3);list.add(6);list.add(5);
-    System.out.print(MistakeDetection.findClosest(list, 4));
-*/
-  }
-
-  /**
-   * Helper function returns a classifier from a class diagram based on class name.
-   *
-   * @param className
-   * @param classDiagram
-   * @return Classifier
-   */
-  public static Classifier getClassFromClassDiagram(String className, ClassDiagram classDiagram) {
-    Classifier seekedClass = null;
-    for (var c : classDiagram.getClasses()) {
-      if (className.equals(c.getName()))
-        seekedClass = c;
-    }
-    if (seekedClass == null) {
-      throw new IllegalArgumentException("No Class Found, please check the class name");
-    }
-    return seekedClass;
-  }
-
-  /**
-   * Helper function returns a solution Element from a solution based on class name.
-   *
-   * @param className
-   * @param classDiagram
-   * @return Classifier
-   */
-  public static SolutionElement getSEelementfromSolution(String className, Solution solution) {
-    SolutionElement seekedClass = null;
-    for (var c : solution.getSolutionElements()) {
-      if (c.getElement().getName().equals(className))
-        seekedClass = c;
-    }
-    if (seekedClass == null) {
-      throw new IllegalArgumentException("No Solution Element Found, please check the class name");
-    }
-    return seekedClass;
-  }
-
-  /**
-   * Helper function returns an attribute from a class based on attribute name.
-   *
-   * @param className
-   * @param classDiagram
-   * @return Attribute
-   */
-  public static Attribute getAttributeFromClass(String attributeName, Classifier givenClass) {
-    Attribute seekedAttribute = null;
-    for (var a : givenClass.getAttributes()) {
-      if (attributeName.equals(a.getName())) {
-        seekedAttribute = a;
-      }
-    }
-    if (seekedAttribute == null) {
-      throw new IllegalArgumentException("No Attribute Found, please check the attribute name");
-    }
-    return seekedAttribute;
-  }
-
-  /**
-   * Helper function returns an association between 2 classes from a class diagram.
-   *
-   * @param className
-   * @param classDiagram
-   * @return Association
-   */
-  public static Association getAssociationFromClassDiagram(Classifier class1, Classifier class2,
-      ClassDiagram classDiagram) {
-    Association seekedAssociation = null;
-    for (var assoc : classDiagram.getAssociations()) {
-      if (assoc.getName().contains(class1.getName()) && assoc.getName().contains(class2.getName())) {
-        seekedAssociation = assoc;
-      }
-    }
-    if (seekedAssociation == null) {
-      throw new IllegalArgumentException("No Association Found, please check the association name");
-    }
-    return seekedAssociation;
-  }
-
-  /**
-   * Helper function returns an association end of a class based on association end name.
-   *
-   * @param className
-   * @param classDiagram
-   * @return AssociationEnd
-   */
-  public static AssociationEnd getAssociationEndFromClass(String associationEndName, Classifier givenClass) {
-    AssociationEnd seekedAssociationEnd = null;
-    for (var assocEnd : givenClass.getAssociationEnds()) {
-      if (associationEndName.equals(assocEnd.getName())) {
-        seekedAssociationEnd = assocEnd;
-      }
-    }
-    if (seekedAssociationEnd == null) {
-      throw new IllegalArgumentException("No Association End Found, Please check the association end name");
-    }
-    return seekedAssociationEnd;
   }
 
   public static boolean mistakesContainMistakeType(List<Mistake> mistakes, MistakeType mistakeType) {
@@ -481,47 +374,6 @@ public class MistakeDetectionTest {
     var student = maf.createStudent();
     studentSolution.setStudent(student);
     return studentSolution;
-  }
-
-  /**
-   * Helper function to create a new tag group and set an solution element to player tag in that tag group
-   *
-   * @param className
-   * @param classDiagram
-   * @param instructorSolution
-   * @return tagGroup
-   */
-  public static TagGroup setPlayerTagToClassInClassDiag(String className, ClassDiagram classDiagram,
-      Solution instructorSolution) {
-    var tagGroup = maf.createTagGroup();
-    tagGroup.setSolution(instructorSolution);
-    var tag = maf.createTag();
-    tag.setTagType(PLAYER);
-    var instClass = getClassFromClassDiagram(className, classDiagram);
-    var se = maf.createSolutionElement();
-    se.setElement(instClass);
-    se.setSolution(instructorSolution);
-    tag.setSolutionElement(se);
-    tag.setTagGroup(tagGroup);
-    return tagGroup;
-  }
-
-  /**
-   * set Role tag to a class in tagGroup
-   *
-   * @param className
-   * @param tagGroup
-   * @param classDiagram
-   */
-  public static void setRoleTagToClassInClassDiag(String className, TagGroup tagGroup, ClassDiagram classDiagram) {
-    var tag = maf.createTag();
-    tag.setTagType(ROLE);
-    var instClass = getClassFromClassDiagram(className, classDiagram);
-    var se = maf.createSolutionElement();
-    se.setElement(instClass);
-    tag.setSolutionElement(se);
-    tag.setTagGroup(tagGroup);
-    se.setSolution(tag.getTagGroup().getSolution());
   }
 
   /**
@@ -639,7 +491,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Asserts a mistake with only single instructor or student element .
+   * Asserts a mistake with only single instructor or student element.
    *
    * @param mistake
    * @param mistakeType
@@ -655,7 +507,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Asserts a mistake with multiple instructor or student element .
+   * Asserts a mistake with multiple instructor or student element.
    *
    * @param mistake
    * @param mistakeType
@@ -688,7 +540,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Asserts a mistake in loop with multiple instructor and student element .
+   * Asserts a mistake in loop with multiple instructor and student element.
    *
    * @param mistake
    * @param mistakeType
@@ -708,7 +560,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Asserts a mistake in loop with only single instructor or student element .
+   * Asserts a mistake in loop with only single instructor or student element.
    *
    * @param mistake
    * @param mistakeType
@@ -755,6 +607,41 @@ public class MistakeDetectionTest {
         assertMistake(mistake, mistakeType, elements, numSinceResolved, numDetections, resolved);
       }
     }
+  }
+
+  /**
+   * Returns the zeroth student mistake for a given cdm element, if any. This is equivalent to
+   *
+   * <pre>studentMistakesFor(cdmElement).get(0)</pre>
+   *
+   * @throws IndexOutOfBoundsException if the cdm element has no student mistakes
+   */
+  public static Mistake studentMistakeFor(NamedElement cdmElement) {
+    return studentMistakeFor(cdmElement, 0);
+  }
+
+  /**
+   * Returns the student mistake at the given position for a given cdm element, if any. This is equivalent to
+   *
+   * <pre>studentMistakesFor(cdmElement).get(position)</pre>
+   *
+   * @throws IndexOutOfBoundsException if the index is out of range
+   */
+  public static Mistake studentMistakeFor(NamedElement cdmElement, int position) {
+    var mistakes = studentMistakesFor(cdmElement);
+    if (0 <= position && position < mistakes.size()) {
+      return mistakes.get(position);
+    } else {
+      throw new IndexOutOfBoundsException("The given cdm element " + cdmElement.getName()
+          + " does not have a student mistake at position " + position);
+    }
+  }
+
+  /**
+   * Returns the student mistakes for a given cdm element.
+   */
+  public static EList<Mistake> studentMistakesFor(NamedElement cdmElement) {
+    return SolutionElement.forCdmElement(cdmElement).getStudentElementMistakes();
   }
 
   /**
@@ -823,6 +710,36 @@ public class MistakeDetectionTest {
     System.out.println();
     System.out.println("Mapped Association : ");
     comparison.mappedAssociation.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
+
+    System.out.println();
+    System.out.println("Mapped Enumerations : ");
+    comparison.mappedEnumeration.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
+
+    System.out.println();
+    System.out.print("Not Mapped Enumerations : ");
+    for (CDEnum c : comparison.notMappedInstructorEnum) {
+      System.out.print(c.getName() + " ");
+    }
+    System.out.println();
+    System.out.print("Extra Enumeration : ");
+    for (CDEnum c : comparison.extraStudentEnum) {
+      System.out.print(c.getName() + " ");
+    }
+
+    System.out.println();
+    System.out.println("Mapped Enumerations items: ");
+    comparison.mappedEnumerationItems.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
+
+    System.out.println();
+    System.out.print("Not Mapped Enumerations items : ");
+    for (CDEnumLiteral c : comparison.notMappedInstructorEnumLiterals) {
+      System.out.print(c.getName() + " ");
+    }
+    System.out.println();
+    System.out.print("Extra Enumeration items: ");
+    for (CDEnumLiteral c : comparison.extraStudentEnumLiterals) {
+      System.out.print(c.getName() + " ");
+    }
 
     System.out.println();
     System.out.println("Mistakes : ");

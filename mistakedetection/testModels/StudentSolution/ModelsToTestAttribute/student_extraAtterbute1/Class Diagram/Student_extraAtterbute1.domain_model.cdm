@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_dn3wYNphEeuihpv-j2laQg" name="Student_extraAtterbute1">
   <classes xsi:type="classdiagram:Class" xmi:id="_eAGDINphEeuihpv-j2laQg" name="Pilot">
+    <associationEnds xmi:id="_DNXdEN26EeuVoonRXmsiAQ" name="myRoot" assoc="_DNXdEt26EeuVoonRXmsiAQ" lowerBound="1"/>
     <attributes xmi:id="_gGJwsNphEeuihpv-j2laQg" name="name" type="_dn3wZ9phEeuihpv-j2laQg"/>
     <attributes xmi:id="_hWTJ8NphEeuihpv-j2laQg" name="gender" type="_dn3wZ9phEeuihpv-j2laQg"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_Cfd1QN26EeuVoonRXmsiAQ" name="Root">
+    <associationEnds xmi:id="_DNXdEd26EeuVoonRXmsiAQ" name="myPilot" assoc="_DNXdEt26EeuVoonRXmsiAQ" lowerBound="1" referenceType="Composition"/>
   </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_dn3wYdphEeuihpv-j2laQg"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_dn3wYtphEeuihpv-j2laQg"/>
@@ -14,10 +18,14 @@
   <types xsi:type="classdiagram:CDByte" xmi:id="_dn3waNphEeuihpv-j2laQg"/>
   <types xsi:type="classdiagram:CDFloat" xmi:id="_dn3wadphEeuihpv-j2laQg"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_dn3watphEeuihpv-j2laQg"/>
+  <associations xmi:id="_DNXdEt26EeuVoonRXmsiAQ" name="Pilot_Root" ends="_DNXdEN26EeuVoonRXmsiAQ _DNXdEd26EeuVoonRXmsiAQ"/>
   <layout xmi:id="_dn3wa9phEeuihpv-j2laQg">
     <containers xmi:id="_dn3wbNphEeuihpv-j2laQg" key="_dn3wYNphEeuihpv-j2laQg">
       <value xmi:id="_eANX4NphEeuihpv-j2laQg" key="_eAGDINphEeuihpv-j2laQg">
         <value xmi:id="_eANX4dphEeuihpv-j2laQg" x="1018.0" y="175.0"/>
+      </value>
+      <value xmi:id="_CfecUN26EeuVoonRXmsiAQ" key="_Cfd1QN26EeuVoonRXmsiAQ">
+        <value xmi:id="_CfecUd26EeuVoonRXmsiAQ" x="524.0002" y="203.0"/>
       </value>
     </containers>
   </layout>

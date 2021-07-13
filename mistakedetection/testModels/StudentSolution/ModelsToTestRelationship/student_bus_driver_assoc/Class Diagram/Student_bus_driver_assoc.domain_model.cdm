@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_Lvr5sNinEeu9762HIyKMdw" name="Student_bus_driver_assoc">
+  <classes xsi:type="classdiagram:Class" xmi:id="_ME3fgNinEeu9762HIyKMdw" name="Bus">
+    <associationEnds xmi:id="_PUmx8NinEeu9762HIyKMdw" name="driver" assoc="_PUmx8tinEeu9762HIyKMdw" upperBound="-1"/>
+    <associationEnds xmi:id="_2RTY0N3FEeugTP5Jh9LpoA" name="myRoot" assoc="_2RTY0t3FEeugTP5Jh9LpoA" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_MwvuENinEeu9762HIyKMdw" name="Driver">
+    <associationEnds xmi:id="_PUmx8dinEeu9762HIyKMdw" name="buses" assoc="_PUmx8tinEeu9762HIyKMdw" upperBound="-1"/>
+    <associationEnds xmi:id="_206cMN3FEeugTP5Jh9LpoA" name="myRoot" assoc="_206cMt3FEeugTP5Jh9LpoA" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_1kc54N3FEeugTP5Jh9LpoA" name="Root">
+    <associationEnds xmi:id="_2RTY0d3FEeugTP5Jh9LpoA" name="myBus" assoc="_2RTY0t3FEeugTP5Jh9LpoA" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_206cMd3FEeugTP5Jh9LpoA" name="myDriver" assoc="_206cMt3FEeugTP5Jh9LpoA" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_Lvr5sdinEeu9762HIyKMdw"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_Lvr5stinEeu9762HIyKMdw"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_Lvr5s9inEeu9762HIyKMdw"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_Lvr5tNinEeu9762HIyKMdw"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_Lvr5tdinEeu9762HIyKMdw"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_Lvr5ttinEeu9762HIyKMdw"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_Lvr5t9inEeu9762HIyKMdw"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_Lvr5uNinEeu9762HIyKMdw"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_Lvr5udinEeu9762HIyKMdw"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_Lvr5utinEeu9762HIyKMdw"/>
+  <associations xmi:id="_PUmx8tinEeu9762HIyKMdw" name="Bus_Driver" ends="_PUmx8NinEeu9762HIyKMdw _PUmx8dinEeu9762HIyKMdw"/>
+  <associations xmi:id="_2RTY0t3FEeugTP5Jh9LpoA" name="Bus_Root" ends="_2RTY0N3FEeugTP5Jh9LpoA _2RTY0d3FEeugTP5Jh9LpoA"/>
+  <associations xmi:id="_206cMt3FEeugTP5Jh9LpoA" name="Driver_Root" ends="_206cMN3FEeugTP5Jh9LpoA _206cMd3FEeugTP5Jh9LpoA"/>
+  <layout xmi:id="_Lvr5u9inEeu9762HIyKMdw">
+    <containers xmi:id="_Lvr5vNinEeu9762HIyKMdw" key="_Lvr5sNinEeu9762HIyKMdw">
+      <value xmi:id="_ME4toNinEeu9762HIyKMdw" key="_ME3fgNinEeu9762HIyKMdw">
+        <value xmi:id="_ME4todinEeu9762HIyKMdw" x="504.99982" y="318.0001"/>
+      </value>
+      <value xmi:id="_MwwVINinEeu9762HIyKMdw" key="_MwvuENinEeu9762HIyKMdw">
+        <value xmi:id="_MwwVIdinEeu9762HIyKMdw" x="1060.0" y="318.0001"/>
+      </value>
+      <value xmi:id="_1kdg8N3FEeugTP5Jh9LpoA" key="_1kc54N3FEeugTP5Jh9LpoA">
+        <value xmi:id="_1kdg8d3FEeugTP5Jh9LpoA" x="774.0" y="436.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

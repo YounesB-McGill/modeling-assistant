@@ -1,23 +1,19 @@
 
 from .learningcorpus import getEClassifier, eClassifiers
 from .learningcorpus import name, nsURI, nsPrefix, eClass
-from .learningcorpus import Time, UmlElement, LearningItem, MistakeType, Feedback, TextResponse, ParametrizedResponse, ResourceResponse, LearningResource, Reference, Tutorial, Example, Quiz, NamedElement, MistakeTypeCategory, LearningCorpus
+from .learningcorpus import Time, LearningItem, MistakeType, Feedback, TextResponse, ParametrizedResponse, ResourceResponse, LearningResource, Reference, Tutorial, Example, Quiz, NamedElement, MistakeTypeCategory, LearningCorpus, ElementType
 
 
 from . import learningcorpus
 
-__all__ = ['Time', 'UmlElement', 'LearningItem', 'MistakeType', 'Feedback', 'TextResponse', 'ParametrizedResponse', 'ResourceResponse',
-           'LearningResource', 'Reference', 'Tutorial', 'Example', 'Quiz', 'NamedElement', 'MistakeTypeCategory', 'LearningCorpus']
+__all__ = ['Time', 'LearningItem', 'MistakeType', 'Feedback', 'TextResponse', 'ParametrizedResponse', 'ResourceResponse',
+           'LearningResource', 'Reference', 'Tutorial', 'Example', 'Quiz', 'NamedElement', 'MistakeTypeCategory', 'LearningCorpus', 'ElementType']
 
 eSubpackages = []
 eSuperPackage = None
 learningcorpus.eSubpackages = eSubpackages
 learningcorpus.eSuperPackage = eSuperPackage
 
-UmlElement.learningItems.eType = LearningItem
-UmlElement.learningCorpus.eType = LearningCorpus
-LearningItem.umlElements.eType = UmlElement
-LearningItem.umlElements.eOpposite = UmlElement.learningItems
 LearningItem.learningResources.eType = LearningResource
 LearningItem.mistakeTypes.eType = MistakeType
 LearningItem.learningCorpus.eType = LearningCorpus
@@ -48,10 +44,8 @@ LearningCorpus.learningItems.eType = LearningItem
 LearningCorpus.learningItems.eOpposite = LearningItem.learningCorpus
 LearningCorpus.learningResources.eType = LearningResource
 LearningCorpus.learningResources.eOpposite = LearningResource.learningCorpus
-LearningCorpus.umlElements.eType = UmlElement
-LearningCorpus.umlElements.eOpposite = UmlElement.learningCorpus
 
-otherClassifiers = [Time]
+otherClassifiers = [Time, ElementType]
 
 for classif in otherClassifiers:
     eClassifiers[classif.name] = classif

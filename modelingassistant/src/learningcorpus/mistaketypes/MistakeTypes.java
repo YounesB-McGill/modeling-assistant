@@ -13,7 +13,7 @@ public class MistakeTypes {
 
   /** The path of the learning corpus instance with mistake types. */
   public static final String LEARNING_CORPUS_PATH =
-      "../modelingassistant.learningcorpus.dsl.instances/test.learningcorpus";
+      "../modelingassistant.learningcorpus.dsl.instances/default.learningcorpus";
 
   /** Map of mistake type categories by name. */
   public static final Map<String, MistakeTypeCategory> MISTAKE_TYPE_CATEGORIES_BY_NAME =
@@ -90,12 +90,16 @@ public class MistakeTypes {
   /** The misuse of design patterns mistake type category. */
   public static final MistakeTypeCategory MISUSE_OF_DESIGN_PATTERNS = MTCS.get("Misuse of design patterns");
 
-  /** The misuse of player-role pattern mistake type category. */
-  public static final MistakeTypeCategory MISUSE_OF_PLAYER_ROLE_PATTERN = MTCS.get("Misuse of Player-Role Pattern");
+  /** The wrong player-role pattern mistake type category. */
+  public static final MistakeTypeCategory WRONG_PLAYER_ROLE_PATTERN = MTCS.get("Wrong Player-Role Pattern");
 
-  /** The misuse of abstraction-occurrence mistake type category. */
-  public static final MistakeTypeCategory MISUSE_OF_ABSTRACTION_OCCURRENCE =
-      MTCS.get("Misuse of Abstraction-Occurrence");
+  /** The using different player-role pattern mistake type category. */
+  public static final MistakeTypeCategory USING_DIFFERENT_PLAYER_ROLE_PATTERN =
+      MTCS.get("Using different Player-Role pattern");
+
+  /** The wrong abstraction-occurrence pattern mistake type category. */
+  public static final MistakeTypeCategory WRONG_ABSTRACTION_OCCURRENCE_PATTERN =
+      MTCS.get("Wrong Abstraction-Occurrence pattern");
 
 
   // Mistake types
@@ -127,8 +131,29 @@ public class MistakeTypes {
   /** The enum should be regular class mistake type. */
   public static final MistakeType ENUM_SHOULD_BE_REGULAR_CLASS = MTS.get("Enum should be regular class");
 
-  /** The wrong enum items mistake type. */
-  public static final MistakeType WRONG_ENUM_ITEMS = MTS.get("Wrong enum items");
+  /** The missing enum mistake type. */
+  public static final MistakeType MISSING_ENUM = MTS.get("Missing enum");
+
+  /** The extra enum mistake type. */
+  public static final MistakeType EXTRA_ENUM = MTS.get("Extra enum");
+
+  /** The bad enum name spelling mistake type. */
+  public static final MistakeType BAD_ENUM_NAME_SPELLING = MTS.get("Bad enum name spelling");
+
+  /** The similar enum name mistake type. */
+  public static final MistakeType SIMILAR_ENUM_NAME = MTS.get("Similar enum name");
+
+  /** The missing enum item mistake type. */
+  public static final MistakeType MISSING_ENUM_ITEM = MTS.get("Missing enum item");
+
+  /** The extra enum item mistake type. */
+  public static final MistakeType EXTRA_ENUM_ITEM = MTS.get("Extra enum item");
+
+  /** The bad enum item spelling mistake type. */
+  public static final MistakeType BAD_ENUM_ITEM_SPELLING = MTS.get("Bad enum item spelling");
+
+  /** The similar enum item mistake type. */
+  public static final MistakeType SIMILAR_ENUM_ITEM = MTS.get("Similar enum item");
 
   /** The missing attribute mistake type. */
   public static final MistakeType MISSING_ATTRIBUTE = MTS.get("Missing attribute");
@@ -154,8 +179,17 @@ public class MistakeTypes {
   /** The bad attribute name spelling mistake type. */
   public static final MistakeType BAD_ATTRIBUTE_NAME_SPELLING = MTS.get("Bad attribute name spelling");
 
+  /** The uppercase attribute name mistake type. */
+  public static final MistakeType UPPERCASE_ATTRIBUTE_NAME = MTS.get("Uppercase attribute name");
+
   /** The similar (yet incorrect) attribute name mistake type. */
   public static final MistakeType SIMILAR_ATTRIBUTE_NAME = MTS.get("Similar (yet incorrect) attribute name");
+
+  /** The attribute misplaced mistake type. */
+  public static final MistakeType ATTRIBUTE_MISPLACED = MTS.get("Attribute misplaced");
+
+  /** The attribute duplicated mistake type. */
+  public static final MistakeType ATTRIBUTE_DUPLICATED = MTS.get("Attribute duplicated");
 
   /** The incomplete containment tree mistake type. */
   public static final MistakeType INCOMPLETE_CONTAINMENT_TREE = MTS.get("Incomplete containment tree");
@@ -281,5 +315,67 @@ public class MistakeTypes {
 
   /** The wrong superclass mistake type. */
   public static final MistakeType WRONG_SUPERCLASS = MTS.get("Wrong superclass");
+
+  /** The missing player-role pattern mistake type. */
+  public static final MistakeType MISSING_PLAYER_ROLE_PATTERN = MTS.get("Missing Player-Role pattern");
+
+  /** The incomplete player-role pattern mistake type. */
+  public static final MistakeType INCOMPLETE_PLAYER_ROLE_PATTERN = MTS.get("Incomplete Player-Role pattern");
+
+  /** The subclass should be full player-role pattern mistake type. */
+  public static final MistakeType SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN =
+      MTS.get("Subclass should be full Player-Role pattern");
+
+  /** The subclass should be association player-role pattern mistake type. */
+  public static final MistakeType SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN =
+      MTS.get("Subclass should be association Player-Role pattern");
+
+  /** The subclass should be enum player-role pattern mistake type. */
+  public static final MistakeType SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN =
+      MTS.get("Subclass should be enum Player-Role pattern");
+
+  /** The association should be full player-role pattern mistake type. */
+  public static final MistakeType ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN =
+      MTS.get("Association should be full Player-Role pattern");
+
+  /** The association should be subclass player-role pattern mistake type. */
+  public static final MistakeType ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN =
+      MTS.get("Association should be subclass Player-Role pattern");
+
+  /** The association should be enum player-role pattern mistake type. */
+  public static final MistakeType ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN =
+      MTS.get("Association should be enum Player-Role pattern");
+
+  /** The enum should be full player-role pattern mistake type. */
+  public static final MistakeType ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN =
+      MTS.get("Enum should be full Player-Role pattern");
+
+  /** The enum should be subclass player-role pattern mistake type. */
+  public static final MistakeType ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN =
+      MTS.get("Enum should be subclass Player-Role pattern");
+
+  /** The enum should be association player-role pattern mistake type. */
+  public static final MistakeType ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN =
+      MTS.get("Enum should be association Player-Role pattern");
+
+  /** The full player-role pattern should be subclass mistake type. */
+  public static final MistakeType FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS =
+      MTS.get("Full Player-Role pattern should be subclass");
+
+  /** The full player-role pattern should be association mistake type. */
+  public static final MistakeType FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION =
+      MTS.get("Full Player-Role pattern should be association");
+
+  /** The full player-role pattern should be enum mistake type. */
+  public static final MistakeType FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM =
+      MTS.get("Full Player-Role pattern should be enum");
+
+  /** The missing abstraction-occurrence pattern mistake type. */
+  public static final MistakeType MISSING_ABSTRACTION_OCCURRENCE_PATTERN =
+      MTS.get("Missing Abstraction-Occurrence pattern");
+
+  /** The incomplete abstraction-occurrence pattern mistake type. */
+  public static final MistakeType INCOMPLETE_ABSTRACTION_OCCURRENCE_PATTERN =
+      MTS.get("Incomplete Abstraction-Occurrence pattern");
 
 }

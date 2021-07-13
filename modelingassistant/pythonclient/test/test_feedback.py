@@ -126,10 +126,11 @@ def test_feedback_with_1_mistake_level_4():
     assert isinstance(feedback, ResourceResponse)
     assert 4 == feedback.level
     assert not feedback.highlightSolution
-    resource_content = feedback.learningResources[0].content
-    assert "incorrect class naming" in resource_content
+    # TODO Restore `resource_content` after metamodel update for LearningResource.content
+    # resource_content = feedback.learningResources[0].content
+    # assert "incorrect class naming" in resource_content
     # TODO Determine exact emoji serialization mechanism
-    assert ":x: Examples to avoid | :heavy_check_mark: Good class names" in resource_content
+    # assert ":x: Examples to avoid | :heavy_check_mark: Good class names" in resource_content
     assert curr_mistake.mistakeType is feedback.mistakeType
     assert 6 == ma.studentKnowledges[0].levelOfKnowledge
 
@@ -190,10 +191,11 @@ def test_feedback_with_1_mistake_levels_1_4():
     assert isinstance(feedback, ResourceResponse)
     assert 4 == feedback.level
     assert not feedback.highlightSolution
-    resource_content = feedback.learningResources[0].content
-    assert "incorrect class naming" in resource_content
+    # TODO Restore `resource_content` after metamodel update for LearningResource.content
+    #resource_content = feedback.learningResources[0].content
+    #assert "incorrect class naming" in resource_content
     # TODO Determine exact emoji serialization mechanism
-    assert ":x: Examples to avoid | :heavy_check_mark: Good class names" in resource_content
+    #assert ":x: Examples to avoid | :heavy_check_mark: Good class names" in resource_content
     assert curr_mistake.mistakeType is feedback.mistakeType
     assert 6 == ma.studentKnowledges[0].levelOfKnowledge
 

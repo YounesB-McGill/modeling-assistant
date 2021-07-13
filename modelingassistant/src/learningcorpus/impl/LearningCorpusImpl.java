@@ -10,17 +10,12 @@ import learningcorpus.LearningItem;
 import learningcorpus.LearningResource;
 import learningcorpus.LearningcorpusPackage;
 import learningcorpus.MistakeTypeCategory;
-import learningcorpus.UmlElement;
-
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
@@ -38,7 +33,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link learningcorpus.impl.LearningCorpusImpl#getFeedbacks <em>Feedbacks</em>}</li>
  *   <li>{@link learningcorpus.impl.LearningCorpusImpl#getLearningItems <em>Learning Items</em>}</li>
  *   <li>{@link learningcorpus.impl.LearningCorpusImpl#getLearningResources <em>Learning Resources</em>}</li>
- *   <li>{@link learningcorpus.impl.LearningCorpusImpl#getUmlElements <em>Uml Elements</em>}</li>
  * </ul>
  *
  * @generated
@@ -83,16 +77,6 @@ public class LearningCorpusImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected EList<LearningResource> learningResources;
-
-  /**
-   * The cached value of the '{@link #getUmlElements() <em>Uml Elements</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUmlElements()
-   * @generated
-   * @ordered
-   */
-  protected UmlElement umlElements;
 
   /**
    * <!-- begin-user-doc -->
@@ -170,51 +154,6 @@ public class LearningCorpusImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  @Override
-  public UmlElement getUmlElements() {
-    return umlElements;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetUmlElements(UmlElement newUmlElements, NotificationChain msgs) {
-    UmlElement oldUmlElements = umlElements;
-    umlElements = newUmlElements;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, LearningcorpusPackage.LEARNING_CORPUS__UML_ELEMENTS, oldUmlElements, newUmlElements);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setUmlElements(UmlElement newUmlElements) {
-    if (newUmlElements != umlElements) {
-      NotificationChain msgs = null;
-      if (umlElements != null)
-        msgs = ((InternalEObject)umlElements).eInverseRemove(this, LearningcorpusPackage.UML_ELEMENT__LEARNING_CORPUS, UmlElement.class, msgs);
-      if (newUmlElements != null)
-        msgs = ((InternalEObject)newUmlElements).eInverseAdd(this, LearningcorpusPackage.UML_ELEMENT__LEARNING_CORPUS, UmlElement.class, msgs);
-      msgs = basicSetUmlElements(newUmlElements, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, LearningcorpusPackage.LEARNING_CORPUS__UML_ELEMENTS, newUmlElements, newUmlElements));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -227,10 +166,6 @@ public class LearningCorpusImpl extends MinimalEObjectImpl.Container implements 
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getLearningItems()).basicAdd(otherEnd, msgs);
       case LearningcorpusPackage.LEARNING_CORPUS__LEARNING_RESOURCES:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getLearningResources()).basicAdd(otherEnd, msgs);
-      case LearningcorpusPackage.LEARNING_CORPUS__UML_ELEMENTS:
-        if (umlElements != null)
-          msgs = ((InternalEObject)umlElements).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - LearningcorpusPackage.LEARNING_CORPUS__UML_ELEMENTS, null, msgs);
-        return basicSetUmlElements((UmlElement)otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -251,8 +186,6 @@ public class LearningCorpusImpl extends MinimalEObjectImpl.Container implements 
         return ((InternalEList<?>)getLearningItems()).basicRemove(otherEnd, msgs);
       case LearningcorpusPackage.LEARNING_CORPUS__LEARNING_RESOURCES:
         return ((InternalEList<?>)getLearningResources()).basicRemove(otherEnd, msgs);
-      case LearningcorpusPackage.LEARNING_CORPUS__UML_ELEMENTS:
-        return basicSetUmlElements(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -273,8 +206,6 @@ public class LearningCorpusImpl extends MinimalEObjectImpl.Container implements 
         return getLearningItems();
       case LearningcorpusPackage.LEARNING_CORPUS__LEARNING_RESOURCES:
         return getLearningResources();
-      case LearningcorpusPackage.LEARNING_CORPUS__UML_ELEMENTS:
-        return getUmlElements();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -304,9 +235,6 @@ public class LearningCorpusImpl extends MinimalEObjectImpl.Container implements 
         getLearningResources().clear();
         getLearningResources().addAll((Collection<? extends LearningResource>)newValue);
         return;
-      case LearningcorpusPackage.LEARNING_CORPUS__UML_ELEMENTS:
-        setUmlElements((UmlElement)newValue);
-        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -331,9 +259,6 @@ public class LearningCorpusImpl extends MinimalEObjectImpl.Container implements 
       case LearningcorpusPackage.LEARNING_CORPUS__LEARNING_RESOURCES:
         getLearningResources().clear();
         return;
-      case LearningcorpusPackage.LEARNING_CORPUS__UML_ELEMENTS:
-        setUmlElements((UmlElement)null);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -354,8 +279,6 @@ public class LearningCorpusImpl extends MinimalEObjectImpl.Container implements 
         return learningItems != null && !learningItems.isEmpty();
       case LearningcorpusPackage.LEARNING_CORPUS__LEARNING_RESOURCES:
         return learningResources != null && !learningResources.isEmpty();
-      case LearningcorpusPackage.LEARNING_CORPUS__UML_ELEMENTS:
-        return umlElements != null;
     }
     return super.eIsSet(featureID);
   }
