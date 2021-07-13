@@ -64,6 +64,7 @@ public class FeedbackItemItemProvider
       addUsefulnessPropertyDescriptor(object);
       addFeedbackPropertyDescriptor(object);
       addSolutionPropertyDescriptor(object);
+      addTextPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -157,6 +158,28 @@ public class FeedbackItemItemProvider
   }
 
   /**
+   * This adds a property descriptor for the Text feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addTextPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_FeedbackItem_text_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_FeedbackItem_text_feature", "_UI_FeedbackItem_type"),
+         ModelingassistantPackage.Literals.FEEDBACK_ITEM__TEXT,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This returns FeedbackItem.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -193,6 +216,7 @@ public class FeedbackItemItemProvider
 
     switch (notification.getFeatureID(FeedbackItem.class)) {
       case ModelingassistantPackage.FEEDBACK_ITEM__USEFULNESS:
+      case ModelingassistantPackage.FEEDBACK_ITEM__TEXT:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }

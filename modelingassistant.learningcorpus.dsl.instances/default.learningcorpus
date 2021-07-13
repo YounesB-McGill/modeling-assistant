@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningcorpus:LearningCorpus xmlns:xmi="http://www.omg.org/XMI" xmlns:learningcorpus="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmi:id="9ee76e20-f254-45a1-92b7-b710d4758aa9" xmi:version="2.0">
+  <learningItems xsi:type="learningcorpus:LearningItem" xmi:id="d8704d4f-b3ec-4a2c-91ff-6897b10615fc" name="DomainModeling"/>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="e3619c88-1159-4f2e-9d5a-e729b886bd68" name="Wrong class" subcategories="8f3ec4c3-4917-405f-bd48-f45ce9c3cb71 85f02b29-e122-4a7e-8400-318165882c7f">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="b7b4d81a-ac09-4298-8484-519a9a100721" priority="69" name="Missing class" feedbacks="b0404355-daa2-4a6c-bdfa-00c3875cb1f5 cfd98eba-75d0-4645-88fe-848e6f74ee96 9b5d92fd-5122-4f46-b8d9-a99321fdc52f 1d330fca-eacf-4a2c-bc6b-1f82af60d781"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="23a8f035-bf7e-41d4-bcc9-a588137db6e8" priority="61" name="Extra (redundant) class"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="8f3ec4c3-4917-405f-bd48-f45ce9c3cb71" supercategory="e3619c88-1159-4f2e-9d5a-e729b886bd68" name="Wrong class name">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="aa94a3d6-e0fb-4ec5-8760-30b14991639f" priority="3" name="Plural class name"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="454518e2-9969-476d-8998-d0139bbcc7c9" priority="2" name="Lowercase class name"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="5e36239b-2d7c-495f-ba30-a243721a81eb" name="Software engineering term" atomic="true" feedbacks="15d08ba6-5cfd-472e-b7ef-b2faac10d4c4 a5c8c1b0-c515-4ab7-80e5-518f5c5eda5a e59e7a0f-52a1-450a-a077-16d2181f8b01 98abbba8-17cb-402c-aaf5-f3ef72ef0b86" priority="4"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="fa9f3119-c8be-4a81-92cf-a44d51083f34" atomic="true" priority="1" name="Bad class name spelling"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="dc4373c3-4daa-4233-a225-7069956af7a6" priority="5" name="Similar (yet incorrect) class name"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="85f02b29-e122-4a7e-8400-318165882c7f" supercategory="e3619c88-1159-4f2e-9d5a-e729b886bd68" name="Wrong enumeration">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="7e8fa8c1-f429-4338-abd1-c64e894a2949" priority="8" name="Regular class should be enum"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="e1ba8186-c3ab-439a-b16c-f0b4e09d6d1f" priority="9" name="Enum should be regular class"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="115e4417-f783-4fa7-95d2-3b241b14fa13" priority="72" name="Missing enum"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="775ee38a-2849-4fec-b9d3-763cb3c89faa" priority="63" name="Extra enum"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="92fb1597-0329-443b-9a12-0f6a13ed4883" priority="10" name="Bad enum name spelling"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="77f7399c-fda5-4537-ae0d-c1464d6be536" priority="12" name="Similar enum name"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="233c7813-95ca-4eb9-9b3b-395287f66f3e" priority="73" name="Missing enum item"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="cc432a7c-4796-4969-ad1b-5099d57d757f" priority="64" name="Extra enum item"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="08df8c40-4d55-4ce2-b0b3-6bcf3042015b" priority="11" name="Bad enum item spelling"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="be43f863-1170-4b86-acd5-f6833bc51340" priority="13" name="Similar enum item"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="582f6db5-9762-4ec0-a9ab-f0460f72c18d" name="Wrong attribute" subcategories="f7397344-8809-4c7e-a3bc-c410794c7263 f44949b2-d944-4a41-9952-875bd59c694e 15aeb38e-2507-4d4b-bb87-f12ed4f6debe">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="011ba4a1-4b9c-4ce8-be0c-a2637a3f36b3" priority="70" name="Missing attribute"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="426ac17e-2ab5-47f0-b4c7-9104b5a5ae31" priority="19" name="Wrong attribute type"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="63507555-79e7-41dd-8477-8d31f27044eb" priority="21" name="Attribute should be static"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="cbb660b6-6eae-44f6-9d18-6f63d7eb6c93" priority="20" name="Attribute should not be static"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="f7397344-8809-4c7e-a3bc-c410794c7263" supercategory="582f6db5-9762-4ec0-a9ab-f0460f72c18d" name="Extra (redundant) attribute">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="20c73b61-6ce2-4d97-957b-87ee2be6da55" priority="16" name="Plural attribute"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="7ff71db0-8ad7-4eab-ae34-71dcb9002f0c" priority="25" name="List attribute"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="993b06b0-4ccd-4901-9a2d-1914c692af1b" priority="68" name="Other extra attribute"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="f44949b2-d944-4a41-9952-875bd59c694e" supercategory="582f6db5-9762-4ec0-a9ab-f0460f72c18d" name="Wrong attribute name">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="ba5a9495-a0fc-4a1e-9955-718ef7e20a50" priority="14" name="Bad attribute name spelling"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="c33848ec-4002-4c3b-9485-8f88b5250701" priority="15" name="Uppercase attribute name"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="1bb232e1-9d90-4cad-af31-5fde84b7bb6d" priority="17" name="Similar (yet incorrect) attribute name"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="15aeb38e-2507-4d4b-bb87-f12ed4f6debe" supercategory="582f6db5-9762-4ec0-a9ab-f0460f72c18d" name="Attribute in wrong class">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="cf79739b-9c23-4f20-8b78-5d73cdacbe8f" priority="18" name="Attribute misplaced"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="eab3b58b-64a6-42c1-b7ae-0a620ea2e82c" priority="67" name="Attribute duplicated"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="3ec7fb35-9945-4820-ad31-23bb7753958a" name="Wrong relationship" subcategories="4c50d930-697c-4fbc-b489-5905afae9bb4 428f2210-7721-4234-8eef-65ecbd2c49d1 1d30a529-5b79-472b-a519-72d8fd433f4b 2e2347dc-7e72-4062-a057-7c0c83224eb6 81d48f69-c456-43c0-821a-f6c9e331cbfe d8a25378-f327-4808-b4ed-e4e00d390c56 bcb5f0a4-7399-4824-9fe9-65ea828dd587 1e295d9e-de58-411a-b576-29a0849210a7">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="f84af126-5a15-4535-a076-eef78a4893ed" priority="48" name="Incomplete containment tree"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="4c50d930-697c-4fbc-b489-5905afae9bb4" supercategory="3ec7fb35-9945-4820-ad31-23bb7753958a" name="Missing relationship">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="a1409772-5d38-47d9-baae-d9b1a0f7e122" priority="76" name="Missing association"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="156537ee-8cbf-46f3-b4a6-e4e34313e5dc" priority="75" name="Missing composition"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="6711c825-54e8-40b1-936c-b9ec53fedc0a" priority="77" name="Missing aggregation"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="15681765-8aca-4fb1-b154-19e01fbe7fe4" priority="24" name="Using an attribute instead of an association"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="428f2210-7721-4234-8eef-65ecbd2c49d1" supercategory="3ec7fb35-9945-4820-ad31-23bb7753958a" name="Extra (redundant) association">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="0ab88b52-aee0-45b6-9230-02646ddc35fe" priority="65" name="Representing an action with an association"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="bb54353d-8cd1-45e4-9807-aed86c41efca" priority="23" name="Composed part contained in more than one parent"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="a4af487d-6978-4271-b458-f24cb6b07200" priority="66" name="Other extra association"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="1d30a529-5b79-472b-a519-72d8fd433f4b" supercategory="3ec7fb35-9945-4820-ad31-23bb7753958a" name="Using wrong relationship type">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="90566809-a444-45ee-8bdd-17f918262157" priority="27" name="Using association instead of aggregation/composition"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="86096d5c-4b59-4621-9d63-3166d18e8c78" priority="28" name="Using aggregation/composition instead of association"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="30fb1ba2-9b1a-4ef0-9276-183413461b32" priority="29" name="Using directed association instead of undirected"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="c75b1b3d-6f66-4fe9-9238-5461619a4df2" priority="30" name="Using undirected association instead of directed"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="066d1e3b-747a-4b50-a9be-6e3f17a6ce13" priority="31" name="Using aggregation instead of composition"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="7c03dc45-48a8-4c84-b378-9e614324b451" priority="32" name="Using composition instead of aggregation"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="2e2347dc-7e72-4062-a057-7c0c83224eb6" supercategory="3ec7fb35-9945-4820-ad31-23bb7753958a" name="Wrong association name">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="7c04444f-5c4f-40fa-ad7f-cb4be11a9512" priority="79" name="Missing association name when one was expected"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="fd1c5577-f1ba-4394-ab28-b977fa7391d1" priority="46" name="Bad association name spelling"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="84896a22-49da-49ea-9e65-7edccdcfe67f" priority="47" name="Similar (yet incorrect) association name"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="81d48f69-c456-43c0-821a-f6c9e331cbfe" supercategory="3ec7fb35-9945-4820-ad31-23bb7753958a" name="Wrong multiplicities">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="325360d4-28b4-45be-bb49-a83376d194ff" priority="22" name="Infinite recursive dependency"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="532d53e3-accb-4bba-a9e3-54f0cb688d7b" priority="39" name="Other wrong multiplicity"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="d8a25378-f327-4808-b4ed-e4e00d390c56" supercategory="3ec7fb35-9945-4820-ad31-23bb7753958a" name="Wrong role names">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="d8e40b21-0f87-43d7-a485-e5761fd4262a" priority="78" name="Missing role names"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="4a67ebc8-e7f0-4d61-bed9-d94022641a9c" priority="45" name="Role should be static"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="b6fa3dba-5716-44d8-858d-70ebf678f535" priority="44" name="Role should not be static"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="1672f8f0-fb32-498c-b6ca-9731025602bb" priority="41" name="Bad role name spelling"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="8f9d5f84-1a20-44ed-850f-b405cc1b811a" priority="42" name="Similar (yet incorrect) role name"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="0f61ee2a-b32c-4eab-a8b8-fe0c1fd6ffe7" priority="43" name="Other wrong role name"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="bcb5f0a4-7399-4824-9fe9-65ea828dd587" supercategory="3ec7fb35-9945-4820-ad31-23bb7753958a" name="Wrong association class">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="afdab2e9-742c-4f14-b87b-a0c36d0ae318" priority="71" name="Missing association class"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="272536ff-6472-4ff3-a005-0f9800c0bc05" priority="62" name="Extra (redundant) association class"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="23e2cb27-379b-4dc7-b501-4b73bdf7120a" priority="6" name="Bad association class name spelling"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="747d7238-37b2-49f8-b90c-35ed899233c7" priority="7" name="Similar (yet incorrect) association class name"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="1e295d9e-de58-411a-b576-29a0849210a7" supercategory="3ec7fb35-9945-4820-ad31-23bb7753958a" name="Wrong generalization">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="80da4cf1-99b5-4197-95a1-9dede03f462e" priority="74" name="Missing generalization"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="d9a698f3-f35c-41f2-ba11-8b2846a7c9a5" priority="26" name="Generalization inapplicable"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="f8408536-754f-4bc0-ac65-7145e55a2cc5" priority="37" name="Subclass not distinct across lifetime"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="08c724ae-bfab-4444-a3c7-0ba831c5540f" priority="38" name="Inherited feature does not make sense for subclass"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="18d9254f-ba4c-4f30-b68a-0701f54c770e" priority="35" name="Subclass is an instance of superclass"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="b5bb8f65-abf8-45c2-8212-70dfdfcf5413" priority="36" name="Non-differentiated subclass"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="890c658d-1d13-4ce9-aef6-019493f281d9" priority="33" name="Wrong generalization direction"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="71b6f5a2-ba54-4e45-8ae4-ffed3e2464bb" priority="34" name="Wrong superclass"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="fba62e96-40c7-4c30-b94a-27df47f5b28b" name="Misuse of design patterns" subcategories="f2b0c8e1-8af3-40fc-a984-fb9ed61ec4b5 294fcb2b-79a7-465b-99d2-e7d75a931fdf"/>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="f2b0c8e1-8af3-40fc-a984-fb9ed61ec4b5" subcategories="8336ab89-98ad-4964-90e3-e1923bfb797e" name="Wrong Player-Role Pattern" supercategory="fba62e96-40c7-4c30-b94a-27df47f5b28b">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="2a0b3ca4-e3be-48fe-9a93-c6b38995e797" priority="82" name="Missing Player-Role pattern"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="687179dc-6992-4005-8cb8-8a09025d729c" priority="80" name="Incomplete Player-Role pattern"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="8336ab89-98ad-4964-90e3-e1923bfb797e" supercategory="f2b0c8e1-8af3-40fc-a984-fb9ed61ec4b5" name="Using different Player-Role pattern">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="85d19de3-37b7-45f0-ae0b-53d83c7c3beb" priority="49" name="Subclass should be full Player-Role pattern"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="61abe003-2e69-4378-8ab0-799ef66964f5" priority="50" name="Subclass should be association Player-Role pattern"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="28c1357d-9267-450d-b822-0b15d18d88c4" priority="51" name="Subclass should be enum Player-Role pattern"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="53fdaf7d-23ac-4af1-b72b-79cb12a589d5" priority="52" name="Association should be full Player-Role pattern"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="5fc16c41-26e1-4d82-a0fe-9fe3b65349a6" priority="53" name="Association should be subclass Player-Role pattern"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="3bc82874-ea6b-47d8-b7c0-d6713b625f7f" priority="54" name="Association should be enum Player-Role pattern"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="5b814c4a-3af2-4c9c-ad54-8ffc9d0bccbf" priority="55" name="Enum should be full Player-Role pattern"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="ae0d9b6d-746a-4a94-b1a4-37b3ccbc69eb" priority="56" name="Enum should be subclass Player-Role pattern"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="8d63eda8-ef12-4416-ac0e-8c1f5d71f504" priority="57" name="Enum should be association Player-Role pattern"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="13fa5cef-aafc-4d0a-ab79-89a4117f3257" priority="58" name="Full Player-Role pattern should be subclass"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="9855bb66-b7b7-43a0-a918-23564da7d612" priority="59" name="Full Player-Role pattern should be association"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="943717f7-2a79-491a-9a19-52c07b9bf1f2" priority="60" name="Full Player-Role pattern should be enum"/>
+  </mistakeTypeCategories>
+  <mistakeTypeCategories xsi:type="learningcorpus:MistakeTypeCategory" xmi:id="294fcb2b-79a7-465b-99d2-e7d75a931fdf" supercategory="fba62e96-40c7-4c30-b94a-27df47f5b28b" name="Wrong Abstraction-Occurrence pattern">
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="b5e2ba04-cab1-4629-9c9a-775354914ab7" priority="83" name="Missing Abstraction-Occurrence pattern"/>
+    <mistakeTypes xsi:type="learningcorpus:MistakeType" xmi:id="e8f0c9c9-3a4c-49c6-8053-20da4b5bf555" priority="81" name="Incomplete Abstraction-Occurrence pattern"/>
+  </mistakeTypeCategories>
+  <feedbacks xsi:type="learningcorpus:Feedback" xmi:id="b0404355-daa2-4a6c-bdfa-00c3875cb1f5" mistakeType="b7b4d81a-ac09-4298-8484-519a9a100721" level="1" highlightSolution="true"/>
+  <feedbacks xsi:type="learningcorpus:TextResponse" xmi:id="cfd98eba-75d0-4645-88fe-848e6f74ee96" mistakeType="b7b4d81a-ac09-4298-8484-519a9a100721" text="Make sure you have modeled all the classes in the problem description." level="2"/>
+  <feedbacks xsi:type="learningcorpus:Feedback" xmi:id="9b5d92fd-5122-4f46-b8d9-a99321fdc52f" mistakeType="b7b4d81a-ac09-4298-8484-519a9a100721" highlightProblem="true" level="3"/>
+  <feedbacks xsi:type="learningcorpus:ParametrizedResponse" xmi:id="1d330fca-eacf-4a2c-bc6b-1f82af60d781" mistakeType="b7b4d81a-ac09-4298-8484-519a9a100721" text="Remember to add the ${{className}} class." level="4"/>
+  <feedbacks xsi:type="learningcorpus:Feedback" xmi:id="15d08ba6-5cfd-472e-b7ef-b2faac10d4c4" mistakeType="5e36239b-2d7c-495f-ba30-a243721a81eb" level="1" highlightSolution="true"/>
+  <feedbacks xsi:type="learningcorpus:TextResponse" xmi:id="a5c8c1b0-c515-4ab7-80e5-518f5c5eda5a" mistakeType="5e36239b-2d7c-495f-ba30-a243721a81eb" text="Remember that a domain model should not contain software engineering terms." level="2"/>
+  <feedbacks xsi:type="learningcorpus:ParametrizedResponse" xmi:id="e59e7a0f-52a1-450a-a077-16d2181f8b01" mistakeType="5e36239b-2d7c-495f-ba30-a243721a81eb" text="${{className}} is a software engineering term, which does not belong in a domain model." level="3"/>
+  <feedbacks xsi:type="learningcorpus:ResourceResponse" xmi:id="98abbba8-17cb-402c-aaf5-f3ef72ef0b86" mistakeType="5e36239b-2d7c-495f-ba30-a243721a81eb" level="4"/>
+</learningcorpus:LearningCorpus>

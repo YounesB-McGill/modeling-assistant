@@ -55,7 +55,7 @@ public class MistakeTypes {
 
   /** The path of the learning corpus instance with mistake types. */
   public static final String LEARNING_CORPUS_PATH =
-      "../modelingassistant.learningcorpus.dsl.instances/test.learningcorpus";
+      "../modelingassistant.learningcorpus.dsl.instances/default.learningcorpus";
 
   /** Map of mistake type categories by name. */
   public static final Map<String, MistakeTypeCategory> MISTAKE_TYPE_CATEGORIES_BY_NAME =
@@ -132,7 +132,7 @@ This file contains all mistake types and categories.
 from fileserdes import load_lc
 from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
 
-LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/test.learningcorpus"
+LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/default.learningcorpus"
 corpus = load_lc(LEARNING_CORPUS_PATH)
 
 # Populate dictionaries
@@ -206,129 +206,6 @@ def _make_dynamic():
 
 
 #_make_static()
-[/file]
-
-[file ('../../modelingassistant/pythonclient/corpus_creation.py', false, 'UTF-8')]
-"""
-Helper file used to create learning corpus.
-"""
-
-from learningcorpus.learningcorpus import LearningCorpus, MistakeTypeCategory, MistakeType, LearningItem
-
-
-domain_modeling = LearningItem(name="DomainModeling")
-
-
-def mtc(n, s=None, **kwargs) -> MistakeTypeCategory:
-    "Shorthand for MistakeTypeCategory initializer."
-    return MistakeTypeCategory(name=n, supercategory=s, **kwargs)
-
-
-def mt(n, **kwargs) -> MistakeType:
-    "Shorthand for MistakeType initializer."
-    return MistakeType(name=n, **kwargs)
-
-
-corpus = LearningCorpus(mistakeTypeCategories=[ '[' /]
-[for(mTC : MistakeTypeCategory | learningCorpus.mistakeTypeCategories)]
-  [let par : String = if (not mTC.supercategory.oclIsUndefined()) then
-    ', s=' + underscorify(mTC.supercategory.name).toLower()
-  else '' endif]
-  [let mts : String = generatePythonMistakeTypes(mTC)]
-  [let lhs : String = underscorify(mTC.name).toLower()]
-  [let rhs : String = 'mtc(n="' + mTC.name + '"' + par + mts + '),']
-  [let mtcDecl : String = lhs + ' := ' + rhs]
-    [mtcDecl/]
-  [/let] 
-  [/let]
-  [/let]
-  [/let]
-  [/let]
-[/for]
-[ ']' /])
-
-domain_modeling.learningCorpus = corpus
-
-for _mt in corpus.mistakeTypes():
-    for feedback in _mt.feedbacks:
-        feedback.learningCorpus = corpus
-
-
-# mistake types by priority, from most to least important
-mts_by_priority: list[ '[' /]MistakeType[ ']' /] = [ '[' /]
-    # mistakes in an existing class
-    bad_class_name_spelling,
-    lowercase_class_name,
-    plural_class_name,
-    software_engineering_term,
-    similar_class_name,
-    bad_association_class_name_spelling,
-    similar_association_class_name,
-    regular_class_should_be_enum,
-    enum_should_be_regular_class,
-    wrong_enum_items,
-
-    # mistakes in an existing attribute
-    bad_attribute_name_spelling,
-    plural_attribute,
-    similar_attribute_name,
-    #attribute_misplaced,
-    wrong_attribute_type,
-    attribute_should_not_be_static,
-    attribute_should_be_static,
-
-    # mistakes in an existing relationship
-    infinite_recursive_dependency,
-    composed_part_contained_in_more_than_one_parent,
-    using_an_attribute_instead_of_an_association,
-    list_attribute,
-    generalization_inapplicable,
-    using_association_instead_of_aggregation_composition,
-    using_aggregation_composition_instead_of_association,
-    using_directed_association_instead_of_undirected,
-    using_undirected_association_instead_of_directed,
-    using_aggregation_instead_of_composition,
-    using_composition_instead_of_aggregation,
-    wrong_generalization_direction,
-    wrong_superclass,
-    subclass_is_an_instance_of_superclass,
-    non_differentiated_subclass,
-    subclass_not_distinct_across_lifetime,
-    inherited_feature_does_not_make_sense_for_subclass,
-    other_wrong_multiplicity,
-    missing_role_names,
-    bad_role_name_spelling,
-    similar_role_name,
-    other_wrong_role_name,
-    role_should_not_be_static,
-    role_should_be_static,
-    bad_association_name_spelling,
-    similar_association_name,
-
-    incomplete_containment_tree,
-
-    # extra items
-    extra_class,
-    extra_association_class,
-    representing_an_action_with_an_association,
-    other_extra_association,
-    #attribute_duplicated,
-    other_extra_attribute,
-
-    # missing items
-    missing_class,
-    missing_attribute,
-    missing_association_class,
-    missing_generalization,
-    missing_composition,
-    missing_association,
-    missing_aggregation,
-    missing_role_names,
-    missing_association_name_when_one_was_expected,
-[ ']' /]
-
-for i, _mt in enumerate(mts_by_priority, start=1):
-    _mt.priority = i
 [/file]
 
 [file ('../../modelingassistant/corpus_descriptions/README_TOC.md', false, 'UTF-8')]

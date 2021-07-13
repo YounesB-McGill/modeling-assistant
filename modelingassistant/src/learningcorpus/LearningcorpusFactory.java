@@ -22,15 +22,6 @@ public interface LearningcorpusFactory extends EFactory {
   LearningcorpusFactory eINSTANCE = learningcorpus.impl.LearningcorpusFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>Uml Element</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Uml Element</em>'.
-   * @generated
-   */
-  UmlElement createUmlElement();
-
-  /**
    * Returns a new object of class '<em>Learning Item</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

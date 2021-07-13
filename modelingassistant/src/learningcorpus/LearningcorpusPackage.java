@@ -5,6 +5,7 @@ package learningcorpus;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -58,52 +59,6 @@ public interface LearningcorpusPackage extends EPackage {
   LearningcorpusPackage eINSTANCE = learningcorpus.impl.LearningcorpusPackageImpl.init();
 
   /**
-   * The meta object id for the '{@link learningcorpus.impl.UmlElementImpl <em>Uml Element</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see learningcorpus.impl.UmlElementImpl
-   * @see learningcorpus.impl.LearningcorpusPackageImpl#getUmlElement()
-   * @generated
-   */
-  int UML_ELEMENT = 0;
-
-  /**
-   * The feature id for the '<em><b>Learning Items</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UML_ELEMENT__LEARNING_ITEMS = 0;
-
-  /**
-   * The feature id for the '<em><b>Learning Corpus</b></em>' container reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UML_ELEMENT__LEARNING_CORPUS = 1;
-
-  /**
-   * The number of structural features of the '<em>Uml Element</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UML_ELEMENT_FEATURE_COUNT = 2;
-
-  /**
-   * The number of operations of the '<em>Uml Element</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UML_ELEMENT_OPERATION_COUNT = 0;
-
-  /**
    * The meta object id for the '{@link learningcorpus.impl.NamedElementImpl <em>Named Element</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -111,7 +66,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getNamedElement()
    * @generated
    */
-  int NAMED_ELEMENT = 12;
+  int NAMED_ELEMENT = 11;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -148,7 +103,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getLearningItem()
    * @generated
    */
-  int LEARNING_ITEM = 1;
+  int LEARNING_ITEM = 0;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -160,22 +115,13 @@ public interface LearningcorpusPackage extends EPackage {
   int LEARNING_ITEM__NAME = NAMED_ELEMENT__NAME;
 
   /**
-   * The feature id for the '<em><b>Uml Elements</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LEARNING_ITEM__UML_ELEMENTS = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
    * The feature id for the '<em><b>Learning Resources</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int LEARNING_ITEM__LEARNING_RESOURCES = NAMED_ELEMENT_FEATURE_COUNT + 1;
+  int LEARNING_ITEM__LEARNING_RESOURCES = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Mistake Types</b></em>' reference list.
@@ -184,7 +130,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int LEARNING_ITEM__MISTAKE_TYPES = NAMED_ELEMENT_FEATURE_COUNT + 2;
+  int LEARNING_ITEM__MISTAKE_TYPES = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -193,7 +139,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int LEARNING_ITEM__DESCRIPTION = NAMED_ELEMENT_FEATURE_COUNT + 3;
+  int LEARNING_ITEM__DESCRIPTION = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Learning Corpus</b></em>' container reference.
@@ -202,7 +148,16 @@ public interface LearningcorpusPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int LEARNING_ITEM__LEARNING_CORPUS = NAMED_ELEMENT_FEATURE_COUNT + 4;
+  int LEARNING_ITEM__LEARNING_CORPUS = NAMED_ELEMENT_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Element Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LEARNING_ITEM__ELEMENT_TYPE = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Learning Item</em>' class.
@@ -230,7 +185,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getMistakeType()
    * @generated
    */
-  int MISTAKE_TYPE = 2;
+  int MISTAKE_TYPE = 1;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -330,7 +285,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getFeedback()
    * @generated
    */
-  int FEEDBACK = 3;
+  int FEEDBACK = 2;
 
   /**
    * The feature id for the '<em><b>Level</b></em>' attribute.
@@ -430,7 +385,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getTextResponse()
    * @generated
    */
-  int TEXT_RESPONSE = 4;
+  int TEXT_RESPONSE = 3;
 
   /**
    * The feature id for the '<em><b>Level</b></em>' attribute.
@@ -530,7 +485,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getParametrizedResponse()
    * @generated
    */
-  int PARAMETRIZED_RESPONSE = 5;
+  int PARAMETRIZED_RESPONSE = 4;
 
   /**
    * The feature id for the '<em><b>Level</b></em>' attribute.
@@ -630,7 +585,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getResourceResponse()
    * @generated
    */
-  int RESOURCE_RESPONSE = 6;
+  int RESOURCE_RESPONSE = 5;
 
   /**
    * The feature id for the '<em><b>Level</b></em>' attribute.
@@ -739,7 +694,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getLearningResource()
    * @generated
    */
-  int LEARNING_RESOURCE = 7;
+  int LEARNING_RESOURCE = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -812,7 +767,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getReference()
    * @generated
    */
-  int REFERENCE = 8;
+  int REFERENCE = 7;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -885,7 +840,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getTutorial()
    * @generated
    */
-  int TUTORIAL = 9;
+  int TUTORIAL = 8;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -958,7 +913,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getExample()
    * @generated
    */
-  int EXAMPLE = 10;
+  int EXAMPLE = 9;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1031,7 +986,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getQuiz()
    * @generated
    */
-  int QUIZ = 11;
+  int QUIZ = 10;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1104,7 +1059,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getMistakeTypeCategory()
    * @generated
    */
-  int MISTAKE_TYPE_CATEGORY = 13;
+  int MISTAKE_TYPE_CATEGORY = 12;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1177,7 +1132,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getLearningCorpus()
    * @generated
    */
-  int LEARNING_CORPUS = 14;
+  int LEARNING_CORPUS = 13;
 
   /**
    * The feature id for the '<em><b>Mistake Type Categories</b></em>' containment reference list.
@@ -1216,22 +1171,13 @@ public interface LearningcorpusPackage extends EPackage {
   int LEARNING_CORPUS__LEARNING_RESOURCES = 3;
 
   /**
-   * The feature id for the '<em><b>Uml Elements</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LEARNING_CORPUS__UML_ELEMENTS = 4;
-
-  /**
    * The number of structural features of the '<em>Learning Corpus</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int LEARNING_CORPUS_FEATURE_COUNT = 5;
+  int LEARNING_CORPUS_FEATURE_COUNT = 4;
 
   /**
    * The number of operations of the '<em>Learning Corpus</em>' class.
@@ -1241,6 +1187,16 @@ public interface LearningcorpusPackage extends EPackage {
    * @ordered
    */
   int LEARNING_CORPUS_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link learningcorpus.ElementType <em>Element Type</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see learningcorpus.ElementType
+   * @see learningcorpus.impl.LearningcorpusPackageImpl#getElementType()
+   * @generated
+   */
+  int ELEMENT_TYPE = 14;
 
   /**
    * The meta object id for the '<em>Time</em>' data type.
@@ -1254,38 +1210,6 @@ public interface LearningcorpusPackage extends EPackage {
 
 
   /**
-   * Returns the meta object for class '{@link learningcorpus.UmlElement <em>Uml Element</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Uml Element</em>'.
-   * @see learningcorpus.UmlElement
-   * @generated
-   */
-  EClass getUmlElement();
-
-  /**
-   * Returns the meta object for the reference list '{@link learningcorpus.UmlElement#getLearningItems <em>Learning Items</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Learning Items</em>'.
-   * @see learningcorpus.UmlElement#getLearningItems()
-   * @see #getUmlElement()
-   * @generated
-   */
-  EReference getUmlElement_LearningItems();
-
-  /**
-   * Returns the meta object for the container reference '{@link learningcorpus.UmlElement#getLearningCorpus <em>Learning Corpus</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the container reference '<em>Learning Corpus</em>'.
-   * @see learningcorpus.UmlElement#getLearningCorpus()
-   * @see #getUmlElement()
-   * @generated
-   */
-  EReference getUmlElement_LearningCorpus();
-
-  /**
    * Returns the meta object for class '{@link learningcorpus.LearningItem <em>Learning Item</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1294,17 +1218,6 @@ public interface LearningcorpusPackage extends EPackage {
    * @generated
    */
   EClass getLearningItem();
-
-  /**
-   * Returns the meta object for the reference list '{@link learningcorpus.LearningItem#getUmlElements <em>Uml Elements</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Uml Elements</em>'.
-   * @see learningcorpus.LearningItem#getUmlElements()
-   * @see #getLearningItem()
-   * @generated
-   */
-  EReference getLearningItem_UmlElements();
 
   /**
    * Returns the meta object for the reference list '{@link learningcorpus.LearningItem#getLearningResources <em>Learning Resources</em>}'.
@@ -1349,6 +1262,17 @@ public interface LearningcorpusPackage extends EPackage {
    * @generated
    */
   EReference getLearningItem_LearningCorpus();
+
+  /**
+   * Returns the meta object for the attribute '{@link learningcorpus.LearningItem#getElementType <em>Element Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Element Type</em>'.
+   * @see learningcorpus.LearningItem#getElementType()
+   * @see #getLearningItem()
+   * @generated
+   */
+  EAttribute getLearningItem_ElementType();
 
   /**
    * Returns the meta object for class '{@link learningcorpus.MistakeType <em>Mistake Type</em>}'.
@@ -1800,15 +1724,14 @@ public interface LearningcorpusPackage extends EPackage {
   EReference getLearningCorpus_LearningResources();
 
   /**
-   * Returns the meta object for the containment reference '{@link learningcorpus.LearningCorpus#getUmlElements <em>Uml Elements</em>}'.
+   * Returns the meta object for enum '{@link learningcorpus.ElementType <em>Element Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Uml Elements</em>'.
-   * @see learningcorpus.LearningCorpus#getUmlElements()
-   * @see #getLearningCorpus()
+   * @return the meta object for enum '<em>Element Type</em>'.
+   * @see learningcorpus.ElementType
    * @generated
    */
-  EReference getLearningCorpus_UmlElements();
+  EEnum getElementType();
 
   /**
    * Returns the meta object for data type '{@link java.sql.Time <em>Time</em>}'.
@@ -1845,32 +1768,6 @@ public interface LearningcorpusPackage extends EPackage {
    */
   interface Literals {
     /**
-     * The meta object literal for the '{@link learningcorpus.impl.UmlElementImpl <em>Uml Element</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see learningcorpus.impl.UmlElementImpl
-     * @see learningcorpus.impl.LearningcorpusPackageImpl#getUmlElement()
-     * @generated
-     */
-    EClass UML_ELEMENT = eINSTANCE.getUmlElement();
-
-    /**
-     * The meta object literal for the '<em><b>Learning Items</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference UML_ELEMENT__LEARNING_ITEMS = eINSTANCE.getUmlElement_LearningItems();
-
-    /**
-     * The meta object literal for the '<em><b>Learning Corpus</b></em>' container reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference UML_ELEMENT__LEARNING_CORPUS = eINSTANCE.getUmlElement_LearningCorpus();
-
-    /**
      * The meta object literal for the '{@link learningcorpus.impl.LearningItemImpl <em>Learning Item</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1879,14 +1776,6 @@ public interface LearningcorpusPackage extends EPackage {
      * @generated
      */
     EClass LEARNING_ITEM = eINSTANCE.getLearningItem();
-
-    /**
-     * The meta object literal for the '<em><b>Uml Elements</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference LEARNING_ITEM__UML_ELEMENTS = eINSTANCE.getLearningItem_UmlElements();
 
     /**
      * The meta object literal for the '<em><b>Learning Resources</b></em>' reference list feature.
@@ -1919,6 +1808,14 @@ public interface LearningcorpusPackage extends EPackage {
      * @generated
      */
     EReference LEARNING_ITEM__LEARNING_CORPUS = eINSTANCE.getLearningItem_LearningCorpus();
+
+    /**
+     * The meta object literal for the '<em><b>Element Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute LEARNING_ITEM__ELEMENT_TYPE = eINSTANCE.getLearningItem_ElementType();
 
     /**
      * The meta object literal for the '{@link learningcorpus.impl.MistakeTypeImpl <em>Mistake Type</em>}' class.
@@ -2283,12 +2180,14 @@ public interface LearningcorpusPackage extends EPackage {
     EReference LEARNING_CORPUS__LEARNING_RESOURCES = eINSTANCE.getLearningCorpus_LearningResources();
 
     /**
-     * The meta object literal for the '<em><b>Uml Elements</b></em>' containment reference feature.
+     * The meta object literal for the '{@link learningcorpus.ElementType <em>Element Type</em>}' enum.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @see learningcorpus.ElementType
+     * @see learningcorpus.impl.LearningcorpusPackageImpl#getElementType()
      * @generated
      */
-    EReference LEARNING_CORPUS__UML_ELEMENTS = eINSTANCE.getLearningCorpus_UmlElements();
+    EEnum ELEMENT_TYPE = eINSTANCE.getElementType();
 
     /**
      * The meta object literal for the '<em>Time</em>' data type.

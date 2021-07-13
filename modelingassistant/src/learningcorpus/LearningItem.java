@@ -13,11 +13,11 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link learningcorpus.LearningItem#getUmlElements <em>Uml Elements</em>}</li>
  *   <li>{@link learningcorpus.LearningItem#getLearningResources <em>Learning Resources</em>}</li>
  *   <li>{@link learningcorpus.LearningItem#getMistakeTypes <em>Mistake Types</em>}</li>
  *   <li>{@link learningcorpus.LearningItem#getDescription <em>Description</em>}</li>
  *   <li>{@link learningcorpus.LearningItem#getLearningCorpus <em>Learning Corpus</em>}</li>
+ *   <li>{@link learningcorpus.LearningItem#getElementType <em>Element Type</em>}</li>
  * </ul>
  *
  * @see learningcorpus.LearningcorpusPackage#getLearningItem()
@@ -25,20 +25,6 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface LearningItem extends NamedElement {
-  /**
-   * Returns the value of the '<em><b>Uml Elements</b></em>' reference list.
-   * The list contents are of type {@link learningcorpus.UmlElement}.
-   * It is bidirectional and its opposite is '{@link learningcorpus.UmlElement#getLearningItems <em>Learning Items</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Uml Elements</em>' reference list.
-   * @see learningcorpus.LearningcorpusPackage#getLearningItem_UmlElements()
-   * @see learningcorpus.UmlElement#getLearningItems
-   * @model opposite="learningItems"
-   * @generated
-   */
-  EList<UmlElement> getUmlElements();
-
   /**
    * Returns the value of the '<em><b>Learning Resources</b></em>' reference list.
    * The list contents are of type {@link learningcorpus.LearningResource}.
@@ -112,5 +98,30 @@ public interface LearningItem extends NamedElement {
    * @generated
    */
   void setLearningCorpus(LearningCorpus value);
+
+  /**
+   * Returns the value of the '<em><b>Element Type</b></em>' attribute.
+   * The literals are from the enumeration {@link learningcorpus.ElementType}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Element Type</em>' attribute.
+   * @see learningcorpus.ElementType
+   * @see #setElementType(ElementType)
+   * @see learningcorpus.LearningcorpusPackage#getLearningItem_ElementType()
+   * @model
+   * @generated
+   */
+  ElementType getElementType();
+
+  /**
+   * Sets the value of the '{@link learningcorpus.LearningItem#getElementType <em>Element Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Element Type</em>' attribute.
+   * @see learningcorpus.ElementType
+   * @see #getElementType()
+   * @generated
+   */
+  void setElementType(ElementType value);
 
 } // LearningItem

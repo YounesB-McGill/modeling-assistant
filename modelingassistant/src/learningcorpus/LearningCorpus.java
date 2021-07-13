@@ -24,7 +24,6 @@ import learningcorpus.util.LearningcorpusResourceFactoryImpl;
  *   <li>{@link learningcorpus.LearningCorpus#getFeedbacks <em>Feedbacks</em>}</li>
  *   <li>{@link learningcorpus.LearningCorpus#getLearningItems <em>Learning Items</em>}</li>
  *   <li>{@link learningcorpus.LearningCorpus#getLearningResources <em>Learning Resources</em>}</li>
- *   <li>{@link learningcorpus.LearningCorpus#getUmlElements <em>Uml Elements</em>}</li>
  * </ul>
  *
  * @see learningcorpus.LearningcorpusPackage#getLearningCorpus()
@@ -107,29 +106,6 @@ public interface LearningCorpus extends EObject {
    * @generated
    */
   EList<LearningResource> getLearningResources();
-
-  /**
-   * Returns the value of the '<em><b>Uml Elements</b></em>' containment reference.
-   * It is bidirectional and its opposite is '{@link learningcorpus.UmlElement#getLearningCorpus <em>Learning Corpus</em>}'.
-   * <!-- begin-user-doc --> <!--
-   * end-user-doc -->
-   * @return the value of the '<em>Uml Elements</em>' containment reference.
-   * @see #setUmlElements(UmlElement)
-   * @see learningcorpus.LearningcorpusPackage#getLearningCorpus_UmlElements()
-   * @see learningcorpus.UmlElement#getLearningCorpus
-   * @model opposite="learningCorpus" containment="true"
-   * @generated
-   */
-  UmlElement getUmlElements();
-
-  /**
-   * Sets the value of the '{@link learningcorpus.LearningCorpus#getUmlElements <em>Uml Elements</em>}' containment reference.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * @param value the new value of the '<em>Uml Elements</em>' containment reference.
-   * @see #getUmlElements()
-   * @generated
-   */
-  void setUmlElements(UmlElement value);
 
   /**
    * Returns the learning corpus at the given *.learningcorpus file.

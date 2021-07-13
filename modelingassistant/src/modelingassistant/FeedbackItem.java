@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link modelingassistant.FeedbackItem#getUsefulness <em>Usefulness</em>}</li>
  *   <li>{@link modelingassistant.FeedbackItem#getFeedback <em>Feedback</em>}</li>
  *   <li>{@link modelingassistant.FeedbackItem#getSolution <em>Solution</em>}</li>
+ *   <li>{@link modelingassistant.FeedbackItem#getText <em>Text</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getFeedbackItem()
@@ -117,5 +118,27 @@ public interface FeedbackItem extends EObject {
    * @generated
    */
   void setSolution(Solution value);
+
+  /**
+   * Returns the value of the '<em><b>Text</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Text</em>' attribute.
+   * @see #setText(String)
+   * @see modelingassistant.ModelingassistantPackage#getFeedbackItem_Text()
+   * @model
+   * @generated
+   */
+  String getText();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.FeedbackItem#getText <em>Text</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Text</em>' attribute.
+   * @see #getText()
+   * @generated
+   */
+  void setText(String value);
 
 } // FeedbackItem

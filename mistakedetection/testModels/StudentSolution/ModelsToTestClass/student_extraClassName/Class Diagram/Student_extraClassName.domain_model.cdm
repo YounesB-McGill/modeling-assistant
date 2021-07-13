@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_35pQINU0EeuFMMUkfEciKA" name="Student_extraClassName">
-  <classes xsi:type="classdiagram:Class" xmi:id="_4bDUENU0EeuFMMUkfEciKA" name="Bus"/>
-  <classes xsi:type="classdiagram:Class" xmi:id="_5uMW8NU0EeuFMMUkfEciKA" name="Driver"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_4bDUENU0EeuFMMUkfEciKA" name="Bus">
+    <associationEnds xmi:id="_nwe8EN23EeuVoonRXmsiAQ" name="myRoot" assoc="_nwfjId23EeuVoonRXmsiAQ" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_5uMW8NU0EeuFMMUkfEciKA" name="Driver">
+    <associationEnds xmi:id="_obuRcN23EeuVoonRXmsiAQ" name="myRoot" assoc="_obuRct23EeuVoonRXmsiAQ" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_ma-hsN23EeuVoonRXmsiAQ" name="Root">
+    <associationEnds xmi:id="_nwfjIN23EeuVoonRXmsiAQ" name="myBus" assoc="_nwfjId23EeuVoonRXmsiAQ" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_obuRcd23EeuVoonRXmsiAQ" name="myDriver" assoc="_obuRct23EeuVoonRXmsiAQ" lowerBound="1" referenceType="Composition"/>
+  </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_35p3MNU0EeuFMMUkfEciKA"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_35p3MdU0EeuFMMUkfEciKA"/>
   <types xsi:type="classdiagram:CDBoolean" xmi:id="_35p3MtU0EeuFMMUkfEciKA"/>
@@ -12,13 +20,18 @@
   <types xsi:type="classdiagram:CDByte" xmi:id="_35p3N9U0EeuFMMUkfEciKA"/>
   <types xsi:type="classdiagram:CDFloat" xmi:id="_35p3ONU0EeuFMMUkfEciKA"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_35p3OdU0EeuFMMUkfEciKA"/>
+  <associations xmi:id="_nwfjId23EeuVoonRXmsiAQ" name="Bus_Root" ends="_nwe8EN23EeuVoonRXmsiAQ _nwfjIN23EeuVoonRXmsiAQ"/>
+  <associations xmi:id="_obuRct23EeuVoonRXmsiAQ" name="Driver_Root" ends="_obuRcN23EeuVoonRXmsiAQ _obuRcd23EeuVoonRXmsiAQ"/>
   <layout xmi:id="_35p3OtU0EeuFMMUkfEciKA">
     <containers xmi:id="_35p3O9U0EeuFMMUkfEciKA" key="_35pQINU0EeuFMMUkfEciKA">
       <value xmi:id="_4eFZ8NU0EeuFMMUkfEciKA" key="_4bDUENU0EeuFMMUkfEciKA">
-        <value xmi:id="_4eFZ8dU0EeuFMMUkfEciKA" x="937.0" y="100.0"/>
+        <value xmi:id="_4eFZ8dU0EeuFMMUkfEciKA" x="937.08984" y="200.00012"/>
       </value>
       <value xmi:id="_5uRPcNU0EeuFMMUkfEciKA" key="_5uMW8NU0EeuFMMUkfEciKA">
-        <value xmi:id="_5uRPcdU0EeuFMMUkfEciKA" x="1015.0001" y="295.9998"/>
+        <value xmi:id="_5uRPcdU0EeuFMMUkfEciKA" x="937.0" y="400.99997"/>
+      </value>
+      <value xmi:id="_ma_IwN23EeuVoonRXmsiAQ" key="_ma-hsN23EeuVoonRXmsiAQ">
+        <value xmi:id="_ma_Iwd23EeuVoonRXmsiAQ" x="471.99994" y="303.00006"/>
       </value>
     </containers>
   </layout>

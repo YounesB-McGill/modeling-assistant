@@ -45,34 +45,12 @@ public class LearningItemItemProvider extends NamedElementItemProvider {
     if (itemPropertyDescriptors == null) {
       super.getPropertyDescriptors(object);
 
-      addUmlElementsPropertyDescriptor(object);
       addLearningResourcesPropertyDescriptor(object);
       addMistakeTypesPropertyDescriptor(object);
       addDescriptionPropertyDescriptor(object);
+      addElementTypePropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
-  }
-
-  /**
-   * This adds a property descriptor for the Uml Elements feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addUmlElementsPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_LearningItem_umlElements_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_LearningItem_umlElements_feature", "_UI_LearningItem_type"),
-         LearningcorpusPackage.Literals.LEARNING_ITEM__UML_ELEMENTS,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
   }
 
   /**
@@ -142,6 +120,28 @@ public class LearningItemItemProvider extends NamedElementItemProvider {
   }
 
   /**
+   * This adds a property descriptor for the Element Type feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addElementTypePropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_LearningItem_elementType_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_LearningItem_elementType_feature", "_UI_LearningItem_type"),
+         LearningcorpusPackage.Literals.LEARNING_ITEM__ELEMENT_TYPE,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This returns LearningItem.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -180,6 +180,7 @@ public class LearningItemItemProvider extends NamedElementItemProvider {
 
     switch (notification.getFeatureID(LearningItem.class)) {
       case LearningcorpusPackage.LEARNING_ITEM__DESCRIPTION:
+      case LearningcorpusPackage.LEARNING_ITEM__ELEMENT_TYPE:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }

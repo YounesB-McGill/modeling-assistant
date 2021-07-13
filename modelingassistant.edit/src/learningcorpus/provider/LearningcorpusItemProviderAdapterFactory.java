@@ -72,29 +72,6 @@ public class LearningcorpusItemProviderAdapterFactory extends LearningcorpusAdap
   }
 
   /**
-   * This keeps track of the one adapter used for all {@link learningcorpus.UmlElement} instances.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected UmlElementItemProvider umlElementItemProvider;
-
-  /**
-   * This creates an adapter for a {@link learningcorpus.UmlElement}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Adapter createUmlElementAdapter() {
-    if (umlElementItemProvider == null) {
-      umlElementItemProvider = new UmlElementItemProvider(this);
-    }
-
-    return umlElementItemProvider;
-  }
-
-  /**
    * This keeps track of the one adapter used for all {@link learningcorpus.LearningItem} instances.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -498,7 +475,6 @@ public class LearningcorpusItemProviderAdapterFactory extends LearningcorpusAdap
    */
   @Override
   public void dispose() {
-    if (umlElementItemProvider != null) umlElementItemProvider.dispose();
     if (learningItemItemProvider != null) learningItemItemProvider.dispose();
     if (mistakeTypeItemProvider != null) mistakeTypeItemProvider.dispose();
     if (feedbackItemProvider != null) feedbackItemProvider.dispose();

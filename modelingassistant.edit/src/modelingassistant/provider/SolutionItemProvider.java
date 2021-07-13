@@ -64,9 +64,9 @@ public class SolutionItemProvider
 
       addStudentPropertyDescriptor(object);
       addClassDiagramPropertyDescriptor(object);
-      addCurrentMistakePropertyDescriptor(object);
       addProblemStatementPropertyDescriptor(object);
       addFeedbackItemsPropertyDescriptor(object);
+      addCurrentMistakePropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
