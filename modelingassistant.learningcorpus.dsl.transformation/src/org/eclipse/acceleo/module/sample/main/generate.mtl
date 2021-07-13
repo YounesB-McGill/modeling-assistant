@@ -129,10 +129,10 @@ public class MistakeTypes {
 This file contains all mistake types and categories.
 """
 
+from constants import LEARNING_CORPUS_PATH
 from fileserdes import load_lc
 from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
 
-LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/default.learningcorpus"
 corpus = load_lc(LEARNING_CORPUS_PATH)
 
 # Populate dictionaries
@@ -181,31 +181,6 @@ _dynamic_mt_type = type(list(_MTS.values())[ '[' /]0[ ']' /])
 [/let]
 [/let]
 [/for]
-
-
-# deprecated: this function will be removed soon
-def _make_static():
-    """
-    Make the mistake types and categories have static types from the generated code instead of
-    dynamic pyecore types.
-    """
-    global _MTCS, _MTS
-    for mtc in _MTCS.values(): mtc.__class__ = MistakeTypeCategory
-    for mt in _MTS.values(): mt.__class__ = MistakeType
-
-
-# deprecated: this function will be removed soon
-def _make_dynamic():
-    """
-    Make the mistake types and categories have dynamic pyecore types, the default if
-    `_make_static()` is not called.
-    """
-    global _MTCS, _MTS, _dynamic_mtc_type, _dynamic_mt_type
-    for mtc in _MTCS.values(): mtc.__class__ = _dynamic_mtc_type
-    for mt in _MTS.values(): mt.__class__ = _dynamic_mt_type
-
-
-#_make_static()
 [/file]
 
 [file ('../../modelingassistant/corpus_descriptions/README_TOC.md', false, 'UTF-8')]

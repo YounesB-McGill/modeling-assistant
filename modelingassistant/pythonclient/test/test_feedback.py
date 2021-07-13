@@ -234,29 +234,27 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     ma_str = resource.save_to_string().decode()
     assert ma_str
 
-    old_ma_str = ma_str
-
     # TODO Automatically turn on server if not already running
     # assume for now that MA MDS Java server is ON
     req = requests.get("http://localhost:8539/detectmistakes", {"modelingassistant": ma_str})
+    req_content = json.loads(req.content)
     assert 200 == req.status_code
+    assert "modelingAssistantXmi" in req_content
 
-    new_ma_str = json.loads(req.content)['modelingAssistantXmi']
-
-    import difflib
-    html = difflib.HtmlDiff()
-    with open("html_diff.html", "w") as f:
-        f.write(html.make_file(old_ma_str.split("\n"), new_ma_str.split("\n")))
-
-    #exit()
-
-    ma_str = bytes(json.loads(req.content)['modelingAssistantXmi'], "utf-8")
+    ma_str = bytes(req_content["modelingAssistantXmi"], "utf-8")
     resource = SRSET.get_string_resource(ma_str)
     ma: ModelingAssistant = resource.contents[0]
     ma.__class__ = ModelingAssistant
-    assert ma.problemStatements[0]
+    assert ma
+    assert bus_ps.name == ma.problemStatements[0].name
 
-    print(ma_str.decode())
+    bus_ps = ma.problemStatements[0]
+    assert bob.name == bus_ps.studentSolutions[0].student.name
+    assert bus_ps.studentSolutions[0].mistakes
+
+    assert BAD_CLASS_NAME_SPELLING == bus_ps.studentSolutions[0].mistakes[0].mistakeType
+
+    print(bus_ps.studentSolutions[0].mistakes)
 
     # TODO To be continued...
 
