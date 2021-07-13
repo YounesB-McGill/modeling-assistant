@@ -640,7 +640,6 @@ public class MistakeDetectionPatternTest {
       assertMistakeConditional(m, ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1,
           false);
     }
-    MistakeDetectionTest.log(comparison);
   }
 
   /**
