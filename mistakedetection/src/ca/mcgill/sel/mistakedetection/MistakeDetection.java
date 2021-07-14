@@ -303,7 +303,8 @@ public class MistakeDetection {
     }
   }
 
-  private static void checkStudentEnumPattern(TagGroup tg, Comparison comparison, String instPattern, Solution studentSolution) {
+  private static void checkStudentEnumPattern(TagGroup tg, Comparison comparison, String instPattern,
+      Solution studentSolution) {
     int totalMatchesExpected = 1;
     int totalMatched = 0;
     EList<NamedElement> studentMatchedElements = new BasicEList<NamedElement>();
@@ -338,12 +339,13 @@ public class MistakeDetection {
       checkMistakeIncompletePattern(tg, studentMatchedElements, comparison);
       return;
     }
-    if(studentPlayerClass != null) {
-    checkOtherPattern(tg, comparison, instPattern, studentSolution);
+    if (studentPlayerClass != null) {
+      checkOtherPattern(tg, comparison, instPattern, studentSolution);
     }
   }
 
-  private static void checkStudentAssocPattern(TagGroup tg, Comparison comparison, String instPattern, Solution studentSolution) {
+  private static void checkStudentAssocPattern(TagGroup tg, Comparison comparison, String instPattern,
+      Solution studentSolution) {
     int totalMatcheExpected = tg.getTags().size();
     int totalMatched = 0;
     EList<String> studentRoleAssocEnd = new BasicEList<String>();
@@ -377,10 +379,10 @@ public class MistakeDetection {
       checkMistakeIncompletePattern(tg, studentMatchedElements, comparison);
       return;
     }
-    if(studentPlayerClass != null) {
-    checkOtherPattern(tg, comparison, instPattern, studentSolution);
+    if (studentPlayerClass != null) {
+      checkOtherPattern(tg, comparison, instPattern, studentSolution);
     }
-    }
+  }
 
   /**
    * Checks if associations are linked to player class.
@@ -396,7 +398,8 @@ public class MistakeDetection {
     return count == studentRoleAssocEnd.size();
   }
 
-  private static void checkStudentFullPattern(TagGroup tg, Comparison comparison, String instPattern, Solution studentSolution) {
+  private static void checkStudentFullPattern(TagGroup tg, Comparison comparison, String instPattern,
+      Solution studentSolution) {
     int totalMatcheExpected = tg.getTags().size();
     int totalMatched = 0;
     EList<Classifier> studentRoleClasses = new BasicEList<Classifier>();
@@ -416,11 +419,11 @@ public class MistakeDetection {
         studentMatchedElements.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
       }
     }
-    if (studentRoleClasses.isEmpty() && studentPlayerClass!=null) {
+    if (studentRoleClasses.isEmpty() && studentPlayerClass != null) {
       checkOtherPattern(tg, comparison, instPattern, studentSolution);
       return;
     }
-    if (studentRoleClasses.get(0).getSuperTypes().isEmpty() && studentPlayerClass!=null) {
+    if (studentRoleClasses.get(0).getSuperTypes().isEmpty() && studentPlayerClass != null) {
       checkOtherPattern(tg, comparison, instPattern, studentSolution);
       return;
     }
@@ -449,12 +452,13 @@ public class MistakeDetection {
       checkMistakeIncompletePattern(tg, studentMatchedElements, comparison);
       return;
     }
-    if(studentPlayerClass != null) {
-    checkOtherPattern(tg, comparison, instPattern, studentSolution);
+    if (studentPlayerClass != null) {
+      checkOtherPattern(tg, comparison, instPattern, studentSolution);
     }
   }
 
-  private static void checkStudentSubclassPattern(TagGroup tg, Comparison comparison, String instPattern, Solution studentSolution) {
+  private static void checkStudentSubclassPattern(TagGroup tg, Comparison comparison, String instPattern,
+      Solution studentSolution) {
     int totalMatcheExpected = tg.getTags().size();
     int totalMatched = 0;
     EList<Classifier> studentRoleClasses = new BasicEList<Classifier>();
@@ -490,12 +494,13 @@ public class MistakeDetection {
       checkMistakeIncompletePattern(tg, studentMatchedElements, comparison);
       return;
     }
-    if(studentPlayerClass != null) {
-    checkOtherPattern(tg, comparison, instPattern, studentSolution);
+    if (studentPlayerClass != null) {
+      checkOtherPattern(tg, comparison, instPattern, studentSolution);
     }
   }
 
-  private static void checkOtherPattern(TagGroup tg, Comparison comparison, String instPattern, Solution studentSolution) {
+  private static void checkOtherPattern(TagGroup tg, Comparison comparison, String instPattern,
+      Solution studentSolution) {
     int studentSubclassesPatternScore = 0;
     int studentEnumsPatternScore = 0;
     int studentFullPatternScore = 0;
@@ -529,7 +534,8 @@ public class MistakeDetection {
         }
       }
       for (Classifier studClass : studentClassDiagram.getClasses()) {
-        if (studClass.getName().toLowerCase().equals(tag.getSolutionElement().getElement().getName().toLowerCase()) && !studSubclassElements.contains(studClass)) {
+        if (studClass.getName().toLowerCase().equals(tag.getSolutionElement().getElement().getName().toLowerCase())
+            && !studSubclassElements.contains(studClass)) {
           if (tag.getTagType().equals(PLAYER)) {
             if (!comparison.mappedClassifier.containsKey(tag.getSolutionElement().getElement())) {
               studPlayerClass = studClass;
@@ -547,7 +553,7 @@ public class MistakeDetection {
         for (AssociationEnd studAssocEnd : studAssoc.getEnds()) {
           var levenshteinDistance = levenshteinDistance(studAssocEnd.getName().toLowerCase(),
               tag.getSolutionElement().getElement().getName().toLowerCase());
-          if (levenshteinDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED && !studAssocElements.contains(studAssocEnd)){
+          if (levenshteinDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED && !studAssocElements.contains(studAssocEnd)) {
             studentAssocPatternScore += 1;
             studRoleAssocEndName.add(studAssocEnd.getName());
             studAssocElements.add(studAssocEnd);
@@ -590,7 +596,7 @@ public class MistakeDetection {
           for (AssociationEnd studAssocEnd : studAssoc.getEnds()) {
             var levenshteinDistance =
                 levenshteinDistance(studAssocEnd.getName().toLowerCase(), enumLiteralName.toLowerCase());
-            if (levenshteinDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED  && !studAssocElements.contains(studAssocEnd)) {
+            if (levenshteinDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED && !studAssocElements.contains(studAssocEnd)) {
               studentAssocPatternScore += 1;
               studRoleAssocEndName.add(studAssocEnd.getName());
               studAssocElements.add(studAssocEnd);
@@ -995,25 +1001,21 @@ public class MistakeDetection {
     EList<Mistake> newMistakesProcessed = new BasicEList<Mistake>();
     EList<Mistake> newMistakesToRemove = new BasicEList<Mistake>();
     EList<MistakeType> patternMistakeTypes = new BasicEList<MistakeType>();
-    patternMistakeTypes.addAll(List.of(ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN,
-     ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN,
-     ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN,
-     ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN,
-     ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN,
-     ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN,
-     FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION,
-     FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM,
-     FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS,
-     SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN,
-     SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN,
-     INCOMPLETE_PLAYER_ROLE_PATTERN));
+    patternMistakeTypes
+        .addAll(List.of(ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN,
+            ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN,
+            ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN,
+            FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM,
+            FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS, SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN,
+            SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, INCOMPLETE_PLAYER_ROLE_PATTERN));
 
     // Condition when only new mistakes exists.
     if (existingMistakes.size() == 0 && newMistakes.size() != 0) {
-      if(mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
+      if (mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
         var patternStudentElementNames = getPatternStudentElementNames(newMistakes, patternMistakeTypes);
         for (Mistake newMistake : newMistakes) {
-          if(!newMistake.getStudentElements().isEmpty() &&  !patternMistakeTypes.contains(newMistake.getMistakeType()) && patternStudentElementNames.contains(newMistake.getStudentElements().get(0).getElement().getName())) {
+          if (!newMistake.getStudentElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
+              && patternStudentElementNames.contains(newMistake.getStudentElements().get(0).getElement().getName())) {
             newMistakesToRemove.add(newMistake);
             continue;
           }
@@ -1021,11 +1023,11 @@ public class MistakeDetection {
           newMistake.setSolution(studentSolution);
         }
         newMistakes.removeAll(newMistakesToRemove);
-      }else {
-      for (Mistake newMistake : newMistakes) {
-        setMistakeProperties(newMistake, false, 1, 0);
-        newMistake.setSolution(studentSolution);
-      }
+      } else {
+        for (Mistake newMistake : newMistakes) {
+          setMistakeProperties(newMistake, false, 1, 0);
+          newMistake.setSolution(studentSolution);
+        }
       }
     } else if (!existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
       for (Mistake existingMistake : existingMistakes) {
@@ -1090,11 +1092,12 @@ public class MistakeDetection {
   }
 
   // Returns student solution elements for a pattern.
-  private static EList<String>  getPatternStudentElementNames(EList<Mistake> newMistakes, EList<MistakeType> patternMistakeTypes) {
+  private static EList<String> getPatternStudentElementNames(EList<Mistake> newMistakes,
+      EList<MistakeType> patternMistakeTypes) {
     EList<String> patternSolutionElements = new BasicEList<String>();
     for (Mistake m : newMistakes) {
-      if(patternMistakeTypes.contains(m.getMistakeType())) {
-        for(SolutionElement s : m.getStudentElements()) {
+      if (patternMistakeTypes.contains(m.getMistakeType())) {
+        for (SolutionElement s : m.getStudentElements()) {
           patternSolutionElements.add(s.getElement().getName());
         }
       }
@@ -1105,7 +1108,7 @@ public class MistakeDetection {
   // Checks if mistake Type related to patterns exists in detected mistakes.
   private static boolean mistakesInvolvePattern(EList<Mistake> newMistakes, EList<MistakeType> patternMistakeTypes) {
     for (Mistake m : newMistakes) {
-      if(patternMistakeTypes.contains(m.getMistakeType())) {
+      if (patternMistakeTypes.contains(m.getMistakeType())) {
         return true;
       }
     }
