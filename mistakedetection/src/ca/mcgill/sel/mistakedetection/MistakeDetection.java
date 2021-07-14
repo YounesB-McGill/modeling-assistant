@@ -991,15 +991,41 @@ public class MistakeDetection {
 
     // List containing existing mistakes that are equal to newMistakes
     EList<Mistake> existingMistakesProcessed = new BasicEList<Mistake>();
-
     // List containing new mistakes that are already present in a solution (i.e existingMistakes)
     EList<Mistake> newMistakesProcessed = new BasicEList<Mistake>();
+    EList<Mistake> newMistakesToRemove = new BasicEList<Mistake>();
+    EList<MistakeType> patternMistakeTypes = new BasicEList<MistakeType>();
+    patternMistakeTypes.addAll(List.of(ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN,
+     ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN,
+     ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN,
+     ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN,
+     ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN,
+     ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN,
+     FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION,
+     FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM,
+     FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS,
+     SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN,
+     SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN,
+     INCOMPLETE_PLAYER_ROLE_PATTERN));
 
     // Condition when only new mistakes exists.
     if (existingMistakes.size() == 0 && newMistakes.size() != 0) {
+      if(mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
+        var patternStudentElementNames = getPatternStudentElementNames(newMistakes, patternMistakeTypes);
+        for (Mistake newMistake : newMistakes) {
+          if(!newMistake.getStudentElements().isEmpty() &&  !patternMistakeTypes.contains(newMistake.getMistakeType()) && patternStudentElementNames.contains(newMistake.getStudentElements().get(0).getElement().getName())) {
+            newMistakesToRemove.add(newMistake);
+            continue;
+          }
+          setMistakeProperties(newMistake, false, 1, 0);
+          newMistake.setSolution(studentSolution);
+        }
+        newMistakes.removeAll(newMistakesToRemove);
+      }else {
       for (Mistake newMistake : newMistakes) {
         setMistakeProperties(newMistake, false, 1, 0);
         newMistake.setSolution(studentSolution);
+      }
       }
     } else if (!existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
       for (Mistake existingMistake : existingMistakes) {
@@ -1061,6 +1087,29 @@ public class MistakeDetection {
       }
     }
 
+  }
+
+  // Returns student solution elements for a pattern.
+  private static EList<String>  getPatternStudentElementNames(EList<Mistake> newMistakes, EList<MistakeType> patternMistakeTypes) {
+    EList<String> patternSolutionElements = new BasicEList<String>();
+    for (Mistake m : newMistakes) {
+      if(patternMistakeTypes.contains(m.getMistakeType())) {
+        for(SolutionElement s : m.getStudentElements()) {
+          patternSolutionElements.add(s.getElement().getName());
+        }
+      }
+    }
+    return patternSolutionElements;
+  }
+
+  // Checks if mistake Type related to patterns exists in detected mistakes.
+  private static boolean mistakesInvolvePattern(EList<Mistake> newMistakes, EList<MistakeType> patternMistakeTypes) {
+    for (Mistake m : newMistakes) {
+      if(patternMistakeTypes.contains(m.getMistakeType())) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
