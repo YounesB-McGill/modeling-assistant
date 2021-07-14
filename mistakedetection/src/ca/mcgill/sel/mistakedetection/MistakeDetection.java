@@ -1088,7 +1088,7 @@ public class MistakeDetection {
 
   }
 
-  // Returns student solution elements for a pattern.
+  /** Returns student solution elements for a pattern. */
   private static EList<NamedElement> getPatternStudentElements(EList<Mistake> newMistakes,
       EList<MistakeType> patternMistakeTypes) {
     EList<NamedElement> patternSolutionElements = new BasicEList<NamedElement>();
@@ -1102,14 +1102,9 @@ public class MistakeDetection {
     return patternSolutionElements;
   }
 
-  // Checks if mistake Type related to patterns exists in detected mistakes.
+  /** Checks if mistake Type related to patterns exists in detected mistakes. */
   private static boolean mistakesInvolvePattern(EList<Mistake> newMistakes, EList<MistakeType> patternMistakeTypes) {
-    for (Mistake m : newMistakes) {
-      if (patternMistakeTypes.contains(m.getMistakeType())) {
-        return true;
-      }
-    }
-    return false;
+    return newMistakes.stream().anyMatch(m -> patternMistakeTypes.contains(m.getMistakeType()));
   }
 
   /**
