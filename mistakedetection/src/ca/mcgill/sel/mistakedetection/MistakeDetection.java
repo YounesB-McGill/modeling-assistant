@@ -1102,7 +1102,7 @@ public class MistakeDetection {
     return patternSolutionElements;
   }
 
-  /** Checks if mistake Type related to patterns exists in detected mistakes. */
+  /** Checks if mistake type related to patterns exists in detected mistakes. */
   private static boolean mistakesInvolvePattern(EList<Mistake> newMistakes, EList<MistakeType> patternMistakeTypes) {
     return newMistakes.stream().anyMatch(m -> patternMistakeTypes.contains(m.getMistakeType()));
   }
