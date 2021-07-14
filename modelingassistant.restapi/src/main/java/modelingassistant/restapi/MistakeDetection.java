@@ -24,7 +24,7 @@ class MistakeDetectionController {
   @GetMapping("/detectmistakes")
   public MistakeDetection detectMistakes(@RequestParam(value = "modelingassistant") String modelingAssistantXmi) {
     // TODO Optimize this to only detect mistakes in active problem statements
-    MistakeDetectionConfig.taggerPath = "../mistakedetection/" + MistakeDetectionConfig.taggerPath;
+    MistakeDetectionConfig.taggerPath = "../mistakedetection/taggers/english-bidirectional-distsim.tagger";
     var modelingAssistant = ModelingAssistant.fromEcoreString(modelingAssistantXmi);
     modelingAssistant.getProblemStatements().forEach(ps -> {
       ps.getStudentSolutions().forEach(studentSolution -> compare(ps.getInstructorSolution(), studentSolution));
