@@ -5,6 +5,8 @@
 Tests for feedback algorithm.
 """
 
+from threading import Thread
+from time import sleep
 import os
 import json
 import sys
@@ -20,6 +22,12 @@ from mistaketypes import BAD_CLASS_NAME_SPELLING, SOFTWARE_ENGINEERING_TERM
 from stringserdes import SRSET, StringEnabledResourceSet
 from modelingassistant.modelingassistant import (FeedbackItem, Mistake, ModelingAssistant,
     ProblemStatement, Solution, SolutionElement, Student, StudentKnowledge)
+
+
+HOST = "localhost"
+PORT = 8539
+
+DELAY = 20  # seconds
 
 
 def make_ma_without_mistakes() -> ModelingAssistant:
@@ -235,9 +243,16 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     ma_str = resource.save_to_string().decode()
     assert ma_str
 
-    # TODO Automatically turn on server if not already running
-    # assume for now that MA MDS Java server is ON
-    req = requests.get("http://localhost:8539/detectmistakes", {"modelingassistant": ma_str})
+    get_mistakes = lambda: requests.get(f"http://{HOST}:{PORT}/detectmistakes", {"modelingassistant": ma_str})
+
+    try:
+        req = get_mistakes()
+    except Exception:  # pylint: disable=broad-except
+        # Turn on Modeling Assistant REST API server if not already running
+        Thread(target=lambda: os.system("cd modelingassistant.restapi && mvn spring-boot:run"), daemon=True).start()
+        sleep(DELAY)
+        req = get_mistakes()
+
     req_content = json.loads(req.content)
     assert 200 == req.status_code
     assert "modelingAssistantXmi" in req_content
