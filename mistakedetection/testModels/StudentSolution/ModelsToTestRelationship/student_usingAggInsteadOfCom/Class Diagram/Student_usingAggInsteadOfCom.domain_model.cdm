@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_WKAuQOAgEeu0Ypi-bebdJw" name="Student_usingAggInsteadOfCom">
-  <classes xsi:type="classdiagram:Class" xmi:id="_WjiBgOAgEeu0Ypi-bebdJw" name="Root">
-    <associationEnds xmi:id="_bn23AeAgEeu0Ypi-bebdJw" name="myCompany" assoc="_bn23AuAgEeu0Ypi-bebdJw" lowerBound="1" referenceType="Composition"/>
-    <associationEnds xmi:id="_cffpoeAgEeu0Ypi-bebdJw" name="myEmployee" assoc="_cffpouAgEeu0Ypi-bebdJw" lowerBound="1" referenceType="Composition"/>
-  </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_XkM0UOAgEeu0Ypi-bebdJw" name="Company">
-    <associationEnds xmi:id="_bn23AOAgEeu0Ypi-bebdJw" name="myRoot" assoc="_bn23AuAgEeu0Ypi-bebdJw" lowerBound="1"/>
     <associationEnds xmi:id="_dbQuUOAgEeu0Ypi-bebdJw" name="myEmployee" assoc="_dbQuUeAgEeu0Ypi-bebdJw" lowerBound="1" referenceType="Aggregation"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_aOaX0OAgEeu0Ypi-bebdJw" name="Employee">
-    <associationEnds xmi:id="_cffpoOAgEeu0Ypi-bebdJw" name="myRoot" assoc="_cffpouAgEeu0Ypi-bebdJw" lowerBound="1"/>
     <associationEnds xmi:id="_dbQHQOAgEeu0Ypi-bebdJw" name="myCompany" assoc="_dbQuUeAgEeu0Ypi-bebdJw" lowerBound="1"/>
   </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_WKAuQeAgEeu0Ypi-bebdJw"/>
@@ -22,14 +16,9 @@
   <types xsi:type="classdiagram:CDByte" xmi:id="_WKAuSOAgEeu0Ypi-bebdJw"/>
   <types xsi:type="classdiagram:CDFloat" xmi:id="_WKAuSeAgEeu0Ypi-bebdJw"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_WKAuSuAgEeu0Ypi-bebdJw"/>
-  <associations xmi:id="_bn23AuAgEeu0Ypi-bebdJw" name="Company_Root" ends="_bn23AOAgEeu0Ypi-bebdJw _bn23AeAgEeu0Ypi-bebdJw"/>
-  <associations xmi:id="_cffpouAgEeu0Ypi-bebdJw" name="Employee_Root" ends="_cffpoOAgEeu0Ypi-bebdJw _cffpoeAgEeu0Ypi-bebdJw"/>
   <associations xmi:id="_dbQuUeAgEeu0Ypi-bebdJw" name="Employee_Company" ends="_dbQHQOAgEeu0Ypi-bebdJw _dbQuUOAgEeu0Ypi-bebdJw"/>
   <layout xmi:id="_WKAuS-AgEeu0Ypi-bebdJw">
     <containers xmi:id="_WKAuTOAgEeu0Ypi-bebdJw" key="_WKAuQOAgEeu0Ypi-bebdJw">
-      <value xmi:id="_WjlE0OAgEeu0Ypi-bebdJw" key="_WjiBgOAgEeu0Ypi-bebdJw">
-        <value xmi:id="_WjlE0eAgEeu0Ypi-bebdJw" x="919.0" y="199.99976"/>
-      </value>
       <value xmi:id="_XkOpgOAgEeu0Ypi-bebdJw" key="_XkM0UOAgEeu0Ypi-bebdJw">
         <value xmi:id="_XkOpgeAgEeu0Ypi-bebdJw" x="629.0003" y="448.99985"/>
       </value>

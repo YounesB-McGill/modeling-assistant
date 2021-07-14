@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_VRKL0N89EeuTLOme1e-z-w" name="Instructor_bookAndchapterClass">
-  <classes xsi:type="classdiagram:Class" xmi:id="_VvE24N89EeuTLOme1e-z-w" name="Root">
-    <associationEnds xmi:id="_aGAa4N89EeuTLOme1e-z-w" name="myBook" assoc="_aGAa4d89EeuTLOme1e-z-w" lowerBound="1" referenceType="Composition"/>
-    <associationEnds xmi:id="_WIWoweAdEeu0Ypi-bebdJw" name="myChapter" assoc="_WIXP0OAdEeu0Ypi-bebdJw" lowerBound="1" referenceType="Composition"/>
-  </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_Wga0QN89EeuTLOme1e-z-w" name="Book">
-    <associationEnds xmi:id="_aF_z0N89EeuTLOme1e-z-w" name="myRoot" assoc="_aGAa4d89EeuTLOme1e-z-w" lowerBound="1"/>
     <associationEnds xmi:id="_ambnYN89EeuTLOme1e-z-w" name="myChapter" assoc="_ambnYd89EeuTLOme1e-z-w" lowerBound="1" referenceType="Composition"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_XtAjMN89EeuTLOme1e-z-w" name="Chapter">
     <associationEnds xmi:id="_ambAUN89EeuTLOme1e-z-w" name="myBook" assoc="_ambnYd89EeuTLOme1e-z-w" lowerBound="1"/>
-    <associationEnds xmi:id="_WIWowOAdEeu0Ypi-bebdJw" name="myRoot" assoc="_WIXP0OAdEeu0Ypi-bebdJw" lowerBound="1"/>
   </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_VRKL0d89EeuTLOme1e-z-w"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_VRKL0t89EeuTLOme1e-z-w"/>
@@ -22,19 +16,14 @@
   <types xsi:type="classdiagram:CDByte" xmi:id="_VRKL2N89EeuTLOme1e-z-w"/>
   <types xsi:type="classdiagram:CDFloat" xmi:id="_VRKL2d89EeuTLOme1e-z-w"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_VRKL2t89EeuTLOme1e-z-w"/>
-  <associations xmi:id="_aGAa4d89EeuTLOme1e-z-w" name="Book_Root" ends="_aF_z0N89EeuTLOme1e-z-w _aGAa4N89EeuTLOme1e-z-w"/>
   <associations xmi:id="_ambnYd89EeuTLOme1e-z-w" name="Chapter_Book" ends="_ambAUN89EeuTLOme1e-z-w _ambnYN89EeuTLOme1e-z-w"/>
-  <associations xmi:id="_WIXP0OAdEeu0Ypi-bebdJw" name="Chapter_Root" ends="_WIWowOAdEeu0Ypi-bebdJw _WIWoweAdEeu0Ypi-bebdJw"/>
   <layout xmi:id="_VRKL2989EeuTLOme1e-z-w">
     <containers xmi:id="_VRLZ8N89EeuTLOme1e-z-w" key="_VRKL0N89EeuTLOme1e-z-w">
-      <value xmi:id="_VvK9gN89EeuTLOme1e-z-w" key="_VvE24N89EeuTLOme1e-z-w">
-        <value xmi:id="_VvK9gd89EeuTLOme1e-z-w" x="960.9999" y="214.99988"/>
-      </value>
       <value xmi:id="_WgwLcN89EeuTLOme1e-z-w" key="_Wga0QN89EeuTLOme1e-z-w">
         <value xmi:id="_WgwLcd89EeuTLOme1e-z-w" x="1130.0" y="478.9999"/>
       </value>
       <value xmi:id="_XtC_cN89EeuTLOme1e-z-w" key="_XtAjMN89EeuTLOme1e-z-w">
-        <value xmi:id="_XtC_cd89EeuTLOme1e-z-w" x="1068.9998" y="974.9998"/>
+        <value xmi:id="_XtC_cd89EeuTLOme1e-z-w" x="1089.9996" y="979.9999"/>
       </value>
     </containers>
   </layout>

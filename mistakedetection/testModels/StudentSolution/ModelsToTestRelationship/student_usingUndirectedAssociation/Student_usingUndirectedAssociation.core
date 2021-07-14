@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_NGHVYOTBEeu_VuaFXnESgw" name="Student_usingUndirectedAssociation" featureModel="_NGHVYeTBEeu_VuaFXnESgw" impactModel="_NGHVY-TBEeu_VuaFXnESgw">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_NGHVYeTBEeu_VuaFXnESgw" root="_NGHVYuTBEeu_VuaFXnESgw">
+    <features xmi:id="_NGHVYuTBEeu_VuaFXnESgw" name="Student_usingUndirectedAssociation" realizedBy="_NzKooeTBEeu_VuaFXnESgw"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_NGHVY-TBEeu_VuaFXnESgw" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_NzKooOTBEeu_VuaFXnESgw" name="Student_usingUndirectedAssociation" scene="_NzKooeTBEeu_VuaFXnESgw" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_usingUndirectedAssociation.domain_model.cdm#_NzO6EOTBEeu_VuaFXnESgw"/>
+  </artefacts>
+  <scenes xmi:id="_NzKooeTBEeu_VuaFXnESgw" name="Student_usingUndirectedAssociation" realizes="_NGHVYuTBEeu_VuaFXnESgw" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_NzKoouTBEeu_VuaFXnESgw" value="_NzKooOTBEeu_VuaFXnESgw" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

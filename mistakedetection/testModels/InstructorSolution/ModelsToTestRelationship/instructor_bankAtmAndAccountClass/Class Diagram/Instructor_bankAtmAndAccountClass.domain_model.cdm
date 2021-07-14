@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_ccNAgOS_Eeu_VuaFXnESgw" name="Instructor_bankAtmAndAccountClass">
+  <classes xsi:type="classdiagram:Class" xmi:id="_c189QOS_Eeu_VuaFXnESgw" name="Bank">
+    <associationEnds xmi:id="_izxmkeS_Eeu_VuaFXnESgw" name="myAtm" assoc="_izxmkuS_Eeu_VuaFXnESgw" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_jafBQeS_Eeu_VuaFXnESgw" name="myAccount" assoc="_jafoUOS_Eeu_VuaFXnESgw" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_ePrwUOS_Eeu_VuaFXnESgw" name="Atm">
+    <associationEnds xmi:id="_izxmkOS_Eeu_VuaFXnESgw" name="myBank" assoc="_izxmkuS_Eeu_VuaFXnESgw" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_fOUi0OS_Eeu_VuaFXnESgw" name="Account">
+    <associationEnds xmi:id="_jafBQOS_Eeu_VuaFXnESgw" name="myBank" assoc="_jafoUOS_Eeu_VuaFXnESgw" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_ccNAgeS_Eeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_ccNAguS_Eeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_ccNnkOS_Eeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_ccNnkeS_Eeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_ccNnkuS_Eeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_ccNnk-S_Eeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_ccNnlOS_Eeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_ccNnleS_Eeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_ccNnluS_Eeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_ccNnl-S_Eeu_VuaFXnESgw"/>
+  <associations xmi:id="_izxmkuS_Eeu_VuaFXnESgw" name="Atm_Bank" ends="_izxmkOS_Eeu_VuaFXnESgw _izxmkeS_Eeu_VuaFXnESgw"/>
+  <associations xmi:id="_jafoUOS_Eeu_VuaFXnESgw" name="Account_Bank" ends="_jafBQOS_Eeu_VuaFXnESgw _jafBQeS_Eeu_VuaFXnESgw"/>
+  <layout xmi:id="_ccNnmOS_Eeu_VuaFXnESgw">
+    <containers xmi:id="_ccNnmeS_Eeu_VuaFXnESgw" key="_ccNAgOS_Eeu_VuaFXnESgw">
+      <value xmi:id="_c38hUOS_Eeu_VuaFXnESgw" key="_c189QOS_Eeu_VuaFXnESgw">
+        <value xmi:id="_c38hUeS_Eeu_VuaFXnESgw" x="915.9999" y="265.99988"/>
+      </value>
+      <value xmi:id="_ePs-cOS_Eeu_VuaFXnESgw" key="_ePrwUOS_Eeu_VuaFXnESgw">
+        <value xmi:id="_ePs-ceS_Eeu_VuaFXnESgw" x="686.0" y="433.0"/>
+      </value>
+      <value xmi:id="_fOVw8OS_Eeu_VuaFXnESgw" key="_fOUi0OS_Eeu_VuaFXnESgw">
+        <value xmi:id="_fOVw8eS_Eeu_VuaFXnESgw" x="1084.0001" y="433.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
