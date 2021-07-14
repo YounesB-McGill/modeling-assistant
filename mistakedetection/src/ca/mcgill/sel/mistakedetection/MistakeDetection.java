@@ -54,7 +54,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.TagType.PLAYER;
 import static modelingassistant.TagType.ROLE;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -1867,12 +1866,11 @@ public class MistakeDetection {
       String taggerInput = s;
       taggerInput = taggerInput.toLowerCase(); // Tagger works on lower case string
       String tagged = maxentTagger.tagString(taggerInput);
-      String[] str = tagged.split("/");
+      String[] str = tagged.split("(_|/)");
       String pluralTag = "NNS";
       if (str[1].contains(pluralTag)) {
         isPlural = true;
       }
-
       nounPluralStatus.put(s, isPlural);
     }
     return isPlural;
@@ -2134,9 +2132,10 @@ public class MistakeDetection {
   private static MaxentTagger getMaxentTagger() {
     try {
       return new MaxentTagger(MistakeDetectionConfig.taggerPath);
-    } catch (ClassNotFoundException | IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
     return null;
   }
+
 }
