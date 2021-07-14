@@ -515,6 +515,15 @@ public class MistakeDetection {
     EList<NamedElement> studAssocElements = new BasicEList<NamedElement>();
     EList<NamedElement> studFullElements = new BasicEList<NamedElement>();
     EList<NamedElement> studSubclassElements = new BasicEList<NamedElement>();
+    EList<CDEnum> studSolutionEnums = new BasicEList<CDEnum>();
+    EList<CDEnumLiteral> studSolutionEnumLiterals = new BasicEList<CDEnumLiteral>();
+
+    for (Type ty : studentClassDiagram.getTypes()) {
+      if (ty instanceof CDEnum) {
+        studSolutionEnums.add((CDEnum) ty);
+        studSolutionEnumLiterals.addAll(((CDEnum) ty).getLiterals());
+      }
+    }
 
     for (Tag tag : tg.getTags()) {
       instElements.add(tag.getSolutionElement().getElement());
@@ -561,7 +570,7 @@ public class MistakeDetection {
         }
       }
 
-      for (CDEnum studEnum : comparison.extraStudentEnum) {
+      for (CDEnum studEnum : studSolutionEnums) {
         var levenshteinDistance = levenshteinDistance(studEnum.getName().toLowerCase(),
             tag.getSolutionElement().getElement().getName().toLowerCase());
         if (levenshteinDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
@@ -570,7 +579,7 @@ public class MistakeDetection {
         }
       }
 
-      for (CDEnumLiteral studEnumLiteral : comparison.extraStudentEnumLiterals) {
+      for (CDEnumLiteral studEnumLiteral : studSolutionEnumLiterals) {
         var levenshteinDistance = levenshteinDistance(studEnumLiteral.getName().toLowerCase(),
             tag.getSolutionElement().getElement().getName().toLowerCase());
         if (levenshteinDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
@@ -603,7 +612,7 @@ public class MistakeDetection {
             }
           }
         }
-        for (CDEnum studEnum : comparison.extraStudentEnum) {
+        for (CDEnum studEnum : studSolutionEnums) {
           var levenshteinDistance =
               levenshteinDistance(studEnum.getName().toLowerCase(), enumLiteralName.toLowerCase());
           if (levenshteinDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
@@ -611,7 +620,7 @@ public class MistakeDetection {
             studEnumElements.add(studEnum);
           }
         }
-        for (CDEnumLiteral studEnumLiteral : comparison.extraStudentEnumLiterals) {
+        for (CDEnumLiteral studEnumLiteral : studSolutionEnumLiterals) {
           var levenshteinDistance =
               levenshteinDistance(enumLiteralName.toLowerCase(), studEnumLiteral.getName().toLowerCase());
           if (levenshteinDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
