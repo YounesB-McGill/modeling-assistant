@@ -6,11 +6,11 @@
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_VeaFIOAjEeu0Ypi-bebdJw" name="Car">
     <associationEnds xmi:id="_YKtTUOAjEeu0Ypi-bebdJw" name="myRoot" assoc="_YKuhcOAjEeu0Ypi-bebdJw" lowerBound="1"/>
-    <associationEnds xmi:id="_bp4v8eAjEeu0Ypi-bebdJw" name="myOwner" assoc="_bp4v8uAjEeu0Ypi-bebdJw" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_bp4v8eAjEeu0Ypi-bebdJw" name="Owner" assoc="_bp4v8uAjEeu0Ypi-bebdJw" upperBound="-1" referenceType="Composition"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_WNoioOAjEeu0Ypi-bebdJw" name="Owner">
     <associationEnds xmi:id="_Y-m1cOAjEeu0Ypi-bebdJw" name="myRoot" assoc="_Y-m1cuAjEeu0Ypi-bebdJw" lowerBound="1"/>
-    <associationEnds xmi:id="_bp4v8OAjEeu0Ypi-bebdJw" name="myCar" assoc="_bp4v8uAjEeu0Ypi-bebdJw" lowerBound="1"/>
+    <associationEnds xmi:id="_bp4v8OAjEeu0Ypi-bebdJw" name="Cars" assoc="_bp4v8uAjEeu0Ypi-bebdJw" upperBound="-1"/>
   </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_Ud3OIeAjEeu0Ypi-bebdJw"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_Ud3OIuAjEeu0Ypi-bebdJw"/>

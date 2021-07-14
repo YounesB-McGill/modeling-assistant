@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_8gk68OTKEeu_VuaFXnESgw" name="Student_infiniteRecursiveDependency">
+  <classes xsi:type="classdiagram:Class" xmi:id="_9CGToOTKEeu_VuaFXnESgw" name="Root">
+    <associationEnds xmi:id="_-0VGQeTKEeu_VuaFXnESgw" name="myPerson" assoc="_-0VGQuTKEeu_VuaFXnESgw" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_9r1NIOTKEeu_VuaFXnESgw" name="Person">
+    <associationEnds xmi:id="_-0VGQOTKEeu_VuaFXnESgw" name="myRoot" assoc="_-0VGQuTKEeu_VuaFXnESgw" lowerBound="1"/>
+    <associationEnds xmi:id="__nMGkOTKEeu_VuaFXnESgw" name="Parent" assoc="__nMtoOTKEeu_VuaFXnESgw" lowerBound="2" upperBound="2"/>
+    <associationEnds xmi:id="__nMGkeTKEeu_VuaFXnESgw" name="Child" assoc="__nMtoOTKEeu_VuaFXnESgw" lowerBound="1" upperBound="-1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_8gk68eTKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_8gk68uTKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_8gk68-TKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_8gk69OTKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_8gk69eTKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_8gk69uTKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_8gk69-TKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_8gk6-OTKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_8gk6-eTKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_8gk6-uTKEeu_VuaFXnESgw"/>
+  <associations xmi:id="_-0VGQuTKEeu_VuaFXnESgw" name="Person_Root" ends="_-0VGQOTKEeu_VuaFXnESgw _-0VGQeTKEeu_VuaFXnESgw"/>
+  <associations xmi:id="__nMtoOTKEeu_VuaFXnESgw" name="Person_Person" ends="__nMGkOTKEeu_VuaFXnESgw __nMGkeTKEeu_VuaFXnESgw"/>
+  <layout xmi:id="_8gliAOTKEeu_VuaFXnESgw">
+    <containers xmi:id="_8gliAeTKEeu_VuaFXnESgw" key="_8gk68OTKEeu_VuaFXnESgw">
+      <value xmi:id="_9CIv4OTKEeu_VuaFXnESgw" key="_9CGToOTKEeu_VuaFXnESgw">
+        <value xmi:id="_9CIv4eTKEeu_VuaFXnESgw" x="933.0" y="192.0"/>
+      </value>
+      <value xmi:id="_9r2bQOTKEeu_VuaFXnESgw" key="_9r1NIOTKEeu_VuaFXnESgw">
+        <value xmi:id="_9r2bQeTKEeu_VuaFXnESgw" x="933.0" y="589.99976"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
