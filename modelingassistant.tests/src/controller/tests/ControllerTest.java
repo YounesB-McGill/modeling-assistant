@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.CDInt;
@@ -32,7 +33,6 @@ import ca.mcgill.sel.classdiagram.CdmPackage;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.classdiagram.ReferenceType;
-import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import learningcorpus.Feedback;
 import learningcorpus.LearningCorpus;
 import learningcorpus.LearningcorpusPackage;
@@ -40,6 +40,7 @@ import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
+import modelingassistant.restapi.MistakeDetection;
 import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 import modelingassistant.util.ResourceHelper;
 
@@ -866,9 +867,9 @@ public class ControllerTest {
     bobSol.setProblemStatement(busPs);
     bob.setCurrentSolution(bobSol);
 
-    // TODO Update this after merging from main
-
-    MistakeDetection.compare(instructorSol, bobSol);
+    var maStr = ma.toEcoreString();
+    maStr = MistakeDetection.detectMistakes(maStr).getModelingAssistantXmi();
+    ma = ModelingAssistant.fromEcoreString(maStr);
 
     assertEquals(busPs.getName(), ma.getProblemStatements().get(0).getName());
 
@@ -879,14 +880,13 @@ public class ControllerTest {
 
     bob = bobSol.getStudent();
     var buseMistake = bobSol.getMistakes().get(0);
-    assertEquals(BAD_CLASS_NAME_SPELLING, buseMistake.getMistakeType());
+    assertTrue(EcoreUtil.equals(BAD_CLASS_NAME_SPELLING, buseMistake.getMistakeType()));
 
-    // hardcode to specific feedback since feedback algorithm logic already tested in Python
+    // hardcode to specific feedback since feedback algorithm logic is already tested in Python
     var feedback = BAD_CLASS_NAME_SPELLING.getFeedbacks().get(0);
     assertTrue(feedback instanceof Feedback);
     assertEquals(1, feedback.getLevel());
     assertTrue(feedback.isHighlightSolution());
-    assertEquals(9, ma.getStudentKnowledges().get(0).getLevelOfKnowledge());
   }
 
   /**
