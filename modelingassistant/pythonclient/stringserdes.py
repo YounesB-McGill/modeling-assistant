@@ -117,7 +117,7 @@ class StringEnabledXMIResource(XMIResource):
             self._decode_ereferences()
 
             content = self.contents[0]
-            #content.__class__ = ModelingAssistant
+            set_static_class_for(content)
             for e in content.eAllContents():
                 set_static_class_for(e)
 
