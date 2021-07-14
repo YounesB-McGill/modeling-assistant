@@ -143,9 +143,6 @@ MISTAKE_TYPES_BY_NAME: dict[ '[' /]str, MistakeType[ ']' /] = {mt.name: mt for m
 _MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
 _MTS = MISTAKE_TYPES_BY_NAME
 
-_dynamic_mtc_type = type(list(_MTCS.values())[ '[' /]0[ ']' /])
-_dynamic_mt_type = type(list(_MTS.values())[ '[' /]0[ ']' /])
-
 # Mistake type categories
 [for(mTC : MistakeTypeCategory | learningCorpus.mistakeTypeCategories)]
 [let lhs : String = underscorify(mTC.name)
