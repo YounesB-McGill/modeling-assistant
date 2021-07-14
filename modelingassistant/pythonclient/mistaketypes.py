@@ -16,9 +16,6 @@ MISTAKE_TYPES_BY_NAME: dict[str, MistakeType] = {mt.name: mt for mt in corpus.mi
 _MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
 _MTS = MISTAKE_TYPES_BY_NAME
 
-_dynamic_mtc_type = type(list(_MTCS.values())[0])
-_dynamic_mt_type = type(list(_MTS.values())[0])
-
 # Mistake type categories
 WRONG_CLASS: MistakeTypeCategory = _MTCS["Wrong class"]
 WRONG_CLASS_NAME: MistakeTypeCategory = _MTCS["Wrong class name"]

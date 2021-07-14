@@ -228,6 +228,7 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
                               studentSolutions=[bob_sol])
     instructor_sol.problemStatement = bus_ps
     bob_sol.problemStatement = bus_ps
+    bob.currentSolution = bob_sol
 
     resource = StringEnabledResourceSet().create_string_resource()
     resource.extend([ma, instructor_cdm, student_cdm])
@@ -249,14 +250,20 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     assert bus_ps.name == ma.problemStatements[0].name
 
     bus_ps = ma.problemStatements[0]
-    assert bob.name == bus_ps.studentSolutions[0].student.name
-    assert bus_ps.studentSolutions[0].mistakes
+    bob_sol = bus_ps.studentSolutions[0]
+    assert bob.name == bob_sol.student.name
+    assert bob_sol.mistakes
 
-    assert BAD_CLASS_NAME_SPELLING == bus_ps.studentSolutions[0].mistakes[0].mistakeType
+    bob = bob_sol.student
+    buse_mistake = bob_sol.mistakes[0]
+    assert BAD_CLASS_NAME_SPELLING == buse_mistake.mistakeType
 
-    print(bus_ps.studentSolutions[0].mistakes)
-
-    # TODO To be continued...
+    feedback_item = give_feedback(bob_sol)
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, Feedback)
+    assert 1 == feedback.level
+    assert feedback.highlightSolution
+    assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
 
 if __name__ == '__main__':

@@ -11,6 +11,7 @@ from pyecore.resources.resource import  Resource, ResourceSet, URI
 from pyecore.resources.xmi import XMI, XMIOptions, XMIResource, XMI_URL, XSI
 
 from constants import CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM, LEARNING_CORPUS_PATH
+from serdes import set_static_class_for
 
 MA_USE_STRING_SERDES = "MA_USE_STRING_SERDES"
 
@@ -114,6 +115,11 @@ class StringEnabledXMIResource(XMIResource):
 
         if self.contents:
             self._decode_ereferences()
+
+            content = self.contents[0]
+            #content.__class__ = ModelingAssistant
+            for e in content.eAllContents():
+                set_static_class_for(e)
 
     def save_to_string(self, options=None) -> bytes:
         """
