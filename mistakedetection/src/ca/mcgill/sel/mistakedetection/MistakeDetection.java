@@ -1021,10 +1021,10 @@ public class MistakeDetection {
     // Condition when only new mistakes exists.
     if (existingMistakes.size() == 0 && newMistakes.size() != 0) {
       if (mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
-        var patternStudentElementNames = getPatternStudentElementNames(newMistakes, patternMistakeTypes);
+        var patternStudentElement = getPatternStudentElements(newMistakes, patternMistakeTypes);
         for (Mistake newMistake : newMistakes) {
           if (!newMistake.getStudentElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
-              && patternStudentElementNames.contains(newMistake.getStudentElements().get(0).getElement().getName())) {
+              && patternStudentElement.contains(newMistake.getStudentElements().get(0).getElement())) {
             newMistakesToRemove.add(newMistake);
             continue;
           }
@@ -1101,13 +1101,13 @@ public class MistakeDetection {
   }
 
   // Returns student solution elements for a pattern.
-  private static EList<String> getPatternStudentElementNames(EList<Mistake> newMistakes,
+  private static EList<NamedElement> getPatternStudentElements(EList<Mistake> newMistakes,
       EList<MistakeType> patternMistakeTypes) {
-    EList<String> patternSolutionElements = new BasicEList<String>();
+    EList<NamedElement> patternSolutionElements = new BasicEList<NamedElement>();
     for (Mistake m : newMistakes) {
       if (patternMistakeTypes.contains(m.getMistakeType())) {
         for (SolutionElement s : m.getStudentElements()) {
-          patternSolutionElements.add(s.getElement().getName());
+          patternSolutionElements.add(s.getElement());
         }
       }
     }
