@@ -33,6 +33,8 @@ import ca.mcgill.sel.classdiagram.CdmPackage;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.classdiagram.ReferenceType;
+import ca.mcgill.sel.mistakedetection.MistakeDetection;
+import ca.mcgill.sel.mistakedetection.MistakeDetectionConfig;
 import learningcorpus.Feedback;
 import learningcorpus.LearningCorpus;
 import learningcorpus.LearningcorpusPackage;
@@ -40,7 +42,6 @@ import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
-import modelingassistant.restapi.MistakeDetection;
 import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 import modelingassistant.util.ResourceHelper;
 
@@ -867,9 +868,8 @@ public class ControllerTest {
     bobSol.setProblemStatement(busPs);
     bob.setCurrentSolution(bobSol);
 
-    var maStr = ma.toEcoreString();
-    maStr = MistakeDetection.detectMistakes(maStr).getModelingAssistantXmi();
-    ma = ModelingAssistant.fromEcoreString(maStr);
+    MistakeDetectionConfig.taggerPath = "../mistakedetection/" + MistakeDetectionConfig.taggerPath;
+    MistakeDetection.compare(instructorSol, bobSol);
 
     assertEquals(busPs.getName(), ma.getProblemStatements().get(0).getName());
 
