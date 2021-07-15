@@ -12,7 +12,7 @@
     <associationEnds xmi:id="_nIGMkN2aEeu7asz7hr5Mzg" name="myRoot" assoc="_nIGMkt2aEeu7asz7hr5Mzg" lowerBound="1"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_lGgvUN2aEeu7asz7hr5Mzg" name="Root">
-    <associationEnds xmi:id="_mH3eod2aEeu7asz7hr5Mzg" name="myStudent" assoc="_mH3eot2aEeu7asz7hr5Mzg" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_mH3eod2aEeu7asz7hr5Mzg" name="myStudents" assoc="_mH3eot2aEeu7asz7hr5Mzg" lowerBound="1" referenceType="Composition"/>
     <associationEnds xmi:id="_nIGMkd2aEeu7asz7hr5Mzg" name="myProject" assoc="_nIGMkt2aEeu7asz7hr5Mzg" lowerBound="1" referenceType="Composition"/>
   </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_JczUUdfnEeuG8czVoCvS-g"/>

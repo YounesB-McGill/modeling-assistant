@@ -10,10 +10,10 @@ app = Flask(__name__)
 CORS(app)  # TODO Make this more secure later
 
 
-@app.route("/helloworld")
-def hello_world():
+@app.route("/helloworld/<name>")
+def hello_world(name):
     "Simple route used for testing the app."
-    return jsonify({"hello": "world"})
+    return jsonify({"hello": name})
 
 
 if __name__ == "__main__":
