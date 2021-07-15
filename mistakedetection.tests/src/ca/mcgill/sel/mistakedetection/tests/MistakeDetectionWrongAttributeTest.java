@@ -106,11 +106,11 @@ public class MistakeDetectionWrongAttributeTest {
         "../mistakedetection/testModels/StudentSolution/two(withAttribute)/Class Diagram/Two(withAttribute)-a.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
-    Classifier instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
+    var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+    var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
 
-    Attribute instructorBusClassAttributeNumberPlate = getAttributeFromClass("numberPlate", instructorBusClass);
-    Attribute instructorDriverClassAttributeName = getAttributeFromClass("name", instructorDriverClass);
+    var instructorBusClassAttributeNumberPlate = getAttributeFromClass("numberPlate", instructorBusClass);
+    var instructorDriverClassAttributeName = getAttributeFromClass("name", instructorDriverClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -135,17 +135,16 @@ public class MistakeDetectionWrongAttributeTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_extraAttribute/Class Diagram/Student_extraAttribute.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    Classifier studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
+    var studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
 
-    Attribute studentDateOfBirthAttribute = getAttributeFromClass("dateOfBirth", studentPersonClass);
+    var studentDateOfBirthAttribute = getAttributeFromClass("dateOfBirth", studentPersonClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(comparison.newMistakes.size(), 1);
-    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentDateOfBirthAttribute, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentDateOfBirthAttribute, 0, 1, false);
   }
 
   /**
@@ -161,24 +160,23 @@ public class MistakeDetectionWrongAttributeTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_missingAtterbute/Class Diagram/Student_missingAtterbute.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    Classifier instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+    var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
 
-    Attribute instructorNameAttribute = getAttributeFromClass("name", instructorPersonClass);
+    var instructorNameAttribute = getAttributeFromClass("name", instructorPersonClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(comparison.newMistakes.size(), 1);
-    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructorNameAttribute, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructorNameAttribute, 0, 1, false);
   }
 
   /**
    * Test to detect other extra Attribute.
    */
   @Test
-  public void testMistakeExtraAttribute1() {
+  public void testMistakeOtherExtraAttribute() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_pilot_genderAtterbute/Class Diagram/Instructor_pilot_genderAtterbute.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -189,22 +187,21 @@ public class MistakeDetectionWrongAttributeTest {
 
     var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
 
-    Attribute studentnameAttribute = getAttributeFromClass("name", studentPilotClass);
+    var studentnameAttribute = getAttributeFromClass("name", studentPilotClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(comparison.newMistakes.size(), 1);
-    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentnameAttribute, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentnameAttribute, 0, 1, false);
   }
 
   /**
    * Test to detect other extra Attribute.
    */
   @Test
-  public void testMistakeExtraAttribute2() {
+  public void testMistakeExtraAttributeInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_car_priceAttribute/Class Diagram/Instructor_car_priceAttribute.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -215,54 +212,50 @@ public class MistakeDetectionWrongAttributeTest {
 
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
 
-    Attribute studenttypeAttribute = getAttributeFromClass("type", studentCarClass);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-    assertEquals(comparison.newMistakes.size(), 1);
-    assertEquals(studentSolution.getMistakes().size(), 1);
-
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studenttypeAttribute, 0, 1,
-        false);
-  }
-
-  /**
-   * Test to detect wrong Attribute name.
-   //not implemented yet
-   */
-  @Disabled
-  @Test
-  public void testMistakepluralAttribute() {
-    var instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_person_nameAttribute/Class Diagram/Instructor_person_nameAttribute.domain_model.cdm");
-    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram); //cdm file was modified by prabhsimran pull request
-
-    var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_wrongAttributeName/Class Diagram/Student_wrongAttributeName.domain_model.cdm");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram); // cdm file named as wrong attribute but its test the plural mistake
-
-    var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
-    var studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
-
-    Attribute instructornameAttribute = getAttributeFromClass("name", instructorPersonClass);
-    Attribute studentnamesAttribute = getAttributeFromClass("names", studentPersonClass);
+    var studenttypeAttribute = getAttributeFromClass("type", studentCarClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentnamesAttribute, instructornameAttribute,  0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studenttypeAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect wrong Attribute name.
+   */
+  @Disabled("Not implemented yet.")
+  @Test
+  public void testMistakepluralAttribute() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_person_nameAttribute/Class Diagram/Instructor_person_nameAttribute.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_pluralAttribute1/Class Diagram/Student_pluralAttribute1.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+    var studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
+
+    var instructornameAttribute = getAttributeFromClass("name", instructorPersonClass);
+    var studentnamesAttribute = getAttributeFromClass("names", studentPersonClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentnamesAttribute, instructornameAttribute, 0, 1, false);
   }
 
   /**
    * Test to detect plural Attribute name.
-   //not implemented yet
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
-  public void testMistakepluralAttribute1() {
+  public void testMistakepluralAttributeInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_ filght_destinationAttribute/Class Diagram/Instructor_ filght_destinationAttribute.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -274,16 +267,15 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorFlightClass = getClassFromClassDiagram("Flight", instructorClassDiagram);
     var studentFlightClass = getClassFromClassDiagram("Flight", studentClassDiagram);
 
-    Attribute instructornameAttribute = getAttributeFromClass("destination", instructorFlightClass);
-    Attribute studentnamesAttribute = getAttributeFromClass("destinations", studentFlightClass);
+    var instructornameAttribute = getAttributeFromClass("destination", instructorFlightClass);
+    var studentnamesAttribute = getAttributeFromClass("destinations", studentFlightClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentnamesAttribute, instructornameAttribute,  0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentnamesAttribute, instructornameAttribute, 0, 1, false);
   }
 
   /**
@@ -302,23 +294,22 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
 
-    Attribute instructorcolorAttribute = getAttributeFromClass("color", instructorCarClass);
-    Attribute studentcolerAttribute = getAttributeFromClass("coler", studentCarClass);
+    var instructorcolorAttribute = getAttributeFromClass("color", instructorCarClass);
+    var studentcolerAttribute = getAttributeFromClass("coler", studentCarClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), BAD_ATTRIBUTE_NAME_SPELLING, studentcolerAttribute, instructorcolorAttribute,  0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_ATTRIBUTE_NAME_SPELLING, studentcolerAttribute, instructorcolorAttribute, 0, 1, false);
   }
 
   /**
    * Test to detect wrong Attribute name.
    */
   @Test
-  public void testMistakeSpellingAttribute1() {
+  public void testMistakeSpellingAttributeInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_car_priceAttribute/Class Diagram/Instructor_car_priceAttribute.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -330,23 +321,21 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
 
-    Attribute instructorpriceAttribute = getAttributeFromClass("price", instructorCarClass);
-    Attribute studentpriseAttribute = getAttributeFromClass("prise", studentCarClass);
+    var instructorpriceAttribute = getAttributeFromClass("price", instructorCarClass);
+    var studentpriseAttribute = getAttributeFromClass("prise", studentCarClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), BAD_ATTRIBUTE_NAME_SPELLING, studentpriseAttribute, instructorpriceAttribute,  0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_ATTRIBUTE_NAME_SPELLING, studentpriseAttribute, instructorpriceAttribute, 0, 1, false);
   }
 
   /**
    * Test to detect similar Attribute.
-   //not implemented yet
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeSimilarAttribute() {
     var instructorClassDiagram = cdmFromFile(
@@ -360,25 +349,23 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
 
-    Attribute instructortypeAttribute = getAttributeFromClass("type", instructorCarClass);
-    Attribute studentkindAttribute = getAttributeFromClass("kind", studentCarClass);
+    var instructortypeAttribute = getAttributeFromClass("type", instructorCarClass);
+    var studentkindAttribute = getAttributeFromClass("kind", studentCarClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentkindAttribute, instructortypeAttribute,  0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentkindAttribute, instructortypeAttribute, 0, 1, false);
   }
 
   /**
    * Test to detect similar Attribute.
-   //not implemented yet
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
-  public void testMistakeSimilarAttribute1() {
+  public void testMistakeSimilarAttributeInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_car_priceAttribute/Class Diagram/Instructor_car_priceAttribute.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -390,25 +377,23 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
 
-    Attribute instructorpriceAttribute = getAttributeFromClass("price", instructorCarClass);
-    Attribute studentcostAttribute = getAttributeFromClass("cost", studentCarClass);
+    var instructorpriceAttribute = getAttributeFromClass("price", instructorCarClass);
+    var studentcostAttribute = getAttributeFromClass("cost", studentCarClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentcostAttribute, instructorpriceAttribute,  0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentcostAttribute, instructorpriceAttribute, 0, 1, false);
   }
 
   /**
    * Test to detect similar Attribute.
-   // not implemented yet
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
-  public void testMistakeSimilarAttribute2() {
+  public void testMistakeOtherSimilarAttribute() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_pilot_genderAtterbute/Class Diagram/Instructor_pilot_genderAtterbute.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -420,23 +405,21 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
     var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
 
-    Attribute instructorgenderAttribute = getAttributeFromClass("gender", instructorPilotClass);
-    Attribute studentGenderAttribute = getAttributeFromClass("Gender", studentPilotClass);
+    var instructorgenderAttribute = getAttributeFromClass("gender", instructorPilotClass);
+    var studentGenderAttribute = getAttributeFromClass("Gender", studentPilotClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentGenderAttribute, instructorgenderAttribute,  0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentGenderAttribute, instructorgenderAttribute, 0, 1, false);
   }
 
   /**
-   * Test to detect  misplaced Attribute.
-   //not implemented yet
+   * Test to detect misplaced Attribute.
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeMisplacedAttribute() {
     var instructorClassDiagram = cdmFromFile(
@@ -450,7 +433,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
 
-    Attribute instructorcapacityAttribute = getAttributeFromClass("capacity", instructorBusClass);
+    var instructorcapacityAttribute = getAttributeFromClass("capacity", instructorBusClass);
     var studentcapacityAttribute = getAttributeFromClass("capacity", studentCarClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
@@ -458,15 +441,15 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-   assertMistake(studentSolution.getMistakes().get(0),ATTRIBUTE_MISPLACED , studentcapacityAttribute, instructorcapacityAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_MISPLACED, studentcapacityAttribute, instructorcapacityAttribute, 0, 1, false);
   }
+
   /**
-   * Test to detect  misplaced Attribute.
-   //not implemented yet
+   * Test to detect misplaced Attribute.
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
-  public void testMistakeMisplacedAttribute1() {
+  public void testMistakeMisplacedAttributeInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/insructor_orderAndProduct_typeAttribute/Class Diagram/Insructor_orderAndProduct_typeAttribute.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -478,7 +461,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorProductClass = getClassFromClassDiagram("Product", instructorClassDiagram);
     var studentOrderClass = getClassFromClassDiagram("Order", studentClassDiagram);
 
-    Attribute instructortypeAttribute = getAttributeFromClass("type", instructorProductClass);
+    var instructortypeAttribute = getAttributeFromClass("type", instructorProductClass);
     var studenttypeAttribute = getAttributeFromClass("type", studentOrderClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
@@ -486,7 +469,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-   assertMistake(studentSolution.getMistakes().get(0),ATTRIBUTE_MISPLACED , studenttypeAttribute, instructortypeAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_MISPLACED, studenttypeAttribute, instructortypeAttribute, 0, 1, false);
   }
 
   /**
@@ -505,16 +488,15 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
 
-    Attribute instructortypeAttribute = getAttributeFromClass("type", instructorCarClass);
-    Attribute studenttypeAttribute = getAttributeFromClass("type", studentCarClass);
+    var instructortypeAttribute = getAttributeFromClass("type", instructorCarClass);
+    var studenttypeAttribute = getAttributeFromClass("type", studentCarClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_NOT_BE_STATIC, studenttypeAttribute, instructortypeAttribute,  0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_NOT_BE_STATIC, studenttypeAttribute, instructortypeAttribute, 0, 1, false);
   }
 
   /**
@@ -533,16 +515,15 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorFlightClass = getClassFromClassDiagram("Flight", instructorClassDiagram);
     var studentFlightClass = getClassFromClassDiagram("Flight", studentClassDiagram);
 
-    Attribute instructordestinationAttribute = getAttributeFromClass("destination", instructorFlightClass);
-    Attribute studentdestinationAttribute = getAttributeFromClass("destination", studentFlightClass);
+    var instructordestinationAttribute = getAttributeFromClass("destination", instructorFlightClass);
+    var studentdestinationAttribute = getAttributeFromClass("destination", studentFlightClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), WRONG_ATTRIBUTE_TYPE, studentdestinationAttribute, instructordestinationAttribute,  0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ATTRIBUTE_TYPE, studentdestinationAttribute, instructordestinationAttribute, 0, 1, false);
   }
 
   /**
@@ -561,23 +542,21 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorSTUClass = getClassFromClassDiagram("Student", instructorClassDiagram);
     var studentSTUClass = getClassFromClassDiagram("Student", studentClassDiagram);
 
-    Attribute instructoraddressAttribute = getAttributeFromClass("address", instructorSTUClass);
-    Attribute studentaddressAttribute = getAttributeFromClass("address", studentSTUClass);
+    var instructoraddAttribute = getAttributeFromClass("address", instructorSTUClass);
+    var studentaddAttribute = getAttributeFromClass("address", studentSTUClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_BE_STATIC, studentaddressAttribute, instructoraddressAttribute,  0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_BE_STATIC, studentaddAttribute, instructoraddAttribute, 0, 1, false);
   }
 
   /**
    * Test to detect Duplicate Attribute.
-   //not implemented yet
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeDuplicateAttribute() {
     var instructorClassDiagram = cdmFromFile(
@@ -590,24 +569,22 @@ public class MistakeDetectionWrongAttributeTest {
 
     var studentWhitechoClass = getClassFromClassDiagram("Whitechocolate", studentClassDiagram);
 
-    Attribute studentpriceAttribute = getAttributeFromClass("price", studentWhitechoClass);
+    var studentpriceAttribute = getAttributeFromClass("price", studentWhitechoClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_DUPLICATED , studentpriceAttribute, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_DUPLICATED, studentpriceAttribute, 0, 1, false);
   }
 
   /**
    * Test to detect Duplicate Attribute.
-   //not implemented yet
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
-  public void testMistakeDuplicateAttribute1() {
+  public void testMistakeDuplicateAttributeInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_animalAndCat_nameAttribute/Class Diagram/Instructor_animalAndCat_nameAttribute.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -618,14 +595,13 @@ public class MistakeDetectionWrongAttributeTest {
 
     var studentCatClass = getClassFromClassDiagram("Cat", studentClassDiagram);
 
-    Attribute studentnameAttribute = getAttributeFromClass("name", studentCatClass);
+    var studentnameAttribute = getAttributeFromClass("name", studentCatClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_DUPLICATED , studentnameAttribute, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_DUPLICATED, studentnameAttribute, 0, 1, false);
   }
 }

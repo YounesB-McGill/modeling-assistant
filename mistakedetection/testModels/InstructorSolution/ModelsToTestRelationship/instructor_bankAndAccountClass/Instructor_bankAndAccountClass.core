@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_S2xlAOWIEeu-hYgP_IYelQ" name="Instructor_bankAndAccountClass" featureModel="_S2xlAeWIEeu-hYgP_IYelQ" impactModel="_S2xlA-WIEeu-hYgP_IYelQ">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_S2xlAeWIEeu-hYgP_IYelQ" root="_S2xlAuWIEeu-hYgP_IYelQ">
+    <features xmi:id="_S2xlAuWIEeu-hYgP_IYelQ" name="Instructor_bankAndAccountClass" realizedBy="_TneCIeWIEeu-hYgP_IYelQ"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_S2xlA-WIEeu-hYgP_IYelQ" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_TneCIOWIEeu-hYgP_IYelQ" name="Instructor_bankAndAccountClass" scene="_TneCIeWIEeu-hYgP_IYelQ" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_bankAndAccountClass.domain_model.cdm#_TnhFcOWIEeu-hYgP_IYelQ"/>
+  </artefacts>
+  <scenes xmi:id="_TneCIeWIEeu-hYgP_IYelQ" name="Instructor_bankAndAccountClass" realizes="_S2xlAuWIEeu-hYgP_IYelQ" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_TnepMOWIEeu-hYgP_IYelQ" value="_TneCIOWIEeu-hYgP_IYelQ" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
