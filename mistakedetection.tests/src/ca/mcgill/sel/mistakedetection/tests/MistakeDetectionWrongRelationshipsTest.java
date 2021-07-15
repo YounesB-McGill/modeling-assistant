@@ -29,11 +29,7 @@ import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import ca.mcgill.sel.classdiagram.AssociationEnd;
-import ca.mcgill.sel.classdiagram.Attribute;
-import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import modelingassistant.Mistake;
 
 public class MistakeDetectionWrongRelationshipsTest {
 
@@ -86,8 +82,7 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
-    var instructorAssociations =
-        getAssociationsFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
+    var instructorAssociations =getAssociationsFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
     var instructorAssociation0 = instructorAssociations.get(0);
 
     var studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
@@ -115,24 +110,22 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution-b.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
-    Classifier studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
-    AssociationEnd instructorMyDriverAssociationEnd = getAssociationEndFromClass("myDriver", instructorBusClass);
-    AssociationEnd studentMyDrivrAssociationEnd = getAssociationEndFromClass("myDrivr", studentBusClass);
+    var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+    var studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
+    var instructorMyDriverAssociationEnd = getAssociationEndFromClass("myDriver", instructorBusClass);
+    var studentMyDrivrAssociationEnd = getAssociationEndFromClass("myDrivr", studentBusClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-    assertEquals(comparison.newMistakes.size(), 1);
-    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), BAD_ROLE_NAME_SPELLING, studentMyDrivrAssociationEnd,
-        instructorMyDriverAssociationEnd, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_ROLE_NAME_SPELLING, studentMyDrivrAssociationEnd, instructorMyDriverAssociationEnd, 0, 1, false);
   }
 
   /**
    * Test to check mistake of using Attribute instead of an association.
-   //not implemented yet
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeAttributeInsteadOfAnAssociation() {
     var instructorClassDiagram = cdmFromFile(
@@ -143,32 +136,28 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_attributeInsteadOfAssociation/Class Diagram/Student_attributeInsteadOfAssociation.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var     instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
-    var     instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
+    var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+    var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
 
-    var     studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
+    var studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
 
-    var  instructorBusandDriverAssociation = getAssociationsFromClassDiagram(instructorDriverClass , instructorBusClass,instructorClassDiagram);
-    Attribute studentdriverAttribute = getAttributeFromClass("driver", studentBusClass);
+    var instructorBusToDriverAssociation = getAssociationsFromClassDiagram(instructorDriverClass, instructorBusClass, instructorClassDiagram);
+    var studentdriverAttribute = getAttributeFromClass("driver", studentBusClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    for (Mistake m : studentSolution.getMistakes()) {
-      assertMistake(m, USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION, studentdriverAttribute, instructorBusandDriverAssociation.get(0), 0, 1,
-          false);
-  }
-  }
+    assertMistake(studentSolution.getMistakes().get(0), USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION, studentdriverAttribute, instructorBusToDriverAssociation.get(0), 0, 1, false);
+    }
 
   /**
-   * Test to check mistake of using Attribute instead of an association.
-   //not implemented yet
+   * Test to check mistake of using Attribute instead of an association. //not implemented yet
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
-  public void testMistakeAttributeInsteadOfAnAssociation1() {
+  public void testMistakeAttributeInsteadOfAnAssociationInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_pilotAndFlightClass/Class Diagram/Instructor_pilotAndFlightClass.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -182,19 +171,17 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
 
-    var instructorPilotandFlightAssociation = getAssociationsFromClassDiagram(instructorPilotClass , instructorFlightClass,instructorClassDiagram);
-    Attribute studentflightAttribute = getAttributeFromClass("flight", studentPilotClass);
+    var instructorPilotandFlightAssociation = getAssociationsFromClassDiagram(instructorPilotClass, instructorFlightClass, instructorClassDiagram);
+    var studentflightAttribute = getAttributeFromClass("flight", studentPilotClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    for (Mistake m : studentSolution.getMistakes()) {
-      assertMistake(m, USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION, studentflightAttribute, instructorPilotandFlightAssociation.get(0), 0, 1,
-          false);
-  }
-  }
+    assertMistake(studentSolution.getMistakes().get(0), USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION, studentflightAttribute,
+          instructorPilotandFlightAssociation.get(0), 0, 1, false);
+    }
 
   /**
    * Test to check Missing composition.
@@ -212,22 +199,21 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
     var instructorEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
 
-    var instructorCompanyandEmployeeAssociation = getAssociationsFromClassDiagram(instructorCompanyClass , instructorEmployeeClass,instructorClassDiagram);
+    var instructorCompanyToEmployeeAssociation = getAssociationsFromClassDiagram(instructorCompanyClass, instructorEmployeeClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_COMPOSITION,instructorCompanyandEmployeeAssociation.get(0), 0, 1,
-          false);
-    }
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_COMPOSITION, instructorCompanyToEmployeeAssociation.get(0), 0, 1, false);
+  }
 
   /**
    * Test to check Missing composition.
    */
   @Test
-  public void testMistakeMissingComposition1() {
+  public void testMistakeMissingCompositionInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_bookAndchapterClass/Class Diagram/Instructor_bookAndchapterClass.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -239,16 +225,15 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorBookClass = getClassFromClassDiagram("Book", instructorClassDiagram);
     var instructorChapterClass = getClassFromClassDiagram("Chapter", instructorClassDiagram);
 
-    var instructorBookandChapterAssociation = getAssociationsFromClassDiagram(instructorBookClass , instructorChapterClass,instructorClassDiagram);
+    var instructorBookToChapterAssociation = getAssociationsFromClassDiagram(instructorBookClass, instructorChapterClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_COMPOSITION, instructorBookandChapterAssociation.get(0), 0, 1,
-          false);
-    }
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_COMPOSITION, instructorBookToChapterAssociation.get(0), 0, 1, false);
+  }
 
   /**
    * Test to check Missing Aggregation.
@@ -266,22 +251,21 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorTeamClass = getClassFromClassDiagram("Team", instructorClassDiagram);
     var instructorPlayerClass = getClassFromClassDiagram("Player", instructorClassDiagram);
 
-    var instructorTeamandPlayerAssociation = getAssociationsFromClassDiagram(instructorTeamClass , instructorPlayerClass,instructorClassDiagram);
+    var instructorTeamToPlayerAssociation = getAssociationsFromClassDiagram(instructorTeamClass, instructorPlayerClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_AGGREGATION, instructorTeamandPlayerAssociation.get(0), 0, 1,
-          false);
-    }
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_AGGREGATION, instructorTeamToPlayerAssociation.get(0), 0, 1, false);
+  }
 
   /**
    * Test to check Missing Aggregation.
    */
   @Test
-  public void testMistakeMissingAggregation1() {
+  public void testMistakeMissingAggregationInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_carAndEngineClass/Class Diagram/Instructor_carAndEngineClass.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -293,16 +277,15 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
     var instructorEngineClass = getClassFromClassDiagram("Engine", instructorClassDiagram);
 
-    var instructorCarandEngineAssociation = getAssociationsFromClassDiagram(instructorCarClass , instructorEngineClass,instructorClassDiagram);
+    var instructorCarToEngineAssociation = getAssociationsFromClassDiagram(instructorCarClass, instructorEngineClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_AGGREGATION, instructorCarandEngineAssociation.get(0), 0, 1,
-          false);
-    }
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_AGGREGATION, instructorCarToEngineAssociation.get(0), 0, 1, false);
+  }
 
   /**
    * Test to check mistake of missing association.
@@ -320,22 +303,21 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
     var instructorOwnerClass = getClassFromClassDiagram("Owner", instructorClassDiagram);
 
-    var instructorCarandOwnerAssociation = getAssociationsFromClassDiagram(instructorCarClass , instructorOwnerClass,instructorClassDiagram);
+    var instructorCarToOwnerAssociation = getAssociationsFromClassDiagram(instructorCarClass, instructorOwnerClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOCIATION, instructorCarandOwnerAssociation.get(0), 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOCIATION, instructorCarToOwnerAssociation.get(0), 0, 1, false);
   }
 
   /**
    * Test to check mistake of missing association.
    */
   @Test
-  public void testMistakeMissingAssociation1() {
+  public void testMistakeMissingAssociationInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_passengerAndAirplanClass/Class Diagram/Instructor_passengerAndAirplanClass.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -347,15 +329,14 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
     var instructorAirplanClass = getClassFromClassDiagram("Airplan", instructorClassDiagram);
 
-    var instructorPassengerandAirplanAssociation = getAssociationsFromClassDiagram(instructorPassengerClass , instructorAirplanClass,instructorClassDiagram);
+    var instructorPassengerToAirplanAssociation = getAssociationsFromClassDiagram(instructorPassengerClass, instructorAirplanClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOCIATION, instructorPassengerandAirplanAssociation.get(0), 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOCIATION, instructorPassengerToAirplanAssociation.get(0), 0, 1, false);
   }
 
   /**
@@ -371,18 +352,17 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_usingAsInsteadOfCom/Class Diagram/Student_usingAsInsteadOfCom.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var  instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
-    var  studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
-    AssociationEnd instructorMyEmployeeAssociationEnd = getAssociationEndFromClass("myEmployee", instructorCompanyClass);
-    AssociationEnd studentMyEmployeeAssociationEnd = getAssociationEndFromClass("myEmployee", studentCompanyClass);
+    var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+    var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
+    var instructorMyEmployeeAssociationEnd =getAssociationEndFromClass("myEmployee", instructorCompanyClass);
+    var studentMyEmployeeAssociationEnd = getAssociationEndFromClass("myEmployee", studentCompanyClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION, studentMyEmployeeAssociationEnd, instructorMyEmployeeAssociationEnd, 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION, studentMyEmployeeAssociationEnd, instructorMyEmployeeAssociationEnd, 0, 1, false);
   }
 
   /**
@@ -398,18 +378,17 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_usingAsInsteadOfAgg/Class Diagram/Student_usingAsInsteadOfAgg.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var  instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
-    var  studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
-    AssociationEnd instructorMyEngineAssociationEnd = getAssociationEndFromClass("myEngine", instructorCarClass);
-    AssociationEnd studentMyEngineAssociationEnd = getAssociationEndFromClass("myEngine", studentCarClass);
+    var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
+    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+    var instructorMyEngineAssociationEnd = getAssociationEndFromClass("myEngine", instructorCarClass);
+    var studentMyEngineAssociationEnd = getAssociationEndFromClass("myEngine", studentCarClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION,  studentMyEngineAssociationEnd, instructorMyEngineAssociationEnd, 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION, studentMyEngineAssociationEnd, instructorMyEngineAssociationEnd, 0, 1, false);
   }
 
   /**
@@ -425,18 +404,17 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_usingComInsteadOfAgg/Class Diagram/Student_usingComInsteadOfAgg.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var  instructorTeamClass = getClassFromClassDiagram("Team", instructorClassDiagram);
-    var  studentTeamClass = getClassFromClassDiagram("Team", studentClassDiagram);
-    AssociationEnd instructorMyPlayerAssociationEnd = getAssociationEndFromClass("myPlayer", instructorTeamClass);
-    AssociationEnd studentMyPlayerAssociationEnd = getAssociationEndFromClass("myPlayer", studentTeamClass);
+    var instructorTeamClass = getClassFromClassDiagram("Team", instructorClassDiagram);
+    var studentTeamClass = getClassFromClassDiagram("Team", studentClassDiagram);
+    var instructorMyPlayerAssociationEnd = getAssociationEndFromClass("myPlayer", instructorTeamClass);
+    var studentMyPlayerAssociationEnd = getAssociationEndFromClass("myPlayer", studentTeamClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_COMPOSITION_INSTEAD_OF_AGGREGATION,  studentMyPlayerAssociationEnd, instructorMyPlayerAssociationEnd , 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), USING_COMPOSITION_INSTEAD_OF_AGGREGATION, studentMyPlayerAssociationEnd, instructorMyPlayerAssociationEnd, 0, 1, false);
   }
 
   /**
@@ -452,18 +430,17 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_usingAggInsteadOfCom/Class Diagram/Student_usingAggInsteadOfCom.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var  instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
-    var  studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
-    AssociationEnd instructorMyEmployeeAssociationEnd = getAssociationEndFromClass("myEmployee", instructorCompanyClass);
-    AssociationEnd studentMyEmployeeAssociationEnd = getAssociationEndFromClass("myEmployee", studentCompanyClass);
+    var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+    var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
+    var instructorMyEmployeeAssociationEnd = getAssociationEndFromClass("myEmployee", instructorCompanyClass);
+    var studentMyEmployeeAssociationEnd = getAssociationEndFromClass("myEmployee", studentCompanyClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_AGGREGATION_INSTEAD_OF_COMPOSITION, studentMyEmployeeAssociationEnd, instructorMyEmployeeAssociationEnd, 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), USING_AGGREGATION_INSTEAD_OF_COMPOSITION, studentMyEmployeeAssociationEnd, instructorMyEmployeeAssociationEnd, 0, 1, false);
   }
 
   /**
@@ -479,18 +456,17 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_UsingComInsteadOfAs/Class Diagram/Student_UsingComInsteadOfAs.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var  instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
-    var  studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
-    AssociationEnd instructorMyOwnerAssociationEnd = getAssociationEndFromClass("Owner", instructorCarClass);
-    AssociationEnd studentMyOwnerAssociationEnd = getAssociationEndFromClass("Owner", studentCarClass);
+    var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
+    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+    var instructorOwnerAssociationEnd = getAssociationEndFromClass("Owner", instructorCarClass);
+    var studentOwnerAssociationEnd = getAssociationEndFromClass("Owner", studentCarClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION, studentMyOwnerAssociationEnd, instructorMyOwnerAssociationEnd, 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION, studentOwnerAssociationEnd, instructorOwnerAssociationEnd, 0, 1, false);
   }
 
   /**
@@ -508,23 +484,22 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
-    AssociationEnd instructorMyOwnerAssociationEnd = getAssociationEndFromClass("Owner", instructorCarClass);
-    AssociationEnd studentCarOwnerAssociationEnd = getAssociationEndFromClass("CarOwner", studentCarClass);
+    var instructorMyOwnerAssociationEnd = getAssociationEndFromClass("Owner", instructorCarClass);
+    var studentCarOwnerAssociationEnd = getAssociationEndFromClass("CarOwner", studentCarClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentCarOwnerAssociationEnd, instructorMyOwnerAssociationEnd, 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentCarOwnerAssociationEnd, instructorMyOwnerAssociationEnd, 0, 1, false);
   }
 
   /**
    * Test to check present but incorrect role name.
    */
   @Test
-  public void testMistakePresentButIncorrectRoleName1() {
+  public void testMistakePresentButIncorrectRoleNameInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_passengerAndAirplanClass/Class Diagram/Instructor_passengerAndAirplanClass.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -535,23 +510,22 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var instructorAirplanClass = getClassFromClassDiagram("Airplan", instructorClassDiagram);
     var studentAirplanClass = getClassFromClassDiagram("Airplan", studentClassDiagram);
-    AssociationEnd instructorMyPassengerAssociationEnd = getAssociationEndFromClass("myPassenger", instructorAirplanClass);
-    AssociationEnd studentPeopleAssociationEnd = getAssociationEndFromClass("People", studentAirplanClass);
+    var instructorMyPassengerAssociationEnd = getAssociationEndFromClass("myPassenger", instructorAirplanClass);
+    var studentPeopleAssociationEnd = getAssociationEndFromClass("People", studentAirplanClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentPeopleAssociationEnd, instructorMyPassengerAssociationEnd, 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentPeopleAssociationEnd, instructorMyPassengerAssociationEnd, 0, 1, false);
   }
 
   /**
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectRoleName1() {
+  public void testMistakeIncorrectRoleNameInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_carAndEngineClass/Class Diagram/Instructor_carAndEngineClass.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -562,23 +536,22 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
-    AssociationEnd instructormyEngineAssociationEnd = getAssociationEndFromClass("myEngine", instructorCarClass);
-    AssociationEnd studentmyengineAssociationEnd = getAssociationEndFromClass("myengine", studentCarClass);
+    var instructormyEngineAssociationEnd = getAssociationEndFromClass("myEngine", instructorCarClass);
+    var studentmyengineAssociationEnd = getAssociationEndFromClass("myengine", studentCarClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), BAD_ROLE_NAME_SPELLING, studentmyengineAssociationEnd, instructormyEngineAssociationEnd, 0, 1,
-          false);
-    }
+    assertMistake(studentSolution.getMistakes().get(0), BAD_ROLE_NAME_SPELLING, studentmyengineAssociationEnd, instructormyEngineAssociationEnd, 0, 1, false);
+  }
 
   /**
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectRoleName2() {
+  public void testMistakeOtherIncorrectRoleName() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_companyAndEmployeeClass/Class Diagram/Instructor_companyAndEmployeeClass.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -587,19 +560,18 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_badRoleNameSpelling1/Class Diagram/Student_badRoleNameSpelling1.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-   var instructorEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    var instructorEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
     var studentEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
-    AssociationEnd instructormyCompanyAssociationEnd = getAssociationEndFromClass("myCompany", instructorEmployeeClass);
-    AssociationEnd studentmyCompaneyAssociationEnd = getAssociationEndFromClass("myCompaney", studentEmployeeClass);
+    var instructormyCompanyAssociationEnd = getAssociationEndFromClass("myCompany", instructorEmployeeClass);
+    var studentmyCompaneyAssociationEnd = getAssociationEndFromClass("myCompaney", studentEmployeeClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), BAD_ROLE_NAME_SPELLING, studentmyCompaneyAssociationEnd, instructormyCompanyAssociationEnd, 0, 1,
-          false);
-    }
+    assertMistake(studentSolution.getMistakes().get(0), BAD_ROLE_NAME_SPELLING, studentmyCompaneyAssociationEnd, instructormyCompanyAssociationEnd, 0, 1, false);
+  }
 
   /**
    * Test to check mistake Role name Should Not be static.
@@ -614,18 +586,17 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_shouldNotBeStaticRoleName/Class Diagram/Student_shouldNotBeStaticRoleName.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var  instructorTeamClass = getClassFromClassDiagram("Team", instructorClassDiagram);
-    var  studentTeamClass = getClassFromClassDiagram("Team", studentClassDiagram);
-    AssociationEnd instructorMyPlayerAssociationEnd = getAssociationEndFromClass("myPlayer", instructorTeamClass);
-    AssociationEnd studentMyPlayerAssociationEnd = getAssociationEndFromClass("myPlayer", studentTeamClass);
+    var instructorTeamClass = getClassFromClassDiagram("Team", instructorClassDiagram);
+    var studentTeamClass = getClassFromClassDiagram("Team", studentClassDiagram);
+    var instructorMyPlayerAssociationEnd = getAssociationEndFromClass("myPlayer", instructorTeamClass);
+    var studentMyPlayerAssociationEnd = getAssociationEndFromClass("myPlayer", studentTeamClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_NOT_BE_STATIC,  studentMyPlayerAssociationEnd, instructorMyPlayerAssociationEnd , 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_NOT_BE_STATIC, studentMyPlayerAssociationEnd, instructorMyPlayerAssociationEnd, 0, 1, false);
   }
 
   /**
@@ -641,25 +612,23 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_shouldBeStaticRoleName/Class Diagram/Student_shouldBeStaticRoleName.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var  instructorOrderClass = getClassFromClassDiagram("Order", instructorClassDiagram);
-    var  studentOrderClass = getClassFromClassDiagram("Order", studentClassDiagram);
-    AssociationEnd instructormyCustomerAssociationEnd = getAssociationEndFromClass("myCustomer", instructorOrderClass);
-    AssociationEnd studentmyCustomerAssociationEnd = getAssociationEndFromClass("myCustomer", studentOrderClass);
+    var instructorOrderClass = getClassFromClassDiagram("Order", instructorClassDiagram);
+    var studentOrderClass = getClassFromClassDiagram("Order", studentClassDiagram);
+    var instructormyCustomerAssociationEnd = getAssociationEndFromClass("myCustomer", instructorOrderClass);
+    var studentmyCustomerAssociationEnd = getAssociationEndFromClass("myCustomer", studentOrderClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC,  studentmyCustomerAssociationEnd, instructormyCustomerAssociationEnd , 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC, studentmyCustomerAssociationEnd, instructormyCustomerAssociationEnd, 0, 1, false);
   }
 
   /**
    * Test to check similar role name.
-   //detecting as wrong role name, not detected yet
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
   public void testMistakesimilarRoleName() {
     var instructorClassDiagram = cdmFromFile(
@@ -670,27 +639,25 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_similarRoleName/Class Diagram/Student_similarRoleName.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    Classifier instructorAirplanClass = getClassFromClassDiagram("Airplan", instructorClassDiagram);
-    Classifier studentAirplanClass = getClassFromClassDiagram("Airplan", studentClassDiagram);
-    AssociationEnd instructorMyPassengerAssociationEnd = getAssociationEndFromClass("myPassenger", instructorAirplanClass);
-    AssociationEnd studentTravellerAssociationEnd = getAssociationEndFromClass("myTraveller", studentAirplanClass);
+    var instructorAirplanClass = getClassFromClassDiagram("Airplan", instructorClassDiagram);
+    var studentAirplanClass = getClassFromClassDiagram("Airplan", studentClassDiagram);
+    var instructorMyPassengerAssociationEnd = getAssociationEndFromClass("myPassenger", instructorAirplanClass);
+    var studentTravellerAssociationEnd = getAssociationEndFromClass("myTraveller", studentAirplanClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ROLE_NAME, studentTravellerAssociationEnd, instructorMyPassengerAssociationEnd, 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ROLE_NAME, studentTravellerAssociationEnd, instructorMyPassengerAssociationEnd, 0, 1, false);
   }
 
   /**
    * Test to check similar role name spelling.
-   //detecting as wrong role name  not implemented yet
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
-  public void testMistakesimilarRoleName1() {
+  public void testMistakesimilarRoleNameInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_carAndEngineClass/Class Diagram/Instructor_carAndEngineClass.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -701,23 +668,21 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
-    AssociationEnd instructormyEngineAssociationEnd = getAssociationEndFromClass("myEngine", instructorCarClass);
-    AssociationEnd studentmyMotorAssociationEnd = getAssociationEndFromClass("myMotor", studentCarClass);
+    var instructormyEngineAssociationEnd = getAssociationEndFromClass("myEngine", instructorCarClass);
+    var studentmyMotorAssociationEnd = getAssociationEndFromClass("myMotor", studentCarClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ROLE_NAME, studentmyMotorAssociationEnd, instructormyEngineAssociationEnd, 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ROLE_NAME, studentmyMotorAssociationEnd, instructormyEngineAssociationEnd, 0, 1, false);
   }
 
   /**
    * Test to check directed association.
-   //not implemented yet
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeUsingDirectedAssociation() {
     var instructorClassDiagram = cdmFromFile(
@@ -728,23 +693,23 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_usingDirectedAssociation/Class Diagram/Student_usingDirectedAssociation.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
+    var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
-    AssociationEnd studentmyOfficeAssociationEnd = getAssociationEndFromClass("myOffice", studentCompanyClass);
+    var instructormyOfficeAssociationEnd = getAssociationEndFromClass("myOffice", instructorCompanyClass);
+    var studentmyOfficeAssociationEnd = getAssociationEndFromClass("myOffice", studentCompanyClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_DIRECTED_ASSOCIATION_INSTEAD_OF_UNDIRECTED, studentmyOfficeAssociationEnd, 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), USING_DIRECTED_ASSOCIATION_INSTEAD_OF_UNDIRECTED, studentmyOfficeAssociationEnd, instructormyOfficeAssociationEnd, 0, 1, false);
   }
 
   /**
    * Test to check undirected association.
-   //not implemented yet
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeUsingUnDirectedAssociation() {
     var instructorClassDiagram = cdmFromFile(
@@ -755,17 +720,18 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_usingUndirectedAssociation/Class Diagram/Student_usingUndirectedAssociation.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
+    var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
-    AssociationEnd studentmyWheelAssociationEnd = getAssociationEndFromClass("myWheel", studentCarClass);
+    var instructormyWheelAssociationEnd = getAssociationEndFromClass("myWheel", instructorCarClass);
+    var studentmyWheelAssociationEnd = getAssociationEndFromClass("myWheel", studentCarClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_UNDIRECTED_ASSOCIATION_INSTEAD_OF_DIRECTED, studentmyWheelAssociationEnd, 0, 1,
-          false);
-    }
+    assertMistake(studentSolution.getMistakes().get(0), USING_UNDIRECTED_ASSOCIATION_INSTEAD_OF_DIRECTED, studentmyWheelAssociationEnd, instructormyWheelAssociationEnd, 0, 1, false);
+  }
 
   /**
    * Test to check extra association.
@@ -783,53 +749,48 @@ public class MistakeDetectionWrongRelationshipsTest {
     var studentOwnerClass = getClassFromClassDiagram("Owner", studentClassDiagram);
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
 
-    var studentCarandOwnerAssociation = getAssociationsFromClassDiagram(studentOwnerClass , studentCarClass,studentClassDiagram);
+    var studentCarToOwnerAssociation = getAssociationsFromClassDiagram(studentOwnerClass, studentCarClass, studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ASSOCIATION, studentCarandOwnerAssociation.get(1), 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ASSOCIATION, studentCarToOwnerAssociation.get(1), 0, 1, false);
   }
 
   /**
    * Test to check incomplete containment tree.
-   //not implemented yet and detecting missing composition
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeIncompleteContainmentTree() {
     var instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_bankAtmAndAccountClass/Class Diagram/Instructor_bankAtmAndAccountClass.domain_model.cdm");
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_bankAndAccountClass/Class Diagram/Instructor_bankAndAccountClass.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_incompleteContainmentTree/Class Diagram/Student_incompleteContainmentTree.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instructorBankClass = getClassFromClassDiagram("Bank", instructorClassDiagram);
-    var instructorAccountClass = getClassFromClassDiagram("Account", instructorClassDiagram);
+    var instructorBankkClass = getClassFromClassDiagram("Bank", instructorClassDiagram);
+    var studentBankClass = getClassFromClassDiagram("Bank", studentClassDiagram);
 
-    var instructorBankandAccountAssociation = getAssociationsFromClassDiagram(instructorBankClass , instructorAccountClass,instructorClassDiagram);
+    var instructormyAccountAssociationEnd = getAssociationEndFromClass("myAccount", instructorBankkClass);
+    var studentmyAccountAssociationEnd = getAssociationEndFromClass("myAccount", studentBankClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    for (Mistake m : studentSolution.getMistakes()) {
-      assertMistake(m, INCOMPLETE_CONTAINMENT_TREE, instructorBankandAccountAssociation.get(0), 0, 1,
-          false);
-    }
-  }
+    assertMistake(studentSolution.getMistakes().get(0), INCOMPLETE_CONTAINMENT_TREE, studentmyAccountAssociationEnd,instructormyAccountAssociationEnd, 0, 1, false);
+   }
 
   /**
    * Test to check incomplete containment tree.
-   //not implemented yet and detecting missing composition
    */
-  @Disabled
+  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeIncompleteContainmentTree1() {
     var instructorClassDiagram = cdmFromFile(
@@ -841,27 +802,23 @@ public class MistakeDetectionWrongRelationshipsTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
-    var instructorWheelClass = getClassFromClassDiagram("Wheel", instructorClassDiagram);
+    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
 
-    var instructorCarandWheelAssociation = getAssociationsFromClassDiagram(instructorCarClass , instructorWheelClass,instructorClassDiagram);
+    var instructormyWheelAssociationEnd = getAssociationEndFromClass("myWheel", instructorCarClass);
+    var studentmyWheelAssociationEnd = getAssociationEndFromClass("myWheel", studentCarClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    for (Mistake m : studentSolution.getMistakes()) {
-      assertMistake(m, INCOMPLETE_CONTAINMENT_TREE, instructorCarandWheelAssociation.get(0), 0, 1,
-          false);
-    }
-  }
+    assertMistake(studentSolution.getMistakes().get(0), INCOMPLETE_CONTAINMENT_TREE, studentmyWheelAssociationEnd, instructormyWheelAssociationEnd, 0, 1, false);
+   }
 
   /**
    * Test to check infinite recursive dependency.
-   //not implemented yet
-    //matching association ends incorrectly
    */
-  @Disabled
+  @Disabled("Not implemented yet.matching association ends incorrectly.")
   @Test
   public void testMistakeInfiniteRecursiveDependency() {
     var instructorClassDiagram = cdmFromFile(
@@ -875,17 +832,14 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
     var studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
-    AssociationEnd instructorChildAssociationEnd = getAssociationEndFromClass("Child", instructorPersonClass);
-    AssociationEnd studentChildAssociationEnd = getAssociationEndFromClass("Child", studentPersonClass);
+    var instructorChildAssociationEnd = getAssociationEndFromClass("Child", instructorPersonClass);
+    var studentChildAssociationEnd = getAssociationEndFromClass("Child", studentPersonClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    for (Mistake m : studentSolution.getMistakes()) {
-      assertMistake(m, INFINITE_RECURSIVE_DEPENDENCY, studentChildAssociationEnd,instructorChildAssociationEnd, 0, 1,
-          false);
+    assertMistake(studentSolution.getMistakes().get(0), INFINITE_RECURSIVE_DEPENDENCY, studentChildAssociationEnd, instructorChildAssociationEnd, 0, 1, false);
     }
   }
-}
