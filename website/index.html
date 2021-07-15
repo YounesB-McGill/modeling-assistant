@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" name="viewport" content="width=device-width"/>
+    <meta name="theme-color" content="#FF7F50"/>
+    <!-- <link rel="shortcut icon" type="image/png" href="TBD"/> -->
+    <title>Modeling Assistant</title>
+    <style>
+      body {
+        font-family: Lato, Arial, Helvetica, sans-serif;
+      }
+      #ma_wrapper {
+        display: flex;
+      }
+      #ma_main {
+        flex: 1;
+      }
+      #cde {
+        flex: 1.1;
+      }
+    </style>
+    <!-- <script type="text/javascript" src="scripts/layoututils.js"></script> -->
+    <script>
+      window.onload = () => {
+        const iFrame = document.createElement("iframe");
+        Object.assign(iFrame, {
+          style: "",
+          src: "http://localhost/", // "cdmeditor.html",
+          id: "cdm_editor",
+          name: "cdm_editor",
+          height: `${0.95 * window.innerHeight}px`,
+          width: "100%",
+          frameBorder: 0,
+        });
+        document.getElementById("cde").appendChild(iFrame);
+      }
+    </script>
+  </head>
+
+  <body>
+  <div id="ma_wrapper">
+    <div id="ma_main">
+      <h1>Modeling Assistant</h1>
+      <p>This is the top-level part of the Modeling Assistant Web App GUI.</p>
+    </div>
+    <div id="cde"></div>
+  </div>
+  </body>
+</html>

@@ -25,7 +25,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             Feedback(level=1, highlightSolution=True),
             TextResponse(level=2, text="Make sure you have modeled all the classes in the problem description."),
             Feedback(level=3, highlightProblem=True),
-            ParametrizedResponse(level=4, text="Remember to add the ${{className}} class.")
+            ParametrizedResponse(level=4, text="Remember to add the ${className} class.")
         ]),
         extra_class := mt(n="Extra (redundant) class"),
     ]),
@@ -35,7 +35,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=[
             Feedback(level=1, highlightSolution=True),
             TextResponse(level=2, text="Remember that a domain model should not contain software engineering terms."),
-            ParametrizedResponse(level=3, text="${{className}} is a software engineering term, which does not belong in a domain model."),
+            ParametrizedResponse(level=3, text="${className} is a software engineering term, which does not belong in a domain model."),
             ResourceResponse(level=4,
                 # TODO Change type of `content` to allow correct deserialization
                 # learningResources=[Example(content=dedent("""\
@@ -47,7 +47,12 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 #     AirlineData | Airline"""))]
             ),
         ]),
-        bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True),
+        bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True, feedbacks=[
+            Feedback(level=1, highlightSolution=True),
+            TextResponse(level=2, text="Can you double check this class name?"),
+            ParametrizedResponse(level=3, text="The ${incorrectlySpelledClassName} class has a misspelled name."),
+            ParametrizedResponse(level=4, text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
+        ]),
         similar_class_name := mt(n="Similar (yet incorrect) class name"),
     ]),
     wrong_enumeration := mtc(n="Wrong enumeration", s=wrong_class, mistakeTypes=[
