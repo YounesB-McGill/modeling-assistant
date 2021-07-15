@@ -47,6 +47,7 @@ public class MistakeDetectionTest {
     Classifier driverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
 
     assertTrue(instructorSolution.getClassDiagram().getClasses().containsAll(List.of(busClass, driverClass)));
+
   }
 
   /**
