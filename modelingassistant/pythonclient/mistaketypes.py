@@ -2,10 +2,10 @@
 This file contains all mistake types and categories.
 """
 
+from constants import LEARNING_CORPUS_PATH
 from fileserdes import load_lc
 from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
 
-LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/default.learningcorpus"
 corpus = load_lc(LEARNING_CORPUS_PATH)
 
 # Populate dictionaries
@@ -15,9 +15,6 @@ MISTAKE_TYPES_BY_NAME: dict[str, MistakeType] = {mt.name: mt for mt in corpus.mi
 # Short-name references to the above maps for greater code legibility
 _MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
 _MTS = MISTAKE_TYPES_BY_NAME
-
-_dynamic_mtc_type = type(list(_MTCS.values())[0])
-_dynamic_mt_type = type(list(_MTS.values())[0])
 
 # Mistake type categories
 WRONG_CLASS: MistakeTypeCategory = _MTCS["Wrong class"]
@@ -129,28 +126,3 @@ FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION: MistakeType = _MTS["Full Player-
 FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM: MistakeType = _MTS["Full Player-Role pattern should be enum"]
 MISSING_ABSTRACTION_OCCURRENCE_PATTERN: MistakeType = _MTS["Missing Abstraction-Occurrence pattern"]
 INCOMPLETE_ABSTRACTION_OCCURRENCE_PATTERN: MistakeType = _MTS["Incomplete Abstraction-Occurrence pattern"]
-
-
-# deprecated: this function will be removed soon
-def _make_static():
-    """
-    Make the mistake types and categories have static types from the generated code instead of
-    dynamic pyecore types.
-    """
-    global _MTCS, _MTS
-    for mtc in _MTCS.values(): mtc.__class__ = MistakeTypeCategory
-    for mt in _MTS.values(): mt.__class__ = MistakeType
-
-
-# deprecated: this function will be removed soon
-def _make_dynamic():
-    """
-    Make the mistake types and categories have dynamic pyecore types, the default if
-    `_make_static()` is not called.
-    """
-    global _MTCS, _MTS, _dynamic_mtc_type, _dynamic_mt_type
-    for mtc in _MTCS.values(): mtc.__class__ = _dynamic_mtc_type
-    for mt in _MTS.values(): mt.__class__ = _dynamic_mt_type
-
-
-#_make_static()
