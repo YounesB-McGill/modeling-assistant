@@ -1,10 +1,12 @@
 package controller.tests;
 
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -21,6 +23,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.CDInt;
@@ -30,6 +33,9 @@ import ca.mcgill.sel.classdiagram.CdmPackage;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.classdiagram.ReferenceType;
+import ca.mcgill.sel.mistakedetection.MistakeDetection;
+import ca.mcgill.sel.mistakedetection.MistakeDetectionConfig;
+import learningcorpus.Feedback;
 import learningcorpus.LearningCorpus;
 import learningcorpus.LearningcorpusPackage;
 import learningcorpus.mistaketypes.MistakeTypes;
@@ -828,6 +834,59 @@ public class ControllerTest {
     List.of(WRONG_CLASS, WRONG_CLASS_NAME).forEach(mtc -> assertTrue(mtc.getLearningCorpus() == learningCorpus));
     List.of(MISSING_CLASS, SOFTWARE_ENGINEERING_TERM).forEach(mt ->
       assertTrue(mt.getMistakeTypeCategory().getLearningCorpus() == learningCorpus));
+  }
+
+  /**
+   * Replica of test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system() in the
+   * Python tests, but testing only the structure without needing to connect to Java REST manually.
+   */
+  @Test public void testFeedbackStructureForModelingAssistantInstanceWithMistakesFromMistakeDetectionSystem() {
+    var instructorCdm = cdmFromFile("../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBus/Class Diagram/Instructor_classBus.domain_model.cdm");
+    var studentCdm = cdmFromFile("../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_wrongClassName/Class Diagram/Student_wrongClassName.domain_model.cdm");
+
+    var ma = MAF.createModelingAssistant();
+    var bob = MAF.createStudent();
+    bob.setName("Bob");
+    bob.setModelingAssistant(ma);
+    var sk = MAF.createStudentKnowledge();
+    sk.setMistakeType(BAD_CLASS_NAME_SPELLING);
+    sk.setStudent(bob);
+    sk.setModelingAssistant(ma);
+    var instructorSol = MAF.createSolution();
+    instructorSol.setModelingAssistant(ma);
+    instructorSol.setClassDiagram(instructorCdm);
+    var bobSol = MAF.createSolution();
+    bobSol.setModelingAssistant(ma);
+    bobSol.setClassDiagram(studentCdm);
+    bobSol.setStudent(bob);
+    var busPs = MAF.createProblemStatement();
+    busPs.setName("Bus Management System");
+    busPs.setModelingAssistant(ma);
+    busPs.setInstructorSolution(instructorSol);
+    busPs.getStudentSolutions().add(bobSol);
+    instructorSol.setProblemStatement(busPs);
+    bobSol.setProblemStatement(busPs);
+    bob.setCurrentSolution(bobSol);
+
+    MistakeDetectionConfig.taggerPath = "../mistakedetection/" + MistakeDetectionConfig.taggerPath;
+    MistakeDetection.compare(instructorSol, bobSol);
+
+    assertEquals(busPs.getName(), ma.getProblemStatements().get(0).getName());
+
+    busPs = ma.getProblemStatements().get(0);
+    bobSol = busPs.getStudentSolutions().get(0);
+    assertEquals(bob.getName(), bobSol.getStudent().getName());
+    assertFalse(bob.getSolutions().isEmpty());
+
+    bob = bobSol.getStudent();
+    var buseMistake = bobSol.getMistakes().get(0);
+    assertTrue(EcoreUtil.equals(BAD_CLASS_NAME_SPELLING, buseMistake.getMistakeType()));
+
+    // hardcode to specific feedback since feedback algorithm logic is already tested in Python
+    var feedback = BAD_CLASS_NAME_SPELLING.getFeedbacks().get(0);
+    assertTrue(feedback instanceof Feedback);
+    assertEquals(1, feedback.getLevel());
+    assertTrue(feedback.isHighlightSolution());
   }
 
   /**

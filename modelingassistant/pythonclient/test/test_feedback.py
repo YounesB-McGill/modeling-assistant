@@ -1,16 +1,33 @@
 #!/usr/bin/env python3
+# pylint: disable=wrong-import-position
 
+"""
+Tests for feedback algorithm.
+"""
+
+from threading import Thread
+from time import sleep
 import os
+import json
 import sys
+import requests
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from feedback import give_feedback
 from classdiagram.classdiagram import Class
+from fileserdes import load_cdm
 from learningcorpus.learningcorpus import Feedback, ParametrizedResponse, ResourceResponse, TextResponse
-from mistaketypes import SOFTWARE_ENGINEERING_TERM
+from mistaketypes import BAD_CLASS_NAME_SPELLING, SOFTWARE_ENGINEERING_TERM
+from stringserdes import SRSET, StringEnabledResourceSet
 from modelingassistant.modelingassistant import (FeedbackItem, Mistake, ModelingAssistant,
     ProblemStatement, Solution, SolutionElement, Student, StudentKnowledge)
+
+
+HOST = "localhost"
+PORT = 8539
+
+DELAY = 20  # seconds
 
 
 def make_ma_without_mistakes() -> ModelingAssistant:
@@ -200,6 +217,70 @@ def test_feedback_with_1_mistake_levels_1_4():
     assert 6 == ma.studentKnowledges[0].levelOfKnowledge
 
 
+def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
+    """
+    Test feedback for a modeling assistant instance with mistakes detected from the actual mistake detection system.
+    """
+    # TODO Extract common functionality into helper functions
+    instructor_cdm = load_cdm("mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBus/"
+                              "Class Diagram/Instructor_classBus.domain_model.cdm")
+    student_cdm = load_cdm("mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_wrongClassName/"
+                           "Class Diagram/Student_wrongClassName.domain_model.cdm")
+    ma = ModelingAssistant()
+    bob = Student(name="Bob", modelingAssistant=ma)
+    StudentKnowledge(mistakeType=BAD_CLASS_NAME_SPELLING, student=bob, modelingAssistant=ma)
+    instructor_sol = Solution(modelingAssistant=ma, classDiagram=instructor_cdm)
+    bob_sol = Solution(modelingAssistant=ma, classDiagram=student_cdm, student=bob)
+    bus_ps = ProblemStatement(name="Bus Management System", modelingAssistant=ma,
+                              instructorSolution=instructor_sol,
+                              studentSolutions=[bob_sol])
+    instructor_sol.problemStatement = bus_ps
+    bob_sol.problemStatement = bus_ps
+    bob.currentSolution = bob_sol
+
+    resource = StringEnabledResourceSet().create_string_resource()
+    resource.extend([ma, instructor_cdm, student_cdm])
+    ma_str = resource.save_to_string().decode()
+    assert ma_str
+
+    get_mistakes = lambda: requests.get(f"http://{HOST}:{PORT}/detectmistakes", {"modelingassistant": ma_str})
+
+    try:
+        req = get_mistakes()
+    except Exception:  # pylint: disable=broad-except
+        # Turn on Modeling Assistant REST API server if not already running
+        Thread(target=lambda: os.system("cd modelingassistant.restapi && mvn spring-boot:run"), daemon=True).start()
+        sleep(DELAY)
+        req = get_mistakes()
+
+    req_content = json.loads(req.content)
+    assert 200 == req.status_code
+    assert "modelingAssistantXmi" in req_content
+
+    ma_str = bytes(req_content["modelingAssistantXmi"], "utf-8")
+    resource = SRSET.get_string_resource(ma_str)
+    ma: ModelingAssistant = resource.contents[0]
+    ma.__class__ = ModelingAssistant
+    assert ma
+    assert bus_ps.name == ma.problemStatements[0].name
+
+    bus_ps = ma.problemStatements[0]
+    bob_sol = bus_ps.studentSolutions[0]
+    assert bob.name == bob_sol.student.name
+    assert bob_sol.mistakes
+
+    bob = bob_sol.student
+    buse_mistake = bob_sol.mistakes[0]
+    assert BAD_CLASS_NAME_SPELLING == buse_mistake.mistakeType
+
+    feedback_item = give_feedback(bob_sol)
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, Feedback)
+    assert 1 == feedback.level
+    assert feedback.highlightSolution
+    assert 9 == ma.studentKnowledges[0].levelOfKnowledge
+
+
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
-    test_feedback_with_1_mistake_levels_1_4()
+    test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system()
