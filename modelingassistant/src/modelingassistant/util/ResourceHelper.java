@@ -93,6 +93,7 @@ public final class ResourceHelper {
       cdmResource.load(Collections.EMPTY_MAP);
       return (ClassDiagram) cdmResource.getContents().get(0);
     } catch (IOException e) {
+      e.printStackTrace();
       return null;
     }
   }

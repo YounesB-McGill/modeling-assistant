@@ -4,17 +4,16 @@ import os
 import re
 from textwrap import dedent
 
-import pytest
+import pytest  # pylint: disable=unused-import
 from stringserdes import StringEnabledResourceSet
 from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, CDInt, CDString,
     AssociationEnd, Association, ReferenceType)
+from constants import LEARNING_CORPUS_PATH
 from fileserdes import load_cdm, load_lc, load_ma, save_to_files
 from learningcorpus.learningcorpus import LearningItem
 from mistaketypes import BAD_CLASS_NAME_SPELLING
 from modelingassistant.modelingassistant import ModelingAssistant, Solution, Student, StudentKnowledge
 
-
-LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/default.learningcorpus"
 
 CDM_PATH = "modelingassistant/testmodels"
 MA_PATH = "modelingassistant/instances"
