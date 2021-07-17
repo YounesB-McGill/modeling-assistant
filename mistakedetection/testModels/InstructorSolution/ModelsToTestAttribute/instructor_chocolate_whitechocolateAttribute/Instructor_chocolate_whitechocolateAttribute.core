@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_FoKw8N3NEeuTLOme1e-z-w" name="Instructor_chocolate_whitechocolateAttribute" featureModel="_FoKw8d3NEeuTLOme1e-z-w" impactModel="_FoKw893NEeuTLOme1e-z-w">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_FoKw8d3NEeuTLOme1e-z-w" root="_FoKw8t3NEeuTLOme1e-z-w">
+    <features xmi:id="_FoKw8t3NEeuTLOme1e-z-w" name="Instructor_chocolate_whitechocolateAttribute" realizedBy="_HBLyUd3NEeuTLOme1e-z-w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_FoKw893NEeuTLOme1e-z-w" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_HBLyUN3NEeuTLOme1e-z-w" name="Instructor_chocolate_whitechocolateAttribute" scene="_HBLyUd3NEeuTLOme1e-z-w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_chocolate_whitechocolateAttribute.domain_model.cdm#_HBNngN3NEeuTLOme1e-z-w"/>
+  </artefacts>
+  <scenes xmi:id="_HBLyUd3NEeuTLOme1e-z-w" name="Instructor_chocolate_whitechocolateAttribute" realizes="_FoKw8t3NEeuTLOme1e-z-w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_HBLyUt3NEeuTLOme1e-z-w" value="_HBLyUN3NEeuTLOme1e-z-w" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

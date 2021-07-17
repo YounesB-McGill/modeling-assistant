@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_vON4YOSbEeugqPgGeiCVNg" name="Student_misplacedAttribute1">
+  <classes xsi:type="classdiagram:Class" xmi:id="_voQJAOSbEeugqPgGeiCVNg" name="Root">
+    <associationEnds xmi:id="_64w-gOScEeugqPgGeiCVNg" name="myOrder" assoc="_64w-geScEeugqPgGeiCVNg" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_7W5E8OScEeugqPgGeiCVNg" name="myProduct" assoc="_7W5E8eScEeugqPgGeiCVNg" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_6EfeYOSbEeugqPgGeiCVNg" name="Product">
+    <associationEnds xmi:id="_7W4d4OScEeugqPgGeiCVNg" name="myRoot" assoc="_7W5E8eScEeugqPgGeiCVNg" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_1WGAIOScEeugqPgGeiCVNg" name="Order">
+    <associationEnds xmi:id="_64wXcOScEeugqPgGeiCVNg" name="myRoot" assoc="_64w-geScEeugqPgGeiCVNg" lowerBound="1"/>
+    <attributes xmi:id="_4QIvYOScEeugqPgGeiCVNg" name="type" type="_vOOfcuSbEeugqPgGeiCVNg"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_vON4YeSbEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_vON4YuSbEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_vON4Y-SbEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_vON4ZOSbEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_vOOfcOSbEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_vOOfceSbEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_vOOfcuSbEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_vOOfc-SbEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_vOOfdOSbEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_vOOfdeSbEeugqPgGeiCVNg"/>
+  <associations xmi:id="_64w-geScEeugqPgGeiCVNg" name="Order_Root" ends="_64wXcOScEeugqPgGeiCVNg _64w-gOScEeugqPgGeiCVNg"/>
+  <associations xmi:id="_7W5E8eScEeugqPgGeiCVNg" name="Product_Root" ends="_7W4d4OScEeugqPgGeiCVNg _7W5E8OScEeugqPgGeiCVNg"/>
+  <layout xmi:id="_vOOfduSbEeugqPgGeiCVNg">
+    <containers xmi:id="_vOOfd-SbEeugqPgGeiCVNg" key="_vON4YOSbEeugqPgGeiCVNg">
+      <value xmi:id="_voR-MOSbEeugqPgGeiCVNg" key="_voQJAOSbEeugqPgGeiCVNg">
+        <value xmi:id="_voSlQOSbEeugqPgGeiCVNg" x="940.0" y="152.0"/>
+      </value>
+      <value xmi:id="_6EjIwOSbEeugqPgGeiCVNg" key="_6EfeYOSbEeugqPgGeiCVNg">
+        <value xmi:id="_6EjIweSbEeugqPgGeiCVNg" x="1155.0001" y="311.0"/>
+      </value>
+      <value xmi:id="_1WJDcOScEeugqPgGeiCVNg" key="_1WGAIOScEeugqPgGeiCVNg">
+        <value xmi:id="_1WJDceScEeugqPgGeiCVNg" x="712.9998" y="311.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

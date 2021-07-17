@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_5V7k4OS_Eeu_VuaFXnESgw" name="Student_incompleteContainmentTree" featureModel="_5V8L8OS_Eeu_VuaFXnESgw" impactModel="_5V8L8uS_Eeu_VuaFXnESgw">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_5V8L8OS_Eeu_VuaFXnESgw" root="_5V8L8eS_Eeu_VuaFXnESgw">
+    <features xmi:id="_5V8L8eS_Eeu_VuaFXnESgw" name="Student_incompleteContainmentTree" realizedBy="_6HouoOS_Eeu_VuaFXnESgw"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_5V8L8uS_Eeu_VuaFXnESgw" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_6HoHkOS_Eeu_VuaFXnESgw" name="Student_incompleteContainmentTree" scene="_6HouoOS_Eeu_VuaFXnESgw" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_incompleteContainmentTree.domain_model.cdm#_6Hrx8OS_Eeu_VuaFXnESgw"/>
+  </artefacts>
+  <scenes xmi:id="_6HouoOS_Eeu_VuaFXnESgw" name="Student_incompleteContainmentTree" realizes="_5V8L8eS_Eeu_VuaFXnESgw" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_6HouoeS_Eeu_VuaFXnESgw" value="_6HoHkOS_Eeu_VuaFXnESgw" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

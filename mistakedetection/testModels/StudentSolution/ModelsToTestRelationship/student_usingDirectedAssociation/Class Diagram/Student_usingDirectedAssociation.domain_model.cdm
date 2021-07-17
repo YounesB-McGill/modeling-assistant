@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_4Uj8kOTBEeu_VuaFXnESgw" name="Student_usingDirectedAssociation">
+  <classes xsi:type="classdiagram:Class" xmi:id="_4tnVwOTBEeu_VuaFXnESgw" name="Company">
+    <associationEnds xmi:id="_7B66seTBEeu_VuaFXnESgw" name="myOffice" assoc="_7B66suTBEeu_VuaFXnESgw" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_5rsuoOTBEeu_VuaFXnESgw" name="Office">
+    <associationEnds xmi:id="_7B66sOTBEeu_VuaFXnESgw" name="myCompany" assoc="_7B66suTBEeu_VuaFXnESgw" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_4UkjoOTBEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_4UkjoeTBEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_4UkjouTBEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_4Ukjo-TBEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_4UkjpOTBEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_4UkjpeTBEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_4UkjpuTBEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_4Ukjp-TBEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_4UkjqOTBEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_4UkjqeTBEeu_VuaFXnESgw"/>
+  <associations xmi:id="_7B66suTBEeu_VuaFXnESgw" name="Office_Company" ends="_7B66sOTBEeu_VuaFXnESgw _7B66seTBEeu_VuaFXnESgw"/>
+  <layout xmi:id="_4UkjquTBEeu_VuaFXnESgw">
+    <containers xmi:id="_4Ukjq-TBEeu_VuaFXnESgw" key="_4Uj8kOTBEeu_VuaFXnESgw">
+      <value xmi:id="_4tpK8OTBEeu_VuaFXnESgw" key="_4tnVwOTBEeu_VuaFXnESgw">
+        <value xmi:id="_4tpK8eTBEeu_VuaFXnESgw" x="944.0" y="177.0"/>
+      </value>
+      <value xmi:id="_5ruj0OTBEeu_VuaFXnESgw" key="_5rsuoOTBEeu_VuaFXnESgw">
+        <value xmi:id="_5ruj0eTBEeu_VuaFXnESgw" x="900.0" y="405.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

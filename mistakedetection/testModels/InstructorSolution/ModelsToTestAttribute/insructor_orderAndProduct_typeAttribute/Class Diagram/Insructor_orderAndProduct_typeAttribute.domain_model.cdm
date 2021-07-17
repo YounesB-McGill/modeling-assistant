@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_h47AUOSdEeugqPgGeiCVNg" name="Insructor_orderAndProduct_typeAttribute">
+  <classes xsi:type="classdiagram:Class" xmi:id="_iRkw4OSdEeugqPgGeiCVNg" name="Root">
+    <associationEnds xmi:id="_oDwK4OSdEeugqPgGeiCVNg" name="myOrder" assoc="_oDwK4eSdEeugqPgGeiCVNg" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_ogvo4eSdEeugqPgGeiCVNg" name="myProduct" assoc="_ogvo4uSdEeugqPgGeiCVNg" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_iw5KIOSdEeugqPgGeiCVNg" name="Order">
+    <associationEnds xmi:id="_oDvj0OSdEeugqPgGeiCVNg" name="myRoot" assoc="_oDwK4eSdEeugqPgGeiCVNg" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_jiVOIOSdEeugqPgGeiCVNg" name="Product">
+    <associationEnds xmi:id="_ogvo4OSdEeugqPgGeiCVNg" name="myRoot" assoc="_ogvo4uSdEeugqPgGeiCVNg" lowerBound="1"/>
+    <attributes xmi:id="_ruk20OSdEeugqPgGeiCVNg" name="type" type="_h47AV-SdEeugqPgGeiCVNg"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_h47AUeSdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_h47AUuSdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_h47AU-SdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_h47AVOSdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_h47AVeSdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_h47AVuSdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_h47AV-SdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_h47AWOSdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_h47AWeSdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_h47AWuSdEeugqPgGeiCVNg"/>
+  <associations xmi:id="_oDwK4eSdEeugqPgGeiCVNg" name="Order_Root" ends="_oDvj0OSdEeugqPgGeiCVNg _oDwK4OSdEeugqPgGeiCVNg"/>
+  <associations xmi:id="_ogvo4uSdEeugqPgGeiCVNg" name="Product_Root" ends="_ogvo4OSdEeugqPgGeiCVNg _ogvo4eSdEeugqPgGeiCVNg"/>
+  <layout xmi:id="_h47AW-SdEeugqPgGeiCVNg">
+    <containers xmi:id="_h47AXOSdEeugqPgGeiCVNg" key="_h47AUOSdEeugqPgGeiCVNg">
+      <value xmi:id="_iRobQOSdEeugqPgGeiCVNg" key="_iRkw4OSdEeugqPgGeiCVNg">
+        <value xmi:id="_iRobQeSdEeugqPgGeiCVNg" x="1004.0" y="137.0"/>
+      </value>
+      <value xmi:id="_iw8NcOSdEeugqPgGeiCVNg" key="_iw5KIOSdEeugqPgGeiCVNg">
+        <value xmi:id="_iw8NceSdEeugqPgGeiCVNg" x="708.0" y="288.0"/>
+      </value>
+      <value xmi:id="_jiXqYOSdEeugqPgGeiCVNg" key="_jiVOIOSdEeugqPgGeiCVNg">
+        <value xmi:id="_jiXqYeSdEeugqPgGeiCVNg" x="1156.1289" y="288.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
