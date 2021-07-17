@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_VNFL8OAgEeu0Ypi-bebdJw" name="Student_usingAggInsteadOfCom" featureModel="_VNFL8eAgEeu0Ypi-bebdJw" impactModel="_VNFL8-AgEeu0Ypi-bebdJw">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_VNFL8eAgEeu0Ypi-bebdJw" root="_VNFL8uAgEeu0Ypi-bebdJw">
+    <features xmi:id="_VNFL8uAgEeu0Ypi-bebdJw" name="Student_usingAggInsteadOfCom" realizedBy="_WJ7OseAgEeu0Ypi-bebdJw"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_VNFL8-AgEeu0Ypi-bebdJw" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_WJ7OsOAgEeu0Ypi-bebdJw" name="Student_usingAggInsteadOfCom" scene="_WJ7OseAgEeu0Ypi-bebdJw" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_usingAggInsteadOfCom.domain_model.cdm#_WKAuQOAgEeu0Ypi-bebdJw"/>
+  </artefacts>
+  <scenes xmi:id="_WJ7OseAgEeu0Ypi-bebdJw" name="Student_usingAggInsteadOfCom" realizes="_VNFL8uAgEeu0Ypi-bebdJw" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_WJ7OsuAgEeu0Ypi-bebdJw" value="_WJ7OsOAgEeu0Ypi-bebdJw" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

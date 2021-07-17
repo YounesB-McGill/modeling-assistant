@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_bNVKAONIEeuCw6vPqWzyCg" name="Instructor_customerAndOrderClass" featureModel="_bNVKAeNIEeuCw6vPqWzyCg" impactModel="_bNVKA-NIEeuCw6vPqWzyCg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_bNVKAeNIEeuCw6vPqWzyCg" root="_bNVKAuNIEeuCw6vPqWzyCg">
+    <features xmi:id="_bNVKAuNIEeuCw6vPqWzyCg" name="Instructor_customerAndOrderClass" realizedBy="_cZYGYONIEeuCw6vPqWzyCg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_bNVKA-NIEeuCw6vPqWzyCg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_cZT08ONIEeuCw6vPqWzyCg" name="Instructor_customerAndOrderClass" scene="_cZYGYONIEeuCw6vPqWzyCg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_customerAndOrderClass.domain_model.cdm#_cZe0EONIEeuCw6vPqWzyCg"/>
+  </artefacts>
+  <scenes xmi:id="_cZYGYONIEeuCw6vPqWzyCg" name="Instructor_customerAndOrderClass" realizes="_bNVKAuNIEeuCw6vPqWzyCg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_cZYtcONIEeuCw6vPqWzyCg" value="_cZT08ONIEeuCw6vPqWzyCg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_RbcloN1oEeuihpv-j2laQg" name="Student_extraAttribute2">
+  <classes xsi:type="classdiagram:Class" xmi:id="_R1GbwN1oEeuihpv-j2laQg" name="Car">
+    <associationEnds xmi:id="_NbknYN3DEeuTLOme1e-z-w" name="myRoot" assoc="_NbknYt3DEeuTLOme1e-z-w" lowerBound="1"/>
+    <attributes xmi:id="_TTMKYN1oEeuihpv-j2laQg" name="price" type="_Rbclpd1oEeuihpv-j2laQg"/>
+    <attributes xmi:id="_UofwcN1oEeuihpv-j2laQg" name="type" type="_Rbclp91oEeuihpv-j2laQg"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_LVBKkN3DEeuTLOme1e-z-w" name="Root">
+    <associationEnds xmi:id="_NbknYd3DEeuTLOme1e-z-w" name="myCar" assoc="_NbknYt3DEeuTLOme1e-z-w" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_Rbclod1oEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_Rbclot1oEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_Rbclo91oEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_RbclpN1oEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_Rbclpd1oEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_Rbclpt1oEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_Rbclp91oEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_RbclqN1oEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_Rbclqd1oEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_RbdMsN1oEeuihpv-j2laQg"/>
+  <associations xmi:id="_NbknYt3DEeuTLOme1e-z-w" name="Car_Root" ends="_NbknYN3DEeuTLOme1e-z-w _NbknYd3DEeuTLOme1e-z-w"/>
+  <layout xmi:id="_RbdMsd1oEeuihpv-j2laQg">
+    <containers xmi:id="_RbdMst1oEeuihpv-j2laQg" key="_RbcloN1oEeuihpv-j2laQg">
+      <value xmi:id="_R1IQ8N1oEeuihpv-j2laQg" key="_R1GbwN1oEeuihpv-j2laQg">
+        <value xmi:id="_R1IQ8d1oEeuihpv-j2laQg" x="1027.0" y="202.0"/>
+      </value>
+      <value xmi:id="_LVFcAN3DEeuTLOme1e-z-w" key="_LVBKkN3DEeuTLOme1e-z-w">
+        <value xmi:id="_LVFcAd3DEeuTLOme1e-z-w" x="585.0" y="131.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

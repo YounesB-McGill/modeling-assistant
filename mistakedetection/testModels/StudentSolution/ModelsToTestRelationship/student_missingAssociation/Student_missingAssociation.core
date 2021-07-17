@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_G2e74N9GEeuKX4ENzy-Mig" name="Student_missingAssociation" featureModel="_G2e74d9GEeuKX4ENzy-Mig" impactModel="_G2e7499GEeuKX4ENzy-Mig">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_G2e74d9GEeuKX4ENzy-Mig" root="_G2e74t9GEeuKX4ENzy-Mig">
+    <features xmi:id="_G2e74t9GEeuKX4ENzy-Mig" name="Student_missingAssociation" realizedBy="_HjHYYd9GEeuKX4ENzy-Mig"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_G2e7499GEeuKX4ENzy-Mig" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_HjHYYN9GEeuKX4ENzy-Mig" name="Student_missingAssociation" scene="_HjHYYd9GEeuKX4ENzy-Mig" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_missingAssociation.domain_model.cdm#_HjJ0oN9GEeuKX4ENzy-Mig"/>
+  </artefacts>
+  <scenes xmi:id="_HjHYYd9GEeuKX4ENzy-Mig" name="Student_missingAssociation" realizes="_G2e74t9GEeuKX4ENzy-Mig" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_HjHYYt9GEeuKX4ENzy-Mig" value="_HjHYYN9GEeuKX4ENzy-Mig" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_Oq8UQN1lEeuihpv-j2laQg" name="Instructor_carAndBus_capacityAttribute" featureModel="_Oq-JcN1lEeuihpv-j2laQg" impactModel="_Oq_XkN1lEeuihpv-j2laQg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_Oq-JcN1lEeuihpv-j2laQg" root="_Oq-Jcd1lEeuihpv-j2laQg">
+    <features xmi:id="_Oq-Jcd1lEeuihpv-j2laQg" name="Instructor_carAndBus_capacityAttribute" realizedBy="_QZgH0N1lEeuihpv-j2laQg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_Oq_XkN1lEeuihpv-j2laQg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_QZeSoN1lEeuihpv-j2laQg" name="Instructor_carAndBus_capacityAttribute" scene="_QZgH0N1lEeuihpv-j2laQg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_carAndBus_capacityAttribute.domain_model.cdm#_QZzp0N1lEeuihpv-j2laQg"/>
+  </artefacts>
+  <scenes xmi:id="_QZgH0N1lEeuihpv-j2laQg" name="Instructor_carAndBus_capacityAttribute" realizes="_Oq-Jcd1lEeuihpv-j2laQg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_QZhV8N1lEeuihpv-j2laQg" value="_QZeSoN1lEeuihpv-j2laQg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

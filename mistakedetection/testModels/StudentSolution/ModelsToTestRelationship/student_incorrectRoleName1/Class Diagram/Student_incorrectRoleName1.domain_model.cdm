@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_33B_IOJoEeufL7bKC5uA6w" name="Student_incorrectRoleName1">
+  <classes xsi:type="classdiagram:Class" xmi:id="_4frTgOJoEeufL7bKC5uA6w" name="Root">
+    <associationEnds xmi:id="_I0zH0OJpEeufL7bKC5uA6w" name="myAirplan" assoc="_I0zH0eJpEeufL7bKC5uA6w" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_JQXpgeJpEeufL7bKC5uA6w" name="myPassenger" assoc="_JQXpguJpEeufL7bKC5uA6w" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_FBrbgOJpEeufL7bKC5uA6w" name="Passenger">
+    <associationEnds xmi:id="_JQXpgOJpEeufL7bKC5uA6w" name="myRoot" assoc="_JQXpguJpEeufL7bKC5uA6w" lowerBound="1"/>
+    <associationEnds xmi:id="_LRB5seJpEeufL7bKC5uA6w" name="myAirplan" assoc="_LRCgwOJpEeufL7bKC5uA6w" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_HwqxUOJpEeufL7bKC5uA6w" name="Airplan">
+    <associationEnds xmi:id="_I0ygwOJpEeufL7bKC5uA6w" name="myRoot" assoc="_I0zH0eJpEeufL7bKC5uA6w" lowerBound="1"/>
+    <associationEnds xmi:id="_LRB5sOJpEeufL7bKC5uA6w" name="People" assoc="_LRCgwOJpEeufL7bKC5uA6w" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_33B_IeJoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_33B_IuJoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_33B_I-JoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_33B_JOJoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_33B_JeJoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_33B_JuJoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_33B_J-JoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_33B_KOJoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_33B_KeJoEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_33B_KuJoEeufL7bKC5uA6w"/>
+  <associations xmi:id="_I0zH0eJpEeufL7bKC5uA6w" name="Airplan_Root" ends="_I0ygwOJpEeufL7bKC5uA6w _I0zH0OJpEeufL7bKC5uA6w"/>
+  <associations xmi:id="_JQXpguJpEeufL7bKC5uA6w" name="Passenger_Root" ends="_JQXpgOJpEeufL7bKC5uA6w _JQXpgeJpEeufL7bKC5uA6w"/>
+  <associations xmi:id="_LRCgwOJpEeufL7bKC5uA6w" name="Airplan_Passenger" ends="_LRB5sOJpEeufL7bKC5uA6w _LRB5seJpEeufL7bKC5uA6w"/>
+  <layout xmi:id="_33B_K-JoEeufL7bKC5uA6w">
+    <containers xmi:id="_33B_LOJoEeufL7bKC5uA6w" key="_33B_IOJoEeufL7bKC5uA6w">
+      <value xmi:id="_4ftIsOJoEeufL7bKC5uA6w" key="_4frTgOJoEeufL7bKC5uA6w">
+        <value xmi:id="_4ftIseJoEeufL7bKC5uA6w" x="1134.0" y="339.0"/>
+      </value>
+      <value xmi:id="_FBue0OJpEeufL7bKC5uA6w" key="_FBrbgOJpEeufL7bKC5uA6w">
+        <value xmi:id="_FBue0eJpEeufL7bKC5uA6w" x="1134.0" y="755.9997"/>
+      </value>
+      <value xmi:id="_HwubsOJpEeufL7bKC5uA6w" key="_HwqxUOJpEeufL7bKC5uA6w">
+        <value xmi:id="_HwubseJpEeufL7bKC5uA6w" x="892.0" y="568.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
