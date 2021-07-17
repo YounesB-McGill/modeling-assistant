@@ -764,7 +764,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    */
   @Disabled("Not implemented yet.")
   @Test
-  public void testMistakeIncompleteContainmentTree() {
+  public void testMistakeIncompleteContainmentTreeBankAndAccountExample() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_bankAndAccountClass/Class Diagram/Instructor_bankAndAccountClass.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -795,7 +795,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    */
   @Disabled("Not implemented yet.")
   @Test
-  public void testMistakeIncompleteContainmentTree1() {
+  public void testMistakeIncompleteContainmentTreeCarAndWheelExample() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_carAndWheelClass/Class Diagram/Instructor_carAndWheelClass.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
