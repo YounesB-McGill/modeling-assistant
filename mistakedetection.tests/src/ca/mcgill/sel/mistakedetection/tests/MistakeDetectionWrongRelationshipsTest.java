@@ -787,6 +787,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
+    // TODO Verify the solution elements that should be linked to this mistake
     assertMistake(studentSolution.getMistakes().get(0), INCOMPLETE_CONTAINMENT_TREE, studentBankToAccountAssociation.get(0), instructorBankToAccountAssociation.get(0), 0, 1, false);
    }
 
@@ -818,6 +819,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
+    // TODO Verify the solution elements that should be linked to this mistake
     assertMistake(studentSolution.getMistakes().get(0), INCOMPLETE_CONTAINMENT_TREE, studentCarToWheelAssociation.get(0), instructorCarToWheelAssociation.get(0), 0, 1, false);
    }
 
