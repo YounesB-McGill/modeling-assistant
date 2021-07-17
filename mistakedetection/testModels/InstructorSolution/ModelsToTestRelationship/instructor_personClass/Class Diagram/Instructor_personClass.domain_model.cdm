@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_CstigOTKEeu_VuaFXnESgw" name="Instructor_personClass">
+  <classes xsi:type="classdiagram:Class" xmi:id="_DFoY0OTKEeu_VuaFXnESgw" name="Root">
+    <associationEnds xmi:id="_E_y_ceTKEeu_VuaFXnESgw" name="myPerson" assoc="_E_y_cuTKEeu_VuaFXnESgw" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_DssY0OTKEeu_VuaFXnESgw" name="Person">
+    <associationEnds xmi:id="_E_y_cOTKEeu_VuaFXnESgw" name="myRoot" assoc="_E_y_cuTKEeu_VuaFXnESgw" lowerBound="1"/>
+    <associationEnds xmi:id="_GcUn0OTKEeu_VuaFXnESgw" name="Parent" assoc="_GcUn0uTKEeu_VuaFXnESgw" lowerBound="2" upperBound="2"/>
+    <associationEnds xmi:id="_GcUn0eTKEeu_VuaFXnESgw" name="Child" assoc="_GcUn0uTKEeu_VuaFXnESgw" upperBound="-1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_CstigeTKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_CstiguTKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_Cstig-TKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_CstihOTKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_CstiheTKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_CstihuTKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_Cstih-TKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_CstiiOTKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_CstiieTKEeu_VuaFXnESgw"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_CstiiuTKEeu_VuaFXnESgw"/>
+  <associations xmi:id="_E_y_cuTKEeu_VuaFXnESgw" name="Person_Root" ends="_E_y_cOTKEeu_VuaFXnESgw _E_y_ceTKEeu_VuaFXnESgw"/>
+  <associations xmi:id="_GcUn0uTKEeu_VuaFXnESgw" name="Person_Person" ends="_GcUn0OTKEeu_VuaFXnESgw _GcUn0eTKEeu_VuaFXnESgw"/>
+  <layout xmi:id="_Cstii-TKEeu_VuaFXnESgw">
+    <containers xmi:id="_CstijOTKEeu_VuaFXnESgw" key="_CstigOTKEeu_VuaFXnESgw">
+      <value xmi:id="_DFqOAOTKEeu_VuaFXnESgw" key="_DFoY0OTKEeu_VuaFXnESgw">
+        <value xmi:id="_DFq1EOTKEeu_VuaFXnESgw" x="919.0" y="177.0"/>
+      </value>
+      <value xmi:id="_DsvcIOTKEeu_VuaFXnESgw" key="_DssY0OTKEeu_VuaFXnESgw">
+        <value xmi:id="_DsvcIeTKEeu_VuaFXnESgw" x="867.06433" y="701.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

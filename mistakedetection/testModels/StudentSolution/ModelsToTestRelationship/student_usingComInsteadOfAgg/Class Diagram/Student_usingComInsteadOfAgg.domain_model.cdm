@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_Hrf2QOAgEeu0Ypi-bebdJw" name="Student_usingComInsteadOfAgg">
+  <classes xsi:type="classdiagram:Class" xmi:id="_IH43UOAgEeu0Ypi-bebdJw" name="Root">
+    <associationEnds xmi:id="_LGBcYeAgEeu0Ypi-bebdJw" name="myTeam" assoc="_LGBcYuAgEeu0Ypi-bebdJw" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_LgVZ0eAgEeu0Ypi-bebdJw" name="myPlayer" assoc="_LgVZ0uAgEeu0Ypi-bebdJw" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_JGoXgOAgEeu0Ypi-bebdJw" name="Team">
+    <associationEnds xmi:id="_LGBcYOAgEeu0Ypi-bebdJw" name="myRoot" assoc="_LGBcYuAgEeu0Ypi-bebdJw" lowerBound="1"/>
+    <associationEnds xmi:id="_MbI1MeAgEeu0Ypi-bebdJw" name="myPlayer" assoc="_MbJcQOAgEeu0Ypi-bebdJw" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_KJimAOAgEeu0Ypi-bebdJw" name="Player">
+    <associationEnds xmi:id="_LgVZ0OAgEeu0Ypi-bebdJw" name="myRoot" assoc="_LgVZ0uAgEeu0Ypi-bebdJw" lowerBound="1"/>
+    <associationEnds xmi:id="_MbI1MOAgEeu0Ypi-bebdJw" name="myTeam" assoc="_MbJcQOAgEeu0Ypi-bebdJw" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_Hrf2QeAgEeu0Ypi-bebdJw"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_Hrf2QuAgEeu0Ypi-bebdJw"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_Hrf2Q-AgEeu0Ypi-bebdJw"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_Hrf2ROAgEeu0Ypi-bebdJw"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_Hrf2ReAgEeu0Ypi-bebdJw"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_Hrf2RuAgEeu0Ypi-bebdJw"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_Hrf2R-AgEeu0Ypi-bebdJw"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_Hrf2SOAgEeu0Ypi-bebdJw"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_Hrf2SeAgEeu0Ypi-bebdJw"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_Hrf2SuAgEeu0Ypi-bebdJw"/>
+  <associations xmi:id="_LGBcYuAgEeu0Ypi-bebdJw" name="Team_Root" ends="_LGBcYOAgEeu0Ypi-bebdJw _LGBcYeAgEeu0Ypi-bebdJw"/>
+  <associations xmi:id="_LgVZ0uAgEeu0Ypi-bebdJw" name="Player_Root" ends="_LgVZ0OAgEeu0Ypi-bebdJw _LgVZ0eAgEeu0Ypi-bebdJw"/>
+  <associations xmi:id="_MbJcQOAgEeu0Ypi-bebdJw" name="Player_Team" ends="_MbI1MOAgEeu0Ypi-bebdJw _MbI1MeAgEeu0Ypi-bebdJw"/>
+  <layout xmi:id="_Hrf2S-AgEeu0Ypi-bebdJw">
+    <containers xmi:id="_Hrf2TOAgEeu0Ypi-bebdJw" key="_Hrf2QOAgEeu0Ypi-bebdJw">
+      <value xmi:id="_IH7TkOAgEeu0Ypi-bebdJw" key="_IH43UOAgEeu0Ypi-bebdJw">
+        <value xmi:id="_IH7TkeAgEeu0Ypi-bebdJw" x="985.0" y="147.0"/>
+      </value>
+      <value xmi:id="_JGqMsOAgEeu0Ypi-bebdJw" key="_JGoXgOAgEeu0Ypi-bebdJw">
+        <value xmi:id="_JGqMseAgEeu0Ypi-bebdJw" x="783.0" y="299.0"/>
+      </value>
+      <value xmi:id="_KJj0IOAgEeu0Ypi-bebdJw" key="_KJimAOAgEeu0Ypi-bebdJw">
+        <value xmi:id="_KJj0IeAgEeu0Ypi-bebdJw" x="1065.0004" y="550.0095"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

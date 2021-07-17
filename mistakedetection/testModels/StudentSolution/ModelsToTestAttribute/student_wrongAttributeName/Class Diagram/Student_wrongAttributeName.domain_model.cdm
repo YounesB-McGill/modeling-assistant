@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_LxZTUNysEeuihpv-j2laQg" name="Student_wrongAttributeName">
+  <classes xsi:type="classdiagram:Class" xmi:id="_MRWlwNysEeuihpv-j2laQg" name="Person">
+    <associationEnds xmi:id="_AaZaoN3EEeuTLOme1e-z-w" name="myRoot" assoc="_AaZaot3EEeuTLOme1e-z-w" lowerBound="1"/>
+    <attributes xmi:id="_OeOF8NysEeuihpv-j2laQg" name="names" type="_LxZTV9ysEeuihpv-j2laQg"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_-uddQN3DEeuTLOme1e-z-w" name="Root">
+    <associationEnds xmi:id="_AaZaod3EEeuTLOme1e-z-w" name="myPerson" assoc="_AaZaot3EEeuTLOme1e-z-w" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_LxZTUdysEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_LxZTUtysEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_LxZTU9ysEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_LxZTVNysEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_LxZTVdysEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_LxZTVtysEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_LxZTV9ysEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_LxZTWNysEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_LxZTWdysEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_LxZTWtysEeuihpv-j2laQg"/>
+  <associations xmi:id="_AaZaot3EEeuTLOme1e-z-w" name="Person_Root" ends="_AaZaoN3EEeuTLOme1e-z-w _AaZaod3EEeuTLOme1e-z-w"/>
+  <layout xmi:id="_LxZTW9ysEeuihpv-j2laQg">
+    <containers xmi:id="_LxZTXNysEeuihpv-j2laQg" key="_LxZTUNysEeuihpv-j2laQg">
+      <value xmi:id="_MRZCANysEeuihpv-j2laQg" key="_MRWlwNysEeuihpv-j2laQg">
+        <value xmi:id="_MRZCAdysEeuihpv-j2laQg" x="1025.0" y="339.00034"/>
+      </value>
+      <value xmi:id="_-uggkN3DEeuTLOme1e-z-w" key="_-uddQN3DEeuTLOme1e-z-w">
+        <value xmi:id="_-uggkd3DEeuTLOme1e-z-w" x="555.0" y="148.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

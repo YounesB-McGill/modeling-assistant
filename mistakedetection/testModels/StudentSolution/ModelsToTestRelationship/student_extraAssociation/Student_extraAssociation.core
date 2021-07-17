@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_AlVbwOTJEeu_VuaFXnESgw" name="Student_extraAssociation" featureModel="_AlVbweTJEeu_VuaFXnESgw" impactModel="_AlVbw-TJEeu_VuaFXnESgw">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_AlVbweTJEeu_VuaFXnESgw" root="_AlVbwuTJEeu_VuaFXnESgw">
+    <features xmi:id="_AlVbwuTJEeu_VuaFXnESgw" name="Student_extraAssociation" realizedBy="_B2Eq4eTJEeu_VuaFXnESgw"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_AlVbw-TJEeu_VuaFXnESgw" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_B2Eq4OTJEeu_VuaFXnESgw" name="Student_extraAssociation" scene="_B2Eq4eTJEeu_VuaFXnESgw" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_extraAssociation.domain_model.cdm#_B2HuMOTJEeu_VuaFXnESgw"/>
+  </artefacts>
+  <scenes xmi:id="_B2Eq4eTJEeu_VuaFXnESgw" name="Student_extraAssociation" realizes="_AlVbwuTJEeu_VuaFXnESgw" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_B2Eq4uTJEeu_VuaFXnESgw" value="_B2Eq4OTJEeu_VuaFXnESgw" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
