@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_oqldcNyyEeuihpv-j2laQg" name="Student_similarAttribute1" featureModel="_oqldcdyyEeuihpv-j2laQg" impactModel="_oqldc9yyEeuihpv-j2laQg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_oqldcdyyEeuihpv-j2laQg" root="_oqldctyyEeuihpv-j2laQg">
+    <features xmi:id="_oqldctyyEeuihpv-j2laQg" name="Student_similarAttribute1" realizedBy="_pmDnMNyyEeuihpv-j2laQg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_oqldc9yyEeuihpv-j2laQg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_pmDAINyyEeuihpv-j2laQg" name="Student_similarAttribute1" scene="_pmDnMNyyEeuihpv-j2laQg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_similarAttribute1.domain_model.cdm#_pmGDcNyyEeuihpv-j2laQg"/>
+  </artefacts>
+  <scenes xmi:id="_pmDnMNyyEeuihpv-j2laQg" name="Student_similarAttribute1" realizes="_oqldctyyEeuihpv-j2laQg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_pmDnMdyyEeuihpv-j2laQg" value="_pmDAINyyEeuihpv-j2laQg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

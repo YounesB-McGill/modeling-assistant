@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_IJk8YOJwEeufL7bKC5uA6w" name="Student_shouldNotBeStaticRoleName" featureModel="_IJk8YeJwEeufL7bKC5uA6w" impactModel="_IJk8Y-JwEeufL7bKC5uA6w">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_IJk8YeJwEeufL7bKC5uA6w" root="_IJk8YuJwEeufL7bKC5uA6w">
+    <features xmi:id="_IJk8YuJwEeufL7bKC5uA6w" name="Student_shouldNotBeStaticRoleName" realizedBy="_I1WdQeJwEeufL7bKC5uA6w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_IJk8Y-JwEeufL7bKC5uA6w" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_I1WdQOJwEeufL7bKC5uA6w" name="Student_shouldNotBeStaticRoleName" scene="_I1WdQeJwEeufL7bKC5uA6w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_shouldNotBeStaticRoleName.domain_model.cdm#_I1YScOJwEeufL7bKC5uA6w"/>
+  </artefacts>
+  <scenes xmi:id="_I1WdQeJwEeufL7bKC5uA6w" name="Student_shouldNotBeStaticRoleName" realizes="_IJk8YuJwEeufL7bKC5uA6w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_I1WdQuJwEeufL7bKC5uA6w" value="_I1WdQOJwEeufL7bKC5uA6w" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

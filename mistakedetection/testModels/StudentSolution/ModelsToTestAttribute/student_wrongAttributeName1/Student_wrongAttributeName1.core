@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_TJMAQNysEeuihpv-j2laQg" name="Student_wrongAttributeName1" featureModel="_TJMAQdysEeuihpv-j2laQg" impactModel="_TJMAQ9ysEeuihpv-j2laQg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_TJMAQdysEeuihpv-j2laQg" root="_TJMAQtysEeuihpv-j2laQg">
+    <features xmi:id="_TJMAQtysEeuihpv-j2laQg" name="Student_wrongAttributeName1" realizedBy="_UQcjQNysEeuihpv-j2laQg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_TJMAQ9ysEeuihpv-j2laQg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_UQb8MNysEeuihpv-j2laQg" name="Student_wrongAttributeName1" scene="_UQcjQNysEeuihpv-j2laQg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_wrongAttributeName1.domain_model.cdm#_UQgNoNysEeuihpv-j2laQg"/>
+  </artefacts>
+  <scenes xmi:id="_UQcjQNysEeuihpv-j2laQg" name="Student_wrongAttributeName1" realizes="_TJMAQtysEeuihpv-j2laQg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_UQcjQdysEeuihpv-j2laQg" value="_UQb8MNysEeuihpv-j2laQg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

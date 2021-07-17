@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_UJd1kN4tEeuTLOme1e-z-w" name="Student_shouldBeStaticAttribute">
+  <classes xsi:type="classdiagram:Class" xmi:id="_Ulm_AN4tEeuTLOme1e-z-w" name="Root">
+    <associationEnds xmi:id="_Wnc68d4tEeuTLOme1e-z-w" name="myStudent" assoc="_Wnc68t4tEeuTLOme1e-z-w" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_VV7BoN4tEeuTLOme1e-z-w" name="Student">
+    <associationEnds xmi:id="_Wnc68N4tEeuTLOme1e-z-w" name="myRoot" assoc="_Wnc68t4tEeuTLOme1e-z-w" lowerBound="1"/>
+    <attributes xmi:id="_YbENoN4tEeuTLOme1e-z-w" name="address" type="_UJd1l94tEeuTLOme1e-z-w"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_UJd1kd4tEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_UJd1kt4tEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_UJd1k94tEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_UJd1lN4tEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_UJd1ld4tEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_UJd1lt4tEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_UJd1l94tEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_UJd1mN4tEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_UJd1md4tEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_UJd1mt4tEeuTLOme1e-z-w"/>
+  <associations xmi:id="_Wnc68t4tEeuTLOme1e-z-w" name="Student_Root" ends="_Wnc68N4tEeuTLOme1e-z-w _Wnc68d4tEeuTLOme1e-z-w"/>
+  <layout xmi:id="_UJd1m94tEeuTLOme1e-z-w">
+    <containers xmi:id="_UJd1nN4tEeuTLOme1e-z-w" key="_UJd1kN4tEeuTLOme1e-z-w">
+      <value xmi:id="_UloNIN4tEeuTLOme1e-z-w" key="_Ulm_AN4tEeuTLOme1e-z-w">
+        <value xmi:id="_UloNId4tEeuTLOme1e-z-w" x="1081.0" y="158.0"/>
+      </value>
+      <value xmi:id="_VV820N4tEeuTLOme1e-z-w" key="_VV7BoN4tEeuTLOme1e-z-w">
+        <value xmi:id="_VV820d4tEeuTLOme1e-z-w" x="1081.0" y="396.9998"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

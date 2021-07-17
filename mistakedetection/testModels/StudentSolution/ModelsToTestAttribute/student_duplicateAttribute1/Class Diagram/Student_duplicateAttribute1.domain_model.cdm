@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="__NLkkOSdEeugqPgGeiCVNg" name="Student_duplicateAttribute1">
+  <classes xsi:type="classdiagram:Class" xmi:id="__oFX4OSdEeugqPgGeiCVNg" name="Root">
+    <associationEnds xmi:id="_Mt1tMOSeEeugqPgGeiCVNg" name="myAnimal" assoc="_Mt1tMeSeEeugqPgGeiCVNg" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_Iu7noOSeEeugqPgGeiCVNg" name="Animal">
+    <associationEnds xmi:id="_Mt1GIOSeEeugqPgGeiCVNg" name="myRoot" assoc="_Mt1tMeSeEeugqPgGeiCVNg" lowerBound="1"/>
+    <attributes xmi:id="_Ocp_cOSeEeugqPgGeiCVNg" name="name" type="__NLkl-SdEeugqPgGeiCVNg"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_Kv1vcOSeEeugqPgGeiCVNg" name="Cat" superTypes="_Iu7noOSeEeugqPgGeiCVNg">
+    <attributes xmi:id="_PchhAOSeEeugqPgGeiCVNg" name="name" type="__NLkl-SdEeugqPgGeiCVNg"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="__NLkkeSdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="__NLkkuSdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="__NLkk-SdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="__NLklOSdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="__NLkleSdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="__NLkluSdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="__NLkl-SdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="__NLkmOSdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="__NLkmeSdEeugqPgGeiCVNg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="__NLkmuSdEeugqPgGeiCVNg"/>
+  <associations xmi:id="_Mt1tMeSeEeugqPgGeiCVNg" name="Animal_Root" ends="_Mt1GIOSeEeugqPgGeiCVNg _Mt1tMOSeEeugqPgGeiCVNg"/>
+  <layout xmi:id="__NLkm-SdEeugqPgGeiCVNg">
+    <containers xmi:id="__NLknOSdEeugqPgGeiCVNg" key="__NLkkOSdEeugqPgGeiCVNg">
+      <value xmi:id="__oH0IOSdEeugqPgGeiCVNg" key="__oFX4OSdEeugqPgGeiCVNg">
+        <value xmi:id="__oH0IeSdEeugqPgGeiCVNg" x="943.0" y="217.0"/>
+      </value>
+      <value xmi:id="_Iu-D4OSeEeugqPgGeiCVNg" key="_Iu7noOSeEeugqPgGeiCVNg">
+        <value xmi:id="_Iu-D4eSeEeugqPgGeiCVNg" x="943.0" y="411.99988"/>
+      </value>
+      <value xmi:id="_Kv3koOSeEeugqPgGeiCVNg" key="_Kv1vcOSeEeugqPgGeiCVNg">
+        <value xmi:id="_Kv3koeSeEeugqPgGeiCVNg" x="943.0" y="644.99994"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
