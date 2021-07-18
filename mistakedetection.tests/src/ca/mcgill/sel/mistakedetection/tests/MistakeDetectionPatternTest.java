@@ -770,4 +770,556 @@ public class MistakeDetectionPatternTest {
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
     assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
   }
+
+  /**
+   * Test to check Full player role pattern instead of Subclass in studentSolution
+   */
+  @Test
+  public void testFullPRInsteadOfSubclassPatternEmployeeExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_employeeExample_pattern/Class Diagram/Instructor_subClassPR_employeeExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Employee", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("FullTimeEmployee", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("PartTimeEmployee", tagGroup, instructorClassDiagram);
+
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_employeeExample_pattern/Class Diagram/Instructor_fullPR_employeeExample_pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    var instFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", instructorClassDiagram);
+    var instPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instEmployeeClass);
+    instElements.add(instFullTimeEmployeeClass);
+    instElements.add(instPartTimeEmployeeClass);
+
+    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
+    var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
+    var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studEmployeeClass);
+    studElements.add(studFullTimeEmployeeClass);
+    studElements.add(studPartTimeEmployeeClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
+    assertMistake(studStudentClassMistake, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS, studElements, instElements, 0,
+        1, false);
+  }
+
+  /**
+   * Test to check Enum player role pattern instead of Subclass in studentSolution
+   */
+  @Test
+  public void testEnumPRInsteadOfSubclassPatternEmployeeExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_employeeExample_pattern/Class Diagram/Instructor_subClassPR_employeeExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Employee", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("FullTimeEmployee", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("PartTimeEmployee", tagGroup, instructorClassDiagram);
+
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_employeeExample_pattern/Class Diagram/Instructor_enumPR_employeeExample_pattern.domain_model.cdm");
+
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    var instFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", instructorClassDiagram);
+    var instPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instEmployeeClass);
+    instElements.add(instFullTimeEmployeeClass);
+    instElements.add(instPartTimeEmployeeClass);
+
+    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studEmployeeClass);
+    CDEnum studEnum = MistakeDetection.getEnumFromClassDiagram("EmployeeStatus", studentClassDiagram);
+    studElements.addAll(studEnum.getLiterals());
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
+    var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studElements, instElements, 0,
+        1, false);
+  }
+
+  /**
+   * Test to check Assoc player role pattern instead of Subclass in studentSolution
+   */
+  @Test
+  public void testAssocPRInsteadOfSubclassPatternEmployeeExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_employeeExample_pattern/Class Diagram/Instructor_subClassPR_employeeExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Employee", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("FullTimeEmployee", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("PartTimeEmployee", tagGroup, instructorClassDiagram);
+
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_employeeExample_pattern/Class Diagram/Instructor_assocPR_employeeExample_pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    var instFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", instructorClassDiagram);
+    var instPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instEmployeeClass);
+    instElements.add(instFullTimeEmployeeClass);
+    instElements.add(instPartTimeEmployeeClass);
+
+    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
+    var studProjectClass = getClassFromClassDiagram("Project", studentClassDiagram);
+    var studFullTimeEmployeeAssocEnd = getAssociationEndFromClass("fullTimeEmployee", studProjectClass);
+    var studPartTimeEmployeeAssocEnd = getAssociationEndFromClass("partTimeEmployee", studProjectClass);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studEmployeeClass);
+    studElements.add(studFullTimeEmployeeAssocEnd);
+    studElements.add(studPartTimeEmployeeAssocEnd);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
+    assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studElements,
+        instElements, 0, 1, false);
+  }
+
+  /**
+   * Test to check subClass player role pattern instead of Full in studentSolution
+   */
+  @Test
+  public void testSubPRInsteadOfFullClassPatternEmployeeExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_employeeExample_pattern/Class Diagram/Instructor_fullPR_employeeExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Employee", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("FullTimeEmployee", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("PartTimeEmployee", tagGroup, instructorClassDiagram);
+
+    assertEquals(FULL_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_employeeExample_pattern/Class Diagram/Instructor_subClassPR_employeeExample_pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    var instFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", instructorClassDiagram);
+    var instPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instEmployeeClass);
+    instElements.add(instFullTimeEmployeeClass);
+    instElements.add(instPartTimeEmployeeClass);
+
+
+    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
+    var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
+    var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studEmployeeClass);
+    studElements.add(studFullTimeEmployeeClass);
+    studElements.add(studPartTimeEmployeeClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
+    var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
+    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements, instElements, 0,
+        1, false);
+  }
+
+  /**
+   * Test to check Assoc player role pattern instead of Full in studentSolution
+   */
+  @Test
+  public void testAssocPRInsteadOfFullClassPatternEmployeeExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_employeeExample_pattern/Class Diagram/Instructor_fullPR_employeeExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Employee", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("FullTimeEmployee", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("PartTimeEmployee", tagGroup, instructorClassDiagram);
+
+    assertEquals(FULL_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_employeeExample_pattern/Class Diagram/Instructor_assocPR_employeeExample_pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    var instFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", instructorClassDiagram);
+    var instPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instEmployeeClass);
+    instElements.add(instFullTimeEmployeeClass);
+    instElements.add(instPartTimeEmployeeClass);
+
+    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
+    var studProjectClass = getClassFromClassDiagram("Project", studentClassDiagram);
+    var studFullTimeEmployeeAssocEnd = getAssociationEndFromClass("fullTimeEmployee", studProjectClass);
+    var studPartTimeEmployeeAssocEnd = getAssociationEndFromClass("partTimeEmployee", studProjectClass);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studEmployeeClass);
+    studElements.add(studFullTimeEmployeeAssocEnd);
+    studElements.add(studPartTimeEmployeeAssocEnd);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(7, comparison.newMistakes.size());
+    assertEquals(7, studentSolution.getMistakes().size());
+    var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
+    assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements,
+        instElements, 0, 1, false);
+  }
+
+  /**
+   * Test to check Enum player role pattern instead of Full in studentSolution
+   */
+  @Test
+  public void testEnumPRInsteadOfFullClassPatternEmployeeExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_employeeExample_pattern/Class Diagram/Instructor_fullPR_employeeExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Employee", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("FullTimeEmployee", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("PartTimeEmployee", tagGroup, instructorClassDiagram);
+
+    assertEquals(FULL_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_employeeExample_pattern/Class Diagram/Instructor_enumPR_employeeExample_pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    var instFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", instructorClassDiagram);
+    var instPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instEmployeeClass);
+    instElements.add(instFullTimeEmployeeClass);
+    instElements.add(instPartTimeEmployeeClass);
+
+    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studEmployeeClass);
+    CDEnum studEnum = MistakeDetection.getEnumFromClassDiagram("EmployeeStatus", studentClassDiagram);
+    studElements.addAll(studEnum.getLiterals());
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(7, comparison.newMistakes.size());
+    assertEquals(7, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+  }
+
+  /**
+   * Test to check subClass player role pattern instead of Assoc in studentSolution
+   */
+  @Test
+  public void testSubPRInsteadOfAssocClassPatternEmployeeExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_employeeExample_pattern/Class Diagram/Instructor_assocPR_employeeExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Employee", instructorClassDiagram, instructorSolution);
+    var projectClass = getClassFromClassDiagram("Project", instructorClassDiagram);
+    setRoleTagToAssocEndInClass("fullTimeEmployee", tagGroup, projectClass);
+    setRoleTagToAssocEndInClass("partTimeEmployee", tagGroup, projectClass);
+
+    assertEquals(ASSOC_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_employeeExample_pattern/Class Diagram/Instructor_subClassPR_employeeExample_pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    var instProjectClass = getClassFromClassDiagram("Project", instructorClassDiagram);
+    var instFullTimeEmployeeAssocEnd = getAssociationEndFromClass("fullTimeEmployee", instProjectClass);
+    var instPartTimeEmployeeAssocEnd = getAssociationEndFromClass("partTimeEmployee", instProjectClass);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instEmployeeClass);
+    instElements.add(instFullTimeEmployeeAssocEnd);
+    instElements.add(instPartTimeEmployeeAssocEnd);
+
+    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
+    var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
+    var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studEmployeeClass);
+    studElements.add(studPartTimeEmployeeClass);
+    studElements.add(studFullTimeEmployeeClass);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
+    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1,
+          false);
+  }
+
+  /**
+   * Test to check Full player role pattern instead of Assoc in studentSolution
+   */
+  @Test
+  public void testFullPRInsteadOfAssocClassPatternEmployeeExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_employeeExample_pattern/Class Diagram/Instructor_assocPR_employeeExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Employee", instructorClassDiagram, instructorSolution);
+    var projectClass = getClassFromClassDiagram("Project", instructorClassDiagram);
+    setRoleTagToAssocEndInClass("fullTimeEmployee", tagGroup, projectClass);
+    setRoleTagToAssocEndInClass("partTimeEmployee", tagGroup, projectClass);
+
+    assertEquals(ASSOC_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_employeeExample_pattern/Class Diagram/Instructor_fullPR_employeeExample_pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    var instProjectClass = getClassFromClassDiagram("Project", instructorClassDiagram);
+    var instFullTimeEmployeeAssocEnd = getAssociationEndFromClass("fullTimeEmployee", instProjectClass);
+    var instPartTimeEmployeeAssocEnd = getAssociationEndFromClass("partTimeEmployee", instProjectClass);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instEmployeeClass);
+    instElements.add(instFullTimeEmployeeAssocEnd);
+    instElements.add(instPartTimeEmployeeAssocEnd);
+
+    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
+    var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
+    var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studEmployeeClass);
+    studElements.add(studPartTimeEmployeeClass);
+    studElements.add(studFullTimeEmployeeClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
+    assertMistake(studStudentClassMistake, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION, studElements, instElements, 0, 1,
+          false);
+  }
+
+  /**
+   * Test to check Enum player role pattern instead of Assoc in studentSolution
+   */
+  @Test
+  public void testEnumPRInsteadOfAssocClassPatternEmployeeExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_employeeExample_pattern/Class Diagram/Instructor_assocPR_employeeExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Employee", instructorClassDiagram, instructorSolution);
+    var projectClass = getClassFromClassDiagram("Project", instructorClassDiagram);
+    setRoleTagToAssocEndInClass("fullTimeEmployee", tagGroup, projectClass);
+    setRoleTagToAssocEndInClass("partTimeEmployee", tagGroup, projectClass);
+
+    assertEquals(ASSOC_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_employeeExample_pattern/Class Diagram/Instructor_enumPR_employeeExample_pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    var instProjectClass = getClassFromClassDiagram("Project", instructorClassDiagram);
+    var instFullTimeEmployeeAssocEnd = getAssociationEndFromClass("fullTimeEmployee", instProjectClass);
+    var instPartTimeEmployeeAssocEnd = getAssociationEndFromClass("partTimeEmployee", instProjectClass);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instEmployeeClass);
+    instElements.add(instFullTimeEmployeeAssocEnd);
+    instElements.add(instPartTimeEmployeeAssocEnd);
+
+    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studEmployeeClass);
+    CDEnum studEnum = MistakeDetection.getEnumFromClassDiagram("EmployeeStatus", studentClassDiagram);
+    studElements.addAll(studEnum.getLiterals());
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+  }
+
+  /**
+   * Test to check sub class player role pattern instead of Enum in studentSolution
+   */
+  @Test
+  public void testSubclassPRInsteadOfEnumClassPatternEmployeeExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_employeeExample_pattern/Class Diagram/Instructor_enumPR_employeeExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Employee", instructorClassDiagram, instructorSolution);
+    var studentClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    setRoleTagToAttribInClass("status", tagGroup, studentClass);
+
+    assertEquals(ENUM_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_employeeExample_pattern/Class Diagram/Instructor_subClassPR_employeeExample_pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    var instStudentClassStatusAttrib = getAttributeFromClass("status", instEmployeeClass);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instEmployeeClass);
+    instElements.add(instStudentClassStatusAttrib);
+
+    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
+    var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
+    var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studEmployeeClass);
+    studElements.add(studPartTimeEmployeeClass);
+    studElements.add(studFullTimeEmployeeClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
+    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+  }
+
+  /**
+   * Test to check Full player role pattern instead of Enum in studentSolution
+   */
+  @Test
+  public void testFullPRInsteadOfEnumClassPatternEmployeeExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_employeeExample_pattern/Class Diagram/Instructor_enumPR_employeeExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Employee", instructorClassDiagram, instructorSolution);
+    var studentClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    setRoleTagToAttribInClass("status", tagGroup, studentClass);
+
+    assertEquals(ENUM_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_employeeExample_pattern/Class Diagram/Instructor_fullPR_employeeExample_pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    var instStudentClassStatusAttrib = getAttributeFromClass("status", instEmployeeClass);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instEmployeeClass);
+    instElements.add(instStudentClassStatusAttrib);
+
+    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
+    var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
+    var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studEmployeeClass);
+    studElements.add(studPartTimeEmployeeClass);
+    studElements.add(studFullTimeEmployeeClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(7, comparison.newMistakes.size());
+    assertEquals(7, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
+    assertMistake(studStudentClassMistake, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM, studElements, instElements, 0, 1, false);
+  }
+
+  /**
+   * Test to check Assoc player role pattern instead of Enum in studentSolution
+   */
+  @Test
+  public void testAssocPRInsteadOfEnumClassPatternEmployeeExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_employeeExample_pattern/Class Diagram/Instructor_enumPR_employeeExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Employee", instructorClassDiagram, instructorSolution);
+    var studentClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    setRoleTagToAttribInClass("status", tagGroup, studentClass);
+
+    assertEquals(ENUM_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_employeeExample_pattern/Class Diagram/Instructor_assocPR_employeeExample_pattern.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    var instStudentClassStatusAttrib = getAttributeFromClass("status", instEmployeeClass);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instEmployeeClass);
+    instElements.add(instStudentClassStatusAttrib);
+
+    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
+    var studProjectClass = getClassFromClassDiagram("Project", studentClassDiagram);
+    var studFullTimeEmployeeAssocEnd = getAssociationEndFromClass("fullTimeEmployee", studProjectClass);
+    var studPartTimeEmployeeAssocEnd = getAssociationEndFromClass("partTimeEmployee", studProjectClass);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studEmployeeClass);
+    studElements.add(studFullTimeEmployeeAssocEnd);
+    studElements.add(studPartTimeEmployeeAssocEnd);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(8, comparison.newMistakes.size());
+    assertEquals(8, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
+    assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+  }
 }
