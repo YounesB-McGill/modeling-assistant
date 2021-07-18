@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_zaehwOfuEeu-r8aP1ZMJyw" name="Instructor_fullPR_employeeExample_pattern">
+  <classes xsi:type="classdiagram:Class" xmi:id="_z1ykwOfuEeu-r8aP1ZMJyw" name="Root">
+    <associationEnds xmi:id="_ogzNAOfvEeu-r8aP1ZMJyw" name="myEmployeeStatus" assoc="_ogzNAefvEeu-r8aP1ZMJyw" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_y_XdoOfvEeu-r8aP1ZMJyw" name="myEmployee" assoc="_y_XdoufvEeu-r8aP1ZMJyw" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_iMTJEOfvEeu-r8aP1ZMJyw" name="EmployeeStatus" abstract="true">
+    <associationEnds xmi:id="_ogyl8OfvEeu-r8aP1ZMJyw" name="myRoot" assoc="_ogzNAefvEeu-r8aP1ZMJyw" lowerBound="1"/>
+    <associationEnds xmi:id="_r13rYOfvEeu-r8aP1ZMJyw" name="Employee" assoc="_r14ScOfvEeu-r8aP1ZMJyw" upperBound="-1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_p8fH4OfvEeu-r8aP1ZMJyw" name="Employee">
+    <associationEnds xmi:id="_r13rYefvEeu-r8aP1ZMJyw" name="EmployeeStatus" assoc="_r14ScOfvEeu-r8aP1ZMJyw" lowerBound="1"/>
+    <associationEnds xmi:id="_y_XdoefvEeu-r8aP1ZMJyw" name="myRoot" assoc="_y_XdoufvEeu-r8aP1ZMJyw" lowerBound="1"/>
+    <attributes xmi:id="_rKkkQOfyEeu-r8aP1ZMJyw" name="name" type="_zaehx-fuEeu-r8aP1ZMJyw"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_3_5YQOfvEeu-r8aP1ZMJyw" name="FullTimeEmployee" superTypes="_iMTJEOfvEeu-r8aP1ZMJyw"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_56VEoOfvEeu-r8aP1ZMJyw" name="PartTimeEmployee" superTypes="_iMTJEOfvEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_zaehwefuEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_zaehwufuEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_zaehw-fuEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_zaehxOfuEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_zaehxefuEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_zaehxufuEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_zaehx-fuEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_zaehyOfuEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_zaehyefuEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_zaehyufuEeu-r8aP1ZMJyw"/>
+  <associations xmi:id="_ogzNAefvEeu-r8aP1ZMJyw" name="EmployeeStatus_Root" ends="_ogyl8OfvEeu-r8aP1ZMJyw _ogzNAOfvEeu-r8aP1ZMJyw"/>
+  <associations xmi:id="_r14ScOfvEeu-r8aP1ZMJyw" name="EmployeeStatus_Employee" ends="_r13rYOfvEeu-r8aP1ZMJyw _r13rYefvEeu-r8aP1ZMJyw"/>
+  <associations xmi:id="_y_XdoufvEeu-r8aP1ZMJyw" name="Root_Employee" ends="_y_XdoOfvEeu-r8aP1ZMJyw _y_XdoefvEeu-r8aP1ZMJyw"/>
+  <layout xmi:id="_zafI0OfuEeu-r8aP1ZMJyw">
+    <containers xmi:id="_zafI0efuEeu-r8aP1ZMJyw" key="_zaehwOfuEeu-r8aP1ZMJyw">
+      <value xmi:id="_z11BAOfuEeu-r8aP1ZMJyw" key="_z1ykwOfuEeu-r8aP1ZMJyw">
+        <value xmi:id="_z11BAefuEeu-r8aP1ZMJyw" x="1366.9993" y="158.99988"/>
+      </value>
+      <value xmi:id="_iMU-QOfvEeu-r8aP1ZMJyw" key="_iMTJEOfvEeu-r8aP1ZMJyw">
+        <value xmi:id="_iMU-QefvEeu-r8aP1ZMJyw" x="455.00043" y="680.9647"/>
+      </value>
+      <value xmi:id="_p8hkIOfvEeu-r8aP1ZMJyw" key="_p8fH4OfvEeu-r8aP1ZMJyw">
+        <value xmi:id="_p8hkIefvEeu-r8aP1ZMJyw" x="1316.0004" y="680.9647"/>
+      </value>
+      <value xmi:id="_3_9psOfvEeu-r8aP1ZMJyw" key="_3_5YQOfvEeu-r8aP1ZMJyw">
+        <value xmi:id="_3_9psefvEeu-r8aP1ZMJyw" x="288.99988" y="853.0001"/>
+      </value>
+      <value xmi:id="_56Xg4OfvEeu-r8aP1ZMJyw" key="_56VEoOfvEeu-r8aP1ZMJyw">
+        <value xmi:id="_56YH8OfvEeu-r8aP1ZMJyw" x="585.0004" y="853.0001"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
