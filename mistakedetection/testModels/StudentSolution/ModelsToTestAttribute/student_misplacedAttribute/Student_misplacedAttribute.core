@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_eJcpoN1lEeuihpv-j2laQg" name="Student_misplacedAttribute" featureModel="_eJcpod1lEeuihpv-j2laQg" impactModel="_eJcpo91lEeuihpv-j2laQg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_eJcpod1lEeuihpv-j2laQg" root="_eJcpot1lEeuihpv-j2laQg">
+    <features xmi:id="_eJcpot1lEeuihpv-j2laQg" name="Student_misplacedAttribute" realizedBy="_fGx0kd1lEeuihpv-j2laQg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_eJcpo91lEeuihpv-j2laQg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_fGx0kN1lEeuihpv-j2laQg" name="Student_misplacedAttribute" scene="_fGx0kd1lEeuihpv-j2laQg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_misplacedAttribute.domain_model.cdm#_fG034N1lEeuihpv-j2laQg"/>
+  </artefacts>
+  <scenes xmi:id="_fGx0kd1lEeuihpv-j2laQg" name="Student_misplacedAttribute" realizes="_eJcpot1lEeuihpv-j2laQg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_fGyboN1lEeuihpv-j2laQg" value="_fGx0kN1lEeuihpv-j2laQg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

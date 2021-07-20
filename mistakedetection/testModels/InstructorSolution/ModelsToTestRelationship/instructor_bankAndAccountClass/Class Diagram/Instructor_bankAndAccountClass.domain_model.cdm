@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_TnhFcOWIEeu-hYgP_IYelQ" name="Instructor_bankAndAccountClass">
+  <classes xsi:type="classdiagram:Class" xmi:id="_UCUyIOWIEeu-hYgP_IYelQ" name="Bank">
+    <associationEnds xmi:id="_V8SkceWIEeu-hYgP_IYelQ" name="myAccount" assoc="_V8SkcuWIEeu-hYgP_IYelQ" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_VDkMsOWIEeu-hYgP_IYelQ" name="Account">
+    <associationEnds xmi:id="_V8SkcOWIEeu-hYgP_IYelQ" name="myBank" assoc="_V8SkcuWIEeu-hYgP_IYelQ" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_TnhFceWIEeu-hYgP_IYelQ"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_TnhFcuWIEeu-hYgP_IYelQ"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_TnhFc-WIEeu-hYgP_IYelQ"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_TnhFdOWIEeu-hYgP_IYelQ"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_TnhFdeWIEeu-hYgP_IYelQ"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_TnhFduWIEeu-hYgP_IYelQ"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_TnhFd-WIEeu-hYgP_IYelQ"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_TnhFeOWIEeu-hYgP_IYelQ"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_TnhFeeWIEeu-hYgP_IYelQ"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_TnhFeuWIEeu-hYgP_IYelQ"/>
+  <associations xmi:id="_V8SkcuWIEeu-hYgP_IYelQ" name="Account_Bank" ends="_V8SkcOWIEeu-hYgP_IYelQ _V8SkceWIEeu-hYgP_IYelQ"/>
+  <layout xmi:id="_TnhFe-WIEeu-hYgP_IYelQ">
+    <containers xmi:id="_TnhFfOWIEeu-hYgP_IYelQ" key="_TnhFcOWIEeu-hYgP_IYelQ">
+      <value xmi:id="_UCXOYOWIEeu-hYgP_IYelQ" key="_UCUyIOWIEeu-hYgP_IYelQ">
+        <value xmi:id="_UCXOYeWIEeu-hYgP_IYelQ" x="987.00024" y="287.99985"/>
+      </value>
+      <value xmi:id="_VDmB4OWIEeu-hYgP_IYelQ" key="_VDkMsOWIEeu-hYgP_IYelQ">
+        <value xmi:id="_VDmB4eWIEeu-hYgP_IYelQ" x="987.00024" y="552.9999"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

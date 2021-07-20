@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_HjJ0oN9GEeuKX4ENzy-Mig" name="Student_missingAssociation">
+  <classes xsi:type="classdiagram:Class" xmi:id="_H9K3IN9GEeuKX4ENzy-Mig" name="Root">
+    <associationEnds xmi:id="_KOUaYd9GEeuKX4ENzy-Mig" name="myCar" assoc="_KOUaYt9GEeuKX4ENzy-Mig" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_K5jIsN9GEeuKX4ENzy-Mig" name="myOwner" assoc="_K5jIsd9GEeuKX4ENzy-Mig" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_IiGJIN9GEeuKX4ENzy-Mig" name="Car">
+    <associationEnds xmi:id="_KOUaYN9GEeuKX4ENzy-Mig" name="myRoot" assoc="_KOUaYt9GEeuKX4ENzy-Mig" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_JL5UEN9GEeuKX4ENzy-Mig" name="Owner">
+    <associationEnds xmi:id="_K5ihoN9GEeuKX4ENzy-Mig" name="myRoot" assoc="_K5jIsd9GEeuKX4ENzy-Mig" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_HjJ0od9GEeuKX4ENzy-Mig"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_HjJ0ot9GEeuKX4ENzy-Mig"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_HjJ0o99GEeuKX4ENzy-Mig"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_HjJ0pN9GEeuKX4ENzy-Mig"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_HjJ0pd9GEeuKX4ENzy-Mig"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_HjJ0pt9GEeuKX4ENzy-Mig"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_HjJ0p99GEeuKX4ENzy-Mig"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_HjJ0qN9GEeuKX4ENzy-Mig"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_HjJ0qd9GEeuKX4ENzy-Mig"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_HjJ0qt9GEeuKX4ENzy-Mig"/>
+  <associations xmi:id="_KOUaYt9GEeuKX4ENzy-Mig" name="Car_Root" ends="_KOUaYN9GEeuKX4ENzy-Mig _KOUaYd9GEeuKX4ENzy-Mig"/>
+  <associations xmi:id="_K5jIsd9GEeuKX4ENzy-Mig" name="Owner_Root" ends="_K5ihoN9GEeuKX4ENzy-Mig _K5jIsN9GEeuKX4ENzy-Mig"/>
+  <layout xmi:id="_HjJ0q99GEeuKX4ENzy-Mig">
+    <containers xmi:id="_HjJ0rN9GEeuKX4ENzy-Mig" key="_HjJ0oN9GEeuKX4ENzy-Mig">
+      <value xmi:id="_H9MsUN9GEeuKX4ENzy-Mig" key="_H9K3IN9GEeuKX4ENzy-Mig">
+        <value xmi:id="_H9MsUd9GEeuKX4ENzy-Mig" x="917.0" y="119.0"/>
+      </value>
+      <value xmi:id="_IiKakN9GEeuKX4ENzy-Mig" key="_IiGJIN9GEeuKX4ENzy-Mig">
+        <value xmi:id="_IiKakd9GEeuKX4ENzy-Mig" x="589.0" y="283.0"/>
+      </value>
+      <value xmi:id="_JL8XYN9GEeuKX4ENzy-Mig" key="_JL5UEN9GEeuKX4ENzy-Mig">
+        <value xmi:id="_JL8XYd9GEeuKX4ENzy-Mig" x="917.0" y="569.99976"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

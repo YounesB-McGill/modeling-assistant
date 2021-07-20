@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_rTksUOJtEeufL7bKC5uA6w" name="Student_badRoleNameSpelling">
+  <classes xsi:type="classdiagram:Class" xmi:id="_ryxJwOJtEeufL7bKC5uA6w" name="Root">
+    <associationEnds xmi:id="_u0o_UeJtEeufL7bKC5uA6w" name="myCar" assoc="_u0o_UuJtEeufL7bKC5uA6w" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_vQlUceJtEeufL7bKC5uA6w" name="myEngine" assoc="_vQlUcuJtEeufL7bKC5uA6w" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_skOb4OJtEeufL7bKC5uA6w" name="Car">
+    <associationEnds xmi:id="_u0o_UOJtEeufL7bKC5uA6w" name="myRoot" assoc="_u0o_UuJtEeufL7bKC5uA6w" lowerBound="1"/>
+    <associationEnds xmi:id="_yfgukOJtEeufL7bKC5uA6w" name="myengine" assoc="_yfhVoOJtEeufL7bKC5uA6w" lowerBound="1" referenceType="Aggregation"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_tLpoQOJtEeufL7bKC5uA6w" name="Engine">
+    <associationEnds xmi:id="_vQlUcOJtEeufL7bKC5uA6w" name="myRoot" assoc="_vQlUcuJtEeufL7bKC5uA6w" lowerBound="1"/>
+    <associationEnds xmi:id="_yfgukeJtEeufL7bKC5uA6w" name="myCar" assoc="_yfhVoOJtEeufL7bKC5uA6w" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_rTksUeJtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_rTksUuJtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_rTksU-JtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_rTksVOJtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_rTlTYOJtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_rTlTYeJtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_rTlTYuJtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_rTlTY-JtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_rTlTZOJtEeufL7bKC5uA6w"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_rTlTZeJtEeufL7bKC5uA6w"/>
+  <associations xmi:id="_u0o_UuJtEeufL7bKC5uA6w" name="Car_Root" ends="_u0o_UOJtEeufL7bKC5uA6w _u0o_UeJtEeufL7bKC5uA6w"/>
+  <associations xmi:id="_vQlUcuJtEeufL7bKC5uA6w" name="Engine_Root" ends="_vQlUcOJtEeufL7bKC5uA6w _vQlUceJtEeufL7bKC5uA6w"/>
+  <associations xmi:id="_yfhVoOJtEeufL7bKC5uA6w" name="Car_Engine" ends="_yfgukOJtEeufL7bKC5uA6w _yfgukeJtEeufL7bKC5uA6w"/>
+  <layout xmi:id="_rTlTZuJtEeufL7bKC5uA6w">
+    <containers xmi:id="_rTlTZ-JtEeufL7bKC5uA6w" key="_rTksUOJtEeufL7bKC5uA6w">
+      <value xmi:id="_ry00IOJtEeufL7bKC5uA6w" key="_ryxJwOJtEeufL7bKC5uA6w">
+        <value xmi:id="_ry00IeJtEeufL7bKC5uA6w" x="922.00024" y="243.0"/>
+      </value>
+      <value xmi:id="_skSGQOJtEeufL7bKC5uA6w" key="_skOb4OJtEeufL7bKC5uA6w">
+        <value xmi:id="_skSGQeJtEeufL7bKC5uA6w" x="592.9998" y="461.0"/>
+      </value>
+      <value xmi:id="_tLrdcOJtEeufL7bKC5uA6w" key="_tLpoQOJtEeufL7bKC5uA6w">
+        <value xmi:id="_tLrdceJtEeufL7bKC5uA6w" x="1022.0001" y="590.99976"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
