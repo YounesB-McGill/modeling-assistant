@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_9L-0MN8_EeuTLOme1e-z-w" name="Instructor_carAndEngineClass" featureModel="_9L-0Md8_EeuTLOme1e-z-w" impactModel="_9L-0M98_EeuTLOme1e-z-w">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_9L-0Md8_EeuTLOme1e-z-w" root="_9L-0Mt8_EeuTLOme1e-z-w">
+    <features xmi:id="_9L-0Mt8_EeuTLOme1e-z-w" name="Instructor_carAndEngineClass" realizedBy="_971j0d8_EeuTLOme1e-z-w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_9L-0M98_EeuTLOme1e-z-w" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_971j0N8_EeuTLOme1e-z-w" name="Instructor_carAndEngineClass" scene="_971j0d8_EeuTLOme1e-z-w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_carAndEngineClass.domain_model.cdm#_972x8N8_EeuTLOme1e-z-w"/>
+  </artefacts>
+  <scenes xmi:id="_971j0d8_EeuTLOme1e-z-w" name="Instructor_carAndEngineClass" realizes="_9L-0Mt8_EeuTLOme1e-z-w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_971j0t8_EeuTLOme1e-z-w" value="_971j0N8_EeuTLOme1e-z-w" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

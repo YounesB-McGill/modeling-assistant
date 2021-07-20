@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_VRKL0N89EeuTLOme1e-z-w" name="Instructor_bookAndchapterClass">
+  <classes xsi:type="classdiagram:Class" xmi:id="_Wga0QN89EeuTLOme1e-z-w" name="Book">
+    <associationEnds xmi:id="_ambnYN89EeuTLOme1e-z-w" name="myChapter" assoc="_ambnYd89EeuTLOme1e-z-w" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_XtAjMN89EeuTLOme1e-z-w" name="Chapter">
+    <associationEnds xmi:id="_ambAUN89EeuTLOme1e-z-w" name="myBook" assoc="_ambnYd89EeuTLOme1e-z-w" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_VRKL0d89EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_VRKL0t89EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_VRKL0989EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_VRKL1N89EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_VRKL1d89EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_VRKL1t89EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_VRKL1989EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_VRKL2N89EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_VRKL2d89EeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_VRKL2t89EeuTLOme1e-z-w"/>
+  <associations xmi:id="_ambnYd89EeuTLOme1e-z-w" name="Chapter_Book" ends="_ambAUN89EeuTLOme1e-z-w _ambnYN89EeuTLOme1e-z-w"/>
+  <layout xmi:id="_VRKL2989EeuTLOme1e-z-w">
+    <containers xmi:id="_VRLZ8N89EeuTLOme1e-z-w" key="_VRKL0N89EeuTLOme1e-z-w">
+      <value xmi:id="_WgwLcN89EeuTLOme1e-z-w" key="_Wga0QN89EeuTLOme1e-z-w">
+        <value xmi:id="_WgwLcd89EeuTLOme1e-z-w" x="1130.0" y="478.9999"/>
+      </value>
+      <value xmi:id="_XtC_cN89EeuTLOme1e-z-w" key="_XtAjMN89EeuTLOme1e-z-w">
+        <value xmi:id="_XtC_cd89EeuTLOme1e-z-w" x="1089.9996" y="979.9999"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

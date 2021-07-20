@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_UVvscN89EeuTLOme1e-z-w" name="Instructor_bookAndchapterClass" featureModel="_UVxhoN89EeuTLOme1e-z-w" impactModel="_UVyIsN89EeuTLOme1e-z-w">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_UVxhoN89EeuTLOme1e-z-w" root="_UVxhod89EeuTLOme1e-z-w">
+    <features xmi:id="_UVxhod89EeuTLOme1e-z-w" name="Instructor_bookAndchapterClass" realizedBy="_VRFTUN89EeuTLOme1e-z-w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_UVyIsN89EeuTLOme1e-z-w" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_VREFMN89EeuTLOme1e-z-w" name="Instructor_bookAndchapterClass" scene="_VRFTUN89EeuTLOme1e-z-w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_bookAndchapterClass.domain_model.cdm#_VRKL0N89EeuTLOme1e-z-w"/>
+  </artefacts>
+  <scenes xmi:id="_VRFTUN89EeuTLOme1e-z-w" name="Instructor_bookAndchapterClass" realizes="_UVxhod89EeuTLOme1e-z-w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_VRFTUd89EeuTLOme1e-z-w" value="_VREFMN89EeuTLOme1e-z-w" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

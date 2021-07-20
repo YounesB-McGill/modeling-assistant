@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_POCXkN6UEeuTLOme1e-z-w" name="Instructor_pilotAndFlightClass">
+  <classes xsi:type="classdiagram:Class" xmi:id="_P1fZIN6UEeuTLOme1e-z-w" name="Root">
+    <associationEnds xmi:id="_U5_00d6UEeuTLOme1e-z-w" name="myPilot" assoc="_U5_00t6UEeuTLOme1e-z-w" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_mQXDsd6UEeuTLOme1e-z-w" name="myFlight" assoc="_mQXDst6UEeuTLOme1e-z-w" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_QhMokN6UEeuTLOme1e-z-w" name="Pilot">
+    <associationEnds xmi:id="_UL_fUN6UEeuTLOme1e-z-w" name="myFlight" assoc="_UL_fUt6UEeuTLOme1e-z-w" lowerBound="1"/>
+    <associationEnds xmi:id="_U5_00N6UEeuTLOme1e-z-w" name="myRoot" assoc="_U5_00t6UEeuTLOme1e-z-w" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_SPCqcN6UEeuTLOme1e-z-w" name="Flight">
+    <associationEnds xmi:id="_UL_fUd6UEeuTLOme1e-z-w" name="myPilot" assoc="_UL_fUt6UEeuTLOme1e-z-w" lowerBound="1"/>
+    <associationEnds xmi:id="_mQXDsN6UEeuTLOme1e-z-w" name="myRoot" assoc="_mQXDst6UEeuTLOme1e-z-w" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_POC-oN6UEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_POC-od6UEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_POC-ot6UEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_POC-o96UEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_POC-pN6UEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_POC-pd6UEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_POC-pt6UEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_POC-p96UEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_PODlsN6UEeuTLOme1e-z-w"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_PODlsd6UEeuTLOme1e-z-w"/>
+  <associations xmi:id="_UL_fUt6UEeuTLOme1e-z-w" name="Pilot_Flight" ends="_UL_fUN6UEeuTLOme1e-z-w _UL_fUd6UEeuTLOme1e-z-w"/>
+  <associations xmi:id="_U5_00t6UEeuTLOme1e-z-w" name="Pilot_Root" ends="_U5_00N6UEeuTLOme1e-z-w _U5_00d6UEeuTLOme1e-z-w"/>
+  <associations xmi:id="_mQXDst6UEeuTLOme1e-z-w" name="Flight_Root" ends="_mQXDsN6UEeuTLOme1e-z-w _mQXDsd6UEeuTLOme1e-z-w"/>
+  <layout xmi:id="_POEMwN6UEeuTLOme1e-z-w">
+    <containers xmi:id="_POEMwd6UEeuTLOme1e-z-w" key="_POCXkN6UEeuTLOme1e-z-w">
+      <value xmi:id="_P1mt4N6UEeuTLOme1e-z-w" key="_P1fZIN6UEeuTLOme1e-z-w">
+        <value xmi:id="_P1nU8N6UEeuTLOme1e-z-w" x="1395.9998" y="186.00012"/>
+      </value>
+      <value xmi:id="_QhPE0N6UEeuTLOme1e-z-w" key="_QhMokN6UEeuTLOme1e-z-w">
+        <value xmi:id="_QhPr4N6UEeuTLOme1e-z-w" x="676.0004" y="476.99997"/>
+      </value>
+      <value xmi:id="_SPFGsN6UEeuTLOme1e-z-w" key="_SPCqcN6UEeuTLOme1e-z-w">
+        <value xmi:id="_SPFGsd6UEeuTLOme1e-z-w" x="1436.9999" y="476.99997"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
