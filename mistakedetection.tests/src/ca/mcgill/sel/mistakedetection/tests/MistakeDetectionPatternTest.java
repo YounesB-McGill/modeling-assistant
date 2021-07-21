@@ -18,6 +18,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_SUBCLASS_P
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PLAYER_ROLE_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN;
@@ -34,6 +35,7 @@ import static modelingassistant.util.TagUtils.setRoleTagToClassInClassDiag;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.CDEnum;
 import ca.mcgill.sel.classdiagram.NamedElement;
@@ -1210,11 +1212,11 @@ public class MistakeDetectionPatternTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
-    var instStudentClassStatusAttrib = getAttributeFromClass("status", instEmployeeClass);
+    var instEmployeeClassStatusAttrib = getAttributeFromClass("status", instEmployeeClass);
 
     EList<NamedElement> instElements = new BasicEList<NamedElement>();
     instElements.add(instEmployeeClass);
-    instElements.add(instStudentClassStatusAttrib);
+    instElements.add(instEmployeeClassStatusAttrib);
 
     var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
     var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
@@ -1254,11 +1256,11 @@ public class MistakeDetectionPatternTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
-    var instStudentClassStatusAttrib = getAttributeFromClass("status", instEmployeeClass);
+    var instEmployeeClassStatusAttrib = getAttributeFromClass("status", instEmployeeClass);
 
     EList<NamedElement> instElements = new BasicEList<NamedElement>();
     instElements.add(instEmployeeClass);
-    instElements.add(instStudentClassStatusAttrib);
+    instElements.add(instEmployeeClassStatusAttrib);
 
     var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
     var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
@@ -1298,11 +1300,11 @@ public class MistakeDetectionPatternTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
-    var instStudentClassStatusAttrib = getAttributeFromClass("status", instEmployeeClass);
+    var instEmployeeClassStatusAttrib = getAttributeFromClass("status", instEmployeeClass);
 
     EList<NamedElement> instElements = new BasicEList<NamedElement>();
     instElements.add(instEmployeeClass);
-    instElements.add(instStudentClassStatusAttrib);
+    instElements.add(instEmployeeClassStatusAttrib);
 
     var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
     var studProjectClass = getClassFromClassDiagram("Project", studentClassDiagram);
@@ -1322,4 +1324,596 @@ public class MistakeDetectionPatternTest {
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
     assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
   }
+
+  /**
+   * Test to check Full player role pattern instead of Subclass in studentSolution
+   */
+  @Test
+  public void testFullPRInsteadOfSubclassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_bankExample_pattern/Class Diagram/Instructor_subClassPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
+
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_fullPR_bankExample/Class Diagram/Student_fullPR_bankExample.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instCheckingAccClass = getClassFromClassDiagram("CheckingAccount", instructorClassDiagram);
+    var instSavingAccClass = getClassFromClassDiagram("SavingAccount", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instCheckingAccClass);
+    instElements.add(instSavingAccClass);
+
+
+    var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
+    var studCheckingAccClass = getClassFromClassDiagram("CheckingAccount", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studBankAccClass);
+    studElements.add(studCheckingAccClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
+    assertMistake(studStudentClassMistake, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS, studElements, instElements, 0,
+        1, false);
+  }
+
+  /**
+   * Test to check Enum player role pattern instead of Subclass in studentSolution
+   */
+  @Disabled ("possible bug in code. Error when running test")
+  @Test
+  public void testEnumPRInsteadOfSubclassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_bankExample_pattern/Class Diagram/Instructor_subClassPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
+
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_enumPR_bankExample/Class Diagram/Student_enumPR_bankExample.domain_model.cdm");
+
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instCheckingAccClass = getClassFromClassDiagram("CheckingAccount", instructorClassDiagram);
+    var instSavingAccClass = getClassFromClassDiagram("SavingAccount", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instCheckingAccClass);
+    instElements.add(instSavingAccClass);
+
+    var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studBankAccClass);
+    CDEnum studEnum = MistakeDetection.getEnumFromClassDiagram("AccountType", studentClassDiagram);
+    studElements.addAll(studEnum.getLiterals());
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studElements, instElements, 0,
+        1, false);
+  }
+
+  /**
+   * Test to check Assoc player role pattern instead of Subclass in studentSolution
+   */
+  @Test
+  public void testAssocPRInsteadOfSubclassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_bankExample_pattern/Class Diagram/Instructor_subClassPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
+
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_assocPR_bankExample/Class Diagram/Student_assocPR_bankExample.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instCheckingAccClass = getClassFromClassDiagram("CheckingAccount", instructorClassDiagram);
+    var instSavingAccClass = getClassFromClassDiagram("SavingAccount", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instCheckingAccClass);
+    instElements.add(instSavingAccClass);
+
+    var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
+    var studAccountHolderClass = getClassFromClassDiagram("AccountHolder", studentClassDiagram);
+    var studCheckingAccAssocEnd = getAssociationEndFromClass("checkingAccount", studAccountHolderClass);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studBankAccClass);
+    studElements.add(studCheckingAccAssocEnd);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
+    assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studElements,
+        instElements, 0, 1, false);
+  }
+
+  /**
+   * Test to check subClass player role pattern instead of Full in studentSolution
+   */
+  @Test
+  public void testSubPRInsteadOfFullClassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_bankExample_pattern/Class Diagram/Instructor_fullPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
+
+    assertEquals(FULL_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_subClassPR_bankExample/Class Diagram/Student_subClassPR_bankExample.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instCheckingAccClass = getClassFromClassDiagram("CheckingAccount", instructorClassDiagram);
+    var instSavingAccClass = getClassFromClassDiagram("SavingAccount", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instCheckingAccClass);
+    instElements.add(instSavingAccClass);
+
+
+    var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
+    var studSavingAccClass = getClassFromClassDiagram("SavingAccount", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studBankAccClass);
+    studElements.add(studSavingAccClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
+    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements, instElements, 0,
+        1, false);
+  }
+
+  /**
+   * Test to check Assoc player role pattern instead of Full in studentSolution
+   */
+  @Test
+  public void testAssocPRInsteadOfFullClassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_bankExample_pattern/Class Diagram/Instructor_fullPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
+
+    assertEquals(FULL_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_assocPR_bankExample/Class Diagram/Student_assocPR_bankExample.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instCheckingAccClass = getClassFromClassDiagram("CheckingAccount", instructorClassDiagram);
+    var instSavingAccClass = getClassFromClassDiagram("SavingAccount", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instCheckingAccClass);
+    instElements.add(instSavingAccClass);
+
+    var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
+    var studAccountHolderClass = getClassFromClassDiagram("AccountHolder", studentClassDiagram);
+    var studCheckingAccAssocEnd = getAssociationEndFromClass("checkingAccount", studAccountHolderClass);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studBankAccClass);
+    studElements.add(studCheckingAccAssocEnd);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
+    assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements,
+        instElements, 0, 1, false);
+  }
+
+  /**
+   * Test to check Enum player role pattern instead of Full in studentSolution
+   */
+  @Disabled ("possible bug in code. Error when running test")
+  @Test
+  public void testEnumPRInsteadOfFullClassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_bankExample_pattern/Class Diagram/Instructor_fullPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
+
+    assertEquals(FULL_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_enumPR_bankExample/Class Diagram/Student_enumPR_bankExample.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instCheckingAccClass = getClassFromClassDiagram("CheckingAccount", instructorClassDiagram);
+    var instSavingAccClass = getClassFromClassDiagram("SavingAccount", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instCheckingAccClass);
+    instElements.add(instSavingAccClass);
+
+    var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studBankAccClass);
+    CDEnum studEnum = MistakeDetection.getEnumFromClassDiagram("AccountType", studentClassDiagram);
+    studElements.addAll(studEnum.getLiterals());
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+  }
+
+  /**
+   * Test to check subClass player role pattern instead of Assoc in studentSolution
+   */
+  @Test
+  public void testSubPRInsteadOfAssocClassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_bankExample_pattern/Class Diagram/Instructor_assocPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    var AccountHolderClass = getClassFromClassDiagram("AccountHolder", instructorClassDiagram);
+    setRoleTagToAssocEndInClass("checkingAccount", tagGroup, AccountHolderClass);
+    setRoleTagToAssocEndInClass("savingAccount", tagGroup, AccountHolderClass);
+
+    assertEquals(ASSOC_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_subClassPR_bankExample/Class Diagram/Student_subClassPR_bankExample.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instAccountHolderClass = getClassFromClassDiagram("AccountHolder", instructorClassDiagram);
+    var instCheckingAccAssocEnd = getAssociationEndFromClass("checkingAccount", instAccountHolderClass);
+    var instSavingAccAssocEnd = getAssociationEndFromClass("savingAccount", instAccountHolderClass);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instCheckingAccAssocEnd);
+    instElements.add(instSavingAccAssocEnd);
+
+    var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
+    var studSavingAccClass = getClassFromClassDiagram("SavingAccount", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studBankAccClass);
+    studElements.add(studSavingAccClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
+    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1,
+          false);
+  }
+
+  /**
+   * Test to check Full player role pattern instead of Assoc in studentSolution
+   */
+  @Test
+  public void testFullPRInsteadOfAssocClassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_bankExample_pattern/Class Diagram/Instructor_assocPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    var AccountHolderClass = getClassFromClassDiagram("AccountHolder", instructorClassDiagram);
+    setRoleTagToAssocEndInClass("checkingAccount", tagGroup, AccountHolderClass);
+    setRoleTagToAssocEndInClass("savingAccount", tagGroup, AccountHolderClass);
+
+    assertEquals(ASSOC_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_fullPR_bankExample/Class Diagram/Student_fullPR_bankExample.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instAccountHolderClass = getClassFromClassDiagram("AccountHolder", instructorClassDiagram);
+    var instCheckingAccAssocEnd = getAssociationEndFromClass("checkingAccount", instAccountHolderClass);
+    var instSavingAccAssocEnd = getAssociationEndFromClass("savingAccount", instAccountHolderClass);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instCheckingAccAssocEnd);
+    instElements.add(instSavingAccAssocEnd);
+
+    var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
+    var studCheckingAccClass = getClassFromClassDiagram("CheckingAccount", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studBankAccClass);
+    studElements.add(studCheckingAccClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
+    assertMistake(studStudentClassMistake, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION, studElements, instElements, 0, 1,
+          false);
+  }
+
+  /**
+   * Test to check Enum player role pattern instead of Assoc in studentSolution
+   */
+  @Disabled ("Possible bug in code. Error when running test")
+  @Test
+  public void testEnumPRInsteadOfAssocClassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_bankExample_pattern/Class Diagram/Instructor_assocPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    var AccountHolderClass = getClassFromClassDiagram("AccountHolder", instructorClassDiagram);
+    setRoleTagToAssocEndInClass("checkingAccount", tagGroup, AccountHolderClass);
+    setRoleTagToAssocEndInClass("savingAccount", tagGroup, AccountHolderClass);
+
+    assertEquals(ASSOC_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_enumPR_bankExample/Class Diagram/Student_enumPR_bankExample.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instAccountHolderClass = getClassFromClassDiagram("AccountHolder", instructorClassDiagram);
+    var instCheckingAccAssocEnd = getAssociationEndFromClass("checkingAccount", instAccountHolderClass);
+    var instSavingAccAssocEnd = getAssociationEndFromClass("savingAccount", instAccountHolderClass);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instCheckingAccAssocEnd);
+    instElements.add(instSavingAccAssocEnd);
+
+    var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studBankAccClass);
+    CDEnum studEnum = MistakeDetection.getEnumFromClassDiagram("AccountType", studentClassDiagram);
+    studElements.addAll(studEnum.getLiterals());
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+  }
+
+  /**
+   * Test to check sub class player role pattern instead of Enum in studentSolution
+   */
+  @Test
+  public void testSubclassPRInsteadOfEnumClassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_bankExample_pattern/Class Diagram/Instructor_enumPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    var studentClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    setRoleTagToAttribInClass("type", tagGroup, studentClass);
+
+    assertEquals(ENUM_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_subClassPR_bankExample/Class Diagram/Student_subClassPR_bankExample.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instAccountTypeAttrib = getAttributeFromClass("type", instBankAccClass);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instAccountTypeAttrib);
+
+    var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
+    var studSavingAccClass = getClassFromClassDiagram("SavingAccount", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studBankAccClass);
+    studElements.add(studSavingAccClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
+    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+  }
+
+  /**
+   * Test to check Full player role pattern instead of Enum in studentSolution
+   */
+  @Test
+  public void testFullPRInsteadOfEnumClassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_bankExample_pattern/Class Diagram/Instructor_enumPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    var studentClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    setRoleTagToAttribInClass("type", tagGroup, studentClass);
+
+    assertEquals(ENUM_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_fullPR_bankExample/Class Diagram/Student_fullPR_bankExample.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instAccountTypeAttrib = getAttributeFromClass("type", instBankAccClass);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instAccountTypeAttrib);
+
+    var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
+    var studCheckingAccClass = getClassFromClassDiagram("CheckingAccount", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studBankAccClass);
+    studElements.add(studCheckingAccClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(7, comparison.newMistakes.size());
+    assertEquals(7, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
+    assertMistake(studStudentClassMistake, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM, studElements, instElements, 0, 1, false);
+  }
+
+  /**
+   * Test to check Assoc player role pattern instead of Enum in studentSolution
+   */
+  @Test
+  public void testAssocPRInsteadOfEnumClassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_bankExample_pattern/Class Diagram/Instructor_enumPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    var studentClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    setRoleTagToAttribInClass("type", tagGroup, studentClass);
+
+    assertEquals(ENUM_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_assocPR_bankExample/Class Diagram/Student_assocPR_bankExample.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instAccountTypeAttrib = getAttributeFromClass("type", instBankAccClass);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instAccountTypeAttrib);
+
+    var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
+    var studAccountHolderClass = getClassFromClassDiagram("AccountHolder", studentClassDiagram);
+    var studCheckingAccAssocEnd = getAssociationEndFromClass("checkingAccount", studAccountHolderClass);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studBankAccClass);
+    studElements.add(studCheckingAccAssocEnd);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(8, comparison.newMistakes.size());
+    assertEquals(8, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
+    assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+  }
+
+  /**
+   * Test to check incomplete player role pattern sub class in studentSolution
+   */
+  @Disabled ("Not detecting incomplete pattern ")
+  @Test
+  public void testIncompletePlayerRoleSubClassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_bankExample_pattern/Class Diagram/Instructor_subClassPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
+
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_incompletePattern_bankExample/Class Diagram/Student_incompletePattern_bankExample.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instCheckingAccClass = getClassFromClassDiagram("CheckingAccount", instructorClassDiagram);
+    var instSavingAccClass = getClassFromClassDiagram("SavingAccount", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instCheckingAccClass);
+    instElements.add(instSavingAccClass);
+
+
+    var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
+    var studSavingAccClass = getClassFromClassDiagram("SavingAccount", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studBankAccClass);
+    studElements.add(studSavingAccClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
+    assertMistake(studStudentClassMistake, INCOMPLETE_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+  }
 }
+
