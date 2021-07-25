@@ -18,7 +18,9 @@ import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_SUBCLASS_P
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_ABSTRACTION_OCCURRENCE_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PLAYER_ROLE_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ABSTRACTION_OCCURRENCE_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN;
@@ -1548,8 +1550,8 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(6, comparison.newMistakes.size());
-    assertEquals(6, studentSolution.getMistakes().size());
+    assertEquals(7, comparison.newMistakes.size());
+    assertEquals(7, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
     assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements,
@@ -1914,6 +1916,196 @@ public class MistakeDetectionPatternTest {
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
     assertMistake(studStudentClassMistake, INCOMPLETE_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+  }
+
+  /**
+   * Test to check incomplete player role pattern sub class in studentSolution
+   */
+  @Disabled ("Not detecting incomplete pattern ")
+  @Test
+  public void testIncompletePlayerRoleFullClassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_bankExample_pattern/Class Diagram/Instructor_fullPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
+
+    assertEquals(FULL_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_fullPR_bankExample/Class Diagram/Student_fullPR_bankExample.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instCheckingAccClass = getClassFromClassDiagram("CheckingAccount", instructorClassDiagram);
+    var instSavingAccClass = getClassFromClassDiagram("SavingAccount", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instCheckingAccClass);
+    instElements.add(instSavingAccClass);
+
+
+    var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
+    var studCheckingAccClass = getClassFromClassDiagram("CheckingAccount", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studBankAccClass);
+    studElements.add(studCheckingAccClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
+    assertMistake(studStudentClassMistake, INCOMPLETE_PLAYER_ROLE_PATTERN, studElements, instElements, 0,
+        1, false);
+  }
+
+  /**
+   * Test to check incomplete Abstraction Occurrence class in studentSolution
+   */
+  @Disabled ("Not implemented yet. ")
+  @Test
+  public void testIncompleteAbstractionOccurrenceFullClassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_bankExample_pattern/Class Diagram/Instructor_fullPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
+
+    assertEquals(FULL_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_incompleteAbstractionOcurance/Class Diagram/Student_incompleteAbstractionOcurance.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instCheckingAccClass = getClassFromClassDiagram("CheckingAccount", instructorClassDiagram);
+    var instSavingAccClass = getClassFromClassDiagram("SavingAccount", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instCheckingAccClass);
+    instElements.add(instSavingAccClass);
+
+
+    var studAccTypeClass = getClassFromClassDiagram("AccountType", studentClassDiagram);
+    var studCheckingAccClass = getClassFromClassDiagram("CheckingAccount", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studAccTypeClass);
+    studElements.add(studCheckingAccClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studAccTypeClass);
+    assertMistake(studStudentClassMistake, INCOMPLETE_ABSTRACTION_OCCURRENCE_PATTERN, studElements, instElements, 0,
+        1, false);
+  }
+
+  /**
+   * Test to check incomplete Abstraction Occurrence class in studentSolution
+   */
+  @Disabled ("Not implemented yet. ")
+  @Test
+  public void testIncompleteAbstractionOccurrenceFullClassPatternEmployeeExample()  {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_employeeExample_pattern/Class Diagram/Instructor_fullPR_employeeExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("Employee", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("FullTimeEmployee", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("PartTimeEmployee", tagGroup, instructorClassDiagram);
+
+    assertEquals(FULL_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_missingAbstractOccurence_employeeExample/Class Diagram/Student_missingAbstractOccurence_employeeExample.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
+    var instFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", instructorClassDiagram);
+    var instPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instEmployeeClass);
+    instElements.add(instFullTimeEmployeeClass);
+    instElements.add(instPartTimeEmployeeClass);
+
+
+    var studEmployeeStatusClass = getClassFromClassDiagram("EmployeeStatus", studentClassDiagram);
+    var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
+    var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studEmployeeStatusClass);
+    studElements.add(studFullTimeEmployeeClass);
+    studElements.add(studPartTimeEmployeeClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studEmployeeStatusClass);
+    assertMistake(studStudentClassMistake, INCOMPLETE_ABSTRACTION_OCCURRENCE_PATTERN, studElements, instElements, 0,
+        1, false);
+  }
+
+  /**
+   * Test to check Missing Abstraction Occurrence class in studentSolution
+   */
+  @Disabled ("Not implemented yet. ")
+  @Test
+  public void testMissingAbstractionOccurrenceFullClassPatternBankExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_bankExample_pattern/Class Diagram/Instructor_fullPR_bankExample_pattern.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var tagGroup = setPlayerTagToClassInClassDiag("BankAccount", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
+
+    assertEquals(FULL_PR_PATTERN, checkPattern(tagGroup));
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_missingAbstractionOccurence/Class Diagram/Student_missingAbstractionOccurence.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
+    var instCheckingAccClass = getClassFromClassDiagram("CheckingAccount", instructorClassDiagram);
+    var instSavingAccClass = getClassFromClassDiagram("SavingAccount", instructorClassDiagram);
+
+    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    instElements.add(instBankAccClass);
+    instElements.add(instCheckingAccClass);
+    instElements.add(instSavingAccClass);
+
+
+    var studAccTypeClass = getClassFromClassDiagram("AccountType", studentClassDiagram);
+    var studCheckingAccClass = getClassFromClassDiagram("CheckingAccount", studentClassDiagram);
+
+    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    studElements.add(studAccTypeClass);
+    studElements.add(studCheckingAccClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
+
+    var studStudentClassMistake = studentMistakeFor(studAccTypeClass);
+    assertMistake(studStudentClassMistake, MISSING_ABSTRACTION_OCCURRENCE_PATTERN, studElements, instElements, 0,
+        1, false);
   }
 }
 

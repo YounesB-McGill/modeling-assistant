@@ -5,12 +5,12 @@
     <associationEnds xmi:id="_x3kEgeoSEeu-r8aP1ZMJyw" name="myBankAccount" assoc="_x3krkOoSEeu-r8aP1ZMJyw" lowerBound="1" referenceType="Composition"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_dMzssOoSEeu-r8aP1ZMJyw" name="AccountType" abstract="true">
-    <associationEnds xmi:id="_sDl6wOoSEeu-r8aP1ZMJyw" name="bankAccount" assoc="_sDl6wuoSEeu-r8aP1ZMJyw" lowerBound="1"/>
+    <associationEnds xmi:id="_sDl6wOoSEeu-r8aP1ZMJyw" name="bankAccount" assoc="_sDl6wuoSEeu-r8aP1ZMJyw" upperBound="-1"/>
     <associationEnds xmi:id="_wxjesOoSEeu-r8aP1ZMJyw" name="myRoot" assoc="_wxjesuoSEeu-r8aP1ZMJyw" lowerBound="1"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_fbhnAOoSEeu-r8aP1ZMJyw" name="CheckingAccount" superTypes="_dMzssOoSEeu-r8aP1ZMJyw"/>
   <classes xsi:type="classdiagram:Class" xmi:id="_jaYpQOoSEeu-r8aP1ZMJyw" name="BankAccount">
-    <associationEnds xmi:id="_sDl6weoSEeu-r8aP1ZMJyw" name="accountType" assoc="_sDl6wuoSEeu-r8aP1ZMJyw" upperBound="-1"/>
+    <associationEnds xmi:id="_sDl6weoSEeu-r8aP1ZMJyw" name="accountType" assoc="_sDl6wuoSEeu-r8aP1ZMJyw" lowerBound="1"/>
     <associationEnds xmi:id="_x3kEgOoSEeu-r8aP1ZMJyw" name="myRoot" assoc="_x3krkOoSEeu-r8aP1ZMJyw" lowerBound="1"/>
     <attributes xmi:id="_r5z3MOoTEeu-r8aP1ZMJyw" name="balance" type="_b8Z0xOoSEeu-r8aP1ZMJyw"/>
   </classes>
