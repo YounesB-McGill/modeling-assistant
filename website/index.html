@@ -21,9 +21,10 @@
     </style>
     <!-- <script type="text/javascript" src="scripts/layoututils.js"></script> -->
     <script>
+      let cdmEditor = null;
       window.onload = () => {
-        const iFrame = document.createElement("iframe");
-        Object.assign(iFrame, {
+        cdmEditor = document.createElement("iframe");
+        Object.assign(cdmEditor, {
           style: "",
           src: "http://localhost/", // "cdmeditor.html",
           id: "cdm_editor",
@@ -32,7 +33,7 @@
           width: "100%",
           frameBorder: 0,
         });
-        document.getElementById("cde").appendChild(iFrame);
+        document.getElementById("cde").appendChild(cdmEditor);
       }
     </script>
   </head>
