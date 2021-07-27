@@ -6,7 +6,7 @@
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_iMTJEOfvEeu-r8aP1ZMJyw" name="EmployeeStatus" abstract="true">
     <associationEnds xmi:id="_ogyl8OfvEeu-r8aP1ZMJyw" name="myRoot" assoc="_ogzNAefvEeu-r8aP1ZMJyw" lowerBound="1"/>
-    <associationEnds xmi:id="_r13rYOfvEeu-r8aP1ZMJyw" name="Employee" assoc="_r14ScOfvEeu-r8aP1ZMJyw" upperBound="-1"/>
+    <associationEnds xmi:id="_r13rYOfvEeu-r8aP1ZMJyw" name="employee" assoc="_r14ScOfvEeu-r8aP1ZMJyw" upperBound="-1"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_p8fH4OfvEeu-r8aP1ZMJyw" name="Employee">
     <associationEnds xmi:id="_r13rYefvEeu-r8aP1ZMJyw" name="EmployeeStatus" assoc="_r14ScOfvEeu-r8aP1ZMJyw" lowerBound="1"/>

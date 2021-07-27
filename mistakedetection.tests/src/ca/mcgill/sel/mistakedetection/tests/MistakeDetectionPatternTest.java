@@ -41,8 +41,10 @@ import org.eclipse.emf.common.util.EList;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.CDEnum;
+import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.NamedElement;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
+import modelingassistant.util.ClassDiagramUtils;
 
 
 /**
@@ -795,14 +797,7 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_employeeExample_pattern/Class Diagram/Instructor_fullPR_employeeExample_pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
-    var instFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", instructorClassDiagram);
-    var instPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", instructorClassDiagram);
-
-    EList<NamedElement> instElements = new BasicEList<NamedElement>();
-    instElements.add(instEmployeeClass);
-    instElements.add(instFullTimeEmployeeClass);
-    instElements.add(instPartTimeEmployeeClass);
+    var instElements = employeeElements(instructorClassDiagram);
 
     var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
     var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
@@ -842,11 +837,7 @@ public class MistakeDetectionPatternTest {
 
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
-    var instFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", instructorClassDiagram);
-    var instPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", instructorClassDiagram);
-
-    var instElements = List.of(instEmployeeClass, instFullTimeEmployeeClass, instPartTimeEmployeeClass);
+    var instElements = employeeElements(instructorClassDiagram);
 
     var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
 
@@ -880,14 +871,7 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_employeeExample_pattern/Class Diagram/Instructor_assocPR_employeeExample_pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
-    var instFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", instructorClassDiagram);
-    var instPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", instructorClassDiagram);
-
-    EList<NamedElement> instElements = new BasicEList<NamedElement>();
-    instElements.add(instEmployeeClass);
-    instElements.add(instFullTimeEmployeeClass);
-    instElements.add(instPartTimeEmployeeClass);
+    var instElements = employeeElements(instructorClassDiagram);
 
     var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
     var studProjectClass = getClassFromClassDiagram("Project", studentClassDiagram);
@@ -910,7 +894,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * test to check subClass player role pattern instead of full in studentsolution.
+   * Test to check subClass player role pattern instead of full in studentsolution.
    */
   @Test
   public void testSubPRInsteadOfFullClassPatternEmployeeExample() {
@@ -928,14 +912,7 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_employeeExample_pattern/Class Diagram/Instructor_subClassPR_employeeExample_pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
-    var instFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", instructorClassDiagram);
-    var instPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", instructorClassDiagram);
-
-    EList<NamedElement> instElements = new BasicEList<NamedElement>();
-    instElements.add(instEmployeeClass);
-    instElements.add(instFullTimeEmployeeClass);
-    instElements.add(instPartTimeEmployeeClass);
+    var instElements = employeeElements(instructorClassDiagram);
 
     var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
     var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
@@ -974,14 +951,7 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_employeeExample_pattern/Class Diagram/Instructor_assocPR_employeeExample_pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
-    var instFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", instructorClassDiagram);
-    var instPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", instructorClassDiagram);
-
-    EList<NamedElement> instElements = new BasicEList<NamedElement>();
-    instElements.add(instEmployeeClass);
-    instElements.add(instFullTimeEmployeeClass);
-    instElements.add(instPartTimeEmployeeClass);
+    var instElements = employeeElements(instructorClassDiagram);
 
     var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
     var studProjectClass = getClassFromClassDiagram("Project", studentClassDiagram);
@@ -1021,14 +991,7 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_employeeExample_pattern/Class Diagram/Instructor_enumPR_employeeExample_pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
-    var instFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", instructorClassDiagram);
-    var instPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", instructorClassDiagram);
-
-    EList<NamedElement> instElements = new BasicEList<NamedElement>();
-    instElements.add(instEmployeeClass);
-    instElements.add(instFullTimeEmployeeClass);
-    instElements.add(instPartTimeEmployeeClass);
+    var instElements = employeeElements(instructorClassDiagram);
 
     var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
 
@@ -2101,5 +2064,13 @@ public class MistakeDetectionPatternTest {
     assertMistake(studStudentClassMistake, MISSING_ABSTRACTION_OCCURRENCE_PATTERN, studElements, instElements, 0,
         1, false);
   }
+
+  /**
+   * Returns a list of Employee, FullTimeEmployee and PartTimeEmployee classes from the given class diagram.
+   */
+  private List<NamedElement> employeeElements(ClassDiagram classDiagram) {
+    return ClassDiagramUtils.getElementsFromClassDiagram(classDiagram, "Employee", "FullTimeEmployee", "PartTimeEmployee");
+  }
+
 }
 

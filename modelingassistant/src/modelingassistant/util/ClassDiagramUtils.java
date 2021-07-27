@@ -1,12 +1,26 @@
 package modelingassistant.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 import org.eclipse.emf.common.util.BasicEList;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Attribute;
+import ca.mcgill.sel.classdiagram.CDAny;
+import ca.mcgill.sel.classdiagram.CDBoolean;
+import ca.mcgill.sel.classdiagram.CDByte;
+import ca.mcgill.sel.classdiagram.CDChar;
+import ca.mcgill.sel.classdiagram.CDDouble;
+import ca.mcgill.sel.classdiagram.CDFloat;
+import ca.mcgill.sel.classdiagram.CDInt;
+import ca.mcgill.sel.classdiagram.CDLong;
+import ca.mcgill.sel.classdiagram.CDString;
+import ca.mcgill.sel.classdiagram.CDVoid;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
+import ca.mcgill.sel.classdiagram.NamedElement;
 
 /**
  * Utility class for TouchCORE class diagrams and their contents.
@@ -82,6 +96,23 @@ public class ClassDiagramUtils {
           + givenClass.getName());
     }
     return associationEnd;
+  }
+
+  public static List<NamedElement> getElementsFromClassDiagram(ClassDiagram classDiagram, String... names) {
+    final var cdTypes = List.of(CDVoid.class, CDAny.class, CDBoolean.class, CDDouble.class, CDInt.class, CDLong.class,
+        CDString.class, CDByte.class, CDFloat.class, CDChar.class);
+    Predicate<NamedElement> isCdType = e -> cdTypes.stream().anyMatch(cdt -> cdt.isInstance(e));
+    var nameList = Arrays.asList(names);
+    var elements = new ArrayList<NamedElement>();
+    classDiagram.eAllContents().forEachRemaining(e -> {
+      if (e instanceof NamedElement) {
+        var ne = (NamedElement) e;
+        if (!isCdType.test(ne) && nameList.contains(ne.getName())) {
+          elements.add(ne);
+        }
+      }
+    });
+    return elements;
   }
 
 }
