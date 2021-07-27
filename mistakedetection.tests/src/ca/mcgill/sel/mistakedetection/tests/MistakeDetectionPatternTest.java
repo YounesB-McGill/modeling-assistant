@@ -35,6 +35,7 @@ import static modelingassistant.util.TagUtils.setRoleTagToAssocEndInClass;
 import static modelingassistant.util.TagUtils.setRoleTagToAttribInClass;
 import static modelingassistant.util.TagUtils.setRoleTagToClassInClassDiag;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.junit.jupiter.api.Disabled;
@@ -776,7 +777,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Full player role pattern instead of Subclass in studentSolution
+   * Test to check full player role pattern instead of subclass in studentSolution.
    */
   @Test
   public void testFullPRInsteadOfSubclassPatternEmployeeExample() {
@@ -807,7 +808,7 @@ public class MistakeDetectionPatternTest {
     var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
     var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
 
-    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studEmployeeClass);
     studElements.add(studFullTimeEmployeeClass);
     studElements.add(studPartTimeEmployeeClass);
@@ -822,7 +823,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Enum player role pattern instead of Subclass in studentSolution
+   * test to check enum player role pattern instead of subclass in studentSolution.
    */
   @Test
   public void testEnumPRInsteadOfSubclassPatternEmployeeExample() {
@@ -845,17 +846,11 @@ public class MistakeDetectionPatternTest {
     var instFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", instructorClassDiagram);
     var instPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", instructorClassDiagram);
 
-    EList<NamedElement> instElements = new BasicEList<NamedElement>();
-    instElements.add(instEmployeeClass);
-    instElements.add(instFullTimeEmployeeClass);
-    instElements.add(instPartTimeEmployeeClass);
+    var instElements = List.of(instEmployeeClass, instFullTimeEmployeeClass, instPartTimeEmployeeClass);
 
     var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
 
-    EList<NamedElement> studElements = new BasicEList<NamedElement>();
-    studElements.add(studEmployeeClass);
-    CDEnum studEnum = MistakeDetection.getEnumFromClassDiagram("EmployeeStatus", studentClassDiagram);
-    studElements.addAll(studEnum.getLiterals());
+    var studElements = List.of(studEmployeeClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -867,7 +862,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Assoc player role pattern instead of Subclass in studentSolution
+   * test to check assoc player role pattern instead of subclass in studentSolution.
    */
   @Test
   public void testAssocPRInsteadOfSubclassPatternEmployeeExample() {
@@ -915,7 +910,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check subClass player role pattern instead of Full in studentSolution
+   * test to check subClass player role pattern instead of full in studentsolution.
    */
   @Test
   public void testSubPRInsteadOfFullClassPatternEmployeeExample() {
@@ -942,7 +937,6 @@ public class MistakeDetectionPatternTest {
     instElements.add(instFullTimeEmployeeClass);
     instElements.add(instPartTimeEmployeeClass);
 
-
     var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
     var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
     var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
@@ -962,7 +956,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Assoc player role pattern instead of Full in studentSolution
+   * Test to check Assoc player role pattern instead of Full in studentSolution.
    */
   @Test
   public void testAssocPRInsteadOfFullClassPatternEmployeeExample() {
@@ -1009,7 +1003,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Enum player role pattern instead of Full in studentSolution
+   * Test to check Enum player role pattern instead of Full in studentSolution.
    */
   @Test
   public void testEnumPRInsteadOfFullClassPatternEmployeeExample() {
@@ -1053,7 +1047,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check subClass player role pattern instead of Assoc in studentSolution
+   * Test to check subClass player role pattern instead of Assoc in studentSolution.
    */
   @Test
   public void testSubPRInsteadOfAssocClassPatternEmployeeExample() {
@@ -1101,7 +1095,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Full player role pattern instead of Assoc in studentSolution
+   * Test to check Full player role pattern instead of Assoc in studentSolution.
    */
   @Test
   public void testFullPRInsteadOfAssocClassPatternEmployeeExample() {
@@ -1150,7 +1144,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Enum player role pattern instead of Assoc in studentSolution
+   * Test to check Enum player role pattern instead of Assoc in studentSolution.
    */
   @Test
   public void testEnumPRInsteadOfAssocClassPatternEmployeeExample() {
@@ -1195,7 +1189,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check sub class player role pattern instead of Enum in studentSolution
+   * Test to check sub class player role pattern instead of Enum in studentSolution.
    */
   @Test
   public void testSubclassPRInsteadOfEnumClassPatternEmployeeExample() {
@@ -1239,7 +1233,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Full player role pattern instead of Enum in studentSolution
+   * Test to check Full player role pattern instead of Enum in studentSolution.
    */
   @Test
   public void testFullPRInsteadOfEnumClassPatternEmployeeExample() {
@@ -1283,7 +1277,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Assoc player role pattern instead of Enum in studentSolution
+   * Test to check Assoc player role pattern instead of Enum in studentSolution.
    */
   @Test
   public void testAssocPRInsteadOfEnumClassPatternEmployeeExample() {
@@ -1328,7 +1322,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Full player role pattern instead of Subclass in studentSolution
+   * Test to check Full player role pattern instead of Subclass in studentSolution.
    */
   @Test
   public void testFullPRInsteadOfSubclassPatternBankExample() {
@@ -1374,7 +1368,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Enum player role pattern instead of Subclass in studentSolution
+   * Test to check Enum player role pattern instead of Subclass in studentSolution.
    */
   @Disabled ("possible bug in code. Error when running test")
   @Test
@@ -1421,7 +1415,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Assoc player role pattern instead of Subclass in studentSolution
+   * Test to check Assoc player role pattern instead of Subclass in studentSolution.
    */
   @Test
   public void testAssocPRInsteadOfSubclassPatternBankExample() {
@@ -1467,7 +1461,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check subClass player role pattern instead of Full in studentSolution
+   * Test to check subClass player role pattern instead of Full in studentSolution.
    */
   @Test
   public void testSubPRInsteadOfFullClassPatternBankExample() {
@@ -1513,7 +1507,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Assoc player role pattern instead of Full in studentSolution
+   * Test to check Assoc player role pattern instead of Full in studentSolution.
    */
   @Test
   public void testAssocPRInsteadOfFullClassPatternBankExample() {
@@ -1559,7 +1553,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Enum player role pattern instead of Full in studentSolution
+   * Test to check Enum player role pattern instead of Full in studentSolution.
    */
   @Disabled ("possible bug in code. Error when running test")
   @Test
@@ -1604,7 +1598,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check subClass player role pattern instead of Assoc in studentSolution
+   * Test to check subClass player role pattern instead of Assoc in studentSolution.
    */
   @Test
   public void testSubPRInsteadOfAssocClassPatternBankExample() {
@@ -1651,7 +1645,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Full player role pattern instead of Assoc in studentSolution
+   * Test to check Full player role pattern instead of Assoc in studentSolution.
    */
   @Test
   public void testFullPRInsteadOfAssocClassPatternBankExample() {
@@ -1698,7 +1692,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Enum player role pattern instead of Assoc in studentSolution
+   * Test to check Enum player role pattern instead of Assoc in studentSolution.
    */
   @Disabled ("Possible bug in code. Error when running test")
   @Test
@@ -1745,7 +1739,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check sub class player role pattern instead of Enum in studentSolution
+   * Test to check sub class player role pattern instead of Enum in studentSolution.
    */
   @Test
   public void testSubclassPRInsteadOfEnumClassPatternBankExample() {
@@ -1787,7 +1781,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Full player role pattern instead of Enum in studentSolution
+   * Test to check Full player role pattern instead of Enum in studentSolution.
    */
   @Test
   public void testFullPRInsteadOfEnumClassPatternBankExample() {
@@ -1829,7 +1823,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Assoc player role pattern instead of Enum in studentSolution
+   * Test to check Assoc player role pattern instead of Enum in studentSolution.
    */
   @Test
   public void testAssocPRInsteadOfEnumClassPatternBankExample() {
@@ -1872,7 +1866,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check incomplete player role pattern sub class in studentSolution
+   * Test to check incomplete player role pattern sub class in studentSolution.
    */
   @Disabled ("Not detecting incomplete pattern ")
   @Test
@@ -1919,7 +1913,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check incomplete player role pattern sub class in studentSolution
+   * Test to check incomplete player role pattern sub class in studentSolution.
    */
   @Disabled ("Not detecting incomplete pattern ")
   @Test
@@ -1966,7 +1960,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check incomplete Abstraction Occurrence class in studentSolution
+   * Test to check incomplete Abstraction Occurrence class in studentSolution.
    */
   @Disabled ("Not implemented yet. ")
   @Test
@@ -2013,7 +2007,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check incomplete Abstraction Occurrence class in studentSolution
+   * Test to check incomplete Abstraction Occurrence class in studentSolution.
    */
   @Disabled ("Not implemented yet. ")
   @Test
@@ -2062,7 +2056,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Missing Abstraction Occurrence class in studentSolution
+   * Test to check Missing Abstraction Occurrence class in studentSolution.
    */
   @Disabled ("Not implemented yet. ")
   @Test
