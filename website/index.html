@@ -53,9 +53,10 @@
       }
 
       function updateDiagram() {
-        //let cdmEditor = g("cdm_editor");
-        const json = JSON.parse(g("cdm_json").value);
-        alert(json);
+        const json = g("cdm_json").value;
+        if (validateCdmJson()) {
+          g("cdm_editor").contentWindow.postMessage(json, "*")
+        }
       }
 
       function validateCdmJson() {
@@ -63,13 +64,15 @@
         const content = cdmJson.value;
         if (!content.length) {
           cdmJson.style.border = "1px solid gray";
-          return;
+          return false;
         }
         try {
           JSON.parse(content);
           cdmJson.style.border = "2px solid LimeGreen";
+          return true;
         } catch (e) {
           cdmJson.style.border = "2px solid red";
+          return false;
         }
       }
 
