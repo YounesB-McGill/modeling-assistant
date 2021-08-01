@@ -18,15 +18,23 @@
       #cde {
         flex: 1.1;
       }
+      button {
+        background-color: inherit; border: none; outline: none; padding: 7px 7px; transition: 0.3s;
+        color: grey; font-size: 13px;
+      }
+      button:hover {
+        color: coral;
+      }
     </style>
     <!-- <script type="text/javascript" src="scripts/layoututils.js"></script> -->
     <script>
+      //document.domain = "http://localhost";
       let cdmEditor = null;
       window.onload = () => {
         cdmEditor = document.createElement("iframe");
         Object.assign(cdmEditor, {
           style: "",
-          src: "http://localhost/", // "cdmeditor.html",
+          src: "http://localhost/domain-model-assistant/unity-webgl-output", // "cdmeditor.html",
           id: "cdm_editor",
           name: "cdm_editor",
           height: `${0.95 * window.innerHeight}px`,
@@ -34,6 +42,39 @@
           frameBorder: 0,
         });
         document.getElementById("cde").appendChild(cdmEditor);
+        cdmEditor.contentWindow.addEventListener("message", (event) => {
+          if (false && event.origin !== "http://example.org:8080") { // TODO Secure later
+            return; // Ignore messages from other origins
+          }
+          cdmEditor.innerHTML += event.data;
+        }, false);
+
+        g("cdm_json").oninput = validateCdmJson;
+      }
+
+      function updateDiagram() {
+        //let cdmEditor = g("cdm_editor");
+        const json = JSON.parse(g("cdm_json").value);
+        alert(json);
+      }
+
+      function validateCdmJson() {
+        const cdmJson = g("cdm_json");
+        const content = cdmJson.value;
+        if (!content.length) {
+          cdmJson.style.border = "1px solid gray";
+          return;
+        }
+        try {
+          JSON.parse(content);
+          cdmJson.style.border = "2px solid LimeGreen";
+        } catch (e) {
+          cdmJson.style.border = "2px solid red";
+        }
+      }
+
+      function g(id) {
+        return document.getElementById(id);
       }
     </script>
   </head>
@@ -43,6 +84,18 @@
     <div id="ma_main">
       <h1>Modeling Assistant</h1>
       <p>This is the top-level part of the Modeling Assistant Web App GUI.</p>
+
+      <div style="float: right; padding: 5px;">
+        <button id="update_diagram_btn" onclick="updateDiagram()">UPDATE DIAGRAM</button>
+        <button id="get_feedback_btn" disabled title="Coming soon!" style="color: lightgrey;" onclick="giveFeedback()">GET FEEDBACK</button>
+      </div><br><br>
+
+      <p>Class Diagram JSON</p>
+      <textarea id="cdm_json" style="width: 100%; height: 40%; border: 1; outline: none;"></textarea>
+
+      <p>Feedback (Coming soon!)</p>
+      <textarea id="feedback_text" readonly style="width: 100%; height: 20%; border: 1; outline: none;"></textarea>
+
     </div>
     <div id="cde"></div>
   </div>
