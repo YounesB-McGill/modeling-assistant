@@ -3,7 +3,7 @@ package modelingassistant.util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
+import java.util.stream.Stream;
 import org.eclipse.emf.common.util.BasicEList;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
@@ -98,21 +98,27 @@ public class ClassDiagramUtils {
     return associationEnd;
   }
 
+  /**
+   * Returns the NamedElements in the given class diagram by name.
+   */
   public static List<NamedElement> getElementsFromClassDiagram(ClassDiagram classDiagram, String... names) {
-    final var cdTypes = List.of(CDVoid.class, CDAny.class, CDBoolean.class, CDDouble.class, CDInt.class, CDLong.class,
-        CDString.class, CDByte.class, CDFloat.class, CDChar.class);
-    Predicate<NamedElement> isCdType = e -> cdTypes.stream().anyMatch(cdt -> cdt.isInstance(e));
     var nameList = Arrays.asList(names);
     var elements = new ArrayList<NamedElement>();
     classDiagram.eAllContents().forEachRemaining(e -> {
       if (e instanceof NamedElement) {
         var ne = (NamedElement) e;
-        if (!isCdType.test(ne) && nameList.contains(ne.getName())) {
+        if (!isCdType(ne) && nameList.contains(ne.getName())) {
           elements.add(ne);
         }
       }
     });
     return elements;
+  }
+
+  /** Returns true if the given element is a CDType. */
+  private static boolean isCdType(NamedElement element) {
+    return Stream.of(CDVoid.class, CDAny.class, CDBoolean.class, CDDouble.class, CDInt.class, CDLong.class,
+        CDString.class, CDByte.class, CDFloat.class, CDChar.class).anyMatch(cdt -> cdt.isInstance(element));
   }
 
 }
