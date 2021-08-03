@@ -38,7 +38,6 @@ import static modelingassistant.util.TagUtils.setRoleTagToClassInClassDiag;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.CDEnum;
@@ -355,14 +354,8 @@ public class MistakeDetectionPatternTest {
 
     var instElements = studentDomainElements(instructorClassDiagram);
 
-    var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
-    var studFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", studentClassDiagram);
-    var studPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", studentClassDiagram);
-
-    List<NamedElement> studElements = new BasicEList<NamedElement>();
-    studElements.add(studStudentClass);
-    studElements.add(studFullTimeStudentClass);
-    studElements.add(studPartTimeStudentClass);
+    var studElements = studentDomainElements(studentClassDiagram);
+    var studStudentClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -438,15 +431,15 @@ public class MistakeDetectionPatternTest {
 
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studStudentClass);
-    CDEnum studEnum = MistakeDetection.getEnumFromClassDiagram("StudentLevel", studentClassDiagram);
-    studElements.addAll(studEnum.getLiterals());
+    studElements.addAll(MistakeDetection.getEnumFromClassDiagram("StudentLevel", studentClassDiagram).getLiterals());
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
-    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1,
+        false);
   }
 
   /**
@@ -471,14 +464,9 @@ public class MistakeDetectionPatternTest {
 
     var instElements = studentDomainElements(instructorClassDiagram);
 
-    var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
-    var studPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", studentClassDiagram);
-    var studFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", studentClassDiagram);
+    var studElements = studentDomainElements(studentClassDiagram);
+    var studStudentClass = studElements.get(0);
 
-    List<NamedElement> studElements = new BasicEList<NamedElement>();
-    studElements.add(studStudentClass);
-    studElements.add(studPartTimeStudentClass);
-    studElements.add(studFullTimeStudentClass);
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(5, comparison.newMistakes.size());
@@ -514,19 +502,13 @@ public class MistakeDetectionPatternTest {
     var instFullTimeStudentAssocEnd = getAssociationEndFromClass("fullTimeStudent", instProjectClass);
     var instPartTimeStudentAssocEnd = getAssociationEndFromClass("partTimeStudent", instProjectClass);
 
-    List<NamedElement> instElements = new BasicEList<NamedElement>();
+    var instElements = new BasicEList<NamedElement>();
     instElements.add(instStudentClass);
     instElements.add(instFullTimeStudentAssocEnd);
     instElements.add(instPartTimeStudentAssocEnd);
 
-    var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
-    var studPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", studentClassDiagram);
-    var studFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", studentClassDiagram);
-
-    List<NamedElement> studElements = new BasicEList<NamedElement>();
-    studElements.add(studStudentClass);
-    studElements.add(studPartTimeStudentClass);
-    studElements.add(studFullTimeStudentClass);
+    var studElements = studentDomainElements(studentClassDiagram);
+    var studStudentClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -563,7 +545,7 @@ public class MistakeDetectionPatternTest {
     var instFullTimeStudentAssocEnd = getAssociationEndFromClass("fullTimeStudent", instProjectClass);
     var instPartTimeStudentAssocEnd = getAssociationEndFromClass("partTimeStudent", instProjectClass);
 
-    List<NamedElement> instElements = new BasicEList<NamedElement>();
+    var instElements = new BasicEList<NamedElement>();
     instElements.add(instStudentClass);
     instElements.add(instFullTimeStudentAssocEnd);
     instElements.add(instPartTimeStudentAssocEnd);
@@ -572,8 +554,7 @@ public class MistakeDetectionPatternTest {
 
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studStudentClass);
-    CDEnum studEnum = MistakeDetection.getEnumFromClassDiagram("StudentLevel", studentClassDiagram);
-    studElements.addAll(studEnum.getLiterals());
+    studElements.addAll(MistakeDetection.getEnumFromClassDiagram("StudentLevel", studentClassDiagram).getLiterals());
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(7, comparison.newMistakes.size());
@@ -605,18 +586,12 @@ public class MistakeDetectionPatternTest {
     var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
     var instStudentClassLevelAttrib = getAttributeFromClass("level", instStudentClass);
 
-    List<NamedElement> instElements = new BasicEList<NamedElement>();
+    var instElements = new BasicEList<NamedElement>();
     instElements.add(instStudentClass);
     instElements.add(instStudentClassLevelAttrib);
 
-    var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
-    var studPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", studentClassDiagram);
-    var studFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", studentClassDiagram);
-
-    List<NamedElement> studElements = new BasicEList<NamedElement>();
-    studElements.add(studStudentClass);
-    studElements.add(studPartTimeStudentClass);
-    studElements.add(studFullTimeStudentClass);
+    var studElements = studentDomainElements(studentClassDiagram);
+    var studStudentClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -649,7 +624,7 @@ public class MistakeDetectionPatternTest {
     var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
     var instStudentClassLevelAttrib = getAttributeFromClass("level", instStudentClass);
 
-    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    var instElements = new BasicEList<NamedElement>();
     instElements.add(instStudentClass);
     instElements.add(instStudentClassLevelAttrib);
 
@@ -657,7 +632,7 @@ public class MistakeDetectionPatternTest {
     var studPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", studentClassDiagram);
     var studFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", studentClassDiagram);
 
-    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    var studElements = new BasicEList<NamedElement>();
     studElements.add(studStudentClass);
     studElements.add(studPartTimeStudentClass);
     studElements.add(studFullTimeStudentClass);
@@ -693,7 +668,7 @@ public class MistakeDetectionPatternTest {
     var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
     var instStudentClassLevelAttrib = getAttributeFromClass("level", instStudentClass);
 
-    EList<NamedElement> instElements = new BasicEList<NamedElement>();
+    var instElements = new BasicEList<NamedElement>();
     instElements.add(instStudentClass);
     instElements.add(instStudentClassLevelAttrib);
 
@@ -702,7 +677,7 @@ public class MistakeDetectionPatternTest {
     var studFullTimeStudentAssocEnd = getAssociationEndFromClass("fullTimeStudent", studProjectClass);
     var studPartTimeStudentAssocEnd = getAssociationEndFromClass("partTimeStudent", studProjectClass);
 
-    EList<NamedElement> studElements = new BasicEList<NamedElement>();
+    var studElements = new BasicEList<NamedElement>();
     studElements.add(studStudentClass);
     studElements.add(studFullTimeStudentAssocEnd);
     studElements.add(studPartTimeStudentAssocEnd);
