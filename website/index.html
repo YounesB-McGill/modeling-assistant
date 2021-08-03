@@ -41,14 +41,7 @@
           width: "100%",
           frameBorder: 0,
         });
-        document.getElementById("cde").appendChild(cdmEditor);
-        cdmEditor.contentWindow.addEventListener("message", (event) => {
-          if (false && event.origin !== "http://example.org:8080") { // TODO Secure later
-            return; // Ignore messages from other origins
-          }
-          cdmEditor.innerHTML += event.data;
-        }, false);
-
+        g("cde").appendChild(cdmEditor);
         g("cdm_json").oninput = validateCdmJson;
       }
 
@@ -57,6 +50,14 @@
         if (validateCdmJson()) {
           g("cdm_editor").contentWindow.postMessage(json, "*")
         }
+      }
+
+      function resetAll() {
+        const cdmJson = g("cdm_json");
+        cdmJson.value = "";
+        cdmJson.style.border = "1px solid gray";
+        g("feedback_text").value = "";
+        g("cdm_editor").contentWindow.postMessage("ResetDiagram", "*");
       }
 
       function validateCdmJson() {
@@ -76,6 +77,7 @@
         }
       }
 
+      /** Shorthand for document.getElementById(). */
       function g(id) {
         return document.getElementById(id);
       }
@@ -90,6 +92,7 @@
 
       <div style="float: right; padding: 5px;">
         <button id="update_diagram_btn" onclick="updateDiagram()">UPDATE DIAGRAM</button>
+        <button id="reset_all_btn" onclick="resetAll()">RESET ALL</button>
         <button id="get_feedback_btn" disabled title="Coming soon!" style="color: lightgrey;" onclick="giveFeedback()">GET FEEDBACK</button>
       </div><br><br>
 
