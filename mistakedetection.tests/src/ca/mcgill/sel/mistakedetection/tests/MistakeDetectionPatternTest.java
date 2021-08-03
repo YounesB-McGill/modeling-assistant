@@ -29,6 +29,7 @@ import static modelingassistant.TagType.ROLE;
 import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
+import static modelingassistant.util.ClassDiagramUtils.getElementsFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static modelingassistant.util.TagUtils.setPlayerTagToClassInClassDiag;
 import static modelingassistant.util.TagUtils.setRoleTagToAssocEndInClass;
@@ -44,7 +45,6 @@ import ca.mcgill.sel.classdiagram.CDEnum;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.NamedElement;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import modelingassistant.util.ClassDiagramUtils;
 
 
 /**
@@ -55,7 +55,7 @@ import modelingassistant.util.ClassDiagramUtils;
 public class MistakeDetectionPatternTest {
 
   /**
-   * Test to check assigning of Tag and TagGroup
+   * Test to check assigning of Tag and TagGroup.
    */
   @Test
   public void testPluralClassName() {
@@ -73,7 +73,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to detect subClass player role pattern
+   * Test to detect subClass player role pattern.
    */
   @Test
   public void testSubclassPRPattern() {
@@ -89,7 +89,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to detect full player role pattern
+   * Test to detect full player role pattern.
    */
   @Test
   public void testFullPRPattern() {
@@ -105,7 +105,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to detect Association role pattern
+   * Test to detect Association role pattern.
    */
   @Test
   public void testAssocPRPattern() {
@@ -122,7 +122,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to detect Enumeration role pattern
+   * Test to detect Enumeration role pattern.
    */
   @Test
   public void testEnumPRPattern() {
@@ -138,7 +138,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check subClass player role pattern in studentSolution
+   * Test to check subClass player role pattern in studentSolution.
    */
   @Test
   public void testStudentSubclassPRPattern() {
@@ -161,7 +161,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Full player role pattern in studentSolution
+   * Test to check Full player role pattern in studentSolution.
    */
   @Test
   public void testStudentFullPRPattern() {
@@ -184,7 +184,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check association player role pattern in studentSolution
+   * Test to check association player role pattern in studentSolution.
    */
   @Test
   public void testStudentAssocPRPattern() {
@@ -208,7 +208,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check enumeration player role pattern in studentSolution
+   * Test to check enumeration player role pattern in studentSolution.
    */
   @Test
   public void testStudentEnumPRPattern() {
@@ -231,7 +231,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Full player role pattern instead of Subclass in studentSolution
+   * Test to check Full player role pattern instead of Subclass in studentSolution.
    */
   @Test
   public void testFullPRInsteadOfSubclassPattern() {
@@ -249,23 +249,9 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
-    var instFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", instructorClassDiagram);
-    var instPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", instructorClassDiagram);
-
-    List<NamedElement> instElements = new BasicEList<NamedElement>();
-    instElements.add(instStudentClass);
-    instElements.add(instFullTimeStudentClass);
-    instElements.add(instPartTimeStudentClass);
-
-    var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
-    var studFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", studentClassDiagram);
-    var studPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", studentClassDiagram);
-
-    List<NamedElement> studElements = new BasicEList<NamedElement>();
-    studElements.add(studStudentClass);
-    studElements.add(studFullTimeStudentClass);
-    studElements.add(studPartTimeStudentClass);
+    var instElements = studentDomainElements(instructorClassDiagram);
+    var studElements = studentDomainElements(studentClassDiagram);
+    var studStudentClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     assertEquals(4, comparison.newMistakes.size());
@@ -277,7 +263,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Enum player role pattern instead of Subclass in studentSolution
+   * Test to check Enum player role pattern instead of Subclass in studentSolution.
    */
   @Test
   public void testEnumPRInsteadOfSubclassPattern() {
@@ -295,21 +281,15 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
 
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
-    var instFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", instructorClassDiagram);
-    var instPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", instructorClassDiagram);
 
-    List<NamedElement> instElements = new BasicEList<NamedElement>();
-    instElements.add(instStudentClass);
-    instElements.add(instFullTimeStudentClass);
-    instElements.add(instPartTimeStudentClass);
+    var instElements = studentDomainElements(instructorClassDiagram);
 
     var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
 
-    List<NamedElement> studElements = new BasicEList<NamedElement>();
+    var studElements = new BasicEList<NamedElement>();
     studElements.add(studStudentClass);
-    CDEnum studEnum = MistakeDetection.getEnumFromClassDiagram("StudentLevel", studentClassDiagram);
-    studElements.addAll(studEnum.getLiterals());
+    studElements.addAll(MistakeDetection.getEnumFromClassDiagram("StudentLevel", studentClassDiagram).getLiterals());
+
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(4, comparison.newMistakes.size());
@@ -320,7 +300,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Assoc player role pattern instead of Subclass in studentSolution
+   * Test to check Assoc player role pattern instead of Subclass in studentSolution.
    */
   @Test
   public void testAssocPRInsteadOfSubclassPattern() {
@@ -338,24 +318,11 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
-    var instFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", instructorClassDiagram);
-    var instPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", instructorClassDiagram);
+    var instElements = studentDomainElements(instructorClassDiagram);
 
-    List<NamedElement> instElements = new BasicEList<NamedElement>();
-    instElements.add(instStudentClass);
-    instElements.add(instFullTimeStudentClass);
-    instElements.add(instPartTimeStudentClass);
-
-    var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
-    var studProjectClass = getClassFromClassDiagram("Project", studentClassDiagram);
-    var studFullTimeStudentAssocEnd = getAssociationEndFromClass("fullTimeStudent", studProjectClass);
-    var studPartTimeStudentAssocEnd = getAssociationEndFromClass("partTimeStudent", studProjectClass);
-
-    List<NamedElement> studElements = new BasicEList<NamedElement>();
-    studElements.add(studStudentClass);
-    studElements.add(studFullTimeStudentAssocEnd);
-    studElements.add(studPartTimeStudentAssocEnd);
+    var studElements = getElementsFromClassDiagram(studentClassDiagram, "Student", "fullTimeStudent",
+        "partTimeStudent");
+    var studStudentClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -368,7 +335,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check subClass player role pattern instead of Full in studentSolution
+   * Test to check subClass player role pattern instead of Full in studentSolution.
    */
   @Test
   public void testSubPRInsteadOfFullClassPattern() {
@@ -386,14 +353,7 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
-    var instFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", instructorClassDiagram);
-    var instPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", instructorClassDiagram);
-
-    List<NamedElement> instElements = new BasicEList<NamedElement>();
-    instElements.add(instStudentClass);
-    instElements.add(instFullTimeStudentClass);
-    instElements.add(instPartTimeStudentClass);
+    var instElements = studentDomainElements(instructorClassDiagram);
 
     var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
     var studFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", studentClassDiagram);
@@ -414,7 +374,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Assoc player role pattern instead of Full in studentSolution
+   * Test to check Assoc player role pattern instead of Full in studentSolution.
    */
   @Test
   public void testAssocPRInsteadOfFullClassPattern() {
@@ -432,14 +392,7 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
-    var instFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", instructorClassDiagram);
-    var instPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", instructorClassDiagram);
-
-    List<NamedElement> instElements = new BasicEList<NamedElement>();
-    instElements.add(instStudentClass);
-    instElements.add(instFullTimeStudentClass);
-    instElements.add(instPartTimeStudentClass);
+    var instElements = studentDomainElements(instructorClassDiagram);
 
     var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
     var studProjectClass = getClassFromClassDiagram("Project", studentClassDiagram);
@@ -461,7 +414,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Enum player role pattern instead of Full in studentSolution
+   * Test to check Enum player role pattern instead of Full in studentSolution.
    */
   @Test
   public void testEnumPRInsteadOfFullClassPattern() {
@@ -479,14 +432,7 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
-    var instFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", instructorClassDiagram);
-    var instPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", instructorClassDiagram);
-
-    List<NamedElement> instElements = new BasicEList<NamedElement>();
-    instElements.add(instStudentClass);
-    instElements.add(instFullTimeStudentClass);
-    instElements.add(instPartTimeStudentClass);
+    var instElements = studentDomainElements(instructorClassDiagram);
 
     var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
 
@@ -504,7 +450,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check subClass player role pattern instead of Assoc in studentSolution
+   * Test to check subClass player role pattern instead of Assoc in studentSolution.
    */
   @Test
   public void testSubPRInsteadOfAssocClassPattern() {
@@ -523,15 +469,7 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
-    var instProjectClass = getClassFromClassDiagram("Project", instructorClassDiagram);
-    var instFullTimeStudentAssocEnd = getAssociationEndFromClass("fullTimeStudent", instProjectClass);
-    var instPartTimeStudentAssocEnd = getAssociationEndFromClass("partTimeStudent", instProjectClass);
-
-    List<NamedElement> instElements = new BasicEList<NamedElement>();
-    instElements.add(instStudentClass);
-    instElements.add(instFullTimeStudentAssocEnd);
-    instElements.add(instPartTimeStudentAssocEnd);
+    var instElements = studentDomainElements(instructorClassDiagram);
 
     var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
     var studPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", studentClassDiagram);
@@ -552,7 +490,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Full player role pattern instead of Assoc in studentSolution
+   * Test to check Full player role pattern instead of Assoc in studentSolution.
    */
   @Test
   public void testFullPRInsteadOfAssocClassPattern() {
@@ -601,7 +539,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check Enum player role pattern instead of Assoc in studentSolution
+   * Test to check Enum player role pattern instead of Assoc in studentSolution.
    */
   @Test
   public void testEnumPRInsteadOfAssocClassPattern() {
@@ -646,7 +584,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check sub class player role pattern instead of enum in studentSolution
+   * Test to check sub class player role pattern instead of enum in studentSolution.
    */
   @Test
   public void testSubclassPRInsteadOfEnumClassPattern() {
@@ -690,7 +628,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check full player role pattern instead of enum in studentSolution
+   * Test to check full player role pattern instead of enum in studentSolution.
    */
   @Test
   public void testFullPRInsteadOfEnumClassPattern() {
@@ -734,7 +672,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check assoc player role pattern instead of enum in studentSolution
+   * Test to check assoc player role pattern instead of enum in studentSolution.
    */
   @Test
   public void testAssocPRInsteadOfEnumClassPattern() {
@@ -1895,18 +1833,19 @@ public class MistakeDetectionPatternTest {
         1, false);
   }
 
-  /**
-   * Returns a list of Employee, FullTimeEmployee and PartTimeEmployee classes from the given class diagram.
-   */
-  private List<NamedElement> employeeElements(ClassDiagram classDiagram) {
-    return ClassDiagramUtils.getElementsFromClassDiagram(classDiagram, "Employee", "FullTimeEmployee", "PartTimeEmployee");
+  /** Returns a list of Employee, FullTimeEmployee and PartTimeEmployee classes from the given class diagram. */
+  private static List<NamedElement> employeeElements(ClassDiagram classDiagram) {
+    return getElementsFromClassDiagram(classDiagram, "Employee", "FullTimeEmployee", "PartTimeEmployee");
   }
 
-  /**
-   * Returns a list of BankAccount, CheckingAccount and SavingAccount classes from the given class diagram.
-   */
-  private List<NamedElement> bankElements(ClassDiagram classDiagram) {
-    return ClassDiagramUtils.getElementsFromClassDiagram(classDiagram, "BankAccount", "CheckingAccount", "SavingAccount");
+  /** Returns a list of BankAccount, CheckingAccount and SavingAccount classes from the given class diagram. */
+  private static List<NamedElement> bankElements(ClassDiagram classDiagram) {
+    return getElementsFromClassDiagram(classDiagram, "BankAccount", "CheckingAccount", "SavingAccount");
+  }
+
+  /** Returns a list of Student, FullTimeStudent, PartTimeStudent domain model classes from the given class diagram. */
+  private static List<NamedElement> studentDomainElements(ClassDiagram classDiagram) {
+    return getElementsFromClassDiagram(classDiagram, "Student", "FullTimeStudent", "PartTimeStudent");
   }
 
 }
