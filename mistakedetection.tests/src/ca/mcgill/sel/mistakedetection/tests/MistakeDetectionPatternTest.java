@@ -540,15 +540,7 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
-    var instProjectClass = getClassFromClassDiagram("Project", instructorClassDiagram);
-    var instFullTimeStudentAssocEnd = getAssociationEndFromClass("fullTimeStudent", instProjectClass);
-    var instPartTimeStudentAssocEnd = getAssociationEndFromClass("partTimeStudent", instProjectClass);
-
-    var instElements = new BasicEList<NamedElement>();
-    instElements.add(instStudentClass);
-    instElements.add(instFullTimeStudentAssocEnd);
-    instElements.add(instPartTimeStudentAssocEnd);
+    var instElements = studentProjectDomainElements(instructorClassDiagram);
 
     var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
 
@@ -672,15 +664,8 @@ public class MistakeDetectionPatternTest {
     instElements.add(instStudentClass);
     instElements.add(instStudentClassLevelAttrib);
 
-    var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
-    var studProjectClass = getClassFromClassDiagram("Project", studentClassDiagram);
-    var studFullTimeStudentAssocEnd = getAssociationEndFromClass("fullTimeStudent", studProjectClass);
-    var studPartTimeStudentAssocEnd = getAssociationEndFromClass("partTimeStudent", studProjectClass);
-
-    var studElements = new BasicEList<NamedElement>();
-    studElements.add(studStudentClass);
-    studElements.add(studFullTimeStudentAssocEnd);
-    studElements.add(studPartTimeStudentAssocEnd);
+    var studElements = studentProjectDomainElements(studentClassDiagram);
+    var studStudentClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -1821,6 +1806,11 @@ public class MistakeDetectionPatternTest {
   /** Returns a list of Student, FullTimeStudent, PartTimeStudent domain model classes from the given class diagram. */
   private static List<NamedElement> studentDomainElements(ClassDiagram classDiagram) {
     return getElementsFromClassDiagram(classDiagram, "Student", "FullTimeStudent", "PartTimeStudent");
+  }
+
+  /** Returns a list of Student, fullTimeStudent, partTimeStudent domain model elements from the given class diagram. */
+  private static List<NamedElement> studentProjectDomainElements(ClassDiagram classDiagram) {
+    return getElementsFromClassDiagram(classDiagram, "Student", "fullTimeStudent", "partTimeStudent");
   }
 
 }
