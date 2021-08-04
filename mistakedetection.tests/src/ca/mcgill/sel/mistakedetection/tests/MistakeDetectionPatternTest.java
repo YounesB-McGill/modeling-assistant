@@ -387,21 +387,15 @@ public class MistakeDetectionPatternTest {
 
     var instElements = studentDomainElements(instructorClassDiagram);
 
-    var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
-    var studProjectClass = getClassFromClassDiagram("Project", studentClassDiagram);
-    var studFullTimeStudentAssocEnd = getAssociationEndFromClass("fullTimeStudent", studProjectClass);
-    var studPartTimeStudentAssocEnd = getAssociationEndFromClass("partTimeStudent", studProjectClass);
-
-    List<NamedElement> studElements = new BasicEList<NamedElement>();
-    studElements.add(studStudentClass);
-    studElements.add(studFullTimeStudentAssocEnd);
-    studElements.add(studPartTimeStudentAssocEnd);
+    var studElements = studentProjectDomainElements(studentClassDiagram);
+    var studStudentClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(8, comparison.newMistakes.size());
     assertEquals(8, studentSolution.getMistakes().size());
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
+
     assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements,
         instElements, 0, 1, false);
   }
@@ -497,15 +491,7 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
-    var instProjectClass = getClassFromClassDiagram("Project", instructorClassDiagram);
-    var instFullTimeStudentAssocEnd = getAssociationEndFromClass("fullTimeStudent", instProjectClass);
-    var instPartTimeStudentAssocEnd = getAssociationEndFromClass("partTimeStudent", instProjectClass);
-
-    var instElements = new BasicEList<NamedElement>();
-    instElements.add(instStudentClass);
-    instElements.add(instFullTimeStudentAssocEnd);
-    instElements.add(instPartTimeStudentAssocEnd);
+    var instElements = studentProjectDomainElements(instructorClassDiagram);
 
     var studElements = studentDomainElements(studentClassDiagram);
     var studStudentClass = studElements.get(0);
@@ -620,14 +606,8 @@ public class MistakeDetectionPatternTest {
     instElements.add(instStudentClass);
     instElements.add(instStudentClassLevelAttrib);
 
-    var studStudentClass = getClassFromClassDiagram("Student", studentClassDiagram);
-    var studPartTimeStudentClass = getClassFromClassDiagram("PartTimeStudent", studentClassDiagram);
-    var studFullTimeStudentClass = getClassFromClassDiagram("FullTimeStudent", studentClassDiagram);
-
-    var studElements = new BasicEList<NamedElement>();
-    studElements.add(studStudentClass);
-    studElements.add(studPartTimeStudentClass);
-    studElements.add(studFullTimeStudentClass);
+    var studElements = studentDomainElements(studentClassDiagram);
+    var studStudentClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -697,11 +677,8 @@ public class MistakeDetectionPatternTest {
 
     var instElements = employeeElements(instructorClassDiagram);
 
-    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
-    var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
-    var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
-
-    var studElements = List.of(studEmployeeClass, studPartTimeEmployeeClass, studFullTimeEmployeeClass);
+    var studElements = employeeElements(studentClassDiagram);
+    var studEmployeeClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
     assertEquals(4, comparison.newMistakes.size());
@@ -768,12 +745,8 @@ public class MistakeDetectionPatternTest {
 
     var instElements = employeeElements(instructorClassDiagram);
 
-    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
-    var studProjectClass = getClassFromClassDiagram("Project", studentClassDiagram);
-    var studFullTimeEmployeeAssocEnd = getAssociationEndFromClass("fullTimeEmployee", studProjectClass);
-    var studPartTimeEmployeeAssocEnd = getAssociationEndFromClass("partTimeEmployee", studProjectClass);
-
-    var studElements = List.of(studEmployeeClass, studFullTimeEmployeeAssocEnd, studPartTimeEmployeeAssocEnd);
+    var studElements = employeeProjectElements(studentClassDiagram);
+    var studEmployeeClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -806,11 +779,8 @@ public class MistakeDetectionPatternTest {
 
     var instElements = employeeElements(instructorClassDiagram);
 
-    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
-    var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
-    var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
-
-    var studElements = List.of(studEmployeeClass, studPartTimeEmployeeClass, studFullTimeEmployeeClass);
+    var studElements = employeeElements(studentClassDiagram);
+    var studEmployeeClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -842,12 +812,8 @@ public class MistakeDetectionPatternTest {
 
     var instElements = employeeElements(instructorClassDiagram);
 
-    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
-    var studProjectClass = getClassFromClassDiagram("Project", studentClassDiagram);
-    var studFullTimeEmployeeAssocEnd = getAssociationEndFromClass("fullTimeEmployee", studProjectClass);
-    var studPartTimeEmployeeAssocEnd = getAssociationEndFromClass("partTimeEmployee", studProjectClass);
-
-    var studElements = List.of(studEmployeeClass, studFullTimeEmployeeAssocEnd, studPartTimeEmployeeAssocEnd);
+    var studElements = employeeElements(studentClassDiagram);
+    var studEmployeeClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -915,18 +881,10 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_employeeExample_pattern/Class Diagram/Instructor_subClassPR_employeeExample_pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
-    var instProjectClass = getClassFromClassDiagram("Project", instructorClassDiagram);
-    var instFullTimeEmployeeAssocEnd = getAssociationEndFromClass("fullTimeEmployee", instProjectClass);
-    var instPartTimeEmployeeAssocEnd = getAssociationEndFromClass("partTimeEmployee", instProjectClass);
+    var instElements = employeeProjectElements(instructorClassDiagram);
 
-    var instElements = List.of(instEmployeeClass, instFullTimeEmployeeAssocEnd, instPartTimeEmployeeAssocEnd);
-
-    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
-    var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
-    var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
-
-    var studElements = List.of(studEmployeeClass, studPartTimeEmployeeClass, studFullTimeEmployeeClass);
+    var studElements = employeeElements(studentClassDiagram);
+    var studEmployeeClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -958,18 +916,10 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_employeeExample_pattern/Class Diagram/Instructor_fullPR_employeeExample_pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
-    var instProjectClass = getClassFromClassDiagram("Project", instructorClassDiagram);
-    var instFullTimeEmployeeAssocEnd = getAssociationEndFromClass("fullTimeEmployee", instProjectClass);
-    var instPartTimeEmployeeAssocEnd = getAssociationEndFromClass("partTimeEmployee", instProjectClass);
+    var instElements = employeeProjectElements(instructorClassDiagram);
 
-    var instElements = List.of(instEmployeeClass, instFullTimeEmployeeAssocEnd, instPartTimeEmployeeAssocEnd);
-
-    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
-    var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
-    var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
-
-    var studElements = List.of(studEmployeeClass, studPartTimeEmployeeClass, studFullTimeEmployeeClass);
+    var studElements = employeeElements(studentClassDiagram);
+    var studEmployeeClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -1001,12 +951,7 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_employeeExample_pattern/Class Diagram/Instructor_enumPR_employeeExample_pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
-    var instProjectClass = getClassFromClassDiagram("Project", instructorClassDiagram);
-    var instFullTimeEmployeeAssocEnd = getAssociationEndFromClass("fullTimeEmployee", instProjectClass);
-    var instPartTimeEmployeeAssocEnd = getAssociationEndFromClass("partTimeEmployee", instProjectClass);
-
-    var instElements = List.of(instEmployeeClass, instFullTimeEmployeeAssocEnd, instPartTimeEmployeeAssocEnd);
+    var instElements = employeeProjectElements(instructorClassDiagram);
 
     var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
 
@@ -1047,11 +992,8 @@ public class MistakeDetectionPatternTest {
 
     var instElements = List.of(instEmployeeClass, instEmployeeClassStatusAttrib);
 
-    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
-    var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
-    var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
-
-    var studElements = List.of(studEmployeeClass, studPartTimeEmployeeClass, studFullTimeEmployeeClass);
+    var studElements = employeeElements(studentClassDiagram);
+    var studEmployeeClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -1086,11 +1028,8 @@ public class MistakeDetectionPatternTest {
 
     var instElements = List.of(instEmployeeClass, instEmployeeClassStatusAttrib);
 
-    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
-    var studPartTimeEmployeeClass = getClassFromClassDiagram("PartTimeEmployee", studentClassDiagram);
-    var studFullTimeEmployeeClass = getClassFromClassDiagram("FullTimeEmployee", studentClassDiagram);
-
-    var studElements = List.of(studEmployeeClass, studPartTimeEmployeeClass, studFullTimeEmployeeClass);
+    var studElements = employeeElements(studentClassDiagram);
+    var studEmployeeClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -1125,12 +1064,8 @@ public class MistakeDetectionPatternTest {
 
     var instElements = List.of(instEmployeeClass, instEmployeeClassStatusAttrib);
 
-    var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
-    var studProjectClass = getClassFromClassDiagram("Project", studentClassDiagram);
-    var studFullTimeEmployeeAssocEnd = getAssociationEndFromClass("fullTimeEmployee", studProjectClass);
-    var studPartTimeEmployeeAssocEnd = getAssociationEndFromClass("partTimeEmployee", studProjectClass);
-
-    var studElements = List.of(studEmployeeClass, studFullTimeEmployeeAssocEnd, studPartTimeEmployeeAssocEnd);
+    var studElements = employeeProjectElements(studentClassDiagram);
+    var studEmployeeClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -1385,12 +1320,8 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_subClassPR_bankExample/Class Diagram/Student_subClassPR_bankExample.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
-    var instAccountHolderClass = getClassFromClassDiagram("AccountHolder", instructorClassDiagram);
-    var instCheckingAccAssocEnd = getAssociationEndFromClass("checkingAccount", instAccountHolderClass);
-    var instSavingAccAssocEnd = getAssociationEndFromClass("savingAccount", instAccountHolderClass);
 
-    var instElements = List.of(instBankAccClass, instCheckingAccAssocEnd, instSavingAccAssocEnd);
+    var instElements = bankElements(instructorClassDiagram);
 
     var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
     var studSavingAccClass = getClassFromClassDiagram("SavingAccount", studentClassDiagram);
@@ -1470,12 +1401,7 @@ public class MistakeDetectionPatternTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_enumPR_bankExample/Class Diagram/Student_enumPR_bankExample.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
-    var instAccountHolderClass = getClassFromClassDiagram("AccountHolder", instructorClassDiagram);
-    var instCheckingAccAssocEnd = getAssociationEndFromClass("checkingAccount", instAccountHolderClass);
-    var instSavingAccAssocEnd = getAssociationEndFromClass("savingAccount", instAccountHolderClass);
-
-    var instElements = List.of(instBankAccClass, instCheckingAccAssocEnd, instSavingAccAssocEnd);
+    var instElements = bankProjectElements(instructorClassDiagram);
 
     var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
 
@@ -1798,9 +1724,19 @@ public class MistakeDetectionPatternTest {
     return getElementsFromClassDiagram(classDiagram, "Employee", "FullTimeEmployee", "PartTimeEmployee");
   }
 
+  /** Returns a list of Employee, fullTimeEmployee and partTimeEmployee classes from the given class diagram. */
+  private static List<NamedElement> employeeProjectElements(ClassDiagram classDiagram) {
+    return getElementsFromClassDiagram(classDiagram, "Employee", "fullTimeEmployee", "partTimeEmployee");
+  }
+
   /** Returns a list of BankAccount, CheckingAccount and SavingAccount classes from the given class diagram. */
   private static List<NamedElement> bankElements(ClassDiagram classDiagram) {
     return getElementsFromClassDiagram(classDiagram, "BankAccount", "CheckingAccount", "SavingAccount");
+  }
+
+  /** Returns a list of BankAccount, checkingAccount and savingAccount classes from the given class diagram. */
+  private static List<NamedElement> bankProjectElements(ClassDiagram classDiagram) {
+    return getElementsFromClassDiagram(classDiagram, "BankAccount", "checkingAccount", "savingAccount");
   }
 
   /** Returns a list of Student, FullTimeStudent, PartTimeStudent domain model classes from the given class diagram. */
