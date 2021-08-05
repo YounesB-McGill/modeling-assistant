@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_axJa8O0lEeusvfDE8DRH_w" name="Student_incompleteAbstractionOcurance">
+  <classes xsi:type="classdiagram:Class" xmi:id="_bM6J4O0lEeusvfDE8DRH_w" name="Root">
+    <associationEnds xmi:id="_l_tlIe0lEeusvfDE8DRH_w" name="myAccountType" assoc="_l_tlIu0lEeusvfDE8DRH_w" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_b4e2cO0lEeusvfDE8DRH_w" name="AccountType" abstract="true">
+    <associationEnds xmi:id="_l_tlIO0lEeusvfDE8DRH_w" name="myRoot" assoc="_l_tlIu0lEeusvfDE8DRH_w" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_dfR1IO0lEeusvfDE8DRH_w" name="CheckingAccount" superTypes="_b4e2cO0lEeusvfDE8DRH_w"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_jdKv4O0lEeusvfDE8DRH_w" name="SavingAccount" superTypes="_b4e2cO0lEeusvfDE8DRH_w"/>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_axJa8e0lEeusvfDE8DRH_w"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_axJa8u0lEeusvfDE8DRH_w"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_axJa8-0lEeusvfDE8DRH_w"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_axJa9O0lEeusvfDE8DRH_w"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_axJa9e0lEeusvfDE8DRH_w"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_axJa9u0lEeusvfDE8DRH_w"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_axJa9-0lEeusvfDE8DRH_w"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_axJa-O0lEeusvfDE8DRH_w"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_axJa-e0lEeusvfDE8DRH_w"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_axJa-u0lEeusvfDE8DRH_w"/>
+  <associations xmi:id="_l_tlIu0lEeusvfDE8DRH_w" name="AccountType_Root" ends="_l_tlIO0lEeusvfDE8DRH_w _l_tlIe0lEeusvfDE8DRH_w"/>
+  <layout xmi:id="_axJa--0lEeusvfDE8DRH_w">
+    <containers xmi:id="_axJa_O0lEeusvfDE8DRH_w" key="_axJa8O0lEeusvfDE8DRH_w">
+      <value xmi:id="_bM7YAO0lEeusvfDE8DRH_w" key="_bM6J4O0lEeusvfDE8DRH_w">
+        <value xmi:id="_bM7YAe0lEeusvfDE8DRH_w" x="1049.0" y="110.0"/>
+      </value>
+      <value xmi:id="_b4groO0lEeusvfDE8DRH_w" key="_b4e2cO0lEeusvfDE8DRH_w">
+        <value xmi:id="_b4groe0lEeusvfDE8DRH_w" x="758.0" y="273.0"/>
+      </value>
+      <value xmi:id="_dfTDQO0lEeusvfDE8DRH_w" key="_dfR1IO0lEeusvfDE8DRH_w">
+        <value xmi:id="_dfTDQe0lEeusvfDE8DRH_w" x="624.0" y="364.0"/>
+      </value>
+      <value xmi:id="_jdNzMO0lEeusvfDE8DRH_w" key="_jdKv4O0lEeusvfDE8DRH_w">
+        <value xmi:id="_jdNzMe0lEeusvfDE8DRH_w" x="855.00006" y="364.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
