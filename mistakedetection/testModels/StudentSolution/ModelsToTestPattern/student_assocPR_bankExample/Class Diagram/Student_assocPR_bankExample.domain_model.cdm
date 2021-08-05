@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_FXLCYOoUEeu-r8aP1ZMJyw" name="Student_assocPR_bankExample">
+  <classes xsi:type="classdiagram:Class" xmi:id="_FzqxIOoUEeu-r8aP1ZMJyw" name="Root">
+    <associationEnds xmi:id="_VvWKseoUEeu-r8aP1ZMJyw" name="myBankAccount" assoc="_VvWKsuoUEeu-r8aP1ZMJyw" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_W3llIeoUEeu-r8aP1ZMJyw" name="myAccountHolder" assoc="_W3llIuoUEeu-r8aP1ZMJyw" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_HCOO8OoUEeu-r8aP1ZMJyw" name="BankAccount">
+    <associationEnds xmi:id="_LR6igOoUEeu-r8aP1ZMJyw" name="accountHolder" assoc="_LR7JkOoUEeu-r8aP1ZMJyw" upperBound="-1"/>
+    <associationEnds xmi:id="_VvWKsOoUEeu-r8aP1ZMJyw" name="myRoot" assoc="_VvWKsuoUEeu-r8aP1ZMJyw" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_IoozIOoUEeu-r8aP1ZMJyw" name="AccountHolder">
+    <associationEnds xmi:id="_LR6igeoUEeu-r8aP1ZMJyw" name="checkingAccount" assoc="_LR7JkOoUEeu-r8aP1ZMJyw" upperBound="-1"/>
+    <associationEnds xmi:id="_W3llIOoUEeu-r8aP1ZMJyw" name="myRoot" assoc="_W3llIuoUEeu-r8aP1ZMJyw" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_FXLpcOoUEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_FXLpceoUEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_FXLpcuoUEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_FXLpc-oUEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_FXLpdOoUEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_FXLpdeoUEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_FXLpduoUEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_FXLpd-oUEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_FXLpeOoUEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_FXLpeeoUEeu-r8aP1ZMJyw"/>
+  <associations xmi:id="_LR7JkOoUEeu-r8aP1ZMJyw" name="BankAccount_AccountHolder" ends="_LR6igOoUEeu-r8aP1ZMJyw _LR6igeoUEeu-r8aP1ZMJyw"/>
+  <associations xmi:id="_VvWKsuoUEeu-r8aP1ZMJyw" name="BankAccount_Root" ends="_VvWKsOoUEeu-r8aP1ZMJyw _VvWKseoUEeu-r8aP1ZMJyw"/>
+  <associations xmi:id="_W3llIuoUEeu-r8aP1ZMJyw" name="AccountHolder_Root" ends="_W3llIOoUEeu-r8aP1ZMJyw _W3llIeoUEeu-r8aP1ZMJyw"/>
+  <layout xmi:id="_FXLpeuoUEeu-r8aP1ZMJyw">
+    <containers xmi:id="_FXLpe-oUEeu-r8aP1ZMJyw" key="_FXLCYOoUEeu-r8aP1ZMJyw">
+      <value xmi:id="_FzvpoOoUEeu-r8aP1ZMJyw" key="_FzqxIOoUEeu-r8aP1ZMJyw">
+        <value xmi:id="_FzvpoeoUEeu-r8aP1ZMJyw" x="1635.9995" y="529.025"/>
+      </value>
+      <value xmi:id="_HCX_8OoUEeu-r8aP1ZMJyw" key="_HCOO8OoUEeu-r8aP1ZMJyw">
+        <value xmi:id="_HCX_8eoUEeu-r8aP1ZMJyw" x="982.99976" y="529.025"/>
+      </value>
+      <value xmi:id="_IorPYOoUEeu-r8aP1ZMJyw" key="_IoozIOoUEeu-r8aP1ZMJyw">
+        <value xmi:id="_IorPYeoUEeu-r8aP1ZMJyw" x="1540.9741" y="955.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
