@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_z-lpgOfwEeu-r8aP1ZMJyw" name="Instructor_assocPR_employeeExample_pattern" featureModel="_z-lpgefwEeu-r8aP1ZMJyw" impactModel="_z-lpg-fwEeu-r8aP1ZMJyw">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_z-lpgefwEeu-r8aP1ZMJyw" root="_z-lpgufwEeu-r8aP1ZMJyw">
+    <features xmi:id="_z-lpgufwEeu-r8aP1ZMJyw" name="Instructor_assocPR_employeeExample_pattern" realizedBy="_1u2tQefwEeu-r8aP1ZMJyw"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_z-lpg-fwEeu-r8aP1ZMJyw" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_1u2tQOfwEeu-r8aP1ZMJyw" name="Instructor_assocPR_employeeExample_pattern" scene="_1u2tQefwEeu-r8aP1ZMJyw" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_assocPR_employeeExample_pattern.domain_model.cdm#_1u5wkOfwEeu-r8aP1ZMJyw"/>
+  </artefacts>
+  <scenes xmi:id="_1u2tQefwEeu-r8aP1ZMJyw" name="Instructor_assocPR_employeeExample_pattern" realizes="_z-lpgufwEeu-r8aP1ZMJyw" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_1u2tQufwEeu-r8aP1ZMJyw" value="_1u2tQOfwEeu-r8aP1ZMJyw" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
