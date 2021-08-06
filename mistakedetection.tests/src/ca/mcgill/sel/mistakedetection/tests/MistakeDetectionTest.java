@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.ECollections;
-import org.eclipse.emf.common.util.EList;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.Attribute;
@@ -401,7 +400,7 @@ public class MistakeDetectionTest {
    * @param mistakeType
    * @param elements
    */
-  public static void assertMistakeLinks(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements) {
+  public static void assertMistakeLinks(Mistake mistake, MistakeType mistakeType, List<NamedElement> elements) {
     assertEquals(mistake.getMistakeType(), mistakeType);
     if (mistake.getStudentElements().isEmpty()) {
       assertTrue(mistakeElemsContainGivenElems(mistake.getInstructorElements(), elements));
@@ -438,7 +437,7 @@ public class MistakeDetectionTest {
       assertEquals(mistake.getInstructorElements().get(0).getElement(), instructorElem_s);
     } else if (instructorElem_s instanceof List) {
       assertTrue(mistakeElemsContainGivenElems(mistake.getInstructorElements(),
-          ECollections.unmodifiableEList((EList<NamedElement>) instructorElem_s)));
+          (List<NamedElement>) instructorElem_s));
     } else {
       fail("Wrong type for instructorElem(s): NamedElement or List<NamedElement> expected");
     }
@@ -485,8 +484,8 @@ public class MistakeDetectionTest {
    * @param numDetections
    * @param resolved
    */
-  public static void assertMistake(Mistake mistake, MistakeType mistakeType, EList<NamedElement> studentElements,
-      EList<NamedElement> instructorElements, int numSinceResolved, int numDetections, boolean resolved) {
+  public static void assertMistake(Mistake mistake, MistakeType mistakeType, List<? extends NamedElement> studentElements,
+      List<? extends NamedElement> instructorElements, int numSinceResolved, int numDetections, boolean resolved) {
     assertMistakeLinks(mistake, mistakeType, studentElements, instructorElements);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
   }
@@ -517,7 +516,7 @@ public class MistakeDetectionTest {
    * @param numDetections
    * @param resolved
    */
-  public static void assertMistake(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements,
+  public static void assertMistake(Mistake mistake, MistakeType mistakeType, List<NamedElement> elements,
       int numSinceResolved, int numDetections, boolean resolved) {
     assertMistakeLinks(mistake, mistakeType, elements);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
@@ -551,7 +550,7 @@ public class MistakeDetectionTest {
    * @param resolved
    */
   public static void assertMistakeConditional(Mistake mistake, MistakeType mistakeType,
-      EList<NamedElement> studentElements, EList<NamedElement> instructorElements, int numSinceResolved,
+      List<NamedElement> studentElements, List<NamedElement> instructorElements, int numSinceResolved,
       int numDetections, boolean resolved) {
     if (mistake.getMistakeType() == mistakeType
         && mistakeElemsContainGivenElems(mistake.getStudentElements(), studentElements)) {
@@ -594,7 +593,7 @@ public class MistakeDetectionTest {
    * @param numDetections
    * @param resolved
    */
-  public static void assertMistakeConditional(Mistake mistake, MistakeType mistakeType, EList<NamedElement> elements,
+  public static void assertMistakeConditional(Mistake mistake, MistakeType mistakeType, List<NamedElement> elements,
       int numSinceResolved, int numDetections, boolean resolved) {
     if (mistake.getStudentElements().isEmpty()) {
       if (mistake.getMistakeType() == mistakeType
@@ -641,7 +640,7 @@ public class MistakeDetectionTest {
   /**
    * Returns the student mistakes for a given cdm element.
    */
-  public static EList<Mistake> studentMistakesFor(NamedElement cdmElement) {
+  public static List<Mistake> studentMistakesFor(NamedElement cdmElement) {
     return SolutionElement.forCdmElement(cdmElement).getStudentElementMistakes();
   }
 
@@ -653,8 +652,8 @@ public class MistakeDetectionTest {
    * @param givenElements
    * @return true if mistakeElements contain givenElements
    */
-  public static boolean mistakeElemsContainGivenElems(EList<SolutionElement> mistakeElements,
-      EList<NamedElement> givenElements) {
+  public static boolean mistakeElemsContainGivenElems(List<SolutionElement> mistakeElements,
+      List<NamedElement> givenElements) {
     var namedElemsFromMistake = mistakeElements.stream().map(SolutionElement::getElement).collect(Collectors.toList());
     return namedElemsFromMistake.containsAll(givenElements);
   }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_Fw-UYOoSEeu-r8aP1ZMJyw" name="Student_subClassPR_bankExample" featureModel="_Fw-UYeoSEeu-r8aP1ZMJyw" impactModel="_Fw-UY-oSEeu-r8aP1ZMJyw">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_Fw-UYeoSEeu-r8aP1ZMJyw" root="_Fw-UYuoSEeu-r8aP1ZMJyw">
+    <features xmi:id="_Fw-UYuoSEeu-r8aP1ZMJyw" name="Student_subClassPR_bankExample" realizedBy="_GqA1MeoSEeu-r8aP1ZMJyw"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_Fw-UY-oSEeu-r8aP1ZMJyw" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_GqA1MOoSEeu-r8aP1ZMJyw" name="Student_subClassPR_bankExample" scene="_GqA1MeoSEeu-r8aP1ZMJyw" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_subClassPR_bankExample.domain_model.cdm#_GqCDUOoSEeu-r8aP1ZMJyw"/>
+  </artefacts>
+  <scenes xmi:id="_GqA1MeoSEeu-r8aP1ZMJyw" name="Student_subClassPR_bankExample" realizes="_Fw-UYuoSEeu-r8aP1ZMJyw" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_GqA1MuoSEeu-r8aP1ZMJyw" value="_GqA1MOoSEeu-r8aP1ZMJyw" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

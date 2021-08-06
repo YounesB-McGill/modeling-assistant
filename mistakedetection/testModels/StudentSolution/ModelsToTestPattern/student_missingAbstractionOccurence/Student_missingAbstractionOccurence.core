@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_1w6NAO0lEeusvfDE8DRH_w" name="Student_missingAbstractionOccurence" featureModel="_1w6NAe0lEeusvfDE8DRH_w" impactModel="_1w6NA-0lEeusvfDE8DRH_w">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_1w6NAe0lEeusvfDE8DRH_w" root="_1w6NAu0lEeusvfDE8DRH_w">
+    <features xmi:id="_1w6NAu0lEeusvfDE8DRH_w" name="Student_missingAbstractionOccurence" realizedBy="_3OJAAO0lEeusvfDE8DRH_w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_1w6NA-0lEeusvfDE8DRH_w" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_3OIY8O0lEeusvfDE8DRH_w" name="Student_missingAbstractionOccurence" scene="_3OJAAO0lEeusvfDE8DRH_w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_missingAbstractionOccurence.domain_model.cdm#_3OKOIO0lEeusvfDE8DRH_w"/>
+  </artefacts>
+  <scenes xmi:id="_3OJAAO0lEeusvfDE8DRH_w" name="Student_missingAbstractionOccurence" realizes="_1w6NAu0lEeusvfDE8DRH_w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_3OJAAe0lEeusvfDE8DRH_w" value="_3OIY8O0lEeusvfDE8DRH_w" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

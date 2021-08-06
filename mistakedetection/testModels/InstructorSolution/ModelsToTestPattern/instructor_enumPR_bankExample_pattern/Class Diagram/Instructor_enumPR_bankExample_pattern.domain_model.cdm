@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_9o850OoQEeu-r8aP1ZMJyw" name="Instructor_enumPR_bankExample_pattern">
+  <classes xsi:type="classdiagram:Class" xmi:id="_-bFhYOoQEeu-r8aP1ZMJyw" name="Root">
+    <associationEnds xmi:id="_jl39AeoREeu-r8aP1ZMJyw" name="myBankAccount" assoc="_jl39AuoREeu-r8aP1ZMJyw" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="__trxsOoQEeu-r8aP1ZMJyw" name="BankAccount">
+    <associationEnds xmi:id="_jl39AOoREeu-r8aP1ZMJyw" name="myRoot" assoc="_jl39AuoREeu-r8aP1ZMJyw" lowerBound="1"/>
+    <attributes xmi:id="_fBekwOoREeu-r8aP1ZMJyw" name="balance" type="_9o851eoQEeu-r8aP1ZMJyw"/>
+    <attributes xmi:id="_hjXSsOoREeu-r8aP1ZMJyw" name="type" type="_DQ5ZwOoREeu-r8aP1ZMJyw"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_9o850eoQEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_9o850uoQEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_9o850-oQEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_9o851OoQEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_9o851eoQEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_9o851uoQEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_9o851-oQEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_9o852OoQEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_9o852eoQEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_9o852uoQEeu-r8aP1ZMJyw"/>
+  <types xsi:type="classdiagram:CDEnum" xmi:id="_DQ5ZwOoREeu-r8aP1ZMJyw" name="AccountType">
+    <literals xmi:id="_bTLHAOoREeu-r8aP1ZMJyw" name="CheckingAccount"/>
+    <literals xmi:id="_dVinYOoREeu-r8aP1ZMJyw" name="SavingAccount"/>
+  </types>
+  <associations xmi:id="_jl39AuoREeu-r8aP1ZMJyw" name="BankAccount_Root" ends="_jl39AOoREeu-r8aP1ZMJyw _jl39AeoREeu-r8aP1ZMJyw"/>
+  <layout xmi:id="_9o852-oQEeu-r8aP1ZMJyw">
+    <containers xmi:id="_9o853OoQEeu-r8aP1ZMJyw" key="_9o850OoQEeu-r8aP1ZMJyw">
+      <value xmi:id="_-bJLwOoQEeu-r8aP1ZMJyw" key="_-bFhYOoQEeu-r8aP1ZMJyw">
+        <value xmi:id="_-bJLweoQEeu-r8aP1ZMJyw" x="914.0" y="140.0"/>
+      </value>
+      <value xmi:id="__ttm4OoQEeu-r8aP1ZMJyw" key="__trxsOoQEeu-r8aP1ZMJyw">
+        <value xmi:id="__ttm4eoQEeu-r8aP1ZMJyw" x="679.0" y="312.0"/>
+      </value>
+      <value xmi:id="_DRGOEOoREeu-r8aP1ZMJyw" key="_DQ5ZwOoREeu-r8aP1ZMJyw">
+        <value xmi:id="_DRGOEeoREeu-r8aP1ZMJyw" x="1117.9999" y="305.5"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
