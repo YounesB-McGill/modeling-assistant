@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_ZyJcEO0lEeusvfDE8DRH_w" name="Student_incompleteAbstractionOcurance" featureModel="_ZyJcEe0lEeusvfDE8DRH_w" impactModel="_ZyJcE-0lEeusvfDE8DRH_w">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_ZyJcEe0lEeusvfDE8DRH_w" root="_ZyJcEu0lEeusvfDE8DRH_w">
+    <features xmi:id="_ZyJcEu0lEeusvfDE8DRH_w" name="Student_incompleteAbstractionOcurance" realizedBy="_axHlwe0lEeusvfDE8DRH_w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_ZyJcE-0lEeusvfDE8DRH_w" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_axHlwO0lEeusvfDE8DRH_w" name="Student_incompleteAbstractionOcurance" scene="_axHlwe0lEeusvfDE8DRH_w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_incompleteAbstractionOcurance.domain_model.cdm#_axJa8O0lEeusvfDE8DRH_w"/>
+  </artefacts>
+  <scenes xmi:id="_axHlwe0lEeusvfDE8DRH_w" name="Student_incompleteAbstractionOcurance" realizes="_ZyJcEu0lEeusvfDE8DRH_w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_axHlwu0lEeusvfDE8DRH_w" value="_axHlwO0lEeusvfDE8DRH_w" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

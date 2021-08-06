@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_xzPM4OoMEeu-r8aP1ZMJyw" name="Instructor_fullPR_bankExample_pattern" featureModel="_xzPM4eoMEeu-r8aP1ZMJyw" impactModel="_xzPM4-oMEeu-r8aP1ZMJyw">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_xzPM4eoMEeu-r8aP1ZMJyw" root="_xzPM4uoMEeu-r8aP1ZMJyw">
+    <features xmi:id="_xzPM4uoMEeu-r8aP1ZMJyw" name="Instructor_fullPR_bankExample_pattern" realizedBy="_y4078OoMEeu-r8aP1ZMJyw"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_xzPM4-oMEeu-r8aP1ZMJyw" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_y40U4OoMEeu-r8aP1ZMJyw" name="Instructor_fullPR_bankExample_pattern" scene="_y4078OoMEeu-r8aP1ZMJyw" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_fullPR_bankExample_pattern.domain_model.cdm#_y4-s8OoMEeu-r8aP1ZMJyw"/>
+  </artefacts>
+  <scenes xmi:id="_y4078OoMEeu-r8aP1ZMJyw" name="Instructor_fullPR_bankExample_pattern" realizes="_xzPM4uoMEeu-r8aP1ZMJyw" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_y4078eoMEeu-r8aP1ZMJyw" value="_y40U4OoMEeu-r8aP1ZMJyw" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
