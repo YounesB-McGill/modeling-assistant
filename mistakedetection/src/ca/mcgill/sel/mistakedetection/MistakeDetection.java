@@ -144,7 +144,11 @@ public class MistakeDetection {
           comparison.notMappedInstructorAssociation.add(assoc.getAssoc());
         }
       });
-
+      Classifier possibleClassifierMatch = null;
+      int lowPriority = 1;
+      int midPriority = 2;
+      int highPriority = 3;
+      int priority = 0;
       for (Classifier studentClassifier : studentClassifiers) {
         if (!processed) { // To stop duplicate entries.
           comparison.extraStudentClassifier.add(studentClassifier);
@@ -156,25 +160,50 @@ public class MistakeDetection {
             }
           });
         }
-        if (checkCorrect(instructorClassifier, studentClassifier, comparison)) {
-          checkMistakesInClassifier(studentClassifier, instructorClassifier, newMistakes);
 
-          EList<Attribute> studentAttributes = studentClassifier.getAttributes();
-          for (Attribute instructorAttribute : instructorAttributes) {
-            for (Attribute studentAttribute : studentAttributes) {
-              float lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-              if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-                checkMistakesInAttributes(studentAttribute, instructorAttribute, newMistakes);
-                break;
-              }
-            }
+        if (classifierNameMatch(instructorClassifier, studentClassifier)) {
+          if (priority <= highPriority) {
+            possibleClassifierMatch = studentClassifier;
+            priority = highPriority;
+          }
+        } else if (checkClassAndAttribBasedOnSpellingError(instructorClassifier, studentClassifier)) {
+          if (priority <= midPriority) {
+            possibleClassifierMatch = studentClassifier;
+            priority = midPriority;
+          }
+        } else if (checkClassAndAttribBasedOnSubStrings(instructorClassifier, studentClassifier)) {
+          if (priority <= lowPriority) {
+            possibleClassifierMatch = studentClassifier;
+            priority = lowPriority;
           }
         }
       }
       processed = true;
+      if (priority == midPriority) {
+        checkMistakeClassSpelling(possibleClassifierMatch, instructorClassifier).ifPresent(comparison.newMistakes::add);
+      }
+      if (possibleClassifierMatch == null) {
+        continue;
+      }
+      mapClasses(comparison, possibleClassifierMatch, instructorClassifier);
+      checkMistakesInClassifier(possibleClassifierMatch, instructorClassifier, newMistakes);
+
+      EList<Attribute> studentAttributes = possibleClassifierMatch.getAttributes();
+      for (Attribute instructorAttribute : instructorAttributes) {
+        for (Attribute studentAttribute : studentAttributes) {
+          float lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
+          if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED
+              && comparison.mappedAttribute.get(instructorAttribute) == studentAttribute) {
+            comparison.duplicateStudentAttribute.add(studentAttribute);
+            comparison.extraStudentAttribute.remove(studentAttribute);
+          } else if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+            mapAttributes(comparison, studentAttribute, instructorAttribute);
+            checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison.newMistakes);
+            break;
+          }
+        }
+      }
     }
-    mapClassAndAttribBasedOnSpellingError(comparison);
-    mapClassAndAttribBasedOnSubStrings(comparison);
     mapClassAndAttribBasedOnAttribsAndAssocEnds(comparison);
     mapRelations(comparison);
     mapEnumerations(instructorSolution, studentSolution, comparison);
@@ -1212,95 +1241,19 @@ public class MistakeDetection {
    * @param studentClass
    * @return true if classifier match
    */
-  public static boolean checkCorrect(Classifier instructorClass, Classifier studentClass, Comparison comparison) {
-    boolean isMapped = false;
-    EList<Attribute> instructorAttributes = instructorClass.getAttributes();
-    EList<Attribute> studentAttributes = studentClass.getAttributes();
-
-    if (instructorClass.getName().equals(studentClass.getName())) {
-      isMapped = true;
-      mapClasses(comparison, studentClass, instructorClass);
-      for (Attribute instructorAttribute : instructorAttributes) { // To check association -> Not at present.
-        for (Attribute studentAttribute : studentAttributes) {
-          var lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-          if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED
-              && comparison.mappedAttribute.get(instructorAttribute) == studentAttribute) {
-            comparison.duplicateStudentAttribute.add(studentAttribute);
-            comparison.extraStudentAttribute.remove(studentAttribute);
-          } else if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-
-            mapAttributes(comparison, studentAttribute, instructorAttribute);
-            break;
-          }
-        }
-      }
-    }
-    return isMapped;
+  public static boolean classifierNameMatch(Classifier instructorClass, Classifier studentClass) {
+    return instructorClass.getName().toLowerCase().equals(studentClass.getName().toLowerCase());
   }
 
   /** Map classes with levenshtein distance less than or eqauls to MAX_LEVENSHTEIN_DISTANCE_ALLOWED */
-  public static void mapClassAndAttribBasedOnSpellingError(Comparison comparison) {
-
-    if (comparison.notMappedInstructorClassifier.isEmpty() || comparison.extraStudentClassifier.isEmpty()) {
-      return;
-    }
-    for (int i = 0; i < comparison.notMappedInstructorClassifier.size(); i++) {
-      Classifier instructorClassifier = comparison.notMappedInstructorClassifier.get(i);
-      EList<Attribute> instructorAttributes = instructorClassifier.getAttributes();
-      for (int j = 0; j < comparison.extraStudentClassifier.size(); j++) {
-        Classifier studentClassifier = comparison.extraStudentClassifier.get(j);
-        EList<Attribute> studentAttributes = studentClassifier.getAttributes();
-        float lDistance = levenshteinDistance(studentClassifier.getName(), instructorClassifier.getName());
-        if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-          mapClasses(comparison, studentClassifier, instructorClassifier);
-          checkMistakeClassSpelling(studentClassifier, instructorClassifier).ifPresent(comparison.newMistakes::add);
-          checkMistakesInClassifier(studentClassifier, instructorClassifier, comparison.newMistakes);
-          for (Attribute instructorAttribute : instructorAttributes) {
-            for (Attribute studentAttribute : studentAttributes) {
-              lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-              if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-                mapAttributes(comparison, studentAttribute, instructorAttribute);
-                checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison.newMistakes);
-                break;
-              }
-            }
-          }
-        }
-      }
-    }
-
+  public static boolean checkClassAndAttribBasedOnSpellingError(Classifier instructorClass, Classifier studentClass) {
+    float lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
+    return 0 <= lDistance && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED;
   }
 
   /** Maps if instructor class name is present in a student class name */
-  public static void mapClassAndAttribBasedOnSubStrings(Comparison comparison) {
-    if (comparison.notMappedInstructorClassifier.isEmpty() || comparison.extraStudentClassifier.isEmpty()) {
-      return;
-    }
-
-    for (int i = 0; i < comparison.notMappedInstructorClassifier.size(); i++) {
-      Classifier instructorClassifier = comparison.notMappedInstructorClassifier.get(i);
-      EList<Attribute> instructorAttributes = instructorClassifier.getAttributes();
-      String instructorClassName = instructorClassifier.getName();
-      for (int j = 0; j < comparison.extraStudentClassifier.size(); j++) {
-        Classifier studentClassifier = comparison.extraStudentClassifier.get(j);
-        EList<Attribute> studentAttributes = studentClassifier.getAttributes();
-        String studentClassName = studentClassifier.getName();
-        if (studentClassName.toLowerCase().contains(instructorClassName.toLowerCase())) {
-          mapClasses(comparison, studentClassifier, instructorClassifier);
-          checkMistakesInClassifier(studentClassifier, instructorClassifier, comparison.newMistakes);
-          for (Attribute instructorAttribute : instructorAttributes) {
-            for (Attribute studentAttribute : studentAttributes) {
-              var lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-              if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-                mapAttributes(comparison, studentAttribute, instructorAttribute);
-                checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison.newMistakes);
-                break;
-              }
-            }
-          }
-        }
-      }
-    }
+  public static boolean checkClassAndAttribBasedOnSubStrings(Classifier instructorClass, Classifier studentClass) {
+    return studentClass.getName().toLowerCase().contains(instructorClass.getName().toLowerCase());
   }
 
   /** Finds mappings in previously unmapped classes and attributes by comparing Attributes and Association Ends */

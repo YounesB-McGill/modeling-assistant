@@ -321,6 +321,7 @@ public class MistakeDetectionTest {
     Attribute studentCustomerClassAttributeName = getAttributeFromClass("name", studentCustomerClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
     assertEquals(comparison.extraStudentClassifier.size(), 0);
     assertEquals(comparison.mappedClassifier.size(), 3);
