@@ -1298,8 +1298,14 @@ public class MistakeDetection {
         }
         if (totalAttributes == 0 && possibleClassMatchWithNoAttribute.size() != 0) {
           EList<Classifier> sortedClosestClasssifier = sortByValueClassifier(possibleClassMatchWithNoAttribute);
-          mapClasses(comparison, classWithAssociationEndsMatch(sortedClosestClasssifier, instructorClassifier),
-              instructorClassifier);
+          Classifier possibleMatch =
+              classWithOtherAssociationClassMatch(sortedClosestClasssifier, instructorClassifier);
+          if (possibleMatch != null) {
+            mapClasses(comparison, possibleMatch, instructorClassifier);
+          } else {
+            mapClasses(comparison, classWithAssociationEndsMatch(sortedClosestClasssifier, instructorClassifier),
+                instructorClassifier);
+          }
         }
         if (totalAttributes == 0) {
           continue;
@@ -1343,9 +1349,57 @@ public class MistakeDetection {
     if (!elements.isEmpty() && elements.size() == 1) {
       return elements.get(0);
     } else if (elements.size() > 1) {
-      return classWithAssociationEndsMatch(elements, instructorClass);
+      Classifier possibleMatch = classWithOtherAssociationClassMatch(elements, instructorClass);
+      if (possibleMatch != null) {
+        return classWithOtherAssociationClassMatch(elements, instructorClass);
+      } else {
+        return classWithAssociationEndsMatch(elements, instructorClass);
+      }
     }
     return null;
+  }
+
+  /**
+   * Returns the class with closest number of association ends with that of a instructor class.
+   */
+  private static Classifier classWithOtherAssociationClassMatch(List<Classifier> studentClasses,
+      Classifier instructorClass) {
+    List<String> instClassesName = new BasicEList<String>();
+    int instAssocEnds = instructorClass.getAssociationEnds().size();
+    for (AssociationEnd instAssocEnd : instructorClass.getAssociationEnds()) {
+      instClassesName.add(getOtherAssocEnd(instAssocEnd).getClassifier().getName());
+    }
+
+    Classifier seekedClassifier = null;
+    Integer[] assocClassMatchValue = new Integer[studentClasses.size()];
+    Map<Classifier, Integer> possibleClassMatches = new HashMap<Classifier, Integer>();
+    int i = 0;
+    for (Classifier sc : studentClasses) {
+      assocClassMatchValue[i] = 0;
+      for (AssociationEnd studAssocEnd : sc.getAssociationEnds()) {
+        if (instClassesName.contains(getOtherAssocEnd(studAssocEnd).getClassifier().getName())) {
+          assocClassMatchValue[i] += 1;
+        }
+      }
+      possibleClassMatches.put(sc, assocClassMatchValue[i]);
+      i++;
+    }
+    List<Integer> assocClassMatchValueList = Arrays.asList(assocClassMatchValue);
+    var closestAssocValue = findClosest(assocClassMatchValueList, instAssocEnds);
+    // System.out.println("classs"+closestAssocValue);
+
+    for (Map.Entry<Classifier, Integer> entry : possibleClassMatches.entrySet()) {
+      if (entry.getValue() == closestAssocValue) {
+        seekedClassifier = entry.getKey();
+        break;
+      }
+    } ;
+
+    // System.out.println(seekedClassifier.getName()+" "+ instructorClass.getName());
+    if (instAssocEnds != 0 && closestAssocValue == 0) {
+      return null;
+    }
+    return seekedClassifier;
   }
 
   /**
@@ -1367,7 +1421,7 @@ public class MistakeDetection {
         break;
       }
     }
-    // System.out.println(seekedClassifier.getName());
+    // System.out.println(seekedClassifier.getName()+" "+ instructorClass.getName());
 
     return seekedClassifier;
   }
