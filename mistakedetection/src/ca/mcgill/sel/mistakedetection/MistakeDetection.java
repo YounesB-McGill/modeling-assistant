@@ -1300,6 +1300,7 @@ public class MistakeDetection {
           EList<Classifier> sortedClosestClasssifier = sortByValueClassifier(possibleClassMatchWithNoAttribute);
           Classifier possibleMatch =
               classWithOtherAssociationClassMatch(sortedClosestClasssifier, instructorClassifier);
+          counter++;
           if (possibleMatch != null) {
             mapClasses(comparison, possibleMatch, instructorClassifier);
           } else {
@@ -1518,6 +1519,9 @@ public class MistakeDetection {
   }
 
   public static void mapClasses(Comparison comparison, Classifier studentClass, Classifier instructorClass) {
+    if(comparison.mappedClassifier.containsValue(studentClass)) {
+      return;
+    }
     comparison.mappedClassifier.put(instructorClass, studentClass);
     comparison.notMappedInstructorClassifier.remove(instructorClass);
     comparison.extraStudentClassifier.remove(studentClass);

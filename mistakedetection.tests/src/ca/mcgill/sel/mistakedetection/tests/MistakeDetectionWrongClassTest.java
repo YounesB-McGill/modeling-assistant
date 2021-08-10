@@ -493,5 +493,71 @@ public class MistakeDetectionWrongClassTest {
      assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentCompaneyClass,
          instructorCompanyClass, 0, 1, false);
    }
+   /**
+    * To check mapping of a class with a different name, based on classes associated to it.
+    */
+   @Test
+   public void testCheckMappingBasedOnAssocClasses() {
+     var instructorClassDiagram = cdmFromFile(
+         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirplanePilotPasangerAirport/Class Diagram/Instructor_AirplanePilotPasangerAirport.domain_model.cdm");
+     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+     var studentClassDiagram = cdmFromFile(
+         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_mappingBasedOnAssocClasses/Class Diagram/Student_mappingBasedOnAssocClasses.domain_model.cdm");
+     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+     var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+     var studentBoeingClass = getClassFromClassDiagram("Boeing777", studentClassDiagram);
+
+     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+     assertEquals(studentBoeingClass, comparison.mappedClassifier.get(instructorAirplaneClass));
+   }
+
+   /**
+    * To check mapping of a class with a different name, based on classes associated to it.
+    */
+   @Test
+   public void testCheckMappingBasedOnAssocClasses_anotherExample() {
+     var instructorClassDiagram = cdmFromFile(
+         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirplanePilotPasangerAirport/Class Diagram/Instructor_AirplanePilotPasangerAirport.domain_model.cdm");
+     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+     var studentClassDiagram = cdmFromFile(
+         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_mappingBasedOnAssocClasses1/Class Diagram/Student_mappingBasedOnAssocClasses1.domain_model.cdm");
+     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+     var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+     var studentCustomerClass = getClassFromClassDiagram("Customer", studentClassDiagram);
+
+     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+     assertEquals(studentCustomerClass, comparison.mappedClassifier.get(instructorPassengerClass));
+   }
+
+   /**
+    * To check mapping of a class with a different name, based on classes associated to it.
+    */
+   @Test
+   public void testCheckMappingBasedOnAssocClasses_diffExample() {
+     var instructorClassDiagram = cdmFromFile(
+         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_airplannePilotAirline/Class Diagram/Instructor_airplannePilotAirline.domain_model.cdm");
+     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+     var studentClassDiagram = cdmFromFile(
+         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_MappingBasedOnAssocClasses2/Class Diagram/Student_MappingBasedOnAssocClasses2.domain_model.cdm");
+     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+     var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+     var studentLocationClass = getClassFromClassDiagram("Location", studentClassDiagram);
+     var instructorAirlineClass = getClassFromClassDiagram("Airline", instructorClassDiagram);
+     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
+
+     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+     assertEquals(studentLocationClass, comparison.mappedClassifier.get(instructorAirportClass));
+     assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorAirlineClass));
+
+   }
+
 }
 
