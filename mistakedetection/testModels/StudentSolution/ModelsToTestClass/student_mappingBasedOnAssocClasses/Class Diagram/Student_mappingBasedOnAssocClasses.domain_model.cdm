@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_a822gPlsEeuLuLczKegbyg" name="Student_mappingBasedOnAssocClasses">
+  <classes xsi:type="classdiagram:Class" xmi:id="_emFnAPlsEeuLuLczKegbyg" name="Root">
+    <associationEnds xmi:id="_5aSpUPlsEeuLuLczKegbyg" name="myPilot" assoc="_5aSpUflsEeuLuLczKegbyg" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_6XpCYflsEeuLuLczKegbyg" name="myAirplane" assoc="_6XppcPlsEeuLuLczKegbyg" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_7Fu3cflsEeuLuLczKegbyg" name="myAirport" assoc="_7Fu3cvlsEeuLuLczKegbyg" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_7oYRgflsEeuLuLczKegbyg" name="myPassenger" assoc="_7oYRgvlsEeuLuLczKegbyg" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_fXsDEPlsEeuLuLczKegbyg" name="Pilot">
+    <associationEnds xmi:id="_jTUyMPlsEeuLuLczKegbyg" name="airplane" assoc="_jTUyMvlsEeuLuLczKegbyg" upperBound="-1"/>
+    <associationEnds xmi:id="_5aSCQPlsEeuLuLczKegbyg" name="myRoot" assoc="_5aSpUflsEeuLuLczKegbyg" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_gLO_4PlsEeuLuLczKegbyg" name="Boeing777">
+    <associationEnds xmi:id="_jTUyMflsEeuLuLczKegbyg" name="pilots" assoc="_jTUyMvlsEeuLuLczKegbyg" lowerBound="1" upperBound="-1"/>
+    <associationEnds xmi:id="_jilWMflsEeuLuLczKegbyg" name="airports" assoc="_jilWMvlsEeuLuLczKegbyg" lowerBound="1" upperBound="-1"/>
+    <associationEnds xmi:id="_jxNBAPlsEeuLuLczKegbyg" name="passengers" assoc="_jxNBAflsEeuLuLczKegbyg" upperBound="-1"/>
+    <associationEnds xmi:id="_6XpCYPlsEeuLuLczKegbyg" name="myRoot" assoc="_6XppcPlsEeuLuLczKegbyg" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_g7LPEPlsEeuLuLczKegbyg" name="Airport">
+    <associationEnds xmi:id="_jilWMPlsEeuLuLczKegbyg" name="airplane" assoc="_jilWMvlsEeuLuLczKegbyg" upperBound="-1"/>
+    <associationEnds xmi:id="_7Fu3cPlsEeuLuLczKegbyg" name="myRoot" assoc="_7Fu3cvlsEeuLuLczKegbyg" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_h2XE8PlsEeuLuLczKegbyg" name="Passenger">
+    <associationEnds xmi:id="_jxMZ8PlsEeuLuLczKegbyg" name="airplane" assoc="_jxNBAflsEeuLuLczKegbyg" upperBound="-1"/>
+    <associationEnds xmi:id="_7oYRgPlsEeuLuLczKegbyg" name="myRoot" assoc="_7oYRgvlsEeuLuLczKegbyg" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_a822gflsEeuLuLczKegbyg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_a822gvlsEeuLuLczKegbyg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_a822g_lsEeuLuLczKegbyg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_a822hPlsEeuLuLczKegbyg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_a822hflsEeuLuLczKegbyg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_a822hvlsEeuLuLczKegbyg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_a822h_lsEeuLuLczKegbyg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_a822iPlsEeuLuLczKegbyg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_a822iflsEeuLuLczKegbyg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_a822ivlsEeuLuLczKegbyg"/>
+  <associations xmi:id="_jTUyMvlsEeuLuLczKegbyg" name="Pilot_Airplane" ends="_jTUyMPlsEeuLuLczKegbyg _jTUyMflsEeuLuLczKegbyg"/>
+  <associations xmi:id="_jilWMvlsEeuLuLczKegbyg" name="Airport_Airplane" ends="_jilWMPlsEeuLuLczKegbyg _jilWMflsEeuLuLczKegbyg"/>
+  <associations xmi:id="_jxNBAflsEeuLuLczKegbyg" name="Passenger_Airplane" ends="_jxMZ8PlsEeuLuLczKegbyg _jxNBAPlsEeuLuLczKegbyg"/>
+  <associations xmi:id="_5aSpUflsEeuLuLczKegbyg" name="Pilot_Root" ends="_5aSCQPlsEeuLuLczKegbyg _5aSpUPlsEeuLuLczKegbyg"/>
+  <associations xmi:id="_6XppcPlsEeuLuLczKegbyg" name="Airplane_Root" ends="_6XpCYPlsEeuLuLczKegbyg _6XpCYflsEeuLuLczKegbyg"/>
+  <associations xmi:id="_7Fu3cvlsEeuLuLczKegbyg" name="Airport_Root" ends="_7Fu3cPlsEeuLuLczKegbyg _7Fu3cflsEeuLuLczKegbyg"/>
+  <associations xmi:id="_7oYRgvlsEeuLuLczKegbyg" name="Passenger_Root" ends="_7oYRgPlsEeuLuLczKegbyg _7oYRgflsEeuLuLczKegbyg"/>
+  <layout xmi:id="_a822i_lsEeuLuLczKegbyg">
+    <containers xmi:id="_a822jPlsEeuLuLczKegbyg" key="_a822gPlsEeuLuLczKegbyg">
+      <value xmi:id="_emGOEPlsEeuLuLczKegbyg" key="_emFnAPlsEeuLuLczKegbyg">
+        <value xmi:id="_emGOEflsEeuLuLczKegbyg" x="756.0" y="121.0"/>
+      </value>
+      <value xmi:id="_fXsqIPlsEeuLuLczKegbyg" key="_fXsDEPlsEeuLuLczKegbyg">
+        <value xmi:id="_fXsqIflsEeuLuLczKegbyg" x="337.0" y="286.0"/>
+      </value>
+      <value xmi:id="_gLPm8PlsEeuLuLczKegbyg" key="_gLO_4PlsEeuLuLczKegbyg">
+        <value xmi:id="_gLPm8flsEeuLuLczKegbyg" x="755.9414" y="286.0"/>
+      </value>
+      <value xmi:id="_g7L2IPlsEeuLuLczKegbyg" key="_g7LPEPlsEeuLuLczKegbyg">
+        <value xmi:id="_g7L2IflsEeuLuLczKegbyg" x="1238.9999" y="286.0"/>
+      </value>
+      <value xmi:id="_h2XsAPlsEeuLuLczKegbyg" key="_h2XE8PlsEeuLuLczKegbyg">
+        <value xmi:id="_h2XsAflsEeuLuLczKegbyg" x="756.0" y="566.00006"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

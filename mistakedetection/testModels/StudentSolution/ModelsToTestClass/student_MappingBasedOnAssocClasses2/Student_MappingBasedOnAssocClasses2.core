@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_ja1dgPluEeuLuLczKegbyg" name="Student_MappingBasedOnAssocClasses2" featureModel="_ja1dgfluEeuLuLczKegbyg" impactModel="_ja1dg_luEeuLuLczKegbyg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_ja1dgfluEeuLuLczKegbyg" root="_ja1dgvluEeuLuLczKegbyg">
+    <features xmi:id="_ja1dgvluEeuLuLczKegbyg" name="Student_MappingBasedOnAssocClasses2" realizedBy="_kHXzYfluEeuLuLczKegbyg _mSBGAPluEeuLuLczKegbyg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_ja1dg_luEeuLuLczKegbyg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_kHXzYPluEeuLuLczKegbyg" name="Student_MappingBasedOnAssocClasses2" scene="_kHXzYfluEeuLuLczKegbyg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_MappingBasedOnAssocClasses2.design_class_model.cdm#_kHYacPluEeuLuLczKegbyg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_mSAe8PluEeuLuLczKegbyg" name="Student_MappingBasedOnAssocClasses2" scene="_mSBGAPluEeuLuLczKegbyg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_MappingBasedOnAssocClasses2.domain_model.cdm#_mSBGAvluEeuLuLczKegbyg"/>
+  </artefacts>
+  <scenes xmi:id="_kHXzYfluEeuLuLczKegbyg" name="Student_MappingBasedOnAssocClasses2" realizes="_ja1dgvluEeuLuLczKegbyg" perspectiveName="Design Modelling">
+    <artefacts xmi:id="_kHXzYvluEeuLuLczKegbyg" value="_kHXzYPluEeuLuLczKegbyg" key="Design Class Model"/>
+  </scenes>
+  <scenes xmi:id="_mSBGAPluEeuLuLczKegbyg" name="Student_MappingBasedOnAssocClasses2" realizes="_ja1dgvluEeuLuLczKegbyg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_mSBGAfluEeuLuLczKegbyg" value="_mSAe8PluEeuLuLczKegbyg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

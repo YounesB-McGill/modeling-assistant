@@ -204,7 +204,7 @@ public class MistakeDetection {
         }
       }
     }
-    mapClassAndAttribBasedOnAttribsAndAssocEnds(comparison);
+    mapClassAndAttribBasedOnAttribsAssocAndAssocEnds(comparison);
     mapRelations(comparison);
     mapEnumerations(instructorSolution, studentSolution, comparison);
     mapPatterns(instructorSolution, studentSolution, comparison);
@@ -1257,7 +1257,7 @@ public class MistakeDetection {
   }
 
   /** Finds mappings in previously unmapped classes and attributes by comparing Attributes and Association Ends */
-  public static void mapClassAndAttribBasedOnAttribsAndAssocEnds(Comparison comparison) {
+  public static void mapClassAndAttribBasedOnAttribsAssocAndAssocEnds(Comparison comparison) {
     if (comparison.notMappedInstructorClassifier.isEmpty() || comparison.extraStudentClassifier.isEmpty()) {
       return;
     }
