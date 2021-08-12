@@ -51,4 +51,8 @@ public class Comparison {
 
   public EList<Mistake> newMistakes = new BasicEList<Mistake>();
 
+  /** Below list and map are used for association class mapping **/
+  public EList<Classifier> classifierToRemove = new BasicEList<Classifier>();
+  public Map<Classifier, Classifier> classifierToAdd = new HashMap<Classifier, Classifier>();
+
 }

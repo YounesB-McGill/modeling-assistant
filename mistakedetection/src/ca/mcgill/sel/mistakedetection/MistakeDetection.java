@@ -812,7 +812,14 @@ public class MistakeDetection {
     comparison.mappedClassifier.forEach((key, value) -> {
       compareAssocation(key, value, comparison);
     });
-  }
+    checkAssociationClassMappingWithNonAssociationClass(comparison);
+    comparison.classifierToRemove.forEach(c -> {
+      comparison.mappedClassifier.remove(c);
+      });
+    comparison.classifierToAdd.forEach((key, value) -> {
+     comparison.mappedClassifier.put(key, value);
+    });
+    }
 
   /** Maps the associations and check for mistakes */
   private static void compareAssocation(Classifier instructorClassifier, Classifier studentClassifier,
@@ -868,6 +875,9 @@ public class MistakeDetection {
       Association instructorClassifierAssoc, AssociationEnd studentClassifierAssocEnd,
       AssociationEnd instructorClassifierAssocEnd, AssociationEnd otherStudentClassifierAssocEnd,
       AssociationEnd otherInstructorClassifierAssocEnd) {
+
+     checkAssociationClassMapping(comparison, studentClassifierAssoc, instructorClassifierAssoc);
+
     if (!checkStudentElementForMistake(comparison.newMistakes, studentClassifierAssoc)) {
       checkMistakeExtraAssociationClass(studentClassifierAssoc, instructorClassifierAssoc)
           .ifPresent(comparison.newMistakes::add);
@@ -879,6 +889,7 @@ public class MistakeDetection {
             .ifPresent(comparison.newMistakes::add);
       }
     }
+
     if (!checkInstructorElementForMistake(comparison.newMistakes, instructorClassifierAssoc)) {
       checkMistakeMissingAssociationClass(studentClassifierAssoc, instructorClassifierAssoc)
           .ifPresent(comparison.newMistakes::add);
@@ -892,6 +903,55 @@ public class MistakeDetection {
     }
   }
 
+  private static void checkAssociationClassMapping(Comparison comparison, Association studentClassifierAssoc,
+      Association instructorClassifierAssoc) {
+
+    if(studentClassifierAssoc.getAssociationClass() != null && instructorClassifierAssoc.getAssociationClass() != null) {
+      Classifier studAssocClass = studentClassifierAssoc.getAssociationClass();
+      Classifier instAssocClass = instructorClassifierAssoc.getAssociationClass();
+      if(!comparison.mappedClassifier.containsKey(instAssocClass)) {
+        comparison.classifierToAdd.put(instAssocClass,studAssocClass);
+        return;
+      }
+      if(!comparison.mappedClassifier.get(instAssocClass).equals(studAssocClass)) {
+        comparison.extraStudentClassifier.add(comparison.mappedClassifier.get(instAssocClass));
+        comparison.mappedClassifier.put(instAssocClass, studAssocClass);
+        comparison.extraStudentClassifier.remove(studAssocClass);
+      }
+    }
+    if(studentClassifierAssoc.getAssociationClass() == null && instructorClassifierAssoc.getAssociationClass() != null) {
+      Classifier instAssocClass = instructorClassifierAssoc.getAssociationClass();
+      if(comparison.mappedClassifier.containsKey(instAssocClass)) {
+        comparison.extraStudentClassifier.add(comparison.mappedClassifier.get(instAssocClass));
+        comparison.notMappedInstructorClassifier.add(instAssocClass);
+        comparison.classifierToRemove.add(instAssocClass);
+      }
+    }
+    if(studentClassifierAssoc.getAssociationClass() != null && instructorClassifierAssoc.getAssociationClass() == null) {
+      Classifier studAssocClass = studentClassifierAssoc.getAssociationClass();
+      if(comparison.mappedClassifier.containsValue(studAssocClass)) {
+        comparison.extraStudentClassifier.add(studAssocClass);
+        comparison.mappedClassifier.forEach((key, value) -> {
+          if(value.equals(studAssocClass)) {
+            comparison.notMappedInstructorClassifier.add(key);
+            comparison.classifierToRemove.add(key);
+          }
+        });
+      }
+    }
+  }
+
+  private static void checkAssociationClassMappingWithNonAssociationClass(Comparison comparison) {
+    for(Association instAssoc : comparison.notMappedInstructorAssociation) {
+      if(instAssoc.getAssociationClass() != null && comparison.mappedClassifier.containsKey(instAssoc.getAssociationClass())) {
+        Classifier instAssocClass = instAssoc.getAssociationClass();
+        comparison.extraStudentClassifier.add(comparison.mappedClassifier.get(instAssocClass));
+        comparison.notMappedInstructorClassifier.add(instAssocClass);
+        comparison.classifierToRemove.add(instAssocClass);
+      }
+    }
+
+  }
   private static void mapAssociation(Comparison comparison, Association instructorClassifierAssoc,
       Association studentClassifierAssoc) {
     comparison.mappedAssociation.put(instructorClassifierAssoc, studentClassifierAssoc);
