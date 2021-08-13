@@ -879,8 +879,8 @@ public class MistakeDetection {
      checkAssociationClassMapping(comparison, studentClassifierAssoc, instructorClassifierAssoc);
 
     if (!checkStudentElementForMistake(comparison.newMistakes, studentClassifierAssoc)) {
-      checkMistakeExtraAssociationClass(studentClassifierAssoc, instructorClassifierAssoc)
-          .ifPresent(comparison.newMistakes::add);
+      checkMistakeExtraAssociationClass(studentClassifierAssoc, instructorClassifierAssoc, comparison.newMistakes);
+
       if (studentClassifierAssoc.getAssociationClass() != null
           && instructorClassifierAssoc.getAssociationClass() != null) {
         checkMistakeBadAssociationClassNameSpelling(studentClassifierAssoc, instructorClassifierAssoc)
@@ -891,8 +891,8 @@ public class MistakeDetection {
     }
 
     if (!checkInstructorElementForMistake(comparison.newMistakes, instructorClassifierAssoc)) {
-      checkMistakeMissingAssociationClass(studentClassifierAssoc, instructorClassifierAssoc)
-          .ifPresent(comparison.newMistakes::add);
+      checkMistakeMissingAssociationClass(studentClassifierAssoc, instructorClassifierAssoc, comparison.newMistakes);
+
     }
     if (!checkInstructorElementForMistake(comparison.newMistakes, instructorClassifierAssocEnd)) {
       checkMistakesForAssociationEnds(studentClassifierAssocEnd, instructorClassifierAssocEnd, comparison);
@@ -901,6 +901,10 @@ public class MistakeDetection {
     if (!checkInstructorElementForMistake(comparison.newMistakes, otherInstructorClassifierAssocEnd)) {
       checkMistakesForAssociationEnds(otherStudentClassifierAssocEnd, otherInstructorClassifierAssocEnd, comparison);
     }
+  }
+
+  private static void removeMistakesRelatedToElement(Classifier cls, EList<Mistake> newMistakes) {
+    newMistakes.removeAll(mistakeForElement(cls, newMistakes));
   }
 
   private static void checkAssociationClassMapping(Comparison comparison, Association studentClassifierAssoc,
@@ -1828,32 +1832,62 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-  public static Optional<Mistake> checkMistakeMissingAssociationClass(Association studentClassAssoc,
-      Association instructorClassAssoc) {
+  public static void checkMistakeMissingAssociationClass(Association studentClassAssoc,
+      Association instructorClassAssoc, EList<Mistake> newMistakes) {
     if (isAssociationClassMissing(studentClassAssoc, instructorClassAssoc)) {
-      return Optional.of(createMistake(MISSING_ASSOCIATION_CLASS, studentClassAssoc.getAssociationClass(),
+      removeMistakesRelatedToElement(instructorClassAssoc.getAssociationClass(), newMistakes);
+      newMistakes.add(createMistake(MISSING_ASSOCIATION_CLASS, studentClassAssoc.getAssociationClass(),
           instructorClassAssoc.getAssociationClass()));
     }
-    return Optional.empty();
+
   }
 
-  public static Optional<Mistake> checkMistakeExtraAssociationClass(Association studentClassAssoc,
-      Association instructorClassAssoc) {
+  public static void checkMistakeExtraAssociationClass(Association studentClassAssoc,
+      Association instructorClassAssoc, EList<Mistake> newMistakes) {
     if (isAssociationClassExtra(studentClassAssoc, instructorClassAssoc)) {
-      return Optional.of(createMistake(EXTRA_ASSOCIATION_CLASS, studentClassAssoc.getAssociationClass(),
+      removeMistakesRelatedToElement(studentClassAssoc.getAssociationClass(), newMistakes);
+      newMistakes.add(createMistake(EXTRA_ASSOCIATION_CLASS, studentClassAssoc.getAssociationClass(),
           instructorClassAssoc.getAssociationClass()));
     }
-    return Optional.empty();
+
   }
 
   public static void checkMistakeMissingClass(Comparison comparison) {
-    comparison.notMappedInstructorClassifier
-        .forEach(cls -> comparison.newMistakes.add(createMistake(MISSING_CLASS, null, cls))); // No Student Element
+    comparison.notMappedInstructorClassifier.forEach(cls -> {
+      if(!mistakeForElementExists(cls, comparison.newMistakes)) {
+      comparison.newMistakes.add(createMistake(MISSING_CLASS, null, cls));
+      }
+    }); // No Student Element
+  }
+
+  private static boolean mistakeForElementExists(Classifier cls, EList<Mistake> newMistakes) {
+    for(Mistake m : newMistakes) {
+      if((!m.getInstructorElements().isEmpty() && m.getInstructorElements().get(0).getElement().equals(cls))
+        || (!m.getStudentElements().isEmpty() && m.getStudentElements().get(0).getElement().equals(cls))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static EList<Mistake> mistakeForElement(Classifier cls, EList<Mistake> newMistakes) {
+    EList<Mistake> mistakesFound = new BasicEList<Mistake>();
+    for(Mistake m : newMistakes) {
+      if((!m.getInstructorElements().isEmpty() && m.getInstructorElements().get(0).getElement().equals(cls))
+        || (!m.getStudentElements().isEmpty() && m.getStudentElements().get(0).getElement().equals(cls))) {
+        mistakesFound.add(m);
+      }
+    }
+    return mistakesFound;
   }
 
   public static void checkMistakeExtraClass(Comparison comparison) {
     // No Instructor Element
-    comparison.extraStudentClassifier.forEach(cls -> comparison.newMistakes.add(createMistake(EXTRA_CLASS, cls, null)));
+    comparison.extraStudentClassifier.forEach(cls -> {
+      if(!mistakeForElementExists(cls, comparison.newMistakes)) {
+        comparison.newMistakes.add(createMistake(EXTRA_CLASS, cls, null));
+      }
+    });
   }
 
   public static void checkMistakeMissingAttribute(Comparison comparison) {
@@ -1889,6 +1923,7 @@ public class MistakeDetection {
         comparison.newMistakes.add(createMistake(MISSING_ASSOCIATION, null, association));
       }
       if (association.getAssociationClass() != null) {
+        removeMistakesRelatedToElement(association.getAssociationClass(), comparison.newMistakes);
         comparison.newMistakes.add(createMistake(MISSING_ASSOCIATION_CLASS, null, association.getAssociationClass()));
       }
     }
@@ -1898,6 +1933,7 @@ public class MistakeDetection {
     for (Association association : comparison.extraStudentAssociation) {
       comparison.newMistakes.add(createMistake(OTHER_EXTRA_ASSOCIATION, association, null));
       if (association.getAssociationClass() != null) {
+        removeMistakesRelatedToElement(association.getAssociationClass(), comparison.newMistakes);
         comparison.newMistakes.add(createMistake(EXTRA_ASSOCIATION_CLASS, association.getAssociationClass(), null));
       }
     }
