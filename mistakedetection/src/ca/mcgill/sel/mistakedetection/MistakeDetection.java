@@ -358,10 +358,10 @@ public class MistakeDetection {
       return;
     }
     if (totalMatched != totalMatchesExpected && totalMatched != 1) {
-      checkMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+      createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
       return;
     } else if (MIN_MATCH_REQIUIRED < totalMatched && studentPlayerClass != null) {
-      checkMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+      createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
       return;
     }
     if (studentPlayerClass != null) {
@@ -395,13 +395,13 @@ public class MistakeDetection {
     }
     if (totalMatched == totalMatcheExpected) {
       if (!assocPatternCorrect(studentPlayerClass, studentRoleAssocEnd)) {
-        checkMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+        createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
         return;
       } else {
         return;
       }
     } else if (MIN_MATCH_REQIUIRED < totalMatched && studentPlayerClass != null) {
-      checkMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+      createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
       return;
     }
     if (studentPlayerClass != null) {
@@ -427,11 +427,14 @@ public class MistakeDetection {
       Solution studentSolution) {
     int totalMatcheExpected = tg.getTags().size();
     int totalMatched = 0;
+    boolean studentClassAbstract = false;
     EList<Classifier> studentRoleClasses = new BasicEList<Classifier>();
     EList<NamedElement> studentMatchedElements = new BasicEList<NamedElement>();
     EList<NamedElement> instElements = new BasicEList<NamedElement>();
     Classifier studentPlayerClass = null;
     Classifier studentAbstractClass = null;
+    EList<String> mappedClassifierNames = new BasicEList<String>();
+    mappedClassifierNames = getMappedNames(comparison.mappedClassifier);
     for (Tag tag : tg.getTags()) {
       instElements.add(tag.getSolutionElement().getElement());
       if (comparison.mappedClassifier.containsKey(tag.getSolutionElement().getElement())) {
@@ -440,7 +443,9 @@ public class MistakeDetection {
         } else {
           studentRoleClasses.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
         }
-        totalMatched += 1;
+        if(mappedClassifierNames.contains(tag.getSolutionElement().getElement().getName())) {
+          totalMatched += 1;
+        }
         studentMatchedElements.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
       }
     }
@@ -453,28 +458,30 @@ public class MistakeDetection {
       return;
     }
     studentAbstractClass = studentRoleClasses.get(0).getSuperTypes().get(0);
+    studentClassAbstract = studentAbstractClass.isAbstract();
+
     if (totalMatched == totalMatcheExpected) {
       if (studentAbstractClass == studentPlayerClass && studentPlayerClass != null) {
         checkMistakeUsingSubclassPattern(instPattern, studentMatchedElements, instElements, comparison);
         return;
       }
       if (!studentAbstractClass.isAbstract()) {
-        checkMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+        createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
         return;
       }
       if (!subClassPatternCorrect(studentAbstractClass, studentRoleClasses)) {
-        checkMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+        createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
         return;
       } else {
         if (!assocExists(studentPlayerClass, studentAbstractClass)) {
-          checkMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+          createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
         } else {
 
           return;
         }
       }
-    } else if (MIN_MATCH_REQIUIRED < totalMatched && studentPlayerClass != null && studentAbstractClass != null) {
-      checkMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+    } else if (MIN_MATCH_REQIUIRED <= totalMatched && studentPlayerClass != null && studentClassAbstract) {
+      createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
       return;
     }
     if (studentPlayerClass != null) {
@@ -486,10 +493,13 @@ public class MistakeDetection {
       Solution studentSolution) {
     int totalMatcheExpected = tg.getTags().size();
     int totalMatched = 0;
+    boolean studentClassAbstract = false;
     EList<Classifier> studentRoleClasses = new BasicEList<Classifier>();
     EList<NamedElement> studentMatchedElements = new BasicEList<NamedElement>();
     EList<NamedElement> instElements = new BasicEList<NamedElement>();
     Classifier studentPlayerClass = null;
+    EList<String> mappedClassifierNames = new BasicEList<String>();
+    mappedClassifierNames = getMappedNames(comparison.mappedClassifier);
     for (Tag tag : tg.getTags()) {
       instElements.add(tag.getSolutionElement().getElement());
       if (comparison.mappedClassifier.containsKey(tag.getSolutionElement().getElement())) {
@@ -498,10 +508,13 @@ public class MistakeDetection {
         } else {
           studentRoleClasses.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
         }
-        totalMatched += 1;
+        if(mappedClassifierNames.contains(tag.getSolutionElement().getElement().getName())) {
+          totalMatched += 1;
+        }
         studentMatchedElements.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
       }
     }
+    studentClassAbstract = isAnyClassAbstract(studentMatchedElements);
     if (totalMatched == totalMatcheExpected) {
       if (!subClassPatternCorrect(studentPlayerClass, studentRoleClasses)) {
         if (studentRoleClasses.get(0).getSuperTypes().get(0).isAbstract()) {
@@ -510,18 +523,40 @@ public class MistakeDetection {
             return;
           }
         }
-        checkMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+        createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
         return;
       } else {
         return;
       }
-    } else if (MIN_MATCH_REQIUIRED < totalMatched && studentPlayerClass != null) {
-      checkMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+    } else if (MIN_MATCH_REQIUIRED <= totalMatched && studentPlayerClass != null && !studentClassAbstract) {
+      createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
       return;
     }
     if (studentPlayerClass != null) {
       checkOtherPattern(tg, comparison, instPattern, studentSolution);
     }
+  }
+
+  private static boolean isAnyClassAbstract(EList<NamedElement> studentMatchedElements) {
+  for(NamedElement e : studentMatchedElements) {
+     Classifier c = (Classifier) e;
+     if(c.isAbstract()) {
+       return true;
+     }
+  }
+    return false;
+  }
+
+  private static EList<String> getMappedNames(Map<Classifier, Classifier> mappedClassifier) {
+    EList<String> tempList = new BasicEList<String>();
+    mappedClassifier.forEach((key, value) -> {
+      if(levenshteinDistance(key.getName(), value.getName()) <= 2) {
+        tempList.add(key.getName());
+      }else {
+        tempList.add(value.getName());
+      }
+    });
+    return tempList;
   }
 
   private static void checkOtherPattern(TagGroup tg, Comparison comparison, String instPattern,
@@ -579,6 +614,9 @@ public class MistakeDetection {
           }
           studentSubclassesPatternScore += 1;
           studentFullPatternScore += 1;
+          if(tag.getTagType().equals(PLAYER)) {
+            studentEnumsPatternScore += 1;
+          }
           studSubclassElements.add(studClass);
           studFullElements.add(studClass);
         }
@@ -655,7 +693,9 @@ public class MistakeDetection {
         }
       }
     }
-
+    if(studentAssocPatternScore == studentEnumsPatternScore ) {
+      studentEnumsPatternScore += 1;
+    }
     var scores = List.of(studentSubclassesPatternScore, studentFullPatternScore, studentEnumsPatternScore,
         studentAssocPatternScore);
     var highestScore = Collections.max(scores);
@@ -1947,14 +1987,14 @@ public class MistakeDetection {
     comparison.newMistakes.add(createMistake(MISSING_PLAYER_ROLE_PATTERN, null, missingElements));
   }
 
-  public static void checkMistakeIncompletePattern(TagGroup tg, EList<NamedElement> matchedElements,
+  public static void createMistakeIncompletePattern(TagGroup tg, EList<NamedElement> matchedElements,
       Comparison comparison) {
     EList<NamedElement> studentMissingElements = new BasicEList<NamedElement>();
     EList<NamedElement> instructorElements = new BasicEList<NamedElement>();
     for (Tag tag : tg.getTags()) {
       instructorElements.add(tag.getSolutionElement().getElement());
-      if (!matchedElements.contains(tag.getSolutionElement().getElement())) {
-        studentMissingElements.add(tag.getSolutionElement().getElement());
+      if (comparison.mappedClassifier.containsKey(tag.getSolutionElement().getElement())) {
+        studentMissingElements.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
       }
     }
     comparison.newMistakes

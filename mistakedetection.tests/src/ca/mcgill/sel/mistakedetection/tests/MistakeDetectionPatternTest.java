@@ -1115,7 +1115,6 @@ public class MistakeDetectionPatternTest {
   /**
    * Test to check enum player role pattern instead of subclass in studentSolution.
    */
-  @Disabled ("possible bug in code. Error when running test")
   @Test
   public void testEnumPRInsteadOfSubclassPatternBankExample() {
     var instructorClassDiagram = cdmFromFile(
@@ -1144,8 +1143,8 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(6, comparison.newMistakes.size());
-    assertEquals(6, studentSolution.getMistakes().size());
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
     assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studElements, instElements, 0,
@@ -1265,7 +1264,7 @@ public class MistakeDetectionPatternTest {
   /**
    * Test to check anum player role pattern instead of full in studentSolution.
    */
-  @Disabled ("possible bug in code. Error when running test")
+
   @Test
   public void testEnumPRInsteadOfFullClassPatternBankExample() {
     var instructorClassDiagram = cdmFromFile(
@@ -1293,8 +1292,8 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(6, comparison.newMistakes.size());
-    assertEquals(6, studentSolution.getMistakes().size());
+    assertEquals(7, comparison.newMistakes.size());
+    assertEquals(7, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
     assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
@@ -1383,7 +1382,7 @@ public class MistakeDetectionPatternTest {
   /**
    * Test to check enum player role pattern instead of assoc in studentSolution.
    */
-  @Disabled ("Possible bug in code. Error when running test")
+
   @Test
   public void testEnumPRInsteadOfAssocClassPatternBankExample() {
     var instructorClassDiagram = cdmFromFile(
@@ -1537,7 +1536,7 @@ public class MistakeDetectionPatternTest {
   /**
    * Test to check incomplete player role pattern sub class in studentSolution.
    */
-  @Disabled ("Not detecting incomplete pattern ")
+ // @Disabled ("Not detecting incomplete pattern ")
   @Test
   public void testIncompletePlayerRoleSubClassPatternBankExample() {
     var instructorClassDiagram = cdmFromFile(
@@ -1563,17 +1562,16 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(1, comparison.newMistakes.size());
-    assertEquals(1, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
 
-    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, INCOMPLETE_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), INCOMPLETE_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
    * Test to check incomplete player role pattern sub class in studentSolution.
    */
-  @Disabled ("Not detecting incomplete pattern ")
+
   @Test
   public void testIncompletePlayerRoleFullClassPatternBankExample() {
     var instructorClassDiagram = cdmFromFile(
@@ -1599,11 +1597,10 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(1, comparison.newMistakes.size());
-    assertEquals(1, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
 
-    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, INCOMPLETE_PLAYER_ROLE_PATTERN, studElements, instElements, 0,
+    assertMistake(studentSolution.getMistakes().get(0), INCOMPLETE_PLAYER_ROLE_PATTERN, studElements, instElements, 0,
         1, false);
   }
 
