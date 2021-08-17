@@ -30,7 +30,7 @@ public class Comparison {
   /** Maps an instructor solution enumeration relation to student solution enumeration. */
   public Map<CDEnum, CDEnum> mappedEnumeration = new HashMap<CDEnum, CDEnum>();
 
-  /** Maps an instructor solution enumeration item relation to student solution enumeration item . */
+  /** Maps an instructor solution enumeration item relation to student solution enumeration item. */
   public Map<CDEnumLiteral, CDEnumLiteral> mappedEnumerationItems = new HashMap<CDEnumLiteral, CDEnumLiteral>();
 
   public EList<Classifier> notMappedInstructorClassifier = new BasicEList<Classifier>();
@@ -51,8 +51,11 @@ public class Comparison {
 
   public EList<Mistake> newMistakes = new BasicEList<Mistake>();
 
-  /** Below list and map are used for association class mapping **/
-  public EList<Classifier> classifierToRemove = new BasicEList<Classifier>();
-  public Map<Classifier, Classifier> classifierToAdd = new HashMap<Classifier, Classifier>();
+  /** Below list and map are used for association class mapping. */
+  public EList<Classifier> classifiersToRemove = new BasicEList<Classifier>();
+
+  /** Map stores possible Association Classes that are detected after initial class mapping. */
+  public Map<Classifier, Classifier> assocClassMappingToAdd = new HashMap<Classifier, Classifier>();
 
 }
+

@@ -104,6 +104,10 @@ public class MistakeDetection {
   /** The maximum number of difference two words can have in terms of letters. */
   public static final int MAX_LEVENSHTEIN_DISTANCE_ALLOWED = 2;
 
+  public static final int LOW_PRIORITY = 1;
+  public static final int MID_PRIORITY = 2;
+  public static final int HIGH_PRIORITY = 3;
+
   /** The minimum number of roles and player required for a pattern match. */
   public static final int MIN_MATCH_REQIUIRED = 2;
 
@@ -145,9 +149,6 @@ public class MistakeDetection {
         }
       });
       Classifier possibleClassifierMatch = null;
-      int lowPriority = 1;
-      int midPriority = 2;
-      int highPriority = 3;
       int priority = 0;
       for (Classifier studentClassifier : studentClassifiers) {
         if (!processed) { // To stop duplicate entries.
@@ -162,24 +163,24 @@ public class MistakeDetection {
         }
 
         if (classifierNameMatch(instructorClassifier, studentClassifier)) {
-          if (priority <= highPriority) {
+          if (priority <= HIGH_PRIORITY) {
             possibleClassifierMatch = studentClassifier;
-            priority = highPriority;
+            priority = HIGH_PRIORITY;
           }
         } else if (checkClassAndAttribBasedOnSpellingError(instructorClassifier, studentClassifier)) {
-          if (priority <= midPriority) {
+          if (priority <= MID_PRIORITY) {
             possibleClassifierMatch = studentClassifier;
-            priority = midPriority;
+            priority = MID_PRIORITY;
           }
         } else if (checkClassAndAttribBasedOnSubStrings(instructorClassifier, studentClassifier)) {
-          if (priority <= lowPriority) {
+          if (priority <= LOW_PRIORITY) {
             possibleClassifierMatch = studentClassifier;
-            priority = lowPriority;
+            priority = LOW_PRIORITY;
           }
         }
       }
       processed = true;
-      if (priority == midPriority) {
+      if (priority == MID_PRIORITY) {
         checkMistakeClassSpelling(possibleClassifierMatch, instructorClassifier).ifPresent(comparison.newMistakes::add);
       }
       if (possibleClassifierMatch == null) {
@@ -476,7 +477,6 @@ public class MistakeDetection {
         if (!assocExists(studentPlayerClass, studentAbstractClass)) {
           createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
         } else {
-
           return;
         }
       }
@@ -847,13 +847,14 @@ public class MistakeDetection {
       compareAssocation(key, value, comparison);
     });
     checkAssociationClassMappingWithNonAssociationClass(comparison);
-    comparison.classifierToRemove.forEach(c -> {
+    comparison.classifiersToRemove.forEach(c -> {
       comparison.mappedClassifier.remove(c);
-      });
-    comparison.classifierToAdd.forEach((key, value) -> {
-     comparison.mappedClassifier.put(key, value);
     });
-    }
+    comparison.assocClassMappingToAdd.forEach((key, value) -> {
+      comparison.mappedClassifier.put(key, value);
+      checkMistakesInClassifier(value, key, comparison.newMistakes);
+    });
+  }
 
   /** Maps the associations and check for mistakes */
   private static void compareAssocation(Classifier instructorClassifier, Classifier studentClassifier,
@@ -926,7 +927,6 @@ public class MistakeDetection {
 
     if (!checkInstructorElementForMistake(comparison.newMistakes, instructorClassifierAssoc)) {
       checkMistakeMissingAssociationClass(studentClassifierAssoc, instructorClassifierAssoc, comparison.newMistakes);
-
     }
     if (!checkInstructorElementForMistake(comparison.newMistakes, instructorClassifierAssocEnd)) {
       checkMistakesForAssociationEnds(studentClassifierAssocEnd, instructorClassifierAssocEnd, comparison);
@@ -948,7 +948,7 @@ public class MistakeDetection {
       Classifier studAssocClass = studentClassifierAssoc.getAssociationClass();
       Classifier instAssocClass = instructorClassifierAssoc.getAssociationClass();
       if(!comparison.mappedClassifier.containsKey(instAssocClass)) {
-        comparison.classifierToAdd.put(instAssocClass,studAssocClass);
+        comparison.assocClassMappingToAdd.put(instAssocClass,studAssocClass);
         return;
       }
       if(!comparison.mappedClassifier.get(instAssocClass).equals(studAssocClass)) {
@@ -962,7 +962,7 @@ public class MistakeDetection {
       if(comparison.mappedClassifier.containsKey(instAssocClass)) {
         comparison.extraStudentClassifier.add(comparison.mappedClassifier.get(instAssocClass));
         comparison.notMappedInstructorClassifier.add(instAssocClass);
-        comparison.classifierToRemove.add(instAssocClass);
+        comparison.classifiersToRemove.add(instAssocClass);
       }
     }
     if(studentClassifierAssoc.getAssociationClass() != null && instructorClassifierAssoc.getAssociationClass() == null) {
@@ -972,7 +972,7 @@ public class MistakeDetection {
         comparison.mappedClassifier.forEach((key, value) -> {
           if(value.equals(studAssocClass)) {
             comparison.notMappedInstructorClassifier.add(key);
-            comparison.classifierToRemove.add(key);
+            comparison.classifiersToRemove.add(key);
           }
         });
       }
@@ -985,7 +985,7 @@ public class MistakeDetection {
         Classifier instAssocClass = instAssoc.getAssociationClass();
         comparison.extraStudentClassifier.add(comparison.mappedClassifier.get(instAssocClass));
         comparison.notMappedInstructorClassifier.add(instAssocClass);
-        comparison.classifierToRemove.add(instAssocClass);
+        comparison.classifiersToRemove.add(instAssocClass);
       }
     }
 
@@ -1212,7 +1212,6 @@ public class MistakeDetection {
         }
       }
     }
-
   }
 
   /** Returns student solution elements for a pattern. */
