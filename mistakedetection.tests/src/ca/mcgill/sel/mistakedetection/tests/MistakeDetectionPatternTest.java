@@ -1262,9 +1262,8 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check anum player role pattern instead of full in studentSolution.
+   * Test to check Enum player role pattern instead of full in studentSolution.
    */
-
   @Test
   public void testEnumPRInsteadOfFullClassPatternBankExample() {
     var instructorClassDiagram = cdmFromFile(
@@ -1382,7 +1381,6 @@ public class MistakeDetectionPatternTest {
   /**
    * Test to check enum player role pattern instead of assoc in studentSolution.
    */
-
   @Test
   public void testEnumPRInsteadOfAssocClassPatternBankExample() {
     var instructorClassDiagram = cdmFromFile(
@@ -1536,7 +1534,6 @@ public class MistakeDetectionPatternTest {
   /**
    * Test to check incomplete player role pattern sub class in studentSolution.
    */
- // @Disabled ("Not detecting incomplete pattern ")
   @Test
   public void testIncompletePlayerRoleSubClassPatternBankExample() {
     var instructorClassDiagram = cdmFromFile(
@@ -1571,7 +1568,6 @@ public class MistakeDetectionPatternTest {
   /**
    * Test to check incomplete player role pattern sub class in studentSolution.
    */
-
   @Test
   public void testIncompletePlayerRoleFullClassPatternBankExample() {
     var instructorClassDiagram = cdmFromFile(
