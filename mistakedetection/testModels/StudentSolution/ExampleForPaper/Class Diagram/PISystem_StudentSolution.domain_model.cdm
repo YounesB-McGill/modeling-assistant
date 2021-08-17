@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_vAMqcMz1Eeuzj6fVLsCWEQ" name="PISystem_StudentSolution">
   <classes xsi:type="classdiagram:Class" xmi:id="_vr_ZcMz1Eeuzj6fVLsCWEQ" name="PISystem">
-    <associationEnds xmi:id="_OdnTkcz2Eeuzj6fVLsCWEQ" name="people" assoc="_OdnTksz2Eeuzj6fVLsCWEQ" upperBound="-1" referenceType="Composition"/>
-    <associationEnds xmi:id="_bI89wcz2Eeuzj6fVLsCWEQ" name="station" assoc="_bI89wsz2Eeuzj6fVLsCWEQ" upperBound="-1" referenceType="Composition"/>
-    <associationEnds xmi:id="_xKgwccz2Eeuzj6fVLsCWEQ" name="assignments" assoc="_xKgwcsz2Eeuzj6fVLsCWEQ" upperBound="-1" referenceType="Composition"/>
+    <associationEnds xmi:id="_OdnTkcz2Eeuzj6fVLsCWEQ" name="persons" assoc="_OdnTksz2Eeuzj6fVLsCWEQ" upperBound="-1" referenceType="Composition"/>
+    <associationEnds xmi:id="_bI89wcz2Eeuzj6fVLsCWEQ" name="buildings" assoc="_bI89wsz2Eeuzj6fVLsCWEQ" upperBound="-1" referenceType="Composition"/>
+    <associationEnds xmi:id="_xKgwccz2Eeuzj6fVLsCWEQ" name="cases" assoc="_xKgwcsz2Eeuzj6fVLsCWEQ" upperBound="-1" referenceType="Composition"/>
   </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="_xDW1AMz1Eeuzj6fVLsCWEQ" name="People">
-    <associationEnds xmi:id="_OdnTkMz2Eeuzj6fVLsCWEQ" name="PISystem" assoc="_OdnTksz2Eeuzj6fVLsCWEQ" lowerBound="1"/>
-    <associationEnds xmi:id="_SVQ6kMz2Eeuzj6fVLsCWEQ" name="officer" assoc="_SVQ6ksz2Eeuzj6fVLsCWEQ" referenceType="Composition"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_xDW1AMz1Eeuzj6fVLsCWEQ" name="Person">
+    <associationEnds xmi:id="_OdnTkMz2Eeuzj6fVLsCWEQ" name="pISystem" assoc="_OdnTksz2Eeuzj6fVLsCWEQ" lowerBound="1"/>
     <attributes xmi:id="_yoJokMz1Eeuzj6fVLsCWEQ" name="name" type="_vAMqd8z1Eeuzj6fVLsCWEQ"/>
     <attributes xmi:id="_DYxT0Mz7EeuFCLyZ-WfYXA" name="address" type="_vAMqd8z1Eeuzj6fVLsCWEQ"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_zkfVAMz1Eeuzj6fVLsCWEQ" name="PoliceStation">
-    <associationEnds xmi:id="_bI89wMz2Eeuzj6fVLsCWEQ" name="PISystem" assoc="_bI89wsz2Eeuzj6fVLsCWEQ" lowerBound="1"/>
-    <associationEnds xmi:id="_g6CyoMz2Eeuzj6fVLsCWEQ" name="officers" assoc="_g6Cyosz2Eeuzj6fVLsCWEQ" upperBound="-1"/>
+    <associationEnds xmi:id="_bI89wMz2Eeuzj6fVLsCWEQ" name="pISystem" assoc="_bI89wsz2Eeuzj6fVLsCWEQ" lowerBound="1"/>
+    <associationEnds xmi:id="_g6CyoMz2Eeuzj6fVLsCWEQ" name="officers" assoc="_g6Cyosz2Eeuzj6fVLsCWEQ" upperBound="-1" referenceType="Composition"/>
     <attributes xmi:id="_3i2oAMz1Eeuzj6fVLsCWEQ" name="adress" type="_vAMqd8z1Eeuzj6fVLsCWEQ"/>
   </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="_6XZMMMz1Eeuzj6fVLsCWEQ" name="PoliceOfficer">
-    <associationEnds xmi:id="_SVQ6kcz2Eeuzj6fVLsCWEQ" name="person" assoc="_SVQ6ksz2Eeuzj6fVLsCWEQ" lowerBound="1"/>
-    <associationEnds xmi:id="_g6Cyocz2Eeuzj6fVLsCWEQ" name="workAt" assoc="_g6Cyosz2Eeuzj6fVLsCWEQ" lowerBound="1"/>
-    <associationEnds xmi:id="_rRfHkcz2Eeuzj6fVLsCWEQ" name="assignments" assoc="_rRfHksz2Eeuzj6fVLsCWEQ" upperBound="-1"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_6XZMMMz1Eeuzj6fVLsCWEQ" name="PoliceOfficer" superTypes="_xDW1AMz1Eeuzj6fVLsCWEQ">
+    <associationEnds xmi:id="_g6Cyocz2Eeuzj6fVLsCWEQ" name="workLocation" assoc="_g6Cyosz2Eeuzj6fVLsCWEQ" lowerBound="1"/>
+    <associationEnds xmi:id="_rRfHkcz2Eeuzj6fVLsCWEQ" name="cases" assoc="_rRfHksz2Eeuzj6fVLsCWEQ" upperBound="-1"/>
     <attributes xmi:id="_8OaYMMz1Eeuzj6fVLsCWEQ" name="badgeNumber" type="_vAMqdcz1Eeuzj6fVLsCWEQ"/>
   </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="_9XaAkMz1Eeuzj6fVLsCWEQ" name="Assignments">
-    <associationEnds xmi:id="_rRfHkMz2Eeuzj6fVLsCWEQ" name="officers" assoc="_rRfHksz2Eeuzj6fVLsCWEQ" upperBound="-1"/>
-    <associationEnds xmi:id="_xKgwcMz2Eeuzj6fVLsCWEQ" name="PISystem" assoc="_xKgwcsz2Eeuzj6fVLsCWEQ" lowerBound="1"/>
-    <attributes xmi:id="__qTQQMz1Eeuzj6fVLsCWEQ" name="objective" type="_vAMqd8z1Eeuzj6fVLsCWEQ"/>
-    <attributes xmi:id="_A52MkMz2Eeuzj6fVLsCWEQ" name="startDate" type="_vAMqd8z1Eeuzj6fVLsCWEQ"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_9XaAkMz1Eeuzj6fVLsCWEQ" name="Cases">
+    <associationEnds xmi:id="_rRfHkMz2Eeuzj6fVLsCWEQ" name="assignedOfficers" assoc="_rRfHksz2Eeuzj6fVLsCWEQ" lowerBound="1"/>
+    <associationEnds xmi:id="_xKgwcMz2Eeuzj6fVLsCWEQ" name="pISystem" assoc="_xKgwcsz2Eeuzj6fVLsCWEQ" lowerBound="1"/>
+    <associationEnds xmi:id="_fAfUUePREeuQSZV7UcjtXw" name="victims" assoc="_fAfUUuPREeuQSZV7UcjtXw" lowerBound="1" upperBound="-1"/>
+    <attributes xmi:id="__qTQQMz1Eeuzj6fVLsCWEQ" name="objective" type="_cO6qoOU8EeupbPxU59twOw"/>
+    <attributes xmi:id="_A52MkMz2Eeuzj6fVLsCWEQ" name="startDate" type="_cO6qoOU8EeupbPxU59twOw"/>
   </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_JXX20OPREeuQSZV7UcjtXw" name="Victim" superTypes="_xDW1AMz1Eeuzj6fVLsCWEQ">
+    <associationEnds xmi:id="_fAfUUOPREeuQSZV7UcjtXw" name="cases" assoc="_fAfUUuPREeuQSZV7UcjtXw" lowerBound="1" upperBound="-1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_cO6qoOU8EeupbPxU59twOw" name="Date" dataType="true"/>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_vAMqccz1Eeuzj6fVLsCWEQ"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_vAMqcsz1Eeuzj6fVLsCWEQ"/>
   <types xsi:type="classdiagram:CDBoolean" xmi:id="_vAMqc8z1Eeuzj6fVLsCWEQ"/>
@@ -39,27 +42,33 @@
   <types xsi:type="classdiagram:CDFloat" xmi:id="_vAMqecz1Eeuzj6fVLsCWEQ"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_vAMqesz1Eeuzj6fVLsCWEQ"/>
   <associations xmi:id="_OdnTksz2Eeuzj6fVLsCWEQ" name="People_PISystem" ends="_OdnTkMz2Eeuzj6fVLsCWEQ _OdnTkcz2Eeuzj6fVLsCWEQ"/>
-  <associations xmi:id="_SVQ6ksz2Eeuzj6fVLsCWEQ" name="People_PoliceOfficer" ends="_SVQ6kMz2Eeuzj6fVLsCWEQ _SVQ6kcz2Eeuzj6fVLsCWEQ"/>
   <associations xmi:id="_bI89wsz2Eeuzj6fVLsCWEQ" name="PoliceStation_PISystem" ends="_bI89wMz2Eeuzj6fVLsCWEQ _bI89wcz2Eeuzj6fVLsCWEQ"/>
   <associations xmi:id="_g6Cyosz2Eeuzj6fVLsCWEQ" name="PoliceStation_PoliceOfficer" ends="_g6CyoMz2Eeuzj6fVLsCWEQ _g6Cyocz2Eeuzj6fVLsCWEQ"/>
   <associations xmi:id="_rRfHksz2Eeuzj6fVLsCWEQ" name="Assignments_PoliceOfficer" ends="_rRfHkMz2Eeuzj6fVLsCWEQ _rRfHkcz2Eeuzj6fVLsCWEQ"/>
   <associations xmi:id="_xKgwcsz2Eeuzj6fVLsCWEQ" name="Assignments_PISystem" ends="_xKgwcMz2Eeuzj6fVLsCWEQ _xKgwccz2Eeuzj6fVLsCWEQ"/>
+  <associations xmi:id="_fAfUUuPREeuQSZV7UcjtXw" name="Victim_Assignments" ends="_fAfUUOPREeuQSZV7UcjtXw _fAfUUePREeuQSZV7UcjtXw"/>
   <layout xmi:id="_vAMqe8z1Eeuzj6fVLsCWEQ">
     <containers xmi:id="_vAMqfMz1Eeuzj6fVLsCWEQ" key="_vAMqcMz1Eeuzj6fVLsCWEQ">
       <value xmi:id="_vsAAgMz1Eeuzj6fVLsCWEQ" key="_vr_ZcMz1Eeuzj6fVLsCWEQ">
-        <value xmi:id="_vsAAgcz1Eeuzj6fVLsCWEQ" x="712.0002" y="214.00003"/>
+        <value xmi:id="_vsAAgcz1Eeuzj6fVLsCWEQ" x="592.96375" y="203.99997"/>
       </value>
       <value xmi:id="_xDXcEMz1Eeuzj6fVLsCWEQ" key="_xDW1AMz1Eeuzj6fVLsCWEQ">
-        <value xmi:id="_xDXcEcz1Eeuzj6fVLsCWEQ" x="470.99915" y="517.07043"/>
+        <value xmi:id="_xDXcEcz1Eeuzj6fVLsCWEQ" x="470.99915" y="405.40103"/>
       </value>
       <value xmi:id="_zkhKMMz1Eeuzj6fVLsCWEQ" key="_zkfVAMz1Eeuzj6fVLsCWEQ">
         <value xmi:id="_zkhKMcz1Eeuzj6fVLsCWEQ" x="644.99023" y="418.40103"/>
       </value>
       <value xmi:id="_6XZzQMz1Eeuzj6fVLsCWEQ" key="_6XZMMMz1Eeuzj6fVLsCWEQ">
-        <value xmi:id="_6XZzQcz1Eeuzj6fVLsCWEQ" x="645.0" y="702.99994"/>
+        <value xmi:id="_6XZzQcz1Eeuzj6fVLsCWEQ" x="592.96375" y="687.0489"/>
       </value>
       <value xmi:id="_9XanoMz1Eeuzj6fVLsCWEQ" key="_9XaAkMz1Eeuzj6fVLsCWEQ">
-        <value xmi:id="_9Xanocz1Eeuzj6fVLsCWEQ" x="825.4998" y="504.07043"/>
+        <value xmi:id="_9Xanocz1Eeuzj6fVLsCWEQ" x="141.1701" y="346.7288"/>
+      </value>
+      <value xmi:id="_JXYd4OPREeuQSZV7UcjtXw" key="_JXX20OPREeuQSZV7UcjtXw">
+        <value xmi:id="_JXYd4ePREeuQSZV7UcjtXw" x="348.87006" y="791.0587"/>
+      </value>
+      <value xmi:id="_cO7RsOU8EeupbPxU59twOw" key="_cO6qoOU8EeupbPxU59twOw">
+        <value xmi:id="_cO7RseU8EeupbPxU59twOw" x="1079.9999" y="623.00006"/>
       </value>
     </containers>
   </layout>

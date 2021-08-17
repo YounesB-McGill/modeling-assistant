@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_wfPXUPuEEeu7ZOM0uoSvEw" name="Student_AssocClassBusPassPassenger" featureModel="_wfPXUfuEEeu7ZOM0uoSvEw" impactModel="_wfPXU_uEEeu7ZOM0uoSvEw">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_wfPXUfuEEeu7ZOM0uoSvEw" root="_wfPXUvuEEeu7ZOM0uoSvEw">
+    <features xmi:id="_wfPXUvuEEeu7ZOM0uoSvEw" name="Student_AssocClassBusPassPassenger" realizedBy="_xCZHsfuEEeu7ZOM0uoSvEw"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_wfPXU_uEEeu7ZOM0uoSvEw" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_xCZHsPuEEeu7ZOM0uoSvEw" name="Student_AssocClassBusPassPassenger" scene="_xCZHsfuEEeu7ZOM0uoSvEw" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_AssocClassBusPassPassenger.domain_model.cdm#_xCZHs_uEEeu7ZOM0uoSvEw"/>
+  </artefacts>
+  <scenes xmi:id="_xCZHsfuEEeu7ZOM0uoSvEw" name="Student_AssocClassBusPassPassenger" realizes="_wfPXUvuEEeu7ZOM0uoSvEw" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_xCZHsvuEEeu7ZOM0uoSvEw" value="_xCZHsPuEEeu7ZOM0uoSvEw" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

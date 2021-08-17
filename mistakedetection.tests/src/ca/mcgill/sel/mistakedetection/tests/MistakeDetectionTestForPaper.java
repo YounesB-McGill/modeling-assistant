@@ -1,25 +1,9 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
-import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeConditional;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
-import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
-import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_MULTIPLICITY;
-import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_ROLE_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION;
-import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
-import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
-import static modelingassistant.util.ClassDiagramUtils.getAssociationsFromClassDiagram;
-import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
-import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import modelingassistant.Mistake;
 
 public class MistakeDetectionTestForPaper {
 
@@ -33,6 +17,7 @@ public class MistakeDetectionTestForPaper {
         "../mistakedetection/testModels/StudentSolution/ExampleForPaper/Class Diagram/PISystem_StudentSolution.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
+    /*
     var instructorPoliceOfficerClass = getClassFromClassDiagram("PoliceOfficer", instructorClassDiagram);
     var instructorBadgeNumberAttribute = getAttributeFromClass("badgeNumber", instructorPoliceOfficerClass);
     var instructorAssocEndWorkLocation = getAssociationEndFromClass("workLocation", instructorPoliceOfficerClass);
@@ -99,7 +84,16 @@ public class MistakeDetectionTestForPaper {
           instructorAssocEndWorkLocation, 0, 1, false);
       assertMistakeConditional(m, MISSING_ATTRIBUTE, instructorEndDateAttribute, 0, 1, false);
       assertMistakeConditional(m, MISSING_COMPOSITION, instructorPoliceOfficerPISystem.get(0), 0, 1, false);
-    }
-  }
+        }
 
+    var tagGroup = setPlayerTagToClassInClassDiag("Person", instructorClassDiagram, instructorSolution);
+    setRoleTagToClassInClassDiag("PoliceOfficer", tagGroup, instructorClassDiagram);
+    setRoleTagToClassInClassDiag("Victim", tagGroup, instructorClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    MistakeDetectionTest.log(comparison);
+
+    */
+
+  }
 }
