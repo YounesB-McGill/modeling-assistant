@@ -57,9 +57,8 @@ class Solution(EObject, metaclass=MetaEClass):
     tagGroups = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     problemStatement = EReference(ordered=True, unique=True, containment=False, derived=False)
     feedbackItems = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
-    currentMistake = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, modelingAssistant=None, student=None, solutionElements=None, classDiagram=None, mistakes=None, tagGroups=None, problemStatement=None, feedbackItems=None, currentMistake=None):
+    def __init__(self, *, modelingAssistant=None, student=None, solutionElements=None, classDiagram=None, mistakes=None, tagGroups=None, problemStatement=None, feedbackItems=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -88,9 +87,6 @@ class Solution(EObject, metaclass=MetaEClass):
 
         if feedbackItems:
             self.feedbackItems.extend(feedbackItems)
-
-        if currentMistake is not None:
-            self.currentMistake = currentMistake
 
 
 class SolutionElement(EObject, metaclass=MetaEClass):
