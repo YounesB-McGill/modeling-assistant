@@ -67,12 +67,12 @@ public interface LearningResource extends NamedElement {
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Content</em>' attribute.
-   * @see #setContent(Object)
+   * @see #setContent(String)
    * @see learningcorpus.LearningcorpusPackage#getLearningResource_Content()
    * @model
    * @generated
    */
-  Object getContent();
+  String getContent();
 
   /**
    * Sets the value of the '{@link learningcorpus.LearningResource#getContent <em>Content</em>}' attribute.
@@ -82,7 +82,7 @@ public interface LearningResource extends NamedElement {
    * @see #getContent()
    * @generated
    */
-  void setContent(Object value);
+  void setContent(String value);
 
   /**
    * Returns the value of the '<em><b>Learning Corpus</b></em>' container reference.

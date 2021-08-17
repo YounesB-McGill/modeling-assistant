@@ -452,22 +452,13 @@ public interface ModelingassistantPackage extends EPackage {
   int SOLUTION__FEEDBACK_ITEMS = 7;
 
   /**
-   * The feature id for the '<em><b>Current Mistake</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SOLUTION__CURRENT_MISTAKE = 8;
-
-  /**
    * The number of structural features of the '<em>Solution</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SOLUTION_FEATURE_COUNT = 9;
+  int SOLUTION_FEATURE_COUNT = 8;
 
   /**
    * The number of operations of the '<em>Solution</em>' class.
@@ -1208,17 +1199,6 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getSolution_Mistakes();
 
   /**
-   * Returns the meta object for the reference '{@link modelingassistant.Solution#getCurrentMistake <em>Current Mistake</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Current Mistake</em>'.
-   * @see modelingassistant.Solution#getCurrentMistake()
-   * @see #getSolution()
-   * @generated
-   */
-  EReference getSolution_CurrentMistake();
-
-  /**
    * Returns the meta object for the containment reference list '{@link modelingassistant.Solution#getTagGroups <em>Tag Groups</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1915,14 +1895,6 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference SOLUTION__MISTAKES = eINSTANCE.getSolution_Mistakes();
-
-    /**
-     * The meta object literal for the '<em><b>Current Mistake</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference SOLUTION__CURRENT_MISTAKE = eINSTANCE.getSolution_CurrentMistake();
 
     /**
      * The meta object literal for the '<em><b>Tag Groups</b></em>' containment reference list feature.

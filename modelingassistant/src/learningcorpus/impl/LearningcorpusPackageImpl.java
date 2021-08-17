@@ -901,7 +901,7 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     initEClass(learningResourceEClass, LearningResource.class, "LearningResource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getLearningResource_LearningItem(), this.getLearningItem(), this.getLearningItem_LearningResources(), "learningItem", null, 1, 1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningResource_ResourceResponses(), this.getResourceResponse(), this.getResourceResponse_LearningResources(), "resourceResponses", null, 0, -1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getLearningResource_Content(), ecorePackage.getEJavaObject(), "content", null, 0, 1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getLearningResource_Content(), ecorePackage.getEString(), "content", null, 0, 1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningResource_LearningCorpus(), this.getLearningCorpus(), this.getLearningCorpus_LearningResources(), "learningCorpus", null, 1, 1, LearningResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(referenceEClass, Reference.class, "Reference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
