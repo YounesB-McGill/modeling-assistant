@@ -538,13 +538,7 @@ public class MistakeDetection {
   }
 
   private static boolean isAnyClassAbstract(EList<NamedElement> studentMatchedElements) {
-  for(NamedElement e : studentMatchedElements) {
-     Classifier c = (Classifier) e;
-     if(c.isAbstract()) {
-       return true;
-     }
-  }
-    return false;
+  return  studentMatchedElements.stream().anyMatch(se -> ((Classifier) se).isAbstract());
   }
 
   private static EList<String> getMappedNames(Map<Classifier, Classifier> mappedClassifier) {
