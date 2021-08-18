@@ -125,6 +125,10 @@ public class MistakeTypes {
   /** The similar (yet incorrect) class name mistake type. */
   public static final MistakeType SIMILAR_CLASS_NAME = MTS.get("Similar (yet incorrect) class name");
 
+  /** The incorrect class name but correct attribute/relationship mistake type. */
+  public static final MistakeType INCORRECT_CLASS_NAME_BUT_CORRECT_ATTRIBUTE_RELATIONSHIP =
+      MTS.get("Incorrect class name but correct attribute/relationship");
+
   /** The regular class should be enum mistake type. */
   public static final MistakeType REGULAR_CLASS_SHOULD_BE_ENUM = MTS.get("Regular class should be enum");
 
@@ -161,6 +165,9 @@ public class MistakeTypes {
   /** The wrong attribute type mistake type. */
   public static final MistakeType WRONG_ATTRIBUTE_TYPE = MTS.get("Wrong attribute type");
 
+  /** The missing attribute type mistake type. */
+  public static final MistakeType MISSING_ATTRIBUTE_TYPE = MTS.get("Missing attribute type");
+
   /** The attribute should be static mistake type. */
   public static final MistakeType ATTRIBUTE_SHOULD_BE_STATIC = MTS.get("Attribute should be static");
 
@@ -191,6 +198,10 @@ public class MistakeTypes {
   /** The attribute duplicated mistake type. */
   public static final MistakeType ATTRIBUTE_DUPLICATED = MTS.get("Attribute duplicated");
 
+  /** The attribute misplaced in generalization hierarchy mistake type. */
+  public static final MistakeType ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY =
+      MTS.get("Attribute misplaced in generalization hierarchy");
+
   /** The incomplete containment tree mistake type. */
   public static final MistakeType INCOMPLETE_CONTAINMENT_TREE = MTS.get("Incomplete containment tree");
 
@@ -202,6 +213,9 @@ public class MistakeTypes {
 
   /** The missing aggregation mistake type. */
   public static final MistakeType MISSING_AGGREGATION = MTS.get("Missing aggregation");
+
+  /** The missing n-ary association mistake type. */
+  public static final MistakeType MISSING_N_ARY_ASSOCIATION = MTS.get("Missing n-ary association");
 
   /** The using an attribute instead of an association mistake type. */
   public static final MistakeType USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION =
@@ -217,6 +231,15 @@ public class MistakeTypes {
 
   /** The other extra association mistake type. */
   public static final MistakeType OTHER_EXTRA_ASSOCIATION = MTS.get("Other extra association");
+
+  /** The extra composition mistake type. */
+  public static final MistakeType EXTRA_COMPOSITION = MTS.get("Extra composition");
+
+  /** The extra aggregation mistake type. */
+  public static final MistakeType EXTRA_AGGREGATION = MTS.get("Extra aggregation");
+
+  /** The extra n-ary association mistake type. */
+  public static final MistakeType EXTRA_N_ARY_ASSOCIATION = MTS.get("Extra n-ary association");
 
   /** The using association instead of aggregation/composition mistake type. */
   public static final MistakeType USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION =
@@ -242,6 +265,22 @@ public class MistakeTypes {
   public static final MistakeType USING_COMPOSITION_INSTEAD_OF_AGGREGATION =
       MTS.get("Using composition instead of aggregation");
 
+  /** The using binary association instead of nary association mistake type. */
+  public static final MistakeType USING_BINARY_ASSOCIATION_INSTEAD_OF_NARY_ASSOCIATION =
+      MTS.get("Using binary association instead of nary association");
+
+  /** The using nary association instead of binary association mistake type. */
+  public static final MistakeType USING_NARY_ASSOCIATION_INSTEAD_OF_BINARY_ASSOCIATION =
+      MTS.get("Using nary association instead of binary association");
+
+  /** The using intermediate class instead of nary association mistake type. */
+  public static final MistakeType USING_INTERMEDIATE_CLASS_INSTEAD_OF_NARY_ASSOCIATION =
+      MTS.get("Using intermediate class instead of nary association");
+
+  /** The using nary association instead of intermediate class mistake type. */
+  public static final MistakeType USING_NARY_ASSOCIATION_INSTEAD_OF_INTERMEDIATE_CLASS =
+      MTS.get("Using nary association instead of intermediate class");
+
   /** The missing association name when one was expected mistake type. */
   public static final MistakeType MISSING_ASSOCIATION_NAME_WHEN_ONE_WAS_EXPECTED =
       MTS.get("Missing association name when one was expected");
@@ -257,6 +296,9 @@ public class MistakeTypes {
 
   /** The other wrong multiplicity mistake type. */
   public static final MistakeType OTHER_WRONG_MULTIPLICITY = MTS.get("Other wrong multiplicity");
+
+  /** The missing multiplicity mistake type. */
+  public static final MistakeType MISSING_MULTIPLICITY = MTS.get("Missing multiplicity");
 
   /** The missing role names mistake type. */
   public static final MistakeType MISSING_ROLE_NAMES = MTS.get("Missing role names");
@@ -285,12 +327,23 @@ public class MistakeTypes {
   /** The bad association class name spelling mistake type. */
   public static final MistakeType BAD_ASSOCIATION_CLASS_NAME_SPELLING = MTS.get("Bad association class name spelling");
 
+  /** The association class should be regular class mistake type. */
+  public static final MistakeType ASSOCIATION_CLASS_SHOULD_BE_REGULAR_CLASS =
+      MTS.get("Association class should be regular class");
+
+  /** The regular class should be association class mistake type. */
+  public static final MistakeType REGULAR_CLASS_SHOULD_BE_ASSOCIATION_CLASS =
+      MTS.get("Regular class should be association class");
+
   /** The similar (yet incorrect) association class name mistake type. */
   public static final MistakeType SIMILAR_ASSOCIATION_CLASS_NAME =
       MTS.get("Similar (yet incorrect) association class name");
 
   /** The missing generalization mistake type. */
   public static final MistakeType MISSING_GENERALIZATION = MTS.get("Missing generalization");
+
+  /** The extra generalization mistake type. */
+  public static final MistakeType EXTRA_GENERALIZATION = MTS.get("Extra generalization");
 
   /** The generalization inapplicable mistake type. */
   public static final MistakeType GENERALIZATION_INAPPLICABLE = MTS.get("Generalization inapplicable");
