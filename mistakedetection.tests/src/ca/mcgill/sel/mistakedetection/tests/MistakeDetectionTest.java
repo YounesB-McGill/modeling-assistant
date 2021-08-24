@@ -659,7 +659,7 @@ public class MistakeDetectionTest {
     return namedElemsFromMistake.containsAll(givenElements);
   }
 
-  /**
+   /**
    * Function to print the mapped, unmapped classifier or attributes.
    */
   public static void log(Comparison comparison) {

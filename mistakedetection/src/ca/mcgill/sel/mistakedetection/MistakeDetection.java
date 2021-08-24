@@ -1408,7 +1408,7 @@ public class MistakeDetection {
         if (totalAttributes == 0) {
           continue;
         }
-        if (nearestMatchExists(possibleClassMatch)) {
+        if (!possibleClassMatch.isEmpty() && nearestMatchExists(possibleClassMatch)) {
           Classifier studentClassifier = getMatchedClassifier(possibleClassMatch, instructorClassifier);
           counter++;
           mapClasses(comparison, studentClassifier, instructorClassifier);
