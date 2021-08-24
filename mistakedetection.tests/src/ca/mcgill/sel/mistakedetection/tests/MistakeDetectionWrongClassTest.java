@@ -184,8 +184,8 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentBusesClass,
-        instructorBusClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1,
+        false);
   }
 
   /**
@@ -208,8 +208,8 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentPeopleClass,
-        instructorPersonClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentPeopleClass, instructorPersonClass, 0,
+        1, false);
   }
 
   /**
@@ -234,6 +234,150 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(1, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentPassengersClass,
         instructorPassengerClass, 0, 1, false);
+  }
+
+  /**
+   * Test to check Plural Airport class name mistake.
+   */
+  @Test
+  public void testPluralAirportClassName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_pluralAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    Classifier studentAirportsClass = getClassFromClassDiagram("Airports", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentAirportsClass, instructorAirportClass,
+        0, 1, false);
+  }
+
+  /**
+   * Test to check Plural Airplane class name mistake.
+   */
+  @Test
+  public void testPluralAirplaneClassName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_pluralAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorAirportClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    Classifier studentAirportsClass = getClassFromClassDiagram("Airplanes", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentAirportsClass, instructorAirportClass,
+        0, 1, false);
+  }
+
+  /**
+   * Test to check Plural City class name mistake.
+   */
+  @Test
+  public void testPluralCitiesClassName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_pluralCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorAirportClass = getClassFromClassDiagram("City", instructorClassDiagram);
+    Classifier studentAirportsClass = getClassFromClassDiagram("Cities", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentAirportsClass, instructorAirportClass,
+        0, 1, false);
+  }
+
+  /**
+   * Test to check Plural Pilot class name mistake.
+   */
+  @Test
+  public void testPluralPilotsClassName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_pluralPilot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorAirportClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
+    Classifier studentAirportsClass = getClassFromClassDiagram("Pilots", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentAirportsClass, instructorAirportClass,
+        0, 1, false);
+  }
+
+  /**
+   * Test to check Plural People class name mistake.
+   */
+  @Test
+  public void testPluralPeopleClassName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_pluralPerson/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorAirportClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+    Classifier studentAirportsClass = getClassFromClassDiagram("People", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentAirportsClass, instructorAirportClass,
+        0, 1, false);
+  }
+
+  /**
+   * Test to check Plural Passenger class name mistake.
+   */
+  @Test
+  public void testPluralPassengersClassName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_pluralPassenger/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorAirportClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+    Classifier studentAirportsClass = getClassFromClassDiagram("Passengers", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentAirportsClass, instructorAirportClass,
+        0, 1, false);
   }
 
   /**
@@ -299,7 +443,7 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size()); // Missing Composition.
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS,instructorBusClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS, instructorBusClass, 0, 1, false);
   }
 
   /**
@@ -321,7 +465,7 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS,instructorCityClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS, instructorCityClass, 0, 1, false);
   }
 
   /**
@@ -343,7 +487,7 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS,instructorAirportClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS, instructorAirportClass, 0, 1, false);
   }
 
   /**
@@ -365,7 +509,7 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(6, comparison.newMistakes.size());
     assertEquals(6, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS,instructorAirlaneClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS, instructorAirlaneClass, 0, 1, false);
   }
 
   /**
@@ -387,7 +531,7 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS,instructorPassengerClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS, instructorPassengerClass, 0, 1, false);
   }
 
   /**
@@ -409,7 +553,7 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS,instructorPersonClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS, instructorPersonClass, 0, 1, false);
   }
 
 
@@ -432,7 +576,7 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS,instructorPilotClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS, instructorPilotClass, 0, 1, false);
   }
 
   /**
@@ -454,7 +598,7 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(3, comparison.newMistakes.size());
     assertEquals(3, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS,studentAirlineClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS, studentAirlineClass, 0, 1, false);
   }
 
   /**
@@ -476,7 +620,7 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS,studentAirlineClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS, studentAirlineClass, 0, 1, false);
   }
 
   /**
@@ -526,466 +670,467 @@ public class MistakeDetectionWrongClassTest {
         instructorDriverClass, 0, 1, false);
   }
 
-   /**
-    * Test to check Lowercase class name mistake.
-    */
-   @Test
-   public void testLowercaseClassName() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classCar/Class Diagram/Instructor_classCar.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_lowercaseClasssName/Class Diagram/Student_lowercaseClasssName.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
-     var studentcarClass = getClassFromClassDiagram("car", studentClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertEquals(1, comparison.newMistakes.size());
-     assertEquals(1, studentSolution.getMistakes().size());
-     assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentcarClass,
-         instructorCarClass, 0, 1, false);
-   }
-
-   /**
-    * Test to check Lowercase class name mistake.
-    */
-   @Test
-   public void testLowercaseClassName1() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBusDriverAndPassenger/Class Diagram/Instructor_classBusDriverAndPassenger.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_lowercaseClassName1/Class Diagram/Student_lowercaseClassName1.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
-     var studentcpassengerClass = getClassFromClassDiagram("passenger", studentClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertEquals(1, comparison.newMistakes.size());
-     assertEquals(1, studentSolution.getMistakes().size());
-     assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentcpassengerClass,
-         instructorPassengerClass, 0, 1, false);
-   }
-
-   /**
-    * Test to check similar class name mistake.
-    */
-   @Disabled
-   @Test
-   public void testSimilarClassName() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classPilot/Class Diagram/Instructor_classPilot.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student _similarClassName/Class Diagram/Student _similarClassName.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
-     var studentFlyerClass = getClassFromClassDiagram("Flyer", studentClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertEquals(1, comparison.newMistakes.size());
-     assertEquals(1, studentSolution.getMistakes().size());
-     assertMistake(studentSolution.getMistakes().get(0), SIMILAR_CLASS_NAME, studentFlyerClass,
-         instructorPilotClass, 0, 1, false);
-   }
-
-   /**
-    * Test to check similar class name mistake
-    */
-   @Disabled
-   @Test
-   public void testSimilarClassName1() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instractor_classCompany/Class Diagram/Instractor_classCompany.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_similarClassName1/Class Diagram/Student_similarClassName1.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
-     var studentFirmClass = getClassFromClassDiagram("Firm", studentClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertEquals(1, comparison.newMistakes.size());
-     assertEquals(1, studentSolution.getMistakes().size());
-     assertMistake(studentSolution.getMistakes().get(0), SIMILAR_CLASS_NAME, studentFirmClass,
-         instructorCompanyClass, 0, 1, false);
-   }
-
-   /**
-    * Test to check wrong class name mistake.
-    */
-   @Test
-   public void testWrongClassName1() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBusandPerson/Class Diagram/Instructor_classBusandPerson.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_badClassName/Class Diagram/Student_badClassName.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
-     var studentPirsonClass = getClassFromClassDiagram("Pirson", studentClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertEquals(1, comparison.newMistakes.size());
-     assertEquals(1, studentSolution.getMistakes().size());
-     assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentPirsonClass,
-         instructorPersonClass, 0, 1, false);
-   }
-
-   /**
-    * Test to check wrong class name mistake.
-    */
-   @Test
-   public void testWrongClassName2() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instractor_classCompany/Class Diagram/Instractor_classCompany.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_badClassName1/Class Diagram/Student_badClassName1.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
-     var studentCompaneyClass = getClassFromClassDiagram("Companey", studentClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertEquals(1, comparison.newMistakes.size());
-     assertEquals(1, studentSolution.getMistakes().size());
-     assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentCompaneyClass,
-         instructorCompanyClass, 0, 1, false);
-   }
-   /**
-    * To check mapping of a class with a different name, based on classes associated to it.
-    */
-   @Test
-   public void testCheckMappingBasedOnAssocClasses() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirplanePilotPasangerAirport/Class Diagram/Instructor_AirplanePilotPasangerAirport.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_mappingBasedOnAssocClasses/Class Diagram/Student_mappingBasedOnAssocClasses.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
-     var studentBoeingClass = getClassFromClassDiagram("Boeing777", studentClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertEquals(studentBoeingClass, comparison.mappedClassifier.get(instructorAirplaneClass));
-   }
-
-   /**
-    * To check mapping of a class with a different name, based on classes associated to it.
-    */
-   @Test
-   public void testCheckMappingBasedOnAssocClasses_anotherExample() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirplanePilotPasangerAirport/Class Diagram/Instructor_AirplanePilotPasangerAirport.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_mappingBasedOnAssocClasses1/Class Diagram/Student_mappingBasedOnAssocClasses1.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
-     var studentCustomerClass = getClassFromClassDiagram("Customer", studentClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertEquals(studentCustomerClass, comparison.mappedClassifier.get(instructorPassengerClass));
-   }
-
-   /**
-    * To check mapping of a class with a different name, based on classes associated to it.
-    */
-   @Test
-   public void testCheckMappingBasedOnAssocClasses_diffExample() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_airplannePilotAirline/Class Diagram/Instructor_airplannePilotAirline.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_MappingBasedOnAssocClasses2/Class Diagram/Student_MappingBasedOnAssocClasses2.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
-     var studentLocationClass = getClassFromClassDiagram("Location", studentClassDiagram);
-     var instructorAirlineClass = getClassFromClassDiagram("Airline", instructorClassDiagram);
-     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-     assertEquals(studentLocationClass, comparison.mappedClassifier.get(instructorAirportClass));
-     assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorAirlineClass));
-   }
-
-   /**
-    * Check mapping for company association class b/w 2 solutions.
-    */
-   @Test
-   public void testMappingAssocClassCompany() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_assocClass/Class Diagram/Student_assocClass.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
-     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-     assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorCompanyClass));
-   }
-
-   /**
-    * Check Company class for extra list.
-    */
-   @Test
-   public void testMappingAssocClassExtraCompany() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_BusDriverCompany/Class Diagram/Student_BusDriverCompany.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
-     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertTrue(comparison.extraStudentClassifier.contains(studentCompanyClass));
-     assertTrue(comparison.notMappedInstructorClassifier.contains(instructorCompanyClass));
-   }
-   /**
-    * Check mapping b/w Firm and Company assoc class.
-    */
-   @Test
-   public void testMappingAssocClassFirm() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AssocClassFirm/Class Diagram/Student_AssocClassFirm.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
-     var studentFirmClass = getClassFromClassDiagram("Firm", studentClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-     assertEquals(studentFirmClass, comparison.mappedClassifier.get(instructorCompanyClass));
-   }
-
-   /**
-    * Check mapping b/w Firm and Company assoc class with seperate company class present.
-    */
-   @Test
-   public void testMappingAssocClassCompanyFirm() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AssocClassFirmCompanyy/Class Diagram/Student_AssocClassFirmCompanyy.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
-     var studentFirmClass = getClassFromClassDiagram("Firm", studentClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertEquals(studentFirmClass, comparison.mappedClassifier.get(instructorCompanyClass));
-   }
-   /**
-    * Check Company class for not mapped.
-    */
-   @Test
-   public void testMappingAssocClassNotMappedCompany() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_BusDriver/Class Diagram/Student_BusDriver.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertTrue(comparison.notMappedInstructorClassifier.contains(instructorCompanyClass));
-   }
-
-   /**
-    * Check mistake missing association class.
-    */
-   @Test
-   public void testMissingAssociationClass() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_BusDriver/Class Diagram/Student_BusDriver.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOCIATION_CLASS,
-         instructorCompanyClass, 0, 1, false);
-   }
-
-   /**
-    * Check Company class for extra.
-    */
-   @Test
-   public void testExtraAssocClass() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_BusDriver/Class Diagram/Student_BusDriver.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertTrue(comparison.extraStudentClassifier.contains(studentCompanyClass));
-   }
-
-   /**
-    * Check Mistake extra Association class.
-    */
-   @Test
-   public void testMappingAssocClassExtraCompanyAssocClass() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_BusDriver/Class Diagram/Student_BusDriver.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
-
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertMistake(studentMistakeFor(studentCompanyClass), EXTRA_ASSOCIATION_CLASS,
-         studentCompanyClass, 0, 1, false);
-   }
-
-   /**
-    * Check Company and BusPass AssocClass for mapping.
-    */
-   @Test
-   public void testMappingAssocClassCompanyBusPass() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_busDriverCompanyPassengerAssocClass/Class Diagram/Instructor_busDriverCompanyPassengerAssocClass.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_busDriverCompanyPassengerAssocClass/Class Diagram/Instructor_busDriverCompanyPassengerAssocClass.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
-     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
-     var instructorBusPassClass = getClassFromClassDiagram("BusPass", instructorClassDiagram);
-     var studentBusPassClass = getClassFromClassDiagram("BusPass", studentClassDiagram );
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorCompanyClass));
-     assertEquals(studentBusPassClass, comparison.mappedClassifier.get(instructorBusPassClass));
-   }
-
-   /**
-    * Check Company-BusPass AssocClass for mapping.
-    */
-   @Test
-   public void testMappingAssocClassCompanyAndBusPass() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_busDriverCompanyPassengerAssocClass/Class Diagram/Instructor_busDriverCompanyPassengerAssocClass.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AssocClassBusPassPassenger/Class Diagram/Student_AssocClassBusPassPassenger.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
-     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
-     var instructorBusPassClass = getClassFromClassDiagram("BusPass", instructorClassDiagram);
-     var studentBusPassClass = getClassFromClassDiagram("BusPass", studentClassDiagram );
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertEquals(studentBusPassClass, comparison.mappedClassifier.get(instructorCompanyClass));
-     assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorBusPassClass));
-   }
-
-   /**
-    * Check Company-BusPass AssocClass for mapping and Extra Company.
-    */
-   @Test
-   public void testMappingAssocClassCompanyAndBusPassAndExtraCompany() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_busDriverCompanyPassengerAssocClass/Class Diagram/Instructor_busDriverCompanyPassengerAssocClass.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AssocClassCompany/Class Diagram/Student_AssocClassCompany.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
-     var instructorBusPassClass = getClassFromClassDiagram("BusPass", instructorClassDiagram);
-     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram );
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorBusPassClass));
-     assertTrue(comparison.notMappedInstructorClassifier.contains(instructorCompanyClass));
-   }
-
-   /**
-    * Check Company AssocClass for notMapped and Company for extra.
-    */
-   @Test
-   public void testMappingAssocClassCompanyAndExtraCompany() {
-     var instructorClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
-     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-     var studentClassDiagram = cdmFromFile(
-         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_BusDriverCompanyWithoutAssoc/Class Diagram/Student_BusDriverCompanyWithoutAssoc.domain_model.cdm");
-     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
-     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram );
-     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-     assertTrue(comparison.notMappedInstructorClassifier.contains(instructorCompanyClass));
-     assertTrue(comparison.extraStudentClassifier.contains(studentCompanyClass));
-   }
+  /**
+   * Test to check Lowercase class name mistake.
+   */
+  @Test
+  public void testLowercaseClassName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classCar/Class Diagram/Instructor_classCar.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_lowercaseClasssName/Class Diagram/Student_lowercaseClasssName.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
+    var studentcarClass = getClassFromClassDiagram("car", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentcarClass, instructorCarClass, 0, 1,
+        false);
+  }
+
+  /**
+   * Test to check Lowercase class name mistake.
+   */
+  @Test
+  public void testLowercaseClassName1() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBusDriverAndPassenger/Class Diagram/Instructor_classBusDriverAndPassenger.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_lowercaseClassName1/Class Diagram/Student_lowercaseClassName1.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+    var studentcpassengerClass = getClassFromClassDiagram("passenger", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentcpassengerClass,
+        instructorPassengerClass, 0, 1, false);
+  }
+
+  /**
+   * Test to check similar class name mistake.
+   */
+  @Disabled
+  @Test
+  public void testSimilarClassName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classPilot/Class Diagram/Instructor_classPilot.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student _similarClassName/Class Diagram/Student _similarClassName.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
+    var studentFlyerClass = getClassFromClassDiagram("Flyer", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_CLASS_NAME, studentFlyerClass, instructorPilotClass, 0,
+        1, false);
+  }
+
+  /**
+   * Test to check similar class name mistake
+   */
+  @Disabled
+  @Test
+  public void testSimilarClassName1() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instractor_classCompany/Class Diagram/Instractor_classCompany.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_similarClassName1/Class Diagram/Student_similarClassName1.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+    var studentFirmClass = getClassFromClassDiagram("Firm", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_CLASS_NAME, studentFirmClass, instructorCompanyClass, 0,
+        1, false);
+  }
+
+  /**
+   * Test to check wrong class name mistake.
+   */
+  @Test
+  public void testWrongClassName1() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBusandPerson/Class Diagram/Instructor_classBusandPerson.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_badClassName/Class Diagram/Student_badClassName.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+    var studentPirsonClass = getClassFromClassDiagram("Pirson", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentPirsonClass,
+        instructorPersonClass, 0, 1, false);
+  }
+
+  /**
+   * Test to check wrong class name mistake.
+   */
+  @Test
+  public void testWrongClassName2() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instractor_classCompany/Class Diagram/Instractor_classCompany.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_badClassName1/Class Diagram/Student_badClassName1.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+    var studentCompaneyClass = getClassFromClassDiagram("Companey", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentCompaneyClass,
+        instructorCompanyClass, 0, 1, false);
+  }
+
+  /**
+   * To check mapping of a class with a different name, based on classes associated to it.
+   */
+  @Test
+  public void testCheckMappingBasedOnAssocClasses() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirplanePilotPasangerAirport/Class Diagram/Instructor_AirplanePilotPasangerAirport.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_mappingBasedOnAssocClasses/Class Diagram/Student_mappingBasedOnAssocClasses.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentBoeingClass = getClassFromClassDiagram("Boeing777", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(studentBoeingClass, comparison.mappedClassifier.get(instructorAirplaneClass));
+  }
+
+  /**
+   * To check mapping of a class with a different name, based on classes associated to it.
+   */
+  @Test
+  public void testCheckMappingBasedOnAssocClasses_anotherExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirplanePilotPasangerAirport/Class Diagram/Instructor_AirplanePilotPasangerAirport.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_mappingBasedOnAssocClasses1/Class Diagram/Student_mappingBasedOnAssocClasses1.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+    var studentCustomerClass = getClassFromClassDiagram("Customer", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(studentCustomerClass, comparison.mappedClassifier.get(instructorPassengerClass));
+  }
+
+  /**
+   * To check mapping of a class with a different name, based on classes associated to it.
+   */
+  @Test
+  public void testCheckMappingBasedOnAssocClasses_diffExample() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_airplannePilotAirline/Class Diagram/Instructor_airplannePilotAirline.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_MappingBasedOnAssocClasses2/Class Diagram/Student_MappingBasedOnAssocClasses2.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentLocationClass = getClassFromClassDiagram("Location", studentClassDiagram);
+    var instructorAirlineClass = getClassFromClassDiagram("Airline", instructorClassDiagram);
+    var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(studentLocationClass, comparison.mappedClassifier.get(instructorAirportClass));
+    assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorAirlineClass));
+  }
+
+  /**
+   * Check mapping for company association class b/w 2 solutions.
+   */
+  @Test
+  public void testMappingAssocClassCompany() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_assocClass/Class Diagram/Student_assocClass.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+    var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorCompanyClass));
+  }
+
+  /**
+   * Check Company class for extra list.
+   */
+  @Test
+  public void testMappingAssocClassExtraCompany() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_BusDriverCompany/Class Diagram/Student_BusDriverCompany.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+    var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertTrue(comparison.extraStudentClassifier.contains(studentCompanyClass));
+    assertTrue(comparison.notMappedInstructorClassifier.contains(instructorCompanyClass));
+  }
+
+  /**
+   * Check mapping b/w Firm and Company assoc class.
+   */
+  @Test
+  public void testMappingAssocClassFirm() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AssocClassFirm/Class Diagram/Student_AssocClassFirm.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+    var studentFirmClass = getClassFromClassDiagram("Firm", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(studentFirmClass, comparison.mappedClassifier.get(instructorCompanyClass));
+  }
+
+  /**
+   * Check mapping b/w Firm and Company assoc class with seperate company class present.
+   */
+  @Test
+  public void testMappingAssocClassCompanyFirm() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AssocClassFirmCompanyy/Class Diagram/Student_AssocClassFirmCompanyy.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+    var studentFirmClass = getClassFromClassDiagram("Firm", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(studentFirmClass, comparison.mappedClassifier.get(instructorCompanyClass));
+  }
+
+  /**
+   * Check Company class for not mapped.
+   */
+  @Test
+  public void testMappingAssocClassNotMappedCompany() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_BusDriver/Class Diagram/Student_BusDriver.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertTrue(comparison.notMappedInstructorClassifier.contains(instructorCompanyClass));
+  }
+
+  /**
+   * Check mistake missing association class.
+   */
+  @Test
+  public void testMissingAssociationClass() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_BusDriver/Class Diagram/Student_BusDriver.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOCIATION_CLASS, instructorCompanyClass, 0, 1, false);
+  }
+
+  /**
+   * Check Company class for extra.
+   */
+  @Test
+  public void testExtraAssocClass() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_BusDriver/Class Diagram/Student_BusDriver.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertTrue(comparison.extraStudentClassifier.contains(studentCompanyClass));
+  }
+
+  /**
+   * Check Mistake extra Association class.
+   */
+  @Test
+  public void testMappingAssocClassExtraCompanyAssocClass() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_BusDriver/Class Diagram/Student_BusDriver.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertMistake(studentMistakeFor(studentCompanyClass), EXTRA_ASSOCIATION_CLASS, studentCompanyClass, 0, 1, false);
+  }
+
+  /**
+   * Check Company and BusPass AssocClass for mapping.
+   */
+  @Test
+  public void testMappingAssocClassCompanyBusPass() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_busDriverCompanyPassengerAssocClass/Class Diagram/Instructor_busDriverCompanyPassengerAssocClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_busDriverCompanyPassengerAssocClass/Class Diagram/Instructor_busDriverCompanyPassengerAssocClass.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
+    var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+    var instructorBusPassClass = getClassFromClassDiagram("BusPass", instructorClassDiagram);
+    var studentBusPassClass = getClassFromClassDiagram("BusPass", studentClassDiagram);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorCompanyClass));
+    assertEquals(studentBusPassClass, comparison.mappedClassifier.get(instructorBusPassClass));
+  }
+
+  /**
+   * Check Company-BusPass AssocClass for mapping.
+   */
+  @Test
+  public void testMappingAssocClassCompanyAndBusPass() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_busDriverCompanyPassengerAssocClass/Class Diagram/Instructor_busDriverCompanyPassengerAssocClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AssocClassBusPassPassenger/Class Diagram/Student_AssocClassBusPassPassenger.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
+    var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+    var instructorBusPassClass = getClassFromClassDiagram("BusPass", instructorClassDiagram);
+    var studentBusPassClass = getClassFromClassDiagram("BusPass", studentClassDiagram);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(studentBusPassClass, comparison.mappedClassifier.get(instructorCompanyClass));
+    assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorBusPassClass));
+  }
+
+  /**
+   * Check Company-BusPass AssocClass for mapping and Extra Company.
+   */
+  @Test
+  public void testMappingAssocClassCompanyAndBusPassAndExtraCompany() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_busDriverCompanyPassengerAssocClass/Class Diagram/Instructor_busDriverCompanyPassengerAssocClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AssocClassCompany/Class Diagram/Student_AssocClassCompany.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+    var instructorBusPassClass = getClassFromClassDiagram("BusPass", instructorClassDiagram);
+    var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorBusPassClass));
+    assertTrue(comparison.notMappedInstructorClassifier.contains(instructorCompanyClass));
+  }
+
+  /**
+   * Check Company AssocClass for notMapped and Company for extra.
+   */
+  @Test
+  public void testMappingAssocClassCompanyAndExtraCompany() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_BusDiverCompanyAssocClass/Class Diagram/Instructor_BusDiverCompanyAssocClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_BusDriverCompanyWithoutAssoc/Class Diagram/Student_BusDriverCompanyWithoutAssoc.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+    var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertTrue(comparison.notMappedInstructorClassifier.contains(instructorCompanyClass));
+    assertTrue(comparison.extraStudentClassifier.contains(studentCompanyClass));
+  }
 }
 
