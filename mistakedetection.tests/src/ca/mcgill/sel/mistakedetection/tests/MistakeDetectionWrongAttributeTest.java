@@ -14,6 +14,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.UPPERCASE_ATTRIBUTE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
@@ -525,9 +526,8 @@ public class MistakeDetectionWrongAttributeTest {
   }
 
   /**
-   * Test to detect wrong Attribute name.
+   * Test to detect plural Attribute name.
    */
-  @Disabled("Not implemented yet.")
   @Test
   public void testMistakepluralAttribute() {
     var instructorClassDiagram = cdmFromFile(
@@ -556,7 +556,6 @@ public class MistakeDetectionWrongAttributeTest {
   /**
    * Test to detect plural Attribute name.
    */
-  @Disabled("Not implemented yet.")
   @Test
   public void testMistakepluralAttributeInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
@@ -570,16 +569,352 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorFlightClass = getClassFromClassDiagram("Flight", instructorClassDiagram);
     var studentFlightClass = getClassFromClassDiagram("Flight", studentClassDiagram);
 
-    var instructornameAttribute = getAttributeFromClass("destination", instructorFlightClass);
-    var studentnamesAttribute = getAttributeFromClass("destinations", studentFlightClass);
+    var instructorNameAttribute = getAttributeFromClass("destination", instructorFlightClass);
+    var studentNamesAttribute = getAttributeFromClass("destinations", studentFlightClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentnamesAttribute,
-        instructornameAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentNamesAttribute,
+        instructorNameAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect plural Code Attribute.
+   */
+  @Test
+  public void testMistakepluralAttributeInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _pluralAtribCodeAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+
+    var instructorCodeAttribute = getAttributeFromClass("code", instructorAirportClass);
+    var studentCodesAttribute = getAttributeFromClass("codes", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentCodesAttribute,
+        instructorCodeAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect plural company Attribute.
+   */
+  @Test
+  public void testMistakepluralAttributeInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _pluralAtribCompanyAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+
+    var instructorCompanyAttribute = getAttributeFromClass("company", instructorAirplaneClass);
+    var studentCompaniesAttribute = getAttributeFromClass("companies", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentCompaniesAttribute,
+        instructorCompanyAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect plural flightNo Attribute.
+   */
+  @Test
+  public void testMistakepluralFlightNoAttributeInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _pluralAtribFlightNoAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+
+    var instructorFlightNoAttribute = getAttributeFromClass("flightNo", instructorAirplaneClass);
+    var studentFlightNumbersAttribute = getAttributeFromClass("flightNumbers", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentFlightNumbersAttribute,
+        instructorFlightNoAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect plural name Attribute.
+   */
+  @Test
+  public void testMistakepluralAttributeInCity() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _pluralAtribNameCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+    var studentCityClass = getClassFromClassDiagram("City", studentClassDiagram);
+
+    var instructorNameAttribute = getAttributeFromClass("name", instructorCityClass);
+    var studentNamesAttribute = getAttributeFromClass("names", studentCityClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentNamesAttribute,
+        instructorNameAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect plural name Attribute.
+   */
+  @Test
+  public void testMistakepluralAttributeInPilot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _pluralAtribNamePilot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
+    var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
+
+    var instructorNameAttribute = getAttributeFromClass("name", instructorPilotClass);
+    var studentNamesAttribute = getAttributeFromClass("names", studentPilotClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentNamesAttribute,
+        instructorNameAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect plural ticketNo Attribute.
+   */
+  @Test
+  public void testMistakepluralAttributeInPassenger() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _pluralAtribTicketNoPassenger/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+    var studentPassengerClass = getClassFromClassDiagram("Passenger", studentClassDiagram);
+
+    var instructorTicketNoAttribute = getAttributeFromClass("ticketNo", instructorPassengerClass);
+    var studentTicketNosAttribute = getAttributeFromClass("ticketNos", studentPassengerClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentTicketNosAttribute,
+        instructorTicketNoAttribute, 0, 1, false);
+  }
+//------------------------
+  /**
+   * Test to detect uppercase Code Attribute.
+   */
+  @Test
+  public void testMistakeUppercaseAttributeInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _uppercaseAtribCodeAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+
+    var instructorCodeAttribute = getAttributeFromClass("code", instructorAirportClass);
+    var studentCodeAttribute = getAttributeFromClass("Code", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), UPPERCASE_ATTRIBUTE_NAME, studentCodeAttribute,
+        instructorCodeAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect uppercase company Attribute.
+   */
+  @Test
+  public void testMistakeUppercaseAttributeInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _uppercaseAtribCompanyAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+
+    var instructorCompanyAttribute = getAttributeFromClass("company", instructorAirplaneClass);
+    var studentCompanyAttribute = getAttributeFromClass("Company", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), UPPERCASE_ATTRIBUTE_NAME, studentCompanyAttribute,
+        instructorCompanyAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect uppercase flightNo Attribute.
+   */
+  @Test
+  public void testMistakeUppercaseFlightNoAttributeInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _uppercaseAtribFlightNoAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+
+    var instructorFlightNoAttribute = getAttributeFromClass("flightNo", instructorAirplaneClass);
+    var studentFlightNoAttribute = getAttributeFromClass("FlightNo", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), UPPERCASE_ATTRIBUTE_NAME, studentFlightNoAttribute,
+        instructorFlightNoAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect uppercase name Attribute.
+   */
+  @Test
+  public void testMistakeUppercaseAttributeInCity() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _uppercaseAtribNameCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+    var studentCityClass = getClassFromClassDiagram("City", studentClassDiagram);
+
+    var instructorNameAttribute = getAttributeFromClass("name", instructorCityClass);
+    var studentNameAttribute = getAttributeFromClass("Name", studentCityClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), UPPERCASE_ATTRIBUTE_NAME, studentNameAttribute,
+        instructorNameAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect uppercase name Attribute.
+   */
+  @Test
+  public void testMistakeUppercaseAttributeInPilot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _uppercaseAtribNamePilot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
+    var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
+
+    var instructorNameAttribute = getAttributeFromClass("name", instructorPilotClass);
+    var studentNameAttribute = getAttributeFromClass("Name", studentPilotClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), UPPERCASE_ATTRIBUTE_NAME, studentNameAttribute,
+        instructorNameAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect uppercase ticketNo Attribute.
+   */
+  @Test
+  public void testMistakeUppercaseAttributeInPassenger() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _uppercaseAtribTicketNoPassenger/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+    var studentPassengerClass = getClassFromClassDiagram("Passenger", studentClassDiagram);
+
+    var instructorTicketNoAttribute = getAttributeFromClass("ticketNo", instructorPassengerClass);
+    var studentTicketNoAttribute = getAttributeFromClass("TicketNo", studentPassengerClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), UPPERCASE_ATTRIBUTE_NAME, studentTicketNoAttribute,
+        instructorTicketNoAttribute, 0, 1, false);
   }
 
   /**
