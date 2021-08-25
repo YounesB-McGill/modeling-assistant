@@ -2052,7 +2052,7 @@ public class MistakeDetection {
    * Returns true if the input string is a software engineering term.
    */
   public static boolean isSoftwareEngineeringTerm(String s) {
-    final var softwareEnginneringTerms = List.of("data", "record", "table", "info", "class");
+    final var softwareEnginneringTerms = List.of("data", "record", "table", "info", "class", "bio", "information");
     for (var seTerm : softwareEnginneringTerms) {
       if (s.toLowerCase().contains(seTerm))
         return true;
