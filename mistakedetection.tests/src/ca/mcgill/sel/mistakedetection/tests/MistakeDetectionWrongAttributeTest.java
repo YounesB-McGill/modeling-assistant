@@ -144,7 +144,8 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentDateOfBirthAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentDateOfBirthAttribute, 0, 1,
+        false);
   }
 
   /**
@@ -170,6 +171,156 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructorNameAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect Missing code Attribute in Airplane.
+   */
+  @Test
+  public void testMistakeMissingCodeAttribute() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_attributeMissingCodeAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+
+    var instructorCodeAttribute = getAttributeFromClass("code", instructorAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructorCodeAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect Missing company Attribute in Airport.
+   */
+  @Test
+  public void testMistakeMissingCompanyAttribute() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_attributeMissingCompanyAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+
+    var instructorCompanyAttribute = getAttributeFromClass("company", instructorAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructorCompanyAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect Missing name Attribute in City.
+   */
+  @Test
+  public void testMistakeMissingNameAttribute() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_attributeMissingNameCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+
+    var instructornameAttribute = getAttributeFromClass("name", instructorCityClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructornameAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect Missing name Attribute in Pilot.
+   */
+  @Test
+  public void testMistakeMissingPilotNameAttribute() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_attributeMissingNamePilot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
+
+    var instructornameAttribute = getAttributeFromClass("name", instructorPilotClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructornameAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect Missing ticketNo Attribute in Passenger.
+   */
+  @Test
+  public void testMistakeMissingticketNoAttribute() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_attributeMissingticketNoPassenger/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+
+    var instructorticketNoAttribute = getAttributeFromClass("ticketNo", instructorPassengerClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructorticketNoAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect Missing Name Attribute in City.
+   */
+  @Test
+  public void testMistakeMissingFlightNoAttribute() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_attributeMissingFlightNoAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+
+    var instructorflightNoAttribute = getAttributeFromClass("flightNo", instructorAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructorflightNoAttribute, 0, 1, false);
   }
 
   /**
@@ -247,7 +398,8 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentnamesAttribute, instructornameAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentnamesAttribute,
+        instructornameAttribute, 0, 1, false);
   }
 
   /**
@@ -275,7 +427,8 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentnamesAttribute, instructornameAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentnamesAttribute,
+        instructornameAttribute, 0, 1, false);
   }
 
   /**
@@ -302,7 +455,8 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), BAD_ATTRIBUTE_NAME_SPELLING, studentcolerAttribute, instructorcolorAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_ATTRIBUTE_NAME_SPELLING, studentcolerAttribute,
+        instructorcolorAttribute, 0, 1, false);
   }
 
   /**
@@ -329,7 +483,8 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), BAD_ATTRIBUTE_NAME_SPELLING, studentpriseAttribute, instructorpriceAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_ATTRIBUTE_NAME_SPELLING, studentpriseAttribute,
+        instructorpriceAttribute, 0, 1, false);
   }
 
   /**
@@ -357,7 +512,8 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentkindAttribute, instructortypeAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentkindAttribute,
+        instructortypeAttribute, 0, 1, false);
   }
 
   /**
@@ -385,7 +541,8 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentcostAttribute, instructorpriceAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentcostAttribute,
+        instructorpriceAttribute, 0, 1, false);
   }
 
   /**
@@ -413,7 +570,8 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentGenderAttribute, instructorgenderAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentGenderAttribute,
+        instructorgenderAttribute, 0, 1, false);
   }
 
   /**
@@ -441,7 +599,8 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_MISPLACED, studentcapacityAttribute, instructorcapacityAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_MISPLACED, studentcapacityAttribute,
+        instructorcapacityAttribute, 0, 1, false);
   }
 
   /**
@@ -469,7 +628,8 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_MISPLACED, studenttypeAttribute, instructortypeAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_MISPLACED, studenttypeAttribute,
+        instructortypeAttribute, 0, 1, false);
   }
 
   /**
@@ -496,7 +656,8 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_NOT_BE_STATIC, studenttypeAttribute, instructortypeAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_NOT_BE_STATIC, studenttypeAttribute,
+        instructortypeAttribute, 0, 1, false);
   }
 
   /**
@@ -523,7 +684,8 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), WRONG_ATTRIBUTE_TYPE, studentdestinationAttribute, instructordestinationAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ATTRIBUTE_TYPE, studentdestinationAttribute,
+        instructordestinationAttribute, 0, 1, false);
   }
 
   /**
@@ -550,7 +712,8 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_BE_STATIC, studentaddAttribute, instructoraddAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_BE_STATIC, studentaddAttribute,
+        instructoraddAttribute, 0, 1, false);
   }
 
   /**
