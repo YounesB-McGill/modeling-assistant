@@ -140,6 +140,150 @@ public class MistakeDetectionWrongClassTest {
     assertMistakeAttribute(studentSolution.getMistakes().get(0), 0, 1, false);
   }
 
+  /**
+   * Test to check Wrong Airport class name mistake.
+   */
+  @Test
+  public void testWrongAirportClassName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_badClassNameAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    Classifier studentAirpoortClass = getClassFromClassDiagram("Airpoort", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(comparison.newMistakes.size(), 1);
+    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentAirpoortClass, instructorAirportClass, 0, 1,
+        false);
+  }
+
+  /**
+   * Test to check Wrong Airplane class name mistake.
+   */
+  @Test
+  public void testWrongAirplaneClassName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_badClassNameAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    Classifier studentAiroplaneClass = getClassFromClassDiagram("Airoplane", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(comparison.newMistakes.size(), 1);
+    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentAiroplaneClass, instructorAirplaneClass, 0, 1,
+        false);
+  }
+
+  /**
+   * Test to check Wrong City class name mistake.
+   */
+  @Test
+  public void testWrongCityClassName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_badClassNameCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+    Classifier studentCittyClass = getClassFromClassDiagram("Citty", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(comparison.newMistakes.size(), 1);
+    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentCittyClass, instructorCityClass, 0, 1,
+        false);
+  }
+
+  /**
+   * Test to check Wrong Person class name mistake.
+   */
+  @Test
+  public void testWrongPersonClassName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_badClassNamePerson/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+    Classifier studentPersanClass = getClassFromClassDiagram("Persan", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(comparison.newMistakes.size(), 1);
+    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentPersanClass, instructorPersonClass, 0, 1,
+        false);
+  }
+
+  /**
+   * Test to check Wrong Passenger class name mistake.
+   */
+  @Test
+  public void testWrongPassengerClassName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_badClassNamePassenger/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+    Classifier studentPassangerClass = getClassFromClassDiagram("Passanger", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(comparison.newMistakes.size(), 1);
+    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentPassangerClass, instructorPassengerClass, 0, 1,
+        false);
+  }
+
+  /**
+   * Test to check Wrong Pilot class name mistake.
+   */
+  @Test
+  public void testWrongPilotClassName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_badClassNamePilot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    Classifier instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
+    Classifier studentPiloteClass = getClassFromClassDiagram("Pilote", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(comparison.newMistakes.size(), 1);
+    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentPiloteClass, instructorPilotClass, 0, 1,
+        false);
+  }
+
   @Test
   void testCheckMistakePluralClassName() {
     // no mistake
