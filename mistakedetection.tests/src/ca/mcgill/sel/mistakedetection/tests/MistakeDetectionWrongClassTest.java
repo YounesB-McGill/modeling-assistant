@@ -160,8 +160,8 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
-    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentAirpoortClass, instructorAirportClass, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentAirpoortClass,
+        instructorAirportClass, 0, 1, false);
   }
 
   /**
@@ -184,8 +184,8 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
-    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentAiroplaneClass, instructorAirplaneClass, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentAiroplaneClass,
+        instructorAirplaneClass, 0, 1, false);
   }
 
   /**
@@ -208,8 +208,8 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
-    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentCittyClass, instructorCityClass, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentCittyClass, instructorCityClass,
+        0, 1, false);
   }
 
   /**
@@ -232,8 +232,8 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
-    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentPersanClass, instructorPersonClass, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentPersanClass,
+        instructorPersonClass, 0, 1, false);
   }
 
   /**
@@ -256,8 +256,8 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
-    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentPassangerClass, instructorPassengerClass, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentPassangerClass,
+        instructorPassengerClass, 0, 1, false);
   }
 
   /**
@@ -280,8 +280,8 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
-    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentPiloteClass, instructorPilotClass, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentPiloteClass,
+        instructorPilotClass, 0, 1, false);
   }
 
   @Test
@@ -1026,8 +1026,8 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentairplaneClass, instructorAirplaneClass, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentairplaneClass,
+        instructorAirplaneClass, 0, 1, false);
   }
 
   /**
@@ -1050,8 +1050,8 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentairportClass, instructorAirportClass, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentairportClass,
+        instructorAirportClass, 0, 1, false);
   }
 
   /**
@@ -1074,8 +1074,8 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentcityClass, instructorCityClass, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentcityClass, instructorCityClass, 0,
+        1, false);
   }
 
   /**
@@ -1098,8 +1098,8 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentpassengerClass, instructorPassengerClass, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentpassengerClass,
+        instructorPassengerClass, 0, 1, false);
   }
 
   /**
@@ -1122,8 +1122,8 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentpersonClass, instructorPersonClass, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentpersonClass, instructorPersonClass,
+        0, 1, false);
   }
 
   /**
@@ -1146,8 +1146,8 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentpilotClass, instructorPilotClass, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), LOWERCASE_CLASS_NAME, studentpilotClass, instructorPilotClass,
+        0, 1, false);
   }
 
   /**
