@@ -1058,7 +1058,25 @@ public class MistakeDetection {
   /** Finds Mistakes in newly mapped elements */
   private static void checkMistakesAfterMapping(Comparison comparison) { // TO BE Discussed
     var newMistakes = comparison.newMistakes;
-
+    // TOOD work in progress(Location may be changed)
+    //To map attribute like ticketNo with TicketNumber
+    comparison.mappedClassifier.forEach((key, value) -> {
+      for (Attribute instAtrib : key.getAttributes()) {
+        for (Attribute studAtrib : value.getAttributes()) {
+          if (!comparison.mappedAttribute.containsKey(instAtrib)) {
+            String[] atribNameSunStrings = studAtrib.getName().split("(?=\\p{Upper})");
+            for (String subString : atribNameSunStrings) {
+              if (instAtrib.getName().contains(subString)) {
+                comparison.mappedAttribute.put(instAtrib, studAtrib);
+                comparison.notMappedInstructorAttribute.remove(instAtrib);
+                comparison.extraStudentAttribute.remove(studAtrib);
+                comparison.newMistakes.add(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, studAtrib, instAtrib));
+              }
+            }
+          }
+        }
+      }
+    });
     comparison.mappedClassifier.forEach((key, value) -> {
       // System.out.println(checkElementForMistake(newMistakes,value)+" value: "+ value+" Key: "+key);
       if (!checkStudentElementForMistake(newMistakes, value)) {

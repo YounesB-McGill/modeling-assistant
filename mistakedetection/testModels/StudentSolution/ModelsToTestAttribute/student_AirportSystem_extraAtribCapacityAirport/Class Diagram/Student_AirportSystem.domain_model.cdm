@@ -11,6 +11,7 @@
     <associationEnds xmi:id="_UZol4AT4EeyXe5VBBNZ50w" name="myRoot" assoc="_UZol4gT4EeyXe5VBBNZ50w" lowerBound="1"/>
     <associationEnds xmi:id="_a2gZUQUREeyiLK_SfenzPQ" name="myCity" assoc="_a2gZUgUREeyiLK_SfenzPQ" lowerBound="1"/>
     <attributes xmi:id="_Cgh2UAT4EeyXe5VBBNZ50w" name="code" type="_-EtLRwT3EeyXe5VBBNZ50w"/>
+    <attributes xmi:id="_4b_E0AXfEeyggKzjChgWZg" name="capacity" type="_-EtLRQT3EeyXe5VBBNZ50w"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_DO8bgAT4EeyXe5VBBNZ50w" name="Airplane">
     <associationEnds xmi:id="_OHTsMQT4EeyXe5VBBNZ50w" name="myAirports" assoc="_OHTsMgT4EeyXe5VBBNZ50w" upperBound="-1"/>

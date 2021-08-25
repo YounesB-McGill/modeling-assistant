@@ -25,6 +25,7 @@
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_HVyVEAT4EeyXe5VBBNZ50w" name="Pilot" superTypes="_F_U4cAT4EeyXe5VBBNZ50w">
     <attributes xmi:id="_IfP3gAT4EeyXe5VBBNZ50w" name="name" type="_-EtLRwT3EeyXe5VBBNZ50w"/>
+    <attributes xmi:id="_WGatYAXgEeyggKzjChgWZg" name="rank" type="_-EtLRwT3EeyXe5VBBNZ50w"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_JCgVkAT4EeyXe5VBBNZ50w" name="Passenger" superTypes="_F_U4cAT4EeyXe5VBBNZ50w">
     <attributes xmi:id="_K7iTwAT4EeyXe5VBBNZ50w" name="ticketNo" type="_-EtLRQT3EeyXe5VBBNZ50w"/>
