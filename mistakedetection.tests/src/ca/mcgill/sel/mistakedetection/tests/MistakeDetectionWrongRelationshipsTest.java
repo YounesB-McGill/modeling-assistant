@@ -10,6 +10,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
@@ -471,7 +472,7 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     assertMistake(studentSolution.getMistakes().get(0), BAD_ROLE_NAME_SPELLING, studentMyAirplaneAssociationEnd, instructorMyAirplaneAssociationEnd, 0, 1, false);
   }
-//-------------
+
   /**
    * Test to check incorrect role name spelling.
    */
@@ -482,7 +483,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyAirplaneRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_incorrectMyAirplaneRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
@@ -507,7 +508,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyAirportRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_incorrectMyAirportRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
@@ -532,7 +533,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyCityRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_incorrectMyCityRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
@@ -557,7 +558,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyPersonRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_incorrectMyPersonRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
@@ -582,7 +583,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyAirplanesAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_incorrectMyAirplanesAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
@@ -607,7 +608,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyCityAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_incorrectMyCityAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
@@ -632,7 +633,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyRootAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_incorrectMyRootAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
@@ -657,7 +658,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyAirportsAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_incorrectMyAirportsAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
@@ -682,7 +683,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyPersonsAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_incorrectMyPersonsAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
@@ -707,7 +708,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyRootAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_incorrectMyRootAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
@@ -732,7 +733,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyAirportsCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_incorrectMyAirportsCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
@@ -757,7 +758,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyRootCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_incorrectMyRootCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
@@ -782,7 +783,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyRootPerson/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_incorrectMyRootPerson/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
@@ -807,7 +808,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyAirplanesPerson/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_incorrectMyAirplanesPerson/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
@@ -820,6 +821,356 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1,studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyAirplaneAssociationEnd, instructorMyAirplaneAssociationEnd, 0, 1, false);
+  }
+//--------
+  /**
+   * Test to check incorrect multiplicity.
+   */
+  @Test
+  public void testMistakeMultiplicityMyAirplaneRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_multiMyAirplaneRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplane", instructorRootClass);
+    var studentMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplane", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyAirplaneAssociationEnd, instructorMyAirplaneAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect multiplicity.
+   */
+  @Test
+  public void testMistakeMultiplicityMyAirportRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_multiMyAirportRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyAirportAssociationEnd = getAssociationEndFromClass("myAirport", instructorRootClass);
+    var studentMyAirportsAssociationEnd = getAssociationEndFromClass("myAirport", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyAirportsAssociationEnd, instructorMyAirportAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect multiplicity.
+   */
+  @Test
+  public void testMistakeMultiplicityMyCityRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_multiMyCityRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyCityAssociationEnd = getAssociationEndFromClass("myCity", instructorRootClass);
+    var studentCityAssociationEnd = getAssociationEndFromClass("myCity", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentCityAssociationEnd, instructorMyCityAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect multiplicity.
+   */
+  @Test
+  public void testMistakeMultiplicityMyPersonRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_multiMyPersonRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyPersonAssociationEnd = getAssociationEndFromClass("myPerson", instructorRootClass);
+    var studentPersonAssociationEnd = getAssociationEndFromClass("myPerson", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentPersonAssociationEnd, instructorMyPersonAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect multiplicity.
+   */
+  @Test
+  public void testMistakeMultiplicityMyAirplaneRoleNameInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_multiMyAirplanesAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+    var instructorMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplanes", instructorAirportClass);
+    var studentMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplanes", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyAirplaneAssociationEnd, instructorMyAirplaneAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect multiplicity.
+   */
+  @Test
+  public void testMistakeMultiplicityMyCityRoleNameInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_multiMyCityAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+    var instructormyCityAssociationEnd = getAssociationEndFromClass("myCity", instructorAirportClass);
+    var studentmyCityAssociationEnd = getAssociationEndFromClass("myCity", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentmyCityAssociationEnd, instructormyCityAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect multiplicity.
+   */
+  @Test
+  public void testMistakeMultiplicityMyRootRoleNameInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_multiMyRootAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+    var instructorMyRootAssociationEnd = getAssociationEndFromClass("myRoot", instructorAirportClass);
+    var studentMyRootAssociationEnd = getAssociationEndFromClass("myRoot", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyRootAssociationEnd, instructorMyRootAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect multiplicity.
+   */
+  @Test
+  public void testMistakeMultiplicityMyAirportRoleNameInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_multiMyAirportsAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+    var instructorMyAirportAssociationEnd = getAssociationEndFromClass("myAirports", instructorAirplaneClass);
+    var studentMyAirportAssociationEnd = getAssociationEndFromClass("myAirports", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyAirportAssociationEnd, instructorMyAirportAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect multiplicity.
+   */
+  @Test
+  public void testMistakeMultiplicityMyPeronRoleNameInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_multiMyPersonsAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+    var instructorMyPersonAssociationEnd = getAssociationEndFromClass("myPersons", instructorAirplaneClass);
+    var studentMyPersonAssociationEnd = getAssociationEndFromClass("myPersons", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyPersonAssociationEnd, instructorMyPersonAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect multiplicity.
+   */
+  @Test
+  public void testMistakeMultiplicityMyRootRoleNameInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_multiMyRootAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+    var instructorMyRootAssociationEnd = getAssociationEndFromClass("myRoot", instructorAirplaneClass);
+    var studentMyRootAssociationEnd = getAssociationEndFromClass("myRoot", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyRootAssociationEnd, instructorMyRootAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect multiplicity.
+   */
+  @Test
+  public void testMistakeMultiplicityMyAirportRoleNameInCity() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_multiMyAirportsCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+    var studentCityClass = getClassFromClassDiagram("City", studentClassDiagram);
+    var instructorMyAirportAssociationEnd = getAssociationEndFromClass("myAirports", instructorCityClass);
+    var studentMyAirportAssociationEnd = getAssociationEndFromClass("myAirports", studentCityClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyAirportAssociationEnd, instructorMyAirportAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect multiplicity.
+   */
+  @Test
+  public void testMistakeMultiplicityMyRootRoleNameInCity() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_multiMyRootCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+    var studentCityClass = getClassFromClassDiagram("City", studentClassDiagram);
+    var instructorMyRootAssociationEnd = getAssociationEndFromClass("myRoot", instructorCityClass);
+    var studentMyRootAssociationEnd = getAssociationEndFromClass("myRoot", studentCityClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyRootAssociationEnd, instructorMyRootAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect multiplicity.
+   */
+  @Test
+  public void testMistakeMultiplicityMyRootRoleNameInPerson() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_multiMyRootPerson/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+    var studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
+    var instructorMyRootAssociationEnd = getAssociationEndFromClass("myRoot", instructorPersonClass);
+    var studentMyRooteAssociationEnd = getAssociationEndFromClass("myRoot", studentPersonClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyRooteAssociationEnd, instructorMyRootAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect multiplicity.
+   */
+  @Test
+  public void testMistakeMultiplicityMyAirplaneRoleNameInPerson() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_multiMyAirplanesPerson/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+    var studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
+    var instructorMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplanes", instructorPersonClass);
+    var studentMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplanes", studentPersonClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyAirplaneAssociationEnd, instructorMyAirplaneAssociationEnd, 0, 1, false);
   }
 
   /**
