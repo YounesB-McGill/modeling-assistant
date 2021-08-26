@@ -591,7 +591,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _pluralAtribCodeAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_pluralAtribCodeAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
@@ -619,7 +619,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _pluralAtribCompanyAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_pluralAtribCompanyAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
@@ -647,7 +647,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _pluralAtribFlightNoAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_pluralAtribFlightNoAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
@@ -675,7 +675,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _pluralAtribNameCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_pluralAtribNameCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
@@ -703,7 +703,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _pluralAtribNamePilot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_pluralAtribNamePilot/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
@@ -731,7 +731,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _pluralAtribTicketNoPassenger/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_pluralAtribTicketNoPassenger/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
@@ -748,7 +748,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertMistake(studentSolution.getMistakes().get(0), PLURAL_ATTRIBUTE, studentTicketNosAttribute,
         instructorTicketNoAttribute, 0, 1, false);
   }
-//------------------------
+
   /**
    * Test to detect uppercase Code Attribute.
    */
@@ -759,7 +759,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _uppercaseAtribCodeAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_uppercaseAtribCodeAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
@@ -787,7 +787,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _uppercaseAtribCompanyAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_uppercaseAtribCompanyAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
@@ -815,7 +815,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _uppercaseAtribFlightNoAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_uppercaseAtribFlightNoAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
@@ -843,7 +843,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _uppercaseAtribNameCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_uppercaseAtribNameCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
@@ -871,7 +871,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _uppercaseAtribNamePilot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_uppercaseAtribNamePilot/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
@@ -899,7 +899,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem _uppercaseAtribTicketNoPassenger/Class Diagram/Student_AirportSystem.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_uppercaseAtribTicketNoPassenger/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
@@ -916,6 +916,511 @@ public class MistakeDetectionWrongAttributeTest {
     assertMistake(studentSolution.getMistakes().get(0), UPPERCASE_ATTRIBUTE_NAME, studentTicketNoAttribute,
         instructorTicketNoAttribute, 0, 1, false);
   }
+
+  /**
+   * Test to detect wrong attribute type of code Attribute.
+   */
+  @Test
+  public void testMistakeWrongAttributeTypeInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_wrongAtribTypeCodeAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+
+    var instructorCodeAttribute = getAttributeFromClass("code", instructorAirportClass);
+    var studentCodeAttribute = getAttributeFromClass("code", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ATTRIBUTE_TYPE, studentCodeAttribute,
+        instructorCodeAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect wrong attribute type of company Attribute.
+   */
+  @Test
+  public void testMistakeWrongAttributeTypeInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_wrongAtribTypeCompanyAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+
+    var instructorCompanyAttribute = getAttributeFromClass("company", instructorAirplaneClass);
+    var studentCompanyAttribute = getAttributeFromClass("company", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ATTRIBUTE_TYPE, studentCompanyAttribute,
+        instructorCompanyAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect wrong attribute type of flightNo Attribute.
+   */
+  @Test
+  public void testMistakeWrongAttributeTypeFlightNoInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_wrongAtribTypeFlightNoAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+
+    var instructorFlightNoAttribute = getAttributeFromClass("flightNo", instructorAirplaneClass);
+    var studentFlightNoAttribute = getAttributeFromClass("flightNo", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ATTRIBUTE_TYPE, studentFlightNoAttribute,
+        instructorFlightNoAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect wrong attribute type of city Attribute.
+   */
+  @Test
+  public void testMistakeWrongAttributeTypeAttributeInCity() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_wrongAtribTypeNameCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+    var studentCityClass = getClassFromClassDiagram("City", studentClassDiagram);
+
+    var instructorNameAttribute = getAttributeFromClass("name", instructorCityClass);
+    var studentNameAttribute = getAttributeFromClass("name", studentCityClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ATTRIBUTE_TYPE, studentNameAttribute,
+        instructorNameAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect wrong attribute type of Pilot Attribute.
+   */
+  @Test
+  public void testMistakeWrongAttributeTypeInPilot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_wrongAtribTypeNamePilot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
+    var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
+
+    var instructorNameAttribute = getAttributeFromClass("name", instructorPilotClass);
+    var studentNameAttribute = getAttributeFromClass("name", studentPilotClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ATTRIBUTE_TYPE, studentNameAttribute,
+        instructorNameAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect wrong attribute type of ticketNo Attribute.
+   */
+  @Test
+  public void testMistakeWrongAttributeTypeInPassenger() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_wrongAtribTypeTicketNoPassenger/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+    var studentPassengerClass = getClassFromClassDiagram("Passenger", studentClassDiagram);
+
+    var instructorTicketNoAttribute = getAttributeFromClass("ticketNo", instructorPassengerClass);
+    var studentTicketNoAttribute = getAttributeFromClass("ticketNo", studentPassengerClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ATTRIBUTE_TYPE, studentTicketNoAttribute,
+        instructorTicketNoAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect static code Attribute.
+   */
+  @Test
+  public void testMistakeAttributeNotStaticInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_staticAtribCodeAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+
+    var instructorCodeAttribute = getAttributeFromClass("code", instructorAirportClass);
+    var studentCodeAttribute = getAttributeFromClass("code", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_NOT_BE_STATIC, studentCodeAttribute,
+        instructorCodeAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect static company Attribute.
+   */
+  @Test
+  public void testMistakeAttributeNotStaticInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_staticAtribCompanyAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+
+    var instructorCompanyAttribute = getAttributeFromClass("company", instructorAirplaneClass);
+    var studentCompanyAttribute = getAttributeFromClass("company", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_NOT_BE_STATIC, studentCompanyAttribute,
+        instructorCompanyAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect static flightNo Attribute.
+   */
+  @Test
+  public void testMistakeAttributeNotStaticFlightNoInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_staticAtribFlightNoAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+
+    var instructorFlightNoAttribute = getAttributeFromClass("flightNo", instructorAirplaneClass);
+    var studentFlightNoAttribute = getAttributeFromClass("flightNo", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_NOT_BE_STATIC, studentFlightNoAttribute,
+        instructorFlightNoAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect static city Attribute.
+   */
+  @Test
+  public void testMistakeAttributeNotStaticInCity() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_staticAtribNameCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+    var studentCityClass = getClassFromClassDiagram("City", studentClassDiagram);
+
+    var instructorNameAttribute = getAttributeFromClass("name", instructorCityClass);
+    var studentNameAttribute = getAttributeFromClass("name", studentCityClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_NOT_BE_STATIC, studentNameAttribute,
+        instructorNameAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect static Pilot Attribute.
+   */
+  @Test
+  public void testMistakeAttributeNotStaticInPilot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_staticAtribNamePilot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
+    var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
+
+    var instructorNameAttribute = getAttributeFromClass("name", instructorPilotClass);
+    var studentNameAttribute = getAttributeFromClass("name", studentPilotClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_NOT_BE_STATIC, studentNameAttribute,
+        instructorNameAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to static ticketNo Attribute.
+   */
+  @Test
+  public void testMistakeAttributeNotStaticInPassenger() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_staticAtribTicketNoPassenger/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+    var studentPassengerClass = getClassFromClassDiagram("Passenger", studentClassDiagram);
+
+    var instructorTicketNoAttribute = getAttributeFromClass("ticketNo", instructorPassengerClass);
+    var studentTicketNoAttribute = getAttributeFromClass("ticketNo", studentPassengerClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_NOT_BE_STATIC, studentTicketNoAttribute,
+        instructorTicketNoAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect static code Attribute.
+   */
+  @Test
+  public void testMistakeAttributeStaticInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_AirportSystem_static/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_notStaticAtribCodeAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+
+    var instructorCodeAttribute = getAttributeFromClass("code", instructorAirportClass);
+    var studentCodeAttribute = getAttributeFromClass("code", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_BE_STATIC, studentCodeAttribute,
+        instructorCodeAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect not static company Attribute.
+   */
+  @Test
+  public void testMistakeAttributeStaticInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_AirportSystem_static/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_notStaticAtribCompanyAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+
+    var instructorCompanyAttribute = getAttributeFromClass("company", instructorAirplaneClass);
+    var studentCompanyAttribute = getAttributeFromClass("company", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_BE_STATIC, studentCompanyAttribute,
+        instructorCompanyAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect not static flightNo Attribute.
+   */
+  @Test
+  public void testMistakeAttributeStaticFlightNoInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_AirportSystem_static/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_notStaticAtribFlightNoAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+
+    var instructorFlightNoAttribute = getAttributeFromClass("flightNo", instructorAirplaneClass);
+    var studentFlightNoAttribute = getAttributeFromClass("flightNo", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_BE_STATIC, studentFlightNoAttribute,
+        instructorFlightNoAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect not static city Attribute.
+   */
+  @Test
+  public void testMistakeAttributeStaticInCity() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_AirportSystem_static/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_notStaticAtribNameCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+    var studentCityClass = getClassFromClassDiagram("City", studentClassDiagram);
+
+    var instructorNameAttribute = getAttributeFromClass("name", instructorCityClass);
+    var studentNameAttribute = getAttributeFromClass("name", studentCityClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_BE_STATIC, studentNameAttribute,
+        instructorNameAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect not static Pilot Attribute.
+   */
+  @Test
+  public void testMistakeAttributeStaticInPilot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_AirportSystem_static/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_notStaticAtribNamePilot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
+    var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
+
+    var instructorNameAttribute = getAttributeFromClass("name", instructorPilotClass);
+    var studentNameAttribute = getAttributeFromClass("name", studentPilotClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_BE_STATIC, studentNameAttribute,
+        instructorNameAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to not static ticketNo Attribute.
+   */
+  @Test
+  public void testMistakeAttributeStaticInPassenger() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_AirportSystem_static/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_notStaticAtribTicketNoPassenger/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+    var studentPassengerClass = getClassFromClassDiagram("Passenger", studentClassDiagram);
+
+    var instructorTicketNoAttribute = getAttributeFromClass("ticketNo", instructorPassengerClass);
+    var studentTicketNoAttribute = getAttributeFromClass("ticketNo", studentPassengerClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_SHOULD_BE_STATIC, studentTicketNoAttribute,
+        instructorTicketNoAttribute, 0, 1, false);
+  }
+
 
   /**
    * Test to detect wrong Attribute name.
