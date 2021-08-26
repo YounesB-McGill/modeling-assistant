@@ -126,7 +126,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectMyAirplaneRoleNameInRoot() {
+  public void testMistakeBadMyAirplaneRoleNameInRoot() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -151,7 +151,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectMyAirportRoleNameInRoot() {
+  public void testMistakeBadMyAirportRoleNameInRoot() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -176,7 +176,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectMyCityRoleNameInRoot() {
+  public void testMistakeBadMyCityRoleNameInRoot() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -201,7 +201,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectMyPersonRoleNameInRoot() {
+  public void testMistakeBadMyPersonRoleNameInRoot() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -226,7 +226,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectMyAirplaneRoleNameInAirport() {
+  public void testMistakeBadMyAirplaneRoleNameInAirport() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -251,7 +251,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectMyCityRoleNameInAirport() {
+  public void testMistakeBadMyCityRoleNameInAirport() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -276,7 +276,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectMyRootRoleNameInAirport() {
+  public void testMistakeBadMyRootRoleNameInAirport() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -301,7 +301,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectMyAirportRoleNameInAirplane() {
+  public void testMistakeBadMyAirportRoleNameInAirplane() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -326,7 +326,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectMyPeronRoleNameInAirplane() {
+  public void testMistakeBadMyPeronRoleNameInAirplane() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -351,7 +351,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectMyRootRoleNameInAirplane() {
+  public void testMistakeBadMyRootRoleNameInAirplane() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -376,7 +376,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectMyAirportRoleNameInCity() {
+  public void testMistakeBadMyAirportRoleNameInCity() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -401,7 +401,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectMyRootRoleNameInCity() {
+  public void testMistakeBadMyRootRoleNameInCity() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -426,7 +426,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectMyRootRoleNameInPerson() {
+  public void testMistakeBadMyRootRoleNameInPerson() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -451,7 +451,7 @@ public class MistakeDetectionWrongRelationshipsTest {
    * Test to check bad role name spelling.
    */
   @Test
-  public void testMistakeIncorrectMyAirplaneRoleNameInPerson() {
+  public void testMistakeBadMyAirplaneRoleNameInPerson() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -470,6 +470,356 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1,studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), BAD_ROLE_NAME_SPELLING, studentMyAirplaneAssociationEnd, instructorMyAirplaneAssociationEnd, 0, 1, false);
+  }
+//-------------
+  /**
+   * Test to check incorrect role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectMyAirplaneRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyAirplaneRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplane", instructorRootClass);
+    var studentMyAirplaneAssociationEnd = getAssociationEndFromClass("plane", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyAirplaneAssociationEnd, instructorMyAirplaneAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectMyAirportRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyAirportRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyAirportAssociationEnd = getAssociationEndFromClass("myAirport", instructorRootClass);
+    var studentMyAirportsAssociationEnd = getAssociationEndFromClass("airports", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyAirportsAssociationEnd, instructorMyAirportAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectMyCityRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyCityRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyCityAssociationEnd = getAssociationEndFromClass("myCity", instructorRootClass);
+    var studentCityAssociationEnd = getAssociationEndFromClass("city", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentCityAssociationEnd, instructorMyCityAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectMyPersonRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyPersonRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyPersonAssociationEnd = getAssociationEndFromClass("myPerson", instructorRootClass);
+    var studentPersonAssociationEnd = getAssociationEndFromClass("person", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentPersonAssociationEnd, instructorMyPersonAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectMyAirplaneRoleNameInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyAirplanesAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+    var instructorMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplanes", instructorAirportClass);
+    var studentMyAirplaneAssociationEnd = getAssociationEndFromClass("airplane", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyAirplaneAssociationEnd, instructorMyAirplaneAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectMyCityRoleNameInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyCityAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+    var instructormyCityAssociationEnd = getAssociationEndFromClass("myCity", instructorAirportClass);
+    var studentmyCityAssociationEnd = getAssociationEndFromClass("city", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentmyCityAssociationEnd, instructormyCityAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectMyRootRoleNameInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyRootAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+    var instructorMyRootAssociationEnd = getAssociationEndFromClass("myRoot", instructorAirportClass);
+    var studentMyRootAssociationEnd = getAssociationEndFromClass("superclass", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyRootAssociationEnd, instructorMyRootAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectMyAirportRoleNameInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyAirportsAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+    var instructorMyAirportAssociationEnd = getAssociationEndFromClass("myAirports", instructorAirplaneClass);
+    var studentMyAirportAssociationEnd = getAssociationEndFromClass("runway", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyAirportAssociationEnd, instructorMyAirportAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectMyPeronRoleNameInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyPersonsAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+    var instructorMyPersonAssociationEnd = getAssociationEndFromClass("myPersons", instructorAirplaneClass);
+    var studentMyPersonAssociationEnd = getAssociationEndFromClass("people", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyPersonAssociationEnd, instructorMyPersonAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectMyRootRoleNameInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyRootAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+    var instructorMyRootAssociationEnd = getAssociationEndFromClass("myRoot", instructorAirplaneClass);
+    var studentMyRootAssociationEnd = getAssociationEndFromClass("root", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyRootAssociationEnd, instructorMyRootAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectMyAirportRoleNameInCity() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyAirportsCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+    var studentCityClass = getClassFromClassDiagram("City", studentClassDiagram);
+    var instructorMyAirportAssociationEnd = getAssociationEndFromClass("myAirports", instructorCityClass);
+    var studentMyAirportAssociationEnd = getAssociationEndFromClass("port", studentCityClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyAirportAssociationEnd, instructorMyAirportAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectMyRootRoleNameInCity() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyRootCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+    var studentCityClass = getClassFromClassDiagram("City", studentClassDiagram);
+    var instructorMyRootAssociationEnd = getAssociationEndFromClass("myRoot", instructorCityClass);
+    var studentMyRootAssociationEnd = getAssociationEndFromClass("head", studentCityClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyRootAssociationEnd, instructorMyRootAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectMyRootRoleNameInPerson() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyRootPerson/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+    var studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
+    var instructorMyRootAssociationEnd = getAssociationEndFromClass("myRoot", instructorPersonClass);
+    var studentMyRooteAssociationEnd = getAssociationEndFromClass("top", studentPersonClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyRooteAssociationEnd, instructorMyRootAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check incorrect role name spelling.
+   */
+  @Test
+  public void testMistakeIncorrectMyAirplaneRoleNameInPerson() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_IncorrectMyAirplanesPerson/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+    var studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
+    var instructorMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplanes", instructorPersonClass);
+    var studentMyAirplaneAssociationEnd = getAssociationEndFromClass("planes", studentPersonClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyAirplaneAssociationEnd, instructorMyAirplaneAssociationEnd, 0, 1, false);
   }
 
   /**
@@ -872,7 +1222,7 @@ public class MistakeDetectionWrongRelationshipsTest {
   }
 
   /**
-   * Test to check bad role name spelling.
+   * Test to check incorrect role name spelling.
    */
   @Test
   public void testMistakeIncorrectRoleNameInStudentSolution() {
@@ -898,7 +1248,7 @@ public class MistakeDetectionWrongRelationshipsTest {
   }
 
   /**
-   * Test to check bad role name spelling.
+   * Test to check incorrect role name spelling.
    */
   @Test
   public void testMistakeOtherIncorrectRoleName() {
