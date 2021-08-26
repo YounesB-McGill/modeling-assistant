@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_-EtLQAT3EeyXe5VBBNZ50w" name="Student_AirportSystem">
+  <classes xsi:type="classdiagram:Class" xmi:id="_-ZSUIAT3EeyXe5VBBNZ50w" name="Root">
+    <associationEnds xmi:id="_UZol4QT4EeyXe5VBBNZ50w" name="myAirport" assoc="_UZol4gT4EeyXe5VBBNZ50w" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_U5vCQQT4EeyXe5VBBNZ50w" name="myAirplane" assoc="_U5vCQgT4EeyXe5VBBNZ50w" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_V9JAAQT4EeyXe5VBBNZ50w" name="myPerson" assoc="_V9JAAgT4EeyXe5VBBNZ50w" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_bzg0IQUREeyiLK_SfenzPQ" name="myCity" assoc="_bzg0IgUREeyiLK_SfenzPQ" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_AHN1kAT4EeyXe5VBBNZ50w" name="Airport">
+    <associationEnds xmi:id="_OHTsMAT4EeyXe5VBBNZ50w" name="myAirplanes" assoc="_OHTsMgT4EeyXe5VBBNZ50w" upperBound="-1"/>
+    <associationEnds xmi:id="_UZol4AT4EeyXe5VBBNZ50w" name="myRoot" assoc="_UZol4gT4EeyXe5VBBNZ50w" lowerBound="1"/>
+    <associationEnds xmi:id="_a2gZUQUREeyiLK_SfenzPQ" name="myCity" assoc="_a2gZUgUREeyiLK_SfenzPQ" lowerBound="1"/>
+    <attributes xmi:id="_Cgh2UAT4EeyXe5VBBNZ50w" name="code" type="_-EtLRwT3EeyXe5VBBNZ50w"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_DO8bgAT4EeyXe5VBBNZ50w" name="Airplane">
+    <associationEnds xmi:id="_OHTsMQT4EeyXe5VBBNZ50w" name="myAirports" assoc="_OHTsMgT4EeyXe5VBBNZ50w" upperBound="-1"/>
+    <associationEnds xmi:id="_ROgGoQT4EeyXe5VBBNZ50w" name="myPersons" assoc="_ROgGogT4EeyXe5VBBNZ50w" upperBound="-1"/>
+    <associationEnds xmi:id="_U5vCQAT4EeyXe5VBBNZ50w" name="myRoot" assoc="_U5vCQgT4EeyXe5VBBNZ50w" lowerBound="1"/>
+    <attributes xmi:id="_EtVFEAT4EeyXe5VBBNZ50w" name="company" type="_-EtLRwT3EeyXe5VBBNZ50w"/>
+    <attributes xmi:id="_FeOWgAT4EeyXe5VBBNZ50w" name="flightNo" type="_-EtLRQT3EeyXe5VBBNZ50w"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_F_U4cAT4EeyXe5VBBNZ50w" name="Person">
+    <associationEnds xmi:id="_ROgGoAT4EeyXe5VBBNZ50w" name="myAirplanes" assoc="_ROgGogT4EeyXe5VBBNZ50w" upperBound="-1"/>
+    <associationEnds xmi:id="_V9JAAAT4EeyXe5VBBNZ50w" name="myRoot" assoc="_V9JAAgT4EeyXe5VBBNZ50w" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_HVyVEAT4EeyXe5VBBNZ50w" name="Pilot" superTypes="_F_U4cAT4EeyXe5VBBNZ50w">
+    <attributes xmi:id="_IfP3gAT4EeyXe5VBBNZ50w" name="name" type="_-EtLRwT3EeyXe5VBBNZ50w"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_JCgVkAT4EeyXe5VBBNZ50w" name="Passenger" superTypes="_F_U4cAT4EeyXe5VBBNZ50w">
+    <attributes xmi:id="_K7iTwAT4EeyXe5VBBNZ50w" name="ticketNo" type="_-EtLRQT3EeyXe5VBBNZ50w"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_YvN8sAUREeyiLK_SfenzPQ" name="City">
+    <associationEnds xmi:id="_a2gZUAUREeyiLK_SfenzPQ" name="Airports" assoc="_a2gZUgUREeyiLK_SfenzPQ" upperBound="-1"/>
+    <associationEnds xmi:id="_bzg0IAUREeyiLK_SfenzPQ" name="myRoot" assoc="_bzg0IgUREeyiLK_SfenzPQ" lowerBound="1"/>
+    <attributes xmi:id="_aMek4AUREeyiLK_SfenzPQ" name="name" type="_-EtLRwT3EeyXe5VBBNZ50w"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_-EtLQQT3EeyXe5VBBNZ50w"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_-EtLQgT3EeyXe5VBBNZ50w"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_-EtLQwT3EeyXe5VBBNZ50w"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_-EtLRAT3EeyXe5VBBNZ50w"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_-EtLRQT3EeyXe5VBBNZ50w"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_-EtLRgT3EeyXe5VBBNZ50w"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_-EtLRwT3EeyXe5VBBNZ50w"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_-EtLSAT3EeyXe5VBBNZ50w"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_-EtLSQT3EeyXe5VBBNZ50w"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_-EtLSgT3EeyXe5VBBNZ50w"/>
+  <associations xmi:id="_OHTsMgT4EeyXe5VBBNZ50w" name="Airport_Airplane" ends="_OHTsMAT4EeyXe5VBBNZ50w _OHTsMQT4EeyXe5VBBNZ50w"/>
+  <associations xmi:id="_ROgGogT4EeyXe5VBBNZ50w" name="Person_Airplane" ends="_ROgGoAT4EeyXe5VBBNZ50w _ROgGoQT4EeyXe5VBBNZ50w"/>
+  <associations xmi:id="_UZol4gT4EeyXe5VBBNZ50w" name="Airport_Root" ends="_UZol4AT4EeyXe5VBBNZ50w _UZol4QT4EeyXe5VBBNZ50w"/>
+  <associations xmi:id="_U5vCQgT4EeyXe5VBBNZ50w" name="Airplane_Root" ends="_U5vCQAT4EeyXe5VBBNZ50w _U5vCQQT4EeyXe5VBBNZ50w"/>
+  <associations xmi:id="_V9JAAgT4EeyXe5VBBNZ50w" name="Person_Root" ends="_V9JAAAT4EeyXe5VBBNZ50w _V9JAAQT4EeyXe5VBBNZ50w"/>
+  <associations xmi:id="_a2gZUgUREeyiLK_SfenzPQ" name="City_Airport" ends="_a2gZUAUREeyiLK_SfenzPQ _a2gZUQUREeyiLK_SfenzPQ"/>
+  <associations xmi:id="_bzg0IgUREeyiLK_SfenzPQ" name="City_Root" ends="_bzg0IAUREeyiLK_SfenzPQ _bzg0IQUREeyiLK_SfenzPQ"/>
+  <layout xmi:id="_-EtLSwT3EeyXe5VBBNZ50w">
+    <containers xmi:id="_-EtLTAT3EeyXe5VBBNZ50w" key="_-EtLQAT3EeyXe5VBBNZ50w">
+      <value xmi:id="_-ZS7MAT3EeyXe5VBBNZ50w" key="_-ZSUIAT3EeyXe5VBBNZ50w">
+        <value xmi:id="_-ZS7MQT3EeyXe5VBBNZ50w" x="816.0" y="150.0"/>
+      </value>
+      <value xmi:id="_AHOcoAT4EeyXe5VBBNZ50w" key="_AHN1kAT4EeyXe5VBBNZ50w">
+        <value xmi:id="_AHOcoQT4EeyXe5VBBNZ50w" x="772.0" y="313.00006"/>
+      </value>
+      <value xmi:id="_DO9CkAT4EeyXe5VBBNZ50w" key="_DO8bgAT4EeyXe5VBBNZ50w">
+        <value xmi:id="_DO9CkQT4EeyXe5VBBNZ50w" x="1158.5001" y="328.002"/>
+      </value>
+      <value xmi:id="_F_VfgAT4EeyXe5VBBNZ50w" key="_F_U4cAT4EeyXe5VBBNZ50w">
+        <value xmi:id="_F_VfgQT4EeyXe5VBBNZ50w" x="1158.5001" y="591.0002"/>
+      </value>
+      <value xmi:id="_HVy8IAT4EeyXe5VBBNZ50w" key="_HVyVEAT4EeyXe5VBBNZ50w">
+        <value xmi:id="_HVy8IQT4EeyXe5VBBNZ50w" x="957.0001" y="717.0"/>
+      </value>
+      <value xmi:id="_JChjsAT4EeyXe5VBBNZ50w" key="_JCgVkAT4EeyXe5VBBNZ50w">
+        <value xmi:id="_JChjsQT4EeyXe5VBBNZ50w" x="1272.0004" y="717.0"/>
+      </value>
+      <value xmi:id="_YvQY8AUREeyiLK_SfenzPQ" key="_YvN8sAUREeyiLK_SfenzPQ">
+        <value xmi:id="_YvQY8QUREeyiLK_SfenzPQ" x="365.00003" y="341.002"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
