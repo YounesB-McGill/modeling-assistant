@@ -822,7 +822,7 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyAirplaneAssociationEnd, instructorMyAirplaneAssociationEnd, 0, 1, false);
   }
-//--------
+
   /**
    * Test to check incorrect multiplicity.
    */
@@ -1171,6 +1171,631 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1,studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyAirplaneAssociationEnd, instructorMyAirplaneAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should not be static.
+   */
+  @Test
+  public void testMistakeNotStaticMyAirplaneRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_staticMyAirplaneRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplane", instructorRootClass);
+    var studentMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplane", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_NOT_BE_STATIC , studentMyAirplaneAssociationEnd, instructorMyAirplaneAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should not be static.
+   */
+  @Test
+  public void testMistakeNotStaticMyAirportRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_staticMyAirportRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyAirportAssociationEnd = getAssociationEndFromClass("myAirport", instructorRootClass);
+    var studentMyAirportsAssociationEnd = getAssociationEndFromClass("myAirport", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_NOT_BE_STATIC, studentMyAirportsAssociationEnd, instructorMyAirportAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should not be static.
+   */
+  @Test
+  public void testMistakeNotStaticMyCityRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_staticMyCityRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyCityAssociationEnd = getAssociationEndFromClass("myCity", instructorRootClass);
+    var studentCityAssociationEnd = getAssociationEndFromClass("myCity", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_NOT_BE_STATIC, studentCityAssociationEnd, instructorMyCityAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should not be static.
+   */
+  @Test
+  public void testMistakeNotStaticMyPersonRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_staticMyPersonRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyPersonAssociationEnd = getAssociationEndFromClass("myPerson", instructorRootClass);
+    var studentPersonAssociationEnd = getAssociationEndFromClass("myPerson", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_NOT_BE_STATIC, studentPersonAssociationEnd, instructorMyPersonAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should not be static.
+   */
+  @Test
+  public void testMistakeNotStaticMyAirplaneRoleNameInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_staticMyAirplanesAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+    var instructorMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplanes", instructorAirportClass);
+    var studentMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplanes", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_NOT_BE_STATIC, studentMyAirplaneAssociationEnd, instructorMyAirplaneAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should not be static.
+   */
+  @Test
+  public void testMistakeNotStaticMyCityRoleNameInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_staticMyCityAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+    var instructormyCityAssociationEnd = getAssociationEndFromClass("myCity", instructorAirportClass);
+    var studentmyCityAssociationEnd = getAssociationEndFromClass("myCity", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_NOT_BE_STATIC, studentmyCityAssociationEnd, instructormyCityAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should not be static.
+   */
+  @Test
+  public void testMistakeNotStaticMyRootRoleNameInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_staticMyRootAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+    var instructorMyRootAssociationEnd = getAssociationEndFromClass("myRoot", instructorAirportClass);
+    var studentMyRootAssociationEnd = getAssociationEndFromClass("myRoot", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_NOT_BE_STATIC, studentMyRootAssociationEnd, instructorMyRootAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should not be static.
+   */
+  @Test
+  public void testMistakeNotStaticMyAirportRoleNameInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_staticMyAirportsAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+    var instructorMyAirportAssociationEnd = getAssociationEndFromClass("myAirports", instructorAirplaneClass);
+    var studentMyAirportAssociationEnd = getAssociationEndFromClass("myAirports", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_NOT_BE_STATIC, studentMyAirportAssociationEnd, instructorMyAirportAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should not be static.
+   */
+  @Test
+  public void testMistakeNotStaticMyPeronRoleNameInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_staticMyPersonsAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+    var instructorMyPersonAssociationEnd = getAssociationEndFromClass("myPersons", instructorAirplaneClass);
+    var studentMyPersonAssociationEnd = getAssociationEndFromClass("myPersons", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_NOT_BE_STATIC, studentMyPersonAssociationEnd, instructorMyPersonAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should not be static.
+   */
+  @Test
+  public void testMistakeNotStaticMyRootRoleNameInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_staticMyRootAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+    var instructorMyRootAssociationEnd = getAssociationEndFromClass("myRoot", instructorAirplaneClass);
+    var studentMyRootAssociationEnd = getAssociationEndFromClass("myRoot", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_NOT_BE_STATIC, studentMyRootAssociationEnd, instructorMyRootAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should not be static.
+   */
+  @Test
+  public void testMistakeNotStaticMyAirportRoleNameInCity() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_staticMyAirportsCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+    var studentCityClass = getClassFromClassDiagram("City", studentClassDiagram);
+    var instructorMyAirportAssociationEnd = getAssociationEndFromClass("myAirports", instructorCityClass);
+    var studentMyAirportAssociationEnd = getAssociationEndFromClass("myAirports", studentCityClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_NOT_BE_STATIC, studentMyAirportAssociationEnd, instructorMyAirportAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should not be static.
+   */
+  @Test
+  public void testMistakeNotStaticMyRootRoleNameInCity() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_staticMyRootCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+    var studentCityClass = getClassFromClassDiagram("City", studentClassDiagram);
+    var instructorMyRootAssociationEnd = getAssociationEndFromClass("myRoot", instructorCityClass);
+    var studentMyRootAssociationEnd = getAssociationEndFromClass("myRoot", studentCityClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_NOT_BE_STATIC, studentMyRootAssociationEnd, instructorMyRootAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should be static.
+   */
+  @Test
+  public void testMistakeStaticMyAirplaneRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_AirportSystem_staticRoleNames/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_notStaticMyAirplaneRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplane", instructorRootClass);
+    var studentMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplane", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC , studentMyAirplaneAssociationEnd, instructorMyAirplaneAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should be static.
+   */
+  @Test
+  public void testMistakeStaticMyAirportRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_AirportSystem_staticRoleNames/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_notStaticMyAirportRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyAirportAssociationEnd = getAssociationEndFromClass("myAirport", instructorRootClass);
+    var studentMyAirportsAssociationEnd = getAssociationEndFromClass("myAirport", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC, studentMyAirportsAssociationEnd, instructorMyAirportAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should be static.
+   */
+  @Test
+  public void testMistakeStaticMyCityRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_AirportSystem_staticRoleNames/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_notStaticMyCityRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyCityAssociationEnd = getAssociationEndFromClass("myCity", instructorRootClass);
+    var studentCityAssociationEnd = getAssociationEndFromClass("myCity", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC, studentCityAssociationEnd, instructorMyCityAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should be static.
+   */
+  @Test
+  public void testMistakeStaticMyPersonRoleNameInRoot() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_AirportSystem_staticRoleNames/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_notStaticMyPersonRoot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var instructorMyPersonAssociationEnd = getAssociationEndFromClass("myPerson", instructorRootClass);
+    var studentPersonAssociationEnd = getAssociationEndFromClass("myPerson", studentRootClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC, studentPersonAssociationEnd, instructorMyPersonAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should be static.
+   */
+  @Test
+  public void testMistakeStaticMyAirplaneRoleNameInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_AirportSystem_staticRoleNames/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_notStaticMyAirplanesAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+    var instructorMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplanes", instructorAirportClass);
+    var studentMyAirplaneAssociationEnd = getAssociationEndFromClass("myAirplanes", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC, studentMyAirplaneAssociationEnd, instructorMyAirplaneAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should be static.
+   */
+  @Test
+  public void testMistakeStaticMyCityRoleNameInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_AirportSystem_staticRoleNames/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_notStaticMyCityAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+    var instructormyCityAssociationEnd = getAssociationEndFromClass("myCity", instructorAirportClass);
+    var studentmyCityAssociationEnd = getAssociationEndFromClass("myCity", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC, studentmyCityAssociationEnd, instructormyCityAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should be static.
+   */
+  @Test
+  public void testMistakeStaticMyRootRoleNameInAirport() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_AirportSystem_staticRoleNames/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_notStaticMyRootAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var studentAirportClass = getClassFromClassDiagram("Airport", studentClassDiagram);
+    var instructorMyRootAssociationEnd = getAssociationEndFromClass("myRoot", instructorAirportClass);
+    var studentMyRootAssociationEnd = getAssociationEndFromClass("myRoot", studentAirportClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC, studentMyRootAssociationEnd, instructorMyRootAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should be static.
+   */
+  @Test
+  public void testMistakeStaticMyAirportRoleNameInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_AirportSystem_staticRoleNames/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_notStaticMyAirportsAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+    var instructorMyAirportAssociationEnd = getAssociationEndFromClass("myAirports", instructorAirplaneClass);
+    var studentMyAirportAssociationEnd = getAssociationEndFromClass("myAirports", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC, studentMyAirportAssociationEnd, instructorMyAirportAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should be static.
+   */
+  @Test
+  public void testMistakeStaticMyPeronRoleNameInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_AirportSystem_staticRoleNames/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_notStaticMyPersonsAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+    var instructorMyPersonAssociationEnd = getAssociationEndFromClass("myPersons", instructorAirplaneClass);
+    var studentMyPersonAssociationEnd = getAssociationEndFromClass("myPersons", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC, studentMyPersonAssociationEnd, instructorMyPersonAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should be static.
+   */
+  @Test
+  public void testMistakeStaticMyRootRoleNameInAirplane() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_AirportSystem_staticRoleNames/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_notStaticMyRootAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var studentAirplaneClass = getClassFromClassDiagram("Airplane", studentClassDiagram);
+    var instructorMyRootAssociationEnd = getAssociationEndFromClass("myRoot", instructorAirplaneClass);
+    var studentMyRootAssociationEnd = getAssociationEndFromClass("myRoot", studentAirplaneClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC, studentMyRootAssociationEnd, instructorMyRootAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should be static.
+   */
+  @Test
+  public void testMistakeStaticMyAirportRoleNameInCity() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_AirportSystem_staticRoleNames/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_notStaticMyAirportsCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+    var studentCityClass = getClassFromClassDiagram("City", studentClassDiagram);
+    var instructorMyAirportAssociationEnd = getAssociationEndFromClass("myAirports", instructorCityClass);
+    var studentMyAirportAssociationEnd = getAssociationEndFromClass("myAirports", studentCityClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC, studentMyAirportAssociationEnd, instructorMyAirportAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should be static.
+   */
+  @Test
+  public void testMistakeStaticMyRootRoleNameInCity() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_AirportSystem_staticRoleNames/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_notStaticMyRootCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+    var studentCityClass = getClassFromClassDiagram("City", studentClassDiagram);
+    var instructorMyRootAssociationEnd = getAssociationEndFromClass("myRoot", instructorCityClass);
+    var studentMyRootAssociationEnd = getAssociationEndFromClass("myRoot", studentCityClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC, studentMyRootAssociationEnd, instructorMyRootAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check role name should be static.
+   */
+  @Test
+  public void testMistakeNotStaticMyRootRoleNameInPerson() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_AirportSystem_staticRoleNames/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_notStaticMyRootPerson/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+    var studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
+    var instructorMyRootAssociationEnd = getAssociationEndFromClass("myRoot", instructorPersonClass);
+    var studentMyRooteAssociationEnd = getAssociationEndFromClass("myRoot", studentPersonClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    assertEquals(1,comparison.newMistakes.size());
+    assertEquals(1,studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC, studentMyRooteAssociationEnd, instructorMyRootAssociationEnd, 0, 1, false);
   }
 
   /**
