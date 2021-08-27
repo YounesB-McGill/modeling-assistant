@@ -1886,6 +1886,241 @@ public class MistakeDetectionWrongRelationshipsTest {
   }
 
   /**
+   * Test to check Missing Root Airplane composition.
+   */
+  @Test
+  public void testMistakeMissingRootAirplaneComposition() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_missingCompositionRootAirplane/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+
+    var instructorRootToAirplaneAssociation = getAssociationsFromClassDiagram(instructorRootClass, instructorAirplaneClass, instructorClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_COMPOSITION, instructorRootToAirplaneAssociation.get(0), 0, 1, false);
+  }
+
+  /**
+   * Test to check Missing Root Airport composition.
+   */
+  @Test
+  public void testMistakeMissingRootAirportComposition() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_missingCompositionRootAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+
+    var instructorRootToAirportAssociation = getAssociationsFromClassDiagram(instructorRootClass, instructorAirportClass, instructorClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_COMPOSITION, instructorRootToAirportAssociation.get(0), 0, 1, false);
+  }
+
+  /**
+   * Test to check Missing Root City composition.
+   */
+  @Test
+  public void testMistakeMissingRootCityComposition() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_missingCompositionRootCity/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+
+    var instructorRootToCityAssociation = getAssociationsFromClassDiagram(instructorRootClass, instructorCityClass, instructorClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_COMPOSITION, instructorRootToCityAssociation.get(0), 0, 1, false);
+  }
+
+  /**
+   * Test to check Missing Root Person composition.
+   */
+  @Test
+  public void testMistakeMissingRootPersonComposition() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_missingCompositionRootPerson/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+    var instructorPeopleClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+
+    var instructorRootToPeopleAssociation = getAssociationsFromClassDiagram(instructorRootClass, instructorPeopleClass, instructorClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_COMPOSITION, instructorRootToPeopleAssociation.get(0), 0, 1, false);
+  }
+
+  /**
+   * Test to check extra Root Passenger composition.
+   */
+  @Test
+  public void testMistakeMissingRootPassengerComposition() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_extraCompositionRootPassenger/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var studentPassengerClass = getClassFromClassDiagram("Passenger", studentClassDiagram);
+
+    var studentRootToPassengerAssociation = getAssociationsFromClassDiagram(studentRootClass, studentPassengerClass, studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ASSOCIATION, studentRootToPassengerAssociation.get(0), 0, 1, false);
+  }
+
+  /**
+   * Test to check extra Root Pilot composition.
+   */
+  @Test
+  public void testMistakeMissingRootPilotComposition() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_extraCompositionRootPilot/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+    var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
+
+    var studentRootToPilotAssociation = getAssociationsFromClassDiagram(studentRootClass, studentPilotClass, studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ASSOCIATION, studentRootToPilotAssociation.get(0), 0, 1, false);
+  }
+
+
+  /**
+   * Test to check Missing Airplane Airport association.
+   */
+  @Test
+  public void testMistakeMissingAirplaneAirportAssociation() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_missingAssociationAirplaneAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+
+    var instructorAirportToAirplaneAssociation = getAssociationsFromClassDiagram(instructorAirplaneClass, instructorAirportClass, instructorClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOCIATION, instructorAirportToAirplaneAssociation.get(0), 0, 1, false);
+  }
+
+  /**
+   * Test to check Missing Airplane Person association.
+   */
+  @Test
+  public void testMistakeMissingAirplanePersonAssociation() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_missingAssociationAirplanePerson/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
+    var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
+
+    var instructorPersonToAirplaneAssociation = getAssociationsFromClassDiagram(instructorAirplaneClass, instructorPersonClass, instructorClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOCIATION, instructorPersonToAirplaneAssociation.get(0), 0, 1, false);
+  }
+
+  /**
+   * Test to check Missing Airport City association.
+   */
+  @Test
+  public void testMistakeMissingAirportCityAssociation() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_AirportSystem_missingAssociationCityAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
+    var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
+
+    var instructorCityToAirportAssociation = getAssociationsFromClassDiagram(instructorAirportClass, instructorCityClass, instructorClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOCIATION, instructorCityToAirportAssociation.get(0), 0, 1, false);
+  }
+
+  /**
    * Test to check Missing composition.
    */
   @Test

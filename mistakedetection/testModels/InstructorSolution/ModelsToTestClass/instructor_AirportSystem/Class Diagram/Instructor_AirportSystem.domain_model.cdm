@@ -47,8 +47,8 @@
   <associations xmi:id="_hSkHggT1EeyRPZEQDLn0Gg" name="City_Root" ends="_hSkHgAT1EeyRPZEQDLn0Gg _hSkHgQT1EeyRPZEQDLn0Gg"/>
   <associations xmi:id="_ibFOwgT1EeyRPZEQDLn0Gg" name="Airport_Root" ends="_ibFOwAT1EeyRPZEQDLn0Gg _ibFOwQT1EeyRPZEQDLn0Gg"/>
   <associations xmi:id="_jaA8MgT1EeyRPZEQDLn0Gg" name="Airplane_Root" ends="_jaA8MAT1EeyRPZEQDLn0Gg _jaA8MQT1EeyRPZEQDLn0Gg"/>
-  <associations xmi:id="_kJYjogT1EeyRPZEQDLn0Gg" name="People_Airplane" ends="_kJYjoAT1EeyRPZEQDLn0Gg _kJYjoQT1EeyRPZEQDLn0Gg"/>
-  <associations xmi:id="_lBqPcgT1EeyRPZEQDLn0Gg" name="People_Root" ends="_lBqPcAT1EeyRPZEQDLn0Gg _lBqPcQT1EeyRPZEQDLn0Gg"/>
+  <associations xmi:id="_kJYjogT1EeyRPZEQDLn0Gg" name="Person_Airplane" ends="_kJYjoAT1EeyRPZEQDLn0Gg _kJYjoQT1EeyRPZEQDLn0Gg"/>
+  <associations xmi:id="_lBqPcgT1EeyRPZEQDLn0Gg" name="Person_Root" ends="_lBqPcAT1EeyRPZEQDLn0Gg _lBqPcQT1EeyRPZEQDLn0Gg"/>
   <associations xmi:id="_oRUpYgT1EeyRPZEQDLn0Gg" name="Airport_Airplane" ends="_oRUpYAT1EeyRPZEQDLn0Gg _oRUpYQT1EeyRPZEQDLn0Gg"/>
   <associations xmi:id="_osBBUQT1EeyRPZEQDLn0Gg" name="City_Airport" ends="_osAaQAT1EeyRPZEQDLn0Gg _osBBUAT1EeyRPZEQDLn0Gg"/>
   <layout xmi:id="_H3YGmwT1EeyRPZEQDLn0Gg">
