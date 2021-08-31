@@ -56,7 +56,6 @@
         eType="#//ProblemStatement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feedbackItems" upperBound="-1"
         eType="#//FeedbackItem" containment="true" eOpposite="#//FeedbackItem/solution"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="currentMistake" eType="#//Mistake"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SolutionElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="problemStatementElements"

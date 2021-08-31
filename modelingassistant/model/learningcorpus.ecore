@@ -49,7 +49,7 @@
         eType="#//LearningItem" eOpposite="#//LearningItem/learningResources"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resourceResponses" upperBound="-1"
         eType="#//ResourceResponse" eOpposite="#//ResourceResponse/learningResources"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="learningCorpus" lowerBound="1"
         eType="#//LearningCorpus" eOpposite="#//LearningCorpus/learningResources"/>
   </eClassifiers>
