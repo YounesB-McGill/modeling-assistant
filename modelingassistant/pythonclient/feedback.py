@@ -38,7 +38,7 @@ def give_feedback(student_solution: Solution) -> Union[FeedbackItem, list[Feedba
     result: list[FeedbackItem] = []
 
     for m in highest_priority_mistakes:
-        student_solution.currentMistake = m
+        #student_solution.currentMistake = m  # TODO
         result.append(next_feedback(m))
         if student_knowledge_for(m).levelOfKnowledge < BEGINNER_LEVEL_OF_KNOWLEDGE:
             break
