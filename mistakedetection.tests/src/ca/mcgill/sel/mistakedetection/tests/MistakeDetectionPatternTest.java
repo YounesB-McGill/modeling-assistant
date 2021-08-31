@@ -30,6 +30,7 @@ import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClas
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getElementsFromClassDiagram;
+import static modelingassistant.util.ClassDiagramUtils.getEnumFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static modelingassistant.util.TagUtils.setPlayerTagToClassInClassDiag;
 import static modelingassistant.util.TagUtils.setRoleTagToAssocEndInClass;
@@ -287,7 +288,7 @@ public class MistakeDetectionPatternTest {
 
     var studElements = new BasicEList<NamedElement>();
     studElements.add(studStudentClass);
-    studElements.addAll(MistakeDetection.getEnumFromClassDiagram("StudentLevel", studentClassDiagram).getLiterals());
+    studElements.addAll(getEnumFromClassDiagram("StudentLevel", studentClassDiagram).getLiterals());
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -425,7 +426,7 @@ public class MistakeDetectionPatternTest {
 
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studStudentClass);
-    studElements.addAll(MistakeDetection.getEnumFromClassDiagram("StudentLevel", studentClassDiagram).getLiterals());
+    studElements.addAll(getEnumFromClassDiagram("StudentLevel", studentClassDiagram).getLiterals());
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(7, comparison.newMistakes.size());
@@ -532,7 +533,7 @@ public class MistakeDetectionPatternTest {
 
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studStudentClass);
-    studElements.addAll(MistakeDetection.getEnumFromClassDiagram("StudentLevel", studentClassDiagram).getLiterals());
+    studElements.addAll(getEnumFromClassDiagram("StudentLevel", studentClassDiagram).getLiterals());
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(7, comparison.newMistakes.size());
@@ -849,7 +850,7 @@ public class MistakeDetectionPatternTest {
 
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studEmployeeClass);
-    CDEnum studEnum = MistakeDetection.getEnumFromClassDiagram("EmployeeStatus", studentClassDiagram);
+    CDEnum studEnum = getEnumFromClassDiagram("EmployeeStatus", studentClassDiagram);
     studElements.addAll(studEnum.getLiterals());
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
@@ -957,7 +958,7 @@ public class MistakeDetectionPatternTest {
 
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studEmployeeClass);
-    CDEnum studEnum = MistakeDetection.getEnumFromClassDiagram("EmployeeStatus", studentClassDiagram);
+    CDEnum studEnum = getEnumFromClassDiagram("EmployeeStatus", studentClassDiagram);
     studElements.addAll(studEnum.getLiterals());
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -1138,7 +1139,7 @@ public class MistakeDetectionPatternTest {
 
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studBankAccClass);
-    CDEnum studEnum = MistakeDetection.getEnumFromClassDiagram("AccountType", studentClassDiagram);
+    CDEnum studEnum = getEnumFromClassDiagram("AccountType", studentClassDiagram);
     studElements.addAll(studEnum.getLiterals());
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
@@ -1286,7 +1287,7 @@ public class MistakeDetectionPatternTest {
 
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studBankAccClass);
-    CDEnum studEnum = MistakeDetection.getEnumFromClassDiagram("AccountType", studentClassDiagram);
+    CDEnum studEnum = getEnumFromClassDiagram("AccountType", studentClassDiagram);
     studElements.addAll(studEnum.getLiterals());
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
@@ -1404,7 +1405,7 @@ public class MistakeDetectionPatternTest {
 
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studBankAccClass);
-    CDEnum studEnum = MistakeDetection.getEnumFromClassDiagram("AccountType", studentClassDiagram);
+    CDEnum studEnum = getEnumFromClassDiagram("AccountType", studentClassDiagram);
     studElements.addAll(studEnum.getLiterals());
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);

@@ -11,6 +11,8 @@ import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_NOT_BE_S
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_ENUM_ITEM_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_ENUM_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN;
@@ -54,6 +56,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.TagType.PLAYER;
 import static modelingassistant.TagType.ROLE;
+import static modelingassistant.util.ClassDiagramUtils.getEnumFromClassDiagram;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -257,6 +260,7 @@ public class MistakeDetection {
       comparison.mappedEnumeration.put(instEnum, studEnum);
       comparison.notMappedInstructorEnum.remove(instEnum);
       comparison.extraStudentEnum.remove(studEnum);
+      checkMistakeBadEnumNameSpelling(studEnum, instEnum).ifPresent(comparison.newMistakes::add);
 
       for (CDEnumLiteral instEnumLiteral : instEnum.getLiterals()) {
         for (CDEnumLiteral studEnumLiteral : studEnum.getLiterals()) {
@@ -265,18 +269,11 @@ public class MistakeDetection {
             comparison.mappedEnumerationItems.put(instEnumLiteral, studEnumLiteral);
             comparison.notMappedInstructorEnumLiterals.remove(instEnumLiteral);
             comparison.extraStudentEnumLiterals.remove(studEnumLiteral);
+            checkMistakeBadEnumLiteralSpelling(studEnumLiteral, instEnumLiteral).ifPresent(comparison.newMistakes::add);
           }
         }
       }
     });
-  }
-
-  /**
-   * Returns an enumeration from class diagram.
-   */
-  public static CDEnum getEnumFromClassDiagram(String name, ClassDiagram classDiagram) {
-    return (CDEnum) classDiagram.getTypes().stream()
-        .filter(type -> type instanceof CDEnum && type.getName().equals(name)).findFirst().orElse(null);
   }
 
   private static void checkMistakesInAttributes(Attribute studentAttribute, Attribute instructorAttribute,
@@ -1818,6 +1815,20 @@ public class MistakeDetection {
       AssociationEnd instructorClassAssocEnd) {
     if (spellingMistakeCheck(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName())) {
       return Optional.of(createMistake(BAD_ROLE_NAME_SPELLING, studentClassAssocEnd, instructorClassAssocEnd));
+    }
+    return Optional.empty();
+  }
+
+  public static Optional<Mistake> checkMistakeBadEnumNameSpelling(CDEnum studentEnum, CDEnum instructorEnum) {
+    if (spellingMistakeCheck(studentEnum.getName(), instructorEnum.getName())) {
+      return Optional.of(createMistake(BAD_ENUM_NAME_SPELLING, studentEnum, instructorEnum));
+    }
+    return Optional.empty();
+  }
+
+  public static Optional<Mistake> checkMistakeBadEnumLiteralSpelling(CDEnumLiteral studentEnumLiteral, CDEnumLiteral instructorEnumLiteral) {
+    if (spellingMistakeCheck(studentEnumLiteral.getName(), instructorEnumLiteral.getName())) {
+      return Optional.of(createMistake(BAD_ENUM_ITEM_SPELLING, studentEnumLiteral, instructorEnumLiteral));
     }
     return Optional.empty();
   }

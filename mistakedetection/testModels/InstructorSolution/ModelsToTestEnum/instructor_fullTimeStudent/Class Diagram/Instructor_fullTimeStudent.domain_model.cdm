@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_1SjtAAqFEeywhZ4k6XWYZA" name="Instructor_fullTimeStudent">
+  <classes xsi:type="classdiagram:Class" xmi:id="_1tqUoAqFEeywhZ4k6XWYZA" name="Student">
+    <attributes xmi:id="_Gyo4kAqGEeywhZ4k6XWYZA" name="enrollmentType" type="_3L5NMAqFEeywhZ4k6XWYZA"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_1SjtAQqFEeywhZ4k6XWYZA"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_1SjtAgqFEeywhZ4k6XWYZA"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_1SjtAwqFEeywhZ4k6XWYZA"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_1SjtBAqFEeywhZ4k6XWYZA"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_1SjtBQqFEeywhZ4k6XWYZA"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_1SjtBgqFEeywhZ4k6XWYZA"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_1SjtBwqFEeywhZ4k6XWYZA"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_1SjtCAqFEeywhZ4k6XWYZA"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_1SjtCQqFEeywhZ4k6XWYZA"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_1SjtCgqFEeywhZ4k6XWYZA"/>
+  <types xsi:type="classdiagram:CDEnum" xmi:id="_3L5NMAqFEeywhZ4k6XWYZA" name="Enrollment">
+    <literals xmi:id="_84b5QAqFEeywhZ4k6XWYZA" name="FullTimeStudent"/>
+    <literals xmi:id="_9uORwAqFEeywhZ4k6XWYZA" name="PartTimeStudent"/>
+    <literals xmi:id="_BJXi8AqGEeywhZ4k6XWYZA" name="ExchangeStudent"/>
+    <literals xmi:id="_ETLMgAqGEeywhZ4k6XWYZA" name="GuestStudent"/>
+  </types>
+  <layout xmi:id="_1SjtCwqFEeywhZ4k6XWYZA">
+    <containers xmi:id="_1SjtDAqFEeywhZ4k6XWYZA" key="_1SjtAAqFEeywhZ4k6XWYZA">
+      <value xmi:id="_1vh84AqFEeywhZ4k6XWYZA" key="_1tqUoAqFEeywhZ4k6XWYZA">
+        <value xmi:id="_1vh84QqFEeywhZ4k6XWYZA" x="518.0" y="286.04208"/>
+      </value>
+      <value xmi:id="_3NVXoAqFEeywhZ4k6XWYZA" key="_3L5NMAqFEeywhZ4k6XWYZA">
+        <value xmi:id="_3NVXoQqFEeywhZ4k6XWYZA" x="926.99976" y="240.50009"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

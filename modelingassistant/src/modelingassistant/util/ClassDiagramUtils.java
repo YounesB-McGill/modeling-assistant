@@ -13,6 +13,8 @@ import ca.mcgill.sel.classdiagram.CDBoolean;
 import ca.mcgill.sel.classdiagram.CDByte;
 import ca.mcgill.sel.classdiagram.CDChar;
 import ca.mcgill.sel.classdiagram.CDDouble;
+import ca.mcgill.sel.classdiagram.CDEnum;
+import ca.mcgill.sel.classdiagram.CDEnumLiteral;
 import ca.mcgill.sel.classdiagram.CDFloat;
 import ca.mcgill.sel.classdiagram.CDInt;
 import ca.mcgill.sel.classdiagram.CDLong;
@@ -119,6 +121,22 @@ public class ClassDiagramUtils {
   private static boolean isCdType(NamedElement element) {
     return Stream.of(CDVoid.class, CDAny.class, CDBoolean.class, CDDouble.class, CDInt.class, CDLong.class,
         CDString.class, CDByte.class, CDFloat.class, CDChar.class).anyMatch(cdt -> cdt.isInstance(element));
+  }
+
+  /**
+   * Returns an enumeration from class diagram.
+   */
+  public static CDEnum getEnumFromClassDiagram(String name, ClassDiagram classDiagram) {
+    return (CDEnum) classDiagram.getTypes().stream()
+        .filter(type -> type instanceof CDEnum && type.getName().equals(name)).findFirst().orElse(null);
+  }
+
+  /**
+   * Returns an enumeration Literal from enumeration.
+   */
+  public static CDEnumLiteral getEnumLiteralFromEnum(String name, CDEnum Enum) {
+    return Enum.getLiterals().stream()
+        .filter(type -> type.getName().equals(name)).findFirst().orElse(null);
   }
 
 }
