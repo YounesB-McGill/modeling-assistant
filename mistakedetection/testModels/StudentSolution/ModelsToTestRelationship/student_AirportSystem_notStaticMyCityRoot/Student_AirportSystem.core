@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_9l1d8AT3EeyXe5VBBNZ50w" name="Student_AirportSystem" featureModel="_9l1d8QT3EeyXe5VBBNZ50w" impactModel="_9l1d8wT3EeyXe5VBBNZ50w">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_9l1d8QT3EeyXe5VBBNZ50w" root="_9l1d8gT3EeyXe5VBBNZ50w">
+    <features xmi:id="_9l1d8gT3EeyXe5VBBNZ50w" name="Student_AirportSystem" realizedBy="_-EgW8QT3EeyXe5VBBNZ50w"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_9l1d8wT3EeyXe5VBBNZ50w" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_-EgW8AT3EeyXe5VBBNZ50w" name="Student_AirportSystem" scene="_-EgW8QT3EeyXe5VBBNZ50w" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_AirportSystem.domain_model.cdm#_-EtLQAT3EeyXe5VBBNZ50w"/>
+  </artefacts>
+  <scenes xmi:id="_-EgW8QT3EeyXe5VBBNZ50w" name="Student_AirportSystem" realizes="_9l1d8gT3EeyXe5VBBNZ50w" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_-EgW8gT3EeyXe5VBBNZ50w" value="_-EgW8AT3EeyXe5VBBNZ50w" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

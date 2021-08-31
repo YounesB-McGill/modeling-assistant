@@ -37,6 +37,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_ROLE_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.REGULAR_CLASS_SHOULD_BE_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
@@ -47,6 +48,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.UPPERCASE_ATTRIBUTE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION;
@@ -285,6 +287,8 @@ public class MistakeDetection {
     checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     checkMistakeAttributeSpelling(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
+    checkMistakePluralAtribName(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
+    checkMistakeUppercaseAtribName(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
   }
 
   private static void checkMistakesInClassifier(Classifier studentClassifier, Classifier instructorClassifier,
@@ -1058,7 +1062,41 @@ public class MistakeDetection {
   /** Finds Mistakes in newly mapped elements */
   private static void checkMistakesAfterMapping(Comparison comparison) { // TO BE Discussed
     var newMistakes = comparison.newMistakes;
-
+    // TOOD work in progress(Location may be changed)
+    //To map attribute like ticketNo with TicketNumber
+    comparison.mappedClassifier.forEach((key, value) -> {
+      for (Attribute instAtrib : key.getAttributes()) {
+        for (Attribute studAtrib : value.getAttributes()) {
+          if (!comparison.mappedAttribute.containsKey(instAtrib)) {
+            if(studAtrib.getName().contains("ies")) { // TO deal with cases like companies and company
+              String name = studAtrib.getName();
+              name = name.replaceAll("ies", "y");
+              if(name.equals(instAtrib.getName())) {
+                comparison.mappedAttribute.put(instAtrib, studAtrib);
+                comparison.notMappedInstructorAttribute.remove(instAtrib);
+                comparison.extraStudentAttribute.remove(studAtrib);
+                checkMistakePluralAtribName(studAtrib, instAtrib).ifPresent(comparison.newMistakes::add);
+              }
+              break;
+            }
+            String[] atribNameSunStrings = studAtrib.getName().split("(?=\\p{Upper})");
+            for (String subString : atribNameSunStrings) {
+              if (instAtrib.getName().contains(subString)) {
+                comparison.mappedAttribute.put(instAtrib, studAtrib);
+                comparison.notMappedInstructorAttribute.remove(instAtrib);
+                comparison.extraStudentAttribute.remove(studAtrib);
+                if(isPlural(studAtrib.getName())) {
+                  comparison.newMistakes.add(createMistake(PLURAL_ATTRIBUTE, studAtrib, instAtrib));
+                }else {
+                comparison.newMistakes.add(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, studAtrib, instAtrib));
+                }
+                break;
+              }
+            }
+          }
+        }
+      }
+    });
     comparison.mappedClassifier.forEach((key, value) -> {
       // System.out.println(checkElementForMistake(newMistakes,value)+" value: "+ value+" Key: "+key);
       if (!checkStudentElementForMistake(newMistakes, value)) {
@@ -1408,7 +1446,7 @@ public class MistakeDetection {
         if (totalAttributes == 0) {
           continue;
         }
-        if (nearestMatchExists(possibleClassMatch)) {
+        if (!possibleClassMatch.isEmpty() && nearestMatchExists(possibleClassMatch)) {
           Classifier studentClassifier = getMatchedClassifier(possibleClassMatch, instructorClassifier);
           counter++;
           mapClasses(comparison, studentClassifier, instructorClassifier);
@@ -1643,6 +1681,20 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
+  public static Optional<Mistake> checkMistakePluralAtribName(Attribute studentAtrib, Attribute instructorAtrib) {
+    if (isPlural(studentAtrib.getName())) {
+      return Optional.of(createMistake(PLURAL_ATTRIBUTE, studentAtrib, instructorAtrib));
+    }
+    return Optional.empty();
+  }
+
+  public static Optional<Mistake> checkMistakeUppercaseAtribName(Attribute studentAtrib, Attribute instructorAtrib) {
+    if (isUppercase(studentAtrib.getName())) {
+      return Optional.of(createMistake(UPPERCASE_ATTRIBUTE_NAME, studentAtrib, instructorAtrib));
+    }
+    return Optional.empty();
+  }
+
   public static Optional<Mistake> checkMistakeClassSpelling(Classifier studentClass, Classifier instructorClass) {
     if (spellingMistakeCheck(studentClass.getName(), instructorClass.getName()) && !isPlural(studentClass.getName())
         && !isLowerName(studentClass.getName())) {
@@ -1671,7 +1723,7 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeAttributeSpelling(Attribute studentAttribute,
       Attribute instructorAttribute) {
-    if (spellingMistakeCheck(studentAttribute.getName().toLowerCase(), instructorAttribute.getName().toLowerCase())) {
+    if (!isPlural(studentAttribute.getName()) && spellingMistakeCheck(studentAttribute.getName().toLowerCase(), instructorAttribute.getName().toLowerCase())) {
       return Optional.of(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, studentAttribute, instructorAttribute));
     }
     return Optional.empty();
@@ -2052,7 +2104,7 @@ public class MistakeDetection {
    * Returns true if the input string is a software engineering term.
    */
   public static boolean isSoftwareEngineeringTerm(String s) {
-    final var softwareEnginneringTerms = List.of("data", "record", "table", "info", "class");
+    final var softwareEnginneringTerms = List.of("data", "record", "table", "info", "class", "bio", "information");
     for (var seTerm : softwareEnginneringTerms) {
       if (s.toLowerCase().contains(seTerm))
         return true;
@@ -2084,6 +2136,10 @@ public class MistakeDetection {
 
   public static boolean isLowerName(String name) {
     return name.toLowerCase() == name;
+  }
+
+  public static boolean isUppercase(String name) {
+    return Character.isUpperCase(name.charAt(0));
   }
 
   public static boolean attributeTypesMatch(Attribute studentAttribute, Attribute instructorAttribute) {
