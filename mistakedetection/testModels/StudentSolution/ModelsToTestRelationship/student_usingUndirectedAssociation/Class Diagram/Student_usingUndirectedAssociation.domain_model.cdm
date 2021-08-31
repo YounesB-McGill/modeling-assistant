@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_NzO6EOTBEeu_VuaFXnESgw" name="Student_usingUndirectedAssociation">
   <classes xsi:type="classdiagram:Class" xmi:id="_OL88EOTBEeu_VuaFXnESgw" name="Car">
-    <associationEnds xmi:id="_Pze6keTBEeu_VuaFXnESgw" name="myWheel" navigable="false" assoc="_PzfhoOTBEeu_VuaFXnESgw" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_Pze6keTBEeu_VuaFXnESgw" name="myWheel" assoc="_PzfhoOTBEeu_VuaFXnESgw" lowerBound="1" referenceType="Composition"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_OymsYOTBEeu_VuaFXnESgw" name="Wheel">
     <associationEnds xmi:id="_Pze6kOTBEeu_VuaFXnESgw" name="myCar" assoc="_PzfhoOTBEeu_VuaFXnESgw" lowerBound="1"/>

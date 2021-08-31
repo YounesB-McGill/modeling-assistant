@@ -79,7 +79,7 @@ public class MistakeDetectionEnumTest {
     var studentEnrollmentEnum = getEnumFromClassDiagram("Enrollment", studentClassDiagram);
 
     var instructorEnrollmentLiteral = getEnumLiteralFromEnum("FullTimeStudent", instructorEnrollmentEnum);
-    var studentEnrollmentLiteral= getEnumLiteralFromEnum("FulTimeStudent", studentEnrollmentEnum);
+    var studentEnrollmentLiteral = getEnumLiteralFromEnum("FulTimeStudent", studentEnrollmentEnum);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -106,7 +106,7 @@ public class MistakeDetectionEnumTest {
     var studentEnrollmentEnum = getEnumFromClassDiagram("Enrollment", studentClassDiagram);
 
     var instructorEnrollmentLiteral = getEnumLiteralFromEnum("PartTimeStudent", instructorEnrollmentEnum);
-    var studentEnrollmentLiteral= getEnumLiteralFromEnum("PartTimeStudant", studentEnrollmentEnum);
+    var studentEnrollmentLiteral = getEnumLiteralFromEnum("PartTimeStudant", studentEnrollmentEnum);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -133,7 +133,7 @@ public class MistakeDetectionEnumTest {
     var studentEnrollmentEnum = getEnumFromClassDiagram("Enrollment", studentClassDiagram);
 
     var instructorEnrollmentLiteral = getEnumLiteralFromEnum("GuestStudent", instructorEnrollmentEnum);
-    var studentEnrollmentLiteral= getEnumLiteralFromEnum("GustStudent", studentEnrollmentEnum);
+    var studentEnrollmentLiteral = getEnumLiteralFromEnum("GustStudent", studentEnrollmentEnum);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -160,7 +160,7 @@ public class MistakeDetectionEnumTest {
     var studentEnrollmentEnum = getEnumFromClassDiagram("Enrollment", studentClassDiagram);
 
     var instructorEnrollmentLiteral = getEnumLiteralFromEnum("ExchangeStudent", instructorEnrollmentEnum);
-    var studentEnrollmentLiteral= getEnumLiteralFromEnum("EchangeStudent", studentEnrollmentEnum);
+    var studentEnrollmentLiteral = getEnumLiteralFromEnum("EchangeStudent", studentEnrollmentEnum);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
