@@ -51,7 +51,7 @@ public class MistakeDetectionWrongClassTest {
    */
   @Test
   public void testVerbs() {
-    String[] verbs = {"Walked" , "Ran", "eats"};
+    String[] verbs = {"Walked" , "Ran", "eats", "Jumped", "Danced"};
     for(String verb : verbs) {
     assertTrue(MistakeDetection.isVerb(verb));
     }
