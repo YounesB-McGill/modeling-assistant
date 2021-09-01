@@ -17,13 +17,12 @@ import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.UPPERCASE_ATTRIBUTE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
+import static modelingassistant.util.ClassDiagramUtils.getAttributeFromDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import ca.mcgill.sel.classdiagram.Attribute;
-import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import modelingassistant.Mistake;
 
@@ -53,31 +52,23 @@ public class MistakeDetectionWrongAttributeTest {
    */
   @Test
   public void testAttributeWrongSpelling() {
-    var instructorClassDiagram = cdmFromFile(
+    var instructorCdm = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/Class Diagram/Two(withAttributes).domain_model.cdm");
-    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorCdm);
 
-    var studentClassDiagram = cdmFromFile(
+    var studentCdm = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/three(withAttributes)/Class Diagram/Three(withAttributes).domain_model.cdm");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    var studentSolution = studentSolutionFromClassDiagram(studentCdm);
 
-    Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
-    Classifier instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
-    Classifier instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+    var instructorBusClassAttributeCapacity = getAttributeFromDiagram("Bus", "capacity", instructorCdm);
+    var instructorBusClassAttributeNumberPlate = getAttributeFromDiagram("Bus", "numberPlate", instructorCdm);
+    var instructorDriverClassAttributeName = getAttributeFromDiagram("Driver", "name", instructorCdm);
+    var instructorPassengerClassAttributeName = getAttributeFromDiagram("Passenger", "name", instructorCdm);
 
-    Attribute instructorBusClassAttributeCapacity = getAttributeFromClass("capacity", instructorBusClass);
-    Attribute instructorBusClassAttributeNumberPlate = getAttributeFromClass("numberPlate", instructorBusClass);
-    Attribute instructorDriverClassAttributeName = getAttributeFromClass("name", instructorDriverClass);
-    Attribute instructorPassengerClassAttributeName = getAttributeFromClass("name", instructorPassengerClass);
-
-    Classifier studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
-    Classifier studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
-    Classifier studentPassengerClass = getClassFromClassDiagram("Passenger", studentClassDiagram);
-
-    Attribute studentBusClassAttributeCapacty = getAttributeFromClass("capacty", studentBusClass);
-    Attribute studentBusClassAttributeNamberPlate = getAttributeFromClass("namberPlate", studentBusClass);
-    Attribute studentDriverClassAttributeNme = getAttributeFromClass("nme", studentDriverClass);
-    Attribute studentPassengerClassAttributeNam = getAttributeFromClass("nam", studentPassengerClass);
+    var studentBusClassAttributeCapacty = getAttributeFromDiagram("Bus", "capacty", studentCdm);
+    var studentBusClassAttributeNamberPlate = getAttributeFromDiagram("Bus", "namberPlate", studentCdm);
+    var studentDriverClassAttributeNme = getAttributeFromDiagram("Driver", "nme", studentCdm);
+    var studentPassengerClassAttributeNam = getAttributeFromDiagram("Passenger", "nam", studentCdm);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -187,9 +178,7 @@ public class MistakeDetectionWrongAttributeTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_attributeMissingCodeAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
-
-    var instructorCodeAttribute = getAttributeFromClass("code", instructorAirportClass);
+    var instructorCodeAttribute = getAttributeFromDiagram("Airport", "code", instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -1595,27 +1584,18 @@ public class MistakeDetectionWrongAttributeTest {
    */
   @Test
   public void testMistakeSpellingAttributeInPilot() {
-    var instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
-    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+    var instructorSol = instructorSolutionFromClassDiagram(cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm"));
 
-    var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_wrongAtribNamePilot/Class Diagram/Student_AirportSystem.domain_model.cdm");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    var studentSol = studentSolutionFromClassDiagram(cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_wrongAtribNamePilot/Class Diagram/Student_AirportSystem.domain_model.cdm"));
 
-    var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
-    var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
-
-    var instructorNameAttribute = getAttributeFromClass("name", instructorPilotClass);
-    var studentNamAttribute = getAttributeFromClass("nam", studentPilotClass);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSol, studentSol);
 
     assertEquals(1, comparison.newMistakes.size());
-    assertEquals(1, studentSolution.getMistakes().size());
+    assertEquals(1, studentSol.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), BAD_ATTRIBUTE_NAME_SPELLING, studentNamAttribute,
-        instructorNameAttribute, 0, 1, false);
+    assertMistake(instructorSol, studentSol, 0, BAD_ATTRIBUTE_NAME_SPELLING, "Pilot", "name", "nam", 0, 1, false);
   }
 
   /**
@@ -1623,27 +1603,19 @@ public class MistakeDetectionWrongAttributeTest {
    */
   @Test
   public void testMistakeSpellingAttributeInPassenger() {
-    var instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
-    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+    var instructorSolution = instructorSolutionFromClassDiagram(cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm"));
 
-    var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_wrongAtribTicketNoPassenger/Class Diagram/Student_AirportSystem.domain_model.cdm");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
-    var studentPassengerClass = getClassFromClassDiagram("Passenger", studentClassDiagram);
-
-    var instructorTicketNoAttribute = getAttributeFromClass("ticketNo", instructorPassengerClass);
-    var studentTicketNumberAttribute = getAttributeFromClass("ticketNumber", studentPassengerClass);
+    var studentSolution = studentSolutionFromClassDiagram(cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_wrongAtribTicketNoPassenger/Class Diagram/Student_AirportSystem.domain_model.cdm"));
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), BAD_ATTRIBUTE_NAME_SPELLING, studentTicketNumberAttribute,
-        instructorTicketNoAttribute, 0, 1, false);
+    assertMistake(instructorSolution, studentSolution, 0, BAD_ATTRIBUTE_NAME_SPELLING, "Passenger", "ticketNo",
+        "ticketNumber", 0, 1, false);
   }
 
   /**

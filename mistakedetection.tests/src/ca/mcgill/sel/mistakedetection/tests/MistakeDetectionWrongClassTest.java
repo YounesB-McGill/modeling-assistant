@@ -143,26 +143,21 @@ public class MistakeDetectionWrongClassTest {
   /**
    * Test to check Wrong Airport class name mistake.
    */
-  @Test
-  public void testWrongAirportClassName() {
-    var instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm");
-    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+@Test
+public void testWrongAirportClassName() {
+  var instructorSol = instructorSolutionFromClassDiagram(cdmFromFile(
+      "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm"));
 
-    var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_badClassNameAirport/Class Diagram/Student_AirportSystem.domain_model.cdm");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+  var studentSol = studentSolutionFromClassDiagram(cdmFromFile(
+      "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_badClassNameAirport/Class Diagram/Student_AirportSystem.domain_model.cdm"));
 
-    Classifier instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
-    Classifier studentAirpoortClass = getClassFromClassDiagram("Airpoort", studentClassDiagram);
+  var comparison = MistakeDetection.compare(instructorSol, studentSol);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+  assertEquals(comparison.newMistakes.size(), 1);
+  assertEquals(studentSol.getMistakes().size(), 1);
 
-    assertEquals(comparison.newMistakes.size(), 1);
-    assertEquals(studentSolution.getMistakes().size(), 1);
-    assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentAirpoortClass,
-        instructorAirportClass, 0, 1, false);
-  }
+  assertMistake(instructorSol, studentSol, 0, BAD_CLASS_NAME_SPELLING, "Airport", "Airpoort", 0, 1, false);
+}
 
   /**
    * Test to check Wrong Airplane class name mistake.

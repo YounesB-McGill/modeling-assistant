@@ -3,6 +3,7 @@ package ca.mcgill.sel.mistakedetection.tests;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
+import static modelingassistant.util.ClassDiagramUtils.getAttributeFromDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -521,6 +522,51 @@ public class MistakeDetectionTest {
       int numSinceResolved, int numDetections, boolean resolved) {
     assertMistakeLinks(mistake, mistakeType, elements);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
+  }
+
+  /**
+   * Asserts a wrong class name mistake.
+   *
+   * @param instructorSol
+   * @param studentSol
+   * @param mistakeIdx
+   * @param mistakeType
+   * @param instructorClsName
+   * @param studentClsName
+   * @param numSinceResolved
+   * @param numDetections
+   * @param resolved
+   */
+  public static void assertMistake(Solution instructorSol, Solution studentSol, int mistakeIdx, MistakeType mistakeType,
+      String instructorClsName, String studentClsName, int numSinceResolved, int numDetections, boolean resolved) {
+    assertMistake(studentSol.getMistakes().get(mistakeIdx), mistakeType,
+        getClassFromClassDiagram(studentClsName, studentSol.getClassDiagram()),
+        getClassFromClassDiagram(instructorClsName, instructorSol.getClassDiagram()),
+        numSinceResolved, numDetections, resolved);
+  }
+
+
+  /**
+   * Asserts an attribute mistake where the class name is the same.
+   *
+   * @param instructorSol
+   * @param studentSol
+   * @param mistakeIdx
+   * @param mistakeType
+   * @param commonClsName
+   * @param instructorAttrName
+   * @param studentAttrName
+   * @param numSinceResolved
+   * @param numDetections
+   * @param resolved
+   */
+  public static void assertMistake(Solution instructorSol, Solution studentSol, int mistakeIdx, MistakeType mistakeType,
+      String commonClsName, String instructorAttrName, String studentAttrName, int numSinceResolved,
+      int numDetections, boolean resolved) {
+    assertMistake(studentSol.getMistakes().get(mistakeIdx), mistakeType,
+        getAttributeFromDiagram(commonClsName, studentAttrName, studentSol.getClassDiagram()),
+        getAttributeFromDiagram(commonClsName, instructorAttrName, instructorSol.getClassDiagram()),
+        numSinceResolved, numDetections, resolved);
   }
 
   /**
