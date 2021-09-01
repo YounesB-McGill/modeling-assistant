@@ -41,6 +41,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.REGULAR_CLASS_SHOULD_BE_ENUM;
+import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_AN_ACTION_WITH_AN_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
@@ -128,6 +129,9 @@ public class MistakeDetection {
 
   /** Cache to map nouns to true if they are plural, false otherwise. */
   static Map<String, Boolean> nounPluralStatus = new HashMap<String, Boolean>();
+
+  /** Cache to map verbs to true if they are verb, false otherwise. */
+  static Map<String, Boolean> verbStatus = new HashMap<String, Boolean>();
 
   /** The Stanford NLP Maximum Entropy Part-of-Speech Tagger. */
   private static MaxentTagger maxentTagger = getMaxentTagger();
@@ -1052,6 +1056,7 @@ public class MistakeDetection {
     checkMistakeUsingCompositionInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeUsingDirectedInsteadOfUndirected(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeUsingUndirectedInsteadOfDirected(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeRepresentingActionWithAssoc(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeOtherWrongMultiplicity(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeMissingRoleName(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeRoleNameExpectedStactic(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
@@ -1806,6 +1811,15 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
+  public static Optional<Mistake> checkMistakeRepresentingActionWithAssoc(AssociationEnd studentClassAssocEnd,
+      AssociationEnd instructorClassAssocEnd) {
+    if (!isVerb(instructorClassAssocEnd.getName()) && isVerb(studentClassAssocEnd.getName())) {
+      return Optional.of(createMistake(REPRESENTING_AN_ACTION_WITH_AN_ASSOCIATION, studentClassAssocEnd,
+          instructorClassAssocEnd));
+    }
+    return Optional.empty();
+  }
+
   public static Optional<Mistake> checkMistakeOtherWrongMultiplicity(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (!associationEndMultiplicityMatch(studentClassAssocEnd, instructorClassAssocEnd)) {
@@ -2108,9 +2122,7 @@ public class MistakeDetection {
     if (nounPluralStatus.containsKey(s)) {
       return nounPluralStatus.get(s);
     } else {
-      String taggerInput = s;
-      taggerInput = taggerInput.toLowerCase(); // Tagger works on lower case string
-      String tagged = maxentTagger.tagString(taggerInput);
+      String tagged = taggerOut(s);
       String[] str = tagged.split("(_|/)");
       String pluralTag = "NNS";
       if (str[1].contains(pluralTag)) {
@@ -2119,6 +2131,33 @@ public class MistakeDetection {
       nounPluralStatus.put(s, isPlural);
     }
     return isPlural;
+  }
+
+  /**
+   * Returns true if the input string is plural.
+   */
+  public static boolean isVerb(String s) {
+    boolean isVerb = false;
+
+    if (verbStatus.containsKey(s)) {
+      return verbStatus.get(s);
+    } else {
+      String tagged = taggerOut(s);
+      String[] str = tagged.split("(_|/)");
+      char verbTag = 'V';
+      if (str[1].charAt(0) == verbTag) {
+        isVerb = true;
+      }
+      verbStatus.put(s, isVerb);
+    }
+    return isVerb;
+  }
+
+  public static String taggerOut(String s) {
+    String taggerInput = s;
+    taggerInput = taggerInput.toLowerCase(); // Tagger works on lower case string
+    String tagged = maxentTagger.tagString(taggerInput);
+    return tagged;
   }
 
   public static boolean isLowerName(String name) {

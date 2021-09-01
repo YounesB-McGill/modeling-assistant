@@ -34,7 +34,7 @@ public class MistakeDetectionTest {
   private static final ModelingassistantFactory maf = ModelingassistantFactory.eINSTANCE;
 
   /**
-   * Test to check if all the classes exist in Instructor solution are loaded in cdmFile
+   * Test to check if all the classes exist in Instructor solution are loaded in cdmFile.
    */
   @Test
   public void testLoadingInstructorSolution() {

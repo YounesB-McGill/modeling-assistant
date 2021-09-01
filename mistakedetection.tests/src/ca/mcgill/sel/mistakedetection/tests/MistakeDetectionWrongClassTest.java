@@ -47,6 +47,17 @@ public class MistakeDetectionWrongClassTest {
   }
 
   /**
+   * Test to check for plural class names in student solution.
+   */
+  @Test
+  public void testVerbs() {
+    String[] verbs = {"Walked" , "Ran", "eats"};
+    for(String verb : verbs) {
+    assertTrue(MistakeDetection.isVerb(verb));
+    }
+  }
+
+  /**
    * Test for checking mapping between instructor classifier(Bus, Driver) and Student classifier(Bus, Driver).
    */
   @Test
