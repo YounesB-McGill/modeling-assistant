@@ -40,7 +40,6 @@ import modelingassistant.TagGroup;
  *   <li>{@link modelingassistant.impl.SolutionImpl#getTagGroups <em>Tag Groups</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionImpl#getProblemStatement <em>Problem Statement</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionImpl#getFeedbackItems <em>Feedback Items</em>}</li>
- *   <li>{@link modelingassistant.impl.SolutionImpl#getCurrentMistake <em>Current Mistake</em>}</li>
  * </ul>
  *
  * @generated
@@ -115,16 +114,6 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
    * @ordered
    */
   protected EList<FeedbackItem> feedbackItems;
-
-  /**
-   * The cached value of the '{@link #getCurrentMistake() <em>Current Mistake</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getCurrentMistake()
-   * @generated
-   * @ordered
-   */
-  protected Mistake currentMistake;
 
   /**
    * <!-- begin-user-doc -->
@@ -323,46 +312,6 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
    * @generated
    */
   @Override
-  public Mistake getCurrentMistake() {
-    if (currentMistake != null && currentMistake.eIsProxy()) {
-      InternalEObject oldCurrentMistake = (InternalEObject)currentMistake;
-      currentMistake = (Mistake)eResolveProxy(oldCurrentMistake);
-      if (currentMistake != oldCurrentMistake) {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE, oldCurrentMistake, currentMistake));
-      }
-    }
-    return currentMistake;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Mistake basicGetCurrentMistake() {
-    return currentMistake;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setCurrentMistake(Mistake newCurrentMistake) {
-    Mistake oldCurrentMistake = currentMistake;
-    currentMistake = newCurrentMistake;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE, oldCurrentMistake, currentMistake));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public EList<TagGroup> getTagGroups() {
     if (tagGroups == null) {
       tagGroups = new EObjectContainmentWithInverseEList<TagGroup>(TagGroup.class, this, ModelingassistantPackage.SOLUTION__TAG_GROUPS, ModelingassistantPackage.TAG_GROUP__SOLUTION);
@@ -517,9 +466,6 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         return basicGetProblemStatement();
       case ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS:
         return getFeedbackItems();
-      case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
-        if (resolve) return getCurrentMistake();
-        return basicGetCurrentMistake();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -561,9 +507,6 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         getFeedbackItems().clear();
         getFeedbackItems().addAll((Collection<? extends FeedbackItem>)newValue);
         return;
-      case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
-        setCurrentMistake((Mistake)newValue);
-        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -600,9 +543,6 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
       case ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS:
         getFeedbackItems().clear();
         return;
-      case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
-        setCurrentMistake((Mistake)null);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -631,8 +571,6 @@ public class SolutionImpl extends MinimalEObjectImpl.Container implements Soluti
         return problemStatement != null;
       case ModelingassistantPackage.SOLUTION__FEEDBACK_ITEMS:
         return feedbackItems != null && !feedbackItems.isEmpty();
-      case ModelingassistantPackage.SOLUTION__CURRENT_MISTAKE:
-        return currentMistake != null;
     }
     return super.eIsSet(featureID);
   }

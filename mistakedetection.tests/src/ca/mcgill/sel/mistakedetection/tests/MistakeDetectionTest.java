@@ -3,9 +3,11 @@ package ca.mcgill.sel.mistakedetection.tests;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
+import static modelingassistant.util.ClassDiagramUtils.getAttributeFromDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import java.util.List;
@@ -459,6 +461,10 @@ public class MistakeDetectionTest {
     assertEquals(mistake.isResolved(), resolved);
   }
 
+  public static FluentMistakeAssertion assertMistake() {
+    return new FluentMistakeAssertion();
+  }
+
   /**
    * Asserts a mistake with only single instructor and student element.
    *
@@ -508,7 +514,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Asserts a mistake with multiple instructor or student element.
+   * Asserts a mistake with multiple instructor or student elements.
    *
    * @param mistake
    * @param mistakeType
@@ -521,6 +527,51 @@ public class MistakeDetectionTest {
       int numSinceResolved, int numDetections, boolean resolved) {
     assertMistakeLinks(mistake, mistakeType, elements);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
+  }
+
+  /**
+   * Asserts a wrong class name mistake.
+   *
+   * @param instructorSol
+   * @param studentSol
+   * @param mistakeIdx
+   * @param mistakeType
+   * @param instructorClsName
+   * @param studentClsName
+   * @param numSinceResolved
+   * @param numDetections
+   * @param resolved
+   */
+  public static void assertMistake(Solution instructorSol, Solution studentSol, int mistakeIdx, MistakeType mistakeType,
+      String instructorClsName, String studentClsName, int numSinceResolved, int numDetections, boolean resolved) {
+    assertMistake(studentSol.getMistakes().get(mistakeIdx), mistakeType,
+        getClassFromClassDiagram(studentClsName, studentSol.getClassDiagram()),
+        getClassFromClassDiagram(instructorClsName, instructorSol.getClassDiagram()),
+        numSinceResolved, numDetections, resolved);
+  }
+
+
+  /**
+   * Asserts an attribute mistake where the class name is the same.
+   *
+   * @param instructorSol
+   * @param studentSol
+   * @param mistakeIdx
+   * @param mistakeType
+   * @param commonClsName
+   * @param instructorAttrName
+   * @param studentAttrName
+   * @param numSinceResolved
+   * @param numDetections
+   * @param resolved
+   */
+  public static void assertMistake(Solution instructorSol, Solution studentSol, int mistakeIdx, MistakeType mistakeType,
+      String commonClsName, String instructorAttrName, String studentAttrName, int numSinceResolved,
+      int numDetections, boolean resolved) {
+    assertMistake(studentSol.getMistakes().get(mistakeIdx), mistakeType,
+        getAttributeFromDiagram(commonClsName, studentAttrName, studentSol.getClassDiagram()),
+        getAttributeFromDiagram(commonClsName, instructorAttrName, instructorSol.getClassDiagram()),
+        numSinceResolved, numDetections, resolved);
   }
 
   /**
@@ -659,7 +710,7 @@ public class MistakeDetectionTest {
     return namedElemsFromMistake.containsAll(givenElements);
   }
 
-  /**
+   /**
    * Function to print the mapped, unmapped classifier or attributes.
    */
   public static void log(Comparison comparison) {
@@ -763,6 +814,131 @@ public class MistakeDetectionTest {
         System.out.println(" ' " + m.getMistakeType().getName() + " ' ");
       }
     });
+  }
+
+}
+
+class FluentMistakeAssertion {
+
+  private Mistake mistake;
+  private MistakeType expectedType;
+  private Solution instructorSolution;
+  private Solution studentSolution;
+  private NamedElement instructorElement;
+  private NamedElement studentElement;
+  private int haveable;
+
+  public FluentMistakeAssertion fromSolution(Solution studentSolution) {
+    this.studentSolution = studentSolution;
+    mistake = studentSolution.getMistakes().get(0);
+    return this;
+  }
+
+  public FluentMistakeAssertion fromSolutions(Solution instructorSolution, Solution studentSolution) {
+    this.instructorSolution = instructorSolution;
+    return fromSolution(studentSolution);
+  }
+
+  public FluentMistakeAssertion atPosition(int position) {
+    mistake = studentSolution.getMistakes().get(position);
+    return this;
+  }
+
+  public FluentMistakeAssertion hasType(MistakeType type) {
+    expectedType = type;
+    assertEquals(type, mistake.getMistakeType());
+    return this;
+  }
+
+  public FluentMistakeAssertion withInstructorElement(NamedElement instructorElement) {
+    this.instructorElement = instructorElement;
+    if (studentElement != null) {
+      assertLinks(instructorElement, studentElement);
+    }
+    return this;
+  }
+
+  public FluentMistakeAssertion withStudentElement(NamedElement studentElement) {
+    this.studentElement = studentElement;
+    if (instructorElement != null) {
+      assertLinks(instructorElement, studentElement);
+    }
+    return this;
+  }
+
+  public FluentMistakeAssertion withInstructorClassName(String instructorClassName) {
+    instructorElement = getClassFromClassDiagram(instructorClassName, instructorSolution.getClassDiagram());
+    if (studentElement != null) {
+      assertLinks(instructorElement, studentElement);
+    }
+    return this;
+  }
+
+  public FluentMistakeAssertion withStudentClassName(String studentClassName) {
+    studentElement = getClassFromClassDiagram(studentClassName, studentSolution.getClassDiagram());
+    if (instructorElement != null) {
+      assertLinks(instructorElement, studentElement);
+    }
+    return this;
+  }
+
+  public FluentMistakeAssertion withInstructorAttributeName(String className, String attributeName) {
+    instructorElement = getAttributeFromDiagram(className, attributeName, instructorSolution.getClassDiagram());
+    if (studentElement != null) {
+      assertLinks(instructorElement, studentElement);
+    }
+    return this;
+  }
+
+  public FluentMistakeAssertion withStudentAttributeName(String className, String attributeName) {
+    studentElement = getAttributeFromDiagram(className, attributeName, studentSolution.getClassDiagram());
+    if (instructorElement != null) {
+      assertLinks(instructorElement, studentElement);
+    }
+    return this;
+  }
+
+  public FluentMistakeAssertion has(int number) {
+    haveable = number;
+    return this;
+  }
+
+  public FluentMistakeAssertion hasNumSinceResolved(int numSinceResolved) {
+    assertEquals(numSinceResolved, mistake.getNumSinceResolved());
+    return this;
+  }
+
+  public FluentMistakeAssertion numSinceResolved() {
+    return hasNumSinceResolved(haveable);
+  }
+
+  public FluentMistakeAssertion hasNumDetections(int numDetections) {
+    assertEquals(numDetections, mistake.getNumDetections());
+    return this;
+  }
+
+  public FluentMistakeAssertion numDetections() {
+    return hasNumDetections(haveable);
+  }
+
+  public FluentMistakeAssertion and() {
+    return this;
+  }
+
+  public FluentMistakeAssertion isResolved() {
+    assertTrue(mistake.isResolved());
+    return this;
+  }
+
+  public FluentMistakeAssertion isUnresolved() {
+    assertFalse(mistake.isResolved());
+    return this;
+  }
+
+  private FluentMistakeAssertion assertLinks(NamedElement instructorElement, NamedElement studentElement) {
+    var type = expectedType != null? expectedType : mistake.getMistakeType();
+    MistakeDetectionTest.assertMistakeLinks(mistake, type, studentElement, instructorElement);
+    return this;
   }
 
 }

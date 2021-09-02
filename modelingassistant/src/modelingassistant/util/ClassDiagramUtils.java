@@ -44,8 +44,10 @@ public class ClassDiagramUtils {
   public static Classifier getClassFromClassDiagram(String className, ClassDiagram classDiagram) {
     Classifier cls = null;
     for (var c : classDiagram.getClasses()) {
-      if (className.equals(c.getName()))
+      if (className.equals(c.getName())) {
         cls = c;
+        break;
+      }
     }
     if (cls == null) {
       throw new IllegalArgumentException("No class found with name " + className);
@@ -61,12 +63,20 @@ public class ClassDiagramUtils {
     for (var a : givenClass.getAttributes()) {
       if (attributeName.equals(a.getName())) {
         attribute = a;
+        break;
       }
     }
     if (attribute == null) {
       throw new IllegalArgumentException("Attribute " + attributeName + " not found in class " + givenClass.getName());
     }
     return attribute;
+  }
+
+  /**
+   * Returns the attribute with the given name and class name from the given diagram.
+   */
+  public static Attribute getAttributeFromDiagram(String className, String attributeName, ClassDiagram classDiagram) {
+    return getAttributeFromClass(attributeName, getClassFromClassDiagram(className, classDiagram));
   }
 
   /**
