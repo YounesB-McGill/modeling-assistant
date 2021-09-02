@@ -1614,8 +1614,13 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(instructorSolution, studentSolution, 0, BAD_ATTRIBUTE_NAME_SPELLING, "Passenger", "ticketNo",
-        "ticketNumber", 0, 1, false);
+    assertMistake().fromSolutions(instructorSolution, studentSolution)
+        .withInstructorAttributeName("Passenger", "ticketNo")
+        .withStudentAttributeName("Passenger", "ticketNumber")
+        .hasType(BAD_ATTRIBUTE_NAME_SPELLING)
+        .hasNumSinceResolved(0)
+        .hasNumDetections(1)
+        .isUnresolved();
   }
 
   /**
