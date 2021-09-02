@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_enIWkPlxEeuLuLczKegbyg" name="Instructor_airplannePilotAirline" featureModel="_enIWkflxEeuLuLczKegbyg" impactModel="_enIWk_lxEeuLuLczKegbyg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_enIWkflxEeuLuLczKegbyg" root="_enIWkvlxEeuLuLczKegbyg">
+    <features xmi:id="_enIWkvlxEeuLuLczKegbyg" name="Instructor_airplannePilotAirline" realizedBy="_fHkKIflxEeuLuLczKegbyg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_enIWk_lxEeuLuLczKegbyg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_fHkKIPlxEeuLuLczKegbyg" name="Instructor_airplannePilotAirline" scene="_fHkKIflxEeuLuLczKegbyg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_airplannePilotAirline.domain_model.cdm#_fHkxMPlxEeuLuLczKegbyg"/>
+  </artefacts>
+  <scenes xmi:id="_fHkKIflxEeuLuLczKegbyg" name="Instructor_airplannePilotAirline" realizes="_enIWkvlxEeuLuLczKegbyg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_fHkKIvlxEeuLuLczKegbyg" value="_fHkKIPlxEeuLuLczKegbyg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

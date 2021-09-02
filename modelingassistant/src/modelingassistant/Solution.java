@@ -27,7 +27,6 @@ import ca.mcgill.sel.classdiagram.ClassDiagram;
  *   <li>{@link modelingassistant.Solution#getTagGroups <em>Tag Groups</em>}</li>
  *   <li>{@link modelingassistant.Solution#getProblemStatement <em>Problem Statement</em>}</li>
  *   <li>{@link modelingassistant.Solution#getFeedbackItems <em>Feedback Items</em>}</li>
- *   <li>{@link modelingassistant.Solution#getCurrentMistake <em>Current Mistake</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getSolution()
@@ -174,28 +173,6 @@ public interface Solution extends EObject {
    * @generated
    */
   EList<Mistake> getMistakes();
-
-  /**
-   * Returns the value of the '<em><b>Current Mistake</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Current Mistake</em>' reference.
-   * @see #setCurrentMistake(Mistake)
-   * @see modelingassistant.ModelingassistantPackage#getSolution_CurrentMistake()
-   * @model
-   * @generated
-   */
-  Mistake getCurrentMistake();
-
-  /**
-   * Sets the value of the '{@link modelingassistant.Solution#getCurrentMistake <em>Current Mistake</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Current Mistake</em>' reference.
-   * @see #getCurrentMistake()
-   * @generated
-   */
-  void setCurrentMistake(Mistake value);
 
   /**
    * Returns the value of the '<em><b>Tag Groups</b></em>' containment reference list.

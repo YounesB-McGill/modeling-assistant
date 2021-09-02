@@ -69,7 +69,7 @@ public class LearningResourceImpl extends NamedElementImpl implements LearningRe
    * @generated
    * @ordered
    */
-  protected static final Object CONTENT_EDEFAULT = null;
+  protected static final String CONTENT_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' attribute.
@@ -79,7 +79,7 @@ public class LearningResourceImpl extends NamedElementImpl implements LearningRe
    * @generated
    * @ordered
    */
-  protected Object content = CONTENT_EDEFAULT;
+  protected String content = CONTENT_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -181,7 +181,7 @@ public class LearningResourceImpl extends NamedElementImpl implements LearningRe
    * @generated
    */
   @Override
-  public Object getContent() {
+  public String getContent() {
     return content;
   }
 
@@ -191,8 +191,8 @@ public class LearningResourceImpl extends NamedElementImpl implements LearningRe
    * @generated
    */
   @Override
-  public void setContent(Object newContent) {
-    Object oldContent = content;
+  public void setContent(String newContent) {
+    String oldContent = content;
     content = newContent;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, LearningcorpusPackage.LEARNING_RESOURCE__CONTENT, oldContent, content));
@@ -334,7 +334,7 @@ public class LearningResourceImpl extends NamedElementImpl implements LearningRe
         getResourceResponses().addAll((Collection<? extends ResourceResponse>)newValue);
         return;
       case LearningcorpusPackage.LEARNING_RESOURCE__CONTENT:
-        setContent(newValue);
+        setContent((String)newValue);
         return;
       case LearningcorpusPackage.LEARNING_RESOURCE__LEARNING_CORPUS:
         setLearningCorpus((LearningCorpus)newValue);

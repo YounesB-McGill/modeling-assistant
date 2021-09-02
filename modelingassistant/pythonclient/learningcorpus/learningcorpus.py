@@ -136,7 +136,7 @@ class ResourceResponse(Feedback):
             self.learningResources.extend(learningResources)
 
 class LearningResource(NamedElement):
-    content = EAttribute(eType=EJavaObject, unique=True, derived=False, changeable=True)
+    content = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
     learningItem = EReference(ordered=True, unique=True, containment=False, derived=False)
     resourceResponses = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
     learningCorpus = EReference(ordered=True, unique=True, containment=False, derived=False)
