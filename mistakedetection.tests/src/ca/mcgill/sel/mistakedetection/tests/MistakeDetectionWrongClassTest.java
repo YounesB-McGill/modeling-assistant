@@ -156,7 +156,13 @@ public void testWrongAirportClassName() {
   assertEquals(comparison.newMistakes.size(), 1);
   assertEquals(studentSol.getMistakes().size(), 1);
 
-  assertMistake(instructorSol, studentSol, 0, BAD_CLASS_NAME_SPELLING, "Airport", "Airpoort", 0, 1, false);
+  assertMistake().fromSolutions(instructorSol, studentSol)
+      .withInstructorClassName("Airport")
+      .withStudentClassName("Airpoort")
+      .hasType(BAD_CLASS_NAME_SPELLING)
+      .hasNumSinceResolved(0)
+      .hasNumDetections(1)
+      .isUnresolved();
 }
 
   /**
@@ -1426,7 +1432,7 @@ public void testWrongAirportClassName() {
 
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOCIATION_CLASS, instructorCompanyClass, 0, 1, false);
   }
@@ -1466,7 +1472,7 @@ public void testWrongAirportClassName() {
 
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertMistake(studentMistakeFor(studentCompanyClass), EXTRA_ASSOCIATION_CLASS, studentCompanyClass, 0, 1, false);
   }
