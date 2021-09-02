@@ -1837,9 +1837,6 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), BAD_ROLE_NAME_SPELLING, studentMyDrivrAssociationEnd,
-        instructorMyDriverAssociationEnd, 0, 1, false);
-
     assertMistake(studentSolution.getMistakes().get(0), ROLE_SHOULD_BE_STATIC, studentMyRootAssociationEnd,
         instructorMyRootAssociationEnd, 0, 1, false);
   }
@@ -2211,8 +2208,6 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_COMPOSITION,
-        instructorCompanyToEmployeeAssociation.get(0), 0, 1, false);
     assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOCIATION, instructorCityToAirportAssociation.get(0),
         0, 1, false);
   }
