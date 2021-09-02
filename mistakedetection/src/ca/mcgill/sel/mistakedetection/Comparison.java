@@ -54,7 +54,7 @@ public class Comparison {
   /** Below list and map are used for association class mapping. */
   public EList<Classifier> classifiersToRemove = new BasicEList<Classifier>();
 
-  /** Map stores possible Association Classes that are detected after initial class mapping. */
+  /** Map stores possible instructor student Association Class pair that are detected after initial class mapping. */
   public Map<Classifier, Classifier> assocClassMappingToAdd = new HashMap<Classifier, Classifier>();
 
 }

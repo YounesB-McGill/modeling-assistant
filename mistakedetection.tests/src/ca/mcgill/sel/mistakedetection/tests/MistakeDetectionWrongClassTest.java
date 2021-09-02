@@ -906,7 +906,7 @@ public class MistakeDetectionWrongClassTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
-    var studentPassengerBioClass = getClassFromClassDiagram("PassengerBio", studentClassDiagram);
+    var studentPassengerBioClass = getClassFromClassDiagram("PassengerList", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
