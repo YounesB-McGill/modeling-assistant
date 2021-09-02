@@ -548,9 +548,9 @@ public class MistakeDetection {
   private static EList<String> getMappedNames(Map<Classifier, Classifier> mappedClassifier) {
     EList<String> tempList = new BasicEList<String>();
     mappedClassifier.forEach((key, value) -> {
-      if(levenshteinDistance(key.getName(), value.getName()) <= 2) {
+      if (levenshteinDistance(key.getName(), value.getName()) <= 2) {
         tempList.add(key.getName());
-      }else {
+      } else {
         tempList.add(value.getName());
       }
     });
@@ -612,7 +612,7 @@ public class MistakeDetection {
           }
           studentSubclassesPatternScore += 1;
           studentFullPatternScore += 1;
-          if(tag.getTagType().equals(PLAYER)) {
+          if (tag.getTagType().equals(PLAYER)) {
             studentEnumsPatternScore += 1;
           }
           studSubclassElements.add(studClass);
@@ -691,7 +691,7 @@ public class MistakeDetection {
         }
       }
     }
-    if(studentAssocPatternScore == studentEnumsPatternScore ) {
+    if (studentAssocPatternScore == studentEnumsPatternScore) {
       studentEnumsPatternScore += 1;
     }
     var scores = List.of(studentSubclassesPatternScore, studentFullPatternScore, studentEnumsPatternScore,
