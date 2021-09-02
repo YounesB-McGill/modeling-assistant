@@ -512,7 +512,7 @@ public class MistakeDetection {
         } else {
           studentRoleClasses.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
         }
-        if(mappedClassifierNames.contains(tag.getSolutionElement().getElement().getName())) {
+        if (mappedClassifierNames.contains(tag.getSolutionElement().getElement().getName())) {
           totalMatched += 1;
         }
         studentMatchedElements.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
@@ -542,7 +542,7 @@ public class MistakeDetection {
   }
 
   private static boolean isAnyClassAbstract(EList<NamedElement> studentMatchedElements) {
-  return  studentMatchedElements.stream().anyMatch(se -> ((Classifier) se).isAbstract());
+    return studentMatchedElements.stream().anyMatch(se -> ((Classifier) se).isAbstract());
   }
 
   private static EList<String> getMappedNames(Map<Classifier, Classifier> mappedClassifier) {
