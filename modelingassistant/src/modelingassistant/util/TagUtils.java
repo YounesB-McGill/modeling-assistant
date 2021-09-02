@@ -1,5 +1,7 @@
 package modelingassistant.util;
 
+import static modelingassistant.TagType.ABSTRACTION;
+import static modelingassistant.TagType.OCCURRENCE;
 import static modelingassistant.TagType.PLAYER;
 import static modelingassistant.TagType.ROLE;
 import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
@@ -77,6 +79,39 @@ public class TagUtils {
     var tag = maf.createTag();
     tag.setTagType(ROLE);
     var instClass = getAttributeFromClass(attributeName, assocClass);
+    var se = maf.createSolutionElement();
+    se.setElement(instClass);
+    tag.setSolutionElement(se);
+    tag.setTagGroup(tagGroup);
+    se.setSolution(tag.getTagGroup().getSolution());
+  }
+
+  /**
+   * Creates a new tag group and sets an solution element to abstraction tag in that tag group.
+   */
+  public static TagGroup setAbstractionTagToClassInClassDiag(String className, ClassDiagram classDiagram,
+      Solution instructorSolution) {
+    var tagGroup = maf.createTagGroup();
+    tagGroup.setSolution(instructorSolution);
+    var tag = maf.createTag();
+    tag.setTagType(ABSTRACTION);
+    var instClass = getClassFromClassDiagram(className, classDiagram);
+    var se = maf.createSolutionElement();
+    se.setElement(instClass);
+    se.setSolution(instructorSolution);
+    tag.setSolutionElement(se);
+    tag.setTagGroup(tagGroup);
+    return tagGroup;
+  }
+
+  /**
+   * Sets occurrence tag to a class in tagGroup.
+   */
+  public static void setOccurrenceTagToClassInClassDiag(String className, TagGroup tagGroup,
+      ClassDiagram classDiagram) {
+    var tag = maf.createTag();
+    tag.setTagType(OCCURRENCE);
+    var instClass = getClassFromClassDiagram(className, classDiagram);
     var se = maf.createSolutionElement();
     se.setElement(instClass);
     tag.setSolutionElement(se);
