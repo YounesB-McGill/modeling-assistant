@@ -143,27 +143,32 @@ public class MistakeDetectionWrongClassTest {
   /**
    * Test to check Wrong Airport class name mistake.
    */
-@Test
-public void testWrongAirportClassName() {
-  var instructorSol = instructorSolutionFromClassDiagram(cdmFromFile(
-      "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm"));
+  @Test
+  public void testWrongAirportClassName() {
+    var instructorSol = instructorSolutionFromClassDiagram(cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_AirportSystem/Class Diagram/Instructor_AirportSystem.domain_model.cdm"));
 
-  var studentSol = studentSolutionFromClassDiagram(cdmFromFile(
-      "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_badClassNameAirport/Class Diagram/Student_AirportSystem.domain_model.cdm"));
+    var studentSol = studentSolutionFromClassDiagram(cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_badClassNameAirport/Class Diagram/Student_AirportSystem.domain_model.cdm"));
 
-  var comparison = MistakeDetection.compare(instructorSol, studentSol);
+    var comparison = MistakeDetection.compare(instructorSol, studentSol);
 
-  assertEquals(comparison.newMistakes.size(), 1);
-  assertEquals(studentSol.getMistakes().size(), 1);
+    assertEquals(comparison.newMistakes.size(), 1);
+    assertEquals(studentSol.getMistakes().size(), 1);
 
-  assertMistake().fromSolutions(instructorSol, studentSol)
-      .withInstructorClassName("Airport")
-      .withStudentClassName("Airpoort")
-      .hasType(BAD_CLASS_NAME_SPELLING)
-      .hasNumSinceResolved(0)
-      .hasNumDetections(1)
-      .isUnresolved();
-}
+    assertMistake().fromSolutions(instructorSol, studentSol)
+        .withInstructorClassName("Airport")
+        .withStudentClassName("Airpoort")
+        .hasType(BAD_CLASS_NAME_SPELLING)
+        .hasNumSinceResolved(0)
+        .hasNumDetections(1)
+        .isUnresolved();
+
+    // same assertion as above, written in less lines
+    assertMistake().fromSolutions(instructorSol, studentSol)
+        .withInstructorClassName("Airport").withStudentClassName("Airpoort")
+        .hasType(BAD_CLASS_NAME_SPELLING).has(0).numSinceResolved().has(1).numDetections().and().isUnresolved();
+  }
 
   /**
    * Test to check Wrong Airplane class name mistake.

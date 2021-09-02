@@ -821,12 +821,12 @@ public class MistakeDetectionTest {
 class FluentMistakeAssertion {
 
   private Mistake mistake;
-
   private MistakeType expectedType;
   private Solution instructorSolution;
   private Solution studentSolution;
   private NamedElement instructorElement;
   private NamedElement studentElement;
+  private int haveable;
 
   public FluentMistakeAssertion fromSolution(Solution studentSolution) {
     this.studentSolution = studentSolution;
@@ -898,13 +898,30 @@ class FluentMistakeAssertion {
     return this;
   }
 
+  public FluentMistakeAssertion has(int number) {
+    haveable = number;
+    return this;
+  }
+
   public FluentMistakeAssertion hasNumSinceResolved(int numSinceResolved) {
     assertEquals(numSinceResolved, mistake.getNumSinceResolved());
     return this;
   }
 
+  public FluentMistakeAssertion numSinceResolved() {
+    return hasNumSinceResolved(haveable);
+  }
+
   public FluentMistakeAssertion hasNumDetections(int numDetections) {
     assertEquals(numDetections, mistake.getNumDetections());
+    return this;
+  }
+
+  public FluentMistakeAssertion numDetections() {
+    return hasNumDetections(haveable);
+  }
+
+  public FluentMistakeAssertion and() {
     return this;
   }
 
