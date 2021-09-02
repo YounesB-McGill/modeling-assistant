@@ -66,7 +66,6 @@ public class SolutionItemProvider
       addClassDiagramPropertyDescriptor(object);
       addProblemStatementPropertyDescriptor(object);
       addFeedbackItemsPropertyDescriptor(object);
-      addCurrentMistakePropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -107,28 +106,6 @@ public class SolutionItemProvider
          getString("_UI_Solution_classDiagram_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_Solution_classDiagram_feature", "_UI_Solution_type"),
          ModelingassistantPackage.Literals.SOLUTION__CLASS_DIAGRAM,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Current Mistake feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addCurrentMistakePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_Solution_currentMistake_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Solution_currentMistake_feature", "_UI_Solution_type"),
-         ModelingassistantPackage.Literals.SOLUTION__CURRENT_MISTAKE,
          true,
          false,
          true,
