@@ -58,4 +58,3 @@ public class Comparison {
   public Map<Classifier, Classifier> assocClassMappingToAdd = new HashMap<Classifier, Classifier>();
 
 }
-
