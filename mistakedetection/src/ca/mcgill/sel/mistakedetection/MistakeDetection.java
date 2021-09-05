@@ -193,20 +193,23 @@ public class MistakeDetection {
 
       EList<Attribute> studentAttributes = possibleClassifierMatch.getAttributes();
       for (Attribute instructorAttribute : instructorAttributes) {
+        var mappedStudentAttribute = comparison.mappedAttribute.get(instructorAttribute);
         for (Attribute studentAttribute : studentAttributes) {
           float lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-          if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED
-              && comparison.mappedAttribute.get(instructorAttribute) == studentAttribute) {
-            comparison.duplicateStudentAttribute.add(studentAttribute);
-            comparison.extraStudentAttribute.remove(studentAttribute);
-          } else if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-            mapAttributes(comparison, studentAttribute, instructorAttribute);
-            checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison.newMistakes);
-            break;
+          if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+            if (mappedStudentAttribute == studentAttribute) {
+              comparison.duplicateStudentAttribute.add(studentAttribute);
+              comparison.extraStudentAttribute.remove(studentAttribute);
+            } else {
+              mapAttributes(comparison, studentAttribute, instructorAttribute);
+              checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison.newMistakes);
+              break;
+            }
           }
         }
       }
     }
+
     mapClassAndAttribBasedOnAttribsAssocAndAssocEnds(comparison);
     mapRelations(comparison);
     mapEnumerations(instructorSolution, studentSolution, comparison);
@@ -541,8 +544,12 @@ public class MistakeDetection {
     }
   }
 
-  private static boolean isAnyClassAbstract(EList<NamedElement> studentMatchedElements) {
-    return studentMatchedElements.stream().anyMatch(se -> ((Classifier) se).isAbstract());
+  /**
+   * Returns true if at least one of the given elements is an abstract classifier.
+   */
+  private static boolean isAnyClassAbstract(EList<NamedElement> elements) {
+    return elements.stream().filter(Classifier.class::isInstance).map(Classifier.class::cast)
+        .anyMatch(Classifier::isAbstract);
   }
 
   private static EList<String> getMappedNames(Map<Classifier, Classifier> mappedClassifier) {
@@ -2106,7 +2113,7 @@ public class MistakeDetection {
    * Returns true if the input string is a software engineering term.
    */
   public static boolean isSoftwareEngineeringTerm(String s) {
-    final var softwareEnginneringTerms = List.of("data", "record", "table", "info", "class", "list", "information");
+    final var softwareEnginneringTerms = List.of("data", "record", "table", "info", "class", "list");
     for (var seTerm : softwareEnginneringTerms) {
       if (s.toLowerCase().contains(seTerm))
         return true;
