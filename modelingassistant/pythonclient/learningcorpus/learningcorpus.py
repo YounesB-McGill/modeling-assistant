@@ -66,6 +66,13 @@ class LearningCorpus(EObject, metaclass=MetaEClass):
         if learningResources:
             self.learningResources.extend(learningResources)
 
+    def topLevelMistakeTypeCategories(self) -> list:
+        """
+        Custom function to return all the top-level mistake type categories,
+        ie, those that do not have a supercategory.
+        """
+        return [mtc for mtc in self.mistakeTypeCategories if not mtc.supercategory]
+
     def mistakeTypes(self) -> list:
         """Custom function to return all the mistake types from their categories."""
         import itertools

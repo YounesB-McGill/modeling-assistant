@@ -1,6 +1,6 @@
 from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
 from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, WRONG_CLASS, WRONG_CLASS_NAME
-from corpus_creation import mts_by_priority
+from corpus_definition import mts_by_priority
 
 import mistaketypes
 
