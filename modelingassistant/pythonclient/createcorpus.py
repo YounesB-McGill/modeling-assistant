@@ -11,7 +11,7 @@ MAX_COLUMN_WIDTH = 120
 
 PYTHON_MISTAKE_TYPES_FILE = "modelingassistant/pythonclient/mistaketypes.py"
 JAVA_MISTAKE_TYPES_FILE = "modelingassistant/src/learningcorpus/mistaketypes/MistakeTypes.java"
-LEARNING_CORPUS_MARKDOWN_FILE = "modelingassistant/corpus_descriptions/README.md"
+LEARNING_CORPUS_MARKDOWN_FILE = "modelingassistant/corpus_descriptions/README_TOC.md"
 
 JAVA_HEADER = """\
 package learningcorpus.mistaketypes;
@@ -117,7 +117,7 @@ def generate_markdown():
         "Return the nested body output for the input in a recursive way."
         return f'''{make_body_title(mtc.name, indentation)}{
             "".join([nested_body_output_for(sc, indentation + 1) for sc in mtc.subcategories])}{
-            "".join([make_body_title(mt.name, indentation + 1) for mt in mtc.mistakeTypes])}'''
+            nl.join([make_body_title(mt.name, indentation + 1) for mt in mtc.mistakeTypes])}\n'''
 
     def make_toc_title(name: str, indentation: int) -> str:
         return f'{indentation * " "}1. [{name}](#{dashify(name)})\n'
@@ -142,7 +142,8 @@ def dashify(s: str) -> str:
 
 def clean(s: str) -> str:
     "Clean the input string."
-    return s.replace("(", "").replace(")", "").replace(",", "").replace("yet incorrect", "")
+    s = s.replace("(", "").replace(")", "").replace(",", "").replace("yet incorrect", "")
+    return re.sub(r"\s+", " ", s).strip()
 
 
 def underscorify(s: str) -> str:

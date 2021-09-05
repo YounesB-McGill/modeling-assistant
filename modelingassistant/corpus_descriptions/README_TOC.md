@@ -135,7 +135,7 @@
 #### Bad class name spelling
 
 
-#### Similar  class name
+#### Similar class name
 
 
 #### Incorrect class name but correct attribute/relationship
@@ -172,10 +172,12 @@
 
 #### Similar enum item
 
+
 ### Missing class
 
 
 ### Extra redundant class
+
 
 
 ## Wrong attribute
@@ -199,7 +201,7 @@
 #### Uppercase attribute name
 
 
-#### Similar  attribute name
+#### Similar attribute name
 
 
 ### Attribute in wrong class
@@ -211,6 +213,7 @@
 
 
 #### Attribute misplaced in generalization hierarchy
+
 
 ### Missing attribute
 
@@ -225,6 +228,7 @@
 
 
 ### Attribute should not be static
+
 
 
 ## Wrong relationship
@@ -306,7 +310,7 @@
 #### Bad association name spelling
 
 
-#### Similar  association name
+#### Similar association name
 
 
 ### Wrong multiplicities
@@ -334,7 +338,7 @@
 #### Bad role name spelling
 
 
-#### Similar  role name
+#### Similar role name
 
 
 #### Other wrong role name
@@ -357,7 +361,7 @@
 #### Regular class should be association class
 
 
-#### Similar  association class name
+#### Similar association class name
 
 
 ### Wrong generalization
@@ -388,7 +392,9 @@
 
 #### Wrong superclass
 
+
 ### Incomplete containment tree
+
 
 
 ## Misuse of design patterns
@@ -432,6 +438,7 @@
 
 ##### Full Player-Role pattern should be enum
 
+
 #### Missing Player-Role pattern
 
 
@@ -444,5 +451,6 @@
 
 
 #### Incomplete Abstraction-Occurrence pattern
+
 
 
