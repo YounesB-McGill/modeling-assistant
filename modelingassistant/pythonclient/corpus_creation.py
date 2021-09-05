@@ -71,7 +71,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     wrong_attribute := mtc(n="Wrong attribute", mistakeTypes=[
         missing_attribute := mt(n="Missing attribute"),
         wrong_attribute_type := mt(n="Wrong attribute type"),
-        missing_attribute_type := mt(n="Missing attribute type"), #Added
+        missing_attribute_type := mt(n="Missing attribute type"), # Added
         attribute_should_be_static := mt(n="Attribute should be static"),
         attribute_should_not_be_static := mt(n="Attribute should not be static"),
     ]),
@@ -88,7 +88,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     attribute_in_wrong_class := mtc(n="Attribute in wrong class", s=wrong_attribute, mistakeTypes=[
         attribute_misplaced := mt(n="Attribute misplaced"),
         attribute_duplicated := mt(n="Attribute duplicated"),
-        attribute_misplaced_in_generalized_hierarchy := mt(n="Attribute misplaced in generalization hierarchy"), #Added
+        attribute_misplaced_in_generalized_hierarchy := mt(n="Attribute misplaced in generalization hierarchy"), # Added
     ]),
     wrong_relationship := mtc(n="Wrong relationship", mistakeTypes=[
         incomplete_containment_tree := mt(n="Incomplete containment tree"),
@@ -104,8 +104,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         representing_an_action_with_an_association := mt(n="Representing an action with an association"),
         composed_part_contained_in_more_than_one_parent := mt(n="Composed part contained in more than one parent"),
         other_extra_association := mt(n="Other extra association"), # Rename to extra_association
-        extra_composition := mt(n="Extra composition"), #Added
-        extra_aggregation := mt(n="Extra aggregation"), #Added
+        extra_composition := mt(n="Extra composition"), # Added
+        extra_aggregation := mt(n="Extra aggregation"), # Added
         extra_nary_association := mt(n="Extra n-ary association"), # Added
     ]),
     using_wrong_relationship_type := mtc(n="Using wrong relationship type", s=wrong_relationship, mistakeTypes=[
@@ -128,7 +128,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     wrong_multiplicities := mtc(n="Wrong multiplicities", s=wrong_relationship, mistakeTypes=[
         infinite_recursive_dependency := mt(n="Infinite recursive dependency"),
         other_wrong_multiplicity := mt(n="Other wrong multiplicity"), # Rename to Wrong multiplicity
-        missing_multiplicity := mt(n="Missing multiplicity"), #Added
+        missing_multiplicity := mt(n="Missing multiplicity"), # Added
     ]),
     wrong_role_names := mtc(n="Wrong role names", s=wrong_relationship, mistakeTypes=[
         missing_role_names := mt(n="Missing role names"),
@@ -142,8 +142,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         missing_association_class := mt(n="Missing association class"),
         extra_association_class := mt(n="Extra (redundant) association class"), # Rename , Remove (redundant)
         bad_association_class_name_spelling := mt(n="Bad association class name spelling"),
-        association_class_should_be_regular_class:= mt(n="Association class should be regular class"), #Added
-        regular_class_should_be_association_class := mt(n="Regular class should be association class"), #Added
+        association_class_should_be_regular_class:= mt(n="Association class should be regular class"), # Added
+        regular_class_should_be_association_class := mt(n="Regular class should be association class"), # Added
         similar_association_class_name := mt(n="Similar (yet incorrect) association class name"), # Remove
     ]),
     wrong_generalization := mtc(n="Wrong generalization", s=wrong_relationship, mistakeTypes=[
@@ -277,13 +277,13 @@ mts_by_priority: list[MistakeType] = [
     extra_enum,
     extra_enum_item,
     extra_generalization, # Added
+    extra_composition, # Added
     representing_an_action_with_an_association,
     other_extra_association, # Rename to extra_association
-    extra_association, #Added
-    extra_aggregation, #Added
-    extra_nary_association, #Added
+    extra_aggregation, # Added
+    extra_nary_association, # Added
     attribute_duplicated,
-    other_extra_attribute, # Ranme to extra_attribute
+    other_extra_attribute, # Rename to extra_attribute
 
     # missing items
     missing_class,
@@ -296,7 +296,7 @@ mts_by_priority: list[MistakeType] = [
     missing_composition,
     missing_association,
     missing_aggregation,
-    missing_nary_association, #Added
+    missing_nary_association, # Added
     missing_role_names,
     missing_association_name_when_one_was_expected, # Rename to missing_association_name
 
