@@ -53,7 +53,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             ParametrizedResponse(level=3, text="The ${incorrectlySpelledClassName} class has a misspelled name."),
             ParametrizedResponse(level=4, text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
         ]),
-        similar_class_name := mt(n="Similar (yet incorrect) class name"),
+        similar_class_name := mt(n="Similar (yet incorrect) class name"), # TODO Rmove
+        incorrect_class_name_but_correct_attribute_relationship := mt(n="Incorrect class name but correct attribute/relationship"), # Added
     ]),
     wrong_enumeration := mtc(n="Wrong enumeration", s=wrong_class, mistakeTypes=[
         regular_class_should_be_enum := mt(n="Regular class should be enum"),
@@ -61,31 +62,33 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         missing_enum := mt(n="Missing enum"),
         extra_enum := mt(n="Extra enum"),
         bad_enum_name_spelling := mt(n="Bad enum name spelling"),
-        similar_enum_name := mt(n="Similar enum name"),
+        similar_enum_name := mt(n="Similar enum name"), #TODO Remove
         missing_enum_item := mt(n="Missing enum item"),
         extra_enum_item := mt(n="Extra enum item"),
         bad_enum_item_spelling := mt(n="Bad enum item spelling"),
-        similar_enum_item := mt(n="Similar enum item"),
+        similar_enum_item := mt(n="Similar enum item"), #TODO Remove
     ]),
     wrong_attribute := mtc(n="Wrong attribute", mistakeTypes=[
         missing_attribute := mt(n="Missing attribute"),
         wrong_attribute_type := mt(n="Wrong attribute type"),
+        missing_attribute_type := mt(n="Missing attribute type"), # Added
         attribute_should_be_static := mt(n="Attribute should be static"),
         attribute_should_not_be_static := mt(n="Attribute should not be static"),
     ]),
     extra_attribute := mtc(n="Extra (redundant) attribute", s=wrong_attribute, mistakeTypes=[
         plural_attribute := mt(n="Plural attribute"),
         list_attribute := mt(n="List attribute"),
-        other_extra_attribute := mt(n="Other extra attribute"),
+        other_extra_attribute := mt(n="Other extra attribute"), # Rename to Extra Attribute
     ]),
     wrong_attribute_name := mtc(n="Wrong attribute name", s=wrong_attribute, mistakeTypes=[
         bad_attribute_name_spelling := mt(n="Bad attribute name spelling"),
         uppercase_attribute_name := mt(n="Uppercase attribute name"),
-        similar_attribute_name := mt(n="Similar (yet incorrect) attribute name"),
+        similar_attribute_name := mt(n="Similar (yet incorrect) attribute name"), #TODO Remove
     ]),
     attribute_in_wrong_class := mtc(n="Attribute in wrong class", s=wrong_attribute, mistakeTypes=[
         attribute_misplaced := mt(n="Attribute misplaced"),
-        attribute_duplicated := mt(n="Attribute duplicated")
+        attribute_duplicated := mt(n="Attribute duplicated"),
+        attribute_misplaced_in_generalized_hierarchy := mt(n="Attribute misplaced in generalization hierarchy"), # Added
     ]),
     wrong_relationship := mtc(n="Wrong relationship", mistakeTypes=[
         incomplete_containment_tree := mt(n="Incomplete containment tree"),
@@ -94,12 +97,16 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         missing_association := mt(n="Missing association"),
         missing_composition := mt(n="Missing composition"),
         missing_aggregation := mt(n="Missing aggregation"),
+        missing_nary_association := mt(n="Missing n-ary association"), # Added
         using_an_attribute_instead_of_an_association := mt(n="Using an attribute instead of an association"),
     ]),
     extra_association := mtc(n="Extra (redundant) association", s=wrong_relationship, mistakeTypes=[
         representing_an_action_with_an_association := mt(n="Representing an action with an association"),
         composed_part_contained_in_more_than_one_parent := mt(n="Composed part contained in more than one parent"),
-        other_extra_association := mt(n="Other extra association"),
+        other_extra_association := mt(n="Other extra association"), # Rename to extra_association
+        extra_composition := mt(n="Extra composition"), # Added
+        extra_aggregation := mt(n="Extra aggregation"), # Added
+        extra_nary_association := mt(n="Extra n-ary association"), # Added
     ]),
     using_wrong_relationship_type := mtc(n="Using wrong relationship type", s=wrong_relationship, mistakeTypes=[
         using_association_instead_of_aggregation_composition := mt(n="Using association instead of aggregation/composition"),
@@ -108,33 +115,41 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         using_undirected_association_instead_of_directed := mt(n="Using undirected association instead of directed"),
         using_aggregation_instead_of_composition := mt(n="Using aggregation instead of composition"),
         using_composition_instead_of_aggregation := mt(n="Using composition instead of aggregation"),
+        using_binary_association_instead_of_nary_association := mt(n="Using binary association instead of nary association"), # Added
+        using_nary_association_instead_of_binary_association := mt(n="Using nary association instead of binary association"), # Added
+        using_intermediate_class_instead_of_nary_association := mt(n="Using intermediate class instead of nary association"), # Added
+        using_nary_association_instead_of_intermediate_class := mt(n="Using nary association instead of intermediate class"), # Added
     ]),
     wrong_association_name := mtc(n="Wrong association name", s=wrong_relationship, mistakeTypes=[
-        missing_association_name_when_one_was_expected := mt(n="Missing association name when one was expected"),
+        missing_association_name_when_one_was_expected := mt(n="Missing association name when one was expected"), #TODO Rename to Missing association name.
         bad_association_name_spelling := mt(n="Bad association name spelling"),
-        similar_association_name := mt(n="Similar (yet incorrect) association name"),
+        similar_association_name := mt(n="Similar (yet incorrect) association name"), # TODO Remove
     ]),
     wrong_multiplicities := mtc(n="Wrong multiplicities", s=wrong_relationship, mistakeTypes=[
         infinite_recursive_dependency := mt(n="Infinite recursive dependency"),
-        other_wrong_multiplicity := mt(n="Other wrong multiplicity"),
+        other_wrong_multiplicity := mt(n="Other wrong multiplicity"), # Rename to Wrong multiplicity
+        missing_multiplicity := mt(n="Missing multiplicity"), # Added
     ]),
     wrong_role_names := mtc(n="Wrong role names", s=wrong_relationship, mistakeTypes=[
         missing_role_names := mt(n="Missing role names"),
         role_should_be_static := mt(n="Role should be static"),
         role_should_not_be_static := mt(n="Role should not be static"),
         bad_role_name_spelling := mt(n="Bad role name spelling"),
-        similar_role_name := mt(n="Similar (yet incorrect) role name"),
-        other_wrong_role_name := mt(n="Other wrong role name"),
+        similar_role_name := mt(n="Similar (yet incorrect) role name"), # TODO Remove
+        other_wrong_role_name := mt(n="Other wrong role name"), # Rename to Incorrect role name but correct association
     ]),
     wrong_association_class := mtc(n="Wrong association class", s=wrong_relationship, mistakeTypes=[
         missing_association_class := mt(n="Missing association class"),
-        extra_association_class := mt(n="Extra (redundant) association class"),
+        extra_association_class := mt(n="Extra (redundant) association class"), # Rename , Remove (redundant)
         bad_association_class_name_spelling := mt(n="Bad association class name spelling"),
-        similar_association_class_name := mt(n="Similar (yet incorrect) association class name"),
+        association_class_should_be_regular_class:= mt(n="Association class should be regular class"), # Added
+        regular_class_should_be_association_class := mt(n="Regular class should be association class"), # Added
+        similar_association_class_name := mt(n="Similar (yet incorrect) association class name"), # Remove
     ]),
     wrong_generalization := mtc(n="Wrong generalization", s=wrong_relationship, mistakeTypes=[
         missing_generalization := mt(n="Missing generalization"),
-        generalization_inapplicable := mt(n="Generalization inapplicable"),
+        extra_generalization := mt(n="Extra generalization"), # Added
+        generalization_inapplicable := mt(n="Generalization inapplicable"), # Rename to Generalization does not follow isA rule
         subclass_not_distinct_across_lifetime := mt(n="Subclass not distinct across lifetime"),
         inherited_feature_does_not_make_sense_for_subclass := mt(n="Inherited feature does not make sense for subclass"),
         subclass_is_an_instance_of_superclass := mt(n="Subclass is an instance of superclass"),
@@ -184,21 +199,24 @@ mts_by_priority: list[MistakeType] = [
     lowercase_class_name,
     plural_class_name,
     software_engineering_term,
-    similar_class_name,
+    similar_class_name, # Remove
+    incorrect_class_name_but_correct_attribute_relationship,
     bad_association_class_name_spelling,
-    similar_association_class_name,
+    similar_association_class_name, # Remove
+    association_class_should_be_regular_class, # Added
+    regular_class_should_be_association_class, # Added
     regular_class_should_be_enum,
     enum_should_be_regular_class,
     bad_enum_name_spelling,
     bad_enum_item_spelling,
-    similar_enum_name,
-    similar_enum_item,
+    similar_enum_name, # Remove
+    similar_enum_item, # Remove
 
     # mistakes in an existing attribute
     bad_attribute_name_spelling,
     uppercase_attribute_name,
     plural_attribute,
-    similar_attribute_name,
+    similar_attribute_name, # TODO Remove
     attribute_misplaced,
     wrong_attribute_type,
     attribute_should_not_be_static,
@@ -209,6 +227,7 @@ mts_by_priority: list[MistakeType] = [
     composed_part_contained_in_more_than_one_parent,
     using_an_attribute_instead_of_an_association,
     list_attribute,
+    attribute_misplaced_in_generalized_hierarchy, # Added
     generalization_inapplicable,
     using_association_instead_of_aggregation_composition,
     using_aggregation_composition_instead_of_association,
@@ -216,21 +235,26 @@ mts_by_priority: list[MistakeType] = [
     using_undirected_association_instead_of_directed,
     using_aggregation_instead_of_composition,
     using_composition_instead_of_aggregation,
+    using_binary_association_instead_of_nary_association, # Added
+    using_nary_association_instead_of_binary_association, # Added
+    using_nary_association_instead_of_intermediate_class, # Added
+    using_intermediate_class_instead_of_nary_association, # Added 
     wrong_generalization_direction,
     wrong_superclass,
     subclass_is_an_instance_of_superclass,
     non_differentiated_subclass,
     subclass_not_distinct_across_lifetime,
     inherited_feature_does_not_make_sense_for_subclass,
-    other_wrong_multiplicity,
+    other_wrong_multiplicity, # Rename to wrong_multiplicity
+    missing_multiplicity, # Added
     missing_role_names,
     bad_role_name_spelling,
-    similar_role_name,
-    other_wrong_role_name,
+    similar_role_name, # Remove
+    other_wrong_role_name, # Rename to incorrect_role_name_but_correct_association
     role_should_not_be_static,
     role_should_be_static,
     bad_association_name_spelling,
-    similar_association_name,
+    similar_association_name, # Remove
     incomplete_containment_tree,
 
     # design pattern mistakes
@@ -252,14 +276,19 @@ mts_by_priority: list[MistakeType] = [
     extra_association_class,
     extra_enum,
     extra_enum_item,
+    extra_generalization, # Added
+    extra_composition, # Added
     representing_an_action_with_an_association,
-    other_extra_association,
+    other_extra_association, # Rename to extra_association
+    extra_aggregation, # Added
+    extra_nary_association, # Added
     attribute_duplicated,
-    other_extra_attribute,
+    other_extra_attribute, # Rename to extra_attribute
 
     # missing items
     missing_class,
     missing_attribute,
+    missing_attribute_type,
     missing_association_class,
     missing_enum,
     missing_enum_item,
@@ -267,8 +296,9 @@ mts_by_priority: list[MistakeType] = [
     missing_composition,
     missing_association,
     missing_aggregation,
+    missing_nary_association, # Added
     missing_role_names,
-    missing_association_name_when_one_was_expected,
+    missing_association_name_when_one_was_expected, # Rename to missing_association_name
 
     # missing/incomplete patterns
     incomplete_player_role_pattern,
