@@ -260,13 +260,22 @@ public interface LearningcorpusPackage extends EPackage {
   int MISTAKE_TYPE__PRIORITY = NAMED_ELEMENT_FEATURE_COUNT + 6;
 
   /**
+   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_TYPE__DESCRIPTION = NAMED_ELEMENT_FEATURE_COUNT + 7;
+
+  /**
    * The number of structural features of the '<em>Mistake Type</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MISTAKE_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 7;
+  int MISTAKE_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 8;
 
   /**
    * The number of operations of the '<em>Mistake Type</em>' class.
@@ -1362,6 +1371,17 @@ public interface LearningcorpusPackage extends EPackage {
   EAttribute getMistakeType_Priority();
 
   /**
+   * Returns the meta object for the attribute '{@link learningcorpus.MistakeType#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see learningcorpus.MistakeType#getDescription()
+   * @see #getMistakeType()
+   * @generated
+   */
+  EAttribute getMistakeType_Description();
+
+  /**
    * Returns the meta object for class '{@link learningcorpus.Feedback <em>Feedback</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1882,6 +1902,14 @@ public interface LearningcorpusPackage extends EPackage {
      * @generated
      */
     EAttribute MISTAKE_TYPE__PRIORITY = eINSTANCE.getMistakeType_Priority();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MISTAKE_TYPE__DESCRIPTION = eINSTANCE.getMistakeType_Description();
 
     /**
      * The meta object literal for the '{@link learningcorpus.impl.FeedbackImpl <em>Feedback</em>}' class.

@@ -51,6 +51,7 @@ public class MistakeTypeItemProvider extends NamedElementItemProvider {
       addLearningItemPropertyDescriptor(object);
       addFeedbacksPropertyDescriptor(object);
       addPriorityPropertyDescriptor(object);
+      addDescriptionPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -188,6 +189,28 @@ public class MistakeTypeItemProvider extends NamedElementItemProvider {
   }
 
   /**
+   * This adds a property descriptor for the Description feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addDescriptionPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_MistakeType_description_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_MistakeType_description_feature", "_UI_MistakeType_type"),
+         LearningcorpusPackage.Literals.MISTAKE_TYPE__DESCRIPTION,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This returns MistakeType.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -229,6 +252,7 @@ public class MistakeTypeItemProvider extends NamedElementItemProvider {
       case LearningcorpusPackage.MISTAKE_TYPE__TIME_TO_ADDRESS:
       case LearningcorpusPackage.MISTAKE_TYPE__NUM_STEPS_BEFORE_NOTIFICATION:
       case LearningcorpusPackage.MISTAKE_TYPE__PRIORITY:
+      case LearningcorpusPackage.MISTAKE_TYPE__DESCRIPTION:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }

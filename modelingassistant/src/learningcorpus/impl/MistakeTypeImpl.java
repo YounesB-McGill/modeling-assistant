@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link learningcorpus.impl.MistakeTypeImpl#getFeedbacks <em>Feedbacks</em>}</li>
  *   <li>{@link learningcorpus.impl.MistakeTypeImpl#getMistakeTypeCategory <em>Mistake Type Category</em>}</li>
  *   <li>{@link learningcorpus.impl.MistakeTypeImpl#getPriority <em>Priority</em>}</li>
+ *   <li>{@link learningcorpus.impl.MistakeTypeImpl#getDescription <em>Description</em>}</li>
  * </ul>
  *
  * @generated
@@ -145,6 +146,26 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
    * @ordered
    */
   protected int priority = PRIORITY_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected static final String DESCRIPTION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected String description = DESCRIPTION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -380,6 +401,29 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setDescription(String newDescription) {
+    String oldDescription = description;
+    description = newDescription;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, LearningcorpusPackage.MISTAKE_TYPE__DESCRIPTION, oldDescription, description));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -453,6 +497,8 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         return getMistakeTypeCategory();
       case LearningcorpusPackage.MISTAKE_TYPE__PRIORITY:
         return getPriority();
+      case LearningcorpusPackage.MISTAKE_TYPE__DESCRIPTION:
+        return getDescription();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -488,6 +534,9 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
       case LearningcorpusPackage.MISTAKE_TYPE__PRIORITY:
         setPriority((Integer)newValue);
         return;
+      case LearningcorpusPackage.MISTAKE_TYPE__DESCRIPTION:
+        setDescription((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -521,6 +570,9 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
       case LearningcorpusPackage.MISTAKE_TYPE__PRIORITY:
         setPriority(PRIORITY_EDEFAULT);
         return;
+      case LearningcorpusPackage.MISTAKE_TYPE__DESCRIPTION:
+        setDescription(DESCRIPTION_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -547,6 +599,8 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         return getMistakeTypeCategory() != null;
       case LearningcorpusPackage.MISTAKE_TYPE__PRIORITY:
         return priority != PRIORITY_EDEFAULT;
+      case LearningcorpusPackage.MISTAKE_TYPE__DESCRIPTION:
+        return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
     }
     return super.eIsSet(featureID);
   }
@@ -569,6 +623,8 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
     result.append(numStepsBeforeNotification);
     result.append(", priority: ");
     result.append(priority);
+    result.append(", description: ");
+    result.append(description);
     result.append(')');
     return result.toString();
   }
