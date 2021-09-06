@@ -42,9 +42,6 @@ public class MistakeTypes {
   /** The class mistakes mistake type category. */
   public static final MistakeTypeCategory CLASS_MISTAKES = MTCS.get("Class mistakes");
 
-  /** The wrong class name mistake type category. */
-  public static final MistakeTypeCategory WRONG_CLASS_NAME = MTCS.get("Wrong class name");
-
   /** The wrong enumeration mistake type category. */
   public static final MistakeTypeCategory WRONG_ENUMERATION = MTCS.get("Wrong enumeration");
 
@@ -101,6 +98,9 @@ public class MistakeTypes {
   public static final MistakeTypeCategory WRONG_ABSTRACTION_OCCURRENCE_PATTERN =
       MTCS.get("Wrong Abstraction-Occurrence pattern");
 
+  /** The wrong class name mistake type category. */
+  public static final MistakeTypeCategory WRONG_CLASS_NAME = MTCS.get("Wrong class name");
+
 
   // Mistake types
 
@@ -109,25 +109,6 @@ public class MistakeTypes {
 
   /** The extra (redundant) class mistake type. */
   public static final MistakeType EXTRA_CLASS = MTS.get("Extra (redundant) class");
-
-  /** The plural class name mistake type. */
-  public static final MistakeType PLURAL_CLASS_NAME = MTS.get("Plural class name");
-
-  /** The lowercase class name mistake type. */
-  public static final MistakeType LOWERCASE_CLASS_NAME = MTS.get("Lowercase class name");
-
-  /** The software engineering term mistake type. */
-  public static final MistakeType SOFTWARE_ENGINEERING_TERM = MTS.get("Software engineering term");
-
-  /** The bad class name spelling mistake type. */
-  public static final MistakeType BAD_CLASS_NAME_SPELLING = MTS.get("Bad class name spelling");
-
-  /** The similar (yet incorrect) class name mistake type. */
-  public static final MistakeType SIMILAR_CLASS_NAME = MTS.get("Similar (yet incorrect) class name");
-
-  /** The incorrect class name but correct attribute/relationship mistake type. */
-  public static final MistakeType INCORRECT_CLASS_NAME_BUT_CORRECT_ATTRIBUTE_RELATIONSHIP =
-      MTS.get("Incorrect class name but correct attribute/relationship");
 
   /** The regular class should be enum mistake type. */
   public static final MistakeType REGULAR_CLASS_SHOULD_BE_ENUM = MTS.get("Regular class should be enum");
@@ -430,5 +411,24 @@ public class MistakeTypes {
   /** The incomplete abstraction-occurrence pattern mistake type. */
   public static final MistakeType INCOMPLETE_ABSTRACTION_OCCURRENCE_PATTERN =
       MTS.get("Incomplete Abstraction-Occurrence pattern");
+
+  /** The plural class name mistake type. */
+  public static final MistakeType PLURAL_CLASS_NAME = MTS.get("Plural class name");
+
+  /** The lowercase class name mistake type. */
+  public static final MistakeType LOWERCASE_CLASS_NAME = MTS.get("Lowercase class name");
+
+  /** The software engineering term mistake type. */
+  public static final MistakeType SOFTWARE_ENGINEERING_TERM = MTS.get("Software engineering term");
+
+  /** The bad class name spelling mistake type. */
+  public static final MistakeType BAD_CLASS_NAME_SPELLING = MTS.get("Bad class name spelling");
+
+  /** The similar (yet incorrect) class name mistake type. */
+  public static final MistakeType SIMILAR_CLASS_NAME = MTS.get("Similar (yet incorrect) class name");
+
+  /** The incorrect class name but correct attribute/relationship mistake type. */
+  public static final MistakeType INCORRECT_CLASS_NAME_BUT_CORRECT_ATTRIBUTE_RELATIONSHIP =
+      MTS.get("Incorrect class name but correct attribute/relationship");
 
 }

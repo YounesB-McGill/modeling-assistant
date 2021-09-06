@@ -19,35 +19,36 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             ParametrizedResponse(level=4, text="Remember to add the ${className} class.")
         ]),
         extra_class := mt(n="Extra (redundant) class"),
-    ]),
-    wrong_class_name := mtc(n="Wrong class name", s=class_mistakes, mistakeTypes=[
-        plural_class_name := mt(n="Plural class name"),
-        lowercase_class_name := mt(n="Lowercase class name"),
-        software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=[
-            Feedback(level=1, highlightSolution=True),
-            TextResponse(level=2, text="Remember that a domain model should not contain software engineering terms."),
-            ParametrizedResponse(level=3,
-                text="${className} is a software engineering term, which does not belong in a domain model."),
-            ResourceResponse(level=4,
-                learningResources=[Example(content=dedent("""\
-                    Please note these examples of correct vs incorrect class naming:
-                    :x: Examples to avoid | :heavy_check_mark: Good class names
-                    --- | ---
-                    pilot | Pilot
-                    Airplanes | Airplane 
-                    AirlineData | Airline"""))]
-            ),
+    ], subcategories=[
+        wrong_class_name := mtc(n="Wrong class name", mistakeTypes=[
+            plural_class_name := mt(n="Plural class name"),
+            lowercase_class_name := mt(n="Lowercase class name"),
+            software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=[
+                Feedback(level=1, highlightSolution=True),
+                TextResponse(level=2, text="Remember that a domain model should not contain software engineering terms."),
+                ParametrizedResponse(level=3,
+                    text="${className} is a software engineering term, which does not belong in a domain model."),
+                ResourceResponse(level=4,
+                    learningResources=[Example(content=dedent("""\
+                        Please note these examples of correct vs incorrect class naming:
+                        :x: Examples to avoid | :heavy_check_mark: Good class names
+                        --- | ---
+                        pilot | Pilot
+                        Airplanes | Airplane 
+                        AirlineData | Airline"""))]
+                ),
+            ]),
+            bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True, feedbacks=[
+                Feedback(level=1, highlightSolution=True),
+                TextResponse(level=2, text="Can you double check this class name?"),
+                ParametrizedResponse(level=3, text="The ${incorrectlySpelledClassName} class has a misspelled name."),
+                ParametrizedResponse(level=4,
+                    text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
+            ]),
+            similar_class_name := mt(n="Similar (yet incorrect) class name"), # TODO Remove
+            incorrect_class_name_but_correct_attribute_relationship := mt(
+                n="Incorrect class name but correct attribute/relationship"), # Added
         ]),
-        bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True, feedbacks=[
-            Feedback(level=1, highlightSolution=True),
-            TextResponse(level=2, text="Can you double check this class name?"),
-            ParametrizedResponse(level=3, text="The ${incorrectlySpelledClassName} class has a misspelled name."),
-            ParametrizedResponse(level=4,
-                text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
-        ]),
-        similar_class_name := mt(n="Similar (yet incorrect) class name"), # TODO Remove
-        incorrect_class_name_but_correct_attribute_relationship := mt(
-            n="Incorrect class name but correct attribute/relationship"), # Added
     ]),
     wrong_enumeration := mtc(n="Wrong enumeration", s=class_mistakes, mistakeTypes=[
         regular_class_should_be_enum := mt(n="Regular class should be enum"),

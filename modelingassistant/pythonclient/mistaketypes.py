@@ -18,7 +18,6 @@ _MTS = MISTAKE_TYPES_BY_NAME
 
 # Mistake type categories
 CLASS_MISTAKES: MistakeTypeCategory = _MTCS["Class mistakes"]
-WRONG_CLASS_NAME: MistakeTypeCategory = _MTCS["Wrong class name"]
 WRONG_ENUMERATION: MistakeTypeCategory = _MTCS["Wrong enumeration"]
 WRONG_ATTRIBUTE: MistakeTypeCategory = _MTCS["Wrong attribute"]
 EXTRA_ATTRIBUTE: MistakeTypeCategory = _MTCS["Extra (redundant) attribute"]
@@ -37,17 +36,11 @@ MISUSE_OF_DESIGN_PATTERNS: MistakeTypeCategory = _MTCS["Misuse of design pattern
 WRONG_PLAYER_ROLE_PATTERN: MistakeTypeCategory = _MTCS["Wrong Player-Role Pattern"]
 USING_DIFFERENT_PLAYER_ROLE_PATTERN: MistakeTypeCategory = _MTCS["Using different Player-Role pattern"]
 WRONG_ABSTRACTION_OCCURRENCE_PATTERN: MistakeTypeCategory = _MTCS["Wrong Abstraction-Occurrence pattern"]
+WRONG_CLASS_NAME: MistakeTypeCategory = _MTCS["Wrong class name"]
 
 # Mistake types
 MISSING_CLASS: MistakeType = _MTS["Missing class"]
 EXTRA_CLASS: MistakeType = _MTS["Extra (redundant) class"]
-PLURAL_CLASS_NAME: MistakeType = _MTS["Plural class name"]
-LOWERCASE_CLASS_NAME: MistakeType = _MTS["Lowercase class name"]
-SOFTWARE_ENGINEERING_TERM: MistakeType = _MTS["Software engineering term"]
-BAD_CLASS_NAME_SPELLING: MistakeType = _MTS["Bad class name spelling"]
-SIMILAR_CLASS_NAME: MistakeType = _MTS["Similar (yet incorrect) class name"]
-INCORRECT_CLASS_NAME_BUT_CORRECT_ATTRIBUTE_RELATIONSHIP: MistakeType = \
-    _MTS["Incorrect class name but correct attribute/relationship"]
 REGULAR_CLASS_SHOULD_BE_ENUM: MistakeType = _MTS["Regular class should be enum"]
 ENUM_SHOULD_BE_REGULAR_CLASS: MistakeType = _MTS["Enum should be regular class"]
 MISSING_ENUM: MistakeType = _MTS["Missing enum"]
@@ -148,3 +141,10 @@ FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION: MistakeType = _MTS["Full Player-
 FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM: MistakeType = _MTS["Full Player-Role pattern should be enum"]
 MISSING_ABSTRACTION_OCCURRENCE_PATTERN: MistakeType = _MTS["Missing Abstraction-Occurrence pattern"]
 INCOMPLETE_ABSTRACTION_OCCURRENCE_PATTERN: MistakeType = _MTS["Incomplete Abstraction-Occurrence pattern"]
+PLURAL_CLASS_NAME: MistakeType = _MTS["Plural class name"]
+LOWERCASE_CLASS_NAME: MistakeType = _MTS["Lowercase class name"]
+SOFTWARE_ENGINEERING_TERM: MistakeType = _MTS["Software engineering term"]
+BAD_CLASS_NAME_SPELLING: MistakeType = _MTS["Bad class name spelling"]
+SIMILAR_CLASS_NAME: MistakeType = _MTS["Similar (yet incorrect) class name"]
+INCORRECT_CLASS_NAME_BUT_CORRECT_ATTRIBUTE_RELATIONSHIP: MistakeType = \
+    _MTS["Incorrect class name but correct attribute/relationship"]
