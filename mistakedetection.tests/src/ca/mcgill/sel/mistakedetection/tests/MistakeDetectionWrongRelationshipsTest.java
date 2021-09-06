@@ -16,7 +16,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_ATTRIBUTE_INSTEAD_OF_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_ATTRIBUTE_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED;
@@ -1895,7 +1895,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_ATTRIBUTE_INSTEAD_OF_ASSOCIATION,
+    assertMistake(studentSolution.getMistakes().get(0), USING_ATTRIBUTE_INSTEAD_OF_ASSOC,
         studentdriverAttribute, instructorBusToDriverAssociation.get(0), 0, 1, false);
   }
 
@@ -1927,7 +1927,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_ATTRIBUTE_INSTEAD_OF_ASSOCIATION,
+    assertMistake(studentSolution.getMistakes().get(0), USING_ATTRIBUTE_INSTEAD_OF_ASSOC,
         studentflightAttribute, instructorPilotandFlightAssociation.get(0), 0, 1, false);
   }
 

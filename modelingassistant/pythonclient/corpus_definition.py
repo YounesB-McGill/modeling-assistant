@@ -105,7 +105,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 missing_association := mt(n="Missing association"),
                 missing_aggregation := mt(n="Missing aggregation"),
                 missing_nary_association := mt(n="Missing n-ary association"), # Added
-                using_attribute_instead_of_association := mt(n="Using attribute instead of association"),
+                using_attribute_instead_of_assoc := mt(
+                    n="Using attribute instead of assoc",
+                    d="Using attribute instead of association"),
             ]),
             extra_association_mistakes := mtc(n="Extra association mistakes", mistakeTypes=[
                 representing_action_with_assoc := mt(
@@ -293,7 +295,7 @@ mts_by_priority: list[MistakeType] = [
     # mistakes in an existing relationship
     infinite_recursive_dependency,
     composed_part_contained_in_more_than_one_parent,
-    using_attribute_instead_of_association,
+    using_attribute_instead_of_assoc,
     list_attribute,
     attribute_misplaced_in_generalized_hierarchy, # Added
     generalization_inapplicable,
