@@ -222,8 +222,7 @@ public class MistakeTypes {
   public static final MistakeType MISSING_N_ARY_ASSOCIATION = MTS.get("Missing n-ary association");
 
   /** The using attribute instead of association mistake type. */
-  public static final MistakeType USING_ATTRIBUTE_INSTEAD_OF_ASSOCIATION =
-      MTS.get("Using attribute instead of association");
+  public static final MistakeType USING_ATTRIBUTE_INSTEAD_OF_ASSOC = MTS.get("Using attribute instead of assoc");
 
   /** The representing an action with an association mistake type. */
   public static final MistakeType REPRESENTING_ACTION_WITH_ASSOC = MTS.get("Representing action with assoc");
