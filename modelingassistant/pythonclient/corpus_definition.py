@@ -21,6 +21,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 ParametrizedResponse(level=4, text="Remember to add the ${className} class.")
             ]),
             extra_class := mt(n="Extra (redundant) class"),
+            using_nary_assoc_instead_of_intermediate_class := mt(
+                n="Using n-ary assoc instead of intermediate class",
+                d="Using n-ary association instead of intermediate class"), # Added
         ],
         subcategories=[
             class_name_mistakes := mtc(n="Class name mistakes", mistakeTypes=[
@@ -95,55 +98,82 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             ]),
         ]
     ),
-    
-    wrong_relationship := mtc(n="Wrong relationship", mistakeTypes=[
+
+    relationship_mistakes := mtc(n="Relationship mistakes", mistakeTypes=[
         incomplete_containment_tree := mt(n="Incomplete containment tree"),
+    ], subcategories=[
+        association_mistakes := mtc(n="Association mistakes",
+            mistakeTypes=[
+                
+            ],
+            subcategories=[
+                missing_association_mistakes := mtc(n="Missing association mistakes", mistakeTypes=[
+                    missing_association := mt(n="Missing association"),
+                    missing_aggregation := mt(n="Missing aggregation"),
+                    missing_nary_association := mt(n="Missing n-ary association"), # Added
+                    using_an_attribute_instead_of_an_association := mt(n="Using an attribute instead of an association"),
+                ]),
+                extra_association_mistakes := mtc(n="Extra (redundant) association mistakes", mistakeTypes=[
+                    representing_an_action_with_an_association := mt(n="Representing an action with an association"),
+                    composed_part_contained_in_more_than_one_parent := mt(
+                        n="Composed part contained in more than one parent"),  # TODO Move
+                    other_extra_association := mt(n="Other extra association"), # Rename to extra_association
+                    extra_composition := mt(n="Extra composition"), # Added
+                    extra_aggregation := mt(n="Extra aggregation"), # Added
+                    extra_nary_association := mt(n="Extra n-ary association"), # Added
+                ]),
+                wrong_association_type_mistakes := mtc(n="Wrong association type mistakes", mistakeTypes=[
+                    using_aggregation_composition_instead_of_assoc := mt(
+                        n="Using aggregation/composition instead of assoc",
+                        d="Using aggregation/composition instead of association"),
+                    using_directed_assoc_instead_of_undirected := mt(
+                        n="Using directed assoc instead of undirected",
+                        d="Using directed association instead of undirected association"),
+                    using_undirected_association_instead_of_directed := mt(
+                        n="Using undirected assoc instead of directed",
+                        d="Using undirected association instead of directed association"),
+                    using_composition_instead_of_aggregation := mt(n="Using composition instead of aggregation"),
+                    using_binary_assoc_instead_of_nary_assoc := mt(
+                        n="Using binary assoc instead of n-ary assoc",
+                        d="Using binary association instead of n-ary association"), # Added
+                    using_nary_assoc_instead_of_binary_assoc := mt(
+                        n="Using n-ary assoc instead of binary assoc",
+                        d="Using n-ary association instead of binary association"), # Added
+                    using_intermediate_class_instead_of_nary_assoc := mt(
+                        n="Using intermediate class instead of n-ary assoc",
+                        d="Using intermediate class instead of n-ary association"), # Added
+                ]),
+            ]
+        ),
+        
     ]),
-    missing_relationship := mtc(n="Missing relationship", s=wrong_relationship, mistakeTypes=[
-        missing_association := mt(n="Missing association"),
+    missing_relationship := mtc(n="Missing relationship", s=relationship_mistakes, mistakeTypes=[
+        
         missing_composition := mt(n="Missing composition"),
-        missing_aggregation := mt(n="Missing aggregation"),
-        missing_nary_association := mt(n="Missing n-ary association"), # Added
-        using_an_attribute_instead_of_an_association := mt(n="Using an attribute instead of an association"),
+        
+        
     ]),
-    extra_association := mtc(n="Extra (redundant) association", s=wrong_relationship, mistakeTypes=[
-        representing_an_action_with_an_association := mt(n="Representing an action with an association"),
-        composed_part_contained_in_more_than_one_parent := mt(n="Composed part contained in more than one parent"),
-        other_extra_association := mt(n="Other extra association"), # Rename to extra_association
-        extra_composition := mt(n="Extra composition"), # Added
-        extra_aggregation := mt(n="Extra aggregation"), # Added
-        extra_nary_association := mt(n="Extra n-ary association"), # Added
-    ]),
-    using_wrong_relationship_type := mtc(n="Using wrong relationship type", s=wrong_relationship, mistakeTypes=[
+    
+    using_wrong_relationship_type := mtc(n="Using wrong relationship type", s=relationship_mistakes, mistakeTypes=[
         using_association_instead_of_aggregation_composition := mt(
             n="Using association instead of aggregation/composition"),
-        using_aggregation_composition_instead_of_association := mt(
-            n="Using aggregation/composition instead of association"),
-        using_directed_association_instead_of_undirected := mt(n="Using directed association instead of undirected"),
-        using_undirected_association_instead_of_directed := mt(n="Using undirected association instead of directed"),
+        
         using_aggregation_instead_of_composition := mt(n="Using aggregation instead of composition"),
-        using_composition_instead_of_aggregation := mt(n="Using composition instead of aggregation"),
-        using_binary_association_instead_of_nary_association := mt(
-            n="Using binary association instead of nary association"), # Added
-        using_nary_association_instead_of_binary_association := mt(
-            n="Using nary association instead of binary association"), # Added
-        using_intermediate_class_instead_of_nary_association := mt(
-            n="Using intermediate class instead of nary association"), # Added
-        using_nary_association_instead_of_intermediate_class := mt(
-            n="Using nary association instead of intermediate class"), # Added
+        
+        
     ]),
-    wrong_association_name := mtc(n="Wrong association name", s=wrong_relationship, mistakeTypes=[
+    wrong_association_name := mtc(n="Wrong association name", s=relationship_mistakes, mistakeTypes=[
          # TODO Rename to Missing association name.
         missing_association_name_when_one_was_expected := mt(n="Missing association name when one was expected"),
         bad_association_name_spelling := mt(n="Bad association name spelling"),
         similar_association_name := mt(n="Similar (yet incorrect) association name"), # TODO Remove
     ]),
-    wrong_multiplicities := mtc(n="Wrong multiplicities", s=wrong_relationship, mistakeTypes=[
+    wrong_multiplicities := mtc(n="Wrong multiplicities", s=relationship_mistakes, mistakeTypes=[
         infinite_recursive_dependency := mt(n="Infinite recursive dependency"),
         other_wrong_multiplicity := mt(n="Other wrong multiplicity"), # Rename to Wrong multiplicity
         missing_multiplicity := mt(n="Missing multiplicity"), # Added
     ]),
-    wrong_role_names := mtc(n="Wrong role names", s=wrong_relationship, mistakeTypes=[
+    wrong_role_names := mtc(n="Wrong role names", s=relationship_mistakes, mistakeTypes=[
         missing_role_names := mt(n="Missing role names"),
         role_should_be_static := mt(n="Role should be static"),
         role_should_not_be_static := mt(n="Role should not be static"),
@@ -151,7 +181,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         similar_role_name := mt(n="Similar (yet incorrect) role name"), # TODO Remove
         other_wrong_role_name := mt(n="Other wrong role name"), # Rename to Incorrect role name but correct association
     ]),
-    wrong_association_class := mtc(n="Wrong association class", s=wrong_relationship, mistakeTypes=[
+    wrong_association_class := mtc(n="Wrong association class", s=relationship_mistakes, mistakeTypes=[
         missing_association_class := mt(n="Missing association class"),
         extra_association_class := mt(n="Extra (redundant) association class"), # Rename , Remove (redundant)
         bad_association_class_name_spelling := mt(n="Bad association class name spelling"),
@@ -159,7 +189,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         regular_class_should_be_association_class := mt(n="Regular class should be association class"), # Added
         similar_association_class_name := mt(n="Similar (yet incorrect) association class name"), # Remove
     ]),
-    wrong_generalization := mtc(n="Wrong generalization", s=wrong_relationship, mistakeTypes=[
+    wrong_generalization := mtc(n="Wrong generalization", s=relationship_mistakes, mistakeTypes=[
         missing_generalization := mt(n="Missing generalization"),
         extra_generalization := mt(n="Extra generalization"), # Added
         # Rename to Generalization does not follow isA rule
@@ -237,15 +267,15 @@ mts_by_priority: list[MistakeType] = [
     attribute_misplaced_in_generalized_hierarchy, # Added
     generalization_inapplicable,
     using_association_instead_of_aggregation_composition,
-    using_aggregation_composition_instead_of_association,
-    using_directed_association_instead_of_undirected,
+    using_aggregation_composition_instead_of_assoc,
+    using_directed_assoc_instead_of_undirected,
     using_undirected_association_instead_of_directed,
     using_aggregation_instead_of_composition,
     using_composition_instead_of_aggregation,
-    using_binary_association_instead_of_nary_association, # Added
-    using_nary_association_instead_of_binary_association, # Added
-    using_nary_association_instead_of_intermediate_class, # Added
-    using_intermediate_class_instead_of_nary_association, # Added
+    using_binary_assoc_instead_of_nary_assoc, # Added
+    using_nary_assoc_instead_of_binary_assoc, # Added
+    using_nary_assoc_instead_of_intermediate_class, # Added
+    using_intermediate_class_instead_of_nary_assoc, # Added
     wrong_generalization_direction,
     wrong_superclass,
     subclass_is_an_instance_of_superclass,
