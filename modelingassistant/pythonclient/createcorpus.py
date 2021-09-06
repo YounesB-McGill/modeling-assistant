@@ -150,7 +150,7 @@ def generate_java():
     result += "\n  // Mistake types\n\n"
 
     for mt in corpus.mistakeTypes():
-        result += f'  /** The {mt.name.lower()} mistake type. */\n'
+        result += f'  /** The {mt.description.lower()} mistake type. */\n'.replace(" isa ", " isA ")
         lhs = f'  public static final MistakeType {underscorify(mt.name)}'
         rhs = f'MTS.get("{mt.name}");'
         mt_decl = f'{lhs} = {rhs}'

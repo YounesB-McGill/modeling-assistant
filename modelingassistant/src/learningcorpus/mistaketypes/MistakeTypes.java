@@ -48,27 +48,6 @@ public class MistakeTypes {
   /** The category for relationship mistakes. */
   public static final MistakeTypeCategory RELATIONSHIP_MISTAKES = MTCS.get("Relationship mistakes");
 
-  /** The category for missing relationship. */
-  public static final MistakeTypeCategory MISSING_RELATIONSHIP = MTCS.get("Missing relationship");
-
-  /** The category for using wrong relationship type. */
-  public static final MistakeTypeCategory USING_WRONG_RELATIONSHIP_TYPE = MTCS.get("Using wrong relationship type");
-
-  /** The category for wrong association name. */
-  public static final MistakeTypeCategory WRONG_ASSOCIATION_NAME = MTCS.get("Wrong association name");
-
-  /** The category for wrong multiplicities. */
-  public static final MistakeTypeCategory WRONG_MULTIPLICITIES = MTCS.get("Wrong multiplicities");
-
-  /** The category for wrong role names. */
-  public static final MistakeTypeCategory WRONG_ROLE_NAMES = MTCS.get("Wrong role names");
-
-  /** The category for wrong association class. */
-  public static final MistakeTypeCategory WRONG_ASSOCIATION_CLASS = MTCS.get("Wrong association class");
-
-  /** The category for wrong generalization. */
-  public static final MistakeTypeCategory WRONG_GENERALIZATION = MTCS.get("Wrong generalization");
-
   /** The category for misuse of design patterns. */
   public static final MistakeTypeCategory MISUSE_OF_DESIGN_PATTERNS = MTCS.get("Misuse of design patterns");
 
@@ -89,8 +68,8 @@ public class MistakeTypes {
   /** The category for enumeration mistakes. */
   public static final MistakeTypeCategory ENUMERATION_MISTAKES = MTCS.get("Enumeration mistakes");
 
-  /** The category for extra (redundant) attribute mistakes. */
-  public static final MistakeTypeCategory EXTRA_ATTRIBUTE_MISTAKES = MTCS.get("Extra (redundant) attribute mistakes");
+  /** The category for extra attribute mistakes. */
+  public static final MistakeTypeCategory EXTRA_ATTRIBUTE_MISTAKES = MTCS.get("Extra attribute mistakes");
 
   /** The category for wrong attribute name mistakes. */
   public static final MistakeTypeCategory WRONG_ATTRIBUTE_NAME_MISTAKES = MTCS.get("Wrong attribute name mistakes");
@@ -102,15 +81,32 @@ public class MistakeTypes {
   /** The category for missing association mistakes. */
   public static final MistakeTypeCategory MISSING_ASSOCIATION_MISTAKES = MTCS.get("Missing association mistakes");
 
-  /** The category for extra (redundant) association mistakes. */
-  public static final MistakeTypeCategory EXTRA_ASSOCIATION_MISTAKES =
-      MTCS.get("Extra (redundant) association mistakes");
+  /** The category for extra association mistakes. */
+  public static final MistakeTypeCategory EXTRA_ASSOCIATION_MISTAKES = MTCS.get("Extra association mistakes");
 
-  /** The category for wrong association type mistakes. */
-  public static final MistakeTypeCategory WRONG_ASSOCIATION_TYPE_MISTAKES = MTCS.get("Wrong association type mistakes");
+  /** The category for association type mistakes. */
+  public static final MistakeTypeCategory ASSOCIATION_TYPE_MISTAKES = MTCS.get("Association type mistakes");
+
+  /** The category for association name mistakes. */
+  public static final MistakeTypeCategory ASSOCIATION_NAME_MISTAKES = MTCS.get("Association name mistakes");
+
+  /** The category for multiplicity mistakes. */
+  public static final MistakeTypeCategory MULTIPLICITY_MISTAKES = MTCS.get("Multiplicity mistakes");
+
+  /** The category for role name mistakes. */
+  public static final MistakeTypeCategory ROLE_NAME_MISTAKES = MTCS.get("Role name mistakes");
+
+  /** The category for association class mistakes. */
+  public static final MistakeTypeCategory ASSOCIATION_CLASS_MISTAKES = MTCS.get("Association class mistakes");
 
   /** The category for association mistakes. */
   public static final MistakeTypeCategory ASSOCIATION_MISTAKES = MTCS.get("Association mistakes");
+
+  /** The category for composition mistakes. */
+  public static final MistakeTypeCategory COMPOSITION_MISTAKES = MTCS.get("Composition mistakes");
+
+  /** The category for generalization mistakes. */
+  public static final MistakeTypeCategory GENERALIZATION_MISTAKES = MTCS.get("Generalization mistakes");
 
 
   // Mistake types
@@ -121,7 +117,7 @@ public class MistakeTypes {
   /** The extra (redundant) class mistake type. */
   public static final MistakeType EXTRA_CLASS = MTS.get("Extra (redundant) class");
 
-  /** The using n-ary assoc instead of intermediate class mistake type. */
+  /** The using n-ary association instead of intermediate class mistake type. */
   public static final MistakeType USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS =
       MTS.get("Using n-ary assoc instead of intermediate class");
 
@@ -139,108 +135,6 @@ public class MistakeTypes {
 
   /** The attribute should not be static mistake type. */
   public static final MistakeType ATTRIBUTE_SHOULD_NOT_BE_STATIC = MTS.get("Attribute should not be static");
-
-  /** The incomplete containment tree mistake type. */
-  public static final MistakeType INCOMPLETE_CONTAINMENT_TREE = MTS.get("Incomplete containment tree");
-
-  /** The missing composition mistake type. */
-  public static final MistakeType MISSING_COMPOSITION = MTS.get("Missing composition");
-
-  /** The using association instead of aggregation/composition mistake type. */
-  public static final MistakeType USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION =
-      MTS.get("Using association instead of aggregation/composition");
-
-  /** The using aggregation instead of composition mistake type. */
-  public static final MistakeType USING_AGGREGATION_INSTEAD_OF_COMPOSITION =
-      MTS.get("Using aggregation instead of composition");
-
-  /** The missing association name when one was expected mistake type. */
-  public static final MistakeType MISSING_ASSOCIATION_NAME_WHEN_ONE_WAS_EXPECTED =
-      MTS.get("Missing association name when one was expected");
-
-  /** The bad association name spelling mistake type. */
-  public static final MistakeType BAD_ASSOCIATION_NAME_SPELLING = MTS.get("Bad association name spelling");
-
-  /** The similar (yet incorrect) association name mistake type. */
-  public static final MistakeType SIMILAR_ASSOCIATION_NAME = MTS.get("Similar (yet incorrect) association name");
-
-  /** The infinite recursive dependency mistake type. */
-  public static final MistakeType INFINITE_RECURSIVE_DEPENDENCY = MTS.get("Infinite recursive dependency");
-
-  /** The other wrong multiplicity mistake type. */
-  public static final MistakeType OTHER_WRONG_MULTIPLICITY = MTS.get("Other wrong multiplicity");
-
-  /** The missing multiplicity mistake type. */
-  public static final MistakeType MISSING_MULTIPLICITY = MTS.get("Missing multiplicity");
-
-  /** The missing role names mistake type. */
-  public static final MistakeType MISSING_ROLE_NAMES = MTS.get("Missing role names");
-
-  /** The role should be static mistake type. */
-  public static final MistakeType ROLE_SHOULD_BE_STATIC = MTS.get("Role should be static");
-
-  /** The role should not be static mistake type. */
-  public static final MistakeType ROLE_SHOULD_NOT_BE_STATIC = MTS.get("Role should not be static");
-
-  /** The bad role name spelling mistake type. */
-  public static final MistakeType BAD_ROLE_NAME_SPELLING = MTS.get("Bad role name spelling");
-
-  /** The similar (yet incorrect) role name mistake type. */
-  public static final MistakeType SIMILAR_ROLE_NAME = MTS.get("Similar (yet incorrect) role name");
-
-  /** The other wrong role name mistake type. */
-  public static final MistakeType OTHER_WRONG_ROLE_NAME = MTS.get("Other wrong role name");
-
-  /** The missing association class mistake type. */
-  public static final MistakeType MISSING_ASSOCIATION_CLASS = MTS.get("Missing association class");
-
-  /** The extra (redundant) association class mistake type. */
-  public static final MistakeType EXTRA_ASSOCIATION_CLASS = MTS.get("Extra (redundant) association class");
-
-  /** The bad association class name spelling mistake type. */
-  public static final MistakeType BAD_ASSOCIATION_CLASS_NAME_SPELLING = MTS.get("Bad association class name spelling");
-
-  /** The association class should be regular class mistake type. */
-  public static final MistakeType ASSOCIATION_CLASS_SHOULD_BE_REGULAR_CLASS =
-      MTS.get("Association class should be regular class");
-
-  /** The regular class should be association class mistake type. */
-  public static final MistakeType REGULAR_CLASS_SHOULD_BE_ASSOCIATION_CLASS =
-      MTS.get("Regular class should be association class");
-
-  /** The similar (yet incorrect) association class name mistake type. */
-  public static final MistakeType SIMILAR_ASSOCIATION_CLASS_NAME =
-      MTS.get("Similar (yet incorrect) association class name");
-
-  /** The missing generalization mistake type. */
-  public static final MistakeType MISSING_GENERALIZATION = MTS.get("Missing generalization");
-
-  /** The extra generalization mistake type. */
-  public static final MistakeType EXTRA_GENERALIZATION = MTS.get("Extra generalization");
-
-  /** The generalization inapplicable mistake type. */
-  public static final MistakeType GENERALIZATION_INAPPLICABLE = MTS.get("Generalization inapplicable");
-
-  /** The subclass not distinct across lifetime mistake type. */
-  public static final MistakeType SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME =
-      MTS.get("Subclass not distinct across lifetime");
-
-  /** The inherited feature does not make sense for subclass mistake type. */
-  public static final MistakeType INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS =
-      MTS.get("Inherited feature does not make sense for subclass");
-
-  /** The subclass is an instance of superclass mistake type. */
-  public static final MistakeType SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS =
-      MTS.get("Subclass is an instance of superclass");
-
-  /** The non-differentiated subclass mistake type. */
-  public static final MistakeType NON_DIFFERENTIATED_SUBCLASS = MTS.get("Non-differentiated subclass");
-
-  /** The wrong generalization direction mistake type. */
-  public static final MistakeType WRONG_GENERALIZATION_DIRECTION = MTS.get("Wrong generalization direction");
-
-  /** The wrong superclass mistake type. */
-  public static final MistakeType WRONG_SUPERCLASS = MTS.get("Wrong superclass");
 
   /** The missing player-role pattern mistake type. */
   public static final MistakeType MISSING_PLAYER_ROLE_PATTERN = MTS.get("Missing Player-Role pattern");
@@ -322,34 +216,34 @@ public class MistakeTypes {
   /** The wrong class name mistake type. */
   public static final MistakeType WRONG_CLASS_NAME = MTS.get("Wrong class name");
 
-  /** The class should be enum mistake type. */
+  /** The regular class should be enumeration mistake type. */
   public static final MistakeType CLASS_SHOULD_BE_ENUM = MTS.get("Class should be enum");
 
-  /** The enum should be class mistake type. */
+  /** The enumeration should be regular class mistake type. */
   public static final MistakeType ENUM_SHOULD_BE_CLASS = MTS.get("Enum should be class");
 
-  /** The missing enum mistake type. */
+  /** The missing enumeration mistake type. */
   public static final MistakeType MISSING_ENUM = MTS.get("Missing enum");
 
-  /** The extra enum mistake type. */
+  /** The extra enumeration mistake type. */
   public static final MistakeType EXTRA_ENUM = MTS.get("Extra enum");
 
-  /** The bad enum name spelling mistake type. */
+  /** The bad enumeration name spelling mistake type. */
   public static final MistakeType BAD_ENUM_NAME_SPELLING = MTS.get("Bad enum name spelling");
 
-  /** The similar enum name mistake type. */
+  /** The similar enumeration name mistake type. */
   public static final MistakeType SIMILAR_ENUM_NAME = MTS.get("Similar enum name");
 
-  /** The missing enum item mistake type. */
+  /** The missing enumeration item mistake type. */
   public static final MistakeType MISSING_ENUM_ITEM = MTS.get("Missing enum item");
 
-  /** The extra enum item mistake type. */
+  /** The extra enumeration item mistake type. */
   public static final MistakeType EXTRA_ENUM_ITEM = MTS.get("Extra enum item");
 
-  /** The bad enum item spelling mistake type. */
+  /** The bad enumeration item spelling mistake type. */
   public static final MistakeType BAD_ENUM_ITEM_SPELLING = MTS.get("Bad enum item spelling");
 
-  /** The similar enum item mistake type. */
+  /** The similar enumeration item mistake type. */
   public static final MistakeType SIMILAR_ENUM_ITEM = MTS.get("Similar enum item");
 
   /** The plural attribute mistake type. */
@@ -401,11 +295,8 @@ public class MistakeTypes {
   public static final MistakeType COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT =
       MTS.get("Composed part contained in more than one parent");
 
-  /** The other extra association mistake type. */
-  public static final MistakeType OTHER_EXTRA_ASSOCIATION = MTS.get("Other extra association");
-
-  /** The extra composition mistake type. */
-  public static final MistakeType EXTRA_COMPOSITION = MTS.get("Extra composition");
+  /** The extra association mistake type. */
+  public static final MistakeType EXTRA_ASSOCIATION = MTS.get("Extra association");
 
   /** The extra aggregation mistake type. */
   public static final MistakeType EXTRA_AGGREGATION = MTS.get("Extra aggregation");
@@ -413,15 +304,15 @@ public class MistakeTypes {
   /** The extra n-ary association mistake type. */
   public static final MistakeType EXTRA_N_ARY_ASSOCIATION = MTS.get("Extra n-ary association");
 
-  /** The using aggregation/composition instead of assoc mistake type. */
+  /** The using aggregation/composition instead of association mistake type. */
   public static final MistakeType USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOC =
       MTS.get("Using aggregation/composition instead of assoc");
 
-  /** The using directed assoc instead of undirected mistake type. */
+  /** The using directed association instead of undirected association mistake type. */
   public static final MistakeType USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED =
       MTS.get("Using directed assoc instead of undirected");
 
-  /** The using undirected assoc instead of directed mistake type. */
+  /** The using undirected association instead of directed association mistake type. */
   public static final MistakeType USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED =
       MTS.get("Using undirected assoc instead of directed");
 
@@ -429,16 +320,117 @@ public class MistakeTypes {
   public static final MistakeType USING_COMPOSITION_INSTEAD_OF_AGGREGATION =
       MTS.get("Using composition instead of aggregation");
 
-  /** The using binary assoc instead of n-ary assoc mistake type. */
+  /** The using binary association instead of n-ary association mistake type. */
   public static final MistakeType USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC =
       MTS.get("Using binary assoc instead of n-ary assoc");
 
-  /** The using n-ary assoc instead of binary assoc mistake type. */
+  /** The using n-ary association instead of binary association mistake type. */
   public static final MistakeType USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC =
       MTS.get("Using n-ary assoc instead of binary assoc");
 
-  /** The using intermediate class instead of n-ary assoc mistake type. */
+  /** The using intermediate class instead of n-ary association mistake type. */
   public static final MistakeType USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC =
       MTS.get("Using intermediate class instead of n-ary assoc");
+
+  /** The missing association name when one was expected mistake type. */
+  public static final MistakeType MISSING_ASSOCIATION_NAME = MTS.get("Missing association name");
+
+  /** The bad association name spelling mistake type. */
+  public static final MistakeType BAD_ASSOCIATION_NAME_SPELLING = MTS.get("Bad association name spelling");
+
+  /** The similar (yet incorrect) association name mistake type. */
+  public static final MistakeType SIMILAR_ASSOCIATION_NAME = MTS.get("Similar (yet incorrect) association name");
+
+  /** The infinite recursive dependency mistake type. */
+  public static final MistakeType INFINITE_RECURSIVE_DEPENDENCY = MTS.get("Infinite recursive dependency");
+
+  /** The wrong multiplicity mistake type. */
+  public static final MistakeType WRONG_MULTIPLICITY = MTS.get("Wrong multiplicity");
+
+  /** The missing multiplicity mistake type. */
+  public static final MistakeType MISSING_MULTIPLICITY = MTS.get("Missing multiplicity");
+
+  /** The missing role names mistake type. */
+  public static final MistakeType MISSING_ROLE_NAMES = MTS.get("Missing role names");
+
+  /** The role should be static mistake type. */
+  public static final MistakeType ROLE_SHOULD_BE_STATIC = MTS.get("Role should be static");
+
+  /** The role should not be static mistake type. */
+  public static final MistakeType ROLE_SHOULD_NOT_BE_STATIC = MTS.get("Role should not be static");
+
+  /** The bad role name spelling mistake type. */
+  public static final MistakeType BAD_ROLE_NAME_SPELLING = MTS.get("Bad role name spelling");
+
+  /** The similar (yet incorrect) role name mistake type. */
+  public static final MistakeType SIMILAR_ROLE_NAME = MTS.get("Similar (yet incorrect) role name");
+
+  /** The wrong role name but correct association mistake type. */
+  public static final MistakeType WRONG_ROLE_NAME = MTS.get("Wrong role name");
+
+  /** The missing association class mistake type. */
+  public static final MistakeType MISSING_ASSOC_CLASS = MTS.get("Missing assoc class");
+
+  /** The extra association class mistake type. */
+  public static final MistakeType EXTRA_ASSOC_CLASS = MTS.get("Extra assoc class");
+
+  /** The bad association class name spelling mistake type. */
+  public static final MistakeType BAD_ASSOC_CLASS_NAME_SPELLING = MTS.get("Bad assoc class name spelling");
+
+  /** The association class should be regular class mistake type. */
+  public static final MistakeType ASSOC_CLASS_SHOULD_BE_CLASS = MTS.get("Assoc class should be class");
+
+  /** The regular class should be association class mistake type. */
+  public static final MistakeType CLASS_SHOULD_BE_ASSOC_CLASS = MTS.get("Class should be assoc class");
+
+  /** The similar (yet incorrect) association class name mistake type. */
+  public static final MistakeType SIMILAR_ASSOC_CLASS_NAME = MTS.get("Similar assoc class name");
+
+  /** The missing composition mistake type. */
+  public static final MistakeType MISSING_COMPOSITION = MTS.get("Missing composition");
+
+  /** The extra composition mistake type. */
+  public static final MistakeType EXTRA_COMPOSITION = MTS.get("Extra composition");
+
+  /** The using association instead of aggregation/composition mistake type. */
+  public static final MistakeType USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION =
+      MTS.get("Using association instead of aggregation/composition");
+
+  /** The using aggregation instead of composition mistake type. */
+  public static final MistakeType USING_AGGREGATION_INSTEAD_OF_COMPOSITION =
+      MTS.get("Using aggregation instead of composition");
+
+  /** The incomplete containment tree mistake type. */
+  public static final MistakeType INCOMPLETE_CONTAINMENT_TREE = MTS.get("Incomplete containment tree");
+
+  /** The missing generalization mistake type. */
+  public static final MistakeType MISSING_GENERALIZATION = MTS.get("Missing generalization");
+
+  /** The extra generalization mistake type. */
+  public static final MistakeType EXTRA_GENERALIZATION = MTS.get("Extra generalization");
+
+  /** The generalization does not follow isA rule mistake type. */
+  public static final MistakeType GENERALIZATION_INAPPLICABLE = MTS.get("Generalization inapplicable");
+
+  /** The subclass not distinct across lifetime mistake type. */
+  public static final MistakeType SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME =
+      MTS.get("Subclass not distinct across lifetime");
+
+  /** The inherited feature does not make sense for subclass mistake type. */
+  public static final MistakeType INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS =
+      MTS.get("Inherited feature does not make sense for subclass");
+
+  /** The subclass is an instance of superclass mistake type. */
+  public static final MistakeType SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS =
+      MTS.get("Subclass is an instance of superclass");
+
+  /** The non-differentiated subclass mistake type. */
+  public static final MistakeType NON_DIFFERENTIATED_SUBCLASS = MTS.get("Non-differentiated subclass");
+
+  /** The wrong generalization direction mistake type. */
+  public static final MistakeType WRONG_GENERALIZATION_DIRECTION = MTS.get("Wrong generalization direction");
+
+  /** The wrong superclass mistake type. */
+  public static final MistakeType WRONG_SUPERCLASS = MTS.get("Wrong superclass");
 
 }
