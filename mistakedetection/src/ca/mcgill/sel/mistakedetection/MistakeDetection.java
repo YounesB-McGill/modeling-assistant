@@ -18,6 +18,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOCIATION_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION;
@@ -35,7 +36,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_PLAYER_ROLE_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ASSOCIATION;
-import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
@@ -2002,7 +2002,7 @@ public class MistakeDetection {
 
   public static void checkMistakeExtraAttribute(Comparison comparison) {
     comparison.extraStudentAttribute
-        .forEach(cls -> comparison.newMistakes.add(createMistake(OTHER_EXTRA_ATTRIBUTE, cls, null)));
+        .forEach(cls -> comparison.newMistakes.add(createMistake(EXTRA_ATTRIBUTE, cls, null)));
   }
 
   public static void checkMistakeMissingAssociationCompositionAggregation(Comparison comparison) {

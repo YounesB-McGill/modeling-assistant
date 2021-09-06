@@ -20,16 +20,16 @@
    1. [Missing class](#missing-class)
    1. [Extra (redundant) class](#extra-redundant-class)
 
-1. [Wrong attribute](#wrong-attribute)
-   1. [Extra (redundant) attribute](#extra-redundant-attribute)
+1. [Attribute mistakes](#attribute-mistakes)
+   1. [Extra (redundant) attribute mistakes](#extra-redundant-attribute-mistakes)
       1. [Plural attribute](#plural-attribute)
       1. [List attribute](#list-attribute)
-      1. [Other extra attribute](#other-extra-attribute)
-   1. [Wrong attribute name](#wrong-attribute-name)
+      1. [Extra attribute](#extra-attribute)
+   1. [Wrong attribute name mistakes](#wrong-attribute-name-mistakes)
       1. [Bad attribute name spelling](#bad-attribute-name-spelling)
       1. [Uppercase attribute name](#uppercase-attribute-name)
       1. [Similar (yet incorrect) attribute name](#similar-attribute-name)
-   1. [Attribute in wrong class](#attribute-in-wrong-class)
+   1. [Attribute in wrong class mistakes](#attribute-in-wrong-class-mistakes)
       1. [Attribute misplaced](#attribute-misplaced)
       1. [Attribute duplicated](#attribute-duplicated)
       1. [Attribute misplaced in generalization hierarchy](#attribute-misplaced-in-generalization-hierarchy)
@@ -180,9 +180,9 @@
 
 
 
-## Wrong attribute
+## Attribute mistakes
 
-### Extra redundant attribute
+### Extra redundant attribute mistakes
 
 #### Plural attribute
 
@@ -190,10 +190,10 @@
 #### List attribute
 
 
-#### Other extra attribute
+#### Extra attribute
 
 
-### Wrong attribute name
+### Wrong attribute name mistakes
 
 #### Bad attribute name spelling
 
@@ -204,7 +204,7 @@
 #### Similar attribute name
 
 
-### Attribute in wrong class
+### Attribute in wrong class mistakes
 
 #### Attribute misplaced
 
