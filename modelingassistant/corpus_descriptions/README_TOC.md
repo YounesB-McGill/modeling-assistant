@@ -19,6 +19,7 @@
       1. [Similar enumeration item](#similar-enumeration-item)
    1. [Missing class](#missing-class)
    1. [Extra (redundant) class](#extra-redundant-class)
+   1. [Using n-ary association instead of intermediate class](#using-n-ary-association-instead-of-intermediate-class)
 
 1. [Attribute mistakes](#attribute-mistakes)
    1. [Extra (redundant) attribute mistakes](#extra-redundant-attribute-mistakes)
@@ -39,31 +40,33 @@
    1. [Attribute should be static](#attribute-should-be-static)
    1. [Attribute should not be static](#attribute-should-not-be-static)
 
-1. [Wrong relationship](#wrong-relationship)
+1. [Relationship mistakes](#relationship-mistakes)
+   1. [Association mistakes](#association-mistakes)
+      1. [Missing association mistakes](#missing-association-mistakes)
+         1. [Missing association](#missing-association)
+         1. [Missing aggregation](#missing-aggregation)
+         1. [Missing n-ary association](#missing-n-ary-association)
+         1. [Using an attribute instead of an association](#using-an-attribute-instead-of-an-association)
+      1. [Extra (redundant) association mistakes](#extra-redundant-association-mistakes)
+         1. [Representing an action with an association](#representing-an-action-with-an-association)
+         1. [Composed part contained in more than one parent](#composed-part-contained-in-more-than-one-parent)
+         1. [Other extra association](#other-extra-association)
+         1. [Extra composition](#extra-composition)
+         1. [Extra aggregation](#extra-aggregation)
+         1. [Extra n-ary association](#extra-n-ary-association)
+      1. [Wrong association type mistakes](#wrong-association-type-mistakes)
+         1. [Using aggregation/composition instead of association](#using-aggregation-composition-instead-of-association)
+         1. [Using directed association instead of undirected association](#using-directed-association-instead-of-undirected-association)
+         1. [Using undirected association instead of directed association](#using-undirected-association-instead-of-directed-association)
+         1. [Using composition instead of aggregation](#using-composition-instead-of-aggregation)
+         1. [Using binary association instead of n-ary association](#using-binary-association-instead-of-n-ary-association)
+         1. [Using n-ary association instead of binary association](#using-n-ary-association-instead-of-binary-association)
+         1. [Using intermediate class instead of n-ary association](#using-intermediate-class-instead-of-n-ary-association)
    1. [Missing relationship](#missing-relationship)
-      1. [Missing association](#missing-association)
       1. [Missing composition](#missing-composition)
-      1. [Missing aggregation](#missing-aggregation)
-      1. [Missing n-ary association](#missing-n-ary-association)
-      1. [Using an attribute instead of an association](#using-an-attribute-instead-of-an-association)
-   1. [Extra (redundant) association](#extra-redundant-association)
-      1. [Representing an action with an association](#representing-an-action-with-an-association)
-      1. [Composed part contained in more than one parent](#composed-part-contained-in-more-than-one-parent)
-      1. [Other extra association](#other-extra-association)
-      1. [Extra composition](#extra-composition)
-      1. [Extra aggregation](#extra-aggregation)
-      1. [Extra n-ary association](#extra-n-ary-association)
    1. [Using wrong relationship type](#using-wrong-relationship-type)
       1. [Using association instead of aggregation/composition](#using-association-instead-of-aggregation-composition)
-      1. [Using aggregation/composition instead of association](#using-aggregation-composition-instead-of-association)
-      1. [Using directed association instead of undirected](#using-directed-association-instead-of-undirected)
-      1. [Using undirected association instead of directed](#using-undirected-association-instead-of-directed)
       1. [Using aggregation instead of composition](#using-aggregation-instead-of-composition)
-      1. [Using composition instead of aggregation](#using-composition-instead-of-aggregation)
-      1. [Using binary association instead of nary association](#using-binary-association-instead-of-nary-association)
-      1. [Using nary association instead of binary association](#using-nary-association-instead-of-binary-association)
-      1. [Using intermediate class instead of nary association](#using-intermediate-class-instead-of-nary-association)
-      1. [Using nary association instead of intermediate class](#using-nary-association-instead-of-intermediate-class)
    1. [Wrong association name](#wrong-association-name)
       1. [Missing association name when one was expected](#missing-association-name-when-one-was-expected)
       1. [Bad association name spelling](#bad-association-name-spelling)
@@ -179,6 +182,9 @@
 ### Extra redundant class
 
 
+### Using n-ary association instead of intermediate class
+
+
 
 ## Attribute mistakes
 
@@ -231,43 +237,71 @@
 
 
 
-## Wrong relationship
+## Relationship mistakes
+
+### Association mistakes
+
+#### Missing association mistakes
+
+##### Missing association
+
+
+##### Missing aggregation
+
+
+##### Missing n-ary association
+
+
+##### Using an attribute instead of an association
+
+
+#### Extra redundant association mistakes
+
+##### Representing an action with an association
+
+
+##### Composed part contained in more than one parent
+
+
+##### Other extra association
+
+
+##### Extra composition
+
+
+##### Extra aggregation
+
+
+##### Extra n-ary association
+
+
+#### Wrong association type mistakes
+
+##### Using aggregation/composition instead of association
+
+
+##### Using directed association instead of undirected association
+
+
+##### Using undirected association instead of directed association
+
+
+##### Using composition instead of aggregation
+
+
+##### Using binary association instead of n-ary association
+
+
+##### Using n-ary association instead of binary association
+
+
+##### Using intermediate class instead of n-ary association
+
+
 
 ### Missing relationship
 
-#### Missing association
-
-
 #### Missing composition
-
-
-#### Missing aggregation
-
-
-#### Missing n-ary association
-
-
-#### Using an attribute instead of an association
-
-
-### Extra redundant association
-
-#### Representing an action with an association
-
-
-#### Composed part contained in more than one parent
-
-
-#### Other extra association
-
-
-#### Extra composition
-
-
-#### Extra aggregation
-
-
-#### Extra n-ary association
 
 
 ### Using wrong relationship type
@@ -275,31 +309,7 @@
 #### Using association instead of aggregation/composition
 
 
-#### Using aggregation/composition instead of association
-
-
-#### Using directed association instead of undirected
-
-
-#### Using undirected association instead of directed
-
-
 #### Using aggregation instead of composition
-
-
-#### Using composition instead of aggregation
-
-
-#### Using binary association instead of nary association
-
-
-#### Using nary association instead of binary association
-
-
-#### Using intermediate class instead of nary association
-
-
-#### Using nary association instead of intermediate class
 
 
 ### Wrong association name

@@ -45,14 +45,11 @@ public class MistakeTypes {
   /** The category for attribute mistakes. */
   public static final MistakeTypeCategory ATTRIBUTE_MISTAKES = MTCS.get("Attribute mistakes");
 
-  /** The category for wrong relationship. */
-  public static final MistakeTypeCategory WRONG_RELATIONSHIP = MTCS.get("Wrong relationship");
+  /** The category for relationship mistakes. */
+  public static final MistakeTypeCategory RELATIONSHIP_MISTAKES = MTCS.get("Relationship mistakes");
 
   /** The category for missing relationship. */
   public static final MistakeTypeCategory MISSING_RELATIONSHIP = MTCS.get("Missing relationship");
-
-  /** The category for extra (redundant) association. */
-  public static final MistakeTypeCategory EXTRA_ASSOCIATION = MTCS.get("Extra (redundant) association");
 
   /** The category for using wrong relationship type. */
   public static final MistakeTypeCategory USING_WRONG_RELATIONSHIP_TYPE = MTCS.get("Using wrong relationship type");
@@ -102,6 +99,19 @@ public class MistakeTypes {
   public static final MistakeTypeCategory ATTRIBUTE_IN_WRONG_CLASS_MISTAKES =
       MTCS.get("Attribute in wrong class mistakes");
 
+  /** The category for missing association mistakes. */
+  public static final MistakeTypeCategory MISSING_ASSOCIATION_MISTAKES = MTCS.get("Missing association mistakes");
+
+  /** The category for extra (redundant) association mistakes. */
+  public static final MistakeTypeCategory EXTRA_ASSOCIATION_MISTAKES =
+      MTCS.get("Extra (redundant) association mistakes");
+
+  /** The category for wrong association type mistakes. */
+  public static final MistakeTypeCategory WRONG_ASSOCIATION_TYPE_MISTAKES = MTCS.get("Wrong association type mistakes");
+
+  /** The category for association mistakes. */
+  public static final MistakeTypeCategory ASSOCIATION_MISTAKES = MTCS.get("Association mistakes");
+
 
   // Mistake types
 
@@ -110,6 +120,10 @@ public class MistakeTypes {
 
   /** The extra (redundant) class mistake type. */
   public static final MistakeType EXTRA_CLASS = MTS.get("Extra (redundant) class");
+
+  /** The using n-ary assoc instead of intermediate class mistake type. */
+  public static final MistakeType USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS =
+      MTS.get("Using n-ary assoc instead of intermediate class");
 
   /** The missing attribute mistake type. */
   public static final MistakeType MISSING_ATTRIBUTE = MTS.get("Missing attribute");
@@ -129,81 +143,16 @@ public class MistakeTypes {
   /** The incomplete containment tree mistake type. */
   public static final MistakeType INCOMPLETE_CONTAINMENT_TREE = MTS.get("Incomplete containment tree");
 
-  /** The missing association mistake type. */
-  public static final MistakeType MISSING_ASSOCIATION = MTS.get("Missing association");
-
   /** The missing composition mistake type. */
   public static final MistakeType MISSING_COMPOSITION = MTS.get("Missing composition");
-
-  /** The missing aggregation mistake type. */
-  public static final MistakeType MISSING_AGGREGATION = MTS.get("Missing aggregation");
-
-  /** The missing n-ary association mistake type. */
-  public static final MistakeType MISSING_N_ARY_ASSOCIATION = MTS.get("Missing n-ary association");
-
-  /** The using an attribute instead of an association mistake type. */
-  public static final MistakeType USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION =
-      MTS.get("Using an attribute instead of an association");
-
-  /** The representing an action with an association mistake type. */
-  public static final MistakeType REPRESENTING_AN_ACTION_WITH_AN_ASSOCIATION =
-      MTS.get("Representing an action with an association");
-
-  /** The composed part contained in more than one parent mistake type. */
-  public static final MistakeType COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT =
-      MTS.get("Composed part contained in more than one parent");
-
-  /** The other extra association mistake type. */
-  public static final MistakeType OTHER_EXTRA_ASSOCIATION = MTS.get("Other extra association");
-
-  /** The extra composition mistake type. */
-  public static final MistakeType EXTRA_COMPOSITION = MTS.get("Extra composition");
-
-  /** The extra aggregation mistake type. */
-  public static final MistakeType EXTRA_AGGREGATION = MTS.get("Extra aggregation");
-
-  /** The extra n-ary association mistake type. */
-  public static final MistakeType EXTRA_N_ARY_ASSOCIATION = MTS.get("Extra n-ary association");
 
   /** The using association instead of aggregation/composition mistake type. */
   public static final MistakeType USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION =
       MTS.get("Using association instead of aggregation/composition");
 
-  /** The using aggregation/composition instead of association mistake type. */
-  public static final MistakeType USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION =
-      MTS.get("Using aggregation/composition instead of association");
-
-  /** The using directed association instead of undirected mistake type. */
-  public static final MistakeType USING_DIRECTED_ASSOCIATION_INSTEAD_OF_UNDIRECTED =
-      MTS.get("Using directed association instead of undirected");
-
-  /** The using undirected association instead of directed mistake type. */
-  public static final MistakeType USING_UNDIRECTED_ASSOCIATION_INSTEAD_OF_DIRECTED =
-      MTS.get("Using undirected association instead of directed");
-
   /** The using aggregation instead of composition mistake type. */
   public static final MistakeType USING_AGGREGATION_INSTEAD_OF_COMPOSITION =
       MTS.get("Using aggregation instead of composition");
-
-  /** The using composition instead of aggregation mistake type. */
-  public static final MistakeType USING_COMPOSITION_INSTEAD_OF_AGGREGATION =
-      MTS.get("Using composition instead of aggregation");
-
-  /** The using binary association instead of nary association mistake type. */
-  public static final MistakeType USING_BINARY_ASSOCIATION_INSTEAD_OF_NARY_ASSOCIATION =
-      MTS.get("Using binary association instead of nary association");
-
-  /** The using nary association instead of binary association mistake type. */
-  public static final MistakeType USING_NARY_ASSOCIATION_INSTEAD_OF_BINARY_ASSOCIATION =
-      MTS.get("Using nary association instead of binary association");
-
-  /** The using intermediate class instead of nary association mistake type. */
-  public static final MistakeType USING_INTERMEDIATE_CLASS_INSTEAD_OF_NARY_ASSOCIATION =
-      MTS.get("Using intermediate class instead of nary association");
-
-  /** The using nary association instead of intermediate class mistake type. */
-  public static final MistakeType USING_NARY_ASSOCIATION_INSTEAD_OF_INTERMEDIATE_CLASS =
-      MTS.get("Using nary association instead of intermediate class");
 
   /** The missing association name when one was expected mistake type. */
   public static final MistakeType MISSING_ASSOCIATION_NAME_WHEN_ONE_WAS_EXPECTED =
@@ -430,5 +379,66 @@ public class MistakeTypes {
   /** The attribute misplaced in generalization hierarchy mistake type. */
   public static final MistakeType ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY =
       MTS.get("Attribute misplaced in generalization hierarchy");
+
+  /** The missing association mistake type. */
+  public static final MistakeType MISSING_ASSOCIATION = MTS.get("Missing association");
+
+  /** The missing aggregation mistake type. */
+  public static final MistakeType MISSING_AGGREGATION = MTS.get("Missing aggregation");
+
+  /** The missing n-ary association mistake type. */
+  public static final MistakeType MISSING_N_ARY_ASSOCIATION = MTS.get("Missing n-ary association");
+
+  /** The using an attribute instead of an association mistake type. */
+  public static final MistakeType USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION =
+      MTS.get("Using an attribute instead of an association");
+
+  /** The representing an action with an association mistake type. */
+  public static final MistakeType REPRESENTING_AN_ACTION_WITH_AN_ASSOCIATION =
+      MTS.get("Representing an action with an association");
+
+  /** The composed part contained in more than one parent mistake type. */
+  public static final MistakeType COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT =
+      MTS.get("Composed part contained in more than one parent");
+
+  /** The other extra association mistake type. */
+  public static final MistakeType OTHER_EXTRA_ASSOCIATION = MTS.get("Other extra association");
+
+  /** The extra composition mistake type. */
+  public static final MistakeType EXTRA_COMPOSITION = MTS.get("Extra composition");
+
+  /** The extra aggregation mistake type. */
+  public static final MistakeType EXTRA_AGGREGATION = MTS.get("Extra aggregation");
+
+  /** The extra n-ary association mistake type. */
+  public static final MistakeType EXTRA_N_ARY_ASSOCIATION = MTS.get("Extra n-ary association");
+
+  /** The using aggregation/composition instead of assoc mistake type. */
+  public static final MistakeType USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOC =
+      MTS.get("Using aggregation/composition instead of assoc");
+
+  /** The using directed assoc instead of undirected mistake type. */
+  public static final MistakeType USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED =
+      MTS.get("Using directed assoc instead of undirected");
+
+  /** The using undirected assoc instead of directed mistake type. */
+  public static final MistakeType USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED =
+      MTS.get("Using undirected assoc instead of directed");
+
+  /** The using composition instead of aggregation mistake type. */
+  public static final MistakeType USING_COMPOSITION_INSTEAD_OF_AGGREGATION =
+      MTS.get("Using composition instead of aggregation");
+
+  /** The using binary assoc instead of n-ary assoc mistake type. */
+  public static final MistakeType USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC =
+      MTS.get("Using binary assoc instead of n-ary assoc");
+
+  /** The using n-ary assoc instead of binary assoc mistake type. */
+  public static final MistakeType USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC =
+      MTS.get("Using n-ary assoc instead of binary assoc");
+
+  /** The using intermediate class instead of n-ary assoc mistake type. */
+  public static final MistakeType USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC =
+      MTS.get("Using intermediate class instead of n-ary assoc");
 
 }
