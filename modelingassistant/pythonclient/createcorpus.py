@@ -54,6 +54,7 @@ public class MistakeTypes {
 
 
   // Mistake type categories
+
 """
 
 
@@ -76,28 +77,28 @@ def generate_java():
     result = JAVA_HEADER
 
     for mtc in corpus.mistakeTypeCategories:
-        result += f'/** The {mtc.name.lower()} mistake type category. */\n'
-        lhs = f'public static final MistakeTypeCategory {underscorify(mtc.name)}'
+        result += f'  /** The {mtc.name.lower()} mistake type category. */\n'
+        lhs = f'  public static final MistakeTypeCategory {underscorify(mtc.name)}'
         rhs = f'MTCS.get("{mtc.name}");'
         mtc_decl = f'{lhs} = {rhs}'
-        if len(mtc_decl) <= MAX_COLUMN_WIDTH - 2:
-            result += f'{mtc_decl}\n'
+        if len(mtc_decl) <= MAX_COLUMN_WIDTH:
+            result += f'{mtc_decl}\n\n'
         else:
-            result += f'{lhs} =\n      {rhs}\n'
+            result += f'{lhs} =\n      {rhs}\n\n'
 
     result += "\n  // Mistake types\n\n"
 
     for mt in corpus.mistakeTypes():
-        result += f'/** The {mt.name.lower()} mistake type. */\n'
-        lhs = f'public static final MistakeType {underscorify(mt.name)}'
+        result += f'  /** The {mt.name.lower()} mistake type. */\n'
+        lhs = f'  public static final MistakeType {underscorify(mt.name)}'
         rhs = f'MTS.get("{mt.name}");'
         mt_decl = f'{lhs} = {rhs}'
-        if len(mt_decl) <= MAX_COLUMN_WIDTH - 2:
-            result += f'{mt_decl}\n'
+        if len(mt_decl) <= MAX_COLUMN_WIDTH:
+            result += f'{mt_decl}\n\n'
         else:
-            result += f'{lhs} =\n      {rhs}\n'
+            result += f'{lhs} =\n      {rhs}\n\n'
 
-    result += "\n}\n"
+    result += "}\n"
 
     with open(JAVA_MISTAKE_TYPES_FILE, "w") as f:
         f.write(result)
