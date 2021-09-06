@@ -98,8 +98,8 @@ public class MistakeTypes {
   /** The class name mistakes mistake type category. */
   public static final MistakeTypeCategory CLASS_NAME_MISTAKES = MTCS.get("Class name mistakes");
 
-  /** The wrong enumeration mistake type category. */
-  public static final MistakeTypeCategory WRONG_ENUMERATION = MTCS.get("Wrong enumeration");
+  /** The enumeration mistakes mistake type category. */
+  public static final MistakeTypeCategory ENUMERATION_MISTAKES = MTCS.get("Enumeration mistakes");
 
 
   // Mistake types
@@ -397,15 +397,14 @@ public class MistakeTypes {
   /** The similar (yet incorrect) class name mistake type. */
   public static final MistakeType SIMILAR_CLASS_NAME = MTS.get("Similar (yet incorrect) class name");
 
-  /** The incorrect class name but correct attribute/relationship mistake type. */
-  public static final MistakeType INCORRECT_CLASS_NAME_BUT_CORRECT_ATTRIBUTE_RELATIONSHIP =
-      MTS.get("Incorrect class name but correct attribute/relationship");
+  /** The wrong class name mistake type. */
+  public static final MistakeType WRONG_CLASS_NAME = MTS.get("Wrong class name");
 
-  /** The regular class should be enum mistake type. */
-  public static final MistakeType REGULAR_CLASS_SHOULD_BE_ENUM = MTS.get("Regular class should be enum");
+  /** The class should be enum mistake type. */
+  public static final MistakeType CLASS_SHOULD_BE_ENUM = MTS.get("Class should be enum");
 
-  /** The enum should be regular class mistake type. */
-  public static final MistakeType ENUM_SHOULD_BE_REGULAR_CLASS = MTS.get("Enum should be regular class");
+  /** The enum should be class mistake type. */
+  public static final MistakeType ENUM_SHOULD_BE_CLASS = MTS.get("Enum should be class");
 
   /** The missing enum mistake type. */
   public static final MistakeType MISSING_ENUM = MTS.get("Missing enum");

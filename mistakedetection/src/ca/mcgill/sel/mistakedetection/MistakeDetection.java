@@ -12,9 +12,10 @@ import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_CLASS_NAM
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_REGULAR_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOCIATION_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
@@ -39,7 +40,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.REGULAR_CLASS_SHOULD_BE_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
@@ -1752,7 +1752,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeEnumerationBeRegularClass(Classifier studentClass,
       Classifier instructorClass) {
     if (isClassEnumInsteadOfRegular(studentClass, instructorClass)) {
-      return Optional.of(createMistake(ENUM_SHOULD_BE_REGULAR_CLASS, studentClass, instructorClass));
+      return Optional.of(createMistake(ENUM_SHOULD_BE_CLASS, studentClass, instructorClass));
     }
     return Optional.empty();
   }
@@ -1760,7 +1760,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeRegularBeEnumerationClass(Classifier studentClass,
       Classifier instructorClass) {
     if (isClassRegularInsteadOfEnum(studentClass, instructorClass)) {
-      return Optional.of(createMistake(REGULAR_CLASS_SHOULD_BE_ENUM, studentClass, instructorClass));
+      return Optional.of(createMistake(CLASS_SHOULD_BE_ENUM, studentClass, instructorClass));
     }
     return Optional.empty();
   }
