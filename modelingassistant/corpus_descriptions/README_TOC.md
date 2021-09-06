@@ -22,7 +22,7 @@
    1. [Using n-ary association instead of intermediate class](#using-n-ary-association-instead-of-intermediate-class)
 
 1. [Attribute mistakes](#attribute-mistakes)
-   1. [Extra (redundant) attribute mistakes](#extra-redundant-attribute-mistakes)
+   1. [Extra attribute mistakes](#extra-attribute-mistakes)
       1. [Plural attribute](#plural-attribute)
       1. [List attribute](#list-attribute)
       1. [Extra attribute](#extra-attribute)
@@ -47,14 +47,13 @@
          1. [Missing aggregation](#missing-aggregation)
          1. [Missing n-ary association](#missing-n-ary-association)
          1. [Using an attribute instead of an association](#using-an-attribute-instead-of-an-association)
-      1. [Extra (redundant) association mistakes](#extra-redundant-association-mistakes)
+      1. [Extra association mistakes](#extra-association-mistakes)
          1. [Representing an action with an association](#representing-an-action-with-an-association)
          1. [Composed part contained in more than one parent](#composed-part-contained-in-more-than-one-parent)
-         1. [Other extra association](#other-extra-association)
-         1. [Extra composition](#extra-composition)
+         1. [Extra association](#extra-association)
          1. [Extra aggregation](#extra-aggregation)
          1. [Extra n-ary association](#extra-n-ary-association)
-      1. [Wrong association type mistakes](#wrong-association-type-mistakes)
+      1. [Association type mistakes](#association-type-mistakes)
          1. [Using aggregation/composition instead of association](#using-aggregation-composition-instead-of-association)
          1. [Using directed association instead of undirected association](#using-directed-association-instead-of-undirected-association)
          1. [Using undirected association instead of directed association](#using-undirected-association-instead-of-directed-association)
@@ -62,44 +61,44 @@
          1. [Using binary association instead of n-ary association](#using-binary-association-instead-of-n-ary-association)
          1. [Using n-ary association instead of binary association](#using-n-ary-association-instead-of-binary-association)
          1. [Using intermediate class instead of n-ary association](#using-intermediate-class-instead-of-n-ary-association)
-   1. [Missing relationship](#missing-relationship)
+      1. [Association name mistakes](#association-name-mistakes)
+         1. [Missing association name when one was expected](#missing-association-name-when-one-was-expected)
+         1. [Bad association name spelling](#bad-association-name-spelling)
+         1. [Similar (yet incorrect) association name](#similar-association-name)
+      1. [Multiplicity mistakes](#multiplicity-mistakes)
+         1. [Infinite recursive dependency](#infinite-recursive-dependency)
+         1. [Wrong multiplicity](#wrong-multiplicity)
+         1. [Missing multiplicity](#missing-multiplicity)
+      1. [Role name mistakes](#role-name-mistakes)
+         1. [Missing role names](#missing-role-names)
+         1. [Role should be static](#role-should-be-static)
+         1. [Role should not be static](#role-should-not-be-static)
+         1. [Bad role name spelling](#bad-role-name-spelling)
+         1. [Similar (yet incorrect) role name](#similar-role-name)
+         1. [Wrong role name but correct association](#wrong-role-name-but-correct-association)
+      1. [Association class mistakes](#association-class-mistakes)
+         1. [Missing association class](#missing-association-class)
+         1. [Extra association class](#extra-association-class)
+         1. [Bad association class name spelling](#bad-association-class-name-spelling)
+         1. [Association class should be regular class](#association-class-should-be-regular-class)
+         1. [Regular class should be association class](#regular-class-should-be-association-class)
+         1. [Similar (yet incorrect) association class name](#similar-association-class-name)
+   1. [Composition mistakes](#composition-mistakes)
       1. [Missing composition](#missing-composition)
-   1. [Using wrong relationship type](#using-wrong-relationship-type)
+      1. [Extra composition](#extra-composition)
       1. [Using association instead of aggregation/composition](#using-association-instead-of-aggregation-composition)
       1. [Using aggregation instead of composition](#using-aggregation-instead-of-composition)
-   1. [Wrong association name](#wrong-association-name)
-      1. [Missing association name when one was expected](#missing-association-name-when-one-was-expected)
-      1. [Bad association name spelling](#bad-association-name-spelling)
-      1. [Similar (yet incorrect) association name](#similar-association-name)
-   1. [Wrong multiplicities](#wrong-multiplicities)
-      1. [Infinite recursive dependency](#infinite-recursive-dependency)
-      1. [Other wrong multiplicity](#other-wrong-multiplicity)
-      1. [Missing multiplicity](#missing-multiplicity)
-   1. [Wrong role names](#wrong-role-names)
-      1. [Missing role names](#missing-role-names)
-      1. [Role should be static](#role-should-be-static)
-      1. [Role should not be static](#role-should-not-be-static)
-      1. [Bad role name spelling](#bad-role-name-spelling)
-      1. [Similar (yet incorrect) role name](#similar-role-name)
-      1. [Other wrong role name](#other-wrong-role-name)
-   1. [Wrong association class](#wrong-association-class)
-      1. [Missing association class](#missing-association-class)
-      1. [Extra (redundant) association class](#extra-redundant-association-class)
-      1. [Bad association class name spelling](#bad-association-class-name-spelling)
-      1. [Association class should be regular class](#association-class-should-be-regular-class)
-      1. [Regular class should be association class](#regular-class-should-be-association-class)
-      1. [Similar (yet incorrect) association class name](#similar-association-class-name)
-   1. [Wrong generalization](#wrong-generalization)
+      1. [Incomplete containment tree](#incomplete-containment-tree)
+   1. [Generalization mistakes](#generalization-mistakes)
       1. [Missing generalization](#missing-generalization)
       1. [Extra generalization](#extra-generalization)
-      1. [Generalization inapplicable](#generalization-inapplicable)
+      1. [Generalization does not follow isA rule](#generalization-does-not-follow-isa-rule)
       1. [Subclass not distinct across lifetime](#subclass-not-distinct-across-lifetime)
       1. [Inherited feature does not make sense for subclass](#inherited-feature-does-not-make-sense-for-subclass)
       1. [Subclass is an instance of superclass](#subclass-is-an-instance-of-superclass)
       1. [Non-differentiated subclass](#non-differentiated-subclass)
       1. [Wrong generalization direction](#wrong-generalization-direction)
       1. [Wrong superclass](#wrong-superclass)
-   1. [Incomplete containment tree](#incomplete-containment-tree)
 
 1. [Misuse of design patterns](#misuse-of-design-patterns)
    1. [Wrong Player-Role Pattern](#wrong-player-role-pattern)
@@ -188,7 +187,7 @@
 
 ## Attribute mistakes
 
-### Extra redundant attribute mistakes
+### Extra attribute mistakes
 
 #### Plural attribute
 
@@ -255,7 +254,7 @@
 ##### Using an attribute instead of an association
 
 
-#### Extra redundant association mistakes
+#### Extra association mistakes
 
 ##### Representing an action with an association
 
@@ -263,10 +262,7 @@
 ##### Composed part contained in more than one parent
 
 
-##### Other extra association
-
-
-##### Extra composition
+##### Extra association
 
 
 ##### Extra aggregation
@@ -275,7 +271,7 @@
 ##### Extra n-ary association
 
 
-#### Wrong association type mistakes
+#### Association type mistakes
 
 ##### Using aggregation/composition instead of association
 
@@ -298,13 +294,76 @@
 ##### Using intermediate class instead of n-ary association
 
 
+#### Association name mistakes
 
-### Missing relationship
+##### Missing association name when one was expected
+
+
+##### Bad association name spelling
+
+
+##### Similar association name
+
+
+#### Multiplicity mistakes
+
+##### Infinite recursive dependency
+
+
+##### Wrong multiplicity
+
+
+##### Missing multiplicity
+
+
+#### Role name mistakes
+
+##### Missing role names
+
+
+##### Role should be static
+
+
+##### Role should not be static
+
+
+##### Bad role name spelling
+
+
+##### Similar role name
+
+
+##### Wrong role name but correct association
+
+
+#### Association class mistakes
+
+##### Missing association class
+
+
+##### Extra association class
+
+
+##### Bad association class name spelling
+
+
+##### Association class should be regular class
+
+
+##### Regular class should be association class
+
+
+##### Similar association class name
+
+
+
+### Composition mistakes
 
 #### Missing composition
 
 
-### Using wrong relationship type
+#### Extra composition
+
 
 #### Using association instead of aggregation/composition
 
@@ -312,69 +371,10 @@
 #### Using aggregation instead of composition
 
 
-### Wrong association name
-
-#### Missing association name when one was expected
+#### Incomplete containment tree
 
 
-#### Bad association name spelling
-
-
-#### Similar association name
-
-
-### Wrong multiplicities
-
-#### Infinite recursive dependency
-
-
-#### Other wrong multiplicity
-
-
-#### Missing multiplicity
-
-
-### Wrong role names
-
-#### Missing role names
-
-
-#### Role should be static
-
-
-#### Role should not be static
-
-
-#### Bad role name spelling
-
-
-#### Similar role name
-
-
-#### Other wrong role name
-
-
-### Wrong association class
-
-#### Missing association class
-
-
-#### Extra redundant association class
-
-
-#### Bad association class name spelling
-
-
-#### Association class should be regular class
-
-
-#### Regular class should be association class
-
-
-#### Similar association class name
-
-
-### Wrong generalization
+### Generalization mistakes
 
 #### Missing generalization
 
@@ -382,7 +382,7 @@
 #### Extra generalization
 
 
-#### Generalization inapplicable
+#### Generalization does not follow isA rule
 
 
 #### Subclass not distinct across lifetime
@@ -402,8 +402,6 @@
 
 #### Wrong superclass
 
-
-### Incomplete containment tree
 
 
 
