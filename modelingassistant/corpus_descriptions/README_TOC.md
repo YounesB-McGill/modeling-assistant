@@ -46,7 +46,7 @@
          1. [Missing association](#missing-association)
          1. [Missing aggregation](#missing-aggregation)
          1. [Missing n-ary association](#missing-n-ary-association)
-         1. [Using an attribute instead of an association](#using-an-attribute-instead-of-an-association)
+         1. [Using attribute instead of association](#using-attribute-instead-of-association)
       1. [Extra association mistakes](#extra-association-mistakes)
          1. [Representing an action with an association](#representing-an-action-with-an-association)
          1. [Composed part contained in more than one parent](#composed-part-contained-in-more-than-one-parent)
@@ -251,7 +251,7 @@
 ##### Missing n-ary association
 
 
-##### Using an attribute instead of an association
+##### Using attribute instead of association
 
 
 #### Extra association mistakes

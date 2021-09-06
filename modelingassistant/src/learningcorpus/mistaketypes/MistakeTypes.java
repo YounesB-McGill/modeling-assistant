@@ -221,13 +221,12 @@ public class MistakeTypes {
   /** The missing n-ary association mistake type. */
   public static final MistakeType MISSING_N_ARY_ASSOCIATION = MTS.get("Missing n-ary association");
 
-  /** The using an attribute instead of an association mistake type. */
-  public static final MistakeType USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION =
-      MTS.get("Using an attribute instead of an association");
+  /** The using attribute instead of association mistake type. */
+  public static final MistakeType USING_ATTRIBUTE_INSTEAD_OF_ASSOCIATION =
+      MTS.get("Using attribute instead of association");
 
   /** The representing an action with an association mistake type. */
-  public static final MistakeType REPRESENTING_AN_ACTION_WITH_AN_ASSOCIATION =
-      MTS.get("Representing an action with an association");
+  public static final MistakeType REPRESENTING_ACTION_WITH_ASSOC = MTS.get("Representing action with assoc");
 
   /** The composed part contained in more than one parent mistake type. */
   public static final MistakeType COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT =
