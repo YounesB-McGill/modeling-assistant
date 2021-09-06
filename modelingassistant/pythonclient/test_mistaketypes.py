@@ -1,14 +1,14 @@
 from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
-from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, WRONG_CLASS, WRONG_CLASS_NAME
+from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, CLASS_MISTAKES, WRONG_CLASS_NAME
 from corpus import mts_by_priority
 
 import mistaketypes
 
 def test_get_mistake_type_and_mistake_type_category_by_names():
-    wrong_class_mistake_type_category_name = "Wrong class"
+    class_mistakes_category_name = "Class mistakes"
     missing_class_mistake_type_name = "Missing class"
 
-    expected_wrong_class_mistake_type_category = MistakeTypeCategory(name=wrong_class_mistake_type_category_name)
+    expected_wrong_class_mistake_type_category = MistakeTypeCategory(name=class_mistakes_category_name)
 
     expected_missing_class_mistake_type = MistakeType(
         name=missing_class_mistake_type_name,
@@ -17,7 +17,7 @@ def test_get_mistake_type_and_mistake_type_category_by_names():
         numStepsBeforeNotification=3,
         timeToAddress=None)
 
-    actual_wrong_class_mistake_type_category: MistakeTypeCategory = mistaketypes.WRONG_CLASS
+    actual_wrong_class_mistake_type_category: MistakeTypeCategory = mistaketypes.CLASS_MISTAKES
     actual_missing_class_mistake_type: MistakeType = mistaketypes.MISSING_CLASS
 
     assert expected_wrong_class_mistake_type_category.name == actual_wrong_class_mistake_type_category.name
@@ -37,9 +37,9 @@ def test_learning_corpus_mistake_types_and_categories_hierarchy():
     """
     Verify mistake types and categories hierarchy in the default learning corpus instance used in mistaketypes.py.
     """
-    learning_corpus = WRONG_CLASS.learningCorpus
+    learning_corpus = CLASS_MISTAKES.learningCorpus
 
-    assert "Wrong class" == WRONG_CLASS.name
+    assert "Class mistakes" == CLASS_MISTAKES.name
     assert "Wrong class name" == WRONG_CLASS_NAME.name
     assert "Missing class" == MISSING_CLASS.name
     assert "Software engineering term" == SOFTWARE_ENGINEERING_TERM.name
@@ -47,19 +47,19 @@ def test_learning_corpus_mistake_types_and_categories_hierarchy():
     """
     Verify all of these relationships:
 
-                          Wrong class: MistakeTypeCategory
+                          Class mistakes: MistakeTypeCategory
                         /                                  \
         Wrong class name: MistakeTypeCategory       Missing class: MistakeType
                         |
         Software engineering term: MistakeType
     """
-    assert WRONG_CLASS_NAME in WRONG_CLASS.subcategories
-    assert WRONG_CLASS_NAME.supercategory is WRONG_CLASS
-    assert MISSING_CLASS in WRONG_CLASS.mistakeTypes
-    assert MISSING_CLASS.mistakeTypeCategory is WRONG_CLASS
+    assert WRONG_CLASS_NAME in CLASS_MISTAKES.subcategories
+    assert WRONG_CLASS_NAME.supercategory is CLASS_MISTAKES
+    assert MISSING_CLASS in CLASS_MISTAKES.mistakeTypes
+    assert MISSING_CLASS.mistakeTypeCategory is CLASS_MISTAKES
     assert SOFTWARE_ENGINEERING_TERM in WRONG_CLASS_NAME.mistakeTypes
     assert SOFTWARE_ENGINEERING_TERM.mistakeTypeCategory is WRONG_CLASS_NAME
-    for mtc in [WRONG_CLASS, WRONG_CLASS_NAME]:
+    for mtc in [CLASS_MISTAKES, WRONG_CLASS_NAME]:
         assert mtc.learningCorpus is learning_corpus
     for mt in [MISSING_CLASS, SOFTWARE_ENGINEERING_TERM]:
         assert mt.mistakeTypeCategory.learningCorpus is learning_corpus
@@ -69,7 +69,7 @@ def test_mistake_type_priorities():
     """
     Verify that all mistake types are assigned a priority.
     """
-    assert len(set(mts_by_priority)) == len(WRONG_CLASS.learningCorpus.mistakeTypes())
+    assert len(set(mts_by_priority)) == len(CLASS_MISTAKES.learningCorpus.mistakeTypes())
     for mt in mts_by_priority:
         if mt:
             assert isinstance(mt, MistakeType)

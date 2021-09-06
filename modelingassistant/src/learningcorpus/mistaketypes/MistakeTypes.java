@@ -39,8 +39,8 @@ public class MistakeTypes {
 
   // Mistake type categories
 
-  /** The wrong class mistake type category. */
-  public static final MistakeTypeCategory WRONG_CLASS = MTCS.get("Wrong class");
+  /** The class mistakes mistake type category. */
+  public static final MistakeTypeCategory CLASS_MISTAKES = MTCS.get("Class mistakes");
 
   /** The wrong class name mistake type category. */
   public static final MistakeTypeCategory WRONG_CLASS_NAME = MTCS.get("Wrong class name");

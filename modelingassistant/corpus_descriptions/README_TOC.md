@@ -1,4 +1,4 @@
-1. [Wrong class](#wrong-class)
+1. [Class mistakes](#class-mistakes)
    1. [Wrong class name](#wrong-class-name)
       1. [Plural class name](#plural-class-name)
       1. [Lowercase class name](#lowercase-class-name)
@@ -119,7 +119,7 @@
       1. [Missing Abstraction-Occurrence pattern](#missing-abstraction-occurrence-pattern)
       1. [Incomplete Abstraction-Occurrence pattern](#incomplete-abstraction-occurrence-pattern)
 
-## Wrong class
+## Class mistakes
 
 ### Wrong class name
 
