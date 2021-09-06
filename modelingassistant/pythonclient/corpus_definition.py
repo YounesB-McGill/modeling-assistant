@@ -1,6 +1,8 @@
 """
 Learning Corpus definition file. The corpus mistake types and learning items are defined here in a
-DSL-style, and the actual corpus initialization is done in the corpus.py file.
+DSL-style, as well as the mistake type priorities.
+
+The actual corpus initialization is done in the corpus.py file.
 """
 
 from textwrap import dedent
@@ -9,7 +11,7 @@ from learningcorpus.learningcorpus import (Example, Feedback, LearningCorpus, Mi
 from utils import mtc, mt
 
 corpus = LearningCorpus(mistakeTypeCategories=[
-    wrong_class := mtc(n="Wrong class", mistakeTypes=[
+    class_mistakes := mtc(n="Class mistakes", mistakeTypes=[
         missing_class := mt(n="Missing class", feedbacks=[
             Feedback(level=1, highlightSolution=True),
             TextResponse(level=2, text="Make sure you have modeled all the classes in the problem description."),
@@ -18,7 +20,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         ]),
         extra_class := mt(n="Extra (redundant) class"),
     ]),
-    wrong_class_name := mtc(n="Wrong class name", s=wrong_class, mistakeTypes=[
+    wrong_class_name := mtc(n="Wrong class name", s=class_mistakes, mistakeTypes=[
         plural_class_name := mt(n="Plural class name"),
         lowercase_class_name := mt(n="Lowercase class name"),
         software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=[
@@ -40,12 +42,14 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             Feedback(level=1, highlightSolution=True),
             TextResponse(level=2, text="Can you double check this class name?"),
             ParametrizedResponse(level=3, text="The ${incorrectlySpelledClassName} class has a misspelled name."),
-            ParametrizedResponse(level=4, text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
+            ParametrizedResponse(level=4,
+                text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
         ]),
-        similar_class_name := mt(n="Similar (yet incorrect) class name"), # TODO Rmove
-        incorrect_class_name_but_correct_attribute_relationship := mt(n="Incorrect class name but correct attribute/relationship"), # Added
+        similar_class_name := mt(n="Similar (yet incorrect) class name"), # TODO Remove
+        incorrect_class_name_but_correct_attribute_relationship := mt(
+            n="Incorrect class name but correct attribute/relationship"), # Added
     ]),
-    wrong_enumeration := mtc(n="Wrong enumeration", s=wrong_class, mistakeTypes=[
+    wrong_enumeration := mtc(n="Wrong enumeration", s=class_mistakes, mistakeTypes=[
         regular_class_should_be_enum := mt(n="Regular class should be enum"),
         enum_should_be_regular_class := mt(n="Enum should be regular class"),
         missing_enum := mt(n="Missing enum"),
@@ -72,7 +76,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     wrong_attribute_name := mtc(n="Wrong attribute name", s=wrong_attribute, mistakeTypes=[
         bad_attribute_name_spelling := mt(n="Bad attribute name spelling"),
         uppercase_attribute_name := mt(n="Uppercase attribute name"),
-        similar_attribute_name := mt(n="Similar (yet incorrect) attribute name"), #TODO Remove
+        similar_attribute_name := mt(n="Similar (yet incorrect) attribute name"), # TODO Remove
     ]),
     attribute_in_wrong_class := mtc(n="Attribute in wrong class", s=wrong_attribute, mistakeTypes=[
         attribute_misplaced := mt(n="Attribute misplaced"),
@@ -98,19 +102,26 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         extra_nary_association := mt(n="Extra n-ary association"), # Added
     ]),
     using_wrong_relationship_type := mtc(n="Using wrong relationship type", s=wrong_relationship, mistakeTypes=[
-        using_association_instead_of_aggregation_composition := mt(n="Using association instead of aggregation/composition"),
-        using_aggregation_composition_instead_of_association := mt(n="Using aggregation/composition instead of association"),
+        using_association_instead_of_aggregation_composition := mt(
+            n="Using association instead of aggregation/composition"),
+        using_aggregation_composition_instead_of_association := mt(
+            n="Using aggregation/composition instead of association"),
         using_directed_association_instead_of_undirected := mt(n="Using directed association instead of undirected"),
         using_undirected_association_instead_of_directed := mt(n="Using undirected association instead of directed"),
         using_aggregation_instead_of_composition := mt(n="Using aggregation instead of composition"),
         using_composition_instead_of_aggregation := mt(n="Using composition instead of aggregation"),
-        using_binary_association_instead_of_nary_association := mt(n="Using binary association instead of nary association"), # Added
-        using_nary_association_instead_of_binary_association := mt(n="Using nary association instead of binary association"), # Added
-        using_intermediate_class_instead_of_nary_association := mt(n="Using intermediate class instead of nary association"), # Added
-        using_nary_association_instead_of_intermediate_class := mt(n="Using nary association instead of intermediate class"), # Added
+        using_binary_association_instead_of_nary_association := mt(
+            n="Using binary association instead of nary association"), # Added
+        using_nary_association_instead_of_binary_association := mt(
+            n="Using nary association instead of binary association"), # Added
+        using_intermediate_class_instead_of_nary_association := mt(
+            n="Using intermediate class instead of nary association"), # Added
+        using_nary_association_instead_of_intermediate_class := mt(
+            n="Using nary association instead of intermediate class"), # Added
     ]),
     wrong_association_name := mtc(n="Wrong association name", s=wrong_relationship, mistakeTypes=[
-        missing_association_name_when_one_was_expected := mt(n="Missing association name when one was expected"), #TODO Rename to Missing association name.
+         # TODO Rename to Missing association name.
+        missing_association_name_when_one_was_expected := mt(n="Missing association name when one was expected"),
         bad_association_name_spelling := mt(n="Bad association name spelling"),
         similar_association_name := mt(n="Similar (yet incorrect) association name"), # TODO Remove
     ]),
@@ -138,7 +149,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     wrong_generalization := mtc(n="Wrong generalization", s=wrong_relationship, mistakeTypes=[
         missing_generalization := mt(n="Missing generalization"),
         extra_generalization := mt(n="Extra generalization"), # Added
-        generalization_inapplicable := mt(n="Generalization inapplicable"), # Rename to Generalization does not follow isA rule
+        # Rename to Generalization does not follow isA rule
+        generalization_inapplicable := mt(n="Generalization inapplicable"),
         subclass_not_distinct_across_lifetime := mt(n="Subclass not distinct across lifetime"),
         inherited_feature_does_not_make_sense_for_subclass := mt(n="Inherited feature does not make sense for subclass"),
         subclass_is_an_instance_of_superclass := mt(n="Subclass is an instance of superclass"),
@@ -151,7 +163,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         missing_player_role_pattern := mt(n="Missing Player-Role pattern"),
         incomplete_player_role_pattern := mt(n="Incomplete Player-Role pattern"),
     ]),
-    using_different_player_role_pattern := mtc(n="Using different Player-Role pattern", s=wrong_player_role_pattern, mistakeTypes=[
+    using_different_player_role_pattern := mtc(
+            n="Using different Player-Role pattern", s=wrong_player_role_pattern, mistakeTypes=[
         subclass_should_be_full_player_role_pattern := mt(n="Subclass should be full Player-Role pattern"),
         subclass_should_be_association_player_role_pattern := mt(n="Subclass should be association Player-Role pattern"),
         subclass_should_be_enum_player_role_pattern := mt(n="Subclass should be enum Player-Role pattern"),
@@ -165,7 +178,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         full_player_role_pattern_should_be_association := mt(n="Full Player-Role pattern should be association"),
         full_player_role_pattern_should_be_enum := mt(n="Full Player-Role pattern should be enum"),
     ]),
-    wrong_abstraction_occurrence_pattern := mtc(n="Wrong Abstraction-Occurrence pattern", s=misuse_of_design_patterns, mistakeTypes=[
+    wrong_abstraction_occurrence_pattern := mtc(
+            n="Wrong Abstraction-Occurrence pattern", s=misuse_of_design_patterns, mistakeTypes=[
         missing_abstraction_occurrence_pattern := mt(n="Missing Abstraction-Occurrence pattern"),
         incomplete_abstraction_occurrence_pattern := mt(n="Incomplete Abstraction-Occurrence pattern"),
     ]),

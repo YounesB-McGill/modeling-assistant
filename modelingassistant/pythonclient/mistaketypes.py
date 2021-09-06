@@ -17,7 +17,7 @@ _MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
 _MTS = MISTAKE_TYPES_BY_NAME
 
 # Mistake type categories
-WRONG_CLASS: MistakeTypeCategory = _MTCS["Wrong class"]
+CLASS_MISTAKES: MistakeTypeCategory = _MTCS["Class mistakes"]
 WRONG_CLASS_NAME: MistakeTypeCategory = _MTCS["Wrong class name"]
 WRONG_ENUMERATION: MistakeTypeCategory = _MTCS["Wrong enumeration"]
 WRONG_ATTRIBUTE: MistakeTypeCategory = _MTCS["Wrong attribute"]
