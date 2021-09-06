@@ -36,7 +36,7 @@ WRONG_PLAYER_ROLE_PATTERN: MistakeTypeCategory = _MTCS["Wrong Player-Role Patter
 USING_DIFFERENT_PLAYER_ROLE_PATTERN: MistakeTypeCategory = _MTCS["Using different Player-Role pattern"]
 WRONG_ABSTRACTION_OCCURRENCE_PATTERN: MistakeTypeCategory = _MTCS["Wrong Abstraction-Occurrence pattern"]
 CLASS_NAME_MISTAKES: MistakeTypeCategory = _MTCS["Class name mistakes"]
-WRONG_ENUMERATION: MistakeTypeCategory = _MTCS["Wrong enumeration"]
+ENUMERATION_MISTAKES: MistakeTypeCategory = _MTCS["Enumeration mistakes"]
 
 # Mistake types
 MISSING_CLASS: MistakeType = _MTS["Missing class"]
@@ -136,10 +136,9 @@ LOWERCASE_CLASS_NAME: MistakeType = _MTS["Lowercase class name"]
 SOFTWARE_ENGINEERING_TERM: MistakeType = _MTS["Software engineering term"]
 BAD_CLASS_NAME_SPELLING: MistakeType = _MTS["Bad class name spelling"]
 SIMILAR_CLASS_NAME: MistakeType = _MTS["Similar (yet incorrect) class name"]
-INCORRECT_CLASS_NAME_BUT_CORRECT_ATTRIBUTE_RELATIONSHIP: MistakeType = \
-    _MTS["Incorrect class name but correct attribute/relationship"]
-REGULAR_CLASS_SHOULD_BE_ENUM: MistakeType = _MTS["Regular class should be enum"]
-ENUM_SHOULD_BE_REGULAR_CLASS: MistakeType = _MTS["Enum should be regular class"]
+WRONG_CLASS_NAME: MistakeType = _MTS["Wrong class name"]
+CLASS_SHOULD_BE_ENUM: MistakeType = _MTS["Class should be enum"]
+ENUM_SHOULD_BE_CLASS: MistakeType = _MTS["Enum should be class"]
 MISSING_ENUM: MistakeType = _MTS["Missing enum"]
 EXTRA_ENUM: MistakeType = _MTS["Extra enum"]
 BAD_ENUM_NAME_SPELLING: MistakeType = _MTS["Bad enum name spelling"]

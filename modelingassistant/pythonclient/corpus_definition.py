@@ -51,20 +51,19 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
                 ]),
                 similar_class_name := mt(n="Similar (yet incorrect) class name"), # TODO Remove
-                incorrect_class_name_but_correct_attribute_relationship := mt(
-                    n="Incorrect class name but correct attribute/relationship"), # Added
+                wrong_class_name := mt(n="Wrong class name"), # Renamed from "Other wrong class name"
             ]),
-            wrong_enumeration := mtc(n="Wrong enumeration", mistakeTypes=[
-                regular_class_should_be_enum := mt(n="Regular class should be enum"),
-                enum_should_be_regular_class := mt(n="Enum should be regular class"),
-                missing_enum := mt(n="Missing enum"),
-                extra_enum := mt(n="Extra enum"),
-                bad_enum_name_spelling := mt(n="Bad enum name spelling"),
-                similar_enum_name := mt(n="Similar enum name"), #TODO Remove
-                missing_enum_item := mt(n="Missing enum item"),
-                extra_enum_item := mt(n="Extra enum item"),
-                bad_enum_item_spelling := mt(n="Bad enum item spelling"),
-                similar_enum_item := mt(n="Similar enum item"), #TODO Remove
+            enumeration_mistakes := mtc(n="Enumeration mistakes", mistakeTypes=[
+                class_should_be_enum := mt(n="Class should be enum", d="Regular class should be enumeration"),
+                enum_should_be_class := mt(n="Enum should be class", d="Enumeration should be regular class"),
+                missing_enum := mt(n="Missing enum", d="Missing enumeration"),
+                extra_enum := mt(n="Extra enum", d="Extra enumeration"),
+                bad_enum_name_spelling := mt(n="Bad enum name spelling", d="Bad enumeration name spelling"),
+                similar_enum_name := mt(n="Similar enum name", d="Similar enumeration name"), #TODO Remove
+                missing_enum_item := mt(n="Missing enum item", d="Missing enumeration item"),
+                extra_enum_item := mt(n="Extra enum item", d="Extra enumeration item"),
+                bad_enum_item_spelling := mt(n="Bad enum item spelling", d="Bad enumeration item spelling"),
+                similar_enum_item := mt(n="Similar enum item", d="Similar enumeration item"), #TODO Remove
             ]),
         ]
     ),
@@ -201,13 +200,13 @@ mts_by_priority: list[MistakeType] = [
     plural_class_name,
     software_engineering_term,
     similar_class_name, # Remove
-    incorrect_class_name_but_correct_attribute_relationship,
+    wrong_class_name,
     bad_association_class_name_spelling,
     similar_association_class_name, # Remove
     association_class_should_be_regular_class, # Added
     regular_class_should_be_association_class, # Added
-    regular_class_should_be_enum,
-    enum_should_be_regular_class,
+    class_should_be_enum,
+    enum_should_be_class,
     bad_enum_name_spelling,
     bad_enum_item_spelling,
     similar_enum_name, # Remove

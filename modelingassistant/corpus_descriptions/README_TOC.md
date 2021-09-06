@@ -5,18 +5,18 @@
       1. [Software engineering term](#software-engineering-term)
       1. [Bad class name spelling](#bad-class-name-spelling)
       1. [Similar (yet incorrect) class name](#similar-class-name)
-      1. [Incorrect class name but correct attribute/relationship](#incorrect-class-name-but-correct-attribute-relationship)
-   1. [Wrong enumeration](#wrong-enumeration)
-      1. [Regular class should be enum](#regular-class-should-be-enum)
-      1. [Enum should be regular class](#enum-should-be-regular-class)
-      1. [Missing enum](#missing-enum)
-      1. [Extra enum](#extra-enum)
-      1. [Bad enum name spelling](#bad-enum-name-spelling)
-      1. [Similar enum name](#similar-enum-name)
-      1. [Missing enum item](#missing-enum-item)
-      1. [Extra enum item](#extra-enum-item)
-      1. [Bad enum item spelling](#bad-enum-item-spelling)
-      1. [Similar enum item](#similar-enum-item)
+      1. [Wrong class name](#wrong-class-name)
+   1. [Enumeration mistakes](#enumeration-mistakes)
+      1. [Regular class should be enumeration](#regular-class-should-be-enumeration)
+      1. [Enumeration should be regular class](#enumeration-should-be-regular-class)
+      1. [Missing enumeration](#missing-enumeration)
+      1. [Extra enumeration](#extra-enumeration)
+      1. [Bad enumeration name spelling](#bad-enumeration-name-spelling)
+      1. [Similar enumeration name](#similar-enumeration-name)
+      1. [Missing enumeration item](#missing-enumeration-item)
+      1. [Extra enumeration item](#extra-enumeration-item)
+      1. [Bad enumeration item spelling](#bad-enumeration-item-spelling)
+      1. [Similar enumeration item](#similar-enumeration-item)
    1. [Missing class](#missing-class)
    1. [Extra (redundant) class](#extra-redundant-class)
 
@@ -138,39 +138,39 @@
 #### Similar class name
 
 
-#### Incorrect class name but correct attribute/relationship
+#### Wrong class name
 
 
-### Wrong enumeration
+### Enumeration mistakes
 
-#### Regular class should be enum
-
-
-#### Enum should be regular class
+#### Regular class should be enumeration
 
 
-#### Missing enum
+#### Enumeration should be regular class
 
 
-#### Extra enum
+#### Missing enumeration
 
 
-#### Bad enum name spelling
+#### Extra enumeration
 
 
-#### Similar enum name
+#### Bad enumeration name spelling
 
 
-#### Missing enum item
+#### Similar enumeration name
 
 
-#### Extra enum item
+#### Missing enumeration item
 
 
-#### Bad enum item spelling
+#### Extra enumeration item
 
 
-#### Similar enum item
+#### Bad enumeration item spelling
+
+
+#### Similar enumeration item
 
 
 ### Missing class

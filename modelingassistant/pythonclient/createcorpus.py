@@ -173,13 +173,13 @@ def generate_markdown():
         "Return the nested table of contents output for the input in a recursive way."
         return f'''{make_toc_title(mtc.name, indentation)}{
             "".join([nested_toc_output_for(sc, indentation + 3) for sc in mtc.subcategories])}{
-            "".join([make_toc_title(mt.name, indentation + 3) for mt in mtc.mistakeTypes])}'''
+            "".join([make_toc_title(mt.description, indentation + 3) for mt in mtc.mistakeTypes])}'''
 
     def nested_body_output_for(mtc: MistakeTypeCategory, indentation: int) -> str:
         "Return the nested body output for the input in a recursive way."
         return f'''{make_body_title(mtc.name, indentation)}{
             "".join([nested_body_output_for(sc, indentation + 1) for sc in mtc.subcategories])}{
-            nl.join([make_body_title(mt.name, indentation + 1) for mt in mtc.mistakeTypes])}\n'''
+            nl.join([make_body_title(mt.description, indentation + 1) for mt in mtc.mistakeTypes])}\n'''
 
     def make_toc_title(name: str, indentation: int) -> str:
         return f'{indentation * " "}1. [{name}](#{dashify(name)})\n'
