@@ -10,58 +10,64 @@ from learningcorpus.learningcorpus import (Example, Feedback, LearningCorpus, Mi
     ResourceResponse, TextResponse)
 from utils import mtc, mt
 
+
 corpus = LearningCorpus(mistakeTypeCategories=[
-    class_mistakes := mtc(n="Class mistakes", mistakeTypes=[
-        missing_class := mt(n="Missing class", feedbacks=[
-            Feedback(level=1, highlightSolution=True),
-            TextResponse(level=2, text="Make sure you have modeled all the classes in the problem description."),
-            Feedback(level=3, highlightProblem=True),
-            ParametrizedResponse(level=4, text="Remember to add the ${className} class.")
-        ]),
-        extra_class := mt(n="Extra (redundant) class"),
-    ], subcategories=[
-        wrong_class_name := mtc(n="Wrong class name", mistakeTypes=[
-            plural_class_name := mt(n="Plural class name"),
-            lowercase_class_name := mt(n="Lowercase class name"),
-            software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=[
+    class_mistakes := mtc(n="Class mistakes",
+        mistakeTypes=[
+            missing_class := mt(n="Missing class", feedbacks=[
                 Feedback(level=1, highlightSolution=True),
-                TextResponse(level=2, text="Remember that a domain model should not contain software engineering terms."),
-                ParametrizedResponse(level=3,
-                    text="${className} is a software engineering term, which does not belong in a domain model."),
-                ResourceResponse(level=4,
-                    learningResources=[Example(content=dedent("""\
-                        Please note these examples of correct vs incorrect class naming:
-                        :x: Examples to avoid | :heavy_check_mark: Good class names
-                        --- | ---
-                        pilot | Pilot
-                        Airplanes | Airplane 
-                        AirlineData | Airline"""))]
-                ),
+                TextResponse(level=2, text="Make sure you have modeled all the classes in the problem description."),
+                Feedback(level=3, highlightProblem=True),
+                ParametrizedResponse(level=4, text="Remember to add the ${className} class.")
             ]),
-            bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True, feedbacks=[
-                Feedback(level=1, highlightSolution=True),
-                TextResponse(level=2, text="Can you double check this class name?"),
-                ParametrizedResponse(level=3, text="The ${incorrectlySpelledClassName} class has a misspelled name."),
-                ParametrizedResponse(level=4,
-                    text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
+            extra_class := mt(n="Extra (redundant) class"),
+        ],
+        subcategories=[
+            class_name_mistakes := mtc(n="Class name mistakes", mistakeTypes=[
+                plural_class_name := mt(n="Plural class name"),
+                lowercase_class_name := mt(n="Lowercase class name"),
+                software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=[
+                    Feedback(level=1, highlightSolution=True),
+                    TextResponse(level=2,
+                        text="Remember that a domain model should not contain software engineering terms."),
+                    ParametrizedResponse(level=3,
+                        text="${className} is a software engineering term, which does not belong in a domain model."),
+                    ResourceResponse(level=4,
+                        learningResources=[Example(content=dedent("""\
+                            Please note these examples of correct vs incorrect class naming:
+                            :x: Examples to avoid | :heavy_check_mark: Good class names
+                            --- | ---
+                            pilot | Pilot
+                            Airplanes | Airplane 
+                            AirlineData | Airline"""))]
+                    ),
+                ]),
+                bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True, feedbacks=[
+                    Feedback(level=1, highlightSolution=True),
+                    TextResponse(level=2, text="Can you double check this class name?"),
+                    ParametrizedResponse(level=3,
+                        text="The ${incorrectlySpelledClassName} class has a misspelled name."),
+                    ParametrizedResponse(level=4,
+                        text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
+                ]),
+                similar_class_name := mt(n="Similar (yet incorrect) class name"), # TODO Remove
+                incorrect_class_name_but_correct_attribute_relationship := mt(
+                    n="Incorrect class name but correct attribute/relationship"), # Added
             ]),
-            similar_class_name := mt(n="Similar (yet incorrect) class name"), # TODO Remove
-            incorrect_class_name_but_correct_attribute_relationship := mt(
-                n="Incorrect class name but correct attribute/relationship"), # Added
-        ]),
-    ]),
-    wrong_enumeration := mtc(n="Wrong enumeration", s=class_mistakes, mistakeTypes=[
-        regular_class_should_be_enum := mt(n="Regular class should be enum"),
-        enum_should_be_regular_class := mt(n="Enum should be regular class"),
-        missing_enum := mt(n="Missing enum"),
-        extra_enum := mt(n="Extra enum"),
-        bad_enum_name_spelling := mt(n="Bad enum name spelling"),
-        similar_enum_name := mt(n="Similar enum name"), #TODO Remove
-        missing_enum_item := mt(n="Missing enum item"),
-        extra_enum_item := mt(n="Extra enum item"),
-        bad_enum_item_spelling := mt(n="Bad enum item spelling"),
-        similar_enum_item := mt(n="Similar enum item"), #TODO Remove
-    ]),
+            wrong_enumeration := mtc(n="Wrong enumeration", mistakeTypes=[
+                regular_class_should_be_enum := mt(n="Regular class should be enum"),
+                enum_should_be_regular_class := mt(n="Enum should be regular class"),
+                missing_enum := mt(n="Missing enum"),
+                extra_enum := mt(n="Extra enum"),
+                bad_enum_name_spelling := mt(n="Bad enum name spelling"),
+                similar_enum_name := mt(n="Similar enum name"), #TODO Remove
+                missing_enum_item := mt(n="Missing enum item"),
+                extra_enum_item := mt(n="Extra enum item"),
+                bad_enum_item_spelling := mt(n="Bad enum item spelling"),
+                similar_enum_item := mt(n="Similar enum item"), #TODO Remove
+            ]),
+        ]
+    ),
     wrong_attribute := mtc(n="Wrong attribute", mistakeTypes=[
         missing_attribute := mt(n="Missing attribute"),
         wrong_attribute_type := mt(n="Wrong attribute type"),

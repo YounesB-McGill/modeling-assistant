@@ -42,9 +42,6 @@ public class MistakeTypes {
   /** The class mistakes mistake type category. */
   public static final MistakeTypeCategory CLASS_MISTAKES = MTCS.get("Class mistakes");
 
-  /** The wrong enumeration mistake type category. */
-  public static final MistakeTypeCategory WRONG_ENUMERATION = MTCS.get("Wrong enumeration");
-
   /** The wrong attribute mistake type category. */
   public static final MistakeTypeCategory WRONG_ATTRIBUTE = MTCS.get("Wrong attribute");
 
@@ -98,8 +95,11 @@ public class MistakeTypes {
   public static final MistakeTypeCategory WRONG_ABSTRACTION_OCCURRENCE_PATTERN =
       MTCS.get("Wrong Abstraction-Occurrence pattern");
 
-  /** The wrong class name mistake type category. */
-  public static final MistakeTypeCategory WRONG_CLASS_NAME = MTCS.get("Wrong class name");
+  /** The class name mistakes mistake type category. */
+  public static final MistakeTypeCategory CLASS_NAME_MISTAKES = MTCS.get("Class name mistakes");
+
+  /** The wrong enumeration mistake type category. */
+  public static final MistakeTypeCategory WRONG_ENUMERATION = MTCS.get("Wrong enumeration");
 
 
   // Mistake types
@@ -109,36 +109,6 @@ public class MistakeTypes {
 
   /** The extra (redundant) class mistake type. */
   public static final MistakeType EXTRA_CLASS = MTS.get("Extra (redundant) class");
-
-  /** The regular class should be enum mistake type. */
-  public static final MistakeType REGULAR_CLASS_SHOULD_BE_ENUM = MTS.get("Regular class should be enum");
-
-  /** The enum should be regular class mistake type. */
-  public static final MistakeType ENUM_SHOULD_BE_REGULAR_CLASS = MTS.get("Enum should be regular class");
-
-  /** The missing enum mistake type. */
-  public static final MistakeType MISSING_ENUM = MTS.get("Missing enum");
-
-  /** The extra enum mistake type. */
-  public static final MistakeType EXTRA_ENUM = MTS.get("Extra enum");
-
-  /** The bad enum name spelling mistake type. */
-  public static final MistakeType BAD_ENUM_NAME_SPELLING = MTS.get("Bad enum name spelling");
-
-  /** The similar enum name mistake type. */
-  public static final MistakeType SIMILAR_ENUM_NAME = MTS.get("Similar enum name");
-
-  /** The missing enum item mistake type. */
-  public static final MistakeType MISSING_ENUM_ITEM = MTS.get("Missing enum item");
-
-  /** The extra enum item mistake type. */
-  public static final MistakeType EXTRA_ENUM_ITEM = MTS.get("Extra enum item");
-
-  /** The bad enum item spelling mistake type. */
-  public static final MistakeType BAD_ENUM_ITEM_SPELLING = MTS.get("Bad enum item spelling");
-
-  /** The similar enum item mistake type. */
-  public static final MistakeType SIMILAR_ENUM_ITEM = MTS.get("Similar enum item");
 
   /** The missing attribute mistake type. */
   public static final MistakeType MISSING_ATTRIBUTE = MTS.get("Missing attribute");
@@ -430,5 +400,35 @@ public class MistakeTypes {
   /** The incorrect class name but correct attribute/relationship mistake type. */
   public static final MistakeType INCORRECT_CLASS_NAME_BUT_CORRECT_ATTRIBUTE_RELATIONSHIP =
       MTS.get("Incorrect class name but correct attribute/relationship");
+
+  /** The regular class should be enum mistake type. */
+  public static final MistakeType REGULAR_CLASS_SHOULD_BE_ENUM = MTS.get("Regular class should be enum");
+
+  /** The enum should be regular class mistake type. */
+  public static final MistakeType ENUM_SHOULD_BE_REGULAR_CLASS = MTS.get("Enum should be regular class");
+
+  /** The missing enum mistake type. */
+  public static final MistakeType MISSING_ENUM = MTS.get("Missing enum");
+
+  /** The extra enum mistake type. */
+  public static final MistakeType EXTRA_ENUM = MTS.get("Extra enum");
+
+  /** The bad enum name spelling mistake type. */
+  public static final MistakeType BAD_ENUM_NAME_SPELLING = MTS.get("Bad enum name spelling");
+
+  /** The similar enum name mistake type. */
+  public static final MistakeType SIMILAR_ENUM_NAME = MTS.get("Similar enum name");
+
+  /** The missing enum item mistake type. */
+  public static final MistakeType MISSING_ENUM_ITEM = MTS.get("Missing enum item");
+
+  /** The extra enum item mistake type. */
+  public static final MistakeType EXTRA_ENUM_ITEM = MTS.get("Extra enum item");
+
+  /** The bad enum item spelling mistake type. */
+  public static final MistakeType BAD_ENUM_ITEM_SPELLING = MTS.get("Bad enum item spelling");
+
+  /** The similar enum item mistake type. */
+  public static final MistakeType SIMILAR_ENUM_ITEM = MTS.get("Similar enum item");
 
 }
