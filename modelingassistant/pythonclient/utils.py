@@ -11,6 +11,8 @@ def mtc(n, s=None, **kwargs) -> MistakeTypeCategory:
     return MistakeTypeCategory(name=n, supercategory=s, **kwargs)
 
 
-def mt(n, **kwargs) -> MistakeType:
+def mt(n, d="", **kwargs) -> MistakeType:
     "Shorthand for MistakeType initializer."
-    return MistakeType(name=n, **kwargs)
+    if not d:
+        d = n
+    return MistakeType(name=n, description=d, **kwargs)

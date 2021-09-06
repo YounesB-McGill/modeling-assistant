@@ -1,23 +1,12 @@
 """
-Helper file used to create learning corpus.
+Learning Corpus definition file. The corpus mistake types and learning items are defined here in a
+DSL-style, and the actual corpus initialization is done in the corpus.py file.
 """
 
 from textwrap import dedent
-from learningcorpus.learningcorpus import Example, Feedback, LearningCorpus, MistakeTypeCategory, MistakeType, LearningItem, ParametrizedResponse, ResourceResponse, TextResponse
-
-
-domain_modeling = LearningItem(name="DomainModeling")
-
-
-def mtc(n, s=None, **kwargs) -> MistakeTypeCategory:
-    "Shorthand for MistakeTypeCategory initializer."
-    return MistakeTypeCategory(name=n, supercategory=s, **kwargs)
-
-
-def mt(n, **kwargs) -> MistakeType:
-    "Shorthand for MistakeType initializer."
-    return MistakeType(name=n, **kwargs)
-
+from learningcorpus.learningcorpus import (Example, Feedback, LearningCorpus, MistakeType, ParametrizedResponse,
+    ResourceResponse, TextResponse)
+from utils import mtc, mt
 
 corpus = LearningCorpus(mistakeTypeCategories=[
     wrong_class := mtc(n="Wrong class", mistakeTypes=[
@@ -35,16 +24,16 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=[
             Feedback(level=1, highlightSolution=True),
             TextResponse(level=2, text="Remember that a domain model should not contain software engineering terms."),
-            ParametrizedResponse(level=3, text="${className} is a software engineering term, which does not belong in a domain model."),
+            ParametrizedResponse(level=3,
+                text="${className} is a software engineering term, which does not belong in a domain model."),
             ResourceResponse(level=4,
-                # TODO Change type of `content` to allow correct deserialization
-                # learningResources=[Example(content=dedent("""\
-                #     Please note these examples of correct vs incorrect class naming:
-                #     :x: Examples to avoid | :heavy_check_mark: Good class names
-                #     --- | ---
-                #     pilot | Pilot
-                #     Airplanes | Airplane 
-                #     AirlineData | Airline"""))]
+                learningResources=[Example(content=dedent("""\
+                    Please note these examples of correct vs incorrect class naming:
+                    :x: Examples to avoid | :heavy_check_mark: Good class names
+                    --- | ---
+                    pilot | Pilot
+                    Airplanes | Airplane 
+                    AirlineData | Airline"""))]
             ),
         ]),
         bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True, feedbacks=[
@@ -182,15 +171,6 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     ]),
 ])
 
-domain_modeling.learningCorpus = corpus
-
-for _mt in corpus.mistakeTypes():
-    for feedback in _mt.feedbacks:
-        feedback.learningCorpus = corpus
-        if isinstance(feedback, ResourceResponse):
-            for lr in feedback.learningResources:
-                lr.learningCorpus = corpus
-
 
 # mistake types by priority, from most to least important
 mts_by_priority: list[MistakeType] = [
@@ -306,6 +286,3 @@ mts_by_priority: list[MistakeType] = [
     missing_player_role_pattern,
     missing_abstraction_occurrence_pattern,
 ]
-
-for i, _mt in enumerate(mts_by_priority, start=1):
-    _mt.priority = i
