@@ -1,5 +1,5 @@
 from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
-from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, CLASS_MISTAKES, WRONG_CLASS_NAME
+from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, CLASS_MISTAKES, CLASS_NAME_MISTAKES
 from corpus import mts_by_priority
 
 import mistaketypes
@@ -40,7 +40,7 @@ def test_learning_corpus_mistake_types_and_categories_hierarchy():
     learning_corpus = CLASS_MISTAKES.learningCorpus
 
     assert "Class mistakes" == CLASS_MISTAKES.name
-    assert "Wrong class name" == WRONG_CLASS_NAME.name
+    assert "Class name mistakes" == CLASS_NAME_MISTAKES.name
     assert "Missing class" == MISSING_CLASS.name
     assert "Software engineering term" == SOFTWARE_ENGINEERING_TERM.name
 
@@ -49,17 +49,17 @@ def test_learning_corpus_mistake_types_and_categories_hierarchy():
 
                           Class mistakes: MistakeTypeCategory
                         /                                  \
-        Wrong class name: MistakeTypeCategory       Missing class: MistakeType
-                        |
-        Software engineering term: MistakeType
+        Class name mistakes: MistakeTypeCategory       Missing class: MistakeType
+                       |
+         Software engineering term: MistakeType
     """
-    assert WRONG_CLASS_NAME in CLASS_MISTAKES.subcategories
-    assert WRONG_CLASS_NAME.supercategory is CLASS_MISTAKES
+    assert CLASS_NAME_MISTAKES in CLASS_MISTAKES.subcategories
+    assert CLASS_NAME_MISTAKES.supercategory is CLASS_MISTAKES
     assert MISSING_CLASS in CLASS_MISTAKES.mistakeTypes
     assert MISSING_CLASS.mistakeTypeCategory is CLASS_MISTAKES
-    assert SOFTWARE_ENGINEERING_TERM in WRONG_CLASS_NAME.mistakeTypes
-    assert SOFTWARE_ENGINEERING_TERM.mistakeTypeCategory is WRONG_CLASS_NAME
-    for mtc in [CLASS_MISTAKES, WRONG_CLASS_NAME]:
+    assert SOFTWARE_ENGINEERING_TERM in CLASS_NAME_MISTAKES.mistakeTypes
+    assert SOFTWARE_ENGINEERING_TERM.mistakeTypeCategory is CLASS_NAME_MISTAKES
+    for mtc in [CLASS_MISTAKES, CLASS_NAME_MISTAKES]:
         assert mtc.learningCorpus is learning_corpus
     for mt in [MISSING_CLASS, SOFTWARE_ENGINEERING_TERM]:
         assert mt.mistakeTypeCategory.learningCorpus is learning_corpus

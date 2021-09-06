@@ -1,5 +1,5 @@
 1. [Class mistakes](#class-mistakes)
-   1. [Wrong class name](#wrong-class-name)
+   1. [Class name mistakes](#class-name-mistakes)
       1. [Plural class name](#plural-class-name)
       1. [Lowercase class name](#lowercase-class-name)
       1. [Software engineering term](#software-engineering-term)
@@ -121,7 +121,7 @@
 
 ## Class mistakes
 
-### Wrong class name
+### Class name mistakes
 
 #### Plural class name
 
