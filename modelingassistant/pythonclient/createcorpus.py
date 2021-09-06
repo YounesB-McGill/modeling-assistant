@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Script to create these Learning Corpus artifacts from corpus_definition.py:
+Script to create these Learning Corpus artifacts from corpus.py:
 
 - default.learningcorpus: The default Learning Corpus instance in XMI format.
 - mistaketypes.py: A Python file with all mistake types and categories in the default corpus.
@@ -12,8 +12,8 @@ Script to create these Learning Corpus artifacts from corpus_definition.py:
 
 import re
 from os import linesep as nl
+from corpus import corpus
 from fileserdes import save_to_files
-from corpus_definition import corpus
 from learningcorpus import MistakeTypeCategory
 
 MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
