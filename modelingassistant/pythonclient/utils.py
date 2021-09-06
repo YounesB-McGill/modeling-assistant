@@ -17,7 +17,14 @@ def mtc(n, s=None, **kwargs) -> MistakeTypeCategory:
 
 
 def mt(n, d="", **kwargs) -> MistakeType:
-    "Shorthand for MistakeType initializer."
+    """
+    Shorthand for MistakeType initializer.
+
+    n: name of the mistake type
+    d: description of the mistake type
+    """
+    if n == d:
+        print(f"Warning: name and description are identical for mistake type {n}")
     if not d:
         d = n
     return MistakeType(name=n, description=d, **kwargs)
