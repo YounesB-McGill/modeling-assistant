@@ -30,7 +30,7 @@ This file contains all mistake types and categories.
 
 from constants import LEARNING_CORPUS_PATH
 from fileserdes import load_lc
-from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
+from learningcorpus import MistakeTypeCategory, MistakeType
 
 corpus = load_lc(LEARNING_CORPUS_PATH)
 

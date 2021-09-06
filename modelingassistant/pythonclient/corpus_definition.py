@@ -238,7 +238,7 @@ mts_by_priority: list[MistakeType] = [
     using_binary_association_instead_of_nary_association, # Added
     using_nary_association_instead_of_binary_association, # Added
     using_nary_association_instead_of_intermediate_class, # Added
-    using_intermediate_class_instead_of_nary_association, # Added 
+    using_intermediate_class_instead_of_nary_association, # Added
     wrong_generalization_direction,
     wrong_superclass,
     subclass_is_an_instance_of_superclass,
