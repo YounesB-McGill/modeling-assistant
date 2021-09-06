@@ -9,21 +9,21 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMi
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentMistakeFor;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
-import static learningcorpus.mistaketypes.MistakeTypes.ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION;
-import static learningcorpus.mistaketypes.MistakeTypes.FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM;
-import static learningcorpus.mistaketypes.MistakeTypes.FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS;
-import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_ABSTRACTION_OCCURRENCE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ABSTRACTION_OCCURRENCE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_ENUM_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_FULL_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_ASSOC_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_FULL_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ENUM;
+import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_AO_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_PR_PATTERN;
 import static modelingassistant.TagType.PLAYER;
 import static modelingassistant.TagType.ROLE;
 import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
@@ -257,7 +257,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(4, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
-    assertMistake(studStudentClassMistake, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS, studElements, instElements, 0,
+    assertMistake(studStudentClassMistake, FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, studElements, instElements, 0,
         1, false);
   }
 
@@ -294,7 +294,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
-    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studElements, instElements, 0,
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, studElements, instElements, 0,
         1, false);
   }
 
@@ -329,7 +329,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(6, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
-    assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studElements,
+    assertMistake(studStudentClassMistake, ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, studElements,
         instElements, 0, 1, false);
   }
 
@@ -362,7 +362,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
-    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements, instElements, 0,
+    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, studElements, instElements, 0,
         1, false);
   }
 
@@ -396,7 +396,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(8, studentSolution.getMistakes().size());
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
 
-    assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements,
+    assertMistake(studStudentClassMistake, ASSOC_SHOULD_BE_FULL_PR_PATTERN, studElements,
         instElements, 0, 1, false);
   }
 
@@ -432,7 +432,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(7, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
-    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1,
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_FULL_PR_PATTERN, studElements, instElements, 0, 1,
         false);
   }
 
@@ -467,7 +467,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(5, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
-    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1,
+    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1,
           false);
   }
 
@@ -502,7 +502,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(8, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
-    assertMistake(studStudentClassMistake, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION, studElements, instElements, 0, 1,
+    assertMistake(studStudentClassMistake, FULL_PR_PATTERN_SHOULD_BE_ASSOC, studElements, instElements, 0, 1,
           false);
   }
 
@@ -539,7 +539,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(7, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
-    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -577,7 +577,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(6, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
-    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -615,7 +615,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(7, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
-    assertMistake(studStudentClassMistake, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, FULL_PR_PATTERN_SHOULD_BE_ENUM, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -653,7 +653,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(9, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
-    assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, ASSOC_SHOULD_BE_ENUM_PR_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -685,7 +685,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(4, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
-    assertMistake(studStudentClassMistake, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS, studElements, instElements, 0,
+    assertMistake(studStudentClassMistake, FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, studElements, instElements, 0,
         1, false);
   }
 
@@ -720,7 +720,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
-    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studElements, instElements, 0,
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, studElements, instElements, 0,
         1, false);
   }
 
@@ -754,7 +754,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(5, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
-    assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studElements,
+    assertMistake(studStudentClassMistake, ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, studElements,
         instElements, 0, 1, false);
   }
 
@@ -787,7 +787,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
-    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements, instElements, 0,
+    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, studElements, instElements, 0,
         1, false);
   }
 
@@ -820,7 +820,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
-    assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements,
+    assertMistake(studStudentClassMistake, ASSOC_SHOULD_BE_FULL_PR_PATTERN, studElements,
         instElements, 0, 1, false);
   }
 
@@ -858,7 +858,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(7, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
-    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_FULL_PR_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -892,7 +892,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(4, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
-    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1,
+    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1,
           false);
   }
 
@@ -927,7 +927,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(6, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
-    assertMistake(studStudentClassMistake, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION, studElements, instElements, 0, 1,
+    assertMistake(studStudentClassMistake, FULL_PR_PATTERN_SHOULD_BE_ASSOC, studElements, instElements, 0, 1,
           false);
   }
 
@@ -965,7 +965,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(6, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
-    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -1001,7 +1001,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(6, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
-    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -1037,7 +1037,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(7, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
-    assertMistake(studStudentClassMistake, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, FULL_PR_PATTERN_SHOULD_BE_ENUM, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -1073,7 +1073,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(8, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
-    assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, ASSOC_SHOULD_BE_ENUM_PR_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -1108,7 +1108,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(3, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS, studElements, instElements, 0,
+    assertMistake(studStudentClassMistake, FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, studElements, instElements, 0,
         1, false);
   }
 
@@ -1147,7 +1147,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(4, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studElements, instElements, 0,
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, studElements, instElements, 0,
         1, false);
   }
 
@@ -1184,7 +1184,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(5, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studElements,
+    assertMistake(studStudentClassMistake, ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, studElements,
         instElements, 0, 1, false);
   }
 
@@ -1220,7 +1220,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(6, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements, instElements, 0,
+    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, studElements, instElements, 0,
         1, false);
   }
 
@@ -1257,7 +1257,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(7, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements,
+    assertMistake(studStudentClassMistake, ASSOC_SHOULD_BE_FULL_PR_PATTERN, studElements,
         instElements, 0, 1, false);
   }
 
@@ -1295,7 +1295,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(7, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_FULL_PR_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -1332,7 +1332,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(5, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1,
+    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1,
           false);
   }
 
@@ -1374,7 +1374,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(6, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION, studElements, instElements, 0, 1,
+    assertMistake(studStudentClassMistake, FULL_PR_PATTERN_SHOULD_BE_ASSOC, studElements, instElements, 0, 1,
           false);
   }
 
@@ -1413,7 +1413,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(6, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -1451,7 +1451,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(6, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -1489,7 +1489,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(7, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, FULL_PR_PATTERN_SHOULD_BE_ENUM, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -1528,7 +1528,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(8, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, ASSOC_SHOULD_BE_ENUM_PR_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -1562,7 +1562,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), INCOMPLETE_PLAYER_ROLE_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), INCOMPLETE_PR_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -1596,7 +1596,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), INCOMPLETE_PLAYER_ROLE_PATTERN, studElements, instElements, 0,
+    assertMistake(studentSolution.getMistakes().get(0), INCOMPLETE_PR_PATTERN, studElements, instElements, 0,
         1, false);
   }
 
@@ -1633,7 +1633,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(4, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studAccTypeClass);
-    assertMistake(studStudentClassMistake, INCOMPLETE_ABSTRACTION_OCCURRENCE_PATTERN, studElements, instElements, 0,
+    assertMistake(studStudentClassMistake, INCOMPLETE_AO_PATTERN, studElements, instElements, 0,
         1, false);
   }
 
@@ -1671,7 +1671,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(4, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studEmployeeStatusClass);
-    assertMistake(studStudentClassMistake, INCOMPLETE_ABSTRACTION_OCCURRENCE_PATTERN, studElements, instElements, 0,
+    assertMistake(studStudentClassMistake, INCOMPLETE_AO_PATTERN, studElements, instElements, 0,
         1, false);
   }
 
@@ -1708,7 +1708,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(4, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studAccTypeClass);
-    assertMistake(studStudentClassMistake, MISSING_ABSTRACTION_OCCURRENCE_PATTERN, studElements, instElements, 0,
+    assertMistake(studStudentClassMistake, MISSING_AO_PATTERN, studElements, instElements, 0,
         1, false);
   }
 

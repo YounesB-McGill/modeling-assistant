@@ -195,30 +195,65 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         ]),
     ]),
 
-    misuse_of_design_patterns := mtc(n="Misuse of design patterns"),
-    wrong_player_role_pattern := mtc(n="Wrong Player-Role Pattern", s=misuse_of_design_patterns, mistakeTypes=[
-        missing_player_role_pattern := mt(n="Missing Player-Role pattern"),
-        incomplete_player_role_pattern := mt(n="Incomplete Player-Role pattern"),
-    ]),
-    using_different_player_role_pattern := mtc(
-            n="Using different Player-Role pattern", s=wrong_player_role_pattern, mistakeTypes=[
-        subclass_should_be_full_player_role_pattern := mt(n="Subclass should be full Player-Role pattern"),
-        subclass_should_be_association_player_role_pattern := mt(n="Subclass should be association Player-Role pattern"),
-        subclass_should_be_enum_player_role_pattern := mt(n="Subclass should be enum Player-Role pattern"),
-        association_should_be_full_player_role_pattern := mt(n="Association should be full Player-Role pattern"),
-        association_should_be_subclass_player_role_pattern := mt(n="Association should be subclass Player-Role pattern"),
-        association_should_be_enum_player_role_pattern := mt(n="Association should be enum Player-Role pattern"),
-        enum_should_be_full_player_role_pattern := mt(n="Enum should be full Player-Role pattern"),
-        enum_should_be_subclass_player_role_pattern := mt(n="Enum should be subclass Player-Role pattern"),
-        enum_should_be_association_player_role_pattern := mt(n="Enum should be association Player-Role pattern"),
-        full_player_role_pattern_should_be_subclass := mt(n="Full Player-Role pattern should be subclass"),
-        full_player_role_pattern_should_be_association := mt(n="Full Player-Role pattern should be association"),
-        full_player_role_pattern_should_be_enum := mt(n="Full Player-Role pattern should be enum"),
-    ]),
-    wrong_abstraction_occurrence_pattern := mtc(
-            n="Wrong Abstraction-Occurrence pattern", s=misuse_of_design_patterns, mistakeTypes=[
-        missing_abstraction_occurrence_pattern := mt(n="Missing Abstraction-Occurrence pattern"),
-        incomplete_abstraction_occurrence_pattern := mt(n="Incomplete Abstraction-Occurrence pattern"),
+    design_pattern_mistakes := mtc(n="Design pattern mistakes", subcategories=[
+        player_role_pattern_mistakes := mtc(n="Player-Role Pattern mistakes",
+            mistakeTypes=[
+                missing_pr_pattern := mt(
+                    n="Missing PR pattern",
+                    d="Missing Player-Role pattern"),
+                incomplete_pr_pattern := mt(
+                    n="Incomplete PR pattern",
+                    d="Incomplete Player-Role pattern"),
+            ],
+            subcategories=[
+                using_different_player_role_pattern := mtc(n="Using different Player-Role pattern", mistakeTypes=[
+                    subclass_should_be_full_pr_pattern := mt(
+                        n="Subclass should be full PR pattern",
+                        d="Subclass should be full Player-Role pattern"),
+                    subclass_should_be_assoc_pr_pattern := mt(
+                        n="Subclass should be assoc PR pattern",
+                        d="Subclass should be association Player-Role pattern"),
+                    subclass_should_be_enum_pr_pattern := mt(
+                        n="Subclass should be enum PR pattern",
+                        d="Subclass should be enumeration Player-Role pattern"),
+                    assoc_should_be_full_pr_pattern := mt(
+                        n="Assoc should be full PR pattern",
+                        d="Association should be full Player-Role pattern"),
+                    assoc_should_be_subclass_pr_pattern := mt(
+                        n="Assoc should be subclass PR pattern",
+                        d="Association should be subclass Player-Role pattern"),
+                    assoc_should_be_enum_pr_pattern := mt(
+                        n="Assoc should be enum PR pattern",
+                        d="Association should be enum Player-Role pattern"),
+                    enum_should_be_full_pr_pattern := mt(
+                        n="Enum should be full PR pattern",
+                        d="Enumeration should be full Player-Role pattern"),
+                    enum_should_be_subclass_pr_pattern := mt(
+                        n="Enum should be subclass PR pattern",
+                        d="Enumeration should be subclass Player-Role pattern"),
+                    enum_should_be_assoc_pr_pattern := mt(
+                        n="Enum should be assoc PR pattern",
+                        d="Enumeration should be association Player-Role pattern"),
+                    full_pr_pattern_should_be_subclass := mt(
+                        n="Full PR pattern should be subclass",
+                        d="Full Player-Role pattern should be subclass"),
+                    full_pr_pattern_should_be_assoc := mt(
+                        n="Full PR pattern should be assoc",
+                        d="Full Player-Role pattern should be association"),
+                    full_pr_pattern_should_be_enum := mt(
+                        n="Full PR pattern should be enum",
+                        d="Full Player-Role pattern should be enumeration"),
+                ]),
+            ]
+        ),
+        abstraction_occurrence_pattern_mistakes := mtc(n="Abstraction-Occurrence pattern mistakes", mistakeTypes=[
+            missing_ao_pattern := mt(
+                n="Missing AO pattern",
+                d="Missing Abstraction-Occurrence pattern"),
+            incomplete_ao_pattern := mt(
+                n="Incomplete AO pattern",
+                d="Incomplete Abstraction-Occurrence pattern"),
+        ]),
     ]),
 ])
 
@@ -289,18 +324,18 @@ mts_by_priority: list[MistakeType] = [
     incomplete_containment_tree,
 
     # design pattern mistakes
-    subclass_should_be_full_player_role_pattern,
-    subclass_should_be_association_player_role_pattern,
-    subclass_should_be_enum_player_role_pattern,
-    association_should_be_full_player_role_pattern,
-    association_should_be_subclass_player_role_pattern,
-    association_should_be_enum_player_role_pattern,
-    enum_should_be_full_player_role_pattern,
-    enum_should_be_subclass_player_role_pattern,
-    enum_should_be_association_player_role_pattern,
-    full_player_role_pattern_should_be_subclass,
-    full_player_role_pattern_should_be_association,
-    full_player_role_pattern_should_be_enum,
+    subclass_should_be_full_pr_pattern,
+    subclass_should_be_assoc_pr_pattern,
+    subclass_should_be_enum_pr_pattern,
+    assoc_should_be_full_pr_pattern,
+    assoc_should_be_subclass_pr_pattern,
+    assoc_should_be_enum_pr_pattern,
+    enum_should_be_full_pr_pattern,
+    enum_should_be_subclass_pr_pattern,
+    enum_should_be_assoc_pr_pattern,
+    full_pr_pattern_should_be_subclass,
+    full_pr_pattern_should_be_assoc,
+    full_pr_pattern_should_be_enum,
 
     # extra items
     extra_class,
@@ -332,8 +367,8 @@ mts_by_priority: list[MistakeType] = [
     missing_association_name, # Rename to missing_association_name
 
     # missing/incomplete patterns
-    incomplete_player_role_pattern,
-    incomplete_abstraction_occurrence_pattern,
-    missing_player_role_pattern,
-    missing_abstraction_occurrence_pattern,
+    incomplete_pr_pattern,
+    incomplete_ao_pattern,
+    missing_pr_pattern,
+    missing_ao_pattern,
 ]

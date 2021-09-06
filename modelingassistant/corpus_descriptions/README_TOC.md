@@ -100,24 +100,24 @@
       1. [Wrong generalization direction](#wrong-generalization-direction)
       1. [Wrong superclass](#wrong-superclass)
 
-1. [Misuse of design patterns](#misuse-of-design-patterns)
-   1. [Wrong Player-Role Pattern](#wrong-player-role-pattern)
+1. [Design pattern mistakes](#design-pattern-mistakes)
+   1. [Player-Role Pattern mistakes](#player-role-pattern-mistakes)
       1. [Using different Player-Role pattern](#using-different-player-role-pattern)
          1. [Subclass should be full Player-Role pattern](#subclass-should-be-full-player-role-pattern)
          1. [Subclass should be association Player-Role pattern](#subclass-should-be-association-player-role-pattern)
-         1. [Subclass should be enum Player-Role pattern](#subclass-should-be-enum-player-role-pattern)
+         1. [Subclass should be enumeration Player-Role pattern](#subclass-should-be-enumeration-player-role-pattern)
          1. [Association should be full Player-Role pattern](#association-should-be-full-player-role-pattern)
          1. [Association should be subclass Player-Role pattern](#association-should-be-subclass-player-role-pattern)
          1. [Association should be enum Player-Role pattern](#association-should-be-enum-player-role-pattern)
-         1. [Enum should be full Player-Role pattern](#enum-should-be-full-player-role-pattern)
-         1. [Enum should be subclass Player-Role pattern](#enum-should-be-subclass-player-role-pattern)
-         1. [Enum should be association Player-Role pattern](#enum-should-be-association-player-role-pattern)
+         1. [Enumeration should be full Player-Role pattern](#enumeration-should-be-full-player-role-pattern)
+         1. [Enumeration should be subclass Player-Role pattern](#enumeration-should-be-subclass-player-role-pattern)
+         1. [Enumeration should be association Player-Role pattern](#enumeration-should-be-association-player-role-pattern)
          1. [Full Player-Role pattern should be subclass](#full-player-role-pattern-should-be-subclass)
          1. [Full Player-Role pattern should be association](#full-player-role-pattern-should-be-association)
-         1. [Full Player-Role pattern should be enum](#full-player-role-pattern-should-be-enum)
+         1. [Full Player-Role pattern should be enumeration](#full-player-role-pattern-should-be-enumeration)
       1. [Missing Player-Role pattern](#missing-player-role-pattern)
       1. [Incomplete Player-Role pattern](#incomplete-player-role-pattern)
-   1. [Wrong Abstraction-Occurrence pattern](#wrong-abstraction-occurrence-pattern)
+   1. [Abstraction-Occurrence pattern mistakes](#abstraction-occurrence-pattern-mistakes)
       1. [Missing Abstraction-Occurrence pattern](#missing-abstraction-occurrence-pattern)
       1. [Incomplete Abstraction-Occurrence pattern](#incomplete-abstraction-occurrence-pattern)
 
@@ -405,9 +405,9 @@
 
 
 
-## Misuse of design patterns
+## Design pattern mistakes
 
-### Wrong Player-Role Pattern
+### Player-Role Pattern mistakes
 
 #### Using different Player-Role pattern
 
@@ -417,7 +417,7 @@
 ##### Subclass should be association Player-Role pattern
 
 
-##### Subclass should be enum Player-Role pattern
+##### Subclass should be enumeration Player-Role pattern
 
 
 ##### Association should be full Player-Role pattern
@@ -429,13 +429,13 @@
 ##### Association should be enum Player-Role pattern
 
 
-##### Enum should be full Player-Role pattern
+##### Enumeration should be full Player-Role pattern
 
 
-##### Enum should be subclass Player-Role pattern
+##### Enumeration should be subclass Player-Role pattern
 
 
-##### Enum should be association Player-Role pattern
+##### Enumeration should be association Player-Role pattern
 
 
 ##### Full Player-Role pattern should be subclass
@@ -444,7 +444,7 @@
 ##### Full Player-Role pattern should be association
 
 
-##### Full Player-Role pattern should be enum
+##### Full Player-Role pattern should be enumeration
 
 
 #### Missing Player-Role pattern
@@ -453,7 +453,7 @@
 #### Incomplete Player-Role pattern
 
 
-### Wrong Abstraction-Occurrence pattern
+### Abstraction-Occurrence pattern mistakes
 
 #### Missing Abstraction-Occurrence pattern
 
