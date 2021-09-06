@@ -67,28 +67,35 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             ]),
         ]
     ),
-    wrong_attribute := mtc(n="Wrong attribute", mistakeTypes=[
-        missing_attribute := mt(n="Missing attribute"),
-        wrong_attribute_type := mt(n="Wrong attribute type"),
-        missing_attribute_type := mt(n="Missing attribute type"), # Added
-        attribute_should_be_static := mt(n="Attribute should be static"),
-        attribute_should_not_be_static := mt(n="Attribute should not be static"),
-    ]),
-    extra_attribute := mtc(n="Extra (redundant) attribute", s=wrong_attribute, mistakeTypes=[
-        plural_attribute := mt(n="Plural attribute"),
-        list_attribute := mt(n="List attribute"),
-        other_extra_attribute := mt(n="Other extra attribute"), # Rename to Extra Attribute
-    ]),
-    wrong_attribute_name := mtc(n="Wrong attribute name", s=wrong_attribute, mistakeTypes=[
-        bad_attribute_name_spelling := mt(n="Bad attribute name spelling"),
-        uppercase_attribute_name := mt(n="Uppercase attribute name"),
-        similar_attribute_name := mt(n="Similar (yet incorrect) attribute name"), # TODO Remove
-    ]),
-    attribute_in_wrong_class := mtc(n="Attribute in wrong class", s=wrong_attribute, mistakeTypes=[
-        attribute_misplaced := mt(n="Attribute misplaced"),
-        attribute_duplicated := mt(n="Attribute duplicated"),
-        attribute_misplaced_in_generalized_hierarchy := mt(n="Attribute misplaced in generalization hierarchy"), # Added
-    ]),
+
+    attribute_mistakes := mtc(n="Attribute mistakes",
+        mistakeTypes=[
+            missing_attribute := mt(n="Missing attribute"),
+            wrong_attribute_type := mt(n="Wrong attribute type"),
+            missing_attribute_type := mt(n="Missing attribute type"), # Added
+            attribute_should_be_static := mt(n="Attribute should be static"),
+            attribute_should_not_be_static := mt(n="Attribute should not be static"),
+        ],
+        subcategories=[
+            extra_attribute_mistakes := mtc(n="Extra (redundant) attribute mistakes", mistakeTypes=[
+                plural_attribute := mt(n="Plural attribute"),
+                list_attribute := mt(n="List attribute"),
+                other_extra_attribute := mt(n="Extra attribute"),  # Was "Other extra attribute"
+            ]),
+            wrong_attribute_name_mistakes := mtc(n="Wrong attribute name mistakes", mistakeTypes=[
+                bad_attribute_name_spelling := mt(n="Bad attribute name spelling"),
+                uppercase_attribute_name := mt(n="Uppercase attribute name"),
+                similar_attribute_name := mt(n="Similar (yet incorrect) attribute name"), # TODO Remove
+            ]),
+            attribute_in_wrong_class := mtc(n="Attribute in wrong class mistakes", mistakeTypes=[
+                attribute_misplaced := mt(n="Attribute misplaced"),
+                attribute_duplicated := mt(n="Attribute duplicated"),
+                attribute_misplaced_in_generalized_hierarchy := mt(
+                    n="Attribute misplaced in generalization hierarchy"), # Added
+            ]),
+        ]
+    ),
+    
     wrong_relationship := mtc(n="Wrong relationship", mistakeTypes=[
         incomplete_containment_tree := mt(n="Incomplete containment tree"),
     ]),

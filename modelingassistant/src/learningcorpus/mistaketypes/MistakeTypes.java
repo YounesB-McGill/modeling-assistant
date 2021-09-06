@@ -39,67 +39,68 @@ public class MistakeTypes {
 
   // Mistake type categories
 
-  /** The class mistakes mistake type category. */
+  /** The category for class mistakes. */
   public static final MistakeTypeCategory CLASS_MISTAKES = MTCS.get("Class mistakes");
 
-  /** The wrong attribute mistake type category. */
-  public static final MistakeTypeCategory WRONG_ATTRIBUTE = MTCS.get("Wrong attribute");
+  /** The category for attribute mistakes. */
+  public static final MistakeTypeCategory ATTRIBUTE_MISTAKES = MTCS.get("Attribute mistakes");
 
-  /** The extra (redundant) attribute mistake type category. */
-  public static final MistakeTypeCategory EXTRA_ATTRIBUTE = MTCS.get("Extra (redundant) attribute");
-
-  /** The wrong attribute name mistake type category. */
-  public static final MistakeTypeCategory WRONG_ATTRIBUTE_NAME = MTCS.get("Wrong attribute name");
-
-  /** The attribute in wrong class mistake type category. */
-  public static final MistakeTypeCategory ATTRIBUTE_IN_WRONG_CLASS = MTCS.get("Attribute in wrong class");
-
-  /** The wrong relationship mistake type category. */
+  /** The category for wrong relationship. */
   public static final MistakeTypeCategory WRONG_RELATIONSHIP = MTCS.get("Wrong relationship");
 
-  /** The missing relationship mistake type category. */
+  /** The category for missing relationship. */
   public static final MistakeTypeCategory MISSING_RELATIONSHIP = MTCS.get("Missing relationship");
 
-  /** The extra (redundant) association mistake type category. */
+  /** The category for extra (redundant) association. */
   public static final MistakeTypeCategory EXTRA_ASSOCIATION = MTCS.get("Extra (redundant) association");
 
-  /** The using wrong relationship type mistake type category. */
+  /** The category for using wrong relationship type. */
   public static final MistakeTypeCategory USING_WRONG_RELATIONSHIP_TYPE = MTCS.get("Using wrong relationship type");
 
-  /** The wrong association name mistake type category. */
+  /** The category for wrong association name. */
   public static final MistakeTypeCategory WRONG_ASSOCIATION_NAME = MTCS.get("Wrong association name");
 
-  /** The wrong multiplicities mistake type category. */
+  /** The category for wrong multiplicities. */
   public static final MistakeTypeCategory WRONG_MULTIPLICITIES = MTCS.get("Wrong multiplicities");
 
-  /** The wrong role names mistake type category. */
+  /** The category for wrong role names. */
   public static final MistakeTypeCategory WRONG_ROLE_NAMES = MTCS.get("Wrong role names");
 
-  /** The wrong association class mistake type category. */
+  /** The category for wrong association class. */
   public static final MistakeTypeCategory WRONG_ASSOCIATION_CLASS = MTCS.get("Wrong association class");
 
-  /** The wrong generalization mistake type category. */
+  /** The category for wrong generalization. */
   public static final MistakeTypeCategory WRONG_GENERALIZATION = MTCS.get("Wrong generalization");
 
-  /** The misuse of design patterns mistake type category. */
+  /** The category for misuse of design patterns. */
   public static final MistakeTypeCategory MISUSE_OF_DESIGN_PATTERNS = MTCS.get("Misuse of design patterns");
 
-  /** The wrong player-role pattern mistake type category. */
+  /** The category for wrong player-role pattern. */
   public static final MistakeTypeCategory WRONG_PLAYER_ROLE_PATTERN = MTCS.get("Wrong Player-Role Pattern");
 
-  /** The using different player-role pattern mistake type category. */
+  /** The category for using different player-role pattern. */
   public static final MistakeTypeCategory USING_DIFFERENT_PLAYER_ROLE_PATTERN =
       MTCS.get("Using different Player-Role pattern");
 
-  /** The wrong abstraction-occurrence pattern mistake type category. */
+  /** The category for wrong abstraction-occurrence pattern. */
   public static final MistakeTypeCategory WRONG_ABSTRACTION_OCCURRENCE_PATTERN =
       MTCS.get("Wrong Abstraction-Occurrence pattern");
 
-  /** The class name mistakes mistake type category. */
+  /** The category for class name mistakes. */
   public static final MistakeTypeCategory CLASS_NAME_MISTAKES = MTCS.get("Class name mistakes");
 
-  /** The enumeration mistakes mistake type category. */
+  /** The category for enumeration mistakes. */
   public static final MistakeTypeCategory ENUMERATION_MISTAKES = MTCS.get("Enumeration mistakes");
+
+  /** The category for extra (redundant) attribute mistakes. */
+  public static final MistakeTypeCategory EXTRA_ATTRIBUTE_MISTAKES = MTCS.get("Extra (redundant) attribute mistakes");
+
+  /** The category for wrong attribute name mistakes. */
+  public static final MistakeTypeCategory WRONG_ATTRIBUTE_NAME_MISTAKES = MTCS.get("Wrong attribute name mistakes");
+
+  /** The category for attribute in wrong class mistakes. */
+  public static final MistakeTypeCategory ATTRIBUTE_IN_WRONG_CLASS_MISTAKES =
+      MTCS.get("Attribute in wrong class mistakes");
 
 
   // Mistake types
@@ -124,34 +125,6 @@ public class MistakeTypes {
 
   /** The attribute should not be static mistake type. */
   public static final MistakeType ATTRIBUTE_SHOULD_NOT_BE_STATIC = MTS.get("Attribute should not be static");
-
-  /** The plural attribute mistake type. */
-  public static final MistakeType PLURAL_ATTRIBUTE = MTS.get("Plural attribute");
-
-  /** The list attribute mistake type. */
-  public static final MistakeType LIST_ATTRIBUTE = MTS.get("List attribute");
-
-  /** The other extra attribute mistake type. */
-  public static final MistakeType OTHER_EXTRA_ATTRIBUTE = MTS.get("Other extra attribute");
-
-  /** The bad attribute name spelling mistake type. */
-  public static final MistakeType BAD_ATTRIBUTE_NAME_SPELLING = MTS.get("Bad attribute name spelling");
-
-  /** The uppercase attribute name mistake type. */
-  public static final MistakeType UPPERCASE_ATTRIBUTE_NAME = MTS.get("Uppercase attribute name");
-
-  /** The similar (yet incorrect) attribute name mistake type. */
-  public static final MistakeType SIMILAR_ATTRIBUTE_NAME = MTS.get("Similar (yet incorrect) attribute name");
-
-  /** The attribute misplaced mistake type. */
-  public static final MistakeType ATTRIBUTE_MISPLACED = MTS.get("Attribute misplaced");
-
-  /** The attribute duplicated mistake type. */
-  public static final MistakeType ATTRIBUTE_DUPLICATED = MTS.get("Attribute duplicated");
-
-  /** The attribute misplaced in generalization hierarchy mistake type. */
-  public static final MistakeType ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY =
-      MTS.get("Attribute misplaced in generalization hierarchy");
 
   /** The incomplete containment tree mistake type. */
   public static final MistakeType INCOMPLETE_CONTAINMENT_TREE = MTS.get("Incomplete containment tree");
@@ -429,5 +402,33 @@ public class MistakeTypes {
 
   /** The similar enum item mistake type. */
   public static final MistakeType SIMILAR_ENUM_ITEM = MTS.get("Similar enum item");
+
+  /** The plural attribute mistake type. */
+  public static final MistakeType PLURAL_ATTRIBUTE = MTS.get("Plural attribute");
+
+  /** The list attribute mistake type. */
+  public static final MistakeType LIST_ATTRIBUTE = MTS.get("List attribute");
+
+  /** The extra attribute mistake type. */
+  public static final MistakeType EXTRA_ATTRIBUTE = MTS.get("Extra attribute");
+
+  /** The bad attribute name spelling mistake type. */
+  public static final MistakeType BAD_ATTRIBUTE_NAME_SPELLING = MTS.get("Bad attribute name spelling");
+
+  /** The uppercase attribute name mistake type. */
+  public static final MistakeType UPPERCASE_ATTRIBUTE_NAME = MTS.get("Uppercase attribute name");
+
+  /** The similar (yet incorrect) attribute name mistake type. */
+  public static final MistakeType SIMILAR_ATTRIBUTE_NAME = MTS.get("Similar (yet incorrect) attribute name");
+
+  /** The attribute misplaced mistake type. */
+  public static final MistakeType ATTRIBUTE_MISPLACED = MTS.get("Attribute misplaced");
+
+  /** The attribute duplicated mistake type. */
+  public static final MistakeType ATTRIBUTE_DUPLICATED = MTS.get("Attribute duplicated");
+
+  /** The attribute misplaced in generalization hierarchy mistake type. */
+  public static final MistakeType ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY =
+      MTS.get("Attribute misplaced in generalization hierarchy");
 
 }

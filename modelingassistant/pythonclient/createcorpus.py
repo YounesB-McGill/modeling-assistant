@@ -138,7 +138,7 @@ def generate_java():
     result = JAVA_HEADER
 
     for mtc in corpus.mistakeTypeCategories:
-        result += f'  /** The {mtc.name.lower()} mistake type category. */\n'
+        result += f'  /** The category for {mtc.name.lower()}. */\n'
         lhs = f'  public static final MistakeTypeCategory {underscorify(mtc.name)}'
         rhs = f'MTCS.get("{mtc.name}");'
         mtc_decl = f'{lhs} = {rhs}'
