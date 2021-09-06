@@ -88,8 +88,10 @@ USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION: MistakeType = \
     _MTS["Using association instead of aggregation/composition"]
 USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION: MistakeType = \
     _MTS["Using aggregation/composition instead of association"]
-USING_DIRECTED_ASSOCIATION_INSTEAD_OF_UNDIRECTED: MistakeType = _MTS["Using directed association instead of undirected"]
-USING_UNDIRECTED_ASSOCIATION_INSTEAD_OF_DIRECTED: MistakeType = _MTS["Using undirected association instead of directed"]
+USING_DIRECTED_ASSOCIATION_INSTEAD_OF_UNDIRECTED: MistakeType = \
+    _MTS["Using directed association instead of undirected"]
+USING_UNDIRECTED_ASSOCIATION_INSTEAD_OF_DIRECTED: MistakeType = \
+    _MTS["Using undirected association instead of directed"]
 USING_AGGREGATION_INSTEAD_OF_COMPOSITION: MistakeType = _MTS["Using aggregation instead of composition"]
 USING_COMPOSITION_INSTEAD_OF_AGGREGATION: MistakeType = _MTS["Using composition instead of aggregation"]
 USING_BINARY_ASSOCIATION_INSTEAD_OF_NARY_ASSOCIATION: MistakeType = \

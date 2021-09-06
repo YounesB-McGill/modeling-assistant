@@ -1,10 +1,20 @@
 #!/usr/bin/env python3
 
+"""
+Script to create these Learning Corpus artifacts from corpus_definition.py:
+
+- default.learningcorpus: The default Learning Corpus instance in XMI format.
+- mistaketypes.py: A Python file with all mistake types and categories in the default corpus.
+- MistakeTypes.java: A Java class with all mistake types and categories in the default corpus.
+- README_TOC.md: A Markdown table-of-contents file for the default Learning Corpus.
+  A full learning corpus will be provided later.
+"""
+
 import re
 from os import linesep as nl
 from fileserdes import save_to_files
 from corpus_definition import corpus
-from learningcorpus import LearningCorpus, MistakeTypeCategory
+from learningcorpus import MistakeTypeCategory
 
 MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
 MAX_COLUMN_WIDTH = 120
@@ -12,6 +22,28 @@ MAX_COLUMN_WIDTH = 120
 PYTHON_MISTAKE_TYPES_FILE = "modelingassistant/pythonclient/mistaketypes.py"
 JAVA_MISTAKE_TYPES_FILE = "modelingassistant/src/learningcorpus/mistaketypes/MistakeTypes.java"
 LEARNING_CORPUS_MARKDOWN_FILE = "modelingassistant/corpus_descriptions/README_TOC.md"
+
+PYTHON_HEADER = '''\
+"""
+This file contains all mistake types and categories.
+"""
+
+from constants import LEARNING_CORPUS_PATH
+from fileserdes import load_lc
+from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
+
+corpus = load_lc(LEARNING_CORPUS_PATH)
+
+# Populate dictionaries
+MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[str, MistakeTypeCategory] = {c.name: c for c in corpus.mistakeTypeCategories}
+MISTAKE_TYPES_BY_NAME: dict[str, MistakeType] = {mt.name: mt for mt in corpus.mistakeTypes()}
+
+# Short-name references to the above maps for greater code legibility
+_MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
+_MTS = MISTAKE_TYPES_BY_NAME
+
+# Mistake type categories
+'''
 
 JAVA_HEADER = """\
 package learningcorpus.mistaketypes;
@@ -57,6 +89,35 @@ public class MistakeTypes {
 
 """
 
+
+def generate_python():
+    """
+    Generate Python file with all mistake types and categories.
+    """
+    result = PYTHON_HEADER
+
+    for mtc in corpus.mistakeTypeCategories:
+        lhs = f"{underscorify(mtc.name)}: MistakeTypeCategory"
+        rhs = f'_MTCS["{mtc.name}"]'
+        mtc_decl = f"{lhs} = {rhs}"
+        if len(mtc_decl) < MAX_COLUMN_WIDTH:
+            result += f"{mtc_decl}\n"
+        else:
+            result += f"{lhs} = \\\n    {rhs}\n"
+
+    result += "\n# Mistake types\n"
+
+    for mt in corpus.mistakeTypes():
+        lhs = f"{underscorify(mt.name)}: MistakeType"
+        rhs = f'_MTS["{mt.name}"]'
+        mt_decl = f"{lhs} = {rhs}"
+        if len(mt_decl) < MAX_COLUMN_WIDTH:
+            result += f"{mt_decl}\n"
+        else:
+            result += f"{lhs} = \\\n    {rhs}\n"
+
+    with open(PYTHON_MISTAKE_TYPES_FILE, "w") as f:
+        f.write(result)
 
 
 def generate_python_mts(mtc: MistakeTypeCategory) -> str:
@@ -161,5 +222,6 @@ if __name__ == "__main__":
     "Main entry point."
     save_to_files({"modelingassistant.learningcorpus.dsl.instances/default.learningcorpus": corpus})
     print(f"Created learning corpus with {len(corpus.mistakeTypes())} mistake types.")
+    generate_python()
     generate_java()
     generate_markdown()
