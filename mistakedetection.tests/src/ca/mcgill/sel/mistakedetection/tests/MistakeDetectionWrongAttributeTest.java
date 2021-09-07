@@ -10,8 +10,8 @@ import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_MISPLACED;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
-import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.UPPERCASE_ATTRIBUTE_NAME;
@@ -136,7 +136,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentDateOfBirthAttribute, 0, 1,
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ATTRIBUTE, studentDateOfBirthAttribute, 0, 1,
         false);
   }
 
@@ -335,7 +335,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentnameAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ATTRIBUTE, studentnameAttribute, 0, 1, false);
   }
 
   /**
@@ -360,7 +360,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentCapacityAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ATTRIBUTE, studentCapacityAttribute, 0, 1, false);
   }
 
   /**
@@ -385,7 +385,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentCrewCapAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ATTRIBUTE, studentCrewCapAttribute, 0, 1, false);
   }
 
   /**
@@ -410,7 +410,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentDateOfBirthAttribute, 0, 1,
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ATTRIBUTE, studentDateOfBirthAttribute, 0, 1,
         false);
   }
 
@@ -436,7 +436,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentNameAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ATTRIBUTE, studentNameAttribute, 0, 1, false);
   }
 
   /**
@@ -461,7 +461,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentPinCodeAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ATTRIBUTE, studentPinCodeAttribute, 0, 1, false);
   }
 
   /**
@@ -486,7 +486,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studentRankAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ATTRIBUTE, studentRankAttribute, 0, 1, false);
   }
 
   /**
@@ -511,7 +511,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ATTRIBUTE, studenttypeAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ATTRIBUTE, studenttypeAttribute, 0, 1, false);
   }
 
   /**

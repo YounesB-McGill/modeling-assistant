@@ -3,57 +3,57 @@ package ca.mcgill.sel.mistakedetection;
 import static ca.mcgill.sel.classdiagram.ReferenceType.AGGREGATION;
 import static ca.mcgill.sel.classdiagram.ReferenceType.COMPOSITION;
 import static ca.mcgill.sel.classdiagram.ReferenceType.REGULAR;
-import static learningcorpus.mistaketypes.MistakeTypes.ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_ENUM_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_FULL_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_NOT_BE_STATIC;
-import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_CLASS_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOC_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
-import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_REGULAR_CLASS;
-import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOCIATION_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ENUM;
+import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_ASSOC_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_FULL_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOC_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM;
-import static learningcorpus.mistaketypes.MistakeTypes.FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION;
-import static learningcorpus.mistaketypes.MistakeTypes.FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM;
-import static learningcorpus.mistaketypes.MistakeTypes.FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS;
-import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PLAYER_ROLE_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ENUM;
+import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_PLAYER_ROLE_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
-import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ASSOCIATION;
-import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ATTRIBUTE;
-import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_MULTIPLICITY;
-import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.REGULAR_CLASS_SHOULD_BE_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
-import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.UPPERCASE_ATTRIBUTE_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static modelingassistant.TagType.PLAYER;
 import static modelingassistant.TagType.ROLE;
 import java.util.Arrays;
@@ -1172,12 +1172,12 @@ public class MistakeDetection {
     EList<Mistake> newMistakesToRemove = new BasicEList<Mistake>();
     EList<MistakeType> patternMistakeTypes = new BasicEList<MistakeType>();
     patternMistakeTypes
-        .addAll(List.of(ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN,
-            ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN,
-            ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN,
-            FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION, FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM,
-            FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS, SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN,
-            SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, INCOMPLETE_PLAYER_ROLE_PATTERN));
+        .addAll(List.of(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, ASSOC_SHOULD_BE_FULL_PR_PATTERN,
+            ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, ENUM_SHOULD_BE_ASSOC_PR_PATTERN,
+            ENUM_SHOULD_BE_FULL_PR_PATTERN, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN,
+            FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM,
+            FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN,
+            SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, INCOMPLETE_PR_PATTERN));
 
     // Condition when only new mistakes exists.
     if (existingMistakes.size() == 0 && newMistakes.size() != 0) {
@@ -1752,7 +1752,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeEnumerationBeRegularClass(Classifier studentClass,
       Classifier instructorClass) {
     if (isClassEnumInsteadOfRegular(studentClass, instructorClass)) {
-      return Optional.of(createMistake(ENUM_SHOULD_BE_REGULAR_CLASS, studentClass, instructorClass));
+      return Optional.of(createMistake(ENUM_SHOULD_BE_CLASS, studentClass, instructorClass));
     }
     return Optional.empty();
   }
@@ -1760,7 +1760,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeRegularBeEnumerationClass(Classifier studentClass,
       Classifier instructorClass) {
     if (isClassRegularInsteadOfEnum(studentClass, instructorClass)) {
-      return Optional.of(createMistake(REGULAR_CLASS_SHOULD_BE_ENUM, studentClass, instructorClass));
+      return Optional.of(createMistake(CLASS_SHOULD_BE_ENUM, studentClass, instructorClass));
     }
     return Optional.empty();
   }
@@ -1810,7 +1810,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingCompositionInsteadOfAssociation(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingCompositionInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION, studentClassAssocEnd,
+      return Optional.of(createMistake(USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOC, studentClassAssocEnd,
           instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -1819,7 +1819,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingAggregationInsteadOfAssociation(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingAggregationInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION, studentClassAssocEnd,
+      return Optional.of(createMistake(USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOC, studentClassAssocEnd,
           instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -1846,7 +1846,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeOtherWrongMultiplicity(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (!associationEndMultiplicityMatch(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(OTHER_WRONG_MULTIPLICITY, studentClassAssocEnd, instructorClassAssocEnd));
+      return Optional.of(createMistake(WRONG_MULTIPLICITY, studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
   }
@@ -1887,7 +1887,7 @@ public class MistakeDetection {
       AssociationEnd instructorClassAssocEnd) {
     int lDistance = levenshteinDistance(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName());
     if (lDistance > MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-      return Optional.of(createMistake(OTHER_WRONG_ROLE_NAME, studentClassAssocEnd, instructorClassAssocEnd));
+      return Optional.of(createMistake(WRONG_ROLE_NAME, studentClassAssocEnd, instructorClassAssocEnd));
     }
 
     return Optional.empty();
@@ -1909,7 +1909,7 @@ public class MistakeDetection {
       Association instructorClassAssoc) {
     if (spellingMistakeCheck(studentClassAssoc.getAssociationClass().getName(),
         instructorClassAssoc.getAssociationClass().getName())) {
-      return Optional.of(createMistake(BAD_ASSOCIATION_CLASS_NAME_SPELLING, studentClassAssoc.getAssociationClass(),
+      return Optional.of(createMistake(BAD_ASSOC_CLASS_NAME_SPELLING, studentClassAssoc.getAssociationClass(),
           instructorClassAssoc.getAssociationClass()));
     }
     return Optional.empty();
@@ -1930,7 +1930,7 @@ public class MistakeDetection {
       Association instructorClassAssoc, EList<Mistake> newMistakes) {
     if (isAssociationClassMissing(studentClassAssoc, instructorClassAssoc)) {
       removeMistakesRelatedToElement(instructorClassAssoc.getAssociationClass(), newMistakes);
-      newMistakes.add(createMistake(MISSING_ASSOCIATION_CLASS, studentClassAssoc.getAssociationClass(),
+      newMistakes.add(createMistake(MISSING_ASSOC_CLASS, studentClassAssoc.getAssociationClass(),
           instructorClassAssoc.getAssociationClass()));
     }
 
@@ -1940,7 +1940,7 @@ public class MistakeDetection {
       EList<Mistake> newMistakes) {
     if (isAssociationClassExtra(studentClassAssoc, instructorClassAssoc)) {
       removeMistakesRelatedToElement(studentClassAssoc.getAssociationClass(), newMistakes);
-      newMistakes.add(createMistake(EXTRA_ASSOCIATION_CLASS, studentClassAssoc.getAssociationClass(),
+      newMistakes.add(createMistake(EXTRA_ASSOC_CLASS, studentClassAssoc.getAssociationClass(),
           instructorClassAssoc.getAssociationClass()));
     }
 
@@ -2002,7 +2002,7 @@ public class MistakeDetection {
 
   public static void checkMistakeExtraAttribute(Comparison comparison) {
     comparison.extraStudentAttribute
-        .forEach(cls -> comparison.newMistakes.add(createMistake(OTHER_EXTRA_ATTRIBUTE, cls, null)));
+        .forEach(cls -> comparison.newMistakes.add(createMistake(EXTRA_ATTRIBUTE, cls, null)));
   }
 
   public static void checkMistakeMissingAssociationCompositionAggregation(Comparison comparison) {
@@ -2018,17 +2018,17 @@ public class MistakeDetection {
       }
       if (association.getAssociationClass() != null) {
         removeMistakesRelatedToElement(association.getAssociationClass(), comparison.newMistakes);
-        comparison.newMistakes.add(createMistake(MISSING_ASSOCIATION_CLASS, null, association.getAssociationClass()));
+        comparison.newMistakes.add(createMistake(MISSING_ASSOC_CLASS, null, association.getAssociationClass()));
       }
     }
   }
 
   public static void checkMistakeExtraAssociation(Comparison comparison) {
     for (Association association : comparison.extraStudentAssociation) {
-      comparison.newMistakes.add(createMistake(OTHER_EXTRA_ASSOCIATION, association, null));
+      comparison.newMistakes.add(createMistake(EXTRA_ASSOCIATION, association, null));
       if (association.getAssociationClass() != null) {
         removeMistakesRelatedToElement(association.getAssociationClass(), comparison.newMistakes);
-        comparison.newMistakes.add(createMistake(EXTRA_ASSOCIATION_CLASS, association.getAssociationClass(), null));
+        comparison.newMistakes.add(createMistake(EXTRA_ASSOC_CLASS, association.getAssociationClass(), null));
       }
     }
   }
@@ -2038,7 +2038,7 @@ public class MistakeDetection {
     for (Tag tag : tg.getTags()) {
       missingElements.add(tag.getSolutionElement().getElement());
     }
-    comparison.newMistakes.add(createMistake(MISSING_PLAYER_ROLE_PATTERN, null, missingElements));
+    comparison.newMistakes.add(createMistake(MISSING_PR_PATTERN, null, missingElements));
   }
 
   public static void createMistakeIncompletePattern(TagGroup tg, EList<NamedElement> matchedElements,
@@ -2052,19 +2052,19 @@ public class MistakeDetection {
       }
     }
     comparison.newMistakes
-        .add(createMistake(INCOMPLETE_PLAYER_ROLE_PATTERN, studentMissingElements, instructorElements));
+        .add(createMistake(INCOMPLETE_PR_PATTERN, studentMissingElements, instructorElements));
   }
 
   public static void checkMistakeUsingEnumPattern(String instPattern, EList<NamedElement> studentElements,
       EList<NamedElement> isntElements, Comparison comparison) {
     if (instPattern.equals(ASSOC_PR_PATTERN)) {
       comparison.newMistakes
-          .add(createMistake(ENUM_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+          .add(createMistake(ENUM_SHOULD_BE_ASSOC_PR_PATTERN, studentElements, isntElements));
     } else if (instPattern.equals(FULL_PR_PATTERN)) {
-      comparison.newMistakes.add(createMistake(ENUM_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+      comparison.newMistakes.add(createMistake(ENUM_SHOULD_BE_FULL_PR_PATTERN, studentElements, isntElements));
     } else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
       comparison.newMistakes
-          .add(createMistake(ENUM_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+          .add(createMistake(ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, studentElements, isntElements));
     }
   }
 
@@ -2072,12 +2072,12 @@ public class MistakeDetection {
       EList<NamedElement> isntElements, Comparison comparison) {
     if (instPattern.equals(ASSOC_PR_PATTERN)) {
       comparison.newMistakes
-          .add(createMistake(FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ASSOCIATION, studentElements, isntElements));
+          .add(createMistake(FULL_PR_PATTERN_SHOULD_BE_ASSOC, studentElements, isntElements));
     } else if (instPattern.equals(ENUM_PR_PATTERN)) {
-      comparison.newMistakes.add(createMistake(FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_ENUM, studentElements, isntElements));
+      comparison.newMistakes.add(createMistake(FULL_PR_PATTERN_SHOULD_BE_ENUM, studentElements, isntElements));
     } else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
       comparison.newMistakes
-          .add(createMistake(FULL_PLAYER_ROLE_PATTERN_SHOULD_BE_SUBCLASS, studentElements, isntElements));
+          .add(createMistake(FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, studentElements, isntElements));
     }
   }
 
@@ -2085,13 +2085,13 @@ public class MistakeDetection {
       EList<NamedElement> isntElements, Comparison comparison) {
     if (instPattern.equals(ASSOC_PR_PATTERN)) {
       comparison.newMistakes
-          .add(createMistake(SUBCLASS_SHOULD_BE_ASSOCIATION_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+          .add(createMistake(SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, studentElements, isntElements));
     } else if (instPattern.equals(FULL_PR_PATTERN)) {
       comparison.newMistakes
-          .add(createMistake(SUBCLASS_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+          .add(createMistake(SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, studentElements, isntElements));
     } else if (instPattern.equals(ENUM_PR_PATTERN)) {
       comparison.newMistakes
-          .add(createMistake(SUBCLASS_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+          .add(createMistake(SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, studentElements, isntElements));
     }
   }
 
@@ -2099,13 +2099,13 @@ public class MistakeDetection {
       EList<NamedElement> isntElements, Comparison comparison) {
     if (instPattern.equals(ENUM_PR_PATTERN)) {
       comparison.newMistakes
-          .add(createMistake(ASSOCIATION_SHOULD_BE_ENUM_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+          .add(createMistake(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, studentElements, isntElements));
     } else if (instPattern.equals(FULL_PR_PATTERN)) {
       comparison.newMistakes
-          .add(createMistake(ASSOCIATION_SHOULD_BE_FULL_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+          .add(createMistake(ASSOC_SHOULD_BE_FULL_PR_PATTERN, studentElements, isntElements));
     } else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
       comparison.newMistakes
-          .add(createMistake(ASSOCIATION_SHOULD_BE_SUBCLASS_PLAYER_ROLE_PATTERN, studentElements, isntElements));
+          .add(createMistake(ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, studentElements, isntElements));
     }
   }
 

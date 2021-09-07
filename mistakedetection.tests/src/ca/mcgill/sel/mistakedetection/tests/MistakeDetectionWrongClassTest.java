@@ -7,10 +7,10 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instruct
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentMistakeFor;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
-import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOCIATION_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_CLASS_NAME;
@@ -1439,7 +1439,7 @@ public class MistakeDetectionWrongClassTest {
 
     MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOCIATION_CLASS, instructorCompanyClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOC_CLASS, instructorCompanyClass, 0, 1, false);
   }
 
   /**
@@ -1479,7 +1479,7 @@ public class MistakeDetectionWrongClassTest {
 
     MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertMistake(studentMistakeFor(studentCompanyClass), EXTRA_ASSOCIATION_CLASS, studentCompanyClass, 0, 1, false);
+    assertMistake(studentMistakeFor(studentCompanyClass), EXTRA_ASSOC_CLASS, studentCompanyClass, 0, 1, false);
   }
 
   /**
