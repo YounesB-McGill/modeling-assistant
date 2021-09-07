@@ -108,7 +108,7 @@
          1. [Subclass should be enumeration Player-Role pattern](#subclass-should-be-enumeration-player-role-pattern)
          1. [Association should be full Player-Role pattern](#association-should-be-full-player-role-pattern)
          1. [Association should be subclass Player-Role pattern](#association-should-be-subclass-player-role-pattern)
-         1. [Association should be enum Player-Role pattern](#association-should-be-enum-player-role-pattern)
+         1. [Association should be enumeration Player-Role pattern](#association-should-be-enumeration-player-role-pattern)
          1. [Enumeration should be full Player-Role pattern](#enumeration-should-be-full-player-role-pattern)
          1. [Enumeration should be subclass Player-Role pattern](#enumeration-should-be-subclass-player-role-pattern)
          1. [Enumeration should be association Player-Role pattern](#enumeration-should-be-association-player-role-pattern)
@@ -426,7 +426,7 @@
 ##### Association should be subclass Player-Role pattern
 
 
-##### Association should be enum Player-Role pattern
+##### Association should be enumeration Player-Role pattern
 
 
 ##### Enumeration should be full Player-Role pattern

@@ -228,7 +228,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         d="Association should be subclass Player-Role pattern"),
                     assoc_should_be_enum_pr_pattern := mt(
                         n="Assoc should be enum PR pattern",
-                        d="Association should be enum Player-Role pattern"),
+                        d="Association should be enumeration Player-Role pattern"),
                     enum_should_be_full_pr_pattern := mt(
                         n="Enum should be full PR pattern",
                         d="Enumeration should be full Player-Role pattern"),
