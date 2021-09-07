@@ -384,7 +384,7 @@ public class MistakeTypes {
   /** The association should be subclass player-role pattern mistake type. */
   public static final MistakeType ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN = MTS.get("Assoc should be subclass PR pattern");
 
-  /** The association should be enum player-role pattern mistake type. */
+  /** The association should be enumeration player-role pattern mistake type. */
   public static final MistakeType ASSOC_SHOULD_BE_ENUM_PR_PATTERN = MTS.get("Assoc should be enum PR pattern");
 
   /** The enumeration should be full player-role pattern mistake type. */
