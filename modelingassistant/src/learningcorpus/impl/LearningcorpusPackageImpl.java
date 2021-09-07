@@ -372,6 +372,16 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
    * @generated
    */
   @Override
+  public EAttribute getMistakeType_Description() {
+    return (EAttribute)mistakeTypeEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getFeedback() {
     return feedbackEClass;
   }
@@ -770,6 +780,7 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     createEReference(mistakeTypeEClass, MISTAKE_TYPE__FEEDBACKS);
     createEReference(mistakeTypeEClass, MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY);
     createEAttribute(mistakeTypeEClass, MISTAKE_TYPE__PRIORITY);
+    createEAttribute(mistakeTypeEClass, MISTAKE_TYPE__DESCRIPTION);
 
     feedbackEClass = createEClass(FEEDBACK);
     createEAttribute(feedbackEClass, FEEDBACK__LEVEL);
@@ -880,6 +891,7 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     initEReference(getMistakeType_Feedbacks(), this.getFeedback(), this.getFeedback_MistakeType(), "feedbacks", null, 0, -1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMistakeType_MistakeTypeCategory(), this.getMistakeTypeCategory(), this.getMistakeTypeCategory_MistakeTypes(), "mistakeTypeCategory", null, 1, 1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMistakeType_Priority(), ecorePackage.getEInt(), "priority", null, 0, 1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMistakeType_Description(), ecorePackage.getEString(), "description", null, 0, 1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(feedbackEClass, Feedback.class, "Feedback", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getFeedback_Level(), ecorePackage.getEInt(), "level", null, 0, 1, Feedback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

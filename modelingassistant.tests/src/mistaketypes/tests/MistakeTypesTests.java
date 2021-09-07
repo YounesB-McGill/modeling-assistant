@@ -24,7 +24,7 @@ public class MistakeTypesTests {
     expectedMissingClassMistakeType.setNumStepsBeforeNotification(3); // Should be in DSL
     expectedMissingClassMistakeType.setTimeToAddress(null);
 
-    var actualWrongClassMistakeTypeCategory = MistakeTypes.WRONG_CLASS;
+    var actualWrongClassMistakeTypeCategory = MistakeTypes.CLASS_MISTAKES;
     var actualMissingClassMistakeType = MistakeTypes.MISSING_CLASS;
 
     assertEquals(expectedWrongClassMistakeTypeCategory.getName(), actualWrongClassMistakeTypeCategory.getName());

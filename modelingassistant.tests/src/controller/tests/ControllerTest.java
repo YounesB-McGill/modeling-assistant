@@ -1,10 +1,10 @@
 package controller.tests;
 
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.CLASS_MISTAKES;
+import static learningcorpus.mistaketypes.MistakeTypes.CLASS_NAME_MISTAKES;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
-import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS;
-import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -811,27 +811,27 @@ public class ControllerTest {
    */
   @Test public void testLearningCorpusMistakeTypesAndCategoriesHierarchy() {
     LearningcorpusPackage.eINSTANCE.eClass();
-    var learningCorpus = WRONG_CLASS.getLearningCorpus();
-    assertEquals("Wrong class", WRONG_CLASS.getName());
-    assertEquals("Wrong class name", WRONG_CLASS_NAME.getName());
+    var learningCorpus = CLASS_MISTAKES.getLearningCorpus();
+    assertEquals("Class mistakes", CLASS_MISTAKES.getName());
+    assertEquals("Class name mistakes", CLASS_NAME_MISTAKES.getName());
     assertEquals("Missing class", MISSING_CLASS.getName());
     assertEquals("Software engineering term", SOFTWARE_ENGINEERING_TERM.getName());
 
     /* Verify all of these relationships (names already correct due to above):
      *
-     *                         Wrong class: MistakeTypeCategory
+     *                         Class mistakes: MistakeTypeCategory
      *                       /                                  \
-     *     Wrong class name: MistakeTypeCategory       Missing class: MistakeType
-     *                     |
-     *     Software engineering term: MistakeType
+     *     Class name mistakes: MistakeTypeCategory       Missing class: MistakeType
+     *                      |
+     *      Software engineering term: MistakeType
      */
-    assertTrue(WRONG_CLASS.getSubcategories().contains(WRONG_CLASS_NAME));
-    assertTrue(WRONG_CLASS_NAME.getSupercategory() == WRONG_CLASS); // should be same object, not just equal
-    assertTrue(WRONG_CLASS.getMistakeTypes().contains(MISSING_CLASS));
-    assertTrue(MISSING_CLASS.getMistakeTypeCategory() == WRONG_CLASS);
-    assertTrue(WRONG_CLASS_NAME.getMistakeTypes().contains(SOFTWARE_ENGINEERING_TERM));
-    assertTrue(SOFTWARE_ENGINEERING_TERM.getMistakeTypeCategory() == WRONG_CLASS_NAME);
-    List.of(WRONG_CLASS, WRONG_CLASS_NAME).forEach(mtc -> assertTrue(mtc.getLearningCorpus() == learningCorpus));
+    assertTrue(CLASS_MISTAKES.getSubcategories().contains(CLASS_NAME_MISTAKES));
+    assertTrue(CLASS_NAME_MISTAKES.getSupercategory() == CLASS_MISTAKES); // should be same object, not just equal
+    assertTrue(CLASS_MISTAKES.getMistakeTypes().contains(MISSING_CLASS));
+    assertTrue(MISSING_CLASS.getMistakeTypeCategory() == CLASS_MISTAKES);
+    assertTrue(CLASS_NAME_MISTAKES.getMistakeTypes().contains(SOFTWARE_ENGINEERING_TERM));
+    assertTrue(SOFTWARE_ENGINEERING_TERM.getMistakeTypeCategory() == CLASS_NAME_MISTAKES);
+    List.of(CLASS_MISTAKES, CLASS_NAME_MISTAKES).forEach(mtc -> assertTrue(mtc.getLearningCorpus() == learningCorpus));
     List.of(MISSING_CLASS, SOFTWARE_ENGINEERING_TERM).forEach(mt ->
       assertTrue(mt.getMistakeTypeCategory().getLearningCorpus() == learningCorpus));
   }

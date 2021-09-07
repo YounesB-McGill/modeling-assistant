@@ -4,24 +4,24 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMi
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_CONTAINMENT_TREE;
 import static learningcorpus.mistaketypes.MistakeTypes.INFINITE_RECURSIVE_DEPENDENCY;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
-import static learningcorpus.mistaketypes.MistakeTypes.OTHER_EXTRA_ASSOCIATION;
-import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_MULTIPLICITY;
-import static learningcorpus.mistaketypes.MistakeTypes.OTHER_WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ROLE_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_ATTRIBUTE_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_ASSOCIATION_INSTEAD_OF_UNDIRECTED;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_ASSOCIATION_INSTEAD_OF_DIRECTED;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getAssociationsFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
@@ -511,7 +511,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyAirplaneAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentMyAirplaneAssociationEnd,
         instructorMyAirplaneAssociationEnd, 0, 1, false);
   }
 
@@ -537,7 +537,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyAirportsAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentMyAirportsAssociationEnd,
         instructorMyAirportAssociationEnd, 0, 1, false);
   }
 
@@ -563,7 +563,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentCityAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentCityAssociationEnd,
         instructorMyCityAssociationEnd, 0, 1, false);
   }
 
@@ -589,7 +589,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentPersonAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentPersonAssociationEnd,
         instructorMyPersonAssociationEnd, 0, 1, false);
   }
 
@@ -615,7 +615,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyAirplaneAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentMyAirplaneAssociationEnd,
         instructorMyAirplaneAssociationEnd, 0, 1, false);
   }
 
@@ -641,7 +641,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentmyCityAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentmyCityAssociationEnd,
         instructormyCityAssociationEnd, 0, 1, false);
   }
 
@@ -667,7 +667,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyRootAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentMyRootAssociationEnd,
         instructorMyRootAssociationEnd, 0, 1, false);
   }
 
@@ -693,7 +693,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyAirportAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentMyAirportAssociationEnd,
         instructorMyAirportAssociationEnd, 0, 1, false);
   }
 
@@ -719,7 +719,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyPersonAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentMyPersonAssociationEnd,
         instructorMyPersonAssociationEnd, 0, 1, false);
   }
 
@@ -745,7 +745,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyRootAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentMyRootAssociationEnd,
         instructorMyRootAssociationEnd, 0, 1, false);
   }
 
@@ -771,7 +771,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyAirportAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentMyAirportAssociationEnd,
         instructorMyAirportAssociationEnd, 0, 1, false);
   }
 
@@ -797,7 +797,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyRootAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentMyRootAssociationEnd,
         instructorMyRootAssociationEnd, 0, 1, false);
   }
 
@@ -823,7 +823,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyRooteAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentMyRooteAssociationEnd,
         instructorMyRootAssociationEnd, 0, 1, false);
   }
 
@@ -849,7 +849,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentMyAirplaneAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentMyAirplaneAssociationEnd,
         instructorMyAirplaneAssociationEnd, 0, 1, false);
   }
 
@@ -875,7 +875,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyAirplaneAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_MULTIPLICITY, studentMyAirplaneAssociationEnd,
         instructorMyAirplaneAssociationEnd, 0, 1, false);
   }
 
@@ -901,7 +901,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyAirportsAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_MULTIPLICITY, studentMyAirportsAssociationEnd,
         instructorMyAirportAssociationEnd, 0, 1, false);
   }
 
@@ -927,7 +927,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentCityAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_MULTIPLICITY, studentCityAssociationEnd,
         instructorMyCityAssociationEnd, 0, 1, false);
   }
 
@@ -953,7 +953,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentPersonAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_MULTIPLICITY, studentPersonAssociationEnd,
         instructorMyPersonAssociationEnd, 0, 1, false);
   }
 
@@ -979,7 +979,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyAirplaneAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_MULTIPLICITY, studentMyAirplaneAssociationEnd,
         instructorMyAirplaneAssociationEnd, 0, 1, false);
   }
 
@@ -1005,7 +1005,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentmyCityAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_MULTIPLICITY, studentmyCityAssociationEnd,
         instructormyCityAssociationEnd, 0, 1, false);
   }
 
@@ -1031,7 +1031,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyRootAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_MULTIPLICITY, studentMyRootAssociationEnd,
         instructorMyRootAssociationEnd, 0, 1, false);
   }
 
@@ -1057,7 +1057,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyAirportAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_MULTIPLICITY, studentMyAirportAssociationEnd,
         instructorMyAirportAssociationEnd, 0, 1, false);
   }
 
@@ -1083,7 +1083,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyPersonAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_MULTIPLICITY, studentMyPersonAssociationEnd,
         instructorMyPersonAssociationEnd, 0, 1, false);
   }
 
@@ -1109,7 +1109,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyRootAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_MULTIPLICITY, studentMyRootAssociationEnd,
         instructorMyRootAssociationEnd, 0, 1, false);
   }
 
@@ -1135,7 +1135,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyAirportAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_MULTIPLICITY, studentMyAirportAssociationEnd,
         instructorMyAirportAssociationEnd, 0, 1, false);
   }
 
@@ -1161,7 +1161,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyRootAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_MULTIPLICITY, studentMyRootAssociationEnd,
         instructorMyRootAssociationEnd, 0, 1, false);
   }
 
@@ -1187,7 +1187,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyRooteAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_MULTIPLICITY, studentMyRooteAssociationEnd,
         instructorMyRootAssociationEnd, 0, 1, false);
   }
 
@@ -1213,7 +1213,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_MULTIPLICITY, studentMyAirplaneAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_MULTIPLICITY, studentMyAirplaneAssociationEnd,
         instructorMyAirplaneAssociationEnd, 0, 1, false);
   }
 
@@ -1895,7 +1895,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION,
+    assertMistake(studentSolution.getMistakes().get(0), USING_ATTRIBUTE_INSTEAD_OF_ASSOC,
         studentdriverAttribute, instructorBusToDriverAssociation.get(0), 0, 1, false);
   }
 
@@ -1927,7 +1927,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_AN_ATTRIBUTE_INSTEAD_OF_AN_ASSOCIATION,
+    assertMistake(studentSolution.getMistakes().get(0), USING_ATTRIBUTE_INSTEAD_OF_ASSOC,
         studentflightAttribute, instructorPilotandFlightAssociation.get(0), 0, 1, false);
   }
 
@@ -2095,7 +2095,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ASSOCIATION,
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ASSOCIATION,
         studentRootToPassengerAssociation.get(0), 0, 1, false);
   }
 
@@ -2123,7 +2123,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ASSOCIATION, studentRootToPilotAssociation.get(0),
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ASSOCIATION, studentRootToPilotAssociation.get(0),
         0, 1, false);
   }
 
@@ -2483,7 +2483,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOCIATION,
+    assertMistake(studentSolution.getMistakes().get(0), USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOC,
         studentOwnerAssociationEnd, instructorOwnerAssociationEnd, 0, 1, false);
   }
 
@@ -2510,7 +2510,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentCarOwnerAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentCarOwnerAssociationEnd,
         instructorMyOwnerAssociationEnd, 0, 1, false);
   }
 
@@ -2537,7 +2537,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_WRONG_ROLE_NAME, studentPeopleAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentPeopleAssociationEnd,
         instructorMyPassengerAssociationEnd, 0, 1, false);
   }
 
@@ -2728,7 +2728,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_DIRECTED_ASSOCIATION_INSTEAD_OF_UNDIRECTED,
+    assertMistake(studentSolution.getMistakes().get(0), USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED,
         studentMyOfficeAssociationEnd, instructorMyOfficeAssociationEnd, 0, 1, false);
   }
 
@@ -2755,7 +2755,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_UNDIRECTED_ASSOCIATION_INSTEAD_OF_DIRECTED,
+    assertMistake(studentSolution.getMistakes().get(0), USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED,
         studentMyWheelAssociationEnd, instructorMyWheelAssociationEnd, 0, 1, false);
   }
 
@@ -2783,7 +2783,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), OTHER_EXTRA_ASSOCIATION, studentCarToOwnerAssociation.get(1), 0,
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ASSOCIATION, studentCarToOwnerAssociation.get(1), 0,
         1, false);
   }
 
