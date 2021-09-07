@@ -394,8 +394,8 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(8, comparison.newMistakes.size());
-    assertEquals(8, studentSolution.getMistakes().size());
+    assertEquals(9, comparison.newMistakes.size());
+    assertEquals(9, studentSolution.getMistakes().size());
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
 
     assertMistake(studStudentClassMistake, ASSOC_SHOULD_BE_FULL_PR_PATTERN, studElements,
@@ -1685,17 +1685,12 @@ public class MistakeDetectionPatternTest {
 
     var instElements = getElementsFromClassDiagram(instructorClassDiagram, "AccountType", "BankAccount");
 
-    var studAccTypeClass = getClassFromClassDiagram("AccountType", studentClassDiagram);
-
-    var studElements = List.of(studAccTypeClass);
-
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
 
-    var studStudentClassMistake = studentMistakeFor(studAccTypeClass);
-    assertMistake(studStudentClassMistake, MISSING_AO_PATTERN, studElements, instElements, 0,
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_AO_PATTERN, instElements, 0,
         1, false);
   }
 

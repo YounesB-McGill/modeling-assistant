@@ -27,10 +27,11 @@ import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ABSTRACTION_OCCURRENCE_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
@@ -41,6 +42,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
@@ -54,13 +56,13 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_COMPOSI
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_ASSOCIATION_INSTEAD_OF_UNDIRECTED;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_ASSOCIATION_INSTEAD_OF_DIRECTED;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
-import static modelingassistant.TagType.ABSTRACTION;
-import static modelingassistant.TagType.OCCURRENCE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
+import static modelingassistant.TagType.ABSTRACTION;
+import static modelingassistant.TagType.OCCURRENCE;
 import static modelingassistant.TagType.PLAYER;
 import static modelingassistant.TagType.ROLE;
 import static modelingassistant.util.ClassDiagramUtils.getEnumFromClassDiagram;
@@ -379,7 +381,7 @@ public class MistakeDetection {
       totalMatchesExpected.add(tag.getSolutionElement().getElement());
     }
     if (matchedElements == 0 && totalMatchesExpected.size() != 0) {
-      comparison.newMistakes.add(createMistake(MISSING_ABSTRACTION_OCCURRENCE_PATTERN, null, totalMatchesExpected));
+      comparison.newMistakes.add(createMistake(MISSING_AO_PATTERN, null, totalMatchesExpected));
     } else if (matchedElements != 0 && totalMatchesExpected.size() != matchedElements) {
       createMistakeIncompleteAOPattern(tg, comparison);
     }
@@ -1898,7 +1900,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingDirectedInsteadOfUndirected(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingDirectedInsteadOfUndirected(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_DIRECTED_ASSOCIATION_INSTEAD_OF_UNDIRECTED, studentClassAssocEnd,
+      return Optional.of(createMistake(USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED, studentClassAssocEnd,
           instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -1907,7 +1909,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingUndirectedInsteadOfDirected(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingUndirectedInsteadOfDirected(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_UNDIRECTED_ASSOCIATION_INSTEAD_OF_DIRECTED, studentClassAssocEnd,
+      return Optional.of(createMistake(USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED, studentClassAssocEnd,
           instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -1917,7 +1919,7 @@ public class MistakeDetection {
       AssociationEnd instructorClassAssocEnd) {
     if (!isVerb(instructorClassAssocEnd.getName()) && isVerb(studentClassAssocEnd.getName())) {
       return Optional
-          .of(createMistake(REPRESENTING_AN_ACTION_WITH_AN_ASSOCIATION, studentClassAssocEnd, instructorClassAssocEnd));
+          .of(createMistake(REPRESENTING_ACTION_WITH_ASSOC, studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
   }
@@ -2158,7 +2160,7 @@ public class MistakeDetection {
       }
     }
     comparison.newMistakes
-        .add(createMistake(INCOMPLETE_ABSTRACTION_OCCURRENCE_PATTERN, studentMissingElements, instructorElements));
+        .add(createMistake(INCOMPLETE_AO_PATTERN, studentMissingElements, instructorElements));
   }
 
 
