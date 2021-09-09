@@ -83,8 +83,8 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriverClass);
 
-    assertEquals(comparison.newMistakes.size(), 0);
-    assertEquals(studentSolution.getMistakes().size(), 0);
+    assertEquals(comparison.newMistakes.size(), 1);//Incomplete containment tree
+    assertEquals(studentSolution.getMistakes().size(), 1);
   }
 
   /**
@@ -114,14 +114,12 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.mappedClassifier.size(), 2);
     assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusesClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriversClass);
-    assertEquals(comparison.newMistakes.size(), 4); // 2 Bad Role Names
-    assertEquals(studentSolution.getMistakes().size(), 4);
+    assertEquals(comparison.newMistakes.size(), 5); // 2 Bad Role Names
+    assertEquals(studentSolution.getMistakes().size(), 5);
 
-    // Replacements for assertMistakeConditional()
-    var studentBusesMistake = studentMistakeFor(studentBusesClass);
-    assertMistake(studentBusesMistake, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
 
-    assertMistake(studentMistakeFor(studentDriversClass), PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass,
+    assertMistake(studentSolution.getMistakes().get(1), PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass,
         0, 1, false);
   }
 
@@ -757,8 +755,8 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS, studentAirlineClass, 0, 1, false);
   }
 
@@ -1488,7 +1486,7 @@ public class MistakeDetectionWrongClassTest {
 
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
 
-    MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison =MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertMistake(studentMistakeFor(studentCompanyClass), EXTRA_ASSOC_CLASS, studentCompanyClass, 0, 1, false);
   }

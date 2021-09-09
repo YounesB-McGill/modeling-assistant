@@ -56,7 +56,7 @@ public class MistakeDetectionEnumTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, comparison.newMistakes.size());// Incomplete Containment tree
     assertEquals(1, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), BAD_ENUM_NAME_SPELLING, studentEnrollmentEnum,
         instructorEnrollmentEnum, 0, 1, false);

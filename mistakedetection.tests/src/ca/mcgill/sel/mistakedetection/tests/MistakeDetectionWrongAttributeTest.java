@@ -43,8 +43,8 @@ public class MistakeDetectionWrongAttributeTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(comparison.newMistakes.size(), 0);
-    assertEquals(studentSolution.getMistakes().size(), 0);
+    assertEquals(comparison.newMistakes.size(), 1);
+    assertEquals(studentSolution.getMistakes().size(), 1);
   }
 
   /**
@@ -72,8 +72,8 @@ public class MistakeDetectionWrongAttributeTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(comparison.newMistakes.size(), 4);
-    assertEquals(studentSolution.getMistakes().size(), 4);
+    assertEquals(comparison.newMistakes.size(), 5);
+    assertEquals(studentSolution.getMistakes().size(), 5);
 
     assertMistake(studentMistakeFor(studentBusClassAttributeCapacty), BAD_ATTRIBUTE_NAME_SPELLING,
         studentBusClassAttributeCapacty, instructorBusClassAttributeCapacity, 0, 1, false);
@@ -106,8 +106,8 @@ public class MistakeDetectionWrongAttributeTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(comparison.newMistakes.size(), 2);
-    assertEquals(studentSolution.getMistakes().size(), 2);
+    assertEquals(comparison.newMistakes.size(), 3);
+    assertEquals(studentSolution.getMistakes().size(), 3);
     for (Mistake m : studentSolution.getMistakes()) {
       assertMistakeConditional(m, MISSING_ATTRIBUTE, instructorDriverClassAttributeName, 0, 1, false);
       assertMistakeConditional(m, MISSING_ATTRIBUTE, instructorBusClassAttributeNumberPlate, 0, 1, false);
