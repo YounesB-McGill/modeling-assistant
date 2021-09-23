@@ -15,15 +15,19 @@ import static learningcorpus.mistaketypes.MistakeTypes.BAD_ENUM_ITEM_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ENUM_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ENUM;
+import static learningcorpus.mistaketypes.MistakeTypes.COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_ASSOC_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_FULL_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM_ITEM;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_SUBCLASS;
@@ -39,6 +43,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM_ITEM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
@@ -80,6 +85,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -102,7 +108,6 @@ import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
 import modelingassistant.Tag;
 import modelingassistant.TagGroup;
-
 /**
  * This is the main class of Mistake Detection System. This class contains functions that maps and find mistakes in the
  * elements of the two solutions passed to it. 'compare()' is the function to call to check mistakes in two solutions.
@@ -248,12 +253,12 @@ public class MistakeDetection {
     // checkMistakeDuplicateAttributes();
     checkMistakeExtraAttribute(comparison);
     checkMistakeMissingAttribute(comparison);
-    checkMistakeWrongEnumerationItems(comparison);
+    checkMistakeMissingExtraEnum(comparison);
     // checkMistakeWrongAttribute();
     // checkMistakeAttributeMisplaced();
     checkMistakeIncompleteContainmentTree(comparison, studentSolution.getClassDiagram());
     checkMistakeMissingAssociationCompositionAggregation(comparison);
-    checkMistakeExtraAssociation(comparison);
+    checkMistakeExtraAssociationCompositionAggregation(comparison);
 
     updateMistakes(instructorSolution, studentSolution, comparison);
     return comparison;
@@ -332,7 +337,17 @@ public class MistakeDetection {
       if (!notComposedClasses.isEmpty()) {
         comparison.newMistakes.add(createMistake(INCOMPLETE_CONTAINMENT_TREE, notComposedClasses, null));
       }
+      EList<NamedElement> multiComposedClasses = new BasicEList<NamedElement>();
+      multiComposedClasses.addAll(findDuplicateInStream(composedClasses));
+      if(!multiComposedClasses.isEmpty()) {
+        comparison.newMistakes.add(createMistake(COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, multiComposedClasses, null));
+      }
     }
+  }
+
+  /** Return the set of duplicate elements. */
+  public static List<Classifier> findDuplicateInStream(List<Classifier> list) {
+    return list.stream().filter(i -> Collections.frequency(list, i) > 1).collect(Collectors.toList());
   }
 
   private static boolean isComposition(List<Association> associations) {
@@ -1315,34 +1330,10 @@ public class MistakeDetection {
     EList<Mistake> existingMistakesProcessed = new BasicEList<Mistake>();
     // List containing new mistakes that are already present in a solution (i.e existingMistakes)
     EList<Mistake> newMistakesProcessed = new BasicEList<Mistake>();
-    EList<Mistake> newMistakesToRemove = new BasicEList<Mistake>();
-    EList<MistakeType> patternMistakeTypes = new BasicEList<MistakeType>();
-    patternMistakeTypes.addAll(
-        List.of(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, ASSOC_SHOULD_BE_FULL_PR_PATTERN, ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN,
-            ENUM_SHOULD_BE_ASSOC_PR_PATTERN, ENUM_SHOULD_BE_FULL_PR_PATTERN, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN,
-            FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM, FULL_PR_PATTERN_SHOULD_BE_SUBCLASS,
-            SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, INCOMPLETE_PR_PATTERN));
 
     // Condition when only new mistakes exists.
     if (existingMistakes.size() == 0 && newMistakes.size() != 0) {
-      if (mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
-        var patternStudentElement = getPatternStudentElements(newMistakes, patternMistakeTypes);
-        for (Mistake newMistake : newMistakes) {
-          if (!newMistake.getStudentElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
-              && patternStudentElement.contains(newMistake.getStudentElements().get(0).getElement())) {
-            newMistakesToRemove.add(newMistake);
-            continue;
-          }
-          setMistakeProperties(newMistake, false, 1, 0);
-          newMistake.setSolution(studentSolution);
-        }
-        newMistakes.removeAll(newMistakesToRemove);
-      } else {
-        for (Mistake newMistake : newMistakes) {
-          setMistakeProperties(newMistake, false, 1, 0);
-          newMistake.setSolution(studentSolution);
-        }
-      }
+      updateNewMistakes(newMistakes, studentSolution);
     } else if (!existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
       for (Mistake existingMistake : existingMistakes) {
         for (Mistake newMistake : newMistakes) {
@@ -1371,12 +1362,10 @@ public class MistakeDetection {
           }
         }
       }
-      for (Mistake newMistake : newMistakes) {
-        if (!newMistakesProcessed.contains(newMistake)) {
-          setMistakeProperties(newMistake, false, 1, 0);
-          newMistake.setSolution(studentSolution);
-        }
-      }
+      EList<Mistake> newUnProcessedMistakes = new BasicEList<Mistake>();
+      newUnProcessedMistakes.addAll(newMistakes);
+      newUnProcessedMistakes.removeAll(newMistakesProcessed);
+      updateNewMistakes(newUnProcessedMistakes, studentSolution);
       for (int i = 0; i < existingMistakes.size(); i++) {
         if (!existingMistakesProcessed.contains(existingMistakes.get(i))) {
           if (existingMistakes.get(i).getNumSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION
@@ -1404,6 +1393,28 @@ public class MistakeDetection {
     }
   }
 
+  private static void updateNewMistakes(EList<Mistake> newMistakes, Solution studentSolution) {
+    EList<MistakeType> patternMistakeTypes = new BasicEList<MistakeType>();
+    patternMistakeTypes.addAll(
+        List.of(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, ASSOC_SHOULD_BE_FULL_PR_PATTERN, ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN,
+            ENUM_SHOULD_BE_ASSOC_PR_PATTERN, ENUM_SHOULD_BE_FULL_PR_PATTERN, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN,
+            FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM, FULL_PR_PATTERN_SHOULD_BE_SUBCLASS,
+            SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, INCOMPLETE_PR_PATTERN));
+    EList<MistakeType> containmentMistakeTypes = new BasicEList<MistakeType>();
+    containmentMistakeTypes.addAll(
+        List.of(INCOMPLETE_CONTAINMENT_TREE, COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT));
+
+    if (mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
+      updateMistakesInvolvingPattern(newMistakes, patternMistakeTypes, studentSolution);
+    } //TODO ADD For containment Mistake
+    else {
+      for (Mistake newMistake : newMistakes) {
+        setMistakeProperties(newMistake, false, 1, 0);
+        newMistake.setSolution(studentSolution);
+      }
+    }
+  }
+
   /** Returns student solution elements for a pattern. */
   private static EList<NamedElement> getPatternStudentElements(EList<Mistake> newMistakes,
       EList<MistakeType> patternMistakeTypes) {
@@ -1421,6 +1432,40 @@ public class MistakeDetection {
   /** Checks if mistake type related to patterns exists in detected mistakes. */
   private static boolean mistakesInvolvePattern(EList<Mistake> newMistakes, EList<MistakeType> patternMistakeTypes) {
     return newMistakes.stream().anyMatch(m -> patternMistakeTypes.contains(m.getMistakeType()));
+  }
+
+  private static void updateMistakesInvolvingPattern(EList<Mistake> newMistakes, EList<MistakeType> patternMistakeTypes, Solution studentSolution) {
+    EList<Mistake> newMistakesToRemove = new BasicEList<Mistake>();
+    var patternStudentElement = getPatternStudentElements(newMistakes, patternMistakeTypes);
+    for (Mistake newMistake : newMistakes) {
+      if (!newMistake.getStudentElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
+          && patternStudentElement.contains(newMistake.getStudentElements().get(0).getElement())) {
+        newMistakesToRemove.add(newMistake);
+        continue;
+      }
+      setMistakeProperties(newMistake, false, 1, 0);
+      newMistake.setSolution(studentSolution);
+    }
+    newMistakes.removeAll(newMistakesToRemove);
+  }
+
+  private static void updateMistakesInvolvingContainment(EList<Mistake> newMistakes, EList<MistakeType> containmentMistakeTypes, Solution studentSolution) {
+    EList<Mistake> newMistakesToRemove = new BasicEList<Mistake>();
+    var containmentStudentElement = getPatternStudentElements(newMistakes, containmentMistakeTypes);
+    for (Mistake newMistake : newMistakes) {
+      if (!newMistake.getStudentElements().isEmpty() && !containmentMistakeTypes.contains(newMistake.getMistakeType())
+          && containmentStudentElement.contains(newMistake.getStudentElements().get(0).getElement())) {
+        newMistakesToRemove.add(newMistake);
+        continue;
+      }
+      setMistakeProperties(newMistake, false, 1, 0);
+      newMistake.setSolution(studentSolution);
+    }
+    System.out.println("Removed");
+    newMistakesToRemove.forEach(key->{
+      System.out.println(key.getMistakeType());
+    });
+    newMistakes.removeAll(newMistakesToRemove);
   }
 
   /**
@@ -2174,12 +2219,17 @@ public class MistakeDetection {
         .forEach(cls -> comparison.newMistakes.add(createMistake(MISSING_ATTRIBUTE, null, cls)));
   }
 
-  public static void checkMistakeWrongEnumerationItems(Comparison comparison) {
+  public static void checkMistakeMissingExtraEnum(Comparison comparison) {
     comparison.notMappedInstructorEnumLiterals
+        .forEach(cls -> comparison.newMistakes.add(createMistake(MISSING_ENUM_ITEM, null, cls)));
+
+    comparison.notMappedInstructorEnum
         .forEach(cls -> comparison.newMistakes.add(createMistake(MISSING_ENUM, null, cls)));
 
     comparison.extraStudentEnumLiterals
-        .forEach(cls -> comparison.newMistakes.add(createMistake(EXTRA_ENUM, cls, null)));
+        .forEach(cls -> comparison.newMistakes.add(createMistake(EXTRA_ENUM_ITEM, cls, null)));
+
+    comparison.extraStudentEnum.forEach(cls -> comparison.newMistakes.add(createMistake(EXTRA_ENUM, cls, null)));
 
 
   }
@@ -2208,9 +2258,17 @@ public class MistakeDetection {
     }
   }
 
-  public static void checkMistakeExtraAssociation(Comparison comparison) {
+  public static void checkMistakeExtraAssociationCompositionAggregation(Comparison comparison) {
     for (Association association : comparison.extraStudentAssociation) {
-      comparison.newMistakes.add(createMistake(EXTRA_ASSOCIATION, association, null));
+      if (association.getEnds().get(0).getReferenceType().equals(COMPOSITION)
+          || association.getEnds().get(1).getReferenceType().equals(COMPOSITION)) {
+        comparison.newMistakes.add(createMistake(EXTRA_COMPOSITION, association, null));
+      } else if (association.getEnds().get(0).getReferenceType().equals(AGGREGATION)
+          || association.getEnds().get(1).getReferenceType().equals(AGGREGATION)) {
+        comparison.newMistakes.add(createMistake(EXTRA_AGGREGATION, association, null));
+      } else {
+        comparison.newMistakes.add(createMistake(EXTRA_ASSOCIATION, association, null));
+      }
       if (association.getAssociationClass() != null) {
         removeMistakesRelatedToElement(association.getAssociationClass(), comparison.newMistakes);
         comparison.newMistakes.add(createMistake(EXTRA_ASSOC_CLASS, association.getAssociationClass(), null));

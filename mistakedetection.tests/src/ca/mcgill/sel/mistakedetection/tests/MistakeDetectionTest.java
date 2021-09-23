@@ -1,6 +1,5 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
-import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromDiagram;
@@ -97,9 +96,6 @@ public class MistakeDetectionTest {
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(modelingAssistant, studentClassDiagram);
 
-    Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
-    Classifier instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
-
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(comparison.newMistakes.size(), 1);// Incomplete Containment tree
@@ -110,50 +106,26 @@ public class MistakeDetectionTest {
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution-a.domain_model.cdm");
     studentSolution = studentSolutionFromClassDiagram(modelingAssistant, studentClassDiagram);
 
-    instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
-    instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
-
-    Classifier studentBusesClass = getClassFromClassDiagram("Buses", studentClassDiagram);
-    Classifier studentDriversClass = getClassFromClassDiagram("Drivers", studentClassDiagram);
-
     comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(comparison.newMistakes.size(), 5); // 2 Bad Role Name Spelling + Incomplete Containment tree
     assertEquals(studentSolution.getMistakes().size(), 5);
 
-    for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
-      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 1, false);
-    }
     // Running the second Solution again to check updated attribute values in Mistake in Metamodel
     assertEquals(studentSolution.getMistakes().size(), 5);
     comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
     assertEquals(comparison.newMistakes.size(), 5);
     assertEquals(studentSolution.getMistakes().size(), 5);
-
-    for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 2, false);
-      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 2, false);
-    }
 
     comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertEquals(comparison.newMistakes.size(), 5);
     assertEquals(studentSolution.getMistakes().size(), 5);
-
-    for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 3, false);
-      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 0, 3, false);
-    }
 
     // checking with perfect solution
     studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution.domain_model.cdm");
     studentSolution = studentSolutionFromClassDiagram(modelingAssistant, studentClassDiagram);
-
-    instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
-    instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
 
     comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
@@ -161,10 +133,6 @@ public class MistakeDetectionTest {
     // assertEquals(studentSolution.getMistakes().size(), 4); // TODO Discuss in meeting
     // next meeting
 
-    for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 1, 3, false);
-      assertMistakeConditional(m, PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass, 1, 3, false);
-    }
   }
 
   /**
