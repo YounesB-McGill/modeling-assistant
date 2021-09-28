@@ -65,6 +65,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static modelingassistant.TagType.ABSTRACTION;
@@ -435,7 +436,7 @@ public class MistakeDetection {
     checkMistakeLowerClassName(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
     checkMistakeRegularBeEnumerationClass(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
     checkMistakeEnumerationBeRegularClass(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
-    // checkMistakeWrongEnumerationClassItems(studentClassifier,instructorClassifier).ifPresent(newMistakes::add);
+    checkMistakeIncorrectClassNameButCorrectAtribRel(studentClassifier,instructorClassifier).ifPresent(newMistakes::add);
   }
 
   /**
@@ -1874,6 +1875,14 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakePluralClassName(Classifier studentClass, Classifier instructorClass) {
     if (isPlural(studentClass.getName())) {
       return Optional.of(createMistake(PLURAL_CLASS_NAME, studentClass, instructorClass));
+    }
+    return Optional.empty();
+  }
+
+  public static Optional<Mistake> checkMistakeIncorrectClassNameButCorrectAtribRel(Classifier studentClass, Classifier instructorClass) {
+    int lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
+    if (!isPlural(studentClass.getName()) && !isSoftwareEngineeringTerm(studentClass.getName()) && lDistance > MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+      return Optional.of(createMistake(WRONG_CLASS_NAME, studentClass, instructorClass));
     }
     return Optional.empty();
   }

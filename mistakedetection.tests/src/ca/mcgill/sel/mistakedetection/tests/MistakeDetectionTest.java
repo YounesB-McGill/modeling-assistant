@@ -255,8 +255,8 @@ public class MistakeDetectionTest {
     assertEquals(comparison.mappedAttribute.get(instructorBusClassAttributeNumberPlate),
         studentBusClassAttributeNumberPlate);
     assertEquals(comparison.mappedAttribute.get(instructorDriverClassAttributeName), studentDriverClassAttributeName);
-    assertEquals(comparison.newMistakes.size(), 1); // Incomplete Containment tree
-    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertEquals(comparison.newMistakes.size(), 2); // Incomplete Containment tree + Wrong Class name
+    assertEquals(studentSolution.getMistakes().size(), 2);
   }
 
   /**
@@ -312,8 +312,8 @@ public class MistakeDetectionTest {
         studentVehicleClassAttributeNumberPlate);
     assertEquals(comparison.mappedAttribute.get(instructorDriverClassAttributeName), studentPilotClassAttributeName);
 
-    assertEquals(comparison.newMistakes.size(), 1); //Incomplete Containment tree
-    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertEquals(comparison.newMistakes.size(), 4); //Incomplete Containment tree
+    assertEquals(studentSolution.getMistakes().size(), 4);
   }
 
   public static boolean mistakesContainMistakeType(List<Mistake> mistakes, MistakeType mistakeType) {
