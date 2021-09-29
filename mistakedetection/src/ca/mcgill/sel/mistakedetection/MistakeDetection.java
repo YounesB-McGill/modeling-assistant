@@ -54,7 +54,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN;
@@ -1664,9 +1663,12 @@ public class MistakeDetection {
           counter++;
           if (possibleMatch != null) {
             mapClasses(comparison, possibleMatch, instructorClassifier);
+            checkMistakesInClassifier(possibleMatch, instructorClassifier, comparison.newMistakes);
           } else {
-            mapClasses(comparison, classWithAssociationEndsMatch(sortedClosestClasssifier, instructorClassifier),
+            Classifier sClass = classWithAssociationEndsMatch(sortedClosestClasssifier, instructorClassifier);
+            mapClasses(comparison, sClass,
                 instructorClassifier);
+            checkMistakesInClassifier(sClass, instructorClassifier, comparison.newMistakes);
           }
         }
         if (totalAttributes == 0) {
@@ -1935,15 +1937,6 @@ public class MistakeDetection {
     if (spellingMistakeCheck(studentClass.getName(), instructorClass.getName()) && !isPlural(studentClass.getName())
         && !isLowerName(studentClass.getName())) {
       return Optional.of(createMistake(BAD_CLASS_NAME_SPELLING, studentClass, instructorClass));
-    }
-    return Optional.empty();
-  }
-
-  public static Optional<Mistake> checkMistakeSimilarYetIncorrectClassName(Classifier studentClass,
-      Classifier instructorClass) {
-    int lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
-    if (lDistance != 0) {
-      return Optional.of(createMistake(SIMILAR_CLASS_NAME, studentClass, instructorClass));
     }
     return Optional.empty();
   }

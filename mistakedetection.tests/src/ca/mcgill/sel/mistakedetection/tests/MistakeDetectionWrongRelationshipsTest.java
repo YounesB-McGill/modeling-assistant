@@ -16,7 +16,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
-import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION;
@@ -2659,7 +2658,6 @@ public class MistakeDetectionWrongRelationshipsTest {
   /**
    * Test to check similar role name.
    */
-  @Disabled("Not implemented yet.")
   @Test
   public void testMistakesimilarRoleName() {
     var instructorClassDiagram = cdmFromFile(
@@ -2680,14 +2678,13 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ROLE_NAME, studentTravellerAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentTravellerAssociationEnd,
         instructorMyPassengerAssociationEnd, 0, 1, false);
   }
 
   /**
    * Test to check similar role name spelling.
    */
-  @Disabled("Not implemented yet.")
   @Test
   public void testMistakesimilarRoleNameInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
@@ -2708,7 +2705,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ROLE_NAME, studentMyMotorAssociationEnd,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ROLE_NAME, studentMyMotorAssociationEnd,
         instructorMyEngineAssociationEnd, 0, 1, false);
   }
 
@@ -3066,7 +3063,6 @@ public class MistakeDetectionWrongRelationshipsTest {
 
    assertEquals(4, comparison.newMistakes.size());
    assertEquals(4, studentSolution.getMistakes().size());
-
    assertMistake(studentSolution.getMistakes().get(0), CLASS_SHOULD_BE_ASSOC_CLASS, studDriverClass,
      0, 1, false);
  }

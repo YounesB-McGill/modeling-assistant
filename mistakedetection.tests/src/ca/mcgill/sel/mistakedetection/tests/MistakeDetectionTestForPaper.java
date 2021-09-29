@@ -94,6 +94,5 @@ public class MistakeDetectionTestForPaper {
     MistakeDetectionTest.log(comparison);
 
     */
-
   }
 }
