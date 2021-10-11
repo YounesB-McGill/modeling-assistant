@@ -1703,7 +1703,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
     var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
 
-    var instructorgenderAttribute = getAttributeFromClass("gender", instructorPilotClass);
+    var instructorgenderAttribute = getAttributeFromClass("Gender", instructorPilotClass);
     var studentGenderAttribute = getAttributeFromClass("Gender", studentPilotClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
