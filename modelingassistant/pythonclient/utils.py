@@ -35,7 +35,7 @@ def fbs(fbs_by_level: dict[int, Feedback | list[Feedback]]) -> list[Feedback]:
     """
     Shorthand for Feedback initializer.
 
-    d: dictionary of feedbacks, keyed by the feedback level
+    fbs_by_level: dictionary of feedbacks, keyed by the feedback level
     """
     feedbacks = []
     for level, fb_s in fbs_by_level.items():
