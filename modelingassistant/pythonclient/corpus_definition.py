@@ -8,57 +8,55 @@ The actual corpus initialization is done in the corpus.py file.
 from textwrap import dedent
 from learningcorpus.learningcorpus import (Example, Feedback, LearningCorpus, MistakeType, ParametrizedResponse,
     ResourceResponse, TextResponse)
-from utils import mtc, mt
+from utils import mtc, mt, fbs
 
 
 corpus = LearningCorpus(mistakeTypeCategories=[
     class_mistakes := mtc(n="Class mistakes",
         mistakeTypes=[
-            missing_class := mt(n="Missing class", feedbacks=[
-                Feedback(level=1, highlightSolution=True),
-                TextResponse(level=2, text="Make sure you have modeled all the classes in the problem description."),
-                Feedback(level=3, highlightProblem=True),
-                ParametrizedResponse(level=4, text="Remember to add the ${className} class.")
-            ]),
-            extra_class := mt(n="Extra (redundant) class", feedbacks=[
-                Feedback(level=1, highlightSolution=True),
-                TextResponse(level=2, text="Make sure you only model the concepts mentioned in the problem description."),
-                TextResponse(level=3, text="You have an extra class. Can you find it?"),
-                ParametrizedResponse(level=4, text="The ${className} class is not part of the domain, so please remove it."),
-                ParametrizedResponse(level=4, text="Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.")  # se term
-            ]),
+            missing_class := mt(n="Missing class", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Make sure you have modeled all the classes in the problem description."),
+                3: Feedback(highlightProblem=True),
+                4: ParametrizedResponse(text="Remember to add the ${className} class.")
+            })),
+            extra_class := mt(n="Extra (redundant) class", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Make sure you only model the concepts mentioned in the problem description."),
+                3: TextResponse(text="You have an extra class. Can you find it?"),
+                4: [ParametrizedResponse(text="The ${className} class is not part of the domain, so please remove it."),
+                    ParametrizedResponse(text="Remember that a domain model should not contain concepts from the user "
+                        "interfaces or databases, like Window, Database, etc.")]
+            })),
             using_nary_assoc_instead_of_intermediate_class := mt(
                 n="Using n-ary assoc instead of intermediate class",
-                d="Using n-ary association instead of intermediate class"), # Added
+                d="Using n-ary association instead of intermediate class"),
         ],
         subcategories=[
             class_name_mistakes := mtc(n="Class name mistakes", mistakeTypes=[
                 plural_class_name := mt(n="Plural class name"),
                 lowercase_class_name := mt(n="Lowercase class name"),
-                software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=[
-                    Feedback(level=1, highlightSolution=True),
-                    TextResponse(level=2,
-                        text="Remember that a domain model should not contain software engineering terms."),
-                    ParametrizedResponse(level=3,
+                software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Remember that a domain model should not contain software engineering terms."),
+                    3: ParametrizedResponse(
                         text="${className} is a software engineering term, which does not belong in a domain model."),
-                    ResourceResponse(level=4,
-                        learningResources=[Example(content=dedent("""\
-                            Please note these examples of correct vs incorrect class naming:
-                            :x: Examples to avoid | :heavy_check_mark: Good class names
-                            --- | ---
-                            pilot | Pilot
-                            Airplanes | Airplane 
-                            AirlineData | Airline"""))]
+                    4: ResourceResponse(learningResources=[Example(content=dedent("""\
+                        Please note these examples of correct vs incorrect class naming:
+                        :x: Examples to avoid | :heavy_check_mark: Good class names
+                        --- | ---
+                        pilot | Pilot
+                        Airplanes | Airplane 
+                        AirlineData | Airline"""))]
                     ),
-                ]),
-                bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True, feedbacks=[
-                    Feedback(level=1, highlightSolution=True),
-                    TextResponse(level=2, text="Can you double check this class name?"),
-                    ParametrizedResponse(level=3,
-                        text="The ${incorrectlySpelledClassName} class has a misspelled name."),
-                    ParametrizedResponse(level=4,
+                })),
+                bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True, feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Can you double check this class name?"),
+                    3: ParametrizedResponse(text="The ${incorrectlySpelledClassName} class has a misspelled name."),
+                    4: ParametrizedResponse(
                         text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
-                ]),
+                })),
                 similar_class_name := mt(n="Similar (yet incorrect) class name"), # TODO Remove
                 wrong_class_name := mt(n="Wrong class name"), # Renamed from "Other wrong class name"
             ]),

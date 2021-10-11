@@ -2,7 +2,7 @@
 Tests for utils module.
 """
 
-from learningcorpus.learningcorpus import MistakeType, MistakeTypeCategory
+from learningcorpus import MistakeType, MistakeTypeCategory, Feedback, TextResponse, ParametrizedResponse
 import utils
 
 def test_mtc():
@@ -25,3 +25,27 @@ def test_mt():
     assert mt1.name == mt2.name == mt3.name == mt_name
     assert mt1.description == mt2.description == mt_desc
     assert mt3.name == mt3.description == mt_name
+
+
+def test_fbs():
+    "Test the fbs() helper function."
+    expected: list[Feedback] = [
+        Feedback(level=1, highlightSolution=True),
+        TextResponse(level=2, text="Make sure you only model the concepts mentioned in the problem description."),
+        TextResponse(level=3, text="You have an extra class. Can you find it?"),
+        ParametrizedResponse(level=4, text="The ${className} class is not part of the domain, so please remove it."),
+        ParametrizedResponse(level=4, text="Remember that a domain model should not contain concepts from the user "
+            "interfaces or databases, like Window, Database, etc.")  # se term
+    ]
+    actual = utils.fbs({
+        1: Feedback(highlightSolution=True),
+        2: TextResponse(text="Make sure you only model the concepts mentioned in the problem description."),
+        3: TextResponse(text="You have an extra class. Can you find it?"),
+        4: [ParametrizedResponse(text="The ${className} class is not part of the domain, so please remove it."),
+            ParametrizedResponse(text="Remember that a domain model should not contain concepts from the user "
+                "interfaces or databases, like Window, Database, etc.")]
+    })
+    for a, e in zip(actual, expected):
+        assert a.level == e.level
+        assert a.highlightSolution == e.highlightSolution
+        assert a.text == e.text
