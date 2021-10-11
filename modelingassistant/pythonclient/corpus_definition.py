@@ -7,7 +7,7 @@ The actual corpus initialization is done in the corpus.py file.
 
 from textwrap import dedent
 from learningcorpus.learningcorpus import (Example, Feedback, LearningCorpus, MistakeType, ParametrizedResponse,
-    Reference, ResourceResponse, TextResponse)
+    Quiz, Reference, ResourceResponse, TextResponse)
 from utils import mtc, mt, fbs
 
 
@@ -169,7 +169,15 @@ corpus = LearningCorpus(mistakeTypeCategories=[
 
     attribute_mistakes := mtc(n="Attribute mistakes",
         mistakeTypes=[
-            missing_attribute := mt(n="Missing attribute", feedbacks=fbs({})),
+            missing_attribute := mt(n="Missing attribute", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Make sure to model all the attributes of this class."),
+                3: ParametrizedResponse(text="The ${className} class is missing an attribute."),
+                4: ParametrizedResponse(text="A ${className} has a ${missingAttribute}."),
+                5: ResourceResponse(learningResources=[attribute_reference := Reference(
+                    content="Please review the [Attribute](https://mycourses2.mcgill.ca/) and "
+                        "[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.")]),
+            })),
             wrong_attribute_type := mt(n="Wrong attribute type", feedbacks=fbs({})),
             missing_attribute_type := mt(n="Missing attribute type", feedbacks=fbs({})),
             attribute_should_be_static := mt(n="Attribute should be static", feedbacks=fbs({})),
@@ -177,9 +185,36 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         ],
         subcategories=[
             extra_attribute_mistakes := mtc(n="Extra attribute mistakes", mistakeTypes=[
-                plural_attribute := mt(n="Plural attribute", feedbacks=fbs({})),
-                list_attribute := mt(n="List attribute", feedbacks=fbs({})),
-                other_extra_attribute := mt(n="Extra attribute", feedbacks=fbs({})),
+                plural_attribute := mt(n="Plural attribute", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Can you double check this attribute name?"),
+                    3: TextResponse(text="This attribute should be singular."),
+                    4: ResourceResponse(learningResources=[attribute_quiz := Quiz(content=dedent("""\
+                        Pick the classes which are modeled correctly.
+                    
+                        - [ ] class Student { courses; }
+                        - [ ] class Folder { List<File> files; }
+                        - [ ] class Restaurant { 1 -- * Employee; }"""))]),
+                })),
+                list_attribute := mt(n="List attribute", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Is there a better way to model this concept?"),
+                    3: TextResponse(text="Remember that attributes are simple pieces of data."),
+                    4: ParametrizedResponse(
+                        text="${includingClass.attributeName} should be modeled as an association instead."),
+                    5: ResourceResponse(learningResources=[attribute_quiz]),
+                })),
+                extra_attribute := mt(n="Extra attribute", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Do we really need to model this concept?"),
+                    3: [ParametrizedResponse(text="The ${redundantAttribute} in the ${className} class is not needed."),
+                        ParametrizedResponse(text="The ${redundantAttribute} attribute in the ${className} class is "
+                            "not needed because it can be derived from ${derivationSources}."),
+                        ParametrizedResponse(text="The ${redundantAttribute} attribute in the ${className} class is "
+                            "not needed because it is not part of the domain. You only need to model concepts related "
+                            "to the given problem description.")],
+                    4: ResourceResponse(learningResources=[attribute_reference]),
+                })),
             ]),
             wrong_attribute_name_mistakes := mtc(n="Wrong attribute name mistakes", mistakeTypes=[
                 bad_attribute_name_spelling := mt(n="Bad attribute name spelling", feedbacks=fbs({})),
@@ -466,7 +501,7 @@ mts_by_priority: list[MistakeType] = [
     extra_aggregation,
     extra_nary_association,
     attribute_duplicated,
-    other_extra_attribute, # Rename to extra_attribute
+    extra_attribute, # Rename to extra_attribute
 
     # missing items
     missing_class,
