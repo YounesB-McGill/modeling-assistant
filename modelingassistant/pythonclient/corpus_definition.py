@@ -20,7 +20,13 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 Feedback(level=3, highlightProblem=True),
                 ParametrizedResponse(level=4, text="Remember to add the ${className} class.")
             ]),
-            extra_class := mt(n="Extra (redundant) class"),
+            extra_class := mt(n="Extra (redundant) class", feedbacks=[
+                Feedback(level=1, highlightSolution=True),
+                TextResponse(level=2, text="Make sure you only model the concepts mentioned in the problem description."),
+                TextResponse(level=3, text="You have an extra class. Can you find it?"),
+                ParametrizedResponse(level=4, text="The ${className} class is not part of the domain, so please remove it."),
+                ParametrizedResponse(level=4, text="Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.")  # se term
+            ]),
             using_nary_assoc_instead_of_intermediate_class := mt(
                 n="Using n-ary assoc instead of intermediate class",
                 d="Using n-ary association instead of intermediate class"), # Added

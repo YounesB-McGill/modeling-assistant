@@ -3,7 +3,8 @@ Utility functions for the Modeling Assistant Python app.
 This module must not depend on any other to avoid circular dependencies.
 """
 
-from learningcorpus import MistakeTypeCategory, MistakeType
+from __future__ import annotations
+from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
 
 _mtc_subcats: dict[MistakeTypeCategory, list[MistakeTypeCategory]] = {}
 
@@ -28,3 +29,22 @@ def mt(n, d="", **kwargs) -> MistakeType:
     if not d:
         d = n
     return MistakeType(name=n, description=d, **kwargs)
+
+
+def fbs(fbs_by_level: dict[int, Feedback | list[Feedback]]) -> list[Feedback]:
+    """
+    Shorthand for Feedback initializer.
+
+    d: dictionary of feedbacks, keyed by the feedback level
+    """
+    feedbacks = []
+    for level, fb_s in fbs_by_level.items():
+        if isinstance(fb_s, list):
+            for fb in fb_s:
+                fb.level = level
+                feedbacks.append(fb)
+        else:
+            fb: Feedback = fb_s
+            fb.level = level
+            feedbacks.append(fb)
+    return feedbacks
