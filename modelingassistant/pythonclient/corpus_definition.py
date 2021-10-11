@@ -18,7 +18,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Make sure you have modeled all the classes in the problem description."),
                 3: Feedback(highlightProblem=True),
-                4: ParametrizedResponse(text="Remember to add the ${className} class.")
+                4: ParametrizedResponse(text="Remember to add the ${className} class."),
             })),
             extra_class := mt(n="Extra (redundant) class", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
@@ -26,29 +26,40 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 3: TextResponse(text="You have an extra class. Can you find it?"),
                 4: [ParametrizedResponse(text="The ${className} class is not part of the domain, so please remove it."),
                     ParametrizedResponse(text="Remember that a domain model should not contain concepts from the user "
-                        "interfaces or databases, like Window, Database, etc.")]
+                        "interfaces or databases, like Window, Database, etc.")],
             })),
             using_nary_assoc_instead_of_intermediate_class := mt(
                 n="Using n-ary assoc instead of intermediate class",
-                d="Using n-ary association instead of intermediate class"),
+                d="Using n-ary association instead of intermediate class",
+                feedbacks=[]),
         ],
         subcategories=[
             class_name_mistakes := mtc(n="Class name mistakes", mistakeTypes=[
-                plural_class_name := mt(n="Plural class name"),
-                lowercase_class_name := mt(n="Lowercase class name"),
-                software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=fbs({
+                plural_class_name := mt(n="Plural class name", atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Remember that a domain model should not contain software engineering terms."),
-                    3: ParametrizedResponse(
-                        text="${className} is a software engineering term, which does not belong in a domain model."),
-                    4: ResourceResponse(learningResources=[Example(content=dedent("""\
+                    2: TextResponse(text="Remember that class names should be singular."),
+                    3: ParametrizedResponse(text="${className} should be ${pascalCase(className)}, "
+                        "with a Capital Letter."),
+                    4: ResourceResponse(learningResources=[Example(content=(correct_class_naming_example := dedent("""\
                         Please note these examples of correct vs incorrect class naming:
                         :x: Examples to avoid | :heavy_check_mark: Good class names
                         --- | ---
                         pilot | Pilot
                         Airplanes | Airplane 
-                        AirlineData | Airline"""))]
-                    ),
+                        AirlineData | Airline""")))]),
+                })),
+                lowercase_class_name := mt(n="Lowercase class name", atomic=True, feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Remember that class names must start with a Capital Letter."),
+                    3: ParametrizedResponse(text="${className} should be ${singular(className)}, using the singular."),
+                    4: ResourceResponse(learningResources=[Example(content=correct_class_naming_example)]),
+                })),
+                software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Remember that a domain model should not contain software engineering terms."),
+                    3: ParametrizedResponse(
+                        text="${className} is a software engineering term, which does not belong in a domain model."),
+                    4: ResourceResponse(learningResources=[Example(content=correct_class_naming_example)]),
                 })),
                 bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
@@ -57,8 +68,16 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     4: ParametrizedResponse(
                         text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
                 })),
-                similar_class_name := mt(n="Similar (yet incorrect) class name"), # TODO Remove
-                wrong_class_name := mt(n="Wrong class name"), # Renamed from "Other wrong class name"
+                similar_class_name := mt(n="Similar (yet incorrect) class name", feedbacks=fbs({ # TODO Remove
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Can you double check this class name?"),
+                    3: ParametrizedResponse(
+                        text="The ${similarYetIncorrectClassName} class has a name that is not quite right."),
+                    4: ParametrizedResponse(
+                        text="TThe ${similarYetIncorrectClassName} class should be changed to ${correctClassName}.")
+                })),
+                wrong_class_name := mt(n="Wrong class name", feedbacks=fbs({  # Renamed from "Other wrong class name"
+                })),
             ]),
             enumeration_mistakes := mtc(n="Enumeration mistakes", mistakeTypes=[
                 class_should_be_enum := mt(n="Class should be enum", d="Regular class should be enumeration"),
