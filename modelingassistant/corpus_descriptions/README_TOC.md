@@ -49,7 +49,6 @@
          1. [Using attribute instead of association](#using-attribute-instead-of-association)
       1. [Extra association mistakes](#extra-association-mistakes)
          1. [Representing an action with an association](#representing-an-action-with-an-association)
-         1. [Composed part contained in more than one parent](#composed-part-contained-in-more-than-one-parent)
          1. [Extra association](#extra-association)
          1. [Extra aggregation](#extra-aggregation)
          1. [Extra n-ary association](#extra-n-ary-association)
@@ -88,6 +87,7 @@
       1. [Extra composition](#extra-composition)
       1. [Using association instead of aggregation/composition](#using-association-instead-of-aggregation-composition)
       1. [Using aggregation instead of composition](#using-aggregation-instead-of-composition)
+      1. [Composed part contained in more than one parent](#composed-part-contained-in-more-than-one-parent)
       1. [Incomplete containment tree](#incomplete-containment-tree)
    1. [Generalization mistakes](#generalization-mistakes)
       1. [Missing generalization](#missing-generalization)
@@ -259,9 +259,6 @@
 ##### Representing an action with an association
 
 
-##### Composed part contained in more than one parent
-
-
 ##### Extra association
 
 
@@ -369,6 +366,9 @@
 
 
 #### Using aggregation instead of composition
+
+
+#### Composed part contained in more than one parent
 
 
 #### Incomplete containment tree

@@ -227,10 +227,6 @@ public class MistakeTypes {
   /** The representing an action with an association mistake type. */
   public static final MistakeType REPRESENTING_ACTION_WITH_ASSOC = MTS.get("Representing action with assoc");
 
-  /** The composed part contained in more than one parent mistake type. */
-  public static final MistakeType COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT =
-      MTS.get("Composed part contained in more than one parent");
-
   /** The extra association mistake type. */
   public static final MistakeType EXTRA_ASSOCIATION = MTS.get("Extra association");
 
@@ -335,6 +331,10 @@ public class MistakeTypes {
   /** The using aggregation instead of composition mistake type. */
   public static final MistakeType USING_AGGREGATION_INSTEAD_OF_COMPOSITION =
       MTS.get("Using aggregation instead of composition");
+
+  /** The composed part contained in more than one parent mistake type. */
+  public static final MistakeType COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT =
+      MTS.get("Composed part contained in more than one parent");
 
   /** The incomplete containment tree mistake type. */
   public static final MistakeType INCOMPLETE_CONTAINMENT_TREE = MTS.get("Incomplete containment tree");

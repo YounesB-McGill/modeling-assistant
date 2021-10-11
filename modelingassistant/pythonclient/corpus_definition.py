@@ -15,7 +15,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     class_mistakes := mtc(n="Class mistakes",
         mistakeTypes=[
             missing_class := mt(n="Missing class", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
+                1: Feedback(highlightProblem=True),  # Highlight entire sentence. Can infer this from level
                 2: TextResponse(text="Make sure you have modeled all the classes in the problem description."),
                 3: Feedback(highlightProblem=True),
                 4: ParametrizedResponse(text="Remember to add the ${className} class."),
@@ -31,7 +31,11 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             using_nary_assoc_instead_of_intermediate_class := mt(
                 n="Using n-ary assoc instead of intermediate class",
                 d="Using n-ary association instead of intermediate class",
-                feedbacks=fbs({})),
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Is this the best way to model this concept?"),
+                    3: TextResponse(text="Use an intermediate class instead of an n-ary association."),
+                })),
         ],
         subcategories=[
             class_name_mistakes := mtc(n="Class name mistakes", mistakeTypes=[
@@ -74,9 +78,15 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     3: ParametrizedResponse(
                         text="The ${similarYetIncorrectClassName} class has a name that is not quite right."),
                     4: ParametrizedResponse(
-                        text="TThe ${similarYetIncorrectClassName} class should be changed to ${correctClassName}.")
+                        text="The ${similarYetIncorrectClassName} class should be changed to ${correctClassName}.")
                 })),
-                wrong_class_name := mt(n="Wrong class name", feedbacks=fbs({  # Renamed from "Other wrong class name"
+                wrong_class_name := mt(n="Wrong class name", atomic=True, feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Can you double check this class name?"),
+                    3: ParametrizedResponse(
+                        text="The ${similarYetIncorrectClassName} class has a name that is not quite right."),
+                    4: ParametrizedResponse(
+                        text="The ${similarYetIncorrectClassName} class should be changed to ${correctClassName}.")
                 })),
             ]),
             enumeration_mistakes := mtc(n="Enumeration mistakes", mistakeTypes=[
@@ -86,7 +96,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         2: TextResponse(text="Is there anything special about this class?"),
                         3: ParametrizedResponse(text="The ${className} can only be one of ${correctEnumSize} options, "
                             "so what is the best way to model this?"),
-                        4: ResourceResponse(learningResources=[Reference(content="Please review the "
+                        4: ResourceResponse(learningResources=[enum_reference := Reference(content="Please review the "
                             "[Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
                     })),
                 enum_should_be_class := mt(
@@ -95,20 +105,64 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         2: TextResponse(text="Is there anything special about this class?"),
                         3: ParametrizedResponse(text="Is ${className} limited to the options shown in (an|this) "
                             "enumeration? Can this be modeled differently?"),
-                        4: ResourceResponse(learningResources=[Reference(content="Please review the "
-                            "[Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
+                        4: ResourceResponse(learningResources=[enum_reference]),
                     })),
-                missing_enum := mt(n="Missing enum", d="Missing enumeration", feedbacks=fbs({})),
-                extra_enum := mt(n="Extra enum", d="Extra enumeration", feedbacks=fbs({})),
+                missing_enum := mt(n="Missing enum", d="Missing enumeration", feedbacks=fbs({
+                    1: Feedback(highlightProblem=True),
+                    2: TextResponse(text="How would you model this concept?"),
+                    3: TextResponse(text="Model this concept with an enumeration."),
+                    4: ResourceResponse(learningResources=[enum_reference]),
+                })),
+                extra_enum := mt(n="Extra enum", d="Extra enumeration", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Is this item really necessary?"),
+                    3: ParametrizedResponse(text="Remove the ${extraEnum} enumeration, it is not needed."),
+                    4: ResourceResponse(learningResources=[enum_reference]),
+                })),
                 bad_enum_name_spelling := mt(
-                    n="Bad enum name spelling", d="Bad enumeration name spelling", feedbacks=fbs({})),
+                    n="Bad enum name spelling", d="Bad enumeration name spelling", feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Can this item be renamed?"),
+                        3: ParametrizedResponse(
+                            text="The ${wronglyNamedEnum} should be renamed[ to ${correctEnumName}]."),
+                        4: ResourceResponse(learningResources=[enum_reference]),
+                    })),
                 similar_enum_name := mt(  # TODO Remove
-                    n="Similar enum name", d="Similar enumeration name", feedbacks=fbs({})),
-                missing_enum_item := mt(n="Missing enum item", d="Missing enumeration item", feedbacks=fbs({})),
-                extra_enum_item := mt(n="Extra enum item", d="Extra enumeration item", feedbacks=fbs({})),
-                bad_enum_item_spelling := mt(n="Bad enum item spelling", d="Bad enumeration item spelling"),
+                    n="Similar enum name", d="Similar enumeration name", feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Can this item be renamed?"),
+                        3: ParametrizedResponse(
+                            text="The ${wronglyNamedEnum} should be renamed[ to ${correctEnumName}]."),
+                        4: ResourceResponse(learningResources=[enum_reference]),
+                    })),
+                missing_enum_item := mt(n="Missing enum item", d="Missing enumeration item", feedbacks=fbs({
+                    1: Feedback(highlightProblem=True),
+                    2: TextResponse(text="Is there anything missing here?"),
+                    3: ParametrizedResponse(text="The ${enumName} enumeration is missing an item."),
+                    4: ResourceResponse(learningResources=[enum_reference]),
+                })),
+                extra_enum_item := mt(n="Extra enum item", d="Extra enumeration item", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Should this really be here?"),
+                    3: ParametrizedResponse(text="The ${enumName} enumeration has an extra item."),
+                    4: ResourceResponse(learningResources=[enum_reference]),
+                })),
+                bad_enum_item_spelling := mt(
+                    n="Bad enum item spelling", d="Bad enumeration item spelling", feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Can this item be renamed?"),
+                        3: ParametrizedResponse(
+                            text="The ${wronglyNamedEnumItem} should be renamed[ to ${correctEnumItemName}]."),
+                        4: ResourceResponse(learningResources=[enum_reference]),
+                    })),
                 similar_enum_item := mt(  # TODO Remove
-                    n="Similar enum item", d="Similar enumeration item", feedbacks=fbs({})),
+                    n="Similar enum item", d="Similar enumeration item", feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Can this item be renamed?"),
+                        3: ParametrizedResponse(
+                            text="The ${wronglyNamedEnumItem} should be renamed[ to ${correctEnumItemName}]."),
+                        4: ResourceResponse(learningResources=[enum_reference]),
+                    })),
             ]),
         ]
     ),
