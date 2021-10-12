@@ -20,6 +20,7 @@ import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
@@ -50,9 +51,9 @@ public class MistakeDetectionWrongClassTest {
    */
   @Test
   public void testVerbs() {
-    String[] verbs = {"Walked" , "Ran", "eats", "Jumped", "Danced"};
-    for(String verb : verbs) {
-    assertTrue(MistakeDetection.isVerb(verb));
+    var verbs = List.of("Walked", "Ran", "eats", "Jumped", "Danced");
+    for (String verb : verbs) {
+      assertTrue(MistakeDetection.isVerb(verb));
     }
   }
 
@@ -82,8 +83,8 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriverClass);
 
-    assertEquals(comparison.newMistakes.size(), 1);//Incomplete containment tree
-    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertEquals(1, comparison.newMistakes.size());// Incomplete containment tree
+    assertEquals(1, studentSolution.getMistakes().size());
   }
 
   /**
@@ -116,7 +117,8 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.newMistakes.size(), 5); // 2 Bad Role Names
     assertEquals(studentSolution.getMistakes().size(), 5);
 
-    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1,
+        false);
 
     assertMistake(studentSolution.getMistakes().get(1), PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass,
         0, 1, false);
@@ -164,18 +166,14 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSol.getMistakes().size(), 1);
 
-    assertMistake().fromSolutions(instructorSol, studentSol)
-        .withInstructorClassName("Airport")
-        .withStudentClassName("Airpoort")
-        .hasType(BAD_CLASS_NAME_SPELLING)
-        .hasNumSinceResolved(0)
-        .hasNumDetections(1)
+    assertMistake().fromSolutions(instructorSol, studentSol).withInstructorClassName("Airport")
+        .withStudentClassName("Airpoort").hasType(BAD_CLASS_NAME_SPELLING).hasNumSinceResolved(0).hasNumDetections(1)
         .isUnresolved();
 
     // same assertion as above, written in less lines
-    assertMistake().fromSolutions(instructorSol, studentSol)
-        .withInstructorClassName("Airport").withStudentClassName("Airpoort")
-        .hasType(BAD_CLASS_NAME_SPELLING).has(0).numSinceResolved().has(1).numDetections().and().isUnresolved();
+    assertMistake().fromSolutions(instructorSol, studentSol).withInstructorClassName("Airport")
+        .withStudentClassName("Airpoort").hasType(BAD_CLASS_NAME_SPELLING).has(0).numSinceResolved().has(1)
+        .numDetections().and().isUnresolved();
   }
 
   /**
@@ -1184,8 +1182,8 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), WRONG_CLASS_NAME, studentFlyerClass, instructorPilotClass, 0,
-        1, false);
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_CLASS_NAME, studentFlyerClass, instructorPilotClass, 0, 1,
+        false);
   }
 
   /**
@@ -1483,7 +1481,7 @@ public class MistakeDetectionWrongClassTest {
 
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
 
-    var comparison =MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertMistake(studentMistakeFor(studentCompanyClass), EXTRA_ASSOC_CLASS, studentCompanyClass, 0, 1, false);
   }

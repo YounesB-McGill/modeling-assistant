@@ -108,7 +108,8 @@ public class MistakeDetectionTest {
 
     comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(comparison.newMistakes.size(), 5); // 2 Bad Role Name Spelling + Incomplete Containment tree
+    assertEquals(comparison.newMistakes.size(), 5); // 2 Plural Class names + 2 Bad Role Name Spelling + Incomplete
+                                                    // Containment tree
     assertEquals(studentSolution.getMistakes().size(), 5);
 
     // Running the second Solution again to check updated attribute values in Mistake in Metamodel
@@ -312,7 +313,7 @@ public class MistakeDetectionTest {
         studentVehicleClassAttributeNumberPlate);
     assertEquals(comparison.mappedAttribute.get(instructorDriverClassAttributeName), studentPilotClassAttributeName);
 
-    assertEquals(comparison.newMistakes.size(), 4); //Incomplete Containment tree
+    assertEquals(comparison.newMistakes.size(), 4); // 3 + Incomplete Containment tree
     assertEquals(studentSolution.getMistakes().size(), 4);
   }
 
@@ -407,8 +408,7 @@ public class MistakeDetectionTest {
     if (instructorElem_s instanceof NamedElement) {
       assertEquals(mistake.getInstructorElements().get(0).getElement(), instructorElem_s);
     } else if (instructorElem_s instanceof List) {
-      assertTrue(mistakeElemsContainGivenElems(mistake.getInstructorElements(),
-          (List<NamedElement>) instructorElem_s));
+      assertTrue(mistakeElemsContainGivenElems(mistake.getInstructorElements(), (List<NamedElement>) instructorElem_s));
     } else {
       fail("Wrong type for instructorElem(s): NamedElement or List<NamedElement> expected");
     }
@@ -426,24 +426,23 @@ public class MistakeDetectionTest {
   public static void assertStudentMistakeLinks(Mistake mistake, MistakeType mistakeType, Object elements) {
     assertEquals(mistake.getMistakeType(), mistakeType);
     if (mistake.getInstructorElements().isEmpty()) {
-    if (elements instanceof NamedElement) {
-      assertEquals(mistake.getStudentElements().get(0).getElement(), elements);
-    } else if (elements instanceof List) {
-      assertTrue(mistakeElemsContainGivenElems(mistake.getStudentElements(),
-          ECollections.unmodifiableEList((List<NamedElement>) elements)));
-    } else {
-      fail("Wrong type for studentElem(s): NamedElement or List<NamedElement> expected");
-    }
+      if (elements instanceof NamedElement) {
+        assertEquals(mistake.getStudentElements().get(0).getElement(), elements);
+      } else if (elements instanceof List) {
+        assertTrue(mistakeElemsContainGivenElems(mistake.getStudentElements(),
+            ECollections.unmodifiableEList((List<NamedElement>) elements)));
+      } else {
+        fail("Wrong type for studentElem(s): NamedElement or List<NamedElement> expected");
+      }
     }
     if (mistake.getStudentElements().isEmpty()) {
-    if (elements instanceof NamedElement) {
-      assertEquals(mistake.getInstructorElements().get(0).getElement(), elements);
-    } else if (elements instanceof List) {
-      assertTrue(mistakeElemsContainGivenElems(mistake.getInstructorElements(),
-          (List<NamedElement>) elements));
-    } else {
-      fail("Wrong type for instructorElem(s): NamedElement or List<NamedElement> expected");
-    }
+      if (elements instanceof NamedElement) {
+        assertEquals(mistake.getInstructorElements().get(0).getElement(), elements);
+      } else if (elements instanceof List) {
+        assertTrue(mistakeElemsContainGivenElems(mistake.getInstructorElements(), (List<NamedElement>) elements));
+      } else {
+        fail("Wrong type for instructorElem(s): NamedElement or List<NamedElement> expected");
+      }
     }
   }
 
@@ -492,8 +491,9 @@ public class MistakeDetectionTest {
    * @param numDetections
    * @param resolved
    */
-  public static void assertMistake(Mistake mistake, MistakeType mistakeType, List<? extends NamedElement> studentElements,
-      List<? extends NamedElement> instructorElements, int numSinceResolved, int numDetections, boolean resolved) {
+  public static void assertMistake(Mistake mistake, MistakeType mistakeType,
+      List<? extends NamedElement> studentElements, List<? extends NamedElement> instructorElements,
+      int numSinceResolved, int numDetections, boolean resolved) {
     assertMistakeLinks(mistake, mistakeType, studentElements, instructorElements);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
   }
@@ -515,7 +515,7 @@ public class MistakeDetectionTest {
   }
 
   /**
-   * Asserts a mistake with multiple instructor and student element.
+   * Asserts a mistake with multiple instructor and student elements.
    *
    * @param mistake
    * @param mistakeType
@@ -547,8 +547,8 @@ public class MistakeDetectionTest {
       String instructorClsName, String studentClsName, int numSinceResolved, int numDetections, boolean resolved) {
     assertMistake(studentSol.getMistakes().get(mistakeIdx), mistakeType,
         getClassFromClassDiagram(studentClsName, studentSol.getClassDiagram()),
-        getClassFromClassDiagram(instructorClsName, instructorSol.getClassDiagram()),
-        numSinceResolved, numDetections, resolved);
+        getClassFromClassDiagram(instructorClsName, instructorSol.getClassDiagram()), numSinceResolved, numDetections,
+        resolved);
   }
 
 
@@ -567,12 +567,12 @@ public class MistakeDetectionTest {
    * @param resolved
    */
   public static void assertMistake(Solution instructorSol, Solution studentSol, int mistakeIdx, MistakeType mistakeType,
-      String commonClsName, String instructorAttrName, String studentAttrName, int numSinceResolved,
-      int numDetections, boolean resolved) {
+      String commonClsName, String instructorAttrName, String studentAttrName, int numSinceResolved, int numDetections,
+      boolean resolved) {
     assertMistake(studentSol.getMistakes().get(mistakeIdx), mistakeType,
         getAttributeFromDiagram(commonClsName, studentAttrName, studentSol.getClassDiagram()),
-        getAttributeFromDiagram(commonClsName, instructorAttrName, instructorSol.getClassDiagram()),
-        numSinceResolved, numDetections, resolved);
+        getAttributeFromDiagram(commonClsName, instructorAttrName, instructorSol.getClassDiagram()), numSinceResolved,
+        numDetections, resolved);
   }
 
   /**
@@ -665,7 +665,9 @@ public class MistakeDetectionTest {
   /**
    * Returns the zeroth student mistake for a given cdm element, if any. This is equivalent to
    *
-   * <pre>studentMistakesFor(cdmElement).get(0)</pre>
+   * <pre>
+   * studentMistakesFor(cdmElement).get(0)
+   * </pre>
    *
    * @throws IndexOutOfBoundsException if the cdm element has no student mistakes
    */
@@ -676,7 +678,9 @@ public class MistakeDetectionTest {
   /**
    * Returns the student mistake at the given position for a given cdm element, if any. This is equivalent to
    *
-   * <pre>studentMistakesFor(cdmElement).get(position)</pre>
+   * <pre>
+   * studentMistakesFor(cdmElement).get(position)
+   * </pre>
    *
    * @throws IndexOutOfBoundsException if the index is out of range
    */
@@ -685,8 +689,8 @@ public class MistakeDetectionTest {
     if (0 <= position && position < mistakes.size()) {
       return mistakes.get(position);
     } else {
-      throw new IndexOutOfBoundsException("The given cdm element " + cdmElement.getName()
-          + " does not have a student mistake at position " + position);
+      throw new IndexOutOfBoundsException(
+          "The given cdm element " + cdmElement.getName() + " does not have a student mistake at position " + position);
     }
   }
 
@@ -711,7 +715,7 @@ public class MistakeDetectionTest {
     return namedElemsFromMistake.containsAll(givenElements);
   }
 
-   /**
+  /**
    * Function to print the mapped, unmapped classifier or attributes.
    */
   public static void log(Comparison comparison) {
@@ -781,7 +785,8 @@ public class MistakeDetectionTest {
 
     System.out.println();
     System.out.println("Mapped Enumerations items: ");
-    comparison.mappedEnumerationItems.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
+    comparison.mappedEnumerationItems
+        .forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
 
     System.out.println();
     System.out.print("Not Mapped Enumerations items : ");
@@ -818,6 +823,7 @@ public class MistakeDetectionTest {
   }
 
 }
+
 
 class FluentMistakeAssertion {
 
@@ -937,7 +943,7 @@ class FluentMistakeAssertion {
   }
 
   private FluentMistakeAssertion assertLinks(NamedElement instructorElement, NamedElement studentElement) {
-    var type = expectedType != null? expectedType : mistake.getMistakeType();
+    var type = expectedType != null ? expectedType : mistake.getMistakeType();
     MistakeDetectionTest.assertMistakeLinks(mistake, type, studentElement, instructorElement);
     return this;
   }

@@ -13,7 +13,7 @@
   <types xsi:type="classdiagram:CDByte" xmi:id="_Ou16KAqGEeywhZ4k6XWYZA"/>
   <types xsi:type="classdiagram:CDFloat" xmi:id="_Ou16KQqGEeywhZ4k6XWYZA"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_Ou16KgqGEeywhZ4k6XWYZA"/>
-  <types xsi:type="classdiagram:CDEnum" xmi:id="_TiQl0AqGEeywhZ4k6XWYZA" name="Enrolment">
+  <types xsi:type="classdiagram:CDEnum" xmi:id="_TiQl0AqGEeywhZ4k6XWYZA" name="Enrollmnt">
     <literals xmi:id="_VaeEoAqGEeywhZ4k6XWYZA" name="FullTimeStudent"/>
     <literals xmi:id="_WZt7IAqGEeywhZ4k6XWYZA" name="PartTimeStudent"/>
     <literals xmi:id="_XLIJ8AqGEeywhZ4k6XWYZA" name="GuestStudent"/>

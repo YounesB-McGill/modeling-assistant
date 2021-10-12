@@ -43,8 +43,8 @@ public class MistakeDetectionWrongAttributeTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(comparison.newMistakes.size(), 1);
-    assertEquals(studentSolution.getMistakes().size(), 1);
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
   }
 
   /**
@@ -1703,7 +1703,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
     var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
 
-    var instructorgenderAttribute = getAttributeFromClass("Gender", instructorPilotClass);
+    var instructorGenderAttribute = getAttributeFromClass("Gender", instructorPilotClass);
     var studentGenderAttribute = getAttributeFromClass("Gender", studentPilotClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
@@ -1712,7 +1712,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(1, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentGenderAttribute,
-        instructorgenderAttribute, 0, 1, false);
+        instructorGenderAttribute, 0, 1, false);
   }
 
   /**
