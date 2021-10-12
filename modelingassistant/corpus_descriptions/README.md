@@ -476,6 +476,8 @@ Level 4: Resource Response with Quiz:
 > - [ ] class Person { * Person -- 1 Address; }; class Address {}
 > - [ ] class Loan { libraryPatron; }
 
+>> POINTER
+
 #### Missing Composition
 
 Level 1: Highlight classes
