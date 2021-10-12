@@ -133,15 +133,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Remember that class names should be singular.
+> Remember that class names should be singular.
 
 Level 3: Parametrized response:
 
-${className} should be ${pascalCase(className)}, with a Capital Letter.
+> ${className} should be ${pascalCase(className)}, with a Capital Letter.
 
 Level 4: Resource response with Example:
 
-Please note these examples of correct vs incorrect class naming:
+> Please note these examples of correct vs incorrect class naming:
 :x: Examples to avoid | :heavy_check_mark: Good class names
 --- | ---
 pilot | Pilot
@@ -155,15 +155,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Remember that class names must start with a Capital Letter.
+> Remember that class names must start with a Capital Letter.
 
 Level 3: Parametrized response:
 
-${className} should be ${singular(className)}, using the singular.
+> ${className} should be ${singular(className)}, using the singular.
 
 Level 4: Resource response with Example:
 
-Please note these examples of correct vs incorrect class naming:
+> Please note these examples of correct vs incorrect class naming:
 :x: Examples to avoid | :heavy_check_mark: Good class names
 --- | ---
 pilot | Pilot
@@ -177,15 +177,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Remember that a domain model should not contain software engineering terms.
+> Remember that a domain model should not contain software engineering terms.
 
 Level 3: Parametrized response:
 
-${className} is a software engineering term, which does not belong in a domain model.
+> ${className} is a software engineering term, which does not belong in a domain model.
 
 Level 4: Resource response with Example:
 
-Please note these examples of correct vs incorrect class naming:
+> Please note these examples of correct vs incorrect class naming:
 :x: Examples to avoid | :heavy_check_mark: Good class names
 --- | ---
 pilot | Pilot
@@ -199,15 +199,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Can you double check this class name?
+> Can you double check this class name?
 
 Level 3: Parametrized response:
 
-The ${incorrectlySpelledClassName} class has a misspelled name.
+> The ${incorrectlySpelledClassName} class has a misspelled name.
 
 Level 4: Parametrized response:
 
-The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}.
+> The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}.
 
 
 #### Similar class name
@@ -216,15 +216,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Can you double check this class name?
+> Can you double check this class name?
 
 Level 3: Parametrized response:
 
-The ${similarYetIncorrectClassName} class has a name that is not quite right.
+> The ${similarYetIncorrectClassName} class has a name that is not quite right.
 
 Level 4: Parametrized response:
 
-The ${similarYetIncorrectClassName} class should be changed to ${correctClassName}.
+> The ${similarYetIncorrectClassName} class should be changed to ${correctClassName}.
 
 
 #### Wrong class name
@@ -233,15 +233,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Can you double check this class name?
+> Can you double check this class name?
 
 Level 3: Parametrized response:
 
-The ${similarYetIncorrectClassName} class has a name that is not quite right.
+> The ${similarYetIncorrectClassName} class has a name that is not quite right.
 
 Level 4: Parametrized response:
 
-The ${similarYetIncorrectClassName} class should be changed to ${correctClassName}.
+> The ${similarYetIncorrectClassName} class should be changed to ${correctClassName}.
 
 
 ### Enumeration mistakes
@@ -252,15 +252,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Is there anything special about this class?
+> Is there anything special about this class?
 
 Level 3: Parametrized response:
 
-The ${className} can only be one of ${correctEnumSize} options, so what is the best way to model this?
+> The ${className} can only be one of ${correctEnumSize} options, so what is the best way to model this?
 
 Level 4: Resource response with Reference:
 
-Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Enumeration should be regular class
@@ -269,15 +269,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Is there anything special about this class?
+> Is there anything special about this class?
 
 Level 3: Parametrized response:
 
-Is ${className} limited to the options shown in (an|this) enumeration? Can this be modeled differently?
+> Is ${className} limited to the options shown in (an|this) enumeration? Can this be modeled differently?
 
 Level 4: Resource response with Reference:
 
-Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Missing enumeration
@@ -286,15 +286,15 @@ Level 1: Highlight problem
 
 Level 2: Text response:
 
-How would you model this concept?
+> How would you model this concept?
 
 Level 3: Text response:
 
-Model this concept with an enumeration.
+> Model this concept with an enumeration.
 
 Level 4: Resource response with Reference:
 
-Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Extra enumeration
@@ -303,15 +303,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Is this item really necessary?
+> Is this item really necessary?
 
 Level 3: Parametrized response:
 
-Remove the ${extraEnum} enumeration, it is not needed.
+> Remove the ${extraEnum} enumeration, it is not needed.
 
 Level 4: Resource response with Reference:
 
-Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Bad enumeration name spelling
@@ -320,15 +320,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Can this item be renamed?
+> Can this item be renamed?
 
 Level 3: Parametrized response:
 
-The ${wronglyNamedEnum} should be renamed[ to ${correctEnumName}].
+> The ${wronglyNamedEnum} should be renamed[ to ${correctEnumName}].
 
 Level 4: Resource response with Reference:
 
-Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Similar enumeration name
@@ -337,15 +337,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Can this item be renamed?
+> Can this item be renamed?
 
 Level 3: Parametrized response:
 
-The ${wronglyNamedEnum} should be renamed[ to ${correctEnumName}].
+> The ${wronglyNamedEnum} should be renamed[ to ${correctEnumName}].
 
 Level 4: Resource response with Reference:
 
-Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Missing enumeration item
@@ -354,15 +354,15 @@ Level 1: Highlight problem
 
 Level 2: Text response:
 
-Is there anything missing here?
+> Is there anything missing here?
 
 Level 3: Parametrized response:
 
-The ${enumName} enumeration is missing an item.
+> The ${enumName} enumeration is missing an item.
 
 Level 4: Resource response with Reference:
 
-Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Extra enumeration item
@@ -371,15 +371,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Should this really be here?
+> Should this really be here?
 
 Level 3: Parametrized response:
 
-The ${enumName} enumeration has an extra item.
+> The ${enumName} enumeration has an extra item.
 
 Level 4: Resource response with Reference:
 
-Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Bad enumeration item spelling
@@ -388,15 +388,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Can this item be renamed?
+> Can this item be renamed?
 
 Level 3: Parametrized response:
 
-The ${wronglyNamedEnumItem} should be renamed[ to ${correctEnumItemName}].
+> The ${wronglyNamedEnumItem} should be renamed[ to ${correctEnumItemName}].
 
 Level 4: Resource response with Reference:
 
-Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Similar enumeration item
@@ -405,15 +405,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Can this item be renamed?
+> Can this item be renamed?
 
 Level 3: Parametrized response:
 
-The ${wronglyNamedEnumItem} should be renamed[ to ${correctEnumItemName}].
+> The ${wronglyNamedEnumItem} should be renamed[ to ${correctEnumItemName}].
 
 Level 4: Resource response with Reference:
 
-Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 ### Missing class
@@ -422,13 +422,13 @@ Level 1: Highlight problem
 
 Level 2: Text response:
 
-Make sure you have modeled all the classes in the problem description.
+> Make sure you have modeled all the classes in the problem description.
 
 Level 3: Highlight problem
 
 Level 4: Parametrized response:
 
-Remember to add the ${className} class.
+> Remember to add the ${className} class.
 
 
 ### Extra redundant class
@@ -437,35 +437,35 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Make sure you only model the concepts mentioned in the problem description.
+> Make sure you only model the concepts mentioned in the problem description.
 
 Level 3: Text response:
 
-You have an extra class. Can you find it?
+> You have an extra class. Can you find it?
 
 Level 4: Parametrized response:
 
-The ${className} class is not part of the domain, so please remove it.
+> The ${className} class is not part of the domain, so please remove it.
 
-Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
+> Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
 
 Parametrized response:
 
-The ${className} class is not part of the domain, so please remove it.
+> The ${className} class is not part of the domain, so please remove it.
 
-Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
+> Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
 
 Level 4: Parametrized response:
 
-The ${className} class is not part of the domain, so please remove it.
+> The ${className} class is not part of the domain, so please remove it.
 
-Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
+> Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
 
 Parametrized response:
 
-The ${className} class is not part of the domain, so please remove it.
+> The ${className} class is not part of the domain, so please remove it.
 
-Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
+> Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
 
 
 ### Using n-ary association instead of intermediate class
@@ -474,11 +474,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Is this the best way to model this concept?
+> Is this the best way to model this concept?
 
 Level 3: Text response:
 
-Use an intermediate class instead of an n-ary association.
+> Use an intermediate class instead of an n-ary association.
 
 
 
@@ -492,15 +492,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Can you double check this attribute name?
+> Can you double check this attribute name?
 
 Level 3: Text response:
 
-This attribute should be singular.
+> This attribute should be singular.
 
 Level 4: Resource response with Quiz:
 
-Pick the classes which are modeled correctly.
+> Pick the classes which are modeled correctly.
 
 - [ ] class Student { courses; }
 - [ ] class Folder { List<File> files; }
@@ -513,19 +513,19 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Is there a better way to model this concept?
+> Is there a better way to model this concept?
 
 Level 3: Text response:
 
-Remember that attributes are simple pieces of data.
+> Remember that attributes are simple pieces of data.
 
 Level 4: Parametrized response:
 
-${includingClass.attributeName} should be modeled as an association instead.
+> ${includingClass.attributeName} should be modeled as an association instead.
 
 Level 5: Resource response with Quiz:
 
-Pick the classes which are modeled correctly.
+> Pick the classes which are modeled correctly.
 
 - [ ] class Student { courses; }
 - [ ] class Folder { List<File> files; }
@@ -538,83 +538,83 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Do we really need to model this concept?
+> Do we really need to model this concept?
 
 Level 3: Parametrized response:
 
-The ${redundantAttribute} in the ${className} class is not needed.
+> The ${redundantAttribute} in the ${className} class is not needed.
 
-The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
 
-The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
-
-Parametrized response:
-
-The ${redundantAttribute} in the ${className} class is not needed.
-
-The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
-
-The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
 Parametrized response:
 
-The ${redundantAttribute} in the ${className} class is not needed.
+> The ${redundantAttribute} in the ${className} class is not needed.
 
-The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
 
-The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
+
+Parametrized response:
+
+> The ${redundantAttribute} in the ${className} class is not needed.
+
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
+
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
 Level 3: Parametrized response:
 
-The ${redundantAttribute} in the ${className} class is not needed.
+> The ${redundantAttribute} in the ${className} class is not needed.
 
-The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
 
-The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
-
-Parametrized response:
-
-The ${redundantAttribute} in the ${className} class is not needed.
-
-The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
-
-The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
 Parametrized response:
 
-The ${redundantAttribute} in the ${className} class is not needed.
+> The ${redundantAttribute} in the ${className} class is not needed.
 
-The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
 
-The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
+
+Parametrized response:
+
+> The ${redundantAttribute} in the ${className} class is not needed.
+
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
+
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
 Level 3: Parametrized response:
 
-The ${redundantAttribute} in the ${className} class is not needed.
+> The ${redundantAttribute} in the ${className} class is not needed.
 
-The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
 
-The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
-
-Parametrized response:
-
-The ${redundantAttribute} in the ${className} class is not needed.
-
-The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
-
-The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
 Parametrized response:
 
-The ${redundantAttribute} in the ${className} class is not needed.
+> The ${redundantAttribute} in the ${className} class is not needed.
 
-The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
 
-The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
+
+Parametrized response:
+
+> The ${redundantAttribute} in the ${className} class is not needed.
+
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
+
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
 Level 4: Resource response with Reference:
 
-Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 ### Wrong attribute name mistakes
@@ -625,15 +625,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Can this attribute be renamed?
+> Can this attribute be renamed?
 
 Level 3: Parametrized response:
 
-${wrongAttribute} is misspelled. [Use the same spelling as the problem description.]
+> ${wrongAttribute} is misspelled. [Use the same spelling as the problem description.]
 
 Level 4: Resource response with Reference:
 
-Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 #### Uppercase attribute name
@@ -642,35 +642,35 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Remember that attributes are written in `lowerCamelCase`.
+> Remember that attributes are written in `lowerCamelCase`.
 
-Can this attribute be renamed?
+> Can this attribute be renamed?
 
 Text response:
 
-Remember that attributes are written in `lowerCamelCase`.
+> Remember that attributes are written in `lowerCamelCase`.
 
-Can this attribute be renamed?
+> Can this attribute be renamed?
 
 Level 2: Text response:
 
-Remember that attributes are written in `lowerCamelCase`.
+> Remember that attributes are written in `lowerCamelCase`.
 
-Can this attribute be renamed?
+> Can this attribute be renamed?
 
 Text response:
 
-Remember that attributes are written in `lowerCamelCase`.
+> Remember that attributes are written in `lowerCamelCase`.
 
-Can this attribute be renamed?
+> Can this attribute be renamed?
 
 Level 3: Parametrized response:
 
-${wrongAttribute} incorrectly starts with an Uppercase Letter. Attributes should start with a lowercase letter.
+> ${wrongAttribute} incorrectly starts with an Uppercase Letter. Attributes should start with a lowercase letter.
 
 Level 4: Resource response with Reference:
 
-Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 #### Similar attribute name
@@ -679,15 +679,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Can this attribute be renamed?
+> Can this attribute be renamed?
 
 Level 3: Parametrized response:
 
-${wrongAttribute} is misspelled. [Use the same spelling as the problem description.]
+> ${wrongAttribute} is misspelled. [Use the same spelling as the problem description.]
 
 Level 4: Resource response with Reference:
 
-Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 ### Attribute in wrong class mistakes
@@ -698,15 +698,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Can you think of a better place for this?
+> Can you think of a better place for this?
 
 Level 3: Parametrized response:
 
-The ${misplacedAttribute} does not belong in the ${wrongClass} class. Where else can we place it?
+> The ${misplacedAttribute} does not belong in the ${wrongClass} class. Where else can we place it?
 
 Level 4: Resource response with Reference:
 
-Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 #### Attribute duplicated
@@ -715,19 +715,19 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Are you sure this is needed?
+> Are you sure this is needed?
 
 Level 3: Text response:
 
-Does this need to be included more than once?
+> Does this need to be included more than once?
 
 Level 4: Parametrized response:
 
-The ${duplicateAttribute} already exists in ${correctClass}, so there is no need to include it again.
+> The ${duplicateAttribute} already exists in ${correctClass}, so there is no need to include it again.
 
 Level 5: Resource response with Reference:
 
-Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 #### Attribute misplaced in generalization hierarchy
@@ -736,15 +736,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Can you think of a better place for this?
+> Can you think of a better place for this?
 
 Level 3: Parametrized response:
 
-The ${misplacedAttribute} belongs in a (super|sub)class.
+> The ${misplacedAttribute} belongs in a (super|sub)class.
 
 Level 4: Resource response with Reference:
 
-Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 ### Missing attribute
@@ -753,19 +753,19 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Make sure to model all the attributes of this class.
+> Make sure to model all the attributes of this class.
 
 Level 3: Parametrized response:
 
-The ${className} class is missing an attribute.
+> The ${className} class is missing an attribute.
 
 Level 4: Parametrized response:
 
-A ${className} has a ${missingAttribute}.
+> A ${className} has a ${missingAttribute}.
 
 Level 5: Resource response with Reference:
 
-Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 ### Wrong attribute type
@@ -774,19 +774,19 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Can you double-check this?
+> Can you double-check this?
 
 Level 3: Parametrized response:
 
-Can you think of a better type for ${attribute}?
+> Can you think of a better type for ${attribute}?
 
 Level 4: Parametrized response:
 
-The ${className}.${attribute} is not of type ${attribute.type} because ${mistakeType.reason}.
+> The ${className}.${attribute} is not of type ${attribute.type} because ${mistakeType.reason}.
 
 Level 5: Resource response with Reference:
 
-Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 ### Missing attribute type
@@ -795,15 +795,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-This attribute is missing something.
+> This attribute is missing something.
 
 Level 3: Text response:
 
-What is the type of this attribute?
+> What is the type of this attribute?
 
 Level 4: Resource response with Reference:
 
-Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 ### Attribute should be static
@@ -812,15 +812,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Isn't there something special about this attribute?
+> Isn't there something special about this attribute?
 
 Level 3: Parametrized response:
 
-${includingClass.attributeName} should be static, because it applies to all instances of ${includingClass}.
+> ${includingClass.attributeName} should be static, because it applies to all instances of ${includingClass}.
 
 Level 4: Resource response with Reference:
 
-Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 ### Attribute should not be static
@@ -829,15 +829,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Is there something special about this attribute?
+> Is there something special about this attribute?
 
 Level 3: Parametrized response:
 
-${includingClass.attributeName} should not be static, because it doesn't apply to all instances of ${includingClass}.
+> ${includingClass.attributeName} should not be static, because it doesn't apply to all instances of ${includingClass}.
 
 Level 4: Resource response with Reference:
 
-Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 
@@ -853,15 +853,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-What is the relationship between these classes?
+> What is the relationship between these classes?
 
 Level 3: Parametrized response:
 
-How would you capture that a ${classOne} has a ${classTwo}?
+> How would you capture that a ${classOne} has a ${classTwo}?
 
 Level 4: Resource response with Reference:
 
-Please review the _Composition vs. Aggregation vs. Association_ section of 
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
 better understand these relationships and where they are used.
 
@@ -874,15 +874,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-What is the relationship between these classes?
+> What is the relationship between these classes?
 
 Level 3: Parametrized response:
 
-How would you capture that a ${classOne} has a ${classTwo}?
+> How would you capture that a ${classOne} has a ${classTwo}?
 
 Level 4: Resource response with Reference:
 
-Please review the _Composition vs. Aggregation vs. Association_ section of 
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
 better understand these relationships and where they are used.
 
@@ -895,15 +895,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-What is the relationship between these classes?
+> What is the relationship between these classes?
 
 Level 3: Parametrized response:
 
-How would you capture the relationship between ${classOne}, ${classTwo}, [and] ${classThree}[, [and] ${classFour}[, [and] ${classFive}]]?
+> How would you capture the relationship between ${classOne}, ${classTwo}, [and] ${classThree}[, [and] ${classFour}[, [and] ${classFive}]]?
 
 Level 4: Resource response with Reference:
 
-Please review the _Composition vs. Aggregation vs. Association_ section of 
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
 better understand these relationships and where they are used.
 
@@ -916,15 +916,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Remember that attributes are simple pieces of data.
+> Remember that attributes are simple pieces of data.
 
 Level 3: Parametrized response:
 
-${includingClass.attributeName} should be its own class.
+> ${includingClass.attributeName} should be its own class.
 
 Level 4: Resource response with Quiz:
 
-Pick the classes which are modeled correctly.
+> Pick the classes which are modeled correctly.
 
 - [ ] class Person { address; }
 - [ ] class Person { * Person -- 1 Address; }; class Address {}
@@ -939,35 +939,35 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Is association the best way to model this concept?
+> Is association the best way to model this concept?
 
 Level 3: Parametrized response:
 
-${actionName} should not be modeled as an association.
+> ${actionName} should not be modeled as an association.
 
-${actionName} does not need be modeled as part of a domain model.
+> ${actionName} does not need be modeled as part of a domain model.
 
 Parametrized response:
 
-${actionName} should not be modeled as an association.
+> ${actionName} should not be modeled as an association.
 
-${actionName} does not need be modeled as part of a domain model.
+> ${actionName} does not need be modeled as part of a domain model.
 
 Level 3: Parametrized response:
 
-${actionName} should not be modeled as an association.
+> ${actionName} should not be modeled as an association.
 
-${actionName} does not need be modeled as part of a domain model.
+> ${actionName} does not need be modeled as part of a domain model.
 
 Parametrized response:
 
-${actionName} should not be modeled as an association.
+> ${actionName} should not be modeled as an association.
 
-${actionName} does not need be modeled as part of a domain model.
+> ${actionName} does not need be modeled as part of a domain model.
 
 Level 4: Resource response with Reference:
 
-Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to know which concepts should be a part of a domain model.
+> Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to know which concepts should be a part of a domain model.
 
 
 ##### Extra association
@@ -976,55 +976,55 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Is this association really necessary?
+> Is this association really necessary?
 
 Level 3: Parametrized response:
 
-The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
+> The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
 
-The relationship between ${classOne} and ${classTwo} is redundant since we can access ${classTwo} from ${classOne} via ${classThree}.
+> The relationship between ${classOne} and ${classTwo} is redundant since we can access ${classTwo} from ${classOne} via ${classThree}.
 
 Parametrized response:
 
-The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
+> The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
 
-The relationship between ${classOne} and ${classTwo} is redundant since we can access ${classTwo} from ${classOne} via ${classThree}.
+> The relationship between ${classOne} and ${classTwo} is redundant since we can access ${classTwo} from ${classOne} via ${classThree}.
 
 Level 3: Parametrized response:
 
-The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
+> The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
 
-The relationship between ${classOne} and ${classTwo} is redundant since we can access ${classTwo} from ${classOne} via ${classThree}.
+> The relationship between ${classOne} and ${classTwo} is redundant since we can access ${classTwo} from ${classOne} via ${classThree}.
 
 Parametrized response:
 
-The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
+> The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
 
-The relationship between ${classOne} and ${classTwo} is redundant since we can access ${classTwo} from ${classOne} via ${classThree}.
-
-Level 4: Resource response with Quiz:
-
-Find all the redunandant associations in this class diagram (TODO).
-
-Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
-
-Resource response with Quiz:
-
-Find all the redunandant associations in this class diagram (TODO).
-
-Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
+> The relationship between ${classOne} and ${classTwo} is redundant since we can access ${classTwo} from ${classOne} via ${classThree}.
 
 Level 4: Resource response with Quiz:
 
-Find all the redunandant associations in this class diagram (TODO).
+> Find all the redunandant associations in this class diagram (TODO).
 
-Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
+> Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
 
 Resource response with Quiz:
 
-Find all the redunandant associations in this class diagram (TODO).
+> Find all the redunandant associations in this class diagram (TODO).
 
-Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
+> Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
+
+Level 4: Resource response with Quiz:
+
+> Find all the redunandant associations in this class diagram (TODO).
+
+> Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
+
+Resource response with Quiz:
+
+> Find all the redunandant associations in this class diagram (TODO).
+
+> Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
 
 
 ##### Extra aggregation
@@ -1033,11 +1033,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Is this aggregation really necessary?
+> Is this aggregation really necessary?
 
 Level 3: Parametrized response:
 
-The relationship between ${classOne} and ${classTwo} is redundant.
+> The relationship between ${classOne} and ${classTwo} is redundant.
 
 
 ##### Extra n-ary association
@@ -1046,11 +1046,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Is this association really necessary?
+> Is this association really necessary?
 
 Level 3: Parametrized response:
 
-The relationship between the highlighted classes is redundant.
+> The relationship between the highlighted classes is redundant.
 
 
 #### Association type mistakes
@@ -1061,15 +1061,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-What is the relationship between these two concepts?
+> What is the relationship between these two concepts?
 
 Level 3: Parametrized response:
 
-The relationship between ${containedClass} and ${containerClass} can be modeled with a simple association.
+> The relationship between ${containedClass} and ${containerClass} can be modeled with a simple association.
 
 Level 4: Resource response with Reference:
 
-Please review the _Composition vs. Aggregation vs. Association_ section of 
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
 better understand these relationships and where they are used.
 
@@ -1082,15 +1082,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-What is the relationship between these two concepts?
+> What is the relationship between these two concepts?
 
 Level 3: Parametrized response:
 
-Why is ${incorrectlyContainedClass} contained in ${containerClass}?
+> Why is ${incorrectlyContainedClass} contained in ${containerClass}?
 
 Level 4: Resource response with Reference:
 
-Please review the _Composition vs. Aggregation vs. Association_ section of 
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
 better understand these relationships and where they are used.
 
@@ -1103,11 +1103,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Is there anything special about this association?
+> Is there anything special about this association?
 
 Level 3: Parametrized response:
 
-The association between ${classOne} and ${classTwo} should be undirected[ from ${classOne} to ${classTwo}].
+> The association between ${classOne} and ${classTwo} should be undirected[ from ${classOne} to ${classTwo}].
 
 Level 4: 
 ##### Using undirected association instead of directed association
@@ -1116,11 +1116,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Is there anything special about this association?
+> Is there anything special about this association?
 
 Level 3: Parametrized response:
 
-The association between ${classOne} and ${classTwo} should be directed[ from ${classOne} to ${classTwo}].
+> The association between ${classOne} and ${classTwo} should be directed[ from ${classOne} to ${classTwo}].
 
 Level 4: 
 ##### Using composition instead of aggregation
@@ -1129,15 +1129,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Is this the best relationship to use here?
+> Is this the best relationship to use here?
 
 Level 3: Parametrized response:
 
-The composition between ${containedClass} and ${containerClass} is better modeled using aggregation.
+> The composition between ${containedClass} and ${containerClass} is better modeled using aggregation.
 
 Level 4: Resource response with Reference:
 
-Please review the _Composition vs. Aggregation vs. Association_ section of 
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
 better understand these relationships and where they are used.
 
@@ -1161,19 +1161,19 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Something is missing here.
+> Something is missing here.
 
 Level 3: Parametrized response:
 
-Can you give this association a name?
+> Can you give this association a name?
 
 Level 4: Parametrized response:
 
-This association should be named ${associationName}.
+> This association should be named ${associationName}.
 
 Level 5: Resource response with Reference:
 
-Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+> Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 ##### Bad association name spelling
@@ -1182,15 +1182,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Check your spelling here.
+> Check your spelling here.
 
 Level 3: Parametrized response:
 
-${associationName} is misspelled.[ Use the same spelling as the problem description.]
+> ${associationName} is misspelled.[ Use the same spelling as the problem description.]
 
 Level 4: Resource response with Reference:
 
-Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+> Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 ##### Similar association name
@@ -1199,50 +1199,290 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Can you double check this association name?
+> Can you double check this association name?
 
 Level 3: Parametrized response:
 
-The ${similarYetIncorrectAssociationName} association has a name that is not quite right.
+> The ${similarYetIncorrectAssociationName} association has a name that is not quite right.
 
 Level 4: Parametrized response:
 
-The ${similarYetIncorrectAssociationName} association should be changed to ${correctAssociationName}.
+> The ${similarYetIncorrectAssociationName} association should be changed to ${correctAssociationName}.
 
 Level 5: Resource response with Reference:
 
-Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+> Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 #### Multiplicity mistakes
 
 ##### Infinite recursive dependency
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you double check (this|these) association(s)?
+
+Level 3: Text response:
+
+> The multiplicities for this(ese) association(s) are incorrect.
+
+Level 4: Parametrized response:
+
+> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
+
+> How many ${class1}'s does a ${class2} have?
+
+> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
+
+Parametrized response:
+
+> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
+
+> How many ${class1}'s does a ${class2} have?
+
+> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
+
+Parametrized response:
+
+> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
+
+> How many ${class1}'s does a ${class2} have?
+
+> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
+
+Level 4: Parametrized response:
+
+> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
+
+> How many ${class1}'s does a ${class2} have?
+
+> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
+
+Parametrized response:
+
+> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
+
+> How many ${class1}'s does a ${class2} have?
+
+> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
+
+Parametrized response:
+
+> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
+
+> How many ${class1}'s does a ${class2} have?
+
+> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
+
+Level 4: Parametrized response:
+
+> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
+
+> How many ${class1}'s does a ${class2} have?
+
+> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
+
+Parametrized response:
+
+> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
+
+> How many ${class1}'s does a ${class2} have?
+
+> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
+
+Parametrized response:
+
+> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
+
+> How many ${class1}'s does a ${class2} have?
+
+> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
+
+Level 5: Resource response with Quiz:
+
+> Edit the class diagram to allow creating a `Foo`
+
 
 ##### Wrong multiplicity
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you double check this association?
+
+Level 3: Text response:
+
+> The multiplicit(y|ies) for this association (is|are) incorrect.
+
+Level 4: Parametrized response:
+
+> How many ${class1}'s does a ${class2} have? [And how many ${class2}'s does ${class1} have?]
+
+Level 5: Resource response with Quiz:
+
+> Pick the associations with correct multiplicities
+
+- [ ] 1 EmployeeRole -- 1 Person;
+- [ ] * Episode -- 1 TvSeries;
+- [ ] * Bank -- 1 Client;
+
 
 ##### Missing multiplicity
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you double check this association?
+
+Level 3: Text response:
+
+> The multiplicit(y|ies) for this association (is|are) missing.
+
+Level 4: Parametrized response:
+
+> How many ${class1}'s does a ${class2} have? [And how many ${class2}'s does ${class1} have?]
+
+Level 5: Resource response with Quiz:
+
+> Pick the associations with correct multiplicities
+
+- [ ] 1 EmployeeRole -- 1 Person;
+- [ ] * Episode -- 1 TvSeries;
+- [ ] * Bank -- 1 Client;
 
 
 #### Role name mistakes
 
 ##### Missing role names
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you model this relationship more precisely?
+
+Level 3: Text response:
+
+> The multiplicities for this association are correct, but something else is missing!
+
+Level 4: Resource response with Reference:
+
+> Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
+for this association? Role names help identify the role a class plays in a
+relationship and can be important if there is more than one relationship
+between the same two classes.
+
+![Role name](images/role_name.png)
+
+
 
 ##### Role should be static
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Isn't there something special about this role name?
+
+Level 3: Parametrized response:
+
+> ${roleName} should be static, because it applies to all instances of the association between ${class1} and ${class2}.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 ##### Role should not be static
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Isn't there something special about this role name?
+
+Level 3: Parametrized response:
+
+> ${roleName} should not be static, because it doesn't apply to all instances of the association between ${class1} and ${class2}.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 ##### Bad role name spelling
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Check your spelling here.
+
+Level 3: Parametrized response:
+
+> ${roleName} is misspelled.[ Use the same spelling as the problem description.]
+
+Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 ##### Similar role name
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you double check this role name?
+
+Level 3: Parametrized response:
+
+> The ${wrongRoleName} role name is not quite right.
+
+Level 4: Parametrized response:
+
+> The ${wrongRoleName} role name should be changed to ${correctRoleName}.
+
+Level 5: Resource response with Reference:
+
+> Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
+for this association? Role names help identify the role a class plays in a
+relationship and can be important if there is more than one relationship
+between the same two classes.
+
+![Role name](images/role_name.png)
+
+
 
 ##### Wrong role name but correct association
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you double check this role name?
+
+Level 3: Parametrized response:
+
+> The ${wrongRoleName} role name is not correct.
+
+Level 4: Parametrized response:
+
+> The ${wrongRoleName} role name should be changed to ${correctRoleName}.
+
+Level 5: Resource response with Reference:
+
+> Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
+for this association? Role names help identify the role a class plays in a
+relationship and can be important if there is more than one relationship
+between the same two classes.
+
+![Role name](images/role_name.png)
+
 
 
 #### Association class mistakes
@@ -1274,15 +1514,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-What is the relationship between these classes?
+> What is the relationship between these classes?
 
 Level 3: Parametrized response:
 
-How would you capture that a ${containerClass} contains a ${containedClass}?
+> How would you capture that a ${containerClass} contains a ${containedClass}?
 
 Level 4: Resource response with Reference:
 
-Please review the _Composition vs. Aggregation vs. Association_ section of 
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
 better understand these relationships and where they are used.
 
@@ -1298,15 +1538,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-What is the relationship between these two concepts?
+> What is the relationship between these two concepts?
 
 Level 3: Parametrized response:
 
-The relationship between ${containedClass} and ${containerClass} can be modeled more precisely than with a simple association.
+> The relationship between ${containedClass} and ${containerClass} can be modeled more precisely than with a simple association.
 
 Level 4: Resource response with Reference:
 
-Please review the _Composition vs. Aggregation vs. Association_ section of 
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
 better understand these relationships and where they are used.
 
@@ -1319,15 +1559,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-What is the relationship between these two concepts?
+> What is the relationship between these two concepts?
 
 Level 3: Parametrized response:
 
-The relationship between ${containedClass} and ${containerClass} is more than a simple association.
+> The relationship between ${containedClass} and ${containerClass} is more than a simple association.
 
 Level 4: Resource response with Reference:
 
-Please review the _Composition vs. Aggregation vs. Association_ section of 
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
 better understand these relationships and where they are used.
 
@@ -1340,15 +1580,15 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Is this the best relationship to use here?
+> Is this the best relationship to use here?
 
 Level 3: Parametrized response:
 
-The relationship between ${containedClass} and ${containerClass} is stronger than an aggregation.
+> The relationship between ${containedClass} and ${containerClass} is stronger than an aggregation.
 
 Level 4: Resource response with Reference:
 
-Please review the _Composition vs. Aggregation vs. Association_ section of 
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
 better understand these relationships and where they are used.
 
@@ -1361,26 +1601,26 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-Please double-check this relationship.
+> Please double-check this relationship.
 
 Level 3: Text response:
 
-Please review the model containment hierarchy.
+> Please review the model containment hierarchy.
 
 Level 4: Parametrized response:
 
-${incorrectlyContainedClass} cannot be contained in more than one class.
+> ${incorrectlyContainedClass} cannot be contained in more than one class.
 
 Level 5: Resource response with Example:
 
-Observe the following domain model. Every single class is contained in the 
+> Observe the following domain model. Every single class is contained in the 
 root class, `PISystem`, other than the root class itself.
 
 ![PISystem](images/PISystem.png)
 
 Level 6: Resource response with Quiz:
 
-Complete the containment tree for the following model.
+> Complete the containment tree for the following model.
 
 ![IRS](images/IRS.png)
 
@@ -1391,22 +1631,22 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-What is the relationship between these classes?
+> What is the relationship between these classes?
 
 Level 3: Parametrized response:
 
-{containedClass} is a part of ${containerClass}, so how would you model this?
+> {containedClass} is a part of ${containerClass}, so how would you model this?
 
 Level 4: Resource response with Example:
 
-Observe the following domain model. Every single class is contained in the 
+> Observe the following domain model. Every single class is contained in the 
 root class, `PISystem`, other than the root class itself.
 
 ![PISystem](images/PISystem.png)
 
 Level 5: Resource response with Quiz:
 
-Complete the containment tree for the following model.
+> Complete the containment tree for the following model.
 
 ![IRS](images/IRS.png)
 

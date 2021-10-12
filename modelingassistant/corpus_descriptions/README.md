@@ -783,8 +783,6 @@ Level 4: Parameterized Response
 > The ${similarYetIncorrectAssociationName} association should be changed to
 ${correctAssociationName}.
 
->> POINTER
-
 ### Wrong multiplicities
 
 #### Infinite recursive dependency
@@ -942,6 +940,8 @@ Level 4: Parameterized Response
 
 > The ${similarYetIncorrectRoleName} role name should be changed to
 ${correctRoleName}.
+
+>> POINTER
 
 ### Wrong association class
 

@@ -465,18 +465,98 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     })),
             ]),
             multiplicity_mistakes := mtc(n="Multiplicity mistakes", mistakeTypes=[
-                infinite_recursive_dependency := mt(n="Infinite recursive dependency", feedbacks=fbs({})),
-                wrong_multiplicity := mt(n="Wrong multiplicity", feedbacks=fbs({})),
-                missing_multiplicity := mt(n="Missing multiplicity", feedbacks=fbs({})),
+                infinite_recursive_dependency := mt(n="Infinite recursive dependency", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Can you double check (this|these) association(s)?"),
+                    3: TextResponse(text="The multiplicities for this(ese) association(s) are incorrect."),
+                    # TODO Add reasons to metamodel
+                    4: [# For a self-referencing class, eg, a Person has 2 parents.
+                        ParametrizedResponse(
+                            text="Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?"),
+                        # For two classes with multiplicities 1+ on either end.
+                        ParametrizedResponse(text="How many ${class1}'s does a ${class2} have?"),
+                        # For an infinite recursive dependency involving 3 or more classes.
+                        ParametrizedResponse(
+                            text="Double check the multiplicites between ${class1}, ${class2}, and ${class3}.")],
+                    5: ResourceResponse(learningResources=[Quiz(
+                        content="Edit the class diagram to allow creating a `Foo`")]),
+                })),
+                wrong_multiplicity := mt(n="Wrong multiplicity", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Can you double check this association?"),
+                    3: TextResponse(text="The multiplicit(y|ies) for this association (is|are) incorrect."),
+                    4: ParametrizedResponse(text="How many ${class1}'s does a ${class2} have? [And how many "
+                        "${class2}'s does ${class1} have?]"),
+                    5: ResourceResponse(learningResources=[multiplicities_quiz := Quiz(content=dedent("""\
+                        Pick the associations with correct multiplicities
+
+                        - [ ] 1 EmployeeRole -- 1 Person;
+                        - [ ] * Episode -- 1 TvSeries;
+                        - [ ] * Bank -- 1 Client;"""))]),
+                })),
+                missing_multiplicity := mt(n="Missing multiplicity", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Can you double check this association?"),
+                    3: TextResponse(text="The multiplicit(y|ies) for this association (is|are) missing."),
+                    4: ParametrizedResponse(text="How many ${class1}'s does a ${class2} have? [And how many "
+                        "${class2}'s does ${class1} have?]"),
+                    5: ResourceResponse(learningResources=[multiplicities_quiz]),
+                })),
             ]),
             role_name_mistakes := mtc(n="Role name mistakes", mistakeTypes=[
-                missing_role_names := mt(n="Missing role names", feedbacks=fbs({})),
-                role_should_be_static := mt(n="Role should be static", feedbacks=fbs({})),
-                role_should_not_be_static := mt(n="Role should not be static", feedbacks=fbs({})),
-                bad_role_name_spelling := mt(n="Bad role name spelling", feedbacks=fbs({})),
-                similar_role_name := mt(n="Similar (yet incorrect) role name", feedbacks=fbs({})),  # TODO Remove
+                missing_role_names := mt(n="Missing role names", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Can you model this relationship more precisely?"),
+                    3: TextResponse(
+                        text="The multiplicities for this association are correct, but something else is missing!"),
+                    4: ResourceResponse(learningResources=[role_name_ref := Reference(content=dedent("""\
+                        Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
+                        for this association? Role names help identify the role a class plays in a
+                        relationship and can be important if there is more than one relationship
+                        between the same two classes.
+
+                        ![Role name](images/role_name.png)
+                        """))]),
+                })),
+                role_should_be_static := mt(n="Role should be static", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Isn't there something special about this role name?"),
+                    3: ParametrizedResponse(text="${roleName} should be static, because it applies to all instances of "
+                        "the association between ${class1} and ${class2}."),
+                    4: ResourceResponse(learningResources=[assoc_ref := Reference(content="Please review the "
+                        "[Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
+                })),
+                role_should_not_be_static := mt(n="Role should not be static", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Isn't there something special about this role name?"),
+                    3: ParametrizedResponse(text="${roleName} should not be static, because it doesn't apply to all "
+                        "instances of the association between ${class1} and ${class2}."),
+                    4: ResourceResponse(learningResources=[assoc_ref]),
+                })),
+                bad_role_name_spelling := mt(n="Bad role name spelling", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Check your spelling here."),
+                    3: ParametrizedResponse(text="${roleName} is misspelled.[ Use the same spelling as the problem "
+                        "description.]"),
+                    4: ResourceResponse(learningResources=[assoc_na_ref]),
+                })),
+                similar_role_name := mt(n="Similar (yet incorrect) role name", feedbacks=fbs({  # TODO Remove
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Can you double check this role name?"),
+                    3: ParametrizedResponse(text="The ${wrongRoleName} role name is not quite right."),
+                    4: ParametrizedResponse(text="The ${wrongRoleName} role name should be changed to "
+                        "${correctRoleName}."),
+                    5: ResourceResponse(learningResources=[role_name_ref]),
+                })),
                 wrong_role_name := mt(
-                    n="Wrong role name", d="Wrong role name but correct association", feedbacks=fbs({})),
+                    n="Wrong role name", d="Wrong role name but correct association", feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Can you double check this role name?"),
+                        3: ParametrizedResponse(text="The ${wrongRoleName} role name is not correct."),
+                        4: ParametrizedResponse(text="The ${wrongRoleName} role name should be changed to "
+                            "${correctRoleName}."),
+                        5: ResourceResponse(learningResources=[role_name_ref]),
+                    })),
             ]),
             association_class_mistakes := mtc(n="Association class mistakes", mistakeTypes=[
                 missing_association_class := mt(n="Missing assoc class", d="Missing association class", feedbacks=fbs({
@@ -691,8 +771,6 @@ mts_by_priority: list[MistakeType] = [
     subclass_not_distinct_across_lifetime,
     inherited_feature_does_not_make_sense_for_subclass,
     wrong_multiplicity,
-    missing_multiplicity,
-    missing_role_names,
     bad_role_name_spelling,
     similar_role_name,
     wrong_role_name, # Rename to incorrect_role_name_but_correct_association
@@ -742,6 +820,7 @@ mts_by_priority: list[MistakeType] = [
     missing_association,
     missing_aggregation,
     missing_nary_association,
+    missing_multiplicity,
     missing_role_names,
     missing_association_name,
 

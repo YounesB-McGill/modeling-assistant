@@ -1,22 +1,26 @@
 #!/usr/bin/env python3
 
+"""
+Module to generate the pyecore Python code from the modeling assistant ecore metamodel.
+"""
+
 from textwrap import dedent
 import ast
-import json
 import os
 
-from learningcorpus.learningcorpus import LearningCorpus
 
 def generate_pyecore():
+    "Generate the pyecore Python code from the modeling assistant and learning corpus metamodels."
     # TODO Add automatic code generation for the now external "classdiagram.ecore" metamodel
     pyecoregen_cmd = lambda mdl: f"""pyecoregen -e {mdl
-                                  } -o modelingassistant/pythonclient --with-dependencies"""    
+                                  } -o modelingassistant/pythonclient --with-dependencies"""
     metamodel_names = ["learningcorpus", "modelingassistant"]
     for mm in metamodel_names:
         os.system(pyecoregen_cmd(f"modelingassistant/model/{mm}.ecore"))
 
 
 def customize_generated_code():
+    "Add custom functionality to the generated code, similar to `@generated NOT` in the Java ecore implementation."
     # TODO Generalize this as needed
     # Add the following function to the generated LearningCorpus class
     lc_mistaketypes_func = ast.parse(dedent("""\

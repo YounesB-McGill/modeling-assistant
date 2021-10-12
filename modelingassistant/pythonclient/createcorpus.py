@@ -206,13 +206,13 @@ def generate_markdown():
                         result += "Highlight solution\n\n"
                     case TextResponse():
                         result += f"""Text response:\n\n{(2 * nl).join(
-                            [f.text for f in mt.feedbacks if f.level == level])}\n\n"""
+                            [f"> {f.text}" for f in mt.feedbacks if f.level == level])}\n\n"""
                     case ParametrizedResponse():
                         result += f"""Parametrized response:\n\n{(2 * nl).join(
-                            [f.text for f in mt.feedbacks if f.level == level])}\n\n"""
+                            [f"> {f.text}" for f in mt.feedbacks if f.level == level])}\n\n"""
                     case ResourceResponse() as resp if resp.learningResources:
-                        result += f"""Resource response with {type(resp.learningResources[0]).__name__}:\n\n{
-                            (2 * nl).join([f.learningResources[0].content for f in mt.feedbacks if f.level == level])
+                        result += f"""Resource response with {type(resp.learningResources[0]).__name__}:\n\n{(2 * nl)
+                            .join([f"> {f.learningResources[0].content}" for f in mt.feedbacks if f.level == level])
                             }\n\n"""
         return result
 
