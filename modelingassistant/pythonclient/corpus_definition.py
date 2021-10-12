@@ -374,20 +374,54 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 })),
             ]),
             association_type_mistakes := mtc(n="Association type mistakes", mistakeTypes=[
-                using_aggregation_composition_instead_of_assoc := mt(
-                    n="Using aggregation/composition instead of assoc",
-                    d="Using aggregation/composition instead of association",
-                    feedbacks=fbs({})),
+                using_aggregation_instead_of_assoc := mt(
+                    n="Using aggregation instead of assoc",
+                    d="Using aggregation instead of association",
+                    feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="What is the relationship between these two concepts?"),
+                        3: ParametrizedResponse(text="The relationship between ${containedClass} and ${containerClass} "
+                            "can be modeled with a simple association."),
+                        4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                    })),
+                using_composition_instead_of_assoc := mt(
+                    n="Using composition instead of assoc",
+                    d="Using composition instead of association",
+                    feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="What is the relationship between these two concepts?"),
+                        3: ParametrizedResponse(
+                            text="Why is ${incorrectlyContainedClass} contained in ${containerClass}?"),
+                        4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                    })),
                 using_directed_assoc_instead_of_undirected := mt(
                     n="Using directed assoc instead of undirected",
                     d="Using directed association instead of undirected association",
-                    feedbacks=fbs({})),
-                using_undirected_association_instead_of_directed := mt(
+                    feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Is there anything special about this association?"),
+                        3: ParametrizedResponse(text="The association between ${classOne} and ${classTwo} should be "
+                            "undirected[ from ${classOne} to ${classTwo}]."),
+                        4: ResourceResponse(learningResources=[]),  # TODO Assoc ref
+                    })),
+                using_undirected_assoc_instead_of_directed := mt(
                     n="Using undirected assoc instead of directed",
                     d="Using undirected association instead of directed association",
-                    feedbacks=fbs({})),
+                    feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Is there anything special about this association?"),
+                        3: ParametrizedResponse(text="The association between ${classOne} and ${classTwo} should be "
+                            "directed[ from ${classOne} to ${classTwo}]."),
+                        4: ResourceResponse(learningResources=[]),  # TODO Assoc ref
+                    })),
                 using_composition_instead_of_aggregation := mt(
-                    n="Using composition instead of aggregation", feedbacks=fbs({})),
+                    n="Using composition instead of aggregation", feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Is this the best relationship to use here?"),
+                        3: ParametrizedResponse(text="The composition between ${containedClass} and ${containerClass} "
+                            "is better modeled using aggregation."),
+                        4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                    })),
                 using_binary_assoc_instead_of_nary_assoc := mt(
                     n="Using binary assoc instead of n-ary assoc",
                     d="Using binary association instead of n-ary association",
@@ -404,10 +438,31 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             association_name_mistakes := mtc(n="Association name mistakes", mistakeTypes=[
                 missing_association_name := mt(
                     n="Missing association name", d="Missing association name when one was expected", feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Something is missing here."),
+                        3: ParametrizedResponse(text="Can you give this association a name?"),
+                        4: ParametrizedResponse(text="This association should be named ${associationName}."),
+                        5: ResourceResponse(learningResources=[assoc_na_ref := Reference(content="Please review the "
+                            "[Association](https://mycourses2.mcgill.ca/) and "
+                            "[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.")]),
                     })),
-                bad_association_name_spelling := mt(n="Bad association name spelling", feedbacks=fbs({})),
+                bad_association_name_spelling := mt(n="Bad association name spelling", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Check your spelling here."),
+                    3: ParametrizedResponse(
+                        text="${associationName} is misspelled.[ Use the same spelling as the problem description.]"),
+                    4: ResourceResponse(learningResources=[assoc_na_ref]),
+                })),
                 similar_association_name := mt(  # TODO Remove
-                    n="Similar (yet incorrect) association name", feedbacks=fbs({})),
+                    n="Similar (yet incorrect) association name", feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Can you double check this association name?"),
+                        3: ParametrizedResponse(text="The ${similarYetIncorrectAssociationName} association has a name "
+                            "that is not quite right."),
+                        4: ParametrizedResponse(text="The ${similarYetIncorrectAssociationName} association should be "
+                            "changed to ${correctAssociationName}."),
+                        5: ResourceResponse(learningResources=[assoc_na_ref]),
+                    })),
             ]),
             multiplicity_mistakes := mtc(n="Multiplicity mistakes", mistakeTypes=[
                 infinite_recursive_dependency := mt(n="Infinite recursive dependency", feedbacks=fbs({})),
@@ -446,10 +501,26 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
             extra_composition := mt(n="Extra composition", feedbacks=fbs({})),
-            # TODO Split into two mistakes
-            using_association_instead_of_aggregation_composition := mt(
-                n="Using association instead of aggregation/composition", feedbacks=fbs({})),
+            using_association_instead_of_aggregation := mt(n="Using association instead of aggregation", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="What is the relationship between these two concepts?"),
+                3: ParametrizedResponse(text="The relationship between ${containedClass} and ${containerClass} can be "
+                    "modeled more precisely than with a simple association."),
+                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+            })),
+            using_association_instead_of_composition := mt(n="Using association instead of composition", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="What is the relationship between these two concepts?"),
+                3: ParametrizedResponse(text="The relationship between ${containedClass} and ${containerClass} is more "
+                    "than a simple association."),
+                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+            })),
             using_aggregation_instead_of_composition := mt(n="Using aggregation instead of composition", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Is this the best relationship to use here?"),
+                3: ParametrizedResponse(text="The relationship between ${containedClass} and ${containerClass} is "
+                    "stronger than an aggregation."),
+                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
             composed_part_contained_in_more_than_one_parent := mt(
                 n="Composed part contained in more than one parent", feedbacks=fbs({
@@ -599,10 +670,12 @@ mts_by_priority: list[MistakeType] = [
     list_attribute,
     attribute_misplaced_in_generalized_hierarchy,
     generalization_inapplicable,
-    using_association_instead_of_aggregation_composition,
-    using_aggregation_composition_instead_of_assoc,
+    using_association_instead_of_composition,
+    using_association_instead_of_aggregation,
+    using_composition_instead_of_assoc,
+    using_aggregation_instead_of_assoc,
     using_directed_assoc_instead_of_undirected,
-    using_undirected_association_instead_of_directed,
+    using_undirected_assoc_instead_of_directed,
     using_aggregation_instead_of_composition,
     using_composition_instead_of_aggregation,
     using_binary_assoc_instead_of_nary_assoc,

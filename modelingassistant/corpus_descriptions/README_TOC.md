@@ -53,7 +53,8 @@
          1. [Extra aggregation](#extra-aggregation)
          1. [Extra n-ary association](#extra-n-ary-association)
       1. [Association type mistakes](#association-type-mistakes)
-         1. [Using aggregation/composition instead of association](#using-aggregation-composition-instead-of-association)
+         1. [Using aggregation instead of association](#using-aggregation-instead-of-association)
+         1. [Using composition instead of association](#using-composition-instead-of-association)
          1. [Using directed association instead of undirected association](#using-directed-association-instead-of-undirected-association)
          1. [Using undirected association instead of directed association](#using-undirected-association-instead-of-directed-association)
          1. [Using composition instead of aggregation](#using-composition-instead-of-aggregation)
@@ -85,7 +86,8 @@
    1. [Composition mistakes](#composition-mistakes)
       1. [Missing composition](#missing-composition)
       1. [Extra composition](#extra-composition)
-      1. [Using association instead of aggregation/composition](#using-association-instead-of-aggregation-composition)
+      1. [Using association instead of aggregation](#using-association-instead-of-aggregation)
+      1. [Using association instead of composition](#using-association-instead-of-composition)
       1. [Using aggregation instead of composition](#using-aggregation-instead-of-composition)
       1. [Composed part contained in more than one parent](#composed-part-contained-in-more-than-one-parent)
       1. [Incomplete containment tree](#incomplete-containment-tree)
@@ -270,7 +272,10 @@
 
 #### Association type mistakes
 
-##### Using aggregation/composition instead of association
+##### Using aggregation instead of association
+
+
+##### Using composition instead of association
 
 
 ##### Using directed association instead of undirected association
@@ -362,7 +367,10 @@
 #### Extra composition
 
 
-#### Using association instead of aggregation/composition
+#### Using association instead of aggregation
+
+
+#### Using association instead of composition
 
 
 #### Using aggregation instead of composition

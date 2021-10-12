@@ -13,11 +13,12 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ROLE_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOCIATION_INSTEAD_OF_AGGREGATION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOCIATION_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ATTRIBUTE_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
@@ -2375,7 +2376,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION,
+    assertMistake(studentSolution.getMistakes().get(0), USING_ASSOCIATION_INSTEAD_OF_COMPOSITION,
         studentMyEmployeeAssociationEnd, instructorMyEmployeeAssociationEnd, 0, 1, false);
   }
 
@@ -2402,7 +2403,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_ASSOCIATION_INSTEAD_OF_AGGREGATION_COMPOSITION,
+    assertMistake(studentSolution.getMistakes().get(0), USING_ASSOCIATION_INSTEAD_OF_AGGREGATION,
         studentMyEngineAssociationEnd, instructorMyEngineAssociationEnd, 0, 1, false);
   }
 
@@ -2483,7 +2484,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_AGGREGATION_COMPOSITION_INSTEAD_OF_ASSOC,
+    assertMistake(studentSolution.getMistakes().get(0), USING_COMPOSITION_INSTEAD_OF_ASSOC,
         studentOwnerAssociationEnd, instructorOwnerAssociationEnd, 0, 1, false);
   }
 

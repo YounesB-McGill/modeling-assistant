@@ -663,8 +663,6 @@ Find all the redunandant associations in this class diagram (TODO).
 
 Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
 
->> POINTER
-
 ### Using wrong relationship type
 
 #### Using an association instead of an aggregation/composition or vice versa
@@ -784,6 +782,8 @@ Level 4: Parameterized Response
 
 > The ${similarYetIncorrectAssociationName} association should be changed to
 ${correctAssociationName}.
+
+>> POINTER
 
 ### Wrong multiplicities
 
