@@ -476,8 +476,6 @@ Level 4: Resource Response with Quiz:
 > - [ ] class Person { * Person -- 1 Address; }; class Address {}
 > - [ ] class Loan { libraryPatron; }
 
->> POINTER
-
 #### Missing Composition
 
 Level 1: Highlight classes
@@ -665,6 +663,7 @@ Find all the redunandant associations in this class diagram (TODO).
 
 Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
 
+>> POINTER
 
 ### Using wrong relationship type
 

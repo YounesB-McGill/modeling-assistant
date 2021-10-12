@@ -251,7 +251,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 })),
                 uppercase_attribute_name := mt(n="Uppercase attribute name", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: [TextResponse(text="Remember that attributes are written in lowerCamelCase."),
+                    2: [TextResponse(text="Remember that attributes are written in `lowerCamelCase`."),
                         TextResponse(text="Can this attribute be renamed?")],
                     3: ParametrizedResponse(text="${wrongAttribute} incorrectly starts with an Uppercase Letter. "
                         "Attributes should start with a lowercase letter."),
@@ -296,20 +296,82 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     relationship_mistakes := mtc(n="Relationship mistakes", subcategories=[
         association_mistakes := mtc(n="Association mistakes", subcategories=[
             missing_association_mistakes := mtc(n="Missing association mistakes", mistakeTypes=[
-                missing_association := mt(n="Missing association", feedbacks=fbs({})),
-                missing_aggregation := mt(n="Missing aggregation", feedbacks=fbs({})),
-                missing_nary_association := mt(n="Missing n-ary association", feedbacks=fbs({})),
+                missing_association := mt(n="Missing association", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="What is the relationship between these classes?"),
+                    3: ParametrizedResponse(text="How would you capture that a ${classOne} has a ${classTwo}?"),
+                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref := Reference(content=dedent("""\
+                        Please review the _Composition vs. Aggregation vs. Association_ section of 
+                        the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+                        better understand these relationships and where they are used.
+
+                        ![composition vs aggregation vs association](images/composition_aggregation_association.png)""")
+                    )]),
+                })),
+                missing_aggregation := mt(n="Missing aggregation", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="What is the relationship between these classes?"),
+                    3: ParametrizedResponse(text="How would you capture that a ${classOne} has a ${classTwo}?"),
+                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
+                missing_nary_association := mt(n="Missing n-ary association", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="What is the relationship between these classes?"),
+                    3: ParametrizedResponse(text="How would you capture the relationship between ${classOne}, "
+                        "${classTwo}, [and] ${classThree}[, [and] ${classFour}[, [and] ${classFive}]]?"),
+                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
                 using_attribute_instead_of_assoc := mt(
                     n="Using attribute instead of assoc", d="Using attribute instead of association",
-                    feedbacks=fbs({})),
+                    feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Remember that attributes are simple pieces of data."),
+                        3: ParametrizedResponse(text="${includingClass.attributeName} should be its own class."),
+                        4: ResourceResponse(learningResources=[Quiz(content=dedent("""\
+                            Pick the classes which are modeled correctly.
+
+                            - [ ] class Person { address; }
+                            - [ ] class Person { * Person -- 1 Address; }; class Address {}
+                            - [ ] class Loan { libraryPatron; }"""))]),
+                    })),
             ]),
             extra_association_mistakes := mtc(n="Extra association mistakes", mistakeTypes=[
                 representing_action_with_assoc := mt(
                     n="Representing action with assoc", d="Representing an action with an association",
-                    feedbacks=fbs({})),
-                extra_association := mt(n="Extra association", feedbacks=fbs({})),
-                extra_aggregation := mt(n="Extra aggregation", feedbacks=fbs({})),
-                extra_nary_association := mt(n="Extra n-ary association", feedbacks=fbs({})),
+                    feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Is association the best way to model this concept?"),
+                        3: [ParametrizedResponse(text="${actionName} should not be modeled as an association."),
+                            ParametrizedResponse(
+                                text="${actionName} does not need be modeled as part of a domain model.")],
+                        4: ResourceResponse(learningResources=[Reference(content="Please review the "
+                            "[domain modeling lecture](https://mycourses2.mcgill.ca/) to know which concepts should "
+                            "be a part of a domain model."
+                        )]),
+                    })),
+                extra_association := mt(n="Extra association", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Is this association really necessary?"),
+                    3: [ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is not "
+                            "expressed in the problem description[, but there is a similar relationship with "
+                            "${classThree} that is missing]."),
+                        ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is redundant "
+                            "since we can access ${classTwo} from ${classOne} via ${classThree}.")],
+                    4: [ResourceResponse(learningResources=[Quiz(
+                            content="Find all the redunandant associations in this class diagram (TODO).")]),
+                        ResourceResponse(learningResources=[Quiz(content="Write pseudocode to navigate between "
+                            "ClassOne and ClassTwo in this class diagram (TODO).")])],
+                })),
+                extra_aggregation := mt(n="Extra aggregation", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Is this aggregation really necessary?"),
+                    3: ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is redundant."),
+                })),
+                extra_nary_association := mt(n="Extra n-ary association", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Is this association really necessary?"),
+                    3: ParametrizedResponse(text="The relationship between the highlighted classes is redundant."),
+                })),
             ]),
             association_type_mistakes := mtc(n="Association type mistakes", mistakeTypes=[
                 using_aggregation_composition_instead_of_assoc := mt(
@@ -376,7 +438,13 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             ]),
         ]),
         composition_mistakes := mtc(n="Composition mistakes", mistakeTypes=[
-            missing_composition := mt(n="Missing composition", feedbacks=fbs({})),
+            missing_composition := mt(n="Missing composition", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="What is the relationship between these classes?"),
+                3: ParametrizedResponse(
+                    text="How would you capture that a ${containerClass} contains a ${containedClass}?"),
+                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+            })),
             extra_composition := mt(n="Extra composition", feedbacks=fbs({})),
             # TODO Split into two mistakes
             using_association_instead_of_aggregation_composition := mt(
@@ -384,8 +452,30 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             using_aggregation_instead_of_composition := mt(n="Using aggregation instead of composition", feedbacks=fbs({
             })),
             composed_part_contained_in_more_than_one_parent := mt(
-                n="Composed part contained in more than one parent", feedbacks=fbs({})),
-            incomplete_containment_tree := mt(n="Incomplete containment tree", feedbacks=fbs({})),
+                n="Composed part contained in more than one parent", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Please double-check this relationship."),
+                    3: TextResponse(text="Please review the model containment hierarchy."),
+                    4: ParametrizedResponse(
+                        text="${incorrectlyContainedClass} cannot be contained in more than one class."),
+                    5: ResourceResponse(learningResources=[containment_example := Example(content=dedent("""\
+                    Observe the following domain model. Every single class is contained in the 
+                    root class, `PISystem`, other than the root class itself.
+
+                    ![PISystem](images/PISystem.png)"""))]),
+                    6: ResourceResponse(learningResources=[containment_quiz := Quiz(content=dedent("""\
+                    Complete the containment tree for the following model.
+
+                    ![IRS](images/IRS.png)"""))]),
+                })),
+            incomplete_containment_tree := mt(n="Incomplete containment tree", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="What is the relationship between these classes?"),
+                3: ParametrizedResponse(
+                    text="{containedClass} is a part of ${containerClass}, so how would you model this?"),
+                4: ResourceResponse(learningResources=[containment_example]),
+                5: ResourceResponse(learningResources=[containment_quiz]),
+            })),
         ]),
         generalization_mistakes := mtc(n="Generalization mistakes", mistakeTypes=[
             missing_generalization := mt(n="Missing generalization", feedbacks=fbs({})),
