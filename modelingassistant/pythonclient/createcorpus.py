@@ -14,7 +14,7 @@ import re
 from os import linesep as nl
 from corpus import corpus
 from fileserdes import save_to_files
-from learningcorpus import MistakeTypeCategory
+from learningcorpus import MistakeTypeCategory, MistakeType
 
 MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
 MAX_COLUMN_WIDTH = 120
@@ -167,7 +167,7 @@ def generate_java():
 
 def generate_markdown():
     """
-    Generate Markdown table-of-contents from input learning corpus.
+    Generate Markdown table-of-contents from the learning corpus.
     """
     def nested_toc_output_for(mtc: MistakeTypeCategory, indentation: int) -> str:
         "Return the nested table of contents output for the input in a recursive way."
@@ -188,6 +188,13 @@ def generate_markdown():
         hashes = indentation + 2
         cn = clean(name)
         return (f'{hashes * "#"} {cn}' if hashes <= MAX_NUM_OF_HASHES_IN_HEADING else f'**{cn}**') + "\n\n"
+
+    def make_mt_body(mt: MistakeType, indentation: int) -> str:
+        "Return the Markdown body of the output."
+        result = make_body_title(mt.description, indentation)
+        for fb in mt.feedbacks:
+            pass  # use match if available
+        return result
 
     md = f'''{
         nl.join([nested_toc_output_for(mtc, 0) for mtc in corpus.topLevelMistakeTypeCategories()])
