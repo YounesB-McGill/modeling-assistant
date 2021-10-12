@@ -241,7 +241,7 @@ def test_persisting_modeling_assistant_with_one_class_solution():
 
     assert os.path.exists(ma_path)
     assert os.path.exists(cd_path)
-    with open(cd_path) as f:
+    with open(cd_path, encoding="utf-8") as f:
         file_contents = f.read()
         for s in ["Student1_solution", "Car", "make", "CDInt"]:
             assert s in file_contents
@@ -308,7 +308,7 @@ def test_persisting_modeling_assistant_with_multiclass_solution():
 
     assert os.path.exists(ma_file)
     assert os.path.exists(cd_file)
-    with open(cd_file) as f:
+    with open(cd_file, encoding="utf-8") as f:
         file_contents = f.read()
         for s in ["Car", "SportsCar", "Part", "Driver", "make", "CDInt"]:
             assert s in file_contents
@@ -403,11 +403,11 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
     assert os.path.exists(ma_path)
     assert os.path.exists(cd1_path)
     assert os.path.exists(cd2_path)
-    with open(cd1_path) as f:
+    with open(cd1_path, encoding="utf-8") as f:
         file_contents = f.read()
         for s in ["Car", "SportsCar", "Part", "Driver", "make", "CDInt"]:
             assert s in file_contents
-    with open(cd2_path) as f:
+    with open(cd2_path, encoding="utf-8") as f:
         file_contents = f.read()
         for s in ["Car", "make", "CDInt", "Student2_solution"]:
             assert s in file_contents
@@ -516,7 +516,7 @@ def test_persisting_modeling_assistant_with_multiple_solutions_to_one_file():
     save_to_files({ma_file: [modeling_assistant, class_diagram1, class_diagram2]})
 
     assert os.path.exists(ma_file)
-    with open(ma_file) as f:
+    with open(ma_file, encoding="utf-8") as f:
         file_contents = f.read()
         for s in ["Car", "SportsCar", "Part", "Driver", "make", "CDInt", "Student2_solution"]:
             assert s in file_contents
@@ -668,15 +668,15 @@ def test_student_knowledge_persisted_correctly():
         assert os.path.exists(p)
 
     # TODO modify lists to reflect what should be in each file
-    with open(ma_file) as f:
+    with open(ma_file, encoding="utf-8") as f:
         file_contents = f.read()
         for s in ["1111", "2222", f"{lok1}", f"{lok2}", "mistakeType"]:
             assert s in file_contents
-    with open(cd1_file) as f:
+    with open(cd1_file, encoding="utf-8") as f:
         file_contents = f.read()
         for s in ["Car", "SportsCar", "Part", "Driver", "make", "CDInt"]:
             assert s in file_contents
-    with open(cd2_file) as f:
+    with open(cd2_file, encoding="utf-8") as f:
         file_contents = f.read()
         for s in ["Car", "make", "CDInt", "Student2_solution"]:
             assert s in file_contents
