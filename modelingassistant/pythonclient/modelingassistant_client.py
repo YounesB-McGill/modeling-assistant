@@ -7,8 +7,8 @@ from pyecore.ecore import EClass, EPackage
 from modelingassistant.modelingassistant import Solution
 
 
-if sys.version_info[:2] < (3, 9):
-    print("Python 3.9 or higher required to run this app.")
+if sys.version_info[:2] < (3, 10):
+    print("Python 3.10 or higher required to run this app.")
     sys.exit(1)
 
 

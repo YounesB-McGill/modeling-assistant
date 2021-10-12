@@ -37,7 +37,7 @@ def customize_generated_code():
     lc_py = "modelingassistant/pythonclient/learningcorpus/learningcorpus.py"
 
     # Open and parse file
-    with open(lc_py) as lc:
+    with open(lc_py, encoding="utf-8") as lc:
         lc_ast = ast.parse(lc.read())
         for e in lc_ast.body:
             # Find the LearningCorpus class
@@ -45,7 +45,7 @@ def customize_generated_code():
                 # Add the custom functions to it
                 e.body.extend([lc_toplevelmtcs_func, lc_mistaketypes_func])
     # Unparse the file back to a string and save it to file
-    with open(lc_py, "w") as lc:
+    with open(lc_py, "w", encoding="utf-8") as lc:
         lc.write(ast.unparse(lc_ast))
 
 

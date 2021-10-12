@@ -14,7 +14,8 @@ import re
 from os import linesep as nl
 from corpus import corpus
 from fileserdes import save_to_files
-from learningcorpus import MistakeTypeCategory, MistakeType
+from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResponse, ParametrizedResponse,
+    ResourceResponse)
 
 MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
 MAX_COLUMN_WIDTH = 120
@@ -116,7 +117,7 @@ def generate_python():
         else:
             result += f"{lhs} = \\\n    {rhs}\n"
 
-    with open(PYTHON_MISTAKE_TYPES_FILE, "w") as f:
+    with open(PYTHON_MISTAKE_TYPES_FILE, "w", encoding="utf-8") as f:
         f.write(result)
 
 
@@ -161,7 +162,7 @@ def generate_java():
 
     result += "}\n"
 
-    with open(JAVA_MISTAKE_TYPES_FILE, "w") as f:
+    with open(JAVA_MISTAKE_TYPES_FILE, "w", encoding="utf-8") as f:
         f.write(result)
 
 
@@ -179,7 +180,7 @@ def generate_markdown():
         "Return the nested body output for the input in a recursive way."
         return f'''{make_body_title(mtc.name, indentation)}{
             "".join([nested_body_output_for(sc, indentation + 1) for sc in mtc.subcategories])}{
-            nl.join([make_body_title(mt.description, indentation + 1) for mt in mtc.mistakeTypes])}\n'''
+            nl.join([make_mt_body(mt, indentation + 1) for mt in mtc.mistakeTypes])}\n'''
 
     def make_toc_title(name: str, indentation: int) -> str:
         return f'{indentation * " "}1. [{name}](#{dashify(name)})\n'
@@ -192,15 +193,34 @@ def generate_markdown():
     def make_mt_body(mt: MistakeType, indentation: int) -> str:
         "Return the Markdown body of the output."
         result = make_body_title(mt.description, indentation)
-        for fb in mt.feedbacks:
-            pass  # use match if available
+        levels = sorted([fb.level for fb in mt.feedbacks])
+        for level in levels:
+            result += f"Level {level}: "
+            for fb in mt.feedbacks:
+                if fb.level != level:
+                    continue
+                match fb:
+                    case Feedback(highlightProblem=True):
+                        result += "Highlight problem\n\n"
+                    case Feedback(highlightSolution=True):
+                        result += "Highlight solution\n\n"
+                    case TextResponse():
+                        result += f"""Text response:\n\n{(2 * nl).join(
+                            [f.text for f in mt.feedbacks if f.level == level])}\n\n"""
+                    case ParametrizedResponse():
+                        result += f"""Parametrized response:\n\n{(2 * nl).join(
+                            [f.text for f in mt.feedbacks if f.level == level])}\n\n"""
+                    case ResourceResponse() as resp if resp.learningResources:
+                        result += f"""Resource response with {type(resp.learningResources[0]).__name__}:\n\n{
+                            (2 * nl).join([f.learningResources[0].content for f in mt.feedbacks if f.level == level])
+                            }\n\n"""
         return result
 
     md = f'''{
         nl.join([nested_toc_output_for(mtc, 0) for mtc in corpus.topLevelMistakeTypeCategories()])
     }\n{nl.join([nested_body_output_for(mtc, 0) for mtc in corpus.topLevelMistakeTypeCategories()])}'''
 
-    with open(LEARNING_CORPUS_MARKDOWN_FILE, "w") as f:
+    with open(LEARNING_CORPUS_MARKDOWN_FILE, "w", encoding="utf-8") as f:
         f.write(md)
 
 
