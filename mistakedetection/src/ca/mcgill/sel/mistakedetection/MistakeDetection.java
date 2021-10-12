@@ -49,8 +49,8 @@ import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_P
 import static learningcorpus.mistaketypes.MistakeTypes.UPPERCASE_ATTRIBUTE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOCIATION_INSTEAD_OF_AGGREGATION;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOCIATION_INSTEAD_OF_COMPOSITION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_AGGREGATION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
@@ -1794,7 +1794,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingAssociationInsteadOfComposition(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingAssociationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_ASSOCIATION_INSTEAD_OF_COMPOSITION, studentClassAssocEnd,
+      return Optional.of(createMistake(USING_ASSOC_INSTEAD_OF_COMPOSITION, studentClassAssocEnd,
           instructorClassAssocEnd));
     }
     return Optional.empty();
@@ -1803,7 +1803,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingAssociationInsteadOfAggregation(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingAssociationInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_ASSOCIATION_INSTEAD_OF_AGGREGATION, studentClassAssocEnd,
+      return Optional.of(createMistake(USING_ASSOC_INSTEAD_OF_AGGREGATION, studentClassAssocEnd,
           instructorClassAssocEnd));
     }
     return Optional.empty();

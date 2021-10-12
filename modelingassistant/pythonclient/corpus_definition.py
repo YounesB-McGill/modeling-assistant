@@ -501,20 +501,22 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
             extra_composition := mt(n="Extra composition", feedbacks=fbs({})),
-            using_association_instead_of_aggregation := mt(n="Using association instead of aggregation", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
-                2: TextResponse(text="What is the relationship between these two concepts?"),
-                3: ParametrizedResponse(text="The relationship between ${containedClass} and ${containerClass} can be "
-                    "modeled more precisely than with a simple association."),
-                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
-            })),
-            using_association_instead_of_composition := mt(n="Using association instead of composition", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
-                2: TextResponse(text="What is the relationship between these two concepts?"),
-                3: ParametrizedResponse(text="The relationship between ${containedClass} and ${containerClass} is more "
-                    "than a simple association."),
-                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
-            })),
+            using_assoc_instead_of_aggregation := mt(
+                n="Using assoc instead of aggregation", d="Using association instead of aggregation", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="What is the relationship between these two concepts?"),
+                    3: ParametrizedResponse(text="The relationship between ${containedClass} and ${containerClass} "
+                        "can be modeled more precisely than with a simple association."),
+                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
+            using_assoc_instead_of_composition := mt(
+                n="Using assoc instead of composition", d="Using association instead of composition", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="What is the relationship between these two concepts?"),
+                    3: ParametrizedResponse(text="The relationship between ${containedClass} and ${containerClass} is "
+                        "more than a simple association."),
+                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
             using_aggregation_instead_of_composition := mt(n="Using aggregation instead of composition", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this the best relationship to use here?"),
@@ -670,8 +672,8 @@ mts_by_priority: list[MistakeType] = [
     list_attribute,
     attribute_misplaced_in_generalized_hierarchy,
     generalization_inapplicable,
-    using_association_instead_of_composition,
-    using_association_instead_of_aggregation,
+    using_assoc_instead_of_composition,
+    using_assoc_instead_of_aggregation,
     using_composition_instead_of_assoc,
     using_aggregation_instead_of_assoc,
     using_directed_assoc_instead_of_undirected,

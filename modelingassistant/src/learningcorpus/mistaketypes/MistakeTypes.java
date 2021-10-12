@@ -327,12 +327,10 @@ public class MistakeTypes {
   public static final MistakeType EXTRA_COMPOSITION = MTS.get("Extra composition");
 
   /** The using association instead of aggregation mistake type. */
-  public static final MistakeType USING_ASSOCIATION_INSTEAD_OF_AGGREGATION =
-      MTS.get("Using association instead of aggregation");
+  public static final MistakeType USING_ASSOC_INSTEAD_OF_AGGREGATION = MTS.get("Using assoc instead of aggregation");
 
   /** The using association instead of composition mistake type. */
-  public static final MistakeType USING_ASSOCIATION_INSTEAD_OF_COMPOSITION =
-      MTS.get("Using association instead of composition");
+  public static final MistakeType USING_ASSOC_INSTEAD_OF_COMPOSITION = MTS.get("Using assoc instead of composition");
 
   /** The using aggregation instead of composition mistake type. */
   public static final MistakeType USING_AGGREGATION_INSTEAD_OF_COMPOSITION =
