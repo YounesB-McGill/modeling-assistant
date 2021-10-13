@@ -142,11 +142,11 @@ Level 3: Parametrized response:
 Level 4: Resource response with Example:
 
 > Please note these examples of correct vs incorrect class naming:
-:x: Examples to avoid | :heavy_check_mark: Good class names
---- | ---
-pilot | Pilot
-Airplanes | Airplane 
-AirlineData | Airline
+> :x: Examples to avoid | :heavy_check_mark: Good class names
+> --- | ---
+> pilot | Pilot
+> Airplanes | Airplane 
+> AirlineData | Airline
 
 
 #### Lowercase class name
@@ -164,11 +164,11 @@ Level 3: Parametrized response:
 Level 4: Resource response with Example:
 
 > Please note these examples of correct vs incorrect class naming:
-:x: Examples to avoid | :heavy_check_mark: Good class names
---- | ---
-pilot | Pilot
-Airplanes | Airplane 
-AirlineData | Airline
+> :x: Examples to avoid | :heavy_check_mark: Good class names
+> --- | ---
+> pilot | Pilot
+> Airplanes | Airplane 
+> AirlineData | Airline
 
 
 #### Software engineering term
@@ -186,11 +186,11 @@ Level 3: Parametrized response:
 Level 4: Resource response with Example:
 
 > Please note these examples of correct vs incorrect class naming:
-:x: Examples to avoid | :heavy_check_mark: Good class names
---- | ---
-pilot | Pilot
-Airplanes | Airplane 
-AirlineData | Airline
+> :x: Examples to avoid | :heavy_check_mark: Good class names
+> --- | ---
+> pilot | Pilot
+> Airplanes | Airplane 
+> AirlineData | Airline
 
 
 #### Bad class name spelling

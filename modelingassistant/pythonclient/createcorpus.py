@@ -190,6 +190,10 @@ def generate_markdown():
         cn = clean(name)
         return (f'{hashes * "#"} {cn}' if hashes <= MAX_NUM_OF_HASHES_IN_HEADING else f'**{cn}**') + "\n\n"
 
+    def is_table(s: str) -> bool:
+        "Return True if the input string is a table."
+        return "|" in s and all("|" in line for line in s.splitlines()[2:-2])
+
     def make_mt_body(mt: MistakeType, indentation: int) -> str:
         "Return the Markdown body of the output."
         result = make_body_title(mt.description, indentation)
@@ -211,9 +215,16 @@ def generate_markdown():
                         result += f"""Parametrized response:\n\n{(2 * nl).join(
                             [f"> {f.text}" for f in mt.feedbacks if f.level == level])}\n\n"""
                     case ResourceResponse() as resp if resp.learningResources:
-                        result += f"""Resource response with {type(resp.learningResources[0]).__name__}:\n\n{(2 * nl)
-                            .join([f"> {f.learningResources[0].content}" for f in mt.feedbacks if f.level == level])
-                            }\n\n"""
+                        primary_rsc = resp.learningResources[0]
+                        rsc_type = type(primary_rsc).__name__
+                        if is_table(primary_rsc.content):
+                            result += f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
+                                [f"> {f.learningResources[0].content.replace(nl, nl + '> ')}"
+                                 for f in mt.feedbacks if f.level == level])}\n\n"""
+                        else:
+                            result += f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
+                                [f"> {f.learningResources[0].content}" for f in mt.feedbacks if f.level == level])
+                                }\n\n"""
         return result
 
     md = f'''{

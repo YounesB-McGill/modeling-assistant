@@ -3,7 +3,6 @@ Utility functions for the Modeling Assistant Python app.
 This module must not depend on any other to avoid circular dependencies.
 """
 
-from __future__ import annotations
 from types import SimpleNamespace
 from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
 
@@ -17,6 +16,11 @@ _mtc_subcats: dict[MistakeTypeCategory, list[MistakeTypeCategory]] = {}
 def color_str(color: str, text: str) -> str:
     "Return the given text in the given color, useful for printing to console."
     return f"{color}{text}{COLOR.ENDC}"
+
+
+def warn(text: str):
+    "Print a warning message to the console."
+    print(color_str(COLOR.ORANGE, text))
 
 
 def mtc(n, s=None, **kwargs) -> MistakeTypeCategory:
@@ -35,7 +39,7 @@ def mt(n, d="", **kwargs) -> MistakeType:
     d: description of the mistake type
     """
     if n == d:
-        print(f"Warning: name and description are identical for mistake type {n}")
+        warn(f"Warning: name and description are identical for mistake type {n}")
     if not d:
         d = n
     return MistakeType(name=n, description=d, **kwargs)
