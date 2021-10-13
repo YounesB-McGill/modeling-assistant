@@ -3,6 +3,7 @@ package ca.mcgill.sel.mistakedetection;
 import static ca.mcgill.sel.classdiagram.ReferenceType.AGGREGATION;
 import static ca.mcgill.sel.classdiagram.ReferenceType.COMPOSITION;
 import static ca.mcgill.sel.classdiagram.ReferenceType.REGULAR;
+import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_CLASS_SHOULD_BE_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_ENUM_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_FULL_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN;
@@ -11,37 +12,48 @@ import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_NOT_BE_S
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOC_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_ENUM_ITEM_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_ENUM_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ENUM;
+import static learningcorpus.mistaketypes.MistakeTypes.COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_ASSOC_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_FULL_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM_ITEM;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_AO_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_CONTAINMENT_TREE;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM_ITEM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN;
@@ -53,21 +65,33 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_AG
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
+import static modelingassistant.TagType.ABSTRACTION;
+import static modelingassistant.TagType.OCCURRENCE;
 import static modelingassistant.TagType.PLAYER;
 import static modelingassistant.TagType.ROLE;
+import static modelingassistant.util.ClassDiagramUtils.getAssociationsFromClassDiagram;
+import static modelingassistant.util.ClassDiagramUtils.getEnumFromClassDiagram;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -113,7 +137,7 @@ public class MistakeDetection {
   public static final int HIGH_PRIORITY = 3;
 
   /** The minimum number of roles and player required for a pattern match. */
-  public static final int MIN_MATCH_REQIUIRED = 2;
+  public static final int MIN_PR_MATCH_REQIUIRED = 2;
 
   public static final String SUB_CLASS_PR_PATTERN = "subClassPlayerRolePattern";
 
@@ -123,10 +147,15 @@ public class MistakeDetection {
 
   public static final String ASSOC_PR_PATTERN = "AssociationPlayerRolePattern";
 
+  public static final String ABSTRACTION_OCCURRENCE_PATTERN = "AbstractionOccurrencePattern";
+
   public static final String NO_PR_PATTERN_DETECTED = "NoPlayerRolePatternDetected";
 
   /** Cache to map nouns to true if they are plural, false otherwise. */
   static Map<String, Boolean> nounPluralStatus = new HashMap<String, Boolean>();
+
+  /** Cache to map verbs to true if they are verb, false otherwise. */
+  static Map<String, Boolean> verbStatus = new HashMap<String, Boolean>();
 
   /** The Stanford NLP Maximum Entropy Part-of-Speech Tagger. */
   private static MaxentTagger maxentTagger = getMaxentTagger();
@@ -190,6 +219,15 @@ public class MistakeDetection {
       if (possibleClassifierMatch == null) {
         continue;
       }
+
+      Classifier classToRemove = null;
+      if (priority == HIGH_PRIORITY && comparison.mappedClassifier.containsValue(possibleClassifierMatch)) {
+        classToRemove = getKey(comparison.mappedClassifier, possibleClassifierMatch);
+        comparison.mappedClassifier.remove(classToRemove);
+        comparison.notMappedInstructorClassifier.add(classToRemove);
+        comparison.extraStudentClassifier.add(possibleClassifierMatch);
+      }
+
       mapClasses(comparison, possibleClassifierMatch, instructorClassifier);
       checkMistakesInClassifier(possibleClassifierMatch, instructorClassifier, newMistakes);
 
@@ -222,15 +260,136 @@ public class MistakeDetection {
     // checkMistakeDuplicateAttributes();
     checkMistakeExtraAttribute(comparison);
     checkMistakeMissingAttribute(comparison);
-    checkMistakeWrongEnumerationItems(comparison);
+    checkMistakeMissingExtraEnum(comparison);
     // checkMistakeWrongAttribute();
     // checkMistakeAttributeMisplaced();
-    // checkMistakeIncompleteContainmentTree(studentClassifiers);
+    checkMistakeIncompleteContainmentTree(comparison, studentSolution.getClassDiagram());
     checkMistakeMissingAssociationCompositionAggregation(comparison);
-    checkMistakeExtraAssociation(comparison);
+    checkMistakeExtraAssociationCompositionAggregation(comparison);
 
     updateMistakes(instructorSolution, studentSolution, comparison);
     return comparison;
+  }
+
+  private static void checkMistakeIncompleteContainmentTree(Comparison comparison, ClassDiagram classDiagram) {
+
+    var studentClassifiers = classDiagram.getClasses();
+    if (studentClassifiers.size() < 2) {
+      return;
+    }
+    Map<Classifier, Integer> classCompositionCount = new HashMap<Classifier, Integer>();
+    EList<NamedElement> notComposedClasses = new BasicEList<NamedElement>();
+    for (Classifier studClass : studentClassifiers) {
+      classCompositionCount.put(studClass, 0);
+      notComposedClasses.add(studClass);
+      for (AssociationEnd assocEnd : studClass.getAssociationEnds()) {
+        if (assocEnd.getReferenceType().equals(COMPOSITION)) {
+          classCompositionCount.put(studClass, classCompositionCount.get(studClass) + 1);
+        }
+      }
+    }
+    Classifier ClassWithMostCompositions = null;
+    int maxValue = 0;
+    for (Classifier i : classCompositionCount.keySet()) {
+      if (classCompositionCount.get(i) > maxValue) {
+        ClassWithMostCompositions = i;
+        maxValue = classCompositionCount.get(i);
+      }
+    }
+    if (ClassWithMostCompositions == null) {
+      comparison.newMistakes.add(createMistake(INCOMPLETE_CONTAINMENT_TREE, notComposedClasses, null));
+      return;
+    }
+    Classifier rootClass = ClassWithMostCompositions;
+    List<Classifier> composedClasses = new ArrayList<Classifier>();
+    composedClasses.add(rootClass);
+    for (AssociationEnd assocEnd : rootClass.getAssociationEnds()) {
+      if (assocEnd.getReferenceType().equals(COMPOSITION)) {
+        composedClasses.add(getOtherAssocEnd(assocEnd).getClassifier());
+      }
+    }
+    for (Classifier studClass : studentClassifiers) {
+      if (composedClasses.contains(studClass)) {
+        continue;
+      }
+      for (AssociationEnd assocEnd : studClass.getAssociationEnds()) {
+        List<Association> associations =
+            getAssociationsFromClassDiagram(studClass, getOtherAssocEnd(assocEnd).getClassifier(), classDiagram);
+        if (includesComposition(associations) && composedClasses.contains(getOtherAssocEnd(assocEnd).getClassifier())) {
+          composedClasses.add(studClass);
+        }
+      }
+    }
+    if (!composedClasses.containsAll(studentClassifiers)) {
+      composedClasses.forEach(notComposedClasses::remove);
+      EList<NamedElement> notComposedClassesToRemove = new BasicEList<NamedElement>();
+      for (NamedElement cls : notComposedClasses) {
+        Classifier studClass = (Classifier) cls;
+        if (!studClass.getSuperTypes().isEmpty()) {
+          for (Classifier c : studClass.getSuperTypes()) {
+            if (composedClasses.contains(c)) {
+              notComposedClassesToRemove.add(cls);
+            }
+          }
+        }
+      }
+      notComposedClasses.removeAll(notComposedClassesToRemove);
+      for (Association assoc : classDiagram.getAssociations()) {
+        if (assoc.getAssociationClass() != null && notComposedClasses.contains(assoc.getAssociationClass())) {
+          notComposedClasses.remove(assoc.getAssociationClass());
+        }
+      }
+      if (!notComposedClasses.isEmpty()) {
+        comparison.newMistakes.add(createMistake(INCOMPLETE_CONTAINMENT_TREE, notComposedClasses, null));
+      }
+    }
+    checkMistakeContainedInMoreThanOneParent(rootClass, comparison, classDiagram);
+  }
+
+  private static void checkMistakeContainedInMoreThanOneParent(Classifier rootClass, Comparison comparison,
+      ClassDiagram classDiagram) {
+
+    List<Classifier> composedClasses = new ArrayList<Classifier>();
+    composedClasses.add(rootClass);
+    for (Association assoc : classDiagram.getAssociations()) {
+      for (AssociationEnd assocEnd : assoc.getEnds()) {
+        if (assocEnd.getReferenceType().equals(COMPOSITION)) {
+          composedClasses.add(getOtherAssocEnd(assocEnd).getClassifier());
+        }
+      }
+    }
+    Set<NamedElement> multiComposedClasses = new HashSet<>();
+    multiComposedClasses.addAll(findDuplicateInList(composedClasses));
+    EList<NamedElement> studClasses = new BasicEList<NamedElement>();
+    studClasses.addAll(multiComposedClasses);
+    if (!multiComposedClasses.isEmpty()) {
+      comparison.newMistakes.add(createMistake(COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, studClasses, null));
+    }
+  }
+
+  /** Return the set of duplicate elements. */
+  public static List<Classifier> findDuplicateInList(List<Classifier> list) {
+    return list.stream().filter(i -> Collections.frequency(list, i) > 1).collect(Collectors.toList());
+  }
+
+  private static boolean includesComposition(List<Association> associations) {
+    for (Association assoc : associations) {
+      for (AssociationEnd assocEnd : assoc.getEnds()) {
+        if (assocEnd.getReferenceType().equals(COMPOSITION)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  public static Classifier getKey(Map<Classifier, Classifier> map, Classifier value) {
+    for (Entry<Classifier, Classifier> entry : map.entrySet()) {
+      if (entry.getValue().equals(value)) {
+        return entry.getKey();
+      }
+    }
+    return null;
   }
 
   private static void mapEnumerations(Solution instructorSolution, Solution studentSolution, Comparison comparison) {
@@ -264,6 +423,7 @@ public class MistakeDetection {
       comparison.mappedEnumeration.put(instEnum, studEnum);
       comparison.notMappedInstructorEnum.remove(instEnum);
       comparison.extraStudentEnum.remove(studEnum);
+      checkMistakeBadEnumNameSpelling(studEnum, instEnum).ifPresent(comparison.newMistakes::add);
 
       for (CDEnumLiteral instEnumLiteral : instEnum.getLiterals()) {
         for (CDEnumLiteral studEnumLiteral : studEnum.getLiterals()) {
@@ -272,18 +432,11 @@ public class MistakeDetection {
             comparison.mappedEnumerationItems.put(instEnumLiteral, studEnumLiteral);
             comparison.notMappedInstructorEnumLiterals.remove(instEnumLiteral);
             comparison.extraStudentEnumLiterals.remove(studEnumLiteral);
+            checkMistakeBadEnumLiteralSpelling(studEnumLiteral, instEnumLiteral).ifPresent(comparison.newMistakes::add);
           }
         }
       }
     });
-  }
-
-  /**
-   * Returns an enumeration from class diagram.
-   */
-  public static CDEnum getEnumFromClassDiagram(String name, ClassDiagram classDiagram) {
-    return (CDEnum) classDiagram.getTypes().stream()
-        .filter(type -> type instanceof CDEnum && type.getName().equals(name)).findFirst().orElse(null);
   }
 
   private static void checkMistakesInAttributes(Attribute studentAttribute, Attribute instructorAttribute,
@@ -292,8 +445,8 @@ public class MistakeDetection {
     checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     checkMistakeAttributeSpelling(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
-    checkMistakePluralAtribName(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
-    checkMistakeUppercaseAtribName(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
+    checkMistakePluralAttribName(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
+    checkMistakeUppercaseAttribName(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
   }
 
   private static void checkMistakesInClassifier(Classifier studentClassifier, Classifier instructorClassifier,
@@ -304,7 +457,8 @@ public class MistakeDetection {
     checkMistakeLowerClassName(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
     checkMistakeRegularBeEnumerationClass(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
     checkMistakeEnumerationBeRegularClass(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
-    // checkMistakeWrongEnumerationClassItems(studentClassifier,instructorClassifier).ifPresent(newMistakes::add);
+    checkMistakeIncorrectClassNameButCorrectAttribRel(studentClassifier, instructorClassifier)
+        .ifPresent(newMistakes::add);
   }
 
   /**
@@ -322,7 +476,7 @@ public class MistakeDetection {
     for (TagGroup tg : instructorSolution.getTagGroups()) {
       for (Tag tag : tg.getTags()) {
         if (tag.getTagType().equals(PLAYER)) {
-          instPattern = checkPattern(tg);
+          instPattern = checkPRPattern(tg);
           if (instPattern.equals(FULL_PR_PATTERN)) {
             checkStudentFullPattern(tg, comparison, instPattern, studentSolution);
           } else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
@@ -334,7 +488,31 @@ public class MistakeDetection {
           }
           break;
         }
+        if (tag.getTagType().equals(ABSTRACTION)) {
+          checkStudentAOPattern(tg, comparison, studentSolution);
+          break;
+        }
       }
+    }
+  }
+
+  private static void checkStudentAOPattern(TagGroup tg, Comparison comparison, Solution studentSolution) {
+    EList<NamedElement> totalMatchesExpected = new BasicEList<NamedElement>();
+    int matchedElements = 0;
+    for (Tag tag : tg.getTags()) {
+      if (comparison.mappedClassifier.containsKey(tag.getSolutionElement().getElement())) {
+        if (tag.getTagType().equals(ABSTRACTION)
+            && comparison.mappedClassifier.get(tag.getSolutionElement().getElement()).isAbstract()
+            || tag.getTagType().equals(OCCURRENCE)) {
+          matchedElements++;
+        }
+      }
+      totalMatchesExpected.add(tag.getSolutionElement().getElement());
+    }
+    if (matchedElements == 0 && !totalMatchesExpected.isEmpty()) {
+      comparison.newMistakes.add(createMistake(MISSING_AO_PATTERN, null, totalMatchesExpected));
+    } else if (matchedElements != 0 && totalMatchesExpected.size() != matchedElements) {
+      createMistakeIncompleteAOPattern(tg, comparison);
     }
   }
 
@@ -352,10 +530,10 @@ public class MistakeDetection {
         studentMatchedElements.add(studentPlayerClass);
       } else if (tag.getTagType().equals(ROLE)
           && comparison.mappedAttribute.containsKey(tag.getSolutionElement().getElement())) {
-        Attribute atrib = (Attribute) tag.getSolutionElement().getElement();
-        studentMatchedElements.add(comparison.mappedAttribute.get(atrib));
+        Attribute attrib = (Attribute) tag.getSolutionElement().getElement();
+        studentMatchedElements.add(comparison.mappedAttribute.get(attrib));
         CDEnum enumClass =
-            getEnumFromClassDiagram(atrib.getType().getName(), tag.getTagGroup().getSolution().getClassDiagram());
+            getEnumFromClassDiagram(attrib.getType().getName(), tag.getTagGroup().getSolution().getClassDiagram());
         totalMatchesExpected = totalMatchesExpected + enumClass.getLiterals().size();
         for (CDEnumLiteral enumClassLiteral : enumClass.getLiterals()) {
           if (comparison.mappedEnumerationItems.containsKey(enumClassLiteral)) {
@@ -368,10 +546,10 @@ public class MistakeDetection {
       return;
     }
     if (totalMatched != totalMatchesExpected && totalMatched != 1) {
-      createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+      createMistakeIncompletePRPattern(tg, comparison);
       return;
-    } else if (MIN_MATCH_REQIUIRED < totalMatched && studentPlayerClass != null) {
-      createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+    } else if (MIN_PR_MATCH_REQIUIRED < totalMatched && studentPlayerClass != null) {
+      createMistakeIncompletePRPattern(tg, comparison);
       return;
     }
     if (studentPlayerClass != null) {
@@ -405,13 +583,13 @@ public class MistakeDetection {
     }
     if (totalMatched == totalMatcheExpected) {
       if (!assocPatternCorrect(studentPlayerClass, studentRoleAssocEnd)) {
-        createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+        createMistakeIncompletePRPattern(tg, comparison);
         return;
       } else {
         return;
       }
-    } else if (MIN_MATCH_REQIUIRED < totalMatched && studentPlayerClass != null) {
-      createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+    } else if (MIN_PR_MATCH_REQIUIRED < totalMatched && studentPlayerClass != null) {
+      createMistakeIncompletePRPattern(tg, comparison);
       return;
     }
     if (studentPlayerClass != null) {
@@ -476,21 +654,21 @@ public class MistakeDetection {
         return;
       }
       if (!studentAbstractClass.isAbstract()) {
-        createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+        createMistakeIncompletePRPattern(tg, comparison);
         return;
       }
       if (!subClassPatternCorrect(studentAbstractClass, studentRoleClasses)) {
-        createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+        createMistakeIncompletePRPattern(tg, comparison);
         return;
       } else {
         if (!assocExists(studentPlayerClass, studentAbstractClass)) {
-          createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+          createMistakeIncompletePRPattern(tg, comparison);
         } else {
           return;
         }
       }
-    } else if (MIN_MATCH_REQIUIRED <= totalMatched && studentPlayerClass != null && isStudentClassAbstract) {
-      createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+    } else if (MIN_PR_MATCH_REQIUIRED <= totalMatched && studentPlayerClass != null && isStudentClassAbstract) {
+      createMistakeIncompletePRPattern(tg, comparison);
       return;
     }
     if (studentPlayerClass != null) {
@@ -532,13 +710,13 @@ public class MistakeDetection {
             return;
           }
         }
-        createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+        createMistakeIncompletePRPattern(tg, comparison);
         return;
       } else {
         return;
       }
-    } else if (MIN_MATCH_REQIUIRED <= totalMatched && studentPlayerClass != null && !studentClassAbstract) {
-      createMistakeIncompletePattern(tg, studentMatchedElements, comparison);
+    } else if (MIN_PR_MATCH_REQIUIRED <= totalMatched && studentPlayerClass != null && !studentClassAbstract) {
+      createMistakeIncompletePRPattern(tg, comparison);
       return;
     }
     if (studentPlayerClass != null) {
@@ -761,7 +939,7 @@ public class MistakeDetection {
   /**
    * Returns the pattern detected in the instructor solution.
    */
-  public static String checkPattern(TagGroup tg) {
+  public static String checkPRPattern(TagGroup tg) {
     SolutionElement playerSolutionElement = null;
     List<SolutionElement> roleSolutionElements = new BasicEList<SolutionElement>();
     for (Tag tag : tg.getTags()) {
@@ -858,7 +1036,7 @@ public class MistakeDetection {
   private static void mapRelations(Comparison comparison) {
     comparison.mappedClassifier.forEach((key, value) -> compareAssocation(key, value, comparison));
     checkAssociationClassMappingWithNonAssociationClass(comparison);
-    comparison.classifiersToRemove.forEach(c -> comparison.mappedClassifier.remove(c));
+    comparison.assocClassifiersToRemove.forEach(c -> comparison.mappedClassifier.remove(c));
     comparison.assocClassMappingToAdd.forEach((key, value) -> {
       comparison.mappedClassifier.put(key, value);
       checkMistakesInClassifier(value, key, comparison.newMistakes);
@@ -952,7 +1130,6 @@ public class MistakeDetection {
 
   private static void checkAssociationClassMapping(Comparison comparison, Association studentClassifierAssoc,
       Association instructorClassifierAssoc) {
-
     if (studentClassifierAssoc.getAssociationClass() != null
         && instructorClassifierAssoc.getAssociationClass() != null) {
       Classifier studAssocClass = studentClassifierAssoc.getAssociationClass();
@@ -971,9 +1148,11 @@ public class MistakeDetection {
         && instructorClassifierAssoc.getAssociationClass() != null) {
       Classifier instAssocClass = instructorClassifierAssoc.getAssociationClass();
       if (comparison.mappedClassifier.containsKey(instAssocClass)) {
+        comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS,
+            comparison.mappedClassifier.get(instAssocClass), instAssocClass));
         comparison.extraStudentClassifier.add(comparison.mappedClassifier.get(instAssocClass));
         comparison.notMappedInstructorClassifier.add(instAssocClass);
-        comparison.classifiersToRemove.add(instAssocClass);
+        comparison.assocClassifiersToRemove.add(instAssocClass);
       }
     }
     if (studentClassifierAssoc.getAssociationClass() != null
@@ -984,7 +1163,9 @@ public class MistakeDetection {
         comparison.mappedClassifier.forEach((key, value) -> {
           if (value.equals(studAssocClass)) {
             comparison.notMappedInstructorClassifier.add(key);
-            comparison.classifiersToRemove.add(key);
+            comparison.assocClassifiersToRemove.add(key);
+            comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS, studAssocClass, key));
+            return;
           }
         });
       }
@@ -998,7 +1179,7 @@ public class MistakeDetection {
         Classifier instAssocClass = instAssoc.getAssociationClass();
         comparison.extraStudentClassifier.add(comparison.mappedClassifier.get(instAssocClass));
         comparison.notMappedInstructorClassifier.add(instAssocClass);
-        comparison.classifiersToRemove.add(instAssocClass);
+        comparison.assocClassifiersToRemove.add(instAssocClass);
       }
     }
 
@@ -1060,6 +1241,9 @@ public class MistakeDetection {
     checkMistakeUsingAggregationInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeUsingAggregationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeUsingCompositionInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeUsingDirectedInsteadOfUndirected(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeUsingUndirectedInsteadOfDirected(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeRepresentingActionWithAssoc(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeOtherWrongMultiplicity(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeMissingRoleName(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeRoleNameExpectedStactic(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
@@ -1075,30 +1259,30 @@ public class MistakeDetection {
     // TOOD work in progress(Location may be changed)
     // To map attribute like ticketNo with TicketNumber
     comparison.mappedClassifier.forEach((key, value) -> {
-      for (Attribute instAtrib : key.getAttributes()) {
-        for (Attribute studAtrib : value.getAttributes()) {
-          if (!comparison.mappedAttribute.containsKey(instAtrib)) {
-            if (studAtrib.getName().contains("ies")) { // TO deal with cases like companies and company
-              String name = studAtrib.getName();
+      for (Attribute instattrib : key.getAttributes()) {
+        for (Attribute studattrib : value.getAttributes()) {
+          if (!comparison.mappedAttribute.containsKey(instattrib)) {
+            if (studattrib.getName().contains("ies")) { // TO deal with cases like companies and company
+              String name = studattrib.getName();
               name = name.replaceAll("ies", "y");
-              if (name.equals(instAtrib.getName())) {
-                comparison.mappedAttribute.put(instAtrib, studAtrib);
-                comparison.notMappedInstructorAttribute.remove(instAtrib);
-                comparison.extraStudentAttribute.remove(studAtrib);
-                checkMistakePluralAtribName(studAtrib, instAtrib).ifPresent(comparison.newMistakes::add);
+              if (name.equals(instattrib.getName())) {
+                comparison.mappedAttribute.put(instattrib, studattrib);
+                comparison.notMappedInstructorAttribute.remove(instattrib);
+                comparison.extraStudentAttribute.remove(studattrib);
+                checkMistakePluralAttribName(studattrib, instattrib).ifPresent(comparison.newMistakes::add);
               }
               break;
             }
-            String[] atribNameSunStrings = studAtrib.getName().split("(?=\\p{Upper})");
-            for (String subString : atribNameSunStrings) {
-              if (instAtrib.getName().contains(subString)) {
-                comparison.mappedAttribute.put(instAtrib, studAtrib);
-                comparison.notMappedInstructorAttribute.remove(instAtrib);
-                comparison.extraStudentAttribute.remove(studAtrib);
-                if (isPlural(studAtrib.getName())) {
-                  comparison.newMistakes.add(createMistake(PLURAL_ATTRIBUTE, studAtrib, instAtrib));
+            String[] attribNameSunStrings = studattrib.getName().split("(?=\\p{Upper})");
+            for (String subString : attribNameSunStrings) {
+              if (instattrib.getName().contains(subString)) {
+                comparison.mappedAttribute.put(instattrib, studattrib);
+                comparison.notMappedInstructorAttribute.remove(instattrib);
+                comparison.extraStudentAttribute.remove(studattrib);
+                if (isPlural(studattrib.getName())) {
+                  comparison.newMistakes.add(createMistake(PLURAL_ATTRIBUTE, studattrib, instattrib));
                 } else {
-                  comparison.newMistakes.add(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, studAtrib, instAtrib));
+                  comparison.newMistakes.add(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, studattrib, instattrib));
                 }
                 break;
               }
@@ -1163,7 +1347,6 @@ public class MistakeDetection {
     // List containing mistakes associated with a student Solution
     var existingMistakes = studentSolution.getMistakes();
     var newMistakes = comparison.newMistakes;
-
     existingMistakes.forEach(setSolutionForElems);
     newMistakes.forEach(setSolutionForElems);
 
@@ -1171,36 +1354,10 @@ public class MistakeDetection {
     EList<Mistake> existingMistakesProcessed = new BasicEList<Mistake>();
     // List containing new mistakes that are already present in a solution (i.e existingMistakes)
     EList<Mistake> newMistakesProcessed = new BasicEList<Mistake>();
-    EList<Mistake> newMistakesToRemove = new BasicEList<Mistake>();
-    EList<MistakeType> patternMistakeTypes = new BasicEList<MistakeType>();
-    patternMistakeTypes
-        .addAll(List.of(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, ASSOC_SHOULD_BE_FULL_PR_PATTERN,
-            ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, ENUM_SHOULD_BE_ASSOC_PR_PATTERN,
-            ENUM_SHOULD_BE_FULL_PR_PATTERN, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN,
-            FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM,
-            FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN,
-            SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, INCOMPLETE_PR_PATTERN));
 
     // Condition when only new mistakes exists.
     if (existingMistakes.size() == 0 && newMistakes.size() != 0) {
-      if (mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
-        var patternStudentElement = getPatternStudentElements(newMistakes, patternMistakeTypes);
-        for (Mistake newMistake : newMistakes) {
-          if (!newMistake.getStudentElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
-              && patternStudentElement.contains(newMistake.getStudentElements().get(0).getElement())) {
-            newMistakesToRemove.add(newMistake);
-            continue;
-          }
-          setMistakeProperties(newMistake, false, 1, 0);
-          newMistake.setSolution(studentSolution);
-        }
-        newMistakes.removeAll(newMistakesToRemove);
-      } else {
-        for (Mistake newMistake : newMistakes) {
-          setMistakeProperties(newMistake, false, 1, 0);
-          newMistake.setSolution(studentSolution);
-        }
-      }
+      updateNewMistakes(newMistakes, studentSolution);
     } else if (!existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
       for (Mistake existingMistake : existingMistakes) {
         for (Mistake newMistake : newMistakes) {
@@ -1229,12 +1386,10 @@ public class MistakeDetection {
           }
         }
       }
-      for (Mistake newMistake : newMistakes) {
-        if (!newMistakesProcessed.contains(newMistake)) {
-          setMistakeProperties(newMistake, false, 1, 0);
-          newMistake.setSolution(studentSolution);
-        }
-      }
+      EList<Mistake> newUnProcessedMistakes = new BasicEList<Mistake>();
+      newUnProcessedMistakes.addAll(newMistakes);
+      newUnProcessedMistakes.removeAll(newMistakesProcessed);
+      updateNewMistakes(newUnProcessedMistakes, studentSolution);
       for (int i = 0; i < existingMistakes.size(); i++) {
         if (!existingMistakesProcessed.contains(existingMistakes.get(i))) {
           if (existingMistakes.get(i).getNumSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION
@@ -1262,9 +1417,31 @@ public class MistakeDetection {
     }
   }
 
+  private static void updateNewMistakes(EList<Mistake> newMistakes, Solution studentSolution) {
+
+    var patternMistakeTypes =
+        List.of(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, ASSOC_SHOULD_BE_FULL_PR_PATTERN, ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN,
+            ENUM_SHOULD_BE_ASSOC_PR_PATTERN, ENUM_SHOULD_BE_FULL_PR_PATTERN, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN,
+            FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM, FULL_PR_PATTERN_SHOULD_BE_SUBCLASS,
+            SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, INCOMPLETE_PR_PATTERN);
+    EList<MistakeType> containmentMistakeTypes = new BasicEList<MistakeType>();
+    containmentMistakeTypes
+        .addAll(List.of(INCOMPLETE_CONTAINMENT_TREE, COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT));
+
+    if (mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
+      updateMistakesInvolvingPattern(newMistakes, patternMistakeTypes, studentSolution);
+    } // TODO ADD For containment Mistake
+    else {
+      for (Mistake newMistake : newMistakes) {
+        setMistakeProperties(newMistake, false, 1, 0);
+        newMistake.setSolution(studentSolution);
+      }
+    }
+  }
+
   /** Returns student solution elements for a pattern. */
   private static EList<NamedElement> getPatternStudentElements(EList<Mistake> newMistakes,
-      EList<MistakeType> patternMistakeTypes) {
+      List<MistakeType> patternMistakeTypes) {
     EList<NamedElement> patternSolutionElements = new BasicEList<NamedElement>();
     for (Mistake m : newMistakes) {
       if (patternMistakeTypes.contains(m.getMistakeType())) {
@@ -1277,8 +1454,45 @@ public class MistakeDetection {
   }
 
   /** Checks if mistake type related to patterns exists in detected mistakes. */
-  private static boolean mistakesInvolvePattern(EList<Mistake> newMistakes, EList<MistakeType> patternMistakeTypes) {
+  private static boolean mistakesInvolvePattern(EList<Mistake> newMistakes, List<MistakeType> patternMistakeTypes) {
     return newMistakes.stream().anyMatch(m -> patternMistakeTypes.contains(m.getMistakeType()));
+  }
+
+  private static void updateMistakesInvolvingPattern(EList<Mistake> newMistakes, List<MistakeType> patternMistakeTypes,
+      Solution studentSolution) {
+    EList<Mistake> newMistakesToRemove = new BasicEList<Mistake>();
+    var patternStudentElement = getPatternStudentElements(newMistakes, patternMistakeTypes);
+    for (Mistake newMistake : newMistakes) {
+      if (!newMistake.getStudentElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
+          && patternStudentElement.contains(newMistake.getStudentElements().get(0).getElement())) {
+        newMistakesToRemove.add(newMistake);
+        continue;
+      }
+      setMistakeProperties(newMistake, false, 1, 0);
+      newMistake.setSolution(studentSolution);
+    }
+    newMistakes.removeAll(newMistakesToRemove);
+  }
+
+  // TODO IN Progress
+  private static void updateMistakesInvolvingContainment(EList<Mistake> newMistakes,
+      EList<MistakeType> containmentMistakeTypes, Solution studentSolution) {
+    EList<Mistake> newMistakesToRemove = new BasicEList<Mistake>();
+    var containmentStudentElement = getPatternStudentElements(newMistakes, containmentMistakeTypes);
+    for (Mistake newMistake : newMistakes) {
+      if (!newMistake.getStudentElements().isEmpty() && !containmentMistakeTypes.contains(newMistake.getMistakeType())
+          && containmentStudentElement.contains(newMistake.getStudentElements().get(0).getElement())) {
+        newMistakesToRemove.add(newMistake);
+        continue;
+      }
+      setMistakeProperties(newMistake, false, 1, 0);
+      newMistake.setSolution(studentSolution);
+    }
+    System.out.println("Removed");
+    newMistakesToRemove.forEach(key -> {
+      System.out.println(key.getMistakeType());
+    });
+    newMistakes.removeAll(newMistakesToRemove);
   }
 
   /**
@@ -1448,9 +1662,12 @@ public class MistakeDetection {
           counter++;
           if (possibleMatch != null) {
             mapClasses(comparison, possibleMatch, instructorClassifier);
+            checkMistakesInClassifier(possibleMatch, instructorClassifier, comparison.newMistakes);
           } else {
-            mapClasses(comparison, classWithAssociationEndsMatch(sortedClosestClasssifier, instructorClassifier),
+            Classifier sClass = classWithAssociationEndsMatch(sortedClosestClasssifier, instructorClassifier);
+            mapClasses(comparison, sClass,
                 instructorClassifier);
+            checkMistakesInClassifier(sClass, instructorClassifier, comparison.newMistakes);
           }
         }
         if (totalAttributes == 0) {
@@ -1691,16 +1908,26 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-  public static Optional<Mistake> checkMistakePluralAtribName(Attribute studentAtrib, Attribute instructorAtrib) {
-    if (isPlural(studentAtrib.getName())) {
-      return Optional.of(createMistake(PLURAL_ATTRIBUTE, studentAtrib, instructorAtrib));
+  public static Optional<Mistake> checkMistakeIncorrectClassNameButCorrectAttribRel(Classifier studentClass,
+      Classifier instructorClass) {
+    int lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
+    if (!isPlural(studentClass.getName()) && !isSoftwareEngineeringTerm(studentClass.getName())
+        && lDistance > MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+      return Optional.of(createMistake(WRONG_CLASS_NAME, studentClass, instructorClass));
     }
     return Optional.empty();
   }
 
-  public static Optional<Mistake> checkMistakeUppercaseAtribName(Attribute studentAtrib, Attribute instructorAtrib) {
-    if (startsWithUppercase(studentAtrib.getName())) {
-      return Optional.of(createMistake(UPPERCASE_ATTRIBUTE_NAME, studentAtrib, instructorAtrib));
+  public static Optional<Mistake> checkMistakePluralAttribName(Attribute studentattrib, Attribute instructorattrib) {
+    if (isPlural(studentattrib.getName())) {
+      return Optional.of(createMistake(PLURAL_ATTRIBUTE, studentattrib, instructorattrib));
+    }
+    return Optional.empty();
+  }
+
+  public static Optional<Mistake> checkMistakeUppercaseAttribName(Attribute studentattrib, Attribute instructorattrib) {
+    if (startsWithUppercase(studentattrib.getName())) {
+      return Optional.of(createMistake(UPPERCASE_ATTRIBUTE_NAME, studentattrib, instructorattrib));
     }
     return Optional.empty();
   }
@@ -1709,15 +1936,6 @@ public class MistakeDetection {
     if (spellingMistakeCheck(studentClass.getName(), instructorClass.getName()) && !isPlural(studentClass.getName())
         && !isLowerName(studentClass.getName())) {
       return Optional.of(createMistake(BAD_CLASS_NAME_SPELLING, studentClass, instructorClass));
-    }
-    return Optional.empty();
-  }
-
-  public static Optional<Mistake> checkMistakeSimilarYetIncorrectClassName(Classifier studentClass,
-      Classifier instructorClass) {
-    int lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
-    if (lDistance != 0) {
-      return Optional.of(createMistake(SIMILAR_CLASS_NAME, studentClass, instructorClass));
     }
     return Optional.empty();
   }
@@ -1845,6 +2063,32 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
+  public static Optional<Mistake> checkMistakeUsingDirectedInsteadOfUndirected(AssociationEnd studentClassAssocEnd,
+      AssociationEnd instructorClassAssocEnd) {
+    if (isUsingDirectedInsteadOfUndirected(studentClassAssocEnd, instructorClassAssocEnd)) {
+      return Optional
+          .of(createMistake(USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED, studentClassAssocEnd, instructorClassAssocEnd));
+    }
+    return Optional.empty();
+  }
+
+  public static Optional<Mistake> checkMistakeUsingUndirectedInsteadOfDirected(AssociationEnd studentClassAssocEnd,
+      AssociationEnd instructorClassAssocEnd) {
+    if (isUsingUndirectedInsteadOfDirected(studentClassAssocEnd, instructorClassAssocEnd)) {
+      return Optional
+          .of(createMistake(USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED, studentClassAssocEnd, instructorClassAssocEnd));
+    }
+    return Optional.empty();
+  }
+
+  public static Optional<Mistake> checkMistakeRepresentingActionWithAssoc(AssociationEnd studentClassAssocEnd,
+      AssociationEnd instructorClassAssocEnd) {
+    if (!isVerb(instructorClassAssocEnd.getName()) && isVerb(studentClassAssocEnd.getName())) {
+      return Optional.of(createMistake(REPRESENTING_ACTION_WITH_ASSOC, studentClassAssocEnd, instructorClassAssocEnd));
+    }
+    return Optional.empty();
+  }
+
   public static Optional<Mistake> checkMistakeOtherWrongMultiplicity(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (!associationEndMultiplicityMatch(studentClassAssocEnd, instructorClassAssocEnd)) {
@@ -1881,6 +2125,21 @@ public class MistakeDetection {
       AssociationEnd instructorClassAssocEnd) {
     if (spellingMistakeCheck(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName())) {
       return Optional.of(createMistake(BAD_ROLE_NAME_SPELLING, studentClassAssocEnd, instructorClassAssocEnd));
+    }
+    return Optional.empty();
+  }
+
+  public static Optional<Mistake> checkMistakeBadEnumNameSpelling(CDEnum studentEnum, CDEnum instructorEnum) {
+    if (spellingMistakeCheck(studentEnum.getName(), instructorEnum.getName())) {
+      return Optional.of(createMistake(BAD_ENUM_NAME_SPELLING, studentEnum, instructorEnum));
+    }
+    return Optional.empty();
+  }
+
+  public static Optional<Mistake> checkMistakeBadEnumLiteralSpelling(CDEnumLiteral studentEnumLiteral,
+      CDEnumLiteral instructorEnumLiteral) {
+    if (spellingMistakeCheck(studentEnumLiteral.getName(), instructorEnumLiteral.getName())) {
+      return Optional.of(createMistake(BAD_ENUM_ITEM_SPELLING, studentEnumLiteral, instructorEnumLiteral));
     }
     return Optional.empty();
   }
@@ -1931,6 +2190,11 @@ public class MistakeDetection {
   public static void checkMistakeMissingAssociationClass(Association studentClassAssoc,
       Association instructorClassAssoc, EList<Mistake> newMistakes) {
     if (isAssociationClassMissing(studentClassAssoc, instructorClassAssoc)) {
+      for (Mistake m : mistakeForElement(instructorClassAssoc.getAssociationClass(), newMistakes)) {
+        if (m.getMistakeType().equals(CLASS_SHOULD_BE_ASSOC_CLASS)) {
+          return;
+        }
+      }
       removeMistakesRelatedToElement(instructorClassAssoc.getAssociationClass(), newMistakes);
       newMistakes.add(createMistake(MISSING_ASSOC_CLASS, studentClassAssoc.getAssociationClass(),
           instructorClassAssoc.getAssociationClass()));
@@ -1941,6 +2205,11 @@ public class MistakeDetection {
   public static void checkMistakeExtraAssociationClass(Association studentClassAssoc, Association instructorClassAssoc,
       EList<Mistake> newMistakes) {
     if (isAssociationClassExtra(studentClassAssoc, instructorClassAssoc)) {
+      for (Mistake m : mistakeForElement(studentClassAssoc.getAssociationClass(), newMistakes)) {
+        if (m.getMistakeType().equals(ASSOC_CLASS_SHOULD_BE_CLASS)) {
+          return;
+        }
+      }
       removeMistakesRelatedToElement(studentClassAssoc.getAssociationClass(), newMistakes);
       newMistakes.add(createMistake(EXTRA_ASSOC_CLASS, studentClassAssoc.getAssociationClass(),
           instructorClassAssoc.getAssociationClass()));
@@ -1991,12 +2260,17 @@ public class MistakeDetection {
         .forEach(cls -> comparison.newMistakes.add(createMistake(MISSING_ATTRIBUTE, null, cls)));
   }
 
-  public static void checkMistakeWrongEnumerationItems(Comparison comparison) {
+  public static void checkMistakeMissingExtraEnum(Comparison comparison) {
     comparison.notMappedInstructorEnumLiterals
+        .forEach(cls -> comparison.newMistakes.add(createMistake(MISSING_ENUM_ITEM, null, cls)));
+
+    comparison.notMappedInstructorEnum
         .forEach(cls -> comparison.newMistakes.add(createMistake(MISSING_ENUM, null, cls)));
 
     comparison.extraStudentEnumLiterals
-        .forEach(cls -> comparison.newMistakes.add(createMistake(EXTRA_ENUM, cls, null)));
+        .forEach(cls -> comparison.newMistakes.add(createMistake(EXTRA_ENUM_ITEM, cls, null)));
+
+    comparison.extraStudentEnum.forEach(cls -> comparison.newMistakes.add(createMistake(EXTRA_ENUM, cls, null)));
 
 
   }
@@ -2025,9 +2299,17 @@ public class MistakeDetection {
     }
   }
 
-  public static void checkMistakeExtraAssociation(Comparison comparison) {
+  public static void checkMistakeExtraAssociationCompositionAggregation(Comparison comparison) {
     for (Association association : comparison.extraStudentAssociation) {
-      comparison.newMistakes.add(createMistake(EXTRA_ASSOCIATION, association, null));
+      if (association.getEnds().get(0).getReferenceType().equals(COMPOSITION)
+          || association.getEnds().get(1).getReferenceType().equals(COMPOSITION)) {
+        comparison.newMistakes.add(createMistake(EXTRA_COMPOSITION, association, null));
+      } else if (association.getEnds().get(0).getReferenceType().equals(AGGREGATION)
+          || association.getEnds().get(1).getReferenceType().equals(AGGREGATION)) {
+        comparison.newMistakes.add(createMistake(EXTRA_AGGREGATION, association, null));
+      } else {
+        comparison.newMistakes.add(createMistake(EXTRA_ASSOCIATION, association, null));
+      }
       if (association.getAssociationClass() != null) {
         removeMistakesRelatedToElement(association.getAssociationClass(), comparison.newMistakes);
         comparison.newMistakes.add(createMistake(EXTRA_ASSOC_CLASS, association.getAssociationClass(), null));
@@ -2043,8 +2325,7 @@ public class MistakeDetection {
     comparison.newMistakes.add(createMistake(MISSING_PR_PATTERN, null, missingElements));
   }
 
-  public static void createMistakeIncompletePattern(TagGroup tg, EList<NamedElement> matchedElements,
-      Comparison comparison) {
+  public static void createMistakeIncompletePRPattern(TagGroup tg, Comparison comparison) {
     EList<NamedElement> studentMissingElements = new BasicEList<NamedElement>();
     EList<NamedElement> instructorElements = new BasicEList<NamedElement>();
     for (Tag tag : tg.getTags()) {
@@ -2053,61 +2334,63 @@ public class MistakeDetection {
         studentMissingElements.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
       }
     }
-    comparison.newMistakes
-        .add(createMistake(INCOMPLETE_PR_PATTERN, studentMissingElements, instructorElements));
+    comparison.newMistakes.add(createMistake(INCOMPLETE_PR_PATTERN, studentMissingElements, instructorElements));
   }
 
+  public static void createMistakeIncompleteAOPattern(TagGroup tg, Comparison comparison) {
+    EList<NamedElement> studentMissingElements = new BasicEList<NamedElement>();
+    EList<NamedElement> instructorElements = new BasicEList<NamedElement>();
+    for (Tag tag : tg.getTags()) {
+      instructorElements.add(tag.getSolutionElement().getElement());
+      if (comparison.mappedClassifier.containsKey(tag.getSolutionElement().getElement())) {
+        studentMissingElements.add(comparison.mappedClassifier.get(tag.getSolutionElement().getElement()));
+      }
+    }
+    comparison.newMistakes.add(createMistake(INCOMPLETE_AO_PATTERN, studentMissingElements, instructorElements));
+  }
+
+
   public static void checkMistakeUsingEnumPattern(String instPattern, EList<NamedElement> studentElements,
-      EList<NamedElement> isntElements, Comparison comparison) {
+      EList<NamedElement> instElements, Comparison comparison) {
     if (instPattern.equals(ASSOC_PR_PATTERN)) {
-      comparison.newMistakes
-          .add(createMistake(ENUM_SHOULD_BE_ASSOC_PR_PATTERN, studentElements, isntElements));
+      comparison.newMistakes.add(createMistake(ENUM_SHOULD_BE_ASSOC_PR_PATTERN, studentElements, instElements));
     } else if (instPattern.equals(FULL_PR_PATTERN)) {
-      comparison.newMistakes.add(createMistake(ENUM_SHOULD_BE_FULL_PR_PATTERN, studentElements, isntElements));
+      comparison.newMistakes.add(createMistake(ENUM_SHOULD_BE_FULL_PR_PATTERN, studentElements, instElements));
     } else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
-      comparison.newMistakes
-          .add(createMistake(ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, studentElements, isntElements));
+      comparison.newMistakes.add(createMistake(ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, studentElements, instElements));
     }
   }
 
   public static void checkMistakeUsingFullPattern(String instPattern, EList<NamedElement> studentElements,
-      EList<NamedElement> isntElements, Comparison comparison) {
+      EList<NamedElement> instElements, Comparison comparison) {
     if (instPattern.equals(ASSOC_PR_PATTERN)) {
-      comparison.newMistakes
-          .add(createMistake(FULL_PR_PATTERN_SHOULD_BE_ASSOC, studentElements, isntElements));
+      comparison.newMistakes.add(createMistake(FULL_PR_PATTERN_SHOULD_BE_ASSOC, studentElements, instElements));
     } else if (instPattern.equals(ENUM_PR_PATTERN)) {
-      comparison.newMistakes.add(createMistake(FULL_PR_PATTERN_SHOULD_BE_ENUM, studentElements, isntElements));
+      comparison.newMistakes.add(createMistake(FULL_PR_PATTERN_SHOULD_BE_ENUM, studentElements, instElements));
     } else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
-      comparison.newMistakes
-          .add(createMistake(FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, studentElements, isntElements));
+      comparison.newMistakes.add(createMistake(FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, studentElements, instElements));
     }
   }
 
   public static void checkMistakeUsingSubclassPattern(String instPattern, EList<NamedElement> studentElements,
-      EList<NamedElement> isntElements, Comparison comparison) {
+      EList<NamedElement> instElements, Comparison comparison) {
     if (instPattern.equals(ASSOC_PR_PATTERN)) {
-      comparison.newMistakes
-          .add(createMistake(SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, studentElements, isntElements));
+      comparison.newMistakes.add(createMistake(SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, studentElements, instElements));
     } else if (instPattern.equals(FULL_PR_PATTERN)) {
-      comparison.newMistakes
-          .add(createMistake(SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, studentElements, isntElements));
+      comparison.newMistakes.add(createMistake(SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, studentElements, instElements));
     } else if (instPattern.equals(ENUM_PR_PATTERN)) {
-      comparison.newMistakes
-          .add(createMistake(SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, studentElements, isntElements));
+      comparison.newMistakes.add(createMistake(SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, studentElements, instElements));
     }
   }
 
   public static void checkMistakeUsingAssocPattern(String instPattern, EList<NamedElement> studentElements,
-      EList<NamedElement> isntElements, Comparison comparison) {
+      EList<NamedElement> instElements, Comparison comparison) {
     if (instPattern.equals(ENUM_PR_PATTERN)) {
-      comparison.newMistakes
-          .add(createMistake(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, studentElements, isntElements));
+      comparison.newMistakes.add(createMistake(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, studentElements, instElements));
     } else if (instPattern.equals(FULL_PR_PATTERN)) {
-      comparison.newMistakes
-          .add(createMistake(ASSOC_SHOULD_BE_FULL_PR_PATTERN, studentElements, isntElements));
+      comparison.newMistakes.add(createMistake(ASSOC_SHOULD_BE_FULL_PR_PATTERN, studentElements, instElements));
     } else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
-      comparison.newMistakes
-          .add(createMistake(ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, studentElements, isntElements));
+      comparison.newMistakes.add(createMistake(ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, studentElements, instElements));
     }
   }
 
@@ -2132,9 +2415,7 @@ public class MistakeDetection {
     if (nounPluralStatus.containsKey(s)) {
       return nounPluralStatus.get(s);
     } else {
-      String taggerInput = s;
-      taggerInput = taggerInput.toLowerCase(); // Tagger works on lower case string
-      String tagged = maxentTagger.tagString(taggerInput);
+      String tagged = taggerOut(s);
       String[] str = tagged.split("(_|/)");
       String pluralTag = "NNS";
       if (str[1].contains(pluralTag)) {
@@ -2143,6 +2424,33 @@ public class MistakeDetection {
       nounPluralStatus.put(s, isPlural);
     }
     return isPlural;
+  }
+
+  /**
+   * Returns true if the input string is a verb.
+   */
+  public static boolean isVerb(String s) {
+    boolean isVerb = false;
+
+    if (verbStatus.containsKey(s)) {
+      return verbStatus.get(s);
+    } else {
+      String tagged = taggerOut(s);
+      String[] str = tagged.split("(_|/)");
+      char verbTag = 'V';
+      if (str[1].charAt(0) == verbTag) {
+        isVerb = true;
+      }
+      verbStatus.put(s, isVerb);
+    }
+    return isVerb;
+  }
+
+  public static String taggerOut(String s) {
+    String taggerInput = s;
+    taggerInput = taggerInput.toLowerCase(); // Tagger works on lower case string
+    String tagged = maxentTagger.tagString(taggerInput);
+    return tagged;
   }
 
   public static boolean isLowerName(String name) {
@@ -2210,6 +2518,16 @@ public class MistakeDetection {
   public static boolean isUsingCompositionInsteadOfAggregation(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, COMPOSITION, AGGREGATION);
+  }
+
+  public static boolean isUsingDirectedInsteadOfUndirected(AssociationEnd studentClassAssocEnd,
+      AssociationEnd instructorClassAssocEnd) {
+    return instructorClassAssocEnd.isNavigable() && !studentClassAssocEnd.isNavigable();
+  }
+
+  public static boolean isUsingUndirectedInsteadOfDirected(AssociationEnd studentClassAssocEnd,
+      AssociationEnd instructorClassAssocEnd) {
+    return !instructorClassAssocEnd.isNavigable() && studentClassAssocEnd.isNavigable();
   }
 
   public static boolean associationEndAssociationPropertyMatch(AssociationEnd studentClassAssocEnd,
@@ -2303,18 +2621,20 @@ public class MistakeDetection {
   private static Mistake createMistake(MistakeType mistakeType, EList<NamedElement> studentElements,
       EList<NamedElement> instructorElements) {
     var mistake = MAF.createMistakeOfType(mistakeType);
-
-    studentElements.forEach(se -> {
-      var solutionElement = MAF.createSolutionElement();
-      solutionElement.setElement(se);
-      mistake.getStudentElements().add(solutionElement);
-    });
-    instructorElements.forEach(ie -> {
-      var solutionElement = MAF.createSolutionElement();
-      solutionElement.setElement(ie);
-      mistake.getInstructorElements().add(solutionElement);
-    });
-
+    if (studentElements != null) {
+      studentElements.forEach(se -> {
+        var solutionElement = MAF.createSolutionElement();
+        solutionElement.setElement(se);
+        mistake.getStudentElements().add(solutionElement);
+      });
+    }
+    if (instructorElements != null) {
+      instructorElements.forEach(ie -> {
+        var solutionElement = MAF.createSolutionElement();
+        solutionElement.setElement(ie);
+        mistake.getInstructorElements().add(solutionElement);
+      });
+    }
     return mistake;
   }
 

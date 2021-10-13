@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_O57FQCRPEeyCTbtvBIQyIw" name="InstructorSolution2" featureModel="_O57FQSRPEeyCTbtvBIQyIw" impactModel="_O57FQyRPEeyCTbtvBIQyIw">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_O57FQSRPEeyCTbtvBIQyIw" root="_O57FQiRPEeyCTbtvBIQyIw">
+    <features xmi:id="_O57FQiRPEeyCTbtvBIQyIw" name="InstructorSolution2" realizedBy="_Pe-6ISRPEeyCTbtvBIQyIw"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_O57FQyRPEeyCTbtvBIQyIw" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_Pe-6ICRPEeyCTbtvBIQyIw" name="InstructorSolution2" scene="_Pe-6ISRPEeyCTbtvBIQyIw" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/InstructorSolution2.domain_model.cdm#_Pe_hMCRPEeyCTbtvBIQyIw"/>
+  </artefacts>
+  <scenes xmi:id="_Pe-6ISRPEeyCTbtvBIQyIw" name="InstructorSolution2" realizes="_O57FQiRPEeyCTbtvBIQyIw" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_Pe-6IiRPEeyCTbtvBIQyIw" value="_Pe-6ICRPEeyCTbtvBIQyIw" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

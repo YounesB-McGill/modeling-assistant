@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_84TuUBGUEeyPB-4HHx3IGg" name="IncompleteContainmentTree">
+  <classes xsi:type="classdiagram:Class" xmi:id="_9S28UBGUEeyPB-4HHx3IGg" name="Root">
+    <associationEnds xmi:id="_AyqrERGVEeyPB-4HHx3IGg" name="myClass1" assoc="_AyqrEhGVEeyPB-4HHx3IGg" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_BEurcRGVEeyPB-4HHx3IGg" name="myClass2" assoc="_BEvSgBGVEeyPB-4HHx3IGg" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_BT_PcRGVEeyPB-4HHx3IGg" name="myClass3" assoc="_BT_PchGVEeyPB-4HHx3IGg" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_mu4joRGVEeyPB-4HHx3IGg" name="myClass8" assoc="_mu4johGVEeyPB-4HHx3IGg" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_-OVGEBGUEeyPB-4HHx3IGg" name="Cls1">
+    <associationEnds xmi:id="_AyqrEBGVEeyPB-4HHx3IGg" name="myRoot" assoc="_AyqrEhGVEeyPB-4HHx3IGg" lowerBound="1"/>
+    <associationEnds xmi:id="_flGdgRGVEeyPB-4HHx3IGg" name="myClass4" assoc="_flGdghGVEeyPB-4HHx3IGg" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_--61gBGUEeyPB-4HHx3IGg" name="Cls2">
+    <associationEnds xmi:id="_BEurcBGVEeyPB-4HHx3IGg" name="myRoot" assoc="_BEvSgBGVEeyPB-4HHx3IGg" lowerBound="1"/>
+    <associationEnds xmi:id="_hD1FUBGVEeyPB-4HHx3IGg" name="myClass5" assoc="_hD1FURGVEeyPB-4HHx3IGg" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_iZq24RGVEeyPB-4HHx3IGg" name="myClass6" assoc="_iZq24hGVEeyPB-4HHx3IGg" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="__zr6UBGUEeyPB-4HHx3IGg" name="Cls3">
+    <associationEnds xmi:id="_BT_PcBGVEeyPB-4HHx3IGg" name="myRoot" assoc="_BT_PchGVEeyPB-4HHx3IGg" lowerBound="1"/>
+    <associationEnds xmi:id="_ki_64RGVEeyPB-4HHx3IGg" name="myClass7" assoc="_ki_64hGVEeyPB-4HHx3IGg" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_erPdUBGVEeyPB-4HHx3IGg" name="Cls4">
+    <associationEnds xmi:id="_flGdgBGVEeyPB-4HHx3IGg" name="myClass1" assoc="_flGdghGVEeyPB-4HHx3IGg" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_gIEAoBGVEeyPB-4HHx3IGg" name="Cl5">
+    <associationEnds xmi:id="_hD0eQBGVEeyPB-4HHx3IGg" name="myClass2" assoc="_hD1FURGVEeyPB-4HHx3IGg" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_hi_tkBGVEeyPB-4HHx3IGg" name="Cls6">
+    <associationEnds xmi:id="_iZq24BGVEeyPB-4HHx3IGg" name="myClass2" assoc="_iZq24hGVEeyPB-4HHx3IGg" lowerBound="1"/>
+    <associationEnds xmi:id="_kC43cRGVEeyPB-4HHx3IGg" name="myClass7" assoc="_kC43chGVEeyPB-4HHx3IGg" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_i_gH0BGVEeyPB-4HHx3IGg" name="Cls7">
+    <associationEnds xmi:id="_kC43cBGVEeyPB-4HHx3IGg" name="myClass6" assoc="_kC43chGVEeyPB-4HHx3IGg" lowerBound="1"/>
+    <associationEnds xmi:id="_ki_64BGVEeyPB-4HHx3IGg" name="myClass3" assoc="_ki_64hGVEeyPB-4HHx3IGg" lowerBound="1"/>
+    <associationEnds xmi:id="_mMOigRGVEeyPB-4HHx3IGg" name="myClass8" assoc="_mMOighGVEeyPB-4HHx3IGg" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_lIMSoBGVEeyPB-4HHx3IGg" name="Cls8">
+    <associationEnds xmi:id="_mMOigBGVEeyPB-4HHx3IGg" name="myClass7" assoc="_mMOighGVEeyPB-4HHx3IGg" lowerBound="1"/>
+    <associationEnds xmi:id="_mu4joBGVEeyPB-4HHx3IGg" name="myRoot" assoc="_mu4johGVEeyPB-4HHx3IGg" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_84TuURGUEeyPB-4HHx3IGg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_84TuUhGUEeyPB-4HHx3IGg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_84TuUxGUEeyPB-4HHx3IGg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_84TuVBGUEeyPB-4HHx3IGg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_84TuVRGUEeyPB-4HHx3IGg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_84TuVhGUEeyPB-4HHx3IGg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_84TuVxGUEeyPB-4HHx3IGg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_84TuWBGUEeyPB-4HHx3IGg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_84TuWRGUEeyPB-4HHx3IGg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_84TuWhGUEeyPB-4HHx3IGg"/>
+  <associations xmi:id="_AyqrEhGVEeyPB-4HHx3IGg" name="Cls1_Root" ends="_AyqrEBGVEeyPB-4HHx3IGg _AyqrERGVEeyPB-4HHx3IGg"/>
+  <associations xmi:id="_BEvSgBGVEeyPB-4HHx3IGg" name="Cls2_Root" ends="_BEurcBGVEeyPB-4HHx3IGg _BEurcRGVEeyPB-4HHx3IGg"/>
+  <associations xmi:id="_BT_PchGVEeyPB-4HHx3IGg" name="Cls3_Root" ends="_BT_PcBGVEeyPB-4HHx3IGg _BT_PcRGVEeyPB-4HHx3IGg"/>
+  <associations xmi:id="_flGdghGVEeyPB-4HHx3IGg" name="Cls4_Cls1" ends="_flGdgBGVEeyPB-4HHx3IGg _flGdgRGVEeyPB-4HHx3IGg"/>
+  <associations xmi:id="_hD1FURGVEeyPB-4HHx3IGg" name="Cl5_Cls2" ends="_hD0eQBGVEeyPB-4HHx3IGg _hD1FUBGVEeyPB-4HHx3IGg"/>
+  <associations xmi:id="_iZq24hGVEeyPB-4HHx3IGg" name="Cls6_Cls2" ends="_iZq24BGVEeyPB-4HHx3IGg _iZq24RGVEeyPB-4HHx3IGg"/>
+  <associations xmi:id="_kC43chGVEeyPB-4HHx3IGg" name="Cls7_Cls6" ends="_kC43cBGVEeyPB-4HHx3IGg _kC43cRGVEeyPB-4HHx3IGg"/>
+  <associations xmi:id="_ki_64hGVEeyPB-4HHx3IGg" name="Cls7_Cls3" ends="_ki_64BGVEeyPB-4HHx3IGg _ki_64RGVEeyPB-4HHx3IGg"/>
+  <associations xmi:id="_mMOighGVEeyPB-4HHx3IGg" name="Cls8_Cls7" ends="_mMOigBGVEeyPB-4HHx3IGg _mMOigRGVEeyPB-4HHx3IGg"/>
+  <associations xmi:id="_mu4johGVEeyPB-4HHx3IGg" name="Cls8_Root" ends="_mu4joBGVEeyPB-4HHx3IGg _mu4joRGVEeyPB-4HHx3IGg"/>
+  <layout xmi:id="_84TuWxGUEeyPB-4HHx3IGg">
+    <containers xmi:id="_84TuXBGUEeyPB-4HHx3IGg" key="_84TuUBGUEeyPB-4HHx3IGg">
+      <value xmi:id="_9UO1UBGUEeyPB-4HHx3IGg" key="_9S28UBGUEeyPB-4HHx3IGg">
+        <value xmi:id="_9UO1URGUEeyPB-4HHx3IGg" x="828.99976" y="231.00012"/>
+      </value>
+      <value xmi:id="_-OVtIBGUEeyPB-4HHx3IGg" key="_-OVGEBGUEeyPB-4HHx3IGg">
+        <value xmi:id="_-OVtIRGUEeyPB-4HHx3IGg" x="513.99994" y="426.00015"/>
+      </value>
+      <value xmi:id="_--7ckBGUEeyPB-4HHx3IGg" key="_--61gBGUEeyPB-4HHx3IGg">
+        <value xmi:id="_--7ckRGUEeyPB-4HHx3IGg" x="788.00006" y="426.00015"/>
+      </value>
+      <value xmi:id="__ztIcBGUEeyPB-4HHx3IGg" key="__zr6UBGUEeyPB-4HHx3IGg">
+        <value xmi:id="__ztIcRGUEeyPB-4HHx3IGg" x="1057.0" y="426.01187"/>
+      </value>
+      <value xmi:id="_erQrcBGVEeyPB-4HHx3IGg" key="_erPdUBGVEeyPB-4HHx3IGg">
+        <value xmi:id="_erQrcRGVEeyPB-4HHx3IGg" x="513.99994" y="626.0"/>
+      </value>
+      <value xmi:id="_gIEnsBGVEeyPB-4HHx3IGg" key="_gIEAoBGVEeyPB-4HHx3IGg">
+        <value xmi:id="_gIEnsRGVEeyPB-4HHx3IGg" x="788.00006" y="626.0"/>
+      </value>
+      <value xmi:id="_hjAUoBGVEeyPB-4HHx3IGg" key="_hi_tkBGVEeyPB-4HHx3IGg">
+        <value xmi:id="_hjAUoRGVEeyPB-4HHx3IGg" x="1057.0" y="684.0099"/>
+      </value>
+      <value xmi:id="_i_gu4BGVEeyPB-4HHx3IGg" key="_i_gH0BGVEeyPB-4HHx3IGg">
+        <value xmi:id="_i_gu4RGVEeyPB-4HHx3IGg" x="1389.9999" y="541.037"/>
+      </value>
+      <value xmi:id="_lIM5sBGVEeyPB-4HHx3IGg" key="_lIMSoBGVEeyPB-4HHx3IGg">
+        <value xmi:id="_lIM5sRGVEeyPB-4HHx3IGg" x="1389.9471" y="340.93564"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

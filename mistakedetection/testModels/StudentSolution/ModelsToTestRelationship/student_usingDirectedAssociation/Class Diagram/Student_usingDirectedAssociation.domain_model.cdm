@@ -4,7 +4,7 @@
     <associationEnds xmi:id="_7B66seTBEeu_VuaFXnESgw" name="myOffice" assoc="_7B66suTBEeu_VuaFXnESgw" lowerBound="1" referenceType="Composition"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_5rsuoOTBEeu_VuaFXnESgw" name="Office">
-    <associationEnds xmi:id="_7B66sOTBEeu_VuaFXnESgw" name="myCompany" assoc="_7B66suTBEeu_VuaFXnESgw" lowerBound="1"/>
+    <associationEnds xmi:id="_7B66sOTBEeu_VuaFXnESgw" name="myCompany" navigable="false" assoc="_7B66suTBEeu_VuaFXnESgw" lowerBound="1"/>
   </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_4UkjoOTBEeu_VuaFXnESgw"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_4UkjoeTBEeu_VuaFXnESgw"/>
@@ -23,7 +23,7 @@
         <value xmi:id="_4tpK8eTBEeu_VuaFXnESgw" x="944.0" y="177.0"/>
       </value>
       <value xmi:id="_5ruj0OTBEeu_VuaFXnESgw" key="_5rsuoOTBEeu_VuaFXnESgw">
-        <value xmi:id="_5ruj0eTBEeu_VuaFXnESgw" x="900.0" y="405.0"/>
+        <value xmi:id="_5ruj0eTBEeu_VuaFXnESgw" x="944.0" y="519.0001"/>
       </value>
     </containers>
   </layout>
