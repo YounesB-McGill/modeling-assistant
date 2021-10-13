@@ -4,9 +4,19 @@ This module must not depend on any other to avoid circular dependencies.
 """
 
 from __future__ import annotations
+from types import SimpleNamespace
 from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
 
+
+COLOR = SimpleNamespace(VIOLET="\033[95m", BLUE="\033[94m", CYAN="\033[96m", GREEN="\033[92m", YELLOW="\033[93m",
+                        ORANGE="\u001b[31;1m", RED="\033[91m", ENDC="\033[0m")
+
 _mtc_subcats: dict[MistakeTypeCategory, list[MistakeTypeCategory]] = {}
+
+
+def color_str(color: str, text: str) -> str:
+    "Return the given text in the given color, useful for printing to console."
+    return f"{color}{text}{COLOR.ENDC}"
 
 
 def mtc(n, s=None, **kwargs) -> MistakeTypeCategory:

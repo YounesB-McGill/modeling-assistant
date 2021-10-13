@@ -1,10 +1,20 @@
+#!/usr/bin/env python3
+
+"""
+Module to test mistake types and categories.
+"""
+
 from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
 from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, CLASS_MISTAKES, CLASS_NAME_MISTAKES
 from corpus import mts_by_priority
+from utils import COLOR, color_str
 
 import mistaketypes
 
 def test_get_mistake_type_and_mistake_type_category_by_names():
+    """
+    Test get mistake type and mistake type category by names.
+    """
     class_mistakes_mtc_name = "Class mistakes"
     missing_class_mt_name = "Missing class"
 
@@ -74,3 +84,26 @@ def test_mistake_type_priorities():
         if mt:
             assert isinstance(mt, MistakeType)
             assert mt.priority
+
+
+def print_mistake_type_stats():
+    "Print mistake type statistics to console."
+    # pylint: disable=expression-not-assigned
+    def print_mt(mt: MistakeType, indent: int = 0):
+        "Print mistake type and show its priority and whether it has feedbacks."
+        color = COLOR.CYAN if mt.feedbacks else COLOR.ORANGE
+        print(color_str(color, f"{' ' * indent}{mt.name}") + color_str(COLOR.VIOLET, f" ({mt.priority})"))
+
+    def print_mtc(mtc: MistakeTypeCategory, indent: int = 0):
+        "Recursively print mistake type category and its subcategories."
+        print(color_str(COLOR.BLUE, f"{' ' * indent}{mtc.name}"))
+        [print_mt(mt, indent + 2) for mt in mtc.mistakeTypes]
+        [print_mtc(c, indent + 2) for c in mtc.subcategories]
+
+    [print_mtc(c) for c in CLASS_MISTAKES.learningCorpus.topLevelMistakeTypeCategories()]
+
+
+
+if __name__ == "__main__":
+    "Main entry point."
+    print_mistake_type_stats()
