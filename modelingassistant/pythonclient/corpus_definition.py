@@ -560,16 +560,58 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             ]),
             association_class_mistakes := mtc(n="Association class mistakes", mistakeTypes=[
                 missing_association_class := mt(n="Missing assoc class", d="Missing association class", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Can you model this relationship more precisely?"),
+                    3: ParametrizedResponse(text="Does it make sense to have multiple instances of the "
+                        "${inBetweenClass} linking ${firstClass} and ${secondClass}?"),
+                    4: ParametrizedResponse(text="The association between ${firstClass} and ${secondClass} should be "
+                        "modeled with an association class."),
+                    5: ResourceResponse(learningResources=[assoc_class_ref := Reference(
+                        content="Association class\n\n![Association class](images/association_class.png)")]),
                 })),
-                extra_association_class := mt(n="Extra assoc class", d="Extra association class", feedbacks=fbs({})),
+                extra_association_class := mt(n="Extra assoc class", d="Extra association class", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Can you model this relationship in another way?"),
+                    3: TextResponse(text="Is using an association class the best way to model this?"),
+                    4: ParametrizedResponse(text="Does it make sense to disallow multiple instances of the "
+                        "${inBetweenClass} linking ${firstClass} and ${secondClass}?"),
+                    5: ParametrizedResponse(text="The association between ${firstClass} and ${secondClass} should not "
+                        "be modeled with an association class."),
+                    6: ResourceResponse(learningResources=[assoc_class_ref]),
+                })),
                 bad_assoc_class_name_spelling := mt(
-                    n="Bad assoc class name spelling", d="Bad association class name spelling", feedbacks=fbs({})),
+                    n="Bad assoc class name spelling", d="Bad association class name spelling", feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Can you double check this class name?"),
+                        3: ParametrizedResponse(text="The ${incorrectlySpelledClassName} class has a misspelled name."),
+                        4: ParametrizedResponse(
+                            text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
+                    })),
                 assoc_class_should_be_class := mt(
-                    n="Assoc class should be class", d="Association class should be regular class", feedbacks=fbs({})),
+                    n="Assoc class should be class", d="Association class should be regular class", feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Can you model this relationship in another way?"),
+                        3: TextResponse(text="Is using an association class the best way to model this?"),
+                        4: ParametrizedResponse(text="The ${assocClass} class should be a regular class."),
+                        5: ResourceResponse(learningResources=[assoc_class_ref]),
+                    })),
                 class_should_be_assoc_class := mt(
-                    n="Class should be assoc class", d="Regular class should be association class", feedbacks=fbs({})),
+                    n="Class should be assoc class", d="Regular class should be association class", feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Can you model this relationship in another way?"),
+                        3: TextResponse(text="Is using a regular class the best way to model this?"),
+                        4: ParametrizedResponse(text="The ${assocClass} class should be an association class."),
+                        5: ResourceResponse(learningResources=[assoc_class_ref]),
+                    })),
                 similar_assoc_class_name := mt(  # TODO Remove
-                    n="Similar assoc class name", d="Similar (yet incorrect) association class name", feedbacks=fbs({})),
+                    n="Similar assoc class name", d="Similar (yet incorrect) association class name", feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Can you double check this class name?"),
+                        3: ParametrizedResponse(
+                            text="The ${incorrectlySpelledClassName} class has a name that is not quite right."),
+                        4: ParametrizedResponse(
+                            text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
+                    })),
             ]),
         ]),
         composition_mistakes := mtc(n="Composition mistakes", mistakeTypes=[

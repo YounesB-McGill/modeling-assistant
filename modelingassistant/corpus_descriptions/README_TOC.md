@@ -1489,20 +1489,132 @@ between the same two classes.
 
 ##### Missing association class
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you model this relationship more precisely?
+
+Level 3: Parametrized response:
+
+> Does it make sense to have multiple instances of the ${inBetweenClass} linking ${firstClass} and ${secondClass}?
+
+Level 4: Parametrized response:
+
+> The association between ${firstClass} and ${secondClass} should be modeled with an association class.
+
+Level 5: Resource response with Reference:
+
+> Association class
+
+![Association class](images/association_class.png)
+
 
 ##### Extra association class
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you model this relationship in another way?
+
+Level 3: Text response:
+
+> Is using an association class the best way to model this?
+
+Level 4: Parametrized response:
+
+> Does it make sense to disallow multiple instances of the ${inBetweenClass} linking ${firstClass} and ${secondClass}?
+
+Level 5: Parametrized response:
+
+> The association between ${firstClass} and ${secondClass} should not be modeled with an association class.
+
+Level 6: Resource response with Reference:
+
+> Association class
+
+![Association class](images/association_class.png)
 
 
 ##### Bad association class name spelling
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you double check this class name?
+
+Level 3: Parametrized response:
+
+> The ${incorrectlySpelledClassName} class has a misspelled name.
+
+Level 4: Parametrized response:
+
+> The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}.
+
 
 ##### Association class should be regular class
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you model this relationship in another way?
+
+Level 3: Text response:
+
+> Is using an association class the best way to model this?
+
+Level 4: Parametrized response:
+
+> The ${assocClass} class should be a regular class.
+
+Level 5: Resource response with Reference:
+
+> Association class
+
+![Association class](images/association_class.png)
 
 
 ##### Regular class should be association class
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you model this relationship in another way?
+
+Level 3: Text response:
+
+> Is using a regular class the best way to model this?
+
+Level 4: Parametrized response:
+
+> The ${assocClass} class should be an association class.
+
+Level 5: Resource response with Reference:
+
+> Association class
+
+![Association class](images/association_class.png)
+
 
 ##### Similar association class name
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you double check this class name?
+
+Level 3: Parametrized response:
+
+> The ${incorrectlySpelledClassName} class has a name that is not quite right.
+
+Level 4: Parametrized response:
+
+> The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}.
 
 
 

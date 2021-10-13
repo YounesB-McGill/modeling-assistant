@@ -941,8 +941,6 @@ Level 4: Parameterized Response
 > The ${similarYetIncorrectRoleName} role name should be changed to
 ${correctRoleName}.
 
->> POINTER
-
 ### Wrong association class
 
 #### Missing association class
@@ -1026,6 +1024,8 @@ Level 4: Parameterized Response
 
 > The ${similarYetIncorrectClassName} class should be changed to
 ${correctClassName}.
+
+>> POINTER
 
 ### Wrong generalization
 
