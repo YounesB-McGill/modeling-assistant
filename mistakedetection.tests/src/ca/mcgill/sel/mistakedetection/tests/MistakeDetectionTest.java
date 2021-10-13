@@ -423,7 +423,7 @@ public class MistakeDetectionTest {
    * @param instructorElem_s a NamedElement or a List of NamedElements
    */
   @SuppressWarnings("unchecked") // need to do this to get around lack of union types in Java
-  public static void assertStudentMistakeLinks(Mistake mistake, MistakeType mistakeType, Object elements) {
+  public static void assertMistakeLinks(Mistake mistake, MistakeType mistakeType, Object elements) {
     assertEquals(mistake.getMistakeType(), mistakeType);
     if (mistake.getInstructorElements().isEmpty()) {
       if (elements instanceof NamedElement) {
@@ -526,7 +526,7 @@ public class MistakeDetectionTest {
    */
   public static void assertMistake(Mistake mistake, MistakeType mistakeType, List<? extends NamedElement> elements,
       int numSinceResolved, int numDetections, boolean resolved) {
-    assertStudentMistakeLinks(mistake, mistakeType, elements);
+    assertMistakeLinks(mistake, mistakeType, elements);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
   }
 

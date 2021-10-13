@@ -528,10 +528,10 @@ public class MistakeDetection {
         studentMatchedElements.add(studentPlayerClass);
       } else if (tag.getTagType().equals(ROLE)
           && comparison.mappedAttribute.containsKey(tag.getSolutionElement().getElement())) {
-        Attribute atrib = (Attribute) tag.getSolutionElement().getElement();
-        studentMatchedElements.add(comparison.mappedAttribute.get(atrib));
+        Attribute attrib = (Attribute) tag.getSolutionElement().getElement();
+        studentMatchedElements.add(comparison.mappedAttribute.get(attrib));
         CDEnum enumClass =
-            getEnumFromClassDiagram(atrib.getType().getName(), tag.getTagGroup().getSolution().getClassDiagram());
+            getEnumFromClassDiagram(attrib.getType().getName(), tag.getTagGroup().getSolution().getClassDiagram());
         totalMatchesExpected = totalMatchesExpected + enumClass.getLiterals().size();
         for (CDEnumLiteral enumClassLiteral : enumClass.getLiterals()) {
           if (comparison.mappedEnumerationItems.containsKey(enumClassLiteral)) {
@@ -1257,30 +1257,30 @@ public class MistakeDetection {
     // TOOD work in progress(Location may be changed)
     // To map attribute like ticketNo with TicketNumber
     comparison.mappedClassifier.forEach((key, value) -> {
-      for (Attribute instAtrib : key.getAttributes()) {
-        for (Attribute studAtrib : value.getAttributes()) {
-          if (!comparison.mappedAttribute.containsKey(instAtrib)) {
-            if (studAtrib.getName().contains("ies")) { // TO deal with cases like companies and company
-              String name = studAtrib.getName();
+      for (Attribute instattrib : key.getAttributes()) {
+        for (Attribute studattrib : value.getAttributes()) {
+          if (!comparison.mappedAttribute.containsKey(instattrib)) {
+            if (studattrib.getName().contains("ies")) { // TO deal with cases like companies and company
+              String name = studattrib.getName();
               name = name.replaceAll("ies", "y");
-              if (name.equals(instAtrib.getName())) {
-                comparison.mappedAttribute.put(instAtrib, studAtrib);
-                comparison.notMappedInstructorAttribute.remove(instAtrib);
-                comparison.extraStudentAttribute.remove(studAtrib);
-                checkMistakePluralAttribName(studAtrib, instAtrib).ifPresent(comparison.newMistakes::add);
+              if (name.equals(instattrib.getName())) {
+                comparison.mappedAttribute.put(instattrib, studattrib);
+                comparison.notMappedInstructorAttribute.remove(instattrib);
+                comparison.extraStudentAttribute.remove(studattrib);
+                checkMistakePluralAttribName(studattrib, instattrib).ifPresent(comparison.newMistakes::add);
               }
               break;
             }
-            String[] atribNameSunStrings = studAtrib.getName().split("(?=\\p{Upper})");
-            for (String subString : atribNameSunStrings) {
-              if (instAtrib.getName().contains(subString)) {
-                comparison.mappedAttribute.put(instAtrib, studAtrib);
-                comparison.notMappedInstructorAttribute.remove(instAtrib);
-                comparison.extraStudentAttribute.remove(studAtrib);
-                if (isPlural(studAtrib.getName())) {
-                  comparison.newMistakes.add(createMistake(PLURAL_ATTRIBUTE, studAtrib, instAtrib));
+            String[] attribNameSunStrings = studattrib.getName().split("(?=\\p{Upper})");
+            for (String subString : attribNameSunStrings) {
+              if (instattrib.getName().contains(subString)) {
+                comparison.mappedAttribute.put(instattrib, studattrib);
+                comparison.notMappedInstructorAttribute.remove(instattrib);
+                comparison.extraStudentAttribute.remove(studattrib);
+                if (isPlural(studattrib.getName())) {
+                  comparison.newMistakes.add(createMistake(PLURAL_ATTRIBUTE, studattrib, instattrib));
                 } else {
-                  comparison.newMistakes.add(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, studAtrib, instAtrib));
+                  comparison.newMistakes.add(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, studattrib, instattrib));
                 }
                 break;
               }
@@ -1916,16 +1916,16 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-  public static Optional<Mistake> checkMistakePluralAttribName(Attribute studentAtrib, Attribute instructorAtrib) {
-    if (isPlural(studentAtrib.getName())) {
-      return Optional.of(createMistake(PLURAL_ATTRIBUTE, studentAtrib, instructorAtrib));
+  public static Optional<Mistake> checkMistakePluralAttribName(Attribute studentattrib, Attribute instructorattrib) {
+    if (isPlural(studentattrib.getName())) {
+      return Optional.of(createMistake(PLURAL_ATTRIBUTE, studentattrib, instructorattrib));
     }
     return Optional.empty();
   }
 
-  public static Optional<Mistake> checkMistakeUppercaseAttribName(Attribute studentAtrib, Attribute instructorAtrib) {
-    if (startsWithUppercase(studentAtrib.getName())) {
-      return Optional.of(createMistake(UPPERCASE_ATTRIBUTE_NAME, studentAtrib, instructorAtrib));
+  public static Optional<Mistake> checkMistakeUppercaseAttribName(Attribute studentattrib, Attribute instructorattrib) {
+    if (startsWithUppercase(studentattrib.getName())) {
+      return Optional.of(createMistake(UPPERCASE_ATTRIBUTE_NAME, studentattrib, instructorattrib));
     }
     return Optional.empty();
   }
