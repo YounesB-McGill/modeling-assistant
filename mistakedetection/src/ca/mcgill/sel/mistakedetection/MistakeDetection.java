@@ -275,23 +275,23 @@ public class MistakeDetection {
     if (studentClassifiers.size() < 2) {
       return;
     }
-    Map<Classifier, Integer> map = new HashMap<Classifier, Integer>();
+    Map<Classifier, Integer> classCompositionCount = new HashMap<Classifier, Integer>();
     EList<NamedElement> notComposedClasses = new BasicEList<NamedElement>();
     for (Classifier studClass : studentClassifiers) {
-      map.put(studClass, 0);
+      classCompositionCount.put(studClass, 0);
       notComposedClasses.add(studClass);
       for (AssociationEnd assocEnd : studClass.getAssociationEnds()) {
         if (assocEnd.getReferenceType().equals(COMPOSITION)) {
-          map.put(studClass, map.get(studClass) + 1);
+          classCompositionCount.put(studClass, classCompositionCount.get(studClass) + 1);
         }
       }
     }
     Classifier ClassWithMostCompositions = null;
     int maxValue = 0;
-    for (Classifier i : map.keySet()) {
-      if (map.get(i) > maxValue) {
+    for (Classifier i : classCompositionCount.keySet()) {
+      if (classCompositionCount.get(i) > maxValue) {
         ClassWithMostCompositions = i;
-        maxValue = map.get(i);
+        maxValue = classCompositionCount.get(i);
       }
     }
     if (ClassWithMostCompositions == null) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="generate" name="modelingassistant.learningcorpus.dsl.transformation">
-    <property name="ECLIPSE_HOME" value="../../../eclipseEXE-for-modelingAssistant/eclipse"/>
-    <property name="ECLIPSE_WORKSPACE" value="../../../eclipse-workspace-MA"/>
+	<property name="ECLIPSE_HOME" value="../../../../eclipse-modeling-2021-06"/>
+	<property name="ECLIPSE_WORKSPACE" value="../../../../eclipse-modeling-ws"/>
 
     <!-- The classpath with only the dependencies used by the project -->
     <path id="modelingassistant.learningcorpus.dsl.transformation.libraryclasspath">
