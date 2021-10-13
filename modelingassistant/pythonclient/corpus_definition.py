@@ -425,15 +425,31 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 using_binary_assoc_instead_of_nary_assoc := mt(
                     n="Using binary assoc instead of n-ary assoc",
                     d="Using binary association instead of n-ary association",
-                    feedbacks=fbs({})),
+                    feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Can you model this relationship more precisely?"),
+                        3: ParametrizedResponse(text="Use a ${n}-ary association to represent this relationship."),
+                        4: ResourceResponse(learningResources=[assoc_ref := Reference(content="Please review the "
+                        "[Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
+                    })),
                 using_nary_assoc_instead_of_binary_assoc := mt(
                     n="Using n-ary assoc instead of binary assoc",
                     d="Using n-ary association instead of binary association",
-                    feedbacks=fbs({})),
+                    feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Can you model this relationship more precisely?"),
+                        3: TextResponse(text="Use a binary association to represent this relationship."),
+                        4: ResourceResponse(learningResources=[assoc_ref]),
+                    })),
                 using_intermediate_class_instead_of_nary_assoc := mt(
                     n="Using intermediate class instead of n-ary assoc",
                     d="Using intermediate class instead of n-ary association",
-                    feedbacks=fbs({})),
+                    feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Can you model this relationship in a different way?"),
+                        3: ParametrizedResponse(text="Use a ${n}-ary association to represent this relationship."),
+                        4: ResourceResponse(learningResources=[assoc_ref]),
+                    })),
             ]),
             association_name_mistakes := mtc(n="Association name mistakes", mistakeTypes=[
                 missing_association_name := mt(
@@ -523,8 +539,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(text="Isn't there something special about this role name?"),
                     3: ParametrizedResponse(text="${roleName} should be static, because it applies to all instances of "
                         "the association between ${class1} and ${class2}."),
-                    4: ResourceResponse(learningResources=[assoc_ref := Reference(content="Please review the "
-                        "[Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
+                    4: ResourceResponse(learningResources=[assoc_ref]),
                 })),
                 role_should_not_be_static := mt(n="Role should not be static", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
@@ -622,7 +637,14 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     text="How would you capture that a ${containerClass} contains a ${containedClass}?"),
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
-            extra_composition := mt(n="Extra composition", feedbacks=fbs({})),
+            extra_composition := mt(n="Extra composition", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Is this composition really necessary?"),
+                3: ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is not expressed "
+                    "in the problem description[, but there is a similar relationship with ${classThree} that is "
+                    "missing]."),
+                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+            })),
             using_assoc_instead_of_aggregation := mt(
                 n="Using assoc instead of aggregation", d="Using association instead of aggregation", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),

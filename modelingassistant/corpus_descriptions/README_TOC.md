@@ -1146,11 +1146,53 @@ better understand these relationships and where they are used.
 
 ##### Using binary association instead of n-ary association
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you model this relationship more precisely?
+
+Level 3: Parametrized response:
+
+> Use a ${n}-ary association to represent this relationship.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 ##### Using n-ary association instead of binary association
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you model this relationship more precisely?
+
+Level 3: Text response:
+
+> Use a binary association to represent this relationship.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 ##### Using intermediate class instead of n-ary association
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you model this relationship in a different way?
+
+Level 3: Parametrized response:
+
+> Use a ${n}-ary association to represent this relationship.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Association name mistakes
@@ -1642,6 +1684,24 @@ better understand these relationships and where they are used.
 
 
 #### Extra composition
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Is this composition really necessary?
+
+Level 3: Parametrized response:
+
+> The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
+
+Level 4: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
 
 
 #### Using association instead of aggregation

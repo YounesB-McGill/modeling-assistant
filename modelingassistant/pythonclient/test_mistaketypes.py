@@ -92,16 +92,34 @@ def print_mistake_type_stats():
     def print_mt(mt: MistakeType, indent: int = 0):
         "Print mistake type and show its priority and whether it has feedbacks."
         color = COLOR.CYAN if mt.feedbacks else COLOR.ORANGE
-        print(color_str(color, f"{' ' * indent}{mt.name}") + color_str(COLOR.VIOLET, f" ({mt.priority})"))
+        print(color_str(color, f"{indent * ' '}{mt.name}") + color_str(COLOR.VIOLET, f" ({mt.priority})"))
 
     def print_mtc(mtc: MistakeTypeCategory, indent: int = 0):
         "Recursively print mistake type category and its subcategories."
-        print(color_str(COLOR.BLUE, f"{' ' * indent}{mtc.name}"))
+        print(color_str(COLOR.BLUE, f"{indent * ' '}{mtc.name}"))
         [print_mt(mt, indent + 2) for mt in mtc.mistakeTypes]
         [print_mtc(c, indent + 2) for c in mtc.subcategories]
 
     [print_mtc(c) for c in CLASS_MISTAKES.learningCorpus.topLevelMistakeTypeCategories()]
 
+
+def print_mistake_type_stats_md():
+    "Print mistake type statistics for use in GitHub-Flavored Markdown."
+    # pylint: disable=expression-not-assigned
+    def print_mt(mt: MistakeType, indent: int = 0):
+        "Print mistake type and show its priority and whether it has feedbacks."
+        sign = "+" if mt.feedbacks else "-"
+        print(f"{sign}{' ' * indent}{mt.name} ({mt.priority})")
+
+    def print_mtc(mtc: MistakeTypeCategory, indent: int = 0):
+        "Recursively print mistake type category and its subcategories."
+        print(f" {' ' * indent}{mtc.name}")
+        [print_mt(mt, indent + 2) for mt in mtc.mistakeTypes]
+        [print_mtc(c, indent + 2) for c in mtc.subcategories]
+
+    print("```diff")
+    [print_mtc(c) for c in CLASS_MISTAKES.learningCorpus.topLevelMistakeTypeCategories()]
+    print("```")
 
 
 if __name__ == "__main__":
