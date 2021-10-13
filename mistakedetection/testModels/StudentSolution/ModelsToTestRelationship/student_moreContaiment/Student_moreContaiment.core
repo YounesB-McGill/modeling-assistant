@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_Lf_UUCCGEeyFLMpnlUIPtg" name="Student_moreContaiment" featureModel="_Lf_UUSCGEeyFLMpnlUIPtg" impactModel="_Lf_UUyCGEeyFLMpnlUIPtg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_Lf_UUSCGEeyFLMpnlUIPtg" root="_Lf_UUiCGEeyFLMpnlUIPtg">
+    <features xmi:id="_Lf_UUiCGEeyFLMpnlUIPtg" name="Student_moreContaiment" realizedBy="_MDYVQSCGEeyFLMpnlUIPtg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_Lf_UUyCGEeyFLMpnlUIPtg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_MDYVQCCGEeyFLMpnlUIPtg" name="Student_moreContaiment" scene="_MDYVQSCGEeyFLMpnlUIPtg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_moreContaiment.domain_model.cdm#_MDY8UCCGEeyFLMpnlUIPtg"/>
+  </artefacts>
+  <scenes xmi:id="_MDYVQSCGEeyFLMpnlUIPtg" name="Student_moreContaiment" realizes="_Lf_UUiCGEeyFLMpnlUIPtg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_MDYVQiCGEeyFLMpnlUIPtg" value="_MDYVQCCGEeyFLMpnlUIPtg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

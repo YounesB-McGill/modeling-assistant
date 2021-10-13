@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_vu7LsCCGEeyFLMpnlUIPtg" name="Student_RegDriverClass" featureModel="_vu7LsSCGEeyFLMpnlUIPtg" impactModel="_vu7LsyCGEeyFLMpnlUIPtg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_vu7LsSCGEeyFLMpnlUIPtg" root="_vu7LsiCGEeyFLMpnlUIPtg">
+    <features xmi:id="_vu7LsiCGEeyFLMpnlUIPtg" name="Student_RegDriverClass" realizedBy="_yb4hMSCGEeyFLMpnlUIPtg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_vu7LsyCGEeyFLMpnlUIPtg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_yb4hMCCGEeyFLMpnlUIPtg" name="Student_RegDriverClass" scene="_yb4hMSCGEeyFLMpnlUIPtg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Student_RegDriverClass.domain_model.cdm#_yb5IQCCGEeyFLMpnlUIPtg"/>
+  </artefacts>
+  <scenes xmi:id="_yb4hMSCGEeyFLMpnlUIPtg" name="Student_RegDriverClass" realizes="_vu7LsiCGEeyFLMpnlUIPtg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_yb4hMiCGEeyFLMpnlUIPtg" value="_yb4hMCCGEeyFLMpnlUIPtg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

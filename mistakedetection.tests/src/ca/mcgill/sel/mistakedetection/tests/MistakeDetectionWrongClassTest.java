@@ -13,14 +13,14 @@ import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Disabled;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
@@ -43,6 +43,17 @@ public class MistakeDetectionWrongClassTest {
         "../mistakedetection/testModels/InstructorSolution/One/Class Diagram/InstructorSolution.domain_model.cdm");
     for (var c : classDiagram.getClasses()) {
       assertFalse(MistakeDetection.isPlural(c.getName()));
+    }
+  }
+
+  /**
+   * Test to check for plural class names in student solution.
+   */
+  @Test
+  public void testVerbs() {
+    var verbs = List.of("Walked", "Ran", "eats", "Jumped", "Danced");
+    for (String verb : verbs) {
+      assertTrue(MistakeDetection.isVerb(verb));
     }
   }
 
@@ -72,8 +83,8 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriverClass);
 
-    assertEquals(comparison.newMistakes.size(), 0);
-    assertEquals(studentSolution.getMistakes().size(), 0);
+    assertEquals(1, comparison.newMistakes.size());// Incomplete containment tree
+    assertEquals(1, studentSolution.getMistakes().size());
   }
 
   /**
@@ -103,14 +114,13 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.mappedClassifier.size(), 2);
     assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusesClass);
     assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriversClass);
-    assertEquals(comparison.newMistakes.size(), 4); // 2 Bad Role Names
-    assertEquals(studentSolution.getMistakes().size(), 4);
+    assertEquals(comparison.newMistakes.size(), 5); // 2 Bad Role Names
+    assertEquals(studentSolution.getMistakes().size(), 5);
 
-    // Replacements for assertMistakeConditional()
-    var studentBusesMistake = studentMistakeFor(studentBusesClass);
-    assertMistake(studentBusesMistake, PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), PLURAL_CLASS_NAME, studentBusesClass, instructorBusClass, 0, 1,
+        false);
 
-    assertMistake(studentMistakeFor(studentDriversClass), PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass,
+    assertMistake(studentSolution.getMistakes().get(1), PLURAL_CLASS_NAME, studentDriversClass, instructorDriverClass,
         0, 1, false);
   }
 
@@ -156,18 +166,14 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSol.getMistakes().size(), 1);
 
-    assertMistake().fromSolutions(instructorSol, studentSol)
-        .withInstructorClassName("Airport")
-        .withStudentClassName("Airpoort")
-        .hasType(BAD_CLASS_NAME_SPELLING)
-        .hasNumSinceResolved(0)
-        .hasNumDetections(1)
+    assertMistake().fromSolutions(instructorSol, studentSol).withInstructorClassName("Airport")
+        .withStudentClassName("Airpoort").hasType(BAD_CLASS_NAME_SPELLING).hasNumSinceResolved(0).hasNumDetections(1)
         .isUnresolved();
 
     // same assertion as above, written in less lines
-    assertMistake().fromSolutions(instructorSol, studentSol)
-        .withInstructorClassName("Airport").withStudentClassName("Airpoort")
-        .hasType(BAD_CLASS_NAME_SPELLING).has(0).numSinceResolved().has(1).numDetections().and().isUnresolved();
+    assertMistake().fromSolutions(instructorSol, studentSol).withInstructorClassName("Airport")
+        .withStudentClassName("Airpoort").hasType(BAD_CLASS_NAME_SPELLING).has(0).numSinceResolved().has(1)
+        .numDetections().and().isUnresolved();
   }
 
   /**
@@ -746,8 +752,8 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS, studentAirlineClass, 0, 1, false);
   }
 
@@ -1157,17 +1163,16 @@ public class MistakeDetectionWrongClassTest {
   }
 
   /**
-   * Test to check similar class name mistake.
+   * Test to check wrong class name mistake.
    */
-  @Disabled
   @Test
-  public void testSimilarClassName() {
+  public void testWrongSimilarClassName() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classPilot/Class Diagram/Instructor_classPilot.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student _similarClassName/Class Diagram/Student _similarClassName.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_similarClassName/Class Diagram/Student _similarClassName.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
@@ -1177,16 +1182,15 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_CLASS_NAME, studentFlyerClass, instructorPilotClass, 0,
-        1, false);
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_CLASS_NAME, studentFlyerClass, instructorPilotClass, 0, 1,
+        false);
   }
 
   /**
-   * Test to check similar class name mistake
+   * Test to check wrong class name mistake
    */
-  @Disabled
   @Test
-  public void testSimilarClassName1() {
+  public void testWrongSimilarClassName1() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instractor_classCompany/Class Diagram/Instractor_classCompany.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -1202,7 +1206,7 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_CLASS_NAME, studentFirmClass, instructorCompanyClass, 0,
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_CLASS_NAME, studentFirmClass, instructorCompanyClass, 0,
         1, false);
   }
 
@@ -1477,7 +1481,7 @@ public class MistakeDetectionWrongClassTest {
 
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
 
-    MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertMistake(studentMistakeFor(studentCompanyClass), EXTRA_ASSOC_CLASS, studentCompanyClass, 0, 1, false);
   }

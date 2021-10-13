@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_Pe_hMCRPEeyCTbtvBIQyIw" name="InstructorSolution2">
+<classes xsi:type="classdiagram:Class" name="Room">
+    <associationEnds name="beds" assoc="//@associations.0" lowerBound="1" upperBound="-1"/>
+    <associationEnds name="type" assoc="//@associations.1" lowerBound="1"/>
+    <associationEnds name="rooms" assoc="//@associations.2" upperBound="-1"/>
+    <associationEnds name="book" assoc="//@associations.4" upperBound="-1"/>
+    <associationEnds name="mySuite" navigable="false" assoc="//@associations.5" lowerBound="1"/>
+    <attributes name="roomNumber" type="//@types.4"/>
+    <attributes name="status" type="//@types.10"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" name="Date" dataType="true">
+    <attributes name="day" type="//@types.4"/>
+    <attributes name="month" type="//@types.4"/>
+    <attributes name="year" type="//@types.4"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" name="Bed">
+    <associationEnds name="locateIn" assoc="//@associations.0"/>
+    <attributes name="type" type="//@types.12"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" name="RoomType">
+    <associationEnds name="rooms" assoc="//@associations.1" upperBound="-1"/>
+    <attributes name="maxDailyRate" type="//@types.4"/>
+    <attributes name="qualityLevel" type="//@types.11"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" name="Person">
+    <associationEnds name="myPerson" assoc="//@associations.2"/>
+    <associationEnds name="book" assoc="//@associations.3" upperBound="-1"/>
+    <attributes name="name" type="//@types.6"/>
+    <attributes name="address" type="//@types.6"/>
+    <attributes name="phoneNumber" type="//@types.4"/>
+    <attributes name="creditcard" type="//@types.4"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" name="Suite">
+    <associationEnds name="composedOf" assoc="//@associations.5" lowerBound="2" upperBound="-1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" name="Stay">
+    <attributes name="checkinDate" type="//@classes.1"/>
+    <attributes name="numberOfNights" type="//@types.4"/>
+    <attributes name="dailyRate" type="//@types.4"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" name="Booking">
+    <associationEnds name="By" assoc="//@associations.3" lowerBound="1"/>
+    <associationEnds name="bookedRooms" assoc="//@associations.4" lowerBound="1" upperBound="-1"/>
+    <attributes name="plannedNumberOfNights" type="//@types.4"/>
+    <attributes name="startDate" type="//@classes.1"/>
+    <attributes name="bookedDailyRate" type="//@types.4"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid"/>
+  <types xsi:type="classdiagram:CDAny"/>
+  <types xsi:type="classdiagram:CDBoolean"/>
+  <types xsi:type="classdiagram:CDDouble"/>
+  <types xsi:type="classdiagram:CDInt"/>
+  <types xsi:type="classdiagram:CDLong"/>
+  <types xsi:type="classdiagram:CDString"/>
+  <types xsi:type="classdiagram:CDByte"/>
+  <types xsi:type="classdiagram:CDFloat"/>
+  <types xsi:type="classdiagram:CDChar"/>
+  <types xsi:type="classdiagram:CDEnum" name="SmokingStatus">
+    <literals name="NonSmoking"/>
+    <literals name="Smoking"/>
+  </types>
+  <types xsi:type="classdiagram:CDEnum" name="Quality">
+    <literals name="Standard"/>
+    <literals name="SandardWithView"/>
+    <literals name="Superior"/>
+    <literals name="SuperiorWithView"/>
+  </types>
+  <types xsi:type="classdiagram:CDEnum" name="BedType">
+    <literals name="Single"/>
+    <literals name="Double"/>
+    <literals name="Queen"/>
+    <literals name="King"/>
+  </types>
+  <associations name="Bed_Room" ends="//@classes.2/@associationEnds.0 //@classes.0/@associationEnds.0"/>
+  <associations name="RoomType_Room" ends="//@classes.3/@associationEnds.0 //@classes.0/@associationEnds.1"/>
+  <associations name="Room_Person" ends="//@classes.0/@associationEnds.2 //@classes.4/@associationEnds.0" associationClass="//@classes.6"/>
+  <associations name="Booking_Person" ends="//@classes.7/@associationEnds.0 //@classes.4/@associationEnds.1"/>
+  <associations name="Room_Booking" ends="//@classes.0/@associationEnds.3 //@classes.7/@associationEnds.1"/>
+  <associations name="Suite_Room" ends="//@classes.5/@associationEnds.0 //@classes.0/@associationEnds.4"/>
+  <layout>
+    <containers key="/">
+      <value key="//@classes.0">
+        <value x="490.99976" y="357.00006"/>
+      </value>
+      <value key="//@types.10">
+        <value x="505.49976" y="714.11536"/>
+      </value>
+      <value key="//@types.11">
+        <value x="281.51086" y="644.1526"/>
+      </value>
+      <value key="//@types.12">
+        <value x="286.00305" y="466.98584"/>
+      </value>
+      <value key="//@classes.1">
+        <value x="105.50003" y="594.99835"/>
+      </value>
+      <value key="//@classes.2">
+        <value x="452.5016" y="587.42395"/>
+      </value>
+      <value key="//@classes.3">
+        <value x="97.00003" y="357.00006"/>
+      </value>
+      <value key="//@classes.4">
+        <value x="904.0" y="331.00006"/>
+      </value>
+      <value key="//@classes.5">
+        <value x="286.01086" y="260.3731"/>
+      </value>
+      <value key="//@classes.6">
+        <value x="708.0107" y="219.37311"/>
+      </value>
+      <value key="//@associations.2">
+        <value x="778.5107" y="389.69534"/>
+      </value>
+      <value key="//@classes.7">
+        <value x="736.47925" y="606.49835"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

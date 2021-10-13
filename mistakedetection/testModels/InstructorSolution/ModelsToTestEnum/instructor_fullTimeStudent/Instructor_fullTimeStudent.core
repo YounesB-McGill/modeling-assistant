@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_0oaj0AqFEeywhZ4k6XWYZA" name="Instructor_fullTimeStudent" featureModel="_0oaj0QqFEeywhZ4k6XWYZA" impactModel="_0oaj0wqFEeywhZ4k6XWYZA">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_0oaj0QqFEeywhZ4k6XWYZA" root="_0oaj0gqFEeywhZ4k6XWYZA">
+    <features xmi:id="_0oaj0gqFEeywhZ4k6XWYZA" name="Instructor_fullTimeStudent" realizedBy="_1Sh30AqFEeywhZ4k6XWYZA"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_0oaj0wqFEeywhZ4k6XWYZA" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_1SgpsAqFEeywhZ4k6XWYZA" name="Instructor_fullTimeStudent" scene="_1Sh30AqFEeywhZ4k6XWYZA" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Instructor_fullTimeStudent.domain_model.cdm#_1SjtAAqFEeywhZ4k6XWYZA"/>
+  </artefacts>
+  <scenes xmi:id="_1Sh30AqFEeywhZ4k6XWYZA" name="Instructor_fullTimeStudent" realizes="_0oaj0gqFEeywhZ4k6XWYZA" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_1Sh30QqFEeywhZ4k6XWYZA" value="_1SgpsAqFEeywhZ4k6XWYZA" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
