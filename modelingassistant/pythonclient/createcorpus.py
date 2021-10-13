@@ -14,7 +14,8 @@ import re
 from os import linesep as nl
 from corpus import corpus
 from fileserdes import save_to_files
-from learningcorpus import MistakeTypeCategory
+from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResponse, ParametrizedResponse,
+    ResourceResponse)
 
 MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
 MAX_COLUMN_WIDTH = 120
@@ -116,7 +117,7 @@ def generate_python():
         else:
             result += f"{lhs} = \\\n    {rhs}\n"
 
-    with open(PYTHON_MISTAKE_TYPES_FILE, "w") as f:
+    with open(PYTHON_MISTAKE_TYPES_FILE, "w", encoding="utf-8") as f:
         f.write(result)
 
 
@@ -161,13 +162,13 @@ def generate_java():
 
     result += "}\n"
 
-    with open(JAVA_MISTAKE_TYPES_FILE, "w") as f:
+    with open(JAVA_MISTAKE_TYPES_FILE, "w", encoding="utf-8") as f:
         f.write(result)
 
 
 def generate_markdown():
     """
-    Generate Markdown table-of-contents from input learning corpus.
+    Generate Markdown table-of-contents from the learning corpus.
     """
     def nested_toc_output_for(mtc: MistakeTypeCategory, indentation: int) -> str:
         "Return the nested table of contents output for the input in a recursive way."
@@ -179,7 +180,7 @@ def generate_markdown():
         "Return the nested body output for the input in a recursive way."
         return f'''{make_body_title(mtc.name, indentation)}{
             "".join([nested_body_output_for(sc, indentation + 1) for sc in mtc.subcategories])}{
-            nl.join([make_body_title(mt.description, indentation + 1) for mt in mtc.mistakeTypes])}\n'''
+            nl.join([make_mt_body(mt, indentation + 1) for mt in mtc.mistakeTypes])}\n'''
 
     def make_toc_title(name: str, indentation: int) -> str:
         return f'{indentation * " "}1. [{name}](#{dashify(name)})\n'
@@ -189,11 +190,48 @@ def generate_markdown():
         cn = clean(name)
         return (f'{hashes * "#"} {cn}' if hashes <= MAX_NUM_OF_HASHES_IN_HEADING else f'**{cn}**') + "\n\n"
 
+    def is_table(s: str) -> bool:
+        "Return True if the input string is a table."
+        return "|" in s and all("|" in line for line in s.splitlines()[2:-2])
+
+    def make_mt_body(mt: MistakeType, indentation: int) -> str:
+        "Return the Markdown body of the output."
+        result = make_body_title(mt.description, indentation)
+        levels = sorted([fb.level for fb in mt.feedbacks])
+        for level in levels:
+            result += f"Level {level}: "
+            for fb in mt.feedbacks:
+                if fb.level != level:
+                    continue
+                match fb:
+                    case Feedback(highlightProblem=True):
+                        result += "Highlight problem\n\n"
+                    case Feedback(highlightSolution=True):
+                        result += "Highlight solution\n\n"
+                    case TextResponse():
+                        result += f"""Text response:\n\n{(2 * nl).join(
+                            [f"> {f.text}" for f in mt.feedbacks if f.level == level])}\n\n"""
+                    case ParametrizedResponse():
+                        result += f"""Parametrized response:\n\n{(2 * nl).join(
+                            [f"> {f.text}" for f in mt.feedbacks if f.level == level])}\n\n"""
+                    case ResourceResponse() as resp if resp.learningResources:
+                        primary_rsc = resp.learningResources[0]
+                        rsc_type = type(primary_rsc).__name__
+                        if is_table(primary_rsc.content):
+                            result += f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
+                                [f"> {f.learningResources[0].content.replace(nl, nl + '> ')}"
+                                 for f in mt.feedbacks if f.level == level])}\n\n"""
+                        else:
+                            result += f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
+                                [f"> {f.learningResources[0].content}" for f in mt.feedbacks if f.level == level])
+                                }\n\n"""
+        return result
+
     md = f'''{
         nl.join([nested_toc_output_for(mtc, 0) for mtc in corpus.topLevelMistakeTypeCategories()])
     }\n{nl.join([nested_body_output_for(mtc, 0) for mtc in corpus.topLevelMistakeTypeCategories()])}'''
 
-    with open(LEARNING_CORPUS_MARKDOWN_FILE, "w") as f:
+    with open(LEARNING_CORPUS_MARKDOWN_FILE, "w", encoding="utf-8") as f:
         f.write(md)
 
 
