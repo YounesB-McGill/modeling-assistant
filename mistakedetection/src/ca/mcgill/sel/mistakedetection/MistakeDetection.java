@@ -1259,30 +1259,30 @@ public class MistakeDetection {
     // TOOD work in progress(Location may be changed)
     // To map attribute like ticketNo with TicketNumber
     comparison.mappedClassifier.forEach((key, value) -> {
-      for (Attribute instattrib : key.getAttributes()) {
-        for (Attribute studattrib : value.getAttributes()) {
-          if (!comparison.mappedAttribute.containsKey(instattrib)) {
-            if (studattrib.getName().contains("ies")) { // TO deal with cases like companies and company
-              String name = studattrib.getName();
+      for (Attribute instAttrib : key.getAttributes()) {
+        for (Attribute studAttrib : value.getAttributes()) {
+          if (!comparison.mappedAttribute.containsKey(instAttrib)) {
+            if (studAttrib.getName().contains("ies")) { // TO deal with cases like companies and company
+              String name = studAttrib.getName();
               name = name.replaceAll("ies", "y");
-              if (name.equals(instattrib.getName())) {
-                comparison.mappedAttribute.put(instattrib, studattrib);
-                comparison.notMappedInstructorAttribute.remove(instattrib);
-                comparison.extraStudentAttribute.remove(studattrib);
-                checkMistakePluralAttribName(studattrib, instattrib).ifPresent(comparison.newMistakes::add);
+              if (name.equals(instAttrib.getName())) {
+                comparison.mappedAttribute.put(instAttrib, studAttrib);
+                comparison.notMappedInstructorAttribute.remove(instAttrib);
+                comparison.extraStudentAttribute.remove(studAttrib);
+                checkMistakePluralAttribName(studAttrib, instAttrib).ifPresent(comparison.newMistakes::add);
               }
               break;
             }
-            String[] attribNameSunStrings = studattrib.getName().split("(?=\\p{Upper})");
+            String[] attribNameSunStrings = studAttrib.getName().split("(?=\\p{Upper})");
             for (String subString : attribNameSunStrings) {
-              if (instattrib.getName().contains(subString)) {
-                comparison.mappedAttribute.put(instattrib, studattrib);
-                comparison.notMappedInstructorAttribute.remove(instattrib);
-                comparison.extraStudentAttribute.remove(studattrib);
-                if (isPlural(studattrib.getName())) {
-                  comparison.newMistakes.add(createMistake(PLURAL_ATTRIBUTE, studattrib, instattrib));
+              if (instAttrib.getName().contains(subString)) {
+                comparison.mappedAttribute.put(instAttrib, studAttrib);
+                comparison.notMappedInstructorAttribute.remove(instAttrib);
+                comparison.extraStudentAttribute.remove(studAttrib);
+                if (isPlural(studAttrib.getName())) {
+                  comparison.newMistakes.add(createMistake(PLURAL_ATTRIBUTE, studAttrib, instAttrib));
                 } else {
-                  comparison.newMistakes.add(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, studattrib, instattrib));
+                  comparison.newMistakes.add(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, studAttrib, instAttrib));
                 }
                 break;
               }
@@ -1918,16 +1918,16 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-  public static Optional<Mistake> checkMistakePluralAttribName(Attribute studentattrib, Attribute instructorattrib) {
-    if (isPlural(studentattrib.getName())) {
-      return Optional.of(createMistake(PLURAL_ATTRIBUTE, studentattrib, instructorattrib));
+  public static Optional<Mistake> checkMistakePluralAttribName(Attribute studentAttrib, Attribute instructorAttrib) {
+    if (isPlural(studentAttrib.getName())) {
+      return Optional.of(createMistake(PLURAL_ATTRIBUTE, studentAttrib, instructorAttrib));
     }
     return Optional.empty();
   }
 
-  public static Optional<Mistake> checkMistakeUppercaseAttribName(Attribute studentattrib, Attribute instructorattrib) {
-    if (startsWithUppercase(studentattrib.getName())) {
-      return Optional.of(createMistake(UPPERCASE_ATTRIBUTE_NAME, studentattrib, instructorattrib));
+  public static Optional<Mistake> checkMistakeUppercaseAttribName(Attribute studentAttrib, Attribute instructorAttrib) {
+    if (startsWithUppercase(studentAttrib.getName())) {
+      return Optional.of(createMistake(UPPERCASE_ATTRIBUTE_NAME, studentAttrib, instructorAttrib));
     }
     return Optional.empty();
   }
