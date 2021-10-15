@@ -40,6 +40,7 @@ def give_feedback(student_solution: Solution) -> Union[FeedbackItem, list[Feedba
     for m in highest_priority_mistakes:
         #student_solution.currentMistake = m  # TODO
         result.append(next_feedback(m))
+        # decide whether student is beginner overall
         if student_knowledge_for(m).levelOfKnowledge < BEGINNER_LEVEL_OF_KNOWLEDGE:
             break
 

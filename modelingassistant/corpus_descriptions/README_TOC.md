@@ -1827,29 +1827,328 @@ Level 5: Resource response with Quiz:
 
 #### Missing generalization
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> What is the relationship between these classes?
+
+Level 3: Parametrized response:
+
+> A ${subclass} is a ${superclass}. How should we model this?
+
+Level 4: Resource response with Quiz:
+
+> Place the following classes in an inheritance hierarchy:
+
+* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
+* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+
 
 #### Extra generalization
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you find a better way to express this relationship?
+
+> Is there a [direct ]relationship between these two classes?
+
+Text response:
+
+> Can you find a better way to express this relationship?
+
+> Is there a [direct ]relationship between these two classes?
+
+Level 2: Text response:
+
+> Can you find a better way to express this relationship?
+
+> Is there a [direct ]relationship between these two classes?
+
+Text response:
+
+> Can you find a better way to express this relationship?
+
+> Is there a [direct ]relationship between these two classes?
+
+Level 3: Parametrized response:
+
+> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
+
+> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
+
+Parametrized response:
+
+> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
+
+> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
+
+Level 3: Parametrized response:
+
+> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
+
+> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
+
+Parametrized response:
+
+> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
+
+> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
+
+Level 4: Resource response with Quiz:
+
+> Place the following classes in an inheritance hierarchy:
+
+* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
+* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+
+Level 5: Resource response with Quiz:
+
+> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
 
 
 #### Generalization does not follow isA rule
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you find a better way to express this relationship?
+
+> Is there a [direct ]relationship between these two classes?
+
+Text response:
+
+> Can you find a better way to express this relationship?
+
+> Is there a [direct ]relationship between these two classes?
+
+Level 2: Text response:
+
+> Can you find a better way to express this relationship?
+
+> Is there a [direct ]relationship between these two classes?
+
+Text response:
+
+> Can you find a better way to express this relationship?
+
+> Is there a [direct ]relationship between these two classes?
+
+Level 3: Parametrized response:
+
+> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
+
+> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
+
+Parametrized response:
+
+> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
+
+> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
+
+Level 3: Parametrized response:
+
+> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
+
+> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
+
+Parametrized response:
+
+> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
+
+> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
+
+Level 4: Resource response with Quiz:
+
+> Place the following classes in an inheritance hierarchy:
+
+* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
+* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+
+Level 5: Resource response with Quiz:
+
+> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
+
 
 #### Subclass not distinct across lifetime
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you find a better way to model this concept?
+
+Level 3: Parametrized response:
+
+> Will a[n] ${nondistinctSubclass} retain this status over its lifetime?
+
+Level 4: Resource response with Quiz:
+
+> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
 
 
 #### Inherited feature does not make sense for subclass
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Does this belong here?
+
+Level 3: Parametrized response:
+
+> The ${featureName} feature of the ${superclass} class does not make sense for its ${subclass} subclass.
+
+Level 4: Resource response with Quiz:
+
+> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
+
 
 #### Subclass is an instance of superclass
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you find a better way to express this relationship?
+
+Level 3: Text response:
+
+> Remember the definition of the **isA rule**.[ Instances should not be modeled as subclasses].
+
+Level 4: Resource response with Example:
+
+> A CheckingAccount isA Account, but account1234 is **not** an Account according to the isA Rule.
+
+Level 5: Resource response with Quiz:
+
+> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
 
 
 #### Non-differentiated subclass
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Is it really necessary to model this as a subclass?
+
+Level 3: Parametrized response:
+
+> ${wrongSubclass} does not differ from ${wrongSuperclass} in terms of behavior or structure.
+
+Level 4: Resource response with Quiz:
+
+> Which classes do not belong?
+* `Account`, `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`,
+`ClosedAccount`
+
 
 #### Wrong generalization direction
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you double check this relationship?
+
+Level 3: Parametrized response:
+
+> Is ${superclass} really a ${subclass}?[ It should be the other way around.]
+
+Level 4: Resource response with Quiz:
+
+> Place the following classes in an inheritance hierarchy:
+
+* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
+* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+
+Level 5: Resource response with Quiz:
+
+> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
+
 
 #### Wrong superclass
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you double check this relationship?
+
+Level 3: Parametrized response:
+
+> Can you (find|create) a (better|different) superclass for ${subclass}?[ Look at the problem description closely].
+
+Level 4: Highlight problem
+
+Level 5: Parametrized response:
+
+> What is the inheritance hierarchy between ${hierarchy.classes}?
+
+Level 6: Resource response with Quiz:
+
+> Place the following classes in an inheritance hierarchy:
+
+* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
+* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
 
 
 

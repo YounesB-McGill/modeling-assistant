@@ -695,17 +695,100 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             })),
         ]),
         generalization_mistakes := mtc(n="Generalization mistakes", mistakeTypes=[
-            missing_generalization := mt(n="Missing generalization", feedbacks=fbs({})),
-            extra_generalization := mt(n="Extra generalization", feedbacks=fbs({})),
+            missing_generalization := mt(n="Missing generalization", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="What is the relationship between these classes?"),
+                3: ParametrizedResponse(text="A ${subclass} is a ${superclass}. How should we model this?"),
+                4: ResourceResponse(learningResources=[inherit_hierarchy_quiz := Quiz(content=dedent("""\
+                    Place the following classes in an inheritance hierarchy:
+                    
+                    * `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
+                    * `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ..."""))]),
+            })),
+            extra_generalization := mt(n="Extra generalization", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: [TextResponse(text="Can you find a better way to express this relationship?"),
+                    TextResponse(text="Is there a [direct ]relationship between these two classes?")],
+                3: [ParametrizedResponse(text="When creating a generalization between ${wrongSubclass} and "
+                    "${wrongSuperclass}, make sure to follow the "
+                    "[checks for proper generalization](https://mycourses2.mcgill.ca/)."),
+                    ParametrizedResponse(text="${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.")],
+                4: ResourceResponse(learningResources=[inherit_hierarchy_quiz]),
+                5: ResourceResponse(learningResources=[inherit_checks_quiz := Quiz(content=dedent("""\
+                    Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+                    and complete the following:
+
+                    The five checks for generalization are:
+                    * Obeys the ________. (isA rule)
+                    * Subclass must retain its ________. (distinctiveness)
+                    * All ________ must make sense in each subclass. (inherited features)
+                    * Subclass differs from superclass and other subclasses in ________ or ________. 
+                    (behavior, structure)
+                    * Subclass must not be ________. (instance)"""))]),
+            })),
             generalization_inapplicable := mt(
-                n="Generalization inapplicable", d="Generalization does not follow isA rule", feedbacks=fbs({})),
-            subclass_not_distinct_across_lifetime := mt(n="Subclass not distinct across lifetime", feedbacks=fbs({})),
+                n="Generalization inapplicable", d="Generalization does not follow isA rule", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: [TextResponse(text="Can you find a better way to express this relationship?"),
+                        TextResponse(text="Is there a [direct ]relationship between these two classes?")],
+                    3: [ParametrizedResponse(text="When creating a generalization between ${wrongSubclass} and "
+                        "${wrongSuperclass}, make sure to follow the "
+                        "[checks for proper generalization](https://mycourses2.mcgill.ca/)."),
+                        ParametrizedResponse(
+                            text="${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.")],
+                    4: ResourceResponse(learningResources=[inherit_hierarchy_quiz]),
+                    5: ResourceResponse(learningResources=[inherit_checks_quiz]),
+                })),
+            subclass_not_distinct_across_lifetime := mt(n="Subclass not distinct across lifetime", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Can you find a better way to model this concept?"),
+                3: ParametrizedResponse(text="Will a[n] ${nondistinctSubclass} retain this status over its lifetime?"),
+                4: ResourceResponse(learningResources=[inherit_checks_quiz]),
+            })),
             inherited_feature_does_not_make_sense_for_subclass := mt(
-                n="Inherited feature does not make sense for subclass", feedbacks=fbs({})),
-            subclass_is_an_instance_of_superclass := mt(n="Subclass is an instance of superclass", feedbacks=fbs({})),
-            non_differentiated_subclass := mt(n="Non-differentiated subclass", feedbacks=fbs({})),
-            wrong_generalization_direction := mt(n="Wrong generalization direction", feedbacks=fbs({})),
-            wrong_superclass := mt(n="Wrong superclass", feedbacks=fbs({})),
+                n="Inherited feature does not make sense for subclass", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Does this belong here?"),
+                    3: ParametrizedResponse(text="The ${featureName} feature of the ${superclass} class does not make "
+                        "sense for its ${subclass} subclass."),
+                    4: ResourceResponse(learningResources=[inherit_checks_quiz]),
+                })),
+            subclass_is_an_instance_of_superclass := mt(n="Subclass is an instance of superclass", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Can you find a better way to express this relationship?"),
+                3: TextResponse(text="Remember the definition of the **isA rule**.[ Instances should not be modeled "
+                    "as subclasses]."),
+                4: ResourceResponse(learningResources=[Example(content="A CheckingAccount isA Account, but account1234 "
+                    "is **not** an Account according to the isA Rule.")]),
+                5: ResourceResponse(learningResources=[inherit_checks_quiz]),
+            })),
+            non_differentiated_subclass := mt(n="Non-differentiated subclass", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Is it really necessary to model this as a subclass?"),
+                3: ParametrizedResponse(text="${wrongSubclass} does not differ from ${wrongSuperclass} in terms of "
+                    "behavior or structure."),
+                4: ResourceResponse(learningResources=[non_diff_subclass_quiz := Quiz(content=dedent("""\
+                    Which classes do not belong?
+                    * `Account`, `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`,
+                    `ClosedAccount`"""))]),
+            })),
+            wrong_generalization_direction := mt(n="Wrong generalization direction", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Can you double check this relationship?"),
+                3: ParametrizedResponse(
+                    text="Is ${superclass} really a ${subclass}?[ It should be the other way around.]"),
+                4: ResourceResponse(learningResources=[inherit_hierarchy_quiz]),
+                5: ResourceResponse(learningResources=[inherit_checks_quiz]),
+            })),
+            wrong_superclass := mt(n="Wrong superclass", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Can you double check this relationship?"),
+                3: ParametrizedResponse(text="Can you (find|create) a (better|different) superclass for ${subclass}?"
+                    "[ Look at the problem description closely]."),
+                4: Feedback(highlightProblem=True),
+                5: ParametrizedResponse(text="What is the inheritance hierarchy between ${hierarchy.classes}?"),
+                6: ResourceResponse(learningResources=[inherit_hierarchy_quiz]),
+            })),
         ]),
     ]),
 
