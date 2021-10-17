@@ -10,19 +10,21 @@ from time import sleep
 import os
 import json
 import sys
+
+from requests.models import Response
 import requests
 import pytest
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from feedback import give_feedback
-from classdiagram.classdiagram import Class
+from classdiagram import Class, ClassDiagram
 from fileserdes import load_cdm
-from learningcorpus.learningcorpus import Feedback, ParametrizedResponse, ResourceResponse, TextResponse
+from learningcorpus import Feedback, ParametrizedResponse, ResourceResponse, TextResponse
 from mistaketypes import BAD_CLASS_NAME_SPELLING, SOFTWARE_ENGINEERING_TERM
 from stringserdes import SRSET, StringEnabledResourceSet
-from modelingassistant.modelingassistant import (FeedbackItem, Mistake, ModelingAssistant,
-    ProblemStatement, Solution, SolutionElement, Student, StudentKnowledge)
+from modelingassistant import (FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, Solution, SolutionElement,
+    Student, StudentKnowledge)
 
 
 HOST = "localhost"
@@ -223,7 +225,41 @@ def test_feedback_with_1_mistake_levels_1_4():
     assert 6 == ma.studentKnowledges[0].levelOfKnowledge
 
 
-@pytest.mark.skip(reason="Longer test time")
+def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cdm: ClassDiagram) -> ModelingAssistant:
+    """
+    Return the mistakes of the given student solution given the instructor solution and a modeling assistant context
+    by calling the Mistake Detection System. If the latter is not running, it will be started.
+    """
+    def call_mistake_detection_system(ma_str: str) -> Response:
+        return requests.get(f"http://{HOST}:{PORT}/detectmistakes", {"modelingassistant": ma_str})
+
+    resource = StringEnabledResourceSet().create_string_resource()
+    resource.extend([ma, instructor_cdm, student_cdm])
+    ma_str = resource.save_to_string().decode()
+    assert ma_str
+
+    try:
+        req = call_mistake_detection_system(ma_str)
+    except Exception:  # pylint: disable=broad-except
+        # Turn on Modeling Assistant REST API server if not already running
+        Thread(target=lambda: os.system("cd modelingassistant.restapi && mvn spring-boot:run"), daemon=True).start()
+        sleep(DELAY)
+        req = call_mistake_detection_system(ma_str)
+
+    req_content = json.loads(req.content)
+    assert 200 == req.status_code
+    assert "modelingAssistantXmi" in req_content
+
+    ma_str = bytes(req_content["modelingAssistantXmi"], "utf-8")
+    resource = SRSET.get_string_resource(ma_str)
+    ma: ModelingAssistant = resource.contents[0]
+    ma.__class__ = ModelingAssistant
+    assert ma
+    return ma
+
+
+
+#@pytest.mark.skip(reason="Longer test time")
 def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
     """
     Test feedback for a modeling assistant instance with mistakes detected from the actual mistake detection system.
@@ -245,30 +281,8 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     bob_sol.problemStatement = bus_ps
     bob.currentSolution = bob_sol
 
-    resource = StringEnabledResourceSet().create_string_resource()
-    resource.extend([ma, instructor_cdm, student_cdm])
-    ma_str = resource.save_to_string().decode()
-    assert ma_str
+    ma = get_mistakes(ma, instructor_cdm, student_cdm)
 
-    get_mistakes = lambda: requests.get(f"http://{HOST}:{PORT}/detectmistakes", {"modelingassistant": ma_str})
-
-    try:
-        req = get_mistakes()
-    except Exception:  # pylint: disable=broad-except
-        # Turn on Modeling Assistant REST API server if not already running
-        Thread(target=lambda: os.system("cd modelingassistant.restapi && mvn spring-boot:run"), daemon=True).start()
-        sleep(DELAY)
-        req = get_mistakes()
-
-    req_content = json.loads(req.content)
-    assert 200 == req.status_code
-    assert "modelingAssistantXmi" in req_content
-
-    ma_str = bytes(req_content["modelingAssistantXmi"], "utf-8")
-    resource = SRSET.get_string_resource(ma_str)
-    ma: ModelingAssistant = resource.contents[0]
-    ma.__class__ = ModelingAssistant
-    assert ma
     assert bus_ps.name == ma.problemStatements[0].name
 
     bus_ps = ma.problemStatements[0]
