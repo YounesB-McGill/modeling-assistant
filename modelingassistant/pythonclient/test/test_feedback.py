@@ -13,7 +13,7 @@ import sys
 
 from requests.models import Response
 import requests
-import pytest
+import pytest  # (to allow tests to be skipped) pylint: disable=unused-import
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -63,7 +63,6 @@ def test_feedback_without_mistakes():
     assert "no mistakes found" in feedback_item.feedback.text.lower()
 
 
-@pytest.mark.skip(reason="Test failed. TODO Update Logic")
 def test_feedback_with_1_mistake_level_1():
     """
     Test feedback for a solution with one mistake made a first time.
@@ -73,7 +72,7 @@ def test_feedback_with_1_mistake_level_1():
     ma = make_ma_with_1_new_mistake(1)
     solution = ma.solutions[0]
     feedback_item = give_feedback(solution)
-    curr_mistake = solution.currentMistake
+    curr_mistake = feedback_item.mistake
 
     assert feedback_item.solution is solution
     assert curr_mistake.lastFeedback is feedback_item
@@ -85,7 +84,6 @@ def test_feedback_with_1_mistake_level_1():
     assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
 
-@pytest.mark.skip(reason="Test failed. TODO Update Logic")
 def test_feedback_with_1_mistake_level_2():
     """
     Test feedback for a solution with one mistake made a second time.
@@ -95,7 +93,7 @@ def test_feedback_with_1_mistake_level_2():
     ma = make_ma_with_1_new_mistake(2)
     solution = ma.solutions[0]
     feedback_item = give_feedback(solution)
-    curr_mistake = solution.currentMistake
+    curr_mistake = feedback_item.mistake
 
     assert feedback_item.solution is solution
     assert curr_mistake.lastFeedback is feedback_item
@@ -108,7 +106,6 @@ def test_feedback_with_1_mistake_level_2():
     assert 8 == ma.studentKnowledges[0].levelOfKnowledge
 
 
-@pytest.mark.skip(reason="Test failed. TODO Update Logic")
 def test_feedback_with_1_mistake_level_3():
     """
     Test feedback for a solution with one mistake made a third time.
@@ -118,7 +115,7 @@ def test_feedback_with_1_mistake_level_3():
     ma = make_ma_with_1_new_mistake(3)
     solution = ma.solutions[0]
     feedback_item = give_feedback(solution)
-    curr_mistake = solution.currentMistake
+    curr_mistake = feedback_item.mistake
 
     assert feedback_item.solution is solution
     assert curr_mistake.lastFeedback is feedback_item
@@ -132,7 +129,6 @@ def test_feedback_with_1_mistake_level_3():
     assert 7 == ma.studentKnowledges[0].levelOfKnowledge
 
 
-@pytest.mark.skip(reason="Test failed. TODO Update Logic")
 def test_feedback_with_1_mistake_level_4():
     """
     Test feedback for a solution with one mistake made a fourth time.
@@ -142,7 +138,7 @@ def test_feedback_with_1_mistake_level_4():
     ma = make_ma_with_1_new_mistake(4)
     solution = ma.solutions[0]
     feedback_item = give_feedback(solution)
-    curr_mistake = solution.currentMistake
+    curr_mistake = feedback_item.mistake
 
     assert feedback_item.solution is solution
     assert curr_mistake.lastFeedback is feedback_item
@@ -159,7 +155,6 @@ def test_feedback_with_1_mistake_level_4():
     assert 6 == ma.studentKnowledges[0].levelOfKnowledge
 
 
-@pytest.mark.skip(reason="Test failed. TODO Update Logic")
 def test_feedback_with_1_mistake_levels_1_4():
     """
     Test feedback for a solution with one mistake made four times in a row.
@@ -169,7 +164,7 @@ def test_feedback_with_1_mistake_levels_1_4():
     ma = make_ma_with_1_new_mistake(1)
     solution = ma.solutions[0]
     feedback_item = give_feedback(solution)
-    curr_mistake = solution.currentMistake
+    curr_mistake = feedback_item.mistake
 
     assert feedback_item.solution is solution
     assert curr_mistake.lastFeedback is feedback_item
