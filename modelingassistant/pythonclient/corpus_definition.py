@@ -853,10 +853,38 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             ]
         ),
         abstraction_occurrence_pattern_mistakes := mtc(n="Abstraction-Occurrence pattern mistakes", mistakeTypes=[
+            # TODO Add more fine-grained mistake types here for more precise feedback
             missing_ao_pattern := mt(
-                n="Missing AO pattern", d="Missing Abstraction-Occurrence pattern", feedbacks=fbs({})),
+                n="Missing AO pattern", d="Missing Abstraction-Occurrence pattern", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: [ParametrizedResponse(text="Is there a way to remove the duplicate ${duplicateAttribute} "
+                        "attribute between ${class1} and ${class2}?"),
+                        ParametrizedResponse(text="${wronglySubclass} should not be a subclass of ${superclass}. "
+                        "Is there a design pattern that can be used here?"),
+                        ParametrizedResponse(text="The ${commonAttribute} is common information for all instances of "
+                        "${className}, but this is not enforced.")],
+                    4: ResourceResponse(learningResources=[ao_ref := Reference(content=dedent("""\
+                        The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
+                        represent a set of related objects that share common information but also differ
+                        from each other in an important way.
+
+                        ![Abstraction-Occurrence Pattern](images/abstraction_occurrence.png)"""))]),
+                })),
             incomplete_ao_pattern := mt(
-                n="Incomplete AO pattern", d="Incomplete Abstraction-Occurrence pattern", feedbacks=fbs({})),
+                n="Incomplete AO pattern", d="Incomplete Abstraction-Occurrence pattern", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: [ParametrizedResponse(text="Is there a way to remove the duplicate ${duplicateAttribute} "
+                        "attribute between ${class1} and ${class2}?"),
+                        ParametrizedResponse(text="${wronglySubclass} should not be a subclass of ${superclass}. "
+                        "Is there a design pattern that can be used here?"),
+                        ParametrizedResponse(text="The ${commonAttribute} is common information for all instances of "
+                        "${className}, but this is not enforced.")],
+                    4: ResourceResponse(learningResources=[ao_ref]),
+                })),
         ]),
     ]),
 ])

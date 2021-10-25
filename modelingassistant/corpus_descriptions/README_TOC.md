@@ -447,11 +447,7 @@ Level 4: Parametrized response:
 
 > The ${className} class is not part of the domain, so please remove it.
 
-> Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
-
 Parametrized response:
-
-> The ${className} class is not part of the domain, so please remove it.
 
 > Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
 
@@ -459,11 +455,7 @@ Level 4: Parametrized response:
 
 > The ${className} class is not part of the domain, so please remove it.
 
-> Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
-
 Parametrized response:
-
-> The ${className} class is not part of the domain, so please remove it.
 
 > Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
 
@@ -544,23 +536,11 @@ Level 3: Parametrized response:
 
 > The ${redundantAttribute} in the ${className} class is not needed.
 
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
-
 Parametrized response:
 
-> The ${redundantAttribute} in the ${className} class is not needed.
-
 > The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
 Parametrized response:
-
-> The ${redundantAttribute} in the ${className} class is not needed.
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
 
 > The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
@@ -568,23 +548,11 @@ Level 3: Parametrized response:
 
 > The ${redundantAttribute} in the ${className} class is not needed.
 
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
-
 Parametrized response:
 
-> The ${redundantAttribute} in the ${className} class is not needed.
-
 > The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
 Parametrized response:
-
-> The ${redundantAttribute} in the ${className} class is not needed.
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
 
 > The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
@@ -592,23 +560,11 @@ Level 3: Parametrized response:
 
 > The ${redundantAttribute} in the ${className} class is not needed.
 
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
-
 Parametrized response:
 
-> The ${redundantAttribute} in the ${className} class is not needed.
-
 > The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
 Parametrized response:
-
-> The ${redundantAttribute} in the ${className} class is not needed.
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
 
 > The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
@@ -644,11 +600,7 @@ Level 2: Text response:
 
 > Remember that attributes are written in `lowerCamelCase`.
 
-> Can this attribute be renamed?
-
 Text response:
-
-> Remember that attributes are written in `lowerCamelCase`.
 
 > Can this attribute be renamed?
 
@@ -656,11 +608,7 @@ Level 2: Text response:
 
 > Remember that attributes are written in `lowerCamelCase`.
 
-> Can this attribute be renamed?
-
 Text response:
-
-> Remember that attributes are written in `lowerCamelCase`.
 
 > Can this attribute be renamed?
 
@@ -945,11 +893,7 @@ Level 3: Parametrized response:
 
 > ${actionName} should not be modeled as an association.
 
-> ${actionName} does not need be modeled as part of a domain model.
-
 Parametrized response:
-
-> ${actionName} should not be modeled as an association.
 
 > ${actionName} does not need be modeled as part of a domain model.
 
@@ -957,11 +901,7 @@ Level 3: Parametrized response:
 
 > ${actionName} should not be modeled as an association.
 
-> ${actionName} does not need be modeled as part of a domain model.
-
 Parametrized response:
-
-> ${actionName} should not be modeled as an association.
 
 > ${actionName} does not need be modeled as part of a domain model.
 
@@ -982,11 +922,7 @@ Level 3: Parametrized response:
 
 > The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
 
-> The relationship between ${classOne} and ${classTwo} is redundant since we can access ${classTwo} from ${classOne} via ${classThree}.
-
 Parametrized response:
-
-> The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
 
 > The relationship between ${classOne} and ${classTwo} is redundant since we can access ${classTwo} from ${classOne} via ${classThree}.
 
@@ -994,11 +930,7 @@ Level 3: Parametrized response:
 
 > The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
 
-> The relationship between ${classOne} and ${classTwo} is redundant since we can access ${classTwo} from ${classOne} via ${classThree}.
-
 Parametrized response:
-
-> The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
 
 > The relationship between ${classOne} and ${classTwo} is redundant since we can access ${classTwo} from ${classOne} via ${classThree}.
 
@@ -1274,23 +1206,11 @@ Level 4: Parametrized response:
 
 > Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
 
-> How many ${class1}'s does a ${class2} have?
-
-> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
-
 Parametrized response:
 
-> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
-
 > How many ${class1}'s does a ${class2} have?
-
-> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
 
 Parametrized response:
-
-> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
-
-> How many ${class1}'s does a ${class2} have?
 
 > Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
 
@@ -1298,23 +1218,11 @@ Level 4: Parametrized response:
 
 > Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
 
-> How many ${class1}'s does a ${class2} have?
-
-> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
-
 Parametrized response:
 
-> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
-
 > How many ${class1}'s does a ${class2} have?
-
-> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
 
 Parametrized response:
-
-> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
-
-> How many ${class1}'s does a ${class2} have?
 
 > Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
 
@@ -1322,23 +1230,11 @@ Level 4: Parametrized response:
 
 > Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
 
-> How many ${class1}'s does a ${class2} have?
-
-> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
-
 Parametrized response:
 
-> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
-
 > How many ${class1}'s does a ${class2} have?
-
-> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
 
 Parametrized response:
-
-> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
-
-> How many ${class1}'s does a ${class2} have?
 
 > Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
 
@@ -1853,11 +1749,7 @@ Level 2: Text response:
 
 > Can you find a better way to express this relationship?
 
-> Is there a [direct ]relationship between these two classes?
-
 Text response:
-
-> Can you find a better way to express this relationship?
 
 > Is there a [direct ]relationship between these two classes?
 
@@ -1865,23 +1757,15 @@ Level 2: Text response:
 
 > Can you find a better way to express this relationship?
 
-> Is there a [direct ]relationship between these two classes?
-
 Text response:
 
-> Can you find a better way to express this relationship?
-
 > Is there a [direct ]relationship between these two classes?
 
 Level 3: Parametrized response:
 
 > When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
-> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
-
 Parametrized response:
-
-> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
 > ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
 
@@ -1889,11 +1773,7 @@ Level 3: Parametrized response:
 
 > When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
-> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
-
 Parametrized response:
-
-> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
 > ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
 
@@ -1926,11 +1806,7 @@ Level 2: Text response:
 
 > Can you find a better way to express this relationship?
 
-> Is there a [direct ]relationship between these two classes?
-
 Text response:
-
-> Can you find a better way to express this relationship?
 
 > Is there a [direct ]relationship between these two classes?
 
@@ -1938,23 +1814,15 @@ Level 2: Text response:
 
 > Can you find a better way to express this relationship?
 
-> Is there a [direct ]relationship between these two classes?
-
 Text response:
 
-> Can you find a better way to express this relationship?
-
 > Is there a [direct ]relationship between these two classes?
 
 Level 3: Parametrized response:
 
 > When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
-> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
-
 Parametrized response:
-
-> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
 > ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
 
@@ -1962,11 +1830,7 @@ Level 3: Parametrized response:
 
 > When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
-> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
-
 Parametrized response:
-
-> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
 > ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
 
@@ -2205,8 +2069,108 @@ Level 6: Resource response with Quiz:
 
 #### Missing Abstraction-Occurrence pattern
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
+
+Parametrized response:
+
+> ${wronglySubclass} should not be a subclass of ${superclass}. Is there a design pattern that can be used here?
+
+Parametrized response:
+
+> The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
+
+Level 3: Parametrized response:
+
+> Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
+
+Parametrized response:
+
+> ${wronglySubclass} should not be a subclass of ${superclass}. Is there a design pattern that can be used here?
+
+Parametrized response:
+
+> The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
+
+Level 3: Parametrized response:
+
+> Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
+
+Parametrized response:
+
+> ${wronglySubclass} should not be a subclass of ${superclass}. Is there a design pattern that can be used here?
+
+Parametrized response:
+
+> The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
+
+Level 4: Resource response with Reference:
+
+> The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
+represent a set of related objects that share common information but also differ
+from each other in an important way.
+
+![Abstraction-Occurrence Pattern](images/abstraction_occurrence.png)
+
 
 #### Incomplete Abstraction-Occurrence pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
+
+Parametrized response:
+
+> ${wronglySubclass} should not be a subclass of ${superclass}. Is there a design pattern that can be used here?
+
+Parametrized response:
+
+> The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
+
+Level 3: Parametrized response:
+
+> Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
+
+Parametrized response:
+
+> ${wronglySubclass} should not be a subclass of ${superclass}. Is there a design pattern that can be used here?
+
+Parametrized response:
+
+> The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
+
+Level 3: Parametrized response:
+
+> Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
+
+Parametrized response:
+
+> ${wronglySubclass} should not be a subclass of ${superclass}. Is there a design pattern that can be used here?
+
+Parametrized response:
+
+> The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
+
+Level 4: Resource response with Reference:
+
+> The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
+represent a set of related objects that share common information but also differ
+from each other in an important way.
+
+![Abstraction-Occurrence Pattern](images/abstraction_occurrence.png)
 
 
 
