@@ -10,7 +10,4 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Ignore files with user-specific paths
-.vscode/settings.json
-
 *.xtendbin
