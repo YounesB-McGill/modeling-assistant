@@ -4,7 +4,6 @@
 Module containing feedback algorithm for modeling assistant.
 """
 
-from typing import Union
 from learningcorpus.learningcorpus import TextResponse
 from modelingassistant.modelingassistant import FeedbackItem, Mistake, Solution, StudentKnowledge
 
@@ -13,7 +12,7 @@ MAX_STUDENT_LEVEL_OF_KNOWLEDGE = 10.0
 BEGINNER_LEVEL_OF_KNOWLEDGE = 7.0
 
 
-def give_feedback(student_solution: Solution) -> Union[FeedbackItem, list[FeedbackItem]]:
+def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackItem]:
     "Give feedback on the given student solution."
     if student_solution is not student_solution.student.currentSolution:
         return None  # do not give feedback for other unrelated solutions
@@ -40,6 +39,7 @@ def give_feedback(student_solution: Solution) -> Union[FeedbackItem, list[Feedba
     for m in highest_priority_mistakes:
         #student_solution.currentMistake = m  # TODO
         result.append(next_feedback(m))
+        # decide whether student is beginner overall
         if student_knowledge_for(m).levelOfKnowledge < BEGINNER_LEVEL_OF_KNOWLEDGE:
             break
 
@@ -66,7 +66,7 @@ def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:
     """
     Return the student knowledge object for the given mistake (a mistake is made by a specific student).
     """
-    # TODO Cache studentknowledges or redesign metamodel to access them in O(1) time instead of O(n) 
+    # TODO Cache studentknowledges or redesign metamodel to access them in O(1) time instead of O(n)
     student = mistake.solution.student
     return next(sk for sk in student.studentKnowledges if sk.mistakeType == mistake.mistakeType)
 

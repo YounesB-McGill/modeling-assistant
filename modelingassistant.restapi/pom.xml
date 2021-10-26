@@ -77,6 +77,28 @@
 			<artifactId>org.eclipse.emf.edit</artifactId>
 			<version>2.16.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext</artifactId>
+			<version>2.16.0</version>
+		</dependency>
+		
+		<!-- These are not on maven central so they need to be stored locally -->
+		<dependency>
+			<groupId>org.eclipse.ocl</groupId>
+			<artifactId>org.eclipse.ocl</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.ocl.pivot</groupId>
+			<artifactId>org.eclipse.ocl.pivot</artifactId>
+			<version>1.16.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.ocl.xtext.completeocl</groupId>
+			<artifactId>org.eclipse.ocl.xtext.completeocl</artifactId>
+			<version>1.16.0</version>
+		</dependency>
 
 		<!-- Other dependencies -->
 		<dependency>

@@ -208,12 +208,10 @@ def generate_markdown():
                         result += "Highlight problem\n\n"
                     case Feedback(highlightSolution=True):
                         result += "Highlight solution\n\n"
-                    case TextResponse():
-                        result += f"""Text response:\n\n{(2 * nl).join(
-                            [f"> {f.text}" for f in mt.feedbacks if f.level == level])}\n\n"""
-                    case ParametrizedResponse():
-                        result += f"""Parametrized response:\n\n{(2 * nl).join(
-                            [f"> {f.text}" for f in mt.feedbacks if f.level == level])}\n\n"""
+                    case TextResponse() as resp:
+                        result += f"Text response:\n\n> {resp.text}\n\n"
+                    case ParametrizedResponse() as resp:
+                        result += f"Parametrized response:\n\n> {resp.text}\n\n"
                     case ResourceResponse() as resp if resp.learningResources:
                         primary_rsc = resp.learningResources[0]
                         rsc_type = type(primary_rsc).__name__
