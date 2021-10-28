@@ -224,6 +224,8 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     """
     Return the mistakes of the given student solution given the instructor solution and a modeling assistant context
     by calling the Mistake Detection System. If the latter is not running, it will be started.
+
+    This function is similar to the one in the modeling assistant, but it includes additional assertions.
     """
     def call_mistake_detection_system(ma_str: str) -> Response:
         return requests.get(f"http://{HOST}:{PORT}/detectmistakes", {"modelingassistant": ma_str})

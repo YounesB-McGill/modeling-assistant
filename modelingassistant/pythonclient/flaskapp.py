@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
 
-from flask import Flask, jsonify
+"""
+REST API for modeling assistant.
+"""
+
+# pylint: disable=invalid-name
+
+from feedback import give_feedback_for_student_cdm
+from flask import Flask, Response, jsonify
 from flask_cors import CORS
+
 
 DEBUG_MODE = True
 PORT = 8538
@@ -11,9 +19,15 @@ CORS(app)  # TODO Make this more secure later
 
 
 @app.route("/helloworld/<name>")
-def hello_world(name):
+def hello_world(name) -> Response:
     "Simple route used for testing the app."
     return jsonify({"hello": name})
+
+
+@app.route("/feedback/<cdmName>")
+def feedback(cdmName: str) -> Response:
+    "Return feedback for the class diagram given its name."
+    return jsonify(give_feedback_for_student_cdm(cdmName))
 
 
 if __name__ == "__main__":

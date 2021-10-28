@@ -21,7 +21,6 @@ def generate_pyecore():
 
 def customize_generated_code():
     "Add custom functionality to the generated code, similar to `@generated NOT` in the Java ecore implementation."
-    # TODO Generalize this as needed
     # Add the following function to the generated LearningCorpus class
     lc_mistaketypes_func = ast.parse(dedent("""\
     def mistakeTypes(self) -> list:
@@ -39,18 +38,22 @@ def customize_generated_code():
     '''))
 
     lc_py = "modelingassistant/pythonclient/learningcorpus/learningcorpus.py"
+    customize_class(lc_py, "LearningCorpus", [lc_mistaketypes_func, lc_toplevelmtcs_func])
 
+
+def customize_class(filename: str, classname: str, members: list):
+    "Add custom functionality to a class, similar to `@generated NOT` in the Java ecore implementation."
     # Open and parse file
-    with open(lc_py, encoding="utf-8") as lc:
-        lc_ast = ast.parse(lc.read())
-        for e in lc_ast.body:
-            # Find the LearningCorpus class
-            if "name" in dir(e) and e.name == "LearningCorpus":
-                # Add the custom functions to it
-                e.body.extend([lc_toplevelmtcs_func, lc_mistaketypes_func])
+    with open(filename, encoding="utf-8") as f:
+        file_ast = ast.parse(f.read())
+        for e in file_ast.body:
+            # Find the class
+            if "name" in dir(e) and e.name == classname:
+                # Add the custom members to it
+                e.body.extend(members)
     # Unparse the file back to a string and save it to file
-    with open(lc_py, "w", encoding="utf-8") as lc:
-        lc.write(ast.unparse(lc_ast))
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write(ast.unparse(file_ast))
 
 
 if __name__ == "__main__":
