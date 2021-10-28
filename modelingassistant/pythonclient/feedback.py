@@ -93,7 +93,7 @@ def give_feedback_for_student_cdm(student_cdm_name: str) -> FeedbackTO:
     global MODELING_ASSISTANT  # pylint: disable=global-statement
     instructor_cdm = instructor_cdm_for(student_cdm_name)
     student_cdm = student_cdm_for(student_cdm_name)
-    student_solution = MODELING_ASSISTANT.classDiagramsToSolutions[student_cdm]  # TODO
+    student_solution = MODELING_ASSISTANT.classDiagramsToSolutions[student_cdm]
     MODELING_ASSISTANT = get_mistakes(MODELING_ASSISTANT, instructor_cdm, student_cdm)
     fb_s = give_feedback(student_solution)
     fb = fb_s if isinstance(fb_s, FeedbackItem) else fb_s[0]  # only one feedback item for now
