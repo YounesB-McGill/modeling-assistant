@@ -41,7 +41,6 @@ import static modelingassistant.util.TagUtils.setRoleTagToClassInClassDiag;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.CDEnum;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
@@ -372,7 +371,6 @@ public class MistakeDetectionPatternTest {
   /**
    * Test to check Assoc player role pattern instead of Full in studentSolution.
    */
-  @Disabled("This test sometimes fails, so it has been temporarily disabled.")
   @Test
   public void testAssocPRInsteadOfFullClassPattern() {
     var instructorClassDiagram = cdmFromFile(
@@ -395,9 +393,8 @@ public class MistakeDetectionPatternTest {
     var studStudentClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-    assertEquals(10, comparison.newMistakes.size());
-    assertEquals(10, studentSolution.getMistakes().size());
+    assertEquals(9, comparison.newMistakes.size());
+    assertEquals(9, studentSolution.getMistakes().size());
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
 
     assertMistake(studStudentClassMistake, ASSOC_SHOULD_BE_FULL_PR_PATTERN, studElements,
