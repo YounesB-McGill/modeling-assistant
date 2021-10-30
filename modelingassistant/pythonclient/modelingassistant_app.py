@@ -10,12 +10,14 @@ from pyecore.ecore import EClass, EPackage
 from requests.models import Response
 import requests
 
+from fileserdes import load_default_ma
 from stringserdes import SRSET, StringEnabledResourceSet
+from utils import warn
 from classdiagram import ClassDiagram
 from modelingassistant import ModelingAssistant
 
 
-MODELING_ASSISTANT = ModelingAssistant()
+MODELING_ASSISTANT =  load_default_ma()
 
 MISTAKE_DETECTION_HOST = "localhost"
 MISTAKE_DETECTION_PORT = 8539
@@ -59,9 +61,9 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
 
 
 def get_classifier_by_name(metamodel_root: EPackage, name: str) -> EClass:
-    "Return the classifier with the given name"
+    "Return the classifier with the given name."
     return next((classifier for classifier in metamodel_root.eClassifiers if classifier.name == name),
-                print(f"Warning: classfier {name} not found in metamodel."))
+                warn(f"Classfier {name} not found in metamodel."))
 
 
 if __name__ == '__main__':

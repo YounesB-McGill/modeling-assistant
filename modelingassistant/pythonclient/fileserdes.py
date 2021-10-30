@@ -3,7 +3,8 @@ Helper module for easy serialization and deserialization of models and metamodel
 """
 
 from collections.abc import Iterable
-from typing import Union
+import os
+
 from pyecore.ecore import EObject
 from pyecore.resources.resource import Resource, ResourceSet, URI
 
@@ -11,7 +12,8 @@ from classdiagram.classdiagram import ClassDiagram
 from learningcorpus.learningcorpus import LearningCorpus, LearningItem
 from serdes import set_static_class_for
 from stringserdes import SRSET
-from constants import CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM
+from constants import CLASS_DIAGRAM_MM, DEFAULT_MODELING_ASSISTANT_PATH, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM
+from utils import warn
 from modelingassistant.modelingassistant import ModelingAssistant
 
 
@@ -31,7 +33,7 @@ def load_cdm(cdm_file: str) -> ClassDiagram:
     Open a class diagram instance from the given file.
     """
     if not cdm_file.endswith(".cdm"):
-        print(f"Warning: attempting to open {cdm_file} with unexpected extension as a *.cdm file.")
+        warn(f"Attempting to open {cdm_file} with unexpected extension as a *.cdm file.")
     rset = load_metamodels(CLASS_DIAGRAM_MM)
     resource = rset.get_resource(URI(cdm_file))
     class_diagram = resource.contents[0]
@@ -46,7 +48,7 @@ def load_ma(ma_file: str) -> ModelingAssistant:
     Open a modeling assistant instance from the given file.
     """
     if not ma_file.endswith(".modelingassistant"):
-        print(f"Warning: attempting to open {ma_file} with unexpected extension as a *.modelingassistant file.")
+        warn(f"Attempting to open {ma_file} with unexpected extension as a *.modelingassistant file.")
     rset = load_metamodels(CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM)
     resource = rset.get_resource(URI(ma_file))
     modeling_assistant = resource.contents[0]
@@ -56,12 +58,21 @@ def load_ma(ma_file: str) -> ModelingAssistant:
     return modeling_assistant
 
 
+def load_default_ma() -> ModelingAssistant:
+    """
+    Open the default modeling assistant instance.
+    """
+    if not os.path.exists(DEFAULT_MODELING_ASSISTANT_PATH):
+        save_to_file(DEFAULT_MODELING_ASSISTANT_PATH, ModelingAssistant())
+    return load_ma(DEFAULT_MODELING_ASSISTANT_PATH)
+
+
 def load_lc(lc_file: str) -> LearningCorpus:
     """
     Open a learning corpus instance from the given file.
     """
     if not lc_file.endswith(".learningcorpus"):
-        print(f"Warning: attempting to open {lc_file} with unexpected extension as a *.learningcorpus file.")
+        warn(f"Attempting to open {lc_file} with unexpected extension as a *.learningcorpus file.")
     rset = load_metamodels(LEARNING_CORPUS_MM)
     resource = rset.get_resource(URI(lc_file))
     learning_corpus = resource.contents[0]
@@ -73,7 +84,7 @@ def load_lc(lc_file: str) -> LearningCorpus:
     return learning_corpus
 
 
-def save_to_files(items_by_filename: dict[str, Union[EObject, list[EObject]]]):
+def save_to_files(items_by_filename: dict[str, EObject | list[EObject]]):
     """
     Save the given EObject items to their respective files.
     """
@@ -93,3 +104,10 @@ def save_to_files(items_by_filename: dict[str, Union[EObject, list[EObject]]]):
             resource.append(item)
     for resource in resources:
         resource.save()
+
+
+def save_to_file(filename: str, item: EObject):
+    """
+    Save the given EObject item to the given file.
+    """
+    save_to_files({filename: item})

@@ -3,6 +3,8 @@ Utility functions for the Modeling Assistant Python app.
 This module must not depend on any other to avoid circular dependencies.
 """
 
+# Ok to import items from standard library and pyecore model code
+
 from types import SimpleNamespace
 from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
 
@@ -20,7 +22,7 @@ def color_str(color: str, text: str) -> str:
 
 def warn(text: str):
     "Print a warning message to the console."
-    print(color_str(COLOR.ORANGE, text))
+    print(color_str(COLOR.ORANGE, f"Warning: {text}"))
 
 
 def mtc(n, s=None, **kwargs) -> MistakeTypeCategory:
@@ -39,7 +41,7 @@ def mt(n, d="", **kwargs) -> MistakeType:
     d: description of the mistake type
     """
     if n == d:
-        warn(f"Warning: name and description are identical for mistake type {n}")
+        warn(f"Name and description are identical for mistake type {n}")
     if not d:
         d = n
     return MistakeType(name=n, description=d, **kwargs)

@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<classdiagram:ClassDiagram xmlns:xmi="http://www.omg.org/XMI" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmi:id="e00ad30c-5b27-4a1d-b281-1d01c84818f4" name="Student2_solution" xmi:version="2.0">
-  <types xsi:type="classdiagram:CDInt" xmi:id="ce1057a0-56f1-471d-80f0-0018ba881270"/>
-  <types xsi:type="classdiagram:CDString" xmi:id="16d95985-962e-4ee4-ada9-3316dccb7fa7"/>
-  <classes xsi:type="classdiagram:Class" xmi:id="7d77e605-aec2-4bc8-9899-b5088f1964ed" name="Car">
-    <attributes xsi:type="classdiagram:Attribute" xmi:id="9e03d021-a1e7-49c6-a7da-d0077fc47a2b" name="id" type="ce1057a0-56f1-471d-80f0-0018ba881270"/>
-    <attributes xsi:type="classdiagram:Attribute" xmi:id="db3f1b7a-53da-4aa5-afd1-206c4891f3f7" name="make" type="16d95985-962e-4ee4-ada9-3316dccb7fa7"/>
-  </classes>
-</classdiagram:ClassDiagram>

@@ -51,6 +51,12 @@ public class ControllerTest {
   public static final String LEARNING_CORPUS_PATH =
       "../modelingassistant.learningcorpus.dsl.instances/default.learningcorpus";
 
+  /** The location of the test cdm instances. */
+  public static final String TEST_CDM_INSTANCES_PATH = "../modelingassistant/testmodels";
+
+  /** The location of the test modelingassistant instances. */
+  public static final String TEST_MA_INSTANCES_PATH = "../modelingassistant/testinstances/";
+
   /** Shorthand for CdmFactory.eINSTANCE. */
   public static final CdmFactory CDF = CdmFactory.eINSTANCE;
 
@@ -249,7 +255,7 @@ public class ControllerTest {
    */
   @Test public void testCreatingOneClassSolutionFromSerializedClassDiagram() {
     CdmPackage.eINSTANCE.eClass();
-    var cdmFile = "../modelingassistant/testmodels/car.domain_model.cdm";
+    var cdmFile = TEST_CDM_INSTANCES_PATH + "/car.domain_model.cdm";
     var classDiagram = cdmFromFile(cdmFile);
     var carClass = classDiagram.getClasses().get(0);
 
@@ -274,7 +280,7 @@ public class ControllerTest {
    */
   @Test public void testCreatingMulticlassSolutionFromSerializedClassDiagram() {
     CdmPackage.eINSTANCE.eClass();
-    var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
+    var cdmFile = TEST_CDM_INSTANCES_PATH + "/car_sportscar_part_driver.domain_model.cdm";
     var classDiagram = cdmFromFile(cdmFile);
 
     Classifier carClass = null;
@@ -312,7 +318,7 @@ public class ControllerTest {
    * Verifies that a ModelingAssistant instance with a one class solution can be serialized to an XMI file.
    */
   @Test public void testPersistingModelingAssistantWithOneClassSolution() {
-    var maInstancePath = "../modelingassistant/instances/";
+    var maInstancePath = TEST_MA_INSTANCES_PATH + "/";
     var maFilename = "ma_one_class_from_java.modelingassistant";
     var cdFilename = "ma_one_class_from_java.cdm";
     var maPath = maInstancePath + maFilename;
@@ -377,7 +383,7 @@ public class ControllerTest {
   @Test public void testLoadingModelingAssistantWithOneClassSolution() {
     CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    var maPath = "../modelingassistant/instances/ma_one_class_from_java.modelingassistant";
+    var maPath = TEST_MA_INSTANCES_PATH + "/ma_one_class_from_java.modelingassistant";
     var modelingAssistant = ModelingAssistant.fromFile(maPath);
     var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
 
@@ -393,7 +399,7 @@ public class ControllerTest {
   @Test public void testLoadingModelingAssistantWithOneClassSolutionSerializedWithPyecore() {
     CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    var maPath = "../modelingassistant/instances/ma_one_class_from_python.modelingassistant";
+    var maPath = TEST_MA_INSTANCES_PATH + "/ma_one_class_from_python.modelingassistant";
     var modelingAssistant = ModelingAssistant.fromFile(maPath);
     var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
 
@@ -407,8 +413,8 @@ public class ControllerTest {
    * Verifies that a ModelingAssistant instance with a multiclass solution can be serialized to an XMI file.
    */
   @Test public void testPersistingModelingAssistantWithMulticlassSolution() {
-    var maPath = "../modelingassistant/instances/ma_multiclass_from_java.modelingassistant";
-    var cdPath = "../modelingassistant/instances/ma_multiclass_from_java.cdm";
+    var maPath = TEST_MA_INSTANCES_PATH + "/ma_multiclass_from_java.modelingassistant";
+    var cdPath = TEST_MA_INSTANCES_PATH + "/ma_multiclass_from_java.cdm";
     var maFile = new File(maPath);
     var cdFile = new File(cdPath);
     if (maFile.isFile()) {
@@ -422,7 +428,7 @@ public class ControllerTest {
     ModelingassistantPackage.eINSTANCE.eClass();
 
     // Open premade class diagram from one of the above tests
-    var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
+    var cdmFile = TEST_CDM_INSTANCES_PATH + "/car_sportscar_part_driver.domain_model.cdm";
     var classDiagram = cdmFromFile(cdmFile);
 
     // Link class_diagram to modeling assistant instance
@@ -453,7 +459,7 @@ public class ControllerTest {
   @Test public void testLoadingModelingAssistantWithMulticlassSolution() {
     CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    var maPath = "../modelingassistant/instances/ma_multiclass_from_java.modelingassistant";
+    var maPath = TEST_MA_INSTANCES_PATH + "/ma_multiclass_from_java.modelingassistant";
     var modelingAssistant = ModelingAssistant.fromFile(maPath);
     var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
 
@@ -476,7 +482,7 @@ public class ControllerTest {
   @Test public void testLoadingModelingAssistantWithMulticlassSolutionSerializedWithPyecore() {
     CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    var maPath = "../modelingassistant/instances/ma_multiclass_from_python.modelingassistant";
+    var maPath = TEST_MA_INSTANCES_PATH + "/ma_multiclass_from_python.modelingassistant";
 
     var modelingAssistant = ModelingAssistant.fromFile(maPath);
     var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
@@ -498,9 +504,9 @@ public class ControllerTest {
    * Verifies that a ModelingAssistant instance with a multiclass solution can be serialized to an XMI file.
    */
   @Test public void testPersistingModelingAssistantWithMultipleSolutions() {
-    var maPath = "../modelingassistant/instances/ma_multisolution_from_java.modelingassistant";
-    var cd1Path = "../modelingassistant/instances/ma_multisolution_from_java1.cdm";
-    var cd2Path = "../modelingassistant/instances/ma_multisolution_from_java2.cdm";
+    var maPath = TEST_MA_INSTANCES_PATH + "/ma_multisolution_from_java.modelingassistant";
+    var cd1Path = TEST_MA_INSTANCES_PATH + "/ma_multisolution_from_java1.cdm";
+    var cd2Path = TEST_MA_INSTANCES_PATH + "/ma_multisolution_from_java2.cdm";
     var maFile = new File(maPath);
     var cd1File = new File(cd1Path);
     var cd2File = new File(cd2Path);
@@ -510,7 +516,7 @@ public class ControllerTest {
     ModelingassistantPackage.eINSTANCE.eClass();
 
     // Open premade class diagram from one of the above tests
-    var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
+    var cdmFile = TEST_CDM_INSTANCES_PATH + "/car_sportscar_part_driver.domain_model.cdm";
     var classDiagram1 = cdmFromFile(cdmFile);
 
     // Link first class diagram to modeling assistant instance
@@ -567,7 +573,7 @@ public class ControllerTest {
   @Test public void testLoadingModelingAssistantWithMultipleSolutions() {
     CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    var maPath = "../modelingassistant/instances/ma_multisolution_from_java.modelingassistant";
+    var maPath = TEST_MA_INSTANCES_PATH + "/ma_multisolution_from_java.modelingassistant";
 
     var modelingAssistant = ModelingAssistant.fromFile(maPath);
     var classDiagram1 = modelingAssistant.getSolutions().get(0).getClassDiagram();
@@ -602,7 +608,7 @@ public class ControllerTest {
   @Test public void testLoadingModelingAssistantWithMultipleSolutionsSerializedWithPyecore() {
     CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    var maPath = "../modelingassistant/instances/ma_multisolution_from_python.modelingassistant";
+    var maPath = TEST_MA_INSTANCES_PATH + "/ma_multisolution_from_python.modelingassistant";
 
     var modelingAssistant = ModelingAssistant.fromFile(maPath);
     var classDiagram1 = modelingAssistant.getSolutions().get(0).getClassDiagram();
@@ -638,7 +644,7 @@ public class ControllerTest {
   @Test public void testLoadingModelingAssistantDeserializedFromString() {
     CdmPackage.eINSTANCE.eClass();
     ModelingassistantPackage.eINSTANCE.eClass();
-    var maPath = "../modelingassistant/instances/ma_multisolution_all_in_one.modelingassistant";
+    var maPath = TEST_MA_INSTANCES_PATH + "/ma_multisolution_all_in_one.modelingassistant";
     try {
       var maString = Files.readString(Path.of(maPath));
 
@@ -713,7 +719,7 @@ public class ControllerTest {
    *  Verifies that StudentKnowledge association classes can be serialized and loaded again correctly.
    */
   @Test public void testStudentKnowledgePersistedCorrectly() {
-    var maPath = "../modelingassistant/instances/ma_studentknowledge_from_java.modelingassistant";
+    var maPath = TEST_MA_INSTANCES_PATH + "/ma_studentknowledge_from_java.modelingassistant";
     var maFile = new File(maPath);
     if (maFile.isFile()) {
       assertTrue(maFile.delete());
@@ -725,7 +731,7 @@ public class ControllerTest {
 
     // Open premade class diagram from one of the above tests
     // Can't reuse ResourceHelper.INSTANCE here to load duplicate resource
-    var cdmFile = "../modelingassistant/testmodels/car_sportscar_part_driver.domain_model.cdm";
+    var cdmFile = TEST_CDM_INSTANCES_PATH + "/car_sportscar_part_driver.domain_model.cdm";
     var rset = new ResourceSetImpl();
     rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new ModelingassistantResourceFactoryImpl());
     var resource = rset.getResource(URI.createFileURI(cdmFile), true);
@@ -893,41 +899,39 @@ public class ControllerTest {
    * Associates the two classes in memory (modifies classes and returns nothing).
    */
   public static void associate(Classifier class1, Classifier class2) {
-    var cdf = CdmFactory.eINSTANCE;
-    var class12AssociationEnd = cdf.createAssociationEnd();
+    var class12AssociationEnd = CDF.createAssociationEnd();
     class12AssociationEnd.setClassifier(class1);
     class12AssociationEnd.setNavigable(true); // hardcoded for brevity
     class12AssociationEnd.setLowerBound(0);
     class12AssociationEnd.setUpperBound(-1);
-    var class21AssociationEnd = cdf.createAssociationEnd();
+    var class21AssociationEnd = CDF.createAssociationEnd();
     class21AssociationEnd.setClassifier(class2);
     class21AssociationEnd.setNavigable(true);
     class21AssociationEnd.setLowerBound(0);
     class21AssociationEnd.setUpperBound(-1);
     class1.getAssociationEnds().add(class12AssociationEnd);
     class2.getAssociationEnds().add(class21AssociationEnd);
-    var association = cdf.createAssociation();
+    var association = CDF.createAssociation();
     association.getEnds().addAll(List.of(class12AssociationEnd, class21AssociationEnd));
     class12AssociationEnd.setAssoc(association);
     class21AssociationEnd.setAssoc(association);
   }
 
   public void contain(Classifier containedClass, Classifier containerClass) {
-    var cdf = CdmFactory.eINSTANCE;
-    var containerClassAssociationEnd = cdf.createAssociationEnd();
+    var containerClassAssociationEnd = CDF.createAssociationEnd();
     containerClassAssociationEnd.setClassifier(containerClass);
     containerClassAssociationEnd.setNavigable(true);
     containerClassAssociationEnd.setLowerBound(1);
     containerClassAssociationEnd.setUpperBound(1);
     containerClassAssociationEnd.setReferenceType(ReferenceType.COMPOSITION);
-    var containedClassAssociationEnd = cdf.createAssociationEnd();
+    var containedClassAssociationEnd = CDF.createAssociationEnd();
     containedClassAssociationEnd.setClassifier(containedClass);
     containedClassAssociationEnd.setNavigable(true);
     containedClassAssociationEnd.setLowerBound(0);
     containedClassAssociationEnd.setUpperBound(-1);
     containerClass.getAssociationEnds().add(containerClassAssociationEnd);
     containedClass.getAssociationEnds().add(containedClassAssociationEnd);
-    var containerClassContainedClassAssociation = cdf.createAssociation();
+    var containerClassContainedClassAssociation = CDF.createAssociation();
     containerClassContainedClassAssociation.getEnds()
         .addAll(List.of(containerClassAssociationEnd, containedClassAssociationEnd));
     containerClassAssociationEnd.setAssoc(containerClassContainedClassAssociation);
