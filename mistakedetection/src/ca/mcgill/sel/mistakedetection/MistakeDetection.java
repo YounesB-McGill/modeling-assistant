@@ -254,6 +254,7 @@ public class MistakeDetection {
     mapRelations(comparison);
     mapEnumerations(instructorSolution, studentSolution, comparison);
     mapPatterns(instructorSolution, studentSolution, comparison);
+    populateGeneralizationTree(comparison, instructorClassifiers, studentClassifiers);
     checkMistakesAfterMapping(comparison); // TO BE Discussed
     checkMistakeMissingClass(comparison);
     checkMistakeExtraClass(comparison);
@@ -269,6 +270,36 @@ public class MistakeDetection {
 
     updateMistakes(instructorSolution, studentSolution, comparison);
     return comparison;
+  }
+
+  private static void populateGeneralizationTree(Comparison comparison, EList<Classifier> instrucotrClassifiers,
+      EList<Classifier> studentClassifiers) {
+
+    for (Classifier instrucotrClassifier : instrucotrClassifiers) {
+      Classifier superClass = instrucotrClassifier;
+      EList<Classifier> subClasses = new BasicEList<Classifier>();
+      for (Classifier instrucotrClassifier2 : instrucotrClassifiers) {
+        if (instrucotrClassifier2.getSuperTypes().contains(superClass)) {
+          subClasses.add(instrucotrClassifier2);
+        }
+      }
+      if (!subClasses.isEmpty()) {
+        comparison.instructorGeneraltionTree.put(superClass, subClasses);
+      }
+    }
+
+    for (Classifier studentClassifier : studentClassifiers) {
+      Classifier superClass = studentClassifier;
+      EList<Classifier> subClasses = new BasicEList<Classifier>();
+      for (Classifier studentClassifier2 : studentClassifiers) {
+        if (studentClassifier2.getSuperTypes().contains(superClass)) {
+          subClasses.add(studentClassifier2);
+        }
+      }
+      if (!subClasses.isEmpty()) {
+        comparison.studentGeneraltionTree.put(superClass, subClasses);
+      }
+    }
   }
 
   private static void checkMistakeIncompleteContainmentTree(Comparison comparison, ClassDiagram classDiagram) {
@@ -1665,8 +1696,7 @@ public class MistakeDetection {
             checkMistakesInClassifier(possibleMatch, instructorClassifier, comparison.newMistakes);
           } else {
             Classifier sClass = classWithAssociationEndsMatch(sortedClosestClasssifier, instructorClassifier);
-            mapClasses(comparison, sClass,
-                instructorClassifier);
+            mapClasses(comparison, sClass, instructorClassifier);
             checkMistakesInClassifier(sClass, instructorClassifier, comparison.newMistakes);
           }
         }
@@ -2012,8 +2042,8 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingAssociationInsteadOfComposition(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingAssociationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_ASSOC_INSTEAD_OF_COMPOSITION, studentClassAssocEnd,
-          instructorClassAssocEnd));
+      return Optional
+          .of(createMistake(USING_ASSOC_INSTEAD_OF_COMPOSITION, studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
   }
@@ -2021,8 +2051,8 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingAssociationInsteadOfAggregation(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingAssociationInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_ASSOC_INSTEAD_OF_AGGREGATION, studentClassAssocEnd,
-          instructorClassAssocEnd));
+      return Optional
+          .of(createMistake(USING_ASSOC_INSTEAD_OF_AGGREGATION, studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
   }
@@ -2030,8 +2060,8 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingCompositionInsteadOfAssociation(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingCompositionInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_COMPOSITION_INSTEAD_OF_ASSOC, studentClassAssocEnd,
-          instructorClassAssocEnd));
+      return Optional
+          .of(createMistake(USING_COMPOSITION_INSTEAD_OF_ASSOC, studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
   }
@@ -2039,8 +2069,8 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingAggregationInsteadOfAssociation(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingAggregationInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_AGGREGATION_INSTEAD_OF_ASSOC, studentClassAssocEnd,
-          instructorClassAssocEnd));
+      return Optional
+          .of(createMistake(USING_AGGREGATION_INSTEAD_OF_ASSOC, studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
   }

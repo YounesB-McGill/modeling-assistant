@@ -800,6 +800,17 @@ public class MistakeDetectionTest {
     }
 
     System.out.println();
+    System.out.println("Instructor Generalization tree: ");
+    comparison.instructorGeneraltionTree
+        .forEach((key, value) -> System.out.println(key.getName() + " " + value) );
+
+    System.out.println();
+    System.out.println("Student Generalization tree: ");
+    comparison.studentGeneraltionTree
+        .forEach((key, value) -> System.out.println(key.getName() + " " + value) );
+
+
+    System.out.println();
     System.out.println("Mistakes : ");
     comparison.newMistakes.forEach(m -> {
       if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {

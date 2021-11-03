@@ -33,6 +33,12 @@ public class Comparison {
   /** Maps an instructor solution enumeration item relation to student solution enumeration item. */
   public Map<CDEnumLiteral, CDEnumLiteral> mappedEnumerationItems = new HashMap<CDEnumLiteral, CDEnumLiteral>();
 
+  /** Maps instructor subclass to an instructor super class. */
+  public Map<Classifier, EList<Classifier>> instructorGeneraltionTree = new HashMap<Classifier, EList<Classifier>>();
+
+  /** Maps student subclass to an student super class. */
+  public Map<Classifier, EList<Classifier>> studentGeneraltionTree = new HashMap<Classifier, EList<Classifier>>();
+
   public EList<Classifier> notMappedInstructorClassifier = new BasicEList<Classifier>();
   public EList<Classifier> extraStudentClassifier = new BasicEList<Classifier>();
 
