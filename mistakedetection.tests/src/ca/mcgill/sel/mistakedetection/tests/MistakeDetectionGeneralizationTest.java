@@ -56,6 +56,7 @@ public class MistakeDetectionGeneralizationTest {
     for(Classifier Class : comparison.studentGeneraltionTree.get(studCarClass)){
       assertTrue(studClasses.contains(Class));
     }
+    //MistakeDetectionTest.log(comparison);
   }
 
   /**
@@ -82,8 +83,6 @@ public class MistakeDetectionGeneralizationTest {
     assertTrue(comparison.instructorGeneraltionTree.containsKey(instTATAManzaClass));
     assertTrue(comparison.instructorGeneraltionTree.containsKey(instTATAManzaModel2Class));
     assertTrue(comparison.instructorGeneraltionTree.containsKey(instTATAManzaModel3Class));
-
-
   }
 
 }

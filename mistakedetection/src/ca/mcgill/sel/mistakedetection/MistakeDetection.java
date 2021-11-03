@@ -48,6 +48,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM_ITEM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
+import static learningcorpus.mistaketypes.MistakeTypes.NON_DIFFERENTIATED_SUBCLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_ASSOC;
@@ -264,12 +265,65 @@ public class MistakeDetection {
     checkMistakeMissingExtraEnum(comparison);
     // checkMistakeWrongAttribute();
     // checkMistakeAttributeMisplaced();
+    checkMistakesInGeneratization(comparison);
     checkMistakeIncompleteContainmentTree(comparison, studentSolution.getClassDiagram());
     checkMistakeMissingAssociationCompositionAggregation(comparison);
     checkMistakeExtraAssociationCompositionAggregation(comparison);
 
     updateMistakes(instructorSolution, studentSolution, comparison);
     return comparison;
+  }
+
+  private static void checkMistakesInGeneratization(Comparison comparison) {
+    checkMistakeNonDifferentiatedSubClass(comparison);
+  }
+
+  private static void checkMistakeNonDifferentiatedSubClass(Comparison comparison) {
+    Set<String> classesIterated = new HashSet<String>();
+    for (Map.Entry<Classifier, EList<Classifier>> set : comparison.studentGeneraltionTree.entrySet()) {
+      Classifier superClass = set.getKey();
+      EList<Classifier> subClasses = set.getValue();
+      EList<Attribute> superClassAttributes = superClass.getAttributes();
+      for(Classifier subClass : subClasses) {
+        EList<Attribute> subClassAttributes = subClass.getAttributes();
+        if (areAttributesEqual(superClassAttributes, subClassAttributes)) {
+          if(!classesIterated.contains(subClass.getName())) {
+            classesIterated.add(subClass.getName());
+            comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass, null));
+          }
+        }
+      }
+      for(int i =0; i<subClasses.size(); i++) {
+        Classifier subClass1 = subClasses.get(i);
+        EList<Attribute> subClass1Attributes = subClass1.getAttributes();
+        for(int j =0; j<subClasses.size(); j++) {
+          Classifier subClass2 = subClasses.get(j);
+          EList<Attribute> subClass2Attributes = subClass2.getAttributes();
+          if (subClass1!=subClass2 && areAttributesEqual(subClass1Attributes, subClass2Attributes)) {
+            if(!classesIterated.contains(subClass1.getName())) {
+              classesIterated.add(subClass1.getName());
+              comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass1, null));
+            }
+            if(!classesIterated.contains(subClass2.getName())) {
+              classesIterated.add(subClass2.getName());
+              comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass2, null));
+            }
+          }
+        }
+      }
+    }
+  }
+
+  private static boolean areAttributesEqual(EList<Attribute> superClassAttributes, EList<Attribute> subClassAttributes) {
+    if(subClassAttributes.isEmpty() && superClassAttributes.isEmpty()) {
+      return true;
+   }
+   for(Attribute attrib : superClassAttributes) {
+     if(!subClassAttributes.contains(attrib)) {
+       return false;
+     }
+   }
+    return true;
   }
 
   private static void populateGeneralizationTree(Comparison comparison, EList<Classifier> instrucotrClassifiers,

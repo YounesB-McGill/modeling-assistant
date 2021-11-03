@@ -265,7 +265,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier studentPassangerClass = getClassFromClassDiagram("Passanger", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
+    MistakeDetectionTest.log(comparison);
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
     assertMistake(studentSolution.getMistakes().get(0), BAD_CLASS_NAME_SPELLING, studentPassangerClass,
