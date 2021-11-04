@@ -83,6 +83,9 @@ public class MistakeDetectionGeneralizationTest {
     assertTrue(comparison.instructorGeneraltionTree.containsKey(instTATAManzaClass));
     assertTrue(comparison.instructorGeneraltionTree.containsKey(instTATAManzaModel2Class));
     assertTrue(comparison.instructorGeneraltionTree.containsKey(instTATAManzaModel3Class));
+   // MistakeDetectionTest.log(comparison);
+
+
   }
 
 }

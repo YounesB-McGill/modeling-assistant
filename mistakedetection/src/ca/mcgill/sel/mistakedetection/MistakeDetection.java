@@ -278,6 +278,7 @@ public class MistakeDetection {
     checkMistakeNonDifferentiatedSubClass(comparison);
   }
 
+  //TODO 1 If subclass is same as other subclass 2. if not mapped 3. if sub class is emplty and super class is not absteaact 4. check associations
   private static void checkMistakeNonDifferentiatedSubClass(Comparison comparison) {
     Set<String> classesIterated = new HashSet<String>();
     for (Map.Entry<Classifier, EList<Classifier>> set : comparison.studentGeneraltionTree.entrySet()) {
@@ -286,7 +287,7 @@ public class MistakeDetection {
       EList<Attribute> superClassAttributes = superClass.getAttributes();
       for(Classifier subClass : subClasses) {
         EList<Attribute> subClassAttributes = subClass.getAttributes();
-        if (areAttributesEqual(superClassAttributes, subClassAttributes)) {
+        if (areAttributesEqual(superClassAttributes, subClassAttributes) && !comparison.mappedClassifier.containsValue(subClass)) {
           if(!classesIterated.contains(subClass.getName())) {
             classesIterated.add(subClass.getName());
             comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass, null));
@@ -299,14 +300,10 @@ public class MistakeDetection {
         for(int j =0; j<subClasses.size(); j++) {
           Classifier subClass2 = subClasses.get(j);
           EList<Attribute> subClass2Attributes = subClass2.getAttributes();
-          if (subClass1!=subClass2 && areAttributesEqual(subClass1Attributes, subClass2Attributes)) {
-            if(!classesIterated.contains(subClass1.getName())) {
+          if (subClass1 != subClass2 && areAttributesEqual(subClass1Attributes, subClass2Attributes) && !comparison.mappedClassifier.containsValue(subClass1)) {
+             if(!classesIterated.contains(subClass1.getName())) {
               classesIterated.add(subClass1.getName());
               comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass1, null));
-            }
-            if(!classesIterated.contains(subClass2.getName())) {
-              classesIterated.add(subClass2.getName());
-              comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass2, null));
             }
           }
         }
@@ -315,8 +312,8 @@ public class MistakeDetection {
   }
 
   private static boolean areAttributesEqual(EList<Attribute> superClassAttributes, EList<Attribute> subClassAttributes) {
-    if(subClassAttributes.isEmpty() && superClassAttributes.isEmpty()) {
-      return true;
+    if((subClassAttributes.isEmpty() && !superClassAttributes.isEmpty()) || (!subClassAttributes.isEmpty() && superClassAttributes.isEmpty())) {
+      return false;
    }
    for(Attribute attrib : superClassAttributes) {
      if(!subClassAttributes.contains(attrib)) {
