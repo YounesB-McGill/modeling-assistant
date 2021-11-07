@@ -6,6 +6,8 @@ Module containing feedback algorithm for modeling assistant.
 
 from dataclasses import dataclass
 from functools import cache
+import modelingassistant
+from modelingassistant import ModelingAssistant
 
 from modelingassistant_app import MODELING_ASSISTANT, get_mistakes
 from classdiagram import ClassDiagram
@@ -88,16 +90,17 @@ def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:
     return next(sk for sk in student.studentKnowledges if sk.mistakeType == mistake.mistakeType)
 
 
-def give_feedback_for_student_cdm(student_cdm_name: str) -> FeedbackTO:
+def give_feedback_for_student_cdm(student_cdm_name: str, ma: ModelingAssistant = None) -> FeedbackTO:
     "Give feedback given a student class diagram."
     global MODELING_ASSISTANT  # pylint: disable=global-statement
+    modeling_assistant = ma or MODELING_ASSISTANT
     instructor_cdm = instructor_cdm_for(student_cdm_name)
     student_cdm = student_cdm_for(student_cdm_name)
-    if student_cdm in MODELING_ASSISTANT.classDiagramsToSolutions:
-        student_solution = MODELING_ASSISTANT.classDiagramsToSolutions[student_cdm]
+    if student_cdm in modeling_assistant.classDiagramsToSolutions:
+        student_solution = modeling_assistant.classDiagramsToSolutions[student_cdm]
     else:
         student_solution = ... # create_solution()  # do initialization setup here
-    MODELING_ASSISTANT = get_mistakes(MODELING_ASSISTANT, instructor_cdm, student_cdm)
+    modeling_assistant = get_mistakes(modeling_assistant, instructor_cdm, student_cdm)
     fb_s = give_feedback(student_solution)
     fb = fb_s if isinstance(fb_s, FeedbackItem) else fb_s[0]  # only one feedback item for now
 

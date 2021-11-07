@@ -2,7 +2,8 @@
 
 import json
 
-def test_index(app, client):
+def test_helloworld(app, client):
+    "Simple test for the helloworld dummy endpoint to ensure the REST service is working."
     res = client.get("/helloworld/alice")
     assert res.status_code == 200
     expected = {"hello": "alice"}
