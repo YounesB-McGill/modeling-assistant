@@ -48,26 +48,22 @@ def test_ma_one_class_student_mistake():
     student.create_cdm()
 
     # Steps 2-5
-    student.create_class("badClsName")
+    bad_cls_id = student.create_class("badClsName")
     feedback = student.request_feedback()
 
-    # 6. Student sees feedback: Bad class name
-    assert feedback  # assertion tbd
+    # Step 6
+    assert feedback.highlight
+    # more strict checks possible after establishing link with WebCORE
+    assert feedback.solutionElements[0] == bad_cls_id  # use item._internal_id for runtime XMI ID
 
-    # 7. Student fixes mistake and requests feedback again
-
-
-    # 8. WebCORE calls the Modeling Assistant to get feedback (for existing student solution)
-
-
-    # 9. Modeling Assistant calls the Mistake Detection System to get mistakes
-
-
-    # 10. Feedback algorithm calculates the feedback item (none) and returns it to WebCORE
-
+    # Steps 7-10
+    student.create_class("GoodClsName")
+    feedback = student.request_feedback()
 
     # 11. Student sees feedback: No mistakes!
-
+    assert not feedback.highlight
+    assert not feedback.solutionElements
+    assert "no mistakes" in feedback.writtenFeedback.lower()
 
 
 def create_ma_with_ps(instructor_cdm: ClassDiagram) -> ModelingAssistant:
@@ -100,11 +96,11 @@ class MockStudent(Student):
         Solution(modelingAssistant=self.modelingAssistant, student=self, classDiagram=cdm,
                  problemStatement=problem_statement)
 
-    def create_class(self, name: str):
+    def create_class(self, name: str) -> str:
         """
         Create a class with the given name.
         """
-        ...
+        return "TODO"
 
     def request_feedback(self) -> FeedbackTO:
         """
