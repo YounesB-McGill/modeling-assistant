@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# pylint: disable=wrong-import-position
 
 """
 Module for Modeling Assistant integration tests.
@@ -12,7 +13,11 @@ The Python backend must not import anything from this module.
 """
 
 import json
+import os
 import pytest
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from classdiagram import Class, ClassDiagram
 from feedback import FeedbackTO
@@ -124,9 +129,10 @@ def _setup_instructor_solution():
     Setup the instructor solution by modifying the instructor cdm file.
     It is only meant to be called when the cdm needs to be modified.
     """
-    instructor_cdm = load_cdm(INSTRUCTOR_CDM)
+    instructor_cdm = load_cdm(INSTRUCTOR_CDM, use_static_classes=False)
     instructor_cdm.name = "MULTIPLE_CLASSES_instructor"
     airplane_cls = Class(name="Airplane")
+    airplane_cls.__class__ = instructor_cdm.classes[0].__class__  # do this hack for now
     instructor_cdm.classes.append(airplane_cls)
     save_to_file(INSTRUCTOR_CDM, instructor_cdm)
 
