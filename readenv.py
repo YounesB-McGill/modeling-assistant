@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 Simple module to read values from .env file
 """

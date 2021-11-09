@@ -5,6 +5,8 @@ This module must not depend on any other to avoid circular dependencies.
 
 # Ok to import items from standard library and pyecore model code
 
+import json
+
 from types import SimpleNamespace
 from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
 
@@ -13,6 +15,10 @@ COLOR = SimpleNamespace(VIOLET="\033[95m", BLUE="\033[94m", CYAN="\033[96m", GRE
                         ORANGE="\u001b[31;1m", RED="\033[91m", ENDC="\033[0m")
 
 _mtc_subcats: dict[MistakeTypeCategory, list[MistakeTypeCategory]] = {}
+
+env_vars: dict[str, str] = {}
+with open(".env", encoding="utf-8") as env_file:
+    env_vars = json.load(env_file)
 
 
 def color_str(color: str, text: str) -> str:

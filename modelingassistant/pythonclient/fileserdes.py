@@ -3,18 +3,24 @@ Helper module for easy serialization and deserialization of models and metamodel
 """
 
 from collections.abc import Iterable
+from pathlib import Path
 import os
 
 from pyecore.ecore import EObject
 from pyecore.resources.resource import Resource, ResourceSet, URI
 
-from classdiagram.classdiagram import ClassDiagram
-from learningcorpus.learningcorpus import LearningCorpus, LearningItem
+from classdiagram import ClassDiagram
+from learningcorpus import LearningCorpus, LearningItem
 from serdes import set_static_class_for
 from stringserdes import SRSET
 from constants import CLASS_DIAGRAM_MM, DEFAULT_MODELING_ASSISTANT_PATH, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM
-from utils import warn
+from utils import env_vars, warn
 from modelingassistant.modelingassistant import ModelingAssistant
+
+
+TOUCHCORE_PATH = env_vars["touchcore-sources"]
+WEBCORE_PATH = f"{TOUCHCORE_PATH}/../touchcore-web"
+CORES_PATH = f"{WEBCORE_PATH}/webcore-server/cores"
 
 
 def load_metamodels(*ecore_files: str) -> ResourceSet:
@@ -82,6 +88,51 @@ def load_lc(lc_file: str) -> LearningCorpus:
     for e in learning_corpus.eAllContents():
         set_static_class_for(e)
     return learning_corpus
+
+
+def load_from_touchcore(filename: str, as_type: type = None) -> str | Path | ClassDiagram | EObject:
+    """
+    Load a file relative to the TouchCORE sources defined in the .env file.
+    """
+    # pylint: disable=too-many-return-statements
+    if not os.path.isabs(filename):  # only abs when called from load_from_webcore_cores()
+        filename = f"{TOUCHCORE_PATH}/{filename}"
+
+    if as_type == str:
+        # load file contents as a string
+        with open(filename, "r", encoding="utf-8") as f:
+            return f.read()
+    elif as_type == Path:
+        return Path(filename)
+    elif as_type == ClassDiagram:
+        return load_cdm(filename)
+    else:
+        # attempt to load as ClassDiagram or other EObject based on the file extension
+        if filename.endswith(".cdm"):
+            return load_cdm(filename)
+        # these 2 cases are not expected
+        elif filename.endswith(".learningcorpus"):
+            return load_lc(filename)
+        elif filename.endswith(".modelingassistant"):
+            return load_ma(filename)
+        else:
+            try:
+                resource = SRSET.get_resource(URI(filename))
+                result = resource.contents[0]
+                if as_type not in (None, EObject):
+                    result.__class__ = as_type  # pylint: disable=invalid-class-object
+                else:
+                    warn(f"Attempted to load a file from TouchCORE as an EObject with unknown extension: {filename}")
+                return result
+            except Exception:  # pylint: disable=broad-except
+                return filename
+
+
+def load_from_webcore_cores(filename: str, as_type: type = None) -> EObject:
+    """
+    Load a file relative to the WebCORE CORES directory.
+    """
+    return load_from_touchcore(f"{CORES_PATH}/{filename}", as_type)
 
 
 def save_to_files(items_by_filename: dict[str, EObject | list[EObject]]):

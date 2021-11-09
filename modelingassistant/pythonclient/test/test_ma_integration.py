@@ -17,7 +17,12 @@ import pytest
 from classdiagram import ClassDiagram
 from feedback import FeedbackTO
 from fileserdes import load_cdm
+from utils import env_vars
 from modelingassistant import ModelingAssistant, ProblemStatement, Solution, Student
+
+
+WEBCORE_PATH = f"{env_vars['touchcore-sources']}/../touchcore-web"
+CORES_PATH = f"{WEBCORE_PATH}/webcore-server/cores"
 
 
 @pytest.mark.skip(reason="Not yet implemented")
@@ -41,10 +46,14 @@ def test_ma_one_class_student_mistake():
     11. Student sees feedback: No mistakes!
     """
     # Step 0
-    ma = create_ma_with_ps(load_cdm("modelingassistant/testmodels/car.domain_model.cdm"))  # actual cdm tbd
+    student_cdm = "modelingassistant/testmodels/car.domain_model.cdm"
+    # use this until TC is updated to allow initializing with a cdm
+    student_cdm = f"{CORES_PATH}/MULTIPLE_CLASSES/Class Diagram/MULTIPLE_CLASSES.design_class_model.cdm"
+    instructor_cdm = "TBD"
+    ma = create_ma_with_ps(load_cdm(instructor_cdm))
 
     # Step 1
-    student = MockStudent(_id="Student1", modelingAssistant=ma)
+    student = MockStudent(student_id="Student1", modelingAssistant=ma)
     student.create_cdm()
 
     # Steps 2-5
@@ -60,7 +69,7 @@ def test_ma_one_class_student_mistake():
     student.create_class("GoodClsName")
     feedback = student.request_feedback()
 
-    # 11. Student sees feedback: No mistakes!
+    # Step 11
     assert not feedback.highlight
     assert not feedback.solutionElements
     assert "no mistakes" in feedback.writtenFeedback.lower()
@@ -70,7 +79,7 @@ def create_ma_with_ps(instructor_cdm: ClassDiagram) -> ModelingAssistant:
     """
     Create a Modeling Assistant instance with the provided parameters.
     """
-    ps = ProblemStatement(name="TODO")  # based on cdm
+    ps = ProblemStatement(name=instructor_cdm.name)
     sol = Solution(classDiagram=instructor_cdm, problemStatement=ps)
     ma = ModelingAssistant(problemStatements=[ps], solutions=[sol])
     return ma
@@ -80,8 +89,8 @@ class MockStudent(Student):
     """
     Mock student used for testing.
     """
-    def __init__(self, _id: str, modelingAssistant: ModelingAssistant):
-        super().__init__(id=_id, modelingAssistant=modelingAssistant)
+    def __init__(self, student_id: str, modelingAssistant: ModelingAssistant):
+        super().__init__(id=student_id, modelingAssistant=modelingAssistant)
         self.file_name: str = ""  # assume one file name for now
 
     def create_cdm(self):
