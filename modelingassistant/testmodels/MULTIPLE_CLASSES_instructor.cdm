@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_BfsV0IwiEeu_3bwvd4NWSw" name="MULTIPLE_CLASSES">
+  <classes xsi:type="classdiagram:Class" xmi:id="_B2TfAIwiEeu_3bwvd4NWSw" name="X" visibility="public">
+    <operations xmi:id="_sB6wMYwiEeu_3bwvd4NWSw" name="create" operationType="Constructor" returnType="_B2TfAIwiEeu_3bwvd4NWSw">
+      <parameters xmi:id="_E4G54JvKEeuztMA5bZOjMQ" name="a" type="_BfsV1YwiEeu_3bwvd4NWSw"/>
+    </operations>
+    <operations xmi:id="_rwwuwowiEeu_3bwvd4NWSw" name="destroy" operationType="Destructor" returnType="_BfsV0YwiEeu_3bwvd4NWSw"/>
+    <operations xmi:id="_vIW8sYwiEeu_3bwvd4NWSw" name="getName" returnType="_BfsV14wiEeu_3bwvd4NWSw"/>
+    <operations xmi:id="_J5ljgYwjEeu_3bwvd4NWSw" name="addDay" returnType="_BfsV0YwiEeu_3bwvd4NWSw"/>
+    <operations xmi:id="_O-zw4YwjEeu_3bwvd4NWSw" name="getCity" returnType="_CjcR0IwiEeu_3bwvd4NWSw"/>
+    <associationEnds xmi:id="_1hclsIwiEeu_3bwvd4NWSw" name="myXs" assoc="_1hdz0owiEeu_3bwvd4NWSw" lowerBound="17" upperBound="17"/>
+    <associationEnds xmi:id="_1hclsYwiEeu_3bwvd4NWSw" name="myXs" assoc="_1hdz0owiEeu_3bwvd4NWSw" lowerBound="15" upperBound="15"/>
+    <attributes xmi:id="_wF_poIwiEeu_3bwvd4NWSw" name="name" type="_BfsV14wiEeu_3bwvd4NWSw"/>
+    <attributes xmi:id="_EKZzIIwjEeu_3bwvd4NWSw" name="city" type="_CjcR0IwiEeu_3bwvd4NWSw"/>
+    <attributes xmi:id="_GEfhQIwjEeu_3bwvd4NWSw" name="day" type="_pE0F4IwiEeu_3bwvd4NWSw"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_CjcR0IwiEeu_3bwvd4NWSw" name="City" dataType="true" visibility="public">
+    <operations xmi:id="_Fdb9wowiEeu_3bwvd4NWSw" name="create" operationType="Constructor" returnType="_CjcR0IwiEeu_3bwvd4NWSw"/>
+    <operations xmi:id="_IoPs4YwiEeu_3bwvd4NWSw" name="destroy" operationType="Destructor" returnType="_BfsV0YwiEeu_3bwvd4NWSw"/>
+    <operations xmi:id="_IU7IQYwiEeu_3bwvd4NWSw" name="getN" returnType="_BfsV14wiEeu_3bwvd4NWSw"/>
+    <attributes xmi:id="_FHRggIwiEeu_3bwvd4NWSw" name="Montreal" type="_BfsV14wiEeu_3bwvd4NWSw"/>
+    <attributes xmi:id="_KJ3QoIwiEeu_3bwvd4NWSw" name="Vancouver" type="_BfsV14wiEeu_3bwvd4NWSw"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_1hclsowiEeu_3bwvd4NWSw" name="Y" visibility="public">
+    <operations xmi:id="_4_G_YYwiEeu_3bwvd4NWSw" name="create" operationType="Constructor" returnType="_1hclsowiEeu_3bwvd4NWSw">
+      <parameters xmi:id="_tsQPEJDYEeuiS52hTJPzfQ" name="a" type="_BfsV1YwiEeu_3bwvd4NWSw"/>
+    </operations>
+    <operations xmi:id="_46p9MowiEeu_3bwvd4NWSw" name="destroy" operationType="Destructor" returnType="_BfsV0YwiEeu_3bwvd4NWSw"/>
+    <operations xmi:id="_7jfnsYwiEeu_3bwvd4NWSw" name="getAge" returnType="_BfsV14wiEeu_3bwvd4NWSw"/>
+    <attributes xmi:id="_9i8W8IwiEeu_3bwvd4NWSw" name="age" type="_BfsV1YwiEeu_3bwvd4NWSw"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_BfsV0YwiEeu_3bwvd4NWSw"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_BfsV0owiEeu_3bwvd4NWSw"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_BfsV04wiEeu_3bwvd4NWSw"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_BfsV1IwiEeu_3bwvd4NWSw"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_BfsV1YwiEeu_3bwvd4NWSw"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_BfsV1owiEeu_3bwvd4NWSw"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_BfsV14wiEeu_3bwvd4NWSw"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_BfsV2IwiEeu_3bwvd4NWSw"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_BfsV2YwiEeu_3bwvd4NWSw"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_BfsV2owiEeu_3bwvd4NWSw"/>
+  <types xsi:type="classdiagram:CDEnum" xmi:id="_pE0F4IwiEeu_3bwvd4NWSw" name="Day">
+    <literals xmi:id="_p--oEIwiEeu_3bwvd4NWSw" name="Today"/>
+    <literals xmi:id="_qiQ7UIwiEeu_3bwvd4NWSw" name="Yesterday"/>
+    <literals xmi:id="_q896UIwiEeu_3bwvd4NWSw" name="Tomorrow"/>
+  </types>
+  <associations xmi:id="_1hdz0owiEeu_3bwvd4NWSw" name="_X" ends="_1hclsIwiEeu_3bwvd4NWSw _1hclsYwiEeu_3bwvd4NWSw" associationClass="_1hclsowiEeu_3bwvd4NWSw"/>
+  <layout xmi:id="_BfsV24wiEeu_3bwvd4NWSw">
+    <containers xmi:id="_BfsV3IwiEeu_3bwvd4NWSw" key="_BfsV0IwiEeu_3bwvd4NWSw">
+      <value xmi:id="_B2UtIIwiEeu_3bwvd4NWSw" key="_B2TfAIwiEeu_3bwvd4NWSw">
+        <value xmi:id="_B2UtIYwiEeu_3bwvd4NWSw" x="133.49997" y="424.12097"/>
+      </value>
+      <value xmi:id="_Cjdf8IwiEeu_3bwvd4NWSw" key="_CjcR0IwiEeu_3bwvd4NWSw">
+        <value xmi:id="_Cjdf8YwiEeu_3bwvd4NWSw" x="698.96387" y="163.99995"/>
+      </value>
+      <value xmi:id="_pE0s8IwiEeu_3bwvd4NWSw" key="_pE0F4IwiEeu_3bwvd4NWSw">
+        <value xmi:id="_pE0s8YwiEeu_3bwvd4NWSw" x="84.963776" y="196.99994"/>
+      </value>
+      <value xmi:id="_1hdz0IwiEeu_3bwvd4NWSw" key="_1hclsowiEeu_3bwvd4NWSw">
+        <value xmi:id="_1hdz0YwiEeu_3bwvd4NWSw" x="628.0002" y="452.5"/>
+      </value>
+      <value xmi:id="_1hiFQIwiEeu_3bwvd4NWSw" key="_1hdz0owiEeu_3bwvd4NWSw">
+        <value xmi:id="_1hiFQYwiEeu_3bwvd4NWSw" x="518.0" y="481.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

@@ -14,15 +14,17 @@ The Python backend must not import anything from this module.
 import json
 import pytest
 
-from classdiagram import ClassDiagram
+from classdiagram import Class, ClassDiagram
 from feedback import FeedbackTO
-from fileserdes import load_cdm
+from fileserdes import load_cdm, save_to_file
 from utils import env_vars
 from modelingassistant import ModelingAssistant, ProblemStatement, Solution, Student
 
 
 WEBCORE_PATH = f"{env_vars['touchcore-sources']}/../touchcore-web"
 CORES_PATH = f"{WEBCORE_PATH}/webcore-server/cores"
+
+INSTRUCTOR_CDM = "modelingassistant/testmodels/MULTIPLE_CLASSES_instructor.cdm"
 
 
 @pytest.mark.skip(reason="Not yet implemented")
@@ -46,11 +48,9 @@ def test_ma_one_class_student_mistake():
     11. Student sees feedback: No mistakes!
     """
     # Step 0
-    student_cdm = "modelingassistant/testmodels/car.domain_model.cdm"
     # use this until TC is updated to allow initializing with a cdm
     student_cdm = f"{CORES_PATH}/MULTIPLE_CLASSES/Class Diagram/MULTIPLE_CLASSES.design_class_model.cdm"
-    instructor_cdm = "TBD"
-    ma = create_ma_with_ps(load_cdm(instructor_cdm))
+    ma = create_ma_with_ps(load_cdm(INSTRUCTOR_CDM))
 
     # Step 1
     student = MockStudent(student_id="Student1", modelingAssistant=ma)
@@ -119,5 +119,18 @@ class MockStudent(Student):
         return FeedbackTO(**json.loads(str(feedback_json)))  # double-check if str() is needed
 
 
+def _setup_instructor_solution():
+    """
+    Setup the instructor solution by modifying the instructor cdm file.
+    It is only meant to be called when the cdm needs to be modified.
+    """
+    instructor_cdm = load_cdm(INSTRUCTOR_CDM)
+    instructor_cdm.name = "MULTIPLE_CLASSES_instructor"
+    airplane_cls = Class(name="Airplane")
+    instructor_cdm.classes.append(airplane_cls)
+    save_to_file(INSTRUCTOR_CDM, instructor_cdm)
+
+
 if __name__ == '__main__':
     "Main entry point."
+    _setup_instructor_solution()
