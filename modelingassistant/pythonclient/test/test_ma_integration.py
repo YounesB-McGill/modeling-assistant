@@ -12,10 +12,16 @@ These tests assume that WebCORE and the Mistake Detection System servers are run
 The Python backend must not import anything from this module.
 """
 
+from collections import namedtuple
+from collections.abc import Iterable
+from random import randint
+from typing import Tuple
 import json
 import os
 import pytest
 import sys
+
+import requests
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -26,13 +32,15 @@ from utils import env_vars
 from modelingassistant import ModelingAssistant, ProblemStatement, Solution, Student
 
 
+WEBCORE_ENDPOINT = "http://localhost:8080"
+
 WEBCORE_PATH = f"{env_vars['touchcore-sources']}/../touchcore-web"
 CORES_PATH = f"{WEBCORE_PATH}/webcore-server/cores"
 
 INSTRUCTOR_CDM = "modelingassistant/testmodels/MULTIPLE_CLASSES_instructor.cdm"
 
 
-@pytest.mark.skip(reason="Not yet implemented")
+#@pytest.mark.skip(reason="Not yet implemented")
 def test_ma_one_class_student_mistake():
     """
     Simplest possible test for the entire system.
@@ -54,7 +62,6 @@ def test_ma_one_class_student_mistake():
     """
     # Step 0
     # use this until TC is updated to allow initializing with a cdm
-    student_cdm = f"{CORES_PATH}/MULTIPLE_CLASSES/Class Diagram/MULTIPLE_CLASSES.design_class_model.cdm"
     ma = create_ma_with_ps(load_cdm(INSTRUCTOR_CDM))
 
     # Step 1
@@ -63,6 +70,7 @@ def test_ma_one_class_student_mistake():
 
     # Steps 2-5
     bad_cls_id = student.create_class("badClsName")
+    assert bad_cls_id
     feedback = student.request_feedback()
 
     # Step 6
@@ -99,29 +107,66 @@ class MockStudent(Student):
         self.file_name: str = ""  # assume one file name for now
 
     def create_cdm(self):
-        """
-        Create a student class diagram.
-        """
+        "Create a student class diagram."
         problem_statement = self.modelingAssistant.problemStatements[0]  # assume only one problem statement for now
         problem_name = problem_statement.name
         self.file_name = f"{problem_name}_{self.id}.cdm"
-        # Tell TouchCORE about this cdm file
+        self.file_name = "MULTIPLE_CLASSES"  # temporary workaround: tell TouchCORE about this cdm file later
         cdm = ClassDiagram()  # ...
         Solution(modelingAssistant=self.modelingAssistant, student=self, classDiagram=cdm,
                  problemStatement=problem_statement)
 
     def create_class(self, name: str) -> str:
-        """
-        Create a class with the given name.
-        """
-        return "TODO"
+        "Create a class with the given name."
+        old_cdm = self.get_cdm()
+        resp = requests.post(f"{self.cdm_endpoint()}/class",
+                             json={"className": name, "dataType": False, "isInterface": False,
+                                   "x": randint(0, 600), "y": randint(0, 600)})
+        resp.raise_for_status()
+        new_cdm = self.get_cdm()
+        cls_id = _diff(old_cdm, new_cdm).additions[0]
+        return cls_id
 
     def request_feedback(self) -> FeedbackTO:
-        """
-        Request feedback from the Modeling Assistant.
-        """
+        "Request feedback from the Modeling Assistant."
         feedback_json = "{}"
         return FeedbackTO(**json.loads(str(feedback_json)))  # double-check if str() is needed
+
+    def get_cdm(self) -> dict:
+        "Get the class diagram from WebCORE in json format."
+        resp = requests.get(self.cdm_endpoint())
+        return resp.json()
+
+    def cdm_endpoint(self) -> str:
+        "Return the class diagram endpoint for the student, assuming there is only one (for now)."
+        return f"{WEBCORE_ENDPOINT}/classdiagram/{self.file_name.removesuffix('.cdm')}"
+
+
+def _diff(old_cdm: dict, new_cdm: dict) -> list[str]:
+    def get_ids(iterable: Iterable, result: list[str] = None) -> Tuple[list[str], list[str]]:
+        "Recursively get the _ids of the given input."
+        if result is None:
+            result = []
+        if isinstance(iterable, list):
+            for item in iterable:
+                for _id in get_ids(item):
+                    if _id not in result:
+                        result.append(_id)
+        elif isinstance(iterable, dict):
+            for key, value in iterable.items():
+                if key == "_id" and value not in result:
+                    result.append(value)
+                else:
+                    for _id in get_ids(value, result):
+                        if _id not in result:
+                            result.append(_id)
+        return result
+    
+    old_ids, new_ids = get_ids(old_cdm), get_ids(new_cdm)
+    result_template = namedtuple("result", "additions, removals")
+    additions = [_id for _id in new_ids if _id not in old_ids]
+    removals = [_id for _id in old_ids if _id not in new_ids]
+    return result_template(additions, removals)
 
 
 def _setup_instructor_solution():
@@ -139,4 +184,3 @@ def _setup_instructor_solution():
 
 if __name__ == '__main__':
     "Main entry point."
-    _setup_instructor_solution()
