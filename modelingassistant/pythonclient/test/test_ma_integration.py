@@ -129,8 +129,9 @@ class MockStudent(Student):
 
     def request_feedback(self) -> FeedbackTO:
         "Request feedback from the Modeling Assistant."
-        feedback_json = "{}"
-        return FeedbackTO(**json.loads(str(feedback_json)))  # double-check if str() is needed
+        resp = requests.get(f"{self.cdm_endpoint()}/feedback")
+        feedback_json = resp.json()
+        return FeedbackTO(**feedback_json)
 
     def get_cdm(self) -> dict:
         "Get the class diagram from WebCORE in json format."
@@ -142,8 +143,9 @@ class MockStudent(Student):
         return f"{WEBCORE_ENDPOINT}/classdiagram/{self.file_name.removesuffix('.cdm')}"
 
 
-def _diff(old_cdm: dict, new_cdm: dict) -> list[str]:
-    def get_ids(iterable: Iterable, result: list[str] = None) -> Tuple[list[str], list[str]]:
+def _diff(old_cdm: dict, new_cdm: dict) -> Tuple[list[str], list[str]]:
+    "Return the difference between the old and new cdms in the format (additions, removals)."
+    def get_ids(iterable: Iterable, result: list[str] = None) -> list[str]:
         "Recursively get the _ids of the given input."
         if result is None:
             result = []
@@ -167,6 +169,23 @@ def _diff(old_cdm: dict, new_cdm: dict) -> list[str]:
     additions = [_id for _id in new_ids if _id not in old_ids]
     removals = [_id for _id in old_ids if _id not in new_ids]
     return result_template(additions, removals)
+
+
+def _get_by_id(_id: str, iterable: Iterable) -> str:
+    "Get the item with the given _id by recursing into the iterable."
+    if isinstance(iterable, list):
+        for item in iterable:
+            if hasattr(item, "get") and _id == item.get("_id", None):
+                return item
+            if result := _get_by_id(_id, item):
+                return result
+    elif isinstance(iterable, dict):
+        for key, value in iterable.items():
+            if (key, value) == ("_id", _id):
+                return iterable
+            if result := _get_by_id(_id, value):
+                return result
+    return None
 
 
 def _setup_instructor_solution():
