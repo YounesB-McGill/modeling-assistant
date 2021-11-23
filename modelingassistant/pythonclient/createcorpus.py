@@ -197,9 +197,11 @@ def generate_markdown():
     def make_mt_body(mt: MistakeType, indentation: int) -> str:
         "Return the Markdown body of the output."
         result = make_body_title(mt.description, indentation)
-        levels = sorted([fb.level for fb in mt.feedbacks])
+        levels = sorted(fb.level for fb in mt.feedbacks)
         for level in levels:
-            result += f"Level {level}: "
+            if (level_header := f"Level {level}: ") not in result:
+                result += level_header
+            prev_fb = None
             for fb in mt.feedbacks:
                 if fb.level != level:
                     continue
@@ -209,20 +211,27 @@ def generate_markdown():
                     case Feedback(highlightSolution=True):
                         result += "Highlight solution\n\n"
                     case TextResponse() as resp:
-                        result += f"Text response:\n\n> {resp.text}\n\n"
+                        if resp.text not in result:
+                            result += f"Text response:\n\n> {resp.text}\n\n"
                     case ParametrizedResponse() as resp:
-                        result += f"Parametrized response:\n\n> {resp.text}\n\n"
+                        if resp.text not in result:
+                            result += f"""{
+                                '' if isinstance(prev_fb, ParametrizedResponse) else f'Parametrized response:{nl}'
+                                }\n> {resp.text}\n\n"""
                     case ResourceResponse() as resp if resp.learningResources:
                         primary_rsc = resp.learningResources[0]
                         rsc_type = type(primary_rsc).__name__
                         if is_table(primary_rsc.content):
-                            result += f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
-                                [f"> {f.learningResources[0].content.replace(nl, nl + '> ')}"
+                            content = f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
+                                [f"> {f.learningResources[0].content.replace(nl, f'{nl}> ')}"
                                  for f in mt.feedbacks if f.level == level])}\n\n"""
+                            result += content if content not in result else ""
                         else:
-                            result += f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
+                            content = f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
                                 [f"> {f.learningResources[0].content}" for f in mt.feedbacks if f.level == level])
                                 }\n\n"""
+                            result += content if content not in result else ""
+                prev_fb = fb
         return result
 
     md = f'''{
