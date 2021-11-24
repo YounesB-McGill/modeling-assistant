@@ -288,7 +288,6 @@ def generate_tex():
         s = re.sub(r"\[(?P<text>.*?)\]\(.*?\)" , r"\\textit{\g<text>}", s)  # regex101.com/r/m58sNO/1
         if "verb|" in s:
             return s  # already verbized
-        #return s.replace("${", "\\verb|${").replace("}", "}|")
         return re.sub(r"\${(?P<text>.*?)}", r"\\verb|${\g<text>}|", s)
 
     def make_tex_table(s: str) -> str:
@@ -304,6 +303,8 @@ def generate_tex():
         result = ""
         prev_in_table = in_table = False
         for line in lines:
+            if "---" in line:
+                continue  # headers are handled separately below
             in_table = "|" in line
             n_cols = line.count("|") + 1
             if not prev_in_table and not in_table:
