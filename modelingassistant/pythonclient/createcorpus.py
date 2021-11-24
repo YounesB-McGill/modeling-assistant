@@ -279,13 +279,38 @@ def generate_tex():
         return (f'\\{NESTING_KEYWORDS[indentation]}{{{cn}}}' if indentation <= len(NESTING_KEYWORDS)
                 else f'\\textbf{{{cn}}}') + "\n\n"
 
-    # def mt_label(s: str) -> str:
-    #     r'Mistake type label, eg, "\noindent Level 1: Highlight solution \medskip"'
-    #     return f"{NO_INDENT}{s}{NLS}"
+    def blockquote(s: str) -> str:
+        return f"\\begin{{tabular}}{{|c}}\n{s}\n\\end{{tabular}}{NLS}"
 
     def verbized(s: str) -> str:
         "Return the parametrized string with params surrounded by `verb|...|`."
         return s.replace("${", "\\verb|${").replace("}", "}|")
+
+    def make_tex_table(s: str) -> str:
+        "Return the markdown string as a LaTeX table. The table must not contain duplicate rows at the end."
+        def processed(s: str) -> str:
+            "Render markdown emojis ✔ and ❌ in LaTeX."
+            return s.replace(":heavy_check_mark:", "\\textcolor{ForestGreen}{\\checkmark}").replace(
+                ":x:", "\\textcolor{red}{$\\times$}")
+        def process_row(s: str) -> str:
+            "Return the string as a LaTeX table row."
+            return "&".join(processed(s).split("|")) + " \\\\\n"
+        lines = s.strip().split(nl)
+        result = ""
+        prev_in_table = in_table = False
+        for line in lines:
+            in_table = "|" in line
+            n_cols = line.count("|") + 1
+            if not prev_in_table and not in_table:
+                result += blockquote(line)
+            elif not prev_in_table and in_table:  # just entered table, so add the header
+                result += f"""\\begin{{tabular}}{{{n_cols * "l"}}}\n\\hline\n{process_row(line)}\\hline\n"""
+            elif prev_in_table and in_table and line != lines[-1]:  # in table, so add a row
+                result += process_row(line)
+            elif (prev_in_table and not in_table) or line == lines[-1]:  # just left table, so add the footer
+                result += process_row(line) + f"\\hline\n\\end{{tabular}}{NLS}"
+            prev_in_table = in_table
+        return result
 
     def make_mt_body(mt: MistakeType, indentation: int = 0) -> str:
         "Return the LaTeX body of the output."
@@ -305,19 +330,18 @@ def generate_tex():
                         result += f"Highlight solution{NLS}"
                     case TextResponse() as resp:
                         if resp.text not in result:
-                            result += f"Text response:{NLS}\\begin{{tabular}}{{|c}}\n{resp.text}\n\\end{{tabular}}{NLS}"
+                            result += f"Text response:{NLS}{blockquote(resp.text)}"
                     case ParametrizedResponse() as resp:
                         if (content := verbized(resp.text)) not in result:
-                            result += f"""{
-                                '' if isinstance(prev_fb, ParametrizedResponse) else f'Parametrized response:{NLS}'
-                                }\\begin{{tabular}}{{|c}}\n{content}\n\\end{{tabular}}{NLS}"""
+                            result += f"""{'' if isinstance(prev_fb, ParametrizedResponse)
+                                else f'Parametrized response:{NLS}'}{blockquote(content)}"""
                     case ResourceResponse() as resp if resp.learningResources:
                         primary_rsc = resp.learningResources[0]
                         rsc_type = type(primary_rsc).__name__
                         if is_table(primary_rsc.content):
                             content = f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
-                                [f"> {f.learningResources[0].content.replace(nl, f'{nl}> ')}"
-                                 for f in mt.feedbacks if f.level == level])}\n\n"""
+                                [make_tex_table(f.learningResources[0].content)
+                                 for f in mt.feedbacks if f.level == level])}"""
                             result += content if content not in result else ""
                         else:
                             content = f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
