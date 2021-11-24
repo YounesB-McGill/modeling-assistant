@@ -12,17 +12,21 @@ Script to create these Learning Corpus artifacts from corpus.py:
 
 import re
 from os import linesep as nl
+from datetime import datetime
+
 from corpus import corpus
-from fileserdes import save_to_files
+from fileserdes import save_to_file
 from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResponse, ParametrizedResponse,
     ResourceResponse)
 
 MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
 MAX_COLUMN_WIDTH = 120
 
+DEFAULT_LEARNING_CORPUS_FILE = "modelingassistant.learningcorpus.dsl.instances/default.learningcorpus"
 PYTHON_MISTAKE_TYPES_FILE = "modelingassistant/pythonclient/mistaketypes.py"
 JAVA_MISTAKE_TYPES_FILE = "modelingassistant/src/learningcorpus/mistaketypes/MistakeTypes.java"
 LEARNING_CORPUS_MARKDOWN_FILE = "modelingassistant/corpus_descriptions/README_TOC.md"
+LEARNING_CORPUS_TEX_FILE = "modelingassistant/corpus_descriptions/learningcorpusdefs.tex"
 
 PYTHON_HEADER = '''\
 """
@@ -87,6 +91,14 @@ public class MistakeTypes {
 
 
   // Mistake type categories
+
+"""
+
+TEX_HEADER = f"""\
+% Modeling Assistant Learning Corpus
+
+% This tex file was generated automatically by the createcorpus script.
+% Generation time: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 """
 
@@ -166,35 +178,36 @@ def generate_java():
         f.write(result)
 
 
+def is_table(s: str) -> bool:
+    "Return True if the input markdown string is a table."
+    return "|" in s and all("|" in line for line in s.splitlines()[2:-2])
+
+
 def generate_markdown():
     """
-    Generate Markdown table-of-contents from the learning corpus.
+    Generate Markdown version of the learning corpus.
     """
-    def nested_toc_output_for(mtc: MistakeTypeCategory, indentation: int) -> str:
+    def nested_toc_output_for(mtc: MistakeTypeCategory, indentation: int = 0) -> str:
         "Return the nested table of contents output for the input in a recursive way."
         return f'''{make_toc_title(mtc.name, indentation)}{
             "".join([nested_toc_output_for(sc, indentation + 3) for sc in mtc.subcategories])}{
             "".join([make_toc_title(mt.description, indentation + 3) for mt in mtc.mistakeTypes])}'''
 
-    def nested_body_output_for(mtc: MistakeTypeCategory, indentation: int) -> str:
+    def nested_body_output_for(mtc: MistakeTypeCategory, indentation: int = 0) -> str:
         "Return the nested body output for the input in a recursive way."
         return f'''{make_body_title(mtc.name, indentation)}{
             "".join([nested_body_output_for(sc, indentation + 1) for sc in mtc.subcategories])}{
             nl.join([make_mt_body(mt, indentation + 1) for mt in mtc.mistakeTypes])}\n'''
 
-    def make_toc_title(name: str, indentation: int) -> str:
+    def make_toc_title(name: str, indentation: int = 0) -> str:
         return f'{indentation * " "}1. [{name}](#{dashify(name)})\n'
 
-    def make_body_title(name: str, indentation: int) -> str:
+    def make_body_title(name: str, indentation: int = 0) -> str:
         hashes = indentation + 2
         cn = clean(name)
         return (f'{hashes * "#"} {cn}' if hashes <= MAX_NUM_OF_HASHES_IN_HEADING else f'**{cn}**') + "\n\n"
 
-    def is_table(s: str) -> bool:
-        "Return True if the input string is a table."
-        return "|" in s and all("|" in line for line in s.splitlines()[2:-2])
-
-    def make_mt_body(mt: MistakeType, indentation: int) -> str:
+    def make_mt_body(mt: MistakeType, indentation: int = 0) -> str:
         "Return the Markdown body of the output."
         result = make_body_title(mt.description, indentation)
         levels = sorted(fb.level for fb in mt.feedbacks)
@@ -234,12 +247,90 @@ def generate_markdown():
                 prev_fb = fb
         return result
 
-    md = f'''{
-        nl.join([nested_toc_output_for(mtc, 0) for mtc in corpus.topLevelMistakeTypeCategories()])
-    }\n{nl.join([nested_body_output_for(mtc, 0) for mtc in corpus.topLevelMistakeTypeCategories()])}'''
+    mtcs = corpus.topLevelMistakeTypeCategories()
+    md = f"{nl.join(nested_toc_output_for(c) for c in mtcs)}\n{nl.join(nested_body_output_for(c) for c in mtcs)}"
 
     with open(LEARNING_CORPUS_MARKDOWN_FILE, "w", encoding="utf-8") as f:
         f.write(md)
+
+
+def generate_tex():
+    """
+    Generate LaTeX version of the learning corpus.
+    """
+    NO_INDENT = "\\noindent "
+    NLS = " \\medskip\n\n"
+    NESTING_KEYWORDS = [
+        "section",
+        "subsection",
+        "subsubsection",
+        "paragraph",
+        "subparagraph",
+    ]
+
+    def nested_body_output_for(mtc: MistakeTypeCategory, indentation: int = 0) -> str:
+        "Return the nested body output for the input in a recursive way."
+        return f'''{make_body_title(mtc.name, indentation)}{
+            "".join([nested_body_output_for(sc, indentation + 1) for sc in mtc.subcategories])}{
+            nl.join([make_mt_body(mt, indentation + 1) for mt in mtc.mistakeTypes])}\n'''
+
+    def make_body_title(name: str, indentation: int = 0) -> str:
+        cn = clean(name)
+        return (f'\\{NESTING_KEYWORDS[indentation]}{{{cn}}}' if indentation <= len(NESTING_KEYWORDS)
+                else f'\\textbf{{{cn}}}') + "\n\n"
+
+    # def mt_label(s: str) -> str:
+    #     r'Mistake type label, eg, "\noindent Level 1: Highlight solution \medskip"'
+    #     return f"{NO_INDENT}{s}{NLS}"
+
+    def verbized(s: str) -> str:
+        "Return the parametrized string with params surrounded by `verb|...|`."
+        return s.replace("${", "\\verb|${").replace("}", "}|")
+
+    def make_mt_body(mt: MistakeType, indentation: int = 0) -> str:
+        "Return the LaTeX body of the output."
+        result = make_body_title(mt.description, indentation)
+        levels = sorted(fb.level for fb in mt.feedbacks)
+        for level in levels:
+            if (level_header := f"{NO_INDENT}Level {level}: ") not in result:
+                result += level_header
+            prev_fb = None
+            for fb in mt.feedbacks:
+                if fb.level != level:
+                    continue
+                match fb:
+                    case Feedback(highlightProblem=True):
+                        result += f"Highlight problem{NLS}"
+                    case Feedback(highlightSolution=True):
+                        result += f"Highlight solution{NLS}"
+                    case TextResponse() as resp:
+                        if resp.text not in result:
+                            result += f"Text response:{NLS}\\begin{{tabular}}{{|c}}\n{resp.text}\n\\end{{tabular}}{NLS}"
+                    case ParametrizedResponse() as resp:
+                        if (content := verbized(resp.text)) not in result:
+                            result += f"""{
+                                '' if isinstance(prev_fb, ParametrizedResponse) else f'Parametrized response:{NLS}'
+                                }\\begin{{tabular}}{{|c}}\n{content}\n\\end{{tabular}}{NLS}"""
+                    case ResourceResponse() as resp if resp.learningResources:
+                        primary_rsc = resp.learningResources[0]
+                        rsc_type = type(primary_rsc).__name__
+                        if is_table(primary_rsc.content):
+                            content = f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
+                                [f"> {f.learningResources[0].content.replace(nl, f'{nl}> ')}"
+                                 for f in mt.feedbacks if f.level == level])}\n\n"""
+                            result += content if content not in result else ""
+                        else:
+                            content = f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
+                                [f"> {f.learningResources[0].content}" for f in mt.feedbacks if f.level == level])
+                                }\n\n"""
+                            result += content if content not in result else ""
+                prev_fb = fb
+        return result
+
+    tex = TEX_HEADER + nl.join(nested_body_output_for(c) for c in corpus.topLevelMistakeTypeCategories())
+
+    with open(LEARNING_CORPUS_TEX_FILE, "w", encoding="utf-8") as f:
+        f.write(tex)
 
 
 def dashify(s: str) -> str:
@@ -265,8 +356,9 @@ def underscorify(s: str) -> str:
 
 if __name__ == "__main__":
     "Main entry point."
-    save_to_files({"modelingassistant.learningcorpus.dsl.instances/default.learningcorpus": corpus})
+    save_to_file(DEFAULT_LEARNING_CORPUS_FILE, corpus)
     print(f"Created learning corpus with {len(corpus.mistakeTypes())} mistake types.")
     generate_python()
     generate_java()
     generate_markdown()
+    generate_tex()

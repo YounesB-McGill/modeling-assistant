@@ -40,7 +40,7 @@ CORES_PATH = f"{WEBCORE_PATH}/webcore-server/cores"
 INSTRUCTOR_CDM = "modelingassistant/testmodels/MULTIPLE_CLASSES_instructor.cdm"
 
 
-#@pytest.mark.skip(reason="Not yet implemented")
+@pytest.mark.skip(reason="Not yet implemented")
 def test_ma_one_class_student_mistake():
     """
     Simplest possible test for the entire system.
@@ -125,6 +125,7 @@ class MockStudent(Student):
         resp.raise_for_status()
         new_cdm = self.get_cdm()
         cls_id = _diff(old_cdm, new_cdm).additions[0]
+        assert not _diff(old_cdm, new_cdm).additions
         return cls_id
 
     def request_feedback(self) -> FeedbackTO:
@@ -163,8 +164,10 @@ def _diff(old_cdm: dict, new_cdm: dict) -> Tuple[list[str], list[str]]:
                         if _id not in result:
                             result.append(_id)
         return result
-    
+
     old_ids, new_ids = get_ids(old_cdm), get_ids(new_cdm)
+    print(f"old_ids: {old_ids}")
+    print(f"new_ids: {new_ids}")
     result_template = namedtuple("result", "additions, removals")
     additions = [_id for _id in new_ids if _id not in old_ids]
     removals = [_id for _id in old_ids if _id not in new_ids]

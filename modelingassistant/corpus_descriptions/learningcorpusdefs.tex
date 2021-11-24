@@ -1,0 +1,2272 @@
+% Modeling Assistant Learning Corpus
+
+% This tex file was generated automatically by the createcorpus script.
+% Generation time: 2021-11-23 22:58:54
+
+\section{Class mistakes}
+
+\subsection{Class name mistakes}
+
+\subsubsection{Plural class name}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Remember that class names should be singular.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${className}| should be \verb|${pascalCase(className)}|, with a Capital Letter.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Example:
+
+> Please note these examples of correct vs incorrect class naming:
+> :x: Examples to avoid | :heavy_check_mark: Good class names
+> --- | ---
+> pilot | Pilot
+> Airplanes | Airplane 
+> AirlineData | Airline
+
+
+\subsubsection{Lowercase class name}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Remember that class names must start with a Capital Letter.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${className}| should be \verb|${singular(className)}|, using the singular.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Example:
+
+> Please note these examples of correct vs incorrect class naming:
+> :x: Examples to avoid | :heavy_check_mark: Good class names
+> --- | ---
+> pilot | Pilot
+> Airplanes | Airplane 
+> AirlineData | Airline
+
+
+\subsubsection{Software engineering term}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Remember that a domain model should not contain software engineering terms.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${className}| is a software engineering term, which does not belong in a domain model.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Example:
+
+> Please note these examples of correct vs incorrect class naming:
+> :x: Examples to avoid | :heavy_check_mark: Good class names
+> --- | ---
+> pilot | Pilot
+> Airplanes | Airplane 
+> AirlineData | Airline
+
+
+\subsubsection{Bad class name spelling}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you double check this class name?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${incorrectlySpelledClassName}| class has a misspelled name.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${incorrectlySpelledClassName}| class should be changed to \verb|${correctClassName}|.
+\end{tabular} \medskip
+
+
+\subsubsection{Similar class name}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you double check this class name?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${similarYetIncorrectClassName}| class has a name that is not quite right.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${similarYetIncorrectClassName}| class should be changed to \verb|${correctClassName}|.
+\end{tabular} \medskip
+
+
+\subsubsection{Wrong class name}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you double check this class name?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${similarYetIncorrectClassName}| class has a name that is not quite right.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${similarYetIncorrectClassName}| class should be changed to \verb|${correctClassName}|.
+\end{tabular} \medskip
+
+
+\subsection{Enumeration mistakes}
+
+\subsubsection{Regular class should be enumeration}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is there anything special about this class?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${className}| can only be one of \verb|${correctEnumSize}| options, so what is the best way to model this?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+\subsubsection{Enumeration should be regular class}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is there anything special about this class?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Is \verb|${className}| limited to the options shown in (an|this) enumeration? Can this be modeled differently?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+\subsubsection{Missing enumeration}
+
+\noindent Level 1: Highlight problem \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+How would you model this concept?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+Model this concept with an enumeration.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+\subsubsection{Extra enumeration}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is this item really necessary?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Remove the \verb|${extraEnum}| enumeration, it is not needed.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+\subsubsection{Bad enumeration name spelling}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can this item be renamed?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${wronglyNamedEnum}| should be renamed[ to \verb|${correctEnumName}|].
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+\subsubsection{Similar enumeration name}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can this item be renamed?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${wronglyNamedEnum}| should be renamed[ to \verb|${correctEnumName}|].
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+\subsubsection{Missing enumeration item}
+
+\noindent Level 1: Highlight problem \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is there anything missing here?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${enumName}| enumeration is missing an item.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+\subsubsection{Extra enumeration item}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Should this really be here?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${enumName}| enumeration has an extra item.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+\subsubsection{Bad enumeration item spelling}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can this item be renamed?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${wronglyNamedEnumItem}| should be renamed[ to \verb|${correctEnumItemName}|].
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+\subsubsection{Similar enumeration item}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can this item be renamed?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${wronglyNamedEnumItem}| should be renamed[ to \verb|${correctEnumItemName}|].
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+\subsection{Missing class}
+
+\noindent Level 1: Highlight problem \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Make sure you have modeled all the classes in the problem description.
+\end{tabular} \medskip
+
+\noindent Level 3: Highlight problem \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Remember to add the \verb|${className}| class.
+\end{tabular} \medskip
+
+
+\subsection{Extra redundant class}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Make sure you only model the concepts mentioned in the problem description.
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+You have an extra class. Can you find it?
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${className}| class is not part of the domain, so please remove it.
+\end{tabular} \medskip
+
+\begin{tabular}{|c}
+Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
+\end{tabular} \medskip
+
+
+\subsection{Using n-ary association instead of intermediate class}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is this the best way to model this concept?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+Use an intermediate class instead of an n-ary association.
+\end{tabular} \medskip
+
+
+
+\section{Attribute mistakes}
+
+\subsection{Extra attribute mistakes}
+
+\subsubsection{Plural attribute}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you double check this attribute name?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+This attribute should be singular.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz:
+
+> Pick the classes which are modeled correctly.
+
+- [ ] class Student { courses; }
+- [ ] class Folder { List<File> files; }
+- [ ] class Restaurant { 1 -- * Employee; }
+
+
+\subsubsection{List attribute}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is there a better way to model this concept?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+Remember that attributes are simple pieces of data.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${includingClass.attributeName}| should be modeled as an association instead.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Quiz:
+
+> Pick the classes which are modeled correctly.
+
+- [ ] class Student { courses; }
+- [ ] class Folder { List<File> files; }
+- [ ] class Restaurant { 1 -- * Employee; }
+
+
+\subsubsection{Extra attribute}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Do we really need to model this concept?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${redundantAttribute}| in the \verb|${className}| class is not needed.
+\end{tabular} \medskip
+
+\begin{tabular}{|c}
+The \verb|${redundantAttribute}| attribute in the \verb|${className}| class is not needed because it can be derived from \verb|${derivationSources}|.
+\end{tabular} \medskip
+
+\begin{tabular}{|c}
+The \verb|${redundantAttribute}| attribute in the \verb|${className}| class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+\subsection{Wrong attribute name mistakes}
+
+\subsubsection{Bad attribute name spelling}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can this attribute be renamed?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${wrongAttribute}| is misspelled. [Use the same spelling as the problem description.]
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+\subsubsection{Uppercase attribute name}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Remember that attributes are written in `lowerCamelCase`.
+\end{tabular} \medskip
+
+Text response: \medskip
+
+\begin{tabular}{|c}
+Can this attribute be renamed?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${wrongAttribute}| incorrectly starts with an Uppercase Letter. Attributes should start with a lowercase letter.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+\subsubsection{Similar attribute name}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can this attribute be renamed?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${wrongAttribute}| is misspelled. [Use the same spelling as the problem description.]
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+\subsection{Attribute in wrong class mistakes}
+
+\subsubsection{Attribute misplaced}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you think of a better place for this?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${misplacedAttribute}| does not belong in the \verb|${wrongClass}| class. Where else can we place it?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+\subsubsection{Attribute duplicated}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Are you sure this is needed?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+Does this need to be included more than once?
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${duplicateAttribute}| already exists in \verb|${correctClass}|, so there is no need to include it again.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+\subsubsection{Attribute misplaced in generalization hierarchy}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you think of a better place for this?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${misplacedAttribute}| belongs in a (super|sub)class.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+\subsection{Missing attribute}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Make sure to model all the attributes of this class.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${className}| class is missing an attribute.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+A \verb|${className}| has a \verb|${missingAttribute}|.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+\subsection{Wrong attribute type}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you double-check this?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Can you think of a better type for \verb|${attribute}|?
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${className}|.\verb|${attribute}| is not of type \verb|${attribute.type}| because \verb|${mistakeType.reason}|.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+\subsection{Missing attribute type}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+This attribute is missing something.
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+What is the type of this attribute?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+\subsection{Attribute should be static}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Isn't there something special about this attribute?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${includingClass.attributeName}| should be static, because it applies to all instances of \verb|${includingClass}|.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+\subsection{Attribute should not be static}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is there something special about this attribute?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${includingClass.attributeName}| should not be static, because it doesn't apply to all instances of \verb|${includingClass}|.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+
+\section{Relationship mistakes}
+
+\subsection{Association mistakes}
+
+\subsubsection{Missing association mistakes}
+
+\paragraph{Missing association}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+What is the relationship between these classes?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+How would you capture that a \verb|${classOne}| has a \verb|${classTwo}|?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
+
+\paragraph{Missing aggregation}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+What is the relationship between these classes?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+How would you capture that a \verb|${classOne}| has a \verb|${classTwo}|?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
+
+\paragraph{Missing n-ary association}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+What is the relationship between these classes?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+How would you capture the relationship between \verb|${classOne}|, \verb|${classTwo}|, [and] \verb|${classThree}|[, [and] \verb|${classFour}|[, [and] \verb|${classFive}|]]?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
+
+\paragraph{Using attribute instead of association}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Remember that attributes are simple pieces of data.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${includingClass.attributeName}| should be its own class.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz:
+
+> Pick the classes which are modeled correctly.
+
+- [ ] class Person { address; }
+- [ ] class Person { * Person -- 1 Address; }; class Address {}
+- [ ] class Loan { libraryPatron; }
+
+
+\subsubsection{Extra association mistakes}
+
+\paragraph{Representing an action with an association}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is association the best way to model this concept?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${actionName}| should not be modeled as an association.
+\end{tabular} \medskip
+
+\begin{tabular}{|c}
+\verb|${actionName}| does not need be modeled as part of a domain model.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to know which concepts should be a part of a domain model.
+
+
+\paragraph{Extra association}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is this association really necessary?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The relationship between \verb|${classOne}| and \verb|${classTwo}| is not expressed in the problem description[, but there is a similar relationship with \verb|${classThree}| that is missing].
+\end{tabular} \medskip
+
+\begin{tabular}{|c}
+The relationship between \verb|${classOne}| and \verb|${classTwo}| is redundant since we can access \verb|${classTwo}| from \verb|${classOne}| via \verb|${classThree}|.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz:
+
+> Find all the redunandant associations in this class diagram (TODO).
+
+> Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
+
+
+\paragraph{Extra aggregation}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is this aggregation really necessary?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The relationship between \verb|${classOne}| and \verb|${classTwo}| is redundant.
+\end{tabular} \medskip
+
+
+\paragraph{Extra n-ary association}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is this association really necessary?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The relationship between the highlighted classes is redundant.
+\end{tabular} \medskip
+
+
+\subsubsection{Association type mistakes}
+
+\paragraph{Using aggregation instead of association}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+What is the relationship between these two concepts?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The relationship between \verb|${containedClass}| and \verb|${containerClass}| can be modeled with a simple association.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
+
+\paragraph{Using composition instead of association}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+What is the relationship between these two concepts?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Why is \verb|${incorrectlyContainedClass}| contained in \verb|${containerClass}|?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
+
+\paragraph{Using directed association instead of undirected association}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is there anything special about this association?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The association between \verb|${classOne}| and \verb|${classTwo}| should be undirected[ from \verb|${classOne}| to \verb|${classTwo}|].
+\end{tabular} \medskip
+
+\noindent Level 4: 
+\paragraph{Using undirected association instead of directed association}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is there anything special about this association?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The association between \verb|${classOne}| and \verb|${classTwo}| should be directed[ from \verb|${classOne}| to \verb|${classTwo}|].
+\end{tabular} \medskip
+
+\noindent Level 4: 
+\paragraph{Using composition instead of aggregation}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is this the best relationship to use here?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The composition between \verb|${containedClass}| and \verb|${containerClass}| is better modeled using aggregation.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
+
+\paragraph{Using binary association instead of n-ary association}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you model this relationship more precisely?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Use a \verb|${n}|-ary association to represent this relationship.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+\paragraph{Using n-ary association instead of binary association}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you model this relationship more precisely?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+Use a binary association to represent this relationship.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+\paragraph{Using intermediate class instead of n-ary association}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you model this relationship in a different way?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Use a \verb|${n}|-ary association to represent this relationship.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+\subsubsection{Association name mistakes}
+
+\paragraph{Missing association name when one was expected}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Something is missing here.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Can you give this association a name?
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+This association should be named \verb|${associationName}|.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+\paragraph{Bad association name spelling}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Check your spelling here.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${associationName}| is misspelled.[ Use the same spelling as the problem description.]
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+\paragraph{Similar association name}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you double check this association name?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${similarYetIncorrectAssociationName}| association has a name that is not quite right.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${similarYetIncorrectAssociationName}| association should be changed to \verb|${correctAssociationName}|.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+\subsubsection{Multiplicity mistakes}
+
+\paragraph{Infinite recursive dependency}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you double check (this|these) association(s)?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+The multiplicities for this(ese) association(s) are incorrect.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Does every \verb|${class1}| have exactly \verb|${wrongMultiplicity}| \verb|${rolename}|[s]?
+\end{tabular} \medskip
+
+\begin{tabular}{|c}
+How many \verb|${class1}|'s does a \verb|${class2}| have?
+\end{tabular} \medskip
+
+\begin{tabular}{|c}
+Double check the multiplicites between \verb|${class1}|, \verb|${class2}|, and \verb|${class3}|.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Quiz:
+
+> Edit the class diagram to allow creating a `Foo`
+
+
+\paragraph{Wrong multiplicity}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you double check this association?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+The multiplicit(y|ies) for this association (is|are) incorrect.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+How many \verb|${class1}|'s does a \verb|${class2}| have? [And how many \verb|${class2}|'s does \verb|${class1}| have?]
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Quiz:
+
+> Pick the associations with correct multiplicities
+
+- [ ] 1 EmployeeRole -- 1 Person;
+- [ ] * Episode -- 1 TvSeries;
+- [ ] * Bank -- 1 Client;
+
+
+\paragraph{Missing multiplicity}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you double check this association?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+The multiplicit(y|ies) for this association (is|are) missing.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+How many \verb|${class1}|'s does a \verb|${class2}| have? [And how many \verb|${class2}|'s does \verb|${class1}| have?]
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Quiz:
+
+> Pick the associations with correct multiplicities
+
+- [ ] 1 EmployeeRole -- 1 Person;
+- [ ] * Episode -- 1 TvSeries;
+- [ ] * Bank -- 1 Client;
+
+
+\subsubsection{Role name mistakes}
+
+\paragraph{Missing role names}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you model this relationship more precisely?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+The multiplicities for this association are correct, but something else is missing!
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
+for this association? Role names help identify the role a class plays in a
+relationship and can be important if there is more than one relationship
+between the same two classes.
+
+![Role name](images/role_name.png)
+
+
+
+\paragraph{Role should be static}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Isn't there something special about this role name?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${roleName}| should be static, because it applies to all instances of the association between \verb|${class1}| and \verb|${class2}|.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+\paragraph{Role should not be static}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Isn't there something special about this role name?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${roleName}| should not be static, because it doesn't apply to all instances of the association between \verb|${class1}| and \verb|${class2}|.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+\paragraph{Bad role name spelling}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Check your spelling here.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${roleName}| is misspelled.[ Use the same spelling as the problem description.]
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+\paragraph{Similar role name}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you double check this role name?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${wrongRoleName}| role name is not quite right.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${wrongRoleName}| role name should be changed to \verb|${correctRoleName}|.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference:
+
+> Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
+for this association? Role names help identify the role a class plays in a
+relationship and can be important if there is more than one relationship
+between the same two classes.
+
+![Role name](images/role_name.png)
+
+
+
+\paragraph{Wrong role name but correct association}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you double check this role name?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${wrongRoleName}| role name is not correct.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${wrongRoleName}| role name should be changed to \verb|${correctRoleName}|.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference:
+
+> Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
+for this association? Role names help identify the role a class plays in a
+relationship and can be important if there is more than one relationship
+between the same two classes.
+
+![Role name](images/role_name.png)
+
+
+
+\subsubsection{Association class mistakes}
+
+\paragraph{Missing association class}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you model this relationship more precisely?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Does it make sense to have multiple instances of the \verb|${inBetweenClass}| linking \verb|${firstClass}| and \verb|${secondClass}|?
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The association between \verb|${firstClass}| and \verb|${secondClass}| should be modeled with an association class.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference:
+
+> Association class
+
+![Association class](images/association_class.png)
+
+
+\paragraph{Extra association class}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you model this relationship in another way?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+Is using an association class the best way to model this?
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Does it make sense to disallow multiple instances of the \verb|${inBetweenClass}| linking \verb|${firstClass}| and \verb|${secondClass}|?
+\end{tabular} \medskip
+
+\noindent Level 5: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The association between \verb|${firstClass}| and \verb|${secondClass}| should not be modeled with an association class.
+\end{tabular} \medskip
+
+\noindent Level 6: Resource response with Reference:
+
+> Association class
+
+![Association class](images/association_class.png)
+
+
+\paragraph{Bad association class name spelling}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you double check this class name?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${incorrectlySpelledClassName}| class has a misspelled name.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${incorrectlySpelledClassName}| class should be changed to \verb|${correctClassName}|.
+\end{tabular} \medskip
+
+
+\paragraph{Association class should be regular class}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you model this relationship in another way?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+Is using an association class the best way to model this?
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${assocClass}| class should be a regular class.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference:
+
+> Association class
+
+![Association class](images/association_class.png)
+
+
+\paragraph{Regular class should be association class}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you model this relationship in another way?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+Is using a regular class the best way to model this?
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${assocClass}| class should be an association class.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference:
+
+> Association class
+
+![Association class](images/association_class.png)
+
+
+\paragraph{Similar association class name}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you double check this class name?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${incorrectlySpelledClassName}| class has a name that is not quite right.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${incorrectlySpelledClassName}| class should be changed to \verb|${correctClassName}|.
+\end{tabular} \medskip
+
+
+
+\subsection{Composition mistakes}
+
+\subsubsection{Missing composition}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+What is the relationship between these classes?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+How would you capture that a \verb|${containerClass}| contains a \verb|${containedClass}|?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
+
+\subsubsection{Extra composition}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is this composition really necessary?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The relationship between \verb|${classOne}| and \verb|${classTwo}| is not expressed in the problem description[, but there is a similar relationship with \verb|${classThree}| that is missing].
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
+
+\subsubsection{Using association instead of aggregation}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+What is the relationship between these two concepts?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The relationship between \verb|${containedClass}| and \verb|${containerClass}| can be modeled more precisely than with a simple association.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
+
+\subsubsection{Using association instead of composition}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+What is the relationship between these two concepts?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The relationship between \verb|${containedClass}| and \verb|${containerClass}| is more than a simple association.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
+
+\subsubsection{Using aggregation instead of composition}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is this the best relationship to use here?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The relationship between \verb|${containedClass}| and \verb|${containerClass}| is stronger than an aggregation.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
+
+\subsubsection{Composed part contained in more than one parent}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Please double-check this relationship.
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+Please review the model containment hierarchy.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${incorrectlyContainedClass}| cannot be contained in more than one class.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Example:
+
+> Observe the following domain model. Every single class is contained in the 
+root class, `PISystem`, other than the root class itself.
+
+![PISystem](images/PISystem.png)
+
+\noindent Level 6: Resource response with Quiz:
+
+> Complete the containment tree for the following model.
+
+![IRS](images/IRS.png)
+
+
+\subsubsection{Incomplete containment tree}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+What is the relationship between these classes?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+{containedClass}| is a part of \verb|${containerClass}|, so how would you model this?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Example:
+
+> Observe the following domain model. Every single class is contained in the 
+root class, `PISystem`, other than the root class itself.
+
+![PISystem](images/PISystem.png)
+
+\noindent Level 5: Resource response with Quiz:
+
+> Complete the containment tree for the following model.
+
+![IRS](images/IRS.png)
+
+
+\subsection{Generalization mistakes}
+
+\subsubsection{Missing generalization}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+What is the relationship between these classes?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+A \verb|${subclass}| is a \verb|${superclass}|. How should we model this?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz:
+
+> Place the following classes in an inheritance hierarchy:
+
+* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
+* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+
+
+\subsubsection{Extra generalization}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you find a better way to express this relationship?
+\end{tabular} \medskip
+
+Text response: \medskip
+
+\begin{tabular}{|c}
+Is there a [direct ]relationship between these two classes?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+When creating a generalization between \verb|${wrongSubclass}| and \verb|${wrongSuperclass}|, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
+\end{tabular} \medskip
+
+\begin{tabular}{|c}
+\verb|${wrongSubclass}| is not a [direct ]subclass of \verb|${wrongSuperclass}|.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz:
+
+> Place the following classes in an inheritance hierarchy:
+
+* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
+* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+
+\noindent Level 5: Resource response with Quiz:
+
+> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
+
+
+\subsubsection{Generalization does not follow isA rule}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you find a better way to express this relationship?
+\end{tabular} \medskip
+
+Text response: \medskip
+
+\begin{tabular}{|c}
+Is there a [direct ]relationship between these two classes?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+When creating a generalization between \verb|${wrongSubclass}| and \verb|${wrongSuperclass}|, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
+\end{tabular} \medskip
+
+\begin{tabular}{|c}
+\verb|${wrongSubclass}| is not a [direct ]subclass of \verb|${wrongSuperclass}|.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz:
+
+> Place the following classes in an inheritance hierarchy:
+
+* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
+* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+
+\noindent Level 5: Resource response with Quiz:
+
+> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
+
+
+\subsubsection{Subclass not distinct across lifetime}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you find a better way to model this concept?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Will a[n] \verb|${nondistinctSubclass}| retain this status over its lifetime?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz:
+
+> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
+
+
+\subsubsection{Inherited feature does not make sense for subclass}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Does this belong here?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+The \verb|${featureName}| feature of the \verb|${superclass}| class does not make sense for its \verb|${subclass}| subclass.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz:
+
+> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
+
+
+\subsubsection{Subclass is an instance of superclass}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you find a better way to express this relationship?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|c}
+Remember the definition of the **isA rule**.[ Instances should not be modeled as subclasses].
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Example:
+
+> A CheckingAccount isA Account, but account1234 is **not** an Account according to the isA Rule.
+
+\noindent Level 5: Resource response with Quiz:
+
+> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
+
+
+\subsubsection{Non-differentiated subclass}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Is it really necessary to model this as a subclass?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+\verb|${wrongSubclass}| does not differ from \verb|${wrongSuperclass}| in terms of behavior or structure.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz:
+
+> Which classes do not belong?
+* `Account`, `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`,
+`ClosedAccount`
+
+
+\subsubsection{Wrong generalization direction}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you double check this relationship?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Is \verb|${superclass}| really a \verb|${subclass}|?[ It should be the other way around.]
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz:
+
+> Place the following classes in an inheritance hierarchy:
+
+* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
+* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+
+\noindent Level 5: Resource response with Quiz:
+
+> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. 
+(behavior, structure)
+* Subclass must not be ________. (instance)
+
+
+\subsubsection{Wrong superclass}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Can you double check this relationship?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Can you (find|create) a (better|different) superclass for \verb|${subclass}|?[ Look at the problem description closely].
+\end{tabular} \medskip
+
+\noindent Level 4: Highlight problem \medskip
+
+\noindent Level 5: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+What is the inheritance hierarchy between \verb|${hierarchy.classes}|?
+\end{tabular} \medskip
+
+\noindent Level 6: Resource response with Quiz:
+
+> Place the following classes in an inheritance hierarchy:
+
+* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
+* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+
+
+
+
+\section{Design pattern mistakes}
+
+\subsection{Player-Role Pattern mistakes}
+
+\subsubsection{Using different Player-Role pattern}
+
+\paragraph{Subclass should be full Player-Role pattern}
+
+
+\paragraph{Subclass should be association Player-Role pattern}
+
+
+\paragraph{Subclass should be enumeration Player-Role pattern}
+
+
+\paragraph{Association should be full Player-Role pattern}
+
+
+\paragraph{Association should be subclass Player-Role pattern}
+
+
+\paragraph{Association should be enumeration Player-Role pattern}
+
+
+\paragraph{Enumeration should be full Player-Role pattern}
+
+
+\paragraph{Enumeration should be subclass Player-Role pattern}
+
+
+\paragraph{Enumeration should be association Player-Role pattern}
+
+
+\paragraph{Full Player-Role pattern should be subclass}
+
+
+\paragraph{Full Player-Role pattern should be association}
+
+
+\paragraph{Full Player-Role pattern should be enumeration}
+
+
+\subsubsection{Missing Player-Role pattern}
+
+
+\subsubsection{Incomplete Player-Role pattern}
+
+
+\subsection{Abstraction-Occurrence pattern mistakes}
+
+\subsubsection{Missing Abstraction-Occurrence pattern}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Is there a way to remove the duplicate \verb|${duplicateAttribute}| attribute between \verb|${class1}| and \verb|${class2}|?
+\end{tabular} \medskip
+
+\begin{tabular}{|c}
+\verb|${wronglySubclass}| should not be a subclass of \verb|${superclass}|. Is there a design pattern that can be used here?
+\end{tabular} \medskip
+
+\begin{tabular}{|c}
+The \verb|${commonAttribute}| is common information for all instances of \verb|${className}|, but this is not enforced.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
+represent a set of related objects that share common information but also differ
+from each other in an important way.
+
+![Abstraction-Occurrence Pattern](images/abstraction_occurrence.png)
+
+
+\subsubsection{Incomplete Abstraction-Occurrence pattern}
+
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|c}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|c}
+Is there a way to remove the duplicate \verb|${duplicateAttribute}| attribute between \verb|${class1}| and \verb|${class2}|?
+\end{tabular} \medskip
+
+\begin{tabular}{|c}
+\verb|${wronglySubclass}| should not be a subclass of \verb|${superclass}|. Is there a design pattern that can be used here?
+\end{tabular} \medskip
+
+\begin{tabular}{|c}
+The \verb|${commonAttribute}| is common information for all instances of \verb|${className}|, but this is not enforced.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference:
+
+> The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
+represent a set of related objects that share common information but also differ
+from each other in an important way.
+
+![Abstraction-Occurrence Pattern](images/abstraction_occurrence.png)
+
+
+
