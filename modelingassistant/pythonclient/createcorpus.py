@@ -280,11 +280,16 @@ def generate_tex():
                 else f'\\textbf{{{cn}}}') + "\n\n"
 
     def blockquote(s: str) -> str:
-        return f"\\begin{{tabular}}{{|c}}\n{s}\n\\end{{tabular}}{NLS}"
+        'Return a block quote of the input string, eg, "> Hello", which appears as "| Hello".'
+        return f"\\begin{{tabular}}{{|c}}\n{sanitize(s)}\n\\end{{tabular}}{NLS}"
 
-    def verbized(s: str) -> str:
-        "Return the parametrized string with params surrounded by `verb|...|`."
-        return s.replace("${", "\\verb|${").replace("}", "}|")
+    def sanitize(s: str) -> str:
+        "Return the parametrized string with params surrounded by `verb|...|` and with links removed."
+        s = re.sub(r"\[(?P<text>.*?)\]\(.*?\)" , r"\\textit{\g<text>}", s)  # regex101.com/r/m58sNO/1
+        if "verb|" in s:
+            return s  # already verbized
+        #return s.replace("${", "\\verb|${").replace("}", "}|")
+        return re.sub(r"\${(?P<text>.*?)}", r"\\verb|${\g<text>}|", s)
 
     def make_tex_table(s: str) -> str:
         "Return the markdown string as a LaTeX table. The table must not contain duplicate rows at the end."
@@ -329,12 +334,12 @@ def generate_tex():
                     case Feedback(highlightSolution=True):
                         result += f"Highlight solution{NLS}"
                     case TextResponse() as resp:
-                        if resp.text not in result:
-                            result += f"Text response:{NLS}{blockquote(resp.text)}"
+                        if (content := blockquote(resp.text)) not in result:
+                            result += f"Text response:{NLS}{content}"
                     case ParametrizedResponse() as resp:
-                        if (content := verbized(resp.text)) not in result:
+                        if (content := blockquote(resp.text)) not in result:
                             result += f"""{'' if isinstance(prev_fb, ParametrizedResponse)
-                                else f'Parametrized response:{NLS}'}{blockquote(content)}"""
+                                else f'Parametrized response:{NLS}'}{content}"""
                     case ResourceResponse() as resp if resp.learningResources:
                         primary_rsc = resp.learningResources[0]
                         rsc_type = type(primary_rsc).__name__
@@ -345,8 +350,8 @@ def generate_tex():
                             result += content if content not in result else ""
                         else:
                             content = f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
-                                [f"> {f.learningResources[0].content}" for f in mt.feedbacks if f.level == level])
-                                }\n\n"""
+                                [f"{blockquote(f.learningResources[0].content)}"
+                                 for f in mt.feedbacks if f.level == level])}"""
                             result += content if content not in result else ""
                 prev_fb = fb
         return result
