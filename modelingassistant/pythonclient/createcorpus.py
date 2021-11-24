@@ -281,7 +281,7 @@ def generate_tex():
 
     def blockquote(s: str) -> str:
         'Return a block quote of the input string, eg, "> Hello", which appears as "| Hello".'
-        return f"\\begin{{tabular}}{{|c}}\n{sanitize(s)}\n\\end{{tabular}}{NLS}"
+        return f"\\begin{{tabular}}{{|p{{0.9\\linewidth}}}}\n{sanitize(s)}\n\\end{{tabular}}{NLS}"
 
     def sanitize(s: str) -> str:
         "Return the parametrized string with params surrounded by `verb|...|` and with links removed."
@@ -345,12 +345,12 @@ def generate_tex():
                         primary_rsc = resp.learningResources[0]
                         rsc_type = type(primary_rsc).__name__
                         if is_table(primary_rsc.content):
-                            content = f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
+                            content = f"""Resource response with {rsc_type}:{NLS}{(2 * nl).join(
                                 [make_tex_table(f.learningResources[0].content)
                                  for f in mt.feedbacks if f.level == level])}"""
                             result += content if content not in result else ""
                         else:
-                            content = f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
+                            content = f"""Resource response with {rsc_type}:{NLS}{(2 * nl).join(
                                 [f"{blockquote(f.learningResources[0].content)}"
                                  for f in mt.feedbacks if f.level == level])}"""
                             result += content if content not in result else ""
