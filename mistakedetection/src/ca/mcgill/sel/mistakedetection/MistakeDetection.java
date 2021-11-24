@@ -278,7 +278,6 @@ public class MistakeDetection {
     checkMistakeNonDifferentiatedSubClass(comparison);
   }
 
-  //TODO 1 If subclass is same as other subclass 2. if not mapped 3. if sub class is emplty and super class is not absteaact 4. check associations
   private static void checkMistakeNonDifferentiatedSubClass(Comparison comparison) {
     Set<String> classesIterated = new HashSet<String>();
     for (Map.Entry<Classifier, EList<Classifier>> set : comparison.studentGeneraltionTree.entrySet()) {
@@ -287,7 +286,7 @@ public class MistakeDetection {
       EList<Attribute> superClassAttributes = superClass.getAttributes();
       for(Classifier subClass : subClasses) {
         EList<Attribute> subClassAttributes = subClass.getAttributes();
-        if (areAttributesEqual(superClassAttributes, subClassAttributes) && !comparison.mappedClassifier.containsValue(subClass)) {
+        if (areAttributesEqual(superClassAttributes, subClassAttributes) && !comparison.mappedClassifier.containsValue(subClass) && !superClass.isAbstract()) {
           if(!classesIterated.contains(subClass.getName())) {
             classesIterated.add(subClass.getName());
             comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass, null));
@@ -300,7 +299,7 @@ public class MistakeDetection {
         for(int j =0; j<subClasses.size(); j++) {
           Classifier subClass2 = subClasses.get(j);
           EList<Attribute> subClass2Attributes = subClass2.getAttributes();
-          if (subClass1 != subClass2 && areAttributesEqual(subClass1Attributes, subClass2Attributes) && !comparison.mappedClassifier.containsValue(subClass1)) {
+          if (subClass1 != subClass2 && areAttributesEqual(subClass1Attributes, subClass2Attributes) && subClassesAttriAssocEqual(subClass1, subClass2) && !comparison.mappedClassifier.containsValue(subClass1)) {
              if(!classesIterated.contains(subClass1.getName())) {
               classesIterated.add(subClass1.getName());
               comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass1, null));
@@ -309,6 +308,44 @@ public class MistakeDetection {
         }
       }
     }
+  }
+
+  private static boolean subClassesAttriAssocEqual(Classifier subClass1, Classifier subClass2) {
+    if(subClass1.getAssociationEnds().size() != subClass2.getAssociationEnds().size()) {
+      return false;
+    }
+    else if (subClass1.getAssociationEnds().isEmpty() && subClass2.getAssociationEnds().isEmpty()) {
+      return true;
+    }
+    EList<AssociationEnd> subClass1AssocEnds = subClass1.getAssociationEnds();
+    EList<AssociationEnd> subClass2AssocEnds = subClass2.getAssociationEnds();
+    EList<Classifier> subClass1ConnectedClass = new BasicEList<Classifier>();
+    EList<Classifier> subClass2ConnectedClass = new BasicEList<Classifier>();
+
+    for(AssociationEnd assocEnd : subClass1AssocEnds) {
+      var ends = assocEnd.getAssoc().getEnds();
+      var end = ends.get(0);
+      if(end.equals(assocEnd)) {
+        end = ends.get(1);
+      }
+      subClass1ConnectedClass.add(end.getClassifier());
+    }
+
+    for(AssociationEnd assocEnd : subClass2AssocEnds) {
+      var ends = assocEnd.getAssoc().getEnds();
+      var end = ends.get(0);
+      if(end.equals(assocEnd)) {
+        end = ends.get(1);
+      }
+      subClass2ConnectedClass.add(end.getClassifier());
+    }
+
+    for(Classifier cls: subClass1ConnectedClass) {
+      if (!subClass2ConnectedClass.contains(cls)){
+        return false;
+      }
+    }
+    return true;
   }
 
   private static boolean areAttributesEqual(EList<Attribute> superClassAttributes, EList<Attribute> subClassAttributes) {
