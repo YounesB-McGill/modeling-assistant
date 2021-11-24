@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_Ek6c4E1aEeyaw5LGC19Rlg" name="Three_subClasses">
+  <classes xsi:type="classdiagram:Class" xmi:id="_E5vdYE1aEeyaw5LGC19Rlg" name="Root">
+    <associationEnds xmi:id="_GvQ0kU1aEeyaw5LGC19Rlg" name="myCar" assoc="_GvQ0kk1aEeyaw5LGC19Rlg" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_F0IpEE1aEeyaw5LGC19Rlg" name="Car" abstract="true">
+    <associationEnds xmi:id="_GvQ0kE1aEeyaw5LGC19Rlg" name="myRoot" assoc="_GvQ0kk1aEeyaw5LGC19Rlg" lowerBound="1"/>
+    <attributes xmi:id="_JTRCYE1aEeyaw5LGC19Rlg" name="capacity" type="_Ek6c5U1aEeyaw5LGC19Rlg"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_KQ-AwE1aEeyaw5LGC19Rlg" name="NewCar" superTypes="_F0IpEE1aEeyaw5LGC19Rlg">
+    <attributes xmi:id="_PPNcYE1aEeyaw5LGC19Rlg" name="capacity" type="_Ek6c5U1aEeyaw5LGC19Rlg"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_Ek6c4U1aEeyaw5LGC19Rlg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_Ek6c4k1aEeyaw5LGC19Rlg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_Ek6c401aEeyaw5LGC19Rlg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_Ek6c5E1aEeyaw5LGC19Rlg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_Ek6c5U1aEeyaw5LGC19Rlg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_Ek6c5k1aEeyaw5LGC19Rlg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_Ek6c501aEeyaw5LGC19Rlg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_Ek6c6E1aEeyaw5LGC19Rlg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_Ek6c6U1aEeyaw5LGC19Rlg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_Ek6c6k1aEeyaw5LGC19Rlg"/>
+  <associations xmi:id="_GvQ0kk1aEeyaw5LGC19Rlg" name="Car_Root" ends="_GvQ0kE1aEeyaw5LGC19Rlg _GvQ0kU1aEeyaw5LGC19Rlg"/>
+  <layout xmi:id="_Ek6c601aEeyaw5LGC19Rlg">
+    <containers xmi:id="_Ek6c7E1aEeyaw5LGC19Rlg" key="_Ek6c4E1aEeyaw5LGC19Rlg">
+      <value xmi:id="_E5wEcE1aEeyaw5LGC19Rlg" key="_E5vdYE1aEeyaw5LGC19Rlg">
+        <value xmi:id="_E5wEcU1aEeyaw5LGC19Rlg" x="790.99976" y="203.00009"/>
+      </value>
+      <value xmi:id="_F0JQIE1aEeyaw5LGC19Rlg" key="_F0IpEE1aEeyaw5LGC19Rlg">
+        <value xmi:id="_F0JQIU1aEeyaw5LGC19Rlg" x="790.99976" y="467.00012"/>
+      </value>
+      <value xmi:id="_KQ-n0E1aEeyaw5LGC19Rlg" key="_KQ-AwE1aEeyaw5LGC19Rlg">
+        <value xmi:id="_KQ-n0U1aEeyaw5LGC19Rlg" x="790.99976" y="637.0001"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

@@ -278,6 +278,7 @@ public class MistakeDetection {
     checkMistakeNonDifferentiatedSubClass(comparison);
   }
 
+
   private static void checkMistakeNonDifferentiatedSubClass(Comparison comparison) {
     Set<String> classesIterated = new HashSet<String>();
     for (Map.Entry<Classifier, EList<Classifier>> set : comparison.studentGeneraltionTree.entrySet()) {
