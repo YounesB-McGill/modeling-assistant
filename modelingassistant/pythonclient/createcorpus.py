@@ -285,6 +285,7 @@ def generate_tex():
 
     def sanitize(s: str) -> str:
         "Return the parametrized string with params surrounded by `verb|...|` and with links removed."
+        s = s.replace("|", "$|$")
         s = re.sub(r"\[(?P<text>.*?)\]\(.*?\)" , r"\\textit{\g<text>}", s)  # regex101.com/r/m58sNO/1
         if "verb|" in s:
             return s  # already verbized
