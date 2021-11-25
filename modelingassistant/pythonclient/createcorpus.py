@@ -267,13 +267,7 @@ def generate_tex():
     NO_INDENT = "\\noindent "
     NLS = " \\medskip\n\n"
     MAX_WIDTH = 0.9  # relative to line width
-    NESTING_KEYWORDS = [
-        "section",
-        "subsection",
-        "subsubsection",
-        "paragraph",
-        "subparagraph",
-    ]
+    NESTING_KEYWORDS = ["section", "subsection", "subsubsection"]
 
     def nested_body_output_for(mtc: MistakeTypeCategory, indentation: int = 0) -> str:
         "Return the nested body output for the input in a recursive way."
@@ -283,8 +277,9 @@ def generate_tex():
 
     def make_body_title(name: str, indentation: int = 0) -> str:
         cn = clean(name)
-        return (f'\\{NESTING_KEYWORDS[indentation]}{{{cn}}}' if indentation <= len(NESTING_KEYWORDS)
-                else f'\\textbf{{{cn}}}') + "\n\n"
+        # "paragraph" and lower levels don't render properly, so simply boldface them
+        return (f'\\{NESTING_KEYWORDS[indentation]}{{{cn}}}\n\n' if indentation < len(NESTING_KEYWORDS)
+                else f'{NO_INDENT}\\textbf{{{cn}}}{NLS}')
 
     def blockquote(s: str) -> str:
         'Return a block quote of the input string, eg, "> Hello", which appears as "| Hello".'
@@ -316,7 +311,7 @@ def generate_tex():
                 else:
                     for c in "{}_":
                         line = line.replace(c, f"\\{c}")
-                    new_line = line.replace(old_bullet, f"    {new_bullet}")
+                    new_line = line.replace("`", "").replace(old_bullet, f"    {new_bullet}")
                     if begin_itemize not in result:
                         result += f'{begin_itemize}{nl}{new_line}{nl}'
                     else:
