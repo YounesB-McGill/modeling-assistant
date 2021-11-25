@@ -714,7 +714,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     "[checks for proper generalization](https://mycourses2.mcgill.ca/)."),
                     ParametrizedResponse(text="${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.")],
                 4: ResourceResponse(learningResources=[inherit_hierarchy_quiz]),
-                5: ResourceResponse(learningResources=[inherit_checks_quiz := Quiz(content=dedent("""\
+                5: ResourceResponse(learningResources=[inherit_checks_quiz := Quiz(content=dedent(f"""\
                     Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
                     and complete the following:
 
@@ -722,8 +722,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     * Obeys the ________. (isA rule)
                     * Subclass must retain its ________. (distinctiveness)
                     * All ________ must make sense in each subclass. (inherited features)
-                    * Subclass differs from superclass and other subclasses in ________ or ________. 
-                    (behavior, structure)
+                    * Subclass differs from superclass and other subclasses in ________ or ________.{
+                        " "}(behavior, structure)
                     * Subclass must not be ________. (instance)"""))]),
             })),
             generalization_inapplicable := mt(
@@ -767,10 +767,10 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 2: TextResponse(text="Is it really necessary to model this as a subclass?"),
                 3: ParametrizedResponse(text="${wrongSubclass} does not differ from ${wrongSuperclass} in terms of "
                     "behavior or structure."),
-                4: ResourceResponse(learningResources=[non_diff_subclass_quiz := Quiz(content=dedent("""\
+                4: ResourceResponse(learningResources=[non_diff_subclass_quiz := Quiz(content=dedent(f"""\
                     Which classes do not belong?
-                    * `Account`, `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`,
-                    `ClosedAccount`"""))]),
+                    * `Account`, `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`,{
+                        " "}`ClosedAccount`"""))]),  # avoid extra newline here
             })),
             wrong_generalization_direction := mt(n="Wrong generalization direction", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),

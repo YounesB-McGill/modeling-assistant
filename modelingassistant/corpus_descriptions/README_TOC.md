@@ -1671,8 +1671,7 @@ The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. 
-(behavior, structure)
+* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
 
@@ -1711,8 +1710,7 @@ The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. 
-(behavior, structure)
+* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
 
@@ -1737,8 +1735,7 @@ The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. 
-(behavior, structure)
+* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
 
@@ -1763,8 +1760,7 @@ The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. 
-(behavior, structure)
+* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
 
@@ -1793,8 +1789,7 @@ The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. 
-(behavior, structure)
+* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
 
@@ -1813,8 +1808,7 @@ Level 3: Parametrized response:
 Level 4: Resource response with Quiz:
 
 > Which classes do not belong?
-* `Account`, `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`,
-`ClosedAccount`
+* `Account`, `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`, `ClosedAccount`
 
 
 #### Wrong generalization direction
@@ -1845,8 +1839,7 @@ The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. 
-(behavior, structure)
+* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
 
