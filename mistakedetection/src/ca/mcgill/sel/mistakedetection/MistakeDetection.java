@@ -46,6 +46,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM_ITEM;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_GENERALIZATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
 import static learningcorpus.mistaketypes.MistakeTypes.NON_DIFFERENTIATED_SUBCLASS;
@@ -72,6 +73,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_SUPERCLASS;
 import static modelingassistant.TagType.ABSTRACTION;
 import static modelingassistant.TagType.OCCURRENCE;
 import static modelingassistant.TagType.PLAYER;
@@ -276,8 +278,66 @@ public class MistakeDetection {
 
   private static void checkMistakesInGeneratization(Comparison comparison) {
     checkMistakeNonDifferentiatedSubClass(comparison);
+    checkMistakeWrongSuperclass(comparison);
+    checkMistakeMissingGeneralization(comparison);
   }
 
+
+  private static void checkMistakeMissingGeneralization(Comparison comparison) {
+    for (Map.Entry<Classifier, EList<Classifier>> set : comparison.instructorGeneraltionTree.entrySet()) {
+      Classifier instSuperclass = set.getKey();
+      EList<Classifier> instSubclasses = set.getValue();
+      EList<NamedElement> missingInstGeneralizationClasses = new BasicEList<NamedElement>();
+      EList<NamedElement> missingStudGeneralizationClasses = new BasicEList<NamedElement>();
+      boolean counted = false;
+      if(comparison.mappedClassifier.containsKey(instSuperclass)) {
+        if(comparison.studentGeneraltionTree.containsKey(comparison.mappedClassifier.get(instSuperclass))) {
+          for(Classifier instClass : instSubclasses) {
+            if(comparison.mappedClassifier.containsKey(instClass)) {
+              Classifier studClass = comparison.mappedClassifier.get(instClass);
+              if(studClass.getSuperTypes().isEmpty()) {
+                missingStudGeneralizationClasses.add(studClass);
+                missingInstGeneralizationClasses.add(instClass);
+              }
+            }
+          }
+        }else {
+          for(Classifier instClass : instSubclasses) {
+            if(comparison.mappedClassifier.containsKey(instClass)) {
+              Classifier studClass = comparison.mappedClassifier.get(instClass);
+              if(studClass.getSuperTypes().isEmpty()) {
+                if(!counted) {
+                  missingInstGeneralizationClasses.add(instSuperclass);
+                  missingStudGeneralizationClasses.add(comparison.mappedClassifier.get(instSuperclass));
+                }
+                counted = true;
+                missingStudGeneralizationClasses.add(studClass);
+                missingInstGeneralizationClasses.add(instClass);
+              }
+            }
+          }
+        }
+      }
+      if(!missingInstGeneralizationClasses.isEmpty()) {
+        comparison.newMistakes.add(createMistake(MISSING_GENERALIZATION, missingStudGeneralizationClasses, missingInstGeneralizationClasses));
+      }
+    }
+  }
+
+  private static void checkMistakeWrongSuperclass(Comparison comparison) {
+    for (Map.Entry<Classifier, EList<Classifier>> set : comparison.instructorGeneraltionTree.entrySet()) {
+      Classifier instSuperclass = set.getKey();
+      EList<Classifier> instSubclasses = set.getValue();
+      for(Classifier instSubclass : instSubclasses) {
+        if(comparison.mappedClassifier.containsKey(instSubclass)){
+          Classifier studSubClass = comparison.mappedClassifier.get(instSubclass);
+          if(!studSubClass.getSuperTypes().isEmpty() && !studSubClass.getSuperTypes().contains(comparison.mappedClassifier.get(instSuperclass))) {
+            comparison.newMistakes.add(createMistake(WRONG_SUPERCLASS,studSubClass, instSubclass));
+          }
+        }
+      }
+    }
+  }
 
   private static void checkMistakeNonDifferentiatedSubClass(Comparison comparison) {
     Set<String> classesIterated = new HashSet<String>();

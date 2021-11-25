@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_9S8hwE1yEey9OMfS12CV-A" name="Wrong_superclass" featureModel="_9S8hwU1yEey9OMfS12CV-A" impactModel="_9S8hw01yEey9OMfS12CV-A">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_9S8hwU1yEey9OMfS12CV-A" root="_9S8hwk1yEey9OMfS12CV-A">
+    <features xmi:id="_9S8hwk1yEey9OMfS12CV-A" name="Wrong_superclass" realizedBy="_-JUwIE1yEey9OMfS12CV-A"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_9S8hw01yEey9OMfS12CV-A" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_-JTiAE1yEey9OMfS12CV-A" name="Wrong_superclass" scene="_-JUwIE1yEey9OMfS12CV-A" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Wrong_superclass.domain_model.cdm#_-JV-QE1yEey9OMfS12CV-A"/>
+  </artefacts>
+  <scenes xmi:id="_-JUwIE1yEey9OMfS12CV-A" name="Wrong_superclass" realizes="_9S8hwk1yEey9OMfS12CV-A" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_-JUwIU1yEey9OMfS12CV-A" value="_-JTiAE1yEey9OMfS12CV-A" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

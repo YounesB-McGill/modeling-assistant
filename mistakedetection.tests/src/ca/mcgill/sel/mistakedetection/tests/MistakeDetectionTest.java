@@ -801,13 +801,26 @@ public class MistakeDetectionTest {
 
     System.out.println();
     System.out.println("Instructor Generalization tree: ");
-    comparison.instructorGeneraltionTree
-        .forEach((key, value) -> System.out.println(key.getName() + " " + value) );
-
+    comparison.instructorGeneraltionTree.forEach((key, value) -> {
+      System.out.println("Key = " + key.getName());
+      System.out.print("value = ");
+      value.forEach((c) -> {
+        System.out.print(c.getName() + " ; ");
+      });
+      System.out.println();
+      System.out.println("--");
+    });
     System.out.println();
     System.out.println("Student Generalization tree: ");
-    comparison.studentGeneraltionTree
-        .forEach((key, value) -> System.out.println(key.getName() + " " + value) );
+    comparison.studentGeneraltionTree.forEach((key, value) -> {
+      System.out.println("Key = " + key.getName());
+      System.out.print("value = ");
+      value.forEach((c) -> {
+        System.out.print(c.getName() + " ; ");
+      });
+      System.out.println();
+      System.out.println("--");
+    });
 
 
     System.out.println();

@@ -4,10 +4,14 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMi
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentMistakeFor;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_GENERALIZATION;
 import static learningcorpus.mistaketypes.MistakeTypes.NON_DIFFERENTIATED_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_SUPERCLASS;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.junit.jupiter.api.Test;
@@ -184,7 +188,92 @@ public class MistakeDetectionGeneralizationTest {
     for(Mistake m: comparison.newMistakes) {
       assertTrue(!m.getMistakeType().equals(NON_DIFFERENTIATED_SUBCLASS));
     }
+  }
+
+  /**
+   * Test to check wrong superclass.
+   */
+  @Test
+  public void testToCheckWrongSuperclass() {
+    var instructorClassDiagram = cdmFromFile(
+        instructorCDMPath + "instructor_wrong_superclass/Class Diagram/Wrong_superclass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        studentCDMPath + "student_wrong_superclass/Class Diagram/Wrong_superclass.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    var instExtraAccountClass = getClassFromClassDiagram("ExtraAccount", instructorClassDiagram);
+    var studExtraAccountClass = getClassFromClassDiagram("ExtraAccount", studentClassDiagram);
+
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());//TODO Update Incomplete Containment Tree
+
+   assertMistake(studentSolution.getMistakes().get(0), WRONG_SUPERCLASS, studExtraAccountClass,instExtraAccountClass, 0, 1,
+          false);
 
   }
 
+  /**
+   * Test to check Missing Generalization.
+   */
+  @Test
+  public void testToCheckMultipleMissingGeneralization() {
+    var instructorClassDiagram = cdmFromFile(
+        instructorCDMPath + "instructor_multiSubClasses/Class Diagram/MultiSubClasses.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        studentCDMPath + "student_Missing_multi_Generalization/Class Diagram/MultiSubClasses.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instClass1 = getClassFromClassDiagram("TeslaModel3", instructorClassDiagram);
+    var instClass2 = getClassFromClassDiagram("TATAManzaModel3", instructorClassDiagram);
+    var instClass3 = getClassFromClassDiagram("TATAManzaModel5", instructorClassDiagram);
+
+    var studClass1 = getClassFromClassDiagram("TeslaModel3", studentClassDiagram);
+    var studClass2 = getClassFromClassDiagram("TATAManzaModel3", studentClassDiagram);
+    var studClass3 = getClassFromClassDiagram("TATAManzaModel5", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());//TODO Update Incomplete Containment Tree
+
+   assertMistake(studentSolution.getMistakes().get(1), MISSING_GENERALIZATION, studClass1, instClass1, 0, 1,
+          false);
+
+   assertMistake(studentSolution.getMistakes().get(2), MISSING_GENERALIZATION, List.of(studClass2, studClass3), List.of(instClass2, instClass3), 0, 1,
+       false);
+
+  }
+
+  /**
+   * Test to check Missing Generalization.
+   */
+  @Test
+  public void testToCheckMissingGeneralization() {
+    var instructorClassDiagram = cdmFromFile(
+        instructorCDMPath + "instructor_two_subClasses/Class Diagram/Two_subClasses.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        studentCDMPath + "student_Missing_1_Genralization/Class Diagram/Two_subClasses.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instClass1 = getClassFromClassDiagram("TATAManza", instructorClassDiagram);
+    var studClass1 = getClassFromClassDiagram("TATAManza", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_GENERALIZATION, studClass1, instClass1, 0, 1,
+        false);
+
+
+  }
 }
