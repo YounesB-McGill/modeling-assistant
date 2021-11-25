@@ -53,7 +53,7 @@ public class MistakeDetectionGeneralizationTest {
     studClasses.add(studTATAManzaClass);
     studClasses.add(studHondaCity);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertTrue(comparison.instructorGeneraltionTree.containsKey(instCarClass));
     assertTrue(comparison.studentGeneraltionTree.containsKey(studCarClass));
@@ -80,7 +80,7 @@ public class MistakeDetectionGeneralizationTest {
         instructorCDMPath + "instructor_multiSubClasses/Class Diagram/MultiSubClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     var instCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
     var instTATAManzaClass = getClassFromClassDiagram("TATAManza", instructorClassDiagram);
@@ -107,7 +107,7 @@ public class MistakeDetectionGeneralizationTest {
         studentCDMPath + "student_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     var studLeftCarClass = getClassFromClassDiagram("LeftCar", studentClassDiagram);
     var studRightCarClass = getClassFromClassDiagram("RightCar", studentClassDiagram);
@@ -135,7 +135,7 @@ public class MistakeDetectionGeneralizationTest {
         studentCDMPath + "student_same_Assoc_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     var studLeftCarClass = getClassFromClassDiagram("LeftCar", studentClassDiagram);
     var studRightCarClass = getClassFromClassDiagram("RightCar", studentClassDiagram);
@@ -163,7 +163,7 @@ public class MistakeDetectionGeneralizationTest {
         studentCDMPath + "student_diff_Assoc_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     for(Mistake m: comparison.newMistakes) {
       assertTrue(!m.getMistakeType().equals(NON_DIFFERENTIATED_SUBCLASS));
@@ -183,7 +183,7 @@ public class MistakeDetectionGeneralizationTest {
         studentCDMPath + "student_diff_AssocEnds_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     for(Mistake m: comparison.newMistakes) {
       assertTrue(!m.getMistakeType().equals(NON_DIFFERENTIATED_SUBCLASS));
@@ -203,7 +203,7 @@ public class MistakeDetectionGeneralizationTest {
         studentCDMPath + "student_wrong_superclass/Class Diagram/Wrong_superclass.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     var instExtraAccountClass = getClassFromClassDiagram("ExtraAccount", instructorClassDiagram);
     var studExtraAccountClass = getClassFromClassDiagram("ExtraAccount", studentClassDiagram);
@@ -237,7 +237,7 @@ public class MistakeDetectionGeneralizationTest {
     var studClass2 = getClassFromClassDiagram("TATAManzaModel3", studentClassDiagram);
     var studClass3 = getClassFromClassDiagram("TATAManzaModel5", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
 
     assertEquals(6, comparison.newMistakes.size());
@@ -267,7 +267,7 @@ public class MistakeDetectionGeneralizationTest {
     var instClass1 = getClassFromClassDiagram("TATAManza", instructorClassDiagram);
     var studClass1 = getClassFromClassDiagram("TATAManza", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(3, comparison.newMistakes.size());
     assertEquals(3, studentSolution.getMistakes().size());

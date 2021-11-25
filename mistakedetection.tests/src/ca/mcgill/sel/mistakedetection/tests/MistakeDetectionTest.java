@@ -96,7 +96,7 @@ public class MistakeDetectionTest {
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(modelingAssistant, studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.newMistakes.size(), 1);// Incomplete Containment tree
     assertEquals(studentSolution.getMistakes().size(), 1);
@@ -106,7 +106,7 @@ public class MistakeDetectionTest {
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution-a.domain_model.cdm");
     studentSolution = studentSolutionFromClassDiagram(modelingAssistant, studentClassDiagram);
 
-    comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.newMistakes.size(), 5); // 2 Plural Class names + 2 Bad Role Name Spelling + Incomplete
                                                     // Containment tree
@@ -114,11 +114,11 @@ public class MistakeDetectionTest {
 
     // Running the second Solution again to check updated attribute values in Mistake in Metamodel
     assertEquals(studentSolution.getMistakes().size(), 5);
-    comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     assertEquals(comparison.newMistakes.size(), 5);
     assertEquals(studentSolution.getMistakes().size(), 5);
 
-    comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.newMistakes.size(), 5);
     assertEquals(studentSolution.getMistakes().size(), 5);
@@ -128,7 +128,7 @@ public class MistakeDetectionTest {
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution.domain_model.cdm");
     studentSolution = studentSolutionFromClassDiagram(modelingAssistant, studentClassDiagram);
 
-    comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.newMistakes.size(), 1); // Incomplete Containment tree
     // assertEquals(studentSolution.getMistakes().size(), 4); // TODO Discuss in meeting
@@ -171,7 +171,7 @@ public class MistakeDetectionTest {
     assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriverClass));
     assertTrue(MistakeDetection.checkCorrectTest(instructorPassengerClass, studentPassengerClass));
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.newMistakes.size(), 5);// Incomplete Containment tree
     assertEquals(studentSolution.getMistakes().size(), 5);
@@ -188,7 +188,7 @@ public class MistakeDetectionTest {
     }
 
     // ---------Second iteration to test update of mistake Properties---
-    comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.newMistakes.size(), 5);
     assertEquals(studentSolution.getMistakes().size(), 5);
@@ -236,7 +236,7 @@ public class MistakeDetectionTest {
     Attribute studentDriverClassAttributeName = getAttributeFromClass("name", studentDriverClass);
     Attribute studentCustomerClassAttributeName = getAttributeFromClass("name", studentCustomerClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
     assertEquals(comparison.extraStudentClassifier.size(), 0);
@@ -291,7 +291,7 @@ public class MistakeDetectionTest {
     Attribute studentPilotClassAttributeName = getAttributeFromClass("name", studentPilotClass);
     Attribute studentCustomerClassAttributeName = getAttributeFromClass("name", studentCustomerClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
     assertEquals(comparison.extraStudentClassifier.size(), 0);

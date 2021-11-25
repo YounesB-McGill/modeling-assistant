@@ -164,7 +164,7 @@ public class MistakeDetection {
   private static MaxentTagger maxentTagger = getMaxentTagger();
 
 
-  public static Comparison compare(Solution instructorSolution, Solution studentSolution) {
+  public static Comparison compare(Solution instructorSolution, Solution studentSolution, boolean filter) {
     if (!isInstructorSolution(instructorSolution) || !isStudentSolution(studentSolution)) {
       throw new IllegalArgumentException("The input is not a valid (instructorSolution, studentSolution) pair.");
     }

@@ -156,7 +156,7 @@ public class MistakeDetectionPatternTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     assertEquals(0, comparison.newMistakes.size());
     assertEquals(0, studentSolution.getMistakes().size());
   }
@@ -179,7 +179,7 @@ public class MistakeDetectionPatternTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     assertEquals(0, comparison.newMistakes.size());
     assertEquals(0, studentSolution.getMistakes().size());
   }
@@ -203,7 +203,7 @@ public class MistakeDetectionPatternTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     assertEquals(0, comparison.newMistakes.size());
     assertEquals(0, studentSolution.getMistakes().size());
   }
@@ -226,7 +226,7 @@ public class MistakeDetectionPatternTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     assertEquals(0, comparison.newMistakes.size());
     assertEquals(0, studentSolution.getMistakes().size());
   }
@@ -254,7 +254,7 @@ public class MistakeDetectionPatternTest {
     var studElements = studentDomainElements(studentClassDiagram);
     var studStudentClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
 
@@ -290,7 +290,7 @@ public class MistakeDetectionPatternTest {
     studElements.add(studStudentClass);
     studElements.addAll(getEnumFromClassDiagram("StudentLevel", studentClassDiagram).getLiterals());
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
@@ -323,7 +323,7 @@ public class MistakeDetectionPatternTest {
     var studElements = getElementsFromClassDiagram(studentClassDiagram, "Student", "fullTimeStudent",
         "partTimeStudent");
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
@@ -356,7 +356,7 @@ public class MistakeDetectionPatternTest {
     var studElements = studentDomainElements(studentClassDiagram);
     var studStudentClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
@@ -389,7 +389,7 @@ public class MistakeDetectionPatternTest {
     var studElements = studentProjectDomainElements(studentClassDiagram);
     var studStudentClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     assertEquals(9, comparison.newMistakes.size());
     assertEquals(9, studentSolution.getMistakes().size());
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
@@ -424,7 +424,7 @@ public class MistakeDetectionPatternTest {
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studStudentClass);
     studElements.addAll(getEnumFromClassDiagram("StudentLevel", studentClassDiagram).getLiterals());
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(8, comparison.newMistakes.size());
     assertEquals(8, studentSolution.getMistakes().size());
@@ -459,7 +459,7 @@ public class MistakeDetectionPatternTest {
     var studElements = studentDomainElements(studentClassDiagram);
     var studStudentClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
@@ -494,7 +494,7 @@ public class MistakeDetectionPatternTest {
     var studElements = studentDomainElements(studentClassDiagram);
     var studStudentClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(10, comparison.newMistakes.size());
     assertEquals(10, studentSolution.getMistakes().size());
@@ -531,7 +531,7 @@ public class MistakeDetectionPatternTest {
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studStudentClass);
     studElements.addAll(getEnumFromClassDiagram("StudentLevel", studentClassDiagram).getLiterals());
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(8, comparison.newMistakes.size());
     assertEquals(8, studentSolution.getMistakes().size());
@@ -569,7 +569,7 @@ public class MistakeDetectionPatternTest {
     var studElements = studentDomainElements(studentClassDiagram);
     var studStudentClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(9, comparison.newMistakes.size());
     assertEquals(9, studentSolution.getMistakes().size());
@@ -607,7 +607,7 @@ public class MistakeDetectionPatternTest {
     var studElements = studentDomainElements(studentClassDiagram);
     var studStudentClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(8, comparison.newMistakes.size());
     assertEquals(8, studentSolution.getMistakes().size());
@@ -645,7 +645,7 @@ public class MistakeDetectionPatternTest {
     var studElements = studentProjectDomainElements(studentClassDiagram);
     var studStudentClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(10, comparison.newMistakes.size());
     assertEquals(10, studentSolution.getMistakes().size());
@@ -678,7 +678,7 @@ public class MistakeDetectionPatternTest {
     var studElements = employeeElements(studentClassDiagram);
     var studEmployeeClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
 
@@ -712,7 +712,7 @@ public class MistakeDetectionPatternTest {
 
     var studElements = List.of(studEmployeeClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
@@ -745,7 +745,7 @@ public class MistakeDetectionPatternTest {
     var studElements = employeeProjectElements(studentClassDiagram);
     var studEmployeeClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(6, comparison.newMistakes.size());
     assertEquals(6, studentSolution.getMistakes().size());
@@ -778,7 +778,7 @@ public class MistakeDetectionPatternTest {
     var studElements = employeeElements(studentClassDiagram);
     var studEmployeeClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
@@ -811,7 +811,7 @@ public class MistakeDetectionPatternTest {
     var studElements = employeeElements(studentClassDiagram);
     var studEmployeeClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(8, comparison.newMistakes.size());
     assertEquals(8, studentSolution.getMistakes().size());
@@ -848,7 +848,7 @@ public class MistakeDetectionPatternTest {
     CDEnum studEnum = getEnumFromClassDiagram("EmployeeStatus", studentClassDiagram);
     studElements.addAll(studEnum.getLiterals());
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(8, comparison.newMistakes.size());
     assertEquals(8, studentSolution.getMistakes().size());
@@ -882,7 +882,7 @@ public class MistakeDetectionPatternTest {
     var studElements = employeeElements(studentClassDiagram);
     var studEmployeeClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
@@ -917,7 +917,7 @@ public class MistakeDetectionPatternTest {
     var studElements = employeeElements(studentClassDiagram);
     var studEmployeeClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
@@ -955,7 +955,7 @@ public class MistakeDetectionPatternTest {
     studElements.add(studEmployeeClass);
     CDEnum studEnum = getEnumFromClassDiagram("EmployeeStatus", studentClassDiagram);
     studElements.addAll(studEnum.getLiterals());
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
@@ -991,7 +991,7 @@ public class MistakeDetectionPatternTest {
     var studElements = employeeElements(studentClassDiagram);
     var studEmployeeClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(9, comparison.newMistakes.size());
     assertEquals(9, studentSolution.getMistakes().size());
@@ -1027,7 +1027,7 @@ public class MistakeDetectionPatternTest {
     var studElements = employeeElements(studentClassDiagram);
     var studEmployeeClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(8, comparison.newMistakes.size());
     assertEquals(8, studentSolution.getMistakes().size());
@@ -1063,7 +1063,7 @@ public class MistakeDetectionPatternTest {
     var studElements = employeeProjectElements(studentClassDiagram);
     var studEmployeeClass = studElements.get(0);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(9, comparison.newMistakes.size());
     assertEquals(9, studentSolution.getMistakes().size());
@@ -1098,7 +1098,7 @@ public class MistakeDetectionPatternTest {
 
     var studElements = List.of(studBankAccClass, studCheckingAccClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
@@ -1136,7 +1136,7 @@ public class MistakeDetectionPatternTest {
     CDEnum studEnum = getEnumFromClassDiagram("AccountType", studentClassDiagram);
     studElements.addAll(studEnum.getLiterals());
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
@@ -1172,7 +1172,7 @@ public class MistakeDetectionPatternTest {
 
     var studElements = List.of(studBankAccClass, studCheckingAccAssocEnd);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(6, comparison.newMistakes.size());
     assertEquals(6, studentSolution.getMistakes().size());
@@ -1207,7 +1207,7 @@ public class MistakeDetectionPatternTest {
 
     var studElements = List.of(studBankAccClass, studSavingAccClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(6, comparison.newMistakes.size());
     assertEquals(6, studentSolution.getMistakes().size());
@@ -1244,7 +1244,7 @@ public class MistakeDetectionPatternTest {
 
     var studElements = List.of(studBankAccClass, studCheckingAccAssocEnd);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(8, comparison.newMistakes.size());
     assertEquals(8, studentSolution.getMistakes().size());
@@ -1282,7 +1282,7 @@ public class MistakeDetectionPatternTest {
     CDEnum studEnum = getEnumFromClassDiagram("AccountType", studentClassDiagram);
     studElements.addAll(studEnum.getLiterals());
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(8, comparison.newMistakes.size());
     assertEquals(8, studentSolution.getMistakes().size());
@@ -1319,7 +1319,7 @@ public class MistakeDetectionPatternTest {
 
     var studElements = List.of(studBankAccClass, studSavingAccClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
@@ -1361,7 +1361,7 @@ public class MistakeDetectionPatternTest {
 
     var studElements = List.of(studBankAccClass, studCheckingAccClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
@@ -1400,7 +1400,7 @@ public class MistakeDetectionPatternTest {
     CDEnum studEnum = getEnumFromClassDiagram("AccountType", studentClassDiagram);
     studElements.addAll(studEnum.getLiterals());
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
@@ -1438,7 +1438,7 @@ public class MistakeDetectionPatternTest {
 
     var studElements = List.of(studBankAccClass, studSavingAccClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(8, comparison.newMistakes.size());
     assertEquals(8, studentSolution.getMistakes().size());
@@ -1476,7 +1476,7 @@ public class MistakeDetectionPatternTest {
 
     var studElements = List.of(studBankAccClass, studCheckingAccClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(8, comparison.newMistakes.size());
     assertEquals(8, studentSolution.getMistakes().size());
@@ -1515,7 +1515,7 @@ public class MistakeDetectionPatternTest {
 
     var studElements = List.of(studBankAccClass, studCheckingAccAssocEnd);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(9, comparison.newMistakes.size());
     assertEquals(9, studentSolution.getMistakes().size());
@@ -1550,7 +1550,7 @@ public class MistakeDetectionPatternTest {
 
     var studElements = List.of(studBankAccClass, studSavingAccClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
@@ -1584,7 +1584,7 @@ public class MistakeDetectionPatternTest {
 
     var studElements = List.of(studBankAccClass, studCheckingAccClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
@@ -1615,7 +1615,7 @@ public class MistakeDetectionPatternTest {
 
     var studElements = List.of(studAccTypeClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
@@ -1648,7 +1648,7 @@ public class MistakeDetectionPatternTest {
 
     var studElements = List.of(studEmployeeStatusClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
@@ -1676,7 +1676,7 @@ public class MistakeDetectionPatternTest {
 
     var instElements = getElementsFromClassDiagram(instructorClassDiagram, "AccountType", "BankAccount");
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());

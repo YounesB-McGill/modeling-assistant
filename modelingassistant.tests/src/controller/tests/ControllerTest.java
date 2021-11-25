@@ -869,7 +869,7 @@ public class ControllerTest {
     bob.setCurrentSolution(bobSol);
 
     MistakeDetectionConfig.taggerPath = "../mistakedetection/" + MistakeDetectionConfig.taggerPath;
-    MistakeDetection.compare(instructorSol, bobSol);
+    MistakeDetection.compare(instructorSol, bobSol, false);
 
     assertEquals(busPs.getName(), ma.getProblemStatements().get(0).getName());
 

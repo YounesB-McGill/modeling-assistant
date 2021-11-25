@@ -76,7 +76,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
     Classifier studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
     assertEquals(comparison.extraStudentClassifier.size(), 0);
     assertEquals(comparison.mappedClassifier.size(), 2);
@@ -107,7 +107,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier studentBusesClass = getClassFromClassDiagram("Buses", studentClassDiagram);
     Classifier studentDriversClass = getClassFromClassDiagram("Drivers", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
     assertEquals(comparison.extraStudentClassifier.size(), 0);
@@ -140,7 +140,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     Classifier studentBuseClass = getClassFromClassDiagram("Buse", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
@@ -161,7 +161,7 @@ public class MistakeDetectionWrongClassTest {
     var studentSol = studentSolutionFromClassDiagram(cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestClass/student_AirportSystem_badClassNameAirport/Class Diagram/Student_AirportSystem.domain_model.cdm"));
 
-    var comparison = MistakeDetection.compare(instructorSol, studentSol);
+    var comparison = MistakeDetection.compare(instructorSol, studentSol, false);
 
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSol.getMistakes().size(), 1);
@@ -192,7 +192,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
     Classifier studentAiroplaneClass = getClassFromClassDiagram("Airoplane", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
@@ -216,7 +216,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
     Classifier studentCittyClass = getClassFromClassDiagram("Citty", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
@@ -240,7 +240,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
     Classifier studentPersanClass = getClassFromClassDiagram("Persan", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
@@ -264,7 +264,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
     Classifier studentPassangerClass = getClassFromClassDiagram("Passanger", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
@@ -288,7 +288,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
     Classifier studentPiloteClass = getClassFromClassDiagram("Pilote", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSolution.getMistakes().size(), 1);
@@ -336,7 +336,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     Classifier studentBusesClass = getClassFromClassDiagram("Buses", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -360,7 +360,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
     var studentPeopleClass = getClassFromClassDiagram("People", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -384,7 +384,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
     var studentPassengersClass = getClassFromClassDiagram("Passengers", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -408,7 +408,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
     Classifier studentAirportsClass = getClassFromClassDiagram("Airports", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -432,7 +432,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier instructorAirportClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
     Classifier studentAirportsClass = getClassFromClassDiagram("Airplanes", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -456,7 +456,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier instructorAirportClass = getClassFromClassDiagram("City", instructorClassDiagram);
     Classifier studentAirportsClass = getClassFromClassDiagram("Cities", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -480,7 +480,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier instructorAirportClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
     Classifier studentAirportsClass = getClassFromClassDiagram("Pilots", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -504,7 +504,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier instructorAirportClass = getClassFromClassDiagram("Person", instructorClassDiagram);
     Classifier studentAirportsClass = getClassFromClassDiagram("People", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -528,7 +528,7 @@ public class MistakeDetectionWrongClassTest {
     Classifier instructorAirportClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
     Classifier studentAirportsClass = getClassFromClassDiagram("Passengers", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -551,7 +551,7 @@ public class MistakeDetectionWrongClassTest {
 
     var studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
@@ -573,7 +573,7 @@ public class MistakeDetectionWrongClassTest {
 
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size()); // 1 mistake for extra class
@@ -595,7 +595,7 @@ public class MistakeDetectionWrongClassTest {
 
     var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size()); // Missing Composition.
@@ -617,7 +617,7 @@ public class MistakeDetectionWrongClassTest {
 
     var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
@@ -639,7 +639,7 @@ public class MistakeDetectionWrongClassTest {
 
     var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
@@ -661,7 +661,7 @@ public class MistakeDetectionWrongClassTest {
 
     var instructorAirlaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(6, comparison.newMistakes.size());
     assertEquals(6, studentSolution.getMistakes().size());
@@ -683,7 +683,7 @@ public class MistakeDetectionWrongClassTest {
 
     var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
@@ -705,7 +705,7 @@ public class MistakeDetectionWrongClassTest {
 
     var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
@@ -728,7 +728,7 @@ public class MistakeDetectionWrongClassTest {
 
     var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
@@ -750,7 +750,7 @@ public class MistakeDetectionWrongClassTest {
 
     var studentAirlineClass = getClassFromClassDiagram("Airline", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
@@ -772,7 +772,7 @@ public class MistakeDetectionWrongClassTest {
 
     var studentAirlineClass = getClassFromClassDiagram("GroundStaff", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
@@ -795,7 +795,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     var studentBusClassClass = getClassFromClassDiagram("BusClass", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), SOFTWARE_ENGINEERING_TERM, studentBusClassClass,
@@ -818,7 +818,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
     var studentDriverDataClass = getClassFromClassDiagram("DriverData", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -842,7 +842,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
     var studentAirplaneDataClass = getClassFromClassDiagram("AirplaneData", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -866,7 +866,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
     var studentAirportRecordClass = getClassFromClassDiagram("AirportRecord", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -890,7 +890,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
     var studentCityInfoClass = getClassFromClassDiagram("CityInfo", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -914,7 +914,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
     var studentPassengerBioClass = getClassFromClassDiagram("PassengerList", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -938,7 +938,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
     var studentPilotRecordClass = getClassFromClassDiagram("PilotRecord", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -962,7 +962,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
     var studentPersonTableClass = getClassFromClassDiagram("PersonTable", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -986,7 +986,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
     var studentcarClass = getClassFromClassDiagram("car", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1010,7 +1010,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
     var studentcpassengerClass = getClassFromClassDiagram("passenger", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1034,7 +1034,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
     var studentairplaneClass = getClassFromClassDiagram("airplane", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1058,7 +1058,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
     var studentairportClass = getClassFromClassDiagram("airport", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1082,7 +1082,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
     var studentcityClass = getClassFromClassDiagram("city", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1106,7 +1106,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
     var studentpassengerClass = getClassFromClassDiagram("passenger", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1130,7 +1130,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
     var studentpersonClass = getClassFromClassDiagram("person", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1154,7 +1154,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
     var studentpilotClass = getClassFromClassDiagram("pilot", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1178,7 +1178,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
     var studentFlyerClass = getClassFromClassDiagram("Flyer", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1202,7 +1202,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
     var studentFirmClass = getClassFromClassDiagram("Firm", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1226,7 +1226,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
     var studentPirsonClass = getClassFromClassDiagram("Pirson", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1250,7 +1250,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
     var studentCompaneyClass = getClassFromClassDiagram("Companey", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1274,7 +1274,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
     var studentBoeingClass = getClassFromClassDiagram("Boeing777", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(studentBoeingClass, comparison.mappedClassifier.get(instructorAirplaneClass));
   }
@@ -1295,7 +1295,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
     var studentCustomerClass = getClassFromClassDiagram("Customer", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(studentCustomerClass, comparison.mappedClassifier.get(instructorPassengerClass));
   }
@@ -1318,7 +1318,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorAirlineClass = getClassFromClassDiagram("Airline", instructorClassDiagram);
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     assertEquals(studentLocationClass, comparison.mappedClassifier.get(instructorAirportClass));
     assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorAirlineClass));
   }
@@ -1339,7 +1339,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorCompanyClass));
   }
 
@@ -1359,7 +1359,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertTrue(comparison.extraStudentClassifier.contains(studentCompanyClass));
     assertTrue(comparison.notMappedInstructorClassifier.contains(instructorCompanyClass));
@@ -1381,7 +1381,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
     var studentFirmClass = getClassFromClassDiagram("Firm", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     assertEquals(studentFirmClass, comparison.mappedClassifier.get(instructorCompanyClass));
   }
 
@@ -1401,7 +1401,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
     var studentFirmClass = getClassFromClassDiagram("Firm", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(studentFirmClass, comparison.mappedClassifier.get(instructorCompanyClass));
   }
@@ -1421,7 +1421,7 @@ public class MistakeDetectionWrongClassTest {
 
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertTrue(comparison.notMappedInstructorClassifier.contains(instructorCompanyClass));
   }
@@ -1441,7 +1441,7 @@ public class MistakeDetectionWrongClassTest {
 
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
 
-    MistakeDetection.compare(instructorSolution, studentSolution);
+    MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOC_CLASS, instructorCompanyClass, 0, 1, false);
   }
@@ -1461,7 +1461,7 @@ public class MistakeDetectionWrongClassTest {
 
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertTrue(comparison.extraStudentClassifier.contains(studentCompanyClass));
   }
@@ -1481,7 +1481,7 @@ public class MistakeDetectionWrongClassTest {
 
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertMistake(studentMistakeFor(studentCompanyClass), EXTRA_ASSOC_CLASS, studentCompanyClass, 0, 1, false);
   }
@@ -1503,7 +1503,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
     var instructorBusPassClass = getClassFromClassDiagram("BusPass", instructorClassDiagram);
     var studentBusPassClass = getClassFromClassDiagram("BusPass", studentClassDiagram);
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorCompanyClass));
     assertEquals(studentBusPassClass, comparison.mappedClassifier.get(instructorBusPassClass));
@@ -1526,7 +1526,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
     var instructorBusPassClass = getClassFromClassDiagram("BusPass", instructorClassDiagram);
     var studentBusPassClass = getClassFromClassDiagram("BusPass", studentClassDiagram);
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(studentBusPassClass, comparison.mappedClassifier.get(instructorCompanyClass));
     assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorBusPassClass));
@@ -1548,7 +1548,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
     var instructorBusPassClass = getClassFromClassDiagram("BusPass", instructorClassDiagram);
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(studentCompanyClass, comparison.mappedClassifier.get(instructorBusPassClass));
     assertTrue(comparison.notMappedInstructorClassifier.contains(instructorCompanyClass));
@@ -1569,7 +1569,7 @@ public class MistakeDetectionWrongClassTest {
 
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertTrue(comparison.notMappedInstructorClassifier.contains(instructorCompanyClass));
     assertTrue(comparison.extraStudentClassifier.contains(studentCompanyClass));
