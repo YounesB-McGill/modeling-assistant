@@ -12,7 +12,10 @@ Script to create these Learning Corpus artifacts from corpus.py:
 
 import re
 from os import linesep as nl
+from re import Match
 from datetime import datetime
+
+import cv2
 
 from corpus import corpus
 from fileserdes import save_to_file
@@ -258,8 +261,10 @@ def generate_tex():
     """
     Generate LaTeX version of the learning corpus.
     """
+    # pylint: disable=too-many-statements, invalid-name
     NO_INDENT = "\\noindent "
     NLS = " \\medskip\n\n"
+    MAX_WIDTH = 0.9  # relative to line width
     NESTING_KEYWORDS = [
         "section",
         "subsection",
@@ -281,11 +286,16 @@ def generate_tex():
 
     def blockquote(s: str) -> str:
         'Return a block quote of the input string, eg, "> Hello", which appears as "| Hello".'
-        return f"\\begin{{tabular}}{{|p{{0.9\\linewidth}}}}\n{sanitize(s)}\n\\end{{tabular}}{NLS}"
+        return f"\\begin{{tabular}}{{|p{{{MAX_WIDTH}\\linewidth}}}}\n{sanitize(s)}\n\\end{{tabular}}{NLS}"
 
     def sanitize(s: str) -> str:
-        "Return the parametrized string with params surrounded by `verb|...|` and with links removed."
+        "Return the string with any params surrounded by `verb|...|` and with links removed and images rendered."
+        def find_and_replace_image_link(match: Match[str]) -> str:
+            return fr"\\\\\n\\includegraphics[width={MAX_WIDTH}\\textwidth]{{\g<img>}}"
         s = s.replace("|", "$|$")
+        # replace image links with actual images
+        s = re.sub(r"!\[.*?\]\((?P<img>.*?)\)", fr"\\\\\n\\includegraphics[width={MAX_WIDTH}\\textwidth]{{\g<img>}}", s)
+        # replace regular links with italics
         s = re.sub(r"\[(?P<text>.*?)\]\(.*?\)" , r"\\textit{\g<text>}", s)  # regex101.com/r/m58sNO/1
         if "verb|" in s:
             return s  # already verbized
