@@ -10,6 +10,7 @@ Script to create these Learning Corpus artifacts from corpus.py:
   A full learning corpus will be provided later.
 """
 
+import os
 import re
 from os import linesep as nl
 from re import Match
@@ -28,8 +29,9 @@ MAX_COLUMN_WIDTH = 120
 DEFAULT_LEARNING_CORPUS_FILE = "modelingassistant.learningcorpus.dsl.instances/default.learningcorpus"
 PYTHON_MISTAKE_TYPES_FILE = "modelingassistant/pythonclient/mistaketypes.py"
 JAVA_MISTAKE_TYPES_FILE = "modelingassistant/src/learningcorpus/mistaketypes/MistakeTypes.java"
-LEARNING_CORPUS_MARKDOWN_FILE = "modelingassistant/corpus_descriptions/README_TOC.md"
-LEARNING_CORPUS_TEX_FILE = "modelingassistant/corpus_descriptions/learningcorpusdefs.tex"
+CORPUS_DESCRIPTION_DIR = "modelingassistant/corpus_descriptions"
+LEARNING_CORPUS_MARKDOWN_FILE = f"{CORPUS_DESCRIPTION_DIR}/README_TOC.md"
+LEARNING_CORPUS_TEX_FILE = f"{CORPUS_DESCRIPTION_DIR}/learningcorpusdefs.tex"
 
 PYTHON_HEADER = '''\
 """
@@ -291,10 +293,16 @@ def generate_tex():
     def sanitize(s: str) -> str:
         "Return the string with any params surrounded by `verb|...|` and with links removed and images rendered."
         def find_and_replace_image_link(match: Match[str]) -> str:
-            return fr"\\\\\n\\includegraphics[width={MAX_WIDTH}\\textwidth]{{\g<img>}}"
+            "Find the image link and replace it with actual image with appropriate dimensions."
+            img_name = match.group(1)
+            img_path = os.path.join(CORPUS_DESCRIPTION_DIR, img_name)
+            img = cv2.imread(img_path)  # pylint: disable=no-member
+            height, width, _ = img.shape
+            img_width = MAX_WIDTH if height / width < 0.33 else 0.6
+            return f"\\\\\n\\includegraphics[width={img_width}\\textwidth]{{{img_name}}}"
         s = s.replace("|", "$|$")
         # replace image links with actual images
-        s = re.sub(r"!\[.*?\]\((?P<img>.*?)\)", fr"\\\\\n\\includegraphics[width={MAX_WIDTH}\\textwidth]{{\g<img>}}", s)
+        s = re.sub(r"!\[.*?\]\((?P<img>.*?)\)", find_and_replace_image_link, s)
         # replace regular links with italics
         s = re.sub(r"\[(?P<text>.*?)\]\(.*?\)" , r"\\textit{\g<text>}", s)  # regex101.com/r/m58sNO/1
         if "verb|" in s:
