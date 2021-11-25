@@ -272,7 +272,7 @@ public class MistakeDetection {
     checkMistakeMissingAssociationCompositionAggregation(comparison);
     checkMistakeExtraAssociationCompositionAggregation(comparison);
 
-    updateMistakes(instructorSolution, studentSolution, comparison);
+    updateMistakes(instructorSolution, studentSolution, comparison, filter);
     return comparison;
   }
 
@@ -1518,7 +1518,7 @@ public class MistakeDetection {
   }
 
   /** This function updates new and older mistakes in the metamodel and comparison. */
-  private static void updateMistakes(Solution instructorSolution, Solution studentSolution, Comparison comparison) {
+  private static void updateMistakes(Solution instructorSolution, Solution studentSolution, Comparison comparison, boolean filter) {
     final Consumer<? super Mistake> setSolutionForElems = m -> {
       m.getInstructorElements().forEach(ie -> ie.setSolution(instructorSolution));
       m.getStudentElements().forEach(se -> se.setSolution(studentSolution));
@@ -1537,7 +1537,7 @@ public class MistakeDetection {
 
     // Condition when only new mistakes exists.
     if (existingMistakes.size() == 0 && newMistakes.size() != 0) {
-      updateNewMistakes(newMistakes, studentSolution);
+      updateNewMistakes(newMistakes, studentSolution, filter);
     } else if (!existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
       for (Mistake existingMistake : existingMistakes) {
         for (Mistake newMistake : newMistakes) {
@@ -1569,7 +1569,7 @@ public class MistakeDetection {
       EList<Mistake> newUnProcessedMistakes = new BasicEList<Mistake>();
       newUnProcessedMistakes.addAll(newMistakes);
       newUnProcessedMistakes.removeAll(newMistakesProcessed);
-      updateNewMistakes(newUnProcessedMistakes, studentSolution);
+      updateNewMistakes(newUnProcessedMistakes, studentSolution, filter);
       for (int i = 0; i < existingMistakes.size(); i++) {
         if (!existingMistakesProcessed.contains(existingMistakes.get(i))) {
           if (existingMistakes.get(i).getNumSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION
@@ -1597,7 +1597,7 @@ public class MistakeDetection {
     }
   }
 
-  private static void updateNewMistakes(EList<Mistake> newMistakes, Solution studentSolution) {
+  private static void updateNewMistakes(EList<Mistake> newMistakes, Solution studentSolution, boolean filter) {
 
     var patternMistakeTypes =
         List.of(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, ASSOC_SHOULD_BE_FULL_PR_PATTERN, ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN,
@@ -1608,7 +1608,7 @@ public class MistakeDetection {
     containmentMistakeTypes
         .addAll(List.of(INCOMPLETE_CONTAINMENT_TREE, COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT));
 
-    if (mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
+    if (filter && mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
       updateMistakesInvolvingPattern(newMistakes, patternMistakeTypes, studentSolution);
     } // TODO ADD For containment Mistake
     else {
