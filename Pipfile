@@ -14,6 +14,7 @@ flask = "*"
 flask-cors = "*"
 requests = "*"
 autopep8 = "*"
+opencv-python = "*"
 
 [requires]
 python_version = "3.10"

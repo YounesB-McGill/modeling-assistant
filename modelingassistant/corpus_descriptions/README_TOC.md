@@ -447,15 +447,6 @@ Level 4: Parametrized response:
 
 > The ${className} class is not part of the domain, so please remove it.
 
-Parametrized response:
-
-> Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
-
-Level 4: Parametrized response:
-
-> The ${className} class is not part of the domain, so please remove it.
-
-Parametrized response:
 
 > Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
 
@@ -536,35 +527,9 @@ Level 3: Parametrized response:
 
 > The ${redundantAttribute} in the ${className} class is not needed.
 
-Parametrized response:
 
 > The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
 
-Parametrized response:
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
-
-Level 3: Parametrized response:
-
-> The ${redundantAttribute} in the ${className} class is not needed.
-
-Parametrized response:
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
-
-Parametrized response:
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
-
-Level 3: Parametrized response:
-
-> The ${redundantAttribute} in the ${className} class is not needed.
-
-Parametrized response:
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
-
-Parametrized response:
 
 > The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
@@ -595,14 +560,6 @@ Level 4: Resource response with Reference:
 #### Uppercase attribute name
 
 Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Remember that attributes are written in `lowerCamelCase`.
-
-Text response:
-
-> Can this attribute be renamed?
 
 Level 2: Text response:
 
@@ -893,15 +850,6 @@ Level 3: Parametrized response:
 
 > ${actionName} should not be modeled as an association.
 
-Parametrized response:
-
-> ${actionName} does not need be modeled as part of a domain model.
-
-Level 3: Parametrized response:
-
-> ${actionName} should not be modeled as an association.
-
-Parametrized response:
 
 > ${actionName} does not need be modeled as part of a domain model.
 
@@ -922,37 +870,10 @@ Level 3: Parametrized response:
 
 > The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
 
-Parametrized response:
-
-> The relationship between ${classOne} and ${classTwo} is redundant since we can access ${classTwo} from ${classOne} via ${classThree}.
-
-Level 3: Parametrized response:
-
-> The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
-
-Parametrized response:
 
 > The relationship between ${classOne} and ${classTwo} is redundant since we can access ${classTwo} from ${classOne} via ${classThree}.
 
 Level 4: Resource response with Quiz:
-
-> Find all the redunandant associations in this class diagram (TODO).
-
-> Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
-
-Resource response with Quiz:
-
-> Find all the redunandant associations in this class diagram (TODO).
-
-> Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
-
-Level 4: Resource response with Quiz:
-
-> Find all the redunandant associations in this class diagram (TODO).
-
-> Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
-
-Resource response with Quiz:
 
 > Find all the redunandant associations in this class diagram (TODO).
 
@@ -1206,35 +1127,9 @@ Level 4: Parametrized response:
 
 > Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
 
-Parametrized response:
 
 > How many ${class1}'s does a ${class2} have?
 
-Parametrized response:
-
-> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
-
-Level 4: Parametrized response:
-
-> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
-
-Parametrized response:
-
-> How many ${class1}'s does a ${class2} have?
-
-Parametrized response:
-
-> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
-
-Level 4: Parametrized response:
-
-> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
-
-Parametrized response:
-
-> How many ${class1}'s does a ${class2} have?
-
-Parametrized response:
 
 > Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
 
@@ -1753,27 +1648,10 @@ Text response:
 
 > Is there a [direct ]relationship between these two classes?
 
-Level 2: Text response:
-
-> Can you find a better way to express this relationship?
-
-Text response:
-
-> Is there a [direct ]relationship between these two classes?
-
 Level 3: Parametrized response:
 
 > When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
-Parametrized response:
-
-> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
-
-Level 3: Parametrized response:
-
-> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
-
-Parametrized response:
 
 > ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
 
@@ -1793,8 +1671,7 @@ The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. 
-(behavior, structure)
+* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
 
@@ -1810,27 +1687,10 @@ Text response:
 
 > Is there a [direct ]relationship between these two classes?
 
-Level 2: Text response:
-
-> Can you find a better way to express this relationship?
-
-Text response:
-
-> Is there a [direct ]relationship between these two classes?
-
 Level 3: Parametrized response:
 
 > When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
-Parametrized response:
-
-> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
-
-Level 3: Parametrized response:
-
-> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
-
-Parametrized response:
 
 > ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
 
@@ -1850,8 +1710,7 @@ The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. 
-(behavior, structure)
+* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
 
@@ -1876,8 +1735,7 @@ The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. 
-(behavior, structure)
+* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
 
@@ -1902,8 +1760,7 @@ The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. 
-(behavior, structure)
+* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
 
@@ -1932,8 +1789,7 @@ The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. 
-(behavior, structure)
+* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
 
@@ -1952,8 +1808,7 @@ Level 3: Parametrized response:
 Level 4: Resource response with Quiz:
 
 > Which classes do not belong?
-* `Account`, `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`,
-`ClosedAccount`
+* `Account`, `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`, `ClosedAccount`
 
 
 #### Wrong generalization direction
@@ -1984,8 +1839,7 @@ The five checks for generalization are:
 * Obeys the ________. (isA rule)
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. 
-(behavior, structure)
+* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
 
@@ -2061,8 +1915,70 @@ Level 6: Resource response with Quiz:
 
 #### Missing Player-Role pattern
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> Modeling all the concepts in one ${playerClass} class will make it very complicated! Think about adding one or more classes to better represent the domain.
+
+
+> [Nice try, but ]a ${firstSubclass} can also play the role of a ${secondSubclass}.
+
+Level 4: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+Level 5: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
 
 #### Incomplete Player-Role pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> Modeling all the concepts in one ${playerClass} class will make it very complicated! Think about adding one or more classes to better represent the domain.
+
+
+> [Nice try, but ]a ${firstSubclass} can also play the role of a ${secondSubclass}.
+
+Level 4: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+Level 5: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
 
 
 ### Abstraction-Occurrence pattern mistakes
@@ -2079,35 +1995,9 @@ Level 3: Parametrized response:
 
 > Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
 
-Parametrized response:
 
 > ${wronglySubclass} should not be a subclass of ${superclass}. Is there a design pattern that can be used here?
 
-Parametrized response:
-
-> The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
-
-Level 3: Parametrized response:
-
-> Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
-
-Parametrized response:
-
-> ${wronglySubclass} should not be a subclass of ${superclass}. Is there a design pattern that can be used here?
-
-Parametrized response:
-
-> The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
-
-Level 3: Parametrized response:
-
-> Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
-
-Parametrized response:
-
-> ${wronglySubclass} should not be a subclass of ${superclass}. Is there a design pattern that can be used here?
-
-Parametrized response:
 
 > The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
 
@@ -2132,35 +2022,9 @@ Level 3: Parametrized response:
 
 > Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
 
-Parametrized response:
 
 > ${wronglySubclass} should not be a subclass of ${superclass}. Is there a design pattern that can be used here?
 
-Parametrized response:
-
-> The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
-
-Level 3: Parametrized response:
-
-> Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
-
-Parametrized response:
-
-> ${wronglySubclass} should not be a subclass of ${superclass}. Is there a design pattern that can be used here?
-
-Parametrized response:
-
-> The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
-
-Level 3: Parametrized response:
-
-> Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
-
-Parametrized response:
-
-> ${wronglySubclass} should not be a subclass of ${superclass}. Is there a design pattern that can be used here?
-
-Parametrized response:
 
 > The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
 

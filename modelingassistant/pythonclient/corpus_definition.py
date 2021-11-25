@@ -714,7 +714,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     "[checks for proper generalization](https://mycourses2.mcgill.ca/)."),
                     ParametrizedResponse(text="${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.")],
                 4: ResourceResponse(learningResources=[inherit_hierarchy_quiz]),
-                5: ResourceResponse(learningResources=[inherit_checks_quiz := Quiz(content=dedent("""\
+                5: ResourceResponse(learningResources=[inherit_checks_quiz := Quiz(content=dedent(f"""\
                     Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
                     and complete the following:
 
@@ -722,8 +722,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     * Obeys the ________. (isA rule)
                     * Subclass must retain its ________. (distinctiveness)
                     * All ________ must make sense in each subclass. (inherited features)
-                    * Subclass differs from superclass and other subclasses in ________ or ________. 
-                    (behavior, structure)
+                    * Subclass differs from superclass and other subclasses in ________ or ________.{
+                        " "}(behavior, structure)
                     * Subclass must not be ________. (instance)"""))]),
             })),
             generalization_inapplicable := mt(
@@ -767,10 +767,10 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 2: TextResponse(text="Is it really necessary to model this as a subclass?"),
                 3: ParametrizedResponse(text="${wrongSubclass} does not differ from ${wrongSuperclass} in terms of "
                     "behavior or structure."),
-                4: ResourceResponse(learningResources=[non_diff_subclass_quiz := Quiz(content=dedent("""\
+                4: ResourceResponse(learningResources=[non_diff_subclass_quiz := Quiz(content=dedent(f"""\
                     Which classes do not belong?
-                    * `Account`, `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`,
-                    `ClosedAccount`"""))]),
+                    * `Account`, `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`,{
+                        " "}`ClosedAccount`"""))]),  # avoid extra newline here
             })),
             wrong_generalization_direction := mt(n="Wrong generalization direction", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
@@ -795,9 +795,43 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     design_pattern_mistakes := mtc(n="Design pattern mistakes", subcategories=[
         player_role_pattern_mistakes := mtc(n="Player-Role Pattern mistakes",
             mistakeTypes=[
-                missing_pr_pattern := mt(n="Missing PR pattern", d="Missing Player-Role pattern", feedbacks=fbs({})),
+                missing_pr_pattern := mt(n="Missing PR pattern", d="Missing Player-Role pattern", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: [ParametrizedResponse(text="Modeling all the concepts in one ${playerClass} class will make it "
+                            "very complicated! Think about adding one or more classes to better represent the domain."),
+                        ParametrizedResponse(
+                            text="[Nice try, but ]a ${firstSubclass} can also play the role of a ${secondSubclass}.")],
+                    4: ResourceResponse(learningResources=[pr_ref := Reference(content=dedent("""\
+                        The Player-Role Pattern can be used to capture the fact that an object may play different roles
+                        in different contexts.
+
+                        ![Player-Role Pattern](images/player_role.png)"""))]),
+                    5: ResourceResponse(learningResources=[pr_quiz := Quiz(content=dedent(f"""\
+                        Complete the following table:
+
+                        Solution | Roles have different features | One role at a time |{
+                            " "}Different roles at a time | More than one role at the same time
+                        --- | --- | --- | --- | ---
+                        Enumeration         | [ ] | [ ] | [ ] | [ ]
+                        Subclasses          | [ ] | [ ] | [ ] | [ ]
+                        Associations        | [ ] | [ ] | [ ] | [ ]
+                        Player-Role Pattern | [ ] | [ ] | [ ] | [ ]"""))]),
+                })),
                 incomplete_pr_pattern := mt(
-                    n="Incomplete PR pattern", d="Incomplete Player-Role pattern", feedbacks=fbs({})),
+                    n="Incomplete PR pattern", d="Incomplete Player-Role pattern", feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(
+                            text="Think carefully about how to model the relationships between these concepts."),
+                        3: [ParametrizedResponse(
+                                text="Modeling all the concepts in one ${playerClass} class will make it very "
+                                "complicated! Think about adding one or more classes to better represent the domain."),
+                            ParametrizedResponse(text="[Nice try, but ]a ${firstSubclass} can also play the role of a "
+                                "${secondSubclass}.")],
+                        4: ResourceResponse(learningResources=[pr_ref]),
+                        5: ResourceResponse(learningResources=[pr_quiz]),
+                    })),
             ],
             subcategories=[
                 using_different_player_role_pattern := mtc(n="Using different Player-Role pattern", mistakeTypes=[

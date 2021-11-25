@@ -16,7 +16,7 @@ from modelingassistant.modelingassistant import ModelingAssistant, Solution, Stu
 
 
 CDM_PATH = "modelingassistant/testmodels"
-MA_PATH = "modelingassistant/instances"
+MA_PATH = "modelingassistant/testinstances"
 
 
 def test_pytest_is_working():
@@ -217,8 +217,8 @@ def test_persisting_modeling_assistant_with_one_class_solution():
     Verify that a ModelingAssistant instance with a one class solution can be serialized to an XMI file.
     """
     # Remove previously created files (if they exist)
-    ma_path = "modelingassistant/instances/ma_one_class_from_python.modelingassistant"
-    cd_path = "modelingassistant/instances/ma_one_class_from_python.cdm"
+    ma_path = f"{MA_PATH}/ma_one_class_from_python.modelingassistant"
+    cd_path = f"{MA_PATH}/ma_one_class_from_python.cdm"
     if os.path.exists(ma_path):
         os.remove(ma_path)
     if os.path.exists(cd_path):
@@ -288,8 +288,8 @@ def test_persisting_modeling_assistant_with_multiclass_solution():
     Verify that a ModelingAssistant instance with a multiclass solution can be serialized to an XMI file.
     """
     # Remove previously created file (if it exists)
-    ma_file = "modelingassistant/instances/ma_multiclass_from_python.modelingassistant"
-    cd_file = "modelingassistant/instances/ma_multiclass_from_python.cdm"
+    ma_file = f"{MA_PATH}/ma_multiclass_from_python.modelingassistant"
+    cd_file = f"{MA_PATH}/ma_multiclass_from_python.cdm"
     if os.path.exists(ma_file): os.remove(ma_file)
     if os.path.exists(cd_file): os.remove(cd_file)
 
@@ -363,9 +363,9 @@ def test_persisting_modeling_assistant_with_multiple_solutions():
     Verify that a ModelingAssistant instance with multiple solutions can be serialized to an XMI file.
     """
     # Remove previously created file (if it exists)
-    ma_path = "modelingassistant/instances/ma_multisolution_from_python.modelingassistant"
-    cd1_path = "modelingassistant/instances/ma_multisolution_from_python1.cdm"
-    cd2_path = "modelingassistant/instances/ma_multisolution_from_python2.cdm"
+    ma_path = f"{MA_PATH}/ma_multisolution_from_python.modelingassistant"
+    cd1_path = f"{MA_PATH}/ma_multisolution_from_python1.cdm"
+    cd2_path = f"{MA_PATH}/ma_multisolution_from_python2.cdm"
     for p in [ma_path, cd1_path, cd2_path]:
         if os.path.exists(p): os.remove(p)
 

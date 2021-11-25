@@ -224,6 +224,8 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     """
     Return the mistakes of the given student solution given the instructor solution and a modeling assistant context
     by calling the Mistake Detection System. If the latter is not running, it will be started.
+
+    This function is similar to the one in the modeling assistant, but it includes additional assertions.
     """
     def call_mistake_detection_system(ma_str: str) -> Response:
         return requests.get(f"http://{HOST}:{PORT}/detectmistakes", {"modelingassistant": ma_str})
@@ -254,7 +256,7 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
 
 
 
-#@pytest.mark.skip(reason="Longer test time")
+@pytest.mark.skip(reason="Longer test time")
 def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
     """
     Test feedback for a modeling assistant instance with mistakes detected from the actual mistake detection system.

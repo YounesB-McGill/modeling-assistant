@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="fa5ebb51-4820-4602-88e9-c9f6efdbeac2" xmi:version="2.0">
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="a6936be5-01f7-4807-920d-bbb874fdb778">
+    <classDiagram href="ma_one_class_from_python.cdm#ee2a5553-2f90-42ce-9a73-b3aedb25a207" xsi:type="classdiagram:ClassDiagram"/>
+  </solutions>
+</modelingassistant:ModelingAssistant>
