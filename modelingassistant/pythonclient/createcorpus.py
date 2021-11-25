@@ -300,7 +300,34 @@ def generate_tex():
             height, width, _ = img.shape
             img_width = MAX_WIDTH if height / width < 0.33 else 0.6
             return f"\\\\\n\\includegraphics[width={img_width}\\textwidth]{{{img_name}}}"
-        s = s.replace("|", "$|$")
+
+        def handle_checkbox_list(s: str) -> str:
+            result = ""
+            begin_itemize, end_itemize = "\\begin{itemize}", "\\end{itemize}"
+            lines = s.split(nl)
+            for line in lines:
+                if "- [ ]" not in line:
+                    if begin_itemize in result and end_itemize not in result:
+                        result += f"{end_itemize}{nl}{line}{nl}"
+                    else:
+                        result += f"{line}{nl}"
+                else:
+                    for c in "{}":
+                        line = line.replace(c, f"\\{c}")
+                    new_line = line.replace("- [ ]", "    \\item[$\\square$]")
+                    if begin_itemize not in result:
+                        result += f'{begin_itemize}{nl}{new_line}{nl}'
+                    else:
+                        result += f"{new_line}{nl}"
+            if end_itemize not in result:
+                result += f"{end_itemize}{nl}"
+            return result
+
+        # use math notation for certain items so they render as intended
+        if "- [ ]" in s:
+            s = handle_checkbox_list(s)
+        for c in "|<>":
+            s = s.replace(c, f"${c}$")
         # replace image links with actual images
         s = re.sub(r"!\[.*?\]\((?P<img>.*?)\)", find_and_replace_image_link, s)
         # replace regular links with italics
