@@ -795,9 +795,43 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     design_pattern_mistakes := mtc(n="Design pattern mistakes", subcategories=[
         player_role_pattern_mistakes := mtc(n="Player-Role Pattern mistakes",
             mistakeTypes=[
-                missing_pr_pattern := mt(n="Missing PR pattern", d="Missing Player-Role pattern", feedbacks=fbs({})),
+                missing_pr_pattern := mt(n="Missing PR pattern", d="Missing Player-Role pattern", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: [ParametrizedResponse(text="Modeling all the concepts in one ${playerClass} class will make it "
+                            "very complicated! Think about adding one or more classes to better represent the domain."),
+                        ParametrizedResponse(
+                            text="[Nice try, but ]a ${firstSubclass} can also play the role of a ${secondSubclass}.")],
+                    4: ResourceResponse(learningResources=[pr_ref := Reference(content=dedent("""\
+                        The Player-Role Pattern can be used to capture the fact that an object may play different roles
+                        in different contexts.
+
+                        ![Player-Role Pattern](images/player_role.png)"""))]),
+                    5: ResourceResponse(learningResources=[pr_quiz := Quiz(content=dedent(f"""\
+                        Complete the following table:
+
+                        Solution | Roles have different features | One role at a time |{
+                            " "}Different roles at a time | More than one role at the same time
+                        --- | --- | --- | --- | ---
+                        Enumeration         | [ ] | [ ] | [ ] | [ ]
+                        Subclasses          | [ ] | [ ] | [ ] | [ ]
+                        Associations        | [ ] | [ ] | [ ] | [ ]
+                        Player-Role Pattern | [ ] | [ ] | [ ] | [ ]"""))]),
+                })),
                 incomplete_pr_pattern := mt(
-                    n="Incomplete PR pattern", d="Incomplete Player-Role pattern", feedbacks=fbs({})),
+                    n="Incomplete PR pattern", d="Incomplete Player-Role pattern", feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(
+                            text="Think carefully about how to model the relationships between these concepts."),
+                        3: [ParametrizedResponse(
+                                text="Modeling all the concepts in one ${playerClass} class will make it very "
+                                "complicated! Think about adding one or more classes to better represent the domain."),
+                            ParametrizedResponse(text="[Nice try, but ]a ${firstSubclass} can also play the role of a "
+                                "${secondSubclass}.")],
+                        4: ResourceResponse(learningResources=[pr_ref]),
+                        5: ResourceResponse(learningResources=[pr_quiz]),
+                    })),
             ],
             subcategories=[
                 using_different_player_role_pattern := mtc(n="Using different Player-Role pattern", mistakeTypes=[

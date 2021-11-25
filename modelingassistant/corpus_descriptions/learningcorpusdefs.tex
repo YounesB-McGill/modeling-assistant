@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus script.
-% Generation time: 2021-11-25 01:58:42
+% Generation time: 2021-11-25 02:28:33
 
 \section{Class mistakes}
 
@@ -2436,9 +2436,95 @@ Place the following classes in an inheritance hierarchy:
 
 \subsubsection{Missing Player-Role pattern}
 
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Modeling all the concepts in one \verb|${playerClass}| class will make it very complicated! Think about adding one or more classes to better represent the domain.
+\end{tabular} \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+[Nice try, but ]a \verb|${firstSubclass}| can also play the role of a \verb|${secondSubclass}|.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/player_role.png}
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Quiz: \medskip
+
+
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
+Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
+Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
+Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+\end{tabular}
 
 \subsubsection{Incomplete Player-Role pattern}
 
+\noindent Level 1: Highlight solution \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Modeling all the concepts in one \verb|${playerClass}| class will make it very complicated! Think about adding one or more classes to better represent the domain.
+\end{tabular} \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+[Nice try, but ]a \verb|${firstSubclass}| can also play the role of a \verb|${secondSubclass}|.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/player_role.png}
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Quiz: \medskip
+
+
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
+Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
+Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
+Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+\end{tabular}
 
 \subsection{Abstraction-Occurrence pattern mistakes}
 

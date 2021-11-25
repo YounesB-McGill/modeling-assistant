@@ -107,6 +107,21 @@ TEX_HEADER = f"""\
 
 """
 
+TEX_PR_TABLE = R"""
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
+Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
+Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
+Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+\end{tabular}
+"""
+
 
 def generate_python():
     """
@@ -339,9 +354,13 @@ def generate_tex():
             "Render markdown emojis ✔ and ❌ in LaTeX."
             return s.replace(":heavy_check_mark:", "\\textcolor{ForestGreen}{\\checkmark}").replace(
                 ":x:", "\\textcolor{red}{$\\times$}")
+
         def process_row(s: str) -> str:
             "Return the string as a LaTeX table row."
             return "&".join(processed(s).split("|")) + " \\\\\n"
+
+        if "Player-Role Pattern" in s:
+            return TEX_PR_TABLE
         lines = s.strip().split(nl)
         result = ""
         prev_in_table = in_table = False
