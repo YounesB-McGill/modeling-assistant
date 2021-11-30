@@ -7,7 +7,7 @@ REST API for modeling assistant.
 # pylint: disable=invalid-name
 
 from feedback import give_feedback_for_student_cdm
-from flask import Flask, Response, jsonify
+from flask import abort, Flask, Response, jsonify
 from flask_cors import CORS
 
 
@@ -16,6 +16,12 @@ PORT = 8538
 
 app = Flask(__name__)
 CORS(app)  # TODO Make this more secure later
+
+
+@app.route("/")
+def root():
+    "Root endpoint."
+    return abort(403)  # return 403 Forbidden for now
 
 
 @app.route("/helloworld/<name>")

@@ -6,13 +6,18 @@ Module containing feedback algorithm for modeling assistant.
 
 from dataclasses import dataclass
 from functools import cache
+from uuid import uuid4 as uuid
+
 import modelingassistant
 from modelingassistant import ModelingAssistant
+from modelingassistant import Student
 
 from modelingassistant_app import MODELING_ASSISTANT, get_mistakes
 from classdiagram import ClassDiagram
+from fileserdes import load_cdm
 from learningcorpus import TextResponse
 from modelingassistant import FeedbackItem, Mistake, Solution, StudentKnowledge
+from utils import env_vars
 
 
 MAX_STUDENT_LEVEL_OF_KNOWLEDGE = 10.0
@@ -99,20 +104,24 @@ def give_feedback_for_student_cdm(student_cdm_name: str, ma: ModelingAssistant =
     if student_cdm in modeling_assistant.classDiagramsToSolutions:
         student_solution = modeling_assistant.classDiagramsToSolutions[student_cdm]
     else:
-        student_solution = ... # create_solution()  # do initialization setup here
+        student = Student(id=uuid(), name=student_cdm_name, modelingAssistant=modeling_assistant)
+          # TODO Complete initialization of solution later
+        student_solution = Solution(modelingAssistant=modeling_assistant, student=student, classDiagram=student_cdm)
     modeling_assistant = get_mistakes(modeling_assistant, instructor_cdm, student_cdm)
     fb_s = give_feedback(student_solution)
     fb = fb_s if isinstance(fb_s, FeedbackItem) else fb_s[0]  # only one feedback item for now
 
-    ...
+    # solution_elements = [e._internal_id for e in fb.mistake.studentElements if fb.mistake]
+    # if fb.mistake:
+    #     fb.mistake.studentElements
 
     return FeedbackTO(
-        solutionElements=[],
+        solutionElements=["_CjcR0IwiEeu_2bwvd4NWSw", "_wF_poIwiEeu_2bwvd4NWSw"],  # City, X.name
         instructorElements=[],
         problemStatementElements=[],
-        highlight=False,
-        grade=0.0,
-        writtenFeedback="",
+        highlight=True, #False,
+        grade=8.5, #0.0,
+        writtenFeedback="Tomato!",
     )
 
 
@@ -126,7 +135,11 @@ def instructor_cdm_for(student_cdm_name: str) -> ClassDiagram:
 @cache
 def student_cdm_for(student_cdm_name: str) -> ClassDiagram:
     "Return the student class diagram for the given student class diagram name."
-    # TODO: return student class diagram from name using file system for now
+    # Use file system for now
+    WEBCORE_PATH = f"{env_vars['touchcore-sources']}/../touchcore-web"
+    CORES_PATH = f"{WEBCORE_PATH}/webcore-server/cores"
+    cdm_file = f"{CORES_PATH}/{student_cdm_name}/Class Diagram/{student_cdm_name}.design_class_model.cdm"
+    return load_cdm(cdm_file)
 
 
 if __name__ == '__main__':

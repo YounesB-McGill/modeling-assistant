@@ -919,6 +919,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         "${className}, but this is not enforced.")],
                     4: ResourceResponse(learningResources=[ao_ref]),
                 })),
+            # Wrong AO (inheritance instead of association)
         ]),
     ]),
 ])
