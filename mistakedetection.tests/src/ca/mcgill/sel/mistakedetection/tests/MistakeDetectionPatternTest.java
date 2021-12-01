@@ -469,15 +469,13 @@ public class MistakeDetectionPatternTest {
     var instElements = studentDomainElements(instructorClassDiagram);
 
     var studElements = studentDomainElements(studentClassDiagram);
-    var studStudentClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
 
-    var studStudentClassMistake = studentMistakeFor(studStudentClass);
-    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1,
+    assertMistake(studentSolution.getMistakes().get(1), SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1,
         false);
   }
 
@@ -896,8 +894,8 @@ public class MistakeDetectionPatternTest {
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
 
-    var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
-    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1,
+    MistakeDetectionTest.log(comparison);
+    assertMistake(studentSolution.getMistakes().get(0), SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1,
         false);
   }
 
@@ -1330,8 +1328,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
 
-    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1,
+    assertMistake(studentSolution.getMistakes().get(0), SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1,
         false);
   }
 

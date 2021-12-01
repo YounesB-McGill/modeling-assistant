@@ -30,6 +30,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM_ITEM;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_GENERALIZATION;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_SUBCLASS;
@@ -280,8 +281,49 @@ public class MistakeDetection {
     checkMistakeNonDifferentiatedSubClass(comparison);
     checkMistakeWrongSuperclass(comparison);
     checkMistakeMissingGeneralization(comparison);
+    checkMistakeExtraGeneralization(comparison);
   }
 
+  private static void checkMistakeExtraGeneralization(Comparison comparison) {
+    for (Map.Entry<Classifier, EList<Classifier>> set : comparison.studentGeneraltionTree.entrySet()) {
+      Classifier studSuperclass = set.getKey();
+      EList<Classifier> studSubclasses = set.getValue();
+      EList<NamedElement> extraInstGeneralizationClasses = new BasicEList<NamedElement>();
+      EList<NamedElement> extraStudGeneralizationClasses = new BasicEList<NamedElement>();
+      boolean counted = false;
+      if(comparison.mappedClassifier.containsValue(studSuperclass)) {
+        if(comparison.instructorGeneraltionTree.containsKey(getKey(comparison.mappedClassifier, studSuperclass))){
+          for(Classifier studClass : studSubclasses) {
+            if(comparison.mappedClassifier.containsValue(studClass)) {
+              Classifier instClass = getKey(comparison.mappedClassifier, studClass);
+              if(instClass.getSuperTypes().isEmpty()) {
+                extraStudGeneralizationClasses.add(studClass);
+                extraInstGeneralizationClasses.add(instClass);
+              }
+            }
+          }
+        }else {
+          for(Classifier studClass : studSubclasses) {
+            if(comparison.mappedClassifier.containsValue(studClass)) {
+              Classifier instClass = getKey(comparison.mappedClassifier, studClass);
+              if(instClass.getSuperTypes().isEmpty()) {
+                if(!counted) {
+                  extraInstGeneralizationClasses.add(getKey(comparison.mappedClassifier, studSuperclass));
+                  extraStudGeneralizationClasses.add(studSuperclass);
+                }
+                counted = true;
+                extraStudGeneralizationClasses.add(studClass);
+                extraInstGeneralizationClasses.add(instClass);
+              }
+            }
+          }
+        }
+      }
+      if(!extraInstGeneralizationClasses.isEmpty()) {
+        comparison.newMistakes.add(createMistake(EXTRA_GENERALIZATION, extraStudGeneralizationClasses, extraInstGeneralizationClasses));
+      }
+    }
+  }
 
   private static void checkMistakeMissingGeneralization(Comparison comparison) {
     for (Map.Entry<Classifier, EList<Classifier>> set : comparison.instructorGeneraltionTree.entrySet()) {
