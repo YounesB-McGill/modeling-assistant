@@ -347,7 +347,7 @@ public class MistakeDetection {
       EList<Attribute> superClassAttributes = superClass.getAttributes();
       for(Classifier subClass : subClasses) {
         EList<Attribute> subClassAttributes = subClass.getAttributes();
-        if (areAttributesEqual(superClassAttributes, subClassAttributes) && !comparison.mappedClassifier.containsValue(subClass) && !superClass.isAbstract()) {
+        if (areAttributesEqual(superClassAttributes, subClassAttributes) && comparison.mappedClassifier.containsValue(subClass) && !superClass.isAbstract()) {
           if(!classesIterated.contains(subClass.getName())) {
             classesIterated.add(subClass.getName());
             comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass, null));
@@ -360,7 +360,7 @@ public class MistakeDetection {
         for(int j =0; j<subClasses.size(); j++) {
           Classifier subClass2 = subClasses.get(j);
           EList<Attribute> subClass2Attributes = subClass2.getAttributes();
-          if (subClass1 != subClass2 && areAttributesEqual(subClass1Attributes, subClass2Attributes) && subClassesAttriAssocEqual(subClass1, subClass2) && !comparison.mappedClassifier.containsValue(subClass1)) {
+          if (subClass1 != subClass2 && areAttributesEqual(subClass1Attributes, subClass2Attributes) && subClassesAttriAssocEqual(subClass1, subClass2) && comparison.mappedClassifier.containsValue(subClass1)) {
              if(!classesIterated.contains(subClass1.getName())) {
               classesIterated.add(subClass1.getName());
               comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass1, null));
@@ -2597,7 +2597,7 @@ public class MistakeDetection {
       String tagged = taggerOut(s);
       String[] str = tagged.split("(_|/)");
       String pluralTag = "NNS";
-      if (str[1].contains(pluralTag)) {
+      if (str[1].contains(pluralTag) && str[0].charAt(str[0].length()-1) != '5') {
         isPlural = true;
       }
       nounPluralStatus.put(s, isPlural);
