@@ -1,5 +1,6 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromDiagram;
@@ -28,6 +29,7 @@ import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
+import modelingassistant.util.ResourceHelper;
 
 public class MistakeDetectionTest {
 
@@ -315,6 +317,30 @@ public class MistakeDetectionTest {
 
     assertEquals(comparison.newMistakes.size(), 4); // 3 + Incomplete Containment tree
     assertEquals(studentSolution.getMistakes().size(), 4);
+  }
+
+  /**
+   * Tests Mistake Detection System behavior with WebCORE class diagrams.
+   */
+  @Test
+  public void testMistakeDetectionSystemOnWebcoreCdms() {
+    var instructorClassDiagram = cdmFromFile("../modelingassistant/testmodels/MULTIPLE_CLASSES_instructor.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+    var modelingAssistant = instructorSolution.getModelingAssistant();
+
+    var touchcoreSources = ResourceHelper.getTouchcoreSourcesDirectory();
+    var coresPath = touchcoreSources + "/../touchcore-web/webcore-server/cores";
+    var studentClassDiagram = cdmFromFile(coresPath
+        + "/MULTIPLE_CLASSES/Class Diagram/MULTIPLE_CLASSES.design_class_model.cdm");
+
+    var studentSolution = studentSolutionFromClassDiagram(modelingAssistant, studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+    // Uncomment this line to debug
+    //log(comparison);
+
+    assertTrue(studentSolution.getMistakes().stream().anyMatch(m -> m.getMistakeType() == MISSING_CLASS));
   }
 
   public static boolean mistakesContainMistakeType(List<Mistake> mistakes, MistakeType mistakeType) {

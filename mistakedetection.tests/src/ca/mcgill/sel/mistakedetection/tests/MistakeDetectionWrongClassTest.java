@@ -166,14 +166,18 @@ public class MistakeDetectionWrongClassTest {
     assertEquals(comparison.newMistakes.size(), 1);
     assertEquals(studentSol.getMistakes().size(), 1);
 
-    assertMistake().fromSolutions(instructorSol, studentSol).withInstructorClassName("Airport")
-        .withStudentClassName("Airpoort").hasType(BAD_CLASS_NAME_SPELLING).hasNumSinceResolved(0).hasNumDetections(1)
+    assertMistake().fromSolutions(instructorSol, studentSol)
+        .withInstructorClassName("Airport")
+        .withStudentClassName("Airpoort")
+        .hasType(BAD_CLASS_NAME_SPELLING)
+        .hasNumSinceResolved(0)
+        .hasNumDetections(1)
         .isUnresolved();
 
-    // same assertion as above, written in less lines
+    // same assertion as above, written even more fluently and in less lines
     assertMistake().fromSolutions(instructorSol, studentSol).withInstructorClassName("Airport")
-        .withStudentClassName("Airpoort").hasType(BAD_CLASS_NAME_SPELLING).has(0).numSinceResolved().has(1)
-        .numDetections().and().isUnresolved();
+        .withStudentClassName("Airpoort").hasType(BAD_CLASS_NAME_SPELLING).has(0).numSinceResolved()
+        .has(1).numDetections().and().isUnresolved();
   }
 
   /**
@@ -1574,5 +1578,5 @@ public class MistakeDetectionWrongClassTest {
     assertTrue(comparison.notMappedInstructorClassifier.contains(instructorCompanyClass));
     assertTrue(comparison.extraStudentClassifier.contains(studentCompanyClass));
   }
-}
 
+}
