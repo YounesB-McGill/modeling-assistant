@@ -29,28 +29,24 @@ from modelingassistant_app import MODELING_ASSISTANT
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from classdiagram import Class, ClassDiagram
+from constants import WEBCORE_ENDPOINT
+from envvars import CORES_PATH
 from feedback import FeedbackTO
 from flaskapp import app, DEBUG_MODE, PORT
 from fileserdes import load_cdm, save_to_file
-from utils import env_vars
 from modelingassistant import ModelingAssistant, ProblemStatement, Solution, Student
 
-
-WEBCORE_ENDPOINT = "http://localhost:8080"
-
-WEBCORE_PATH = f"{env_vars['touchcore-sources']}/../touchcore-web"
-CORES_PATH = f"{WEBCORE_PATH}/webcore-server/cores"
 
 INSTRUCTOR_CDM = "modelingassistant/testmodels/MULTIPLE_CLASSES_instructor.cdm"
 
 
 @pytest.fixture(scope="module")
-def setup():
+def ma_rest_app():
     Thread(target=lambda: app.run(debug=DEBUG_MODE, port=PORT, use_reloader=False), daemon=True).start()
 
 
-#@pytest.mark.skip(reason="Not yet implemented")
-def test_ma_one_class_student_mistake(setup):
+@pytest.mark.skip(reason="Not yet implemented")
+def test_ma_one_class_student_mistake(ma_rest_app):
     """
     Simplest possible test for the entire system.
 
@@ -100,6 +96,12 @@ def test_ma_one_class_student_mistake(setup):
     assert not feedback.highlight
     assert not feedback.solutionElements
     assert "no mistakes" in feedback.writtenFeedback.lower()
+
+
+def test_communication_between_mock_frontend_and_webcore():
+    """
+    Test the communication between this mock frontend and WebCORE.
+    """
 
 
 def get_ma_with_ps(instructor_cdm: ClassDiagram) -> ModelingAssistant:

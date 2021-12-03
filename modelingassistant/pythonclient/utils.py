@@ -16,10 +16,6 @@ COLOR = SimpleNamespace(VIOLET="\033[95m", BLUE="\033[94m", CYAN="\033[96m", GRE
 
 _mtc_subcats: dict[MistakeTypeCategory, list[MistakeTypeCategory]] = {}
 
-env_vars: dict[str, str] = {}
-with open(".env", encoding="utf-8") as env_file:
-    env_vars = json.load(env_file)
-
 
 def color_str(color: str, text: str) -> str:
     "Return the given text in the given color, useful for printing to console."

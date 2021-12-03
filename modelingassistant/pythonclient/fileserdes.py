@@ -10,17 +10,13 @@ from pyecore.ecore import EObject
 from pyecore.resources.resource import Resource, ResourceSet, URI
 
 from classdiagram import ClassDiagram
+from envvars import CORES_PATH, TOUCHCORE_PATH
 from learningcorpus import LearningCorpus, LearningItem
 from serdes import set_static_class_for
 from stringserdes import SRSET
 from constants import CLASS_DIAGRAM_MM, DEFAULT_MODELING_ASSISTANT_PATH, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM
-from utils import env_vars, warn
+from utils import warn
 from modelingassistant.modelingassistant import ModelingAssistant
-
-
-TOUCHCORE_PATH = env_vars["touchcore-sources"]
-WEBCORE_PATH = f"{TOUCHCORE_PATH}/../touchcore-web"
-CORES_PATH = f"{WEBCORE_PATH}/webcore-server/cores"
 
 
 def load_metamodels(*ecore_files: str) -> ResourceSet:

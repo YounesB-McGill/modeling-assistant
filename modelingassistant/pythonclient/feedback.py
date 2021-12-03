@@ -8,18 +8,15 @@ from dataclasses import dataclass, field
 from functools import cache
 from uuid import uuid4 as uuid
 
-import modelingassistant
-from modelingassistant import ModelingAssistant
-from modelingassistant import Student
-from modelingassistant import ProblemStatement
-
 from modelingassistant_app import MODELING_ASSISTANT, get_mistakes
 from classdiagram import ClassDiagram
+from envvars import CORES_PATH
 from fileserdes import load_cdm
 from learningcorpus import TextResponse
-from modelingassistant import FeedbackItem, Mistake, Solution, StudentKnowledge
 from stringserdes import str_to_cdm
-from utils import env_vars
+from modelingassistant import (ModelingAssistant, Student, ProblemStatement, FeedbackItem, Mistake, Solution,
+                               StudentKnowledge)
+
 
 
 MAX_STUDENT_LEVEL_OF_KNOWLEDGE = 10.0
@@ -208,8 +205,6 @@ def instructor_cdm_for(student_cdm_name: str) -> ClassDiagram:
 def student_cdm_for(student_cdm_name: str) -> ClassDiagram:
     "Return the student class diagram for the given student class diagram name."
     # Use file system for now
-    WEBCORE_PATH = f"{env_vars['touchcore-sources']}/../touchcore-web"
-    CORES_PATH = f"{WEBCORE_PATH}/webcore-server/cores"
     cdm_file = f"{CORES_PATH}/{student_cdm_name}/Class Diagram/{student_cdm_name}.design_class_model.cdm"
     return load_cdm(cdm_file)
 
