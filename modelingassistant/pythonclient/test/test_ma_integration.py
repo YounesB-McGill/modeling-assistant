@@ -15,6 +15,7 @@ The Python backend must not import anything from this module.
 from collections import namedtuple
 from collections.abc import Iterable
 from random import randint
+from threading import Thread
 from typing import Tuple
 import json
 import os
@@ -23,10 +24,13 @@ import sys
 
 import requests
 
+from modelingassistant_app import MODELING_ASSISTANT
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from classdiagram import Class, ClassDiagram
 from feedback import FeedbackTO
+from flaskapp import app, DEBUG_MODE, PORT
 from fileserdes import load_cdm, save_to_file
 from utils import env_vars
 from modelingassistant import ModelingAssistant, ProblemStatement, Solution, Student
@@ -40,8 +44,13 @@ CORES_PATH = f"{WEBCORE_PATH}/webcore-server/cores"
 INSTRUCTOR_CDM = "modelingassistant/testmodels/MULTIPLE_CLASSES_instructor.cdm"
 
 
+@pytest.fixture(scope="module")
+def setup():
+    Thread(target=lambda: app.run(debug=DEBUG_MODE, port=PORT, use_reloader=False), daemon=True).start()
+
+
 #@pytest.mark.skip(reason="Not yet implemented")
-def test_ma_one_class_student_mistake():
+def test_ma_one_class_student_mistake(setup):
     """
     Simplest possible test for the entire system.
 
@@ -62,7 +71,7 @@ def test_ma_one_class_student_mistake():
     """
     # Step 0
     # use this until TC is updated to allow initializing with a cdm
-    ma = create_ma_with_ps(load_cdm(INSTRUCTOR_CDM))
+    ma = get_ma_with_ps(load_cdm(INSTRUCTOR_CDM))
 
     # Step 1
     student = MockStudent(student_id="Student1", modelingAssistant=ma)
@@ -73,14 +82,18 @@ def test_ma_one_class_student_mistake():
     assert bad_cls_id
     feedback = student.request_feedback()
 
+    assert ma.problemStatements[0].name
+    assert ma.solutions[1].classDiagram.name
+    assert len(ma.solutions) >= 2
+
     # Step 6
     assert feedback.highlight
-    # more strict checks possible after establishing link with WebCORE
+    # more strict checks possible after WebCORE is completed
     print(feedback)
-    assert feedback.solutionElements[0] == bad_cls_id  # use item._internal_id for runtime XMI ID
+    assert bad_cls_id in feedback.solutionElements
 
     # Steps 7-10
-    student.create_class("GoodClsName")
+    student.create_class("Airplane")
     feedback = student.request_feedback()
 
     # Step 11
@@ -89,32 +102,37 @@ def test_ma_one_class_student_mistake():
     assert "no mistakes" in feedback.writtenFeedback.lower()
 
 
-def create_ma_with_ps(instructor_cdm: ClassDiagram) -> ModelingAssistant:
+def get_ma_with_ps(instructor_cdm: ClassDiagram) -> ModelingAssistant:
     """
     Create a Modeling Assistant instance with the provided parameters.
     """
     ps = ProblemStatement(name=instructor_cdm.name)
     sol = Solution(classDiagram=instructor_cdm, problemStatement=ps)
-    ma = ModelingAssistant(problemStatements=[ps], solutions=[sol])
+    ma = MODELING_ASSISTANT
+    ma.problemStatements.append(ps)
+    ma.solutions.append(sol)
+    assert ma.problemStatements[0].name
+    assert ma.solutions[0].classDiagram.name
     return ma
 
 
-class MockStudent(Student):
+class MockStudent:
     """
-    Mock student used for testing.
+    Mock student wrapper used for testing.
     """
     def __init__(self, student_id: str, modelingAssistant: ModelingAssistant):
-        super().__init__(id=student_id, modelingAssistant=modelingAssistant)
+        self.student = Student(id=student_id, modelingAssistant=modelingAssistant)
         self.file_name: str = ""  # assume one file name for now
+        #self.eClass.ePackage.nsURI = Student.eClass.ePackage.nsURI  # pylint: disable=no-member
 
     def create_cdm(self):
         "Create a student class diagram."
-        problem_statement = self.modelingAssistant.problemStatements[0]  # assume only one problem statement for now
+        problem_statement = self.student.modelingAssistant.problemStatements[0]  # assume only one for now
         problem_name = problem_statement.name
-        self.file_name = f"{problem_name}_{self.id}.cdm"
+        self.file_name = f"{problem_name}_{self.student.id}.cdm"
         self.file_name = "MULTIPLE_CLASSES"  # temporary workaround: tell TouchCORE about this cdm file later
         cdm = load_cdm(f"{CORES_PATH}/MULTIPLE_CLASSES/Class Diagram/MULTIPLE_CLASSES.design_class_model.cdm")  # ...
-        Solution(modelingAssistant=self.modelingAssistant, student=self, classDiagram=cdm,
+        Solution(modelingAssistant=self.student.modelingAssistant, student=self.student, classDiagram=cdm,
                  problemStatement=problem_statement)
 
     def create_class(self, name: str) -> str:
@@ -131,9 +149,10 @@ class MockStudent(Student):
         return cls_id
 
     def request_feedback(self) -> FeedbackTO:
-        "Request feedback from the Modeling Assistant."
+        "Request feedback from the Modeling Assistant via WebCORE."
         resp = requests.get(f"{self.cdm_endpoint()}/feedback")
         feedback_json = resp.json()
+        print(feedback_json)
         return FeedbackTO(**feedback_json)
 
     def get_cdm(self) -> dict:
@@ -144,6 +163,9 @@ class MockStudent(Student):
     def cdm_endpoint(self) -> str:
         "Return the class diagram endpoint for the student, assuming there is only one (for now)."
         return f"{WEBCORE_ENDPOINT}/classdiagram/{self.file_name.removesuffix('.cdm')}"
+
+    def __call__(self):
+        return self.student
 
 
 def _diff(old_cdm: dict, new_cdm: dict) -> Tuple[list[str], list[str]]:

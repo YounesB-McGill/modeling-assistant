@@ -444,14 +444,15 @@ public class MistakeDetection {
     checkMistakeWrongAttributeType(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
-    checkMistakeAttributeSpelling(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
-    checkMistakePluralAttribName(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
-    checkMistakeUppercaseAttribName(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
+    if (studentAttribute.getName() != instructorAttribute.getName()) {
+      checkMistakeAttributeSpelling(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
+      checkMistakePluralAttribName(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
+      checkMistakeUppercaseAttribName(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
+    }
   }
 
   private static void checkMistakesInClassifier(Classifier studentClassifier, Classifier instructorClassifier,
       EList<Mistake> newMistakes) {
-
     checkMistakeSoftwareEngineeringTerm(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
     checkMistakePluralClassName(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
     checkMistakeLowerClassName(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);

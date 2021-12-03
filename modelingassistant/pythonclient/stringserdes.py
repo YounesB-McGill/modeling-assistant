@@ -10,6 +10,7 @@ from pyecore.ecore import EProxy
 from pyecore.resources.resource import  Resource, ResourceSet, URI
 from pyecore.resources.xmi import XMI, XMIOptions, XMIResource, XMI_URL, XSI
 
+from classdiagram import ClassDiagram
 from constants import CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM, LEARNING_CORPUS_PATH
 from serdes import set_static_class_for
 
@@ -33,7 +34,7 @@ class StringEnabledResourceSet(ResourceSet):
     def create_string_resource(self):
         "Create a resource that can be used to store a string in-memory."
         resource = StringEnabledXMIResource()
-        self.resources["dummy.modelingassistant"] = resource
+        self.resources["dummy.modelingassistant"] = self.resources["dummy.cdm"] = resource
         resource.resource_set = self
         resource.decoders.insert(0, self)
         resource.use_uuid = True
@@ -81,6 +82,8 @@ class StringEnabledXMIResource(XMIResource):
         """
         self.options = options or {}
         self.cache_enabled = True
+        if not isinstance(string, bytes):
+            string = string.encode("utf-8")
         tree = fromstring(string, base_url=".")
         xmlroot = tree
         self.prefixes.update(xmlroot.nsmap)
@@ -163,3 +166,11 @@ class StringEnabledXMIResource(XMIResource):
 
 # The StringEnabledResourceSet singleton instance
 SRSET = StringEnabledResourceSet()
+
+
+def str_to_cdm(cdm_str: str):
+    "Load a class diagram from a string."
+    resource = SRSET.get_string_resource(cdm_str)
+    class_diagram: ClassDiagram = resource.contents[0]
+    class_diagram.__class__ = ClassDiagram
+    return class_diagram
