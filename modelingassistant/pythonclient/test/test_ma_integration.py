@@ -49,7 +49,7 @@ logger.setLevel(logging.DEBUG)
 CDM_NAME = "MULTIPLE_CLASSES"
 INSTRUCTOR_CDM = f"modelingassistant/testmodels/{CDM_NAME}_instructor.cdm"
 
-json_object_hook = lambda d: SimpleNamespace(**d)  # allow dot notation, eg, d.p instead of d["p"]
+to_simplenamespace = lambda d: SimpleNamespace(**d)  # allow dot notation, eg, d.p instead of d["p"]
 
 
 @pytest.fixture(scope="module")
@@ -137,9 +137,9 @@ def test_communication_between_mock_frontend_and_webcore():
     assert airplane
     assert not cdm[airplane]  # class should not be in the old cdm
 
-    # cdm = student.get_cdm()
-    # assert cdm[airplane]  # class should be in the new cdm
-    # assert cdm[airplane].name == "Airplane"
+    cdm = student.get_cdm()
+    assert cdm[airplane]  # class should be in the new cdm
+    assert cdm[airplane].name == "Airplane"
 
 
 
@@ -195,7 +195,7 @@ class MockStudent:
         "Get the class diagram from WebCORE in json format."
         resp = requests.get(self.cdm_endpoint())
         resp.raise_for_status()
-        cdm = ClassDiagramDTO(resp.json(object_hook=json_object_hook))
+        cdm = ClassDiagramDTO(resp.json(object_hook=to_simplenamespace))
         logger.debug(cdm.get_class_names_by_ids())
         return cdm
 
@@ -212,17 +212,17 @@ class ClassDiagramDTO(SimpleNamespace):
     """
     def __init__(self, json_repr: dict | str | SimpleNamespace):
         if isinstance(json_repr, str):
-            json_repr = json.loads(json_repr, object_hook=json_object_hook)
+            json_repr = json.loads(json_repr, object_hook=to_simplenamespace)
         elif isinstance(json_repr, dict):
-            json_repr = json_object_hook(json_repr)
+            json_repr = to_simplenamespace(json_repr)
         self.__dict__.update(json_repr.__dict__)
 
     def get_class_names_by_ids(self) -> dict[str, str]:
         "Return a dictionary mapping class _ids to class names."
         return {c._id: c.name for c in self.classDiagram.classes}  # pylint: disable=protected-access
 
-    def __getitem__(self, item: str) -> str:
-        return _get_by_id(item, self.__dict__)
+    def __getitem__(self, item: str) -> SimpleNamespace:
+        return _get_by_id(item, self)
 
     class CustomJSONEncoder(json.JSONEncoder):
         "Custom JSON encoder to display object in a more readable way."
@@ -278,7 +278,7 @@ def _get_by_id(_id: str, iterable: Iterable) -> str:
     elif isinstance(iterable, dict):
         for key, value in iterable.items():
             if (key, value) == ("_id", _id):
-                return iterable
+                return to_simplenamespace(iterable)
             if result := _get_by_id(_id, value):
                 return result
     return None
