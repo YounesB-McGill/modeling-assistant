@@ -157,7 +157,11 @@ def test_communication_between_mock_frontend_and_webcore():
         student.delete_class(c)
         assert not student.get_cdm()[c]
 
-
+    # Add attributes to the Airplane class
+    for name, attr_type in (("serialNumber", "CDString"), ("numberOfSeats", "CDInt"), ("isUltrasonic", "CDBoolean")):
+        attr = student.create_attribute(airplane, name, attr_type)
+        assert attr
+        assert not cdm[attr]
 
 
 
@@ -182,6 +186,7 @@ class MockStudent:
     """
     def __init__(self, file_name: str = ""):
         self.file_name: str = file_name  # assume one file name for now
+        self.type_of: dict[str, str] = {}
 
     def create_cdm(self):
         "Create a student class diagram."
@@ -195,8 +200,8 @@ class MockStudent:
                                    "x": randint(0, 600), "y": randint(0, 600)})
         resp.raise_for_status()
         new_cdm = self.get_cdm()
-        logger.debug(f"old_cdm: {old_cdm}")
-        logger.debug(f"new_cdm: {new_cdm}")
+        # logger.debug(f"old_cdm: {old_cdm}")
+        # logger.debug(f"new_cdm: {new_cdm}")
         logger.debug(_diff(old_cdm, new_cdm))
         cls_id = _diff(old_cdm, new_cdm).additions[0]
         logger.debug(f"Returning {cls_id}")
@@ -206,6 +211,18 @@ class MockStudent:
         "Delete the class with the given _id."
         resp = requests.delete(f"{self.cdm_endpoint()}/class/{cls_id}")
         resp.raise_for_status()
+
+    def create_attribute(self, cls_id: str, name: str, attr_type: type) -> str:
+        "Create an attribute with the given name and return its _id."
+        old_cdm = self.get_cdm()
+        resp = requests.post(f"{self.cdm_endpoint()}/class/{cls_id}/attribute",
+                             json={"rankIndex": 0, "typeId": self.type_of[attr_type], "attributeName": name})
+        resp.raise_for_status()
+        new_cdm = self.get_cdm()
+        logger.debug(_diff(old_cdm, new_cdm))
+        attr_id = _diff(old_cdm, new_cdm).additions[0]
+        logger.debug(f"Returning {attr_id}")
+        return attr_id
 
     def request_feedback(self) -> FeedbackTO:
         "Request feedback from the Modeling Assistant via WebCORE."
@@ -220,6 +237,9 @@ class MockStudent:
         resp.raise_for_status()
         cdm = ClassDiagramDTO(resp.json(object_hook=to_simplenamespace))
         logger.debug(cdm.get_class_names_by_ids())
+        if not self.type_of:
+            for t in cdm.classDiagram.types:
+                self.type_of[t.eClass.removeprefix("http://cs.mcgill.ca/sel/cdm/1.0#//")] = t._id  # pylint: disable=protected-access
         return cdm
 
     def cdm_endpoint(self) -> str:
