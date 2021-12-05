@@ -132,14 +132,32 @@ def test_communication_between_mock_frontend_and_webcore():
     cdm = student.get_cdm()
     assert cdm
 
-    # Make a new class
+    # Make a new class and ensure it is added to the cdm
     airplane = student.create_class("Airplane")
     assert airplane
     assert not cdm[airplane]  # class should not be in the old cdm
-
     cdm = student.get_cdm()
     assert cdm[airplane]  # class should be in the new cdm
     assert cdm[airplane].name == "Airplane"
+
+    # Repeat for multiple classes
+    class_ids: list[str] = []
+    for i in range(5):
+        cls_name = f"Class{i}"
+        cls = student.create_class(cls_name)
+        class_ids.append(cls)
+        assert cls
+        assert not cdm[cls]  # class should not be added yet
+        cdm = student.get_cdm()
+        assert cdm[cls]  # class should be in the cdm now
+        assert cdm[cls].name == cls_name
+
+    # Delete the classes made in the previous loop
+    for c in class_ids:
+        student.delete_class(c)
+        assert not student.get_cdm()[c]
+
+
 
 
 
@@ -183,6 +201,11 @@ class MockStudent:
         cls_id = _diff(old_cdm, new_cdm).additions[0]
         logger.debug(f"Returning {cls_id}")
         return cls_id
+
+    def delete_class(self, cls_id: str):
+        "Delete the class with the given _id."
+        resp = requests.delete(f"{self.cdm_endpoint()}/class/{cls_id}")
+        resp.raise_for_status()
 
     def request_feedback(self) -> FeedbackTO:
         "Request feedback from the Modeling Assistant via WebCORE."
