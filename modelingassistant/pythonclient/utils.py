@@ -5,8 +5,6 @@ This module must not depend on any other to avoid circular dependencies.
 
 # Ok to import items from standard library and pyecore model code
 
-import json
-
 from types import SimpleNamespace
 from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
 

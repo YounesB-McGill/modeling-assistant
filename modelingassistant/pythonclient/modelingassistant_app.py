@@ -2,6 +2,7 @@
 
 from threading import Thread
 from time import sleep
+import logging
 import json
 import os
 import sys
@@ -16,6 +17,9 @@ from utils import warn
 from classdiagram import ClassDiagram
 from modelingassistant import ModelingAssistant
 
+LOGGING_LEVEL = logging.INFO
+
+logging.basicConfig(level=LOGGING_LEVEL, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
 MODELING_ASSISTANT =  load_default_ma()
 
@@ -26,7 +30,7 @@ MISTAKE_DETECTION_STARTUP_DELAY = 20  # seconds
 
 
 if sys.version_info[:2] < (3, 10):
-    print("Python 3.10 or higher required to run this app.")
+    logging.error("Python 3.10 or higher required to run this app.")
     sys.exit(1)
 
 
