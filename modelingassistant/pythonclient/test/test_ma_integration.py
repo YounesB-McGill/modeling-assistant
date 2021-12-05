@@ -51,6 +51,8 @@ INSTRUCTOR_CDM = f"modelingassistant/testmodels/{CDM_NAME}_instructor.cdm"
 
 to_simplenamespace = lambda d: SimpleNamespace(**d)  # allow dot notation, eg, d.p instead of d["p"]
 
+type_of: dict[str, str] = {}  # map type names to type _ids
+
 
 @pytest.fixture(scope="module")
 def ma_rest_app():
@@ -162,7 +164,10 @@ def test_communication_between_mock_frontend_and_webcore():
         attr = student.create_attribute(airplane, name, attr_type)
         assert attr
         assert not cdm[attr]
-
+        cdm = student.get_cdm()
+        assert cdm[attr]
+        assert cdm[attr].name == name
+        assert cdm[attr].type == type_of[attr_type]
 
 
 def get_ma_with_ps(instructor_cdm: ClassDiagram) -> ModelingAssistant:
@@ -186,7 +191,6 @@ class MockStudent:
     """
     def __init__(self, file_name: str = ""):
         self.file_name: str = file_name  # assume one file name for now
-        self.type_of: dict[str, str] = {}
 
     def create_cdm(self):
         "Create a student class diagram."
@@ -216,7 +220,7 @@ class MockStudent:
         "Create an attribute with the given name and return its _id."
         old_cdm = self.get_cdm()
         resp = requests.post(f"{self.cdm_endpoint()}/class/{cls_id}/attribute",
-                             json={"rankIndex": 0, "typeId": self.type_of[attr_type], "attributeName": name})
+                             json={"rankIndex": 0, "typeId": type_of[attr_type], "attributeName": name})
         resp.raise_for_status()
         new_cdm = self.get_cdm()
         logger.debug(_diff(old_cdm, new_cdm))
@@ -237,9 +241,9 @@ class MockStudent:
         resp.raise_for_status()
         cdm = ClassDiagramDTO(resp.json(object_hook=to_simplenamespace))
         logger.debug(cdm.get_class_names_by_ids())
-        if not self.type_of:
+        if not type_of:
             for t in cdm.classDiagram.types:
-                self.type_of[t.eClass.removeprefix("http://cs.mcgill.ca/sel/cdm/1.0#//")] = t._id  # pylint: disable=protected-access
+                type_of[t.eClass.removeprefix("http://cs.mcgill.ca/sel/cdm/1.0#//")] = t._id  # pylint: disable=protected-access
         return cdm
 
     def cdm_endpoint(self) -> str:
