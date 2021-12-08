@@ -4,7 +4,9 @@
 Module for custom, string-friendly pyecore items.
 """
 
+from functools import lru_cache
 import os
+
 from lxml.etree import Element, ElementTree, QName, fromstring, tostring  # pylint: disable=no-name-in-module
 from pyecore.ecore import EProxy
 from pyecore.resources.resource import  Resource, ResourceSet, URI
@@ -12,7 +14,7 @@ from pyecore.resources.xmi import XMI, XMIOptions, XMIResource, XMI_URL, XSI
 
 from classdiagram import ClassDiagram
 from constants import CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM, LEARNING_CORPUS_PATH
-from serdes import set_static_class_for
+from serdes import static_classes_by_name, set_static_class_for
 
 MA_USE_STRING_SERDES = "MA_USE_STRING_SERDES"
 
@@ -162,6 +164,14 @@ class StringEnabledXMIResource(XMIResource):
         tree = ElementTree(xmi_root)
         # TODO Set pretty_print=False in production  # pylint: disable=fixme
         return tostring(tree, pretty_print=True, xml_declaration=True, encoding=tree.docinfo.encoding)
+
+    # @lru_cache()
+    # def _find_feature(self, eclass, name):
+    #     from_resource = super()._find_feature(eclass, name)
+    #     for cand_name, cand_cls in static_classes_by_name.items():
+    #         if cand_name == from_resource.eType.name:
+    #             return cand_cls
+    #     return from_resource
 
 
 # The StringEnabledResourceSet singleton instance

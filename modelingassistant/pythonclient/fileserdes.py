@@ -16,7 +16,7 @@ from serdes import set_static_class_for
 from stringserdes import SRSET
 from constants import CLASS_DIAGRAM_MM, DEFAULT_MODELING_ASSISTANT_PATH, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM
 from utils import warn
-from modelingassistant.modelingassistant import ModelingAssistant
+from modelingassistant.modelingassistant import ModelingAssistant, StudentKnowledge
 
 
 def load_metamodels(*ecore_files: str) -> ResourceSet:
@@ -54,9 +54,10 @@ def load_ma(ma_file: str, use_static_classes: bool = True) -> ModelingAssistant:
         warn(f"Attempting to open {ma_file} with unexpected extension as a *.modelingassistant file.")
     rset = load_metamodels(CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM)
     resource = rset.get_resource(URI(ma_file))
-    modeling_assistant = resource.contents[0]
+    modeling_assistant: ModelingAssistant = resource.contents[0]
     if use_static_classes:
         modeling_assistant.__class__ = ModelingAssistant
+        modeling_assistant.studentKnowledges.feature._eType = StudentKnowledge  # pylint: disable=protected-access
         for e in modeling_assistant.eAllContents():
             set_static_class_for(e)
     return modeling_assistant

@@ -7,8 +7,9 @@ Module containing feedback algorithm for modeling assistant.
 from dataclasses import dataclass, field
 from functools import cache
 from uuid import uuid4 as uuid
+import logging
 
-from modelingassistant_app import MODELING_ASSISTANT, get_mistakes
+from modelingassistant_app import LOGGING_LEVEL, MODELING_ASSISTANT, get_mistakes
 from classdiagram import ClassDiagram
 from envvars import CORES_PATH
 from fileserdes import load_cdm
@@ -18,6 +19,8 @@ from modelingassistant import (ModelingAssistant, Student, ProblemStatement, Fee
                                StudentKnowledge)
 
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 MAX_STUDENT_LEVEL_OF_KNOWLEDGE = 10.0
 BEGINNER_LEVEL_OF_KNOWLEDGE = 7.0
@@ -112,9 +115,23 @@ def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:
     """
     # TODO Cache studentknowledges or redesign metamodel to access them in O(1) time instead of O(n)
     student = mistake.solution.student
+    print(type(student), Student, type(student) == Student, type(student) is Student)
+    if hasattr(student, "feature"):
+        print("student has feature: ", student.feature)
+        if hasattr(student.feature, "eContainingClass"):
+            print("student.feature has eContainingClass: ", student.feature.eContainingClass)
+    # print(student.feature.eContainingClass, student.feature.eContainingClass == StudentKnowledge)
+    sk = StudentKnowledge()
+    print(type(sk), StudentKnowledge, type(sk) == StudentKnowledge, type(sk) is StudentKnowledge)
+    sk.student = student
+    sk.mistakeType=mistake.mistakeType
+    sk.levelOfKnowledge=5.0
+    sk.modelingAssistant=mistake.solution.modelingAssistant
     return next((sk for sk in student.studentKnowledges if sk.mistakeType == mistake.mistakeType),
-                StudentKnowledge(student=student, mistakeType=mistake.mistakeType, levelOfKnowledge=5.0,
-                                 modelingAssistant=mistake.solution.modelingAssistant))
+                sk
+                # StudentKnowledge(student=student, mistakeType=mistake.mistakeType, levelOfKnowledge=5.0,
+                #                  modelingAssistant=mistake.solution.modelingAssistant)
+                )
 
 
 def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str, ma: ModelingAssistant = None) -> FeedbackTO:

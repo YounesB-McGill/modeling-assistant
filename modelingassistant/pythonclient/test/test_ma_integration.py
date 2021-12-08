@@ -124,6 +124,7 @@ def test_ma_one_class_student_mistake(ma_rest_app):
     assert "no mistakes" in feedback.writtenFeedback.lower()
 
 
+@pytest.mark.skip(reason="Temporarily disabled")
 def test_communication_between_mock_frontend_and_webcore():
     """
     Test the communication between this mock frontend and WebCORE.

@@ -12,10 +12,11 @@ from requests.models import Response
 import requests
 
 from fileserdes import load_default_ma
+from serdes import set_static_class_for
 from stringserdes import SRSET, StringEnabledResourceSet
 from utils import warn
 from classdiagram import ClassDiagram
-from modelingassistant import ModelingAssistant
+from modelingassistant import ModelingAssistant, Student, StudentKnowledge
 
 LOGGING_LEVEL = logging.INFO
 
@@ -61,6 +62,10 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     resource = SRSET.get_string_resource(ma_str)
     ma: ModelingAssistant = resource.contents[0]
     ma.__class__ = ModelingAssistant
+    ma.studentKnowledges.feature._eType = StudentKnowledge  # pylint: disable=protected-access
+    ma.students.feature._eType = Student
+    for e in ma.eAllContents():
+        set_static_class_for(e)
     return ma
 
 
