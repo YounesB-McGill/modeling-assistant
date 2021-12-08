@@ -12,6 +12,9 @@ from textwrap import dedent
 import ast
 import os
 
+from pyecore.ecore import EPackage, EClassifier, EString, EProxy
+from pyecore.valuecontainer import BadValueError
+
 
 def generate_pyecore():
     "Generate the pyecore Python code from the modeling assistant and learning corpus metamodels."
@@ -48,7 +51,22 @@ def customize_generated_code():
         """
         Overriden version of PyEcoreValue.check() to accept both static and dynamic classes.
         """
-        return True  # TODO
+        feature = self.feature
+        etype = self.generic_type or feature._eType  # pylint: disable=protected-access
+        if not etype:
+            try:
+                etype = feature.eGenericType.eRawType
+                self.generic_type = etype
+            except Exception as root_cause:
+                raise AttributeError(f'Feature {feature} has no type nor generic') from root_cause
+        if not _isinstance(value, etype):
+            if etype in (EPackage, EClassifier, EString):
+                return True  # everything can be represented as one of the above, so accept them all
+            if isinstance(value, EProxy):
+                return True  # proxy should be resolved to actual value, so don't crash here
+            if value.eClass.name == etype.name:
+                return True  # allow static/dynamic classes to be used interchangeably
+            raise BadValueError(got=value, expected=etype, feature=feature)
 
     lc_py = "modelingassistant/pythonclient/learningcorpus/learningcorpus.py"
     ma_py = "modelingassistant/pythonclient/modelingassistant/modelingassistant.py"
