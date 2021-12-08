@@ -13,7 +13,7 @@ import requests
 
 from fileserdes import load_default_ma
 from serdes import set_static_class_for
-from stringserdes import SRSET, StringEnabledResourceSet
+from stringserdes import SRSET, StringEnabledResourceSet, str_to_modelingassistant
 from utils import warn
 from classdiagram import ClassDiagram
 from modelingassistant import ModelingAssistant, Student, StudentKnowledge
@@ -59,14 +59,7 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     req_content = json.loads(req.content)
 
     ma_str = bytes(req_content["modelingAssistantXmi"], "utf-8")
-    resource = SRSET.get_string_resource(ma_str)
-    ma: ModelingAssistant = resource.contents[0]
-    ma.__class__ = ModelingAssistant
-    ma.studentKnowledges.feature._eType = StudentKnowledge  # pylint: disable=protected-access
-    ma.students.feature._eType = Student
-    for e in ma.eAllContents():
-        set_static_class_for(e)
-    return ma
+    return str_to_modelingassistant(ma_str)
 
 
 def get_classifier_by_name(metamodel_root: EPackage, name: str) -> EClass:

@@ -16,7 +16,7 @@ from serdes import set_static_class_for
 from stringserdes import SRSET
 from constants import CLASS_DIAGRAM_MM, DEFAULT_MODELING_ASSISTANT_PATH, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM
 from utils import warn
-from modelingassistant.modelingassistant import ModelingAssistant, StudentKnowledge
+from modelingassistant.modelingassistant import ModelingAssistant
 
 
 def load_metamodels(*ecore_files: str) -> ResourceSet:
@@ -57,7 +57,6 @@ def load_ma(ma_file: str, use_static_classes: bool = True) -> ModelingAssistant:
     modeling_assistant: ModelingAssistant = resource.contents[0]
     if use_static_classes:
         modeling_assistant.__class__ = ModelingAssistant
-        modeling_assistant.studentKnowledges.feature._eType = StudentKnowledge  # pylint: disable=protected-access
         for e in modeling_assistant.eAllContents():
             set_static_class_for(e)
     return modeling_assistant
