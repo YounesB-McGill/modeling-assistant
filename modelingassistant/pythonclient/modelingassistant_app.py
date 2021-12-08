@@ -12,11 +12,10 @@ from requests.models import Response
 import requests
 
 from fileserdes import load_default_ma
-from serdes import set_static_class_for
-from stringserdes import SRSET, StringEnabledResourceSet, str_to_modelingassistant
+from stringserdes import SRSET, str_to_modelingassistant
 from utils import warn
 from classdiagram import ClassDiagram
-from modelingassistant import ModelingAssistant, Student, StudentKnowledge
+from modelingassistant import ModelingAssistant
 
 LOGGING_LEVEL = logging.INFO
 
@@ -44,7 +43,7 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
         return requests.get(f"http://{MISTAKE_DETECTION_HOST}:{MISTAKE_DETECTION_PORT}/detectmistakes",
                             {"modelingassistant": ma_str})
 
-    resource = StringEnabledResourceSet().create_string_resource()
+    resource = SRSET.create_string_resource()
     resource.extend([ma, instructor_cdm, student_cdm])
     ma_str = resource.save_to_string().decode()
 

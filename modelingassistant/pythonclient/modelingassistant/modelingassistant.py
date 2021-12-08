@@ -234,3 +234,12 @@ class ProblemStatementElement(NamedElement):
             self.problemStatement = problemStatement
         if solutionElements:
             self.solutionElements.extend(solutionElements)
+
+def override_pyecorevalue_check(self, value, _isinstance=isinstance):
+    """
+    Overriden version of PyEcoreValue.check() to accept both static and dynamic classes.
+    """
+    return True
+
+from pyecore.valuecontainer import PyEcoreValue
+PyEcoreValue.check = override_pyecorevalue_check

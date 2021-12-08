@@ -260,9 +260,6 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     """
     Test feedback for a modeling assistant instance with mistakes detected from the actual mistake detection system.
     """
-    # temporary hack
-    PyEcoreValue.check = lambda x, y: True
-
     # TODO Extract common functionality into helper functions
     instructor_cdm = load_cdm("mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_classBus/"
                               "Class Diagram/Instructor_classBus.domain_model.cdm")
