@@ -16,6 +16,9 @@ from requests.models import Response
 import requests
 import pytest  # (to allow tests to be skipped) pylint: disable=unused-import
 
+import modelingassistant
+from modelingassistant_app import MODELING_ASSISTANT
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from feedback import give_feedback, give_feedback_for_student_cdm
@@ -304,7 +307,10 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     """
     cdm_name = "MULTIPLE_CLASSES"
 
-    fb = give_feedback_for_student_cdm(cdm_name)
+    ma = ModelingAssistant()
+    fb, ma = give_feedback_for_student_cdm(cdm_name, ma=ma)
+
+    assert ma.students[0].solutions[0].mistakes  # false positive: pylint: disable=no-member
     assert fb
 
 

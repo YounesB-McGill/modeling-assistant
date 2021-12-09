@@ -6,6 +6,7 @@ Module containing feedback algorithm for modeling assistant.
 
 from dataclasses import dataclass, field
 from functools import cache
+from typing import Tuple
 from uuid import uuid4 as uuid
 import logging
 
@@ -120,43 +121,48 @@ def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:
                                  modelingAssistant=mistake.solution.modelingAssistant))
 
 
-def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: ModelingAssistant = None) -> FeedbackTO:
+def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: ModelingAssistant = None
+    ) -> FeedbackTO | Tuple[FeedbackTO, ModelingAssistant]:
     "Give feedback given a student class diagram."
     # pylint: disable=protected-access
-    modeling_assistant = ma or MODELING_ASSISTANT
+    global MODELING_ASSISTANT
+    use_local_ma = bool(ma)
+    if not use_local_ma:
+        ma = MODELING_ASSISTANT
     instructor_cdm = instructor_cdm_for(student_cdm_name)
-    if instructor_cdm in modeling_assistant.classDiagramsToSolutions:
-        instructor_solution = modeling_assistant.classDiagramsToSolutions[instructor_cdm]
+    if instructor_cdm in ma.classDiagramsToSolutions:
+        instructor_solution = ma.classDiagramsToSolutions[instructor_cdm]
     else:
-        instructor_solution = Solution(classDiagram=instructor_cdm, modelingAssistant=modeling_assistant)
-        modeling_assistant.classDiagramsToSolutions[instructor_cdm] = instructor_solution
+        instructor_solution = Solution(classDiagram=instructor_cdm, modelingAssistant=ma)
+        ma.classDiagramsToSolutions[instructor_cdm] = instructor_solution
     if cdm_str:
         student_cdm = str_to_cdm(cdm_str)
     else:
         student_cdm = student_cdm_for(student_cdm_name)
-    if student_cdm in modeling_assistant.classDiagramsToSolutions:
-        student_solution = modeling_assistant.classDiagramsToSolutions[student_cdm]
+    if student_cdm in ma.classDiagramsToSolutions:
+        student_solution = ma.classDiagramsToSolutions[student_cdm]
     else:
         # TODO Complete initialization of solution later
         #if modeling_assistant._eresource.uuid_dict
-        student = modeling_assistant.students[0] if modeling_assistant.students else Student(
-            id=str(uuid()), name=student_cdm_name, modelingAssistant=modeling_assistant)
-        student_solution = Solution(modelingAssistant=modeling_assistant, student=student, classDiagram=student_cdm)
+        student = ma.students[0] if ma.students else Student(
+            id=str(uuid()), name=student_cdm_name, modelingAssistant=ma)
+        student_solution = Solution(modelingAssistant=ma, student=student, classDiagram=student_cdm)
         student.currentSolution = student_solution
-        modeling_assistant.classDiagramsToSolutions[student_cdm] = student_solution
-    if modeling_assistant.problemStatements:
-        ps = modeling_assistant.problemStatements[0]
+        ma.classDiagramsToSolutions[student_cdm] = student_solution
+    if ma.problemStatements:
+        ps = ma.problemStatements[0]
         ps.instructorSolution = instructor_solution
         if not ps.studentSolutions:  # Only one student solution for now
             ps.studentSolutions.append(student_solution)
     else:
-        modeling_assistant.problemStatements.append(
-            ProblemStatement(modelingAssistant=modeling_assistant, instructorSolution=instructor_solution,
-                             studentSolutions=[student_solution]))
-    print(student_solution.mistakes, id(modeling_assistant))
-    modeling_assistant = get_mistakes(modeling_assistant, instructor_cdm, student_cdm)
-    print(student_solution.mistakes, id(modeling_assistant))
-    fb_s = give_feedback(modeling_assistant.students[0].solutions[0])
+        ma.problemStatements.append(ProblemStatement(modelingAssistant=ma, instructorSolution=instructor_solution,
+                                                     studentSolutions=[student_solution]))
+    print(student_solution.mistakes, id(ma))
+    ma = get_mistakes(ma, instructor_cdm, student_cdm)
+    if not use_local_ma:
+        MODELING_ASSISTANT = ma
+    print(student_solution.mistakes, id(ma))
+    fb_s = give_feedback(ma.students[0].solutions[0])
     #fb = fb_s if isinstance(fb_s, FeedbackItem) else fb_s[0]  # only one feedback item for now
 
     if isinstance(fb_s, FeedbackItem):
@@ -171,28 +177,21 @@ def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: 
             print("No feedback with class mistake")
             fb = None
 
-    print("2 >",fb, fb.mistake, fb.text, fb.feedback, fb.feedback.level, fb.feedback.text)
+    print("2 >", fb, fb.mistake, fb.text, fb.feedback, fb.feedback.level, fb.feedback.text)
 
     # if not fb.mistake:
     #     return FeedbackTO()
 
-    print(FeedbackTO(
+    feedback = FeedbackTO(
         solutionElements=[e.element._internal_id for e in fb.mistake.studentElements],
         instructorElements=[e.element._internal_id for e in fb.mistake.instructorElements],
         problemStatementElements=[], #[pse._internal_id for e in fb.mistake.instructorElements for pse in e],
         highlight=fb.feedback.highlightProblem or fb.feedback.highlightSolution,
         grade=0.0,  # for now
-        writtenFeedback=fb.text or fb.feedback.text or "",
-    ))
+        writtenFeedback=fb.text or fb.feedback.text or "")
 
-    return FeedbackTO(
-        solutionElements=[e.element._internal_id for e in fb.mistake.studentElements],
-        instructorElements=[e.element._internal_id for e in fb.mistake.instructorElements],
-        problemStatementElements=[], #[pse._internal_id for e in fb.mistake.instructorElements for pse in e],
-        highlight=fb.feedback.highlightProblem or fb.feedback.highlightSolution,
-        grade=0.0,  # for now
-        writtenFeedback=fb.text or fb.feedback.text or "",
-    )
+    print(feedback)
+    return feedback, ma if use_local_ma else feedback
 
 
 @cache
