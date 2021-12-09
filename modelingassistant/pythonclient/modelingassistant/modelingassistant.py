@@ -239,6 +239,9 @@ def override_pyecorevalue_check(self, value, _isinstance=isinstance):
     """
     Overriden version of PyEcoreValue.check() to accept both static and dynamic classes.
     """
+    import inspect
+    import classdiagram
+    import learningcorpus
     feature = self.feature
     etype = self.generic_type or feature._eType
     if not etype:
@@ -248,12 +251,12 @@ def override_pyecorevalue_check(self, value, _isinstance=isinstance):
         except Exception as root_cause:
             raise AttributeError(f'Feature {feature} has no type nor generic') from root_cause
     if not _isinstance(value, etype):
-        if etype in (EPackage, EClassifier, EString):
+        if etype in (EPackage, EClassifier, EString) or isinstance(value, EProxy) or value.eClass.name == etype.name:
             return True
-        if isinstance(value, EProxy):
-            return True
-        if value.eClass.name == etype.name:
-            return True
+        for _module in [classdiagram, learningcorpus, __import__(__name__)]:
+            for (name, cls) in inspect.getmembers(_module, inspect.isclass):
+                if name == value.eClass.name and etype.name in (c.__name__ for c in cls.__bases__):
+                    return True
         raise BadValueError(got=value, expected=etype, feature=feature)
 
 from pyecore.valuecontainer import PyEcoreValue

@@ -11,23 +11,18 @@ import os
 import json
 import sys
 
-from pyecore.valuecontainer import PyEcoreValue
 from requests.models import Response
 import requests
 import pytest  # (to allow tests to be skipped) pylint: disable=unused-import
 
-import modelingassistant
-from modelingassistant_app import MODELING_ASSISTANT
-
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from feedback import give_feedback, give_feedback_for_student_cdm
 from classdiagram import Class, ClassDiagram
+from feedback import give_feedback, give_feedback_for_student_cdm
 from fileserdes import load_cdm
 from learningcorpus import Feedback, ParametrizedResponse, ResourceResponse, TextResponse
 from mistaketypes import BAD_CLASS_NAME_SPELLING, MISSING_CLASS, SOFTWARE_ENGINEERING_TERM
-from serdes import set_static_class_for
-from stringserdes import SRSET, StringEnabledResourceSet, str_to_modelingassistant
+from stringserdes import StringEnabledResourceSet, str_to_modelingassistant
 from modelingassistant import (FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, Solution, SolutionElement,
     Student, StudentKnowledge)
 
@@ -310,14 +305,19 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     ma = ModelingAssistant()
     fb, ma = give_feedback_for_student_cdm(cdm_name, ma=ma)
 
-    mistakes: list[Mistake] = ma.students[0].solutions[0].mistakes  # false positive: pylint: disable=no-member
+    solution: Solution = ma.students[0].solutions[0]  # false positive: pylint: disable=no-member
+    mistakes: list[Mistake] = solution.mistakes
     missing_class_mistake = mistakes[0]
 
     assert missing_class_mistake.mistakeType == MISSING_CLASS
     assert fb.highlight
     assert fb.instructorElements[0] == missing_class_mistake.instructorElements[0].element._internal_id  # pylint: disable=protected-access
 
+    cdm: ClassDiagram = solution.classDiagram
+    airplane_class = Class(name="Airplane")
+    cdm.classes.append(airplane_class)
 
 
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
+    test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system()

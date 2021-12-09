@@ -51,6 +51,9 @@ def customize_generated_code():
         """
         Overriden version of PyEcoreValue.check() to accept both static and dynamic classes.
         """
+        import inspect
+        import classdiagram
+        import learningcorpus
         feature = self.feature
         etype = self.generic_type or feature._eType  # pylint: disable=protected-access
         if not etype:
@@ -60,12 +63,15 @@ def customize_generated_code():
             except Exception as root_cause:
                 raise AttributeError(f'Feature {feature} has no type nor generic') from root_cause
         if not _isinstance(value, etype):
-            if etype in (EPackage, EClassifier, EString):
+            if (etype in (EPackage, EClassifier, EString)  # everything can be represented as one of them, so accept all
+                or isinstance(value, EProxy)  # proxy should be resolved to actual value, so don't crash here
+                or value.eClass.name == etype.name):  # allow static/dynamic classes to be used interchangeably
                 return True  # everything can be represented as one of the above, so accept them all
-            if isinstance(value, EProxy):
-                return True  # proxy should be resolved to actual value, so don't crash here
-            if value.eClass.name == etype.name:
-                return True  # allow static/dynamic classes to be used interchangeably
+            # if value instance of etype, return True
+            for _module in [classdiagram, learningcorpus, __import__(__name__)]:  # import modelingassistant
+                for name, cls in inspect.getmembers(_module, inspect.isclass):
+                    if name == value.eClass.name and etype.name in (c.__name__ for c in cls.__bases__):
+                        return True
             raise BadValueError(got=value, expected=etype, feature=feature)
 
     lc_py = "modelingassistant/pythonclient/learningcorpus/learningcorpus.py"
