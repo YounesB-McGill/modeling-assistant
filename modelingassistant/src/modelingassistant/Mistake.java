@@ -41,9 +41,11 @@ public interface Mistake extends EObject {
    * @see #setResolved(boolean)
    * @see modelingassistant.ModelingassistantPackage#getMistake_Resolved()
    * @model
-   * @generated
+   * @generated NOT
    */
-  boolean isResolved();
+  default boolean isResolved() {
+    return false; // isResolvedByStudent();
+  }
 
   /**
    * Sets the value of the '{@link modelingassistant.Mistake#isResolved <em>Resolved</em>}' attribute.
@@ -51,9 +53,11 @@ public interface Mistake extends EObject {
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Resolved</em>' attribute.
    * @see #isResolved()
-   * @generated
+   * @generated NOT
    */
-  void setResolved(boolean value);
+  default void setResolved(boolean value) {
+    // setResolvedByStudent(value);
+  }
 
   /**
    * Returns the value of the '<em><b>Time To Address</b></em>' attribute.
