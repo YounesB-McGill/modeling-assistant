@@ -629,7 +629,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   @Override
-  public EAttribute getMistake_Resolved() {
+  public EAttribute getMistake_ResolvedByStudent() {
     return (EAttribute)mistakeEClass.getEStructuralFeatures().get(0);
   }
 
@@ -970,7 +970,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(studentKnowledgeEClass, STUDENT_KNOWLEDGE__MISTAKE_TYPE);
 
     mistakeEClass = createEClass(MISTAKE);
-    createEAttribute(mistakeEClass, MISTAKE__RESOLVED);
+    createEAttribute(mistakeEClass, MISTAKE__RESOLVED_BY_STUDENT);
     createEAttribute(mistakeEClass, MISTAKE__TIME_TO_ADDRESS);
     createEAttribute(mistakeEClass, MISTAKE__NUM_STEPS_BEFORE_NOTIFICATION);
     createEReference(mistakeEClass, MISTAKE__STUDENT_ELEMENTS);
@@ -1092,7 +1092,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getStudentKnowledge_MistakeType(), theLearningcorpusPackage.getMistakeType(), null, "mistakeType", null, 0, 1, StudentKnowledge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(mistakeEClass, Mistake.class, "Mistake", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getMistake_Resolved(), ecorePackage.getEBoolean(), "resolved", null, 0, 1, Mistake.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMistake_ResolvedByStudent(), ecorePackage.getEBoolean(), "resolvedByStudent", null, 0, 1, Mistake.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMistake_TimeToAddress(), this.getTime(), "timeToAddress", null, 0, 1, Mistake.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMistake_NumStepsBeforeNotification(), ecorePackage.getEInt(), "numStepsBeforeNotification", null, 0, 1, Mistake.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMistake_StudentElements(), this.getSolutionElement(), this.getSolutionElement_StudentElementMistakes(), "studentElements", null, 0, -1, Mistake.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

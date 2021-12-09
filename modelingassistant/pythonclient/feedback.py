@@ -53,7 +53,7 @@ def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackIte
     # sort mistakes by priority and filter out mistakes which are already resolved
     mistake_priority = lambda m: m.mistakeType.priority
     unresolved_mistakes: list[Mistake] = [m for m in sorted(student_solution.mistakes, key=mistake_priority)
-                                          if not m.resolved]
+                                          if not m.resolvedByStudent]
 
     print(f"Found {len(unresolved_mistakes)} unresolved mistakes:")
     for m in unresolved_mistakes:
@@ -88,7 +88,7 @@ def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackIte
         if student_knowledge_for(m).levelOfKnowledge < BEGINNER_LEVEL_OF_KNOWLEDGE:
             break
 
-    resolved_mistakes: list[Mistake] = [m for m in student_solution.mistakes if m.resolved]
+    resolved_mistakes: list[Mistake] = [m for m in student_solution.mistakes if m.resolvedByStudent]
     for m in resolved_mistakes:
         if sk := student_knowledge_for(m):
             sk.levelOfKnowledge += m.lastFeedback.level / 2
