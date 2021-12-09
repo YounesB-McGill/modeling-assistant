@@ -120,10 +120,9 @@ def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:
                                  modelingAssistant=mistake.solution.modelingAssistant))
 
 
-def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str, ma: ModelingAssistant = None) -> FeedbackTO:
+def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: ModelingAssistant = None) -> FeedbackTO:
     "Give feedback given a student class diagram."
     # pylint: disable=protected-access
-    global MODELING_ASSISTANT  # pylint: disable=global-statement
     modeling_assistant = ma or MODELING_ASSISTANT
     instructor_cdm = instructor_cdm_for(student_cdm_name)
     if instructor_cdm in modeling_assistant.classDiagramsToSolutions:
@@ -140,7 +139,7 @@ def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str, ma: Model
     else:
         # TODO Complete initialization of solution later
         #if modeling_assistant._eresource.uuid_dict
-        student = modeling_assistant.students[0] or Student(
+        student = modeling_assistant.students[0] if modeling_assistant.students else Student(
             id=str(uuid()), name=student_cdm_name, modelingAssistant=modeling_assistant)
         student_solution = Solution(modelingAssistant=modeling_assistant, student=student, classDiagram=student_cdm)
         student.currentSolution = student_solution

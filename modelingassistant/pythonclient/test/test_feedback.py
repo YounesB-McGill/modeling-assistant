@@ -18,7 +18,7 @@ import pytest  # (to allow tests to be skipped) pylint: disable=unused-import
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from feedback import give_feedback
+from feedback import give_feedback, give_feedback_for_student_cdm
 from classdiagram import Class, ClassDiagram
 from fileserdes import load_cdm
 from learningcorpus import Feedback, ParametrizedResponse, ResourceResponse, TextResponse
@@ -298,6 +298,15 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
 
+def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
+    """
+    Test feedback for a serialized modeling assistant instance with mistakes detected from the mistake detection system.
+    """
+    cdm_name = "MULTIPLE_CLASSES"
+
+    fb = give_feedback_for_student_cdm(cdm_name)
+    assert fb
+
+
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
-    test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system()
