@@ -158,7 +158,10 @@ def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: 
         ma.problemStatements.append(ProblemStatement(modelingAssistant=ma, instructorSolution=instructor_solution,
                                                      studentSolutions=[student_solution]))
     print(student_solution.mistakes, id(ma))
+    # cdms2sols = ma.classDiagramsToSolutions
     ma = get_mistakes(ma, instructor_cdm, student_cdm)
+    # if not ma.classDiagramsToSolutions:
+    #     ma.classDiagramsToSolutions = cdms2sols
     if not use_local_ma:
         MODELING_ASSISTANT = ma
     print(student_solution.mistakes, id(ma))
