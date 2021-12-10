@@ -5,7 +5,7 @@ import re
 from textwrap import dedent
 
 import pytest  # pylint: disable=unused-import
-from stringserdes import StringEnabledResourceSet
+from stringserdes import SRSET
 from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, CDInt, CDString,
     AssociationEnd, Association, ReferenceType)
 from constants import LEARNING_CORPUS_PATH
@@ -530,8 +530,7 @@ def test_loading_modeling_assistant_deserialized_from_string():
     with open(ma_file, "rb") as f:
         ma_str = f.read()
 
-    rset = StringEnabledResourceSet()
-    resource = rset.get_string_resource(ma_str)
+    resource = SRSET.get_string_resource(ma_str)
     modeling_assistant: ModelingAssistant = resource.contents[0]
     modeling_assistant.__class__ = ModelingAssistant
     class_diagram1: ClassDiagram = modeling_assistant.solutions[0].classDiagram
@@ -577,10 +576,9 @@ def test_persisting_modeling_assistant_to_string():
     ])
     class_diagram.classes.append(car_class)
 
-    rset = StringEnabledResourceSet()
-    resource = rset.create_string_resource()
-    resource.extend([modeling_assistant, class_diagram])
-    ma_str = resource.save_to_string().decode()
+    # resource = SRSET.create_string_resource()
+    # resource.extend([modeling_assistant, class_diagram])
+    ma_str = SRSET.create_ma_str(modeling_assistant)  # resource.save_to_string().decode()
 
     # Find, match, and replace these regex patterns in the ma_str
     # Define and compile the patterns. The compilation allows for faster performance.

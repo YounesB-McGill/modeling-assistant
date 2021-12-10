@@ -22,7 +22,7 @@ from feedback import give_feedback, give_feedback_for_student_cdm
 from fileserdes import load_cdm
 from learningcorpus import Feedback, ParametrizedResponse, ResourceResponse, TextResponse
 from mistaketypes import BAD_CLASS_NAME_SPELLING, MISSING_CLASS, MISSING_COMPOSITION, SOFTWARE_ENGINEERING_TERM
-from stringserdes import StringEnabledResourceSet, str_to_modelingassistant
+from stringserdes import SRSET, str_to_modelingassistant
 from modelingassistant import (FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, Solution, SolutionElement,
     Student, StudentKnowledge)
 
@@ -230,9 +230,9 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     def call_mistake_detection_system(ma_str: str) -> Response:
         return requests.get(f"http://{HOST}:{PORT}/detectmistakes", {"modelingassistant": ma_str})
 
-    resource = StringEnabledResourceSet().create_string_resource()
-    resource.extend([ma, instructor_cdm, student_cdm])
-    ma_str = resource.save_to_string().decode()
+    # resource = SRSET.create_string_resource()
+    # resource.extend([ma, instructor_cdm, student_cdm])
+    ma_str = SRSET.create_ma_str(ma)  #resource.save_to_string().decode()
     assert ma_str
 
     try:
@@ -296,7 +296,7 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
 
-@pytest.mark.skip(reason="Work in progress")
+#@pytest.mark.skip(reason="Work in progress")
 def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
     """
     Test feedback for a serialized modeling assistant instance with mistakes detected from the mistake detection system.
