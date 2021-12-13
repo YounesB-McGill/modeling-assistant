@@ -176,33 +176,31 @@ public class MistakeDetectionTest {
     assertEquals(comparison.newMistakes.size(), 5);// Incomplete Containment tree
     assertEquals(studentSolution.getMistakes().size(), 5);
 
-    for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity,
-          instructorBusClassAttributeCapacity, 0, 1, false);
-      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate,
-          instructorBusClassAttributeNumberPlate, 0, 1, false);
-      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName,
-          instructorDriverClassAttributeName, 0, 1, false);
-      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName,
-          instructorPassengerClassAttributeName, 0, 1, false);
-    }
+    assertMistake(studentSolution.getMistakes().get(1), WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity,
+        instructorBusClassAttributeCapacity, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate,
+        instructorBusClassAttributeNumberPlate, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(2), WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName,
+        instructorDriverClassAttributeName, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(3), WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName,
+        instructorPassengerClassAttributeName, 0, 1, false);
+
 
     // ---------Second iteration to test update of mistake Properties---
     comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
+    assertEquals(studentSolution.getMistakes().size(), 5);
     assertEquals(comparison.newMistakes.size(), 5);
     assertEquals(studentSolution.getMistakes().size(), 5);
 
-    for (Mistake m : studentSolution.getMistakes()) {
-      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity,
+      assertMistake(studentSolution.getMistakes().get(1), WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity,
           instructorBusClassAttributeCapacity, 0, 2, false);
-      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate,
+      assertMistake(studentSolution.getMistakes().get(0), WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate,
           instructorBusClassAttributeNumberPlate, 0, 2, false);
-      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName,
+      assertMistake(studentSolution.getMistakes().get(2), WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName,
           instructorDriverClassAttributeName, 0, 2, false);
-      assertMistakeConditional(m, WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName,
+      assertMistake(studentSolution.getMistakes().get(3), WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName,
           instructorPassengerClassAttributeName, 0, 2, false);
-    }
+
   }
 
   /**
