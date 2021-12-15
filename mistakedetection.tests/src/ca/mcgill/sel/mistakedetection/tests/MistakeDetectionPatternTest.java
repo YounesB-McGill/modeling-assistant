@@ -894,7 +894,6 @@ public class MistakeDetectionPatternTest {
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
 
-    MistakeDetectionTest.log(comparison);
     assertMistake(studentSolution.getMistakes().get(0), SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1,
         false);
   }
