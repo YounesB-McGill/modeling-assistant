@@ -26,7 +26,7 @@ public class MistakeDetectionGeneralizationTest {
    * Test to check generalization structure .
    */
   @Test
-  public void testToCheckGenerailzationTree() {
+  public void testToCheckGeneralizationTree() {
     var instructorClassDiagram =
         cdmFromFile(instructorCDMPath + "instructor_two_subClasses/Class Diagram/Two_subClasses.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -35,11 +35,11 @@ public class MistakeDetectionGeneralizationTest {
         cdmFromFile(studentCDMPath + "student_two_subClasses/Class Diagram/Two_subClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
+    var instCar = getClassFromClassDiagram("Car", instructorClassDiagram);
     var instTATAManza = getClassFromClassDiagram("TATAManza", instructorClassDiagram);
     var instHondaCity = getClassFromClassDiagram("HondaCity", instructorClassDiagram);
 
-    var studCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+    var studCar = getClassFromClassDiagram("Car", studentClassDiagram);
     var studTATAManza = getClassFromClassDiagram("TATAManza", studentClassDiagram);
     var studHondaCity = getClassFromClassDiagram("HondaCity", studentClassDiagram);
 
@@ -48,13 +48,13 @@ public class MistakeDetectionGeneralizationTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertTrue(comparison.instructorGeneraltionTree.containsKey(instCarClass));
-    assertTrue(comparison.studentGeneraltionTree.containsKey(studCarClass));
+    assertTrue(comparison.instructorGeneraltionTree.containsKey(instCar));
+    assertTrue(comparison.studentGeneraltionTree.containsKey(studCar));
 
-    for (Classifier Class : comparison.instructorGeneraltionTree.get(instCarClass)) {
+    for (Classifier Class : comparison.instructorGeneraltionTree.get(instCar)) {
       assertTrue(instClasses.contains(Class));
     }
-    for (Classifier Class : comparison.studentGeneraltionTree.get(studCarClass)) {
+    for (Classifier Class : comparison.studentGeneraltionTree.get(studCar)) {
       assertTrue(studClasses.contains(Class));
     }
   }
@@ -63,7 +63,7 @@ public class MistakeDetectionGeneralizationTest {
    * Test to check generalization structure .
    */
   @Test
-  public void testToCheckGenerailzationTreeWithDiffInput() {
+  public void testToCheckGeneralizationTreeWithDiffInput() {
     var instructorClassDiagram =
         cdmFromFile(instructorCDMPath + "instructor_multiSubClasses/Class Diagram/MultiSubClasses.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
