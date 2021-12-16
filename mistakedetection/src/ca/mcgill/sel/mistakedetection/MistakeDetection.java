@@ -164,6 +164,9 @@ public class MistakeDetection {
   /** The Stanford NLP Maximum Entropy Part-of-Speech Tagger. */
   private static MaxentTagger maxentTagger = getMaxentTagger();
 
+  public static Comparison compare(Solution instructorSolution, Solution studentSolution) {
+    return compare(instructorSolution, studentSolution, true);
+  }
 
   public static Comparison compare(Solution instructorSolution, Solution studentSolution, boolean filter) {
     if (!isInstructorSolution(instructorSolution) || !isStudentSolution(studentSolution)) {
@@ -268,7 +271,7 @@ public class MistakeDetection {
     checkMistakeMissingExtraEnum(comparison);
     // checkMistakeWrongAttribute();
     // checkMistakeAttributeMisplaced();
-    checkMistakesInGeneratization(comparison);
+    checkMistakesInGeneralization(comparison);
     checkMistakeIncompleteContainmentTree(comparison, studentSolution.getClassDiagram());
     checkMistakeMissingAssociationCompositionAggregation(comparison);
     checkMistakeExtraAssociationCompositionAggregation(comparison);
@@ -277,7 +280,7 @@ public class MistakeDetection {
     return comparison;
   }
 
-  private static void checkMistakesInGeneratization(Comparison comparison) {
+  private static void checkMistakesInGeneralization(Comparison comparison) {
     checkMistakeNonDifferentiatedSubClass(comparison);
     checkMistakeWrongSuperclass(comparison);
     checkMistakeMissingGeneralization(comparison);
@@ -291,23 +294,23 @@ public class MistakeDetection {
       EList<NamedElement> extraInstGeneralizationClasses = new BasicEList<NamedElement>();
       EList<NamedElement> extraStudGeneralizationClasses = new BasicEList<NamedElement>();
       boolean counted = false;
-      if(comparison.mappedClassifier.containsValue(studSuperclass)) {
-        if(comparison.instructorGeneraltionTree.containsKey(getKey(comparison.mappedClassifier, studSuperclass))){
-          for(Classifier studClass : studSubclasses) {
-            if(comparison.mappedClassifier.containsValue(studClass)) {
+      if (comparison.mappedClassifier.containsValue(studSuperclass)) {
+        if (comparison.instructorGeneraltionTree.containsKey(getKey(comparison.mappedClassifier, studSuperclass))) {
+          for (Classifier studClass : studSubclasses) {
+            if (comparison.mappedClassifier.containsValue(studClass)) {
               Classifier instClass = getKey(comparison.mappedClassifier, studClass);
-              if(instClass.getSuperTypes().isEmpty()) {
+              if (instClass.getSuperTypes().isEmpty()) {
                 extraStudGeneralizationClasses.add(studClass);
                 extraInstGeneralizationClasses.add(instClass);
               }
             }
           }
-        }else {
-          for(Classifier studClass : studSubclasses) {
-            if(comparison.mappedClassifier.containsValue(studClass)) {
+        } else {
+          for (Classifier studClass : studSubclasses) {
+            if (comparison.mappedClassifier.containsValue(studClass)) {
               Classifier instClass = getKey(comparison.mappedClassifier, studClass);
-              if(instClass.getSuperTypes().isEmpty()) {
-                if(!counted) {
+              if (instClass.getSuperTypes().isEmpty()) {
+                if (!counted) {
                   extraInstGeneralizationClasses.add(getKey(comparison.mappedClassifier, studSuperclass));
                   extraStudGeneralizationClasses.add(studSuperclass);
                 }
@@ -319,36 +322,37 @@ public class MistakeDetection {
           }
         }
       }
-      if(!extraInstGeneralizationClasses.isEmpty()) {
-        comparison.newMistakes.add(createMistake(EXTRA_GENERALIZATION, extraStudGeneralizationClasses, extraInstGeneralizationClasses));
+      if (!extraInstGeneralizationClasses.isEmpty()) {
+        comparison.newMistakes
+            .add(createMistake(EXTRA_GENERALIZATION, extraStudGeneralizationClasses, extraInstGeneralizationClasses));
       }
     }
   }
 
   private static void checkMistakeMissingGeneralization(Comparison comparison) {
-    for (Map.Entry<Classifier, EList<Classifier>> set : comparison.instructorGeneraltionTree.entrySet()) {
-      Classifier instSuperclass = set.getKey();
-      EList<Classifier> instSubclasses = set.getValue();
+    for (Map.Entry<Classifier, EList<Classifier>> mapSet : comparison.instructorGeneraltionTree.entrySet()) {
+      Classifier instSuperclass = mapSet.getKey();
+      EList<Classifier> instSubclasses = mapSet.getValue();
       EList<NamedElement> missingInstGeneralizationClasses = new BasicEList<NamedElement>();
       EList<NamedElement> missingStudGeneralizationClasses = new BasicEList<NamedElement>();
       boolean counted = false;
-      if(comparison.mappedClassifier.containsKey(instSuperclass)) {
-        if(comparison.studentGeneraltionTree.containsKey(comparison.mappedClassifier.get(instSuperclass))) {
-          for(Classifier instClass : instSubclasses) {
-            if(comparison.mappedClassifier.containsKey(instClass)) {
+      if (comparison.mappedClassifier.containsKey(instSuperclass)) {
+        if (comparison.studentGeneraltionTree.containsKey(comparison.mappedClassifier.get(instSuperclass))) {
+          for (Classifier instClass : instSubclasses) {
+            if (comparison.mappedClassifier.containsKey(instClass)) {
               Classifier studClass = comparison.mappedClassifier.get(instClass);
-              if(studClass.getSuperTypes().isEmpty()) {
+              if (studClass.getSuperTypes().isEmpty()) {
                 missingStudGeneralizationClasses.add(studClass);
                 missingInstGeneralizationClasses.add(instClass);
               }
             }
           }
-        }else {
-          for(Classifier instClass : instSubclasses) {
-            if(comparison.mappedClassifier.containsKey(instClass)) {
+        } else {
+          for (Classifier instClass : instSubclasses) {
+            if (comparison.mappedClassifier.containsKey(instClass)) {
               Classifier studClass = comparison.mappedClassifier.get(instClass);
-              if(studClass.getSuperTypes().isEmpty()) {
-                if(!counted) {
+              if (studClass.getSuperTypes().isEmpty()) {
+                if (!counted) {
                   missingInstGeneralizationClasses.add(instSuperclass);
                   missingStudGeneralizationClasses.add(comparison.mappedClassifier.get(instSuperclass));
                 }
@@ -360,21 +364,23 @@ public class MistakeDetection {
           }
         }
       }
-      if(!missingInstGeneralizationClasses.isEmpty()) {
-        comparison.newMistakes.add(createMistake(MISSING_GENERALIZATION, missingStudGeneralizationClasses, missingInstGeneralizationClasses));
+      if (!missingInstGeneralizationClasses.isEmpty()) {
+        comparison.newMistakes.add(
+            createMistake(MISSING_GENERALIZATION, missingStudGeneralizationClasses, missingInstGeneralizationClasses));
       }
     }
   }
 
   private static void checkMistakeWrongSuperclass(Comparison comparison) {
-    for (Map.Entry<Classifier, EList<Classifier>> set : comparison.instructorGeneraltionTree.entrySet()) {
-      Classifier instSuperclass = set.getKey();
-      EList<Classifier> instSubclasses = set.getValue();
-      for(Classifier instSubclass : instSubclasses) {
-        if(comparison.mappedClassifier.containsKey(instSubclass)){
+    for (Map.Entry<Classifier, EList<Classifier>> mapSet : comparison.instructorGeneraltionTree.entrySet()) {
+      Classifier instSuperclass = mapSet.getKey();
+      EList<Classifier> instSubclasses = mapSet.getValue();
+      for (Classifier instSubclass : instSubclasses) {
+        if (comparison.mappedClassifier.containsKey(instSubclass)) {
           Classifier studSubClass = comparison.mappedClassifier.get(instSubclass);
-          if(!studSubClass.getSuperTypes().isEmpty() && !studSubClass.getSuperTypes().contains(comparison.mappedClassifier.get(instSuperclass))) {
-            comparison.newMistakes.add(createMistake(WRONG_SUPERCLASS,studSubClass, instSubclass));
+          if (!studSubClass.getSuperTypes().isEmpty()
+              && !studSubClass.getSuperTypes().contains(comparison.mappedClassifier.get(instSuperclass))) {
+            comparison.newMistakes.add(createMistake(WRONG_SUPERCLASS, studSubClass, instSubclass));
           }
         }
       }
@@ -387,23 +393,26 @@ public class MistakeDetection {
       Classifier superClass = set.getKey();
       EList<Classifier> subClasses = set.getValue();
       EList<Attribute> superClassAttributes = superClass.getAttributes();
-      for(Classifier subClass : subClasses) {
+      for (Classifier subClass : subClasses) {
         EList<Attribute> subClassAttributes = subClass.getAttributes();
-        if (areAttributesEqual(superClassAttributes, subClassAttributes) && comparison.mappedClassifier.containsValue(subClass) && !superClass.isAbstract()) {
-          if(!classesIterated.contains(subClass.getName())) {
+        if (areAttributesEqual(superClassAttributes, subClassAttributes)
+            && comparison.mappedClassifier.containsValue(subClass) && !superClass.isAbstract()) {
+          if (!classesIterated.contains(subClass.getName())) {
             classesIterated.add(subClass.getName());
             comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass, null));
           }
         }
       }
-      for(int i =0; i<subClasses.size(); i++) {
+      for (int i = 0; i < subClasses.size(); i++) {
         Classifier subClass1 = subClasses.get(i);
         EList<Attribute> subClass1Attributes = subClass1.getAttributes();
-        for(int j =0; j<subClasses.size(); j++) {
+        for (int j = 0; j < subClasses.size(); j++) {
           Classifier subClass2 = subClasses.get(j);
           EList<Attribute> subClass2Attributes = subClass2.getAttributes();
-          if (subClass1 != subClass2 && areAttributesEqual(subClass1Attributes, subClass2Attributes) && subClassesAttriAssocEqual(subClass1, subClass2) && comparison.mappedClassifier.containsValue(subClass1)) {
-             if(!classesIterated.contains(subClass1.getName())) {
+          if (subClass1 != subClass2 && areAttributesEqual(subClass1Attributes, subClass2Attributes)
+              && subClassesAttriAssocEqual(subClass1, subClass2)
+              && comparison.mappedClassifier.containsValue(subClass1)) {
+            if (!classesIterated.contains(subClass1.getName())) {
               classesIterated.add(subClass1.getName());
               comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass1, null));
             }
@@ -414,62 +423,65 @@ public class MistakeDetection {
   }
 
   private static boolean subClassesAttriAssocEqual(Classifier subClass1, Classifier subClass2) {
-    if(subClass1.getAssociationEnds().size() != subClass2.getAssociationEnds().size()) {
-      return false;
-    }
-    else if (subClass1.getAssociationEnds().isEmpty() && subClass2.getAssociationEnds().isEmpty()) {
-      return true;
-    }
+
     EList<AssociationEnd> subClass1AssocEnds = subClass1.getAssociationEnds();
     EList<AssociationEnd> subClass2AssocEnds = subClass2.getAssociationEnds();
+
+    if (subClass1AssocEnds.size() != subClass2AssocEnds.size()) {
+      return false;
+    } else if (subClass1AssocEnds.isEmpty() && subClass2AssocEnds.isEmpty()) {
+      return true;
+    }
     EList<Classifier> subClass1ConnectedClass = new BasicEList<Classifier>();
     EList<Classifier> subClass2ConnectedClass = new BasicEList<Classifier>();
 
-    for(AssociationEnd assocEnd : subClass1AssocEnds) {
+    for (AssociationEnd assocEnd : subClass1AssocEnds) {
       var ends = assocEnd.getAssoc().getEnds();
       var end = ends.get(0);
-      if(end.equals(assocEnd)) {
+      if (end.equals(assocEnd)) {
         end = ends.get(1);
       }
       subClass1ConnectedClass.add(end.getClassifier());
     }
 
-    for(AssociationEnd assocEnd : subClass2AssocEnds) {
+    for (AssociationEnd assocEnd : subClass2AssocEnds) {
       var ends = assocEnd.getAssoc().getEnds();
       var end = ends.get(0);
-      if(end.equals(assocEnd)) {
+      if (end.equals(assocEnd)) {
         end = ends.get(1);
       }
       subClass2ConnectedClass.add(end.getClassifier());
     }
 
-    for(Classifier cls: subClass1ConnectedClass) {
-      if (!subClass2ConnectedClass.contains(cls)){
+    for (Classifier cls : subClass1ConnectedClass) {
+      if (!subClass2ConnectedClass.contains(cls)) {
         return false;
       }
     }
     return true;
   }
 
-  private static boolean areAttributesEqual(EList<Attribute> superClassAttributes, EList<Attribute> subClassAttributes) {
-    if((subClassAttributes.isEmpty() && !superClassAttributes.isEmpty()) || (!subClassAttributes.isEmpty() && superClassAttributes.isEmpty())) {
+  private static boolean areAttributesEqual(EList<Attribute> superClassAttributes,
+      EList<Attribute> subClassAttributes) {
+    if ((subClassAttributes.isEmpty() && !superClassAttributes.isEmpty())
+        || (!subClassAttributes.isEmpty() && superClassAttributes.isEmpty())) {
       return false;
-   }
-   for(Attribute attrib : superClassAttributes) {
-     if(!subClassAttributes.contains(attrib)) {
-       return false;
-     }
-   }
+    }
+    for (Attribute attrib : superClassAttributes) {
+      if (!subClassAttributes.contains(attrib)) {
+        return false;
+      }
+    }
     return true;
   }
 
-  private static void populateGeneralizationTree(Comparison comparison, EList<Classifier> instrucotrClassifiers,
+  private static void populateGeneralizationTree(Comparison comparison, EList<Classifier> instructorClassifiers,
       EList<Classifier> studentClassifiers) {
 
-    for (Classifier instrucotrClassifier : instrucotrClassifiers) {
+    for (Classifier instrucotrClassifier : instructorClassifiers) {
       Classifier superClass = instrucotrClassifier;
       EList<Classifier> subClasses = new BasicEList<Classifier>();
-      for (Classifier instrucotrClassifier2 : instrucotrClassifiers) {
+      for (Classifier instrucotrClassifier2 : instructorClassifiers) {
         if (instrucotrClassifier2.getSuperTypes().contains(superClass)) {
           subClasses.add(instrucotrClassifier2);
         }
@@ -1560,7 +1572,8 @@ public class MistakeDetection {
   }
 
   /** This function updates new and older mistakes in the metamodel and comparison. */
-  private static void updateMistakes(Solution instructorSolution, Solution studentSolution, Comparison comparison, boolean filter) {
+  private static void updateMistakes(Solution instructorSolution, Solution studentSolution, Comparison comparison,
+      boolean filter) {
     final Consumer<? super Mistake> setSolutionForElems = m -> {
       m.getInstructorElements().forEach(ie -> ie.setSolution(instructorSolution));
       m.getStudentElements().forEach(se -> se.setSolution(studentSolution));
@@ -2639,7 +2652,8 @@ public class MistakeDetection {
       String tagged = taggerOut(s);
       String[] str = tagged.split("(_|/)");
       String pluralTag = "NNS";
-      if (str[1].contains(pluralTag) && str[0].charAt(str[0].length()-1) != '5') {
+      // Tagger also considers string ending with 5 as plural, therefore adding a condition to prevent this
+      if (str[1].contains(pluralTag) && str[0].charAt(str[0].length() - 1) != '5') {
         isPlural = true;
       }
       nounPluralStatus.put(s, isPlural);

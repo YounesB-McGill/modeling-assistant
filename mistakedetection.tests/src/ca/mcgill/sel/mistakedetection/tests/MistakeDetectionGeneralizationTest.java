@@ -11,12 +11,11 @@ import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import modelingassistant.Mistake;
 
 public class MistakeDetectionGeneralizationTest {
 
@@ -37,20 +36,15 @@ public class MistakeDetectionGeneralizationTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
-    var instTATAManzaClass = getClassFromClassDiagram("TATAManza", instructorClassDiagram);
+    var instTATAManza = getClassFromClassDiagram("TATAManza", instructorClassDiagram);
     var instHondaCity = getClassFromClassDiagram("HondaCity", instructorClassDiagram);
 
     var studCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
-    var studTATAManzaClass = getClassFromClassDiagram("TATAManza", studentClassDiagram);
+    var studTATAManza = getClassFromClassDiagram("TATAManza", studentClassDiagram);
     var studHondaCity = getClassFromClassDiagram("HondaCity", studentClassDiagram);
 
-    EList<Classifier> instClasses = new BasicEList<Classifier>();
-    instClasses.add(instTATAManzaClass);
-    instClasses.add(instHondaCity);
-
-    EList<Classifier> studClasses = new BasicEList<Classifier>();
-    studClasses.add(studTATAManzaClass);
-    studClasses.add(studHondaCity);
+    var instClasses = List.of(instTATAManza, instHondaCity);
+    var studClasses = List.of(studTATAManza, studHondaCity);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -63,14 +57,13 @@ public class MistakeDetectionGeneralizationTest {
     for (Classifier Class : comparison.studentGeneraltionTree.get(studCarClass)) {
       assertTrue(studClasses.contains(Class));
     }
-
   }
 
   /**
    * Test to check generalization structure .
    */
   @Test
-  public void testToCheckGenerailzationTreeWithDiifInput() {
+  public void testToCheckGenerailzationTreeWithDiffInput() {
     var instructorClassDiagram =
         cdmFromFile(instructorCDMPath + "instructor_multiSubClasses/Class Diagram/MultiSubClasses.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -81,15 +74,9 @@ public class MistakeDetectionGeneralizationTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    var instCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
-    var instTATAManzaClass = getClassFromClassDiagram("TATAManza", instructorClassDiagram);
-    var instTATAManzaModel2Class = getClassFromClassDiagram("TATAManzaModel2", instructorClassDiagram);
-    var instTATAManzaModel3Class = getClassFromClassDiagram("TATAManzaModel3", instructorClassDiagram);
-
-    assertTrue(comparison.instructorGeneraltionTree.containsKey(instCarClass));
-    assertTrue(comparison.instructorGeneraltionTree.containsKey(instTATAManzaClass));
-    assertTrue(comparison.instructorGeneraltionTree.containsKey(instTATAManzaModel2Class));
-    assertTrue(comparison.instructorGeneraltionTree.containsKey(instTATAManzaModel3Class));
+    var instClasses = List.of("Car", "TATAManza", "TATAManzaModel2", "TATAManzaModel3").stream()
+        .map(s -> getClassFromClassDiagram(s, instructorClassDiagram)).collect(Collectors.toUnmodifiableList());
+    assertTrue(comparison.instructorGeneraltionTree.keySet().containsAll(instClasses));
 
   }
 
@@ -160,9 +147,7 @@ public class MistakeDetectionGeneralizationTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    for (Mistake m : comparison.newMistakes) {
-      assertTrue(!m.getMistakeType().equals(NON_DIFFERENTIATED_SUBCLASS));
-    }
+    assertTrue(comparison.newMistakes.stream().noneMatch(m -> m.getMistakeType().equals(NON_DIFFERENTIATED_SUBCLASS)));
   }
 
   /**
@@ -180,9 +165,7 @@ public class MistakeDetectionGeneralizationTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    for (Mistake m : comparison.newMistakes) {
-      assertTrue(!m.getMistakeType().equals(NON_DIFFERENTIATED_SUBCLASS));
-    }
+    assertTrue(comparison.newMistakes.stream().noneMatch(m -> m.getMistakeType().equals(NON_DIFFERENTIATED_SUBCLASS)));
   }
 
   /**
@@ -212,7 +195,7 @@ public class MistakeDetectionGeneralizationTest {
   }
 
   /**
-   * Test to check Missing Generalization.
+   * Test to check multiple Missing Generalization.
    */
   @Test
   public void testToCheckMultipleMissingGeneralization() {
@@ -232,7 +215,7 @@ public class MistakeDetectionGeneralizationTest {
   }
 
   /**
-   * Test to check Missing Generalization.
+   * Test to check one Missing Generalization.
    */
   @Test
   public void testToCheckMissingGeneralization() {
@@ -252,7 +235,5 @@ public class MistakeDetectionGeneralizationTest {
     assertEquals(3, comparison.newMistakes.size());
     assertEquals(3, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), MISSING_GENERALIZATION, studClass1, instClass1, 0, 1, false);
-
-
   }
 }
