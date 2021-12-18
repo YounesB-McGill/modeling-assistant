@@ -43,9 +43,9 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
         return requests.get(f"http://{MISTAKE_DETECTION_HOST}:{MISTAKE_DETECTION_PORT}/detectmistakes",
                             {"modelingassistant": ma_str})
 
-    resource = SRSET.create_string_resource()
-    resource.extend([ma, instructor_cdm, student_cdm])
-    ma_str = resource.save_to_string().decode()
+    # resource = SRSET.create_string_resource()
+    # resource.extend([ma, instructor_cdm, student_cdm])
+    ma_str = SRSET.create_ma_str(ma)
 
     try:
         req = call_mistake_detection_system(ma_str)

@@ -64,3 +64,13 @@ def fbs(fbs_by_level: dict[int, Feedback | list[Feedback]]) -> list[Feedback]:
             fb.level = level
             feedbacks.append(fb)
     return feedbacks
+
+
+class NonNoneDict(dict):
+    """
+    A dictionary that disallows None values.
+    """
+    def __setitem__(self, key, value):
+        if key is None:
+            raise ValueError("Cannot set NonNoneDict key to None")
+        super().__setitem__(key, value)

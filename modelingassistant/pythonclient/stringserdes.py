@@ -18,6 +18,7 @@ from serdes import set_static_class_for
 from classdiagram import ClassDiagram
 from constants import CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM, LEARNING_CORPUS_PATH
 from modelingassistant import ModelingAssistant
+from utils import NonNoneDict
 
 MA_USE_STRING_SERDES = "MA_USE_STRING_SERDES"
 
@@ -31,7 +32,7 @@ class StringEnabledResourceSet(ResourceSet):
     """
     def __init__(self):
         super().__init__()
-        self.ma_ids_to_string_resources: dict[str, StringEnabledXMIResource] = {}
+        self.ma_ids_to_string_resources: NonNoneDict[str, StringEnabledXMIResource] = NonNoneDict()
         for mm in [CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM]:
             resource: Resource = self.get_resource(URI(mm))
             mm_root = resource.contents[0]
@@ -50,28 +51,33 @@ class StringEnabledResourceSet(ResourceSet):
         "Create a string representation of a modeling assistant model."
         cdms = (sol.classDiagram for sol in ma.solutions)
         ma_id = ma._internal_id  # pylint: disable=protected-access
+        ma_id_not_set = ma_id is None
+
         if ma_id in self.ma_ids_to_string_resources:
             resource = self.ma_ids_to_string_resources[ma_id]
             resource.contents.clear()
         else:
             resource = self.create_string_resource()
-            self.ma_ids_to_string_resources[ma_id] = resource
+            if ma_id:
+                self.ma_ids_to_string_resources[ma_id] = resource
         resource.extend((ma, *cdms))
-        return resource.save_to_string().decode()
+
+        ma_str = resource.save_to_string().decode()
+        ma_id = self.get_ma_id_from_str(ma_str)
+        if ma_id_not_set and ma_id:
+            self.ma_ids_to_string_resources[ma_id] = resource  # pylint: disable=protected-access
+        return ma_str
 
     def get_string_resource(self, string: str | bytes, options=None) -> StringEnabledXMIResource:
         "Return a resource from the given string."
         options = options or {}
         options[MA_USE_STRING_SERDES] = True
 
-        if isinstance(string, bytes):
-            string = string.decode()
-        ma_id = re.sub(r"""[\s\S]*<[Mm]odeling[Aa]ssistant[\s\S]*xmi:id=["'](?P<ma_id>.*?)["'][\s\S]*>[\s\S]*""",
-                       r"\g<ma_id>", string)
+        ma_id = self.get_ma_id_from_str(string)
         if ma_id in self.ma_ids_to_string_resources:
             resource = self.ma_ids_to_string_resources[ma_id]
             resource.contents.clear()
-        else:
+        elif ma_id:
             resource = self.create_string_resource()
             self.ma_ids_to_string_resources[ma_id] = resource
 
@@ -97,6 +103,15 @@ class StringEnabledResourceSet(ResourceSet):
         if isinstance(uri, str):
             uri = uri.removeprefix("file:")
         return super().resolve(uri, from_resource)
+
+    @staticmethod
+    def get_ma_id_from_str(ma_str: str | bytes) -> str:
+        "Return the modeling assistant id from the given string."
+        if isinstance(ma_str, bytes):
+            ma_str = ma_str.decode()
+        ma_id = re.sub(r"""[\s\S]*<[Mm]odeling[Aa]ssistant[^>]*xmi:id=["'](?P<ma_id>.*?)["'][\s\S]*""",
+                       r"\g<ma_id>", ma_str)
+        return ma_id
 
 
 class StringEnabledXMIResource(XMIResource):
