@@ -296,7 +296,7 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
 
-#@pytest.mark.skip(reason="Work in progress")
+@pytest.mark.skip(reason="Work in progress")
 def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
     """
     Test feedback for a serialized modeling assistant instance with mistakes detected from the mistake detection system.

@@ -3,26 +3,19 @@
 package modelingassistant.impl;
 
 import java.util.Collection;
-import java.util.Map;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import ca.mcgill.sel.classdiagram.util.CdmResourceFactoryImpl;
-import learningcorpus.LearningcorpusPackage;
-import learningcorpus.util.LearningcorpusResourceFactoryImpl;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.ProblemStatement;
 import modelingassistant.Solution;
 import modelingassistant.Student;
 import modelingassistant.StudentKnowledge;
-import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -41,13 +34,6 @@ import modelingassistant.util.ModelingassistantResourceFactoryImpl;
  * @generated
  */
 public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implements ModelingAssistant {
-
-  /**
-   * The resource set for all modeling assistant instances.
-   *
-   * @generated NOT
-   */
-  private static ResourceSet rset;
 
   /**
    * The cached value of the '{@link #getProblemStatements() <em>Problem Statements</em>}' containment reference list.
@@ -292,22 +278,6 @@ public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implemen
         return studentKnowledges != null && !studentKnowledges.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * Returns a ResourceSet with cdm, learningcorpus, and modelingassistant extensions.
-   *
-   * @generated NOT
-   */
-  public static ResourceSet getResourceSetWithExtensions() {
-    if (rset == null) {
-      rset = new ResourceSetImpl();
-      rset.getResourceFactoryRegistry().getExtensionToFactoryMap().putAll(Map.of(
-          "cdm", new CdmResourceFactoryImpl(),
-          LearningcorpusPackage.eNAME, new LearningcorpusResourceFactoryImpl(),
-          ModelingassistantPackage.eNAME, new ModelingassistantResourceFactoryImpl()));
-    }
-    return rset;
   }
 
 } //ModelingAssistantImpl
