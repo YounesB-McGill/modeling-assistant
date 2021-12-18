@@ -6,10 +6,10 @@
     <!-- The classpath with only the dependencies used by the project -->
     <path id="modelingassistant.learningcorpus.dsl.transformation.libraryclasspath">
         <pathelement location="${ECLIPSE_WORKSPACE}/modelingassistant.learningcorpus.dsl.transformation/bin"/>
-    	<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_16.0.1.v20210528-1205/jre/lib/jrt-fs.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_16.0.1.v20210528-1205/jre/lib/jrt-fs.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.runtime_3.22.0.v20210506-1025.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.osgi_3.16.300.v20210525-1715.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.fx.osgi_3.7.0.202010120826.jar"/>
+    	<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.fx.osgi_3.7.0.202010120720.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.osgi.compatibility.state_1.2.400.v20210401-1438.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.common_3.15.0.v20210518-0604.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.jobs_3.11.0.v20210420-1453.jar"/>

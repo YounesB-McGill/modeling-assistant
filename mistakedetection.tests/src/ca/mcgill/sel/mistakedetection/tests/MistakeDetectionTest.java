@@ -153,54 +153,46 @@ public class MistakeDetectionTest {
     Classifier instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
     Classifier instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
 
-    Attribute instructorBusClassAttributeCapacity = getAttributeFromClass("capacity", instructorBusClass);
-    Attribute instructorBusClassAttributeNumberPlate = getAttributeFromClass("numberPlate", instructorBusClass);
-    Attribute instructorDriverClassAttributeName = getAttributeFromClass("name", instructorDriverClass);
-    Attribute instructorPassengerClassAttributeName = getAttributeFromClass("name", instructorPassengerClass);
+    Attribute instructorBusCapacity = getAttributeFromClass("capacity", instructorBusClass);
+    Attribute instructorBusNumberPlate = getAttributeFromClass("numberPlate", instructorBusClass);
+    Attribute instructorDriverName = getAttributeFromClass("name", instructorDriverClass);
+    Attribute instructorPassengerName = getAttributeFromClass("name", instructorPassengerClass);
 
     Classifier studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
     Classifier studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
     Classifier studentPassengerClass = getClassFromClassDiagram("Passenger", studentClassDiagram);
 
-    Attribute studentBusClassAttributeCapacity = getAttributeFromClass("capacity", studentBusClass);
-    Attribute studentBusClassAttributeNumberPlate = getAttributeFromClass("numberPlate", studentBusClass);
-    Attribute studentDriverClassAttributeName = getAttributeFromClass("name", studentDriverClass);
-    Attribute studentPassengerClassAttributeName = getAttributeFromClass("name", studentPassengerClass);
+    Attribute studentBusCapacity = getAttributeFromClass("capacity", studentBusClass);
+    Attribute studentBusNumberPlate = getAttributeFromClass("numberPlate", studentBusClass);
+    Attribute studentDriverName = getAttributeFromClass("name", studentDriverClass);
+    Attribute studentPassengerName = getAttributeFromClass("name", studentPassengerClass);
 
     assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusClass));
     assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriverClass));
     assertTrue(MistakeDetection.checkCorrectTest(instructorPassengerClass, studentPassengerClass));
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    var studentMistakes = studentSolution.getMistakes();
 
-    assertEquals(comparison.newMistakes.size(), 5);// Incomplete Containment tree
-    assertEquals(studentSolution.getMistakes().size(), 5);
+    assertEquals(5, comparison.newMistakes.size()); // Incomplete Containment tree
+    assertEquals(5, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity,
-        instructorBusClassAttributeCapacity, 0, 1, false);
-    assertMistake(studentSolution.getMistakes().get(0), WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate,
-        instructorBusClassAttributeNumberPlate, 0, 1, false);
-    assertMistake(studentSolution.getMistakes().get(2), WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName,
-        instructorDriverClassAttributeName, 0, 1, false);
-    assertMistake(studentSolution.getMistakes().get(3), WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName,
-        instructorPassengerClassAttributeName, 0, 1, false);
+    var studentAttrs = List.of(studentBusNumberPlate, studentBusCapacity, studentDriverName, studentPassengerName);
+    var instAttrs = List.of(instructorBusNumberPlate, instructorBusCapacity, instructorDriverName,
+        instructorPassengerName);
 
+    for (int i = 0; i < instAttrs.size(); i++) {
+      assertMistake(studentMistakes.get(i), WRONG_ATTRIBUTE_TYPE, studentAttrs.get(i), instAttrs.get(i), 0, 1, false);
+    }
 
     // ---------Second iteration to test update of mistake Properties---
     comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-    assertEquals(studentSolution.getMistakes().size(), 5);
-    assertEquals(comparison.newMistakes.size(), 5);
-    assertEquals(studentSolution.getMistakes().size(), 5);
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
 
-      assertMistake(studentSolution.getMistakes().get(1), WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeCapacity,
-          instructorBusClassAttributeCapacity, 0, 2, false);
-      assertMistake(studentSolution.getMistakes().get(0), WRONG_ATTRIBUTE_TYPE, studentBusClassAttributeNumberPlate,
-          instructorBusClassAttributeNumberPlate, 0, 2, false);
-      assertMistake(studentSolution.getMistakes().get(2), WRONG_ATTRIBUTE_TYPE, studentDriverClassAttributeName,
-          instructorDriverClassAttributeName, 0, 2, false);
-      assertMistake(studentSolution.getMistakes().get(3), WRONG_ATTRIBUTE_TYPE, studentPassengerClassAttributeName,
-          instructorPassengerClassAttributeName, 0, 2, false);
-
+    for (int i = 0; i < instAttrs.size(); i++) {
+      assertMistake(studentMistakes.get(i), WRONG_ATTRIBUTE_TYPE, studentAttrs.get(i), instAttrs.get(i), 0, 2, false);
+    }
   }
 
   /**
@@ -236,24 +228,24 @@ public class MistakeDetectionTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
-    assertEquals(comparison.extraStudentClassifier.size(), 0);
-    assertEquals(comparison.mappedClassifier.size(), 3);
-    assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentBusClass);
-    assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentDriverClass);
-    assertEquals(comparison.mappedClassifier.get(instructorPassengerClass), studentCustomerClass);
+    assertEquals(comparison.notMappedInstructorClassifiers.size(), 0);
+    assertEquals(comparison.extraStudentClassifiers.size(), 0);
+    assertEquals(comparison.mappedClassifiers.size(), 3);
+    assertEquals(comparison.mappedClassifiers.get(instructorBusClass), studentBusClass);
+    assertEquals(comparison.mappedClassifiers.get(instructorDriverClass), studentDriverClass);
+    assertEquals(comparison.mappedClassifiers.get(instructorPassengerClass), studentCustomerClass);
 
-    assertEquals(comparison.notMappedInstructorAttribute.size(), 0);
-    assertEquals(comparison.extraStudentAttribute.size(), 0);
-    assertEquals(comparison.duplicateStudentAttribute.size(), 0);
-    assertEquals(comparison.mappedAttribute.size(), 4);
+    assertEquals(comparison.notMappedInstructorAttributes.size(), 0);
+    assertEquals(comparison.extraStudentAttributes.size(), 0);
+    assertEquals(comparison.duplicateStudentAttributes.size(), 0);
+    assertEquals(comparison.mappedAttributes.size(), 4);
 
-    assertEquals(comparison.mappedAttribute.get(instructorBusClassAttributeCapacity), studentBusClassAttributeCapacity);
-    assertEquals(comparison.mappedAttribute.get(instructorPassengerClassAttributeName),
+    assertEquals(comparison.mappedAttributes.get(instructorBusClassAttributeCapacity), studentBusClassAttributeCapacity);
+    assertEquals(comparison.mappedAttributes.get(instructorPassengerClassAttributeName),
         studentCustomerClassAttributeName);
-    assertEquals(comparison.mappedAttribute.get(instructorBusClassAttributeNumberPlate),
+    assertEquals(comparison.mappedAttributes.get(instructorBusClassAttributeNumberPlate),
         studentBusClassAttributeNumberPlate);
-    assertEquals(comparison.mappedAttribute.get(instructorDriverClassAttributeName), studentDriverClassAttributeName);
+    assertEquals(comparison.mappedAttributes.get(instructorDriverClassAttributeName), studentDriverClassAttributeName);
     assertEquals(comparison.newMistakes.size(), 2); // Incomplete Containment tree + Wrong Class name
     assertEquals(studentSolution.getMistakes().size(), 2);
   }
@@ -291,25 +283,25 @@ public class MistakeDetectionTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(comparison.notMappedInstructorClassifier.size(), 0);
-    assertEquals(comparison.extraStudentClassifier.size(), 0);
-    assertEquals(comparison.mappedClassifier.size(), 3);
-    assertEquals(comparison.mappedClassifier.get(instructorBusClass), studentVehicleClass);
-    assertEquals(comparison.mappedClassifier.get(instructorDriverClass), studentPilotClass);
-    assertEquals(comparison.mappedClassifier.get(instructorPassengerClass), studentCustomerClass);
+    assertEquals(comparison.notMappedInstructorClassifiers.size(), 0);
+    assertEquals(comparison.extraStudentClassifiers.size(), 0);
+    assertEquals(comparison.mappedClassifiers.size(), 3);
+    assertEquals(comparison.mappedClassifiers.get(instructorBusClass), studentVehicleClass);
+    assertEquals(comparison.mappedClassifiers.get(instructorDriverClass), studentPilotClass);
+    assertEquals(comparison.mappedClassifiers.get(instructorPassengerClass), studentCustomerClass);
 
-    assertEquals(comparison.notMappedInstructorAttribute.size(), 0);
-    assertEquals(comparison.extraStudentAttribute.size(), 0);
-    assertEquals(comparison.duplicateStudentAttribute.size(), 0);
-    assertEquals(comparison.mappedAttribute.size(), 4);
+    assertEquals(comparison.notMappedInstructorAttributes.size(), 0);
+    assertEquals(comparison.extraStudentAttributes.size(), 0);
+    assertEquals(comparison.duplicateStudentAttributes.size(), 0);
+    assertEquals(comparison.mappedAttributes.size(), 4);
 
-    assertEquals(comparison.mappedAttribute.get(instructorBusClassAttributeCapacity),
+    assertEquals(comparison.mappedAttributes.get(instructorBusClassAttributeCapacity),
         studentVehicleClassAttributeCapacity);
-    assertEquals(comparison.mappedAttribute.get(instructorPassengerClassAttributeName),
+    assertEquals(comparison.mappedAttributes.get(instructorPassengerClassAttributeName),
         studentCustomerClassAttributeName);
-    assertEquals(comparison.mappedAttribute.get(instructorBusClassAttributeNumberPlate),
+    assertEquals(comparison.mappedAttributes.get(instructorBusClassAttributeNumberPlate),
         studentVehicleClassAttributeNumberPlate);
-    assertEquals(comparison.mappedAttribute.get(instructorDriverClassAttributeName), studentPilotClassAttributeName);
+    assertEquals(comparison.mappedAttributes.get(instructorDriverClassAttributeName), studentPilotClassAttributeName);
 
     assertEquals(comparison.newMistakes.size(), 4); // 3 + Incomplete Containment tree
     assertEquals(studentSolution.getMistakes().size(), 4);
@@ -720,64 +712,64 @@ public class MistakeDetectionTest {
     System.out.println();
     System.out.println("----Test Logger-----");
     System.out.print("Not Mapped InstructorClassifier List : ");
-    for (Classifier c : comparison.notMappedInstructorClassifier) {
+    for (Classifier c : comparison.notMappedInstructorClassifiers) {
       System.out.print(c.getName() + " ");
     }
     System.out.println();
     System.out.print("Not Mapped extraStudentClassifier : ");
-    for (Classifier c : comparison.extraStudentClassifier) {
+    for (Classifier c : comparison.extraStudentClassifiers) {
       System.out.print(c.getName() + " ");
     }
     System.out.println();
     System.out.println("Mapped Classifiers : ");
-    comparison.mappedClassifier.forEach((key, value) -> System.out.println(key.getName() + " = " + value.getName()));
+    comparison.mappedClassifiers.forEach((key, value) -> System.out.println(key.getName() + " = " + value.getName()));
     System.out.println();
     System.out.print("Not Mapped InstructorAttribute List : ");
-    for (Attribute c : comparison.notMappedInstructorAttribute) {
+    for (Attribute c : comparison.notMappedInstructorAttributes) {
       System.out.print(c.getName() + " ");
     }
     System.out.println();
     System.out.print("Not Mapped extraStudentAttribute : ");
-    for (Attribute c : comparison.extraStudentAttribute) {
+    for (Attribute c : comparison.extraStudentAttributes) {
       System.out.print(c.getName() + " ");
     }
     System.out.println();
     System.out.print("duplicate Attribute : ");
-    for (Attribute c : comparison.duplicateStudentAttribute) {
+    for (Attribute c : comparison.duplicateStudentAttributes) {
       System.out.print(c.getName() + " ");
     }
     System.out.println();
     System.out.println("Mapped Attributes : ");
-    comparison.mappedAttribute.forEach((key, value) -> System.out.println(
+    comparison.mappedAttributes.forEach((key, value) -> System.out.println(
         key.getType().getClass() + " " + key.getName() + " = " + value.getType().getClass() + " " + value.getName()));
 
     System.out.println();
     System.out.print("Not Mapped Association : ");
-    for (Association assoc : comparison.notMappedInstructorAssociation) {
+    for (Association assoc : comparison.notMappedInstructorAssociations) {
       System.out.print(assoc.getName() + " ");
     }
 
     System.out.println();
     System.out.print("Extra Association : ");
-    for (Association assoc : comparison.extraStudentAssociation) {
+    for (Association assoc : comparison.extraStudentAssociations) {
       System.out.print(assoc.getName() + " ");
     }
     System.out.println();
     System.out.println("Mapped Association : ");
-    comparison.mappedAssociation.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
+    comparison.mappedAssociations.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
 
     System.out.println();
     System.out.println("Mapped Enumerations : ");
-    comparison.mappedEnumeration.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
+    comparison.mappedEnumerations.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
 
     System.out.println();
     System.out.print("Not Mapped Enumerations : ");
-    for (CDEnum c : comparison.notMappedInstructorEnum) {
+    for (CDEnum c : comparison.notMappedInstructorEnums) {
       System.out.print(c.getName() + " ");
     }
     System.out.println();
     System.out.print("Extra Enumeration : ");
-    for (CDEnum c : comparison.extraStudentEnum) {
+    for (CDEnum c : comparison.extraStudentEnums) {
       System.out.print(c.getName() + " ");
     }
 
@@ -799,7 +791,7 @@ public class MistakeDetectionTest {
 
     System.out.println();
     System.out.println("Instructor Generalization tree: ");
-    comparison.instructorGeneraltionTree.forEach((key, value) -> {
+    comparison.instructorSuperclassesToSubclasses.forEach((key, value) -> {
       System.out.println("Key = " + key.getName() +" abstract("+key.isAbstract()+")");
       System.out.print("value = ");
       value.forEach((c) -> {
@@ -810,7 +802,7 @@ public class MistakeDetectionTest {
     });
     System.out.println();
     System.out.println("Student Generalization tree: ");
-    comparison.studentGeneraltionTree.forEach((key, value) -> {
+    comparison.studentSuperclassesToSubclasses.forEach((key, value) -> {
       System.out.println("Key = " + key.getName()+" abstract("+key.isAbstract()+")");
       System.out.print("value = ");
       value.forEach((c) -> {

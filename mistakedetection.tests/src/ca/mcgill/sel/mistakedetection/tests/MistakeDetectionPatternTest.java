@@ -162,6 +162,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
+    // check that the sample solution should not have that mistake type (edge case)
     for (Mistake m : comparison.newMistakes) {
       assertTrue(!m.getMistakeType().equals(SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN));
       assertTrue(!m.getMistakeType().equals(SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN));

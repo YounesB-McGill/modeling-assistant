@@ -69,8 +69,8 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     assertEquals(0, comparison.newMistakes.size());
     assertEquals(0, studentSolution.getMistakes().size());
-    assertEquals(studentAssociation0, comparison.mappedAssociation.get(instructorAssociation0));
-    assertEquals(studentAssociation1, comparison.mappedAssociation.get(instructorAssociation1));
+    assertEquals(studentAssociation0, comparison.mappedAssociations.get(instructorAssociation0));
+    assertEquals(studentAssociation1, comparison.mappedAssociations.get(instructorAssociation1));
   }
 
   /**
@@ -101,7 +101,7 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     assertEquals(3, comparison.newMistakes.size());
     assertEquals(3, studentSolution.getMistakes().size());
-    assertEquals(studentAssociation0, comparison.mappedAssociation.get(instructorAssociation0));
+    assertEquals(studentAssociation0, comparison.mappedAssociations.get(instructorAssociation0));
   }
 
   /**

@@ -1,9 +1,9 @@
 package ca.mcgill.sel.mistakedetection;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.CDEnum;
@@ -19,48 +19,48 @@ public class Comparison {
   // TODO Refactor lists and hashmaps
 
   /** Maps an instructor solution classifier to student solution classifier. */
-  public Map<Classifier, Classifier> mappedClassifier = new HashMap<Classifier, Classifier>();
+  public Map<Classifier, Classifier> mappedClassifiers = new HashMap<>();
 
   /** Maps an instructor solution classifier attribute to student solution classifier attribute. */
-  public Map<Attribute, Attribute> mappedAttribute = new HashMap<Attribute, Attribute>();
+  public Map<Attribute, Attribute> mappedAttributes = new HashMap<>();
 
   /** Maps an instructor solution classifier relation to student solution classifier relation. */
-  public Map<Association, Association> mappedAssociation = new HashMap<Association, Association>();
+  public Map<Association, Association> mappedAssociations = new HashMap<>();
 
   /** Maps an instructor solution enumeration relation to student solution enumeration. */
-  public Map<CDEnum, CDEnum> mappedEnumeration = new HashMap<CDEnum, CDEnum>();
+  public Map<CDEnum, CDEnum> mappedEnumerations = new HashMap<>();
 
   /** Maps an instructor solution enumeration item relation to student solution enumeration item. */
-  public Map<CDEnumLiteral, CDEnumLiteral> mappedEnumerationItems = new HashMap<CDEnumLiteral, CDEnumLiteral>();
+  public Map<CDEnumLiteral, CDEnumLiteral> mappedEnumerationItems = new HashMap<>();
 
-  /** Maps instructor subclass to an instructor super class. */
-  public Map<Classifier, EList<Classifier>> instructorGeneraltionTree = new HashMap<Classifier, EList<Classifier>>();
+  /** Maps each instructor superclass to its subclasses, forming a generalization tree. */
+  public Map<Classifier, List<Classifier>> instructorSuperclassesToSubclasses = new HashMap<>();
 
-  /** Maps student subclass to an student super class. */
-  public Map<Classifier, EList<Classifier>> studentGeneraltionTree = new HashMap<Classifier, EList<Classifier>>();
+  /** Maps each instructor superclass to its subclasses, forming a generalization tree. */
+  public Map<Classifier, List<Classifier>> studentSuperclassesToSubclasses = new HashMap<>();
 
-  public EList<Classifier> notMappedInstructorClassifier = new BasicEList<Classifier>();
-  public EList<Classifier> extraStudentClassifier = new BasicEList<Classifier>();
+  public List<Classifier> notMappedInstructorClassifiers = new ArrayList<>();
+  public List<Classifier> extraStudentClassifiers = new ArrayList<>();
 
-  public EList<Attribute> notMappedInstructorAttribute = new BasicEList<Attribute>();
-  public EList<Attribute> extraStudentAttribute = new BasicEList<Attribute>();
-  public EList<Attribute> duplicateStudentAttribute = new BasicEList<Attribute>();
+  public List<Attribute> notMappedInstructorAttributes = new ArrayList<>();
+  public List<Attribute> extraStudentAttributes = new ArrayList<>();
+  public List<Attribute> duplicateStudentAttributes = new ArrayList<>();
 
-  public EList<Association> notMappedInstructorAssociation = new BasicEList<Association>();
-  public EList<Association> extraStudentAssociation = new BasicEList<Association>();
+  public List<Association> notMappedInstructorAssociations = new ArrayList<>();
+  public List<Association> extraStudentAssociations = new ArrayList<>();
 
-  public EList<CDEnum> notMappedInstructorEnum= new BasicEList<CDEnum>();
-  public EList<CDEnum> extraStudentEnum = new BasicEList<CDEnum>();
+  public List<CDEnum> notMappedInstructorEnums = new ArrayList<>();
+  public List<CDEnum> extraStudentEnums = new ArrayList<>();
 
-  public EList<CDEnumLiteral> notMappedInstructorEnumLiterals = new BasicEList<CDEnumLiteral>();
-  public EList<CDEnumLiteral> extraStudentEnumLiterals = new BasicEList<CDEnumLiteral>();
+  public List<CDEnumLiteral> notMappedInstructorEnumLiterals = new ArrayList<>();
+  public List<CDEnumLiteral> extraStudentEnumLiterals = new ArrayList<>();
 
-  public EList<Mistake> newMistakes = new BasicEList<Mistake>();
+  public List<Mistake> newMistakes = new ArrayList<>();
 
   /** List to store association classes to remove from mapped classes. */
-  public EList<Classifier> assocClassifiersToRemove = new BasicEList<Classifier>();
+  public List<Classifier> assocClassifiersToRemove = new ArrayList<>();
 
   /** Map stores possible instructor student Association Class pair that are detected after initial class mapping. */
-  public Map<Classifier, Classifier> assocClassMappingToAdd = new HashMap<Classifier, Classifier>();
+  public Map<Classifier, Classifier> assocClassMappingToAdd = new HashMap<>();
 
 }

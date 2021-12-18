@@ -11,28 +11,29 @@ import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
-import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 
 public class MistakeDetectionGeneralizationTest {
 
-  String instructorCDMPath = "../mistakedetection/testModels/InstructorSolution/ModelToTestGeneralization/";
-  String studentCDMPath = "../mistakedetection/testModels/StudentSolution/ModelToTestGeneralization/";
+  static final String INSTRUCTOR_CDM_PATH = "../mistakedetection/testModels/InstructorSolution/ModelToTestGeneralization/";
+  static final String STUDENT_CDM_PATH = "../mistakedetection/testModels/StudentSolution/ModelToTestGeneralization/";
 
   /**
-   * Test to check generalization structure .
+   * Test to check generalization structure.
    */
   @Test
   public void testToCheckGeneralizationTree() {
     var instructorClassDiagram =
-        cdmFromFile(instructorCDMPath + "instructor_two_subClasses/Class Diagram/Two_subClasses.domain_model.cdm");
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_two_subClasses/Class Diagram/Two_subClasses.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram =
-        cdmFromFile(studentCDMPath + "student_two_subClasses/Class Diagram/Two_subClasses.domain_model.cdm");
+        cdmFromFile(STUDENT_CDM_PATH + "student_two_subClasses/Class Diagram/Two_subClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instCar = getClassFromClassDiagram("Car", instructorClassDiagram);
@@ -43,20 +44,19 @@ public class MistakeDetectionGeneralizationTest {
     var studTATAManza = getClassFromClassDiagram("TATAManza", studentClassDiagram);
     var studHondaCity = getClassFromClassDiagram("HondaCity", studentClassDiagram);
 
-    var instClasses = List.of(instTATAManza, instHondaCity);
-    var studClasses = List.of(studTATAManza, studHondaCity);
+    var expectedInstClasses = Set.of(instTATAManza, instHondaCity);
+    var expectedStudClasses = Set.of(studTATAManza, studHondaCity);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertTrue(comparison.instructorGeneraltionTree.containsKey(instCar));
-    assertTrue(comparison.studentGeneraltionTree.containsKey(studCar));
+    assertTrue(comparison.instructorSuperclassesToSubclasses.containsKey(instCar));
+    assertTrue(comparison.studentSuperclassesToSubclasses.containsKey(studCar));
 
-    for (Classifier Class : comparison.instructorGeneraltionTree.get(instCar)) {
-      assertTrue(instClasses.contains(Class));
-    }
-    for (Classifier Class : comparison.studentGeneraltionTree.get(studCar)) {
-      assertTrue(studClasses.contains(Class));
-    }
+    var actualInstClasses = new HashSet<>(comparison.instructorSuperclassesToSubclasses.get(instCar));
+    var actualStudClasses = new HashSet<>(comparison.studentSuperclassesToSubclasses.get(studCar));
+
+    assertEquals(expectedInstClasses, actualInstClasses);
+    assertEquals(expectedStudClasses, actualStudClasses);
   }
 
   /**
@@ -65,19 +65,18 @@ public class MistakeDetectionGeneralizationTest {
   @Test
   public void testToCheckGeneralizationTreeWithDiffInput() {
     var instructorClassDiagram =
-        cdmFromFile(instructorCDMPath + "instructor_multiSubClasses/Class Diagram/MultiSubClasses.domain_model.cdm");
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_multiSubClasses/Class Diagram/MultiSubClasses.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram =
-        cdmFromFile(instructorCDMPath + "instructor_multiSubClasses/Class Diagram/MultiSubClasses.domain_model.cdm");
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_multiSubClasses/Class Diagram/MultiSubClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     var instClasses = List.of("Car", "TATAManza", "TATAManzaModel2", "TATAManzaModel3").stream()
         .map(s -> getClassFromClassDiagram(s, instructorClassDiagram)).collect(Collectors.toUnmodifiableList());
-    assertTrue(comparison.instructorGeneraltionTree.keySet().containsAll(instClasses));
-
+    assertTrue(comparison.instructorSuperclassesToSubclasses.keySet().containsAll(instClasses));
   }
 
   /**
@@ -86,14 +85,14 @@ public class MistakeDetectionGeneralizationTest {
   @Test
   public void testToCheckNonDiffSubClassesWith2SameSubClasses() {
     var instructorClassDiagram =
-        cdmFromFile(studentCDMPath + "student_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
+        cdmFromFile(STUDENT_CDM_PATH + "student_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram =
-        cdmFromFile(studentCDMPath + "student_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
+        cdmFromFile(STUDENT_CDM_PATH + "student_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     var studLeftCarClass = getClassFromClassDiagram("LeftCar", studentClassDiagram);
     var studRightCarClass = getClassFromClassDiagram("RightCar", studentClassDiagram);
@@ -103,7 +102,6 @@ public class MistakeDetectionGeneralizationTest {
 
     var studNewCarClassMistake = studentMistakeFor(studRightCarClass);
     assertMistake(studNewCarClassMistake, NON_DIFFERENTIATED_SUBCLASS, studRightCarClass, 0, 1, false);
-
   }
 
   /**
@@ -112,14 +110,14 @@ public class MistakeDetectionGeneralizationTest {
   @Test
   public void testToCheckNonDiffSubClassesWith2SameSubClassesSameAssoc() {
     var instructorClassDiagram = cdmFromFile(
-        studentCDMPath + "student_same_Assoc_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
+        STUDENT_CDM_PATH + "student_same_Assoc_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        studentCDMPath + "student_same_Assoc_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
+        STUDENT_CDM_PATH + "student_same_Assoc_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     var studLeftCarClass = getClassFromClassDiagram("LeftCar", studentClassDiagram);
     var studRightCarClass = getClassFromClassDiagram("RightCar", studentClassDiagram);
@@ -129,7 +127,6 @@ public class MistakeDetectionGeneralizationTest {
 
     var studNewCarClassMistake = studentMistakeFor(studRightCarClass);
     assertMistake(studNewCarClassMistake, NON_DIFFERENTIATED_SUBCLASS, studRightCarClass, 0, 1, false);
-
   }
 
   /**
@@ -138,11 +135,11 @@ public class MistakeDetectionGeneralizationTest {
   @Test
   public void testToCheckNonDiffSubClassesWith2SameSubClassesDiffAssoc() {
     var instructorClassDiagram =
-        cdmFromFile(instructorCDMPath + "instructor_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        studentCDMPath + "student_diff_Assoc_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
+        STUDENT_CDM_PATH + "student_diff_Assoc_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
@@ -156,11 +153,11 @@ public class MistakeDetectionGeneralizationTest {
   @Test
   public void testToCheckNonDiffSubClassesWith2SameSubClassesDiffAssocEnds() {
     var instructorClassDiagram =
-        cdmFromFile(instructorCDMPath + "instructor_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        studentCDMPath + "student_diff_AssocEnds_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
+        STUDENT_CDM_PATH + "student_diff_AssocEnds_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
@@ -174,11 +171,11 @@ public class MistakeDetectionGeneralizationTest {
   @Test
   public void testToCheckWrongSuperclass() {
     var instructorClassDiagram =
-        cdmFromFile(instructorCDMPath + "instructor_wrong_superclass/Class Diagram/Wrong_superclass.domain_model.cdm");
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_wrong_superclass/Class Diagram/Wrong_superclass.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram =
-        cdmFromFile(studentCDMPath + "student_wrong_superclass/Class Diagram/Wrong_superclass.domain_model.cdm");
+        cdmFromFile(STUDENT_CDM_PATH + "student_wrong_superclass/Class Diagram/Wrong_superclass.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
@@ -191,7 +188,6 @@ public class MistakeDetectionGeneralizationTest {
 
     assertMistake(studentSolution.getMistakes().get(0), WRONG_SUPERCLASS, studExtraAccountClass, instExtraAccountClass,
         0, 1, false);
-
   }
 
   /**
@@ -200,18 +196,17 @@ public class MistakeDetectionGeneralizationTest {
   @Test
   public void testToCheckMultipleMissingGeneralization() {
     var instructorClassDiagram =
-        cdmFromFile(instructorCDMPath + "instructor_multiSubClasses/Class Diagram/MultiSubClasses.domain_model.cdm");
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_multiSubClasses/Class Diagram/MultiSubClasses.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        studentCDMPath + "student_Missing_multi_Generalization/Class Diagram/MultiSubClasses.domain_model.cdm");
+        STUDENT_CDM_PATH + "student_Missing_multi_Generalization/Class Diagram/MultiSubClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(8, comparison.newMistakes.size());
     assertEquals(8, studentSolution.getMistakes().size());
-
   }
 
   /**
@@ -220,11 +215,11 @@ public class MistakeDetectionGeneralizationTest {
   @Test
   public void testToCheckMissingGeneralization() {
     var instructorClassDiagram =
-        cdmFromFile(instructorCDMPath + "instructor_two_subClasses/Class Diagram/Two_subClasses.domain_model.cdm");
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_two_subClasses/Class Diagram/Two_subClasses.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram =
-        cdmFromFile(studentCDMPath + "student_Missing_1_Genralization/Class Diagram/Two_subClasses.domain_model.cdm");
+        cdmFromFile(STUDENT_CDM_PATH + "student_Missing_1_Genralization/Class Diagram/Two_subClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instClass1 = getClassFromClassDiagram("TATAManza", instructorClassDiagram);
@@ -236,4 +231,5 @@ public class MistakeDetectionGeneralizationTest {
     assertEquals(3, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), MISSING_GENERALIZATION, studClass1, instClass1, 0, 1, false);
   }
+
 }
