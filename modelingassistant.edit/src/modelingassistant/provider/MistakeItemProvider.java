@@ -60,7 +60,7 @@ public class MistakeItemProvider
     if (itemPropertyDescriptors == null) {
       super.getPropertyDescriptors(object);
 
-      addResolvedPropertyDescriptor(object);
+      addResolvedByStudentPropertyDescriptor(object);
       addTimeToAddressPropertyDescriptor(object);
       addNumStepsBeforeNotificationPropertyDescriptor(object);
       addStudentElementsPropertyDescriptor(object);
@@ -74,19 +74,19 @@ public class MistakeItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Resolved feature.
+   * This adds a property descriptor for the Resolved By Student feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addResolvedPropertyDescriptor(Object object) {
+  protected void addResolvedByStudentPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_Mistake_resolved_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_resolved_feature", "_UI_Mistake_type"),
-         ModelingassistantPackage.Literals.MISTAKE__RESOLVED,
+         getString("_UI_Mistake_resolvedByStudent_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_Mistake_resolvedByStudent_feature", "_UI_Mistake_type"),
+         ModelingassistantPackage.Literals.MISTAKE__RESOLVED_BY_STUDENT,
          true,
          false,
          false,
@@ -291,7 +291,7 @@ public class MistakeItemProvider
   @Override
   public String getText(Object object) {
     Mistake mistake = (Mistake)object;
-    return getString("_UI_Mistake_type") + " " + mistake.isResolved();
+    return getString("_UI_Mistake_type") + " " + mistake.isResolvedByStudent();
   }
 
 
@@ -307,7 +307,7 @@ public class MistakeItemProvider
     updateChildren(notification);
 
     switch (notification.getFeatureID(Mistake.class)) {
-      case ModelingassistantPackage.MISTAKE__RESOLVED:
+      case ModelingassistantPackage.MISTAKE__RESOLVED_BY_STUDENT:
       case ModelingassistantPackage.MISTAKE__TIME_TO_ADDRESS:
       case ModelingassistantPackage.MISTAKE__NUM_STEPS_BEFORE_NOTIFICATION:
       case ModelingassistantPackage.MISTAKE__NUM_DETECTIONS:

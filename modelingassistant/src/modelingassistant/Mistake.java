@@ -16,7 +16,7 @@ import learningcorpus.MistakeType;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link modelingassistant.Mistake#isResolved <em>Resolved</em>}</li>
+ *   <li>{@link modelingassistant.Mistake#isResolvedByStudent <em>Resolved By Student</em>}</li>
  *   <li>{@link modelingassistant.Mistake#getTimeToAddress <em>Time To Address</em>}</li>
  *   <li>{@link modelingassistant.Mistake#getNumStepsBeforeNotification <em>Num Steps Before Notification</em>}</li>
  *   <li>{@link modelingassistant.Mistake#getStudentElements <em>Student Elements</em>}</li>
@@ -34,29 +34,51 @@ import learningcorpus.MistakeType;
  */
 public interface Mistake extends EObject {
   /**
-   * Returns the value of the '<em><b>Resolved</b></em>' attribute.
+   * Returns the value of the '<em><b>Resolved By Student</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Resolved</em>' attribute.
+   * @return the value of the '<em>Resolved By Student</em>' attribute.
+   * @see #setResolvedByStudent(boolean)
+   * @see modelingassistant.ModelingassistantPackage#getMistake_ResolvedByStudent()
+   * @model
+   * @generated
+   */
+  boolean isResolvedByStudent();
+
+  /**
+   * Sets the value of the '{@link modelingassistant.Mistake#isResolvedByStudent <em>Resolved By Student</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Resolved By Student</em>' attribute.
+   * @see #isResolvedByStudent()
+   * @generated
+   */
+  void setResolvedByStudent(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Resolved By Student</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Resolved By Student</em>' attribute.
    * @see #setResolved(boolean)
    * @see modelingassistant.ModelingassistantPackage#getMistake_Resolved()
    * @model
    * @generated NOT
    */
   default boolean isResolved() {
-    return false; // isResolvedByStudent();
+    return isResolvedByStudent();
   }
 
   /**
-   * Sets the value of the '{@link modelingassistant.Mistake#isResolved <em>Resolved</em>}' attribute.
+   * Sets the value of the '{@link modelingassistant.Mistake#isResolvedByStudent <em>Resolved By Student</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Resolved</em>' attribute.
+   * @param value the new value of the '<em>Resolved By Student</em>' attribute.
    * @see #isResolved()
    * @generated NOT
    */
   default void setResolved(boolean value) {
-    // setResolvedByStudent(value);
+    setResolvedByStudent(value);
   }
 
   /**

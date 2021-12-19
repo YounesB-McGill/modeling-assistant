@@ -99,7 +99,7 @@ class StudentKnowledge(EObject, metaclass=MetaEClass):
             self.mistakeType = mistakeType
 
 class Mistake(EObject, metaclass=MetaEClass):
-    resolved = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True)
+    resolvedByStudent = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True)
     timeToAddress = EAttribute(eType=Time, unique=True, derived=False, changeable=True)
     numStepsBeforeNotification = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
     numDetections = EAttribute(eType=EInt, unique=True, derived=False, changeable=True)
@@ -110,10 +110,10 @@ class Mistake(EObject, metaclass=MetaEClass):
     solution = EReference(ordered=True, unique=True, containment=False, derived=False)
     mistakeType = EReference(ordered=True, unique=True, containment=False, derived=False)
 
-    def __init__(self, *, resolved=None, timeToAddress=None, numStepsBeforeNotification=None, studentElements=None, lastFeedback=None, instructorElements=None, solution=None, numDetections=None, numSinceResolved=None, mistakeType=None):
+    def __init__(self, *, resolvedByStudent=None, timeToAddress=None, numStepsBeforeNotification=None, studentElements=None, lastFeedback=None, instructorElements=None, solution=None, numDetections=None, numSinceResolved=None, mistakeType=None):
         super().__init__()
-        if resolved is not None:
-            self.resolved = resolved
+        if resolvedByStudent is not None:
+            self.resolvedByStudent = resolvedByStudent
         if timeToAddress is not None:
             self.timeToAddress = timeToAddress
         if numStepsBeforeNotification is not None:
