@@ -2962,7 +2962,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
     var studentWheelClass = getClassFromClassDiagram("Wheel", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertMistake(studentSolution.getMistakes().get(2), INCOMPLETE_CONTAINMENT_TREE, List.of(studentCarClass, studentWheelClass),
         0, 1, false);
@@ -3023,48 +3023,47 @@ public class MistakeDetectionWrongRelationshipsTest {
   }
 
   /**
-  * Test to check Association class should be Regular Class.
-  */
- @Test
- public void testMistakeClassShouldBeAssocClass() {
-   var instructorClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_RegDriverClass/Class Diagram/Student_RegDriverClass.domain_model.cdm");
-   var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+   * Test to check Association class should be Regular Class.
+   */
+  @Test
+  public void testMistakeClassShouldBeAssocClass() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_RegDriverClass/Class Diagram/Student_RegDriverClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-   var studentClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_DriverAssocClass/Class Diagram/Student_DriverAssocClass.domain_model.cdm");
-   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_DriverAssocClass/Class Diagram/Student_DriverAssocClass.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-   var studDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
+    var studDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
 
-   var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-   assertEquals(4, comparison.newMistakes.size());
-   assertEquals(4, studentSolution.getMistakes().size());
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
 
-   assertMistake(studentSolution.getMistakes().get(0), ASSOC_CLASS_SHOULD_BE_CLASS, studDriverClass,
-     0, 1, false);
- }
+    assertMistake(studentSolution.getMistakes().get(0), ASSOC_CLASS_SHOULD_BE_CLASS, studDriverClass, 0, 1, false);
+  }
 
- /**
-  * Test to check Regular class should be Association Class.
-  */
- @Test
- public void testMistakeAssocClassShouldBeClass() {
-   var instructorClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_DriverAssocClass/Class Diagram/Student_DriverAssocClass.domain_model.cdm");
-   var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-   var studentClassDiagram = cdmFromFile(
-       "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_RegDriverClass/Class Diagram/Student_RegDriverClass.domain_model.cdm");
-   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+  /**
+   * Test to check Regular class should be Association Class.
+   */
+  @Test
+  public void testMistakeAssocClassShouldBeClass() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_DriverAssocClass/Class Diagram/Student_DriverAssocClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_RegDriverClass/Class Diagram/Student_RegDriverClass.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-   var studDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
+    var studDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
 
-   var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-   assertEquals(4, comparison.newMistakes.size());
-   assertEquals(4, studentSolution.getMistakes().size());
-   assertMistake(studentSolution.getMistakes().get(0), CLASS_SHOULD_BE_ASSOC_CLASS, studDriverClass,
-     0, 1, false);
- }
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(0), CLASS_SHOULD_BE_ASSOC_CLASS, studDriverClass, 0, 1, false);
+  }
+
 }

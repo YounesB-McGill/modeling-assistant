@@ -13,10 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.ECollections;
 import org.junit.jupiter.api.Test;
-import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.Attribute;
-import ca.mcgill.sel.classdiagram.CDEnum;
-import ca.mcgill.sel.classdiagram.CDEnumLiteral;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.classdiagram.NamedElement;
@@ -709,131 +706,7 @@ public class MistakeDetectionTest {
    * Function to print the mapped, unmapped classifier or attributes.
    */
   public static void log(Comparison comparison) {
-    System.out.println();
-    System.out.println("----Test Logger-----");
-    System.out.print("Not Mapped InstructorClassifier List : ");
-    for (Classifier c : comparison.notMappedInstructorClassifiers) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.print("Not Mapped extraStudentClassifier : ");
-    for (Classifier c : comparison.extraStudentClassifiers) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.println("Mapped Classifiers : ");
-    comparison.mappedClassifiers.forEach((key, value) -> System.out.println(key.getName() + " = " + value.getName()));
-    System.out.println();
-    System.out.print("Not Mapped InstructorAttribute List : ");
-    for (Attribute c : comparison.notMappedInstructorAttributes) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.print("Not Mapped extraStudentAttribute : ");
-    for (Attribute c : comparison.extraStudentAttributes) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.print("duplicate Attribute : ");
-    for (Attribute c : comparison.duplicateStudentAttributes) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.println("Mapped Attributes : ");
-    comparison.mappedAttributes.forEach((key, value) -> System.out.println(
-        key.getType().getClass() + " " + key.getName() + " = " + value.getType().getClass() + " " + value.getName()));
-
-    System.out.println();
-    System.out.print("Not Mapped Association : ");
-    for (Association assoc : comparison.notMappedInstructorAssociations) {
-      System.out.print(assoc.getName() + " ");
-    }
-
-    System.out.println();
-    System.out.print("Extra Association : ");
-    for (Association assoc : comparison.extraStudentAssociations) {
-      System.out.print(assoc.getName() + " ");
-    }
-    System.out.println();
-    System.out.println("Mapped Association : ");
-    comparison.mappedAssociations.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
-
-    System.out.println();
-    System.out.println("Mapped Enumerations : ");
-    comparison.mappedEnumerations.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
-
-    System.out.println();
-    System.out.print("Not Mapped Enumerations : ");
-    for (CDEnum c : comparison.notMappedInstructorEnums) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.print("Extra Enumeration : ");
-    for (CDEnum c : comparison.extraStudentEnums) {
-      System.out.print(c.getName() + " ");
-    }
-
-    System.out.println();
-    System.out.println("Mapped Enumerations items: ");
-    comparison.mappedEnumerationItems
-        .forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
-
-    System.out.println();
-    System.out.print("Not Mapped Enumerations items : ");
-    for (CDEnumLiteral c : comparison.notMappedInstructorEnumLiterals) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.print("Extra Enumeration items: ");
-    for (CDEnumLiteral c : comparison.extraStudentEnumLiterals) {
-      System.out.print(c.getName() + " ");
-    }
-
-    System.out.println();
-    System.out.println("Instructor Generalization tree: ");
-    comparison.instructorSuperclassesToSubclasses.forEach((key, value) -> {
-      System.out.println("Key = " + key.getName() +" abstract("+key.isAbstract()+")");
-      System.out.print("value = ");
-      value.forEach((c) -> {
-        System.out.print(c.getName() + " ; ");
-      });
-      System.out.println();
-      System.out.println("--");
-    });
-    System.out.println();
-    System.out.println("Student Generalization tree: ");
-    comparison.studentSuperclassesToSubclasses.forEach((key, value) -> {
-      System.out.println("Key = " + key.getName()+" abstract("+key.isAbstract()+")");
-      System.out.print("value = ");
-      value.forEach((c) -> {
-        System.out.print(c.getName() + " ; ");
-      });
-      System.out.println();
-      System.out.println("--");
-    });
-
-
-    System.out.println();
-    System.out.println("Mistakes : ");
-    comparison.newMistakes.forEach(m -> {
-      if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
-        System.out.print(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements : ");
-        m.getInstructorElements().forEach(ie -> System.out.print(ie.getElement().getName() + " "));
-        System.out.print(" student Elements :");
-        m.getStudentElements().forEach(se -> System.out.print(se.getElement().getName() + " "));
-        System.out.println();
-      } else if (!m.getInstructorElements().isEmpty()) {
-        System.out.print(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements : ");
-        m.getInstructorElements().forEach(ie -> System.out.print(ie.getElement().getName() + " "));
-        System.out.println();
-      } else if (!m.getStudentElements().isEmpty()) {
-        System.out.print(" ' " + m.getMistakeType().getName() + " ' " + " Stud Elements : ");
-        m.getStudentElements().forEach(se -> System.out.print(se.getElement().getName() + " "));
-        System.out.println();
-      } else {
-        System.out.println(" ' " + m.getMistakeType().getName() + " ' ");
-      }
-    });
+    comparison.log();
   }
 
 }
