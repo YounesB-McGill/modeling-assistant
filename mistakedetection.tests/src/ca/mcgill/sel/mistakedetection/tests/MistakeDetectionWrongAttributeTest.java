@@ -41,7 +41,7 @@ public class MistakeDetectionWrongAttributeTest {
         "../mistakedetection/testModels/StudentSolution/two(withAttribute)/Class Diagram/Two(withAttribute).domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -70,7 +70,7 @@ public class MistakeDetectionWrongAttributeTest {
     var studentDriverClassAttributeNme = getAttributeFromDiagram("Driver", "nme", studentCdm);
     var studentPassengerClassAttributeNam = getAttributeFromDiagram("Passenger", "nam", studentCdm);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.newMistakes.size(), 5);
     assertEquals(studentSolution.getMistakes().size(), 5);
@@ -104,7 +104,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorBusClassAttributeNumberPlate = getAttributeFromClass("numberPlate", instructorBusClass);
     var instructorDriverClassAttributeName = getAttributeFromClass("name", instructorDriverClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.newMistakes.size(), 3);
     assertEquals(studentSolution.getMistakes().size(), 3);
@@ -131,13 +131,12 @@ public class MistakeDetectionWrongAttributeTest {
 
     var studentDateOfBirthAttribute = getAttributeFromClass("dateOfBirth", studentPersonClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ATTRIBUTE, studentDateOfBirthAttribute, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ATTRIBUTE, studentDateOfBirthAttribute, 0, 1, false);
   }
 
   /**
@@ -157,7 +156,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     var instructorNameAttribute = getAttributeFromClass("name", instructorPersonClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -180,7 +179,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     var instructorCodeAttribute = getAttributeFromDiagram("Airport", "code", instructorClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -205,7 +204,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     var instructorCompanyAttribute = getAttributeFromClass("company", instructorAirplaneClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -230,7 +229,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     var instructornameAttribute = getAttributeFromClass("name", instructorCityClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -255,10 +254,10 @@ public class MistakeDetectionWrongAttributeTest {
 
     var instructornameAttribute = getAttributeFromClass("name", instructorPilotClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(1, comparison.newMistakes.size());
-    assertEquals(1, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructornameAttribute, 0, 1, false);
   }
@@ -280,10 +279,10 @@ public class MistakeDetectionWrongAttributeTest {
 
     var instructorticketNoAttribute = getAttributeFromClass("ticketNo", instructorPassengerClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(1, comparison.newMistakes.size());
-    assertEquals(1, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructorticketNoAttribute, 0, 1, false);
   }
@@ -305,7 +304,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     var instructorflightNoAttribute = getAttributeFromClass("flightNo", instructorAirplaneClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -330,7 +329,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     var studentnameAttribute = getAttributeFromClass("name", studentPilotClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -355,7 +354,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     var studentCapacityAttribute = getAttributeFromClass("capacity", studentAirportClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -380,7 +379,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     var studentCrewCapAttribute = getAttributeFromClass("crewCap", studentAirplaneClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -405,13 +404,12 @@ public class MistakeDetectionWrongAttributeTest {
 
     var studentDateOfBirthAttribute = getAttributeFromClass("dateOfBirth", studentPersonClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ATTRIBUTE, studentDateOfBirthAttribute, 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ATTRIBUTE, studentDateOfBirthAttribute, 0, 1, false);
   }
 
   /**
@@ -431,7 +429,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     var studentNameAttribute = getAttributeFromClass("name", studentPassengerClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -456,7 +454,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     var studentPinCodeAttribute = getAttributeFromClass("pinCode", studentCityClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -481,7 +479,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     var studentRankAttribute = getAttributeFromClass("rank", studentPilotClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -506,7 +504,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     var studenttypeAttribute = getAttributeFromClass("type", studentCarClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -533,7 +531,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructornameAttribute = getAttributeFromClass("name", instructorPersonClass);
     var studentnamesAttribute = getAttributeFromClass("names", studentPersonClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -561,7 +559,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorNameAttribute = getAttributeFromClass("destination", instructorFlightClass);
     var studentNamesAttribute = getAttributeFromClass("destinations", studentFlightClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -589,7 +587,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCodeAttribute = getAttributeFromClass("code", instructorAirportClass);
     var studentCodesAttribute = getAttributeFromClass("codes", studentAirportClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -617,7 +615,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCompanyAttribute = getAttributeFromClass("company", instructorAirplaneClass);
     var studentCompaniesAttribute = getAttributeFromClass("companies", studentAirplaneClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -645,7 +643,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorFlightNoAttribute = getAttributeFromClass("flightNo", instructorAirplaneClass);
     var studentFlightNumbersAttribute = getAttributeFromClass("flightNumbers", studentAirplaneClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -673,7 +671,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorNameAttribute = getAttributeFromClass("name", instructorCityClass);
     var studentNamesAttribute = getAttributeFromClass("names", studentCityClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -701,7 +699,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorNameAttribute = getAttributeFromClass("name", instructorPilotClass);
     var studentNamesAttribute = getAttributeFromClass("names", studentPilotClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -729,7 +727,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorTicketNoAttribute = getAttributeFromClass("ticketNo", instructorPassengerClass);
     var studentTicketNosAttribute = getAttributeFromClass("ticketNos", studentPassengerClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -757,7 +755,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCodeAttribute = getAttributeFromClass("code", instructorAirportClass);
     var studentCodeAttribute = getAttributeFromClass("Code", studentAirportClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -785,7 +783,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCompanyAttribute = getAttributeFromClass("company", instructorAirplaneClass);
     var studentCompanyAttribute = getAttributeFromClass("Company", studentAirplaneClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -813,7 +811,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorFlightNoAttribute = getAttributeFromClass("flightNo", instructorAirplaneClass);
     var studentFlightNoAttribute = getAttributeFromClass("FlightNo", studentAirplaneClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -841,7 +839,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorNameAttribute = getAttributeFromClass("name", instructorCityClass);
     var studentNameAttribute = getAttributeFromClass("Name", studentCityClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -869,7 +867,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorNameAttribute = getAttributeFromClass("name", instructorPilotClass);
     var studentNameAttribute = getAttributeFromClass("Name", studentPilotClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -897,7 +895,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorTicketNoAttribute = getAttributeFromClass("ticketNo", instructorPassengerClass);
     var studentTicketNoAttribute = getAttributeFromClass("TicketNo", studentPassengerClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -925,7 +923,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCodeAttribute = getAttributeFromClass("code", instructorAirportClass);
     var studentCodeAttribute = getAttributeFromClass("code", studentAirportClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -953,7 +951,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCompanyAttribute = getAttributeFromClass("company", instructorAirplaneClass);
     var studentCompanyAttribute = getAttributeFromClass("company", studentAirplaneClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -981,7 +979,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorFlightNoAttribute = getAttributeFromClass("flightNo", instructorAirplaneClass);
     var studentFlightNoAttribute = getAttributeFromClass("flightNo", studentAirplaneClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1009,7 +1007,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorNameAttribute = getAttributeFromClass("name", instructorCityClass);
     var studentNameAttribute = getAttributeFromClass("name", studentCityClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1037,7 +1035,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorNameAttribute = getAttributeFromClass("name", instructorPilotClass);
     var studentNameAttribute = getAttributeFromClass("name", studentPilotClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1065,7 +1063,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorTicketNoAttribute = getAttributeFromClass("ticketNo", instructorPassengerClass);
     var studentTicketNoAttribute = getAttributeFromClass("ticketNo", studentPassengerClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1093,7 +1091,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCodeAttribute = getAttributeFromClass("code", instructorAirportClass);
     var studentCodeAttribute = getAttributeFromClass("code", studentAirportClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1121,7 +1119,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCompanyAttribute = getAttributeFromClass("company", instructorAirplaneClass);
     var studentCompanyAttribute = getAttributeFromClass("company", studentAirplaneClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1149,7 +1147,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorFlightNoAttribute = getAttributeFromClass("flightNo", instructorAirplaneClass);
     var studentFlightNoAttribute = getAttributeFromClass("flightNo", studentAirplaneClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1177,7 +1175,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorNameAttribute = getAttributeFromClass("name", instructorCityClass);
     var studentNameAttribute = getAttributeFromClass("name", studentCityClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1205,7 +1203,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorNameAttribute = getAttributeFromClass("name", instructorPilotClass);
     var studentNameAttribute = getAttributeFromClass("name", studentPilotClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1233,7 +1231,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorTicketNoAttribute = getAttributeFromClass("ticketNo", instructorPassengerClass);
     var studentTicketNoAttribute = getAttributeFromClass("ticketNo", studentPassengerClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1261,7 +1259,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCodeAttribute = getAttributeFromClass("code", instructorAirportClass);
     var studentCodeAttribute = getAttributeFromClass("code", studentAirportClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1289,7 +1287,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCompanyAttribute = getAttributeFromClass("company", instructorAirplaneClass);
     var studentCompanyAttribute = getAttributeFromClass("company", studentAirplaneClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1317,7 +1315,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorFlightNoAttribute = getAttributeFromClass("flightNo", instructorAirplaneClass);
     var studentFlightNoAttribute = getAttributeFromClass("flightNo", studentAirplaneClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1345,7 +1343,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorNameAttribute = getAttributeFromClass("name", instructorCityClass);
     var studentNameAttribute = getAttributeFromClass("name", studentCityClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1373,7 +1371,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorNameAttribute = getAttributeFromClass("name", instructorPilotClass);
     var studentNameAttribute = getAttributeFromClass("name", studentPilotClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1401,7 +1399,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorTicketNoAttribute = getAttributeFromClass("ticketNo", instructorPassengerClass);
     var studentTicketNoAttribute = getAttributeFromClass("ticketNo", studentPassengerClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1430,7 +1428,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorcolorAttribute = getAttributeFromClass("color", instructorCarClass);
     var studentcolerAttribute = getAttributeFromClass("coler", studentCarClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1458,7 +1456,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorpriceAttribute = getAttributeFromClass("price", instructorCarClass);
     var studentpriseAttribute = getAttributeFromClass("prise", studentCarClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1486,7 +1484,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCodeAttribute = getAttributeFromClass("code", instructorAirportClass);
     var studentCodeAttribute = getAttributeFromClass("codee", studentAirportClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1514,7 +1512,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorCompanyAttribute = getAttributeFromClass("company", instructorAirplaneClass);
     var studentComponyAttribute = getAttributeFromClass("compony", studentAirplaneClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1542,7 +1540,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorFlightNoAttribute = getAttributeFromClass("flightNo", instructorAirplaneClass);
     var studentFlightNumberAttribute = getAttributeFromClass("flightNunber", studentAirplaneClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1570,7 +1568,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorNameAttribute = getAttributeFromClass("name", instructorCityClass);
     var studentNamAttribute = getAttributeFromClass("nam", studentCityClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1590,7 +1588,7 @@ public class MistakeDetectionWrongAttributeTest {
     var studentSol = studentSolutionFromClassDiagram(cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_wrongAtribNamePilot/Class Diagram/Student_AirportSystem.domain_model.cdm"));
 
-    var comparison = MistakeDetection.compare(instructorSol, studentSol);
+    var comparison = MistakeDetection.compare(instructorSol, studentSol, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSol.getMistakes().size());
@@ -1609,7 +1607,7 @@ public class MistakeDetectionWrongAttributeTest {
     var studentSolution = studentSolutionFromClassDiagram(cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_AirportSystem_wrongAtribTicketNoPassenger/Class Diagram/Student_AirportSystem.domain_model.cdm"));
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1648,7 +1646,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructortypeAttribute = getAttributeFromClass("type", instructorCarClass);
     var studentkindAttribute = getAttributeFromClass("kind", studentCarClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1677,7 +1675,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorpriceAttribute = getAttributeFromClass("price", instructorCarClass);
     var studentcostAttribute = getAttributeFromClass("cost", studentCarClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1706,7 +1704,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorGenderAttribute = getAttributeFromClass("Gender", instructorPilotClass);
     var studentGenderAttribute = getAttributeFromClass("Gender", studentPilotClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1735,7 +1733,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructorcapacityAttribute = getAttributeFromClass("capacity", instructorBusClass);
     var studentcapacityAttribute = getAttributeFromClass("capacity", studentCarClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1764,7 +1762,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructortypeAttribute = getAttributeFromClass("type", instructorProductClass);
     var studenttypeAttribute = getAttributeFromClass("type", studentOrderClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1792,7 +1790,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructortypeAttribute = getAttributeFromClass("type", instructorCarClass);
     var studenttypeAttribute = getAttributeFromClass("type", studentCarClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1820,7 +1818,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructordestinationAttribute = getAttributeFromClass("destination", instructorFlightClass);
     var studentdestinationAttribute = getAttributeFromClass("destination", studentFlightClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1848,7 +1846,7 @@ public class MistakeDetectionWrongAttributeTest {
     var instructoraddAttribute = getAttributeFromClass("address", instructorSTUClass);
     var studentaddAttribute = getAttributeFromClass("address", studentSTUClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1875,7 +1873,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     var studentpriceAttribute = getAttributeFromClass("price", studentWhitechoClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -1901,7 +1899,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     var studentnameAttribute = getAttributeFromClass("name", studentCatClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());

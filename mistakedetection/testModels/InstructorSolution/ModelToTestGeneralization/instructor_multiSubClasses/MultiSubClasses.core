@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_z6cagDzNEeymDNMMtrXqsg" name="MultiSubClasses" featureModel="_z6cagTzNEeymDNMMtrXqsg" impactModel="_z6cagzzNEeymDNMMtrXqsg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_z6cagTzNEeymDNMMtrXqsg" root="_z6cagjzNEeymDNMMtrXqsg">
+    <features xmi:id="_z6cagjzNEeymDNMMtrXqsg" name="MultiSubClasses" realizedBy="_0r00ITzNEeymDNMMtrXqsg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_z6cagzzNEeymDNMMtrXqsg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_0r00IDzNEeymDNMMtrXqsg" name="MultiSubClasses" scene="_0r00ITzNEeymDNMMtrXqsg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/MultiSubClasses.domain_model.cdm#_0r1bMDzNEeymDNMMtrXqsg"/>
+  </artefacts>
+  <scenes xmi:id="_0r00ITzNEeymDNMMtrXqsg" name="MultiSubClasses" realizes="_z6cagjzNEeymDNMMtrXqsg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_0r00IjzNEeymDNMMtrXqsg" value="_0r00IDzNEeymDNMMtrXqsg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_0r1bMDzNEeymDNMMtrXqsg" name="MultiSubClasses">
+  <classes xsi:type="classdiagram:Class" xmi:id="_1G4_gDzNEeymDNMMtrXqsg" name="Root">
+    <associationEnds xmi:id="_2fkpsTzNEeymDNMMtrXqsg" name="myCar" assoc="_2fkpsjzNEeymDNMMtrXqsg" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_1wTv8DzNEeymDNMMtrXqsg" name="Car">
+    <associationEnds xmi:id="_2fkpsDzNEeymDNMMtrXqsg" name="myRoot" assoc="_2fkpsjzNEeymDNMMtrXqsg" lowerBound="1"/>
+    <attributes xmi:id="_4J4PYDzNEeymDNMMtrXqsg" name="companyName" type="_0r1bNzzNEeymDNMMtrXqsg"/>
+    <attributes xmi:id="_5HypIDzNEeymDNMMtrXqsg" name="model" type="_0r1bNzzNEeymDNMMtrXqsg"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_5xZm0DzNEeymDNMMtrXqsg" name="HondaCity" superTypes="_1wTv8DzNEeymDNMMtrXqsg">
+    <attributes xmi:id="_8CeRkDzNEeymDNMMtrXqsg" name="hasSunRoof" type="_0r1bMzzNEeymDNMMtrXqsg"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_9YaJwDzNEeymDNMMtrXqsg" name="TATAManza" superTypes="_1wTv8DzNEeymDNMMtrXqsg"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="__dj4YDzNEeymDNMMtrXqsg" name="TATAManzaModel2" superTypes="_9YaJwDzNEeymDNMMtrXqsg"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_EGdWIDzOEeymDNMMtrXqsg" name="TATAManzaModel4" superTypes="__dj4YDzNEeymDNMMtrXqsg"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_RnTE8DzOEeymDNMMtrXqsg" name="TATAManzaModel3" superTypes="_9YaJwDzNEeymDNMMtrXqsg"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_W6Vr4DzOEeymDNMMtrXqsg" name="TATAManzaModel5" superTypes="_RnTE8DzOEeymDNMMtrXqsg"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_jE_D0DzOEeymDNMMtrXqsg" name="TeslaModel3" superTypes="_1wTv8DzNEeymDNMMtrXqsg"/>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_0r1bMTzNEeymDNMMtrXqsg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_0r1bMjzNEeymDNMMtrXqsg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_0r1bMzzNEeymDNMMtrXqsg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_0r1bNDzNEeymDNMMtrXqsg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_0r1bNTzNEeymDNMMtrXqsg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_0r1bNjzNEeymDNMMtrXqsg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_0r1bNzzNEeymDNMMtrXqsg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_0r1bODzNEeymDNMMtrXqsg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_0r1bOTzNEeymDNMMtrXqsg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_0r1bOjzNEeymDNMMtrXqsg"/>
+  <associations xmi:id="_2fkpsjzNEeymDNMMtrXqsg" name="Car_Root" ends="_2fkpsDzNEeymDNMMtrXqsg _2fkpsTzNEeymDNMMtrXqsg"/>
+  <layout xmi:id="_0r1bOzzNEeymDNMMtrXqsg">
+    <containers xmi:id="_0r1bPDzNEeymDNMMtrXqsg" key="_0r1bMDzNEeymDNMMtrXqsg">
+      <value xmi:id="_1G5mkDzNEeymDNMMtrXqsg" key="_1G4_gDzNEeymDNMMtrXqsg">
+        <value xmi:id="_1G5mkTzNEeymDNMMtrXqsg" x="782.0" y="169.0"/>
+      </value>
+      <value xmi:id="_1wUXADzNEeymDNMMtrXqsg" key="_1wTv8DzNEeymDNMMtrXqsg">
+        <value xmi:id="_1wUXATzNEeymDNMMtrXqsg" x="782.0" y="370.00012"/>
+      </value>
+      <value xmi:id="_5xa08DzNEeymDNMMtrXqsg" key="_5xZm0DzNEeymDNMMtrXqsg">
+        <value xmi:id="_5xa08TzNEeymDNMMtrXqsg" x="546.0001" y="623.0002"/>
+      </value>
+      <value xmi:id="_9Yaw0DzNEeymDNMMtrXqsg" key="_9YaJwDzNEeymDNMMtrXqsg">
+        <value xmi:id="_9Yaw0TzNEeymDNMMtrXqsg" x="969.00024" y="638.0002"/>
+      </value>
+      <value xmi:id="__dkfcDzNEeymDNMMtrXqsg" key="__dj4YDzNEeymDNMMtrXqsg">
+        <value xmi:id="__dkfcTzNEeymDNMMtrXqsg" x="945.50024" y="859.00037"/>
+      </value>
+      <value xmi:id="_EGdWITzOEeymDNMMtrXqsg" key="_EGdWIDzOEeymDNMMtrXqsg">
+        <value xmi:id="_EGdWIjzOEeymDNMMtrXqsg" x="945.46606" y="1035.7424"/>
+      </value>
+      <value xmi:id="_RnTsADzOEeymDNMMtrXqsg" key="_RnTE8DzOEeymDNMMtrXqsg">
+        <value xmi:id="_RnTsATzOEeymDNMMtrXqsg" x="1246.2578" y="859.00037"/>
+      </value>
+      <value xmi:id="_W6W6ADzOEeymDNMMtrXqsg" key="_W6Vr4DzOEeymDNMMtrXqsg">
+        <value xmi:id="_W6W6ATzOEeymDNMMtrXqsg" x="1246.2578" y="1035.7424"/>
+      </value>
+      <value xmi:id="_jE_q4DzOEeymDNMMtrXqsg" key="_jE_D0DzOEeymDNMMtrXqsg">
+        <value xmi:id="_jE_q4TzOEeymDNMMtrXqsg" x="180.51552" y="638.0002"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
