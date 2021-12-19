@@ -133,7 +133,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//StudentKnowledge/mistakeType"/>
     </genClasses>
     <genClasses ecoreClass="modelingassistant.ecore#//Mistake">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Mistake/resolved"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Mistake/resolvedByStudent"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Mistake/timeToAddress"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelingassistant.ecore#//Mistake/numStepsBeforeNotification"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference modelingassistant.ecore#//Mistake/studentElements"/>

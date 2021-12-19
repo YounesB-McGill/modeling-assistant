@@ -30,7 +30,7 @@ public class MistakeDetectionEnumTest {
     var instructorEnrollmentEnum = getEnumFromClassDiagram("Enrollment", instructorClassDiagram);
     var studentEnrollmentEnum = getEnumFromClassDiagram("Enrollmnt", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -54,7 +54,7 @@ public class MistakeDetectionEnumTest {
     var instructorEnrollmentEnum = getEnumFromClassDiagram("Enrollment", instructorClassDiagram);
     var studentEnrollmentEnum = getEnumFromClassDiagram("Enrollmant", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -81,7 +81,7 @@ public class MistakeDetectionEnumTest {
     var instructorEnrollmentLiteral = getEnumLiteralFromEnum("FullTimeStudent", instructorEnrollmentEnum);
     var studentEnrollmentLiteral = getEnumLiteralFromEnum("FulTimeStudent", studentEnrollmentEnum);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -108,7 +108,7 @@ public class MistakeDetectionEnumTest {
     var instructorEnrollmentLiteral = getEnumLiteralFromEnum("PartTimeStudent", instructorEnrollmentEnum);
     var studentEnrollmentLiteral = getEnumLiteralFromEnum("PartTimeStudant", studentEnrollmentEnum);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -135,7 +135,7 @@ public class MistakeDetectionEnumTest {
     var instructorEnrollmentLiteral = getEnumLiteralFromEnum("GuestStudent", instructorEnrollmentEnum);
     var studentEnrollmentLiteral = getEnumLiteralFromEnum("GustStudent", studentEnrollmentEnum);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
@@ -162,7 +162,7 @@ public class MistakeDetectionEnumTest {
     var instructorEnrollmentLiteral = getEnumLiteralFromEnum("ExchangeStudent", instructorEnrollmentEnum);
     var studentEnrollmentLiteral = getEnumLiteralFromEnum("EchangeStudent", studentEnrollmentEnum);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());

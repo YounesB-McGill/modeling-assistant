@@ -1,9 +1,9 @@
 package ca.mcgill.sel.mistakedetection;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.CDEnum;
@@ -19,42 +19,155 @@ public class Comparison {
   // TODO Refactor lists and hashmaps
 
   /** Maps an instructor solution classifier to student solution classifier. */
-  public Map<Classifier, Classifier> mappedClassifier = new HashMap<Classifier, Classifier>();
+  public Map<Classifier, Classifier> mappedClassifiers = new HashMap<>();
 
   /** Maps an instructor solution classifier attribute to student solution classifier attribute. */
-  public Map<Attribute, Attribute> mappedAttribute = new HashMap<Attribute, Attribute>();
+  public Map<Attribute, Attribute> mappedAttributes = new HashMap<>();
 
   /** Maps an instructor solution classifier relation to student solution classifier relation. */
-  public Map<Association, Association> mappedAssociation = new HashMap<Association, Association>();
+  public Map<Association, Association> mappedAssociations = new HashMap<>();
 
   /** Maps an instructor solution enumeration relation to student solution enumeration. */
-  public Map<CDEnum, CDEnum> mappedEnumeration = new HashMap<CDEnum, CDEnum>();
+  public Map<CDEnum, CDEnum> mappedEnumerations = new HashMap<>();
 
   /** Maps an instructor solution enumeration item relation to student solution enumeration item. */
-  public Map<CDEnumLiteral, CDEnumLiteral> mappedEnumerationItems = new HashMap<CDEnumLiteral, CDEnumLiteral>();
+  public Map<CDEnumLiteral, CDEnumLiteral> mappedEnumerationItems = new HashMap<>();
 
-  public EList<Classifier> notMappedInstructorClassifier = new BasicEList<Classifier>();
-  public EList<Classifier> extraStudentClassifier = new BasicEList<Classifier>();
+  /** Maps each instructor superclass to its subclasses, forming a generalization tree. */
+  public Map<Classifier, List<Classifier>> instructorSuperclassesToSubclasses = new HashMap<>();
 
-  public EList<Attribute> notMappedInstructorAttribute = new BasicEList<Attribute>();
-  public EList<Attribute> extraStudentAttribute = new BasicEList<Attribute>();
-  public EList<Attribute> duplicateStudentAttribute = new BasicEList<Attribute>();
+  /** Maps each instructor superclass to its subclasses, forming a generalization tree. */
+  public Map<Classifier, List<Classifier>> studentSuperclassesToSubclasses = new HashMap<>();
 
-  public EList<Association> notMappedInstructorAssociation = new BasicEList<Association>();
-  public EList<Association> extraStudentAssociation = new BasicEList<Association>();
+  public List<Classifier> notMappedInstructorClassifiers = new ArrayList<>();
+  public List<Classifier> extraStudentClassifiers = new ArrayList<>();
 
-  public EList<CDEnum> notMappedInstructorEnum= new BasicEList<CDEnum>();
-  public EList<CDEnum> extraStudentEnum = new BasicEList<CDEnum>();
+  public List<Attribute> notMappedInstructorAttributes = new ArrayList<>();
+  public List<Attribute> extraStudentAttributes = new ArrayList<>();
+  public List<Attribute> duplicateStudentAttributes = new ArrayList<>();
 
-  public EList<CDEnumLiteral> notMappedInstructorEnumLiterals = new BasicEList<CDEnumLiteral>();
-  public EList<CDEnumLiteral> extraStudentEnumLiterals = new BasicEList<CDEnumLiteral>();
+  public List<Association> notMappedInstructorAssociations = new ArrayList<>();
+  public List<Association> extraStudentAssociations = new ArrayList<>();
 
-  public EList<Mistake> newMistakes = new BasicEList<Mistake>();
+  public List<CDEnum> notMappedInstructorEnums = new ArrayList<>();
+  public List<CDEnum> extraStudentEnums = new ArrayList<>();
+
+  public List<CDEnumLiteral> notMappedInstructorEnumLiterals = new ArrayList<>();
+  public List<CDEnumLiteral> extraStudentEnumLiterals = new ArrayList<>();
+
+  public List<Mistake> newMistakes = new ArrayList<>();
 
   /** List to store association classes to remove from mapped classes. */
-  public EList<Classifier> assocClassifiersToRemove = new BasicEList<Classifier>();
+  public List<Classifier> assocClassifiersToRemove = new ArrayList<>();
 
   /** Map stores possible instructor student Association Class pair that are detected after initial class mapping. */
-  public Map<Classifier, Classifier> assocClassMappingToAdd = new HashMap<Classifier, Classifier>();
+  public Map<Classifier, Classifier> assocClassMappingToAdd = new HashMap<>();
+
+  /**
+   * Function to print the mapped, unmapped classifier or attributes.
+   */
+  public void log() {
+    System.out.println();
+    System.out.println("----Test Logger-----");
+    System.out.print("Not Mapped InstructorClassifier List : ");
+    for (Classifier c : notMappedInstructorClassifiers) {
+      System.out.print(c.getName() + " ");
+    }
+    System.out.println();
+    System.out.print("Not Mapped extraStudentClassifier : ");
+    for (Classifier c : extraStudentClassifiers) {
+      System.out.print(c.getName() + " ");
+    }
+    System.out.println();
+    System.out.println("Mapped Classifiers : ");
+    mappedClassifiers.forEach((key, value) -> System.out.println(key.getName() + " = " + value.getName()));
+    System.out.println();
+    System.out.print("Not Mapped InstructorAttribute List : ");
+    for (Attribute c : notMappedInstructorAttributes) {
+      System.out.print(c.getName() + " ");
+    }
+    System.out.println();
+    System.out.print("Not Mapped extraStudentAttribute : ");
+    for (Attribute c : extraStudentAttributes) {
+      System.out.print(c.getName() + " ");
+    }
+    System.out.println();
+    System.out.print("duplicate Attribute : ");
+    for (Attribute c : duplicateStudentAttributes) {
+      System.out.print(c.getName() + " ");
+    }
+    System.out.println();
+    System.out.println("Mapped Attributes : ");
+    mappedAttributes.forEach((key, value) -> System.out.println(
+        key.getType().getClass() + " " + key.getName() + " = " + value.getType().getClass() + " " + value.getName()));
+
+    System.out.println();
+    System.out.print("Not Mapped Association : ");
+    for (Association assoc : notMappedInstructorAssociations) {
+      System.out.print(assoc.getName() + " ");
+    }
+
+    System.out.println();
+    System.out.print("Extra Association : ");
+    for (Association assoc : extraStudentAssociations) {
+      System.out.print(assoc.getName() + " ");
+    }
+    System.out.println();
+    System.out.println("Mapped Association : ");
+    mappedAssociations.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
+
+    System.out.println();
+    System.out.println("Mapped Enumerations : ");
+    mappedEnumerations.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
+
+    System.out.println();
+    System.out.print("Not Mapped Enumerations : ");
+    for (CDEnum c : notMappedInstructorEnums) {
+      System.out.print(c.getName() + " ");
+    }
+    System.out.println();
+    System.out.print("Extra Enumeration : ");
+    for (CDEnum c : extraStudentEnums) {
+      System.out.print(c.getName() + " ");
+    }
+
+    System.out.println();
+    System.out.println("Mapped Enumerations items: ");
+    mappedEnumerationItems
+        .forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
+
+    System.out.println();
+    System.out.print("Not Mapped Enumerations items : ");
+    for (CDEnumLiteral c : notMappedInstructorEnumLiterals) {
+      System.out.print(c.getName() + " ");
+    }
+    System.out.println();
+    System.out.print("Extra Enumeration items: ");
+    for (CDEnumLiteral c : extraStudentEnumLiterals) {
+      System.out.print(c.getName() + " ");
+    }
+
+    System.out.println();
+    System.out.println("Mistakes : ");
+    newMistakes.forEach(m -> {
+      if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
+        System.out.print(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements : ");
+        m.getInstructorElements().forEach(ie -> System.out.print(ie.getElement().getName() + " "));
+        System.out.print(" student Elements :");
+        m.getStudentElements().forEach(se -> System.out.print(se.getElement().getName() + " "));
+        System.out.println();
+      } else if (!m.getInstructorElements().isEmpty()) {
+        System.out.print(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements : ");
+        m.getInstructorElements().forEach(ie -> System.out.print(ie.getElement().getName() + " "));
+        System.out.println();
+      } else if (!m.getStudentElements().isEmpty()) {
+        System.out.print(" ' " + m.getMistakeType().getName() + " ' " + " Stud Elements : ");
+        m.getStudentElements().forEach(se -> System.out.print(se.getElement().getName() + " "));
+        System.out.println();
+      } else {
+        System.out.println(" ' " + m.getMistakeType().getName() + " ' ");
+      }
+    });
+  }
 
 }

@@ -9,7 +9,7 @@
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_16.0.1.v20210528-1205/jre/lib/jrt-fs.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.runtime_3.22.0.v20210506-1025.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.osgi_3.16.300.v20210525-1715.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.fx.osgi_3.7.0.202010120720.jar"/>
+    	<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.fx.osgi_3.7.0.202010120720.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.osgi.compatibility.state_1.2.400.v20210401-1438.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.common_3.15.0.v20210518-0604.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.jobs_3.11.0.v20210420-1453.jar"/>
@@ -31,11 +31,6 @@
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.codegen.ecore_2.26.0.v20210506-1425.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.codegen_2.22.0.v20210420-0623.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/com.google.guava_30.1.0.v20210127-2300.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.ocl.pivot_1.15.0.v20210609-1442.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.jdt.annotation_2.2.600.v20200408-1511.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.edit_2.16.0.v20190920-0401.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.ecore.change_2.14.0.v20190528-0725.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.ocl.examples.codegen_2.15.0.v20210609-1442.jar"/>
     </path>
 
     <path id="modelingassistant.learningcorpus.dsl.transformation.classpath">
