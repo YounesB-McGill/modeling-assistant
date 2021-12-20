@@ -322,10 +322,7 @@ public class MistakeDetectionTest {
 
     var studentSolution = studentSolutionFromClassDiagram(modelingAssistant, studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-    // Uncomment this line to debug
-    //log(comparison);
+    MistakeDetection.compare(instructorSolution, studentSolution);
 
     assertTrue(studentSolution.getMistakes().stream().anyMatch(m -> m.getMistakeType() == MISSING_CLASS));
   }

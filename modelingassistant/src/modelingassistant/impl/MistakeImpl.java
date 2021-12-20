@@ -2,32 +2,27 @@
  */
 package modelingassistant.impl;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.sql.Time;
-
+import java.time.LocalTime;
 import java.util.Collection;
-
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.InternalEList;
 import learningcorpus.MistakeType;
-
 import modelingassistant.FeedbackItem;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
-
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -199,6 +194,25 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
    */
   protected MistakeImpl() {
     super();
+
+    // TODO these lines are here for debugging ONLY - remove before merging!
+    setTimeToAddress(Time.valueOf(LocalTime.now()));
+
+    var source = "Unknown";
+    try {
+      throw null;
+    } catch (Exception e) {
+      // who created the mistake?
+      var sw = new StringWriter();
+      e.printStackTrace(new PrintWriter(sw));
+      var eStr = sw.toString();
+      if (eStr.contains("MistakeDetection.java")) {
+        source = "MistakeDetection";
+      } else if (eStr.contains("XMLHandler.java")) {
+        source = "ECORE_XMI";
+      }
+    }
+    System.out.println(source + ": Creating mistake " + this);
   }
 
   /**
