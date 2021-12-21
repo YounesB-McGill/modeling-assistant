@@ -3142,7 +3142,21 @@ public class MistakeDetectionWrongRelationshipsTest {
       });
       System.out.println();
 
+      var badMistake = oldMistakes.get(0);
+
+      final var iS = instructorSolution;
+      final var sS = studentSolution;
+      var compareThread = new Thread(() -> MistakeDetection.compare(iS, sS));
+      //compareThread.start();
+
       comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+      while(badMistake.eResource() != null);
+
+//      for (var e: compareThread.getStackTrace()) {
+//        System.out.println(e);
+//      }
+
       assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, INCOMPLETE_CONTAINMENT_TREE);
 
       System.out.println("\nOld mistakes:");
