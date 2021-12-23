@@ -65,7 +65,7 @@ def customize_generated_code():
         if not _isinstance(value, etype):
             if (etype in (EPackage, EClassifier, EString)  # everything can be represented as one of them, so accept all
                 or isinstance(value, EProxy)  # proxy should be resolved to actual value, so don't crash here
-                or value.eClass.name == etype.name):  # allow static/dynamic classes to be used interchangeably
+                or value.eClass.name == etype.__name__):  # allow static/dynamic classes to be used interchangeably
                 return True
             # if value instance of etype, return True
             for _module in [classdiagram, learningcorpus, __import__(__name__)]:  # import modelingassistant

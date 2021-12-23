@@ -1653,8 +1653,7 @@ public class MistakeDetection {
             existingMistake.getStudentElements().clear();
             // Remove dead mistake from student solution
             existingMistake.getSolution().getMistakes().remove(existingMistake);
-            existingMistake
-                .setLastFeedback(null);
+            existingMistake.setLastFeedback(null);
             existingMistake.setSolution(null);
           }
         }

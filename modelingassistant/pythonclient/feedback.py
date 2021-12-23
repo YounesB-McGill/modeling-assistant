@@ -164,8 +164,9 @@ def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: 
     #     ma.classDiagramsToSolutions = cdms2sols
     if not use_local_ma:
         MODELING_ASSISTANT = ma
-    print(student_solution.mistakes, id(ma))
-    fb_s = give_feedback(ma.students[0].solutions[0])
+    student_solution = next(sol for sol in ma.solutions if sol.student)
+    print([m.mistakeType.name for m in student_solution.mistakes], id(ma))
+    fb_s = give_feedback(student_solution)
     #fb = fb_s if isinstance(fb_s, FeedbackItem) else fb_s[0]  # only one feedback item for now
 
     if isinstance(fb_s, FeedbackItem):
@@ -173,11 +174,11 @@ def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: 
     else:
         for f in fb_s:
             print(f.mistake.mistakeType.name)
-            if "class" in f.mistake.mistakeType.name.lower():
-                fb = f
-                break
+            #if "class" in f.mistake.mistakeType.name.lower():
+            fb = f
+            break
         else:
-            print("No feedback with class mistake")
+            print("No valid feedbacks found")
             fb = None
 
     print("2 >", fb, fb.mistake, fb.text, fb.feedback, fb.feedback.level, fb.feedback.text)

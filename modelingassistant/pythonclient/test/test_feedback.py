@@ -21,7 +21,8 @@ from classdiagram import Class, ClassDiagram
 from feedback import give_feedback, give_feedback_for_student_cdm
 from fileserdes import load_cdm
 from learningcorpus import Feedback, ParametrizedResponse, ResourceResponse, TextResponse
-from mistaketypes import BAD_CLASS_NAME_SPELLING, MISSING_CLASS, MISSING_COMPOSITION, SOFTWARE_ENGINEERING_TERM
+from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, MISSING_CLASS, MISSING_COMPOSITION,
+    SOFTWARE_ENGINEERING_TERM)
 from stringserdes import SRSET, str_to_modelingassistant
 from modelingassistant import (FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, Solution, SolutionElement,
     Student, StudentKnowledge)
@@ -296,7 +297,7 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
 
-@pytest.mark.skip(reason="Work in progress")
+#@pytest.mark.skip(reason="Work in progress")
 def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
     """
     Test feedback for a serialized modeling assistant instance with mistakes detected from the mistake detection system.
@@ -318,12 +319,16 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     airplane_class = Class(name="Airplane")
     cdm.classes.append(airplane_class)
 
+    print(f"{id(ma) = }")
     fb, ma = give_feedback_for_student_cdm(cdm_name, ma=ma)
-    solution = ma.students[0].solutions[0]  # false positive: pylint: disable=no-member
-    mistakes = solution.mistakes
-    missing_composition_mistake = mistakes[0]
+    print(f"{id(ma) = }")
+    solution = next(sol for sol in ma.solutions if sol.student)  # false positive: pylint: disable=no-member
+    mistakes: list[Mistake] = solution.mistakes
 
-    assert missing_composition_mistake.mistakeType == MISSING_COMPOSITION
+    for m in mistakes:
+        print(m.mistakeType.name, m.resolvedByStudent)
+
+    assert [m.mistakeType for m in solution.mistakes] == [INCOMPLETE_CONTAINMENT_TREE, MISSING_COMPOSITION]
     assert fb.highlight
 
 
