@@ -326,7 +326,7 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     assert [m.mistakeType for m in solution.mistakes] == [INCOMPLETE_CONTAINMENT_TREE, MISSING_COMPOSITION]
     assert fb.highlight
     print("Test complete")
-    assert False
+    #assert False
 
 
 if __name__ == '__main__':

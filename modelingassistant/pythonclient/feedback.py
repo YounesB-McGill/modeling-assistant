@@ -58,12 +58,8 @@ def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackIte
 
     # sort highest priority mistakes based on number of detections (start with those detected the most times)
     highest_priority = unresolved_mistakes[0].mistakeType.priority
-
-    # Return all feedbacks for now since WebCORE is not ready
-    highest_priority_mistakes = unresolved_mistakes
-
-    # highest_priority_mistakes = sorted([m for m in unresolved_mistakes if m.mistakeType.priority == highest_priority],
-    #                                    key=lambda m: m.numDetections, reverse=True)
+    highest_priority_mistakes = sorted([m for m in unresolved_mistakes if m.mistakeType.priority == highest_priority],
+                                       key=lambda m: m.numDetections, reverse=True)
 
     result: list[FeedbackItem] = []
 
