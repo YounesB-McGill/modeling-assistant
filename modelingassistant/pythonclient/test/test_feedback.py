@@ -319,17 +319,14 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     airplane_class = Class(name="Airplane")
     cdm.classes.append(airplane_class)
 
-    print(f"{id(ma) = }")
     fb, ma = give_feedback_for_student_cdm(cdm_name, ma=ma)
-    print(f"{id(ma) = }")
     solution = next(sol for sol in ma.solutions if sol.student)  # false positive: pylint: disable=no-member
     mistakes: list[Mistake] = solution.mistakes
 
-    for m in mistakes:
-        print(m.mistakeType.name, m.resolvedByStudent)
-
     assert [m.mistakeType for m in solution.mistakes] == [INCOMPLETE_CONTAINMENT_TREE, MISSING_COMPOSITION]
     assert fb.highlight
+    print("Test complete")
+    assert False
 
 
 if __name__ == '__main__':

@@ -41,34 +41,23 @@ class FeedbackTO:
 
 def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackItem]:
     "Give feedback on the given student solution."
-    print(f"Giving feedback for solution with id {id(student_solution)}")
     if student_solution is not student_solution.student.currentSolution:
         pass  # return None  # do not give feedback for other unrelated solutions
     if not student_solution.mistakes:
         # emoji to test serdes
         return FeedbackItem(feedback=TextResponse(text="All good, no mistakes found! 🎉"), solution=student_solution)
 
-    print("Student solution has mistakes, running FB alg")
-
     # sort mistakes by priority and filter out mistakes which are already resolved
     mistake_priority = lambda m: m.mistakeType.priority
     unresolved_mistakes: list[Mistake] = [m for m in sorted(student_solution.mistakes, key=mistake_priority)
                                           if not m.resolvedByStudent]
 
-    print(f"Found {len(unresolved_mistakes)} unresolved mistakes:")
-    for m in unresolved_mistakes:
-        print(f"\t{m.mistakeType.name}")
-
     # update student knowledge for each unresolved mistake type
     for m in unresolved_mistakes:
         student_knowledge_for(m).levelOfKnowledge = MAX_STUDENT_LEVEL_OF_KNOWLEDGE - m.numDetections
 
-    print("Updated student knowledge for each unresolved mistake type")
-
     # sort highest priority mistakes based on number of detections (start with those detected the most times)
     highest_priority = unresolved_mistakes[0].mistakeType.priority
-
-
 
     # Return all feedbacks for now since WebCORE is not ready
     highest_priority_mistakes = unresolved_mistakes
@@ -76,14 +65,11 @@ def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackIte
     # highest_priority_mistakes = sorted([m for m in unresolved_mistakes if m.mistakeType.priority == highest_priority],
     #                                    key=lambda m: m.numDetections, reverse=True)
 
-    print(f"Highest priority mistakes: {highest_priority_mistakes}")
-
     result: list[FeedbackItem] = []
 
     for m in highest_priority_mistakes:
         #student_solution.currentMistake = m  # TODO
         result.append(fb := next_feedback(m))
-        print("1 >", m, fb, fb.mistake, fb.text)
         # decide whether student is beginner overall
         if student_knowledge_for(m).levelOfKnowledge < BEGINNER_LEVEL_OF_KNOWLEDGE:
             break
@@ -92,8 +78,6 @@ def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackIte
     for m in resolved_mistakes:
         if sk := student_knowledge_for(m):
             sk.levelOfKnowledge += m.lastFeedback.level / 2
-
-    print(f"Returning {result}")
 
     return result[0] if len(result) == 1 else result
 
@@ -157,7 +141,6 @@ def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: 
     else:
         ma.problemStatements.append(ProblemStatement(modelingAssistant=ma, instructorSolution=instructor_solution,
                                                      studentSolutions=[student_solution]))
-    print(student_solution.mistakes, id(ma))
     # cdms2sols = ma.classDiagramsToSolutions
     ma = get_mistakes(ma, instructor_cdm, student_cdm)
     # if not ma.classDiagramsToSolutions:
@@ -165,26 +148,11 @@ def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: 
     if not use_local_ma:
         MODELING_ASSISTANT = ma
     student_solution = next(sol for sol in ma.solutions if sol.student)
-    print([m.mistakeType.name for m in student_solution.mistakes], id(ma))
     fb_s = give_feedback(student_solution)
-    #fb = fb_s if isinstance(fb_s, FeedbackItem) else fb_s[0]  # only one feedback item for now
+    fb = fb_s if isinstance(fb_s, FeedbackItem) else fb_s[0]  # only one feedback item for now
 
-    if isinstance(fb_s, FeedbackItem):
-        fb = fb_s
-    else:
-        for f in fb_s:
-            print(f.mistake.mistakeType.name)
-            #if "class" in f.mistake.mistakeType.name.lower():
-            fb = f
-            break
-        else:
-            print("No valid feedbacks found")
-            fb = None
-
-    print("2 >", fb, fb.mistake, fb.text, fb.feedback, fb.feedback.level, fb.feedback.text)
-
-    # if not fb.mistake:
-    #     return FeedbackTO()
+    if not fb.mistake:
+        return FeedbackTO()
 
     feedback = FeedbackTO(
         solutionElements=[e.element._internal_id for e in fb.mistake.studentElements],
@@ -194,7 +162,6 @@ def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: 
         grade=0.0,  # for now
         writtenFeedback=fb.text or fb.feedback.text or "")
 
-    print(feedback)
     return feedback, ma if use_local_ma else feedback
 
 
