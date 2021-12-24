@@ -30,8 +30,6 @@ import sys
 import pytest
 import requests
 
-from modelingassistant_app import MODELING_ASSISTANT
-
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from classdiagram import Class, ClassDiagram
@@ -41,6 +39,7 @@ from feedback import FeedbackTO
 from flaskapp import app, DEBUG_MODE, PORT
 from fileserdes import load_cdm, save_to_file
 from modelingassistant import ModelingAssistant, ProblemStatement, Solution
+from modelingassistant_app import MODELING_ASSISTANT
 
 
 logger = logging.getLogger(__name__)
@@ -57,9 +56,10 @@ type_of: dict[str, str] = {}  # map type names to type _ids
 @pytest.fixture(scope="module")
 def ma_rest_app():
     """
-    Setup the Modeling Assistant Feedback flask app.
+    Setup the Modeling Assistant Feedback flask app if it is not already running.
     """
-    Thread(target=lambda: app.run(debug=DEBUG_MODE, port=PORT, use_reloader=False), daemon=True).start()
+    if not requests.get(f"http://localhost:{PORT}/helloworld/name").ok:
+        Thread(target=lambda: app.run(debug=DEBUG_MODE, port=PORT, use_reloader=False), daemon=True).start()
 
 
 @pytest.fixture(scope="module")
@@ -72,7 +72,7 @@ def webcore():
 
 
 @pytest.mark.skip(reason="Not yet implemented")
-def test_ma_one_class_student_mistake(ma_rest_app):
+def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     """
     Simplest possible test for the entire system.
 

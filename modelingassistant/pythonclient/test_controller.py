@@ -5,14 +5,13 @@ import re
 from textwrap import dedent
 
 import pytest  # pylint: disable=unused-import
-from stringserdes import SRSET
-from classdiagram.classdiagram import (ClassDiagram, Class, Attribute, CDInt, CDString,
-    AssociationEnd, Association, ReferenceType)
+from stringserdes import SRSET, str_to_modelingassistant
+from classdiagram import ClassDiagram, Class, Attribute, CDInt, CDString, AssociationEnd, Association, ReferenceType
 from constants import LEARNING_CORPUS_PATH
 from fileserdes import load_cdm, load_lc, load_ma, save_to_files
-from learningcorpus.learningcorpus import LearningItem
+from learningcorpus import LearningItem
 from mistaketypes import BAD_CLASS_NAME_SPELLING, corpus
-from modelingassistant.modelingassistant import ModelingAssistant, Solution, Student, StudentKnowledge
+from modelingassistant import ModelingAssistant, Solution, Student, StudentKnowledge
 
 
 CDM_PATH = "modelingassistant/testmodels"
@@ -530,19 +529,16 @@ def test_loading_modeling_assistant_deserialized_from_string():
     with open(ma_file, "rb") as f:
         ma_str = f.read()
 
-    resource = SRSET.get_string_resource(ma_str)
-    modeling_assistant: ModelingAssistant = resource.contents[0]
-    modeling_assistant.__class__ = ModelingAssistant
+    modeling_assistant = str_to_modelingassistant(ma_str)
     class_diagram1: ClassDiagram = modeling_assistant.solutions[0].classDiagram
-    class_diagram1.__class__ = ClassDiagram
     class_diagram2: ClassDiagram = modeling_assistant.solutions[1].classDiagram
-    class_diagram2.__class__ = ClassDiagram
 
     expected_class_names1 = ["Car", "SportsCar", "Part", "Driver"]
+    expected_attr_types = [t.__name__ for t in (CDInt, CDString)]
     for c in class_diagram1.classes:
         if c.name == "Car":
             for a in c.attributes:
-                assert type(a.type).__name__ in [CDInt.__name__, CDString.__name__]
+                assert type(a.type).__name__ in expected_attr_types
         if c.name == "SportsCar":
             assert "Car" == c.superTypes[0].name
         assert c.name in expected_class_names1
@@ -553,7 +549,7 @@ def test_loading_modeling_assistant_deserialized_from_string():
     for c in class_diagram2.classes:
         if c.name == "Car":
             for a in c.attributes:
-                assert type(a.type).__name__ in [CDInt.__name__, CDString.__name__]
+                assert type(a.type).__name__ in expected_attr_types
         assert c.name in expected_class_names2
         expected_class_names2.remove(c.name)
     assert not expected_class_names2
@@ -576,9 +572,7 @@ def test_persisting_modeling_assistant_to_string():
     ])
     class_diagram.classes.append(car_class)
 
-    # resource = SRSET.create_string_resource()
-    # resource.extend([modeling_assistant, class_diagram])
-    ma_str = SRSET.create_ma_str(modeling_assistant)  # resource.save_to_string().decode()
+    ma_str = SRSET.create_ma_str(modeling_assistant)
 
     # Find, match, and replace these regex patterns in the ma_str
     # Define and compile the patterns. The compilation allows for faster performance.

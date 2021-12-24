@@ -158,7 +158,7 @@ def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: 
         grade=0.0,  # for now
         writtenFeedback=fb.text or fb.feedback.text or "")
 
-    return feedback, ma if use_local_ma else feedback
+    return (feedback, ma) if use_local_ma else feedback
 
 
 @cache
