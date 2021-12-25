@@ -4,7 +4,7 @@
 Script to create these Learning Corpus artifacts from corpus.py:
 
 - default.learningcorpus: The default Learning Corpus instance in XMI format.
-- mistaketypes.py: A Python file with all mistake types and categories in the default corpus.
+- mistaketypes.py: A Python module with all mistake types and categories in the default corpus.
 - MistakeTypes.java: A Java class with all mistake types and categories in the default corpus.
 - README_TOC.md: A Markdown table-of-contents file for the default Learning Corpus.
   A full learning corpus will be provided later.
@@ -119,7 +119,9 @@ Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
 Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
 Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
 Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
-\end{tabular}
+\end{tabular} \bigskip
+
+
 """
 
 

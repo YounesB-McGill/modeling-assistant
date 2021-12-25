@@ -838,51 +838,147 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     subclass_should_be_full_pr_pattern := mt(
                         n="Subclass should be full PR pattern",
                         d="Subclass should be full Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="[Nice try, but] a ${firstSubclass} can also play the role of a ${secondSubclass}."),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     subclass_should_be_assoc_pr_pattern := mt(
                         n="Subclass should be assoc PR pattern",
                         d="Subclass should be association Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="[Nice try, but] a ${firstSubclass} can also play the role of a ${secondSubclass}."),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     subclass_should_be_enum_pr_pattern := mt(
                         n="Subclass should be enum PR pattern",
                         d="Subclass should be enumeration Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="[Nice try, but] a ${firstSubclass} can also play the role of a ${secondSubclass}."),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     assoc_should_be_full_pr_pattern := mt(
                         n="Assoc should be full PR pattern",
                         d="Association should be full Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="A ${firstRole} has different features from a ${secondRole}."),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     assoc_should_be_subclass_pr_pattern := mt(
                         n="Assoc should be subclass PR pattern",
                         d="Association should be subclass Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="A ${firstRole} has different features from a ${secondRole}."),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     assoc_should_be_enum_pr_pattern := mt(
                         n="Assoc should be enum PR pattern",
                         d="Association should be enumeration Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="Will the roles of ${firstRole} and ${secondRole} ever be occupied at the same time?"),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     enum_should_be_full_pr_pattern := mt(
                         n="Enum should be full PR pattern",
                         d="Enumeration should be full Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="[Nice try, but] a ${firstRole} can also play the role of a ${secondRole}."),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     enum_should_be_subclass_pr_pattern := mt(
                         n="Enum should be subclass PR pattern",
                         d="Enumeration should be subclass Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="A ${firstRole} has different features from a ${secondRole}."),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     enum_should_be_assoc_pr_pattern := mt(
                         n="Enum should be assoc PR pattern",
                         d="Enumeration should be association Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="Will the roles of ${firstRole} and ${secondRole} ever be occupied at the same time?"),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     full_pr_pattern_should_be_subclass := mt(
                         n="Full PR pattern should be subclass",
                         d="Full Player-Role pattern should be subclass",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="Can a ${firstRole} can also play the role of a ${secondRole}?"),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     full_pr_pattern_should_be_assoc := mt(
                         n="Full PR pattern should be assoc",
                         d="Full Player-Role pattern should be association",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="Do ${firstRole} and ${secondRole} need to have different features?"),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     full_pr_pattern_should_be_enum := mt(
                         n="Full PR pattern should be enum",
                         d="Full Player-Role pattern should be enumeration",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="Do ${firstRole} and ${secondRole} need to have different features?"),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                 ]),
             ]
         ),
