@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+"""
+Tests for the interaction with the modeling assistant and learning corpus generated pyecore code.
+Many of these tests have equivalents written in Java and therefore serve as a form of documentation.
+"""
+
 import os
 import re
 from textwrap import dedent

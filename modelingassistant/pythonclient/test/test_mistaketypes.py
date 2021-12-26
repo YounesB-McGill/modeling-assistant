@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 
+# pylint: disable=wrong-import-position
 """
 Module to test mistake types and categories.
 """
 
-from learningcorpus.learningcorpus import MistakeTypeCategory, MistakeType
+import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from learningcorpus import MistakeTypeCategory, MistakeType
 from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, CLASS_MISTAKES, CLASS_NAME_MISTAKES
 from corpus import mts_by_priority
 from utils import COLOR, color_str
