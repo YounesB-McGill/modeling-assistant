@@ -4,7 +4,6 @@
       1. [Lowercase class name](#lowercase-class-name)
       1. [Software engineering term](#software-engineering-term)
       1. [Bad class name spelling](#bad-class-name-spelling)
-      1. [Similar (yet incorrect) class name](#similar-class-name)
       1. [Wrong class name](#wrong-class-name)
    1. [Enumeration mistakes](#enumeration-mistakes)
       1. [Regular class should be enumeration](#regular-class-should-be-enumeration)
@@ -12,11 +11,9 @@
       1. [Missing enumeration](#missing-enumeration)
       1. [Extra enumeration](#extra-enumeration)
       1. [Bad enumeration name spelling](#bad-enumeration-name-spelling)
-      1. [Similar enumeration name](#similar-enumeration-name)
       1. [Missing enumeration item](#missing-enumeration-item)
       1. [Extra enumeration item](#extra-enumeration-item)
       1. [Bad enumeration item spelling](#bad-enumeration-item-spelling)
-      1. [Similar enumeration item](#similar-enumeration-item)
    1. [Missing class](#missing-class)
    1. [Extra (redundant) class](#extra-redundant-class)
    1. [Using n-ary association instead of intermediate class](#using-n-ary-association-instead-of-intermediate-class)
@@ -64,7 +61,6 @@
       1. [Association name mistakes](#association-name-mistakes)
          1. [Missing association name when one was expected](#missing-association-name-when-one-was-expected)
          1. [Bad association name spelling](#bad-association-name-spelling)
-         1. [Similar (yet incorrect) association name](#similar-association-name)
       1. [Multiplicity mistakes](#multiplicity-mistakes)
          1. [Infinite recursive dependency](#infinite-recursive-dependency)
          1. [Wrong multiplicity](#wrong-multiplicity)
@@ -74,7 +70,6 @@
          1. [Role should be static](#role-should-be-static)
          1. [Role should not be static](#role-should-not-be-static)
          1. [Bad role name spelling](#bad-role-name-spelling)
-         1. [Similar (yet incorrect) role name](#similar-role-name)
          1. [Wrong role name but correct association](#wrong-role-name-but-correct-association)
       1. [Association class mistakes](#association-class-mistakes)
          1. [Missing association class](#missing-association-class)
@@ -82,7 +77,6 @@
          1. [Bad association class name spelling](#bad-association-class-name-spelling)
          1. [Association class should be regular class](#association-class-should-be-regular-class)
          1. [Regular class should be association class](#regular-class-should-be-association-class)
-         1. [Similar (yet incorrect) association class name](#similar-association-class-name)
    1. [Composition mistakes](#composition-mistakes)
       1. [Missing composition](#missing-composition)
       1. [Extra composition](#extra-composition)
@@ -211,23 +205,6 @@ Level 4: Parametrized response:
 > The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}.
 
 
-#### Similar class name
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Can you double check this class name?
-
-Level 3: Parametrized response:
-
-> The ${similarYetIncorrectClassName} class has a name that is not quite right.
-
-Level 4: Parametrized response:
-
-> The ${similarYetIncorrectClassName} class should be changed to ${correctClassName}.
-
-
 #### Wrong class name
 
 Level 1: Highlight solution
@@ -332,23 +309,6 @@ Level 4: Resource response with Reference:
 > Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
-#### Similar enumeration name
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Can this item be renamed?
-
-Level 3: Parametrized response:
-
-> The ${wronglyNamedEnum} should be renamed[ to ${correctEnumName}].
-
-Level 4: Resource response with Reference:
-
-> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
-
-
 #### Missing enumeration item
 
 Level 1: Highlight problem
@@ -384,23 +344,6 @@ Level 4: Resource response with Reference:
 
 
 #### Bad enumeration item spelling
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Can this item be renamed?
-
-Level 3: Parametrized response:
-
-> The ${wronglyNamedEnumItem} should be renamed[ to ${correctEnumItemName}].
-
-Level 4: Resource response with Reference:
-
-> Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
-
-
-#### Similar enumeration item
 
 Level 1: Highlight solution
 
@@ -1089,27 +1032,6 @@ Level 4: Resource response with Reference:
 > Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
-##### Similar association name
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Can you double check this association name?
-
-Level 3: Parametrized response:
-
-> The ${similarYetIncorrectAssociationName} association has a name that is not quite right.
-
-Level 4: Parametrized response:
-
-> The ${similarYetIncorrectAssociationName} association should be changed to ${correctAssociationName}.
-
-Level 5: Resource response with Reference:
-
-> Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
-
-
 #### Multiplicity mistakes
 
 ##### Infinite recursive dependency
@@ -1265,33 +1187,6 @@ Level 4: Resource response with Reference:
 > Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
-##### Similar role name
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Can you double check this role name?
-
-Level 3: Parametrized response:
-
-> The ${wrongRoleName} role name is not quite right.
-
-Level 4: Parametrized response:
-
-> The ${wrongRoleName} role name should be changed to ${correctRoleName}.
-
-Level 5: Resource response with Reference:
-
-> Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
-for this association? Role names help identify the role a class plays in a
-relationship and can be important if there is more than one relationship
-between the same two classes.
-
-![Role name](images/role_name.png)
-
-
-
 ##### Wrong role name but correct association
 
 Level 1: Highlight solution
@@ -1432,23 +1327,6 @@ Level 5: Resource response with Reference:
 > Association class
 
 ![Association class](images/association_class.png)
-
-
-##### Similar association class name
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Can you double check this class name?
-
-Level 3: Parametrized response:
-
-> The ${incorrectlySpelledClassName} class has a name that is not quite right.
-
-Level 4: Parametrized response:
-
-> The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}.
 
 
 

@@ -148,9 +148,6 @@ public class MistakeTypes {
   /** The bad class name spelling mistake type. */
   public static final MistakeType BAD_CLASS_NAME_SPELLING = MTS.get("Bad class name spelling");
 
-  /** The similar (yet incorrect) class name mistake type. */
-  public static final MistakeType SIMILAR_CLASS_NAME = MTS.get("Similar (yet incorrect) class name");
-
   /** The wrong class name mistake type. */
   public static final MistakeType WRONG_CLASS_NAME = MTS.get("Wrong class name");
 
@@ -169,9 +166,6 @@ public class MistakeTypes {
   /** The bad enumeration name spelling mistake type. */
   public static final MistakeType BAD_ENUM_NAME_SPELLING = MTS.get("Bad enum name spelling");
 
-  /** The similar enumeration name mistake type. */
-  public static final MistakeType SIMILAR_ENUM_NAME = MTS.get("Similar enum name");
-
   /** The missing enumeration item mistake type. */
   public static final MistakeType MISSING_ENUM_ITEM = MTS.get("Missing enum item");
 
@@ -180,9 +174,6 @@ public class MistakeTypes {
 
   /** The bad enumeration item spelling mistake type. */
   public static final MistakeType BAD_ENUM_ITEM_SPELLING = MTS.get("Bad enum item spelling");
-
-  /** The similar enumeration item mistake type. */
-  public static final MistakeType SIMILAR_ENUM_ITEM = MTS.get("Similar enum item");
 
   /** The plural attribute mistake type. */
   public static final MistakeType PLURAL_ATTRIBUTE = MTS.get("Plural attribute");
@@ -272,9 +263,6 @@ public class MistakeTypes {
   /** The bad association name spelling mistake type. */
   public static final MistakeType BAD_ASSOCIATION_NAME_SPELLING = MTS.get("Bad association name spelling");
 
-  /** The similar (yet incorrect) association name mistake type. */
-  public static final MistakeType SIMILAR_ASSOCIATION_NAME = MTS.get("Similar (yet incorrect) association name");
-
   /** The infinite recursive dependency mistake type. */
   public static final MistakeType INFINITE_RECURSIVE_DEPENDENCY = MTS.get("Infinite recursive dependency");
 
@@ -296,9 +284,6 @@ public class MistakeTypes {
   /** The bad role name spelling mistake type. */
   public static final MistakeType BAD_ROLE_NAME_SPELLING = MTS.get("Bad role name spelling");
 
-  /** The similar (yet incorrect) role name mistake type. */
-  public static final MistakeType SIMILAR_ROLE_NAME = MTS.get("Similar (yet incorrect) role name");
-
   /** The wrong role name but correct association mistake type. */
   public static final MistakeType WRONG_ROLE_NAME = MTS.get("Wrong role name");
 
@@ -316,9 +301,6 @@ public class MistakeTypes {
 
   /** The regular class should be association class mistake type. */
   public static final MistakeType CLASS_SHOULD_BE_ASSOC_CLASS = MTS.get("Class should be assoc class");
-
-  /** The similar (yet incorrect) association class name mistake type. */
-  public static final MistakeType SIMILAR_ASSOC_CLASS_NAME = MTS.get("Similar assoc class name");
 
   /** The missing composition mistake type. */
   public static final MistakeType MISSING_COMPOSITION = MTS.get("Missing composition");
