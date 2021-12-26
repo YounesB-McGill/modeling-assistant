@@ -1,24 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:version="2.0">
-  <modelingassistant:ModelingAssistant xmi:id="2fbcc113-73df-4d6a-aa15-4ff274d64603">
-    <solutions xsi:type="modelingassistant:Solution" xmi:id="1344af2e-1985-4d3a-8f4b-17463d015d54" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
-    <solutions xsi:type="modelingassistant:Solution" xmi:id="fcabe16f-250b-4849-9a47-0a46a0d64bf0" classDiagram="424a4006-6f1b-4c51-a65e-9d846bdacf79"/>
+  <modelingassistant:ModelingAssistant xmi:id="7cb6911c-5474-4225-837a-ba3288c279a6">
+    <solutions xsi:type="modelingassistant:Solution" xmi:id="1d10c221-b603-46cd-b184-fdea50548c07" classDiagram="_VQRncElSEeuektpDqzDh1Q"/>
+    <solutions xsi:type="modelingassistant:Solution" xmi:id="5c12ca70-e690-483a-9ecd-fc06c4438267" classDiagram="34aa81f6-d8ef-4453-83d0-cd02f5a706e0"/>
   </modelingassistant:ModelingAssistant>
   <classdiagram:ClassDiagram xmi:id="_VQRncElSEeuektpDqzDh1Q" name="Student1_solution">
-    <classes xsi:type="classdiagram:Class" xmi:id="_WHVLQElSEeuektpDqzDh1Q" name="Car">
-      <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_cwaGIElUEeuektpDqzDh1Q" assoc="_cwaGIklUEeuektpDqzDh1Q" name="drivers" upperBound="-1"/>
-      <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_8e54MUlUEeuektpDqzDh1Q" name="parts" upperBound="-1" assoc="_8e54MklUEeuektpDqzDh1Q" referenceType="Composition"/>
-      <attributes xsi:type="classdiagram:Attribute" xmi:id="_e2D18ElSEeuektpDqzDh1Q" name="id" type="_VQRndUlSEeuektpDqzDh1Q"/>
-      <attributes xsi:type="classdiagram:Attribute" xmi:id="_gzbhkElSEeuektpDqzDh1Q" name="make" type="_VQRnd0lSEeuektpDqzDh1Q"/>
-    </classes>
-    <classes xsi:type="classdiagram:Class" xmi:id="_YyFPYElUEeuektpDqzDh1Q" name="Driver">
-      <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_cwaGIUlUEeuektpDqzDh1Q" assoc="_cwaGIklUEeuektpDqzDh1Q" name="primaryVehicle" lowerBound="1"/>
-      <attributes xsi:type="classdiagram:Attribute" xmi:id="_atkEoElUEeuektpDqzDh1Q" name="name" type="_VQRnd0lSEeuektpDqzDh1Q"/>
-    </classes>
-    <classes xsi:type="classdiagram:Class" xmi:id="_pm-I4ElUEeuektpDqzDh1Q" superTypes="_WHVLQElSEeuektpDqzDh1Q" name="SportsCar"/>
-    <classes xsi:type="classdiagram:Class" xmi:id="_6CeSAElUEeuektpDqzDh1Q" name="Part">
-      <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_8e54MElUEeuektpDqzDh1Q" assoc="_8e54MklUEeuektpDqzDh1Q" name="car" lowerBound="1"/>
-    </classes>
     <types xsi:type="classdiagram:CDVoid" xmi:id="_VQRncUlSEeuektpDqzDh1Q"/>
     <types xsi:type="classdiagram:CDAny" xmi:id="_VQRncklSEeuektpDqzDh1Q"/>
     <types xsi:type="classdiagram:CDBoolean" xmi:id="_VQRnc0lSEeuektpDqzDh1Q"/>
@@ -47,13 +33,27 @@
     </layout>
     <associations xsi:type="classdiagram:Association" xmi:id="_cwaGIklUEeuektpDqzDh1Q" ends="_cwaGIElUEeuektpDqzDh1Q _cwaGIUlUEeuektpDqzDh1Q" name="Car_Driver"/>
     <associations xsi:type="classdiagram:Association" xmi:id="_8e54MklUEeuektpDqzDh1Q" ends="_8e54MUlUEeuektpDqzDh1Q _8e54MElUEeuektpDqzDh1Q" name="Part_Car"/>
-  </classdiagram:ClassDiagram>
-  <classdiagram:ClassDiagram xmi:id="424a4006-6f1b-4c51-a65e-9d846bdacf79" name="Student2_solution">
-    <classes xsi:type="classdiagram:Class" xmi:id="a68fd4d6-d309-48ae-b4ff-c9aa672bf031" name="Car">
-      <attributes xsi:type="classdiagram:Attribute" xmi:id="340329a2-75ba-4c9b-aa87-f66d20941471" name="id" type="4993e2ed-e0c0-436b-95da-5ab6dd9ac220"/>
-      <attributes xsi:type="classdiagram:Attribute" xmi:id="e1de77ff-43cb-469e-a726-676758935adc" name="make" type="bcba3655-676a-4aed-bfcf-ee80fe6fc3df"/>
+    <classes xsi:type="classdiagram:Class" xmi:id="_WHVLQElSEeuektpDqzDh1Q" name="Car">
+      <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_cwaGIElUEeuektpDqzDh1Q" name="drivers" assoc="_cwaGIklUEeuektpDqzDh1Q" upperBound="-1"/>
+      <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_8e54MUlUEeuektpDqzDh1Q" assoc="_8e54MklUEeuektpDqzDh1Q" referenceType="Composition" name="parts" upperBound="-1"/>
+      <attributes xsi:type="classdiagram:Attribute" xmi:id="_e2D18ElSEeuektpDqzDh1Q" type="_VQRndUlSEeuektpDqzDh1Q" name="id"/>
+      <attributes xsi:type="classdiagram:Attribute" xmi:id="_gzbhkElSEeuektpDqzDh1Q" type="_VQRnd0lSEeuektpDqzDh1Q" name="make"/>
     </classes>
-    <types xsi:type="classdiagram:CDInt" xmi:id="4993e2ed-e0c0-436b-95da-5ab6dd9ac220"/>
-    <types xsi:type="classdiagram:CDString" xmi:id="bcba3655-676a-4aed-bfcf-ee80fe6fc3df"/>
+    <classes xsi:type="classdiagram:Class" xmi:id="_YyFPYElUEeuektpDqzDh1Q" name="Driver">
+      <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_cwaGIUlUEeuektpDqzDh1Q" name="primaryVehicle" lowerBound="1" assoc="_cwaGIklUEeuektpDqzDh1Q"/>
+      <attributes xsi:type="classdiagram:Attribute" xmi:id="_atkEoElUEeuektpDqzDh1Q" type="_VQRnd0lSEeuektpDqzDh1Q" name="name"/>
+    </classes>
+    <classes xsi:type="classdiagram:Class" xmi:id="_pm-I4ElUEeuektpDqzDh1Q" name="SportsCar" superTypes="_WHVLQElSEeuektpDqzDh1Q"/>
+    <classes xsi:type="classdiagram:Class" xmi:id="_6CeSAElUEeuektpDqzDh1Q" name="Part">
+      <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_8e54MElUEeuektpDqzDh1Q" name="car" lowerBound="1" assoc="_8e54MklUEeuektpDqzDh1Q"/>
+    </classes>
+  </classdiagram:ClassDiagram>
+  <classdiagram:ClassDiagram xmi:id="34aa81f6-d8ef-4453-83d0-cd02f5a706e0" name="Student2_solution">
+    <types xsi:type="classdiagram:CDInt" xmi:id="bd5ac7f8-c4d3-477c-8ed6-07f80550d36f"/>
+    <types xsi:type="classdiagram:CDString" xmi:id="5d855e99-7a29-4c26-8957-162d297192f9"/>
+    <classes xsi:type="classdiagram:Class" xmi:id="143648e9-ff15-4a67-83bb-e6961626be1f" name="Car">
+      <attributes xsi:type="classdiagram:Attribute" xmi:id="2dc200db-055d-4fe7-bd91-176c755c2db6" type="bd5ac7f8-c4d3-477c-8ed6-07f80550d36f" name="id"/>
+      <attributes xsi:type="classdiagram:Attribute" xmi:id="0842e012-7812-4a4b-a3a2-2c247eaed40e" type="5d855e99-7a29-4c26-8957-162d297192f9" name="make"/>
+    </classes>
   </classdiagram:ClassDiagram>
 </xmi:XMI>

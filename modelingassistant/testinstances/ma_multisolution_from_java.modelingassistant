@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
-<modelingassistant:ModelingAssistant xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmi:id="_DpABUDmdEey7H6asbM9njA">
-  <solutions xmi:id="_DpAoYDmdEey7H6asbM9njA">
+<modelingassistant:ModelingAssistant xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmi:id="_3nTjoGaXEeyDYcUeMdcW4g">
+  <solutions xmi:id="_3nUKsGaXEeyDYcUeMdcW4g">
     <classDiagram href="ma_multisolution_from_java1.cdm#_VQRncElSEeuektpDqzDh1Q"/>
   </solutions>
-  <solutions xmi:id="_DpAoYTmdEey7H6asbM9njA">
-    <classDiagram href="ma_multisolution_from_java2.cdm#_DpCdkDmdEey7H6asbM9njA"/>
+  <solutions xmi:id="_3nUKsWaXEeyDYcUeMdcW4g">
+    <classDiagram href="ma_multisolution_from_java2.cdm#_3nV_4GaXEeyDYcUeMdcW4g"/>
   </solutions>
 </modelingassistant:ModelingAssistant>

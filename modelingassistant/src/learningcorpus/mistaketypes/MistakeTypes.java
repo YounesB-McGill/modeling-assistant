@@ -13,7 +13,7 @@ public class MistakeTypes {
 
   /** The path of the learning corpus instance with mistake types. */
   public static final String LEARNING_CORPUS_PATH =
-      "../modelingassistant.learningcorpus.dsl.instances/default.learningcorpus";
+      "../modelingassistant/learningcorpusinstances/default.learningcorpus";
 
   /** Map of mistake type categories by name. */
   public static final Map<String, MistakeTypeCategory> MISTAKE_TYPE_CATEGORIES_BY_NAME =
