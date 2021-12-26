@@ -1637,11 +1637,7 @@ public class MistakeDetection {
             existingMistake.setResolved(true);
             existingMistake.setNumSinceResolved(existingMistake.getNumSinceResolved() + 1);
           } else {
-            existingMistake.getInstructorElements().clear();
-            existingMistake.getStudentElements().clear();
-            existingMistake.getSolution().getMistakes().remove(existingMistake);
-            existingMistake.setLastFeedback(null);
-            existingMistake.setSolution(null);
+            removeStaleMistake(existingMistake);
           }
         }
       }
@@ -1651,26 +1647,28 @@ public class MistakeDetection {
           existingMistake.setResolved(true);
           existingMistake.setNumSinceResolved(existingMistake.getNumSinceResolved() + 1);
         } else {
-          existingMistake.getInstructorElements().clear();
-          existingMistake.getStudentElements().clear();
-          existingMistake.getSolution().getMistakes().remove(existingMistake);
-          existingMistake.setLastFeedback(null);
-          existingMistake.setSolution(null);
+          removeStaleMistake(existingMistake);
         }
       }
     }
   }
 
-  private static void updateNewMistakes(List<Mistake> newMistakes, Solution studentSolution, boolean filter) {
+  /** Removes a stale mistake from the solution that contains it. */
+  private static void removeStaleMistake(Mistake mistake) {
+    mistake.getInstructorElements().clear();
+    mistake.getStudentElements().clear();
+    mistake.getSolution().getMistakes().remove(mistake);
+    mistake.setLastFeedback(null);
+    mistake.setSolution(null);
+  }
 
+  private static void updateNewMistakes(List<Mistake> newMistakes, Solution studentSolution, boolean filter) {
     var patternMistakeTypes =
         List.of(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, ASSOC_SHOULD_BE_FULL_PR_PATTERN, ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN,
             ENUM_SHOULD_BE_ASSOC_PR_PATTERN, ENUM_SHOULD_BE_FULL_PR_PATTERN, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN,
             FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM, FULL_PR_PATTERN_SHOULD_BE_SUBCLASS,
             SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, INCOMPLETE_PR_PATTERN);
-    List<MistakeType> containmentMistakeTypes = new ArrayList<>();
-    containmentMistakeTypes
-        .addAll(List.of(INCOMPLETE_CONTAINMENT_TREE, COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT));
+    var containmentMistakeTypes = List.of(INCOMPLETE_CONTAINMENT_TREE, COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT);
 
     if (filter && mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
       updateMistakesInvolvingPattern(newMistakes, patternMistakeTypes, studentSolution);
