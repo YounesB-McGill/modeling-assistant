@@ -6,7 +6,7 @@ Script to create these Learning Corpus artifacts from corpus.py:
 - default.learningcorpus: The default Learning Corpus instance in XMI format.
 - mistaketypes.py: A Python module with all mistake types and categories in the default corpus.
 - MistakeTypes.java: A Java class with all mistake types and categories in the default corpus.
-- README_TOC.md: A Markdown table-of-contents file for the default Learning Corpus.
+- README.md: A Markdown table-of-contents file for the default Learning Corpus.
   A full learning corpus will be provided later.
 """
 
@@ -30,7 +30,7 @@ MAX_COLUMN_WIDTH = 120
 PYTHON_MISTAKE_TYPES_FILE = "modelingassistant/pythonclient/mistaketypes.py"
 JAVA_MISTAKE_TYPES_FILE = "modelingassistant/src/learningcorpus/mistaketypes/MistakeTypes.java"
 CORPUS_DESCRIPTION_DIR = "modelingassistant/corpus_descriptions"
-LEARNING_CORPUS_MARKDOWN_FILE = f"{CORPUS_DESCRIPTION_DIR}/README_TOC.md"
+LEARNING_CORPUS_MARKDOWN_FILE = f"{CORPUS_DESCRIPTION_DIR}/README.md"
 LEARNING_CORPUS_TEX_FILE = f"{CORPUS_DESCRIPTION_DIR}/learningcorpusdefs.tex"
 
 PYTHON_HEADER = '''\

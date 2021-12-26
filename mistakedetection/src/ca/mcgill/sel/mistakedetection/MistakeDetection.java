@@ -1596,7 +1596,7 @@ public class MistakeDetection {
     List<Mistake> newMistakesProcessed = new ArrayList<>();
 
     // Condition when only new mistakes exists.
-    if (existingMistakes.size() == 0 && newMistakes.size() != 0) {
+    if (existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
       updateNewMistakes(newMistakes, studentSolution, filter);
     } else if (!existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
       for (Mistake existingMistake : existingMistakes) {
@@ -1641,7 +1641,7 @@ public class MistakeDetection {
           }
         }
       }
-    } else if (existingMistakes.size() != 0 && newMistakes.size() == 0) {
+    } else if (!existingMistakes.isEmpty() && newMistakes.isEmpty()) {
       for (Mistake existingMistake : existingMistakes) {
         if (existingMistake.getNumSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION) {
           existingMistake.setResolved(true);
@@ -1738,7 +1738,7 @@ public class MistakeDetection {
   }
 
   /**
-   * Updates the student elemenets of an existing mistake.
+   * Updates the student elements of an existing mistake.
    *
    * @param newMistake
    * @param existingMistake
@@ -1817,7 +1817,7 @@ public class MistakeDetection {
   }
 
   /**
-   * Function returns true if both elements are equal
+   * Returns true if both elements are equal.
    *
    * @param existingElement
    * @param newElement
