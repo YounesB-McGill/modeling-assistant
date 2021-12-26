@@ -63,10 +63,34 @@ class MistakeDetectionController {
   @GetMapping("/detectmistakes")
   public MistakeDetection detectMistakes(@RequestParam(value = "modelingassistant") String modelingAssistantXmi) {
     // TODO Optimize this to only detect mistakes in active problem statements
+    System.out.println("\n\n----------------------------\n\nInput MA:\n\n"
+        + modelingAssistantXmi + "\n\n----------------------------\n\n");
     var modelingAssistant = ModelingAssistant.fromEcoreString(modelingAssistantXmi);
-    modelingAssistant.getProblemStatements().forEach(ps -> {
-      ps.getStudentSolutions().forEach(studentSolution -> compare(ps.getInstructorSolution(), studentSolution));
+
+    System.out.println("\n\nSolutions before:");
+    modelingAssistant.getSolutions().forEach(sol -> {
+      System.out.println(sol + ", " + sol.eResource());
+      sol.getMistakes().forEach(mistake -> {
+        var mt = mistake.getMistakeType();
+        System.out.println(mt.getName() + ": " + mistake + ", " + mistake.eResource());
+      });
     });
+
+    modelingAssistant.getProblemStatements().forEach(ps -> {
+      ps.getStudentSolutions().forEach(studentSolution -> compare(ps.getInstructorSolution(), studentSolution).log());
+    });
+
+    System.out.println("\n\nSolutions after:");
+    modelingAssistant.getSolutions().forEach(sol -> {
+      System.out.println(sol + ", " + sol.eResource());
+      sol.getMistakes().forEach(mistake -> {
+        var mt = mistake.getMistakeType();
+        System.out.println(mt.getName() + ": " + mistake + ", " + mistake.eResource());
+      });
+    });
+
+    System.out.println("\n\n----------------------------\n\nReturning MA:\n\n" + modelingAssistant.toEcoreString());
     return new MistakeDetection(modelingAssistant.toEcoreString());
   }
+
 }

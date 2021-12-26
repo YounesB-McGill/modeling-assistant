@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_-JV-QE1yEey9OMfS12CV-A" name="Wrong_superclass">
+  <classes xsi:type="classdiagram:Class" xmi:id="_-irrUE1yEey9OMfS12CV-A" name="Root">
+    <associationEnds xmi:id="_LbkpUU1zEey9OMfS12CV-A" name="myAccount" assoc="_LbkpUk1zEey9OMfS12CV-A" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="__USucE1yEey9OMfS12CV-A" name="Account" abstract="true">
+    <associationEnds xmi:id="_LbkpUE1zEey9OMfS12CV-A" name="myRoot" assoc="_LbkpUk1zEey9OMfS12CV-A" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_CmGdcE1zEey9OMfS12CV-A" name="SavingAccount" superTypes="__USucE1yEey9OMfS12CV-A">
+    <attributes xmi:id="_HSD2QE1zEey9OMfS12CV-A" name="transactionLimit" type="_-JV-RU1yEey9OMfS12CV-A"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_Hx6bAE1zEey9OMfS12CV-A" name="BussinessAccount" superTypes="__USucE1yEey9OMfS12CV-A"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_NAq-4E1zEey9OMfS12CV-A" name="ExtraAccount" superTypes="__USucE1yEey9OMfS12CV-A">
+    <attributes xmi:id="_UaUtAE1zEey9OMfS12CV-A" name="name" type="_-JV-R01yEey9OMfS12CV-A"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_-JV-QU1yEey9OMfS12CV-A"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_-JV-Qk1yEey9OMfS12CV-A"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_-JV-Q01yEey9OMfS12CV-A"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_-JV-RE1yEey9OMfS12CV-A"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_-JV-RU1yEey9OMfS12CV-A"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_-JV-Rk1yEey9OMfS12CV-A"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_-JV-R01yEey9OMfS12CV-A"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_-JV-SE1yEey9OMfS12CV-A"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_-JV-SU1yEey9OMfS12CV-A"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_-JV-Sk1yEey9OMfS12CV-A"/>
+  <associations xmi:id="_LbkpUk1zEey9OMfS12CV-A" name="Account_Root" ends="_LbkpUE1zEey9OMfS12CV-A _LbkpUU1zEey9OMfS12CV-A"/>
+  <layout xmi:id="_-JV-S01yEey9OMfS12CV-A">
+    <containers xmi:id="_-JV-TE1yEey9OMfS12CV-A" key="_-JV-QE1yEey9OMfS12CV-A">
+      <value xmi:id="_-kAhAE1yEey9OMfS12CV-A" key="_-irrUE1yEey9OMfS12CV-A">
+        <value xmi:id="_-kAhAU1yEey9OMfS12CV-A" x="783.0" y="187.00009"/>
+      </value>
+      <value xmi:id="__UT8kE1yEey9OMfS12CV-A" key="__USucE1yEey9OMfS12CV-A">
+        <value xmi:id="__UT8kU1yEey9OMfS12CV-A" x="783.0" y="397.00003"/>
+      </value>
+      <value xmi:id="_CmHEgE1zEey9OMfS12CV-A" key="_CmGdcE1zEey9OMfS12CV-A">
+        <value xmi:id="_CmHEgU1zEey9OMfS12CV-A" x="569.5" y="611.0001"/>
+      </value>
+      <value xmi:id="_Hx7pIE1zEey9OMfS12CV-A" key="_Hx6bAE1zEey9OMfS12CV-A">
+        <value xmi:id="_Hx7pIU1zEey9OMfS12CV-A" x="906.99976" y="626.0001"/>
+      </value>
+      <value xmi:id="_NArl8E1zEey9OMfS12CV-A" key="_NAq-4E1zEey9OMfS12CV-A">
+        <value xmi:id="_NArl8U1zEey9OMfS12CV-A" x="1220.9801" y="611.0001"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

@@ -29,7 +29,7 @@ public class MistakeDetectionPerformanceAnalysis {
         "../mistakedetection/realModels/studentSolution/studentDomainModel - 1/Class Diagram/StudentDomainModel.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
    // MistakeDetectionTest.log(comparison);
   }
@@ -44,7 +44,7 @@ public class MistakeDetectionPerformanceAnalysis {
         "../mistakedetection/realModels/studentSolution/studentDomainModel - 2/Class Diagram/StudentDomainModel.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
    // MistakeDetectionTest.log(comparison);
 

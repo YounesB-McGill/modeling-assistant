@@ -5,8 +5,6 @@ This module must not depend on any other to avoid circular dependencies.
 
 # Ok to import items from standard library and pyecore model code
 
-import json
-
 from types import SimpleNamespace
 from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
 
@@ -15,10 +13,6 @@ COLOR = SimpleNamespace(VIOLET="\033[95m", BLUE="\033[94m", CYAN="\033[96m", GRE
                         ORANGE="\u001b[31;1m", RED="\033[91m", ENDC="\033[0m")
 
 _mtc_subcats: dict[MistakeTypeCategory, list[MistakeTypeCategory]] = {}
-
-env_vars: dict[str, str] = {}
-with open(".env", encoding="utf-8") as env_file:
-    env_vars = json.load(env_file)
 
 
 def color_str(color: str, text: str) -> str:
@@ -70,3 +64,13 @@ def fbs(fbs_by_level: dict[int, Feedback | list[Feedback]]) -> list[Feedback]:
             fb.level = level
             feedbacks.append(fb)
     return feedbacks
+
+
+class NonNoneDict(dict):
+    """
+    A dictionary that disallows None values.
+    """
+    def __setitem__(self, key, value):
+        if key is None:
+            raise ValueError("Cannot set NonNoneDict key to None")
+        super().__setitem__(key, value)

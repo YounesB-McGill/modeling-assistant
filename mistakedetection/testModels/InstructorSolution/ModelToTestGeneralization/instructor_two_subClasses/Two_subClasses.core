@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_4ds_wDzMEeymDNMMtrXqsg" name="Two_subClasses" featureModel="_4ds_wTzMEeymDNMMtrXqsg" impactModel="_4ds_wzzMEeymDNMMtrXqsg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_4ds_wTzMEeymDNMMtrXqsg" root="_4ds_wjzMEeymDNMMtrXqsg">
+    <features xmi:id="_4ds_wjzMEeymDNMMtrXqsg" name="Two_subClasses" realizedBy="_5OC3kDzMEeymDNMMtrXqsg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_4ds_wzzMEeymDNMMtrXqsg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_5OBpcDzMEeymDNMMtrXqsg" name="Two_subClasses" scene="_5OC3kDzMEeymDNMMtrXqsg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Two_subClasses.domain_model.cdm#_5OEswDzMEeymDNMMtrXqsg"/>
+  </artefacts>
+  <scenes xmi:id="_5OC3kDzMEeymDNMMtrXqsg" name="Two_subClasses" realizes="_4ds_wjzMEeymDNMMtrXqsg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_5OC3kTzMEeymDNMMtrXqsg" value="_5OBpcDzMEeymDNMMtrXqsg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_EB7EkE1aEeyaw5LGC19Rlg" name="Three_subClasses" featureModel="_EB7EkU1aEeyaw5LGC19Rlg" impactModel="_EB7Ek01aEeyaw5LGC19Rlg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_EB7EkU1aEeyaw5LGC19Rlg" root="_EB7Ekk1aEeyaw5LGC19Rlg">
+    <features xmi:id="_EB7Ekk1aEeyaw5LGC19Rlg" name="Three_subClasses" realizedBy="_Ek510E1aEeyaw5LGC19Rlg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_EB7Ek01aEeyaw5LGC19Rlg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_Ek4nsE1aEeyaw5LGC19Rlg" name="Three_subClasses" scene="_Ek510E1aEeyaw5LGC19Rlg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Three_subClasses.domain_model.cdm#_Ek6c4E1aEeyaw5LGC19Rlg"/>
+  </artefacts>
+  <scenes xmi:id="_Ek510E1aEeyaw5LGC19Rlg" name="Three_subClasses" realizes="_EB7Ekk1aEeyaw5LGC19Rlg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_Ek510U1aEeyaw5LGC19Rlg" value="_Ek4nsE1aEeyaw5LGC19Rlg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

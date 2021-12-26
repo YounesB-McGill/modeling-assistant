@@ -10,17 +10,13 @@ from pyecore.ecore import EObject
 from pyecore.resources.resource import Resource, ResourceSet, URI
 
 from classdiagram import ClassDiagram
+from envvars import CORES_PATH, TOUCHCORE_PATH
 from learningcorpus import LearningCorpus, LearningItem
 from serdes import set_static_class_for
 from stringserdes import SRSET
 from constants import CLASS_DIAGRAM_MM, DEFAULT_MODELING_ASSISTANT_PATH, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM
-from utils import env_vars, warn
+from utils import warn
 from modelingassistant.modelingassistant import ModelingAssistant
-
-
-TOUCHCORE_PATH = env_vars["touchcore-sources"]
-WEBCORE_PATH = f"{TOUCHCORE_PATH}/../touchcore-web"
-CORES_PATH = f"{WEBCORE_PATH}/webcore-server/cores"
 
 
 def load_metamodels(*ecore_files: str) -> ResourceSet:
@@ -58,7 +54,7 @@ def load_ma(ma_file: str, use_static_classes: bool = True) -> ModelingAssistant:
         warn(f"Attempting to open {ma_file} with unexpected extension as a *.modelingassistant file.")
     rset = load_metamodels(CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM)
     resource = rset.get_resource(URI(ma_file))
-    modeling_assistant = resource.contents[0]
+    modeling_assistant: ModelingAssistant = resource.contents[0]
     if use_static_classes:
         modeling_assistant.__class__ = ModelingAssistant
         for e in modeling_assistant.eAllContents():

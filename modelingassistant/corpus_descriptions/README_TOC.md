@@ -122,6 +122,7 @@
    1. [Abstraction-Occurrence pattern mistakes](#abstraction-occurrence-pattern-mistakes)
       1. [Missing Abstraction-Occurrence pattern](#missing-abstraction-occurrence-pattern)
       1. [Incomplete Abstraction-Occurrence pattern](#incomplete-abstraction-occurrence-pattern)
+      1. [Subclass should be association Abstraction-Occurrence pattern](#subclass-should-be-association-abstraction-occurrence-pattern)
 
 ## Class mistakes
 
@@ -1879,38 +1880,374 @@ Level 6: Resource response with Quiz:
 
 ##### Subclass should be full Player-Role pattern
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts
+
+Level 3: Parametrized response:
+
+> [Nice try, but] a ${firstSubclass} can also play the role of a ${secondSubclass}.
+
+Level 4: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+Level 5: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
 
 ##### Subclass should be association Player-Role pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts
+
+Level 3: Parametrized response:
+
+> [Nice try, but] a ${firstSubclass} can also play the role of a ${secondSubclass}.
+
+Level 4: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+Level 5: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
 
 
 ##### Subclass should be enumeration Player-Role pattern
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts
+
+Level 3: Parametrized response:
+
+> [Nice try, but] a ${firstSubclass} can also play the role of a ${secondSubclass}.
+
+Level 4: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+Level 5: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
 
 ##### Association should be full Player-Role pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts
+
+Level 3: Parametrized response:
+
+> A ${firstRole} has different features from a ${secondRole}.
+
+Level 4: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+Level 5: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
 
 
 ##### Association should be subclass Player-Role pattern
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts
+
+Level 3: Parametrized response:
+
+> A ${firstRole} has different features from a ${secondRole}.
+
+Level 4: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+Level 5: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
 
 ##### Association should be enumeration Player-Role pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts
+
+Level 3: Parametrized response:
+
+> Will the roles of ${firstRole} and ${secondRole} ever be occupied at the same time?
+
+Level 4: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+Level 5: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
 
 
 ##### Enumeration should be full Player-Role pattern
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts
+
+Level 3: Parametrized response:
+
+> [Nice try, but] a ${firstRole} can also play the role of a ${secondRole}.
+
+Level 4: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+Level 5: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
 
 ##### Enumeration should be subclass Player-Role pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts
+
+Level 3: Parametrized response:
+
+> A ${firstRole} has different features from a ${secondRole}.
+
+Level 4: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+Level 5: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
 
 
 ##### Enumeration should be association Player-Role pattern
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts
+
+Level 3: Parametrized response:
+
+> Will the roles of ${firstRole} and ${secondRole} ever be occupied at the same time?
+
+Level 4: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+Level 5: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
 
 ##### Full Player-Role pattern should be subclass
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts
+
+Level 3: Parametrized response:
+
+> Can a ${firstRole} can also play the role of a ${secondRole}?
+
+Level 4: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+Level 5: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
 
 
 ##### Full Player-Role pattern should be association
 
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts
+
+Level 3: Parametrized response:
+
+> Do ${firstRole} and ${secondRole} need to have different features?
+
+Level 4: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+Level 5: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
 
 ##### Full Player-Role pattern should be enumeration
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts
+
+Level 3: Parametrized response:
+
+> Do ${firstRole} and ${secondRole} need to have different features?
+
+Level 4: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+Level 5: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
 
 
 #### Missing Player-Role pattern
@@ -2027,6 +2364,27 @@ Level 3: Parametrized response:
 
 
 > The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
+
+Level 4: Resource response with Reference:
+
+> The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
+represent a set of related objects that share common information but also differ
+from each other in an important way.
+
+![Abstraction-Occurrence Pattern](images/abstraction_occurrence.png)
+
+
+#### Subclass should be association Abstraction-Occurrence pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Text response:
+
+> Do subclasses belong in this use of the Abstraction-Occurrence pattern?
 
 Level 4: Resource response with Reference:
 

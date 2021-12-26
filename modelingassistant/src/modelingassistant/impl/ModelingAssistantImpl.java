@@ -3,25 +3,19 @@
 package modelingassistant.impl;
 
 import java.util.Collection;
-
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.ProblemStatement;
 import modelingassistant.Solution;
 import modelingassistant.Student;
 import modelingassistant.StudentKnowledge;
-
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public class ModelingAssistantImpl extends MinimalEObjectImpl.Container implements ModelingAssistant {
+
   /**
    * The cached value of the '{@link #getProblemStatements() <em>Problem Statements</em>}' containment reference list.
    * <!-- begin-user-doc -->

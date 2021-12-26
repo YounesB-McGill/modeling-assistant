@@ -41,6 +41,17 @@ import modelingassistant.util.ModelingassistantResourceFactoryImpl;
  * @generated
  */
 public interface ModelingAssistant extends EObject {
+
+  /**
+   * The resource set for all modeling assistant instances. This is an internal member and should not be referenced from
+   * other classes. Ideally, it should have been private, however this is not possible in current versions of Java,
+   * so it is marked as "internal," which is the convention used by Java and Eclipse for implementation details
+   * that cannot be made private.
+   *
+   * @generated NOT
+   */
+  /*private*/ ResourceSet RSET_INTERNAL = getResourceSetWithExtensions();
+
   /**
    * Returns the value of the '<em><b>Problem Statements</b></em>' containment reference list.
    * The list contents are of type {@link modelingassistant.ProblemStatement}.
@@ -103,12 +114,8 @@ public interface ModelingAssistant extends EObject {
    * @generated NOT
    */
   static ModelingAssistant fromFile(File file) {
-    ModelingassistantPackage.eINSTANCE.eClass();
-    // rset is local to avoid duplicate resource issues
-    // this may need to change in the future to improve performance
-    var rset = getResourceSetWithExtensions();
     try {
-      var maResource = rset.createResource(URI.createFileURI(file.getCanonicalPath()));
+      var maResource = RSET_INTERNAL.createResource(URI.createFileURI(file.getCanonicalPath()));
       maResource.load(Collections.EMPTY_MAP);
       return (ModelingAssistant) maResource.getContents().get(0);
     } catch (IOException e) {
@@ -131,10 +138,7 @@ public interface ModelingAssistant extends EObject {
    * @generated NOT
    */
   static ModelingAssistant fromEcoreString(String maString) {
-    CdmPackage.eINSTANCE.eClass();
-    LearningcorpusPackage.eINSTANCE.eClass();
-    ModelingassistantPackage.eINSTANCE.eClass();
-    var resource = getResourceSetWithExtensions().createResource(URI.createFileURI("*.modelingassistant"));
+    var resource = RSET_INTERNAL.createResource(URI.createFileURI("*.modelingassistant"));
     try {
       resource.load(new URIConverter.ReadableInputStream(maString), Collections.EMPTY_MAP);
       return (ModelingAssistant) resource.getContents().get(0);
@@ -150,7 +154,7 @@ public interface ModelingAssistant extends EObject {
    * @generated NOT
    */
   default String toEcoreString() {
-    var resource = getResourceSetWithExtensions().createResource(URI.createFileURI("*.modelingassistant"));
+    var resource = RSET_INTERNAL.createResource(URI.createFileURI("*.modelingassistant"));
     resource.getContents().add(this);
     resource.getContents().addAll(getSolutions().stream().map(Solution::getClassDiagram)
         .collect(Collectors.toUnmodifiableList()));
@@ -170,7 +174,10 @@ public interface ModelingAssistant extends EObject {
    * @generated NOT
    */
   private static ResourceSet getResourceSetWithExtensions() {
-    var rset = new ResourceSetImpl();
+    CdmPackage.eINSTANCE.eClass();
+    LearningcorpusPackage.eINSTANCE.eClass();
+    ModelingassistantPackage.eINSTANCE.eClass();
+    ResourceSet rset = new ResourceSetImpl();
     rset.getResourceFactoryRegistry().getExtensionToFactoryMap().putAll(Map.of(
         "cdm", new CdmResourceFactoryImpl(),
         LearningcorpusPackage.eNAME, new LearningcorpusResourceFactoryImpl(),

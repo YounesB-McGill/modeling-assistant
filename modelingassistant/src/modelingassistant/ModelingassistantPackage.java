@@ -626,13 +626,13 @@ public interface ModelingassistantPackage extends EPackage {
   int MISTAKE = 7;
 
   /**
-   * The feature id for the '<em><b>Resolved</b></em>' attribute.
+   * The feature id for the '<em><b>Resolved By Student</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MISTAKE__RESOLVED = 0;
+  int MISTAKE__RESOLVED_BY_STUDENT = 0;
 
   /**
    * The feature id for the '<em><b>Time To Address</b></em>' attribute.
@@ -1372,15 +1372,15 @@ public interface ModelingassistantPackage extends EPackage {
   EClass getMistake();
 
   /**
-   * Returns the meta object for the attribute '{@link modelingassistant.Mistake#isResolved <em>Resolved</em>}'.
+   * Returns the meta object for the attribute '{@link modelingassistant.Mistake#isResolvedByStudent <em>Resolved By Student</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Resolved</em>'.
-   * @see modelingassistant.Mistake#isResolved()
+   * @return the meta object for the attribute '<em>Resolved By Student</em>'.
+   * @see modelingassistant.Mistake#isResolvedByStudent()
    * @see #getMistake()
    * @generated
    */
-  EAttribute getMistake_Resolved();
+  EAttribute getMistake_ResolvedByStudent();
 
   /**
    * Returns the meta object for the attribute '{@link modelingassistant.Mistake#getTimeToAddress <em>Time To Address</em>}'.
@@ -2031,12 +2031,12 @@ public interface ModelingassistantPackage extends EPackage {
     EClass MISTAKE = eINSTANCE.getMistake();
 
     /**
-     * The meta object literal for the '<em><b>Resolved</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Resolved By Student</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute MISTAKE__RESOLVED = eINSTANCE.getMistake_Resolved();
+    EAttribute MISTAKE__RESOLVED_BY_STUDENT = eINSTANCE.getMistake_ResolvedByStudent();
 
     /**
      * The meta object literal for the '<em><b>Time To Address</b></em>' attribute feature.

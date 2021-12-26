@@ -3,31 +3,23 @@
 package modelingassistant.impl;
 
 import java.sql.Time;
-
 import java.util.Collection;
-
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.InternalEList;
 import learningcorpus.MistakeType;
-
 import modelingassistant.FeedbackItem;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantPackage;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
-
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,7 +29,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link modelingassistant.impl.MistakeImpl#isResolved <em>Resolved</em>}</li>
+ *   <li>{@link modelingassistant.impl.MistakeImpl#isResolvedByStudent <em>Resolved By Student</em>}</li>
  *   <li>{@link modelingassistant.impl.MistakeImpl#getTimeToAddress <em>Time To Address</em>}</li>
  *   <li>{@link modelingassistant.impl.MistakeImpl#getNumStepsBeforeNotification <em>Num Steps Before Notification</em>}</li>
  *   <li>{@link modelingassistant.impl.MistakeImpl#getStudentElements <em>Student Elements</em>}</li>
@@ -53,24 +45,24 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake {
   /**
-   * The default value of the '{@link #isResolved() <em>Resolved</em>}' attribute.
+   * The default value of the '{@link #isResolvedByStudent() <em>Resolved By Student</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isResolved()
+   * @see #isResolvedByStudent()
    * @generated
    * @ordered
    */
-  protected static final boolean RESOLVED_EDEFAULT = false;
+  protected static final boolean RESOLVED_BY_STUDENT_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isResolved() <em>Resolved</em>}' attribute.
+   * The cached value of the '{@link #isResolvedByStudent() <em>Resolved By Student</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isResolved()
+   * @see #isResolvedByStudent()
    * @generated
    * @ordered
    */
-  protected boolean resolved = RESOLVED_EDEFAULT;
+  protected boolean resolvedByStudent = RESOLVED_BY_STUDENT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getTimeToAddress() <em>Time To Address</em>}' attribute.
@@ -217,8 +209,8 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
    * @generated
    */
   @Override
-  public boolean isResolved() {
-    return resolved;
+  public boolean isResolvedByStudent() {
+    return resolvedByStudent;
   }
 
   /**
@@ -227,11 +219,11 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
    * @generated
    */
   @Override
-  public void setResolved(boolean newResolved) {
-    boolean oldResolved = resolved;
-    resolved = newResolved;
+  public void setResolvedByStudent(boolean newResolvedByStudent) {
+    boolean oldResolvedByStudent = resolvedByStudent;
+    resolvedByStudent = newResolvedByStudent;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE__RESOLVED, oldResolved, resolved));
+      eNotify(new ENotificationImpl(this, Notification.SET, ModelingassistantPackage.MISTAKE__RESOLVED_BY_STUDENT, oldResolvedByStudent, resolvedByStudent));
   }
 
   /**
@@ -564,8 +556,8 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
     switch (featureID) {
-      case ModelingassistantPackage.MISTAKE__RESOLVED:
-        return isResolved();
+      case ModelingassistantPackage.MISTAKE__RESOLVED_BY_STUDENT:
+        return isResolvedByStudent();
       case ModelingassistantPackage.MISTAKE__TIME_TO_ADDRESS:
         return getTimeToAddress();
       case ModelingassistantPackage.MISTAKE__NUM_STEPS_BEFORE_NOTIFICATION:
@@ -599,8 +591,8 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
   @Override
   public void eSet(int featureID, Object newValue) {
     switch (featureID) {
-      case ModelingassistantPackage.MISTAKE__RESOLVED:
-        setResolved((Boolean)newValue);
+      case ModelingassistantPackage.MISTAKE__RESOLVED_BY_STUDENT:
+        setResolvedByStudent((Boolean)newValue);
         return;
       case ModelingassistantPackage.MISTAKE__TIME_TO_ADDRESS:
         setTimeToAddress((Time)newValue);
@@ -643,8 +635,8 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
   @Override
   public void eUnset(int featureID) {
     switch (featureID) {
-      case ModelingassistantPackage.MISTAKE__RESOLVED:
-        setResolved(RESOLVED_EDEFAULT);
+      case ModelingassistantPackage.MISTAKE__RESOLVED_BY_STUDENT:
+        setResolvedByStudent(RESOLVED_BY_STUDENT_EDEFAULT);
         return;
       case ModelingassistantPackage.MISTAKE__TIME_TO_ADDRESS:
         setTimeToAddress(TIME_TO_ADDRESS_EDEFAULT);
@@ -685,8 +677,8 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
   @Override
   public boolean eIsSet(int featureID) {
     switch (featureID) {
-      case ModelingassistantPackage.MISTAKE__RESOLVED:
-        return resolved != RESOLVED_EDEFAULT;
+      case ModelingassistantPackage.MISTAKE__RESOLVED_BY_STUDENT:
+        return resolvedByStudent != RESOLVED_BY_STUDENT_EDEFAULT;
       case ModelingassistantPackage.MISTAKE__TIME_TO_ADDRESS:
         return TIME_TO_ADDRESS_EDEFAULT == null ? timeToAddress != null : !TIME_TO_ADDRESS_EDEFAULT.equals(timeToAddress);
       case ModelingassistantPackage.MISTAKE__NUM_STEPS_BEFORE_NOTIFICATION:
@@ -719,8 +711,8 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
     if (eIsProxy()) return super.toString();
 
     StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (resolved: ");
-    result.append(resolved);
+    result.append(" (resolvedByStudent: ");
+    result.append(resolvedByStudent);
     result.append(", timeToAddress: ");
     result.append(timeToAddress);
     result.append(", numStepsBeforeNotification: ");

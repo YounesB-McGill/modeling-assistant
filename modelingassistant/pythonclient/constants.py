@@ -9,3 +9,5 @@ MODELING_ASSISTANT_MM = f"{MM_PATH}/modelingassistant.ecore"
 
 LEARNING_CORPUS_PATH = "modelingassistant.learningcorpus.dsl.instances/default.learningcorpus"
 DEFAULT_MODELING_ASSISTANT_PATH = "modelingassistant/instances/default.modelingassistant"
+
+WEBCORE_ENDPOINT = "http://localhost:8080"

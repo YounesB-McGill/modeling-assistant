@@ -81,7 +81,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeType" eType="ecore:EClass learningcorpus.ecore#//MistakeType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Mistake">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolved" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolvedByStudent" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeToAddress" eType="#//Time"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numStepsBeforeNotification"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>

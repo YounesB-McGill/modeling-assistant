@@ -6,8 +6,10 @@ REST API for modeling assistant.
 
 # pylint: disable=invalid-name
 
+import json
+
 from feedback import give_feedback_for_student_cdm
-from flask import abort, Flask, Response, jsonify
+from flask import abort, Flask, Response, jsonify, request
 from flask_cors import CORS
 
 
@@ -30,10 +32,11 @@ def hello_world(name) -> Response:
     return jsonify({"hello": name})
 
 
-@app.route("/feedback/<cdmName>")
+@app.route("/feedback/<cdmName>", methods = ["POST"])
 def feedback(cdmName: str) -> Response:
     "Return feedback for the class diagram given its name."
-    return jsonify(give_feedback_for_student_cdm(cdmName))
+    print("Got POST REST call for feedback on this class diagram")
+    return jsonify(give_feedback_for_student_cdm(cdmName, json.loads(request.get_data())["classDiagram"]))
 
 
 if __name__ == "__main__":
