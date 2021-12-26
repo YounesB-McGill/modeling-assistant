@@ -13,7 +13,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_CONTAINMENT_TR
 import static learningcorpus.mistaketypes.MistakeTypes.INFINITE_RECURSIVE_DEPENDENCY;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
@@ -33,21 +32,10 @@ import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
-import learningcorpus.MistakeType;
-import modelingassistant.Mistake;
-import modelingassistant.ModelingAssistant;
 
 public class MistakeDetectionWrongRelationshipsTest {
 
@@ -3076,59 +3064,6 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), CLASS_SHOULD_BE_ASSOC_CLASS, studDriverClass, 0, 1, false);
-  }
-
-  @Test
-  public void testMistakeDetectionSystemMultipleInvocations() {
-    var instructorClassDiagram = cdmFromFile("../modelingassistant/testmodels/MULTIPLE_CLASSES_instructor.cdm");
-    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-    var studentClassDiagram = cdmFromFile("../modelingassistant/testmodels/MULTIPLE_CLASSES_student1.cdm");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-    assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, MISSING_CLASS);
-
-    studentClassDiagram = cdmFromFile("../modelingassistant/testmodels/MULTIPLE_CLASSES_student2.cdm");
-    studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-    assertMistakeTypes(comparison.newMistakes, INCOMPLETE_CONTAINMENT_TREE, MISSING_COMPOSITION);
-  }
-
-  @Test
-  public void testMistakeDetectionMultipleInvocationsWithInputModelingAssistantFromEcoreStrings() {
-    try {
-      var maStr1 = Files.readString(Paths.get("../modelingassistant/testinstances/ma_test1.modelingassistant"));
-      var ma = ModelingAssistant.fromEcoreString(maStr1);
-
-      var instructorSolution = ma.getSolutions().stream().filter(sol -> sol.getStudent() == null).findFirst().get();
-      var studentSolution = ma.getSolutions().stream().filter(sol -> sol.getStudent() != null).findFirst().get();
-
-      var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-      assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, MISSING_CLASS);
-      assertNotNull(ma.toEcoreString());
-
-      var maStr2 = Files.readString(Paths.get("../modelingassistant/testinstances/ma_test2.modelingassistant"));
-      ma = ModelingAssistant.fromEcoreString(maStr2);
-
-      instructorSolution = ma.getSolutions().stream().filter(sol -> sol.getStudent() == null).findFirst().get();
-      studentSolution = ma.getSolutions().stream().filter(sol -> sol.getStudent() != null).findFirst().get();
-
-      comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-      assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, INCOMPLETE_CONTAINMENT_TREE);
-      assertNotNull(ma.toEcoreString());
-    } catch (IOException e) {
-      fail();
-    }
-  }
-
-  /** Asserts that the given mistakes have the given mistake types. */
-  private static void assertMistakeTypes(List<Mistake> mistakes, MistakeType... mistakeTypes) {
-    assertEquals(new HashSet<>(Arrays.asList(mistakeTypes)),
-        mistakes.stream().map(Mistake::getMistakeType).collect(Collectors.toUnmodifiableSet()));
   }
 
 }
