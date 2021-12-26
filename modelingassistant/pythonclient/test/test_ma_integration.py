@@ -34,7 +34,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from classdiagram import Class, ClassDiagram
 from constants import WEBCORE_ENDPOINT
-from envvars import CORES_PATH, TOUCHCORE_PATH
+from envvars import TOUCHCORE_PATH
 from feedback import FeedbackTO
 from flaskapp import app, DEBUG_MODE, PORT
 from fileserdes import load_cdm, save_to_file

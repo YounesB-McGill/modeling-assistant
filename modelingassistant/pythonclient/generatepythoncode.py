@@ -99,7 +99,7 @@ def customize_class(filename: str, classname: str, members: list[AST]):
     save_ast_to_file(file_ast, filename)
 
 
-def customize_module(filename: str, members: list[AST], footer: str):
+def customize_module(filename: str, members: list[AST], footer: str = ""):
     "Add custom functionality to a module."
     file_ast = read_ast(filename)
     file_ast.body.extend(members)

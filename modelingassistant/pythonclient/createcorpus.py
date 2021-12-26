@@ -18,6 +18,7 @@ from datetime import datetime
 
 import cv2
 
+from constants import LEARNING_CORPUS_PATH
 from corpus import corpus
 from fileserdes import save_to_file
 from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResponse, ParametrizedResponse,
@@ -26,7 +27,6 @@ from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResp
 MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
 MAX_COLUMN_WIDTH = 120
 
-DEFAULT_LEARNING_CORPUS_FILE = "modelingassistant.learningcorpus.dsl.instances/default.learningcorpus"
 PYTHON_MISTAKE_TYPES_FILE = "modelingassistant/pythonclient/mistaketypes.py"
 JAVA_MISTAKE_TYPES_FILE = "modelingassistant/src/learningcorpus/mistaketypes/MistakeTypes.java"
 CORPUS_DESCRIPTION_DIR = "modelingassistant/corpus_descriptions"
@@ -281,6 +281,7 @@ def generate_tex():
     Generate LaTeX version of the learning corpus.
     """
     # pylint: disable=too-many-statements, invalid-name
+    # function-level constants must be defined here, before any inner functions
     NO_INDENT = "\\noindent "
     NLS = " \\medskip\n\n"
     MAX_WIDTH = 0.9  # relative to line width
@@ -448,11 +449,16 @@ def underscorify(s: str) -> str:
     return re.sub(r"_+", "_", s).upper()
 
 
-if __name__ == "__main__":
-    "Main entry point."
-    save_to_file(DEFAULT_LEARNING_CORPUS_FILE, corpus)
+def create_corpus():
+    "Create the learning corpus."
+    save_to_file(LEARNING_CORPUS_PATH, corpus)
     print(f"Created learning corpus with {len(corpus.mistakeTypes())} mistake types.")
     generate_python()
     generate_java()
     generate_markdown()
     generate_tex()
+
+
+if __name__ == "__main__":
+    "Main entry point."
+    create_corpus()
