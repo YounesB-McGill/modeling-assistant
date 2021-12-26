@@ -842,8 +842,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                             1: Feedback(highlightSolution=True),
                             2: TextResponse(
                                 text="Think carefully about how to model the relationships between these concepts"),
-                            3: ParametrizedResponse(
-                                text="[Nice try, but] a ${firstSubclass} can also play the role of a ${secondSubclass}."),
+                            3: ParametrizedResponse(text="[Nice try, but] a ${firstSubclass} can also play the role of "
+                                                         "a ${secondSubclass}."),
                             4: ResourceResponse(learningResources=[pr_ref]),
                             5: ResourceResponse(learningResources=[pr_quiz]),
                         })),
@@ -854,8 +854,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                             1: Feedback(highlightSolution=True),
                             2: TextResponse(
                                 text="Think carefully about how to model the relationships between these concepts"),
-                            3: ParametrizedResponse(
-                                text="[Nice try, but] a ${firstSubclass} can also play the role of a ${secondSubclass}."),
+                            3: ParametrizedResponse(text="[Nice try, but] a ${firstSubclass} can also play the role of "
+                                                         "a ${secondSubclass}."),
                             4: ResourceResponse(learningResources=[pr_ref]),
                             5: ResourceResponse(learningResources=[pr_quiz]),
                         })),
@@ -866,8 +866,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                             1: Feedback(highlightSolution=True),
                             2: TextResponse(
                                 text="Think carefully about how to model the relationships between these concepts"),
-                            3: ParametrizedResponse(
-                                text="[Nice try, but] a ${firstSubclass} can also play the role of a ${secondSubclass}."),
+                            3: ParametrizedResponse(text="[Nice try, but] a ${firstSubclass} can also play the role of "
+                                                         "a ${secondSubclass}."),
                             4: ResourceResponse(learningResources=[pr_ref]),
                             5: ResourceResponse(learningResources=[pr_quiz]),
                         })),
@@ -902,8 +902,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                             1: Feedback(highlightSolution=True),
                             2: TextResponse(
                                 text="Think carefully about how to model the relationships between these concepts"),
-                            3: ParametrizedResponse(
-                                text="Will the roles of ${firstRole} and ${secondRole} ever be occupied at the same time?"),
+                            3: ParametrizedResponse(text="Will the roles of ${firstRole} and ${secondRole} ever be "
+                                                          "occupied at the same time?"),
                             4: ResourceResponse(learningResources=[pr_ref]),
                             5: ResourceResponse(learningResources=[pr_quiz]),
                         })),
@@ -938,8 +938,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                             1: Feedback(highlightSolution=True),
                             2: TextResponse(
                                 text="Think carefully about how to model the relationships between these concepts"),
-                            3: ParametrizedResponse(
-                                text="Will the roles of ${firstRole} and ${secondRole} ever be occupied at the same time?"),
+                            3: ParametrizedResponse(text="Will the roles of ${firstRole} and ${secondRole} ever be "
+                                                          "occupied at the same time?"),
                             4: ResourceResponse(learningResources=[pr_ref]),
                             5: ResourceResponse(learningResources=[pr_quiz]),
                         })),
@@ -983,7 +983,6 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             ]
         ),
         abstraction_occurrence_pattern_mistakes := mtc(n="Abstraction-Occurrence pattern mistakes", mistakeTypes=[
-            # TODO Add more fine-grained mistake types here for more precise feedback
             missing_ao_pattern := mt(
                 n="Missing AO pattern", d="Missing Abstraction-Occurrence pattern", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
@@ -1015,7 +1014,16 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         "${className}, but this is not enforced.")],
                     4: ResourceResponse(learningResources=[ao_ref]),
                 })),
-            # Wrong AO (inheritance instead of association)
+            subclass_should_be_assoc_ao_pattern := mt(
+                n="Subclass should be assoc AO pattern",
+                d="Subclass should be association Abstraction-Occurrence pattern",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: TextResponse(text="Do subclasses belong in this use of the Abstraction-Occurrence pattern?"),
+                    4: ResourceResponse(learningResources=[ao_ref]),
+                })),
         ]),
     ]),
 ])

@@ -122,6 +122,7 @@
    1. [Abstraction-Occurrence pattern mistakes](#abstraction-occurrence-pattern-mistakes)
       1. [Missing Abstraction-Occurrence pattern](#missing-abstraction-occurrence-pattern)
       1. [Incomplete Abstraction-Occurrence pattern](#incomplete-abstraction-occurrence-pattern)
+      1. [Subclass should be association Abstraction-Occurrence pattern](#subclass-should-be-association-abstraction-occurrence-pattern)
 
 ## Class mistakes
 
@@ -2363,6 +2364,27 @@ Level 3: Parametrized response:
 
 
 > The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
+
+Level 4: Resource response with Reference:
+
+> The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
+represent a set of related objects that share common information but also differ
+from each other in an important way.
+
+![Abstraction-Occurrence Pattern](images/abstraction_occurrence.png)
+
+
+#### Subclass should be association Abstraction-Occurrence pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Text response:
+
+> Do subclasses belong in this use of the Abstraction-Occurrence pattern?
 
 Level 4: Resource response with Reference:
 

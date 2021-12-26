@@ -421,4 +421,7 @@ public class MistakeTypes {
   /** The incomplete abstraction-occurrence pattern mistake type. */
   public static final MistakeType INCOMPLETE_AO_PATTERN = MTS.get("Incomplete AO pattern");
 
+  /** The subclass should be association abstraction-occurrence pattern mistake type. */
+  public static final MistakeType SUBCLASS_SHOULD_BE_ASSOC_AO_PATTERN = MTS.get("Subclass should be assoc AO pattern");
+
 }

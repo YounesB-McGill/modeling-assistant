@@ -1,4 +1,5 @@
 {
+  "editor.rulers": [120],
   "python.autoComplete.extraPaths": [
     "modelingassistant/pythonclient",
     "modelingassistant/pythonclient/classdiagram",
