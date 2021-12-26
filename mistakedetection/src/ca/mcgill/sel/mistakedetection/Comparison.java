@@ -66,7 +66,7 @@ public class Comparison {
   /**
    * Function to print the mapped, unmapped classifier or attributes.
    */
-  public void log() {
+  public Comparison log() {
     System.out.println();
     System.out.println("----Test Logger-----");
     System.out.print("Not Mapped InstructorClassifier List : ");
@@ -168,6 +168,7 @@ public class Comparison {
         System.out.println(" ' " + m.getMistakeType().getName() + " ' ");
       }
     });
+    return this;
   }
 
 }

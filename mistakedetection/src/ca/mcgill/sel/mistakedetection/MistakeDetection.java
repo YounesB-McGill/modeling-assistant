@@ -1590,16 +1590,6 @@ public class MistakeDetection {
     existingMistakes.forEach(setSolutionForElems);
     newMistakes.forEach(setSolutionForElems);
 
-    // TODO Added the following for debugging only - do not merge!
-    Consumer<? super Mistake> printMistakeIdAndRscStatus = m ->
-      System.out.print(Integer.toHexString(m.hashCode()) + " (" + (m.eResource() != null) + ") ");
-    System.out.println("\nupdateMistakes() start:\nExisting mistakes: ");
-    existingMistakes.forEach(printMistakeIdAndRscStatus);
-    System.out.println("\nNew mistakes: ");
-    newMistakes.forEach(printMistakeIdAndRscStatus);
-    System.out.println("\n");
-    // End debugging part
-
     // List containing existing mistakes that are equal to newMistakes
     List<Mistake> existingMistakesProcessed = new ArrayList<>();
     // List containing new mistakes that are already present in a solution (i.e existingMistakes)
@@ -1647,11 +1637,8 @@ public class MistakeDetection {
             existingMistake.setResolved(true);
             existingMistake.setNumSinceResolved(existingMistake.getNumSinceResolved() + 1);
           } else {
-            System.out.println("[1] Killing mistake " + Integer.toHexString(existingMistake.hashCode()));
-            //existingMistakes.get(i).setSolution(null);
             existingMistake.getInstructorElements().clear();
             existingMistake.getStudentElements().clear();
-            // Remove dead mistake from student solution
             existingMistake.getSolution().getMistakes().remove(existingMistake);
             existingMistake.setLastFeedback(null);
             existingMistake.setSolution(null);
@@ -1664,8 +1651,6 @@ public class MistakeDetection {
           existingMistake.setResolved(true);
           existingMistake.setNumSinceResolved(existingMistake.getNumSinceResolved() + 1);
         } else {
-          System.out.println("[2] Killing mistake " + Integer.toHexString(existingMistake.hashCode()));
-          //existingMistake.setSolution(null);
           existingMistake.getInstructorElements().clear();
           existingMistake.getStudentElements().clear();
           existingMistake.getSolution().getMistakes().remove(existingMistake);
@@ -1674,14 +1659,6 @@ public class MistakeDetection {
         }
       }
     }
-
-    // TODO Added the following for debugging only - do not merge!
-    System.out.println("\nupdateMistakes() end:\nExisting mistakes: ");
-    existingMistakes.forEach(printMistakeIdAndRscStatus);
-    System.out.println("\nNew mistakes: ");
-    newMistakes.forEach(printMistakeIdAndRscStatus);
-    System.out.println("\n");
-    // End debugging part
   }
 
   private static void updateNewMistakes(List<Mistake> newMistakes, Solution studentSolution, boolean filter) {

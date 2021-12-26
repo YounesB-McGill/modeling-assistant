@@ -38,11 +38,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -3081,15 +3079,13 @@ public class MistakeDetectionWrongRelationshipsTest {
   }
 
   @Test
-  public void testMistakeDetectionSystemDebug1() {
+  public void testMistakeDetectionSystemMultipleInvocations() {
     var instructorClassDiagram = cdmFromFile("../modelingassistant/testmodels/MULTIPLE_CLASSES_instructor.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
     var studentClassDiagram = cdmFromFile("../modelingassistant/testmodels/MULTIPLE_CLASSES_student1.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-    comparison.log();
 
     assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, MISSING_CLASS);
 
@@ -3101,9 +3097,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertMistakeTypes(comparison.newMistakes, INCOMPLETE_CONTAINMENT_TREE, MISSING_COMPOSITION);
   }
 
-  //@Disabled("This test currently fails with a DanglingHREFException and is being debugged.")
   @Test
-  public void testMistakeDetectionSystemDebug2() {
+  public void testMistakeDetectionMultipleInvocationsWithInputModelingAssistantFromEcoreStrings() {
     try {
       var maStr1 = Files.readString(Paths.get("../modelingassistant/testinstances/ma_test1.modelingassistant"));
       var ma = ModelingAssistant.fromEcoreString(maStr1);
@@ -3115,74 +3110,24 @@ public class MistakeDetectionWrongRelationshipsTest {
       assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, MISSING_CLASS);
       assertNotNull(ma.toEcoreString());
 
-      try {
-        Thread.sleep(2000);
-      } catch(InterruptedException e) {
-        e.printStackTrace();
-      }
-
       var maStr2 = Files.readString(Paths.get("../modelingassistant/testinstances/ma_test2.modelingassistant"));
       ma = ModelingAssistant.fromEcoreString(maStr2);
 
       instructorSolution = ma.getSolutions().stream().filter(sol -> sol.getStudent() == null).findFirst().get();
       studentSolution = ma.getSolutions().stream().filter(sol -> sol.getStudent() != null).findFirst().get();
 
-      Consumer<Mistake> mistakePrinter = m ->
-        System.out.println(m.getMistakeType().getName() + " " + Integer.toHexString(m.hashCode()) + " has "
-            + (m.eResource() == null? "no" : "a") + " resource");
-
-      List<Mistake> oldMistakes = new ArrayList<>();
-      System.out.println("\nMistakes in ma:");
-      ma.eAllContents().forEachRemaining(e -> {
-        if ("Mistake".equals(e.eClass().getName())) {
-          var m = (Mistake) e;
-          oldMistakes.add(m);
-          mistakePrinter.accept(m);
-        }
-      });
-      System.out.println();
-
-      var badMistake = oldMistakes.get(0);
-
-      final var iS = instructorSolution;
-      final var sS = studentSolution;
-      var compareThread = new Thread(() -> MistakeDetection.compare(iS, sS));
-      //compareThread.start();
-
       comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-      while(badMistake.eResource() != null);
-
-//      for (var e: compareThread.getStackTrace()) {
-//        System.out.println(e);
-//      }
-
       assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, INCOMPLETE_CONTAINMENT_TREE);
-
-      System.out.println("\nOld mistakes:");
-      oldMistakes.forEach(m -> {
-        mistakePrinter.accept(m);
-      });
-      System.out.println();
-
-      System.out.println("Mistakes in ma:");
-      ma.eAllContents().forEachRemaining(e -> {
-        if ("Mistake".equals(e.eClass().getName())) {
-          mistakePrinter.accept((Mistake) e);
-        }
-      });
-      System.out.println();
-
-      assertNotNull(ma.toEcoreString()); // is wrongly null
+      assertNotNull(ma.toEcoreString());
     } catch (IOException e) {
-      //e.printStackTrace();
       fail();
     }
   }
 
   /** Asserts that the given mistakes have the given mistake types. */
   private static void assertMistakeTypes(List<Mistake> mistakes, MistakeType... mistakeTypes) {
-    assertEquals(new HashSet<MistakeType>(Arrays.asList(mistakeTypes)),
+    assertEquals(new HashSet<>(Arrays.asList(mistakeTypes)),
         mistakes.stream().map(Mistake::getMistakeType).collect(Collectors.toUnmodifiableSet()));
   }
 

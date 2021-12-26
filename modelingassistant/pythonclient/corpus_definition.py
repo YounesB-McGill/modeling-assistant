@@ -1095,6 +1095,7 @@ mts_by_priority: list[MistakeType] = [
     incomplete_containment_tree,
 
     # design pattern mistakes
+    subclass_should_be_assoc_ao_pattern,
     subclass_should_be_full_pr_pattern,
     subclass_should_be_assoc_pr_pattern,
     subclass_should_be_enum_pr_pattern,
