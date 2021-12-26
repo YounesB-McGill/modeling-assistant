@@ -231,9 +231,7 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     def call_mistake_detection_system(ma_str: str) -> Response:
         return requests.get(f"http://{HOST}:{PORT}/detectmistakes", {"modelingassistant": ma_str})
 
-    # resource = SRSET.create_string_resource()
-    # resource.extend([ma, instructor_cdm, student_cdm])
-    ma_str = SRSET.create_ma_str(ma)  #resource.save_to_string().decode()
+    ma_str = SRSET.create_ma_str(ma)
     assert ma_str
 
     try:
@@ -297,7 +295,6 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
 
-#@pytest.mark.skip(reason="Work in progress")
 def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
     """
     Test feedback for a serialized modeling assistant instance with mistakes detected from the mistake detection system.
@@ -325,10 +322,7 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
 
     assert [m.mistakeType for m in solution.mistakes] == [INCOMPLETE_CONTAINMENT_TREE, MISSING_COMPOSITION]
     assert fb.highlight
-    print("Test complete")
-    #assert False
 
 
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
-    test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system()

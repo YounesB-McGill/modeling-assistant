@@ -63,8 +63,11 @@ class MistakeDetectionController {
   @GetMapping("/detectmistakes")
   public MistakeDetection detectMistakes(@RequestParam(value = "modelingassistant") String modelingAssistantXmi) {
     // TODO Optimize this to only detect mistakes in active problem statements
-    System.out.println("\n\n----------------------------\n\nInput MA:\n\n"
-        + modelingAssistantXmi + "\n\n----------------------------\n\n");
+
+    // Print detailed input and output while integration test is still being debugged
+    var dashes = "-".repeat(80);
+    System.out.println("\n\n" + dashes + "\n\nInput MA:\n\n" + modelingAssistantXmi + "\n\n" + dashes + "\n\n");
+
     var modelingAssistant = ModelingAssistant.fromEcoreString(modelingAssistantXmi);
 
     System.out.println("\n\nSolutions before:");
@@ -88,8 +91,8 @@ class MistakeDetectionController {
         System.out.println(mt.getName() + ": " + mistake + ", " + mistake.eResource());
       });
     });
+    System.out.println("\n\n" + dashes + "\n\nReturning MA:\n\n" + modelingAssistant.toEcoreString());
 
-    System.out.println("\n\n----------------------------\n\nReturning MA:\n\n" + modelingAssistant.toEcoreString());
     return new MistakeDetection(modelingAssistant.toEcoreString());
   }
 
