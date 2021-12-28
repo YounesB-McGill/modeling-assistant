@@ -316,6 +316,9 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     airplane_class = Class(name="Airplane")
     cdm.classes.append(airplane_class)
 
+    with open("modelingassistant/testinstances/ma_test2.modelingassistant", "w", encoding="utf-8") as f:
+        f.write(SRSET.create_ma_str(ma))
+
     fb, ma = give_feedback_for_student_cdm(cdm_name, ma=ma)
     solution = next(sol for sol in ma.solutions if sol.student)  # false positive: pylint: disable=no-member
     mistakes: list[Mistake] = solution.mistakes

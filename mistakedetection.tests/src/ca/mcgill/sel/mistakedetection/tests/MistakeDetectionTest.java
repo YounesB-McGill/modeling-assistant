@@ -367,7 +367,7 @@ public class MistakeDetectionTest {
       assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, MISSING_CLASS);
       assertNotNull(ma.toEcoreString());
 
-      // If the test fails here, update the file with the latest MA string obtained from the second input sent by
+      // If the test fails here, rerun the following test using `pytest`
       // test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system()
       var maStr2 = Files.readString(Paths.get("../modelingassistant/testinstances/ma_test2.modelingassistant"));
       ma = ModelingAssistant.fromEcoreString(maStr2);
