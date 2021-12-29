@@ -12,6 +12,9 @@ from textwrap import dedent
 import ast
 import os
 
+from pyecore.ecore import EPackage, EClassifier, EString, EProxy
+from pyecore.valuecontainer import BadValueError
+
 
 def generate_pyecore():
     "Generate the pyecore Python code from the modeling assistant and learning corpus metamodels."
@@ -41,8 +44,35 @@ def customize_generated_code():
             """
         return [mtc for mtc in self.mistakeTypeCategories if not mtc.supercategory]
 
-    # Add the following item to the generated ModelingAssistant class
+    # Add the following items to the generated ModelingAssistant class
     cdm2sols_def = "classDiagramsToSolutions: dict = {}"
+
+    def override_pyecorevalue_check(self, value, _isinstance=isinstance):
+        """
+        Overriden version of PyEcoreValue.check() to accept both static and dynamic classes.
+        """
+        import inspect
+        import classdiagram
+        import learningcorpus
+        feature = self.feature
+        etype = self.generic_type or feature._eType  # pylint: disable=protected-access
+        if not etype:
+            try:
+                etype = feature.eGenericType.eRawType
+                self.generic_type = etype
+            except Exception as root_cause:
+                raise AttributeError(f'Feature {feature} has no type nor generic') from root_cause
+        if not _isinstance(value, etype):
+            if (etype in (EPackage, EClassifier, EString)  # everything can be represented as one of them, so accept all
+                or isinstance(value, EProxy)  # proxy should be resolved to actual value, so don't crash here
+                or value.eClass.name == etype.__name__):  # allow static/dynamic classes to be used interchangeably
+                return True
+            # if value instance of etype, return True
+            for _module in [classdiagram, learningcorpus, __import__(__name__)]:  # import modelingassistant
+                for name, cls in inspect.getmembers(_module, inspect.isclass):
+                    if name == value.eClass.name and etype.name in (c.__name__ for c in cls.__bases__):
+                        return True
+            raise BadValueError(got=value, expected=etype, feature=feature)
 
     lc_py = "modelingassistant/pythonclient/learningcorpus/learningcorpus.py"
     ma_py = "modelingassistant/pythonclient/modelingassistant/modelingassistant.py"
@@ -50,20 +80,42 @@ def customize_generated_code():
     customize_class(lc_py, "LearningCorpus", [ast_for(mistakeTypes), ast_for(topLevelMistakeTypeCategories)])
     customize_class(ma_py, "ModelingAssistant", [ast.parse(cdm2sols_def)])
 
+    ma_footer = dedent("""
+
+        from pyecore.valuecontainer import PyEcoreValue
+        PyEcoreValue.check = override_pyecorevalue_check
+        """)
+    customize_module(ma_py, [ast_for(override_pyecorevalue_check)], ma_footer)
+
 
 def customize_class(filename: str, classname: str, members: list[AST]):
     "Add custom functionality to a class, similar to `@generated NOT` in the Java ecore implementation."
-    # Open and parse file
+    file_ast = read_ast(filename)
+    for e in file_ast.body:
+        # Find the class
+        if "name" in dir(e) and e.name == classname:
+            # Add the custom members to it
+            e.body.extend(members)
+    save_ast_to_file(file_ast, filename)
+
+
+def customize_module(filename: str, members: list[AST], footer: str = ""):
+    "Add custom functionality to a module."
+    file_ast = read_ast(filename)
+    file_ast.body.extend(members)
+    save_ast_to_file(file_ast, filename, footer)
+
+
+def read_ast(filename: str) -> AST:
+    "Read the AST (Abstract Syntax Tree) from a file."
     with open(filename, encoding="utf-8") as f:
-        file_ast = ast.parse(f.read())
-        for e in file_ast.body:
-            # Find the class
-            if "name" in dir(e) and e.name == classname:
-                # Add the custom members to it
-                e.body.extend(members)
-    # Unparse the file back to a string and save it to file
+        return ast.parse(f.read())
+
+
+def save_ast_to_file(ast_: AST, filename: str, footer: str = ""):
+    "Save the given AST to a file by unparsing it to a string."
     with open(filename, "w", encoding="utf-8") as f:
-        f.write(ast.unparse(file_ast))
+        f.write(f"{ast.unparse(ast_)}{footer}")
 
 
 if __name__ == "__main__":

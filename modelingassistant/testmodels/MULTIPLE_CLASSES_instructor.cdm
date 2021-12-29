@@ -1,68 +1,35 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<classdiagram:ClassDiagram xmlns:xmi="http://www.omg.org/XMI" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmi:id="_BfsV0IwiEeu_3bwvd4NWSw" name="MULTIPLE_CLASSES_instructor" xmi:version="2.0">
-  <layout xmi:id="_BfsV24wiEeu_3bwvd4NWSw">
-    <containers xmi:id="_BfsV3IwiEeu_3bwvd4NWSw" key="_BfsV0IwiEeu_3bwvd4NWSw">
-      <value xmi:id="_B2UtIIwiEeu_3bwvd4NWSw" key="_B2TfAIwiEeu_3bwvd4NWSw">
-        <value xmi:id="_B2UtIYwiEeu_3bwvd4NWSw" x="133.49997" y="424.12097"/>
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="__zbfj0NpYEeuihpv-j2laQg" name="MULTIPLE_CLASSES_instructor">
+  <classes xsi:type="classdiagram:Class" xmi:id="__z421QNpYEeuihpv-j2laQg" name="Pilot">
+    <associationEnds xmi:id="__Juy__MN25EeuVoonRXmsiAQ" name="myRoot" assoc="__Juy__Mt25EeuVoonRXmsiAQ" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="__z421QNpYEeuihbv-j2laQg" name="Airplane">
+    <associationEnds xmi:id="__Juy__MN25EeuVoonRXmsiAR" name="myRoot" assoc="__Juy__Mt25EeuVoonRXmsiAR" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="__IuR9YN25EeuVoonRXmsiAQ" name="Root">
+    <associationEnds xmi:id="__Juy__Md25EeuVoonRXmsiAQ" name="myPilot" assoc="__Juy__Mt25EeuVoonRXmsiAQ" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="__Juy__Md25EeuVoonRXmsiAR" name="myAirplane" assoc="__Juy__Mt25EeuVoonRXmsiAR" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="__zbfj0dpYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="__zbfj0tpYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="__zbfj09pYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="__zbfj1NpYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="__zbfj1dpYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="__zbfj1tpYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="__zbfj19pYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="__zbfj2NpYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="__zbfj2dpYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="__zbfj2tpYEeuihpv-j2laQg"/>
+  <associations xmi:id="__Juy__Mt25EeuVoonRXmsiAQ" name="Pilot_Root" ends="__Juy__MN25EeuVoonRXmsiAQ __Juy__Md25EeuVoonRXmsiAQ"/>
+  <associations xmi:id="__Juy__Mt25EeuVoonRXmsiAR" name="Airplane_Root" ends="__Juy__MN25EeuVoonRXmsiAR __Juy__Md25EeuVoonRXmsiAR"/>
+  <layout xmi:id="__zbgK4NpYEeuihpv-j2laQg">
+    <containers xmi:id="__zbgK4dpYEeuihpv-j2laQg" key="__zbfj0NpYEeuihpv-j2laQg">
+      <value xmi:id="__z44DYNpYEeuihpv-j2laQg" key="__z421QNpYEeuihpv-j2laQg">
+        <value xmi:id="__z44DYdpYEeuihpv-j2laQg" x="974.0001" y="251.0"/>
       </value>
-      <value xmi:id="_Cjdf8IwiEeu_3bwvd4NWSw" key="_CjcR0IwiEeu_3bwvd4NWSw">
-        <value xmi:id="_Cjdf8YwiEeu_3bwvd4NWSw" x="698.96387" y="163.99995"/>
-      </value>
-      <value xmi:id="_pE0s8IwiEeu_3bwvd4NWSw" key="_pE0F4IwiEeu_3bwvd4NWSw">
-        <value xmi:id="_pE0s8YwiEeu_3bwvd4NWSw" x="84.963776" y="196.99994"/>
-      </value>
-      <value xmi:id="_1hdz0IwiEeu_3bwvd4NWSw" key="_1hclsowiEeu_3bwvd4NWSw">
-        <value xmi:id="_1hdz0YwiEeu_3bwvd4NWSw" x="628.0002" y="452.5"/>
-      </value>
-      <value xmi:id="_1hiFQIwiEeu_3bwvd4NWSw" key="_1hdz0owiEeu_3bwvd4NWSw">
-        <value xmi:id="_1hiFQYwiEeu_3bwvd4NWSw" x="518.0" y="481.0"/>
+      <value xmi:id="__IuSkcN25EeuVoonRXmsiAQ" key="__IuR9YN25EeuVoonRXmsiAQ">
+        <value xmi:id="__IuSkcd25EeuVoonRXmsiAQ" x="423.99976" y="251.0"/>
       </value>
     </containers>
   </layout>
-  <associations xmi:id="_1hdz0owiEeu_3bwvd4NWSw" ends="_1hclsIwiEeu_3bwvd4NWSw _1hclsYwiEeu_3bwvd4NWSw" name="_X" associationClass="_1hclsowiEeu_3bwvd4NWSw"/>
-  <classes xsi:type="classdiagram:Class" xmi:id="_B2TfAIwiEeu_3bwvd4NWSw" name="X" visibility="public">
-    <associationEnds xmi:id="_1hclsIwiEeu_3bwvd4NWSw" assoc="_1hdz0owiEeu_3bwvd4NWSw" name="myXs" lowerBound="17" upperBound="17"/>
-    <associationEnds xmi:id="_1hclsYwiEeu_3bwvd4NWSw" assoc="_1hdz0owiEeu_3bwvd4NWSw" name="myXs" lowerBound="15" upperBound="15"/>
-    <operations xmi:id="_sB6wMYwiEeu_3bwvd4NWSw" operationType="Constructor" name="create" returnType="_B2TfAIwiEeu_3bwvd4NWSw">
-      <parameters xmi:id="_E4G54JvKEeuztMA5bZOjMQ" name="a" type="_BfsV1YwiEeu_3bwvd4NWSw"/>
-    </operations>
-    <operations xmi:id="_rwwuwowiEeu_3bwvd4NWSw" operationType="Destructor" name="destroy" returnType="_BfsV0YwiEeu_3bwvd4NWSw"/>
-    <operations xmi:id="_vIW8sYwiEeu_3bwvd4NWSw" returnType="_BfsV14wiEeu_3bwvd4NWSw" name="getName"/>
-    <operations xmi:id="_J5ljgYwjEeu_3bwvd4NWSw" returnType="_BfsV0YwiEeu_3bwvd4NWSw" name="addDay"/>
-    <operations xmi:id="_O-zw4YwjEeu_3bwvd4NWSw" returnType="_CjcR0IwiEeu_3bwvd4NWSw" name="getCity"/>
-    <attributes xmi:id="_wF_poIwiEeu_3bwvd4NWSw" name="name" type="_BfsV14wiEeu_3bwvd4NWSw"/>
-    <attributes xmi:id="_EKZzIIwjEeu_3bwvd4NWSw" name="city" type="_CjcR0IwiEeu_3bwvd4NWSw"/>
-    <attributes xmi:id="_GEfhQIwjEeu_3bwvd4NWSw" name="day" type="_pE0F4IwiEeu_3bwvd4NWSw"/>
-  </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="_CjcR0IwiEeu_3bwvd4NWSw" name="City" dataType="true" visibility="public">
-    <operations xmi:id="_Fdb9wowiEeu_3bwvd4NWSw" operationType="Constructor" name="create" returnType="_CjcR0IwiEeu_3bwvd4NWSw"/>
-    <operations xmi:id="_IoPs4YwiEeu_3bwvd4NWSw" operationType="Destructor" name="destroy" returnType="_BfsV0YwiEeu_3bwvd4NWSw"/>
-    <operations xmi:id="_IU7IQYwiEeu_3bwvd4NWSw" returnType="_BfsV14wiEeu_3bwvd4NWSw" name="getN"/>
-    <attributes xmi:id="_FHRggIwiEeu_3bwvd4NWSw" name="Montreal" type="_BfsV14wiEeu_3bwvd4NWSw"/>
-    <attributes xmi:id="_KJ3QoIwiEeu_3bwvd4NWSw" name="Vancouver" type="_BfsV14wiEeu_3bwvd4NWSw"/>
-  </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="_1hclsowiEeu_3bwvd4NWSw" visibility="public" name="Y">
-    <attributes xmi:id="_9i8W8IwiEeu_3bwvd4NWSw" name="age" type="_BfsV1YwiEeu_3bwvd4NWSw"/>
-    <operations xmi:id="_4_G_YYwiEeu_3bwvd4NWSw" operationType="Constructor" name="create" returnType="_1hclsowiEeu_3bwvd4NWSw">
-      <parameters xmi:id="_tsQPEJDYEeuiS52hTJPzfQ" name="a" type="_BfsV1YwiEeu_3bwvd4NWSw"/>
-    </operations>
-    <operations xmi:id="_46p9MowiEeu_3bwvd4NWSw" operationType="Destructor" name="destroy" returnType="_BfsV0YwiEeu_3bwvd4NWSw"/>
-    <operations xmi:id="_7jfnsYwiEeu_3bwvd4NWSw" returnType="_BfsV14wiEeu_3bwvd4NWSw" name="getAge"/>
-  </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="5c251402-286c-4e84-9115-352dbe0ee124" name="Airplane"/>
-  <types xsi:type="classdiagram:CDVoid" xmi:id="_BfsV0YwiEeu_3bwvd4NWSw"/>
-  <types xsi:type="classdiagram:CDAny" xmi:id="_BfsV0owiEeu_3bwvd4NWSw"/>
-  <types xsi:type="classdiagram:CDBoolean" xmi:id="_BfsV04wiEeu_3bwvd4NWSw"/>
-  <types xsi:type="classdiagram:CDDouble" xmi:id="_BfsV1IwiEeu_3bwvd4NWSw"/>
-  <types xsi:type="classdiagram:CDInt" xmi:id="_BfsV1YwiEeu_3bwvd4NWSw"/>
-  <types xsi:type="classdiagram:CDLong" xmi:id="_BfsV1owiEeu_3bwvd4NWSw"/>
-  <types xsi:type="classdiagram:CDString" xmi:id="_BfsV14wiEeu_3bwvd4NWSw"/>
-  <types xsi:type="classdiagram:CDByte" xmi:id="_BfsV2IwiEeu_3bwvd4NWSw"/>
-  <types xsi:type="classdiagram:CDFloat" xmi:id="_BfsV2YwiEeu_3bwvd4NWSw"/>
-  <types xsi:type="classdiagram:CDChar" xmi:id="_BfsV2owiEeu_3bwvd4NWSw"/>
-  <types xsi:type="classdiagram:CDEnum" xmi:id="_pE0F4IwiEeu_3bwvd4NWSw" name="Day">
-    <literals xmi:id="_p--oEIwiEeu_3bwvd4NWSw" name="Today"/>
-    <literals xmi:id="_qiQ7UIwiEeu_3bwvd4NWSw" name="Yesterday"/>
-    <literals xmi:id="_q896UIwiEeu_3bwvd4NWSw" name="Tomorrow"/>
-  </types>
 </classdiagram:ClassDiagram>

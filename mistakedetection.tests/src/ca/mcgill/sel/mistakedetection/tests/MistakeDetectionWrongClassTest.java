@@ -1578,5 +1578,5 @@ public class MistakeDetectionWrongClassTest {
     assertTrue(comparison.notMappedInstructorClassifiers.contains(instructorCompanyClass));
     assertTrue(comparison.extraStudentClassifiers.contains(studentCompanyClass));
   }
-}
 
+}

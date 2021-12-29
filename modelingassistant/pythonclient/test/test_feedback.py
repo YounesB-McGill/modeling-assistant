@@ -17,12 +17,13 @@ import pytest  # (to allow tests to be skipped) pylint: disable=unused-import
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from feedback import give_feedback
 from classdiagram import Class, ClassDiagram
+from feedback import give_feedback, give_feedback_for_student_cdm
 from fileserdes import load_cdm
 from learningcorpus import Feedback, ParametrizedResponse, ResourceResponse, TextResponse
-from mistaketypes import BAD_CLASS_NAME_SPELLING, SOFTWARE_ENGINEERING_TERM
-from stringserdes import SRSET, StringEnabledResourceSet
+from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, MISSING_CLASS, MISSING_COMPOSITION,
+    SOFTWARE_ENGINEERING_TERM)
+from stringserdes import SRSET, str_to_modelingassistant
 from modelingassistant import (FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, Solution, SolutionElement,
     Student, StudentKnowledge)
 
@@ -230,9 +231,7 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     def call_mistake_detection_system(ma_str: str) -> Response:
         return requests.get(f"http://{HOST}:{PORT}/detectmistakes", {"modelingassistant": ma_str})
 
-    resource = StringEnabledResourceSet().create_string_resource()
-    resource.extend([ma, instructor_cdm, student_cdm])
-    ma_str = resource.save_to_string().decode()
+    ma_str = SRSET.create_ma_str(ma)
     assert ma_str
 
     try:
@@ -248,15 +247,12 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     assert "modelingAssistantXmi" in req_content
 
     ma_str = bytes(req_content["modelingAssistantXmi"], "utf-8")
-    resource = SRSET.get_string_resource(ma_str)
-    ma: ModelingAssistant = resource.contents[0]
-    ma.__class__ = ModelingAssistant
+    ma = str_to_modelingassistant(ma_str)
     assert ma
     return ma
 
 
-
-@pytest.mark.skip(reason="Longer test time")
+#@pytest.mark.skip(reason="Longer test time")
 def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
     """
     Test feedback for a modeling assistant instance with mistakes detected from the actual mistake detection system.
@@ -299,6 +295,37 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
 
+def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
+    """
+    Test feedback for a serialized modeling assistant instance with mistakes detected from the mistake detection system.
+    """
+    cdm_name = "MULTIPLE_CLASSES"
+
+    ma = ModelingAssistant()
+    fb, ma = give_feedback_for_student_cdm(cdm_name, ma=ma)
+
+    solution: Solution = ma.students[0].solutions[0]  # false positive: pylint: disable=no-member
+    mistakes: list[Mistake] = solution.mistakes
+    missing_class_mistake = mistakes[0]
+
+    assert missing_class_mistake.mistakeType == MISSING_CLASS
+    assert fb.highlight
+    assert fb.instructorElements[0] == missing_class_mistake.instructorElements[0].element._internal_id  # pylint: disable=protected-access
+
+    cdm: ClassDiagram = solution.classDiagram
+    airplane_class = Class(name="Airplane")
+    cdm.classes.append(airplane_class)
+
+    with open("modelingassistant/testinstances/ma_test2.modelingassistant", "w", encoding="utf-8") as f:
+        f.write(SRSET.create_ma_str(ma))
+
+    fb, ma = give_feedback_for_student_cdm(cdm_name, ma=ma)
+    solution = next(sol for sol in ma.solutions if sol.student)  # false positive: pylint: disable=no-member
+    mistakes: list[Mistake] = solution.mistakes
+
+    assert [m.mistakeType for m in solution.mistakes] == [INCOMPLETE_CONTAINMENT_TREE, MISSING_COMPOSITION]
+    assert fb.highlight
+
+
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
-    test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system()

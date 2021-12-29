@@ -1,13 +1,17 @@
 package modelingassistant.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -181,6 +185,47 @@ public final class ResourceHelper {
       }
     }
     return filesToEObjects;
+  }
+
+  /**
+   * Returns the TouchCORE sources directory stored in the .env file.
+   */
+  public static String getTouchcoreSourcesDirectory() {
+    return runCommandAndGetOutput("python3 readenv.py touchcore-sources");
+  }
+
+  /**
+   * Runs the given command in a subprocess and returns its output, with respect to the Modeling Assistant repo root.
+   * This method is intended to be used only for commands that run quickly and without a large output.
+   */
+  public static String runCommandAndGetOutput(String command) {
+    var cwd = Paths.get("").toAbsolutePath().getParent().toFile();
+    var isWin = System.getProperty("os.name").toLowerCase().startsWith("win");
+    var cmd = isWin? List.of("cmd.exe", "/c", command) : List.of("sh", "-c", command);
+    var builder = new ProcessBuilder().directory(cwd);
+    var execService = Executors.newSingleThreadExecutor();
+    try {
+      var process = builder.command(cmd).start();
+      List<String> outputLines = new ArrayList<>();
+      List<String> errorLines = new ArrayList<>();
+      execService.submit(() -> {
+        new BufferedReader(new InputStreamReader(process.getInputStream())).lines().forEach(outputLines::add);
+        new BufferedReader(new InputStreamReader(process.getErrorStream())).lines().forEach(errorLines::add);
+      });
+      int exitCode = process.waitFor();
+      if (exitCode == 0) {
+        return String.join("\n", outputLines).trim();
+      } else {
+        var errorMessage = String.join("\n", errorLines).trim();
+        System.err.println("Warning: command " + cmd + " failed with error message:\n" + errorMessage);
+        return errorMessage;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      execService.shutdown();
+    }
+    return null;
   }
 
 }

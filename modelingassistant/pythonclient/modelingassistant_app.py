@@ -2,6 +2,7 @@
 
 from threading import Thread
 from time import sleep
+import logging
 import json
 import os
 import sys
@@ -11,11 +12,14 @@ from requests.models import Response
 import requests
 
 from fileserdes import load_default_ma
-from stringserdes import SRSET, StringEnabledResourceSet
+from stringserdes import SRSET, str_to_modelingassistant
 from utils import warn
 from classdiagram import ClassDiagram
 from modelingassistant import ModelingAssistant
 
+LOGGING_LEVEL = logging.INFO
+
+logging.basicConfig(level=LOGGING_LEVEL, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
 MODELING_ASSISTANT =  load_default_ma()
 
@@ -26,7 +30,7 @@ MISTAKE_DETECTION_STARTUP_DELAY = 20  # seconds
 
 
 if sys.version_info[:2] < (3, 10):
-    print("Python 3.10 or higher required to run this app.")
+    logging.error("Python 3.10 or higher required to run this app.")
     sys.exit(1)
 
 
@@ -39,9 +43,9 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
         return requests.get(f"http://{MISTAKE_DETECTION_HOST}:{MISTAKE_DETECTION_PORT}/detectmistakes",
                             {"modelingassistant": ma_str})
 
-    resource = StringEnabledResourceSet().create_string_resource()
-    resource.extend([ma, instructor_cdm, student_cdm])
-    ma_str = resource.save_to_string().decode()
+    # resource = SRSET.create_string_resource()
+    # resource.extend([ma, instructor_cdm, student_cdm])
+    ma_str = SRSET.create_ma_str(ma)
 
     try:
         req = call_mistake_detection_system(ma_str)
@@ -54,10 +58,7 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     req_content = json.loads(req.content)
 
     ma_str = bytes(req_content["modelingAssistantXmi"], "utf-8")
-    resource = SRSET.get_string_resource(ma_str)
-    ma: ModelingAssistant = resource.contents[0]
-    ma.__class__ = ModelingAssistant
-    return ma
+    return str_to_modelingassistant(ma_str)
 
 
 def get_classifier_by_name(metamodel_root: EPackage, name: str) -> EClass:

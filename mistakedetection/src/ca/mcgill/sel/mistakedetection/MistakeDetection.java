@@ -1585,7 +1585,7 @@ public class MistakeDetection {
     };
 
     // List containing mistakes associated with a student Solution
-    var existingMistakes = studentSolution.getMistakes();
+    var existingMistakes = List.copyOf(studentSolution.getMistakes()); // copy to simplify removals
     var newMistakes = comparison.newMistakes;
     existingMistakes.forEach(setSolutionForElems);
     newMistakes.forEach(setSolutionForElems);
@@ -1596,7 +1596,7 @@ public class MistakeDetection {
     List<Mistake> newMistakesProcessed = new ArrayList<>();
 
     // Condition when only new mistakes exists.
-    if (existingMistakes.size() == 0 && newMistakes.size() != 0) {
+    if (existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
       updateNewMistakes(newMistakes, studentSolution, filter);
     } else if (!existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
       for (Mistake existingMistake : existingMistakes) {
@@ -1630,43 +1630,45 @@ public class MistakeDetection {
       newUnProcessedMistakes.addAll(newMistakes);
       newUnProcessedMistakes.removeAll(newMistakesProcessed);
       updateNewMistakes(newUnProcessedMistakes, studentSolution, filter);
-      for (int i = 0; i < existingMistakes.size(); i++) {
-        if (!existingMistakesProcessed.contains(existingMistakes.get(i))) {
-          if (existingMistakes.get(i).getNumSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION
-              && existingMistakes.get(i).isResolved()) {
-            existingMistakes.get(i).setResolved(true);
-            existingMistakes.get(i).setNumSinceResolved(existingMistakes.get(i).getNumSinceResolved() + 1);
+      for (var existingMistake : existingMistakes) {
+        if (!existingMistakesProcessed.contains(existingMistake)) {
+          if (existingMistake.getNumSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION
+              && existingMistake.isResolved()) {
+            existingMistake.setResolved(true);
+            existingMistake.setNumSinceResolved(existingMistake.getNumSinceResolved() + 1);
           } else {
-            existingMistakes.get(i).setSolution(null);
-            existingMistakes.get(i).getInstructorElements().clear();
-            existingMistakes.get(i).getStudentElements().clear();
+            removeStaleMistake(existingMistake);
           }
         }
       }
-    } else if (existingMistakes.size() != 0 && newMistakes.size() == 0) {
+    } else if (!existingMistakes.isEmpty() && newMistakes.isEmpty()) {
       for (Mistake existingMistake : existingMistakes) {
         if (existingMistake.getNumSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION) {
           existingMistake.setResolved(true);
           existingMistake.setNumSinceResolved(existingMistake.getNumSinceResolved() + 1);
         } else {
-          existingMistake.setSolution(null);
-          existingMistake.getInstructorElements().clear();
-          existingMistake.getStudentElements().clear();
+          removeStaleMistake(existingMistake);
         }
       }
     }
   }
 
-  private static void updateNewMistakes(List<Mistake> newMistakes, Solution studentSolution, boolean filter) {
+  /** Removes a stale mistake from the solution that contains it. */
+  private static void removeStaleMistake(Mistake mistake) {
+    mistake.getInstructorElements().clear();
+    mistake.getStudentElements().clear();
+    mistake.getSolution().getMistakes().remove(mistake);
+    mistake.setLastFeedback(null);
+    mistake.setSolution(null);
+  }
 
+  private static void updateNewMistakes(List<Mistake> newMistakes, Solution studentSolution, boolean filter) {
     var patternMistakeTypes =
         List.of(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, ASSOC_SHOULD_BE_FULL_PR_PATTERN, ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN,
             ENUM_SHOULD_BE_ASSOC_PR_PATTERN, ENUM_SHOULD_BE_FULL_PR_PATTERN, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN,
             FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM, FULL_PR_PATTERN_SHOULD_BE_SUBCLASS,
             SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, INCOMPLETE_PR_PATTERN);
-    List<MistakeType> containmentMistakeTypes = new ArrayList<>();
-    containmentMistakeTypes
-        .addAll(List.of(INCOMPLETE_CONTAINMENT_TREE, COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT));
+    var containmentMistakeTypes = List.of(INCOMPLETE_CONTAINMENT_TREE, COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT);
 
     if (filter && mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
       updateMistakesInvolvingPattern(newMistakes, patternMistakeTypes, studentSolution);
@@ -1736,7 +1738,7 @@ public class MistakeDetection {
   }
 
   /**
-   * Updates the student elemenets of an existing mistake.
+   * Updates the student elements of an existing mistake.
    *
    * @param newMistake
    * @param existingMistake
@@ -1815,7 +1817,7 @@ public class MistakeDetection {
   }
 
   /**
-   * Function returns true if both elements are equal
+   * Returns true if both elements are equal.
    *
    * @param existingElement
    * @param newElement

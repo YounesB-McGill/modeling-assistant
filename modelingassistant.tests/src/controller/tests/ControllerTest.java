@@ -49,7 +49,7 @@ public class ControllerTest {
 
   /** The location of the default learning corpus. */
   public static final String LEARNING_CORPUS_PATH =
-      "../modelingassistant.learningcorpus.dsl.instances/default.learningcorpus";
+      "../modelingassistant/learningcorpusinstances/default.learningcorpus";
 
   /** The location of the test cdm instances. */
   public static final String TEST_CDM_INSTANCES_PATH = "../modelingassistant/testmodels";

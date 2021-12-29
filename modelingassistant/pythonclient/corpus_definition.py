@@ -72,14 +72,6 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     4: ParametrizedResponse(
                         text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
                 })),
-                similar_class_name := mt(n="Similar (yet incorrect) class name", feedbacks=fbs({ # TODO Remove
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Can you double check this class name?"),
-                    3: ParametrizedResponse(
-                        text="The ${similarYetIncorrectClassName} class has a name that is not quite right."),
-                    4: ParametrizedResponse(
-                        text="The ${similarYetIncorrectClassName} class should be changed to ${correctClassName}.")
-                })),
                 wrong_class_name := mt(n="Wrong class name", atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you double check this class name?"),
@@ -127,14 +119,6 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                             text="The ${wronglyNamedEnum} should be renamed[ to ${correctEnumName}]."),
                         4: ResourceResponse(learningResources=[enum_reference]),
                     })),
-                similar_enum_name := mt(  # TODO Remove
-                    n="Similar enum name", d="Similar enumeration name", feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Can this item be renamed?"),
-                        3: ParametrizedResponse(
-                            text="The ${wronglyNamedEnum} should be renamed[ to ${correctEnumName}]."),
-                        4: ResourceResponse(learningResources=[enum_reference]),
-                    })),
                 missing_enum_item := mt(n="Missing enum item", d="Missing enumeration item", feedbacks=fbs({
                     1: Feedback(highlightProblem=True),
                     2: TextResponse(text="Is there anything missing here?"),
@@ -149,14 +133,6 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 })),
                 bad_enum_item_spelling := mt(
                     n="Bad enum item spelling", d="Bad enumeration item spelling", feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Can this item be renamed?"),
-                        3: ParametrizedResponse(
-                            text="The ${wronglyNamedEnumItem} should be renamed[ to ${correctEnumItemName}]."),
-                        4: ResourceResponse(learningResources=[enum_reference]),
-                    })),
-                similar_enum_item := mt(  # TODO Remove
-                    n="Similar enum item", d="Similar enumeration item", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
                         2: TextResponse(text="Can this item be renamed?"),
                         3: ParametrizedResponse(
@@ -257,7 +233,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         "Attributes should start with a lowercase letter."),
                     4: ResourceResponse(learningResources=[attribute_reference]),
                 })),
-                similar_attribute_name := mt(  # TODO Remove
+                similar_attribute_name := mt(
                     n="Similar (yet incorrect) attribute name", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
                         2: TextResponse(text="Can this attribute be renamed?"),
@@ -469,16 +445,6 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         text="${associationName} is misspelled.[ Use the same spelling as the problem description.]"),
                     4: ResourceResponse(learningResources=[assoc_na_ref]),
                 })),
-                similar_association_name := mt(  # TODO Remove
-                    n="Similar (yet incorrect) association name", feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Can you double check this association name?"),
-                        3: ParametrizedResponse(text="The ${similarYetIncorrectAssociationName} association has a name "
-                            "that is not quite right."),
-                        4: ParametrizedResponse(text="The ${similarYetIncorrectAssociationName} association should be "
-                            "changed to ${correctAssociationName}."),
-                        5: ResourceResponse(learningResources=[assoc_na_ref]),
-                    })),
             ]),
             multiplicity_mistakes := mtc(n="Multiplicity mistakes", mistakeTypes=[
                 infinite_recursive_dependency := mt(n="Infinite recursive dependency", feedbacks=fbs({
@@ -555,14 +521,6 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         "description.]"),
                     4: ResourceResponse(learningResources=[assoc_na_ref]),
                 })),
-                similar_role_name := mt(n="Similar (yet incorrect) role name", feedbacks=fbs({  # TODO Remove
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Can you double check this role name?"),
-                    3: ParametrizedResponse(text="The ${wrongRoleName} role name is not quite right."),
-                    4: ParametrizedResponse(text="The ${wrongRoleName} role name should be changed to "
-                        "${correctRoleName}."),
-                    5: ResourceResponse(learningResources=[role_name_ref]),
-                })),
                 wrong_role_name := mt(
                     n="Wrong role name", d="Wrong role name but correct association", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
@@ -617,15 +575,6 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         3: TextResponse(text="Is using a regular class the best way to model this?"),
                         4: ParametrizedResponse(text="The ${assocClass} class should be an association class."),
                         5: ResourceResponse(learningResources=[assoc_class_ref]),
-                    })),
-                similar_assoc_class_name := mt(  # TODO Remove
-                    n="Similar assoc class name", d="Similar (yet incorrect) association class name", feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Can you double check this class name?"),
-                        3: ParametrizedResponse(
-                            text="The ${incorrectlySpelledClassName} class has a name that is not quite right."),
-                        4: ParametrizedResponse(
-                            text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
                     })),
             ]),
         ]),
@@ -838,56 +787,151 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     subclass_should_be_full_pr_pattern := mt(
                         n="Subclass should be full PR pattern",
                         d="Subclass should be full Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(text="[Nice try, but] a ${firstSubclass} can also play the role of "
+                                                         "a ${secondSubclass}."),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     subclass_should_be_assoc_pr_pattern := mt(
                         n="Subclass should be assoc PR pattern",
                         d="Subclass should be association Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(text="[Nice try, but] a ${firstSubclass} can also play the role of "
+                                                         "a ${secondSubclass}."),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     subclass_should_be_enum_pr_pattern := mt(
                         n="Subclass should be enum PR pattern",
                         d="Subclass should be enumeration Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(text="[Nice try, but] a ${firstSubclass} can also play the role of "
+                                                         "a ${secondSubclass}."),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     assoc_should_be_full_pr_pattern := mt(
                         n="Assoc should be full PR pattern",
                         d="Association should be full Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="A ${firstRole} has different features from a ${secondRole}."),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     assoc_should_be_subclass_pr_pattern := mt(
                         n="Assoc should be subclass PR pattern",
                         d="Association should be subclass Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="A ${firstRole} has different features from a ${secondRole}."),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     assoc_should_be_enum_pr_pattern := mt(
                         n="Assoc should be enum PR pattern",
                         d="Association should be enumeration Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(text="Will the roles of ${firstRole} and ${secondRole} ever be "
+                                                          "occupied at the same time?"),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     enum_should_be_full_pr_pattern := mt(
                         n="Enum should be full PR pattern",
                         d="Enumeration should be full Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="[Nice try, but] a ${firstRole} can also play the role of a ${secondRole}."),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     enum_should_be_subclass_pr_pattern := mt(
                         n="Enum should be subclass PR pattern",
                         d="Enumeration should be subclass Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="A ${firstRole} has different features from a ${secondRole}."),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     enum_should_be_assoc_pr_pattern := mt(
                         n="Enum should be assoc PR pattern",
                         d="Enumeration should be association Player-Role pattern",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(text="Will the roles of ${firstRole} and ${secondRole} ever be "
+                                                          "occupied at the same time?"),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     full_pr_pattern_should_be_subclass := mt(
                         n="Full PR pattern should be subclass",
                         d="Full Player-Role pattern should be subclass",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="Can a ${firstRole} can also play the role of a ${secondRole}?"),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     full_pr_pattern_should_be_assoc := mt(
                         n="Full PR pattern should be assoc",
                         d="Full Player-Role pattern should be association",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="Do ${firstRole} and ${secondRole} need to have different features?"),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                     full_pr_pattern_should_be_enum := mt(
                         n="Full PR pattern should be enum",
                         d="Full Player-Role pattern should be enumeration",
-                        feedbacks=fbs({})),
+                        feedbacks=fbs({
+                            1: Feedback(highlightSolution=True),
+                            2: TextResponse(
+                                text="Think carefully about how to model the relationships between these concepts"),
+                            3: ParametrizedResponse(
+                                text="Do ${firstRole} and ${secondRole} need to have different features?"),
+                            4: ResourceResponse(learningResources=[pr_ref]),
+                            5: ResourceResponse(learningResources=[pr_quiz]),
+                        })),
                 ]),
             ]
         ),
         abstraction_occurrence_pattern_mistakes := mtc(n="Abstraction-Occurrence pattern mistakes", mistakeTypes=[
-            # TODO Add more fine-grained mistake types here for more precise feedback
             missing_ao_pattern := mt(
                 n="Missing AO pattern", d="Missing Abstraction-Occurrence pattern", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
@@ -919,6 +963,16 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         "${className}, but this is not enforced.")],
                     4: ResourceResponse(learningResources=[ao_ref]),
                 })),
+            subclass_should_be_assoc_ao_pattern := mt(
+                n="Subclass should be assoc AO pattern",
+                d="Subclass should be association Abstraction-Occurrence pattern",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: TextResponse(text="Do subclasses belong in this use of the Abstraction-Occurrence pattern?"),
+                    4: ResourceResponse(learningResources=[ao_ref]),
+                })),
         ]),
     ]),
 ])
@@ -931,24 +985,20 @@ mts_by_priority: list[MistakeType] = [
     lowercase_class_name,
     plural_class_name,
     software_engineering_term,
-    similar_class_name, # Remove
     wrong_class_name,
     bad_assoc_class_name_spelling,
-    similar_assoc_class_name, # Remove
     assoc_class_should_be_class,
     class_should_be_assoc_class,
     class_should_be_enum,
     enum_should_be_class,
     bad_enum_name_spelling,
     bad_enum_item_spelling,
-    similar_enum_name, # Remove
-    similar_enum_item, # Remove
 
     # mistakes in an existing attribute
     bad_attribute_name_spelling,
     uppercase_attribute_name,
     plural_attribute,
-    similar_attribute_name, # TODO Remove
+    similar_attribute_name,
     attribute_misplaced,
     wrong_attribute_type,
     attribute_should_not_be_static,
@@ -981,15 +1031,14 @@ mts_by_priority: list[MistakeType] = [
     inherited_feature_does_not_make_sense_for_subclass,
     wrong_multiplicity,
     bad_role_name_spelling,
-    similar_role_name,
-    wrong_role_name, # Rename to incorrect_role_name_but_correct_association
+    wrong_role_name,
     role_should_not_be_static,
     role_should_be_static,
     bad_association_name_spelling,
-    similar_association_name,
     incomplete_containment_tree,
 
     # design pattern mistakes
+    subclass_should_be_assoc_ao_pattern,
     subclass_should_be_full_pr_pattern,
     subclass_should_be_assoc_pr_pattern,
     subclass_should_be_enum_pr_pattern,
@@ -1015,7 +1064,7 @@ mts_by_priority: list[MistakeType] = [
     extra_aggregation,
     extra_nary_association,
     attribute_duplicated,
-    extra_attribute, # Rename to extra_attribute
+    extra_attribute,
 
     # missing items
     missing_class,
