@@ -20,11 +20,12 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 3: Feedback(highlightProblem=True),
                 4: ParametrizedResponse(text="Remember to add the ${className} class."),
             })),
-            extra_class := mt(n="Extra (redundant) class", feedbacks=fbs({
+            extra_class := mt(n="Extra class", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Make sure you only model the concepts mentioned in the problem description."),
                 3: TextResponse(text="You have an extra class. Can you find it?"),
-                4: [ParametrizedResponse(text="The ${className} class is not part of the domain, so please remove it."),
+                4: [ParametrizedResponse(
+                    text="The ${className} class is not part of the problem domain, so please remove it."),
                     ParametrizedResponse(text="Remember that a domain model should not contain concepts from the user "
                         "interfaces or databases, like Window, Database, etc.")],
             })),
@@ -107,16 +108,16 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 })),
                 extra_enum := mt(n="Extra enum", d="Extra enumeration", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Is this item really necessary?"),
-                    3: ParametrizedResponse(text="Remove the ${extraEnum} enumeration, it is not needed."),
+                    2: TextResponse(text="Is this enumeration really necessary?"),
+                    3: ParametrizedResponse(text="Remove the ${extraEnum} enumeration. It is not needed."),
                     4: ResourceResponse(learningResources=[enum_reference]),
                 })),
                 bad_enum_name_spelling := mt(
                     n="Bad enum name spelling", d="Bad enumeration name spelling", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Can this item be renamed?"),
+                        2: TextResponse(text="Double check the name of this enumeration."),
                         3: ParametrizedResponse(
-                            text="The ${wronglyNamedEnum} should be renamed[ to ${correctEnumName}]."),
+                            text="The ${wronglyNamedEnum} should be changed[ to ${correctEnumName}]."),
                         4: ResourceResponse(learningResources=[enum_reference]),
                     })),
                 missing_enum_item := mt(n="Missing enum item", d="Missing enumeration item", feedbacks=fbs({
@@ -134,9 +135,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 bad_enum_item_spelling := mt(
                     n="Bad enum item spelling", d="Bad enumeration item spelling", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Can this item be renamed?"),
+                        2: TextResponse(text="Double check this enumeration item."),
                         3: ParametrizedResponse(
-                            text="The ${wronglyNamedEnumItem} should be renamed[ to ${correctEnumItemName}]."),
+                            text="The ${wronglyNamedEnumItem} should be changed[ to ${correctEnumItemName}]."),
                         4: ResourceResponse(learningResources=[enum_reference]),
                     })),
             ]),
@@ -148,9 +149,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_attribute := mt(n="Missing attribute", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Make sure to model all the attributes of this class."),
-                3: ParametrizedResponse(text="The ${className} class is missing an attribute."),
-                4: ParametrizedResponse(text="A ${className} has a ${missingAttribute}."),
-                5: ResourceResponse(learningResources=[attribute_reference := Reference(
+                3: ParametrizedResponse(text="A ${className} has a ${missingAttribute}."),
+                4: ResourceResponse(learningResources=[attribute_reference := Reference(
                     content="Please review the [Attribute](https://mycourses2.mcgill.ca/) and "
                         "[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.")]),
             })),
@@ -178,9 +178,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             })),
             attribute_should_not_be_static := mt(n="Attribute should not be static", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
-                2: TextResponse(text="Is there something special about this attribute?"),
-                3: ParametrizedResponse(text="${includingClass.attributeName} should not be static, because it doesn't "
-                    "apply to all instances of ${includingClass}."),
+                2: TextResponse(text="Double check the properties of this attribute."),
+                3: ParametrizedResponse(text="${includingClass.attributeName} should not be static, because it does "
+                    "not apply to all instances of ${includingClass}."),
                 4: ResourceResponse(learningResources=[attribute_reference]),
             })),
         ],
@@ -191,7 +191,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(text="Double check this attribute name."),
                     3: TextResponse(text="This attribute should be singular."),
                     4: ResourceResponse(learningResources=[attribute_quiz := Quiz(content=dedent("""\
-                        Pick the classes which are modeled correctly.
+                        Pick the classes which are modeled correctly with Umple.
                     
                         - [ ] class Student { courses; }
                         - [ ] class Folder { List<File> files; }
@@ -214,13 +214,12 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         ParametrizedResponse(text="The ${redundantAttribute} attribute in the ${className} class is "
                             "not needed because it is not part of the domain. You only need to model concepts related "
                             "to the given problem description.")],
-                    4: ResourceResponse(learningResources=[attribute_reference]),
                 })),
             ]),
-            wrong_attribute_name_mistakes := mtc(n="Wrong attribute name mistakes", mistakeTypes=[
+            attribute_name_mistakes := mtc(n="Attribute name mistakes", mistakeTypes=[
                 bad_attribute_name_spelling := mt(n="Bad attribute name spelling", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Can this attribute be renamed?"),
+                    2: TextResponse(text="Double check this attribute name."),
                     3: ParametrizedResponse(
                         text="${wrongAttribute} is misspelled. [Use the same spelling as the problem description.]"),
                     4: ResourceResponse(learningResources=[attribute_reference]),
@@ -245,7 +244,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             attribute_in_wrong_class := mtc(n="Attribute in wrong class mistakes", mistakeTypes=[
                 attribute_misplaced := mt(n="Attribute misplaced", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Can you think of a better place for this?"),
+                    2: TextResponse(text="Can you think of a better place for this attribute?"),
                     3: ParametrizedResponse(text="The ${misplacedAttribute} does not belong in the ${wrongClass} "
                         "class. Where else can we place it?"),
                     4: ResourceResponse(learningResources=[attribute_reference]),
@@ -262,7 +261,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     n="Attribute misplaced in generalization hierarchy", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
                         2: TextResponse(text="Can you think of a better place for this?"),
-                        3: ParametrizedResponse(text="The ${misplacedAttribute} belongs in a (super|sub)class."),
+                        3: ParametrizedResponse(text="The ${misplacedAttribute} belongs in ${correctClass}."),
                         4: ResourceResponse(learningResources=[attribute_reference]),
                     })),
             ]),
@@ -334,7 +333,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is redundant "
                             "since we can access ${classTwo} from ${classOne} via ${classThree}.")],
                     4: [ResourceResponse(learningResources=[Quiz(
-                            content="Find all the redunandant associations in this class diagram (TODO).")]),
+                            content="Find all the redundant associations in this class diagram (TODO).")]),
                         ResourceResponse(learningResources=[Quiz(content="Write pseudocode to navigate between "
                             "ClassOne and ClassTwo in this class diagram (TODO).")])],
                 })),
@@ -376,8 +375,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
                         2: TextResponse(text="Is there anything special about this association?"),
-                        3: ParametrizedResponse(text="The association between ${classOne} and ${classTwo} should be "
-                            "undirected[ from ${classOne} to ${classTwo}]."),
+                        3: ParametrizedResponse(
+                            text="The association between ${classOne} and ${classTwo} should be undirected."),
                         4: ResourceResponse(learningResources=[]),  # TODO Assoc ref
                     })),
                 using_undirected_assoc_instead_of_directed := mt(
