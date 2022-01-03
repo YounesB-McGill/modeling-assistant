@@ -42,8 +42,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 plural_class_name := mt(n="Plural class name", atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Remember that class names should be singular."),
-                    3: ParametrizedResponse(text="${className} should be ${pascalCase(className)}, "
-                        "with a Capital Letter."),
+                    3: ParametrizedResponse(text="${className} should be ${singular(className)}, using the singular."),
                     4: ResourceResponse(learningResources=[correct_class_naming_example := Example(content=dedent("""\
                         Please note these examples of correct vs incorrect class naming:
                         :x: Examples to avoid | :heavy_check_mark: Good class names
@@ -55,26 +54,27 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 lowercase_class_name := mt(n="Lowercase class name", atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Remember that class names must start with a Capital Letter."),
-                    3: ParametrizedResponse(text="${className} should be ${singular(className)}, using the singular."),
+                    3: ParametrizedResponse(text="${className} should be ${pascalCase(className)}, "
+                        "with a Capital Letter."),
                     4: ResourceResponse(learningResources=[correct_class_naming_example]),
                 })),
                 software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Remember that a domain model should not contain software engineering terms."),
-                    3: ParametrizedResponse(
-                        text="${className} is a software engineering term, which does not belong in a domain model."),
+                    3: ParametrizedResponse(text="${className} contains a software engineering term, which does not "
+                        "belong in a domain model."),
                     4: ResourceResponse(learningResources=[correct_class_naming_example]),
                 })),
                 bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Can you double check this class name?"),
+                    2: TextResponse(text="Double check this class name."),
                     3: ParametrizedResponse(text="The ${incorrectlySpelledClassName} class has a misspelled name."),
                     4: ParametrizedResponse(
                         text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
                 })),
                 wrong_class_name := mt(n="Wrong class name", atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Can you double check this class name?"),
+                    2: TextResponse(text="Double check this class name."),
                     3: ParametrizedResponse(
                         text="The ${similarYetIncorrectClassName} class has a name that is not quite right."),
                     4: ParametrizedResponse(
@@ -156,7 +156,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             })),
             wrong_attribute_type := mt(n="Wrong attribute type", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
-                2: TextResponse(text="Can you double-check this?"),
+                2: TextResponse(text="Double check the properties of this attribute."),
                 3: ParametrizedResponse(text="Can you think of a better type for ${attribute}?"),
                 # Only offered in cases where a reason can be determined, eg not a simple data type
                 4: ParametrizedResponse(text="The ${className}.${attribute} is not of type ${attribute.type} because "
@@ -188,7 +188,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             extra_attribute_mistakes := mtc(n="Extra attribute mistakes", mistakeTypes=[
                 plural_attribute := mt(n="Plural attribute", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Can you double check this attribute name?"),
+                    2: TextResponse(text="Double check this attribute name."),
                     3: TextResponse(text="This attribute should be singular."),
                     4: ResourceResponse(learningResources=[attribute_quiz := Quiz(content=dedent("""\
                         Pick the classes which are modeled correctly.
@@ -449,8 +449,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             multiplicity_mistakes := mtc(n="Multiplicity mistakes", mistakeTypes=[
                 infinite_recursive_dependency := mt(n="Infinite recursive dependency", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Can you double check (this|these) association(s)?"),
-                    3: TextResponse(text="The multiplicities for this(ese) association(s) are incorrect."),
+                    2: TextResponse(text="Double check (this|these) association(s)."),
+                    3: TextResponse(text="The multiplicities for (this|these) association(s) are incorrect."),
                     # TODO Add reasons to metamodel
                     4: [# For a self-referencing class, eg, a Person has 2 parents.
                         ParametrizedResponse(
@@ -465,7 +465,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 })),
                 wrong_multiplicity := mt(n="Wrong multiplicity", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Can you double check this association?"),
+                    2: TextResponse(text="Double check this association."),
                     3: TextResponse(text="The multiplicit(y|ies) for this association (is|are) incorrect."),
                     4: ParametrizedResponse(text="How many ${class1}'s does a ${class2} have? [And how many "
                         "${class2}'s does ${class1} have?]"),
@@ -478,7 +478,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 })),
                 missing_multiplicity := mt(n="Missing multiplicity", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Can you double check this association?"),
+                    2: TextResponse(text="Double check this association."),
                     3: TextResponse(text="The multiplicit(y|ies) for this association (is|are) missing."),
                     4: ParametrizedResponse(text="How many ${class1}'s does a ${class2} have? [And how many "
                         "${class2}'s does ${class1} have?]"),
@@ -516,7 +516,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 })),
                 bad_role_name_spelling := mt(n="Bad role name spelling", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Check your spelling here."),
+                    2: TextResponse(text="Double check this role name"),
                     3: ParametrizedResponse(text="${roleName} is misspelled.[ Use the same spelling as the problem "
                         "description.]"),
                     4: ResourceResponse(learningResources=[assoc_na_ref]),
@@ -524,7 +524,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 wrong_role_name := mt(
                     n="Wrong role name", d="Wrong role name but correct association", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Can you double check this role name?"),
+                        2: TextResponse(text="Double check this role name."),
                         3: ParametrizedResponse(text="The ${wrongRoleName} role name is not correct."),
                         4: ParametrizedResponse(text="The ${wrongRoleName} role name should be changed to "
                             "${correctRoleName}."),
@@ -555,7 +555,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 bad_assoc_class_name_spelling := mt(
                     n="Bad assoc class name spelling", d="Bad association class name spelling", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Can you double check this class name?"),
+                        2: TextResponse(text="Double check this association class name."),
                         3: ParametrizedResponse(text="The ${incorrectlySpelledClassName} class has a misspelled name."),
                         4: ParametrizedResponse(
                             text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
