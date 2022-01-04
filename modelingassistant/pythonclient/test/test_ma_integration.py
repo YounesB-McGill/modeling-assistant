@@ -40,6 +40,7 @@ from flaskapp import app, DEBUG_MODE, PORT
 from fileserdes import load_cdm, save_to_file
 from modelingassistant import ModelingAssistant, ProblemStatement, Solution
 from modelingassistant_app import MODELING_ASSISTANT
+from stringserdes import SRSET, str_to_modelingassistant
 
 
 logger = logging.getLogger(__name__)
@@ -47,6 +48,7 @@ logger.setLevel(logging.DEBUG)
 
 CDM_NAME = "MULTIPLE_CLASSES"
 INSTRUCTOR_CDM = f"modelingassistant/testmodels/{CDM_NAME}_instructor.cdm"
+MA_REST_ENDPOINT = f"http://localhost:{PORT}/modelingassistant"
 
 to_simplenamespace = lambda d: SimpleNamespace(**d)  # allow dot notation, eg, d.p instead of d["p"]
 
@@ -93,7 +95,7 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     """
     # Step 0
     # use this until TC is updated to allow initializing with a cdm
-    ma = get_ma_with_ps(load_cdm(INSTRUCTOR_CDM))
+    set_modeling_assistant(get_ma_with_ps(load_cdm(INSTRUCTOR_CDM)))
 
     # Step 1
     student = MockStudent(file_name=CDM_NAME)
@@ -104,7 +106,9 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     assert bad_cls_id
     feedback = student.request_feedback()
 
+    ma = get_modeling_assistant()
     assert ma.problemStatements[0].name
+    print(ma.solutions)
     assert ma.solutions[1].classDiagram.name
     assert len(ma.solutions) >= 2
 
@@ -171,6 +175,27 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
         assert cdm[attr].type == type_of[attr_type]
 
 
+def test_communication_between_modeling_assistant_python_app_and_webcore(webcore):
+    """
+    Test the communication between the Modeling Assistant Python app and WebCORE.
+
+    A Modeling Assistant instance has solutions with solution elements, respectively
+    linked to class diagrams (accessed via WebCORE) with cdm elements.
+    """
+
+
+def get_modeling_assistant() -> ModelingAssistant:
+    "Get the ModelingAssistant instance from the Flask app."
+    return str_to_modelingassistant(requests.get(MA_REST_ENDPOINT).json()["modelingAssistantXmi"])
+
+
+def set_modeling_assistant(ma: ModelingAssistant):
+    "Set the Flask app ModelingAssistant instance."
+    ma_str = SRSET.create_ma_str(ma)
+    print(f">>> Setting ma_str to:\n\n{ma_str}\n\n")
+    requests.post(MA_REST_ENDPOINT, json={"modelingAssistantXmi": ma_str})
+
+
 def get_ma_with_ps(instructor_cdm: ClassDiagram) -> ModelingAssistant:
     """
     Create a Modeling Assistant instance with the provided parameters.
@@ -232,6 +257,7 @@ class MockStudent:
     def request_feedback(self) -> FeedbackTO:
         "Request feedback from the Modeling Assistant via WebCORE."
         resp = requests.get(f"{self.cdm_endpoint()}/feedback")
+        print(f"{resp.text = }")
         feedback_json = resp.json()
         print(feedback_json)
         return FeedbackTO(**feedback_json)
@@ -347,3 +373,4 @@ def _setup_instructor_solution():
 
 if __name__ == '__main__':
     "Main entry point."
+    test_ma_one_class_student_mistake(ma_rest_app, webcore)

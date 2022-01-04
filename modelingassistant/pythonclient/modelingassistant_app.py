@@ -45,6 +45,7 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
 
     # resource = SRSET.create_string_resource()
     # resource.extend([ma, instructor_cdm, student_cdm])
+    print("Called get_mistakes() with ", ma)
     ma_str = SRSET.create_ma_str(ma)
 
     try:

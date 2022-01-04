@@ -50,8 +50,6 @@ removed from the main repo but can be accessed
 
 These are the steps that need to be followed every time one of the app's metamodels is updated.
 
-_(The rest of this README is out of date, and will be edited in a future commit.)_
-
 1. Make the changes in the metamodel ecore file(s), eg,
 [`learningcorpus.ecore`](modelingassistant/model/learningcorpus.ecore),
 via the [`representations.aird`](modelingassistant/representations.aird) file.

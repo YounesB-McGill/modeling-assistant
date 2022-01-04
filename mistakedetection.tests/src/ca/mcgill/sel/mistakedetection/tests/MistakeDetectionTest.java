@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.ECollections;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
@@ -317,6 +318,7 @@ public class MistakeDetectionTest {
   /**
    * Tests Mistake Detection System behavior with WebCORE class diagrams.
    */
+  @Disabled("Depends on future WebCORE update")
   @Test
   public void testMistakeDetectionSystemOnWebcoreCdms() {
     var instructorClassDiagram = cdmFromFile("../modelingassistant/testmodels/MULTIPLE_CLASSES_instructor.cdm");

@@ -2848,6 +2848,13 @@ public class MistakeDetection {
     // TODO Use existing solution element when available
     if (studentElement != null) {
       var solutionElement = MAF.createSolutionElement();
+      /*
+       * if cdmElems2SolElems.containsKey(studentElem)
+       *   solutionElem = cdmElems2SolElems.get(studentElem)
+       * else
+       *   solutionElem = MAF.createSolutionElement()
+       *   cdmElems2SolElems.put()
+       */
       solutionElement.setElement(studentElement);
       mistake.getStudentElements().add(solutionElement);
     }

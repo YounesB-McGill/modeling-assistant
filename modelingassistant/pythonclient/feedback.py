@@ -104,17 +104,20 @@ def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:
 def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: ModelingAssistant = None
     ) -> FeedbackTO | Tuple[FeedbackTO, ModelingAssistant]:
     "Give feedback given a student class diagram."
-    # pylint: disable=protected-access
+    # pylint: disable=protected-access, global-statement
     global MODELING_ASSISTANT
     use_local_ma = bool(ma)
     if not use_local_ma:
         ma = MODELING_ASSISTANT
     instructor_cdm = instructor_cdm_for(student_cdm_name)
-    if instructor_cdm in ma.classDiagramsToSolutions:
-        instructor_solution = ma.classDiagramsToSolutions[instructor_cdm]
+    if instructor_cdm._internal_id in ma.classDiagramsToSolutions:
+        print(f"Getting ins sol at {id(ma) = }")
+        sol_id = ma.classDiagramsToSolutions[instructor_cdm._internal_id]
+        instructor_solution = ma.eResource.uuid_dict[sol_id]
     else:
+        print(f"Creating new ins sol at {id(ma) = }")
         instructor_solution = Solution(classDiagram=instructor_cdm, modelingAssistant=ma)
-        ma.classDiagramsToSolutions[instructor_cdm] = instructor_solution
+        ma.classDiagramsToSolutions[instructor_cdm._internal_id] = instructor_solution._internal_id
     if cdm_str:
         student_cdm = str_to_cdm(cdm_str)
     else:
@@ -137,10 +140,14 @@ def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: 
     else:
         ma.problemStatements.append(ProblemStatement(modelingAssistant=ma, instructorSolution=instructor_solution,
                                                      studentSolutions=[student_solution]))
-    # cdms2sols = ma.classDiagramsToSolutions
+    cdms2sols = ma.classDiagramsToSolutions
+    if not use_local_ma:
+        MODELING_ASSISTANT = ma
+    print(ma)
     ma = get_mistakes(ma, instructor_cdm, student_cdm)
-    # if not ma.classDiagramsToSolutions:
-    #     ma.classDiagramsToSolutions = cdms2sols
+    print(ma)
+    if not ma.classDiagramsToSolutions:
+        ma.classDiagramsToSolutions = cdms2sols
     if not use_local_ma:
         MODELING_ASSISTANT = ma
     student_solution = next(sol for sol in ma.solutions if sol.student)
