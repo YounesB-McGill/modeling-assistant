@@ -38,7 +38,7 @@ def hello_world(name) -> Response:
 def feedback(cdmName: str) -> Response:
     "Return feedback for the class diagram given its name."
     print("Got POST REST call for feedback on this class diagram")
-    r = jsonify(give_feedback_for_student_cdm(cdmName, json.loads(request.get_data())["classDiagram"]))
+    r = jsonify(give_feedback_for_student_cdm(cdmName, json.loads(request.get_data())["classDiagram"], MODELING_ASSISTANT)[0])
     print(f"/feedback/{cdmName}: Returning this response: ", r.data.decode("utf-8"))
     return r
     #return jsonify(give_feedback_for_student_cdm(cdmName, json.loads(request.get_data())["classDiagram"]))
@@ -55,7 +55,9 @@ def modeling_assistant() -> Response:
         return r
         # return jsonify({"modelingAssistantXmi": str_to_modelingassistant(MODELING_ASSISTANT)})
     if request.method == "POST":
+        print(f"Old MA id: {id(MODELING_ASSISTANT)}")
         MODELING_ASSISTANT = str_to_modelingassistant(json.loads(request.get_data())["modelingAssistantXmi"])
+        print(f"New MA id: {id(MODELING_ASSISTANT)}")
         r = jsonify({"success": True})
         print("/modelingassistant: Returning this response: ", r.data.decode("utf-8"))
         return r

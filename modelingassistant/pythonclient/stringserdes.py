@@ -301,4 +301,7 @@ def str_to_modelingassistant(ma_str: str, use_static_classes: bool = True) -> Mo
         modeling_assistant.__class__ = ModelingAssistant
         for e in modeling_assistant.eAllContents():
             set_static_class_for(e)
+    # print(f"str_to_ma(): {modeling_assistant.eResource}, {modeling_assistant.eResource.uuid_dict}")
+    # for k, v in modeling_assistant.eResource.uuid_dict.items():
+    #     print(f"{k} -> {v}")
     return modeling_assistant

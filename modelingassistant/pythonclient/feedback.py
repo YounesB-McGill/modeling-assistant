@@ -104,15 +104,17 @@ def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:
 def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: ModelingAssistant = None
     ) -> FeedbackTO | Tuple[FeedbackTO, ModelingAssistant]:
     "Give feedback given a student class diagram."
-    # pylint: disable=protected-access, global-statement
+    # pylint: disable=protected-access, global-statement, too-many-branches
     global MODELING_ASSISTANT
+    print(f"give_feedback_for_student_cdm({student_cdm_name}, {cdm_str}, {ma})")
     use_local_ma = bool(ma)
     if not use_local_ma:
         ma = MODELING_ASSISTANT
     instructor_cdm = instructor_cdm_for(student_cdm_name)
     if instructor_cdm._internal_id in ma.classDiagramsToSolutions:
-        print(f"Getting ins sol at {id(ma) = }")
+        print(f"Getting ins sol at {id(ma) = }, {ma.classDiagramsToSolutions = }")
         sol_id = ma.classDiagramsToSolutions[instructor_cdm._internal_id]
+        print(ma.eResource, ma.eResource.uuid_dict)
         instructor_solution = ma.eResource.uuid_dict[sol_id]
     else:
         print(f"Creating new ins sol at {id(ma) = }")
