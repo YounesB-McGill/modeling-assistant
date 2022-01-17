@@ -296,6 +296,43 @@ public class MistakeDetection {
 
   private static void checkMistakeExtraGeneralization(Comparison comparison) {
     for (var set : comparison.studentSuperclassesToSubclasses.entrySet()) {
+      Classifier studSuperClass = set.getKey();
+      List<Classifier> studSubclasses = set.getValue();
+      List<NamedElement> extraStudGeneralizationClasses = new ArrayList<>();
+      List<NamedElement> extraInstGeneralizationClasses = new ArrayList<>();
+      if (comparison.mappedClassifiers.containsValue(studSuperClass)) {
+        if (comparison.instructorSuperclassesToSubclasses
+            .containsKey(getKey(comparison.mappedClassifiers, studSuperClass))) {
+         for(Classifier studClass: studSubclasses) {
+           var instSubClasses = comparison.instructorSuperclassesToSubclasses.get(getKey(comparison.mappedClassifiers, studSuperClass));
+           if(!comparison.mappedClassifiers.containsValue(studClass)) {
+             extraStudGeneralizationClasses.add(studClass);
+           }else if(!instSubClasses.contains(getKey(comparison.mappedClassifiers, studClass))) {
+             extraStudGeneralizationClasses.add(studClass);
+             extraInstGeneralizationClasses.add(getKey(comparison.mappedClassifiers, studClass));
+           }
+         }
+        }else {
+          if(!comparison.mappedClassifiers.containsValue(studSuperClass)) {
+          extraStudGeneralizationClasses.add(studSuperClass);
+          extraStudGeneralizationClasses.addAll(extraStudGeneralizationClasses);
+          }
+          for(Classifier studClass: studSubclasses) {
+            if(!comparison.mappedClassifiers.containsValue(studClass)) {
+              extraStudGeneralizationClasses.add(studClass);
+            }
+          }
+      }
+      if (!extraStudGeneralizationClasses.isEmpty()) {
+        comparison.newMistakes
+            .add(createMistake(EXTRA_GENERALIZATION, extraStudGeneralizationClasses, extraInstGeneralizationClasses));
+      }
+    }
+  }
+/*
+  private static void checkMistakeExtraGeneralization(Comparison comparison) {
+
+    for (var set : comparison.studentSuperclassesToSubclasses.entrySet()) {
       Classifier studSuperclass = set.getKey();
       List<Classifier> studSubclasses = set.getValue();
       List<NamedElement> extraInstGeneralizationClasses = new ArrayList<>();
@@ -335,6 +372,7 @@ public class MistakeDetection {
             .add(createMistake(EXTRA_GENERALIZATION, extraStudGeneralizationClasses, extraInstGeneralizationClasses));
       }
     }
+    */
   }
 
   private static void checkMistakeMissingGeneralization(Comparison comparison) {
@@ -2863,7 +2901,7 @@ public class MistakeDetection {
   private static Mistake createMistake(MistakeType mistakeType, List<NamedElement> studentElements,
       List<NamedElement> instructorElements) {
     var mistake = MAF.createMistakeOfType(mistakeType);
-    if (studentElements != null) {
+    if (studentElements != null ) {
       studentElements.forEach(se -> {
         var solutionElement = MAF.createSolutionElement();
         solutionElement.setElement(se);
