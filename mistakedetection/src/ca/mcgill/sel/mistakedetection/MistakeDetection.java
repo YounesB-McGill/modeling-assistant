@@ -37,6 +37,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_CONTAINMENT_TREE;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.INFINITE_RECURSIVE_DEPENDENCY;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
@@ -303,76 +304,52 @@ public class MistakeDetection {
       if (comparison.mappedClassifiers.containsValue(studSuperClass)) {
         if (comparison.instructorSuperclassesToSubclasses
             .containsKey(getKey(comparison.mappedClassifiers, studSuperClass))) {
-         for(Classifier studClass: studSubclasses) {
-           var instSubClasses = comparison.instructorSuperclassesToSubclasses.get(getKey(comparison.mappedClassifiers, studSuperClass));
-           if(!comparison.mappedClassifiers.containsValue(studClass)) {
-             extraStudGeneralizationClasses.add(studClass);
-           }else if(!instSubClasses.contains(getKey(comparison.mappedClassifiers, studClass))) {
-             extraStudGeneralizationClasses.add(studClass);
-             extraInstGeneralizationClasses.add(getKey(comparison.mappedClassifiers, studClass));
-           }
-         }
-        }else {
-          if(!comparison.mappedClassifiers.containsValue(studSuperClass)) {
-          extraStudGeneralizationClasses.add(studSuperClass);
-          extraStudGeneralizationClasses.addAll(extraStudGeneralizationClasses);
-          }
-          for(Classifier studClass: studSubclasses) {
-            if(!comparison.mappedClassifiers.containsValue(studClass)) {
-              extraStudGeneralizationClasses.add(studClass);
-            }
-          }
-      }
-      if (!extraStudGeneralizationClasses.isEmpty()) {
-        comparison.newMistakes
-            .add(createMistake(EXTRA_GENERALIZATION, extraStudGeneralizationClasses, extraInstGeneralizationClasses));
-      }
-    }
-  }
-/*
-  private static void checkMistakeExtraGeneralization(Comparison comparison) {
-
-    for (var set : comparison.studentSuperclassesToSubclasses.entrySet()) {
-      Classifier studSuperclass = set.getKey();
-      List<Classifier> studSubclasses = set.getValue();
-      List<NamedElement> extraInstGeneralizationClasses = new ArrayList<>();
-      List<NamedElement> extraStudGeneralizationClasses = new ArrayList<>();
-      boolean counted = false;
-      if (comparison.mappedClassifiers.containsValue(studSuperclass)) {
-        if (comparison.instructorSuperclassesToSubclasses
-            .containsKey(getKey(comparison.mappedClassifiers, studSuperclass))) {
           for (Classifier studClass : studSubclasses) {
-            if (comparison.mappedClassifiers.containsValue(studClass)) {
-              Classifier instClass = getKey(comparison.mappedClassifiers, studClass);
-              if (instClass.getSuperTypes().isEmpty()) {
-                extraStudGeneralizationClasses.add(studClass);
-                extraInstGeneralizationClasses.add(instClass);
-              }
+            var instSubClasses =
+                comparison.instructorSuperclassesToSubclasses.get(getKey(comparison.mappedClassifiers, studSuperClass));
+            if (!comparison.mappedClassifiers.containsValue(studClass)) {
+              extraStudGeneralizationClasses.add(studClass);
+            } else if (!instSubClasses.contains(getKey(comparison.mappedClassifiers, studClass))) {
+              extraStudGeneralizationClasses.add(studClass);
+              extraInstGeneralizationClasses.add(getKey(comparison.mappedClassifiers, studClass));
             }
           }
         } else {
+          if (!comparison.mappedClassifiers.containsValue(studSuperClass)) {
+            extraStudGeneralizationClasses.add(studSuperClass);
+            extraStudGeneralizationClasses.addAll(extraStudGeneralizationClasses);
+          }
           for (Classifier studClass : studSubclasses) {
-            if (comparison.mappedClassifiers.containsValue(studClass)) {
-              Classifier instClass = getKey(comparison.mappedClassifiers, studClass);
-              if (instClass.getSuperTypes().isEmpty()) {
-                if (!counted) {
-                  extraInstGeneralizationClasses.add(getKey(comparison.mappedClassifiers, studSuperclass));
-                  extraStudGeneralizationClasses.add(studSuperclass);
-                }
-                counted = true;
-                extraStudGeneralizationClasses.add(studClass);
-                extraInstGeneralizationClasses.add(instClass);
-              }
+            if (!comparison.mappedClassifiers.containsValue(studClass)) {
+              extraStudGeneralizationClasses.add(studClass);
             }
           }
         }
-      }
-      if (!extraInstGeneralizationClasses.isEmpty()) {
-        comparison.newMistakes
-            .add(createMistake(EXTRA_GENERALIZATION, extraStudGeneralizationClasses, extraInstGeneralizationClasses));
+        if (!extraStudGeneralizationClasses.isEmpty()) {
+          comparison.newMistakes
+              .add(createMistake(EXTRA_GENERALIZATION, extraStudGeneralizationClasses, extraInstGeneralizationClasses));
+        }
       }
     }
-    */
+    /*
+     * private static void checkMistakeExtraGeneralization(Comparison comparison) {
+     *
+     * for (var set : comparison.studentSuperclassesToSubclasses.entrySet()) { Classifier studSuperclass = set.getKey();
+     * List<Classifier> studSubclasses = set.getValue(); List<NamedElement> extraInstGeneralizationClasses = new
+     * ArrayList<>(); List<NamedElement> extraStudGeneralizationClasses = new ArrayList<>(); boolean counted = false; if
+     * (comparison.mappedClassifiers.containsValue(studSuperclass)) { if (comparison.instructorSuperclassesToSubclasses
+     * .containsKey(getKey(comparison.mappedClassifiers, studSuperclass))) { for (Classifier studClass : studSubclasses)
+     * { if (comparison.mappedClassifiers.containsValue(studClass)) { Classifier instClass =
+     * getKey(comparison.mappedClassifiers, studClass); if (instClass.getSuperTypes().isEmpty()) {
+     * extraStudGeneralizationClasses.add(studClass); extraInstGeneralizationClasses.add(instClass); } } } } else { for
+     * (Classifier studClass : studSubclasses) { if (comparison.mappedClassifiers.containsValue(studClass)) { Classifier
+     * instClass = getKey(comparison.mappedClassifiers, studClass); if (instClass.getSuperTypes().isEmpty()) { if
+     * (!counted) { extraInstGeneralizationClasses.add(getKey(comparison.mappedClassifiers, studSuperclass));
+     * extraStudGeneralizationClasses.add(studSuperclass); } counted = true;
+     * extraStudGeneralizationClasses.add(studClass); extraInstGeneralizationClasses.add(instClass); } } } } } if
+     * (!extraInstGeneralizationClasses.isEmpty()) { comparison.newMistakes .add(createMistake(EXTRA_GENERALIZATION,
+     * extraStudGeneralizationClasses, extraInstGeneralizationClasses)); } }
+     */
   }
 
   private static void checkMistakeMissingGeneralization(Comparison comparison) {
@@ -1337,6 +1314,10 @@ public class MistakeDetection {
         var otherStudentClassifierAssocEnd = getOtherAssocEnd(studentClassifierAssocEnd);
 
         var otherStudentClassifier = otherStudentClassifierAssocEnd.getClassifier();
+        if (otherStudentClassifier.equals(studentClassifier)) {
+          checkMistakeInfiniteRecursiveDependency(studentClassifierAssocEnd, otherStudentClassifierAssocEnd,
+              comparison);
+        }
 
         if (comparison.mappedClassifiers.get(otherInstructorClassifier) == null
             || comparison.mappedAssociations.containsKey(instructorClassifierAssoc)
@@ -1374,7 +1355,11 @@ public class MistakeDetection {
       Association instructorClassifierAssoc, AssociationEnd studentClassifierAssocEnd,
       AssociationEnd instructorClassifierAssocEnd, AssociationEnd otherStudentClassifierAssocEnd,
       AssociationEnd otherInstructorClassifierAssocEnd) {
-
+    if(studentClassifierAssocEnd.getName().equals(otherInstructorClassifierAssocEnd.getName())) {
+      var temp = studentClassifierAssocEnd;
+      studentClassifierAssocEnd = otherStudentClassifierAssocEnd;
+      otherStudentClassifierAssocEnd = temp;
+    }
     checkAssociationClassMapping(comparison, studentClassifierAssoc, instructorClassifierAssoc);
 
     if (!checkStudentElementForMistake(comparison.newMistakes, studentClassifierAssoc)) {
@@ -1528,6 +1513,24 @@ public class MistakeDetection {
     checkMistakeRoleNamePresentButIncorrect(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     // checkMistakeRoleNameSimilarYetIncorrect(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeBadRoleNameSpelling(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+  }
+
+  /** Check for infinite recursive dependency. */
+  private static void checkMistakeInfiniteRecursiveDependency(AssociationEnd studentClassAssocEnd,
+      AssociationEnd otherStudentClassAssocEnd, Comparison comparison) {
+    if (!isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, studentClassAssocEnd.getAssoc(), comparison)
+        && (studentClassAssocEnd.getLowerBound() >= 1 && otherStudentClassAssocEnd.getLowerBound() >= 1)) {
+      comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY, studentClassAssocEnd.getAssoc(), null));
+    }
+  }
+
+  private static boolean isMistakeExist(MistakeType mistakeType, NamedElement studentNamedElement, Comparison comparison) {
+    for (Mistake mistake : comparison.newMistakes) {
+      if (mistake.getMistakeType().equals(mistakeType) && mistake.getStudentElements().get(0).getElement().equals(studentNamedElement)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /** Finds Mistakes in newly mapped elements */
@@ -2901,7 +2904,7 @@ public class MistakeDetection {
   private static Mistake createMistake(MistakeType mistakeType, List<NamedElement> studentElements,
       List<NamedElement> instructorElements) {
     var mistake = MAF.createMistakeOfType(mistakeType);
-    if (studentElements != null ) {
+    if (studentElements != null) {
       studentElements.forEach(se -> {
         var solutionElement = MAF.createSolutionElement();
         solutionElement.setElement(se);

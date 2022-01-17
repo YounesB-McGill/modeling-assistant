@@ -2972,7 +2972,6 @@ public class MistakeDetectionWrongRelationshipsTest {
   /**
    * Test to check infinite recursive dependency.
    */
-  @Disabled("Not implemented yet. Matching association ends incorrectly.")
   @Test
   public void testMistakeInfiniteRecursiveDependency() {
     var instructorClassDiagram = cdmFromFile(
@@ -2983,19 +2982,14 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_infiniteRecursiveDependency/Class Diagram/Student_infiniteRecursiveDependency.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-
-    var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
     var studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
-    var instructorChildAssociationEnd = getAssociationEndFromClass("Child", instructorPersonClass);
     var studentChildAssociationEnd = getAssociationEndFromClass("Child", studentPersonClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
 
-    assertEquals(1, comparison.newMistakes.size());
-    assertEquals(1, studentSolution.getMistakes().size());
-
-    assertMistake(studentSolution.getMistakes().get(0), INFINITE_RECURSIVE_DEPENDENCY, studentChildAssociationEnd,
-        instructorChildAssociationEnd, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), INFINITE_RECURSIVE_DEPENDENCY, studentChildAssociationEnd.getAssoc(), 0, 1, false);
   }
   /**
    * Test to check containment in more than one class .
@@ -3039,8 +3033,8 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(4, comparison.newMistakes.size());
-    assertEquals(4, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), ASSOC_CLASS_SHOULD_BE_CLASS, studDriverClass, 0, 1, false);
   }
@@ -3061,8 +3055,8 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(4, comparison.newMistakes.size());
-    assertEquals(4, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), CLASS_SHOULD_BE_ASSOC_CLASS, studDriverClass, 0, 1, false);
   }
 
