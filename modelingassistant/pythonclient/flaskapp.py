@@ -38,10 +38,15 @@ def hello_world(name) -> Response:
 def feedback(cdmName: str) -> Response:
     "Return feedback for the class diagram given its name."
     print("Got POST REST call for feedback on this class diagram")
-    r = jsonify(give_feedback_for_student_cdm(cdmName, json.loads(request.get_data())["classDiagram"], MODELING_ASSISTANT)[0])
+    cdm_xmi: str = json.loads(request.get_data())["classDiagram"]
+    print(f"{'badClsName' in cdm_xmi = }")
+    print(f"{'Airplane' in cdm_xmi = }")
+    r = jsonify(give_feedback_for_student_cdm(
+        cdmName, json.loads(request.get_data())["classDiagram"], MODELING_ASSISTANT.instance)[0])
     print(f"/feedback/{cdmName}: Returning this response: ", r.data.decode("utf-8"))
     return r
-    #return jsonify(give_feedback_for_student_cdm(cdmName, json.loads(request.get_data())["classDiagram"]))
+    #return jsonify(give_feedback_for_student_cdm(
+    #    cdmName, json.loads(request.get_data())["classDiagram"], MODELING_ASSISTANT.instance))
 
 
 @app.route("/modelingassistant", methods=["GET", "POST"])
@@ -50,14 +55,14 @@ def modeling_assistant() -> Response:
     global MODELING_ASSISTANT  # pylint: disable=global-statement
     print(f"Received a /modelingassistant {request.method} request")
     if request.method == "GET":
-        r = jsonify({"modelingAssistantXmi": SRSET.create_ma_str(MODELING_ASSISTANT)})
+        r = jsonify({"modelingAssistantXmi": SRSET.create_ma_str(MODELING_ASSISTANT.instance)})
         print("/modelingassistant: Returning this response: ", r.data.decode("utf-8"))
         return r
-        # return jsonify({"modelingAssistantXmi": str_to_modelingassistant(MODELING_ASSISTANT)})
+        # return jsonify({"modelingAssistantXmi": str_to_modelingassistant(MODELING_ASSISTANT.instance)})
     if request.method == "POST":
-        print(f"Old MA id: {id(MODELING_ASSISTANT)}")
-        MODELING_ASSISTANT = str_to_modelingassistant(json.loads(request.get_data())["modelingAssistantXmi"])
-        print(f"New MA id: {id(MODELING_ASSISTANT)}")
+        print(f"Old MA id: {id(MODELING_ASSISTANT.instance)}")
+        MODELING_ASSISTANT.instance = str_to_modelingassistant(json.loads(request.get_data())["modelingAssistantXmi"])
+        print(f"New MA id: {id(MODELING_ASSISTANT.instance)}")
         r = jsonify({"success": True})
         print("/modelingassistant: Returning this response: ", r.data.decode("utf-8"))
         return r

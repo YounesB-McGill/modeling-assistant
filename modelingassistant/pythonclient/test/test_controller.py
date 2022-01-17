@@ -707,6 +707,18 @@ def test_learning_corpus_top_level_mtcs():
     assert not top_level_mtcs
 
 
+def test_debug_ma4():
+    ""
+    ma_file = f"{MA_PATH}/ma-test4.modelingassistant"
+    ma1 = load_ma(ma_file)
+    with open(ma_file) as f:
+        ma_str = f.read()
+    ma2 = str_to_modelingassistant(ma_str)
+    for ma in (ma1, ma2):
+        for a in ma.problemStatements[0].instructorSolution.classDiagram.associations:
+            assert len(a.ends) == 2
+
+
 def associate(class1, class2):
     """
     Associate the two classes in memory (modify classes and return None).

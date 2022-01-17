@@ -16,7 +16,7 @@ from serdes import set_static_class_for
 from stringserdes import SRSET
 from constants import CLASS_DIAGRAM_MM, DEFAULT_MODELING_ASSISTANT_PATH, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM
 from utils import warn
-from modelingassistant.modelingassistant import ModelingAssistant
+from modelingassistant import ModelingAssistant
 
 
 def load_metamodels(*ecore_files: str) -> ResourceSet:

@@ -21,5 +21,24 @@
       "console": "integratedTerminal",
       "justMyCode": false,
     },
+    {
+      "name": "Python: Flask",
+      "type": "python",
+      "request": "launch",
+      "module": "flask",
+      "env": {
+        "FLASK_APP": "modelingassistant/pythonclient/flaskapp.py",
+        "FLASK_ENV": "development",
+        "FLASK_DEBUG": "0",
+        "FLASK_RUN_HOST": "localhost",
+        "FLASK_RUN_PORT": "8538",
+      },
+      "args": [
+          "run",
+          "--no-debugger",
+          "--no-reload"
+      ],
+      "justMyCode": false,
+    },
   ]
 }

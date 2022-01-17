@@ -121,7 +121,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         4: ResourceResponse(learningResources=[enum_reference]),
                     })),
                 missing_enum_item := mt(n="Missing enum item", d="Missing enumeration item", feedbacks=fbs({
-                    1: Feedback(highlightProblem=True),
+                    1: Feedback(highlightProblem=True, highlightSolution=True),  # TODO Do for all missing cont'd items
                     2: TextResponse(text="Is there anything missing here?"),
                     3: ParametrizedResponse(text="The ${enumName} enumeration is missing an item."),
                     4: ResourceResponse(learningResources=[enum_reference]),
@@ -784,7 +784,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         5: ResourceResponse(learningResources=[pr_quiz]),
                     })),
             ],
-            subcategories=[
+            subcategories=[  # TODO move all of these up one level
                 using_different_player_role_pattern := mtc(n="Using different Player-Role pattern", mistakeTypes=[
                     subclass_should_be_full_pr_pattern := mt(
                         n="Subclass should be full PR pattern",

@@ -23,7 +23,7 @@ from fileserdes import load_cdm
 from learningcorpus import Feedback, ParametrizedResponse, ResourceResponse, TextResponse
 from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, MISSING_CLASS, MISSING_COMPOSITION,
     SOFTWARE_ENGINEERING_TERM)
-from stringserdes import SRSET, str_to_modelingassistant
+from stringserdes import SRSET, StringEnabledXMIResource, str_to_modelingassistant
 from modelingassistant import (FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, Solution, SolutionElement,
     Student, StudentKnowledge)
 
@@ -299,6 +299,7 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     """
     Test feedback for a serialized modeling assistant instance with mistakes detected from the mistake detection system.
     """
+    # pylint: disable=protected-access
     cdm_name = "MULTIPLE_CLASSES"
 
     ma = ModelingAssistant()
@@ -310,22 +311,24 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
 
     assert missing_class_mistake.mistakeType == MISSING_CLASS
     assert fb.highlight
-    assert fb.instructorElements[0] == missing_class_mistake.instructorElements[0].element._internal_id  # pylint: disable=protected-access
+    assert fb.instructorElements[0] == missing_class_mistake.instructorElements[0].element._internal_id
 
     cdm: ClassDiagram = solution.classDiagram
+    cdm.__class__ = ClassDiagram
     airplane_class = Class(name="Airplane")
     cdm.classes.append(airplane_class)
 
     with open("modelingassistant/testinstances/ma_test2.modelingassistant", "w", encoding="utf-8") as f:
         f.write(SRSET.create_ma_str(ma))
 
-    fb, ma = give_feedback_for_student_cdm(cdm_name, ma=ma)
+    fb, ma = give_feedback_for_student_cdm(cdm_name, cdm, ma=ma)
     solution = next(sol for sol in ma.solutions if sol.student)  # false positive: pylint: disable=no-member
     mistakes: list[Mistake] = solution.mistakes
 
-    assert [m.mistakeType for m in solution.mistakes] == [INCOMPLETE_CONTAINMENT_TREE, MISSING_COMPOSITION]
     assert fb.highlight
+    assert [m.mistakeType for m in solution.mistakes] == [INCOMPLETE_CONTAINMENT_TREE, MISSING_COMPOSITION]
 
 
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
+    test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system()

@@ -74,11 +74,10 @@ public class MistakeTypes {
       "../modelingassistant/learningcorpusinstances/default.learningcorpus";
 
   /** Map of mistake type categories by name. */
-  public static final Map<String, MistakeTypeCategory> MISTAKE_TYPE_CATEGORIES_BY_NAME =
-      new HashMap<String, MistakeTypeCategory>();
+  public static final Map<String, MistakeTypeCategory> MISTAKE_TYPE_CATEGORIES_BY_NAME = new HashMap<>();
 
   /** Map of mistake types by name. */
-  public static final Map<String, MistakeType> MISTAKE_TYPES_BY_NAME = new HashMap<String, MistakeType>();
+  public static final Map<String, MistakeType> MISTAKE_TYPES_BY_NAME = new HashMap<>();
 
   // Short-name references to the above maps for greater code legibility
   private static final Map<String, MistakeTypeCategory> MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME;
@@ -86,14 +85,9 @@ public class MistakeTypes {
 
   static {
     var learningCorpus = LearningCorpus.fromFile(LEARNING_CORPUS_PATH);
-
-    learningCorpus.getMistakeTypeCategories().forEach(mtc ->
-        MISTAKE_TYPE_CATEGORIES_BY_NAME.put(mtc.getName(), mtc));
-
-    learningCorpus.getMistakeTypes().forEach(mt ->
-        MISTAKE_TYPES_BY_NAME.put(mt.getName(), mt));
+    learningCorpus.getMistakeTypeCategories().forEach(mtc -> MISTAKE_TYPE_CATEGORIES_BY_NAME.put(mtc.getName(), mtc));
+    learningCorpus.getMistakeTypes().forEach(mt -> MISTAKE_TYPES_BY_NAME.put(mt.getName(), mt));
   }
-
 
   // Mistake type categories
 

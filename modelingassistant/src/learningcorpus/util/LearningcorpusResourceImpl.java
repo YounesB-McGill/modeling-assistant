@@ -24,8 +24,10 @@ public class LearningcorpusResourceImpl extends XMIResourceImpl {
     super(uri);
   }
 
-  /*
+  /**
    * Manual code added to ensure LearningCorpus instances are serialized using UUIDs.
+   *
+   * @generated NOT
    */
   @Override protected boolean useUUIDs() {
     return true;

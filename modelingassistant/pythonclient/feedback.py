@@ -34,7 +34,7 @@ class FeedbackTO:
     solutionElements: list[str] = field(default_factory=list)  # to avoid mutable default value
     instructorElements: list[str] = field(default_factory=list)
     problemStatementElements: list[str] = field(default_factory=list)
-    highlight: bool = False
+    highlight: bool = False  # TODO split into 2 bools (solutionElements, problemStatementElements)
     grade: float = 0.0
     writtenFeedback: str = ""
 
@@ -101,17 +101,19 @@ def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:
                                  modelingAssistant=mistake.solution.modelingAssistant))
 
 
-def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: ModelingAssistant = None
+def give_feedback_for_student_cdm(
+        student_cdm_name: str, student_cdm: ClassDiagram | str = "", ma: ModelingAssistant = None
     ) -> FeedbackTO | Tuple[FeedbackTO, ModelingAssistant]:
     "Give feedback given a student class diagram."
     # pylint: disable=protected-access, global-statement, too-many-branches
     global MODELING_ASSISTANT
-    print(f"give_feedback_for_student_cdm({student_cdm_name}, {cdm_str}, {ma})")
+    print(f"give_feedback_for_student_cdm({student_cdm_name}, {student_cdm}, {ma})")
     use_local_ma = bool(ma)
     if not use_local_ma:
-        ma = MODELING_ASSISTANT
+        ma = MODELING_ASSISTANT.instance
+
     instructor_cdm = instructor_cdm_for(student_cdm_name)
-    if instructor_cdm._internal_id in ma.classDiagramsToSolutions:
+    if ma.eResource and instructor_cdm._internal_id in ma.classDiagramsToSolutions:
         print(f"Getting ins sol at {id(ma) = }, {ma.classDiagramsToSolutions = }")
         sol_id = ma.classDiagramsToSolutions[instructor_cdm._internal_id]
         print(ma.eResource, ma.eResource.uuid_dict)
@@ -120,20 +122,29 @@ def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: 
         print(f"Creating new ins sol at {id(ma) = }")
         instructor_solution = Solution(classDiagram=instructor_cdm, modelingAssistant=ma)
         ma.classDiagramsToSolutions[instructor_cdm._internal_id] = instructor_solution._internal_id
-    if cdm_str:
-        student_cdm = str_to_cdm(cdm_str)
-    else:
-        student_cdm = student_cdm_for(student_cdm_name)
-    if student_cdm in ma.classDiagramsToSolutions:
-        student_solution = ma.classDiagramsToSolutions[student_cdm]
+
+    if not isinstance(student_cdm, ClassDiagram):
+        if student_cdm and isinstance(student_cdm, str):
+            student_cdm = str_to_cdm(student_cdm)
+        else:
+            student_cdm = student_cdm_for(student_cdm_name)
+
+    print(f"give_fb: {student_cdm._internal_id = }")
+    if ma.eResource and student_cdm._internal_id in ma.classDiagramsToSolutions:
+        sol_id = ma.classDiagramsToSolutions[student_cdm._internal_id]
+        student_solution = ma.eResource.uuid_dict[sol_id]
+        student_solution.classDiagram = student_cdm
+        ma = student_solution.modelingAssistant
     else:
         # TODO Complete initialization of solution later
         #if modeling_assistant._eresource.uuid_dict
+        print("Could not find solution for student cdm, so creating new one")
         student = ma.students[0] if ma.students else Student(
             id=str(uuid()), name=student_cdm_name, modelingAssistant=ma)
         student_solution = Solution(modelingAssistant=ma, student=student, classDiagram=student_cdm)
         student.currentSolution = student_solution
-        ma.classDiagramsToSolutions[student_cdm] = student_solution
+        print(f"give_fb: {student_solution._internal_id = }")
+        ma.classDiagramsToSolutions[student_cdm._internal_id] = student_solution._internal_id
     if ma.problemStatements:
         ps = ma.problemStatements[0]
         ps.instructorSolution = instructor_solution
@@ -144,14 +155,15 @@ def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: 
                                                      studentSolutions=[student_solution]))
     cdms2sols = ma.classDiagramsToSolutions
     if not use_local_ma:
-        MODELING_ASSISTANT = ma
+        MODELING_ASSISTANT.instance = ma
+    print(f"give_fb: {'Airplane' in (c.name for c in student_cdm.classes) = }")
     print(ma)
     ma = get_mistakes(ma, instructor_cdm, student_cdm)
     print(ma)
     if not ma.classDiagramsToSolutions:
         ma.classDiagramsToSolutions = cdms2sols
     if not use_local_ma:
-        MODELING_ASSISTANT = ma
+        MODELING_ASSISTANT.instance = ma
     student_solution = next(sol for sol in ma.solutions if sol.student)
     fb_s = give_feedback(student_solution)
     fb = fb_s if isinstance(fb_s, FeedbackItem) else fb_s[0]  # only one feedback item for now
@@ -173,7 +185,7 @@ def give_feedback_for_student_cdm(student_cdm_name: str, cdm_str: str = "", ma: 
 @cache
 def instructor_cdm_for(student_cdm_name: str) -> ClassDiagram:
     "Return the instructor class diagram for the given student class diagram name."
-    # return next((ps.instructorSolution.classDiagram for ps in MODELING_ASSISTANT.problemStatements
+    # return next((ps.instructorSolution.classDiagram for ps in MODELING_ASSISTANT.instance.problemStatements
     #              if ps.name.lower() in student_cdm_name.lower()), None)
     return load_cdm(f"modelingassistant/testmodels/{student_cdm_name}_instructor.cdm")  # do this for now
 

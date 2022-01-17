@@ -7,6 +7,7 @@ This module must not depend on any other to avoid circular dependencies.
 
 from types import SimpleNamespace
 from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
+from modelingassistant import ModelingAssistant
 
 
 COLOR = SimpleNamespace(VIOLET="\033[95m", BLUE="\033[94m", CYAN="\033[96m", GREEN="\033[92m", YELLOW="\033[93m",
@@ -74,3 +75,9 @@ class NonNoneDict(dict):
         if key is None:
             raise ValueError("Cannot set NonNoneDict key to None")
         super().__setitem__(key, value)
+
+
+class ModelingAssistantContainer:
+    "Class to contain a Modeling Assistant instance."
+    def __init__(self, modeling_assistant: ModelingAssistant = None):
+        self.instance: ModelingAssistant = modeling_assistant

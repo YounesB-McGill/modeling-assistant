@@ -77,6 +77,8 @@ class StringEnabledResourceSet(ResourceSet):
         ma_id = self.get_ma_id_from_str(string)
         if ma_id in self.ma_ids_to_string_resources:
             resource = self.ma_ids_to_string_resources[ma_id]
+            for e in resource.contents:
+                e._eresource = None
             resource.contents.clear()
         elif ma_id:
             resource = self.create_string_resource()
