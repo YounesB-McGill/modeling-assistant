@@ -7,6 +7,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_CLASS_SHOULD_BE_CLA
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_ENUM_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_FULL_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_MISPLACED;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOC_CLASS_NAME_SPELLING;
@@ -274,11 +275,11 @@ public class MistakeDetection {
     checkMistakeMissingClass(comparison);
     checkMistakeExtraClass(comparison);
     // checkMistakeDuplicateAttributes();
+    checkMistakeAttributeMisplaced(comparison);
     checkMistakeExtraAttribute(comparison);
     checkMistakeMissingAttribute(comparison);
     checkMistakeMissingExtraEnum(comparison);
     // checkMistakeWrongAttribute();
-    // checkMistakeAttributeMisplaced();
     checkMistakesInGeneralization(comparison);
     checkMistakeIncompleteContainmentTree(comparison, studentSolution.getClassDiagram());
     checkMistakeMissingAssociationCompositionAggregation(comparison);
@@ -286,6 +287,24 @@ public class MistakeDetection {
 
     updateMistakes(instructorSolution, studentSolution, comparison, filter);
     return comparison;
+  }
+
+  private static void checkMistakeAttributeMisplaced(Comparison comparison) {
+   List<Attribute> studAttributesProcessed = new ArrayList<Attribute>();
+   List<Attribute> instAttributesProcessed = new ArrayList<Attribute>();
+
+   for(Attribute studAttrib : comparison.extraStudentAttributes) {
+     for(Attribute instAttrib : comparison.notMappedInstructorAttributes) {
+       if(studAttrib.getName().equals(instAttrib.getName())) {
+         comparison.newMistakes.add(
+             createMistake(ATTRIBUTE_MISPLACED , studAttrib, instAttrib));
+             studAttributesProcessed.add(studAttrib);
+             instAttributesProcessed.add(instAttrib);
+       }
+     }
+   }
+   comparison.extraStudentAttributes.removeAll(studAttributesProcessed);
+   comparison.notMappedInstructorAttributes.removeAll(instAttributesProcessed);
   }
 
   private static void checkMistakesInGeneralization(Comparison comparison) {
@@ -331,25 +350,6 @@ public class MistakeDetection {
         }
       }
     }
-    /*
-     * private static void checkMistakeExtraGeneralization(Comparison comparison) {
-     *
-     * for (var set : comparison.studentSuperclassesToSubclasses.entrySet()) { Classifier studSuperclass = set.getKey();
-     * List<Classifier> studSubclasses = set.getValue(); List<NamedElement> extraInstGeneralizationClasses = new
-     * ArrayList<>(); List<NamedElement> extraStudGeneralizationClasses = new ArrayList<>(); boolean counted = false; if
-     * (comparison.mappedClassifiers.containsValue(studSuperclass)) { if (comparison.instructorSuperclassesToSubclasses
-     * .containsKey(getKey(comparison.mappedClassifiers, studSuperclass))) { for (Classifier studClass : studSubclasses)
-     * { if (comparison.mappedClassifiers.containsValue(studClass)) { Classifier instClass =
-     * getKey(comparison.mappedClassifiers, studClass); if (instClass.getSuperTypes().isEmpty()) {
-     * extraStudGeneralizationClasses.add(studClass); extraInstGeneralizationClasses.add(instClass); } } } } else { for
-     * (Classifier studClass : studSubclasses) { if (comparison.mappedClassifiers.containsValue(studClass)) { Classifier
-     * instClass = getKey(comparison.mappedClassifiers, studClass); if (instClass.getSuperTypes().isEmpty()) { if
-     * (!counted) { extraInstGeneralizationClasses.add(getKey(comparison.mappedClassifiers, studSuperclass));
-     * extraStudGeneralizationClasses.add(studSuperclass); } counted = true;
-     * extraStudGeneralizationClasses.add(studClass); extraInstGeneralizationClasses.add(instClass); } } } } } if
-     * (!extraInstGeneralizationClasses.isEmpty()) { comparison.newMistakes .add(createMistake(EXTRA_GENERALIZATION,
-     * extraStudGeneralizationClasses, extraInstGeneralizationClasses)); } }
-     */
   }
 
   private static void checkMistakeMissingGeneralization(Comparison comparison) {

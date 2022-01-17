@@ -1716,7 +1716,6 @@ public class MistakeDetectionWrongAttributeTest {
   /**
    * Test to detect misplaced Attribute.
    */
-  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeMisplacedAttribute() {
     var instructorClassDiagram = cdmFromFile(
@@ -1745,7 +1744,6 @@ public class MistakeDetectionWrongAttributeTest {
   /**
    * Test to detect misplaced Attribute.
    */
-  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeMisplacedAttributeInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
