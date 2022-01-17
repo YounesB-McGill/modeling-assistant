@@ -64,7 +64,8 @@ public class Comparison {
   /** Map stores possible instructor student Association Class pair that are detected after initial class mapping. */
   public Map<Classifier, Classifier> assocClassMappingToAdd = new HashMap<>();
 
-  public static final List<Comparison> instances = new ArrayList<>();
+  /** List of Comparison instances. It is only populated if trackComparisonsInstances is true. */
+  public static transient final List<Comparison> instances = new ArrayList<>();
 
   // use instance initializer to avoid explicit custom constructor
   {
