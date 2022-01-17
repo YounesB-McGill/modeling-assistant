@@ -1,5 +1,6 @@
 package ca.mcgill.sel.mistakedetection;
 
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionConfig.trackComparisonsInstances;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +63,15 @@ public class Comparison {
 
   /** Map stores possible instructor student Association Class pair that are detected after initial class mapping. */
   public Map<Classifier, Classifier> assocClassMappingToAdd = new HashMap<>();
+
+  public static final List<Comparison> instances = new ArrayList<>();
+
+  // use instance initializer to avoid explicit custom constructor
+  {
+    if (trackComparisonsInstances) {
+      instances.add(this);
+    }
+  }
 
   /**
    * Function to print the mapped, unmapped classifier or attributes.

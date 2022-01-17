@@ -21,3 +21,9 @@ Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  ca.mcgill.sel.core;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;bundle-version="2.16.0";visibility:=reexport
 Bundle-ActivationPolicy: lazy
+Import-Package: org.junit.platform.commons;version="1.7.1",
+ org.junit.platform.engine;version="1.7.1",
+ org.junit.platform.engine.discovery;version="1.7.1",
+ org.junit.platform.launcher,
+ org.junit.platform.launcher.core;version="1.7.1",
+ org.junit.platform.launcher.listeners;version="1.7.1"

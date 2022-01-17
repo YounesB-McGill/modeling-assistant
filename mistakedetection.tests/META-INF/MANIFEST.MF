@@ -11,3 +11,4 @@ Require-Bundle: org.eclipse.emf.common,
  modelingassistant,
  mistakedetection,
  ca.mcgill.sel.classdiagram
+Export-Package: ca.mcgill.sel.mistakedetection.tests.utils
