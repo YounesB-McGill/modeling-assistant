@@ -390,9 +390,11 @@ def generate_tex():
                     continue
                 match fb:
                     case Feedback(highlightProblem=True):
-                        result += f"Highlight problem{NLS}"
+                        result += f"Highlight problem statement element{NLS}"
                     case Feedback(highlightSolution=True):
-                        result += f"Highlight solution{NLS}"
+                        e = (f"({mt.learningItem.name.replace('End', '').replace('Association', 'Relationship')})"
+                             if mt.learningItem else "")
+                        result += f"Highlight solution {e}{NLS}"
                     case TextResponse() as resp:
                         if (content := blockquote(resp.text)) not in result:
                             result += f"Text response:{NLS}{content}"
