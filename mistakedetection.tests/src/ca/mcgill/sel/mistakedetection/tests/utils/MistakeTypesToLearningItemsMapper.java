@@ -13,8 +13,10 @@ import org.eclipse.emf.ecore.EClass;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
 import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
+import ca.mcgill.sel.classdiagram.CdmFactory;
 import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetectionConfig;
+import learningcorpus.ElementType;
 import learningcorpus.MistakeType;
 import modelingassistant.Mistake;
 import modelingassistant.SolutionElement;
@@ -26,6 +28,18 @@ import modelingassistant.SolutionElement;
  */
 public class MistakeTypesToLearningItemsMapper {
 
+  /** Shorthand for CdmFactory.eINSTANCE. */
+  private static final CdmFactory CDF = CdmFactory.eINSTANCE;
+
+  /** Map of CDM metatypes to learning corpus ElementTypes. */
+  public static final Map<EClass, ElementType> cdmMetatypesToLearningCorpusElementTypes = Map.of(
+      CDF.createAssociation().eClass(), ElementType.ASSOCIATION, // includes all relationships
+      CDF.createAssociationEnd().eClass(), ElementType.ASSOCIATION_END,
+      CDF.createAttribute().eClass(), ElementType.ATTRIBUTE,
+      CDF.createCDEnum().eClass(), ElementType.CLASS,
+      CDF.createCDEnumLiteral().eClass(), ElementType.CLASS,
+      CDF.createClass().eClass(), ElementType.CLASS);
+
   // Helper Functions to map each mistake to specific solution elements
   static Function<Mistake, Stream<SolutionElement>> instructorElems = m -> m.getInstructorElements().stream();
   static Function<Mistake, Stream<SolutionElement>> studentElems = m -> m.getStudentElements().stream();
@@ -36,7 +50,9 @@ public class MistakeTypesToLearningItemsMapper {
     MistakeDetectionConfig.trackComparisonsInstances = true;
     runAllMistakeDetectionTests();
 
-    System.out.println(getMappingAsCsv(mapComparisonMistakesToCdmMetatypes(instructorAndStudentElems)));
+    System.out.println(getCdmMetatypeMappingAsCsv(mapComparisonMistakesToCdmMetatypes(instructorAndStudentElems))
+        + "\n\n" + getLearningCorpusElementTypeMappingAsCsv(
+            mapComparisonMistakesToLearningCorpusElementTypes(instructorAndStudentElems)));
   }
 
   /** Runs all the mistake detection tests. */
@@ -66,16 +82,37 @@ public class MistakeTypesToLearningItemsMapper {
             TreeMap::new)); // use TreeMap to sort output by mistake type
   }
 
+  /** Maps comparison mistakes to CDM metatypes. */
+  public static Map<MistakeType, Set<ElementType>> mapComparisonMistakesToLearningCorpusElementTypes(
+      Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer) {
+    return mapComparisonMistakesToCdmMetatypes(mistakeSolutionElementsStreamer).entrySet().stream()
+        .map(e -> Map.entry(e.getKey(), e.getValue().stream().map(cdmMetatypesToLearningCorpusElementTypes::get)
+            .collect(Collectors.toUnmodifiableSet())))
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+  }
+
   /**
    * Returns the mapping of comparison mistakes to CDM metatypes in a CSV-compatible format.
    * The format of each row is as follows:<br>
    *
    * {@code mistakeType.name: type1, type2, ...}
    */
-  public static String getMappingAsCsv(Map<MistakeType, Set<EClass>> mapping) {
+  public static String getCdmMetatypeMappingAsCsv(Map<MistakeType, Set<EClass>> mapping) {
     return mapping.entrySet().stream().map(e ->
         e.getKey().getName() + ": " + String.join(", ", e.getValue().stream().map(EClass::getName)
             .collect(Collectors.toUnmodifiableList()))).collect(Collectors.joining("\n"));
+  }
+
+  /**
+   * Returns the mapping of comparison mistakes to learning corpus ElementTypes in a CSV-compatible format.
+   * The format of each row is as follows:<br>
+   *
+   * {@code mistakeType.name: type1, type2, ...}
+   */
+  public static String getLearningCorpusElementTypeMappingAsCsv(Map<MistakeType, Set<ElementType>> mapping) {
+    return mapping.entrySet().stream().map(e ->
+    e.getKey().getName() + ": " + String.join(", ", e.getValue().stream().map(ElementType::getName)
+        .collect(Collectors.toUnmodifiableList()))).collect(Collectors.joining("\n"));
   }
 
 }
