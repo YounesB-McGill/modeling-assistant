@@ -78,6 +78,8 @@ public class MistakeDetectionGeneralizationTest {
     var instClasses = List.of("Car", "TATAManza", "TATAManzaModel2", "TATAManzaModel3").stream()
         .map(s -> getClassFromClassDiagram(s, instructorClassDiagram)).collect(Collectors.toUnmodifiableList());
     assertTrue(comparison.instructorSuperclassesToSubclasses.keySet().containsAll(instClasses));
+
+    MistakeDetectionTest.log(comparison);
   }
 
   /**
@@ -297,5 +299,6 @@ public class MistakeDetectionGeneralizationTest {
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
 
+    assertTrue(comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(EXTRA_GENERALIZATION)));
   }
 }
