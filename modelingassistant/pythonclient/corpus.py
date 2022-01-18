@@ -9,8 +9,7 @@ from utils import _mtc_subcats
 corpus = corpus_def
 mts_by_priority = mts_by_priority_def
 
-domain_modeling = LearningItem(name="DomainModeling")
-domain_modeling.learningCorpus = corpus
+domain_modeling = LearningItem(name="DomainModeling", learningCorpus=corpus)
 
 for supercat, subcats in _mtc_subcats.items():
     for subcat in subcats:

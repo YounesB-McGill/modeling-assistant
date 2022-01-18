@@ -16,11 +16,10 @@ public class MistakeTypes {
       "../modelingassistant/learningcorpusinstances/default.learningcorpus";
 
   /** Map of mistake type categories by name. */
-  public static final Map<String, MistakeTypeCategory> MISTAKE_TYPE_CATEGORIES_BY_NAME =
-      new HashMap<String, MistakeTypeCategory>();
+  public static final Map<String, MistakeTypeCategory> MISTAKE_TYPE_CATEGORIES_BY_NAME = new HashMap<>();
 
   /** Map of mistake types by name. */
-  public static final Map<String, MistakeType> MISTAKE_TYPES_BY_NAME = new HashMap<String, MistakeType>();
+  public static final Map<String, MistakeType> MISTAKE_TYPES_BY_NAME = new HashMap<>();
 
   // Short-name references to the above maps for greater code legibility
   private static final Map<String, MistakeTypeCategory> MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME;
@@ -28,14 +27,9 @@ public class MistakeTypes {
 
   static {
     var learningCorpus = LearningCorpus.fromFile(LEARNING_CORPUS_PATH);
-
-    learningCorpus.getMistakeTypeCategories().forEach(mtc ->
-        MISTAKE_TYPE_CATEGORIES_BY_NAME.put(mtc.getName(), mtc));
-
-    learningCorpus.getMistakeTypes().forEach(mt ->
-        MISTAKE_TYPES_BY_NAME.put(mt.getName(), mt));
+    learningCorpus.getMistakeTypeCategories().forEach(mtc -> MISTAKE_TYPE_CATEGORIES_BY_NAME.put(mtc.getName(), mtc));
+    learningCorpus.getMistakeTypes().forEach(mt -> MISTAKE_TYPES_BY_NAME.put(mt.getName(), mt));
   }
-
 
   // Mistake type categories
 
@@ -60,8 +54,8 @@ public class MistakeTypes {
   /** The category for extra attribute mistakes. */
   public static final MistakeTypeCategory EXTRA_ATTRIBUTE_MISTAKES = MTCS.get("Extra attribute mistakes");
 
-  /** The category for wrong attribute name mistakes. */
-  public static final MistakeTypeCategory WRONG_ATTRIBUTE_NAME_MISTAKES = MTCS.get("Wrong attribute name mistakes");
+  /** The category for attribute name mistakes. */
+  public static final MistakeTypeCategory ATTRIBUTE_NAME_MISTAKES = MTCS.get("Attribute name mistakes");
 
   /** The category for attribute in wrong class mistakes. */
   public static final MistakeTypeCategory ATTRIBUTE_IN_WRONG_CLASS_MISTAKES =
@@ -114,8 +108,8 @@ public class MistakeTypes {
   /** The missing class mistake type. */
   public static final MistakeType MISSING_CLASS = MTS.get("Missing class");
 
-  /** The extra (redundant) class mistake type. */
-  public static final MistakeType EXTRA_CLASS = MTS.get("Extra (redundant) class");
+  /** The extra class mistake type. */
+  public static final MistakeType EXTRA_CLASS = MTS.get("Extra class");
 
   /** The using n-ary association instead of intermediate class mistake type. */
   public static final MistakeType USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS =
@@ -233,13 +227,13 @@ public class MistakeTypes {
   /** The using composition instead of association mistake type. */
   public static final MistakeType USING_COMPOSITION_INSTEAD_OF_ASSOC = MTS.get("Using composition instead of assoc");
 
-  /** The using directed association instead of undirected association mistake type. */
-  public static final MistakeType USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED =
-      MTS.get("Using directed assoc instead of undirected");
+  /** The using directed relationship instead of undirected relationship mistake type. */
+  public static final MistakeType USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED =
+      MTS.get("Using directed relationship instead of undirected");
 
-  /** The using undirected association instead of directed association mistake type. */
-  public static final MistakeType USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED =
-      MTS.get("Using undirected assoc instead of directed");
+  /** The using undirected relationship instead of directed relationship mistake type. */
+  public static final MistakeType USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED =
+      MTS.get("Using undirected relationship instead of directed");
 
   /** The using composition instead of aggregation mistake type. */
   public static final MistakeType USING_COMPOSITION_INSTEAD_OF_AGGREGATION =
@@ -257,7 +251,7 @@ public class MistakeTypes {
   public static final MistakeType USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC =
       MTS.get("Using intermediate class instead of n-ary assoc");
 
-  /** The missing association name when one was expected mistake type. */
+  /** The missing association name mistake type. */
   public static final MistakeType MISSING_ASSOCIATION_NAME = MTS.get("Missing association name");
 
   /** The bad association name spelling mistake type. */
@@ -403,7 +397,8 @@ public class MistakeTypes {
   /** The incomplete abstraction-occurrence pattern mistake type. */
   public static final MistakeType INCOMPLETE_AO_PATTERN = MTS.get("Incomplete AO pattern");
 
-  /** The subclass should be association abstraction-occurrence pattern mistake type. */
-  public static final MistakeType SUBCLASS_SHOULD_BE_ASSOC_AO_PATTERN = MTS.get("Subclass should be assoc AO pattern");
+  /** The generalization should be association in abstraction-occurrence pattern mistake type. */
+  public static final MistakeType GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN =
+      MTS.get("Generalization should be assoc AO pattern");
 
 }

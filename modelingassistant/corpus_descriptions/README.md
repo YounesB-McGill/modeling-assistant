@@ -15,7 +15,7 @@
       1. [Extra enumeration item](#extra-enumeration-item)
       1. [Bad enumeration item spelling](#bad-enumeration-item-spelling)
    1. [Missing class](#missing-class)
-   1. [Extra (redundant) class](#extra-redundant-class)
+   1. [Extra class](#extra-class)
    1. [Using n-ary association instead of intermediate class](#using-n-ary-association-instead-of-intermediate-class)
 
 1. [Attribute mistakes](#attribute-mistakes)
@@ -23,7 +23,7 @@
       1. [Plural attribute](#plural-attribute)
       1. [List attribute](#list-attribute)
       1. [Extra attribute](#extra-attribute)
-   1. [Wrong attribute name mistakes](#wrong-attribute-name-mistakes)
+   1. [Attribute name mistakes](#attribute-name-mistakes)
       1. [Bad attribute name spelling](#bad-attribute-name-spelling)
       1. [Uppercase attribute name](#uppercase-attribute-name)
       1. [Similar (yet incorrect) attribute name](#similar-attribute-name)
@@ -52,14 +52,14 @@
       1. [Association type mistakes](#association-type-mistakes)
          1. [Using aggregation instead of association](#using-aggregation-instead-of-association)
          1. [Using composition instead of association](#using-composition-instead-of-association)
-         1. [Using directed association instead of undirected association](#using-directed-association-instead-of-undirected-association)
-         1. [Using undirected association instead of directed association](#using-undirected-association-instead-of-directed-association)
+         1. [Using directed relationship instead of undirected relationship](#using-directed-relationship-instead-of-undirected-relationship)
+         1. [Using undirected relationship instead of directed relationship](#using-undirected-relationship-instead-of-directed-relationship)
          1. [Using composition instead of aggregation](#using-composition-instead-of-aggregation)
          1. [Using binary association instead of n-ary association](#using-binary-association-instead-of-n-ary-association)
          1. [Using n-ary association instead of binary association](#using-n-ary-association-instead-of-binary-association)
          1. [Using intermediate class instead of n-ary association](#using-intermediate-class-instead-of-n-ary-association)
       1. [Association name mistakes](#association-name-mistakes)
-         1. [Missing association name when one was expected](#missing-association-name-when-one-was-expected)
+         1. [Missing association name](#missing-association-name)
          1. [Bad association name spelling](#bad-association-name-spelling)
       1. [Multiplicity mistakes](#multiplicity-mistakes)
          1. [Infinite recursive dependency](#infinite-recursive-dependency)
@@ -116,7 +116,7 @@
    1. [Abstraction-Occurrence pattern mistakes](#abstraction-occurrence-pattern-mistakes)
       1. [Missing Abstraction-Occurrence pattern](#missing-abstraction-occurrence-pattern)
       1. [Incomplete Abstraction-Occurrence pattern](#incomplete-abstraction-occurrence-pattern)
-      1. [Subclass should be association Abstraction-Occurrence pattern](#subclass-should-be-association-abstraction-occurrence-pattern)
+      1. [Generalization should be association in Abstraction-Occurrence pattern](#generalization-should-be-association-in-abstraction-occurrence-pattern)
 
 ## Class mistakes
 
@@ -132,7 +132,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${className} should be ${pascalCase(className)}, with a Capital Letter.
+> ${className} should be ${singular(className)}, using the singular.
 
 Level 4: Resource response with Example:
 
@@ -154,7 +154,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${className} should be ${singular(className)}, using the singular.
+> ${className} should be ${pascalCase(className)}, with a Capital Letter.
 
 Level 4: Resource response with Example:
 
@@ -176,7 +176,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${className} is a software engineering term, which does not belong in a domain model.
+> ${className} contains a software engineering term, which does not belong in a domain model.
 
 Level 4: Resource response with Example:
 
@@ -194,7 +194,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can you double check this class name?
+> Double check this class name.
 
 Level 3: Parametrized response:
 
@@ -211,7 +211,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can you double check this class name?
+> Double check this class name.
 
 Level 3: Parametrized response:
 
@@ -281,11 +281,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Is this item really necessary?
+> Is this enumeration really necessary?
 
 Level 3: Parametrized response:
 
-> Remove the ${extraEnum} enumeration, it is not needed.
+> Remove the ${extraEnum} enumeration. It is not needed.
 
 Level 4: Resource response with Reference:
 
@@ -298,11 +298,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can this item be renamed?
+> Double check the name of this enumeration.
 
 Level 3: Parametrized response:
 
-> The ${wronglyNamedEnum} should be renamed[ to ${correctEnumName}].
+> The ${wronglyNamedEnum} should be changed[ to ${correctEnumName}].
 
 Level 4: Resource response with Reference:
 
@@ -349,11 +349,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can this item be renamed?
+> Double check this enumeration item.
 
 Level 3: Parametrized response:
 
-> The ${wronglyNamedEnumItem} should be renamed[ to ${correctEnumItemName}].
+> The ${wronglyNamedEnumItem} should be changed[ to ${correctEnumItemName}].
 
 Level 4: Resource response with Reference:
 
@@ -375,7 +375,7 @@ Level 4: Parametrized response:
 > Remember to add the ${className} class.
 
 
-### Extra redundant class
+### Extra class
 
 Level 1: Highlight solution
 
@@ -389,7 +389,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> The ${className} class is not part of the domain, so please remove it.
+> The ${className} class is not part of the problem domain, so please remove it.
 
 
 > Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
@@ -419,7 +419,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can you double check this attribute name?
+> Double check this attribute name.
 
 Level 3: Text response:
 
@@ -427,7 +427,7 @@ Level 3: Text response:
 
 Level 4: Resource response with Quiz:
 
-> Pick the classes which are modeled correctly.
+> Pick the classes which are modeled correctly with Umple.
 
 - [ ] class Student { courses; }
 - [ ] class Folder { List<File> files; }
@@ -452,7 +452,7 @@ Level 4: Parametrized response:
 
 Level 5: Resource response with Quiz:
 
-> Pick the classes which are modeled correctly.
+> Pick the classes which are modeled correctly with Umple.
 
 - [ ] class Student { courses; }
 - [ ] class Folder { List<File> files; }
@@ -477,12 +477,8 @@ Level 3: Parametrized response:
 
 > The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
-Level 4: Resource response with Reference:
 
-> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
-
-
-### Wrong attribute name mistakes
+### Attribute name mistakes
 
 #### Bad attribute name spelling
 
@@ -490,7 +486,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can this attribute be renamed?
+> Double check this attribute name.
 
 Level 3: Parametrized response:
 
@@ -547,7 +543,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can you think of a better place for this?
+> Can you think of a better place for this attribute?
 
 Level 3: Parametrized response:
 
@@ -589,7 +585,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${misplacedAttribute} belongs in a (super|sub)class.
+> The ${misplacedAttribute} belongs in ${correctClass}.
 
 Level 4: Resource response with Reference:
 
@@ -606,13 +602,9 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${className} class is missing an attribute.
-
-Level 4: Parametrized response:
-
 > A ${className} has a ${missingAttribute}.
 
-Level 5: Resource response with Reference:
+Level 4: Resource response with Reference:
 
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
@@ -623,7 +615,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can you double-check this?
+> Double check the properties of this attribute.
 
 Level 3: Parametrized response:
 
@@ -678,11 +670,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Is there something special about this attribute?
+> Double check the properties of this attribute.
 
 Level 3: Parametrized response:
 
-> ${includingClass.attributeName} should not be static, because it doesn't apply to all instances of ${includingClass}.
+> ${includingClass.attributeName} should not be static, because it does not apply to all instances of ${includingClass}.
 
 Level 4: Resource response with Reference:
 
@@ -819,7 +811,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Find all the redunandant associations in this class diagram (TODO).
+> Find all the redundant associations in this class diagram (TODO).
 
 > Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
 
@@ -845,7 +837,7 @@ Level 2: Text response:
 
 > Is this association really necessary?
 
-Level 3: Parametrized response:
+Level 3: Text response:
 
 > The relationship between the highlighted classes is redundant.
 
@@ -894,32 +886,40 @@ better understand these relationships and where they are used.
 ![composition vs aggregation vs association](images/composition_aggregation_association.png)
 
 
-##### Using directed association instead of undirected association
+##### Using directed relationship instead of undirected relationship
 
 Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Is there anything special about this association?
+> Why is navigation restricted for this relationship?
 
 Level 3: Parametrized response:
 
-> The association between ${classOne} and ${classTwo} should be undirected[ from ${classOne} to ${classTwo}].
+> The relationship between ${classOne} and ${classTwo} should be undirected.
 
-Level 4: 
-##### Using undirected association instead of directed association
+Level 4: Resource response with Reference:
+
+> Please review the _Directionality in Associations_ section of the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
+
+
+##### Using undirected relationship instead of directed relationship
 
 Level 1: Highlight solution
 
-Level 2: Text response:
+Level 2: Parametrized response:
 
-> Is there anything special about this association?
+> Does ${targetClass} need to know about ${sourceClass}?
 
 Level 3: Parametrized response:
 
-> The association between ${classOne} and ${classTwo} should be directed[ from ${classOne} to ${classTwo}].
+> The relationship between ${classOne} and ${classTwo} should be directed[ from ${classOne} to ${classTwo}].
 
-Level 4: 
+Level 4: Resource response with Reference:
+
+> Please review the _Directionality in Associations_ section of the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
+
+
 ##### Using composition instead of aggregation
 
 Level 1: Highlight solution
@@ -994,7 +994,7 @@ Level 4: Resource response with Reference:
 
 #### Association name mistakes
 
-##### Missing association name when one was expected
+##### Missing association name
 
 Level 1: Highlight solution
 
@@ -1002,7 +1002,7 @@ Level 2: Text response:
 
 > Something is missing here.
 
-Level 3: Parametrized response:
+Level 3: Text response:
 
 > Can you give this association a name?
 
@@ -1021,7 +1021,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Check your spelling here.
+> Double check this association name.
 
 Level 3: Parametrized response:
 
@@ -1040,11 +1040,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can you double check (this|these) association(s)?
+> Double check (this|these) relationship(s).
 
 Level 3: Text response:
 
-> The multiplicities for this(ese) association(s) are incorrect.
+> The multiplicities for (this|these) relationship(s) are incorrect.
 
 Level 4: Parametrized response:
 
@@ -1067,7 +1067,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can you double check this association?
+> Double check this association.
 
 Level 3: Text response:
 
@@ -1092,7 +1092,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can you double check this association?
+> Double check this association.
 
 Level 3: Text response:
 
@@ -1176,7 +1176,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Check your spelling here.
+> Double check this role name
 
 Level 3: Parametrized response:
 
@@ -1193,7 +1193,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can you double check this role name?
+> Double check this role name.
 
 Level 3: Parametrized response:
 
@@ -1230,7 +1230,7 @@ Level 3: Parametrized response:
 
 Level 4: Parametrized response:
 
-> The association between ${firstClass} and ${secondClass} should be modeled with an association class.
+> Further details of the association between ${firstClass} and ${secondClass} should be modeled with an association class.
 
 Level 5: Resource response with Reference:
 
@@ -1253,11 +1253,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> Does it make sense to disallow multiple instances of the ${inBetweenClass} linking ${firstClass} and ${secondClass}?
-
-Level 5: Parametrized response:
-
-> The association between ${firstClass} and ${secondClass} should not be modeled with an association class.
+> Further details of the association between ${firstClass} and ${secondClass} should not be modeled with an association class.
 
 Level 6: Resource response with Reference:
 
@@ -1272,7 +1268,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can you double check this class name?
+> Double check this association class name.
 
 Level 3: Parametrized response:
 
@@ -1320,7 +1316,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> The ${assocClass} class should be an association class.
+> The ${regularClass} class should be an association class.
 
 Level 5: Resource response with Reference:
 
@@ -1455,8 +1451,8 @@ Level 4: Parametrized response:
 
 Level 5: Resource response with Example:
 
-> Observe the following domain model. Every single class is contained in the 
-root class, `PISystem`, other than the root class itself.
+> Observe the following domain model. Every single class except the root class is contained in the 
+root class, `PISystem`.
 
 ![PISystem](images/PISystem.png)
 
@@ -1481,8 +1477,8 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Example:
 
-> Observe the following domain model. Every single class is contained in the 
-root class, `PISystem`, other than the root class itself.
+> Observe the following domain model. Every single class except the root class is contained in the 
+root class, `PISystem`.
 
 ![PISystem](images/PISystem.png)
 
@@ -1603,19 +1599,12 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Will a[n] ${nondistinctSubclass} retain this status over its lifetime?
+> Is it possible for an instance of ${nondistinctSubclass} to turn into an instance of another subclass over its lifetime?
 
 Level 4: Resource response with Quiz:
 
-> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
-and complete the following:
-
-The five checks for generalization are:
-* Obeys the ________. (isA rule)
-* Subclass must retain its ________. (distinctiveness)
-* All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (instance)
+> Which classes are not subclasses of Account?
+* `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`, `ClosedAccount`
 
 
 #### Inherited feature does not make sense for subclass
@@ -1653,11 +1642,11 @@ Level 2: Text response:
 
 Level 3: Text response:
 
-> Remember the definition of the **isA rule**.[ Instances should not be modeled as subclasses].
+> Remember the definition of the **'instance' rule**.[ Instances should not be modeled as subclasses].
 
 Level 4: Resource response with Example:
 
-> A CheckingAccount isA Account, but account1234 is **not** an Account according to the isA Rule.
+> A CheckingAccount isA Account, but account1234 is **not** an Account according to the 'instance' rule.
 
 Level 5: Resource response with Quiz:
 
@@ -1682,12 +1671,19 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${wrongSubclass} does not differ from ${wrongSuperclass} in terms of behavior or structure.
+> ${wrongSubclass} needs to be different from its superclass[ and its sibling subclasses] in terms of behavior or structure.
 
 Level 4: Resource response with Quiz:
 
-> Which classes do not belong?
-* `Account`, `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`, `ClosedAccount`
+> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+and complete the following:
+
+The five checks for generalization are:
+* Obeys the ________. (isA rule)
+* Subclass must retain its ________. (distinctiveness)
+* All ________ must make sense in each subclass. (inherited features)
+* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
+* Subclass must not be ________. (instance)
 
 
 #### Wrong generalization direction
@@ -1762,11 +1758,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Think carefully about how to model the relationships between these concepts
+> Think carefully about how to model the relationships between these concepts.
 
 Level 3: Parametrized response:
 
-> [Nice try, but] a ${firstSubclass} can also play the role of a ${secondSubclass}.
+> [Nice try, but] a ${firstSubclass} can also play the role of one of the other subclasses.
 
 Level 4: Resource response with Reference:
 
@@ -1793,11 +1789,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Think carefully about how to model the relationships between these concepts
+> Think carefully about how to model the relationships between these concepts.
 
 Level 3: Parametrized response:
 
-> [Nice try, but] a ${firstSubclass} can also play the role of a ${secondSubclass}.
+> [Nice try, but] a ${firstSubclass} can also play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
 
 Level 4: Resource response with Reference:
 
@@ -1824,11 +1820,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Think carefully about how to model the relationships between these concepts
+> Think carefully about how to model the relationships between these concepts.
 
 Level 3: Parametrized response:
 
-> [Nice try, but] a ${firstSubclass} can also play the role of a ${secondSubclass}.
+> [Nice try, but] a ${firstSubclass} does not need to play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
 
 Level 4: Resource response with Reference:
 
@@ -1855,7 +1851,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Think carefully about how to model the relationships between these concepts
+> Think carefully about how to model the relationships between these concepts.
 
 Level 3: Parametrized response:
 
@@ -1886,11 +1882,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Think carefully about how to model the relationships between these concepts
+> Think carefully about how to model the relationships between these concepts.
 
 Level 3: Parametrized response:
 
-> A ${firstRole} has different features from a ${secondRole}.
+> A ${firstRole} has different features from a ${secondRole} and ${role} does not change its role over its lifetime.
 
 Level 4: Resource response with Reference:
 
@@ -1917,7 +1913,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Think carefully about how to model the relationships between these concepts
+> Think carefully about how to model the relationships between these concepts.
 
 Level 3: Parametrized response:
 
@@ -1948,11 +1944,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Think carefully about how to model the relationships between these concepts
+> Think carefully about how to model the relationships between these concepts.
 
 Level 3: Parametrized response:
 
-> [Nice try, but] a ${firstRole} can also play the role of a ${secondRole}.
+> A ${firstRole} has different features from one of the other roles at the same time and different features need to be captured for the roles.
 
 Level 4: Resource response with Reference:
 
@@ -1979,11 +1975,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Think carefully about how to model the relationships between these concepts
+> Think carefully about how to model the relationships between these concepts.
 
 Level 3: Parametrized response:
 
-> A ${firstRole} has different features from a ${secondRole}.
+> A ${firstRole} has different features from one of the other roles and this role never changes to another role.
 
 Level 4: Resource response with Reference:
 
@@ -2010,7 +2006,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Think carefully about how to model the relationships between these concepts
+> Think carefully about how to model the relationships between these concepts.
 
 Level 3: Parametrized response:
 
@@ -2041,11 +2037,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Think carefully about how to model the relationships between these concepts
+> Think carefully about how to model the relationships between these concepts.
 
 Level 3: Parametrized response:
 
-> Can a ${firstRole} can also play the role of a ${secondRole}?
+> Can a ${firstRole} can also play the role of one of the other roles at different times or at the same time?
 
 Level 4: Resource response with Reference:
 
@@ -2072,7 +2068,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Think carefully about how to model the relationships between these concepts
+> Think carefully about how to model the relationships between these concepts.
 
 Level 3: Parametrized response:
 
@@ -2103,11 +2099,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Think carefully about how to model the relationships between these concepts
+> Think carefully about how to model the relationships between these concepts.
 
 Level 3: Parametrized response:
 
-> Do ${firstRole} and ${secondRole} need to have different features?
+> Do ${firstRole} and ${secondRole} need to have different features and is it possible that more than one role is played at the same time?
 
 Level 4: Resource response with Reference:
 
@@ -2252,7 +2248,7 @@ from each other in an important way.
 ![Abstraction-Occurrence Pattern](images/abstraction_occurrence.png)
 
 
-#### Subclass should be association Abstraction-Occurrence pattern
+#### Generalization should be association in Abstraction-Occurrence pattern
 
 Level 1: Highlight solution
 
@@ -2262,7 +2258,7 @@ Level 2: Text response:
 
 Level 3: Text response:
 
-> Do subclasses belong in this use of the Abstraction-Occurrence pattern?
+> Is generalization the correct way to model this use of the Abstraction-Occurrence pattern?
 
 Level 4: Resource response with Reference:
 

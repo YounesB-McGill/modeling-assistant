@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus script.
-% Generation time: 2021-12-26 01:27:26
+% Generation time: 2022-01-17 22:08:01
 
 \section{Class mistakes}
 
@@ -20,7 +20,7 @@ Remember that class names should be singular.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${className}| should be \verb|${pascalCase(className)}|, with a Capital Letter.
+\verb|${className}| should be \verb|${singular(className)}|, using the singular.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Example: \medskip
@@ -53,7 +53,7 @@ Remember that class names must start with a Capital Letter.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${className}| should be \verb|${singular(className)}|, using the singular.
+\verb|${className}| should be \verb|${pascalCase(className)}|, with a Capital Letter.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Example: \medskip
@@ -86,7 +86,7 @@ Remember that a domain model should not contain software engineering terms.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${className}| is a software engineering term, which does not belong in a domain model.
+\verb|${className}| contains a software engineering term, which does not belong in a domain model.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Example: \medskip
@@ -113,7 +113,7 @@ AirlineData & Airline \\
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can you double check this class name?
+Double check this class name.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -136,7 +136,7 @@ The \verb|${incorrectlySpelledClassName}| class should be changed to \verb|${cor
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can you double check this class name?
+Double check this class name.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -230,13 +230,13 @@ Please review the \textit{Enumeration} part of the Class Diagram lecture.
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Is this item really necessary?
+Is this enumeration really necessary?
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Remove the \verb|${extraEnum}| enumeration, it is not needed.
+Remove the \verb|${extraEnum}| enumeration. It is not needed.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -253,13 +253,13 @@ Please review the \textit{Enumeration} part of the Class Diagram lecture.
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can this item be renamed?
+Double check the name of this enumeration.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${wronglyNamedEnum}| should be renamed[ to \verb|${correctEnumName}|].
+The \verb|${wronglyNamedEnum}| should be changed[ to \verb|${correctEnumName}|].
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -322,13 +322,13 @@ Please review the \textit{Enumeration} part of the Class Diagram lecture.
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can this item be renamed?
+Double check this enumeration item.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${wronglyNamedEnumItem}| should be renamed[ to \verb|${correctEnumItemName}|].
+The \verb|${wronglyNamedEnumItem}| should be changed[ to \verb|${correctEnumItemName}|].
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -357,7 +357,7 @@ Remember to add the \verb|${className}| class.
 \end{tabular} \medskip
 
 
-\subsection{Extra redundant class}
+\subsection{Extra class}
 
 \noindent Level 1: Highlight solution \medskip
 
@@ -376,7 +376,7 @@ You have an extra class. Can you find it?
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${className}| class is not part of the domain, so please remove it.
+The \verb|${className}| class is not part of the problem domain, so please remove it.
 \end{tabular} \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
@@ -413,7 +413,7 @@ Use an intermediate class instead of an n-ary association.
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can you double check this attribute name?
+Double check this attribute name.
 \end{tabular} \medskip
 
 \noindent Level 3: Text response: \medskip
@@ -425,7 +425,7 @@ This attribute should be singular.
 \noindent Level 4: Resource response with Quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Pick the classes which are modeled correctly.
+Pick the classes which are modeled correctly with Umple.
 
 \begin{itemize}
     \item[$\square$] class Student \{ courses; \}
@@ -461,7 +461,7 @@ Remember that attributes are simple pieces of data.
 \noindent Level 5: Resource response with Quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Pick the classes which are modeled correctly.
+Pick the classes which are modeled correctly with Umple.
 
 \begin{itemize}
     \item[$\square$] class Student \{ courses; \}
@@ -496,14 +496,8 @@ The \verb|${redundantAttribute}| attribute in the \verb|${className}| class is n
 The \verb|${redundantAttribute}| attribute in the \verb|${className}| class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Reference: \medskip
 
-\begin{tabular}{|p{0.9\linewidth}}
-Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Class Diagram lecture.
-\end{tabular} \medskip
-
-
-\subsection{Wrong attribute name mistakes}
+\subsection{Attribute name mistakes}
 
 \subsubsection{Bad attribute name spelling}
 
@@ -512,7 +506,7 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can this attribute be renamed?
+Double check this attribute name.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -589,7 +583,7 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can you think of a better place for this?
+Can you think of a better place for this attribute?
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -647,7 +641,7 @@ Can you think of a better place for this?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${misplacedAttribute}| belongs in a (super$|$sub)class.
+The \verb|${misplacedAttribute}| belongs in \verb|${correctClass}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -670,16 +664,10 @@ Make sure to model all the attributes of this class.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${className}| class is missing an attribute.
-\end{tabular} \medskip
-
-\noindent Level 4: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
 A \verb|${className}| has a \verb|${missingAttribute}|.
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Reference: \medskip
+\noindent Level 4: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Class Diagram lecture.
@@ -693,7 +681,7 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can you double-check this?
+Double check the properties of this attribute.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -768,13 +756,13 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Is there something special about this attribute?
+Double check the properties of this attribute.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${includingClass.attributeName}| should not be static, because it doesn't apply to all instances of \verb|${includingClass}|.
+\verb|${includingClass.attributeName}| should not be static, because it does not apply to all instances of \verb|${includingClass}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -957,7 +945,7 @@ The relationship between \verb|${classOne}| and \verb|${classTwo}| is redundant 
 \noindent Level 4: Resource response with Quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Find all the redunandant associations in this class diagram (TODO).
+Find all the redundant associations in this class diagram (TODO).
 \end{tabular} \medskip
 
 
@@ -994,7 +982,7 @@ The relationship between \verb|${classOne}| and \verb|${classTwo}| is redundant.
 Is this association really necessary?
 \end{tabular} \medskip
 
-\noindent Level 3: Parametrized response: \medskip
+\noindent Level 3: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 The relationship between the highlighted classes is redundant.
@@ -1059,40 +1047,52 @@ better understand these relationships and where they are used.
 \end{tabular} \medskip
 
 
-\noindent \textbf{Using directed association instead of undirected association} \medskip
+\noindent \textbf{Using directed relationship instead of undirected relationship} \medskip
 
 \noindent Level 1: Highlight solution \medskip
 
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Is there anything special about this association?
+Why is navigation restricted for this relationship?
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The association between \verb|${classOne}| and \verb|${classTwo}| should be undirected[ from \verb|${classOne}| to \verb|${classTwo}|].
+The relationship between \verb|${classOne}| and \verb|${classTwo}| should be undirected.
 \end{tabular} \medskip
 
-\noindent Level 4: 
-\noindent \textbf{Using undirected association instead of directed association} \medskip
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the _Directionality in Associations_ section of the \textit{UML Class Diagram lecture slides}
+\end{tabular} \medskip
+
+
+\noindent \textbf{Using undirected relationship instead of directed relationship} \medskip
 
 \noindent Level 1: Highlight solution \medskip
 
-\noindent Level 2: Text response: \medskip
+\noindent Level 2: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Is there anything special about this association?
+Does \verb|${targetClass}| need to know about \verb|${sourceClass}|?
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The association between \verb|${classOne}| and \verb|${classTwo}| should be directed[ from \verb|${classOne}| to \verb|${classTwo}|].
+The relationship between \verb|${classOne}| and \verb|${classTwo}| should be directed[ from \verb|${classOne}| to \verb|${classTwo}|].
 \end{tabular} \medskip
 
-\noindent Level 4: 
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the _Directionality in Associations_ section of the \textit{UML Class Diagram lecture slides}
+\end{tabular} \medskip
+
+
 \noindent \textbf{Using composition instead of aggregation} \medskip
 
 \noindent Level 1: Highlight solution \medskip
@@ -1192,7 +1192,7 @@ Please review the \textit{Association} part of the Class Diagram lecture.
 
 \subsubsection{Association name mistakes}
 
-\noindent \textbf{Missing association name when one was expected} \medskip
+\noindent \textbf{Missing association name} \medskip
 
 \noindent Level 1: Highlight solution \medskip
 
@@ -1202,7 +1202,7 @@ Please review the \textit{Association} part of the Class Diagram lecture.
 Something is missing here.
 \end{tabular} \medskip
 
-\noindent Level 3: Parametrized response: \medskip
+\noindent Level 3: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Can you give this association a name?
@@ -1228,7 +1228,7 @@ Please review the \textit{Association} and \textit{Noun Analysis} parts of the C
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Check your spelling here.
+Double check this association name.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -1253,13 +1253,13 @@ Please review the \textit{Association} and \textit{Noun Analysis} parts of the C
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can you double check (this$|$these) association(s)?
+Double check (this$|$these) relationship(s).
 \end{tabular} \medskip
 
 \noindent Level 3: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The multiplicities for this(ese) association(s) are incorrect.
+The multiplicities for (this$|$these) relationship(s) are incorrect.
 \end{tabular} \medskip
 
 \noindent Level 4: Parametrized response: \medskip
@@ -1290,7 +1290,7 @@ Edit the class diagram to allow creating a `Foo`
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can you double check this association?
+Double check this association.
 \end{tabular} \medskip
 
 \noindent Level 3: Text response: \medskip
@@ -1326,7 +1326,7 @@ Pick the associations with correct multiplicities
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can you double check this association?
+Double check this association.
 \end{tabular} \medskip
 
 \noindent Level 3: Text response: \medskip
@@ -1440,7 +1440,7 @@ Please review the \textit{Association} part of the Class Diagram lecture.
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Check your spelling here.
+Double check this role name
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -1463,7 +1463,7 @@ Please review the \textit{Association} and \textit{Noun Analysis} parts of the C
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can you double check this role name?
+Double check this role name.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -1513,7 +1513,7 @@ Does it make sense to have multiple instances of the \verb|${inBetweenClass}| li
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The association between \verb|${firstClass}| and \verb|${secondClass}| should be modeled with an association class.
+Further details of the association between \verb|${firstClass}| and \verb|${secondClass}| should be modeled with an association class.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -1545,13 +1545,7 @@ Is using an association class the best way to model this?
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Does it make sense to disallow multiple instances of the \verb|${inBetweenClass}| linking \verb|${firstClass}| and \verb|${secondClass}|?
-\end{tabular} \medskip
-
-\noindent Level 5: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The association between \verb|${firstClass}| and \verb|${secondClass}| should not be modeled with an association class.
+Further details of the association between \verb|${firstClass}| and \verb|${secondClass}| should not be modeled with an association class.
 \end{tabular} \medskip
 
 \noindent Level 6: Resource response with Reference: \medskip
@@ -1571,7 +1565,7 @@ Association class
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can you double check this class name?
+Double check this association class name.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -1638,7 +1632,7 @@ Is using a regular class the best way to model this?
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${assocClass}| class should be an association class.
+The \verb|${regularClass}| class should be an association class.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -1819,8 +1813,8 @@ Please review the model containment hierarchy.
 \noindent Level 5: Resource response with Example: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Observe the following domain model. Every single class is contained in the 
-root class, `PISystem`, other than the root class itself.
+Observe the following domain model. Every single class except the root class is contained in the 
+root class, `PISystem`.
 
 \\
 \includegraphics[width=0.6\textwidth]{images/PISystem.png}
@@ -1855,8 +1849,8 @@ What is the relationship between these classes?
 \noindent Level 4: Resource response with Example: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Observe the following domain model. Every single class is contained in the 
-root class, `PISystem`, other than the root class itself.
+Observe the following domain model. Every single class except the root class is contained in the 
+root class, `PISystem`.
 
 \\
 \includegraphics[width=0.6\textwidth]{images/PISystem.png}
@@ -2028,22 +2022,15 @@ Can you find a better way to model this concept?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Will a[n] \verb|${nondistinctSubclass}| retain this status over its lifetime?
+Is it possible for an instance of \verb|${nondistinctSubclass}| to turn into an instance of another subclass over its lifetime?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Please review the \textit{checks for proper generalization} lecture material
-and complete the following:
-
-The five checks for generalization are:
+Which classes are not subclasses of Account?
 \begin{itemize}
-    \item Obeys the \_\_\_\_\_\_\_\_. (isA rule)
-    \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
-    \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
-    \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (instance)
+    \item SavingsAccount, OverdrawnAccount, CheckingAccount, MortgageAccount, ClosedAccount
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2096,13 +2083,13 @@ Can you find a better way to express this relationship?
 \noindent Level 3: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Remember the definition of the **isA rule**.[ Instances should not be modeled as subclasses].
+Remember the definition of the **'instance' rule**.[ Instances should not be modeled as subclasses].
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Example: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-A CheckingAccount isA Account, but account1234 is **not** an Account according to the isA Rule.
+A CheckingAccount isA Account, but account1234 is **not** an Account according to the 'instance' rule.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Quiz: \medskip
@@ -2136,15 +2123,22 @@ Is it really necessary to model this as a subclass?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${wrongSubclass}| does not differ from \verb|${wrongSuperclass}| in terms of behavior or structure.
+\verb|${wrongSubclass}| needs to be different from its superclass[ and its sibling subclasses] in terms of behavior or structure.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Which classes do not belong?
+Please review the \textit{checks for proper generalization} lecture material
+and complete the following:
+
+The five checks for generalization are:
 \begin{itemize}
-    \item Account, SavingsAccount, OverdrawnAccount, CheckingAccount, MortgageAccount, ClosedAccount
+    \item Obeys the \_\_\_\_\_\_\_\_. (isA rule)
+    \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
+    \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
+    \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
+    \item Subclass must not be \_\_\_\_\_\_\_\_. (instance)
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2248,13 +2242,13 @@ Place the following classes in an inheritance hierarchy:
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts
+Think carefully about how to model the relationships between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-[Nice try, but] a \verb|${firstSubclass}| can also play the role of a \verb|${secondSubclass}|.
+[Nice try, but] a \verb|${firstSubclass}| can also play the role of one of the other subclasses.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -2292,13 +2286,13 @@ Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts
+Think carefully about how to model the relationships between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-[Nice try, but] a \verb|${firstSubclass}| can also play the role of a \verb|${secondSubclass}|.
+[Nice try, but] a \verb|${firstSubclass}| can also play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -2336,13 +2330,13 @@ Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts
+Think carefully about how to model the relationships between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-[Nice try, but] a \verb|${firstSubclass}| can also play the role of a \verb|${secondSubclass}|.
+[Nice try, but] a \verb|${firstSubclass}| does not need to play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -2380,7 +2374,7 @@ Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts
+Think carefully about how to model the relationships between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -2424,13 +2418,13 @@ Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts
+Think carefully about how to model the relationships between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-A \verb|${firstRole}| has different features from a \verb|${secondRole}|.
+A \verb|${firstRole}| has different features from a \verb|${secondRole}| and \verb|${role}| does not change its role over its lifetime.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -2468,7 +2462,7 @@ Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts
+Think carefully about how to model the relationships between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -2512,13 +2506,13 @@ Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts
+Think carefully about how to model the relationships between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-[Nice try, but] a \verb|${firstRole}| can also play the role of a \verb|${secondRole}|.
+A \verb|${firstRole}| has different features from one of the other roles at the same time and different features need to be captured for the roles.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -2556,13 +2550,13 @@ Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts
+Think carefully about how to model the relationships between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-A \verb|${firstRole}| has different features from a \verb|${secondRole}|.
+A \verb|${firstRole}| has different features from one of the other roles and this role never changes to another role.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -2600,7 +2594,7 @@ Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts
+Think carefully about how to model the relationships between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -2644,13 +2638,13 @@ Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts
+Think carefully about how to model the relationships between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can a \verb|${firstRole}| can also play the role of a \verb|${secondRole}|?
+Can a \verb|${firstRole}| can also play the role of one of the other roles at different times or at the same time?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -2688,7 +2682,7 @@ Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts
+Think carefully about how to model the relationships between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -2732,13 +2726,13 @@ Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts
+Think carefully about how to model the relationships between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Do \verb|${firstRole}| and \verb|${secondRole}| need to have different features?
+Do \verb|${firstRole}| and \verb|${secondRole}| need to have different features and is it possible that more than one role is played at the same time?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -2939,7 +2933,7 @@ from each other in an important way.
 \end{tabular} \medskip
 
 
-\subsubsection{Subclass should be association Abstraction-Occurrence pattern}
+\subsubsection{Generalization should be association in Abstraction-Occurrence pattern}
 
 \noindent Level 1: Highlight solution \medskip
 
@@ -2952,7 +2946,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Do subclasses belong in this use of the Abstraction-Occurrence pattern?
+Is generalization the correct way to model this use of the Abstraction-Occurrence pattern?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip

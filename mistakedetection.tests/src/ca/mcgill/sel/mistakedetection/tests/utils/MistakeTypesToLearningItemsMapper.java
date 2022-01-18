@@ -2,6 +2,7 @@ package ca.mcgill.sel.mistakedetection.tests.utils;
 
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -91,6 +92,23 @@ public class MistakeTypesToLearningItemsMapper {
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 
+  /** Generates Pyecore-compatible code to generate the learning corpus. This can be improved. */
+  public static String generatePythonLearningCorpusInitializationCode() {
+    var mistakesToTypes = mapComparisonMistakesToLearningCorpusElementTypes(instructorAndStudentElems);
+    var typesToMistakes = new TreeMap<ElementType, Set<MistakeType>>();
+    mistakesToTypes.forEach((m, types) -> types.forEach(t -> {
+      if (typesToMistakes.containsKey(t)) {
+        typesToMistakes.get(t).add(m);
+      } else {
+        typesToMistakes.put(t, new HashSet<>(List.of(m)));
+      }
+    }));
+    typesToMistakes.entrySet().stream().map(e -> "")
+
+        .collect(Collectors.joining("\n"));
+    return "";
+  }
+
   /**
    * Returns the mapping of comparison mistakes to CDM metatypes in a CSV-compatible format.
    * The format of each row is as follows:<br>
@@ -113,6 +131,12 @@ public class MistakeTypesToLearningItemsMapper {
     return mapping.entrySet().stream().map(e ->
     e.getKey().getName() + ": " + String.join(", ", e.getValue().stream().map(ElementType::getName)
         .collect(Collectors.toUnmodifiableList()))).collect(Collectors.joining("\n"));
+  }
+
+  /** Cleans and underscorifies the given string. */
+  private static String underscorify(String s) {
+    return s.replaceAll("\\((.+?)\\)", "").trim().replaceAll("/", "_").replaceAll("-", "_")
+        .replaceAll("\\s+", "_").replaceAll("_+", "_").toLowerCase();
   }
 
 }

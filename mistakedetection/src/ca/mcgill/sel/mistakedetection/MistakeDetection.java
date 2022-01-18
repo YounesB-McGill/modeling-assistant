@@ -68,8 +68,8 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_AG
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_ASSOC;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
@@ -2316,7 +2316,7 @@ public class MistakeDetection {
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingDirectedInsteadOfUndirected(studentClassAssocEnd, instructorClassAssocEnd)) {
       return Optional
-          .of(createMistake(USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED, studentClassAssocEnd, instructorClassAssocEnd));
+          .of(createMistake(USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED, studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
   }
@@ -2325,7 +2325,7 @@ public class MistakeDetection {
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingUndirectedInsteadOfDirected(studentClassAssocEnd, instructorClassAssocEnd)) {
       return Optional
-          .of(createMistake(USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED, studentClassAssocEnd, instructorClassAssocEnd));
+          .of(createMistake(USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED, studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
   }
