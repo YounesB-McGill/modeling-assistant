@@ -1344,7 +1344,7 @@ public class MistakeDetection {
     }
   }
 
-  private static AssociationEnd getOtherAssocEnd(AssociationEnd assocEnd) {
+  public static AssociationEnd getOtherAssocEnd(AssociationEnd assocEnd) {
     var assocEnds = assocEnd.getAssoc().getEnds();
     if (assocEnds.get(0).equals(assocEnd)) {
       return assocEnds.get(1);
@@ -1520,9 +1520,11 @@ public class MistakeDetection {
   /** Check for infinite recursive dependency. */
   private static void checkMistakeInfiniteRecursiveDependency(AssociationEnd studentClassAssocEnd,
       AssociationEnd otherStudentClassAssocEnd, Comparison comparison) {
-    if (!isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, studentClassAssocEnd.getAssoc(), comparison)
+    if (!isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, studentClassAssocEnd, comparison)
+        && !isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, otherStudentClassAssocEnd, comparison)
         && (studentClassAssocEnd.getLowerBound() >= 1 && otherStudentClassAssocEnd.getLowerBound() >= 1)) {
-      comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY, studentClassAssocEnd.getAssoc(), null));
+      comparison.newMistakes.add(
+          createMistake(INFINITE_RECURSIVE_DEPENDENCY, List.of(studentClassAssocEnd, otherStudentClassAssocEnd), null));
     }
   }
 

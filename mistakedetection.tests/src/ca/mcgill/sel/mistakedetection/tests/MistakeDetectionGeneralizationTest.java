@@ -79,7 +79,6 @@ public class MistakeDetectionGeneralizationTest {
         .map(s -> getClassFromClassDiagram(s, instructorClassDiagram)).collect(Collectors.toUnmodifiableList());
     assertTrue(comparison.instructorSuperclassesToSubclasses.keySet().containsAll(instClasses));
 
-    MistakeDetectionTest.log(comparison);
   }
 
   /**

@@ -2984,12 +2984,14 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
     var studentChildAssociationEnd = getAssociationEndFromClass("Child", studentPersonClass);
+    var otherStudentChildAssociationEnd = MistakeDetection.getOtherAssocEnd(studentChildAssociationEnd);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), INFINITE_RECURSIVE_DEPENDENCY, studentChildAssociationEnd.getAssoc(), 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), INFINITE_RECURSIVE_DEPENDENCY, List.of(studentChildAssociationEnd,otherStudentChildAssociationEnd), 0, 1, false);
   }
   /**
    * Test to check containment in more than one class .
