@@ -47,6 +47,9 @@ public class MistakeTypesToLearningItemsMapper {
   static Function<Mistake, Stream<SolutionElement>> instructorAndStudentElems = m ->
       Stream.concat(instructorElems.apply(m), studentElems.apply(m));
 
+  /** The maximum allowed line length in generated source code. */
+  private static final int MAX_LINE_LENGTH = 120;
+
   public static void main(String[] args) {
     MistakeDetectionConfig.trackComparisonsInstances = true;
     runAllMistakeDetectionTests();
@@ -54,6 +57,8 @@ public class MistakeTypesToLearningItemsMapper {
     System.out.println(getCdmMetatypeMappingAsCsv(mapComparisonMistakesToCdmMetatypes(instructorAndStudentElems))
         + "\n\n" + getLearningCorpusElementTypeMappingAsCsv(
             mapComparisonMistakesToLearningCorpusElementTypes(instructorAndStudentElems)));
+
+    System.out.println(generatePythonLearningCorpusInitializationCode());
   }
 
   /** Runs all the mistake detection tests. */
@@ -93,7 +98,7 @@ public class MistakeTypesToLearningItemsMapper {
   }
 
   /** Generates Pyecore-compatible code to generate the learning corpus. This can be improved. */
-  public static String generatePythonLearningCorpusInitializationCode() {
+  public static List<String> generatePythonLearningCorpusInitializationCode() {
     var mistakesToTypes = mapComparisonMistakesToLearningCorpusElementTypes(instructorAndStudentElems);
     var typesToMistakes = new TreeMap<ElementType, Set<MistakeType>>();
     mistakesToTypes.forEach((m, types) -> types.forEach(t -> {
@@ -103,10 +108,32 @@ public class MistakeTypesToLearningItemsMapper {
         typesToMistakes.put(t, new HashSet<>(List.of(m)));
       }
     }));
-    typesToMistakes.entrySet().stream().map(e -> "")
-
-        .collect(Collectors.joining("\n"));
-    return "";
+    var imports = new StringBuilder(
+        "from corpus_definition import (corpus as corpus_def, mts_by_priority as mts_by_priority_def, ");
+    var learningItems = new StringBuilder();
+    typesToMistakes.forEach((t, mistakes) -> {
+      learningItems.append(underscorify(t.getName()).replace("class", "class_") + " = LearningItem(name=\""
+          + t.getName().replaceAll("\\s+", "") + "\", learningCorpus=corpus, mistakeTypes=[\n    ");
+      mistakes.forEach(mistake -> {
+        var m = underscorify(mistake.getName());
+        if (learningItems.length() - learningItems.lastIndexOf("\n") + m.length() + 2 <= MAX_LINE_LENGTH) {
+          learningItems.append(m + ", ");
+        } else {
+          learningItems.deleteCharAt(learningItems.lastIndexOf(" ")).append("\n    " + m + ", ");
+        }
+        if (imports.indexOf(m + ",") == -1) { // not found according to StringBuilder API
+          if (imports.length() - imports.lastIndexOf("\n") + m.length() + 2 <= MAX_LINE_LENGTH) {
+            imports.append(m + ", ");
+          } else {
+            imports.deleteCharAt(imports.lastIndexOf(" ")).append("\n    " + m + ", ");
+          }
+        }
+      });
+      learningItems.deleteCharAt(learningItems.lastIndexOf(",")).deleteCharAt(learningItems.lastIndexOf(" "))
+          .append("])\n");
+    });
+    imports.deleteCharAt(imports.lastIndexOf(",")).deleteCharAt(imports.lastIndexOf(" ")).append(")\n");
+    return List.of(imports.toString(), learningItems.toString());
   }
 
   /**

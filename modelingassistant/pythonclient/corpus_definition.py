@@ -532,7 +532,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     })),
             ]),
             association_class_mistakes := mtc(n="Association class mistakes", mistakeTypes=[
-                missing_association_class := mt(n="Missing assoc class", d="Missing association class", feedbacks=fbs({
+                missing_assoc_class := mt(n="Missing assoc class", d="Missing association class", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you model this relationship more precisely?"),
                     3: ParametrizedResponse(text="Does it make sense to have multiple instances of the "
@@ -542,7 +542,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     5: ResourceResponse(learningResources=[assoc_class_ref := Reference(
                         content="Association class\n\n![Association class](images/association_class.png)")]),
                 })),
-                extra_association_class := mt(n="Extra assoc class", d="Extra association class", feedbacks=fbs({
+                extra_assoc_class := mt(n="Extra assoc class", d="Extra association class", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you model this relationship in another way?"),
                     3: TextResponse(text="Is using an association class the best way to model this?"),
@@ -1061,7 +1061,7 @@ mts_by_priority: list[MistakeType] = [
 
     # extra items
     extra_class,
-    extra_association_class,
+    extra_assoc_class,
     extra_enum,
     extra_enum_item,
     extra_generalization,
@@ -1077,7 +1077,7 @@ mts_by_priority: list[MistakeType] = [
     missing_class,
     missing_attribute,
     missing_attribute_type,
-    missing_association_class,
+    missing_assoc_class,
     missing_enum,
     missing_enum_item,
     missing_generalization,
