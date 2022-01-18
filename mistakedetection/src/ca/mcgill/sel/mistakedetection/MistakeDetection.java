@@ -7,6 +7,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_CLASS_SHOULD_BE_CLA
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_ENUM_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_FULL_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_DUPLICATED;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_MISPLACED;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_NOT_BE_STATIC;
@@ -204,6 +205,14 @@ public class MistakeDetection {
           comparison.extraStudentClassifiers.add(studentClassifier);
           List<Attribute> studentAttributes = studentClassifier.getAttributes();
           comparison.extraStudentAttributes.addAll(studentAttributes);
+          List<String> processedStudentAttributes = new ArrayList<String>();
+          for (Attribute studentAttribute : studentAttributes) {
+            if (processedStudentAttributes.contains(studentAttribute.getName())
+                && !isMistakeExist(ATTRIBUTE_DUPLICATED, studentAttribute, comparison)) {
+              comparison.newMistakes.add(createMistake(ATTRIBUTE_DUPLICATED, studentAttribute, null));
+            }
+            processedStudentAttributes.add(studentAttribute.getName());
+          }
           studentClassifier.getAssociationEnds().forEach((assoc) -> {
             if (!comparison.extraStudentAssociations.contains(assoc.getAssoc())) {
               comparison.extraStudentAssociations.add(assoc.getAssoc());
@@ -249,18 +258,12 @@ public class MistakeDetection {
 
       List<Attribute> studentAttributes = possibleClassifierMatch.getAttributes();
       for (Attribute instructorAttribute : instructorAttributes) {
-        var mappedStudentAttribute = comparison.mappedAttributes.get(instructorAttribute);
         for (Attribute studentAttribute : studentAttributes) {
           float lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
           if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-            if (mappedStudentAttribute == studentAttribute) {
-              comparison.duplicateStudentAttributes.add(studentAttribute);
-              comparison.extraStudentAttributes.remove(studentAttribute);
-            } else {
-              mapAttributes(comparison, studentAttribute, instructorAttribute);
-              checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison.newMistakes);
-              break;
-            }
+            mapAttributes(comparison, studentAttribute, instructorAttribute);
+            checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison.newMistakes);
+            break;
           }
         }
       }
@@ -290,21 +293,20 @@ public class MistakeDetection {
   }
 
   private static void checkMistakeAttributeMisplaced(Comparison comparison) {
-   List<Attribute> studAttributesProcessed = new ArrayList<Attribute>();
-   List<Attribute> instAttributesProcessed = new ArrayList<Attribute>();
+    List<Attribute> studAttributesProcessed = new ArrayList<Attribute>();
+    List<Attribute> instAttributesProcessed = new ArrayList<Attribute>();
 
-   for(Attribute studAttrib : comparison.extraStudentAttributes) {
-     for(Attribute instAttrib : comparison.notMappedInstructorAttributes) {
-       if(studAttrib.getName().equals(instAttrib.getName())) {
-         comparison.newMistakes.add(
-             createMistake(ATTRIBUTE_MISPLACED , studAttrib, instAttrib));
-             studAttributesProcessed.add(studAttrib);
-             instAttributesProcessed.add(instAttrib);
-       }
-     }
-   }
-   comparison.extraStudentAttributes.removeAll(studAttributesProcessed);
-   comparison.notMappedInstructorAttributes.removeAll(instAttributesProcessed);
+    for (Attribute studAttrib : comparison.extraStudentAttributes) {
+      for (Attribute instAttrib : comparison.notMappedInstructorAttributes) {
+        if (studAttrib.getName().equals(instAttrib.getName())) {
+          comparison.newMistakes.add(createMistake(ATTRIBUTE_MISPLACED, studAttrib, instAttrib));
+          studAttributesProcessed.add(studAttrib);
+          instAttributesProcessed.add(instAttrib);
+        }
+      }
+    }
+    comparison.extraStudentAttributes.removeAll(studAttributesProcessed);
+    comparison.notMappedInstructorAttributes.removeAll(instAttributesProcessed);
   }
 
   private static void checkMistakesInGeneralization(Comparison comparison) {
@@ -1355,7 +1357,7 @@ public class MistakeDetection {
       Association instructorClassifierAssoc, AssociationEnd studentClassifierAssocEnd,
       AssociationEnd instructorClassifierAssocEnd, AssociationEnd otherStudentClassifierAssocEnd,
       AssociationEnd otherInstructorClassifierAssocEnd) {
-    if(studentClassifierAssocEnd.getName().equals(otherInstructorClassifierAssocEnd.getName())) {
+    if (studentClassifierAssocEnd.getName().equals(otherInstructorClassifierAssocEnd.getName())) {
       var temp = studentClassifierAssocEnd;
       studentClassifierAssocEnd = otherStudentClassifierAssocEnd;
       otherStudentClassifierAssocEnd = temp;
@@ -1524,9 +1526,11 @@ public class MistakeDetection {
     }
   }
 
-  private static boolean isMistakeExist(MistakeType mistakeType, NamedElement studentNamedElement, Comparison comparison) {
+  private static boolean isMistakeExist(MistakeType mistakeType, NamedElement studentNamedElement,
+      Comparison comparison) {
     for (Mistake mistake : comparison.newMistakes) {
-      if (mistake.getMistakeType().equals(mistakeType) && mistake.getStudentElements().get(0).getElement().equals(studentNamedElement)) {
+      if (mistake.getMistakeType().equals(mistakeType)
+          && mistake.getStudentElements().get(0).getElement().equals(studentNamedElement)) {
         return true;
       }
     }

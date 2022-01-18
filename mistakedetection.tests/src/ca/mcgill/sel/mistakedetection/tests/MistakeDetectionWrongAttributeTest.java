@@ -1856,7 +1856,6 @@ public class MistakeDetectionWrongAttributeTest {
   /**
    * Test to detect Duplicate Attribute.
    */
-  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeDuplicateAttribute() {
     var instructorClassDiagram = cdmFromFile(
@@ -1872,7 +1871,7 @@ public class MistakeDetectionWrongAttributeTest {
     var studentpriceAttribute = getAttributeFromClass("price", studentWhitechoClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
+    MistakeDetectionTest.log(comparison);
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
