@@ -23,7 +23,8 @@ import modelingassistant.Mistake;
 import modelingassistant.SolutionElement;
 
 /**
- * Class to map learning corpus mistake types to learning items.
+ * Class to map learning corpus mistake types to learning items. Running this file will output useful statistics about
+ * the mistake detection system, its tests, and how mistakes map to various solution elements.
  *
  * @author Younes Boubekeur
  */
@@ -50,15 +51,35 @@ public class MistakeTypesToLearningItemsMapper {
   /** The maximum allowed line length in generated source code. */
   private static final int MAX_LINE_LENGTH = 120;
 
+  // ASCII-compatible symbols to indicate test completion state
+  private static final String DONE = "√";
+  private static final String IN_PROGRESS = "►";
+  private static final String FUTURE_WORK = "X";
+
   public static void main(String[] args) {
     MistakeDetectionConfig.trackComparisonsInstances = true;
     runAllMistakeDetectionTests();
 
-    System.out.println(getCdmMetatypeMappingAsCsv(mapComparisonMistakesToCdmMetatypes(instructorAndStudentElems))
-        + "\n\n" + getLearningCorpusElementTypeMappingAsCsv(
-            mapComparisonMistakesToLearningCorpusElementTypes(instructorAndStudentElems)));
+    var pythonLearningCorpusInitializationCode = generatePythonLearningCorpusInitializationCode();
 
-    System.out.println(generatePythonLearningCorpusInitializationCode());
+    // Uncomment the lines that you want to be output
+    String[] possibleOutputs = {
+      title("Mistake type mapping to CDM Metatypes"),
+      // getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorElems)),
+      // getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(studentElems)),
+      getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorAndStudentElems)),
+
+      title("Mistake type mapping to learning corpus ElementTypes"),
+      // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorElems)),
+      // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(studentElems)),
+      getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorAndStudentElems)),
+
+      title("Python learning corpus initialization code (imports/learning items)"),
+      pythonLearningCorpusInitializationCode.imports,
+      pythonLearningCorpusInitializationCode.learningItems,
+    };
+
+    System.out.println(String.join("\n\n", possibleOutputs));
   }
 
   /** Runs all the mistake detection tests. */
@@ -73,12 +94,13 @@ public class MistakeTypesToLearningItemsMapper {
     var summary = listener.getSummary();
     summary.printTo(new PrintWriter(System.out));
     if (summary.getTotalFailureCount() > 0) {
-      throw new RuntimeException("Cannot map mistake types because one or more Mistake Detection tests failed.");
+      throw new RuntimeException("Cannot perform operation because one or more Mistake Detection tests failed. "
+          + "Fix or disable test(s) and try again.");
     }
   }
 
   /** Maps comparison mistakes to CDM metatypes. */
-  public static Map<MistakeType, Set<EClass>> mapComparisonMistakesToCdmMetatypes(
+  public static Map<MistakeType, Set<EClass>> mapMistakesToCdmMetatypes(
       Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer) {
     return Comparison.instances.stream().map(comp -> comp.newMistakes).flatMap(List::stream)
         .collect(Collectors.toMap(Mistake::getMistakeType,
@@ -88,18 +110,18 @@ public class MistakeTypesToLearningItemsMapper {
             TreeMap::new)); // use TreeMap to sort output by mistake type
   }
 
-  /** Maps comparison mistakes to CDM metatypes. */
-  public static Map<MistakeType, Set<ElementType>> mapComparisonMistakesToLearningCorpusElementTypes(
+  /** Maps comparison mistakes to learning corpus ElementTypes. */
+  public static Map<MistakeType, Set<ElementType>> mapMistakesToLearningCorpusElementTypes(
       Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer) {
-    return mapComparisonMistakesToCdmMetatypes(mistakeSolutionElementsStreamer).entrySet().stream()
+    return mapMistakesToCdmMetatypes(mistakeSolutionElementsStreamer).entrySet().stream()
         .map(e -> Map.entry(e.getKey(), e.getValue().stream().map(cdmMetatypesToLearningCorpusElementTypes::get)
             .collect(Collectors.toUnmodifiableSet())))
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 
   /** Generates Pyecore-compatible code to generate the learning corpus. This can be improved. */
-  public static List<String> generatePythonLearningCorpusInitializationCode() {
-    var mistakesToTypes = mapComparisonMistakesToLearningCorpusElementTypes(instructorAndStudentElems);
+  public static PythonLearningCorpusInitializationCode generatePythonLearningCorpusInitializationCode() {
+    var mistakesToTypes = mapMistakesToLearningCorpusElementTypes(instructorAndStudentElems);
     var typesToMistakes = new TreeMap<ElementType, Set<MistakeType>>();
     mistakesToTypes.forEach((m, types) -> types.forEach(t -> {
       if (typesToMistakes.containsKey(t)) {
@@ -133,7 +155,7 @@ public class MistakeTypesToLearningItemsMapper {
           .append("])\n");
     });
     imports.deleteCharAt(imports.lastIndexOf(",")).deleteCharAt(imports.lastIndexOf(" ")).append(")\n");
-    return List.of(imports.toString(), learningItems.toString());
+    return new PythonLearningCorpusInitializationCode(imports.toString(), learningItems.toString());
   }
 
   /**
@@ -156,8 +178,19 @@ public class MistakeTypesToLearningItemsMapper {
    */
   public static String getLearningCorpusElementTypeMappingAsCsv(Map<MistakeType, Set<ElementType>> mapping) {
     return mapping.entrySet().stream().map(e ->
-    e.getKey().getName() + ": " + String.join(", ", e.getValue().stream().map(ElementType::getName)
-        .collect(Collectors.toUnmodifiableList()))).collect(Collectors.joining("\n"));
+        e.getKey().getName() + ": " + String.join(", ", e.getValue().stream().map(ElementType::getName)
+            .collect(Collectors.toUnmodifiableList()))).collect(Collectors.joining("\n"));
+  }
+
+  /** Return the string surrounded with hashes as a title for logging purposes. */
+  private static String title(String s) {
+    if (s.length() + 2 > MAX_LINE_LENGTH) {
+      return "\n# " + s + "\n";
+    } else {
+      var hashes = "#".repeat(((MAX_LINE_LENGTH - s.length() - 2) / 2));
+      var extraHash = "#".repeat(s.length() % 2); // for inputs of odd length
+      return "\n" + hashes + " " + s + " " + hashes + extraHash + "\n";
+    }
   }
 
   /** Cleans and underscorifies the given string. */
@@ -166,4 +199,14 @@ public class MistakeTypesToLearningItemsMapper {
         .replaceAll("\\s+", "_").replaceAll("_+", "_").toLowerCase();
   }
 
+}
+
+class PythonLearningCorpusInitializationCode {
+  String imports;
+  String learningItems;
+
+  PythonLearningCorpusInitializationCode(String imports, String learningItems) {
+    this.imports = imports;
+    this.learningItems = learningItems;
+  }
 }
