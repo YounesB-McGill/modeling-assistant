@@ -60,7 +60,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
-import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN;
@@ -70,6 +69,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_COMPOSITION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_ATTRIBUTE_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED;
@@ -2231,15 +2231,6 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-  public static Optional<Mistake> checkMistakeSimilarYetIncorrectAttributeName(Attribute studentClassAttribute,
-      Attribute instructorClassAttribute) {
-    int lDistance = levenshteinDistance(studentClassAttribute.getName(), instructorClassAttribute.getName());
-    if (lDistance != 0) {
-      return Optional.of(createMistake(SIMILAR_ATTRIBUTE_NAME, studentClassAttribute, instructorClassAttribute));
-    }
-    return Optional.empty();
-  }
-
   public static Optional<Mistake> checkMistakeAttributeSpelling(Attribute studentAttribute,
       Attribute instructorAttribute) {
     if (!isPlural(studentAttribute.getName()) && spellingMistakeCheck(studentAttribute.getName().toLowerCase(),
@@ -2577,6 +2568,7 @@ public class MistakeDetection {
 
   public static void checkMistakeMissingAssociationCompositionAggregation(Comparison comparison) {
     for (Association association : comparison.notMappedInstructorAssociations) {
+      checkMistakeAttributeInsteadOfAssociation(association, comparison);
       if (association.getEnds().get(0).getReferenceType().equals(COMPOSITION)
           || association.getEnds().get(1).getReferenceType().equals(COMPOSITION)) {
         comparison.newMistakes.add(createMistake(MISSING_COMPOSITION, null, association));
@@ -2591,6 +2583,46 @@ public class MistakeDetection {
         comparison.newMistakes.add(createMistake(MISSING_ASSOC_CLASS, null, association.getAssociationClass()));
       }
     }
+  }
+
+  private static void checkMistakeAttributeInsteadOfAssociation(Association association, Comparison comparison) {
+       var assocEnds = association.getEnds();
+       var assocEndStudClass = comparison.mappedClassifiers.get(assocEnds.get(0).getClassifier());
+       var otherAssocEndStudClass = comparison.mappedClassifiers.get(assocEnds.get(1).getClassifier());
+
+       if(assocEndStudClass!= null && otherAssocEndStudClass != null) {
+         var studClassOneAttrib = assocEndStudClass.getAttributes();
+         var studClassTwoAttrib = otherAssocEndStudClass.getAttributes();
+
+         for(var attrib : studClassOneAttrib) {
+           if(attrib.getName().toLowerCase().equals(assocEnds.get(0).getClassifier().getName().toLowerCase())) {
+             comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, null));
+           }
+         }
+         for(var attrib : studClassTwoAttrib) {
+           if(attrib.getName().toLowerCase().equals(assocEnds.get(0).getClassifier().getName().toLowerCase())) {
+             comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, null));
+           }
+         }
+       }
+
+       else if(assocEndStudClass == null && otherAssocEndStudClass != null) {
+         var studClassTwoAttrib = otherAssocEndStudClass.getAttributes();
+         for(var attrib : studClassTwoAttrib) {
+           if(comparison.notMappedInstructorClassifiers.stream().anyMatch(c -> c.getName().toLowerCase().equals(attrib.getName().toLowerCase()))) {
+             comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, null));
+           }
+         }
+       }
+
+       else if(assocEndStudClass != null && otherAssocEndStudClass == null) {
+         var studClassOneAttrib = assocEndStudClass.getAttributes();
+         for(var attrib : studClassOneAttrib) {
+           if(comparison.notMappedInstructorClassifiers.stream().anyMatch(c -> c.getName().toLowerCase().equals(attrib.getName().toLowerCase()))) {
+             comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, null));
+           }
+         }
+       }
   }
 
   public static void checkMistakeExtraAssociationCompositionAggregation(Comparison comparison) {
