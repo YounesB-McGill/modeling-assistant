@@ -1891,7 +1891,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
 
-    assertTrue(comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(USING_ATTRIBUTE_INSTEAD_OF_ASSOC)));
+    assertTrue(
+        comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(USING_ATTRIBUTE_INSTEAD_OF_ASSOC)));
 
   }
 
@@ -1913,7 +1914,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
 
-    assertTrue(comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(USING_ATTRIBUTE_INSTEAD_OF_ASSOC)));
+    assertTrue(
+        comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(USING_ATTRIBUTE_INSTEAD_OF_ASSOC)));
   }
 
   /**
@@ -1934,7 +1936,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(3, comparison.newMistakes.size());
     assertEquals(3, studentSolution.getMistakes().size());
 
-    assertTrue(comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(USING_ATTRIBUTE_INSTEAD_OF_ASSOC)));
+    assertTrue(
+        comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(USING_ATTRIBUTE_INSTEAD_OF_ASSOC)));
   }
 
   /**
@@ -2101,8 +2104,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_COMPOSITION,
-        studentRootToPassengerAssociation.get(0), 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_COMPOSITION, studentRootToPassengerAssociation.get(0), 0,
+        1, false);
   }
 
   /**
@@ -2129,8 +2132,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_COMPOSITION, studentRootToPilotAssociation.get(0),
-        0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_COMPOSITION, studentRootToPilotAssociation.get(0), 0, 1,
+        false);
   }
 
 
@@ -2486,11 +2489,12 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(2, comparison.newMistakes.size()); //TODO Figure out one mistake type (Composed in more parts vs using Composition instead of aggregation)
+    assertEquals(2, comparison.newMistakes.size()); // TODO Figure out one mistake type (Composed in more parts vs using
+                                                    // Composition instead of aggregation)
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_COMPOSITION_INSTEAD_OF_ASSOC,
-        studentOwnerAssociationEnd, instructorOwnerAssociationEnd, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), USING_COMPOSITION_INSTEAD_OF_ASSOC, studentOwnerAssociationEnd,
+        instructorOwnerAssociationEnd, 0, 1, false);
   }
 
   /**
@@ -2787,8 +2791,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ASSOCIATION, studentCarToOwnerAssociation.get(1), 0,
-        1, false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ASSOCIATION, studentCarToOwnerAssociation.get(1), 0, 1,
+        false);
   }
 
   /**
@@ -2811,8 +2815,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE,
-        studentClassList, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE, studentClassList, 0, 1, false);
   }
 
   /**
@@ -2892,8 +2895,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE, studcls1Class,
-        0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE, studcls1Class, 0, 1, false);
   }
 
   /**
@@ -2916,8 +2918,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE, studcls1Class,
-      0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE, studcls1Class, 0, 1, false);
   }
 
   /**
@@ -2941,8 +2942,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE, List.of(studcls1Class, studcls2Class),
-        0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE,
+        List.of(studcls1Class, studcls2Class), 0, 1, false);
   }
 
   /**
@@ -2963,8 +2964,8 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertMistake(studentSolution.getMistakes().get(2), INCOMPLETE_CONTAINMENT_TREE, List.of(studentCarClass, studentWheelClass),
-        0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(2), INCOMPLETE_CONTAINMENT_TREE,
+        List.of(studentCarClass, studentWheelClass), 0, 1, false);
 
   }
 
@@ -2990,7 +2991,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), INFINITE_RECURSIVE_DEPENDENCY, List.of(studentChildAssociationEnd,otherStudentChildAssociationEnd), 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), INFINITE_RECURSIVE_DEPENDENCY,
+        List.of(studentChildAssociationEnd, otherStudentChildAssociationEnd), 0, 1, false);
   }
 
   /**
@@ -3014,8 +3016,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, List.of(studentPassengerClass, studentDriverClass),
-        0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT,
+        List.of(studentPassengerClass, studentDriverClass), 0, 1, false);
   }
 
   /**
