@@ -1,7 +1,19 @@
 package ca.mcgill.sel.mistakedetection.tests.utils;
 
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_N_ARY_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_INAPPLICABLE;
+import static learningcorpus.mistaketypes.MistakeTypes.INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_N_ARY_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +31,7 @@ import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetectionConfig;
 import learningcorpus.ElementType;
 import learningcorpus.MistakeType;
+import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
 import modelingassistant.SolutionElement;
 
@@ -60,18 +73,43 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     TestCompletionStatus(String symbol) {
       this.symbol = symbol;
     }
+    String getFormattedName() {
+      var name = toString();
+      return name.substring(0, 1) + name.substring(1, name.length()).replace("_", " ").toLowerCase();
+    }
+  }
+
+  /** Mistake types which are planned to be implemented in the future. */
+  private static final Set<MistakeType> FUTURE_WORK_MISTAKE_TYPES = Set.of(
+      GENERALIZATION_INAPPLICABLE,
+      SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME,
+      INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS,
+      SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS,
+      USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC,
+      USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC,
+      USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC,
+      USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS,
+      MISSING_N_ARY_ASSOCIATION,
+      EXTRA_N_ARY_ASSOCIATION);
+
+
+  // Run the mistake detection tests in a static block to allow other classes to get data from this one
+  static {
+    MistakeDetectionConfig.trackComparisonsInstances = true;
+    runAllMistakeDetectionTests();
   }
 
 
   public static void main(String[] args) {
-    MistakeDetectionConfig.trackComparisonsInstances = true;
-    runAllMistakeDetectionTests();
-
+    var testCompletionStatusByMistakeType = getTestCompletionStatusByMistakeType();
     var pythonLearningCorpusInitializationCode = generatePythonLearningCorpusInitializationCode();
 
     // Uncomment the lines that you want to be output
-    String[] possibleOutputs = {
+    String[] outputs = {
       title("Mistake Detection test completion status"),
+      formattedTestCompletionStatusLegend(),
+      getFormattedTestCompletionStatus(testCompletionStatusByMistakeType),
+      overallTestCompletionStatistics(testCompletionStatusByMistakeType),
 
       title("Mistake type mapping to CDM Metatypes"),
       // getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorElems)),
@@ -88,7 +126,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       pythonLearningCorpusInitializationCode.learningItems,
     };
 
-    System.out.println(String.join("\n\n", possibleOutputs));
+    System.out.println(String.join("\n\n", outputs));
   }
 
   /** Runs all the mistake detection tests. */
@@ -106,6 +144,22 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       throw new RuntimeException("Cannot perform operation because one or more Mistake Detection tests failed. "
           + "Fix or disable test(s) and try again.");
     }
+  }
+
+  /** Returns a mapping from mistake types to their test completion status. */
+  public static Map<MistakeType, TestCompletionStatus> getTestCompletionStatusByMistakeType() {
+    var doneMistakeTypes = Comparison.instances.stream().map(comp -> comp.newMistakes).flatMap(List::stream)
+        .map(Mistake::getMistakeType).collect(Collectors.toUnmodifiableSet());
+    return MistakeTypes.MISTAKE_TYPES_BY_NAME.values().stream().collect(Collectors.toMap(
+        Function.identity(),
+        mt -> doneMistakeTypes.contains(mt) ? TestCompletionStatus.DONE : (FUTURE_WORK_MISTAKE_TYPES.contains(mt) ?
+            TestCompletionStatus.FUTURE_WORK : TestCompletionStatus.IN_PROGRESS)));
+  }
+
+  /** Returns the test completion status formatted for logging purposes. */
+  public static String getFormattedTestCompletionStatus(Map<MistakeType, TestCompletionStatus> mistakeTypesToStatuses) {
+    return mistakeTypesToStatuses.entrySet().stream().map(e -> e.getValue().symbol + " " + e.getKey().getName())
+        .collect(Collectors.joining("\n"));
   }
 
   /** Maps comparison mistakes to CDM metatypes. */
@@ -200,6 +254,17 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       var extraHash = "#".repeat(s.length() % 2); // for inputs of odd length
       return "\n" + hashes + " " + s + " " + hashes + extraHash + "\n";
     }
+  }
+
+  private static String formattedTestCompletionStatusLegend() {
+    return "Legend: " + Arrays.stream(TestCompletionStatus.values()).map(s ->
+        s.symbol + " - " + s.getFormattedName()).collect(Collectors.joining(", "));
+  }
+
+  private static String overallTestCompletionStatistics(Map<MistakeType, TestCompletionStatus> mistakeTypesToStatuses) {
+    return "Summary:\n" + Arrays.stream(TestCompletionStatus.values()).map(s ->
+        s.symbol + " " + Collections.frequency(mistakeTypesToStatuses.values(), s) + " " + s.getFormattedName())
+        .collect(Collectors.joining("\n")) + "\nTotal: " + mistakeTypesToStatuses.size();
   }
 
   /** Cleans and underscorifies the given string. */
