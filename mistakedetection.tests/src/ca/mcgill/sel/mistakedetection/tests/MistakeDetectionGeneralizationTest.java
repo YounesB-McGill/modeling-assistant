@@ -235,10 +235,10 @@ public class MistakeDetectionGeneralizationTest {
   }
 
   /**
-   * Test to check multiple Missing Generalization.
+   * Test to check correctness of Missing Generalization.
    */
   @Test
-  public void testToCheckMultipleMissingGeneralizationThreeClasses() {
+  public void testToCheckNoMissingGeneralizationTwoClasses() {
     var instructorClassDiagram =
         cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_three_classes/Class Diagram/Three_classes.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -249,9 +249,29 @@ public class MistakeDetectionGeneralizationTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
+    assertTrue(studentSolution.getMistakes().stream().noneMatch(m->m.getMistakeType().equals(MISSING_GENERALIZATION)));
+  }
+
+  /**
+   * Test to check correctness of Missing Generalization and one Missing Generalization.
+   */
+  @Test
+  public void testToCheckOneMissingGeneralizationThreeClasses() {
+    var instructorClassDiagram =
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_three_classes/Class Diagram/Three_classes.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        STUDENT_CDM_PATH + "student_three_classes/Class Diagram/Three_classes.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
     assertEquals(4, comparison.newMistakes.size());
-    assertEquals(4, studentSolution.getMistakes().size()); //TODO
-    //assertTrue(studentSolution.getMistakes().stream().anyMatch(m->m.getMistakeType().equals(MISSING_GENERALIZATION)));
+    assertEquals(4, studentSolution.getMistakes().size());
+    assertTrue(studentSolution.getMistakes().stream().anyMatch(m->m.getMistakeType().equals(MISSING_GENERALIZATION)));
   }
 
   /**

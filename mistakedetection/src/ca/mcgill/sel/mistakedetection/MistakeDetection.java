@@ -355,12 +355,33 @@ public class MistakeDetection {
             }
           }
         }
-        if (!extraStudGeneralizationClasses.isEmpty()) {
+        if (!extraStudGeneralizationClasses.isEmpty() && !isSuperClassSame(extraStudGeneralizationClasses, comparison)) {
           comparison.newMistakes
               .add(createMistake(EXTRA_GENERALIZATION, extraStudGeneralizationClasses, extraInstGeneralizationClasses));
         }
       }
     }
+  }
+
+  private static boolean isSuperClassSame(List<NamedElement> extraStudGeneralizationClasses, Comparison comparison) {
+    for(var studClass : extraStudGeneralizationClasses) {
+      var instClass = getKey(comparison.mappedClassifiers, (Classifier)studClass);
+      if(instClass == null) {
+        return false;
+      }
+      if(getSuperClass(instClass).getName().equals(getSuperClass((Classifier)studClass).getName())) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static Classifier getSuperClass(Classifier classifier) {
+    Classifier superclass =classifier;
+    while(!superclass.getSuperTypes().isEmpty()) {
+      superclass = superclass.getSuperTypes().get(0);
+    }
+    return superclass;
   }
 
   private static void checkMistakeMissingGeneralization(Comparison comparison) {
