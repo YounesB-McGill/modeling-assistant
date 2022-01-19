@@ -40,6 +40,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_CONTAINMENT_TREE;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INFINITE_RECURSIVE_DEPENDENCY;
+import static learningcorpus.mistaketypes.MistakeTypes.LIST_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
@@ -103,6 +104,8 @@ import org.apache.commons.text.similarity.LevenshteinDistance;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Attribute;
+import ca.mcgill.sel.classdiagram.CDArray;
+import ca.mcgill.sel.classdiagram.CDCollection;
 import ca.mcgill.sel.classdiagram.CDEnum;
 import ca.mcgill.sel.classdiagram.CDEnumLiteral;
 import ca.mcgill.sel.classdiagram.CdmFactory;
@@ -696,7 +699,7 @@ public class MistakeDetection {
 
   private static void checkMistakesInAttributes(Attribute studentAttribute, Attribute instructorAttribute,
       List<Mistake> newMistakes) {
-    checkMistakeWrongAttributeType(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
+    checkMistakeWrongAttributeTypeAndListAttrib(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     if (studentAttribute.getName() != instructorAttribute.getName()) {
@@ -2273,9 +2276,12 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-  public static Optional<Mistake> checkMistakeWrongAttributeType(Attribute studentAttribute,
+  public static Optional<Mistake> checkMistakeWrongAttributeTypeAndListAttrib(Attribute studentAttribute,
       Attribute instructorAttribute) {
-    if (!attributeTypesMatch(studentAttribute, instructorAttribute)) {
+    if (!attributeTypesMatch(studentAttribute, instructorAttribute) && (studentAttribute.getType() instanceof CDArray || studentAttribute.getType() instanceof  CDCollection)) {
+      return Optional.of(createMistake(LIST_ATTRIBUTE, studentAttribute, instructorAttribute));
+    }
+    else if (!attributeTypesMatch(studentAttribute, instructorAttribute)) {
       return Optional.of(createMistake(WRONG_ATTRIBUTE_TYPE, studentAttribute, instructorAttribute));
     }
     return Optional.empty();

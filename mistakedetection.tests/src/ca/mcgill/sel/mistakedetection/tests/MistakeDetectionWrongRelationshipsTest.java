@@ -2993,6 +2993,7 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     assertMistake(studentSolution.getMistakes().get(0), INFINITE_RECURSIVE_DEPENDENCY, List.of(studentChildAssociationEnd,otherStudentChildAssociationEnd), 0, 1, false);
   }
+
   /**
    * Test to check containment in more than one class .
    */
