@@ -208,6 +208,7 @@ public class MistakeDetectionGeneralizationTest {
 
     assertEquals(8, comparison.newMistakes.size());
     assertEquals(8, studentSolution.getMistakes().size());
+    assertTrue(studentSolution.getMistakes().stream().anyMatch(m->m.getMistakeType().equals(MISSING_GENERALIZATION)));
   }
 
   /**
@@ -231,6 +232,26 @@ public class MistakeDetectionGeneralizationTest {
     assertEquals(3, comparison.newMistakes.size());
     assertEquals(3, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), MISSING_GENERALIZATION, studClass1, instClass1, 0, 1, false);
+  }
+
+  /**
+   * Test to check multiple Missing Generalization.
+   */
+  @Test
+  public void testToCheckMultipleMissingGeneralizationThreeClasses() {
+    var instructorClassDiagram =
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_three_classes/Class Diagram/Three_classes.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        STUDENT_CDM_PATH + "student_two_classes/Class Diagram/Three_classes.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size()); //TODO
+    //assertTrue(studentSolution.getMistakes().stream().anyMatch(m->m.getMistakeType().equals(MISSING_GENERALIZATION)));
   }
 
   /**

@@ -1917,6 +1917,27 @@ public class MistakeDetectionWrongRelationshipsTest {
   }
 
   /**
+   * Test to check mistake of using Attribute instead of an association.
+   */
+  @Test
+  public void testMistakeAttributeInsteadOfAnAssocWithClassPresent() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_bus_driver/Class Diagram/Bus_driver.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_bus_driver/Class Diagram/Bus_driver.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
+
+    assertTrue(comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(USING_ATTRIBUTE_INSTEAD_OF_ASSOC)));
+  }
+
+  /**
    * Test to check Missing composition.
    */
   @Test

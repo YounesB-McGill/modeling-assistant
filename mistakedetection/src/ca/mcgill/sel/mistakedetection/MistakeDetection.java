@@ -241,9 +241,11 @@ public class MistakeDetection {
         }
       }
       processed = true;
+      /*
       if (priority == MID_PRIORITY) {
         checkMistakeClassSpelling(possibleClassifierMatch, instructorClassifier).ifPresent(comparison.newMistakes::add);
       }
+      */
       if (possibleClassifierMatch == null) {
         continue;
       }
@@ -273,6 +275,7 @@ public class MistakeDetection {
     }
 
     mapClassAndAttribBasedOnAttribsAssocAndAssocEnds(comparison);
+    checkMistakesClassNameSpellings(comparison);
     mapRelations(comparison);
     mapEnumerations(instructorSolution, studentSolution, comparison);
     mapPatterns(instructorSolution, studentSolution, comparison);
@@ -293,6 +296,13 @@ public class MistakeDetection {
 
     updateMistakes(instructorSolution, studentSolution, comparison, filter);
     return comparison;
+  }
+
+  private static void checkMistakesClassNameSpellings(Comparison comparison) {
+  comparison.mappedClassifiers.forEach((key,value)->{
+    checkMistakeClassSpelling(value, key).ifPresent(comparison.newMistakes::add);
+  });
+
   }
 
   private static void checkMistakeAttributeMisplaced(Comparison comparison) {
