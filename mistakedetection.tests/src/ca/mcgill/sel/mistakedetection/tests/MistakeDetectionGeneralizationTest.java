@@ -331,9 +331,6 @@ public class MistakeDetectionGeneralizationTest {
         cdmFromFile(STUDENT_CDM_PATH + "student_two_extra_Generalization/Class Diagram/Two_subClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var studNewClass = getClassFromClassDiagram("NewClass", studentClassDiagram);
-    var studTATAClass = getClassFromClassDiagram("TATA", studentClassDiagram);
-
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(7, comparison.newMistakes.size());

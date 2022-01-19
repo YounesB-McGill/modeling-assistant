@@ -276,15 +276,13 @@ public class MistakeDetection {
     mapEnumerations(instructorSolution, studentSolution, comparison);
     mapPatterns(instructorSolution, studentSolution, comparison);
     populateGeneralizationTree(comparison, instructorClassifiers, studentClassifiers);
-    checkMistakesAfterMapping(comparison); // TO BE Discussed
+    mapAttributesBasedOnClassifierMap(comparison);
     checkMistakeMissingClass(comparison);
     checkMistakeExtraClass(comparison);
-    // checkMistakeDuplicateAttributes();
     checkMistakeAttributeMisplaced(comparison);
     checkMistakeExtraAttribute(comparison);
     checkMistakeMissingAttribute(comparison);
     checkMistakeMissingExtraEnum(comparison);
-    // checkMistakeWrongAttribute();
     checkMistakesInGeneralization(comparison);
     checkMistakeIncompleteContainmentTree(comparison, studentSolution.getClassDiagram());
     checkMistakeMissingAssociationCompositionAggregation(comparison);
@@ -320,9 +318,64 @@ public class MistakeDetection {
 
   private static void checkMistakesInGeneralization(Comparison comparison) {
     checkMistakeNonDifferentiatedSubClass(comparison);
+    checkMistakeWrongGeneralizationDirection(comparison);
+    checkMistakeAttribMisplacedInGenHierarchy(comparison);
     checkMistakeWrongSuperclass(comparison);
     checkMistakeMissingGeneralization(comparison);
     checkMistakeExtraGeneralization(comparison);
+  }
+
+  private static void checkMistakeAttribMisplacedInGenHierarchy(Comparison comparison) {
+
+    HashSet<Classifier> studentGeneralizationClasses = new HashSet<Classifier>(comparison.studentSuperclassesToSubclasses.keySet());
+    for(var classifiers: comparison.studentSuperclassesToSubclasses.values()) {
+      studentGeneralizationClasses.addAll(classifiers);
+    }
+
+    for(var classifier : studentGeneralizationClasses) {
+      var attributes = classifier.getAttributes();
+      for(var attribute : attributes) {
+        if(isSuperClassAttribmatch(attribute, classifier) && !isMistakeExist(ATTRIBUTE_DUPLICATED, attribute, comparison)) {
+          comparison.newMistakes
+          .add(createMistake(ATTRIBUTE_DUPLICATED, attribute, null));
+        }
+      }
+    }
+  }
+
+  private static boolean isSuperClassAttribmatch(Attribute attribute, Classifier classifier) {
+    var superclasses = getAllSuperClasses(classifier);
+    for(var sc : superclasses) {
+      var attributes = sc.getAttributes();
+      if(attributes.stream().anyMatch(a->a.getName().equals(attribute.getName()))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static void checkMistakeWrongGeneralizationDirection(Comparison comparison) {
+
+    HashSet<Classifier> instructorGeneralizationClasses = new HashSet<Classifier>(comparison.instructorSuperclassesToSubclasses.keySet());
+    for(var classifiers: comparison.instructorSuperclassesToSubclasses.values()) {
+      instructorGeneralizationClasses.addAll(classifiers);
+    }
+
+    HashSet<Classifier> studentGeneralizationClasses = new HashSet<Classifier>(comparison.studentSuperclassesToSubclasses.keySet());
+    for(var classifiers: comparison.studentSuperclassesToSubclasses.values()) {
+      studentGeneralizationClasses.addAll(classifiers);
+    }
+
+   for(var instClass : instructorGeneralizationClasses) {
+     for(var studClass : studentGeneralizationClasses) {
+       if(studClass.equals(comparison.mappedClassifiers.get(instClass))) {
+         if(!studClass.getSuperTypes().isEmpty() && !instClass.getSuperTypes().isEmpty() && !studClass.getSuperTypes().get(0).equals(comparison.mappedClassifiers.get(instClass.getSuperTypes().get(0)))) {
+           //TODO Work in Progress.
+         }
+       }
+     }
+   }
+
   }
 
   private static void checkMistakeExtraGeneralization(Comparison comparison) {
@@ -369,7 +422,7 @@ public class MistakeDetection {
       if(instClass == null) {
         return false;
       }
-      if(getSuperClass(instClass).getName().equals(getSuperClass((Classifier)studClass).getName())) {
+      if(getSuperClass((Classifier)studClass).equals(comparison.mappedClassifiers.get(getSuperClass(instClass)))) {
         return true;
       }
     }
@@ -382,6 +435,15 @@ public class MistakeDetection {
       superclass = superclass.getSuperTypes().get(0);
     }
     return superclass;
+  }
+
+  private static List<Classifier> getAllSuperClasses(Classifier classifier) {
+    List<Classifier> superclasses = new ArrayList<Classifier>() ;
+    while(!classifier.getSuperTypes().isEmpty()) {
+      classifier = classifier.getSuperTypes().get(0);
+      superclasses.add(classifier);
+    }
+    return superclasses;
   }
 
   private static void checkMistakeMissingGeneralization(Comparison comparison) {
@@ -1569,10 +1631,8 @@ public class MistakeDetection {
     return false;
   }
 
-  /** Finds Mistakes in newly mapped elements */
-  private static void checkMistakesAfterMapping(Comparison comparison) { // TO BE Discussed
-    var newMistakes = comparison.newMistakes;
-    // TOOD work in progress(Location may be changed)
+  private static void mapAttributesBasedOnClassifierMap(Comparison comparison) {
+
     // To map attribute like ticketNo with TicketNumber
     comparison.mappedClassifiers.forEach((key, value) -> {
       for (Attribute instAttrib : key.getAttributes()) {
@@ -1605,22 +1665,6 @@ public class MistakeDetection {
             }
           }
         }
-      }
-    });
-    comparison.mappedClassifiers.forEach((key, value) -> {
-      // System.out.println(checkElementForMistake(newMistakes,value)+" value: "+ value+" Key: "+key);
-      if (!checkStudentElementForMistake(newMistakes, value)) {
-        checkMistakePluralClassName(value, key).ifPresent(newMistakes::add);
-        // checkMistakeSimilarYetIncorrectClassName(value,key).ifPresent(comparison.newMistakes::add);
-        // TO BE Discussed
-      }
-    });
-
-    comparison.mappedAttributes.forEach((key, value) -> {
-      // System.out.println(checkElementForMistake(newMistakes,value)+" value: "+ value+" Key: "+key);
-      if (!checkStudentElementForMistake(newMistakes, value)) {
-        // checkMistakeSimilarYetIncorrectAttributeName(value,key).ifPresent(comparison.newMistakes::add);
-        // TO BE Discussed
       }
     });
   }

@@ -21,7 +21,6 @@ import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import modelingassistant.Mistake;
@@ -1781,8 +1780,8 @@ public class MistakeDetectionWrongAttributeTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
 
     assertTrue(comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(ATTRIBUTE_DUPLICATED)));
   }
@@ -1790,7 +1789,6 @@ public class MistakeDetectionWrongAttributeTest {
   /**
    * Test to detect Duplicate Attribute.
    */
-  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeDuplicateAttributeInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
@@ -1807,9 +1805,9 @@ public class MistakeDetectionWrongAttributeTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(1, comparison.newMistakes.size());
-    assertEquals(1, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_DUPLICATED, studentnameAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), ATTRIBUTE_DUPLICATED, studentnameAttribute, 0, 1, false);
   }
 }
