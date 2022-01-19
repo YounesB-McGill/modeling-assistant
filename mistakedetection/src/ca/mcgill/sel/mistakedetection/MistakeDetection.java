@@ -9,6 +9,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_FULL_PR_P
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_DUPLICATED;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_MISPLACED;
+import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOC_CLASS_NAME_SPELLING;
@@ -279,11 +280,11 @@ public class MistakeDetection {
     mapAttributesBasedOnClassifierMap(comparison);
     checkMistakeMissingClass(comparison);
     checkMistakeExtraClass(comparison);
+    checkMistakeMissingExtraEnum(comparison);
+    checkMistakesInGeneralization(comparison);
     checkMistakeAttributeMisplaced(comparison);
     checkMistakeExtraAttribute(comparison);
     checkMistakeMissingAttribute(comparison);
-    checkMistakeMissingExtraEnum(comparison);
-    checkMistakesInGeneralization(comparison);
     checkMistakeIncompleteContainmentTree(comparison, studentSolution.getClassDiagram());
     checkMistakeMissingAssociationCompositionAggregation(comparison);
     checkMistakeExtraAssociationCompositionAggregation(comparison);
@@ -319,13 +320,13 @@ public class MistakeDetection {
   private static void checkMistakesInGeneralization(Comparison comparison) {
     checkMistakeNonDifferentiatedSubClass(comparison);
     checkMistakeWrongGeneralizationDirection(comparison);
-    checkMistakeAttribMisplacedInGenHierarchy(comparison);
+    checkMistakeAttribMisplacedInGenHierarchyAndDuplicateAttrib(comparison);
     checkMistakeWrongSuperclass(comparison);
     checkMistakeMissingGeneralization(comparison);
     checkMistakeExtraGeneralization(comparison);
   }
 
-  private static void checkMistakeAttribMisplacedInGenHierarchy(Comparison comparison) {
+  private static void checkMistakeAttribMisplacedInGenHierarchyAndDuplicateAttrib(Comparison comparison) {
 
     HashSet<Classifier> studentGeneralizationClasses = new HashSet<Classifier>(comparison.studentSuperclassesToSubclasses.keySet());
     for(var classifiers: comparison.studentSuperclassesToSubclasses.values()) {
@@ -333,13 +334,26 @@ public class MistakeDetection {
     }
 
     for(var classifier : studentGeneralizationClasses) {
-      var attributes = classifier.getAttributes();
-      for(var attribute : attributes) {
+      for(var attribute : classifier.getAttributes()) {
         if(isSuperClassAttribmatch(attribute, classifier) && !isMistakeExist(ATTRIBUTE_DUPLICATED, attribute, comparison)) {
           comparison.newMistakes
           .add(createMistake(ATTRIBUTE_DUPLICATED, attribute, null));
         }
       }
+    }
+
+    for(var classifier : studentGeneralizationClasses) {
+      List<Attribute> attribsToRemove = new ArrayList<Attribute>();
+      for(var attribute : comparison.notMappedInstructorAttributes) {
+        var attrib = matchedSuperClassAttribmatch(attribute, classifier);
+        if(attrib != null && !isMistakeExist(ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY, attrib, comparison) && !comparison.mappedAttributes.containsValue(attrib)) {
+          comparison.newMistakes
+          .add(createMistake(ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY, attrib, attribute));
+          attribsToRemove.add(attribute);
+          comparison.extraStudentAttributes.remove(attrib);
+        }
+      }
+      comparison.notMappedInstructorAttributes.removeAll(attribsToRemove);
     }
   }
 
@@ -352,6 +366,19 @@ public class MistakeDetection {
       }
     }
     return false;
+  }
+
+  private static Attribute matchedSuperClassAttribmatch(Attribute attribute, Classifier classifier) {
+    var superclasses = getAllSuperClasses(classifier);
+    superclasses.add(classifier);
+    for(var sc : superclasses) {
+      for(var attrib : sc.getAttributes()) {
+       if(attrib.getName().toLowerCase().equals(attribute.getName().toLowerCase())) {
+         return attrib;
+       }
+      }
+    }
+    return null;
   }
 
   private static void checkMistakeWrongGeneralizationDirection(Comparison comparison) {

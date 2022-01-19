@@ -290,9 +290,10 @@ public class MistakeDetectionGeneralizationTest {
     var studClass = getClassFromClassDiagram("NewClass", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
     assertEquals(3, comparison.newMistakes.size());
     assertEquals(3, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(2), EXTRA_GENERALIZATION, studClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), EXTRA_GENERALIZATION, studClass, 0, 1, false);
   }
 
   /**

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_bz52kHlNEeyevKffbeWgxQ" name="Three_classes">
+  <classes xsi:type="classdiagram:Class" xmi:id="_cJqrMHlNEeyevKffbeWgxQ" name="Root">
+    <associationEnds xmi:id="_iR08QXlNEeyevKffbeWgxQ" name="myA" assoc="_iR08QnlNEeyevKffbeWgxQ" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_dI4FcHlNEeyevKffbeWgxQ" name="A">
+    <associationEnds xmi:id="_iR08QHlNEeyevKffbeWgxQ" name="myRoot" assoc="_iR08QnlNEeyevKffbeWgxQ" lowerBound="1"/>
+    <attributes xmi:id="_LYzukHl4EeyXarwRzYLgiQ" name="name" type="_bz52l3lNEeyevKffbeWgxQ"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_ejN8gHlNEeyevKffbeWgxQ" name="C" superTypes="_XMiNYHlOEeyevKffbeWgxQ"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_XMiNYHlOEeyevKffbeWgxQ" name="B" superTypes="_dI4FcHlNEeyevKffbeWgxQ"/>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_bz52kXlNEeyevKffbeWgxQ"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_bz52knlNEeyevKffbeWgxQ"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_bz52k3lNEeyevKffbeWgxQ"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_bz52lHlNEeyevKffbeWgxQ"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_bz52lXlNEeyevKffbeWgxQ"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_bz52lnlNEeyevKffbeWgxQ"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_bz52l3lNEeyevKffbeWgxQ"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_bz52mHlNEeyevKffbeWgxQ"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_bz52mXlNEeyevKffbeWgxQ"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_bz52mnlNEeyevKffbeWgxQ"/>
+  <associations xmi:id="_iR08QnlNEeyevKffbeWgxQ" name="A_Root" ends="_iR08QHlNEeyevKffbeWgxQ _iR08QXlNEeyevKffbeWgxQ"/>
+  <layout xmi:id="_bz52m3lNEeyevKffbeWgxQ">
+    <containers xmi:id="_bz52nHlNEeyevKffbeWgxQ" key="_bz52kHlNEeyevKffbeWgxQ">
+      <value xmi:id="_cJrSQHlNEeyevKffbeWgxQ" key="_cJqrMHlNEeyevKffbeWgxQ">
+        <value xmi:id="_cJrSQXlNEeyevKffbeWgxQ" x="756.0001" y="161.00012"/>
+      </value>
+      <value xmi:id="_dI4sgHlNEeyevKffbeWgxQ" key="_dI4FcHlNEeyevKffbeWgxQ">
+        <value xmi:id="_dI4sgXlNEeyevKffbeWgxQ" x="755.98254" y="344.9999"/>
+      </value>
+      <value xmi:id="_ejOjkHlNEeyevKffbeWgxQ" key="_ejN8gHlNEeyevKffbeWgxQ">
+        <value xmi:id="_ejOjkXlNEeyevKffbeWgxQ" x="755.98254" y="660.00006"/>
+      </value>
+      <value xmi:id="_XMi0cHlOEeyevKffbeWgxQ" key="_XMiNYHlOEeyevKffbeWgxQ">
+        <value xmi:id="_XMi0cXlOEeyevKffbeWgxQ" x="755.98254" y="508.00372"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

@@ -7,6 +7,7 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentM
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_DUPLICATED;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_MISPLACED;
+import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
@@ -258,7 +259,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructornameAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), MISSING_ATTRIBUTE, instructornameAttribute, 0, 1, false);
   }
 
   /**
@@ -283,7 +284,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructorticketNoAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), MISSING_ATTRIBUTE, instructorticketNoAttribute, 0, 1, false);
   }
 
   /**
@@ -1682,6 +1683,28 @@ public class MistakeDetectionWrongAttributeTest {
   }
 
   /**
+   * Test to detect misplaced Attribute in generalization hierarchy.
+   */
+  @Test
+  public void testMistakeMisplacedAttributeInGH() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_three_classes_misplaceAttrib/Class Diagram/Three_classes.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_three_classes_misplaceAttrib/Class Diagram/Three_classes.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
+
+    assertTrue(comparison.newMistakes.stream().anyMatch(m->m.getMistakeType().equals(ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY)));
+
+  }
+
+  /**
    * Test to detect Attribute not static.
    */
   @Test
@@ -1787,6 +1810,27 @@ public class MistakeDetectionWrongAttributeTest {
   }
 
   /**
+   * Test to detect Duplicate Attribute in Generalization Hierarchy.
+   */
+  @Test
+  public void testMistakeDuplicateAttributeInGH() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_three_classes_duplicateAttrib/Class Diagram/Three_classes.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_three_classes_duplicateAttrib/Class Diagram/Three_classes.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
+
+    assertTrue(comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(ATTRIBUTE_DUPLICATED)));
+  }
+
+  /**
    * Test to detect Duplicate Attribute.
    */
   @Test
@@ -1808,6 +1852,6 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), ATTRIBUTE_DUPLICATED, studentnameAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_DUPLICATED, studentnameAttribute, 0, 1, false);
   }
 }
