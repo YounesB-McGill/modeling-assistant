@@ -23,12 +23,13 @@ import modelingassistant.Mistake;
 import modelingassistant.SolutionElement;
 
 /**
- * Class to map learning corpus mistake types to learning items. Running this file will output useful statistics about
- * the mistake detection system, its tests, and how mistakes map to various solution elements.
+ * Leverages the Mistake Detection tests to extract and log useful information about learning corpus items such as
+ * mistake types. Running this file will output useful statistics about the mistake detection system, its tests, and how
+ * mistake types map to various solution elements.
  *
  * @author Younes Boubekeur
  */
-public class MistakeTypesToLearningItemsMapper {
+public class MistakeDetectionInformationServicesForLearningCorpus {
 
   /** Shorthand for CdmFactory.eINSTANCE. */
   private static final CdmFactory CDF = CdmFactory.eINSTANCE;
@@ -51,10 +52,16 @@ public class MistakeTypesToLearningItemsMapper {
   /** The maximum allowed line length in generated source code. */
   private static final int MAX_LINE_LENGTH = 120;
 
-  // ASCII-compatible symbols to indicate test completion state
-  private static final String DONE = "√";
-  private static final String IN_PROGRESS = "►";
-  private static final String FUTURE_WORK = "X";
+  /** Indicates the completion state for each test in the mistakedetection.tests suite. */
+  private enum TestCompletionStatus {
+    DONE("√"), IN_PROGRESS("►"), FUTURE_WORK("X"); // ASCII-compatible symbols
+
+    String symbol;
+    TestCompletionStatus(String symbol) {
+      this.symbol = symbol;
+    }
+  }
+
 
   public static void main(String[] args) {
     MistakeDetectionConfig.trackComparisonsInstances = true;
@@ -64,6 +71,8 @@ public class MistakeTypesToLearningItemsMapper {
 
     // Uncomment the lines that you want to be output
     String[] possibleOutputs = {
+      title("Mistake Detection test completion status"),
+
       title("Mistake type mapping to CDM Metatypes"),
       // getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorElems)),
       // getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(studentElems)),
