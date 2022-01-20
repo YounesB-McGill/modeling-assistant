@@ -232,14 +232,6 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         "Attributes should start with a lowercase letter."),
                     4: ResourceResponse(learningResources=[attribute_reference]),
                 })),
-                similar_attribute_name := mt(
-                    n="Similar (yet incorrect) attribute name", feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Can this attribute be renamed?"),
-                        3: ParametrizedResponse(text="${wrongAttribute} is misspelled. "
-                            "[Use the same spelling as the problem description.]"),
-                        4: ResourceResponse(learningResources=[attribute_reference]),
-                    })),
             ]),
             attribute_in_wrong_class := mtc(n="Attribute in wrong class mistakes", mistakeTypes=[
                 attribute_misplaced := mt(n="Attribute misplaced", feedbacks=fbs({
@@ -1005,7 +997,6 @@ mts_by_priority: list[MistakeType] = [
     bad_attribute_name_spelling,
     uppercase_attribute_name,
     plural_attribute,
-    similar_attribute_name,
     attribute_misplaced,
     wrong_attribute_type,
     attribute_should_not_be_static,

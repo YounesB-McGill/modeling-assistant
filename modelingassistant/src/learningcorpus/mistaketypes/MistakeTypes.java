@@ -184,9 +184,6 @@ public class MistakeTypes {
   /** The uppercase attribute name mistake type. */
   public static final MistakeType UPPERCASE_ATTRIBUTE_NAME = MTS.get("Uppercase attribute name");
 
-  /** The similar (yet incorrect) attribute name mistake type. */
-  public static final MistakeType SIMILAR_ATTRIBUTE_NAME = MTS.get("Similar (yet incorrect) attribute name");
-
   /** The attribute misplaced mistake type. */
   public static final MistakeType ATTRIBUTE_MISPLACED = MTS.get("Attribute misplaced");
 

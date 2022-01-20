@@ -7,7 +7,6 @@ Script to create these Learning Corpus artifacts from corpus.py:
 - mistaketypes.py: A Python module with all mistake types and categories in the default corpus.
 - MistakeTypes.java: A Java class with all mistake types and categories in the default corpus.
 - README.md: A Markdown table-of-contents file for the default Learning Corpus.
-  A full learning corpus will be provided later.
 """
 
 import os
@@ -55,7 +54,7 @@ _MTS = MISTAKE_TYPES_BY_NAME
 # Mistake type categories
 '''
 
-JAVA_HEADER = """\
+JAVA_HEADER = f"""\
 package learningcorpus.mistaketypes;
 
 import java.util.HashMap;
@@ -67,11 +66,11 @@ import learningcorpus.MistakeTypeCategory;
 /**
  * This class contains all mistake types and categories.
  */
-public class MistakeTypes {
+public class MistakeTypes {{
 
   /** The path of the learning corpus instance with mistake types. */
   public static final String LEARNING_CORPUS_PATH =
-      "../modelingassistant/learningcorpusinstances/default.learningcorpus";
+      "../{LEARNING_CORPUS_PATH}";
 
   /** Map of mistake type categories by name. */
   public static final Map<String, MistakeTypeCategory> MISTAKE_TYPE_CATEGORIES_BY_NAME = new HashMap<>();
@@ -83,11 +82,11 @@ public class MistakeTypes {
   private static final Map<String, MistakeTypeCategory> MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME;
   private static final Map<String, MistakeType> MTS = MISTAKE_TYPES_BY_NAME;
 
-  static {
+  static {{
     var learningCorpus = LearningCorpus.fromFile(LEARNING_CORPUS_PATH);
     learningCorpus.getMistakeTypeCategories().forEach(mtc -> MISTAKE_TYPE_CATEGORIES_BY_NAME.put(mtc.getName(), mtc));
     learningCorpus.getMistakeTypes().forEach(mt -> MISTAKE_TYPES_BY_NAME.put(mt.getName(), mt));
-  }
+  }}
 
   // Mistake type categories
 

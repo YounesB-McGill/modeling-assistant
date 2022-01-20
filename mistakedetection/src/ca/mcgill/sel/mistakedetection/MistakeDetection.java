@@ -1674,7 +1674,7 @@ public class MistakeDetection {
       for (Attribute instAttrib : key.getAttributes()) {
         for (Attribute studAttrib : value.getAttributes()) {
           if (!comparison.mappedAttributes.containsKey(instAttrib)) {
-            if (studAttrib.getName().contains("ies")) { // TO deal with cases like companies and company
+            if (studAttrib.getName().contains("ies")) { // To deal with cases like companies and company
               String name = studAttrib.getName();
               name = name.replaceAll("ies", "y");
               if (name.equals(instAttrib.getName())) {

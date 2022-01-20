@@ -26,7 +26,6 @@
    1. [Attribute name mistakes](#attribute-name-mistakes)
       1. [Bad attribute name spelling](#bad-attribute-name-spelling)
       1. [Uppercase attribute name](#uppercase-attribute-name)
-      1. [Similar (yet incorrect) attribute name](#similar-attribute-name)
    1. [Attribute in wrong class mistakes](#attribute-in-wrong-class-mistakes)
       1. [Attribute misplaced](#attribute-misplaced)
       1. [Attribute duplicated](#attribute-duplicated)
@@ -512,23 +511,6 @@ Text response:
 Level 3: Parametrized response:
 
 > ${wrongAttribute} incorrectly starts with an Uppercase Letter. Attributes should start with a lowercase letter.
-
-Level 4: Resource response with Reference:
-
-> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
-
-
-#### Similar attribute name
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Can this attribute be renamed?
-
-Level 3: Parametrized response:
-
-> ${wrongAttribute} is misspelled. [Use the same spelling as the problem description.]
 
 Level 4: Resource response with Reference:
 
