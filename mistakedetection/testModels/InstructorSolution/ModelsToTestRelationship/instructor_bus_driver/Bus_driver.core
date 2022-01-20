@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_jadi0HlOEeyevKffbeWgxQ" name="Bus_driver" featureModel="_jadi0XlOEeyevKffbeWgxQ" impactModel="_jadi03lOEeyevKffbeWgxQ">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_jadi0XlOEeyevKffbeWgxQ" root="_jadi0nlOEeyevKffbeWgxQ">
+    <features xmi:id="_jadi0nlOEeyevKffbeWgxQ" name="Bus_driver" realizedBy="_j4Y08XlOEeyevKffbeWgxQ"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_jadi03lOEeyevKffbeWgxQ" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_j4Y08HlOEeyevKffbeWgxQ" name="Bus_driver" scene="_j4Y08XlOEeyevKffbeWgxQ" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Bus_driver.domain_model.cdm#_j4ZcAHlOEeyevKffbeWgxQ"/>
+  </artefacts>
+  <scenes xmi:id="_j4Y08XlOEeyevKffbeWgxQ" name="Bus_driver" realizes="_jadi0nlOEeyevKffbeWgxQ" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_j4Y08nlOEeyevKffbeWgxQ" value="_j4Y08HlOEeyevKffbeWgxQ" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
