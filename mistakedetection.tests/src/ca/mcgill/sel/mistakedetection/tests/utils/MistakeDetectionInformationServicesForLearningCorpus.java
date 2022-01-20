@@ -67,7 +67,8 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
 
   /** Indicates the completion state for each test in the mistakedetection.tests suite. */
   private enum TestCompletionStatus {
-    DONE("√"), IN_PROGRESS("►"), FUTURE_WORK("X"); // ASCII-compatible symbols
+    // In chronological order: a mistake type starts as future work, then it is in progress and finally done
+    FUTURE_WORK("X"), IN_PROGRESS("►"), DONE("√"); // ASCII-compatible symbols
 
     String symbol;
     TestCompletionStatus(String symbol) {
@@ -153,7 +154,9 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     return MistakeTypes.MISTAKE_TYPES_BY_NAME.values().stream().collect(Collectors.toMap(
         Function.identity(),
         mt -> doneMistakeTypes.contains(mt) ? TestCompletionStatus.DONE : (FUTURE_WORK_MISTAKE_TYPES.contains(mt) ?
-            TestCompletionStatus.FUTURE_WORK : TestCompletionStatus.IN_PROGRESS)));
+            TestCompletionStatus.FUTURE_WORK : TestCompletionStatus.IN_PROGRESS),
+        (v1, v2) -> TestCompletionStatus.values()[Math.min(v1.ordinal(), v2.ordinal())], // use older status if in doubt
+        TreeMap::new)); // use TreeMap to sort output by mistake type
   }
 
   /** Returns the test completion status formatted for logging purposes. */
@@ -170,7 +173,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
             m -> mistakeSolutionElementsStreamer.apply(m).map(e -> e.getElement().eClass())
                 .collect(Collectors.toUnmodifiableSet()), // TODO Update on Java 17+
             (v1, v2) -> Stream.of(v1, v2).flatMap(Set::stream).collect(Collectors.toUnmodifiableSet()),
-            TreeMap::new)); // use TreeMap to sort output by mistake type
+            TreeMap::new));
   }
 
   /** Maps comparison mistakes to learning corpus ElementTypes. */
