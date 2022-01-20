@@ -308,8 +308,8 @@ public class MistakeDetection {
   }
 
   private static void checkMistakeAttributeMisplaced(Comparison comparison) {
-    List<Attribute> studAttributesProcessed = new ArrayList<Attribute>();
-    List<Attribute> instAttributesProcessed = new ArrayList<Attribute>();
+    List<Attribute> studAttributesProcessed = new ArrayList<>();
+    List<Attribute> instAttributesProcessed = new ArrayList<>();
 
     for (Attribute studAttrib : comparison.extraStudentAttributes) {
       for (Attribute instAttrib : comparison.notMappedInstructorAttributes) {
@@ -389,15 +389,13 @@ public class MistakeDetection {
   }
 
   private static void checkMistakeWrongGeneralizationDirection(Comparison comparison) {
-
-    HashSet<Classifier> instructorGeneralizationClasses =
-        new HashSet<Classifier>(comparison.instructorSuperclassesToSubclasses.keySet());
+    Set<Classifier> instructorGeneralizationClasses =
+        new HashSet<>(comparison.instructorSuperclassesToSubclasses.keySet());
     for (var classifiers : comparison.instructorSuperclassesToSubclasses.values()) {
       instructorGeneralizationClasses.addAll(classifiers);
     }
 
-    HashSet<Classifier> studentGeneralizationClasses =
-        new HashSet<Classifier>(comparison.studentSuperclassesToSubclasses.keySet());
+    Set<Classifier> studentGeneralizationClasses = new HashSet<>(comparison.studentSuperclassesToSubclasses.keySet());
     for (var classifiers : comparison.studentSuperclassesToSubclasses.values()) {
       studentGeneralizationClasses.addAll(classifiers);
     }
@@ -419,8 +417,8 @@ public class MistakeDetection {
     for (var set : comparison.studentSuperclassesToSubclasses.entrySet()) {
       Classifier studSuperclass = set.getKey();
       List<Classifier> studSubclasses = set.getValue();
-      List<NamedElement> extraStudGeneralizationClasses = new ArrayList<>();
-      List<NamedElement> extraInstGeneralizationClasses = new ArrayList<>();
+      List<Classifier> extraStudGeneralizationClasses = new ArrayList<>();
+      List<Classifier> extraInstGeneralizationClasses = new ArrayList<>();
       if (comparison.mappedClassifiers.containsValue(studSuperclass)) {
         if (comparison.instructorSuperclassesToSubclasses
             .containsKey(getKey(comparison.mappedClassifiers, studSuperclass))) {
@@ -454,21 +452,21 @@ public class MistakeDetection {
     }
   }
 
-  private static boolean isSuperClassSame(List<NamedElement> extraStudGeneralizationClasses, Comparison comparison) {
+  private static boolean isSuperClassSame(List<Classifier> extraStudGeneralizationClasses, Comparison comparison) {
     for (var studClass : extraStudGeneralizationClasses) {
-      var instClass = getKey(comparison.mappedClassifiers, (Classifier) studClass);
+      var instClass = getKey(comparison.mappedClassifiers, studClass);
       if (instClass == null) {
         return false;
       }
-      if (getSuperClass((Classifier) studClass).equals(comparison.mappedClassifiers.get(getSuperClass(instClass)))) {
+      if (getSupermostClass(studClass).equals(comparison.mappedClassifiers.get(getSupermostClass(instClass)))) {
         return true;
       }
     }
     return false;
   }
 
-  /** Returns the root most superclass else returns the class itself.*/
-  private static Classifier getSuperClass(Classifier classifier) {
+  /** Returns the root most superclass else returns the class itself. */
+  private static Classifier getSupermostClass(Classifier classifier) {
     Classifier superclass = classifier;
     while (!superclass.getSuperTypes().isEmpty()) {
       superclass = superclass.getSuperTypes().get(0);
@@ -3063,8 +3061,8 @@ public class MistakeDetection {
     return mistake;
   }
 
-  private static Mistake createMistake(MistakeType mistakeType, List<NamedElement> studentElements,
-      List<NamedElement> instructorElements) {
+  private static Mistake createMistake(MistakeType mistakeType, List<? extends NamedElement> studentElements,
+      List<? extends NamedElement> instructorElements) {
     var mistake = MAF.createMistakeOfType(mistakeType);
     if (studentElements != null) {
       studentElements.forEach(se -> {
