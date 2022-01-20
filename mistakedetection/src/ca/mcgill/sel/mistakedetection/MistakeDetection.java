@@ -7,6 +7,9 @@ import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_CLASS_SHOULD_BE_CLA
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_ENUM_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_FULL_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_DUPLICATED;
+import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_MISPLACED;
+import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOC_CLASS_NAME_SPELLING;
@@ -37,6 +40,8 @@ import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_CONTAINMENT_TREE;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.INFINITE_RECURSIVE_DEPENDENCY;
+import static learningcorpus.mistaketypes.MistakeTypes.LIST_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
@@ -56,7 +61,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
-import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN;
@@ -66,6 +70,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_COMPOSITION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_ATTRIBUTE_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED;
@@ -100,6 +105,8 @@ import org.apache.commons.text.similarity.LevenshteinDistance;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Attribute;
+import ca.mcgill.sel.classdiagram.CDArray;
+import ca.mcgill.sel.classdiagram.CDCollection;
 import ca.mcgill.sel.classdiagram.CDEnum;
 import ca.mcgill.sel.classdiagram.CDEnumLiteral;
 import ca.mcgill.sel.classdiagram.CdmFactory;
@@ -202,6 +209,14 @@ public class MistakeDetection {
           comparison.extraStudentClassifiers.add(studentClassifier);
           List<Attribute> studentAttributes = studentClassifier.getAttributes();
           comparison.extraStudentAttributes.addAll(studentAttributes);
+          List<String> processedStudentAttributes = new ArrayList<String>();
+          for (Attribute studentAttribute : studentAttributes) {
+            if (processedStudentAttributes.contains(studentAttribute.getName())
+                && !isMistakeExist(ATTRIBUTE_DUPLICATED, studentAttribute, comparison)) {
+              comparison.newMistakes.add(createMistake(ATTRIBUTE_DUPLICATED, studentAttribute, null));
+            }
+            processedStudentAttributes.add(studentAttribute.getName());
+          }
           studentClassifier.getAssociationEnds().forEach((assoc) -> {
             if (!comparison.extraStudentAssociations.contains(assoc.getAssoc())) {
               comparison.extraStudentAssociations.add(assoc.getAssoc());
@@ -227,9 +242,7 @@ public class MistakeDetection {
         }
       }
       processed = true;
-      if (priority == MID_PRIORITY) {
-        checkMistakeClassSpelling(possibleClassifierMatch, instructorClassifier).ifPresent(comparison.newMistakes::add);
-      }
+
       if (possibleClassifierMatch == null) {
         continue;
       }
@@ -247,38 +260,31 @@ public class MistakeDetection {
 
       List<Attribute> studentAttributes = possibleClassifierMatch.getAttributes();
       for (Attribute instructorAttribute : instructorAttributes) {
-        var mappedStudentAttribute = comparison.mappedAttributes.get(instructorAttribute);
         for (Attribute studentAttribute : studentAttributes) {
           float lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
           if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-            if (mappedStudentAttribute == studentAttribute) {
-              comparison.duplicateStudentAttributes.add(studentAttribute);
-              comparison.extraStudentAttributes.remove(studentAttribute);
-            } else {
-              mapAttributes(comparison, studentAttribute, instructorAttribute);
-              checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison.newMistakes);
-              break;
-            }
+            mapAttributes(comparison, studentAttribute, instructorAttribute);
+            checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison.newMistakes);
+            break;
           }
         }
       }
     }
 
     mapClassAndAttribBasedOnAttribsAssocAndAssocEnds(comparison);
+    checkMistakesClassNameSpellings(comparison);
     mapRelations(comparison);
     mapEnumerations(instructorSolution, studentSolution, comparison);
     mapPatterns(instructorSolution, studentSolution, comparison);
     populateGeneralizationTree(comparison, instructorClassifiers, studentClassifiers);
-    checkMistakesAfterMapping(comparison); // TO BE Discussed
+    mapAttributesBasedOnClassifierMap(comparison);
     checkMistakeMissingClass(comparison);
     checkMistakeExtraClass(comparison);
-    // checkMistakeDuplicateAttributes();
+    checkMistakeMissingExtraEnum(comparison);
+    checkMistakesInGeneralization(comparison);
+    checkMistakeAttributeMisplaced(comparison);
     checkMistakeExtraAttribute(comparison);
     checkMistakeMissingAttribute(comparison);
-    checkMistakeMissingExtraEnum(comparison);
-    // checkMistakeWrongAttribute();
-    // checkMistakeAttributeMisplaced();
-    checkMistakesInGeneralization(comparison);
     checkMistakeIncompleteContainmentTree(comparison, studentSolution.getClassDiagram());
     checkMistakeMissingAssociationCompositionAggregation(comparison);
     checkMistakeExtraAssociationCompositionAggregation(comparison);
@@ -295,54 +301,188 @@ public class MistakeDetection {
     return comparison;
   }
 
+  private static void checkMistakesClassNameSpellings(Comparison comparison) {
+    comparison.mappedClassifiers.forEach((key, value) -> {
+      checkMistakeClassSpelling(value, key).ifPresent(comparison.newMistakes::add);
+    });
+  }
+
+  private static void checkMistakeAttributeMisplaced(Comparison comparison) {
+    List<Attribute> studAttributesProcessed = new ArrayList<Attribute>();
+    List<Attribute> instAttributesProcessed = new ArrayList<Attribute>();
+
+    for (Attribute studAttrib : comparison.extraStudentAttributes) {
+      for (Attribute instAttrib : comparison.notMappedInstructorAttributes) {
+        if (studAttrib.getName().equals(instAttrib.getName())) {
+          comparison.newMistakes.add(createMistake(ATTRIBUTE_MISPLACED, studAttrib, instAttrib));
+          studAttributesProcessed.add(studAttrib);
+          instAttributesProcessed.add(instAttrib);
+        }
+      }
+    }
+    comparison.extraStudentAttributes.removeAll(studAttributesProcessed);
+    comparison.notMappedInstructorAttributes.removeAll(instAttributesProcessed);
+  }
+
   private static void checkMistakesInGeneralization(Comparison comparison) {
     checkMistakeNonDifferentiatedSubClass(comparison);
+    checkMistakeWrongGeneralizationDirection(comparison);
+    checkMistakeAttribMisplacedInGenHierarchyAndDuplicateAttrib(comparison);
     checkMistakeWrongSuperclass(comparison);
     checkMistakeMissingGeneralization(comparison);
     checkMistakeExtraGeneralization(comparison);
+  }
+
+  private static void checkMistakeAttribMisplacedInGenHierarchyAndDuplicateAttrib(Comparison comparison) {
+    Set<Classifier> studentGeneralizationClasses = new HashSet<>(comparison.studentSuperclassesToSubclasses.keySet());
+    for (var classifiers : comparison.studentSuperclassesToSubclasses.values()) {
+      studentGeneralizationClasses.addAll(classifiers);
+    }
+
+    for (var classifier : studentGeneralizationClasses) {
+      for (var attribute : classifier.getAttributes()) {
+        if (isSuperClassAttribMatch(attribute, classifier)
+            && !isMistakeExist(ATTRIBUTE_DUPLICATED, attribute, comparison)) {
+          comparison.newMistakes.add(createMistake(ATTRIBUTE_DUPLICATED, attribute, null));
+        }
+      }
+    }
+
+    for (var classifier : studentGeneralizationClasses) {
+      List<Attribute> attribsToRemove = new ArrayList<Attribute>();
+      for (var attribute : comparison.notMappedInstructorAttributes) {
+        var attrib = matchedSuperClassAttribMatch(attribute, classifier);
+        if (attrib != null && !isMistakeExist(ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY, attrib, comparison)
+            && !comparison.mappedAttributes.containsValue(attrib)) {
+          comparison.newMistakes.add(createMistake(ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY, attrib, attribute));
+          attribsToRemove.add(attribute);
+          comparison.extraStudentAttributes.remove(attrib);
+        }
+      }
+      comparison.notMappedInstructorAttributes.removeAll(attribsToRemove);
+    }
+  }
+
+  private static boolean isSuperClassAttribMatch(Attribute attribute, Classifier classifier) {
+    var superclasses = getAllSuperClasses(classifier);
+    for (var sc : superclasses) {
+      var attributes = sc.getAttributes();
+      if (attributes.stream().anyMatch(a -> a.getName().equals(attribute.getName()))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /** Returns an attribute if found in any superclass else returns null. */
+  private static Attribute matchedSuperClassAttribMatch(Attribute attribute, Classifier classifier) {
+    var superclasses = getAllSuperClasses(classifier);
+    superclasses.add(classifier);
+    for (var sc : superclasses) {
+      for (var attrib : sc.getAttributes()) {
+        if (attrib.getName().toLowerCase().equals(attribute.getName().toLowerCase())) {
+          return attrib;
+        }
+      }
+    }
+    return null;
+  }
+
+  private static void checkMistakeWrongGeneralizationDirection(Comparison comparison) {
+
+    HashSet<Classifier> instructorGeneralizationClasses =
+        new HashSet<Classifier>(comparison.instructorSuperclassesToSubclasses.keySet());
+    for (var classifiers : comparison.instructorSuperclassesToSubclasses.values()) {
+      instructorGeneralizationClasses.addAll(classifiers);
+    }
+
+    HashSet<Classifier> studentGeneralizationClasses =
+        new HashSet<Classifier>(comparison.studentSuperclassesToSubclasses.keySet());
+    for (var classifiers : comparison.studentSuperclassesToSubclasses.values()) {
+      studentGeneralizationClasses.addAll(classifiers);
+    }
+
+    for (var instClass : instructorGeneralizationClasses) {
+      for (var studClass : studentGeneralizationClasses) {
+        if (studClass.equals(comparison.mappedClassifiers.get(instClass))) {
+          if (!studClass.getSuperTypes().isEmpty() && !instClass.getSuperTypes().isEmpty() && !studClass.getSuperTypes()
+              .get(0).equals(comparison.mappedClassifiers.get(instClass.getSuperTypes().get(0)))) {
+            // TODO Work in Progress.
+          }
+        }
+      }
+    }
+
   }
 
   private static void checkMistakeExtraGeneralization(Comparison comparison) {
     for (var set : comparison.studentSuperclassesToSubclasses.entrySet()) {
       Classifier studSuperclass = set.getKey();
       List<Classifier> studSubclasses = set.getValue();
-      List<NamedElement> extraInstGeneralizationClasses = new ArrayList<>();
       List<NamedElement> extraStudGeneralizationClasses = new ArrayList<>();
-      boolean counted = false;
+      List<NamedElement> extraInstGeneralizationClasses = new ArrayList<>();
       if (comparison.mappedClassifiers.containsValue(studSuperclass)) {
         if (comparison.instructorSuperclassesToSubclasses
             .containsKey(getKey(comparison.mappedClassifiers, studSuperclass))) {
           for (Classifier studClass : studSubclasses) {
-            if (comparison.mappedClassifiers.containsValue(studClass)) {
-              Classifier instClass = getKey(comparison.mappedClassifiers, studClass);
-              if (instClass.getSuperTypes().isEmpty()) {
-                extraStudGeneralizationClasses.add(studClass);
-                extraInstGeneralizationClasses.add(instClass);
-              }
+            var instSubClasses =
+                comparison.instructorSuperclassesToSubclasses.get(getKey(comparison.mappedClassifiers, studSuperclass));
+            if (!comparison.mappedClassifiers.containsValue(studClass)) {
+              extraStudGeneralizationClasses.add(studClass);
+            } else if (!instSubClasses.contains(getKey(comparison.mappedClassifiers, studClass))) {
+              extraStudGeneralizationClasses.add(studClass);
+              extraInstGeneralizationClasses.add(getKey(comparison.mappedClassifiers, studClass));
             }
           }
         } else {
+          if (!comparison.mappedClassifiers.containsValue(studSuperclass)) {
+            extraStudGeneralizationClasses.add(studSuperclass);
+            extraStudGeneralizationClasses.addAll(extraStudGeneralizationClasses);
+          }
           for (Classifier studClass : studSubclasses) {
-            if (comparison.mappedClassifiers.containsValue(studClass)) {
-              Classifier instClass = getKey(comparison.mappedClassifiers, studClass);
-              if (instClass.getSuperTypes().isEmpty()) {
-                if (!counted) {
-                  extraInstGeneralizationClasses.add(getKey(comparison.mappedClassifiers, studSuperclass));
-                  extraStudGeneralizationClasses.add(studSuperclass);
-                }
-                counted = true;
-                extraStudGeneralizationClasses.add(studClass);
-                extraInstGeneralizationClasses.add(instClass);
-              }
+            if (!comparison.mappedClassifiers.containsValue(studClass)) {
+              extraStudGeneralizationClasses.add(studClass);
             }
           }
         }
-      }
-      if (!extraInstGeneralizationClasses.isEmpty()) {
-        comparison.newMistakes
-            .add(createMistake(EXTRA_GENERALIZATION, extraStudGeneralizationClasses, extraInstGeneralizationClasses));
+        if (!extraStudGeneralizationClasses.isEmpty()
+            && !isSuperClassSame(extraStudGeneralizationClasses, comparison)) {
+          comparison.newMistakes
+              .add(createMistake(EXTRA_GENERALIZATION, extraStudGeneralizationClasses, extraInstGeneralizationClasses));
+        }
       }
     }
+  }
+
+  private static boolean isSuperClassSame(List<NamedElement> extraStudGeneralizationClasses, Comparison comparison) {
+    for (var studClass : extraStudGeneralizationClasses) {
+      var instClass = getKey(comparison.mappedClassifiers, (Classifier) studClass);
+      if (instClass == null) {
+        return false;
+      }
+      if (getSuperClass((Classifier) studClass).equals(comparison.mappedClassifiers.get(getSuperClass(instClass)))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /** Returns the root most superclass else returns the class itself.*/
+  private static Classifier getSuperClass(Classifier classifier) {
+    Classifier superclass = classifier;
+    while (!superclass.getSuperTypes().isEmpty()) {
+      superclass = superclass.getSuperTypes().get(0);
+    }
+    return superclass;
+  }
+
+  private static List<Classifier> getAllSuperClasses(Classifier classifier) {
+    List<Classifier> superclasses = new ArrayList<Classifier>();
+    while (!classifier.getSuperTypes().isEmpty()) {
+      classifier = classifier.getSuperTypes().get(0);
+      superclasses.add(classifier);
+    }
+    return superclasses;
   }
 
   private static void checkMistakeMissingGeneralization(Comparison comparison) {
@@ -687,7 +827,7 @@ public class MistakeDetection {
 
   private static void checkMistakesInAttributes(Attribute studentAttribute, Attribute instructorAttribute,
       List<Mistake> newMistakes) {
-    checkMistakeWrongAttributeType(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
+    checkMistakeWrongAttributeTypeAndListAttrib(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
     if (studentAttribute.getName() != instructorAttribute.getName()) {
@@ -1307,6 +1447,10 @@ public class MistakeDetection {
         var otherStudentClassifierAssocEnd = getOtherAssocEnd(studentClassifierAssocEnd);
 
         var otherStudentClassifier = otherStudentClassifierAssocEnd.getClassifier();
+        if (otherStudentClassifier.equals(studentClassifier)) {
+          checkMistakeInfiniteRecursiveDependency(studentClassifierAssocEnd, otherStudentClassifierAssocEnd,
+              comparison);
+        }
 
         if (comparison.mappedClassifiers.get(otherInstructorClassifier) == null
             || comparison.mappedAssociations.containsKey(instructorClassifierAssoc)
@@ -1331,7 +1475,7 @@ public class MistakeDetection {
     }
   }
 
-  private static AssociationEnd getOtherAssocEnd(AssociationEnd assocEnd) {
+  public static AssociationEnd getOtherAssocEnd(AssociationEnd assocEnd) {
     var assocEnds = assocEnd.getAssoc().getEnds();
     if (assocEnds.get(0).equals(assocEnd)) {
       return assocEnds.get(1);
@@ -1344,7 +1488,11 @@ public class MistakeDetection {
       Association instructorClassifierAssoc, AssociationEnd studentClassifierAssocEnd,
       AssociationEnd instructorClassifierAssocEnd, AssociationEnd otherStudentClassifierAssocEnd,
       AssociationEnd otherInstructorClassifierAssocEnd) {
-
+    if (studentClassifierAssocEnd.getName().equals(otherInstructorClassifierAssocEnd.getName())) {
+      var temp = studentClassifierAssocEnd;
+      studentClassifierAssocEnd = otherStudentClassifierAssocEnd;
+      otherStudentClassifierAssocEnd = temp;
+    }
     checkAssociationClassMapping(comparison, studentClassifierAssoc, instructorClassifierAssoc);
 
     if (!checkStudentElementForMistake(comparison.newMistakes, studentClassifierAssoc)) {
@@ -1500,10 +1648,29 @@ public class MistakeDetection {
     checkMistakeBadRoleNameSpelling(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
   }
 
-  /** Finds Mistakes in newly mapped elements */
-  private static void checkMistakesAfterMapping(Comparison comparison) { // TO BE Discussed
-    var newMistakes = comparison.newMistakes;
-    // TOOD work in progress(Location may be changed)
+  /** Check for infinite recursive dependency. */
+  private static void checkMistakeInfiniteRecursiveDependency(AssociationEnd studentClassAssocEnd,
+      AssociationEnd otherStudentClassAssocEnd, Comparison comparison) {
+    if (!isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, studentClassAssocEnd, comparison)
+        && !isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, otherStudentClassAssocEnd, comparison)
+        && (studentClassAssocEnd.getLowerBound() >= 1 && otherStudentClassAssocEnd.getLowerBound() >= 1)) {
+      comparison.newMistakes.add(
+          createMistake(INFINITE_RECURSIVE_DEPENDENCY, List.of(studentClassAssocEnd, otherStudentClassAssocEnd), null));
+    }
+  }
+
+  private static boolean isMistakeExist(MistakeType mistakeType, NamedElement studentNamedElement,
+      Comparison comparison) {
+    for (Mistake mistake : comparison.newMistakes) {
+      if (mistake.getMistakeType().equals(mistakeType)
+          && mistake.getStudentElements().get(0).getElement().equals(studentNamedElement)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static void mapAttributesBasedOnClassifierMap(Comparison comparison) {
     // To map attribute like ticketNo with TicketNumber
     comparison.mappedClassifiers.forEach((key, value) -> {
       for (Attribute instAttrib : key.getAttributes()) {
@@ -1536,22 +1703,6 @@ public class MistakeDetection {
             }
           }
         }
-      }
-    });
-    comparison.mappedClassifiers.forEach((key, value) -> {
-      // System.out.println(checkElementForMistake(newMistakes,value)+" value: "+ value+" Key: "+key);
-      if (!checkStudentElementForMistake(newMistakes, value)) {
-        checkMistakePluralClassName(value, key).ifPresent(newMistakes::add);
-        // checkMistakeSimilarYetIncorrectClassName(value,key).ifPresent(comparison.newMistakes::add);
-        // TO BE Discussed
-      }
-    });
-
-    comparison.mappedAttributes.forEach((key, value) -> {
-      // System.out.println(checkElementForMistake(newMistakes,value)+" value: "+ value+" Key: "+key);
-      if (!checkStudentElementForMistake(newMistakes, value)) {
-        // checkMistakeSimilarYetIncorrectAttributeName(value,key).ifPresent(comparison.newMistakes::add);
-        // TO BE Discussed
       }
     });
   }
@@ -2189,15 +2340,6 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-  public static Optional<Mistake> checkMistakeSimilarYetIncorrectAttributeName(Attribute studentClassAttribute,
-      Attribute instructorClassAttribute) {
-    int lDistance = levenshteinDistance(studentClassAttribute.getName(), instructorClassAttribute.getName());
-    if (lDistance != 0) {
-      return Optional.of(createMistake(SIMILAR_ATTRIBUTE_NAME, studentClassAttribute, instructorClassAttribute));
-    }
-    return Optional.empty();
-  }
-
   public static Optional<Mistake> checkMistakeAttributeSpelling(Attribute studentAttribute,
       Attribute instructorAttribute) {
     if (!isPlural(studentAttribute.getName()) && spellingMistakeCheck(studentAttribute.getName().toLowerCase(),
@@ -2234,9 +2376,12 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-  public static Optional<Mistake> checkMistakeWrongAttributeType(Attribute studentAttribute,
+  public static Optional<Mistake> checkMistakeWrongAttributeTypeAndListAttrib(Attribute studentAttribute,
       Attribute instructorAttribute) {
-    if (!attributeTypesMatch(studentAttribute, instructorAttribute)) {
+    if (!attributeTypesMatch(studentAttribute, instructorAttribute)
+        && (studentAttribute.getType() instanceof CDArray || studentAttribute.getType() instanceof CDCollection)) {
+      return Optional.of(createMistake(LIST_ATTRIBUTE, studentAttribute, instructorAttribute));
+    } else if (!attributeTypesMatch(studentAttribute, instructorAttribute)) {
       return Optional.of(createMistake(WRONG_ATTRIBUTE_TYPE, studentAttribute, instructorAttribute));
     }
     return Optional.empty();
@@ -2532,6 +2677,7 @@ public class MistakeDetection {
 
   public static void checkMistakeMissingAssociationCompositionAggregation(Comparison comparison) {
     for (Association association : comparison.notMappedInstructorAssociations) {
+      checkMistakeAttributeInsteadOfAssociation(association, comparison);
       if (association.getEnds().get(0).getReferenceType().equals(COMPOSITION)
           || association.getEnds().get(1).getReferenceType().equals(COMPOSITION)) {
         comparison.newMistakes.add(createMistake(MISSING_COMPOSITION, null, association));
@@ -2544,6 +2690,48 @@ public class MistakeDetection {
       if (association.getAssociationClass() != null) {
         removeMistakesRelatedToElement(association.getAssociationClass(), comparison.newMistakes);
         comparison.newMistakes.add(createMistake(MISSING_ASSOC_CLASS, null, association.getAssociationClass()));
+      }
+    }
+  }
+
+  private static void checkMistakeAttributeInsteadOfAssociation(Association association, Comparison comparison) {
+    var assocEnds = association.getEnds();
+    var assocEndStudClass = comparison.mappedClassifiers.get(assocEnds.get(0).getClassifier());
+    var otherAssocEndStudClass = comparison.mappedClassifiers.get(assocEnds.get(1).getClassifier());
+
+    if (assocEndStudClass != null && otherAssocEndStudClass != null) {
+      var studClassOneAttrib = assocEndStudClass.getAttributes();
+      var studClassTwoAttrib = otherAssocEndStudClass.getAttributes();
+
+      for (var attrib : studClassOneAttrib) {
+        if (attrib.getName().toLowerCase().equals(assocEnds.get(0).getClassifier().getName().toLowerCase())) {
+          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, null));
+        }
+      }
+      for (var attrib : studClassTwoAttrib) {
+        if (attrib.getName().toLowerCase().equals(assocEnds.get(0).getClassifier().getName().toLowerCase())) {
+          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, null));
+        }
+      }
+    }
+
+    else if (assocEndStudClass == null && otherAssocEndStudClass != null) {
+      var studClassTwoAttrib = otherAssocEndStudClass.getAttributes();
+      for (var attrib : studClassTwoAttrib) {
+        if (comparison.notMappedInstructorClassifiers.stream()
+            .anyMatch(c -> c.getName().toLowerCase().equals(attrib.getName().toLowerCase()))) {
+          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, null));
+        }
+      }
+    }
+
+    else if (assocEndStudClass != null && otherAssocEndStudClass == null) {
+      var studClassOneAttrib = assocEndStudClass.getAttributes();
+      for (var attrib : studClassOneAttrib) {
+        if (comparison.notMappedInstructorClassifiers.stream()
+            .anyMatch(c -> c.getName().toLowerCase().equals(attrib.getName().toLowerCase()))) {
+          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, null));
+        }
       }
     }
   }

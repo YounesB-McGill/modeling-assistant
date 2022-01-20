@@ -159,6 +159,22 @@ public class Comparison {
     }
 
     System.out.println();
+    System.out.println("Instuctor Generalization: ");
+    instructorSuperclassesToSubclasses.forEach((key,value) -> {
+      System.out.print(key.getName() + "<- ");
+      value.forEach(v -> {System.out.print(v.getName() + " ");});
+      System.out.println();
+    });
+
+    System.out.println();
+    System.out.println("Student Generalization: ");
+    studentSuperclassesToSubclasses.forEach((key,value) -> {
+      System.out.print(key.getName() + "<- ");
+      value.forEach(v -> {System.out.print(v.getName() + " ");});
+      System.out.println();
+    });
+
+    System.out.println();
     System.out.println("Mistakes : ");
     newMistakes.forEach(m -> {
       if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {

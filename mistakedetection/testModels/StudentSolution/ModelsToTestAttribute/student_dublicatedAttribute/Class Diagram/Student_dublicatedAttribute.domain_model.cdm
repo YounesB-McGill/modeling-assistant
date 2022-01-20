@@ -9,6 +9,7 @@
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_skaYkN3MEeuTLOme1e-z-w" name="Whitechocolate" superTypes="_ZEUdEN3MEeuTLOme1e-z-w">
     <attributes xmi:id="_zI4LIN3MEeuTLOme1e-z-w" name="price" type="_X06Dpd3MEeuTLOme1e-z-w"/>
+    <attributes xmi:id="_zI4LIN3MEeuTLOme1e-z-w" name="price" type="_X06Dpd3MEeuTLOme1e-z-w"/>
   </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_X06Dod3MEeuTLOme1e-z-w"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_X06Dot3MEeuTLOme1e-z-w"/>

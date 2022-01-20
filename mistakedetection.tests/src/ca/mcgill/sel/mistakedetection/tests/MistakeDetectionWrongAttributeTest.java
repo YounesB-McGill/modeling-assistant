@@ -2,18 +2,19 @@ package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistake;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeConditional;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeTypesContain;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentMistakeFor;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_DUPLICATED;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_MISPLACED;
+import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
-import static learningcorpus.mistaketypes.MistakeTypes.SIMILAR_ATTRIBUTE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.UPPERCASE_ATTRIBUTE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
@@ -21,7 +22,6 @@ import static modelingassistant.util.ClassDiagramUtils.getAttributeFromDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import modelingassistant.Mistake;
@@ -259,7 +259,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructornameAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), MISSING_ATTRIBUTE, instructornameAttribute, 0, 1, false);
   }
 
   /**
@@ -284,7 +284,7 @@ public class MistakeDetectionWrongAttributeTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, instructorticketNoAttribute, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), MISSING_ATTRIBUTE, instructorticketNoAttribute, 0, 1, false);
   }
 
   /**
@@ -1627,96 +1627,8 @@ public class MistakeDetectionWrongAttributeTest {
   }
 
   /**
-   * Test to detect similar Attribute.
-   */
-  @Disabled("Not implemented yet.")
-  @Test
-  public void testMistakeSimilarAttribute() {
-    var instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_car_typeAndColorAttribute/Class Diagram/Instructor_car_typeAndColorAttribute.domain_model.cdm");
-    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-    var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_similarAttribute/Class Diagram/Student_similarAttribute.domain_model.cdm");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
-    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
-
-    var instructortypeAttribute = getAttributeFromClass("type", instructorCarClass);
-    var studentkindAttribute = getAttributeFromClass("kind", studentCarClass);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
-    assertEquals(1, comparison.newMistakes.size());
-    assertEquals(1, studentSolution.getMistakes().size());
-
-    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentkindAttribute,
-        instructortypeAttribute, 0, 1, false);
-  }
-
-  /**
-   * Test to detect similar Attribute.
-   */
-  @Disabled("Not implemented yet.")
-  @Test
-  public void testMistakeSimilarAttributeInStudentSolution() {
-    var instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_car_priceAttribute/Class Diagram/Instructor_car_priceAttribute.domain_model.cdm");
-    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-    var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_similarAttribute1/Class Diagram/Student_similarAttribute1.domain_model.cdm");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
-    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
-
-    var instructorpriceAttribute = getAttributeFromClass("price", instructorCarClass);
-    var studentcostAttribute = getAttributeFromClass("cost", studentCarClass);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
-    assertEquals(1, comparison.newMistakes.size());
-    assertEquals(1, studentSolution.getMistakes().size());
-
-    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentcostAttribute,
-        instructorpriceAttribute, 0, 1, false);
-  }
-
-  /**
-   * Test to detect similar Attribute.
-   */
-  @Disabled("Not implemented yet.")
-  @Test
-  public void testMistakeOtherSimilarAttribute() {
-    var instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_pilot_genderAtterbute/Class Diagram/Instructor_pilot_genderAtterbute.domain_model.cdm");
-    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-    var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_similarAttribute2/Class Diagram/Student_similarAttribute2.domain_model.cdm");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var instructorPilotClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
-    var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
-
-    var instructorGenderAttribute = getAttributeFromClass("Gender", instructorPilotClass);
-    var studentGenderAttribute = getAttributeFromClass("Gender", studentPilotClass);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
-    assertEquals(1, comparison.newMistakes.size());
-    assertEquals(1, studentSolution.getMistakes().size());
-
-    assertMistake(studentSolution.getMistakes().get(0), SIMILAR_ATTRIBUTE_NAME, studentGenderAttribute,
-        instructorGenderAttribute, 0, 1, false);
-  }
-
-  /**
    * Test to detect misplaced Attribute.
    */
-  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeMisplacedAttribute() {
     var instructorClassDiagram = cdmFromFile(
@@ -1745,7 +1657,6 @@ public class MistakeDetectionWrongAttributeTest {
   /**
    * Test to detect misplaced Attribute.
    */
-  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeMisplacedAttributeInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
@@ -1769,6 +1680,26 @@ public class MistakeDetectionWrongAttributeTest {
 
     assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_MISPLACED, studenttypeAttribute,
         instructortypeAttribute, 0, 1, false);
+  }
+
+  /**
+   * Test to detect misplaced Attribute in generalization hierarchy.
+   */
+  @Test
+  public void testMistakeMisplacedAttributeInGH() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestAttribute/instructor_three_classes_misplaceAttrib/Class Diagram/Three_classes.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_three_classes_misplaceAttrib/Class Diagram/Three_classes.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
+    assertMistakeTypesContain(comparison.newMistakes, ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY);
   }
 
   /**
@@ -1858,7 +1789,6 @@ public class MistakeDetectionWrongAttributeTest {
   /**
    * Test to detect Duplicate Attribute.
    */
-  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeDuplicateAttribute() {
     var instructorClassDiagram = cdmFromFile(
@@ -1869,22 +1799,36 @@ public class MistakeDetectionWrongAttributeTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_dublicatedAttribute/Class Diagram/Student_dublicatedAttribute.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var studentWhitechoClass = getClassFromClassDiagram("Whitechocolate", studentClassDiagram);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    var studentpriceAttribute = getAttributeFromClass("price", studentWhitechoClass);
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
+    assertMistakeTypesContain(comparison.newMistakes, ATTRIBUTE_DUPLICATED);
+  }
+
+  /**
+   * Test to detect Duplicate Attribute in Generalization Hierarchy.
+   */
+  @Test
+  public void testMistakeDuplicateAttributeInGH() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_three_classes_duplicateAttrib/Class Diagram/Three_classes.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestAttribute/student_three_classes_duplicateAttrib/Class Diagram/Three_classes.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(1, comparison.newMistakes.size());
-    assertEquals(1, studentSolution.getMistakes().size());
-
-    assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_DUPLICATED, studentpriceAttribute, 0, 1, false);
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
+    assertMistakeTypesContain(comparison.newMistakes, ATTRIBUTE_DUPLICATED);
   }
 
   /**
    * Test to detect Duplicate Attribute.
    */
-  @Disabled("Not implemented yet.")
   @Test
   public void testMistakeDuplicateAttributeInStudentSolution() {
     var instructorClassDiagram = cdmFromFile(
@@ -1901,8 +1845,8 @@ public class MistakeDetectionWrongAttributeTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(1, comparison.newMistakes.size());
-    assertEquals(1, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), ATTRIBUTE_DUPLICATED, studentnameAttribute, 0, 1, false);
   }

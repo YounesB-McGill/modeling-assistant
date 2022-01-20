@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_bDg7cHlNEeyevKffbeWgxQ" name="Three_classes" featureModel="_bDg7cXlNEeyevKffbeWgxQ" impactModel="_bDg7c3lNEeyevKffbeWgxQ">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_bDg7cXlNEeyevKffbeWgxQ" root="_bDg7cnlNEeyevKffbeWgxQ">
+    <features xmi:id="_bDg7cnlNEeyevKffbeWgxQ" name="Three_classes" realizedBy="_bz5PgHlNEeyevKffbeWgxQ"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_bDg7c3lNEeyevKffbeWgxQ" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_bz3aUHlNEeyevKffbeWgxQ" name="Three_classes" scene="_bz5PgHlNEeyevKffbeWgxQ" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Three_classes.domain_model.cdm#_bz52kHlNEeyevKffbeWgxQ"/>
+  </artefacts>
+  <scenes xmi:id="_bz5PgHlNEeyevKffbeWgxQ" name="Three_classes" realizes="_bDg7cnlNEeyevKffbeWgxQ" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_bz5PgXlNEeyevKffbeWgxQ" value="_bz3aUHlNEeyevKffbeWgxQ" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
