@@ -1,6 +1,7 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistake;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeTypesContain;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_CLASS_SHOULD_BE_CLASS;
@@ -30,7 +31,6 @@ import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClas
 import static modelingassistant.util.ClassDiagramUtils.getAssociationsFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -1890,10 +1890,7 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
-
-    assertTrue(
-        comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(USING_ATTRIBUTE_INSTEAD_OF_ASSOC)));
-
+    assertMistakeTypesContain(comparison.newMistakes, USING_ATTRIBUTE_INSTEAD_OF_ASSOC);
   }
 
   /**
@@ -1913,9 +1910,7 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
-
-    assertTrue(
-        comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(USING_ATTRIBUTE_INSTEAD_OF_ASSOC)));
+    assertMistakeTypesContain(comparison.newMistakes, USING_ATTRIBUTE_INSTEAD_OF_ASSOC);
   }
 
   /**
@@ -1935,9 +1930,7 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     assertEquals(3, comparison.newMistakes.size());
     assertEquals(3, studentSolution.getMistakes().size());
-
-    assertTrue(
-        comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(USING_ATTRIBUTE_INSTEAD_OF_ASSOC)));
+    assertMistakeTypesContain(comparison.newMistakes, USING_ATTRIBUTE_INSTEAD_OF_ASSOC);
   }
 
   /**

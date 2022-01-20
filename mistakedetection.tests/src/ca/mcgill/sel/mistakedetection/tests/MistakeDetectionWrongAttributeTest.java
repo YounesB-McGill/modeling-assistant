@@ -2,6 +2,7 @@ package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistake;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeConditional;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeTypesContain;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentMistakeFor;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
@@ -20,7 +21,6 @@ import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
@@ -1699,9 +1699,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     assertEquals(3, comparison.newMistakes.size());
     assertEquals(3, studentSolution.getMistakes().size());
-
-    assertTrue(comparison.newMistakes.stream().anyMatch(m->m.getMistakeType().equals(ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY)));
-
+    assertMistakeTypesContain(comparison.newMistakes, ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY);
   }
 
   /**
@@ -1805,8 +1803,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
-
-    assertTrue(comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(ATTRIBUTE_DUPLICATED)));
+    assertMistakeTypesContain(comparison.newMistakes, ATTRIBUTE_DUPLICATED);
   }
 
   /**
@@ -1826,8 +1823,7 @@ public class MistakeDetectionWrongAttributeTest {
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
-
-    assertTrue(comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(ATTRIBUTE_DUPLICATED)));
+    assertMistakeTypesContain(comparison.newMistakes, ATTRIBUTE_DUPLICATED);
   }
 
   /**

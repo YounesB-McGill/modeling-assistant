@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -731,6 +732,19 @@ public class MistakeDetectionTest {
         assertMistake(mistake, mistakeType, elements, numSinceResolved, numDetections, resolved);
       }
     }
+  }
+
+  /** Asserts that the given mistakes contain at least the given mistake type(s). */
+  public static void assertMistakeTypesContain(List<Mistake> mistakes, MistakeType... mistakeTypes) {
+    assertTrue(mistakes.stream().map(Mistake::getMistakeType).collect(Collectors.toUnmodifiableList())
+        .containsAll(Arrays.asList(mistakeTypes)));
+  }
+
+  /** Asserts that the given mistakes do not include the given mistake type(s). */
+  public static void assertMistakeTypesDoNotContain(List<Mistake> mistakes, MistakeType... mistakeTypes) {
+    assertTrue(Collections.disjoint(
+        mistakes.stream().map(Mistake::getMistakeType).collect(Collectors.toUnmodifiableList()),
+        Arrays.asList(mistakeTypes)));
   }
 
   /**

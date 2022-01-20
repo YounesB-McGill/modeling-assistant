@@ -1,6 +1,8 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistake;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeTypesContain;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeTypesDoNotContain;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentMistakeFor;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
@@ -79,7 +81,6 @@ public class MistakeDetectionGeneralizationTest {
     var instClasses = List.of("Car", "TATAManza", "TATAManzaModel2", "TATAManzaModel3").stream()
         .map(s -> getClassFromClassDiagram(s, instructorClassDiagram)).collect(Collectors.toUnmodifiableList());
     assertTrue(comparison.instructorSuperclassesToSubclasses.keySet().containsAll(instClasses));
-
   }
 
   /**
@@ -146,8 +147,7 @@ public class MistakeDetectionGeneralizationTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
-    assertTrue(comparison.newMistakes.stream().noneMatch(m -> m.getMistakeType().equals(NON_DIFFERENTIATED_SUBCLASS)));
+    assertMistakeTypesDoNotContain(comparison.newMistakes, NON_DIFFERENTIATED_SUBCLASS);
   }
 
   /**
@@ -164,8 +164,7 @@ public class MistakeDetectionGeneralizationTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
-    assertTrue(comparison.newMistakes.stream().noneMatch(m -> m.getMistakeType().equals(NON_DIFFERENTIATED_SUBCLASS)));
+    assertMistakeTypesDoNotContain(comparison.newMistakes, NON_DIFFERENTIATED_SUBCLASS);
   }
 
   /**
@@ -209,7 +208,7 @@ public class MistakeDetectionGeneralizationTest {
 
     assertEquals(8, comparison.newMistakes.size());
     assertEquals(8, studentSolution.getMistakes().size());
-    assertTrue(studentSolution.getMistakes().stream().anyMatch(m -> m.getMistakeType().equals(MISSING_GENERALIZATION)));
+    assertMistakeTypesContain(comparison.newMistakes, MISSING_GENERALIZATION);
   }
 
   /**
@@ -252,8 +251,7 @@ public class MistakeDetectionGeneralizationTest {
 
     assertEquals(3, comparison.newMistakes.size());
     assertEquals(3, studentSolution.getMistakes().size());
-    assertTrue(
-        studentSolution.getMistakes().stream().noneMatch(m -> m.getMistakeType().equals(MISSING_GENERALIZATION)));
+    assertMistakeTypesDoNotContain(comparison.newMistakes, MISSING_GENERALIZATION);
   }
 
   /**
@@ -273,7 +271,7 @@ public class MistakeDetectionGeneralizationTest {
 
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
-    assertTrue(studentSolution.getMistakes().stream().anyMatch(m -> m.getMistakeType().equals(MISSING_GENERALIZATION)));
+    assertMistakeTypesContain(comparison.newMistakes, MISSING_GENERALIZATION);
   }
 
   /**
@@ -338,7 +336,6 @@ public class MistakeDetectionGeneralizationTest {
 
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
-
-    assertTrue(comparison.newMistakes.stream().anyMatch(m -> m.getMistakeType().equals(EXTRA_GENERALIZATION)));
+    assertMistakeTypesContain(comparison.newMistakes, EXTRA_GENERALIZATION);
   }
 }
