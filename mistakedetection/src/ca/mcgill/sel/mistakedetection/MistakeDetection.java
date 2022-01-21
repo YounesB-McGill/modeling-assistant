@@ -1492,7 +1492,7 @@ public class MistakeDetection {
 
       if (studentClassifierAssoc.getAssociationClass() != null
           && instructorClassifierAssoc.getAssociationClass() != null) {
-        checkMistakeBadAssociationClassNameSpelling(studentClassifierAssoc, instructorClassifierAssoc)
+        checkMistakeBadAssociationClassNameSpelling(studentClassifierAssoc, instructorClassifierAssoc, comparison)
             .ifPresent(comparison.newMistakes::add);
         checkMistakeSimilarYetIncorrectAssociationClassName(studentClassifierAssoc, instructorClassifierAssoc)
             .ifPresent(comparison.newMistakes::add);
@@ -2553,13 +2553,26 @@ public class MistakeDetection {
 
 
   public static Optional<Mistake> checkMistakeBadAssociationClassNameSpelling(Association studentClassAssoc,
-      Association instructorClassAssoc) {
+      Association instructorClassAssoc, Comparison comparison) {
     if (spellingMistakeCheck(studentClassAssoc.getAssociationClass().getName(),
         instructorClassAssoc.getAssociationClass().getName())) {
+      if(isMistakeExist(BAD_CLASS_NAME_SPELLING, studentClassAssoc, comparison)) {
+        comparison.newMistakes.remove(getMistakeForElement(studentClassAssoc, BAD_CLASS_NAME_SPELLING, comparison));
+      }
       return Optional.of(createMistake(BAD_ASSOC_CLASS_NAME_SPELLING, studentClassAssoc.getAssociationClass(),
           instructorClassAssoc.getAssociationClass()));
     }
     return Optional.empty();
+  }
+
+  private static Optional<Mistake> getMistakeForElement(NamedElement studentElement, MistakeType mistakeType,
+      Comparison comparison) {
+    for(var m : comparison.newMistakes) {
+      if(m.getMistakeType().equals(mistakeType) && m.getStudentElements().get(0).getElement().equals(studentElement)) {
+        return Optional.of(m);
+      }
+    }
+   return Optional.empty();
   }
 
   public static Optional<Mistake> checkMistakeSimilarYetIncorrectAssociationClassName(Association studentClassAssoc,
