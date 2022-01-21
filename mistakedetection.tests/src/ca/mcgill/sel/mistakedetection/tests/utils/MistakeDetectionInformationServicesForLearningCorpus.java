@@ -30,7 +30,10 @@ import org.eclipse.emf.ecore.EClass;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
 import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
+import ca.mcgill.sel.classdiagram.Association;
+import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.CdmFactory;
+import ca.mcgill.sel.classdiagram.ReferenceType;
 import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetectionConfig;
 import learningcorpus.ElementType;
@@ -53,7 +56,6 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
 
   /** Map of CDM metatypes to learning corpus ElementTypes. */
   public static final Map<EClass, ElementType> cdmMetatypesToLearningCorpusElementTypes = Map.of(
-      CDF.createAssociation().eClass(), ElementType.ASSOCIATION, // includes all relationships
       CDF.createAssociationEnd().eClass(), ElementType.ASSOCIATION_END,
       CDF.createAttribute().eClass(), ElementType.ATTRIBUTE,
       CDF.createCDEnum().eClass(), ElementType.CLASS,
@@ -175,26 +177,24 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   /** Maps comparison mistakes to CDM metatypes. */
   public static Map<MistakeType, Set<EClass>> mapMistakesToCdmMetatypes(
       Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer) {
-    return allMistakes().collect(Collectors.toMap(Mistake::getMistakeType,
-        m -> mistakeSolutionElementsStreamer.apply(m).map(e -> e.getElement().eClass())
-            .collect(Collectors.toUnmodifiableSet()), // TODO Update on Java 17+
-        (v1, v2) -> Stream.of(v1, v2).flatMap(Set::stream).collect(Collectors.toUnmodifiableSet()), // set union
-        TreeMap::new));
+    return mapMistakesTo(mistakeSolutionElementsStreamer, e -> e.getElement().eClass());
   }
 
   /** Maps comparison mistakes to learning corpus ElementTypes. */
   public static Map<MistakeType, Set<ElementType>> mapMistakesToLearningCorpusElementTypes(
       Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer) {
-    return mapMistakesToCdmMetatypes(mistakeSolutionElementsStreamer).entrySet().stream()
-        .map(e -> Map.entry(e.getKey(), e.getValue().stream().map(cdmMetatypesToLearningCorpusElementTypes::get)
-            .collect(Collectors.toUnmodifiableSet())))
-        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    return mapMistakesTo(mistakeSolutionElementsStreamer, e ->
+        cdmMetatypesToLearningCorpusElementTypes.getOrDefault(e.getElement().eClass(),
+            // assume for now that all input metatypes are either in map or association instances
+            e.getElement() instanceof Association ?
+                (cdmAssociationIs((Association) e.getElement(), ReferenceType.COMPOSITION) ?
+                    ElementType.COMPOSITION : ElementType.ASSOCIATION) : null)); // can't easily detect inheritance here
   }
 
   /** Generates Pyecore-compatible code to generate the learning corpus. This can be improved. */
   public static PythonLearningCorpusInitializationCode generatePythonLearningCorpusInitializationCode() {
     var mistakesToTypes = mapMistakesToLearningCorpusElementTypes(instructorAndStudentElems);
-    var typesToMistakes = new TreeMap<ElementType, Set<MistakeType>>();
+    var<ElementType, Set> typesToMistakes = new TreeMap<ElementType, Set<MistakeType>>();
     mistakesToTypes.forEach((m, types) -> types.forEach(t -> {
       if (typesToMistakes.containsKey(t)) {
         typesToMistakes.get(t).add(m);
@@ -282,6 +282,22 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
    */
   private static Stream<Mistake> allMistakes() {
     return Comparison.instances.stream().map(comp -> comp.newMistakes).flatMap(List::stream);
+  }
+
+  /** Returns true if the association has an end with the given type. */
+  private static boolean cdmAssociationIs(Association assoc, ReferenceType type) {
+    return assoc.getEnds().stream().map(AssociationEnd::getReferenceType).anyMatch(t -> t == type);
+  }
+
+  /** Maps comparison mistakes based on the input mistakeStudentElementTransformation. */
+  private static <T> Map<MistakeType, Set<T>> mapMistakesTo(
+      Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer,
+      Function<? super SolutionElement, T> mistakeStudentElementTransformation) {
+    return allMistakes().collect(Collectors.toMap(Mistake::getMistakeType,
+        m -> mistakeSolutionElementsStreamer.apply(m).map(mistakeStudentElementTransformation)
+            .collect(Collectors.toUnmodifiableSet()), // TODO Update on Java 17+
+        (v1, v2) -> Stream.of(v1, v2).flatMap(Set::stream).collect(Collectors.toUnmodifiableSet()), // set union
+        TreeMap::new));
   }
 
   /** Cleans and underscorifies the given string. */
