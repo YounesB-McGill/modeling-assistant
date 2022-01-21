@@ -73,7 +73,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     4: ParametrizedResponse(
                         text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
                 })),
-                wrong_class_name := mt(n="Wrong class name", atomic=True, feedbacks=fbs({
+                wrong_class_name := mt(n="Wrong class name", d="Wrong class name but correct attribute/relationship",
+                                       atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this class name."),
                     3: ParametrizedResponse(
@@ -249,7 +250,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         "so there is no need to include it again."),
                     5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
-                attribute_misplaced_in_generalized_hierarchy := mt(
+                attribute_misplaced_in_generalization_hierarchy := mt(
                     n="Attribute misplaced in generalization hierarchy", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
                         2: TextResponse(text="Can you think of a better place for this?"),
@@ -1007,7 +1008,7 @@ mts_by_priority: list[MistakeType] = [
     composed_part_contained_in_more_than_one_parent,
     using_attribute_instead_of_assoc,
     list_attribute,
-    attribute_misplaced_in_generalized_hierarchy,
+    attribute_misplaced_in_generalization_hierarchy,
     generalization_inapplicable,
     using_assoc_instead_of_composition,
     using_assoc_instead_of_aggregation,

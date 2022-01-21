@@ -1,8 +1,12 @@
 package ca.mcgill.sel.mistakedetection.tests.utils;
 
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_N_ARY_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_INAPPLICABLE;
 import static learningcorpus.mistaketypes.MistakeTypes.INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE_TYPE;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_N_ARY_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME;
@@ -82,16 +86,20 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
 
   /** Mistake types which are planned to be implemented in the future. */
   private static final Set<MistakeType> FUTURE_WORK_MISTAKE_TYPES = Set.of(
+      BAD_ASSOCIATION_NAME_SPELLING,
+      EXTRA_N_ARY_ASSOCIATION,
       GENERALIZATION_INAPPLICABLE,
-      SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME,
       INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS,
-      SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS,
-      USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC,
-      USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC,
-      USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC,
-      USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS,
+      MISSING_ASSOCIATION_NAME,
+      MISSING_ATTRIBUTE_TYPE,
+      MISSING_MULTIPLICITY,
       MISSING_N_ARY_ASSOCIATION,
-      EXTRA_N_ARY_ASSOCIATION);
+      SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS,
+      SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME,
+      USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC,
+      USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC,
+      USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC,
+      USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS);
 
 
   // Run the mistake detection tests in a static block to allow other classes to get data from this one
@@ -161,7 +169,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
 
   /** Returns the test completion status formatted for logging purposes. */
   public static String getFormattedTestCompletionStatus(Map<MistakeType, TestCompletionStatus> mistakeTypesToStatuses) {
-    return mistakeTypesToStatuses.entrySet().stream().map(e -> e.getValue().symbol + " " + e.getKey().getName())
+    return mistakeTypesToStatuses.entrySet().stream().map(e -> e.getValue().symbol + " " + e.getKey().getDescription())
         .collect(Collectors.joining("\n"));
   }
 

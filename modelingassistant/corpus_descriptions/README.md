@@ -4,7 +4,7 @@
       1. [Lowercase class name](#lowercase-class-name)
       1. [Software engineering term](#software-engineering-term)
       1. [Bad class name spelling](#bad-class-name-spelling)
-      1. [Wrong class name](#wrong-class-name)
+      1. [Wrong class name but correct attribute/relationship](#wrong-class-name-but-correct-attribute-relationship)
    1. [Enumeration mistakes](#enumeration-mistakes)
       1. [Regular class should be enumeration](#regular-class-should-be-enumeration)
       1. [Enumeration should be regular class](#enumeration-should-be-regular-class)
@@ -204,7 +204,7 @@ Level 4: Parametrized response:
 > The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}.
 
 
-#### Wrong class name
+#### Wrong class name but correct attribute/relationship
 
 Level 1: Highlight solution
 
