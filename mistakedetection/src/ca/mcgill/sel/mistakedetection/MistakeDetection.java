@@ -2582,8 +2582,11 @@ public class MistakeDetection {
       Association instructorClassAssoc, Comparison comparison) {
     if (spellingMistakeCheck(studentClassAssoc.getAssociationClass().getName(),
         instructorClassAssoc.getAssociationClass().getName())) {
-      if (isMistakeExist(BAD_CLASS_NAME_SPELLING, studentClassAssoc, comparison)) {
-        comparison.newMistakes.remove(getMistakeForElement(studentClassAssoc, BAD_CLASS_NAME_SPELLING, comparison));
+      if (isMistakeExist(BAD_CLASS_NAME_SPELLING, studentClassAssoc.getAssociationClass(), comparison)) {
+        Mistake m = getMistakeForElement(studentClassAssoc.getAssociationClass(), BAD_CLASS_NAME_SPELLING, comparison);
+        if(m != null) {
+          comparison.newMistakes.remove(m);
+        }
       }
       return Optional.of(createMistake(BAD_ASSOC_CLASS_NAME_SPELLING, studentClassAssoc.getAssociationClass(),
           instructorClassAssoc.getAssociationClass()));
@@ -2591,14 +2594,15 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-  public static Optional<Mistake> getMistakeForElement(NamedElement studentElement, MistakeType mistakeType,
+  /** Returns mistake for a element, if not found then returns Null. */
+  public static Mistake getMistakeForElement(NamedElement studentElement, MistakeType mistakeType,
       Comparison comparison) {
     for (var m : comparison.newMistakes) {
       if (m.getMistakeType().equals(mistakeType) && m.getStudentElements().get(0).getElement().equals(studentElement)) {
-        return Optional.of(m);
+        return m;
       }
     }
-    return Optional.empty();
+    return null;
   }
 
   public static Optional<Mistake> checkMistakeSimilarYetIncorrectAssociationClassName(Association studentClassAssoc,
