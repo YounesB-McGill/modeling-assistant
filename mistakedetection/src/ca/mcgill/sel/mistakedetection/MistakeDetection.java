@@ -78,6 +78,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_ASSOC_INST
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_GENERALIZATION_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_SUPERCLASS;
@@ -389,23 +390,43 @@ public class MistakeDetection {
       instructorGeneralizationClasses.addAll(classifiers);
     }
 
-    HashSet<Classifier> studentGeneralizationClasses =
-        new HashSet<Classifier>(comparison.studentSuperclassesToSubclasses.keySet());
-    for (var classifiers : comparison.studentSuperclassesToSubclasses.values()) {
-      studentGeneralizationClasses.addAll(classifiers);
-    }
-
     for (var instClass : instructorGeneralizationClasses) {
-      for (var studClass : studentGeneralizationClasses) {
-        if (studClass.equals(comparison.mappedClassifiers.get(instClass))) {
-          if (!studClass.getSuperTypes().isEmpty() && !instClass.getSuperTypes().isEmpty() && !studClass.getSuperTypes()
-              .get(0).equals(comparison.mappedClassifiers.get(instClass.getSuperTypes().get(0)))) {
-            // TODO Work in Progress.
-          }
+      if(!comparison.mappedClassifiers.containsKey(instClass) || instClass.getSuperTypes().isEmpty()) {
+        continue;
+      }
+     var studClass = comparison.mappedClassifiers.get(instClass);
+     if(studClass == null) {
+       continue;
+     }
+
+    if(studClass.getSuperTypes().isEmpty() || !studClass.getSuperTypes().get(0).equals(comparison.mappedClassifiers.get(instClass.getSuperTypes().get(0)))) {
+      if(!isAllSuperClassContained(getAllSuperClasses(studClass), getAllSuperClasses(instClass), comparison)) {
+        var studentClass = comparison.mappedClassifiers.get(instClass.getSuperTypes().get(0));
+        if(studentClass == null) {
+          continue;
+        }
+        if(getAllSuperClasses(studentClass).contains(studClass)){
+          comparison.newMistakes
+          .add(createMistake(WRONG_GENERALIZATION_DIRECTION, List.of(studClass, studentClass), List.of(instClass, instClass.getSuperTypes().get(0))));
         }
       }
     }
+    }
 
+  }
+
+  /** checks if all super classes of instructor class are present for student class */
+  private static boolean isAllSuperClassContained(List<Classifier> studSuperClasses, List<Classifier> instSuperClasses, Comparison comparison) {
+    int count = 0;
+    for(var instClass: instSuperClasses) {
+      if(studSuperClasses.contains(comparison.mappedClassifiers.get(instClass)) || comparison.notMappedInstructorClassifiers.contains(instClass)) {
+        count++;
+      }
+    }
+    if(instSuperClasses.size() == count) {
+      return true;
+    }
+    return false;
   }
 
   private static void checkMistakeExtraGeneralization(Comparison comparison) {
