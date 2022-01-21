@@ -62,6 +62,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_PR_PATTERN;
@@ -459,7 +460,7 @@ public class MistakeDetection {
     return false;
   }
 
-  /** Returns the root most superclass else returns the class itself.*/
+  /** Returns the root most superclass else returns the class itself. */
   private static Classifier getSuperClass(Classifier classifier) {
     Classifier superclass = classifier;
     while (!superclass.getSuperTypes().isEmpty()) {
@@ -890,9 +891,34 @@ public class MistakeDetection {
     }
     if (matchedElements == 0 && !totalMatchesExpected.isEmpty()) {
       comparison.newMistakes.add(createMistake(MISSING_AO_PATTERN, null, totalMatchesExpected));
+    } else if (matchedElements != 0 && totalMatchesExpected.size() == matchedElements) {
+      checkMistakeGenInsteadOfAssocInAOPattern(tg, comparison);
     } else if (matchedElements != 0 && totalMatchesExpected.size() != matchedElements) {
       createMistakeIncompleteAOPattern(tg, comparison);
     }
+  }
+
+  private static void checkMistakeGenInsteadOfAssocInAOPattern(TagGroup tg, Comparison comparison) {
+    Classifier instAbsClass = null;
+    Classifier instOccClass = null;
+    for (Tag tag : tg.getTags()) {
+      if (tag.getTagType().equals(ABSTRACTION)) {
+        instAbsClass = (Classifier) tag.getSolutionElement().getElement();
+      } else if (tag.getTagType().equals(OCCURRENCE)) {
+        instOccClass = (Classifier) tag.getSolutionElement().getElement();
+      }
+    }
+    Classifier studAbsClass = comparison.mappedClassifiers.get(instAbsClass);
+    Classifier studOccClass = comparison.mappedClassifiers.get(instOccClass);
+
+    if (!studOccClass.getSuperTypes().isEmpty() && studOccClass.getSuperTypes().get(0).equals(studAbsClass)) {
+      comparison.newMistakes.add(createMistake(SUBCLASS_SHOULD_BE_ASSOC_AO_PATTERN, List.of(studAbsClass, studOccClass),
+          List.of(instAbsClass, instOccClass)));
+    } else if (!studAbsClass.getSuperTypes().isEmpty() && studAbsClass.getSuperTypes().get(0).equals(studOccClass)) {
+      comparison.newMistakes.add(createMistake(SUBCLASS_SHOULD_BE_ASSOC_AO_PATTERN, List.of(studAbsClass, studOccClass),
+          List.of(instAbsClass, instOccClass)));
+    }
+
   }
 
   private static void checkStudentEnumPattern(TagGroup tg, Comparison comparison, String instPattern,
@@ -2556,7 +2582,7 @@ public class MistakeDetection {
       Association instructorClassAssoc, Comparison comparison) {
     if (spellingMistakeCheck(studentClassAssoc.getAssociationClass().getName(),
         instructorClassAssoc.getAssociationClass().getName())) {
-      if(isMistakeExist(BAD_CLASS_NAME_SPELLING, studentClassAssoc, comparison)) {
+      if (isMistakeExist(BAD_CLASS_NAME_SPELLING, studentClassAssoc, comparison)) {
         comparison.newMistakes.remove(getMistakeForElement(studentClassAssoc, BAD_CLASS_NAME_SPELLING, comparison));
       }
       return Optional.of(createMistake(BAD_ASSOC_CLASS_NAME_SPELLING, studentClassAssoc.getAssociationClass(),
@@ -2565,14 +2591,14 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-  private static Optional<Mistake> getMistakeForElement(NamedElement studentElement, MistakeType mistakeType,
+  public static Optional<Mistake> getMistakeForElement(NamedElement studentElement, MistakeType mistakeType,
       Comparison comparison) {
-    for(var m : comparison.newMistakes) {
-      if(m.getMistakeType().equals(mistakeType) && m.getStudentElements().get(0).getElement().equals(studentElement)) {
+    for (var m : comparison.newMistakes) {
+      if (m.getMistakeType().equals(mistakeType) && m.getStudentElements().get(0).getElement().equals(studentElement)) {
         return Optional.of(m);
       }
     }
-   return Optional.empty();
+    return Optional.empty();
   }
 
   public static Optional<Mistake> checkMistakeSimilarYetIncorrectAssociationClassName(Association studentClassAssoc,
