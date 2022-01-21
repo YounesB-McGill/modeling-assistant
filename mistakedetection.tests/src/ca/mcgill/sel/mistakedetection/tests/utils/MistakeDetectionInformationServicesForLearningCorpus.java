@@ -157,8 +157,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
 
   /** Returns a mapping from mistake types to their test completion status. */
   public static Map<MistakeType, TestCompletionStatus> getTestCompletionStatusByMistakeType() {
-    var doneMistakeTypes = Comparison.instances.stream().map(comp -> comp.newMistakes).flatMap(List::stream)
-        .map(Mistake::getMistakeType).collect(Collectors.toUnmodifiableSet());
+    var doneMistakeTypes = allMistakes().map(Mistake::getMistakeType).collect(Collectors.toUnmodifiableSet());
     return MistakeTypes.MISTAKE_TYPES_BY_NAME.values().stream().collect(Collectors.toMap(
         Function.identity(),
         mt -> doneMistakeTypes.contains(mt) ? TestCompletionStatus.DONE : (FUTURE_WORK_MISTAKE_TYPES.contains(mt) ?
@@ -176,12 +175,11 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   /** Maps comparison mistakes to CDM metatypes. */
   public static Map<MistakeType, Set<EClass>> mapMistakesToCdmMetatypes(
       Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer) {
-    return Comparison.instances.stream().map(comp -> comp.newMistakes).flatMap(List::stream)
-        .collect(Collectors.toMap(Mistake::getMistakeType,
-            m -> mistakeSolutionElementsStreamer.apply(m).map(e -> e.getElement().eClass())
-                .collect(Collectors.toUnmodifiableSet()), // TODO Update on Java 17+
-            (v1, v2) -> Stream.of(v1, v2).flatMap(Set::stream).collect(Collectors.toUnmodifiableSet()),
-            TreeMap::new));
+    return allMistakes().collect(Collectors.toMap(Mistake::getMistakeType,
+        m -> mistakeSolutionElementsStreamer.apply(m).map(e -> e.getElement().eClass())
+            .collect(Collectors.toUnmodifiableSet()), // TODO Update on Java 17+
+        (v1, v2) -> Stream.of(v1, v2).flatMap(Set::stream).collect(Collectors.toUnmodifiableSet()), // set union
+        TreeMap::new));
   }
 
   /** Maps comparison mistakes to learning corpus ElementTypes. */
@@ -276,6 +274,14 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     return "Summary:\n" + Arrays.stream(TestCompletionStatus.values()).map(s ->
         s.symbol + " " + Collections.frequency(mistakeTypesToStatuses.values(), s) + " " + s.getFormattedName())
         .collect(Collectors.joining("\n")) + "\nTotal: " + mistakeTypesToStatuses.size();
+  }
+
+  /**
+   * Returns all the mistakes from all comparison objects created during the mistake detection tests as a flat stream,
+   * useful for iteration.
+   */
+  private static Stream<Mistake> allMistakes() {
+    return Comparison.instances.stream().map(comp -> comp.newMistakes).flatMap(List::stream);
   }
 
   /** Cleans and underscorifies the given string. */
