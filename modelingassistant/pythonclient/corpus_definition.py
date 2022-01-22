@@ -184,6 +184,48 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             })),
         ],
         subcategories=[
+            attribute_name_mistakes := mtc(n="Attribute name mistakes", mistakeTypes=[
+                bad_attribute_name_spelling := mt(n="Bad attribute name spelling", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Double check this attribute name."),
+                    3: ParametrizedResponse(
+                        text="${wrongAttribute} is misspelled. [Use the same spelling as the problem description.]"),
+                    4: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+                uppercase_attribute_name := mt(n="Uppercase attribute name", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: [TextResponse(text="Remember that attributes are written in `lowerCamelCase`."),
+                        TextResponse(text="Can this attribute be renamed?")],
+                    3: ParametrizedResponse(text="${wrongAttribute} incorrectly starts with an Uppercase Letter. "
+                        "Attributes should start with a lowercase letter."),
+                    4: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+            ]),
+            attribute_in_wrong_class_mistakes := mtc(n="Attribute in wrong class mistakes", mistakeTypes=[
+                attribute_misplaced := mt(n="Attribute misplaced", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Can you think of a better place for this attribute?"),
+                    3: ParametrizedResponse(text="The ${misplacedAttribute} does not belong in the ${wrongClass} "
+                        "class. Where else can we place it?"),
+                    4: ParametrizedResponse(text="The ${misplacedAttribute} belongs in the ${correctClass} class."),
+                    5: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+                attribute_duplicated := mt(n="Attribute duplicated", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Are you sure this is needed?"),
+                    3: TextResponse(text="Does this need to be included more than once?"),
+                    4: ParametrizedResponse(text="The ${duplicateAttribute} already exists in ${correctClass}, "
+                        "so there is no need to include it again."),
+                    5: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+                attribute_misplaced_in_generalization_hierarchy := mt(
+                    n="Attribute misplaced in generalization hierarchy", feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Can you think of a better place for this?"),
+                        3: ParametrizedResponse(text="The ${misplacedAttribute} belongs in ${correctClass}."),
+                        4: ResourceResponse(learningResources=[attribute_reference]),
+                    })),
+            ]),
             extra_attribute_mistakes := mtc(n="Extra attribute mistakes", mistakeTypes=[
                 plural_attribute := mt(n="Plural attribute", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
@@ -217,48 +259,6 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                             "to the given problem description.")],
                     4: ResourceResponse(learningResources=[attribute_reference]),
                 })),
-            ]),
-            attribute_name_mistakes := mtc(n="Attribute name mistakes", mistakeTypes=[
-                bad_attribute_name_spelling := mt(n="Bad attribute name spelling", feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Double check this attribute name."),
-                    3: ParametrizedResponse(
-                        text="${wrongAttribute} is misspelled. [Use the same spelling as the problem description.]"),
-                    4: ResourceResponse(learningResources=[attribute_reference]),
-                })),
-                uppercase_attribute_name := mt(n="Uppercase attribute name", feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
-                    2: [TextResponse(text="Remember that attributes are written in `lowerCamelCase`."),
-                        TextResponse(text="Can this attribute be renamed?")],
-                    3: ParametrizedResponse(text="${wrongAttribute} incorrectly starts with an Uppercase Letter. "
-                        "Attributes should start with a lowercase letter."),
-                    4: ResourceResponse(learningResources=[attribute_reference]),
-                })),
-            ]),
-            attribute_in_wrong_class := mtc(n="Attribute in wrong class mistakes", mistakeTypes=[
-                attribute_misplaced := mt(n="Attribute misplaced", feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Can you think of a better place for this attribute?"),
-                    3: ParametrizedResponse(text="The ${misplacedAttribute} does not belong in the ${wrongClass} "
-                        "class. Where else can we place it?"),
-                    4: ParametrizedResponse(text="The ${misplacedAttribute} belongs in the ${correctClass} class."),
-                    5: ResourceResponse(learningResources=[attribute_reference]),
-                })),
-                attribute_duplicated := mt(n="Attribute duplicated", feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Are you sure this is needed?"),
-                    3: TextResponse(text="Does this need to be included more than once?"),
-                    4: ParametrizedResponse(text="The ${duplicateAttribute} already exists in ${correctClass}, "
-                        "so there is no need to include it again."),
-                    5: ResourceResponse(learningResources=[attribute_reference]),
-                })),
-                attribute_misplaced_in_generalization_hierarchy := mt(
-                    n="Attribute misplaced in generalization hierarchy", feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Can you think of a better place for this?"),
-                        3: ParametrizedResponse(text="The ${misplacedAttribute} belongs in ${correctClass}."),
-                        4: ResourceResponse(learningResources=[attribute_reference]),
-                    })),
             ]),
         ]
     ),

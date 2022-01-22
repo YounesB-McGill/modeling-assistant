@@ -51,15 +51,15 @@ public class MistakeTypes {
   /** The category for enumeration mistakes. */
   public static final MistakeTypeCategory ENUMERATION_MISTAKES = MTCS.get("Enumeration mistakes");
 
-  /** The category for extra attribute mistakes. */
-  public static final MistakeTypeCategory EXTRA_ATTRIBUTE_MISTAKES = MTCS.get("Extra attribute mistakes");
-
   /** The category for attribute name mistakes. */
   public static final MistakeTypeCategory ATTRIBUTE_NAME_MISTAKES = MTCS.get("Attribute name mistakes");
 
   /** The category for attribute in wrong class mistakes. */
   public static final MistakeTypeCategory ATTRIBUTE_IN_WRONG_CLASS_MISTAKES =
       MTCS.get("Attribute in wrong class mistakes");
+
+  /** The category for extra attribute mistakes. */
+  public static final MistakeTypeCategory EXTRA_ATTRIBUTE_MISTAKES = MTCS.get("Extra attribute mistakes");
 
   /** The category for missing association/aggregation mistakes. */
   public static final MistakeTypeCategory MISSING_ASSOCIATION_AGGREGATION_MISTAKES =
@@ -159,15 +159,6 @@ public class MistakeTypes {
   /** The bad enumeration item spelling mistake type. */
   public static final MistakeType BAD_ENUM_ITEM_SPELLING = MTS.get("Bad enum item spelling");
 
-  /** The plural attribute mistake type. */
-  public static final MistakeType PLURAL_ATTRIBUTE = MTS.get("Plural attribute");
-
-  /** The list attribute mistake type. */
-  public static final MistakeType LIST_ATTRIBUTE = MTS.get("List attribute");
-
-  /** The extra attribute mistake type. */
-  public static final MistakeType EXTRA_ATTRIBUTE = MTS.get("Extra attribute");
-
   /** The bad attribute name spelling mistake type. */
   public static final MistakeType BAD_ATTRIBUTE_NAME_SPELLING = MTS.get("Bad attribute name spelling");
 
@@ -183,6 +174,15 @@ public class MistakeTypes {
   /** The attribute misplaced in generalization hierarchy mistake type. */
   public static final MistakeType ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY =
       MTS.get("Attribute misplaced in generalization hierarchy");
+
+  /** The plural attribute mistake type. */
+  public static final MistakeType PLURAL_ATTRIBUTE = MTS.get("Plural attribute");
+
+  /** The list attribute mistake type. */
+  public static final MistakeType LIST_ATTRIBUTE = MTS.get("List attribute");
+
+  /** The extra attribute mistake type. */
+  public static final MistakeType EXTRA_ATTRIBUTE = MTS.get("Extra attribute");
 
   /** The missing association mistake type. */
   public static final MistakeType MISSING_ASSOCIATION = MTS.get("Missing association");

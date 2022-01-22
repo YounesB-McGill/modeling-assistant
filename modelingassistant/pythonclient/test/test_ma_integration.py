@@ -113,7 +113,7 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     assert len(ma.solutions) >= 2
 
     # Step 6
-    assert feedback.highlight
+    assert feedback.highlightSolutionElements
     # more strict checks possible after WebCORE is completed
     print(feedback)
     assert bad_cls_id in feedback.solutionElements
@@ -122,7 +122,7 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     airplane_id = student.create_class("Airplane")
     feedback = student.request_feedback()
 
-    assert feedback.highlight  # Airplane not contained in Root class
+    assert feedback.highlightSolutionElements  # Airplane not contained in Root class
     assert set(feedback.solutionElements) == {bad_cls_id, airplane_id}  # both should be highlighted
 
     # Step 11
@@ -130,7 +130,7 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     # It should be possible to delete bad_cls_id without any errors,
     # and it should be possible to make Airplane contained in the Root class once WebCORE supports this feature
 
-    # assert not feedback.highlight
+    # assert not feedback.highlightSolutionElements
     # assert not feedback.solutionElements
     # assert "no mistakes" in feedback.writtenFeedback.lower()
 

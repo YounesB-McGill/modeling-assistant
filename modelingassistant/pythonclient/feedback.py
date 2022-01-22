@@ -34,7 +34,8 @@ class FeedbackTO:
     solutionElements: list[str] = field(default_factory=list)  # to avoid mutable default value
     instructorElements: list[str] = field(default_factory=list)
     problemStatementElements: list[str] = field(default_factory=list)
-    highlight: bool = False  # TODO split into 2 bools (solutionElements, problemStatementElements)
+    highlightProblemStatementElements: bool = False
+    highlightSolutionElements: bool = False
     grade: float = 0.0
     writtenFeedback: str = ""
 
@@ -175,7 +176,8 @@ def give_feedback_for_student_cdm(
         solutionElements=[e.element._internal_id for e in fb.mistake.studentElements],
         instructorElements=[e.element._internal_id for e in fb.mistake.instructorElements],
         problemStatementElements=[], #[pse._internal_id for e in fb.mistake.instructorElements for pse in e],
-        highlight=fb.feedback.highlightProblem or fb.feedback.highlightSolution,
+        highlightProblemStatementElements=fb.feedback.highlightProblem,
+        highlightSolutionElements=fb.feedback.highlightSolution,
         grade=0.0,  # for now
         writtenFeedback=fb.text or fb.feedback.text or "")
 

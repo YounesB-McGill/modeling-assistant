@@ -18,10 +18,6 @@
    1. [Extra class](#extra-class)
 
 1. [Attribute mistakes](#attribute-mistakes)
-   1. [Extra attribute mistakes](#extra-attribute-mistakes)
-      1. [Plural attribute](#plural-attribute)
-      1. [List attribute](#list-attribute)
-      1. [Extra attribute](#extra-attribute)
    1. [Attribute name mistakes](#attribute-name-mistakes)
       1. [Bad attribute name spelling](#bad-attribute-name-spelling)
       1. [Uppercase attribute name](#uppercase-attribute-name)
@@ -29,6 +25,10 @@
       1. [Attribute misplaced](#attribute-misplaced)
       1. [Attribute duplicated](#attribute-duplicated)
       1. [Attribute misplaced in generalization hierarchy](#attribute-misplaced-in-generalization-hierarchy)
+   1. [Extra attribute mistakes](#extra-attribute-mistakes)
+      1. [Plural attribute](#plural-attribute)
+      1. [List attribute](#list-attribute)
+      1. [Extra attribute](#extra-attribute)
    1. [Missing attribute](#missing-attribute)
    1. [Wrong attribute type](#wrong-attribute-type)
    1. [Missing attribute type](#missing-attribute-type)
@@ -423,85 +423,6 @@ Level 5: Resource response with Reference:
 
 ## Attribute mistakes
 
-### Extra attribute mistakes
-
-#### Plural attribute
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Double check this attribute name.
-
-Level 3: Parametrized response:
-
-> The ${attributeName} attribute should be singular.
-
-Level 4: Resource response with Quiz:
-
-> Pick the classes which are modeled correctly with Umple.
-
-- [ ] class Student { courses; }
-- [ ] class Folder { List<File> files; }
-- [ ] class Restaurant { 1 -- * Employee; }
-
-Level 5: Resource response with Reference:
-
-> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
-
-
-#### List attribute
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Is there a better way to model this concept?
-
-Level 3: Text response:
-
-> Remember that attributes are simple pieces of data.
-
-Level 4: Parametrized response:
-
-> ${attributeName} should be modeled as an association instead.
-
-Level 5: Resource response with Quiz:
-
-> Pick the classes which are modeled correctly with Umple.
-
-- [ ] class Student { courses; }
-- [ ] class Folder { List<File> files; }
-- [ ] class Restaurant { 1 -- * Employee; }
-
-Level 6: Resource response with Reference:
-
-> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
-
-
-#### Extra attribute
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Do we really need to model this concept?
-
-Level 3: Parametrized response:
-
-> The ${redundantAttribute} in the ${className} class is not needed.
-
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
-
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
-
-Level 4: Resource response with Reference:
-
-> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
-
-
 ### Attribute name mistakes
 
 #### Bad attribute name spelling
@@ -597,6 +518,85 @@ Level 2: Text response:
 Level 3: Parametrized response:
 
 > The ${misplacedAttribute} belongs in ${correctClass}.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+### Extra attribute mistakes
+
+#### Plural attribute
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Double check this attribute name.
+
+Level 3: Parametrized response:
+
+> The ${attributeName} attribute should be singular.
+
+Level 4: Resource response with Quiz:
+
+> Pick the classes which are modeled correctly with Umple.
+
+- [ ] class Student { courses; }
+- [ ] class Folder { List<File> files; }
+- [ ] class Restaurant { 1 -- * Employee; }
+
+Level 5: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+#### List attribute
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Is there a better way to model this concept?
+
+Level 3: Text response:
+
+> Remember that attributes are simple pieces of data.
+
+Level 4: Parametrized response:
+
+> ${attributeName} should be modeled as an association instead.
+
+Level 5: Resource response with Quiz:
+
+> Pick the classes which are modeled correctly with Umple.
+
+- [ ] class Student { courses; }
+- [ ] class Folder { List<File> files; }
+- [ ] class Restaurant { 1 -- * Employee; }
+
+Level 6: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+#### Extra attribute
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Do we really need to model this concept?
+
+Level 3: Parametrized response:
+
+> The ${redundantAttribute} in the ${className} class is not needed.
+
+
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
+
+
+> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
 Level 4: Resource response with Reference:
 
