@@ -16,6 +16,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
 import java.io.PrintWriter;
+import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -122,7 +123,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       getFormattedTestCompletionStatus(testCompletionStatusByMistakeType),
       overallTestCompletionStatistics(testCompletionStatusByMistakeType),
 
-      title("Mistake type mapping to CDM Metatypes"),
+      title("Mistake type mapping to instructor/student CDM elements"),
       // getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorElems)),
       // getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(studentElems)),
       getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorAndStudentElems)),
@@ -175,9 +176,10 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   }
 
   /** Maps comparison mistakes to CDM metatypes. */
-  public static Map<MistakeType, Set<EClass>> mapMistakesToCdmMetatypes(
+  public static Map<MistakeType, Set<SimpleImmutableEntry<EClass, Boolean>>> mapMistakesToCdmMetatypes(
       Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer) {
-    return mapMistakesTo(mistakeSolutionElementsStreamer, e -> e.getElement().eClass());
+    return mapMistakesTo(mistakeSolutionElementsStreamer, e ->
+        new SimpleImmutableEntry<>(e.getElement().eClass(), hasStudent(e)));
   }
 
   /** Maps comparison mistakes to learning corpus ElementTypes. */
@@ -194,7 +196,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   /** Generates Pyecore-compatible code to generate the learning corpus. This can be improved. */
   public static PythonLearningCorpusInitializationCode generatePythonLearningCorpusInitializationCode() {
     var mistakesToTypes = mapMistakesToLearningCorpusElementTypes(instructorAndStudentElems);
-    var<ElementType, Set> typesToMistakes = new TreeMap<ElementType, Set<MistakeType>>();
+    var typesToMistakes = new TreeMap<ElementType, Set<MistakeType>>();
     mistakesToTypes.forEach((m, types) -> types.forEach(t -> {
       if (typesToMistakes.containsKey(t)) {
         typesToMistakes.get(t).add(m);
@@ -211,9 +213,9 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       mistakes.forEach(mistake -> {
         var m = underscorify(mistake.getName());
         if (learningItems.length() - learningItems.lastIndexOf("\n") + m.length() + 2 <= MAX_LINE_LENGTH) {
-          learningItems.append(m + ", ");
+          learningItems.append(m + ", "); // MAX_LINE_LENGTH not exceeded, so append to same line
         } else {
-          learningItems.deleteCharAt(learningItems.lastIndexOf(" ")).append("\n    " + m + ", ");
+          learningItems.deleteCharAt(learningItems.lastIndexOf(" ")).append("\n    " + m + ", "); // append to next line
         }
         if (imports.indexOf(m + ",") == -1) { // not found according to StringBuilder API
           if (imports.length() - imports.lastIndexOf("\n") + m.length() + 2 <= MAX_LINE_LENGTH) {
@@ -236,9 +238,11 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
    *
    * {@code mistakeType.name: type1, type2, ...}
    */
-  public static String getCdmMetatypeMappingAsCsv(Map<MistakeType, Set<EClass>> mapping) {
+  public static String getCdmMetatypeMappingAsCsv(Map<MistakeType,
+      Set<SimpleImmutableEntry<EClass, Boolean>>> mapping) {
     return mapping.entrySet().stream().map(e ->
-        e.getKey().getName() + ": " + String.join(", ", e.getValue().stream().map(EClass::getName)
+        e.getKey().getName() + ": " + String.join(", ", e.getValue().stream()
+            .map(p -> (p.getValue() ? "Student" : "Instructor") + " " + p.getKey().getName())
             .collect(Collectors.toUnmodifiableList()))).collect(Collectors.joining("\n"));
   }
 
@@ -287,6 +291,11 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   /** Returns true if the association has an end with the given type. */
   private static boolean cdmAssociationIs(Association assoc, ReferenceType type) {
     return assoc.getEnds().stream().map(AssociationEnd::getReferenceType).anyMatch(t -> t == type);
+  }
+
+  /** Returns true if the association has an end with the given type. */
+  private static boolean hasStudent(SolutionElement e) {
+    return e.getSolution().getStudent() != null;
   }
 
   /** Maps comparison mistakes based on the input mistakeStudentElementTransformation. */
