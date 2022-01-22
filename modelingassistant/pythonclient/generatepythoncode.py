@@ -21,7 +21,7 @@ def generate_pyecore():
     # TODO Add automatic code generation for the now external "classdiagram.ecore" metamodel
     pyecoregen_cmd = lambda mdl: f"""pyecoregen -e {mdl
                                   } -o modelingassistant/pythonclient --with-dependencies"""
-    metamodel_names = ["learningcorpus", "modelingassistant"]
+    metamodel_names = ["learningcorpus", "learningcorpusquiz", "modelingassistant"]
     for mm in metamodel_names:
         os.system(pyecoregen_cmd(f"modelingassistant/model/{mm}.ecore"))
 
