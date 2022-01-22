@@ -111,10 +111,6 @@ public class MistakeTypes {
   /** The extra class mistake type. */
   public static final MistakeType EXTRA_CLASS = MTS.get("Extra class");
 
-  /** The using n-ary association instead of intermediate class mistake type. */
-  public static final MistakeType USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS =
-      MTS.get("Using n-ary assoc instead of intermediate class");
-
   /** The missing attribute mistake type. */
   public static final MistakeType MISSING_ATTRIBUTE = MTS.get("Missing attribute");
 
@@ -247,6 +243,10 @@ public class MistakeTypes {
   /** The using intermediate class instead of n-ary association mistake type. */
   public static final MistakeType USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC =
       MTS.get("Using intermediate class instead of n-ary assoc");
+
+  /** The using n-ary association instead of intermediate class mistake type. */
+  public static final MistakeType USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS =
+      MTS.get("Using n-ary assoc instead of intermediate class");
 
   /** The missing association name mistake type. */
   public static final MistakeType MISSING_ASSOCIATION_NAME = MTS.get("Missing association name");

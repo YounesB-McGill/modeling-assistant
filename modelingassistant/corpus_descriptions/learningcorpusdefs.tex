@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus script.
-% Generation time: 2022-01-22 00:02:04
+% Generation time: 2022-01-22 00:35:49
 
 \section{Class mistakes}
 
@@ -426,29 +426,6 @@ Please review the \textit{Classes} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
 
-\subsection{Using n-ary association instead of intermediate class}
-
-\noindent Level 1: Highlight solution  \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Is this the best way to model this concept?
-\end{tabular} \medskip
-
-\noindent Level 3: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Use an intermediate class instead of an n-ary association.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-TODO
-\end{tabular} \medskip
-
-
 
 \section{Attribute mistakes}
 
@@ -464,10 +441,10 @@ TODO
 Double check this attribute name.
 \end{tabular} \medskip
 
-\noindent Level 3: Text response: \medskip
+\noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-This attribute should be singular.
+The \verb|${attributeName}| attribute should be singular.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -509,7 +486,7 @@ Remember that attributes are simple pieces of data.
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${includingClass.attributeName}| should be modeled as an association instead.
+\verb|${attributeName}| should be modeled as an association instead.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Quiz: \medskip
@@ -635,7 +612,13 @@ Can you think of a better place for this attribute?
 The \verb|${misplacedAttribute}| does not belong in the \verb|${wrongClass}| class. Where else can we place it?
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Reference: \medskip
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The \verb|${misplacedAttribute}| belongs in the \verb|${correctClass}| class.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Class Diagram lecture.
@@ -736,7 +719,7 @@ Can you think of a better type for \verb|${attribute}|?
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${className}|.\verb|${attribute}| is not of type \verb|${attribute.type}| because \verb|${mistakeType.reason}|.
+The \verb|${className}|.\verb|${attribute}| should be of type \verb|${correctType}|.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -750,16 +733,16 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 \noindent Level 1: Highlight solution  \medskip
 
-\noindent Level 2: Text response: \medskip
+\noindent Level 2: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-This attribute is missing something.
+The \verb|${attribute}| attribute is missing something.
 \end{tabular} \medskip
 
-\noindent Level 3: Text response: \medskip
+\noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-What is the type of this attribute?
+What is the type of the \verb|${attribute}| attribute?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1253,6 +1236,29 @@ Can you model this relationship in a different way?
 
 \begin{tabular}{|p{0.9\linewidth}}
 Use a \verb|${n}|-ary association to represent this relationship.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the \textit{Association} part of the Class Diagram lecture.
+\end{tabular} \medskip
+
+
+\noindent \textbf{Using n-ary association instead of intermediate class} \medskip
+
+\noindent Level 1: Highlight solution  \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Is this the best way to model this concept?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Use an intermediate class instead of an n-ary association.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip

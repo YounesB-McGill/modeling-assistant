@@ -32,15 +32,6 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         "interfaces or databases, like Window, Database, etc.")],
                 5: ResourceResponse(learningResources=[class_ref]),
             })),
-            using_nary_assoc_instead_of_intermediate_class := mt(
-                n="Using n-ary assoc instead of intermediate class",
-                d="Using n-ary association instead of intermediate class",
-                feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Is this the best way to model this concept?"),
-                    3: TextResponse(text="Use an intermediate class instead of an n-ary association."),
-                    4: ResourceResponse(learningResources=[Reference(content="TODO")]),  # TODO Add reference content
-                })),
         ],
         subcategories=[
             class_name_mistakes := mtc(n="Class name mistakes", mistakeTypes=[
@@ -168,15 +159,13 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check the properties of this attribute."),
                 3: ParametrizedResponse(text="Can you think of a better type for ${attribute}?"),
-                # Only offered in cases where a reason can be determined, eg not a simple data type
-                4: ParametrizedResponse(text="The ${className}.${attribute} is not of type ${attribute.type} because "
-                    "${mistakeType.reason}."),
+                4: ParametrizedResponse(text="The ${className}.${attribute} should be of type ${correctType}."),
                 5: ResourceResponse(learningResources=[attribute_reference]),
             })),
             missing_attribute_type := mt(n="Missing attribute type", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
-                2: TextResponse(text="This attribute is missing something."),
-                3: TextResponse(text="What is the type of this attribute?"),
+                2: ParametrizedResponse(text="The ${attribute} attribute is missing something."),
+                3: ParametrizedResponse(text="What is the type of the ${attribute} attribute?"),
                 4: ResourceResponse(learningResources=[attribute_reference]),
             })),
             attribute_should_be_static := mt(n="Attribute should be static", feedbacks=fbs({
@@ -199,7 +188,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 plural_attribute := mt(n="Plural attribute", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this attribute name."),
-                    3: TextResponse(text="This attribute should be singular."),
+                    3: ParametrizedResponse(text="The ${attributeName} attribute should be singular."),
                     4: ResourceResponse(learningResources=[attribute_quiz := Quiz(content=dedent("""\
                         Pick the classes which are modeled correctly with Umple.
                     
@@ -213,7 +202,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(text="Is there a better way to model this concept?"),
                     3: TextResponse(text="Remember that attributes are simple pieces of data."),
                     4: ParametrizedResponse(
-                        text="${includingClass.attributeName} should be modeled as an association instead."),
+                        text="${attributeName} should be modeled as an association instead."),
                     5: ResourceResponse(learningResources=[attribute_quiz]),
                     6: ResourceResponse(learningResources=[attribute_reference]),
                 })),
@@ -252,7 +241,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(text="Can you think of a better place for this attribute?"),
                     3: ParametrizedResponse(text="The ${misplacedAttribute} does not belong in the ${wrongClass} "
                         "class. Where else can we place it?"),
-                    4: ResourceResponse(learningResources=[attribute_reference]),
+                    4: ParametrizedResponse(text="The ${misplacedAttribute} belongs in the ${correctClass} class."),
+                    5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 attribute_duplicated := mt(n="Attribute duplicated", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
@@ -433,6 +423,15 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         1: Feedback(highlightSolution=True),
                         2: TextResponse(text="Can you model this relationship in a different way?"),
                         3: ParametrizedResponse(text="Use a ${n}-ary association to represent this relationship."),
+                        4: ResourceResponse(learningResources=[assoc_ref]),
+                    })),
+                using_nary_assoc_instead_of_intermediate_class := mt(
+                    n="Using n-ary assoc instead of intermediate class",
+                    d="Using n-ary association instead of intermediate class",
+                    feedbacks=fbs({
+                        1: Feedback(highlightSolution=True),
+                        2: TextResponse(text="Is this the best way to model this concept?"),
+                        3: TextResponse(text="Use an intermediate class instead of an n-ary association."),
                         4: ResourceResponse(learningResources=[assoc_ref]),
                     })),
             ]),

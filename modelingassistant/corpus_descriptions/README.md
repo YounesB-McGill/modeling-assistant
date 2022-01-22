@@ -16,7 +16,6 @@
       1. [Bad enumeration item spelling](#bad-enumeration-item-spelling)
    1. [Missing class](#missing-class)
    1. [Extra class](#extra-class)
-   1. [Using n-ary association instead of intermediate class](#using-n-ary-association-instead-of-intermediate-class)
 
 1. [Attribute mistakes](#attribute-mistakes)
    1. [Extra attribute mistakes](#extra-attribute-mistakes)
@@ -57,6 +56,7 @@
          1. [Using binary association instead of n-ary association](#using-binary-association-instead-of-n-ary-association)
          1. [Using n-ary association instead of binary association](#using-n-ary-association-instead-of-binary-association)
          1. [Using intermediate class instead of n-ary association](#using-intermediate-class-instead-of-n-ary-association)
+         1. [Using n-ary association instead of intermediate class](#using-n-ary-association-instead-of-intermediate-class)
       1. [Association name mistakes](#association-name-mistakes)
          1. [Missing association name](#missing-association-name)
          1. [Bad association name spelling](#bad-association-name-spelling)
@@ -422,23 +422,6 @@ Level 5: Resource response with Reference:
 > Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
-### Using n-ary association instead of intermediate class
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Is this the best way to model this concept?
-
-Level 3: Text response:
-
-> Use an intermediate class instead of an n-ary association.
-
-Level 4: Resource response with Reference:
-
-> TODO
-
-
 
 ## Attribute mistakes
 
@@ -452,9 +435,9 @@ Level 2: Text response:
 
 > Double check this attribute name.
 
-Level 3: Text response:
+Level 3: Parametrized response:
 
-> This attribute should be singular.
+> The ${attributeName} attribute should be singular.
 
 Level 4: Resource response with Quiz:
 
@@ -483,7 +466,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> ${includingClass.attributeName} should be modeled as an association instead.
+> ${attributeName} should be modeled as an association instead.
 
 Level 5: Resource response with Quiz:
 
@@ -575,7 +558,11 @@ Level 3: Parametrized response:
 
 > The ${misplacedAttribute} does not belong in the ${wrongClass} class. Where else can we place it?
 
-Level 4: Resource response with Reference:
+Level 4: Parametrized response:
+
+> The ${misplacedAttribute} belongs in the ${correctClass} class.
+
+Level 5: Resource response with Reference:
 
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
@@ -649,7 +636,7 @@ Level 3: Parametrized response:
 
 Level 4: Parametrized response:
 
-> The ${className}.${attribute} is not of type ${attribute.type} because ${mistakeType.reason}.
+> The ${className}.${attribute} should be of type ${correctType}.
 
 Level 5: Resource response with Reference:
 
@@ -660,13 +647,13 @@ Level 5: Resource response with Reference:
 
 Level 1: Highlight solution
 
-Level 2: Text response:
+Level 2: Parametrized response:
 
-> This attribute is missing something.
+> The ${attribute} attribute is missing something.
 
-Level 3: Text response:
+Level 3: Parametrized response:
 
-> What is the type of this attribute?
+> What is the type of the ${attribute} attribute?
 
 Level 4: Resource response with Reference:
 
@@ -1032,6 +1019,23 @@ Level 2: Text response:
 Level 3: Parametrized response:
 
 > Use a ${n}-ary association to represent this relationship.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+##### Using n-ary association instead of intermediate class
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Is this the best way to model this concept?
+
+Level 3: Text response:
+
+> Use an intermediate class instead of an n-ary association.
 
 Level 4: Resource response with Reference:
 

@@ -43,7 +43,6 @@ ABSTRACTION_OCCURRENCE_PATTERN_MISTAKES: MistakeTypeCategory = _MTCS["Abstractio
 # Mistake types
 MISSING_CLASS: MistakeType = _MTS["Missing class"]
 EXTRA_CLASS: MistakeType = _MTS["Extra class"]
-USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS: MistakeType = _MTS["Using n-ary assoc instead of intermediate class"]
 MISSING_ATTRIBUTE: MistakeType = _MTS["Missing attribute"]
 WRONG_ATTRIBUTE_TYPE: MistakeType = _MTS["Wrong attribute type"]
 MISSING_ATTRIBUTE_TYPE: MistakeType = _MTS["Missing attribute type"]
@@ -88,6 +87,7 @@ USING_COMPOSITION_INSTEAD_OF_AGGREGATION: MistakeType = _MTS["Using composition 
 USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC: MistakeType = _MTS["Using binary assoc instead of n-ary assoc"]
 USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC: MistakeType = _MTS["Using n-ary assoc instead of binary assoc"]
 USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC: MistakeType = _MTS["Using intermediate class instead of n-ary assoc"]
+USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS: MistakeType = _MTS["Using n-ary assoc instead of intermediate class"]
 MISSING_ASSOCIATION_NAME: MistakeType = _MTS["Missing association name"]
 BAD_ASSOCIATION_NAME_SPELLING: MistakeType = _MTS["Bad association name spelling"]
 INFINITE_RECURSIVE_DEPENDENCY: MistakeType = _MTS["Infinite recursive dependency"]
