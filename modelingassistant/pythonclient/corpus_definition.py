@@ -6,8 +6,8 @@ The actual corpus initialization is done in the corpus.py file.
 """
 
 from textwrap import dedent
-from learningcorpus.learningcorpus import (Example, Feedback, LearningCorpus, MistakeType, ParametrizedResponse,
-    Quiz, Reference, ResourceResponse, TextResponse)
+from learningcorpus import (Example, Feedback, LearningCorpus, MistakeType, ParametrizedResponse, Quiz, Reference,
+                            ResourceResponse, TextResponse)
 from utils import mtc, mt, fbs
 
 
@@ -171,14 +171,14 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             attribute_should_be_static := mt(n="Attribute should be static", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Isn't there something special about this attribute?"),
-                3: ParametrizedResponse(text="${includingClass.attributeName} should be static, because it applies to "
+                3: ParametrizedResponse(text="${attributeName} should be static, because it applies to "
                     "all instances of ${includingClass}."),
                 4: ResourceResponse(learningResources=[attribute_reference]),
             })),
             attribute_should_not_be_static := mt(n="Attribute should not be static", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check the properties of this attribute."),
-                3: ParametrizedResponse(text="${includingClass.attributeName} should not be static, because it does "
+                3: ParametrizedResponse(text="${attributeName} should not be static, because it does "
                     "not apply to all instances of ${includingClass}."),
                 4: ResourceResponse(learningResources=[attribute_reference]),
             })),
@@ -264,332 +264,330 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     ),
 
     relationship_mistakes := mtc(n="Relationship mistakes", subcategories=[
-        association_mistakes := mtc(n="Association mistakes", subcategories=[
-            missing_association_mistakes := mtc(n="Missing association mistakes", mistakeTypes=[
-                missing_association := mt(n="Missing association", feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="What is the relationship between these classes?"),
-                    3: ParametrizedResponse(text="How would you capture that a ${classOne} has a ${classTwo}?"),
-                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref := Reference(content=dedent("""\
-                        Please review the _Composition vs. Aggregation vs. Association_ section of 
-                        the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
-                        better understand these relationships and where they are used.
+        missing_association_aggregation_mistakes := mtc(n="Missing association/aggregation mistakes", mistakeTypes=[
+            missing_association := mt(n="Missing association", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="What is the relationship between these classes?"),
+                3: ParametrizedResponse(text="How would you capture that a ${classOne} has a ${classTwo}?"),
+                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref := Reference(content=dedent("""\
+                    Please review the _Composition vs. Aggregation vs. Association_ section of 
+                    the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+                    better understand these relationships and where they are used.
 
-                        ![composition vs aggregation vs association](images/composition_aggregation_association.png)""")
-                    )]),
-                })),
-                missing_aggregation := mt(n="Missing aggregation", feedbacks=fbs({
+                    ![composition vs aggregation vs association](images/composition_aggregation_association.png)""")
+                )]),
+            })),
+            missing_aggregation := mt(n="Missing aggregation", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="What is the relationship between these classes?"),
+                3: ParametrizedResponse(text="How would you capture that a ${classOne} has a ${classTwo}?"),
+                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+            })),
+            missing_nary_association := mt(n="Missing n-ary association", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="What is the relationship between these classes?"),
+                3: ParametrizedResponse(text="How would you capture the relationship between ${classOne}, "
+                    "${classTwo}, [and] ${classThree}[, [and] ${classFour}[, [and] ${classFive}]]?"),
+                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+            })),
+            using_attribute_instead_of_assoc := mt(
+                n="Using attribute instead of assoc", d="Using attribute instead of association",
+                feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="What is the relationship between these classes?"),
-                    3: ParametrizedResponse(text="How would you capture that a ${classOne} has a ${classTwo}?"),
+                    2: TextResponse(text="Remember that attributes are simple pieces of data."),
+                    3: ParametrizedResponse(text="${includingClass.attributeName} should be its own class."),
+                    4: ResourceResponse(learningResources=[Quiz(content=dedent("""\
+                        Pick the classes which are modeled correctly.
+
+                        - [ ] class Person { address; }
+                        - [ ] class Person { * Person -- 1 Address; }; class Address {}
+                        - [ ] class Loan { libraryPatron; }"""))]),
+                    5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                })),
+        ]),
+        extra_association_mistakes := mtc(n="Extra association mistakes", mistakeTypes=[
+            representing_action_with_assoc := mt(
+                n="Representing action with assoc", d="Representing an action with an association",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Is association the best way to model this concept?"),
+                    3: [ParametrizedResponse(text="${actionName} should not be modeled as an association."),
+                        ParametrizedResponse(
+                            text="${actionName} does not need be modeled as part of a domain model.")],
+                    4: ResourceResponse(learningResources=[generic_extra_item_ref := Reference(
+                        content="Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to "
+                        "know which concepts should be a part of a domain model.")]),
+                })),
+            extra_association := mt(n="Extra association", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Is this association really necessary?"),
+                3: [ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is not "
+                        "expressed in the problem description[, but there is a similar relationship with "
+                        "${classThree} that is missing]."),
+                    ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is redundant "
+                        "since we can access ${classTwo} from ${classOne} via ${classThree}.")],
+                4: [ResourceResponse(learningResources=[Quiz(
+                        content="Find all the redundant associations in this class diagram (TODO).")]),
+                    ResourceResponse(learningResources=[Quiz(content="Write pseudocode to navigate between "
+                        "ClassOne and ClassTwo in this class diagram (TODO).")])],
+                5: ResourceResponse(learningResources=[generic_extra_item_ref]),
+            })),
+            extra_aggregation := mt(n="Extra aggregation", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Is this aggregation really necessary?"),
+                3: ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is redundant."),
+                4: ResourceResponse(learningResources=[generic_extra_item_ref]),
+            })),
+            extra_nary_association := mt(n="Extra n-ary association", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Is this association really necessary?"),
+                3: TextResponse(text="The relationship between the highlighted classes is redundant."),
+                4: ResourceResponse(learningResources=[generic_extra_item_ref]),
+            })),
+        ]),
+        multiplicity_mistakes := mtc(n="Multiplicity mistakes", mistakeTypes=[
+            infinite_recursive_dependency := mt(n="Infinite recursive dependency", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Double check (this|these) relationship(s)."),
+                3: TextResponse(text="The multiplicities for (this|these) relationship(s) are incorrect."),
+                # TODO Add reasons to metamodel
+                4: [# For a self-referencing class, eg, a Person has 2 parents.
+                    ParametrizedResponse(
+                        text="Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?"),
+                    # For two classes with multiplicities 1+ on either end.
+                    ParametrizedResponse(text="How many ${class1}'s does a ${class2} have?"),
+                    # For an infinite recursive dependency involving 3 or more classes.
+                    ParametrizedResponse(
+                        text="Double check the multiplicites between ${class1}, ${class2}, and ${class3}.")],
+                5: ResourceResponse(learningResources=[Quiz(
+                    content="Edit the class diagram to allow creating a `Foo`")]),
+                6: ResourceResponse(learningResources=[mult_ref := Reference(
+                        content="Please review the [multiplicities](https://mycourses2.mcgill.ca/) part of the "
+                                "Class Diagram lecture.")]),
+            })),
+            wrong_multiplicity := mt(n="Wrong multiplicity", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Double check this association."),
+                3: TextResponse(text="The multiplicit(y|ies) for this association (is|are) incorrect."),
+                4: ParametrizedResponse(text="How many ${class1}'s does a ${class2} have? [And how many "
+                    "${class2}'s does ${class1} have?]"),
+                5: ResourceResponse(learningResources=[multiplicities_quiz := Quiz(content=dedent("""\
+                    Pick the associations with correct multiplicities
+
+                    - [ ] 1 EmployeeRole -- 1 Person;
+                    - [ ] * Episode -- 1 TvSeries;
+                    - [ ] * Bank -- 1 Client;"""))]),
+                6: ResourceResponse(learningResources=[mult_ref]),
+            })),
+            missing_multiplicity := mt(n="Missing multiplicity", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Double check this association."),
+                3: TextResponse(text="The multiplicit(y|ies) for this association (is|are) missing."),
+                4: ParametrizedResponse(text="How many ${class1}'s does a ${class2} have? [And how many "
+                    "${class2}'s does ${class1} have?]"),
+                5: ResourceResponse(learningResources=[multiplicities_quiz]),
+                6: ResourceResponse(learningResources=[mult_ref]),
+            })),
+        ]),
+        role_name_mistakes := mtc(n="Role name mistakes", mistakeTypes=[
+            missing_role_names := mt(n="Missing role names", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Can you model this relationship more precisely?"),
+                3: TextResponse(
+                    text="The multiplicities for this association are correct, but something else is missing!"),
+                4: ResourceResponse(learningResources=[role_name_ref := Reference(content=dedent("""\
+                    Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
+                    for this association? Role names help identify the role a class plays in a
+                    relationship and can be important if there is more than one relationship
+                    between the same two classes.
+
+                    ![Role name](images/role_name.png)
+                    """))]),
+            })),
+            role_should_be_static := mt(n="Role should be static", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Isn't there something special about this role name?"),
+                3: ParametrizedResponse(text="${roleName} should be static, because it applies to all instances of "
+                    "the association between ${class1} and ${class2}."),
+                4: ResourceResponse(learningResources=[assoc_ref := Reference(content="Please review the "
+                    "[Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
+            })),
+            role_should_not_be_static := mt(n="Role should not be static", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Isn't there something special about this role name?"),
+                3: ParametrizedResponse(text="${roleName} should not be static, because it doesn't apply to all "
+                    "instances of the association between ${class1} and ${class2}."),
+                4: ResourceResponse(learningResources=[assoc_ref]),
+            })),
+            bad_role_name_spelling := mt(n="Bad role name spelling", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Double check this role name"),
+                3: ParametrizedResponse(text="${roleName} is misspelled.[ Use the same spelling as the problem "
+                    "description.]"),
+                4: ResourceResponse(learningResources=[assoc_na_ref := Reference(content="Please review the "
+                    "[Association](https://mycourses2.mcgill.ca/) and "
+                    "[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.")]),
+            })),
+            wrong_role_name := mt(
+                n="Wrong role name", d="Wrong role name but correct association", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Double check this role name."),
+                    3: ParametrizedResponse(text="The ${wrongRoleName} role name is not correct."),
+                    4: ParametrizedResponse(text="The ${wrongRoleName} role name should be changed to "
+                        "${correctRoleName}."),
+                    5: ResourceResponse(learningResources=[role_name_ref]),
+                })),
+        ]),
+        association_type_mistakes := mtc(n="Association type mistakes", mistakeTypes=[
+            using_aggregation_instead_of_assoc := mt(
+                n="Using aggregation instead of assoc",
+                d="Using aggregation instead of association",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="What is the relationship between these two concepts?"),
+                    3: ParametrizedResponse(text="The relationship between ${containedClass} and ${containerClass} "
+                        "can be modeled with a simple association."),
                     4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
-                missing_nary_association := mt(n="Missing n-ary association", feedbacks=fbs({
+            using_composition_instead_of_assoc := mt(
+                n="Using composition instead of assoc",
+                d="Using composition instead of association",
+                feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="What is the relationship between these classes?"),
-                    3: ParametrizedResponse(text="How would you capture the relationship between ${classOne}, "
-                        "${classTwo}, [and] ${classThree}[, [and] ${classFour}[, [and] ${classFive}]]?"),
-                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
-                })),
-                using_attribute_instead_of_assoc := mt(
-                    n="Using attribute instead of assoc", d="Using attribute instead of association",
-                    feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Remember that attributes are simple pieces of data."),
-                        3: ParametrizedResponse(text="${includingClass.attributeName} should be its own class."),
-                        4: ResourceResponse(learningResources=[Quiz(content=dedent("""\
-                            Pick the classes which are modeled correctly.
-
-                            - [ ] class Person { address; }
-                            - [ ] class Person { * Person -- 1 Address; }; class Address {}
-                            - [ ] class Loan { libraryPatron; }"""))]),
-                        5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
-                    })),
-            ]),
-            extra_association_mistakes := mtc(n="Extra association mistakes", mistakeTypes=[
-                representing_action_with_assoc := mt(
-                    n="Representing action with assoc", d="Representing an action with an association",
-                    feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Is association the best way to model this concept?"),
-                        3: [ParametrizedResponse(text="${actionName} should not be modeled as an association."),
-                            ParametrizedResponse(
-                                text="${actionName} does not need be modeled as part of a domain model.")],
-                        4: ResourceResponse(learningResources=[generic_extra_item_ref := Reference(
-                            content="Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to "
-                            "know which concepts should be a part of a domain model.")]),
-                    })),
-                extra_association := mt(n="Extra association", feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Is this association really necessary?"),
-                    3: [ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is not "
-                            "expressed in the problem description[, but there is a similar relationship with "
-                            "${classThree} that is missing]."),
-                        ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is redundant "
-                            "since we can access ${classTwo} from ${classOne} via ${classThree}.")],
-                    4: [ResourceResponse(learningResources=[Quiz(
-                            content="Find all the redundant associations in this class diagram (TODO).")]),
-                        ResourceResponse(learningResources=[Quiz(content="Write pseudocode to navigate between "
-                            "ClassOne and ClassTwo in this class diagram (TODO).")])],
-                    5: ResourceResponse(learningResources=[generic_extra_item_ref]),
-                })),
-                extra_aggregation := mt(n="Extra aggregation", feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Is this aggregation really necessary?"),
-                    3: ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is redundant."),
-                    4: ResourceResponse(learningResources=[generic_extra_item_ref]),
-                })),
-                extra_nary_association := mt(n="Extra n-ary association", feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Is this association really necessary?"),
-                    3: TextResponse(text="The relationship between the highlighted classes is redundant."),
-                    4: ResourceResponse(learningResources=[generic_extra_item_ref]),
-                })),
-            ]),
-            association_type_mistakes := mtc(n="Association type mistakes", mistakeTypes=[
-                using_aggregation_instead_of_assoc := mt(
-                    n="Using aggregation instead of assoc",
-                    d="Using aggregation instead of association",
-                    feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="What is the relationship between these two concepts?"),
-                        3: ParametrizedResponse(text="The relationship between ${containedClass} and ${containerClass} "
-                            "can be modeled with a simple association."),
-                        4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
-                    })),
-                using_composition_instead_of_assoc := mt(
-                    n="Using composition instead of assoc",
-                    d="Using composition instead of association",
-                    feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="What is the relationship between these two concepts?"),
-                        3: ParametrizedResponse(
-                            text="Why is ${incorrectlyContainedClass} contained in ${containerClass}?"),
-                        4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
-                    })),
-                using_directed_relationship_instead_of_undirected := mt(
-                    n="Using directed relationship instead of undirected",
-                    d="Using directed relationship instead of undirected relationship",
-                    feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Why is navigation restricted for this relationship?"),
-                        3: ParametrizedResponse(
-                            text="The relationship between ${classOne} and ${classTwo} should be undirected."),
-                        4: ResourceResponse(learningResources=[dir_rel_ref := Reference(
-                            content="Please review the _Directionality in Associations_ section of the "
-                                    "[UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)")]),
-                    })),
-                using_undirected_relationship_instead_of_directed := mt(
-                    n="Using undirected relationship instead of directed",
-                    d="Using undirected relationship instead of directed relationship",
-                    feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: ParametrizedResponse(text="Does ${targetClass} need to know about ${sourceClass}?"),
-                        3: ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} should be "
-                            "directed[ from ${classOne} to ${classTwo}]."),
-                        4: ResourceResponse(learningResources=[dir_rel_ref]),
-                    })),
-                using_composition_instead_of_aggregation := mt(
-                    n="Using composition instead of aggregation", feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Is this the best relationship to use here?"),
-                        3: ParametrizedResponse(text="The composition between ${containedClass} and ${containerClass} "
-                            "is better modeled using aggregation."),
-                        4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
-                    })),
-                using_binary_assoc_instead_of_nary_assoc := mt(
-                    n="Using binary assoc instead of n-ary assoc",
-                    d="Using binary association instead of n-ary association",
-                    feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Can you model this relationship more precisely?"),
-                        3: ParametrizedResponse(text="Use a ${n}-ary association to represent this relationship."),
-                        4: ResourceResponse(learningResources=[assoc_ref := Reference(content="Please review the "
-                        "[Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
-                    })),
-                using_nary_assoc_instead_of_binary_assoc := mt(
-                    n="Using n-ary assoc instead of binary assoc",
-                    d="Using n-ary association instead of binary association",
-                    feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Can you model this relationship more precisely?"),
-                        3: TextResponse(text="Use a binary association to represent this relationship."),
-                        4: ResourceResponse(learningResources=[assoc_ref]),
-                    })),
-                using_intermediate_class_instead_of_nary_assoc := mt(
-                    n="Using intermediate class instead of n-ary assoc",
-                    d="Using intermediate class instead of n-ary association",
-                    feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Can you model this relationship in a different way?"),
-                        3: ParametrizedResponse(text="Use a ${n}-ary association to represent this relationship."),
-                        4: ResourceResponse(learningResources=[assoc_ref]),
-                    })),
-                using_nary_assoc_instead_of_intermediate_class := mt(
-                    n="Using n-ary assoc instead of intermediate class",
-                    d="Using n-ary association instead of intermediate class",
-                    feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Is this the best way to model this concept?"),
-                        3: TextResponse(text="Use an intermediate class instead of an n-ary association."),
-                        4: ResourceResponse(learningResources=[assoc_ref]),
-                    })),
-            ]),
-            association_name_mistakes := mtc(n="Association name mistakes", mistakeTypes=[
-                missing_association_name := mt(n="Missing association name", feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Something is missing here."),
-                    3: TextResponse(text="Can you give this association a name?"),
-                    4: ParametrizedResponse(text="This association should be named ${associationName}."),
-                    5: ResourceResponse(learningResources=[assoc_na_ref := Reference(content="Please review the "
-                        "[Association](https://mycourses2.mcgill.ca/) and "
-                        "[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.")]),
-                })),
-                bad_association_name_spelling := mt(n="Bad association name spelling", feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Double check this association name."),
+                    2: TextResponse(text="What is the relationship between these two concepts?"),
                     3: ParametrizedResponse(
-                        text="${associationName} is misspelled.[ Use the same spelling as the problem description.]"),
-                    4: ResourceResponse(learningResources=[assoc_na_ref]),
+                        text="Why is ${incorrectlyContainedClass} contained in ${containerClass}?"),
+                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
-            ]),
-            multiplicity_mistakes := mtc(n="Multiplicity mistakes", mistakeTypes=[
-                infinite_recursive_dependency := mt(n="Infinite recursive dependency", feedbacks=fbs({
+            using_directed_relationship_instead_of_undirected := mt(
+                n="Using directed relationship instead of undirected",
+                d="Using directed relationship instead of undirected relationship",
+                feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Double check (this|these) relationship(s)."),
-                    3: TextResponse(text="The multiplicities for (this|these) relationship(s) are incorrect."),
-                    # TODO Add reasons to metamodel
-                    4: [# For a self-referencing class, eg, a Person has 2 parents.
-                        ParametrizedResponse(
-                            text="Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?"),
-                        # For two classes with multiplicities 1+ on either end.
-                        ParametrizedResponse(text="How many ${class1}'s does a ${class2} have?"),
-                        # For an infinite recursive dependency involving 3 or more classes.
-                        ParametrizedResponse(
-                            text="Double check the multiplicites between ${class1}, ${class2}, and ${class3}.")],
-                    5: ResourceResponse(learningResources=[Quiz(
-                        content="Edit the class diagram to allow creating a `Foo`")]),
-                    6: ResourceResponse(learningResources=[mult_ref := Reference(
-                            content="Please review the [multiplicities](https://mycourses2.mcgill.ca/) part of the "
-                                    "Class Diagram lecture.")]),
+                    2: TextResponse(text="Why is navigation restricted for this relationship?"),
+                    3: ParametrizedResponse(
+                        text="The relationship between ${classOne} and ${classTwo} should be undirected."),
+                    4: ResourceResponse(learningResources=[dir_rel_ref := Reference(
+                        content="Please review the _Directionality in Associations_ section of the "
+                                "[UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)")]),
                 })),
-                wrong_multiplicity := mt(n="Wrong multiplicity", feedbacks=fbs({
+            using_undirected_relationship_instead_of_directed := mt(
+                n="Using undirected relationship instead of directed",
+                d="Using undirected relationship instead of directed relationship",
+                feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Double check this association."),
-                    3: TextResponse(text="The multiplicit(y|ies) for this association (is|are) incorrect."),
-                    4: ParametrizedResponse(text="How many ${class1}'s does a ${class2} have? [And how many "
-                        "${class2}'s does ${class1} have?]"),
-                    5: ResourceResponse(learningResources=[multiplicities_quiz := Quiz(content=dedent("""\
-                        Pick the associations with correct multiplicities
-
-                        - [ ] 1 EmployeeRole -- 1 Person;
-                        - [ ] * Episode -- 1 TvSeries;
-                        - [ ] * Bank -- 1 Client;"""))]),
-                    6: ResourceResponse(learningResources=[mult_ref]),
+                    2: ParametrizedResponse(text="Does ${targetClass} need to know about ${sourceClass}?"),
+                    3: ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} should be "
+                        "directed[ from ${classOne} to ${classTwo}]."),
+                    4: ResourceResponse(learningResources=[dir_rel_ref]),
                 })),
-                missing_multiplicity := mt(n="Missing multiplicity", feedbacks=fbs({
+            using_composition_instead_of_aggregation := mt(
+                n="Using composition instead of aggregation", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Double check this association."),
-                    3: TextResponse(text="The multiplicit(y|ies) for this association (is|are) missing."),
-                    4: ParametrizedResponse(text="How many ${class1}'s does a ${class2} have? [And how many "
-                        "${class2}'s does ${class1} have?]"),
-                    5: ResourceResponse(learningResources=[multiplicities_quiz]),
-                    6: ResourceResponse(learningResources=[mult_ref]),
+                    2: TextResponse(text="Is this the best relationship to use here?"),
+                    3: ParametrizedResponse(text="The composition between ${containedClass} and ${containerClass} "
+                        "is better modeled using aggregation."),
+                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
-            ]),
-            role_name_mistakes := mtc(n="Role name mistakes", mistakeTypes=[
-                missing_role_names := mt(n="Missing role names", feedbacks=fbs({
+            using_binary_assoc_instead_of_nary_assoc := mt(
+                n="Using binary assoc instead of n-ary assoc",
+                d="Using binary association instead of n-ary association",
+                feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you model this relationship more precisely?"),
-                    3: TextResponse(
-                        text="The multiplicities for this association are correct, but something else is missing!"),
-                    4: ResourceResponse(learningResources=[role_name_ref := Reference(content=dedent("""\
-                        Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
-                        for this association? Role names help identify the role a class plays in a
-                        relationship and can be important if there is more than one relationship
-                        between the same two classes.
-
-                        ![Role name](images/role_name.png)
-                        """))]),
-                })),
-                role_should_be_static := mt(n="Role should be static", feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Isn't there something special about this role name?"),
-                    3: ParametrizedResponse(text="${roleName} should be static, because it applies to all instances of "
-                        "the association between ${class1} and ${class2}."),
+                    3: ParametrizedResponse(text="Use a ${n}-ary association to represent this relationship."),
                     4: ResourceResponse(learningResources=[assoc_ref]),
                 })),
-                role_should_not_be_static := mt(n="Role should not be static", feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Isn't there something special about this role name?"),
-                    3: ParametrizedResponse(text="${roleName} should not be static, because it doesn't apply to all "
-                        "instances of the association between ${class1} and ${class2}."),
-                    4: ResourceResponse(learningResources=[assoc_ref]),
-                })),
-                bad_role_name_spelling := mt(n="Bad role name spelling", feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Double check this role name"),
-                    3: ParametrizedResponse(text="${roleName} is misspelled.[ Use the same spelling as the problem "
-                        "description.]"),
-                    4: ResourceResponse(learningResources=[assoc_na_ref]),
-                })),
-                wrong_role_name := mt(
-                    n="Wrong role name", d="Wrong role name but correct association", feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Double check this role name."),
-                        3: ParametrizedResponse(text="The ${wrongRoleName} role name is not correct."),
-                        4: ParametrizedResponse(text="The ${wrongRoleName} role name should be changed to "
-                            "${correctRoleName}."),
-                        5: ResourceResponse(learningResources=[role_name_ref]),
-                    })),
-            ]),
-            association_class_mistakes := mtc(n="Association class mistakes", mistakeTypes=[
-                missing_assoc_class := mt(n="Missing assoc class", d="Missing association class", feedbacks=fbs({
+            using_nary_assoc_instead_of_binary_assoc := mt(
+                n="Using n-ary assoc instead of binary assoc",
+                d="Using n-ary association instead of binary association",
+                feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you model this relationship more precisely?"),
-                    3: ParametrizedResponse(text="Does it make sense to have multiple instances of the "
-                        "${inBetweenClass} linking ${firstClass} and ${secondClass}?"),
-                    4: ParametrizedResponse(text="Further details of the association between ${firstClass} and "
-                        "${secondClass} should be modeled with an association class."),
-                    5: ResourceResponse(learningResources=[assoc_class_ref := Reference(
-                        content="Association class\n\n![Association class](images/association_class.png)")]),
+                    3: TextResponse(text="Use a binary association to represent this relationship."),
+                    4: ResourceResponse(learningResources=[assoc_ref]),
                 })),
-                extra_assoc_class := mt(n="Extra assoc class", d="Extra association class", feedbacks=fbs({
+            using_intermediate_class_instead_of_nary_assoc := mt(
+                n="Using intermediate class instead of n-ary assoc",
+                d="Using intermediate class instead of n-ary association",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Can you model this relationship in a different way?"),
+                    3: ParametrizedResponse(text="Use a ${n}-ary association to represent this relationship."),
+                    4: ResourceResponse(learningResources=[assoc_ref]),
+                })),
+            using_nary_assoc_instead_of_intermediate_class := mt(
+                n="Using n-ary assoc instead of intermediate class",
+                d="Using n-ary association instead of intermediate class",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Is this the best way to model this concept?"),
+                    3: TextResponse(text="Use an intermediate class instead of an n-ary association."),
+                    4: ResourceResponse(learningResources=[assoc_ref]),
+                })),
+        ]),
+        association_name_mistakes := mtc(n="Association name mistakes", mistakeTypes=[
+            missing_association_name := mt(n="Missing association name", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Something is missing here."),
+                3: TextResponse(text="Can you give this association a name?"),
+                4: ParametrizedResponse(text="This association should be named ${associationName}."),
+                5: ResourceResponse(learningResources=[assoc_na_ref]),
+            })),
+            bad_association_name_spelling := mt(n="Bad association name spelling", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Double check this association name."),
+                3: ParametrizedResponse(
+                    text="${associationName} is misspelled.[ Use the same spelling as the problem description.]"),
+                4: ResourceResponse(learningResources=[assoc_na_ref]),
+            })),
+        ]),
+        association_class_mistakes := mtc(n="Association class mistakes", mistakeTypes=[
+            missing_assoc_class := mt(n="Missing assoc class", d="Missing association class", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Can you model this relationship more precisely?"),
+                3: ParametrizedResponse(text="Does it make sense to have multiple instances of the "
+                    "${inBetweenClass} linking ${firstClass} and ${secondClass}?"),
+                4: ParametrizedResponse(text="Further details of the association between ${firstClass} and "
+                    "${secondClass} should be modeled with an association class."),
+                5: ResourceResponse(learningResources=[assoc_class_ref := Reference(
+                    content="Association class\n\n![Association class](images/association_class.png)")]),
+            })),
+            extra_assoc_class := mt(n="Extra assoc class", d="Extra association class", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Can you model this relationship in another way?"),
+                3: TextResponse(text="Is using an association class the best way to model this?"),
+                4: ParametrizedResponse(text="Does it make sense to disallow multiple instances of the "
+                    "${inBetweenClass} linking ${firstClass} and ${secondClass}?"),
+                5: ParametrizedResponse(text="Further details of the association between ${firstClass} and "
+                    "${secondClass} should not be modeled with an association class."),
+                6: ResourceResponse(learningResources=[assoc_class_ref]),
+            })),
+            bad_assoc_class_name_spelling := mt(
+                n="Bad assoc class name spelling", d="Bad association class name spelling", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Double check this association class name."),
+                    3: ParametrizedResponse(text="The ${incorrectlySpelledClassName} class has a misspelled name."),
+                    4: ParametrizedResponse(
+                        text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
+                    5: ResourceResponse(learningResources=[class_ref]),
+                })),
+            assoc_class_should_be_class := mt(
+                n="Assoc class should be class", d="Association class should be regular class", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you model this relationship in another way?"),
                     3: TextResponse(text="Is using an association class the best way to model this?"),
-                    4: ParametrizedResponse(text="Does it make sense to disallow multiple instances of the "
-                        "${inBetweenClass} linking ${firstClass} and ${secondClass}?"),
-                    4: ParametrizedResponse(text="Further details of the association between ${firstClass} and "
-                        "${secondClass} should not be modeled with an association class."),
-                    6: ResourceResponse(learningResources=[assoc_class_ref]),
+                    4: ParametrizedResponse(text="The ${assocClass} class should be a regular class."),
+                    5: ResourceResponse(learningResources=[assoc_class_ref]),
                 })),
-                bad_assoc_class_name_spelling := mt(
-                    n="Bad assoc class name spelling", d="Bad association class name spelling", feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Double check this association class name."),
-                        3: ParametrizedResponse(text="The ${incorrectlySpelledClassName} class has a misspelled name."),
-                        4: ParametrizedResponse(
-                            text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
-                        5: ResourceResponse(learningResources=[class_ref]),
-                    })),
-                assoc_class_should_be_class := mt(
-                    n="Assoc class should be class", d="Association class should be regular class", feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Can you model this relationship in another way?"),
-                        3: TextResponse(text="Is using an association class the best way to model this?"),
-                        4: ParametrizedResponse(text="The ${assocClass} class should be a regular class."),
-                        5: ResourceResponse(learningResources=[assoc_class_ref]),
-                    })),
-                class_should_be_assoc_class := mt(
-                    n="Class should be assoc class", d="Regular class should be association class", feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(text="Can you model this relationship in another way?"),
-                        3: TextResponse(text="Is using a regular class the best way to model this?"),
-                        4: ParametrizedResponse(text="The ${regularClass} class should be an association class."),
-                        5: ResourceResponse(learningResources=[assoc_class_ref]),
-                    })),
-            ]),
+            class_should_be_assoc_class := mt(
+                n="Class should be assoc class", d="Regular class should be association class", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Can you model this relationship in another way?"),
+                    3: TextResponse(text="Is using a regular class the best way to model this?"),
+                    4: ParametrizedResponse(text="The ${regularClass} class should be an association class."),
+                    5: ResourceResponse(learningResources=[assoc_class_ref]),
+                })),
         ]),
         composition_mistakes := mtc(n="Composition mistakes", mistakeTypes=[
             missing_composition := mt(n="Missing composition", feedbacks=fbs({
@@ -769,199 +767,193 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     ]),
 
     design_pattern_mistakes := mtc(n="Design pattern mistakes", subcategories=[
-        player_role_pattern_mistakes := mtc(n="Player-Role Pattern mistakes",
-            mistakeTypes=[
-                missing_pr_pattern := mt(n="Missing PR pattern", d="Missing Player-Role pattern", feedbacks=fbs({
+        player_role_pattern_mistakes := mtc(n="Player-Role Pattern mistakes", mistakeTypes=[
+            missing_pr_pattern := mt(n="Missing PR pattern", d="Missing Player-Role pattern", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(
+                    text="Think carefully about how to model the relationships between these concepts."),
+                3: [ParametrizedResponse(text="Modeling all the concepts in one ${playerClass} class will make it "
+                        "very complicated! Think about adding one or more classes to better represent the domain."),
+                    ParametrizedResponse(
+                        text="[Nice try, but ]a ${firstSubclass} can also play the role of a ${secondSubclass}.")],
+                4: ResourceResponse(learningResources=[pr_quiz := Quiz(content=dedent(f"""\
+                    Complete the following table:
+
+                    Solution | Roles have different features | One role at a time |{
+                        " "}Different roles at a time | More than one role at the same time
+                    --- | --- | --- | --- | ---
+                    Enumeration         | [ ] | [ ] | [ ] | [ ]
+                    Subclasses          | [ ] | [ ] | [ ] | [ ]
+                    Associations        | [ ] | [ ] | [ ] | [ ]
+                    Player-Role Pattern | [ ] | [ ] | [ ] | [ ]"""))]),
+                5: ResourceResponse(learningResources=[pr_ref := Reference(content=dedent("""\
+                    The Player-Role Pattern can be used to capture the fact that an object may play different roles
+                    in different contexts.
+
+                    ![Player-Role Pattern](images/player_role.png)"""))]),
+            })),
+            incomplete_pr_pattern := mt(
+                n="Incomplete PR pattern", d="Incomplete Player-Role pattern", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: [ParametrizedResponse(text="Modeling all the concepts in one ${playerClass} class will make it "
-                            "very complicated! Think about adding one or more classes to better represent the domain."),
-                        ParametrizedResponse(
-                            text="[Nice try, but ]a ${firstSubclass} can also play the role of a ${secondSubclass}.")],
-                    4: ResourceResponse(learningResources=[pr_quiz := Quiz(content=dedent(f"""\
-                        Complete the following table:
-
-                        Solution | Roles have different features | One role at a time |{
-                            " "}Different roles at a time | More than one role at the same time
-                        --- | --- | --- | --- | ---
-                        Enumeration         | [ ] | [ ] | [ ] | [ ]
-                        Subclasses          | [ ] | [ ] | [ ] | [ ]
-                        Associations        | [ ] | [ ] | [ ] | [ ]
-                        Player-Role Pattern | [ ] | [ ] | [ ] | [ ]"""))]),
-                    5: ResourceResponse(learningResources=[pr_ref := Reference(content=dedent("""\
-                        The Player-Role Pattern can be used to capture the fact that an object may play different roles
-                        in different contexts.
-
-                        ![Player-Role Pattern](images/player_role.png)"""))]),
+                    3: [ParametrizedResponse(
+                            text="Modeling all the concepts in one ${playerClass} class will make it very "
+                            "complicated! Think about adding one or more classes to better represent the domain."),
+                        ParametrizedResponse(text="[Nice try, but ]a ${firstSubclass} can also play the role of a "
+                            "${secondSubclass}.")],
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
                 })),
-                incomplete_pr_pattern := mt(
-                    n="Incomplete PR pattern", d="Incomplete Player-Role pattern", feedbacks=fbs({
-                        1: Feedback(highlightSolution=True),
-                        2: TextResponse(
-                            text="Think carefully about how to model the relationships between these concepts."),
-                        3: [ParametrizedResponse(
-                                text="Modeling all the concepts in one ${playerClass} class will make it very "
-                                "complicated! Think about adding one or more classes to better represent the domain."),
-                            ParametrizedResponse(text="[Nice try, but ]a ${firstSubclass} can also play the role of a "
-                                "${secondSubclass}.")],
-                        4: ResourceResponse(learningResources=[pr_quiz]),
-                        5: ResourceResponse(learningResources=[pr_ref]),
-                    })),
-            ],
-            subcategories=[  # TODO move all of these up one level
-                using_different_player_role_pattern := mtc(n="Using different Player-Role pattern", mistakeTypes=[
-                    subclass_should_be_full_pr_pattern := mt(
-                        n="Subclass should be full PR pattern",
-                        d="Subclass should be full Player-Role pattern",
-                        feedbacks=fbs({
-                            1: Feedback(highlightSolution=True),
-                            2: TextResponse(
-                                text="Think carefully about how to model the relationships between these concepts."),
-                            3: ParametrizedResponse(text="[Nice try, but] a ${firstSubclass} can also play the role of "
-                                                         "one of the other subclasses."),
-                            4: ResourceResponse(learningResources=[pr_quiz]),
-                            5: ResourceResponse(learningResources=[pr_ref]),
-                        })),
-                    subclass_should_be_assoc_pr_pattern := mt(
-                        n="Subclass should be assoc PR pattern",
-                        d="Subclass should be association Player-Role pattern",
-                        feedbacks=fbs({
-                            1: Feedback(highlightSolution=True),
-                            2: TextResponse(
-                                text="Think carefully about how to model the relationships between these concepts."),
-                            3: ParametrizedResponse(
-                                text="[Nice try, but] a ${firstSubclass} can also play the role of one of the other "
-                                     "subclasses and different features do not need to be captured for the subclasses."),
-                            4: ResourceResponse(learningResources=[pr_quiz]),
-                            5: ResourceResponse(learningResources=[pr_ref]),
-                        })),
-                    subclass_should_be_enum_pr_pattern := mt(
-                        n="Subclass should be enum PR pattern",
-                        d="Subclass should be enumeration Player-Role pattern",
-                        feedbacks=fbs({
-                            1: Feedback(highlightSolution=True),
-                            2: TextResponse(
-                                text="Think carefully about how to model the relationships between these concepts."),
-                            3: ParametrizedResponse(text="[Nice try, but] a ${firstSubclass} does not need to play the "
-                                                         "role of one of the other subclasses and different features "
-                                                         "do not need to be captured for the subclasses."),
-                            4: ResourceResponse(learningResources=[pr_quiz]),
-                            5: ResourceResponse(learningResources=[pr_ref]),
-                        })),
-                    assoc_should_be_full_pr_pattern := mt(
-                        n="Assoc should be full PR pattern",
-                        d="Association should be full Player-Role pattern",
-                        feedbacks=fbs({
-                            1: Feedback(highlightSolution=True),
-                            2: TextResponse(
-                                text="Think carefully about how to model the relationships between these concepts."),
-                            3: ParametrizedResponse(
-                                text="A ${firstRole} has different features from a ${secondRole}."),
-                            4: ResourceResponse(learningResources=[pr_quiz]),
-                            5: ResourceResponse(learningResources=[pr_ref]),
-                        })),
-                    assoc_should_be_subclass_pr_pattern := mt(
-                        n="Assoc should be subclass PR pattern",
-                        d="Association should be subclass Player-Role pattern",
-                        feedbacks=fbs({
-                            1: Feedback(highlightSolution=True),
-                            2: TextResponse(
-                                text="Think carefully about how to model the relationships between these concepts."),
-                            3: ParametrizedResponse(text="A ${firstRole} has different features from a ${secondRole} "
-                                                         "and ${role} does not change its role over its lifetime."),
-                            4: ResourceResponse(learningResources=[pr_quiz]),
-                            5: ResourceResponse(learningResources=[pr_ref]),
-                        })),
-                    assoc_should_be_enum_pr_pattern := mt(
-                        n="Assoc should be enum PR pattern",
-                        d="Association should be enumeration Player-Role pattern",
-                        feedbacks=fbs({
-                            1: Feedback(highlightSolution=True),
-                            2: TextResponse(
-                                text="Think carefully about how to model the relationships between these concepts."),
-                            3: ParametrizedResponse(text="Will the roles of ${firstRole} and ${secondRole} ever be "
-                                                          "occupied at the same time?"),
-                            4: ResourceResponse(learningResources=[pr_quiz]),
-                            5: ResourceResponse(learningResources=[pr_ref]),
-                        })),
-                    enum_should_be_full_pr_pattern := mt(
-                        n="Enum should be full PR pattern",
-                        d="Enumeration should be full Player-Role pattern",
-                        feedbacks=fbs({
-                            1: Feedback(highlightSolution=True),
-                            2: TextResponse(
-                                text="Think carefully about how to model the relationships between these concepts."),
-                            3: ParametrizedResponse(
-                                text="A ${firstRole} has different features from one of the other roles at the same "
-                                     "time and different features need to be captured for the roles."),
-                            4: ResourceResponse(learningResources=[pr_quiz]),
-                            5: ResourceResponse(learningResources=[pr_ref]),
-                        })),
-                    enum_should_be_subclass_pr_pattern := mt(
-                        n="Enum should be subclass PR pattern",
-                        d="Enumeration should be subclass Player-Role pattern",
-                        feedbacks=fbs({
-                            1: Feedback(highlightSolution=True),
-                            2: TextResponse(
-                                text="Think carefully about how to model the relationships between these concepts."),
-                            3: ParametrizedResponse(text="A ${firstRole} has different features from one of the other "
-                                                         "roles and this role never changes to another role."),
-                            4: ResourceResponse(learningResources=[pr_quiz]),
-                            5: ResourceResponse(learningResources=[pr_ref]),
-                        })),
-                    enum_should_be_assoc_pr_pattern := mt(
-                        n="Enum should be assoc PR pattern",
-                        d="Enumeration should be association Player-Role pattern",
-                        feedbacks=fbs({
-                            1: Feedback(highlightSolution=True),
-                            2: TextResponse(
-                                text="Think carefully about how to model the relationships between these concepts."),
-                            3: ParametrizedResponse(text="Will the roles of ${firstRole} and ${secondRole} ever be "
-                                                          "occupied at the same time?"),
-                            4: ResourceResponse(learningResources=[pr_quiz]),
-                            5: ResourceResponse(learningResources=[pr_ref]),
-                        })),
-                    full_pr_pattern_should_be_subclass := mt(
-                        n="Full PR pattern should be subclass",
-                        d="Full Player-Role pattern should be subclass",
-                        feedbacks=fbs({
-                            1: Feedback(highlightSolution=True),
-                            2: TextResponse(
-                                text="Think carefully about how to model the relationships between these concepts."),
-                            3: ParametrizedResponse(text="Can a ${firstRole} can also play the role of one of the "
-                                                         "other roles at different times or at the same time?"),
-                            4: ResourceResponse(learningResources=[pr_quiz]),
-                            5: ResourceResponse(learningResources=[pr_ref]),
-                        })),
-                    full_pr_pattern_should_be_assoc := mt(
-                        n="Full PR pattern should be assoc",
-                        d="Full Player-Role pattern should be association",
-                        feedbacks=fbs({
-                            1: Feedback(highlightSolution=True),
-                            2: TextResponse(
-                                text="Think carefully about how to model the relationships between these concepts."),
-                            3: ParametrizedResponse(
-                                text="Do ${firstRole} and ${secondRole} need to have different features?"),
-                            4: ResourceResponse(learningResources=[pr_quiz]),
-                            5: ResourceResponse(learningResources=[pr_ref]),
-                        })),
-                    full_pr_pattern_should_be_enum := mt(
-                        n="Full PR pattern should be enum",
-                        d="Full Player-Role pattern should be enumeration",
-                        feedbacks=fbs({
-                            1: Feedback(highlightSolution=True),
-                            2: TextResponse(
-                                text="Think carefully about how to model the relationships between these concepts."),
-                            3: ParametrizedResponse(
-                                text="Do ${firstRole} and ${secondRole} need to have different features and is it "
-                                     "possible that more than one role is played at the same time?"),
-                            4: ResourceResponse(learningResources=[pr_quiz]),
-                            5: ResourceResponse(learningResources=[pr_ref]),
-                        })),
-                ]),
-            ]
-        ),
+            subclass_should_be_full_pr_pattern := mt(
+                n="Subclass should be full PR pattern",
+                d="Subclass should be full Player-Role pattern",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: ParametrizedResponse(text="[Nice try, but] a ${firstSubclass} can also play the role of "
+                                                 "one of the other subclasses."),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            subclass_should_be_assoc_pr_pattern := mt(
+                n="Subclass should be assoc PR pattern",
+                d="Subclass should be association Player-Role pattern",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: ParametrizedResponse(
+                        text="[Nice try, but] a ${firstSubclass} can also play the role of one of the other "
+                             "subclasses and different features do not need to be captured for the subclasses."),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            subclass_should_be_enum_pr_pattern := mt(
+                n="Subclass should be enum PR pattern",
+                d="Subclass should be enumeration Player-Role pattern",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: ParametrizedResponse(text="[Nice try, but] a ${firstSubclass} does not need to play the "
+                                                 "role of one of the other subclasses and different features "
+                                                 "do not need to be captured for the subclasses."),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            assoc_should_be_full_pr_pattern := mt(
+                n="Assoc should be full PR pattern",
+                d="Association should be full Player-Role pattern",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: ParametrizedResponse(
+                        text="A ${firstRole} has different features from a ${secondRole}."),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            assoc_should_be_subclass_pr_pattern := mt(
+                n="Assoc should be subclass PR pattern",
+                d="Association should be subclass Player-Role pattern",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: ParametrizedResponse(text="A ${firstRole} has different features from a ${secondRole} "
+                                                 "and ${role} does not change its role over its lifetime."),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            assoc_should_be_enum_pr_pattern := mt(
+                n="Assoc should be enum PR pattern",
+                d="Association should be enumeration Player-Role pattern",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: ParametrizedResponse(text="Will the roles of ${firstRole} and ${secondRole} ever be "
+                                                 "occupied at the same time?"),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            enum_should_be_full_pr_pattern := mt(
+                n="Enum should be full PR pattern",
+                d="Enumeration should be full Player-Role pattern",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: ParametrizedResponse(
+                        text="A ${firstRole} has different features from one of the other roles at the same "
+                             "time and different features need to be captured for the roles."),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            enum_should_be_subclass_pr_pattern := mt(
+                n="Enum should be subclass PR pattern",
+                d="Enumeration should be subclass Player-Role pattern",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: ParametrizedResponse(text="A ${firstRole} has different features from one of the other "
+                                                 "roles and this role never changes to another role."),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            enum_should_be_assoc_pr_pattern := mt(
+                n="Enum should be assoc PR pattern",
+                d="Enumeration should be association Player-Role pattern",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: ParametrizedResponse(text="Will the roles of ${firstRole} and ${secondRole} ever be "
+                                                 "occupied at the same time?"),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            full_pr_pattern_should_be_subclass := mt(
+                n="Full PR pattern should be subclass",
+                d="Full Player-Role pattern should be subclass",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: ParametrizedResponse(text="Can a ${firstRole} can also play the role of one of the "
+                                                 "other roles at different times or at the same time?"),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            full_pr_pattern_should_be_assoc := mt(
+                n="Full PR pattern should be assoc",
+                d="Full Player-Role pattern should be association",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: ParametrizedResponse(
+                        text="Do ${firstRole} and ${secondRole} need to have different features?"),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+            full_pr_pattern_should_be_enum := mt(
+                n="Full PR pattern should be enum",
+                d="Full Player-Role pattern should be enumeration",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationships between these concepts."),
+                    3: ParametrizedResponse(
+                        text="Do ${firstRole} and ${secondRole} need to have different features and is it "
+                             "possible that more than one role is played at the same time?"),
+                    4: ResourceResponse(learningResources=[pr_quiz]),
+                    5: ResourceResponse(learningResources=[pr_ref]),
+                })),
+        ]),
         abstraction_occurrence_pattern_mistakes := mtc(n="Abstraction-Occurrence pattern mistakes", mistakeTypes=[
             missing_ao_pattern := mt(
                 n="Missing AO pattern", d="Missing Abstraction-Occurrence pattern", feedbacks=fbs({

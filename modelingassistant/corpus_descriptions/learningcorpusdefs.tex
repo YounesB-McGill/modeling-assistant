@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus script.
-% Generation time: 2022-01-22 00:35:49
+% Generation time: 2022-01-22 11:20:48
 
 \section{Class mistakes}
 
@@ -765,7 +765,7 @@ Isn't there something special about this attribute?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${includingClass.attributeName}| should be static, because it applies to all instances of \verb|${includingClass}|.
+\verb|${attributeName}| should be static, because it applies to all instances of \verb|${includingClass}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -788,7 +788,7 @@ Double check the properties of this attribute.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${includingClass.attributeName}| should not be static, because it does not apply to all instances of \verb|${includingClass}|.
+\verb|${attributeName}| should not be static, because it does not apply to all instances of \verb|${includingClass}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -801,11 +801,9 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 \section{Relationship mistakes}
 
-\subsection{Association mistakes}
+\subsection{Missing association/aggregation mistakes}
 
-\subsubsection{Missing association mistakes}
-
-\noindent \textbf{Missing association} \medskip
+\subsubsection{Missing association}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -833,7 +831,7 @@ better understand these relationships and where they are used.
 \end{tabular} \medskip
 
 
-\noindent \textbf{Missing aggregation} \medskip
+\subsubsection{Missing aggregation}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -861,7 +859,7 @@ better understand these relationships and where they are used.
 \end{tabular} \medskip
 
 
-\noindent \textbf{Missing n-ary association} \medskip
+\subsubsection{Missing n-ary association}
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -889,7 +887,7 @@ better understand these relationships and where they are used.
 \end{tabular} \medskip
 
 
-\noindent \textbf{Using attribute instead of association} \medskip
+\subsubsection{Using attribute instead of association}
 
 \noindent Level 1: Highlight solution (Attribute) \medskip
 
@@ -930,9 +928,9 @@ better understand these relationships and where they are used.
 \end{tabular} \medskip
 
 
-\subsubsection{Extra association mistakes}
+\subsection{Extra association mistakes}
 
-\noindent \textbf{Representing an action with an association} \medskip
+\subsubsection{Representing an action with an association}
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -959,7 +957,7 @@ Please review the \textit{domain modeling lecture} to know which concepts should
 \end{tabular} \medskip
 
 
-\noindent \textbf{Extra association} \medskip
+\subsubsection{Extra association}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -998,7 +996,7 @@ Please review the \textit{domain modeling lecture} to know which concepts should
 \end{tabular} \medskip
 
 
-\noindent \textbf{Extra aggregation} \medskip
+\subsubsection{Extra aggregation}
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -1021,7 +1019,7 @@ Please review the \textit{domain modeling lecture} to know which concepts should
 \end{tabular} \medskip
 
 
-\noindent \textbf{Extra n-ary association} \medskip
+\subsubsection{Extra n-ary association}
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -1044,287 +1042,9 @@ Please review the \textit{domain modeling lecture} to know which concepts should
 \end{tabular} \medskip
 
 
-\subsubsection{Association type mistakes}
+\subsection{Multiplicity mistakes}
 
-\noindent \textbf{Using aggregation instead of association} \medskip
-
-\noindent Level 1: Highlight solution  \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-What is the relationship between these two concepts?
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${containedClass}| and \verb|${containerClass}| can be modeled with a simple association.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Please review the _Composition vs. Aggregation vs. Association_ section of 
-the \textit{UML Class Diagram lecture slides} to 
-better understand these relationships and where they are used.
-
-\\
-\includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Using composition instead of association} \medskip
-
-\noindent Level 1: Highlight solution (Relationship) \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-What is the relationship between these two concepts?
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Why is \verb|${incorrectlyContainedClass}| contained in \verb|${containerClass}|?
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Please review the _Composition vs. Aggregation vs. Association_ section of 
-the \textit{UML Class Diagram lecture slides} to 
-better understand these relationships and where they are used.
-
-\\
-\includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Using directed relationship instead of undirected relationship} \medskip
-
-\noindent Level 1: Highlight solution (Relationship) \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Why is navigation restricted for this relationship?
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${classOne}| and \verb|${classTwo}| should be undirected.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Please review the _Directionality in Associations_ section of the \textit{UML Class Diagram lecture slides}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Using undirected relationship instead of directed relationship} \medskip
-
-\noindent Level 1: Highlight solution (Relationship) \medskip
-
-\noindent Level 2: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Does \verb|${targetClass}| need to know about \verb|${sourceClass}|?
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${classOne}| and \verb|${classTwo}| should be directed[ from \verb|${classOne}| to \verb|${classTwo}|].
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Please review the _Directionality in Associations_ section of the \textit{UML Class Diagram lecture slides}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Using composition instead of aggregation} \medskip
-
-\noindent Level 1: Highlight solution (Relationship) \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Is this the best relationship to use here?
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The composition between \verb|${containedClass}| and \verb|${containerClass}| is better modeled using aggregation.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Please review the _Composition vs. Aggregation vs. Association_ section of 
-the \textit{UML Class Diagram lecture slides} to 
-better understand these relationships and where they are used.
-
-\\
-\includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Using binary association instead of n-ary association} \medskip
-
-\noindent Level 1: Highlight solution  \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Can you model this relationship more precisely?
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Use a \verb|${n}|-ary association to represent this relationship.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Please review the \textit{Association} part of the Class Diagram lecture.
-\end{tabular} \medskip
-
-
-\noindent \textbf{Using n-ary association instead of binary association} \medskip
-
-\noindent Level 1: Highlight solution  \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Can you model this relationship more precisely?
-\end{tabular} \medskip
-
-\noindent Level 3: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Use a binary association to represent this relationship.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Please review the \textit{Association} part of the Class Diagram lecture.
-\end{tabular} \medskip
-
-
-\noindent \textbf{Using intermediate class instead of n-ary association} \medskip
-
-\noindent Level 1: Highlight solution  \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Can you model this relationship in a different way?
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Use a \verb|${n}|-ary association to represent this relationship.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Please review the \textit{Association} part of the Class Diagram lecture.
-\end{tabular} \medskip
-
-
-\noindent \textbf{Using n-ary association instead of intermediate class} \medskip
-
-\noindent Level 1: Highlight solution  \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Is this the best way to model this concept?
-\end{tabular} \medskip
-
-\noindent Level 3: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Use an intermediate class instead of an n-ary association.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Please review the \textit{Association} part of the Class Diagram lecture.
-\end{tabular} \medskip
-
-
-\subsubsection{Association name mistakes}
-
-\noindent \textbf{Missing association name} \medskip
-
-\noindent Level 1: Highlight solution  \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Something is missing here.
-\end{tabular} \medskip
-
-\noindent Level 3: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Can you give this association a name?
-\end{tabular} \medskip
-
-\noindent Level 4: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-This association should be named \verb|${associationName}|.
-\end{tabular} \medskip
-
-\noindent Level 5: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Please review the \textit{Association} and \textit{Noun Analysis} parts of the Class Diagram lecture.
-\end{tabular} \medskip
-
-
-\noindent \textbf{Bad association name spelling} \medskip
-
-\noindent Level 1: Highlight solution  \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Double check this association name.
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-\verb|${associationName}| is misspelled.[ Use the same spelling as the problem description.]
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Please review the \textit{Association} and \textit{Noun Analysis} parts of the Class Diagram lecture.
-\end{tabular} \medskip
-
-
-\subsubsection{Multiplicity mistakes}
-
-\noindent \textbf{Infinite recursive dependency} \medskip
+\subsubsection{Infinite recursive dependency}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1367,7 +1087,7 @@ Please review the \textit{multiplicities} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
 
-\noindent \textbf{Wrong multiplicity} \medskip
+\subsubsection{Wrong multiplicity}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1409,7 +1129,7 @@ Please review the \textit{multiplicities} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
 
-\noindent \textbf{Missing multiplicity} \medskip
+\subsubsection{Missing multiplicity}
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -1451,9 +1171,9 @@ Please review the \textit{multiplicities} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
 
-\subsubsection{Role name mistakes}
+\subsection{Role name mistakes}
 
-\noindent \textbf{Missing role names} \medskip
+\subsubsection{Missing role names}
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -1483,7 +1203,7 @@ between the same two classes.
 \end{tabular} \medskip
 
 
-\noindent \textbf{Role should be static} \medskip
+\subsubsection{Role should be static}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1506,7 +1226,7 @@ Please review the \textit{Association} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
 
-\noindent \textbf{Role should not be static} \medskip
+\subsubsection{Role should not be static}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1529,7 +1249,7 @@ Please review the \textit{Association} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
 
-\noindent \textbf{Bad role name spelling} \medskip
+\subsubsection{Bad role name spelling}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1552,7 +1272,7 @@ Please review the \textit{Association} and \textit{Noun Analysis} parts of the C
 \end{tabular} \medskip
 
 
-\noindent \textbf{Wrong role name but correct association} \medskip
+\subsubsection{Wrong role name but correct association}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1588,9 +1308,287 @@ between the same two classes.
 \end{tabular} \medskip
 
 
-\subsubsection{Association class mistakes}
+\subsection{Association type mistakes}
 
-\noindent \textbf{Missing association class} \medskip
+\subsubsection{Using aggregation instead of association}
+
+\noindent Level 1: Highlight solution  \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+What is the relationship between these two concepts?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The relationship between \verb|${containedClass}| and \verb|${containerClass}| can be modeled with a simple association.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the _Composition vs. Aggregation vs. Association_ section of 
+the \textit{UML Class Diagram lecture slides} to 
+better understand these relationships and where they are used.
+
+\\
+\includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Using composition instead of association}
+
+\noindent Level 1: Highlight solution (Relationship) \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+What is the relationship between these two concepts?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Why is \verb|${incorrectlyContainedClass}| contained in \verb|${containerClass}|?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the _Composition vs. Aggregation vs. Association_ section of 
+the \textit{UML Class Diagram lecture slides} to 
+better understand these relationships and where they are used.
+
+\\
+\includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Using directed relationship instead of undirected relationship}
+
+\noindent Level 1: Highlight solution (Relationship) \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Why is navigation restricted for this relationship?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The relationship between \verb|${classOne}| and \verb|${classTwo}| should be undirected.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the _Directionality in Associations_ section of the \textit{UML Class Diagram lecture slides}
+\end{tabular} \medskip
+
+
+\subsubsection{Using undirected relationship instead of directed relationship}
+
+\noindent Level 1: Highlight solution (Relationship) \medskip
+
+\noindent Level 2: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Does \verb|${targetClass}| need to know about \verb|${sourceClass}|?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The relationship between \verb|${classOne}| and \verb|${classTwo}| should be directed[ from \verb|${classOne}| to \verb|${classTwo}|].
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the _Directionality in Associations_ section of the \textit{UML Class Diagram lecture slides}
+\end{tabular} \medskip
+
+
+\subsubsection{Using composition instead of aggregation}
+
+\noindent Level 1: Highlight solution (Relationship) \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Is this the best relationship to use here?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The composition between \verb|${containedClass}| and \verb|${containerClass}| is better modeled using aggregation.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the _Composition vs. Aggregation vs. Association_ section of 
+the \textit{UML Class Diagram lecture slides} to 
+better understand these relationships and where they are used.
+
+\\
+\includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Using binary association instead of n-ary association}
+
+\noindent Level 1: Highlight solution  \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Can you model this relationship more precisely?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Use a \verb|${n}|-ary association to represent this relationship.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the \textit{Association} part of the Class Diagram lecture.
+\end{tabular} \medskip
+
+
+\subsubsection{Using n-ary association instead of binary association}
+
+\noindent Level 1: Highlight solution  \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Can you model this relationship more precisely?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Use a binary association to represent this relationship.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the \textit{Association} part of the Class Diagram lecture.
+\end{tabular} \medskip
+
+
+\subsubsection{Using intermediate class instead of n-ary association}
+
+\noindent Level 1: Highlight solution  \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Can you model this relationship in a different way?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Use a \verb|${n}|-ary association to represent this relationship.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the \textit{Association} part of the Class Diagram lecture.
+\end{tabular} \medskip
+
+
+\subsubsection{Using n-ary association instead of intermediate class}
+
+\noindent Level 1: Highlight solution  \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Is this the best way to model this concept?
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Use an intermediate class instead of an n-ary association.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the \textit{Association} part of the Class Diagram lecture.
+\end{tabular} \medskip
+
+
+\subsection{Association name mistakes}
+
+\subsubsection{Missing association name}
+
+\noindent Level 1: Highlight solution  \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Something is missing here.
+\end{tabular} \medskip
+
+\noindent Level 3: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Can you give this association a name?
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+This association should be named \verb|${associationName}|.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the \textit{Association} and \textit{Noun Analysis} parts of the Class Diagram lecture.
+\end{tabular} \medskip
+
+
+\subsubsection{Bad association name spelling}
+
+\noindent Level 1: Highlight solution  \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Double check this association name.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+\verb|${associationName}| is misspelled.[ Use the same spelling as the problem description.]
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the \textit{Association} and \textit{Noun Analysis} parts of the Class Diagram lecture.
+\end{tabular} \medskip
+
+
+\subsection{Association class mistakes}
+
+\subsubsection{Missing association class}
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -1622,7 +1620,7 @@ Association class
 \end{tabular} \medskip
 
 
-\noindent \textbf{Extra association class} \medskip
+\subsubsection{Extra association class}
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -1641,6 +1639,12 @@ Is using an association class the best way to model this?
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+Does it make sense to disallow multiple instances of the \verb|${inBetweenClass}| linking \verb|${firstClass}| and \verb|${secondClass}|?
+\end{tabular} \medskip
+
+\noindent Level 5: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 Further details of the association between \verb|${firstClass}| and \verb|${secondClass}| should not be modeled with an association class.
 \end{tabular} \medskip
 
@@ -1654,7 +1658,7 @@ Association class
 \end{tabular} \medskip
 
 
-\noindent \textbf{Bad association class name spelling} \medskip
+\subsubsection{Bad association class name spelling}
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -1683,7 +1687,7 @@ Please review the \textit{Classes} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
 
-\noindent \textbf{Association class should be regular class} \medskip
+\subsubsection{Association class should be regular class}
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -1715,7 +1719,7 @@ Association class
 \end{tabular} \medskip
 
 
-\noindent \textbf{Regular class should be association class} \medskip
+\subsubsection{Regular class should be association class}
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -1745,7 +1749,6 @@ Association class
 \\
 \includegraphics[width=0.6\textwidth]{images/association_class.png}
 \end{tabular} \medskip
-
 
 
 \subsection{Composition mistakes}
@@ -2411,536 +2414,6 @@ Please review the \textit{Generalization} part of the Class Diagram lecture.
 
 \subsection{Player-Role Pattern mistakes}
 
-\subsubsection{Using different Player-Role pattern}
-
-\noindent \textbf{Subclass should be full Player-Role pattern} \medskip
-
-\noindent Level 1: Highlight solution (Class) \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-[Nice try, but] a \verb|${firstSubclass}| can also play the role of one of the other subclasses.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Quiz: \medskip
-
-
-\begin{tabular}{lcccc}
-\hline
-\textbf{Solution} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
-\end{tabular} \bigskip
-
-
-\noindent Level 5: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-\\
-\includegraphics[width=0.6\textwidth]{images/player_role.png}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Subclass should be association Player-Role pattern} \medskip
-
-\noindent Level 1: Highlight solution (Relationship) \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-[Nice try, but] a \verb|${firstSubclass}| can also play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Quiz: \medskip
-
-
-\begin{tabular}{lcccc}
-\hline
-\textbf{Solution} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
-\end{tabular} \bigskip
-
-
-\noindent Level 5: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-\\
-\includegraphics[width=0.6\textwidth]{images/player_role.png}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Subclass should be enumeration Player-Role pattern} \medskip
-
-\noindent Level 1: Highlight solution (Attribute) \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-[Nice try, but] a \verb|${firstSubclass}| does not need to play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Quiz: \medskip
-
-
-\begin{tabular}{lcccc}
-\hline
-\textbf{Solution} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
-\end{tabular} \bigskip
-
-
-\noindent Level 5: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-\\
-\includegraphics[width=0.6\textwidth]{images/player_role.png}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Association should be full Player-Role pattern} \medskip
-
-\noindent Level 1: Highlight solution (Relationship) \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-A \verb|${firstRole}| has different features from a \verb|${secondRole}|.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Quiz: \medskip
-
-
-\begin{tabular}{lcccc}
-\hline
-\textbf{Solution} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
-\end{tabular} \bigskip
-
-
-\noindent Level 5: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-\\
-\includegraphics[width=0.6\textwidth]{images/player_role.png}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Association should be subclass Player-Role pattern} \medskip
-
-\noindent Level 1: Highlight solution (Relationship) \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-A \verb|${firstRole}| has different features from a \verb|${secondRole}| and \verb|${role}| does not change its role over its lifetime.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Quiz: \medskip
-
-
-\begin{tabular}{lcccc}
-\hline
-\textbf{Solution} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
-\end{tabular} \bigskip
-
-
-\noindent Level 5: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-\\
-\includegraphics[width=0.6\textwidth]{images/player_role.png}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Association should be enumeration Player-Role pattern} \medskip
-
-\noindent Level 1: Highlight solution (Relationship) \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Will the roles of \verb|${firstRole}| and \verb|${secondRole}| ever be occupied at the same time?
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Quiz: \medskip
-
-
-\begin{tabular}{lcccc}
-\hline
-\textbf{Solution} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
-\end{tabular} \bigskip
-
-
-\noindent Level 5: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-\\
-\includegraphics[width=0.6\textwidth]{images/player_role.png}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Enumeration should be full Player-Role pattern} \medskip
-
-\noindent Level 1: Highlight solution (Class) \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-A \verb|${firstRole}| has different features from one of the other roles at the same time and different features need to be captured for the roles.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Quiz: \medskip
-
-
-\begin{tabular}{lcccc}
-\hline
-\textbf{Solution} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
-\end{tabular} \bigskip
-
-
-\noindent Level 5: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-\\
-\includegraphics[width=0.6\textwidth]{images/player_role.png}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Enumeration should be subclass Player-Role pattern} \medskip
-
-\noindent Level 1: Highlight solution (Class) \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-A \verb|${firstRole}| has different features from one of the other roles and this role never changes to another role.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Quiz: \medskip
-
-
-\begin{tabular}{lcccc}
-\hline
-\textbf{Solution} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
-\end{tabular} \bigskip
-
-
-\noindent Level 5: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-\\
-\includegraphics[width=0.6\textwidth]{images/player_role.png}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Enumeration should be association Player-Role pattern} \medskip
-
-\noindent Level 1: Highlight solution (Relationship) \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Will the roles of \verb|${firstRole}| and \verb|${secondRole}| ever be occupied at the same time?
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Quiz: \medskip
-
-
-\begin{tabular}{lcccc}
-\hline
-\textbf{Solution} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
-\end{tabular} \bigskip
-
-
-\noindent Level 5: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-\\
-\includegraphics[width=0.6\textwidth]{images/player_role.png}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Full Player-Role pattern should be subclass} \medskip
-
-\noindent Level 1: Highlight solution (Class) \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Can a \verb|${firstRole}| can also play the role of one of the other roles at different times or at the same time?
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Quiz: \medskip
-
-
-\begin{tabular}{lcccc}
-\hline
-\textbf{Solution} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
-\end{tabular} \bigskip
-
-
-\noindent Level 5: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-\\
-\includegraphics[width=0.6\textwidth]{images/player_role.png}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Full Player-Role pattern should be association} \medskip
-
-\noindent Level 1: Highlight solution (Relationship) \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Do \verb|${firstRole}| and \verb|${secondRole}| need to have different features?
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Quiz: \medskip
-
-
-\begin{tabular}{lcccc}
-\hline
-\textbf{Solution} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
-\end{tabular} \bigskip
-
-
-\noindent Level 5: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-\\
-\includegraphics[width=0.6\textwidth]{images/player_role.png}
-\end{tabular} \medskip
-
-
-\noindent \textbf{Full Player-Role pattern should be enumeration} \medskip
-
-\noindent Level 1: Highlight solution (Attribute) \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Do \verb|${firstRole}| and \verb|${secondRole}| need to have different features and is it possible that more than one role is played at the same time?
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Quiz: \medskip
-
-
-\begin{tabular}{lcccc}
-\hline
-\textbf{Solution} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
-\end{tabular} \bigskip
-
-
-\noindent Level 5: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-\\
-\includegraphics[width=0.6\textwidth]{images/player_role.png}
-\end{tabular} \medskip
-
-
 \subsubsection{Missing Player-Role pattern}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -3007,6 +2480,534 @@ Modeling all the concepts in one \verb|${playerClass}| class will make it very c
 
 \begin{tabular}{|p{0.9\linewidth}}
 [Nice try, but ]a \verb|${firstSubclass}| can also play the role of a \verb|${secondSubclass}|.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz: \medskip
+
+
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
+Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
+Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
+Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+\end{tabular} \bigskip
+
+
+\noindent Level 5: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/player_role.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Subclass should be full Player-Role pattern}
+
+\noindent Level 1: Highlight solution (Class) \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+[Nice try, but] a \verb|${firstSubclass}| can also play the role of one of the other subclasses.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz: \medskip
+
+
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
+Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
+Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
+Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+\end{tabular} \bigskip
+
+
+\noindent Level 5: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/player_role.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Subclass should be association Player-Role pattern}
+
+\noindent Level 1: Highlight solution (Relationship) \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+[Nice try, but] a \verb|${firstSubclass}| can also play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz: \medskip
+
+
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
+Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
+Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
+Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+\end{tabular} \bigskip
+
+
+\noindent Level 5: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/player_role.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Subclass should be enumeration Player-Role pattern}
+
+\noindent Level 1: Highlight solution (Attribute) \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+[Nice try, but] a \verb|${firstSubclass}| does not need to play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz: \medskip
+
+
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
+Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
+Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
+Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+\end{tabular} \bigskip
+
+
+\noindent Level 5: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/player_role.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Association should be full Player-Role pattern}
+
+\noindent Level 1: Highlight solution (Relationship) \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+A \verb|${firstRole}| has different features from a \verb|${secondRole}|.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz: \medskip
+
+
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
+Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
+Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
+Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+\end{tabular} \bigskip
+
+
+\noindent Level 5: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/player_role.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Association should be subclass Player-Role pattern}
+
+\noindent Level 1: Highlight solution (Relationship) \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+A \verb|${firstRole}| has different features from a \verb|${secondRole}| and \verb|${role}| does not change its role over its lifetime.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz: \medskip
+
+
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
+Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
+Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
+Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+\end{tabular} \bigskip
+
+
+\noindent Level 5: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/player_role.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Association should be enumeration Player-Role pattern}
+
+\noindent Level 1: Highlight solution (Relationship) \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Will the roles of \verb|${firstRole}| and \verb|${secondRole}| ever be occupied at the same time?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz: \medskip
+
+
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
+Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
+Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
+Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+\end{tabular} \bigskip
+
+
+\noindent Level 5: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/player_role.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Enumeration should be full Player-Role pattern}
+
+\noindent Level 1: Highlight solution (Class) \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+A \verb|${firstRole}| has different features from one of the other roles at the same time and different features need to be captured for the roles.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz: \medskip
+
+
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
+Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
+Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
+Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+\end{tabular} \bigskip
+
+
+\noindent Level 5: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/player_role.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Enumeration should be subclass Player-Role pattern}
+
+\noindent Level 1: Highlight solution (Class) \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+A \verb|${firstRole}| has different features from one of the other roles and this role never changes to another role.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz: \medskip
+
+
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
+Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
+Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
+Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+\end{tabular} \bigskip
+
+
+\noindent Level 5: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/player_role.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Enumeration should be association Player-Role pattern}
+
+\noindent Level 1: Highlight solution (Relationship) \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Will the roles of \verb|${firstRole}| and \verb|${secondRole}| ever be occupied at the same time?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz: \medskip
+
+
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
+Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
+Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
+Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+\end{tabular} \bigskip
+
+
+\noindent Level 5: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/player_role.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Full Player-Role pattern should be subclass}
+
+\noindent Level 1: Highlight solution (Class) \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Can a \verb|${firstRole}| can also play the role of one of the other roles at different times or at the same time?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz: \medskip
+
+
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
+Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
+Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
+Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+\end{tabular} \bigskip
+
+
+\noindent Level 5: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/player_role.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Full Player-Role pattern should be association}
+
+\noindent Level 1: Highlight solution (Relationship) \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Do \verb|${firstRole}| and \verb|${secondRole}| need to have different features?
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Quiz: \medskip
+
+
+\begin{tabular}{lcccc}
+\hline
+\textbf{Solution} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Roles\\ have\\ different\\ features\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
+Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
+Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
+Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
+Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+\end{tabular} \bigskip
+
+
+\noindent Level 5: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/player_role.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Full Player-Role pattern should be enumeration}
+
+\noindent Level 1: Highlight solution (Attribute) \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationships between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Do \verb|${firstRole}| and \verb|${secondRole}| need to have different features and is it possible that more than one role is played at the same time?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip

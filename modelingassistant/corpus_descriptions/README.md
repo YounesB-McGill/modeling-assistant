@@ -36,46 +36,45 @@
    1. [Attribute should not be static](#attribute-should-not-be-static)
 
 1. [Relationship mistakes](#relationship-mistakes)
-   1. [Association mistakes](#association-mistakes)
-      1. [Missing association mistakes](#missing-association-mistakes)
-         1. [Missing association](#missing-association)
-         1. [Missing aggregation](#missing-aggregation)
-         1. [Missing n-ary association](#missing-n-ary-association)
-         1. [Using attribute instead of association](#using-attribute-instead-of-association)
-      1. [Extra association mistakes](#extra-association-mistakes)
-         1. [Representing an action with an association](#representing-an-action-with-an-association)
-         1. [Extra association](#extra-association)
-         1. [Extra aggregation](#extra-aggregation)
-         1. [Extra n-ary association](#extra-n-ary-association)
-      1. [Association type mistakes](#association-type-mistakes)
-         1. [Using aggregation instead of association](#using-aggregation-instead-of-association)
-         1. [Using composition instead of association](#using-composition-instead-of-association)
-         1. [Using directed relationship instead of undirected relationship](#using-directed-relationship-instead-of-undirected-relationship)
-         1. [Using undirected relationship instead of directed relationship](#using-undirected-relationship-instead-of-directed-relationship)
-         1. [Using composition instead of aggregation](#using-composition-instead-of-aggregation)
-         1. [Using binary association instead of n-ary association](#using-binary-association-instead-of-n-ary-association)
-         1. [Using n-ary association instead of binary association](#using-n-ary-association-instead-of-binary-association)
-         1. [Using intermediate class instead of n-ary association](#using-intermediate-class-instead-of-n-ary-association)
-         1. [Using n-ary association instead of intermediate class](#using-n-ary-association-instead-of-intermediate-class)
-      1. [Association name mistakes](#association-name-mistakes)
-         1. [Missing association name](#missing-association-name)
-         1. [Bad association name spelling](#bad-association-name-spelling)
-      1. [Multiplicity mistakes](#multiplicity-mistakes)
-         1. [Infinite recursive dependency](#infinite-recursive-dependency)
-         1. [Wrong multiplicity](#wrong-multiplicity)
-         1. [Missing multiplicity](#missing-multiplicity)
-      1. [Role name mistakes](#role-name-mistakes)
-         1. [Missing role names](#missing-role-names)
-         1. [Role should be static](#role-should-be-static)
-         1. [Role should not be static](#role-should-not-be-static)
-         1. [Bad role name spelling](#bad-role-name-spelling)
-         1. [Wrong role name but correct association](#wrong-role-name-but-correct-association)
-      1. [Association class mistakes](#association-class-mistakes)
-         1. [Missing association class](#missing-association-class)
-         1. [Extra association class](#extra-association-class)
-         1. [Bad association class name spelling](#bad-association-class-name-spelling)
-         1. [Association class should be regular class](#association-class-should-be-regular-class)
-         1. [Regular class should be association class](#regular-class-should-be-association-class)
+   1. [Missing association/aggregation mistakes](#missing-association-aggregation-mistakes)
+      1. [Missing association](#missing-association)
+      1. [Missing aggregation](#missing-aggregation)
+      1. [Missing n-ary association](#missing-n-ary-association)
+      1. [Using attribute instead of association](#using-attribute-instead-of-association)
+   1. [Extra association mistakes](#extra-association-mistakes)
+      1. [Representing an action with an association](#representing-an-action-with-an-association)
+      1. [Extra association](#extra-association)
+      1. [Extra aggregation](#extra-aggregation)
+      1. [Extra n-ary association](#extra-n-ary-association)
+   1. [Multiplicity mistakes](#multiplicity-mistakes)
+      1. [Infinite recursive dependency](#infinite-recursive-dependency)
+      1. [Wrong multiplicity](#wrong-multiplicity)
+      1. [Missing multiplicity](#missing-multiplicity)
+   1. [Role name mistakes](#role-name-mistakes)
+      1. [Missing role names](#missing-role-names)
+      1. [Role should be static](#role-should-be-static)
+      1. [Role should not be static](#role-should-not-be-static)
+      1. [Bad role name spelling](#bad-role-name-spelling)
+      1. [Wrong role name but correct association](#wrong-role-name-but-correct-association)
+   1. [Association type mistakes](#association-type-mistakes)
+      1. [Using aggregation instead of association](#using-aggregation-instead-of-association)
+      1. [Using composition instead of association](#using-composition-instead-of-association)
+      1. [Using directed relationship instead of undirected relationship](#using-directed-relationship-instead-of-undirected-relationship)
+      1. [Using undirected relationship instead of directed relationship](#using-undirected-relationship-instead-of-directed-relationship)
+      1. [Using composition instead of aggregation](#using-composition-instead-of-aggregation)
+      1. [Using binary association instead of n-ary association](#using-binary-association-instead-of-n-ary-association)
+      1. [Using n-ary association instead of binary association](#using-n-ary-association-instead-of-binary-association)
+      1. [Using intermediate class instead of n-ary association](#using-intermediate-class-instead-of-n-ary-association)
+      1. [Using n-ary association instead of intermediate class](#using-n-ary-association-instead-of-intermediate-class)
+   1. [Association name mistakes](#association-name-mistakes)
+      1. [Missing association name](#missing-association-name)
+      1. [Bad association name spelling](#bad-association-name-spelling)
+   1. [Association class mistakes](#association-class-mistakes)
+      1. [Missing association class](#missing-association-class)
+      1. [Extra association class](#extra-association-class)
+      1. [Bad association class name spelling](#bad-association-class-name-spelling)
+      1. [Association class should be regular class](#association-class-should-be-regular-class)
+      1. [Regular class should be association class](#regular-class-should-be-association-class)
    1. [Composition mistakes](#composition-mistakes)
       1. [Missing composition](#missing-composition)
       1. [Extra composition](#extra-composition)
@@ -97,21 +96,20 @@
 
 1. [Design pattern mistakes](#design-pattern-mistakes)
    1. [Player-Role Pattern mistakes](#player-role-pattern-mistakes)
-      1. [Using different Player-Role pattern](#using-different-player-role-pattern)
-         1. [Subclass should be full Player-Role pattern](#subclass-should-be-full-player-role-pattern)
-         1. [Subclass should be association Player-Role pattern](#subclass-should-be-association-player-role-pattern)
-         1. [Subclass should be enumeration Player-Role pattern](#subclass-should-be-enumeration-player-role-pattern)
-         1. [Association should be full Player-Role pattern](#association-should-be-full-player-role-pattern)
-         1. [Association should be subclass Player-Role pattern](#association-should-be-subclass-player-role-pattern)
-         1. [Association should be enumeration Player-Role pattern](#association-should-be-enumeration-player-role-pattern)
-         1. [Enumeration should be full Player-Role pattern](#enumeration-should-be-full-player-role-pattern)
-         1. [Enumeration should be subclass Player-Role pattern](#enumeration-should-be-subclass-player-role-pattern)
-         1. [Enumeration should be association Player-Role pattern](#enumeration-should-be-association-player-role-pattern)
-         1. [Full Player-Role pattern should be subclass](#full-player-role-pattern-should-be-subclass)
-         1. [Full Player-Role pattern should be association](#full-player-role-pattern-should-be-association)
-         1. [Full Player-Role pattern should be enumeration](#full-player-role-pattern-should-be-enumeration)
       1. [Missing Player-Role pattern](#missing-player-role-pattern)
       1. [Incomplete Player-Role pattern](#incomplete-player-role-pattern)
+      1. [Subclass should be full Player-Role pattern](#subclass-should-be-full-player-role-pattern)
+      1. [Subclass should be association Player-Role pattern](#subclass-should-be-association-player-role-pattern)
+      1. [Subclass should be enumeration Player-Role pattern](#subclass-should-be-enumeration-player-role-pattern)
+      1. [Association should be full Player-Role pattern](#association-should-be-full-player-role-pattern)
+      1. [Association should be subclass Player-Role pattern](#association-should-be-subclass-player-role-pattern)
+      1. [Association should be enumeration Player-Role pattern](#association-should-be-enumeration-player-role-pattern)
+      1. [Enumeration should be full Player-Role pattern](#enumeration-should-be-full-player-role-pattern)
+      1. [Enumeration should be subclass Player-Role pattern](#enumeration-should-be-subclass-player-role-pattern)
+      1. [Enumeration should be association Player-Role pattern](#enumeration-should-be-association-player-role-pattern)
+      1. [Full Player-Role pattern should be subclass](#full-player-role-pattern-should-be-subclass)
+      1. [Full Player-Role pattern should be association](#full-player-role-pattern-should-be-association)
+      1. [Full Player-Role pattern should be enumeration](#full-player-role-pattern-should-be-enumeration)
    1. [Abstraction-Occurrence pattern mistakes](#abstraction-occurrence-pattern-mistakes)
       1. [Missing Abstraction-Occurrence pattern](#missing-abstraction-occurrence-pattern)
       1. [Incomplete Abstraction-Occurrence pattern](#incomplete-abstraction-occurrence-pattern)
@@ -670,7 +668,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${includingClass.attributeName} should be static, because it applies to all instances of ${includingClass}.
+> ${attributeName} should be static, because it applies to all instances of ${includingClass}.
 
 Level 4: Resource response with Reference:
 
@@ -687,7 +685,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${includingClass.attributeName} should not be static, because it does not apply to all instances of ${includingClass}.
+> ${attributeName} should not be static, because it does not apply to all instances of ${includingClass}.
 
 Level 4: Resource response with Reference:
 
@@ -697,11 +695,9 @@ Level 4: Resource response with Reference:
 
 ## Relationship mistakes
 
-### Association mistakes
+### Missing association/aggregation mistakes
 
-#### Missing association mistakes
-
-##### Missing association
+#### Missing association
 
 Level 1: Highlight solution
 
@@ -722,7 +718,7 @@ better understand these relationships and where they are used.
 ![composition vs aggregation vs association](images/composition_aggregation_association.png)
 
 
-##### Missing aggregation
+#### Missing aggregation
 
 Level 1: Highlight solution
 
@@ -743,7 +739,7 @@ better understand these relationships and where they are used.
 ![composition vs aggregation vs association](images/composition_aggregation_association.png)
 
 
-##### Missing n-ary association
+#### Missing n-ary association
 
 Level 1: Highlight solution
 
@@ -764,7 +760,7 @@ better understand these relationships and where they are used.
 ![composition vs aggregation vs association](images/composition_aggregation_association.png)
 
 
-##### Using attribute instead of association
+#### Using attribute instead of association
 
 Level 1: Highlight solution
 
@@ -793,9 +789,9 @@ better understand these relationships and where they are used.
 ![composition vs aggregation vs association](images/composition_aggregation_association.png)
 
 
-#### Extra association mistakes
+### Extra association mistakes
 
-##### Representing an action with an association
+#### Representing an action with an association
 
 Level 1: Highlight solution
 
@@ -815,7 +811,7 @@ Level 4: Resource response with Reference:
 > Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to know which concepts should be a part of a domain model.
 
 
-##### Extra association
+#### Extra association
 
 Level 1: Highlight solution
 
@@ -841,7 +837,7 @@ Level 5: Resource response with Reference:
 > Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to know which concepts should be a part of a domain model.
 
 
-##### Extra aggregation
+#### Extra aggregation
 
 Level 1: Highlight solution
 
@@ -858,7 +854,7 @@ Level 4: Resource response with Reference:
 > Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to know which concepts should be a part of a domain model.
 
 
-##### Extra n-ary association
+#### Extra n-ary association
 
 Level 1: Highlight solution
 
@@ -875,216 +871,9 @@ Level 4: Resource response with Reference:
 > Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to know which concepts should be a part of a domain model.
 
 
-#### Association type mistakes
+### Multiplicity mistakes
 
-##### Using aggregation instead of association
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> What is the relationship between these two concepts?
-
-Level 3: Parametrized response:
-
-> The relationship between ${containedClass} and ${containerClass} can be modeled with a simple association.
-
-Level 4: Resource response with Reference:
-
-> Please review the _Composition vs. Aggregation vs. Association_ section of 
-the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
-better understand these relationships and where they are used.
-
-![composition vs aggregation vs association](images/composition_aggregation_association.png)
-
-
-##### Using composition instead of association
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> What is the relationship between these two concepts?
-
-Level 3: Parametrized response:
-
-> Why is ${incorrectlyContainedClass} contained in ${containerClass}?
-
-Level 4: Resource response with Reference:
-
-> Please review the _Composition vs. Aggregation vs. Association_ section of 
-the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
-better understand these relationships and where they are used.
-
-![composition vs aggregation vs association](images/composition_aggregation_association.png)
-
-
-##### Using directed relationship instead of undirected relationship
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Why is navigation restricted for this relationship?
-
-Level 3: Parametrized response:
-
-> The relationship between ${classOne} and ${classTwo} should be undirected.
-
-Level 4: Resource response with Reference:
-
-> Please review the _Directionality in Associations_ section of the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
-
-
-##### Using undirected relationship instead of directed relationship
-
-Level 1: Highlight solution
-
-Level 2: Parametrized response:
-
-> Does ${targetClass} need to know about ${sourceClass}?
-
-Level 3: Parametrized response:
-
-> The relationship between ${classOne} and ${classTwo} should be directed[ from ${classOne} to ${classTwo}].
-
-Level 4: Resource response with Reference:
-
-> Please review the _Directionality in Associations_ section of the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
-
-
-##### Using composition instead of aggregation
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Is this the best relationship to use here?
-
-Level 3: Parametrized response:
-
-> The composition between ${containedClass} and ${containerClass} is better modeled using aggregation.
-
-Level 4: Resource response with Reference:
-
-> Please review the _Composition vs. Aggregation vs. Association_ section of 
-the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
-better understand these relationships and where they are used.
-
-![composition vs aggregation vs association](images/composition_aggregation_association.png)
-
-
-##### Using binary association instead of n-ary association
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Can you model this relationship more precisely?
-
-Level 3: Parametrized response:
-
-> Use a ${n}-ary association to represent this relationship.
-
-Level 4: Resource response with Reference:
-
-> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
-
-
-##### Using n-ary association instead of binary association
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Can you model this relationship more precisely?
-
-Level 3: Text response:
-
-> Use a binary association to represent this relationship.
-
-Level 4: Resource response with Reference:
-
-> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
-
-
-##### Using intermediate class instead of n-ary association
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Can you model this relationship in a different way?
-
-Level 3: Parametrized response:
-
-> Use a ${n}-ary association to represent this relationship.
-
-Level 4: Resource response with Reference:
-
-> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
-
-
-##### Using n-ary association instead of intermediate class
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Is this the best way to model this concept?
-
-Level 3: Text response:
-
-> Use an intermediate class instead of an n-ary association.
-
-Level 4: Resource response with Reference:
-
-> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
-
-
-#### Association name mistakes
-
-##### Missing association name
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Something is missing here.
-
-Level 3: Text response:
-
-> Can you give this association a name?
-
-Level 4: Parametrized response:
-
-> This association should be named ${associationName}.
-
-Level 5: Resource response with Reference:
-
-> Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
-
-
-##### Bad association name spelling
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Double check this association name.
-
-Level 3: Parametrized response:
-
-> ${associationName} is misspelled.[ Use the same spelling as the problem description.]
-
-Level 4: Resource response with Reference:
-
-> Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
-
-
-#### Multiplicity mistakes
-
-##### Infinite recursive dependency
+#### Infinite recursive dependency
 
 Level 1: Highlight solution
 
@@ -1115,7 +904,7 @@ Level 6: Resource response with Reference:
 > Please review the [multiplicities](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
-##### Wrong multiplicity
+#### Wrong multiplicity
 
 Level 1: Highlight solution
 
@@ -1144,7 +933,7 @@ Level 6: Resource response with Reference:
 > Please review the [multiplicities](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
-##### Missing multiplicity
+#### Missing multiplicity
 
 Level 1: Highlight solution
 
@@ -1173,9 +962,9 @@ Level 6: Resource response with Reference:
 > Please review the [multiplicities](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
-#### Role name mistakes
+### Role name mistakes
 
-##### Missing role names
+#### Missing role names
 
 Level 1: Highlight solution
 
@@ -1198,7 +987,7 @@ between the same two classes.
 
 
 
-##### Role should be static
+#### Role should be static
 
 Level 1: Highlight solution
 
@@ -1215,7 +1004,7 @@ Level 4: Resource response with Reference:
 > Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
-##### Role should not be static
+#### Role should not be static
 
 Level 1: Highlight solution
 
@@ -1232,7 +1021,7 @@ Level 4: Resource response with Reference:
 > Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
-##### Bad role name spelling
+#### Bad role name spelling
 
 Level 1: Highlight solution
 
@@ -1249,7 +1038,7 @@ Level 4: Resource response with Reference:
 > Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
-##### Wrong role name but correct association
+#### Wrong role name but correct association
 
 Level 1: Highlight solution
 
@@ -1276,9 +1065,216 @@ between the same two classes.
 
 
 
-#### Association class mistakes
+### Association type mistakes
 
-##### Missing association class
+#### Using aggregation instead of association
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> What is the relationship between these two concepts?
+
+Level 3: Parametrized response:
+
+> The relationship between ${containedClass} and ${containerClass} can be modeled with a simple association.
+
+Level 4: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
+
+#### Using composition instead of association
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> What is the relationship between these two concepts?
+
+Level 3: Parametrized response:
+
+> Why is ${incorrectlyContainedClass} contained in ${containerClass}?
+
+Level 4: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
+
+#### Using directed relationship instead of undirected relationship
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Why is navigation restricted for this relationship?
+
+Level 3: Parametrized response:
+
+> The relationship between ${classOne} and ${classTwo} should be undirected.
+
+Level 4: Resource response with Reference:
+
+> Please review the _Directionality in Associations_ section of the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
+
+
+#### Using undirected relationship instead of directed relationship
+
+Level 1: Highlight solution
+
+Level 2: Parametrized response:
+
+> Does ${targetClass} need to know about ${sourceClass}?
+
+Level 3: Parametrized response:
+
+> The relationship between ${classOne} and ${classTwo} should be directed[ from ${classOne} to ${classTwo}].
+
+Level 4: Resource response with Reference:
+
+> Please review the _Directionality in Associations_ section of the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
+
+
+#### Using composition instead of aggregation
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Is this the best relationship to use here?
+
+Level 3: Parametrized response:
+
+> The composition between ${containedClass} and ${containerClass} is better modeled using aggregation.
+
+Level 4: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
+
+#### Using binary association instead of n-ary association
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you model this relationship more precisely?
+
+Level 3: Parametrized response:
+
+> Use a ${n}-ary association to represent this relationship.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+#### Using n-ary association instead of binary association
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you model this relationship more precisely?
+
+Level 3: Text response:
+
+> Use a binary association to represent this relationship.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+#### Using intermediate class instead of n-ary association
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Can you model this relationship in a different way?
+
+Level 3: Parametrized response:
+
+> Use a ${n}-ary association to represent this relationship.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+#### Using n-ary association instead of intermediate class
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Is this the best way to model this concept?
+
+Level 3: Text response:
+
+> Use an intermediate class instead of an n-ary association.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+### Association name mistakes
+
+#### Missing association name
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Something is missing here.
+
+Level 3: Text response:
+
+> Can you give this association a name?
+
+Level 4: Parametrized response:
+
+> This association should be named ${associationName}.
+
+Level 5: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+#### Bad association name spelling
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Double check this association name.
+
+Level 3: Parametrized response:
+
+> ${associationName} is misspelled.[ Use the same spelling as the problem description.]
+
+Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+### Association class mistakes
+
+#### Missing association class
 
 Level 1: Highlight solution
 
@@ -1301,7 +1297,7 @@ Level 5: Resource response with Reference:
 ![Association class](images/association_class.png)
 
 
-##### Extra association class
+#### Extra association class
 
 Level 1: Highlight solution
 
@@ -1315,6 +1311,10 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
+> Does it make sense to disallow multiple instances of the ${inBetweenClass} linking ${firstClass} and ${secondClass}?
+
+Level 5: Parametrized response:
+
 > Further details of the association between ${firstClass} and ${secondClass} should not be modeled with an association class.
 
 Level 6: Resource response with Reference:
@@ -1324,7 +1324,7 @@ Level 6: Resource response with Reference:
 ![Association class](images/association_class.png)
 
 
-##### Bad association class name spelling
+#### Bad association class name spelling
 
 Level 1: Highlight solution
 
@@ -1345,7 +1345,7 @@ Level 5: Resource response with Reference:
 > Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
-##### Association class should be regular class
+#### Association class should be regular class
 
 Level 1: Highlight solution
 
@@ -1368,7 +1368,7 @@ Level 5: Resource response with Reference:
 ![Association class](images/association_class.png)
 
 
-##### Regular class should be association class
+#### Regular class should be association class
 
 Level 1: Highlight solution
 
@@ -1389,7 +1389,6 @@ Level 5: Resource response with Reference:
 > Association class
 
 ![Association class](images/association_class.png)
-
 
 
 ### Composition mistakes
@@ -1868,380 +1867,6 @@ Level 7: Resource response with Reference:
 
 ### Player-Role Pattern mistakes
 
-#### Using different Player-Role pattern
-
-##### Subclass should be full Player-Role pattern
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Think carefully about how to model the relationships between these concepts.
-
-Level 3: Parametrized response:
-
-> [Nice try, but] a ${firstSubclass} can also play the role of one of the other subclasses.
-
-Level 4: Resource response with Quiz:
-
-> Complete the following table:
-> 
-> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
-> --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
-
-Level 5: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-
-##### Subclass should be association Player-Role pattern
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Think carefully about how to model the relationships between these concepts.
-
-Level 3: Parametrized response:
-
-> [Nice try, but] a ${firstSubclass} can also play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
-
-Level 4: Resource response with Quiz:
-
-> Complete the following table:
-> 
-> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
-> --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
-
-Level 5: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-
-##### Subclass should be enumeration Player-Role pattern
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Think carefully about how to model the relationships between these concepts.
-
-Level 3: Parametrized response:
-
-> [Nice try, but] a ${firstSubclass} does not need to play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
-
-Level 4: Resource response with Quiz:
-
-> Complete the following table:
-> 
-> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
-> --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
-
-Level 5: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-
-##### Association should be full Player-Role pattern
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Think carefully about how to model the relationships between these concepts.
-
-Level 3: Parametrized response:
-
-> A ${firstRole} has different features from a ${secondRole}.
-
-Level 4: Resource response with Quiz:
-
-> Complete the following table:
-> 
-> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
-> --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
-
-Level 5: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-
-##### Association should be subclass Player-Role pattern
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Think carefully about how to model the relationships between these concepts.
-
-Level 3: Parametrized response:
-
-> A ${firstRole} has different features from a ${secondRole} and ${role} does not change its role over its lifetime.
-
-Level 4: Resource response with Quiz:
-
-> Complete the following table:
-> 
-> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
-> --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
-
-Level 5: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-
-##### Association should be enumeration Player-Role pattern
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Think carefully about how to model the relationships between these concepts.
-
-Level 3: Parametrized response:
-
-> Will the roles of ${firstRole} and ${secondRole} ever be occupied at the same time?
-
-Level 4: Resource response with Quiz:
-
-> Complete the following table:
-> 
-> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
-> --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
-
-Level 5: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-
-##### Enumeration should be full Player-Role pattern
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Think carefully about how to model the relationships between these concepts.
-
-Level 3: Parametrized response:
-
-> A ${firstRole} has different features from one of the other roles at the same time and different features need to be captured for the roles.
-
-Level 4: Resource response with Quiz:
-
-> Complete the following table:
-> 
-> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
-> --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
-
-Level 5: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-
-##### Enumeration should be subclass Player-Role pattern
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Think carefully about how to model the relationships between these concepts.
-
-Level 3: Parametrized response:
-
-> A ${firstRole} has different features from one of the other roles and this role never changes to another role.
-
-Level 4: Resource response with Quiz:
-
-> Complete the following table:
-> 
-> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
-> --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
-
-Level 5: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-
-##### Enumeration should be association Player-Role pattern
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Think carefully about how to model the relationships between these concepts.
-
-Level 3: Parametrized response:
-
-> Will the roles of ${firstRole} and ${secondRole} ever be occupied at the same time?
-
-Level 4: Resource response with Quiz:
-
-> Complete the following table:
-> 
-> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
-> --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
-
-Level 5: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-
-##### Full Player-Role pattern should be subclass
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Think carefully about how to model the relationships between these concepts.
-
-Level 3: Parametrized response:
-
-> Can a ${firstRole} can also play the role of one of the other roles at different times or at the same time?
-
-Level 4: Resource response with Quiz:
-
-> Complete the following table:
-> 
-> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
-> --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
-
-Level 5: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-
-##### Full Player-Role pattern should be association
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Think carefully about how to model the relationships between these concepts.
-
-Level 3: Parametrized response:
-
-> Do ${firstRole} and ${secondRole} need to have different features?
-
-Level 4: Resource response with Quiz:
-
-> Complete the following table:
-> 
-> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
-> --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
-
-Level 5: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-
-##### Full Player-Role pattern should be enumeration
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Think carefully about how to model the relationships between these concepts.
-
-Level 3: Parametrized response:
-
-> Do ${firstRole} and ${secondRole} need to have different features and is it possible that more than one role is played at the same time?
-
-Level 4: Resource response with Quiz:
-
-> Complete the following table:
-> 
-> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
-> --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
-
-Level 5: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-
 #### Missing Player-Role pattern
 
 Level 1: Highlight solution
@@ -2290,6 +1915,378 @@ Level 3: Parametrized response:
 
 
 > [Nice try, but ]a ${firstSubclass} can also play the role of a ${secondSubclass}.
+
+Level 4: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+
+#### Subclass should be full Player-Role pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> [Nice try, but] a ${firstSubclass} can also play the role of one of the other subclasses.
+
+Level 4: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+
+#### Subclass should be association Player-Role pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> [Nice try, but] a ${firstSubclass} can also play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
+
+Level 4: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+
+#### Subclass should be enumeration Player-Role pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> [Nice try, but] a ${firstSubclass} does not need to play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
+
+Level 4: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+
+#### Association should be full Player-Role pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> A ${firstRole} has different features from a ${secondRole}.
+
+Level 4: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+
+#### Association should be subclass Player-Role pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> A ${firstRole} has different features from a ${secondRole} and ${role} does not change its role over its lifetime.
+
+Level 4: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+
+#### Association should be enumeration Player-Role pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> Will the roles of ${firstRole} and ${secondRole} ever be occupied at the same time?
+
+Level 4: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+
+#### Enumeration should be full Player-Role pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> A ${firstRole} has different features from one of the other roles at the same time and different features need to be captured for the roles.
+
+Level 4: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+
+#### Enumeration should be subclass Player-Role pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> A ${firstRole} has different features from one of the other roles and this role never changes to another role.
+
+Level 4: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+
+#### Enumeration should be association Player-Role pattern
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> Will the roles of ${firstRole} and ${secondRole} ever be occupied at the same time?
+
+Level 4: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+
+#### Full Player-Role pattern should be subclass
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> Can a ${firstRole} can also play the role of one of the other roles at different times or at the same time?
+
+Level 4: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+
+#### Full Player-Role pattern should be association
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> Do ${firstRole} and ${secondRole} need to have different features?
+
+Level 4: Resource response with Quiz:
+
+> Complete the following table:
+> 
+> Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
+> --- | --- | --- | --- | ---
+> Enumeration         | [ ] | [ ] | [ ] | [ ]
+> Subclasses          | [ ] | [ ] | [ ] | [ ]
+> Associations        | [ ] | [ ] | [ ] | [ ]
+> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
+
+
+#### Full Player-Role pattern should be enumeration
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationships between these concepts.
+
+Level 3: Parametrized response:
+
+> Do ${firstRole} and ${secondRole} need to have different features and is it possible that more than one role is played at the same time?
 
 Level 4: Resource response with Quiz:
 

@@ -61,17 +61,12 @@ public class MistakeTypes {
   public static final MistakeTypeCategory ATTRIBUTE_IN_WRONG_CLASS_MISTAKES =
       MTCS.get("Attribute in wrong class mistakes");
 
-  /** The category for missing association mistakes. */
-  public static final MistakeTypeCategory MISSING_ASSOCIATION_MISTAKES = MTCS.get("Missing association mistakes");
+  /** The category for missing association/aggregation mistakes. */
+  public static final MistakeTypeCategory MISSING_ASSOCIATION_AGGREGATION_MISTAKES =
+      MTCS.get("Missing association/aggregation mistakes");
 
   /** The category for extra association mistakes. */
   public static final MistakeTypeCategory EXTRA_ASSOCIATION_MISTAKES = MTCS.get("Extra association mistakes");
-
-  /** The category for association type mistakes. */
-  public static final MistakeTypeCategory ASSOCIATION_TYPE_MISTAKES = MTCS.get("Association type mistakes");
-
-  /** The category for association name mistakes. */
-  public static final MistakeTypeCategory ASSOCIATION_NAME_MISTAKES = MTCS.get("Association name mistakes");
 
   /** The category for multiplicity mistakes. */
   public static final MistakeTypeCategory MULTIPLICITY_MISTAKES = MTCS.get("Multiplicity mistakes");
@@ -79,21 +74,20 @@ public class MistakeTypes {
   /** The category for role name mistakes. */
   public static final MistakeTypeCategory ROLE_NAME_MISTAKES = MTCS.get("Role name mistakes");
 
+  /** The category for association type mistakes. */
+  public static final MistakeTypeCategory ASSOCIATION_TYPE_MISTAKES = MTCS.get("Association type mistakes");
+
+  /** The category for association name mistakes. */
+  public static final MistakeTypeCategory ASSOCIATION_NAME_MISTAKES = MTCS.get("Association name mistakes");
+
   /** The category for association class mistakes. */
   public static final MistakeTypeCategory ASSOCIATION_CLASS_MISTAKES = MTCS.get("Association class mistakes");
-
-  /** The category for association mistakes. */
-  public static final MistakeTypeCategory ASSOCIATION_MISTAKES = MTCS.get("Association mistakes");
 
   /** The category for composition mistakes. */
   public static final MistakeTypeCategory COMPOSITION_MISTAKES = MTCS.get("Composition mistakes");
 
   /** The category for generalization mistakes. */
   public static final MistakeTypeCategory GENERALIZATION_MISTAKES = MTCS.get("Generalization mistakes");
-
-  /** The category for using different player-role pattern. */
-  public static final MistakeTypeCategory USING_DIFFERENT_PLAYER_ROLE_PATTERN =
-      MTCS.get("Using different Player-Role pattern");
 
   /** The category for player-role pattern mistakes. */
   public static final MistakeTypeCategory PLAYER_ROLE_PATTERN_MISTAKES = MTCS.get("Player-Role Pattern mistakes");
@@ -214,6 +208,30 @@ public class MistakeTypes {
   /** The extra n-ary association mistake type. */
   public static final MistakeType EXTRA_N_ARY_ASSOCIATION = MTS.get("Extra n-ary association");
 
+  /** The infinite recursive dependency mistake type. */
+  public static final MistakeType INFINITE_RECURSIVE_DEPENDENCY = MTS.get("Infinite recursive dependency");
+
+  /** The wrong multiplicity mistake type. */
+  public static final MistakeType WRONG_MULTIPLICITY = MTS.get("Wrong multiplicity");
+
+  /** The missing multiplicity mistake type. */
+  public static final MistakeType MISSING_MULTIPLICITY = MTS.get("Missing multiplicity");
+
+  /** The missing role names mistake type. */
+  public static final MistakeType MISSING_ROLE_NAMES = MTS.get("Missing role names");
+
+  /** The role should be static mistake type. */
+  public static final MistakeType ROLE_SHOULD_BE_STATIC = MTS.get("Role should be static");
+
+  /** The role should not be static mistake type. */
+  public static final MistakeType ROLE_SHOULD_NOT_BE_STATIC = MTS.get("Role should not be static");
+
+  /** The bad role name spelling mistake type. */
+  public static final MistakeType BAD_ROLE_NAME_SPELLING = MTS.get("Bad role name spelling");
+
+  /** The wrong role name but correct association mistake type. */
+  public static final MistakeType WRONG_ROLE_NAME = MTS.get("Wrong role name");
+
   /** The using aggregation instead of association mistake type. */
   public static final MistakeType USING_AGGREGATION_INSTEAD_OF_ASSOC = MTS.get("Using aggregation instead of assoc");
 
@@ -253,30 +271,6 @@ public class MistakeTypes {
 
   /** The bad association name spelling mistake type. */
   public static final MistakeType BAD_ASSOCIATION_NAME_SPELLING = MTS.get("Bad association name spelling");
-
-  /** The infinite recursive dependency mistake type. */
-  public static final MistakeType INFINITE_RECURSIVE_DEPENDENCY = MTS.get("Infinite recursive dependency");
-
-  /** The wrong multiplicity mistake type. */
-  public static final MistakeType WRONG_MULTIPLICITY = MTS.get("Wrong multiplicity");
-
-  /** The missing multiplicity mistake type. */
-  public static final MistakeType MISSING_MULTIPLICITY = MTS.get("Missing multiplicity");
-
-  /** The missing role names mistake type. */
-  public static final MistakeType MISSING_ROLE_NAMES = MTS.get("Missing role names");
-
-  /** The role should be static mistake type. */
-  public static final MistakeType ROLE_SHOULD_BE_STATIC = MTS.get("Role should be static");
-
-  /** The role should not be static mistake type. */
-  public static final MistakeType ROLE_SHOULD_NOT_BE_STATIC = MTS.get("Role should not be static");
-
-  /** The bad role name spelling mistake type. */
-  public static final MistakeType BAD_ROLE_NAME_SPELLING = MTS.get("Bad role name spelling");
-
-  /** The wrong role name but correct association mistake type. */
-  public static final MistakeType WRONG_ROLE_NAME = MTS.get("Wrong role name");
 
   /** The missing association class mistake type. */
   public static final MistakeType MISSING_ASSOC_CLASS = MTS.get("Missing assoc class");
@@ -346,6 +340,12 @@ public class MistakeTypes {
   /** The wrong superclass mistake type. */
   public static final MistakeType WRONG_SUPERCLASS = MTS.get("Wrong superclass");
 
+  /** The missing player-role pattern mistake type. */
+  public static final MistakeType MISSING_PR_PATTERN = MTS.get("Missing PR pattern");
+
+  /** The incomplete player-role pattern mistake type. */
+  public static final MistakeType INCOMPLETE_PR_PATTERN = MTS.get("Incomplete PR pattern");
+
   /** The subclass should be full player-role pattern mistake type. */
   public static final MistakeType SUBCLASS_SHOULD_BE_FULL_PR_PATTERN = MTS.get("Subclass should be full PR pattern");
 
@@ -381,12 +381,6 @@ public class MistakeTypes {
 
   /** The full player-role pattern should be enumeration mistake type. */
   public static final MistakeType FULL_PR_PATTERN_SHOULD_BE_ENUM = MTS.get("Full PR pattern should be enum");
-
-  /** The missing player-role pattern mistake type. */
-  public static final MistakeType MISSING_PR_PATTERN = MTS.get("Missing PR pattern");
-
-  /** The incomplete player-role pattern mistake type. */
-  public static final MistakeType INCOMPLETE_PR_PATTERN = MTS.get("Incomplete PR pattern");
 
   /** The missing abstraction-occurrence pattern mistake type. */
   public static final MistakeType MISSING_AO_PATTERN = MTS.get("Missing AO pattern");
