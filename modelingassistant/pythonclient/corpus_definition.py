@@ -26,6 +26,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Make sure you only model the concepts mentioned in the problem description."),
                 3: TextResponse(text="You have an extra class. Can you find it?"),
+                # Context-specific written feedbacks are not yet supported. Only the zeroth items in these lists are
+                # added to the learning corpus for now. In the future, detected mistakes will either have a reason, or
+                # these additional feedbacks will be migrated to new mistake types
                 4: [ParametrizedResponse(
                     text="The ${className} class is not part of the problem domain, so please remove it."),
                     ParametrizedResponse(text="Remember that a domain model should not contain concepts from the user "
@@ -350,7 +353,6 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check (this|these) relationship(s)."),
                 3: TextResponse(text="The multiplicities for (this|these) relationship(s) are incorrect."),
-                # TODO Add reasons to metamodel
                 4: [# For a self-referencing class, eg, a Person has 2 parents.
                     ParametrizedResponse(
                         text="Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?"),

@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus script.
-% Generation time: 2022-01-22 13:27:09
+% Generation time: 2022-01-22 14:20:10
 
 \section{Class mistakes}
 
@@ -415,10 +415,6 @@ You have an extra class. Can you find it?
 The \verb|${className}| class is not part of the problem domain, so please remove it.
 \end{tabular} \medskip
 
-\begin{tabular}{|p{0.9\linewidth}}
-Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
-\end{tabular} \medskip
-
 \noindent Level 5: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
@@ -462,12 +458,6 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 \begin{tabular}{|p{0.9\linewidth}}
 Remember that attributes are written in `lowerCamelCase`.
-\end{tabular} \medskip
-
-Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Can this attribute be renamed?
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -660,14 +650,6 @@ Do we really need to model this concept?
 
 \begin{tabular}{|p{0.9\linewidth}}
 The \verb|${redundantAttribute}| in the \verb|${className}| class is not needed.
-\end{tabular} \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The \verb|${redundantAttribute}| attribute in the \verb|${className}| class is not needed because it can be derived from \verb|${derivationSources}|.
-\end{tabular} \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The \verb|${redundantAttribute}| attribute in the \verb|${className}| class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -946,10 +928,6 @@ Is association the best way to model this concept?
 \verb|${actionName}| should not be modeled as an association.
 \end{tabular} \medskip
 
-\begin{tabular}{|p{0.9\linewidth}}
-\verb|${actionName}| does not need be modeled as part of a domain model.
-\end{tabular} \medskip
-
 \noindent Level 4: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
@@ -973,20 +951,10 @@ Is this association really necessary?
 The relationship between \verb|${classOne}| and \verb|${classTwo}| is not expressed in the problem description[, but there is a similar relationship with \verb|${classThree}| that is missing].
 \end{tabular} \medskip
 
-\begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${classOne}| and \verb|${classTwo}| is redundant since we can access \verb|${classTwo}| from \verb|${classOne}| via \verb|${classThree}|.
-\end{tabular} \medskip
-
 \noindent Level 4: Resource response with Quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Find all the redundant associations in this class diagram (TODO).
-\end{tabular} \medskip
-
-
-
-\begin{tabular}{|p{0.9\linewidth}}
-Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -1064,14 +1032,6 @@ The multiplicities for (this$|$these) relationship(s) are incorrect.
 
 \begin{tabular}{|p{0.9\linewidth}}
 Does every \verb|${class1}| have exactly \verb|${wrongMultiplicity}| \verb|${rolename}|[s]?
-\end{tabular} \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-How many \verb|${class1}|'s does a \verb|${class2}| have?
-\end{tabular} \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Double check the multiplicites between \verb|${class1}|, \verb|${class2}|, and \verb|${class3}|.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Quiz: \medskip
@@ -2040,20 +2000,10 @@ Please review the \textit{Generalization} part of the Class Diagram lecture.
 Can you find a better way to express this relationship?
 \end{tabular} \medskip
 
-Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Is there a [direct ]relationship between these two classes?
-\end{tabular} \medskip
-
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 When creating a generalization between \verb|${wrongSubclass}| and \verb|${wrongSuperclass}|, make sure to follow the \textit{checks for proper generalization}.
-\end{tabular} \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-\verb|${wrongSubclass}| is not a [direct ]subclass of \verb|${wrongSuperclass}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -2102,20 +2052,10 @@ Please review the \textit{Generalization} part of the Class Diagram lecture.
 Can you find a better way to express this relationship?
 \end{tabular} \medskip
 
-Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Is there a [direct ]relationship between these two classes?
-\end{tabular} \medskip
-
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 When creating a generalization between \verb|${wrongSubclass}| and \verb|${wrongSuperclass}|, make sure to follow the \textit{checks for proper generalization}.
-\end{tabular} \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-\verb|${wrongSubclass}| is not a [direct ]subclass of \verb|${wrongSuperclass}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -2430,10 +2370,6 @@ Think carefully about how to model the relationships between these concepts.
 Modeling all the concepts in one \verb|${playerClass}| class will make it very complicated! Think about adding one or more classes to better represent the domain.
 \end{tabular} \medskip
 
-\begin{tabular}{|p{0.9\linewidth}}
-[Nice try, but ]a \verb|${firstSubclass}| can also play the role of a \verb|${secondSubclass}|.
-\end{tabular} \medskip
-
 \noindent Level 4: Resource response with Quiz: \medskip
 
 
@@ -2476,10 +2412,6 @@ Think carefully about how to model the relationships between these concepts.
 
 \begin{tabular}{|p{0.9\linewidth}}
 Modeling all the concepts in one \verb|${playerClass}| class will make it very complicated! Think about adding one or more classes to better represent the domain.
-\end{tabular} \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-[Nice try, but ]a \verb|${firstSubclass}| can also play the role of a \verb|${secondSubclass}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3056,14 +2988,6 @@ Think carefully about how to model the relationships between these concepts.
 Is there a way to remove the duplicate \verb|${duplicateAttribute}| attribute between \verb|${class1}| and \verb|${class2}|?
 \end{tabular} \medskip
 
-\begin{tabular}{|p{0.9\linewidth}}
-\verb|${wronglySubclass}| should not be a subclass of \verb|${superclass}|. Is there a design pattern that can be used here?
-\end{tabular} \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The \verb|${commonAttribute}| is common information for all instances of \verb|${className}|, but this is not enforced.
-\end{tabular} \medskip
-
 \noindent Level 4: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
@@ -3090,14 +3014,6 @@ Think carefully about how to model the relationships between these concepts.
 
 \begin{tabular}{|p{0.9\linewidth}}
 Is there a way to remove the duplicate \verb|${duplicateAttribute}| attribute between \verb|${class1}| and \verb|${class2}|?
-\end{tabular} \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-\verb|${wronglySubclass}| should not be a subclass of \verb|${superclass}|. Is there a design pattern that can be used here?
-\end{tabular} \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-The \verb|${commonAttribute}| is common information for all instances of \verb|${className}|, but this is not enforced.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip

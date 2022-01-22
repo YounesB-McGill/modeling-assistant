@@ -277,7 +277,7 @@ Level 4: Resource response with Reference:
 
 #### Missing enumeration
 
-Level 1: Highlight problem
+Level 1: Highlight sentence in problem statement referring to item
 
 Level 2: Text response:
 
@@ -379,13 +379,13 @@ Level 4: Resource response with Reference:
 
 ### Missing class
 
-Level 1: Highlight problem
+Level 1: Highlight sentence in problem statement referring to item
 
 Level 2: Text response:
 
 > Make sure you have modeled all the classes in the problem description.
 
-Level 3: Highlight problem
+Level 3: Highlight specific problem statement elements
 
 Level 4: Parametrized response:
 
@@ -411,9 +411,6 @@ Level 3: Text response:
 Level 4: Parametrized response:
 
 > The ${className} class is not part of the problem domain, so please remove it.
-
-
-> Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
 
 Level 5: Resource response with Reference:
 
@@ -449,10 +446,6 @@ Level 1: Highlight solution
 Level 2: Text response:
 
 > Remember that attributes are written in `lowerCamelCase`.
-
-Text response:
-
-> Can this attribute be renamed?
 
 Level 3: Parametrized response:
 
@@ -591,12 +584,6 @@ Level 2: Text response:
 Level 3: Parametrized response:
 
 > The ${redundantAttribute} in the ${className} class is not needed.
-
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it can be derived from ${derivationSources}.
-
-
-> The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
 
 Level 4: Resource response with Reference:
 
@@ -803,9 +790,6 @@ Level 3: Parametrized response:
 
 > ${actionName} should not be modeled as an association.
 
-
-> ${actionName} does not need be modeled as part of a domain model.
-
 Level 4: Resource response with Reference:
 
 > Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to know which concepts should be a part of a domain model.
@@ -823,14 +807,9 @@ Level 3: Parametrized response:
 
 > The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
 
-
-> The relationship between ${classOne} and ${classTwo} is redundant since we can access ${classTwo} from ${classOne} via ${classThree}.
-
 Level 4: Resource response with Quiz:
 
 > Find all the redundant associations in this class diagram (TODO).
-
-> Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
 
 Level 5: Resource response with Reference:
 
@@ -888,12 +867,6 @@ Level 3: Text response:
 Level 4: Parametrized response:
 
 > Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
-
-
-> How many ${class1}'s does a ${class2} have?
-
-
-> Double check the multiplicites between ${class1}, ${class2}, and ${class3}.
 
 Level 5: Resource response with Quiz:
 
@@ -1604,16 +1577,9 @@ Level 2: Text response:
 
 > Can you find a better way to express this relationship?
 
-Text response:
-
-> Is there a [direct ]relationship between these two classes?
-
 Level 3: Parametrized response:
 
 > When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
-
-
-> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
 
 Level 4: Resource response with Quiz:
 
@@ -1647,16 +1613,9 @@ Level 2: Text response:
 
 > Can you find a better way to express this relationship?
 
-Text response:
-
-> Is there a [direct ]relationship between these two classes?
-
 Level 3: Parametrized response:
 
 > When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
-
-
-> ${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.
 
 Level 4: Resource response with Quiz:
 
@@ -1843,7 +1802,7 @@ Level 3: Parametrized response:
 
 > Can you (find|create) a (better|different) superclass for ${subclass}?[ Look at the problem description closely].
 
-Level 4: Highlight problem
+Level 4: Highlight specific problem statement elements
 
 Level 5: Parametrized response:
 
@@ -1879,9 +1838,6 @@ Level 3: Parametrized response:
 
 > Modeling all the concepts in one ${playerClass} class will make it very complicated! Think about adding one or more classes to better represent the domain.
 
-
-> [Nice try, but ]a ${firstSubclass} can also play the role of a ${secondSubclass}.
-
 Level 4: Resource response with Quiz:
 
 > Complete the following table:
@@ -1912,9 +1868,6 @@ Level 2: Text response:
 Level 3: Parametrized response:
 
 > Modeling all the concepts in one ${playerClass} class will make it very complicated! Think about adding one or more classes to better represent the domain.
-
-
-> [Nice try, but ]a ${firstSubclass} can also play the role of a ${secondSubclass}.
 
 Level 4: Resource response with Quiz:
 
@@ -2321,12 +2274,6 @@ Level 3: Parametrized response:
 
 > Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
 
-
-> ${wronglySubclass} should not be a subclass of ${superclass}. Is there a design pattern that can be used here?
-
-
-> The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
-
 Level 4: Resource response with Reference:
 
 > The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
@@ -2347,12 +2294,6 @@ Level 2: Text response:
 Level 3: Parametrized response:
 
 > Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
-
-
-> ${wronglySubclass} should not be a subclass of ${superclass}. Is there a design pattern that can be used here?
-
-
-> The ${commonAttribute} is common information for all instances of ${className}, but this is not enforced.
 
 Level 4: Resource response with Reference:
 

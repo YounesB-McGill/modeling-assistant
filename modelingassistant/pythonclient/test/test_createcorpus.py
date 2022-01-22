@@ -106,4 +106,3 @@ def test_use_contextual_capitalization():
 
 if __name__ == "__main__":
     "Main entry point."
-    test_use_contextual_capitalization()

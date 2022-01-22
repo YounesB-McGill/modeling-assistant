@@ -22,11 +22,11 @@ from corpus_definition import (corpus as corpus_def, mts_by_priority as mts_by_p
     role_should_not_be_static, bad_role_name_spelling, using_aggregation_instead_of_composition,
     infinite_recursive_dependency, wrong_role_name, using_assoc_instead_of_composition, missing_composition,
     extra_composition)
+from constants import USE_CONTEXTUAL_CAPITALIZATION
 from learningcorpus import LearningItem, ResourceResponse
 from utils import _mtc_subcats
 
 
-USE_CONTEXTUAL_CAPITALIZATION = False  # When True, capitalize feedback Capital/Uppercase Letter occurrences in the text
 CL = "Capital Letter"
 UL = "Uppercase Letter"
 

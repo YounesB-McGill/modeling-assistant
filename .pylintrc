@@ -365,6 +365,7 @@ good-names=a,
            pr,
            ps,
            sk,
+           sp,
            tr
 
 # Good variable names regexes, separated by a comma. If names match any regex,

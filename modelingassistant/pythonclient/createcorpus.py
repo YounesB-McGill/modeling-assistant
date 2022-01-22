@@ -17,7 +17,7 @@ from datetime import datetime
 
 import cv2
 
-from constants import LEARNING_CORPUS_PATH
+from constants import LEARNING_CORPUS_PATH, MULTIPLE_FEEDBACKS_PER_LEVEL
 from corpus import corpus
 from fileserdes import save_to_file
 from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResponse, ParametrizedResponse,
@@ -235,7 +235,10 @@ def generate_markdown():
                     continue
                 match fb:
                     case Feedback(highlightProblem=True):
-                        result += "Highlight problem\n\n"
+                        sp = "specific" if fb.level > 1 else "sentence in"
+                        # use elem type here in the future if it can be made more specific, eg, enum instead of class
+                        elem = "elements" if fb.level > 1 else "referring to item"
+                        result += f"Highlight {sp} problem statement {elem}\n\n"
                     case Feedback(highlightSolution=True):
                         result += "Highlight solution\n\n"
                     case TextResponse() as resp:
@@ -260,6 +263,8 @@ def generate_markdown():
                                 }\n\n"""
                             result += content if content not in result else ""
                 prev_fb = fb
+                if not MULTIPLE_FEEDBACKS_PER_LEVEL:
+                    break
         return result
 
     mtcs = corpus.topLevelMistakeTypeCategories()
@@ -393,7 +398,7 @@ def generate_tex():
                     case Feedback(highlightProblem=True):
                         sp = "specific" if fb.level > 1 else "sentence in"
                         # use elem_type here in the future if it can be made more specific, eg, enum instead of class
-                        elem = "elements" if fb.level > 1 else f"referring to item"
+                        elem = "elements" if fb.level > 1 else "referring to item"
                         result += f"Highlight {sp} problem statement {elem}{NLS}"
                     case Feedback(highlightSolution=True):
                         result += f"Highlight solution {f'({elem_type})' if elem_type else ''}{NLS}"
@@ -418,6 +423,8 @@ def generate_tex():
                                  for f in mt.feedbacks if f.level == level])}"""
                             result += content if content not in result else ""
                 prev_fb = fb
+                if not MULTIPLE_FEEDBACKS_PER_LEVEL:
+                    break
         return result
 
     tex = TEX_HEADER + nl.join(nested_body_output_for(c) for c in corpus.topLevelMistakeTypeCategories())

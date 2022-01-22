@@ -3,9 +3,11 @@ Utility functions for the Modeling Assistant Python app.
 This module must not depend on any other to avoid circular dependencies.
 """
 
-# Ok to import items from standard library and pyecore model code
+# Ok to import items from standard library, constants, envvars, and pyecore model code only
 
 from types import SimpleNamespace
+
+from constants import MULTIPLE_FEEDBACKS_PER_LEVEL
 from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
 from modelingassistant import ModelingAssistant
 
@@ -60,6 +62,8 @@ def fbs(fbs_by_level: dict[int, Feedback | list[Feedback]]) -> list[Feedback]:
             for fb in fb_s:
                 fb.level = level
                 feedbacks.append(fb)
+                if not MULTIPLE_FEEDBACKS_PER_LEVEL:
+                    break
         else:
             fb: Feedback = fb_s
             fb.level = level
