@@ -25,10 +25,15 @@ from corpus_definition import (corpus as corpus_def, mts_by_priority as mts_by_p
 from learningcorpus import LearningItem, ResourceResponse
 from utils import _mtc_subcats
 
+
+USE_CONTEXTUAL_CAPITALIZATION = False  # When True, capitalize feedback Capital/Uppercase Letter occurrences in the text
+CL = "Capital Letter"
+UL = "Uppercase Letter"
+
 corpus = corpus_def
 mts_by_priority = mts_by_priority_def
 
-domain_modeling = LearningItem(name="DomainModeling", learningCorpus=corpus, mistakeTypes=[software_engineering_term])
+domain_modeling = LearningItem(name="DomainModeling", learningCorpus=corpus)
 
 class_ = LearningItem(name="Class", learningCorpus=corpus, mistakeTypes=[
     composed_part_contained_in_more_than_one_parent, assoc_should_be_subclass_pr_pattern, class_should_be_assoc_class,
@@ -60,6 +65,7 @@ associationend = LearningItem(name="AssociationEnd", learningCorpus=corpus, mist
 composition = LearningItem(name="Composition", learningCorpus=corpus, mistakeTypes=[
     missing_composition, extra_composition])
 
+
 for supercat, subcats in _mtc_subcats.items():
     for subcat in subcats:
         subcat.supercategory = supercat
@@ -74,3 +80,18 @@ for _mt in corpus.mistakeTypes():
 
 for i, _mt in enumerate(mts_by_priority, start=1):
     _mt.priority = i
+
+
+def effectuate_contextual_capitalization(use_caps: bool = None):
+    "Enable or disable contextual capitalization in the feedback texts based on the USE_CONTEXTUAL_CAPITALIZATION flag."
+    if use_caps is None:
+        use_caps = USE_CONTEXTUAL_CAPITALIZATION
+    for fb in corpus.feedbacks:
+        if fb.text:
+            if use_caps:
+                fb.text = fb.text.replace(CL.lower(), CL).replace(UL.lower(), UL)
+            else:
+                fb.text = fb.text.replace(CL, CL.lower()).replace(UL, UL.lower())
+
+
+effectuate_contextual_capitalization()

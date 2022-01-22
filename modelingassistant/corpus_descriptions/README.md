@@ -149,11 +149,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Remember that class names must start with a Capital Letter.
+> Remember that class names must start with a capital letter.
 
 Level 3: Parametrized response:
 
-> ${className} should be ${pascalCase(className)}, with a Capital Letter.
+> ${className} should be ${pascalCase(className)}, with a capital letter.
 
 Level 4: Resource response with Example:
 
@@ -510,7 +510,7 @@ Text response:
 
 Level 3: Parametrized response:
 
-> ${wrongAttribute} incorrectly starts with an Uppercase Letter. Attributes should start with a lowercase letter.
+> ${wrongAttribute} incorrectly starts with an uppercase letter. Attributes should start with a lowercase letter.
 
 Level 4: Resource response with Reference:
 

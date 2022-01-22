@@ -18,6 +18,7 @@ from types import SimpleNamespace
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from createcorpus import generate_tex, clean
+from corpus import corpus, effectuate_contextual_capitalization
 from learningcorpus import MistakeType, MistakeTypeCategory
 
 
@@ -93,5 +94,15 @@ def test_make_tex_table():
         """)
 
 
+def test_use_contextual_capitalization():
+    # access corpus items dynamically to avoid overwriting the file
+    for mt in (t for t in corpus.mistakeTypes() if t.name in ("Lowercase class name", "Uppercase attribute name")):
+        effectuate_contextual_capitalization(use_caps=True)
+        assert any("Letter" in fb.text for fb in mt.feedbacks if getattr(fb, "text", None))
+        effectuate_contextual_capitalization(use_caps=False)
+        assert not any("Letter" in fb.text for fb in mt.feedbacks if getattr(fb, "text", None))
+
+
 if __name__ == "__main__":
     "Main entry point."
+    test_use_contextual_capitalization()
