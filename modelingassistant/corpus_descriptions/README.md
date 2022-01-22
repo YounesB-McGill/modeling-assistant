@@ -142,6 +142,10 @@ Level 4: Resource response with Example:
 > Airplanes | Airplane 
 > AirlineData | Airline
 
+Level 5: Resource response with Reference:
+
+> Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 #### Lowercase class name
 
@@ -163,6 +167,10 @@ Level 4: Resource response with Example:
 > pilot | Pilot
 > Airplanes | Airplane 
 > AirlineData | Airline
+
+Level 5: Resource response with Reference:
+
+> Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Software engineering term
@@ -186,6 +194,10 @@ Level 4: Resource response with Example:
 > Airplanes | Airplane 
 > AirlineData | Airline
 
+Level 5: Resource response with Reference:
+
+> Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 #### Bad class name spelling
 
@@ -203,6 +215,10 @@ Level 4: Parametrized response:
 
 > The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}.
 
+Level 5: Resource response with Reference:
+
+> Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 #### Wrong class name but correct attribute/relationship
 
@@ -214,11 +230,15 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${similarYetIncorrectClassName} class has a name that is not quite right.
+> The ${similarYetIncorrectClassName} class has a name that is not quite right but the attributes and/or associations are correct.
 
 Level 4: Parametrized response:
 
 > The ${similarYetIncorrectClassName} class should be changed to ${correctClassName}.
+
+Level 5: Resource response with Reference:
+
+> Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 ### Enumeration mistakes
@@ -373,6 +393,10 @@ Level 4: Parametrized response:
 
 > Remember to add the ${className} class.
 
+Level 5: Resource response with Reference:
+
+> Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 ### Extra class
 
@@ -393,6 +417,10 @@ Level 4: Parametrized response:
 
 > Remember that a domain model should not contain concepts from the user interfaces or databases, like Window, Database, etc.
 
+Level 5: Resource response with Reference:
+
+> Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 ### Using n-ary association instead of intermediate class
 
@@ -405,6 +433,10 @@ Level 2: Text response:
 Level 3: Text response:
 
 > Use an intermediate class instead of an n-ary association.
+
+Level 4: Resource response with Reference:
+
+> TODO
 
 
 
@@ -432,6 +464,10 @@ Level 4: Resource response with Quiz:
 - [ ] class Folder { List<File> files; }
 - [ ] class Restaurant { 1 -- * Employee; }
 
+Level 5: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
 
 #### List attribute
 
@@ -457,6 +493,10 @@ Level 5: Resource response with Quiz:
 - [ ] class Folder { List<File> files; }
 - [ ] class Restaurant { 1 -- * Employee; }
 
+Level 6: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
 
 #### Extra attribute
 
@@ -475,6 +515,10 @@ Level 3: Parametrized response:
 
 
 > The ${redundantAttribute} attribute in the ${className} class is not needed because it is not part of the domain. You only need to model concepts related to the given problem description.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
 ### Attribute name mistakes
@@ -753,6 +797,14 @@ Level 4: Resource response with Quiz:
 - [ ] class Person { * Person -- 1 Address; }; class Address {}
 - [ ] class Loan { libraryPatron; }
 
+Level 5: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
 
 #### Extra association mistakes
 
@@ -797,6 +849,10 @@ Level 4: Resource response with Quiz:
 
 > Write pseudocode to navigate between ClassOne and ClassTwo in this class diagram (TODO).
 
+Level 5: Resource response with Reference:
+
+> Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to know which concepts should be a part of a domain model.
+
 
 ##### Extra aggregation
 
@@ -810,6 +866,10 @@ Level 3: Parametrized response:
 
 > The relationship between ${classOne} and ${classTwo} is redundant.
 
+Level 4: Resource response with Reference:
+
+> Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to know which concepts should be a part of a domain model.
+
 
 ##### Extra n-ary association
 
@@ -822,6 +882,10 @@ Level 2: Text response:
 Level 3: Text response:
 
 > The relationship between the highlighted classes is redundant.
+
+Level 4: Resource response with Reference:
+
+> Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to know which concepts should be a part of a domain model.
 
 
 #### Association type mistakes
@@ -1042,6 +1106,10 @@ Level 5: Resource response with Quiz:
 
 > Edit the class diagram to allow creating a `Foo`
 
+Level 6: Resource response with Reference:
+
+> Please review the [multiplicities](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 ##### Wrong multiplicity
 
@@ -1067,6 +1135,10 @@ Level 5: Resource response with Quiz:
 - [ ] * Episode -- 1 TvSeries;
 - [ ] * Bank -- 1 Client;
 
+Level 6: Resource response with Reference:
+
+> Please review the [multiplicities](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 ##### Missing multiplicity
 
@@ -1091,6 +1163,10 @@ Level 5: Resource response with Quiz:
 - [ ] 1 EmployeeRole -- 1 Person;
 - [ ] * Episode -- 1 TvSeries;
 - [ ] * Bank -- 1 Client;
+
+Level 6: Resource response with Reference:
+
+> Please review the [multiplicities](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Role name mistakes
@@ -1259,6 +1335,10 @@ Level 3: Parametrized response:
 Level 4: Parametrized response:
 
 > The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}.
+
+Level 5: Resource response with Reference:
+
+> Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 ##### Association class should be regular class
@@ -1444,6 +1524,14 @@ Level 6: Resource response with Quiz:
 
 ![IRS](images/IRS.png)
 
+Level 7: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
 
 #### Incomplete containment tree
 
@@ -1470,6 +1558,14 @@ Level 5: Resource response with Quiz:
 
 ![IRS](images/IRS.png)
 
+Level 6: Resource response with Reference:
+
+> Please review the _Composition vs. Aggregation vs. Association_ section of 
+the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+better understand these relationships and where they are used.
+
+![composition vs aggregation vs association](images/composition_aggregation_association.png)
+
 
 ### Generalization mistakes
 
@@ -1491,6 +1587,10 @@ Level 4: Resource response with Quiz:
 
 * `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
 * `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+
+Level 5: Resource response with Reference:
+
+> Please review the [Generalization](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Extra generalization
@@ -1531,6 +1631,10 @@ The five checks for generalization are:
 * Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
+Level 6: Resource response with Reference:
+
+> Please review the [Generalization](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 #### Generalization does not follow isA rule
 
@@ -1570,6 +1674,10 @@ The five checks for generalization are:
 * Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
+Level 6: Resource response with Reference:
+
+> Please review the [Generalization](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 #### Subclass not distinct across lifetime
 
@@ -1587,6 +1695,10 @@ Level 4: Resource response with Quiz:
 
 > Which classes are not subclasses of Account?
 * `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`, `ClosedAccount`
+
+Level 5: Resource response with Reference:
+
+> Please review the [Generalization](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Inherited feature does not make sense for subclass
@@ -1612,6 +1724,10 @@ The five checks for generalization are:
 * All ________ must make sense in each subclass. (inherited features)
 * Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
+
+Level 5: Resource response with Reference:
+
+> Please review the [Generalization](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Subclass is an instance of superclass
@@ -1642,6 +1758,10 @@ The five checks for generalization are:
 * Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
+Level 6: Resource response with Reference:
+
+> Please review the [Generalization](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 #### Non-differentiated subclass
 
@@ -1666,6 +1786,10 @@ The five checks for generalization are:
 * All ________ must make sense in each subclass. (inherited features)
 * Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
+
+Level 5: Resource response with Reference:
+
+> Please review the [Generalization](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 #### Wrong generalization direction
@@ -1699,6 +1823,10 @@ The five checks for generalization are:
 * Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
 * Subclass must not be ________. (instance)
 
+Level 6: Resource response with Reference:
+
+> Please review the [Generalization](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 #### Wrong superclass
 
@@ -1725,6 +1853,10 @@ Level 6: Resource response with Quiz:
 * `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
 * `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
 
+Level 7: Resource response with Reference:
+
+> Please review the [Generalization](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 
 
@@ -1746,14 +1878,7 @@ Level 3: Parametrized response:
 
 > [Nice try, but] a ${firstSubclass} can also play the role of one of the other subclasses.
 
-Level 4: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-Level 5: Resource response with Quiz:
+Level 4: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -1763,6 +1888,13 @@ Level 5: Resource response with Quiz:
 > Subclasses          | [ ] | [ ] | [ ] | [ ]
 > Associations        | [ ] | [ ] | [ ] | [ ]
 > Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
 
 
 ##### Subclass should be association Player-Role pattern
@@ -1777,14 +1909,7 @@ Level 3: Parametrized response:
 
 > [Nice try, but] a ${firstSubclass} can also play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
 
-Level 4: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-Level 5: Resource response with Quiz:
+Level 4: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -1794,6 +1919,13 @@ Level 5: Resource response with Quiz:
 > Subclasses          | [ ] | [ ] | [ ] | [ ]
 > Associations        | [ ] | [ ] | [ ] | [ ]
 > Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
 
 
 ##### Subclass should be enumeration Player-Role pattern
@@ -1808,14 +1940,7 @@ Level 3: Parametrized response:
 
 > [Nice try, but] a ${firstSubclass} does not need to play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
 
-Level 4: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-Level 5: Resource response with Quiz:
+Level 4: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -1825,6 +1950,13 @@ Level 5: Resource response with Quiz:
 > Subclasses          | [ ] | [ ] | [ ] | [ ]
 > Associations        | [ ] | [ ] | [ ] | [ ]
 > Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
 
 
 ##### Association should be full Player-Role pattern
@@ -1839,14 +1971,7 @@ Level 3: Parametrized response:
 
 > A ${firstRole} has different features from a ${secondRole}.
 
-Level 4: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-Level 5: Resource response with Quiz:
+Level 4: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -1856,6 +1981,13 @@ Level 5: Resource response with Quiz:
 > Subclasses          | [ ] | [ ] | [ ] | [ ]
 > Associations        | [ ] | [ ] | [ ] | [ ]
 > Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
 
 
 ##### Association should be subclass Player-Role pattern
@@ -1870,14 +2002,7 @@ Level 3: Parametrized response:
 
 > A ${firstRole} has different features from a ${secondRole} and ${role} does not change its role over its lifetime.
 
-Level 4: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-Level 5: Resource response with Quiz:
+Level 4: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -1887,6 +2012,13 @@ Level 5: Resource response with Quiz:
 > Subclasses          | [ ] | [ ] | [ ] | [ ]
 > Associations        | [ ] | [ ] | [ ] | [ ]
 > Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
 
 
 ##### Association should be enumeration Player-Role pattern
@@ -1901,14 +2033,7 @@ Level 3: Parametrized response:
 
 > Will the roles of ${firstRole} and ${secondRole} ever be occupied at the same time?
 
-Level 4: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-Level 5: Resource response with Quiz:
+Level 4: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -1918,6 +2043,13 @@ Level 5: Resource response with Quiz:
 > Subclasses          | [ ] | [ ] | [ ] | [ ]
 > Associations        | [ ] | [ ] | [ ] | [ ]
 > Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
 
 
 ##### Enumeration should be full Player-Role pattern
@@ -1932,14 +2064,7 @@ Level 3: Parametrized response:
 
 > A ${firstRole} has different features from one of the other roles at the same time and different features need to be captured for the roles.
 
-Level 4: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-Level 5: Resource response with Quiz:
+Level 4: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -1949,6 +2074,13 @@ Level 5: Resource response with Quiz:
 > Subclasses          | [ ] | [ ] | [ ] | [ ]
 > Associations        | [ ] | [ ] | [ ] | [ ]
 > Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
 
 
 ##### Enumeration should be subclass Player-Role pattern
@@ -1963,14 +2095,7 @@ Level 3: Parametrized response:
 
 > A ${firstRole} has different features from one of the other roles and this role never changes to another role.
 
-Level 4: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-Level 5: Resource response with Quiz:
+Level 4: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -1980,6 +2105,13 @@ Level 5: Resource response with Quiz:
 > Subclasses          | [ ] | [ ] | [ ] | [ ]
 > Associations        | [ ] | [ ] | [ ] | [ ]
 > Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
 
 
 ##### Enumeration should be association Player-Role pattern
@@ -1994,14 +2126,7 @@ Level 3: Parametrized response:
 
 > Will the roles of ${firstRole} and ${secondRole} ever be occupied at the same time?
 
-Level 4: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-Level 5: Resource response with Quiz:
+Level 4: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -2011,6 +2136,13 @@ Level 5: Resource response with Quiz:
 > Subclasses          | [ ] | [ ] | [ ] | [ ]
 > Associations        | [ ] | [ ] | [ ] | [ ]
 > Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
 
 
 ##### Full Player-Role pattern should be subclass
@@ -2025,14 +2157,7 @@ Level 3: Parametrized response:
 
 > Can a ${firstRole} can also play the role of one of the other roles at different times or at the same time?
 
-Level 4: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-Level 5: Resource response with Quiz:
+Level 4: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -2042,6 +2167,13 @@ Level 5: Resource response with Quiz:
 > Subclasses          | [ ] | [ ] | [ ] | [ ]
 > Associations        | [ ] | [ ] | [ ] | [ ]
 > Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
 
 
 ##### Full Player-Role pattern should be association
@@ -2056,14 +2188,7 @@ Level 3: Parametrized response:
 
 > Do ${firstRole} and ${secondRole} need to have different features?
 
-Level 4: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-Level 5: Resource response with Quiz:
+Level 4: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -2073,6 +2198,13 @@ Level 5: Resource response with Quiz:
 > Subclasses          | [ ] | [ ] | [ ] | [ ]
 > Associations        | [ ] | [ ] | [ ] | [ ]
 > Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
 
 
 ##### Full Player-Role pattern should be enumeration
@@ -2087,14 +2219,7 @@ Level 3: Parametrized response:
 
 > Do ${firstRole} and ${secondRole} need to have different features and is it possible that more than one role is played at the same time?
 
-Level 4: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-Level 5: Resource response with Quiz:
+Level 4: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -2104,6 +2229,13 @@ Level 5: Resource response with Quiz:
 > Subclasses          | [ ] | [ ] | [ ] | [ ]
 > Associations        | [ ] | [ ] | [ ] | [ ]
 > Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
 
 
 #### Missing Player-Role pattern
@@ -2121,14 +2253,7 @@ Level 3: Parametrized response:
 
 > [Nice try, but ]a ${firstSubclass} can also play the role of a ${secondSubclass}.
 
-Level 4: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-Level 5: Resource response with Quiz:
+Level 4: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -2138,6 +2263,13 @@ Level 5: Resource response with Quiz:
 > Subclasses          | [ ] | [ ] | [ ] | [ ]
 > Associations        | [ ] | [ ] | [ ] | [ ]
 > Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
 
 
 #### Incomplete Player-Role pattern
@@ -2155,14 +2287,7 @@ Level 3: Parametrized response:
 
 > [Nice try, but ]a ${firstSubclass} can also play the role of a ${secondSubclass}.
 
-Level 4: Resource response with Reference:
-
-> The Player-Role Pattern can be used to capture the fact that an object may play different roles
-in different contexts.
-
-![Player-Role Pattern](images/player_role.png)
-
-Level 5: Resource response with Quiz:
+Level 4: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -2172,6 +2297,13 @@ Level 5: Resource response with Quiz:
 > Subclasses          | [ ] | [ ] | [ ] | [ ]
 > Associations        | [ ] | [ ] | [ ] | [ ]
 > Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+
+Level 5: Resource response with Reference:
+
+> The Player-Role Pattern can be used to capture the fact that an object may play different roles
+in different contexts.
+
+![Player-Role Pattern](images/player_role.png)
 
 
 ### Abstraction-Occurrence pattern mistakes
