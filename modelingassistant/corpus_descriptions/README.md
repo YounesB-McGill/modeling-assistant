@@ -328,7 +328,7 @@ Level 4: Resource response with Reference:
 
 #### Missing enumeration item
 
-Level 1: Highlight problem
+Level 1: Highlight solution
 
 Level 2: Text response:
 

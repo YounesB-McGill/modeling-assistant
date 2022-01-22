@@ -122,7 +122,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         4: ResourceResponse(learningResources=[enum_reference]),
                     })),
                 missing_enum_item := mt(n="Missing enum item", d="Missing enumeration item", feedbacks=fbs({
-                    1: Feedback(highlightProblem=True, highlightSolution=True),  # TODO Do for all missing cont'd items
+                    1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Is there anything missing here?"),
                     3: ParametrizedResponse(text="The ${enumName} enumeration is missing an item."),
                     4: ResourceResponse(learningResources=[enum_reference]),
