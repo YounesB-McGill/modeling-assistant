@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see learningcorpus.LearningcorpusPackage#getNamedElement()
  * @model abstract="true"
- * @generated
+ * @generated NOT
  */
 public interface NamedElement extends EObject, Comparable<NamedElement> {
   /**

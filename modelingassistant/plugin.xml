@@ -17,6 +17,14 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated modelingassistant -->
       <package
+            uri="http://cs.mcgill.ca/sel/modelingassistant/learningcorpusquiz/1.0"
+            class="learningcorpusquiz.LearningcorpusquizPackage"
+            genModel="model/modelingassistant.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated modelingassistant -->
+      <package
             uri="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0"
             class="learningcorpus.LearningcorpusPackage"
             genModel="model/modelingassistant.genmodel"/>

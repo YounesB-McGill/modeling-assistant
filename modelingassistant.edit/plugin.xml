@@ -22,6 +22,19 @@
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
       <!-- @generated modelingassistant -->
       <factory
+            uri="http://cs.mcgill.ca/sel/modelingassistant/learningcorpusquiz/1.0"
+            class="learningcorpusquiz.provider.LearningcorpusquizItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated modelingassistant -->
+      <factory
             uri="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0"
             class="learningcorpus.provider.LearningcorpusItemProviderAdapterFactory"
             supportedTypes=

@@ -9,6 +9,7 @@ Bundle-Activator: learningcorpus.provider.ModelingassistantEditPlugin$Implementa
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: learningcorpus.provider,
+ learningcorpusquiz.provider,
  modelingassistant.provider
 Require-Bundle: org.eclipse.core.runtime,
  modelingassistant;visibility:=reexport,

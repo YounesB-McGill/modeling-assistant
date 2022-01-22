@@ -1,6 +1,6 @@
 /**
  */
-package learningcorpus.presentation;
+package learningcorpusquiz.presentation;
 
 
 import java.io.IOException;
@@ -155,23 +155,28 @@ import org.eclipse.emf.edit.ui.util.EditUIUtil;
 
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 
-import learningcorpus.provider.LearningcorpusItemProviderAdapterFactory;
+import learningcorpusquiz.provider.LearningcorpusquizItemProviderAdapterFactory;
 
 import ca.mcgill.sel.classdiagram.provider.CdmItemProviderAdapterFactory;
+
 import ca.mcgill.sel.core.provider.CoreItemProviderAdapterFactory;
-import learningcorpusquiz.provider.LearningcorpusquizItemProviderAdapterFactory;
+
+import learningcorpus.presentation.ModelingassistantEditorPlugin;
+
+import learningcorpus.provider.LearningcorpusItemProviderAdapterFactory;
+
 import modelingassistant.provider.ModelingassistantItemProviderAdapterFactory;
 
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 
 /**
- * This is an example of a Learningcorpus model editor.
+ * This is an example of a Learningcorpusquiz model editor.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class LearningcorpusEditor
+public class LearningcorpusquizEditor
   extends MultiPageEditorPart
   implements IEditingDomainProvider, ISelectionProvider, IMenuListener, IViewerProvider, IGotoMarker {
   /**
@@ -334,18 +339,18 @@ public class LearningcorpusEditor
       public void partActivated(IWorkbenchPart p) {
         if (p instanceof ContentOutline) {
           if (((ContentOutline)p).getCurrentPage() == contentOutlinePage) {
-            getActionBarContributor().setActiveEditor(LearningcorpusEditor.this);
+            getActionBarContributor().setActiveEditor(LearningcorpusquizEditor.this);
 
             setCurrentViewer(contentOutlineViewer);
           }
         }
         else if (p instanceof PropertySheet) {
           if (propertySheetPages.contains(((PropertySheet)p).getCurrentPage())) {
-            getActionBarContributor().setActiveEditor(LearningcorpusEditor.this);
+            getActionBarContributor().setActiveEditor(LearningcorpusquizEditor.this);
             handleActivate();
           }
         }
-        else if (p == LearningcorpusEditor.this) {
+        else if (p == LearningcorpusquizEditor.this) {
           handleActivate();
         }
       }
@@ -526,7 +531,7 @@ public class LearningcorpusEditor
                  public void run() {
                    removedResources.addAll(visitor.getRemovedResources());
                    if (!isDirty()) {
-                     getSite().getPage().closeEditor(LearningcorpusEditor.this, false);
+                     getSite().getPage().closeEditor(LearningcorpusquizEditor.this, false);
                    }
                  }
                });
@@ -538,7 +543,7 @@ public class LearningcorpusEditor
                  @Override
                  public void run() {
                    changedResources.addAll(visitor.getChangedResources());
-                   if (getSite().getPage().getActiveEditor() == LearningcorpusEditor.this) {
+                   if (getSite().getPage().getActiveEditor() == LearningcorpusquizEditor.this) {
                      handleActivate();
                    }
                  }
@@ -570,7 +575,7 @@ public class LearningcorpusEditor
 
     if (!removedResources.isEmpty()) {
       if (handleDirtyConflict()) {
-        getSite().getPage().closeEditor(LearningcorpusEditor.this, false);
+        getSite().getPage().closeEditor(LearningcorpusquizEditor.this, false);
       }
       else {
         removedResources.clear();
@@ -698,7 +703,7 @@ public class LearningcorpusEditor
    * <!-- end-user-doc -->
    * @generated
    */
-  public LearningcorpusEditor() {
+  public LearningcorpusquizEditor() {
     super();
     initializeEditingDomain();
   }
@@ -1046,7 +1051,7 @@ public class LearningcorpusEditor
       //
       {
         ViewerPane viewerPane =
-          new ViewerPane(getSite().getPage(), LearningcorpusEditor.this) {
+          new ViewerPane(getSite().getPage(), LearningcorpusquizEditor.this) {
             @Override
             public Viewer createViewer(Composite composite) {
               Tree tree = new Tree(composite, SWT.MULTI);
@@ -1081,7 +1086,7 @@ public class LearningcorpusEditor
       //
       {
         ViewerPane viewerPane =
-          new ViewerPane(getSite().getPage(), LearningcorpusEditor.this) {
+          new ViewerPane(getSite().getPage(), LearningcorpusquizEditor.this) {
             @Override
             public Viewer createViewer(Composite composite) {
               Tree tree = new Tree(composite, SWT.MULTI);
@@ -1110,7 +1115,7 @@ public class LearningcorpusEditor
       //
       {
         ViewerPane viewerPane =
-          new ViewerPane(getSite().getPage(), LearningcorpusEditor.this) {
+          new ViewerPane(getSite().getPage(), LearningcorpusquizEditor.this) {
             @Override
             public Viewer createViewer(Composite composite) {
               return new ListViewer(composite);
@@ -1135,7 +1140,7 @@ public class LearningcorpusEditor
       //
       {
         ViewerPane viewerPane =
-          new ViewerPane(getSite().getPage(), LearningcorpusEditor.this) {
+          new ViewerPane(getSite().getPage(), LearningcorpusquizEditor.this) {
             @Override
             public Viewer createViewer(Composite composite) {
               return new TreeViewer(composite);
@@ -1162,7 +1167,7 @@ public class LearningcorpusEditor
       //
       {
         ViewerPane viewerPane =
-          new ViewerPane(getSite().getPage(), LearningcorpusEditor.this) {
+          new ViewerPane(getSite().getPage(), LearningcorpusquizEditor.this) {
             @Override
             public Viewer createViewer(Composite composite) {
               return new TableViewer(composite);
@@ -1205,7 +1210,7 @@ public class LearningcorpusEditor
       //
       {
         ViewerPane viewerPane =
-          new ViewerPane(getSite().getPage(), LearningcorpusEditor.this) {
+          new ViewerPane(getSite().getPage(), LearningcorpusquizEditor.this) {
             @Override
             public Viewer createViewer(Composite composite) {
               return new TreeViewer(composite);
@@ -1430,8 +1435,8 @@ public class LearningcorpusEditor
       new ExtendedPropertySheetPage(editingDomain, ExtendedPropertySheetPage.Decoration.NONE, null, 0, false) {
         @Override
         public void setSelectionToViewer(List<?> selection) {
-          LearningcorpusEditor.this.setSelectionToViewer(selection);
-          LearningcorpusEditor.this.setFocus();
+          LearningcorpusquizEditor.this.setSelectionToViewer(selection);
+          LearningcorpusquizEditor.this.setFocus();
         }
 
         @Override

@@ -12,6 +12,8 @@ import learningcorpus.LearningcorpusPackage;
 
 import learningcorpus.impl.LearningcorpusPackageImpl;
 
+import learningcorpusquiz.LearningcorpusquizPackage;
+import learningcorpusquiz.impl.LearningcorpusquizPackageImpl;
 import modelingassistant.FeedbackItem;
 import modelingassistant.Mistake;
 import modelingassistant.ModelingAssistant;
@@ -196,14 +198,18 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     // Obtain or create and register interdependencies
     Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(LearningcorpusPackage.eNS_URI);
     LearningcorpusPackageImpl theLearningcorpusPackage = (LearningcorpusPackageImpl)(registeredPackage instanceof LearningcorpusPackageImpl ? registeredPackage : LearningcorpusPackage.eINSTANCE);
+    registeredPackage = EPackage.Registry.INSTANCE.getEPackage(LearningcorpusquizPackage.eNS_URI);
+    LearningcorpusquizPackageImpl theLearningcorpusquizPackage = (LearningcorpusquizPackageImpl)(registeredPackage instanceof LearningcorpusquizPackageImpl ? registeredPackage : LearningcorpusquizPackage.eINSTANCE);
 
     // Create package meta-data objects
     theModelingassistantPackage.createPackageContents();
     theLearningcorpusPackage.createPackageContents();
+    theLearningcorpusquizPackage.createPackageContents();
 
     // Initialize created meta-data
     theModelingassistantPackage.initializePackageContents();
     theLearningcorpusPackage.initializePackageContents();
+    theLearningcorpusquizPackage.initializePackageContents();
 
     // Mark meta-data to indicate it can't be changed
     theModelingassistantPackage.freeze();
