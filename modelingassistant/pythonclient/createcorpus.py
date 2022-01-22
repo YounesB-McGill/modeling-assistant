@@ -387,13 +387,16 @@ def generate_tex():
             for fb in mt.feedbacks:
                 if fb.level != level:
                     continue
+                elem_type = (f"{mt.learningItem.name.replace('End', '').replace('Association', 'Relationship')}"
+                             if mt.learningItem else "")
                 match fb:
                     case Feedback(highlightProblem=True):
-                        result += f"Highlight problem statement element{NLS}"
+                        sp = "specific" if fb.level > 1 else "sentence in"
+                        # use elem_type here in the future if it can be made more specific, eg, enum instead of class
+                        elem = "elements" if fb.level > 1 else f"referring to item"
+                        result += f"Highlight {sp} problem statement {elem}{NLS}"
                     case Feedback(highlightSolution=True):
-                        e = (f"({mt.learningItem.name.replace('End', '').replace('Association', 'Relationship')})"
-                             if mt.learningItem else "")
-                        result += f"Highlight solution {e}{NLS}"
+                        result += f"Highlight solution {f'({elem_type})' if elem_type else ''}{NLS}"
                     case TextResponse() as resp:
                         if (content := blockquote(resp.text)) not in result:
                             result += f"Text response:{NLS}{content}"
