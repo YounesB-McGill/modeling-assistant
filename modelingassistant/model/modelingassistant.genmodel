@@ -176,7 +176,7 @@
     <genClasses ecoreClass="learningcorpusquiz.ecore#//TableMultipleChoiceQuiz">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMultipleChoiceQuiz/rowItems"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMultipleChoiceQuiz/columnItems"/>
-      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMultipleChoiceQuiz/entries"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMultipleChoiceQuiz/correctEntries"/>
     </genClasses>
     <genClasses ecoreClass="learningcorpusquiz.ecore#//FillInTheBlanksQuizStatement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//FillInTheBlanksQuizStatement/quiz"/>
@@ -195,20 +195,20 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//Choice/quiz"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpusquiz.ecore#//Choice/text"/>
     </genClasses>
-    <genClasses ecoreClass="learningcorpusquiz.ecore#//TableMcqEntry">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMcqEntry/quiz"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMcqEntry/columnItem"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMcqEntry/rowitem"/>
+    <genClasses ecoreClass="learningcorpusquiz.ecore#//TableMcqCorrectEntry">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMcqCorrectEntry/quiz"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMcqCorrectEntry/columnItem"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMcqCorrectEntry/rowitem"/>
     </genClasses>
     <genClasses ecoreClass="learningcorpusquiz.ecore#//TableMcqRowItem">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpusquiz.ecore#//TableMcqRowItem/text"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMcqRowItem/quiz"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMcqRowItem/entries"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMcqRowItem/correctEntries"/>
     </genClasses>
     <genClasses ecoreClass="learningcorpusquiz.ecore#//TableMcqColumnItem">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpusquiz.ecore#//TableMcqColumnItem/text"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMcqColumnItem/quiz"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMcqColumnItem/entries"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//TableMcqColumnItem/correctEntries"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

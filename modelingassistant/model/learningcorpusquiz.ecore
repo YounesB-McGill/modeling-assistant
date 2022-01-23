@@ -17,8 +17,8 @@
         eType="#//TableMcqRowItem" containment="true" eOpposite="#//TableMcqRowItem/quiz"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="columnItems" upperBound="-1"
         eType="#//TableMcqColumnItem" containment="true" eOpposite="#//TableMcqColumnItem/quiz"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
-        eType="#//TableMcqEntry" containment="true" eOpposite="#//TableMcqEntry/quiz"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="correctEntries" upperBound="-1"
+        eType="#//TableMcqCorrectEntry" containment="true" eOpposite="#//TableMcqCorrectEntry/quiz"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FillInTheBlanksQuizStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="quiz" lowerBound="1" eType="#//FillInTheBlanksQuiz"
@@ -41,26 +41,26 @@
         eOpposite="#//ListMultipleChoiceQuiz/choices"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TableMcqEntry">
+  <eClassifiers xsi:type="ecore:EClass" name="TableMcqCorrectEntry">
     <eStructuralFeatures xsi:type="ecore:EReference" name="quiz" lowerBound="1" eType="#//TableMultipleChoiceQuiz"
-        eOpposite="#//TableMultipleChoiceQuiz/entries"/>
+        eOpposite="#//TableMultipleChoiceQuiz/correctEntries"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="columnItem" lowerBound="1"
-        eType="#//TableMcqColumnItem" eOpposite="#//TableMcqColumnItem/entries"/>
+        eType="#//TableMcqColumnItem" eOpposite="#//TableMcqColumnItem/correctEntries"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rowitem" lowerBound="1"
-        eType="#//TableMcqRowItem" eOpposite="#//TableMcqRowItem/entries"/>
+        eType="#//TableMcqRowItem" eOpposite="#//TableMcqRowItem/correctEntries"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TableMcqRowItem">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="quiz" lowerBound="1" eType="#//TableMultipleChoiceQuiz"
         eOpposite="#//TableMultipleChoiceQuiz/rowItems"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
-        eType="#//TableMcqEntry" eOpposite="#//TableMcqEntry/rowitem"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="correctEntries" upperBound="-1"
+        eType="#//TableMcqCorrectEntry" eOpposite="#//TableMcqCorrectEntry/rowitem"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TableMcqColumnItem">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="quiz" lowerBound="1" eType="#//TableMultipleChoiceQuiz"
         eOpposite="#//TableMultipleChoiceQuiz/columnItems"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
-        eType="#//TableMcqEntry" eOpposite="#//TableMcqEntry/columnItem"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="correctEntries" upperBound="-1"
+        eType="#//TableMcqCorrectEntry" eOpposite="#//TableMcqCorrectEntry/columnItem"/>
   </eClassifiers>
 </ecore:EPackage>
