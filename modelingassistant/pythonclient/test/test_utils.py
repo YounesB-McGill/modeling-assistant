@@ -49,3 +49,8 @@ def test_fbs():
         assert a.level == e.level
         assert a.highlightSolution == e.highlightSolution
         assert a.text == e.text
+
+
+def test_mcq():
+    "Test the mcq() helper function."
+    # TODO

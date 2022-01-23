@@ -21,7 +21,10 @@ from constants import LEARNING_CORPUS_PATH, MULTIPLE_FEEDBACKS_PER_LEVEL
 from corpus import corpus
 from fileserdes import save_to_file
 from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResponse, ParametrizedResponse,
-    ResourceResponse)
+                            ResourceResponse, Quiz)
+from learningcorpusquiz import FillInTheBlanksQuiz, ListMultipleChoiceQuiz, TableMultipleChoiceQuiz
+from utils import NonNoneDict
+
 
 MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
 MAX_COLUMN_WIDTH = 120
@@ -116,6 +119,15 @@ Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
 
 
 """
+
+QUIZ_DISPLAY_NAMES: dict[type, str] = {
+    FillInTheBlanksQuiz: "Fill-in-the-blanks quiz",
+    ListMultipleChoiceQuiz: "List multiple-choice quiz",
+    TableMultipleChoiceQuiz: "Table multiple-choice quiz",
+    Quiz: "Quiz",  # TODO: Remove this once we have a better way of handling Quiz subclasses
+}
+
+_quizzes_to_md: dict[Quiz, str] = NonNoneDict()
 
 
 def generate_python():
@@ -251,14 +263,25 @@ def generate_markdown():
                                 }\n> {resp.text}\n\n"""
                     case ResourceResponse() as resp if resp.learningResources:
                         primary_rsc = resp.learningResources[0]
-                        rsc_type = type(primary_rsc).__name__
-                        if is_table(primary_rsc.content):
-                            content = f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
+                        rsc_type = type(primary_rsc)
+                        rsc_type_name = type(primary_rsc).__name__
+                        if issubclass(rsc_type, Quiz) and rsc_type != Quiz:  # Quiz subclasses but not Quiz itself
+                            content = f"Resource response with {QUIZ_DISPLAY_NAMES[type(primary_rsc)]}:\n\n"
+                            if isinstance(primary_rsc, FillInTheBlanksQuiz):
+                                ...  # append to content
+                            elif isinstance(primary_rsc, ListMultipleChoiceQuiz):
+                                ...
+                            elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
+                                ...
+                            result += content if content not in result else ""
+                            _quizzes_to_md[primary_rsc] = content
+                        elif is_table(primary_rsc.content):
+                            content = f"""Resource response with {rsc_type_name}:\n\n{(2 * nl).join(
                                 [f"> {f.learningResources[0].content.replace(nl, f'{nl}> ')}"
                                  for f in mt.feedbacks if f.level == level])}\n\n"""
                             result += content if content not in result else ""
                         else:
-                            content = f"""Resource response with {rsc_type}:\n\n{(2 * nl).join(
+                            content = f"""Resource response with {rsc_type_name}:\n\n{(2 * nl).join(
                                 [f"> {f.learningResources[0].content}" for f in mt.feedbacks if f.level == level])
                                 }\n\n"""
                             result += content if content not in result else ""

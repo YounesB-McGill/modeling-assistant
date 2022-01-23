@@ -9,6 +9,7 @@ from types import SimpleNamespace
 
 from constants import MULTIPLE_FEEDBACKS_PER_LEVEL
 from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
+from learningcorpusquiz import FillInTheBlanksQuiz, ListMultipleChoiceQuiz, TableMultipleChoiceQuiz
 from modelingassistant import ModelingAssistant
 
 
@@ -71,13 +72,24 @@ def fbs(fbs_by_level: dict[int, Feedback | list[Feedback]]) -> list[Feedback]:
     return feedbacks
 
 
+def mcq(**kwargs) -> ListMultipleChoiceQuiz:
+    """
+    Create a list multiple choice quiz.
+
+    Exact input format TBD.
+    """
+    # TODO
+
+
 class NonNoneDict(dict):
     """
-    A dictionary that disallows None values.
+    A dictionary that disallows None keys and values.
     """
     def __setitem__(self, key, value):
         if key is None:
             raise ValueError("Cannot set NonNoneDict key to None")
+        if value is None:
+            raise ValueError("Cannot set NonNoneDict value to None")
         super().__setitem__(key, value)
 
 

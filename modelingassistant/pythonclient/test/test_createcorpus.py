@@ -17,44 +17,52 @@ from types import SimpleNamespace
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from createcorpus import generate_tex, clean
+from createcorpus import generate_markdown, generate_tex, clean, dashify
 from corpus import corpus, effectuate_contextual_capitalization
 from corpus_definition import lowercase_class_name, uppercase_attribute_name
 from learningcorpus import MistakeType, MistakeTypeCategory
 
 
-# Extract inner functions from createcorpus.generate_tex() and store them in gen_tex to test them below
+# Extract inner functions from top-level createcorpus functions generate_markdown() and generate_tex() and store them,
+# in gen_md and gen_tex respectively, to test them below
 # This needs to be done at the global level
 # extract top-level CONSTANTS
-for child in next(ast.iter_child_nodes((ast.parse(inspect.getsource(generate_tex))))).body:
-    if isinstance(child, ast.Assign):
-        exec(ast.unparse(child))  # pylint: disable=exec-used
-    if isinstance(child, ast.FunctionDef):
-        break
+for func in (generate_markdown, generate_tex):
+    for child in next(ast.iter_child_nodes((ast.parse(inspect.getsource(func))))).body:
+        if isinstance(child, ast.Assign):
+            exec(ast.unparse(child))  # pylint: disable=exec-used
+        if isinstance(child, ast.FunctionDef):
+            break
 
-# store functions in gen_tex
+# store functions in gen_md and gen_tex
+gen_md = {}
 gen_tex = {}
-for ast_node in ast.walk(ast.parse(inspect.getsource(generate_tex))):
-    if isinstance(ast_node, ast.FunctionDef):
-        exec(ast.unparse(ast_node))  # pylint: disable=exec-used
-        gen_tex[ast_node.name] = globals()[ast_node.name]
+
+for d, func in zip((gen_md, gen_tex), (generate_markdown, generate_tex)):
+    for ast_node in ast.walk(ast.parse(inspect.getsource(func))):
+        if isinstance(ast_node, ast.FunctionDef):
+            exec(ast.unparse(ast_node))  # pylint: disable=exec-used
+            d[ast_node.name] = globals()[ast_node.name]
 
 # convert to SimpleNamespace to allow using dot notation (e.g. gen_tex.process_row instead of gen_tex["process_row"])
+gen_md = SimpleNamespace(**gen_md)
 gen_tex = SimpleNamespace(**gen_tex)
 
 
 def test_inner_functions_extracted():
+    assert gen_md
     assert gen_tex
+    assert isinstance(gen_md.make_toc_title("Class mistakes", 2), str)
     assert isinstance(gen_tex.process_row("row_data"), str)
 
 
-def test_make_body_title():
+def test_make_tex_body_title():
     assert gen_tex.make_body_title("Class mistakes") == "\\section{Class mistakes}\n\n"
     assert gen_tex.make_body_title("Class name mistakes", 1) == "\\subsection{Class name mistakes}\n\n"
     assert gen_tex.make_body_title("Plural class name", 2) == "\\subsubsection{Plural class name}\n\n"
 
 
-def test_blockquote():
+def test_tex_blockquote():
     assert gen_tex.blockquote("Please note these examples of correct vs incorrect class naming:") == dedent("""\
         \\begin{tabular}{|p{0.9\\linewidth}}
         Please note these examples of correct vs incorrect class naming:
@@ -63,7 +71,7 @@ def test_blockquote():
         """)
 
 
-def test_sanitize():
+def test_tex_sanitize():
     assert gen_tex.sanitize(
         "Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture."
         ) == "Please review the \\textit{Association} part of the Class Diagram lecture."
