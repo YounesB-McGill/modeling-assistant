@@ -104,8 +104,8 @@ public class LearningcorpusquizAdapterFactory extends AdapterFactoryImpl {
         return createChoiceAdapter();
       }
       @Override
-      public Adapter caseTableMcqEntry(TableMcqEntry object) {
-        return createTableMcqEntryAdapter();
+      public Adapter caseTableMcqCorrectEntry(TableMcqCorrectEntry object) {
+        return createTableMcqCorrectEntryAdapter();
       }
       @Override
       public Adapter caseTableMcqRowItem(TableMcqRowItem object) {
@@ -260,16 +260,16 @@ public class LearningcorpusquizAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link learningcorpusquiz.TableMcqEntry <em>Table Mcq Entry</em>}'.
+   * Creates a new adapter for an object of class '{@link learningcorpusquiz.TableMcqCorrectEntry <em>Table Mcq Correct Entry</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see learningcorpusquiz.TableMcqEntry
+   * @see learningcorpusquiz.TableMcqCorrectEntry
    * @generated
    */
-  public Adapter createTableMcqEntryAdapter() {
+  public Adapter createTableMcqCorrectEntryAdapter() {
     return null;
   }
 

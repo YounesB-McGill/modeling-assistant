@@ -306,13 +306,13 @@ public interface LearningcorpusquizPackage extends EPackage {
   int TABLE_MULTIPLE_CHOICE_QUIZ__COLUMN_ITEMS = LearningcorpusPackage.QUIZ_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Entries</b></em>' containment reference list.
+   * The feature id for the '<em><b>Correct Entries</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TABLE_MULTIPLE_CHOICE_QUIZ__ENTRIES = LearningcorpusPackage.QUIZ_FEATURE_COUNT + 2;
+  int TABLE_MULTIPLE_CHOICE_QUIZ__CORRECT_ENTRIES = LearningcorpusPackage.QUIZ_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Table Multiple Choice Quiz</em>' class.
@@ -554,14 +554,14 @@ public interface LearningcorpusquizPackage extends EPackage {
   int CHOICE_OPERATION_COUNT = 0;
 
   /**
-   * The meta object id for the '{@link learningcorpusquiz.impl.TableMcqEntryImpl <em>Table Mcq Entry</em>}' class.
+   * The meta object id for the '{@link learningcorpusquiz.impl.TableMcqCorrectEntryImpl <em>Table Mcq Correct Entry</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see learningcorpusquiz.impl.TableMcqEntryImpl
-   * @see learningcorpusquiz.impl.LearningcorpusquizPackageImpl#getTableMcqEntry()
+   * @see learningcorpusquiz.impl.TableMcqCorrectEntryImpl
+   * @see learningcorpusquiz.impl.LearningcorpusquizPackageImpl#getTableMcqCorrectEntry()
    * @generated
    */
-  int TABLE_MCQ_ENTRY = 8;
+  int TABLE_MCQ_CORRECT_ENTRY = 8;
 
   /**
    * The feature id for the '<em><b>Quiz</b></em>' container reference.
@@ -570,7 +570,7 @@ public interface LearningcorpusquizPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TABLE_MCQ_ENTRY__QUIZ = 0;
+  int TABLE_MCQ_CORRECT_ENTRY__QUIZ = 0;
 
   /**
    * The feature id for the '<em><b>Column Item</b></em>' reference.
@@ -579,7 +579,7 @@ public interface LearningcorpusquizPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TABLE_MCQ_ENTRY__COLUMN_ITEM = 1;
+  int TABLE_MCQ_CORRECT_ENTRY__COLUMN_ITEM = 1;
 
   /**
    * The feature id for the '<em><b>Rowitem</b></em>' reference.
@@ -588,25 +588,25 @@ public interface LearningcorpusquizPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TABLE_MCQ_ENTRY__ROWITEM = 2;
+  int TABLE_MCQ_CORRECT_ENTRY__ROWITEM = 2;
 
   /**
-   * The number of structural features of the '<em>Table Mcq Entry</em>' class.
+   * The number of structural features of the '<em>Table Mcq Correct Entry</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TABLE_MCQ_ENTRY_FEATURE_COUNT = 3;
+  int TABLE_MCQ_CORRECT_ENTRY_FEATURE_COUNT = 3;
 
   /**
-   * The number of operations of the '<em>Table Mcq Entry</em>' class.
+   * The number of operations of the '<em>Table Mcq Correct Entry</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TABLE_MCQ_ENTRY_OPERATION_COUNT = 0;
+  int TABLE_MCQ_CORRECT_ENTRY_OPERATION_COUNT = 0;
 
   /**
    * The meta object id for the '{@link learningcorpusquiz.impl.TableMcqRowItemImpl <em>Table Mcq Row Item</em>}' class.
@@ -637,13 +637,13 @@ public interface LearningcorpusquizPackage extends EPackage {
   int TABLE_MCQ_ROW_ITEM__QUIZ = 1;
 
   /**
-   * The feature id for the '<em><b>Entries</b></em>' reference list.
+   * The feature id for the '<em><b>Correct Entries</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TABLE_MCQ_ROW_ITEM__ENTRIES = 2;
+  int TABLE_MCQ_ROW_ITEM__CORRECT_ENTRIES = 2;
 
   /**
    * The number of structural features of the '<em>Table Mcq Row Item</em>' class.
@@ -692,13 +692,13 @@ public interface LearningcorpusquizPackage extends EPackage {
   int TABLE_MCQ_COLUMN_ITEM__QUIZ = 1;
 
   /**
-   * The feature id for the '<em><b>Entries</b></em>' reference list.
+   * The feature id for the '<em><b>Correct Entries</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TABLE_MCQ_COLUMN_ITEM__ENTRIES = 2;
+  int TABLE_MCQ_COLUMN_ITEM__CORRECT_ENTRIES = 2;
 
   /**
    * The number of structural features of the '<em>Table Mcq Column Item</em>' class.
@@ -805,15 +805,15 @@ public interface LearningcorpusquizPackage extends EPackage {
   EReference getTableMultipleChoiceQuiz_ColumnItems();
 
   /**
-   * Returns the meta object for the containment reference list '{@link learningcorpusquiz.TableMultipleChoiceQuiz#getEntries <em>Entries</em>}'.
+   * Returns the meta object for the containment reference list '{@link learningcorpusquiz.TableMultipleChoiceQuiz#getCorrectEntries <em>Correct Entries</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Entries</em>'.
-   * @see learningcorpusquiz.TableMultipleChoiceQuiz#getEntries()
+   * @return the meta object for the containment reference list '<em>Correct Entries</em>'.
+   * @see learningcorpusquiz.TableMultipleChoiceQuiz#getCorrectEntries()
    * @see #getTableMultipleChoiceQuiz()
    * @generated
    */
-  EReference getTableMultipleChoiceQuiz_Entries();
+  EReference getTableMultipleChoiceQuiz_CorrectEntries();
 
   /**
    * Returns the meta object for class '{@link learningcorpusquiz.FillInTheBlanksQuizStatement <em>Fill In The Blanks Quiz Statement</em>}'.
@@ -943,47 +943,47 @@ public interface LearningcorpusquizPackage extends EPackage {
   EAttribute getChoice_Text();
 
   /**
-   * Returns the meta object for class '{@link learningcorpusquiz.TableMcqEntry <em>Table Mcq Entry</em>}'.
+   * Returns the meta object for class '{@link learningcorpusquiz.TableMcqCorrectEntry <em>Table Mcq Correct Entry</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Table Mcq Entry</em>'.
-   * @see learningcorpusquiz.TableMcqEntry
+   * @return the meta object for class '<em>Table Mcq Correct Entry</em>'.
+   * @see learningcorpusquiz.TableMcqCorrectEntry
    * @generated
    */
-  EClass getTableMcqEntry();
+  EClass getTableMcqCorrectEntry();
 
   /**
-   * Returns the meta object for the container reference '{@link learningcorpusquiz.TableMcqEntry#getQuiz <em>Quiz</em>}'.
+   * Returns the meta object for the container reference '{@link learningcorpusquiz.TableMcqCorrectEntry#getQuiz <em>Quiz</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the container reference '<em>Quiz</em>'.
-   * @see learningcorpusquiz.TableMcqEntry#getQuiz()
-   * @see #getTableMcqEntry()
+   * @see learningcorpusquiz.TableMcqCorrectEntry#getQuiz()
+   * @see #getTableMcqCorrectEntry()
    * @generated
    */
-  EReference getTableMcqEntry_Quiz();
+  EReference getTableMcqCorrectEntry_Quiz();
 
   /**
-   * Returns the meta object for the reference '{@link learningcorpusquiz.TableMcqEntry#getColumnItem <em>Column Item</em>}'.
+   * Returns the meta object for the reference '{@link learningcorpusquiz.TableMcqCorrectEntry#getColumnItem <em>Column Item</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>Column Item</em>'.
-   * @see learningcorpusquiz.TableMcqEntry#getColumnItem()
-   * @see #getTableMcqEntry()
+   * @see learningcorpusquiz.TableMcqCorrectEntry#getColumnItem()
+   * @see #getTableMcqCorrectEntry()
    * @generated
    */
-  EReference getTableMcqEntry_ColumnItem();
+  EReference getTableMcqCorrectEntry_ColumnItem();
 
   /**
-   * Returns the meta object for the reference '{@link learningcorpusquiz.TableMcqEntry#getRowitem <em>Rowitem</em>}'.
+   * Returns the meta object for the reference '{@link learningcorpusquiz.TableMcqCorrectEntry#getRowitem <em>Rowitem</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>Rowitem</em>'.
-   * @see learningcorpusquiz.TableMcqEntry#getRowitem()
-   * @see #getTableMcqEntry()
+   * @see learningcorpusquiz.TableMcqCorrectEntry#getRowitem()
+   * @see #getTableMcqCorrectEntry()
    * @generated
    */
-  EReference getTableMcqEntry_Rowitem();
+  EReference getTableMcqCorrectEntry_Rowitem();
 
   /**
    * Returns the meta object for class '{@link learningcorpusquiz.TableMcqRowItem <em>Table Mcq Row Item</em>}'.
@@ -1018,15 +1018,15 @@ public interface LearningcorpusquizPackage extends EPackage {
   EReference getTableMcqRowItem_Quiz();
 
   /**
-   * Returns the meta object for the reference list '{@link learningcorpusquiz.TableMcqRowItem#getEntries <em>Entries</em>}'.
+   * Returns the meta object for the reference list '{@link learningcorpusquiz.TableMcqRowItem#getCorrectEntries <em>Correct Entries</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Entries</em>'.
-   * @see learningcorpusquiz.TableMcqRowItem#getEntries()
+   * @return the meta object for the reference list '<em>Correct Entries</em>'.
+   * @see learningcorpusquiz.TableMcqRowItem#getCorrectEntries()
    * @see #getTableMcqRowItem()
    * @generated
    */
-  EReference getTableMcqRowItem_Entries();
+  EReference getTableMcqRowItem_CorrectEntries();
 
   /**
    * Returns the meta object for class '{@link learningcorpusquiz.TableMcqColumnItem <em>Table Mcq Column Item</em>}'.
@@ -1061,15 +1061,15 @@ public interface LearningcorpusquizPackage extends EPackage {
   EReference getTableMcqColumnItem_Quiz();
 
   /**
-   * Returns the meta object for the reference list '{@link learningcorpusquiz.TableMcqColumnItem#getEntries <em>Entries</em>}'.
+   * Returns the meta object for the reference list '{@link learningcorpusquiz.TableMcqColumnItem#getCorrectEntries <em>Correct Entries</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Entries</em>'.
-   * @see learningcorpusquiz.TableMcqColumnItem#getEntries()
+   * @return the meta object for the reference list '<em>Correct Entries</em>'.
+   * @see learningcorpusquiz.TableMcqColumnItem#getCorrectEntries()
    * @see #getTableMcqColumnItem()
    * @generated
    */
-  EReference getTableMcqColumnItem_Entries();
+  EReference getTableMcqColumnItem_CorrectEntries();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1157,12 +1157,12 @@ public interface LearningcorpusquizPackage extends EPackage {
      */
     EReference TABLE_MULTIPLE_CHOICE_QUIZ__COLUMN_ITEMS = eINSTANCE.getTableMultipleChoiceQuiz_ColumnItems();
     /**
-     * The meta object literal for the '<em><b>Entries</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Correct Entries</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference TABLE_MULTIPLE_CHOICE_QUIZ__ENTRIES = eINSTANCE.getTableMultipleChoiceQuiz_Entries();
+    EReference TABLE_MULTIPLE_CHOICE_QUIZ__CORRECT_ENTRIES = eINSTANCE.getTableMultipleChoiceQuiz_CorrectEntries();
     /**
      * The meta object literal for the '{@link learningcorpusquiz.impl.FillInTheBlanksQuizStatementImpl <em>Fill In The Blanks Quiz Statement</em>}' class.
      * <!-- begin-user-doc -->
@@ -1258,35 +1258,35 @@ public interface LearningcorpusquizPackage extends EPackage {
      */
     EAttribute CHOICE__TEXT = eINSTANCE.getChoice_Text();
     /**
-     * The meta object literal for the '{@link learningcorpusquiz.impl.TableMcqEntryImpl <em>Table Mcq Entry</em>}' class.
+     * The meta object literal for the '{@link learningcorpusquiz.impl.TableMcqCorrectEntryImpl <em>Table Mcq Correct Entry</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see learningcorpusquiz.impl.TableMcqEntryImpl
-     * @see learningcorpusquiz.impl.LearningcorpusquizPackageImpl#getTableMcqEntry()
+     * @see learningcorpusquiz.impl.TableMcqCorrectEntryImpl
+     * @see learningcorpusquiz.impl.LearningcorpusquizPackageImpl#getTableMcqCorrectEntry()
      * @generated
      */
-    EClass TABLE_MCQ_ENTRY = eINSTANCE.getTableMcqEntry();
+    EClass TABLE_MCQ_CORRECT_ENTRY = eINSTANCE.getTableMcqCorrectEntry();
     /**
      * The meta object literal for the '<em><b>Quiz</b></em>' container reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference TABLE_MCQ_ENTRY__QUIZ = eINSTANCE.getTableMcqEntry_Quiz();
+    EReference TABLE_MCQ_CORRECT_ENTRY__QUIZ = eINSTANCE.getTableMcqCorrectEntry_Quiz();
     /**
      * The meta object literal for the '<em><b>Column Item</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference TABLE_MCQ_ENTRY__COLUMN_ITEM = eINSTANCE.getTableMcqEntry_ColumnItem();
+    EReference TABLE_MCQ_CORRECT_ENTRY__COLUMN_ITEM = eINSTANCE.getTableMcqCorrectEntry_ColumnItem();
     /**
      * The meta object literal for the '<em><b>Rowitem</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference TABLE_MCQ_ENTRY__ROWITEM = eINSTANCE.getTableMcqEntry_Rowitem();
+    EReference TABLE_MCQ_CORRECT_ENTRY__ROWITEM = eINSTANCE.getTableMcqCorrectEntry_Rowitem();
     /**
      * The meta object literal for the '{@link learningcorpusquiz.impl.TableMcqRowItemImpl <em>Table Mcq Row Item</em>}' class.
      * <!-- begin-user-doc -->
@@ -1311,12 +1311,12 @@ public interface LearningcorpusquizPackage extends EPackage {
      */
     EReference TABLE_MCQ_ROW_ITEM__QUIZ = eINSTANCE.getTableMcqRowItem_Quiz();
     /**
-     * The meta object literal for the '<em><b>Entries</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Correct Entries</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference TABLE_MCQ_ROW_ITEM__ENTRIES = eINSTANCE.getTableMcqRowItem_Entries();
+    EReference TABLE_MCQ_ROW_ITEM__CORRECT_ENTRIES = eINSTANCE.getTableMcqRowItem_CorrectEntries();
     /**
      * The meta object literal for the '{@link learningcorpusquiz.impl.TableMcqColumnItemImpl <em>Table Mcq Column Item</em>}' class.
      * <!-- begin-user-doc -->
@@ -1341,12 +1341,12 @@ public interface LearningcorpusquizPackage extends EPackage {
      */
     EReference TABLE_MCQ_COLUMN_ITEM__QUIZ = eINSTANCE.getTableMcqColumnItem_Quiz();
     /**
-     * The meta object literal for the '<em><b>Entries</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Correct Entries</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference TABLE_MCQ_COLUMN_ITEM__ENTRIES = eINSTANCE.getTableMcqColumnItem_Entries();
+    EReference TABLE_MCQ_COLUMN_ITEM__CORRECT_ENTRIES = eINSTANCE.getTableMcqColumnItem_CorrectEntries();
 
   }
 

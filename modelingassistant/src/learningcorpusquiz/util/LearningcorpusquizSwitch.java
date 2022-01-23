@@ -129,9 +129,9 @@ public class LearningcorpusquizSwitch<T> extends Switch<T> {
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case LearningcorpusquizPackage.TABLE_MCQ_ENTRY: {
-        TableMcqEntry tableMcqEntry = (TableMcqEntry)theEObject;
-        T result = caseTableMcqEntry(tableMcqEntry);
+      case LearningcorpusquizPackage.TABLE_MCQ_CORRECT_ENTRY: {
+        TableMcqCorrectEntry tableMcqCorrectEntry = (TableMcqCorrectEntry)theEObject;
+        T result = caseTableMcqCorrectEntry(tableMcqCorrectEntry);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -272,17 +272,17 @@ public class LearningcorpusquizSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Table Mcq Entry</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Table Mcq Correct Entry</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Table Mcq Entry</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Table Mcq Correct Entry</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseTableMcqEntry(TableMcqEntry object) {
+  public T caseTableMcqCorrectEntry(TableMcqCorrectEntry object) {
     return null;
   }
 

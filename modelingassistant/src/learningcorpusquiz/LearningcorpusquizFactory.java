@@ -94,13 +94,13 @@ public interface LearningcorpusquizFactory extends EFactory {
   Choice createChoice();
 
   /**
-   * Returns a new object of class '<em>Table Mcq Entry</em>'.
+   * Returns a new object of class '<em>Table Mcq Correct Entry</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Table Mcq Entry</em>'.
+   * @return a new object of class '<em>Table Mcq Correct Entry</em>'.
    * @generated
    */
-  TableMcqEntry createTableMcqEntry();
+  TableMcqCorrectEntry createTableMcqCorrectEntry();
 
   /**
    * Returns a new object of class '<em>Table Mcq Row Item</em>'.

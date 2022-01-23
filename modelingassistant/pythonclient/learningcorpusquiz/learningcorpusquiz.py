@@ -65,7 +65,7 @@ class Choice(EObject, metaclass=MetaEClass):
             self.quiz = quiz
 
 
-class TableMcqEntry(EObject, metaclass=MetaEClass):
+class TableMcqCorrectEntry(EObject, metaclass=MetaEClass):
 
     quiz = EReference(ordered=True, unique=True, containment=False, derived=False)
     columnItem = EReference(ordered=True, unique=True, containment=False, derived=False)
@@ -91,9 +91,10 @@ class TableMcqRowItem(EObject, metaclass=MetaEClass):
 
     text = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
     quiz = EReference(ordered=True, unique=True, containment=False, derived=False)
-    entries = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    correctEntries = EReference(ordered=True, unique=True,
+                                containment=False, derived=False, upper=-1)
 
-    def __init__(self, *, text=None, quiz=None, entries=None):
+    def __init__(self, *, text=None, quiz=None, correctEntries=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -105,17 +106,18 @@ class TableMcqRowItem(EObject, metaclass=MetaEClass):
         if quiz is not None:
             self.quiz = quiz
 
-        if entries:
-            self.entries.extend(entries)
+        if correctEntries:
+            self.correctEntries.extend(correctEntries)
 
 
 class TableMcqColumnItem(EObject, metaclass=MetaEClass):
 
     text = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
     quiz = EReference(ordered=True, unique=True, containment=False, derived=False)
-    entries = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
+    correctEntries = EReference(ordered=True, unique=True,
+                                containment=False, derived=False, upper=-1)
 
-    def __init__(self, *, text=None, quiz=None, entries=None):
+    def __init__(self, *, text=None, quiz=None, correctEntries=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -127,8 +129,8 @@ class TableMcqColumnItem(EObject, metaclass=MetaEClass):
         if quiz is not None:
             self.quiz = quiz
 
-        if entries:
-            self.entries.extend(entries)
+        if correctEntries:
+            self.correctEntries.extend(correctEntries)
 
 
 class NonBlank(FillInTheBlanksQuizStatementComponent):
@@ -188,9 +190,10 @@ class TableMultipleChoiceQuiz(Quiz):
 
     rowItems = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
     columnItems = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
-    entries = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    correctEntries = EReference(ordered=True, unique=True,
+                                containment=True, derived=False, upper=-1)
 
-    def __init__(self, *, rowItems=None, columnItems=None, entries=None, **kwargs):
+    def __init__(self, *, rowItems=None, columnItems=None, correctEntries=None, **kwargs):
 
         super().__init__(**kwargs)
 
@@ -200,5 +203,5 @@ class TableMultipleChoiceQuiz(Quiz):
         if columnItems:
             self.columnItems.extend(columnItems)
 
-        if entries:
-            self.entries.extend(entries)
+        if correctEntries:
+            self.correctEntries.extend(correctEntries)

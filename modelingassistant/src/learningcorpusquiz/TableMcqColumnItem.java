@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link learningcorpusquiz.TableMcqColumnItem#getText <em>Text</em>}</li>
  *   <li>{@link learningcorpusquiz.TableMcqColumnItem#getQuiz <em>Quiz</em>}</li>
- *   <li>{@link learningcorpusquiz.TableMcqColumnItem#getEntries <em>Entries</em>}</li>
+ *   <li>{@link learningcorpusquiz.TableMcqColumnItem#getCorrectEntries <em>Correct Entries</em>}</li>
  * </ul>
  *
  * @see learningcorpusquiz.LearningcorpusquizPackage#getTableMcqColumnItem()
@@ -72,17 +72,17 @@ public interface TableMcqColumnItem extends EObject {
   void setQuiz(TableMultipleChoiceQuiz value);
 
   /**
-   * Returns the value of the '<em><b>Entries</b></em>' reference list.
-   * The list contents are of type {@link learningcorpusquiz.TableMcqEntry}.
-   * It is bidirectional and its opposite is '{@link learningcorpusquiz.TableMcqEntry#getColumnItem <em>Column Item</em>}'.
+   * Returns the value of the '<em><b>Correct Entries</b></em>' reference list.
+   * The list contents are of type {@link learningcorpusquiz.TableMcqCorrectEntry}.
+   * It is bidirectional and its opposite is '{@link learningcorpusquiz.TableMcqCorrectEntry#getColumnItem <em>Column Item</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Entries</em>' reference list.
-   * @see learningcorpusquiz.LearningcorpusquizPackage#getTableMcqColumnItem_Entries()
-   * @see learningcorpusquiz.TableMcqEntry#getColumnItem
+   * @return the value of the '<em>Correct Entries</em>' reference list.
+   * @see learningcorpusquiz.LearningcorpusquizPackage#getTableMcqColumnItem_CorrectEntries()
+   * @see learningcorpusquiz.TableMcqCorrectEntry#getColumnItem
    * @model opposite="columnItem"
    * @generated
    */
-  EList<TableMcqEntry> getEntries();
+  EList<TableMcqCorrectEntry> getCorrectEntries();
 
 } // TableMcqColumnItem

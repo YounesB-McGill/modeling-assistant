@@ -6,7 +6,7 @@ import java.util.Collection;
 
 import learningcorpusquiz.LearningcorpusquizPackage;
 import learningcorpusquiz.TableMcqColumnItem;
-import learningcorpusquiz.TableMcqEntry;
+import learningcorpusquiz.TableMcqCorrectEntry;
 import learningcorpusquiz.TableMultipleChoiceQuiz;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link learningcorpusquiz.impl.TableMcqColumnItemImpl#getText <em>Text</em>}</li>
  *   <li>{@link learningcorpusquiz.impl.TableMcqColumnItemImpl#getQuiz <em>Quiz</em>}</li>
- *   <li>{@link learningcorpusquiz.impl.TableMcqColumnItemImpl#getEntries <em>Entries</em>}</li>
+ *   <li>{@link learningcorpusquiz.impl.TableMcqColumnItemImpl#getCorrectEntries <em>Correct Entries</em>}</li>
  * </ul>
  *
  * @generated
@@ -61,14 +61,14 @@ public class TableMcqColumnItemImpl extends MinimalEObjectImpl.Container impleme
   protected String text = TEXT_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getEntries() <em>Entries</em>}' reference list.
+   * The cached value of the '{@link #getCorrectEntries() <em>Correct Entries</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getEntries()
+   * @see #getCorrectEntries()
    * @generated
    * @ordered
    */
-  protected EList<TableMcqEntry> entries;
+  protected EList<TableMcqCorrectEntry> correctEntries;
 
   /**
    * <!-- begin-user-doc -->
@@ -161,11 +161,11 @@ public class TableMcqColumnItemImpl extends MinimalEObjectImpl.Container impleme
    * @generated
    */
   @Override
-  public EList<TableMcqEntry> getEntries() {
-    if (entries == null) {
-      entries = new EObjectWithInverseResolvingEList<TableMcqEntry>(TableMcqEntry.class, this, LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__ENTRIES, LearningcorpusquizPackage.TABLE_MCQ_ENTRY__COLUMN_ITEM);
+  public EList<TableMcqCorrectEntry> getCorrectEntries() {
+    if (correctEntries == null) {
+      correctEntries = new EObjectWithInverseResolvingEList<TableMcqCorrectEntry>(TableMcqCorrectEntry.class, this, LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__CORRECT_ENTRIES, LearningcorpusquizPackage.TABLE_MCQ_CORRECT_ENTRY__COLUMN_ITEM);
     }
-    return entries;
+    return correctEntries;
   }
 
   /**
@@ -181,8 +181,8 @@ public class TableMcqColumnItemImpl extends MinimalEObjectImpl.Container impleme
         if (eInternalContainer() != null)
           msgs = eBasicRemoveFromContainer(msgs);
         return basicSetQuiz((TableMultipleChoiceQuiz)otherEnd, msgs);
-      case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__ENTRIES:
-        return ((InternalEList<InternalEObject>)(InternalEList<?>)getEntries()).basicAdd(otherEnd, msgs);
+      case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__CORRECT_ENTRIES:
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getCorrectEntries()).basicAdd(otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -197,8 +197,8 @@ public class TableMcqColumnItemImpl extends MinimalEObjectImpl.Container impleme
     switch (featureID) {
       case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__QUIZ:
         return basicSetQuiz(null, msgs);
-      case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__ENTRIES:
-        return ((InternalEList<?>)getEntries()).basicRemove(otherEnd, msgs);
+      case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__CORRECT_ENTRIES:
+        return ((InternalEList<?>)getCorrectEntries()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -229,8 +229,8 @@ public class TableMcqColumnItemImpl extends MinimalEObjectImpl.Container impleme
         return getText();
       case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__QUIZ:
         return getQuiz();
-      case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__ENTRIES:
-        return getEntries();
+      case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__CORRECT_ENTRIES:
+        return getCorrectEntries();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -250,9 +250,9 @@ public class TableMcqColumnItemImpl extends MinimalEObjectImpl.Container impleme
       case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__QUIZ:
         setQuiz((TableMultipleChoiceQuiz)newValue);
         return;
-      case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__ENTRIES:
-        getEntries().clear();
-        getEntries().addAll((Collection<? extends TableMcqEntry>)newValue);
+      case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__CORRECT_ENTRIES:
+        getCorrectEntries().clear();
+        getCorrectEntries().addAll((Collection<? extends TableMcqCorrectEntry>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -272,8 +272,8 @@ public class TableMcqColumnItemImpl extends MinimalEObjectImpl.Container impleme
       case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__QUIZ:
         setQuiz((TableMultipleChoiceQuiz)null);
         return;
-      case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__ENTRIES:
-        getEntries().clear();
+      case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__CORRECT_ENTRIES:
+        getCorrectEntries().clear();
         return;
     }
     super.eUnset(featureID);
@@ -291,8 +291,8 @@ public class TableMcqColumnItemImpl extends MinimalEObjectImpl.Container impleme
         return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
       case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__QUIZ:
         return getQuiz() != null;
-      case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__ENTRIES:
-        return entries != null && !entries.isEmpty();
+      case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM__CORRECT_ENTRIES:
+        return correctEntries != null && !correctEntries.isEmpty();
     }
     return super.eIsSet(featureID);
   }

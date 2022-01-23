@@ -64,7 +64,7 @@ public class LearningcorpusquizFactoryImpl extends EFactoryImpl implements Learn
       case LearningcorpusquizPackage.NON_BLANK: return createNonBlank();
       case LearningcorpusquizPackage.BLANK: return createBlank();
       case LearningcorpusquizPackage.CHOICE: return createChoice();
-      case LearningcorpusquizPackage.TABLE_MCQ_ENTRY: return createTableMcqEntry();
+      case LearningcorpusquizPackage.TABLE_MCQ_CORRECT_ENTRY: return createTableMcqCorrectEntry();
       case LearningcorpusquizPackage.TABLE_MCQ_ROW_ITEM: return createTableMcqRowItem();
       case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM: return createTableMcqColumnItem();
       default:
@@ -166,9 +166,9 @@ public class LearningcorpusquizFactoryImpl extends EFactoryImpl implements Learn
    * @generated
    */
   @Override
-  public TableMcqEntry createTableMcqEntry() {
-    TableMcqEntryImpl tableMcqEntry = new TableMcqEntryImpl();
-    return tableMcqEntry;
+  public TableMcqCorrectEntry createTableMcqCorrectEntry() {
+    TableMcqCorrectEntryImpl tableMcqCorrectEntry = new TableMcqCorrectEntryImpl();
+    return tableMcqCorrectEntry;
   }
 
   /**

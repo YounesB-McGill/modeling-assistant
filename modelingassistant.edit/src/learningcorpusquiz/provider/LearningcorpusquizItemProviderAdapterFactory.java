@@ -256,26 +256,26 @@ public class LearningcorpusquizItemProviderAdapterFactory extends Learningcorpus
   }
 
   /**
-   * This keeps track of the one adapter used for all {@link learningcorpusquiz.TableMcqEntry} instances.
+   * This keeps track of the one adapter used for all {@link learningcorpusquiz.TableMcqCorrectEntry} instances.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected TableMcqEntryItemProvider tableMcqEntryItemProvider;
+  protected TableMcqCorrectEntryItemProvider tableMcqCorrectEntryItemProvider;
 
   /**
-   * This creates an adapter for a {@link learningcorpusquiz.TableMcqEntry}.
+   * This creates an adapter for a {@link learningcorpusquiz.TableMcqCorrectEntry}.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
   @Override
-  public Adapter createTableMcqEntryAdapter() {
-    if (tableMcqEntryItemProvider == null) {
-      tableMcqEntryItemProvider = new TableMcqEntryItemProvider(this);
+  public Adapter createTableMcqCorrectEntryAdapter() {
+    if (tableMcqCorrectEntryItemProvider == null) {
+      tableMcqCorrectEntryItemProvider = new TableMcqCorrectEntryItemProvider(this);
     }
 
-    return tableMcqEntryItemProvider;
+    return tableMcqCorrectEntryItemProvider;
   }
 
   /**
@@ -437,7 +437,7 @@ public class LearningcorpusquizItemProviderAdapterFactory extends Learningcorpus
     if (nonBlankItemProvider != null) nonBlankItemProvider.dispose();
     if (blankItemProvider != null) blankItemProvider.dispose();
     if (choiceItemProvider != null) choiceItemProvider.dispose();
-    if (tableMcqEntryItemProvider != null) tableMcqEntryItemProvider.dispose();
+    if (tableMcqCorrectEntryItemProvider != null) tableMcqCorrectEntryItemProvider.dispose();
     if (tableMcqRowItemItemProvider != null) tableMcqRowItemItemProvider.dispose();
     if (tableMcqColumnItemItemProvider != null) tableMcqColumnItemItemProvider.dispose();
   }

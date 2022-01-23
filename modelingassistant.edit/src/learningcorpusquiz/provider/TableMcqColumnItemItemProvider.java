@@ -64,7 +64,7 @@ public class TableMcqColumnItemItemProvider
 
       addTextPropertyDescriptor(object);
       addQuizPropertyDescriptor(object);
-      addEntriesPropertyDescriptor(object);
+      addCorrectEntriesPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -114,19 +114,19 @@ public class TableMcqColumnItemItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Entries feature.
+   * This adds a property descriptor for the Correct Entries feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addEntriesPropertyDescriptor(Object object) {
+  protected void addCorrectEntriesPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_TableMcqColumnItem_entries_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_TableMcqColumnItem_entries_feature", "_UI_TableMcqColumnItem_type"),
-         LearningcorpusquizPackage.Literals.TABLE_MCQ_COLUMN_ITEM__ENTRIES,
+         getString("_UI_TableMcqColumnItem_correctEntries_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_TableMcqColumnItem_correctEntries_feature", "_UI_TableMcqColumnItem_type"),
+         LearningcorpusquizPackage.Literals.TABLE_MCQ_COLUMN_ITEM__CORRECT_ENTRIES,
          true,
          false,
          true,

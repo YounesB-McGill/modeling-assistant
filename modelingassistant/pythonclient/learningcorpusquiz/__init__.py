@@ -1,13 +1,13 @@
 
 from .learningcorpusquiz import getEClassifier, eClassifiers
 from .learningcorpusquiz import name, nsURI, nsPrefix, eClass
-from .learningcorpusquiz import FillInTheBlanksQuiz, ListMultipleChoiceQuiz, TableMultipleChoiceQuiz, FillInTheBlanksQuizStatement, FillInTheBlanksQuizStatementComponent, NonBlank, Blank, Choice, TableMcqEntry, TableMcqRowItem, TableMcqColumnItem
+from .learningcorpusquiz import FillInTheBlanksQuiz, ListMultipleChoiceQuiz, TableMultipleChoiceQuiz, FillInTheBlanksQuizStatement, FillInTheBlanksQuizStatementComponent, NonBlank, Blank, Choice, TableMcqCorrectEntry, TableMcqRowItem, TableMcqColumnItem
 
 
 from . import learningcorpusquiz
 
 __all__ = ['FillInTheBlanksQuiz', 'ListMultipleChoiceQuiz', 'TableMultipleChoiceQuiz', 'FillInTheBlanksQuizStatement',
-           'FillInTheBlanksQuizStatementComponent', 'NonBlank', 'Blank', 'Choice', 'TableMcqEntry', 'TableMcqRowItem', 'TableMcqColumnItem']
+           'FillInTheBlanksQuizStatementComponent', 'NonBlank', 'Blank', 'Choice', 'TableMcqCorrectEntry', 'TableMcqRowItem', 'TableMcqColumnItem']
 
 eSubpackages = []
 eSuperPackage = None
@@ -19,7 +19,7 @@ FillInTheBlanksQuiz.statements.eType = FillInTheBlanksQuizStatement
 ListMultipleChoiceQuiz.choices.eType = Choice
 TableMultipleChoiceQuiz.rowItems.eType = TableMcqRowItem
 TableMultipleChoiceQuiz.columnItems.eType = TableMcqColumnItem
-TableMultipleChoiceQuiz.entries.eType = TableMcqEntry
+TableMultipleChoiceQuiz.correctEntries.eType = TableMcqCorrectEntry
 FillInTheBlanksQuizStatement.quiz.eType = FillInTheBlanksQuiz
 FillInTheBlanksQuizStatement.quiz.eOpposite = FillInTheBlanksQuiz.statements
 FillInTheBlanksQuizStatement.statements.eType = FillInTheBlanksQuizStatementComponent
@@ -27,18 +27,18 @@ FillInTheBlanksQuizStatementComponent.statement.eType = FillInTheBlanksQuizState
 FillInTheBlanksQuizStatementComponent.statement.eOpposite = FillInTheBlanksQuizStatement.statements
 Choice.quiz.eType = ListMultipleChoiceQuiz
 Choice.quiz.eOpposite = ListMultipleChoiceQuiz.choices
-TableMcqEntry.quiz.eType = TableMultipleChoiceQuiz
-TableMcqEntry.quiz.eOpposite = TableMultipleChoiceQuiz.entries
-TableMcqEntry.columnItem.eType = TableMcqColumnItem
-TableMcqEntry.rowitem.eType = TableMcqRowItem
+TableMcqCorrectEntry.quiz.eType = TableMultipleChoiceQuiz
+TableMcqCorrectEntry.quiz.eOpposite = TableMultipleChoiceQuiz.correctEntries
+TableMcqCorrectEntry.columnItem.eType = TableMcqColumnItem
+TableMcqCorrectEntry.rowitem.eType = TableMcqRowItem
 TableMcqRowItem.quiz.eType = TableMultipleChoiceQuiz
 TableMcqRowItem.quiz.eOpposite = TableMultipleChoiceQuiz.rowItems
-TableMcqRowItem.entries.eType = TableMcqEntry
-TableMcqRowItem.entries.eOpposite = TableMcqEntry.rowitem
+TableMcqRowItem.correctEntries.eType = TableMcqCorrectEntry
+TableMcqRowItem.correctEntries.eOpposite = TableMcqCorrectEntry.rowitem
 TableMcqColumnItem.quiz.eType = TableMultipleChoiceQuiz
 TableMcqColumnItem.quiz.eOpposite = TableMultipleChoiceQuiz.columnItems
-TableMcqColumnItem.entries.eType = TableMcqEntry
-TableMcqColumnItem.entries.eOpposite = TableMcqEntry.columnItem
+TableMcqColumnItem.correctEntries.eType = TableMcqCorrectEntry
+TableMcqColumnItem.correctEntries.eOpposite = TableMcqCorrectEntry.columnItem
 
 otherClassifiers = []
 

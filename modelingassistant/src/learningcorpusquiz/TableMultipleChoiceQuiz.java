@@ -17,7 +17,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link learningcorpusquiz.TableMultipleChoiceQuiz#getRowItems <em>Row Items</em>}</li>
  *   <li>{@link learningcorpusquiz.TableMultipleChoiceQuiz#getColumnItems <em>Column Items</em>}</li>
- *   <li>{@link learningcorpusquiz.TableMultipleChoiceQuiz#getEntries <em>Entries</em>}</li>
+ *   <li>{@link learningcorpusquiz.TableMultipleChoiceQuiz#getCorrectEntries <em>Correct Entries</em>}</li>
  * </ul>
  *
  * @see learningcorpusquiz.LearningcorpusquizPackage#getTableMultipleChoiceQuiz()
@@ -54,17 +54,17 @@ public interface TableMultipleChoiceQuiz extends Quiz {
   EList<TableMcqColumnItem> getColumnItems();
 
   /**
-   * Returns the value of the '<em><b>Entries</b></em>' containment reference list.
-   * The list contents are of type {@link learningcorpusquiz.TableMcqEntry}.
-   * It is bidirectional and its opposite is '{@link learningcorpusquiz.TableMcqEntry#getQuiz <em>Quiz</em>}'.
+   * Returns the value of the '<em><b>Correct Entries</b></em>' containment reference list.
+   * The list contents are of type {@link learningcorpusquiz.TableMcqCorrectEntry}.
+   * It is bidirectional and its opposite is '{@link learningcorpusquiz.TableMcqCorrectEntry#getQuiz <em>Quiz</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Entries</em>' containment reference list.
-   * @see learningcorpusquiz.LearningcorpusquizPackage#getTableMultipleChoiceQuiz_Entries()
-   * @see learningcorpusquiz.TableMcqEntry#getQuiz
+   * @return the value of the '<em>Correct Entries</em>' containment reference list.
+   * @see learningcorpusquiz.LearningcorpusquizPackage#getTableMultipleChoiceQuiz_CorrectEntries()
+   * @see learningcorpusquiz.TableMcqCorrectEntry#getQuiz
    * @model opposite="quiz" containment="true"
    * @generated
    */
-  EList<TableMcqEntry> getEntries();
+  EList<TableMcqCorrectEntry> getCorrectEntries();
 
 } // TableMultipleChoiceQuiz

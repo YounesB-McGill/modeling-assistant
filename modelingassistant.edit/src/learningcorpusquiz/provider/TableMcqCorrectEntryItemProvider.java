@@ -25,12 +25,12 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 
 /**
- * This is the item provider adapter for a {@link learningcorpusquiz.TableMcqEntry} object.
+ * This is the item provider adapter for a {@link learningcorpusquiz.TableMcqCorrectEntry} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class TableMcqEntryItemProvider 
+public class TableMcqCorrectEntryItemProvider 
   extends ItemProviderAdapter
   implements
     IEditingDomainItemProvider,
@@ -44,7 +44,7 @@ public class TableMcqEntryItemProvider
    * <!-- end-user-doc -->
    * @generated
    */
-  public TableMcqEntryItemProvider(AdapterFactory adapterFactory) {
+  public TableMcqCorrectEntryItemProvider(AdapterFactory adapterFactory) {
     super(adapterFactory);
   }
 
@@ -77,9 +77,9 @@ public class TableMcqEntryItemProvider
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_TableMcqEntry_quiz_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_TableMcqEntry_quiz_feature", "_UI_TableMcqEntry_type"),
-         LearningcorpusquizPackage.Literals.TABLE_MCQ_ENTRY__QUIZ,
+         getString("_UI_TableMcqCorrectEntry_quiz_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_TableMcqCorrectEntry_quiz_feature", "_UI_TableMcqCorrectEntry_type"),
+         LearningcorpusquizPackage.Literals.TABLE_MCQ_CORRECT_ENTRY__QUIZ,
          true,
          false,
          true,
@@ -99,9 +99,9 @@ public class TableMcqEntryItemProvider
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_TableMcqEntry_columnItem_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_TableMcqEntry_columnItem_feature", "_UI_TableMcqEntry_type"),
-         LearningcorpusquizPackage.Literals.TABLE_MCQ_ENTRY__COLUMN_ITEM,
+         getString("_UI_TableMcqCorrectEntry_columnItem_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_TableMcqCorrectEntry_columnItem_feature", "_UI_TableMcqCorrectEntry_type"),
+         LearningcorpusquizPackage.Literals.TABLE_MCQ_CORRECT_ENTRY__COLUMN_ITEM,
          true,
          false,
          true,
@@ -121,9 +121,9 @@ public class TableMcqEntryItemProvider
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_TableMcqEntry_rowitem_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_TableMcqEntry_rowitem_feature", "_UI_TableMcqEntry_type"),
-         LearningcorpusquizPackage.Literals.TABLE_MCQ_ENTRY__ROWITEM,
+         getString("_UI_TableMcqCorrectEntry_rowitem_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_TableMcqCorrectEntry_rowitem_feature", "_UI_TableMcqCorrectEntry_type"),
+         LearningcorpusquizPackage.Literals.TABLE_MCQ_CORRECT_ENTRY__ROWITEM,
          true,
          false,
          true,
@@ -133,14 +133,14 @@ public class TableMcqEntryItemProvider
   }
 
   /**
-   * This returns TableMcqEntry.gif.
+   * This returns TableMcqCorrectEntry.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
   @Override
   public Object getImage(Object object) {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/TableMcqEntry"));
+    return overlayImage(object, getResourceLocator().getImage("full/obj16/TableMcqCorrectEntry"));
   }
 
   /**
@@ -151,7 +151,7 @@ public class TableMcqEntryItemProvider
    */
   @Override
   public String getText(Object object) {
-    return getString("_UI_TableMcqEntry_type");
+    return getString("_UI_TableMcqCorrectEntry_type");
   }
 
 

@@ -54,7 +54,7 @@ public class TableMultipleChoiceQuizItemProvider extends QuizItemProvider {
 
       addRowItemsPropertyDescriptor(object);
       addColumnItemsPropertyDescriptor(object);
-      addEntriesPropertyDescriptor(object);
+      addCorrectEntriesPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -104,19 +104,19 @@ public class TableMultipleChoiceQuizItemProvider extends QuizItemProvider {
   }
 
   /**
-   * This adds a property descriptor for the Entries feature.
+   * This adds a property descriptor for the Correct Entries feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addEntriesPropertyDescriptor(Object object) {
+  protected void addCorrectEntriesPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_TableMultipleChoiceQuiz_entries_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_TableMultipleChoiceQuiz_entries_feature", "_UI_TableMultipleChoiceQuiz_type"),
-         LearningcorpusquizPackage.Literals.TABLE_MULTIPLE_CHOICE_QUIZ__ENTRIES,
+         getString("_UI_TableMultipleChoiceQuiz_correctEntries_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_TableMultipleChoiceQuiz_correctEntries_feature", "_UI_TableMultipleChoiceQuiz_type"),
+         LearningcorpusquizPackage.Literals.TABLE_MULTIPLE_CHOICE_QUIZ__CORRECT_ENTRIES,
          true,
          false,
          true,
@@ -139,7 +139,7 @@ public class TableMultipleChoiceQuizItemProvider extends QuizItemProvider {
       super.getChildrenFeatures(object);
       childrenFeatures.add(LearningcorpusquizPackage.Literals.TABLE_MULTIPLE_CHOICE_QUIZ__ROW_ITEMS);
       childrenFeatures.add(LearningcorpusquizPackage.Literals.TABLE_MULTIPLE_CHOICE_QUIZ__COLUMN_ITEMS);
-      childrenFeatures.add(LearningcorpusquizPackage.Literals.TABLE_MULTIPLE_CHOICE_QUIZ__ENTRIES);
+      childrenFeatures.add(LearningcorpusquizPackage.Literals.TABLE_MULTIPLE_CHOICE_QUIZ__CORRECT_ENTRIES);
     }
     return childrenFeatures;
   }
@@ -197,7 +197,7 @@ public class TableMultipleChoiceQuizItemProvider extends QuizItemProvider {
     switch (notification.getFeatureID(TableMultipleChoiceQuiz.class)) {
       case LearningcorpusquizPackage.TABLE_MULTIPLE_CHOICE_QUIZ__ROW_ITEMS:
       case LearningcorpusquizPackage.TABLE_MULTIPLE_CHOICE_QUIZ__COLUMN_ITEMS:
-      case LearningcorpusquizPackage.TABLE_MULTIPLE_CHOICE_QUIZ__ENTRIES:
+      case LearningcorpusquizPackage.TABLE_MULTIPLE_CHOICE_QUIZ__CORRECT_ENTRIES:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
     }
@@ -227,8 +227,8 @@ public class TableMultipleChoiceQuizItemProvider extends QuizItemProvider {
 
     newChildDescriptors.add
       (createChildParameter
-        (LearningcorpusquizPackage.Literals.TABLE_MULTIPLE_CHOICE_QUIZ__ENTRIES,
-         LearningcorpusquizFactory.eINSTANCE.createTableMcqEntry()));
+        (LearningcorpusquizPackage.Literals.TABLE_MULTIPLE_CHOICE_QUIZ__CORRECT_ENTRIES,
+         LearningcorpusquizFactory.eINSTANCE.createTableMcqCorrectEntry()));
   }
 
   /**
