@@ -12,26 +12,55 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="correctChoices" upperBound="-1"
         eType="#//Choice"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TableMultipleChoiceQuiz" eSuperTypes="learningcorpus.ecore#//Quiz"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TableMultipleChoiceQuiz" eSuperTypes="learningcorpus.ecore#//Quiz">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rowItems" upperBound="-1"
+        eType="#//TableMcqRowItem" containment="true" eOpposite="#//TableMcqRowItem/quiz"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="columnItems" upperBound="-1"
+        eType="#//TableMcqColumnItem" containment="true" eOpposite="#//TableMcqColumnItem/quiz"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
+        eType="#//TableMcqEntry" containment="true" eOpposite="#//TableMcqEntry/quiz"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FillInTheBlanksQuizStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="quiz" lowerBound="1" eType="#//FillInTheBlanksQuiz"
         eOpposite="#//FillInTheBlanksQuiz/statements"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
-        eType="#//FillInTheBlanksQuizStatement.1" containment="true" eOpposite="#//FillInTheBlanksQuizStatement.1/statement"/>
+        eType="#//FillInTheBlanksQuizStatementComponent" containment="true" eOpposite="#//FillInTheBlanksQuizStatementComponent/statement"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FillInTheBlanksQuizStatement">
+  <eClassifiers xsi:type="ecore:EClass" name="FillInTheBlanksQuizStatementComponent">
     <eStructuralFeatures xsi:type="ecore:EReference" name="statement" lowerBound="1"
         eType="#//FillInTheBlanksQuizStatement" eOpposite="#//FillInTheBlanksQuizStatement/statements"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NonBlank" eSuperTypes="#//FillInTheBlanksQuizStatement.1">
+  <eClassifiers xsi:type="ecore:EClass" name="NonBlank" eSuperTypes="#//FillInTheBlanksQuizStatementComponent">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Blank" eSuperTypes="#//FillInTheBlanksQuizStatement.1">
+  <eClassifiers xsi:type="ecore:EClass" name="Blank" eSuperTypes="#//FillInTheBlanksQuizStatementComponent">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="correctAnswer" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Choice">
     <eStructuralFeatures xsi:type="ecore:EReference" name="quiz" lowerBound="1" eType="#//ListMultipleChoiceQuiz"
         eOpposite="#//ListMultipleChoiceQuiz/choices"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TableMcqEntry">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="quiz" lowerBound="1" eType="#//TableMultipleChoiceQuiz"
+        eOpposite="#//TableMultipleChoiceQuiz/entries"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="columnItem" lowerBound="1"
+        eType="#//TableMcqColumnItem" eOpposite="#//TableMcqColumnItem/entries"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rowitem" lowerBound="1"
+        eType="#//TableMcqRowItem" eOpposite="#//TableMcqRowItem/entries"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TableMcqRowItem">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="quiz" lowerBound="1" eType="#//TableMultipleChoiceQuiz"
+        eOpposite="#//TableMultipleChoiceQuiz/rowItems"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
+        eType="#//TableMcqEntry" eOpposite="#//TableMcqEntry/rowitem"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TableMcqColumnItem">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="quiz" lowerBound="1" eType="#//TableMultipleChoiceQuiz"
+        eOpposite="#//TableMultipleChoiceQuiz/columnItems"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
+        eType="#//TableMcqEntry" eOpposite="#//TableMcqEntry/columnItem"/>
   </eClassifiers>
 </ecore:EPackage>
