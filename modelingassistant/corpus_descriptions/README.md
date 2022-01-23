@@ -287,7 +287,11 @@ Level 3: Text response:
 
 > Model this concept with an enumeration.
 
-Level 4: Resource response with Reference:
+Level 4: Parametrized response:
+
+> Add an ${enumName} enumeration.
+
+Level 5: Resource response with Reference:
 
 > Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
@@ -761,10 +765,11 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Pick the classes which are modeled correctly.
+> Pick the class(es) modeled correctly in Umple.
 
-- [ ] class Person { address; }
-- [ ] class Person { * Person -- 1 Address; }; class Address {}
+- [ ] class BankAccount { Client client; }
+- [ ] class BankAccount { * -- 1..2 Client clients; }; class Client {}
+- [ ] class BankAccount { 1..2 -- * Client clients; }; class Client {}
 - [ ] class Loan { libraryPatron; }
 
 Level 5: Resource response with Reference:
@@ -945,9 +950,9 @@ Level 2: Text response:
 
 > Can you model this relationship more precisely?
 
-Level 3: Text response:
+Level 3: Parametrized response:
 
-> The multiplicities for this association are correct, but something else is missing!
+> The multiplicities for the ${assoc} association are correct, but something else is missing!
 
 Level 4: Resource response with Reference:
 
@@ -1598,7 +1603,7 @@ The five checks for generalization are:
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
 * Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (instance)
+* Subclass must not be ________. (an instance)
 
 Level 6: Resource response with Reference:
 
@@ -1634,7 +1639,7 @@ The five checks for generalization are:
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
 * Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (instance)
+* Subclass must not be ________. (an instance)
 
 Level 6: Resource response with Reference:
 
@@ -1685,7 +1690,7 @@ The five checks for generalization are:
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
 * Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (instance)
+* Subclass must not be ________. (an instance)
 
 Level 5: Resource response with Reference:
 
@@ -1718,7 +1723,7 @@ The five checks for generalization are:
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
 * Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (instance)
+* Subclass must not be ________. (an instance)
 
 Level 6: Resource response with Reference:
 
@@ -1747,7 +1752,7 @@ The five checks for generalization are:
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
 * Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (instance)
+* Subclass must not be ________. (an instance)
 
 Level 5: Resource response with Reference:
 
@@ -1783,7 +1788,7 @@ The five checks for generalization are:
 * Subclass must retain its ________. (distinctiveness)
 * All ________ must make sense in each subclass. (inherited features)
 * Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (instance)
+* Subclass must not be ________. (an instance)
 
 Level 6: Resource response with Reference:
 

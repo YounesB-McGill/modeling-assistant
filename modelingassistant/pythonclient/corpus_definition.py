@@ -108,7 +108,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightProblem=True),
                     2: TextResponse(text="How would you model this concept?"),
                     3: TextResponse(text="Model this concept with an enumeration."),
-                    4: ResourceResponse(learningResources=[enum_reference]),
+                    4: ParametrizedResponse(text="Add an ${enumName} enumeration."),
+                    5: ResourceResponse(learningResources=[enum_reference]),
                 })),
                 extra_enum := mt(n="Extra enum", d="Extra enumeration", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
@@ -300,10 +301,11 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(text="Remember that attributes are simple pieces of data."),
                     3: ParametrizedResponse(text="${includingClass.attributeName} should be its own class."),
                     4: ResourceResponse(learningResources=[Quiz(content=dedent("""\
-                        Pick the classes which are modeled correctly.
+                        Pick the class(es) modeled correctly in Umple.
 
-                        - [ ] class Person { address; }
-                        - [ ] class Person { * Person -- 1 Address; }; class Address {}
+                        - [ ] class BankAccount { Client client; }
+                        - [ ] class BankAccount { * -- 1..2 Client clients; }; class Client {}
+                        - [ ] class BankAccount { 1..2 -- * Client clients; }; class Client {}
                         - [ ] class Loan { libraryPatron; }"""))]),
                     5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
@@ -395,8 +397,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_role_names := mt(n="Missing role names", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you model this relationship more precisely?"),
-                3: TextResponse(
-                    text="The multiplicities for this association are correct, but something else is missing!"),
+                3: ParametrizedResponse(text="The multiplicities for the ${assoc} association are correct, but "
+                                             "something else is missing!"),
                 4: ResourceResponse(learningResources=[role_name_ref := Reference(content=dedent("""\
                     Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
                     for this association? Role names help identify the role a class plays in a
@@ -691,7 +693,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     * All ________ must make sense in each subclass. (inherited features)
                     * Subclass differs from superclass and other subclasses in ________ or ________.{
                         " "}(behavior, structure)
-                    * Subclass must not be ________. (instance)"""))]),
+                    * Subclass must not be ________. (an instance)"""))]),
                 6: ResourceResponse(learningResources=[gen_ref]),
             })),
             generalization_inapplicable := mt(

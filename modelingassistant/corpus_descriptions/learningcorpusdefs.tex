@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus script.
-% Generation time: 2022-01-22 14:20:10
+% Generation time: 2022-01-23 11:21:14
 
 \section{Class mistakes}
 
@@ -246,7 +246,13 @@ How would you model this concept?
 Model this concept with an enumeration.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Reference: \medskip
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Add an \verb|${enumName}| enumeration.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Please review the \textit{Enumeration} part of the Class Diagram lecture.
@@ -888,11 +894,12 @@ Remember that attributes are simple pieces of data.
 \noindent Level 4: Resource response with Quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Pick the classes which are modeled correctly.
+Pick the class(es) modeled correctly in Umple.
 
 \begin{itemize}
-    \item[$\square$] class Person \{ address; \}
-    \item[$\square$] class Person \{ * Person -- 1 Address; \}; class Address \{\}
+    \item[$\square$] class BankAccount \{ Client client; \}
+    \item[$\square$] class BankAccount \{ * -- 1..2 Client clients; \}; class Client \{\}
+    \item[$\square$] class BankAccount \{ 1..2 -- * Client clients; \}; class Client \{\}
     \item[$\square$] class Loan \{ libraryPatron; \}
 \end{itemize}
 
@@ -1143,10 +1150,10 @@ Please review the \textit{multiplicities} part of the Class Diagram lecture.
 Can you model this relationship more precisely?
 \end{tabular} \medskip
 
-\noindent Level 3: Text response: \medskip
+\noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The multiplicities for this association are correct, but something else is missing!
+The multiplicities for the \verb|${assoc}| association are correct, but something else is missing!
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -2030,7 +2037,7 @@ The five checks for generalization are:
     \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
     \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
     \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (instance)
+    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2082,7 +2089,7 @@ The five checks for generalization are:
     \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
     \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
     \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (instance)
+    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2155,7 +2162,7 @@ The five checks for generalization are:
     \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
     \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
     \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (instance)
+    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2201,7 +2208,7 @@ The five checks for generalization are:
     \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
     \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
     \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (instance)
+    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2241,7 +2248,7 @@ The five checks for generalization are:
     \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
     \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
     \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (instance)
+    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2293,7 +2300,7 @@ The five checks for generalization are:
     \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
     \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
     \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (instance)
+    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
 \end{itemize}
 
 \end{tabular} \medskip
