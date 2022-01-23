@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="25fff066-8f88-4724-a411-3e325a12dcf0" xmi:version="2.0">
-  <solutions xsi:type="modelingassistant:Solution" xmi:id="9b544762-f483-44a2-9a41-77c5b5c11036">
-    <classDiagram href="ma_one_class_from_python.cdm#6f03033b-7a3e-4899-a1fa-2207f5c6f45b" xsi:type="classdiagram:ClassDiagram"/>
+<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="72db6e9b-7832-4b45-a43e-097212ffc13a" xmi:version="2.0">
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="a586fafa-2516-45f1-828b-4d9b26747931">
+    <classDiagram href="ma_one_class_from_python.cdm#a0e57651-dade-4ad0-8987-0d38a381c526" xsi:type="classdiagram:ClassDiagram"/>
   </solutions>
 </modelingassistant:ModelingAssistant>

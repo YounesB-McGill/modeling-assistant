@@ -95,6 +95,236 @@ public class LearningcorpusquizItemProviderAdapterFactory extends Learningcorpus
   }
 
   /**
+   * This keeps track of the one adapter used for all {@link learningcorpusquiz.ListMultipleChoiceQuiz} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected ListMultipleChoiceQuizItemProvider listMultipleChoiceQuizItemProvider;
+
+  /**
+   * This creates an adapter for a {@link learningcorpusquiz.ListMultipleChoiceQuiz}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createListMultipleChoiceQuizAdapter() {
+    if (listMultipleChoiceQuizItemProvider == null) {
+      listMultipleChoiceQuizItemProvider = new ListMultipleChoiceQuizItemProvider(this);
+    }
+
+    return listMultipleChoiceQuizItemProvider;
+  }
+
+  /**
+   * This keeps track of the one adapter used for all {@link learningcorpusquiz.TableMultipleChoiceQuiz} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected TableMultipleChoiceQuizItemProvider tableMultipleChoiceQuizItemProvider;
+
+  /**
+   * This creates an adapter for a {@link learningcorpusquiz.TableMultipleChoiceQuiz}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createTableMultipleChoiceQuizAdapter() {
+    if (tableMultipleChoiceQuizItemProvider == null) {
+      tableMultipleChoiceQuizItemProvider = new TableMultipleChoiceQuizItemProvider(this);
+    }
+
+    return tableMultipleChoiceQuizItemProvider;
+  }
+
+  /**
+   * This keeps track of the one adapter used for all {@link learningcorpusquiz.FillInTheBlanksQuizStatement} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected FillInTheBlanksQuizStatementItemProvider fillInTheBlanksQuizStatementItemProvider;
+
+  /**
+   * This creates an adapter for a {@link learningcorpusquiz.FillInTheBlanksQuizStatement}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createFillInTheBlanksQuizStatementAdapter() {
+    if (fillInTheBlanksQuizStatementItemProvider == null) {
+      fillInTheBlanksQuizStatementItemProvider = new FillInTheBlanksQuizStatementItemProvider(this);
+    }
+
+    return fillInTheBlanksQuizStatementItemProvider;
+  }
+
+  /**
+   * This keeps track of the one adapter used for all {@link learningcorpusquiz.FillInTheBlanksQuizStatementComponent} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected FillInTheBlanksQuizStatementComponentItemProvider fillInTheBlanksQuizStatementComponentItemProvider;
+
+  /**
+   * This creates an adapter for a {@link learningcorpusquiz.FillInTheBlanksQuizStatementComponent}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createFillInTheBlanksQuizStatementComponentAdapter() {
+    if (fillInTheBlanksQuizStatementComponentItemProvider == null) {
+      fillInTheBlanksQuizStatementComponentItemProvider = new FillInTheBlanksQuizStatementComponentItemProvider(this);
+    }
+
+    return fillInTheBlanksQuizStatementComponentItemProvider;
+  }
+
+  /**
+   * This keeps track of the one adapter used for all {@link learningcorpusquiz.NonBlank} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected NonBlankItemProvider nonBlankItemProvider;
+
+  /**
+   * This creates an adapter for a {@link learningcorpusquiz.NonBlank}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createNonBlankAdapter() {
+    if (nonBlankItemProvider == null) {
+      nonBlankItemProvider = new NonBlankItemProvider(this);
+    }
+
+    return nonBlankItemProvider;
+  }
+
+  /**
+   * This keeps track of the one adapter used for all {@link learningcorpusquiz.Blank} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected BlankItemProvider blankItemProvider;
+
+  /**
+   * This creates an adapter for a {@link learningcorpusquiz.Blank}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createBlankAdapter() {
+    if (blankItemProvider == null) {
+      blankItemProvider = new BlankItemProvider(this);
+    }
+
+    return blankItemProvider;
+  }
+
+  /**
+   * This keeps track of the one adapter used for all {@link learningcorpusquiz.Choice} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected ChoiceItemProvider choiceItemProvider;
+
+  /**
+   * This creates an adapter for a {@link learningcorpusquiz.Choice}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createChoiceAdapter() {
+    if (choiceItemProvider == null) {
+      choiceItemProvider = new ChoiceItemProvider(this);
+    }
+
+    return choiceItemProvider;
+  }
+
+  /**
+   * This keeps track of the one adapter used for all {@link learningcorpusquiz.TableMcqEntry} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected TableMcqEntryItemProvider tableMcqEntryItemProvider;
+
+  /**
+   * This creates an adapter for a {@link learningcorpusquiz.TableMcqEntry}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createTableMcqEntryAdapter() {
+    if (tableMcqEntryItemProvider == null) {
+      tableMcqEntryItemProvider = new TableMcqEntryItemProvider(this);
+    }
+
+    return tableMcqEntryItemProvider;
+  }
+
+  /**
+   * This keeps track of the one adapter used for all {@link learningcorpusquiz.TableMcqRowItem} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected TableMcqRowItemItemProvider tableMcqRowItemItemProvider;
+
+  /**
+   * This creates an adapter for a {@link learningcorpusquiz.TableMcqRowItem}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createTableMcqRowItemAdapter() {
+    if (tableMcqRowItemItemProvider == null) {
+      tableMcqRowItemItemProvider = new TableMcqRowItemItemProvider(this);
+    }
+
+    return tableMcqRowItemItemProvider;
+  }
+
+  /**
+   * This keeps track of the one adapter used for all {@link learningcorpusquiz.TableMcqColumnItem} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected TableMcqColumnItemItemProvider tableMcqColumnItemItemProvider;
+
+  /**
+   * This creates an adapter for a {@link learningcorpusquiz.TableMcqColumnItem}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createTableMcqColumnItemAdapter() {
+    if (tableMcqColumnItemItemProvider == null) {
+      tableMcqColumnItemItemProvider = new TableMcqColumnItemItemProvider(this);
+    }
+
+    return tableMcqColumnItemItemProvider;
+  }
+
+  /**
    * This returns the root adapter factory that contains this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -200,6 +430,16 @@ public class LearningcorpusquizItemProviderAdapterFactory extends Learningcorpus
   @Override
   public void dispose() {
     if (fillInTheBlanksQuizItemProvider != null) fillInTheBlanksQuizItemProvider.dispose();
+    if (listMultipleChoiceQuizItemProvider != null) listMultipleChoiceQuizItemProvider.dispose();
+    if (tableMultipleChoiceQuizItemProvider != null) tableMultipleChoiceQuizItemProvider.dispose();
+    if (fillInTheBlanksQuizStatementItemProvider != null) fillInTheBlanksQuizStatementItemProvider.dispose();
+    if (fillInTheBlanksQuizStatementComponentItemProvider != null) fillInTheBlanksQuizStatementComponentItemProvider.dispose();
+    if (nonBlankItemProvider != null) nonBlankItemProvider.dispose();
+    if (blankItemProvider != null) blankItemProvider.dispose();
+    if (choiceItemProvider != null) choiceItemProvider.dispose();
+    if (tableMcqEntryItemProvider != null) tableMcqEntryItemProvider.dispose();
+    if (tableMcqRowItemItemProvider != null) tableMcqRowItemItemProvider.dispose();
+    if (tableMcqColumnItemItemProvider != null) tableMcqColumnItemItemProvider.dispose();
   }
 
 }

@@ -10,17 +10,29 @@ import learningcorpus.LearningcorpusPackage;
 
 import learningcorpus.impl.LearningcorpusPackageImpl;
 
+import learningcorpusquiz.Blank;
+import learningcorpusquiz.Choice;
 import learningcorpusquiz.FillInTheBlanksQuiz;
+import learningcorpusquiz.FillInTheBlanksQuizStatement;
+import learningcorpusquiz.FillInTheBlanksQuizStatementComponent;
 import learningcorpusquiz.LearningcorpusquizFactory;
 import learningcorpusquiz.LearningcorpusquizPackage;
 
+import learningcorpusquiz.ListMultipleChoiceQuiz;
+import learningcorpusquiz.NonBlank;
+import learningcorpusquiz.TableMcqColumnItem;
+import learningcorpusquiz.TableMcqEntry;
+import learningcorpusquiz.TableMcqRowItem;
+import learningcorpusquiz.TableMultipleChoiceQuiz;
 import modelingassistant.ModelingassistantPackage;
 
 import modelingassistant.impl.ModelingassistantPackageImpl;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -36,6 +48,67 @@ public class LearningcorpusquizPackageImpl extends EPackageImpl implements Learn
    * @generated
    */
   private EClass fillInTheBlanksQuizEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass listMultipleChoiceQuizEClass = null;
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass tableMultipleChoiceQuizEClass = null;
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass fillInTheBlanksQuizStatementEClass = null;
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass fillInTheBlanksQuizStatementComponentEClass = null;
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass nonBlankEClass = null;
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass blankEClass = null;
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass choiceEClass = null;
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass tableMcqEntryEClass = null;
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass tableMcqRowItemEClass = null;
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass tableMcqColumnItemEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -128,6 +201,326 @@ public class LearningcorpusquizPackageImpl extends EPackageImpl implements Learn
    * @generated
    */
   @Override
+  public EReference getFillInTheBlanksQuiz_Statements() {
+    return (EReference)fillInTheBlanksQuizEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getListMultipleChoiceQuiz() {
+    return listMultipleChoiceQuizEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getListMultipleChoiceQuiz_Choices() {
+    return (EReference)listMultipleChoiceQuizEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getListMultipleChoiceQuiz_CorrectChoices() {
+    return (EReference)listMultipleChoiceQuizEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getTableMultipleChoiceQuiz() {
+    return tableMultipleChoiceQuizEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTableMultipleChoiceQuiz_RowItems() {
+    return (EReference)tableMultipleChoiceQuizEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTableMultipleChoiceQuiz_ColumnItems() {
+    return (EReference)tableMultipleChoiceQuizEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTableMultipleChoiceQuiz_Entries() {
+    return (EReference)tableMultipleChoiceQuizEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getFillInTheBlanksQuizStatement() {
+    return fillInTheBlanksQuizStatementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getFillInTheBlanksQuizStatement_Quiz() {
+    return (EReference)fillInTheBlanksQuizStatementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getFillInTheBlanksQuizStatement_Statements() {
+    return (EReference)fillInTheBlanksQuizStatementEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getFillInTheBlanksQuizStatementComponent() {
+    return fillInTheBlanksQuizStatementComponentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getFillInTheBlanksQuizStatementComponent_Statement() {
+    return (EReference)fillInTheBlanksQuizStatementComponentEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getNonBlank() {
+    return nonBlankEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getNonBlank_Text() {
+    return (EAttribute)nonBlankEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getBlank() {
+    return blankEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getBlank_CorrectAnswer() {
+    return (EAttribute)blankEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getChoice() {
+    return choiceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getChoice_Quiz() {
+    return (EReference)choiceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getChoice_Text() {
+    return (EAttribute)choiceEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getTableMcqEntry() {
+    return tableMcqEntryEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTableMcqEntry_Quiz() {
+    return (EReference)tableMcqEntryEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTableMcqEntry_ColumnItem() {
+    return (EReference)tableMcqEntryEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTableMcqEntry_Rowitem() {
+    return (EReference)tableMcqEntryEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getTableMcqRowItem() {
+    return tableMcqRowItemEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getTableMcqRowItem_Text() {
+    return (EAttribute)tableMcqRowItemEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTableMcqRowItem_Quiz() {
+    return (EReference)tableMcqRowItemEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTableMcqRowItem_Entries() {
+    return (EReference)tableMcqRowItemEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getTableMcqColumnItem() {
+    return tableMcqColumnItemEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getTableMcqColumnItem_Text() {
+    return (EAttribute)tableMcqColumnItemEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTableMcqColumnItem_Quiz() {
+    return (EReference)tableMcqColumnItemEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTableMcqColumnItem_Entries() {
+    return (EReference)tableMcqColumnItemEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public LearningcorpusquizFactory getLearningcorpusquizFactory() {
     return (LearningcorpusquizFactory)getEFactoryInstance();
   }
@@ -152,6 +545,48 @@ public class LearningcorpusquizPackageImpl extends EPackageImpl implements Learn
 
     // Create classes and their features
     fillInTheBlanksQuizEClass = createEClass(FILL_IN_THE_BLANKS_QUIZ);
+    createEReference(fillInTheBlanksQuizEClass, FILL_IN_THE_BLANKS_QUIZ__STATEMENTS);
+
+    listMultipleChoiceQuizEClass = createEClass(LIST_MULTIPLE_CHOICE_QUIZ);
+    createEReference(listMultipleChoiceQuizEClass, LIST_MULTIPLE_CHOICE_QUIZ__CHOICES);
+    createEReference(listMultipleChoiceQuizEClass, LIST_MULTIPLE_CHOICE_QUIZ__CORRECT_CHOICES);
+
+    tableMultipleChoiceQuizEClass = createEClass(TABLE_MULTIPLE_CHOICE_QUIZ);
+    createEReference(tableMultipleChoiceQuizEClass, TABLE_MULTIPLE_CHOICE_QUIZ__ROW_ITEMS);
+    createEReference(tableMultipleChoiceQuizEClass, TABLE_MULTIPLE_CHOICE_QUIZ__COLUMN_ITEMS);
+    createEReference(tableMultipleChoiceQuizEClass, TABLE_MULTIPLE_CHOICE_QUIZ__ENTRIES);
+
+    fillInTheBlanksQuizStatementEClass = createEClass(FILL_IN_THE_BLANKS_QUIZ_STATEMENT);
+    createEReference(fillInTheBlanksQuizStatementEClass, FILL_IN_THE_BLANKS_QUIZ_STATEMENT__QUIZ);
+    createEReference(fillInTheBlanksQuizStatementEClass, FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS);
+
+    fillInTheBlanksQuizStatementComponentEClass = createEClass(FILL_IN_THE_BLANKS_QUIZ_STATEMENT_COMPONENT);
+    createEReference(fillInTheBlanksQuizStatementComponentEClass, FILL_IN_THE_BLANKS_QUIZ_STATEMENT_COMPONENT__STATEMENT);
+
+    nonBlankEClass = createEClass(NON_BLANK);
+    createEAttribute(nonBlankEClass, NON_BLANK__TEXT);
+
+    blankEClass = createEClass(BLANK);
+    createEAttribute(blankEClass, BLANK__CORRECT_ANSWER);
+
+    choiceEClass = createEClass(CHOICE);
+    createEReference(choiceEClass, CHOICE__QUIZ);
+    createEAttribute(choiceEClass, CHOICE__TEXT);
+
+    tableMcqEntryEClass = createEClass(TABLE_MCQ_ENTRY);
+    createEReference(tableMcqEntryEClass, TABLE_MCQ_ENTRY__QUIZ);
+    createEReference(tableMcqEntryEClass, TABLE_MCQ_ENTRY__COLUMN_ITEM);
+    createEReference(tableMcqEntryEClass, TABLE_MCQ_ENTRY__ROWITEM);
+
+    tableMcqRowItemEClass = createEClass(TABLE_MCQ_ROW_ITEM);
+    createEAttribute(tableMcqRowItemEClass, TABLE_MCQ_ROW_ITEM__TEXT);
+    createEReference(tableMcqRowItemEClass, TABLE_MCQ_ROW_ITEM__QUIZ);
+    createEReference(tableMcqRowItemEClass, TABLE_MCQ_ROW_ITEM__ENTRIES);
+
+    tableMcqColumnItemEClass = createEClass(TABLE_MCQ_COLUMN_ITEM);
+    createEAttribute(tableMcqColumnItemEClass, TABLE_MCQ_COLUMN_ITEM__TEXT);
+    createEReference(tableMcqColumnItemEClass, TABLE_MCQ_COLUMN_ITEM__QUIZ);
+    createEReference(tableMcqColumnItemEClass, TABLE_MCQ_COLUMN_ITEM__ENTRIES);
   }
 
   /**
@@ -186,9 +621,55 @@ public class LearningcorpusquizPackageImpl extends EPackageImpl implements Learn
 
     // Add supertypes to classes
     fillInTheBlanksQuizEClass.getESuperTypes().add(theLearningcorpusPackage.getQuiz());
+    listMultipleChoiceQuizEClass.getESuperTypes().add(theLearningcorpusPackage.getQuiz());
+    tableMultipleChoiceQuizEClass.getESuperTypes().add(theLearningcorpusPackage.getQuiz());
+    nonBlankEClass.getESuperTypes().add(this.getFillInTheBlanksQuizStatementComponent());
+    blankEClass.getESuperTypes().add(this.getFillInTheBlanksQuizStatementComponent());
 
     // Initialize classes, features, and operations; add parameters
     initEClass(fillInTheBlanksQuizEClass, FillInTheBlanksQuiz.class, "FillInTheBlanksQuiz", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFillInTheBlanksQuiz_Statements(), this.getFillInTheBlanksQuizStatement(), this.getFillInTheBlanksQuizStatement_Quiz(), "statements", null, 0, -1, FillInTheBlanksQuiz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(listMultipleChoiceQuizEClass, ListMultipleChoiceQuiz.class, "ListMultipleChoiceQuiz", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getListMultipleChoiceQuiz_Choices(), this.getChoice(), this.getChoice_Quiz(), "choices", null, 0, -1, ListMultipleChoiceQuiz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getListMultipleChoiceQuiz_CorrectChoices(), this.getChoice(), null, "correctChoices", null, 0, -1, ListMultipleChoiceQuiz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(tableMultipleChoiceQuizEClass, TableMultipleChoiceQuiz.class, "TableMultipleChoiceQuiz", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTableMultipleChoiceQuiz_RowItems(), this.getTableMcqRowItem(), this.getTableMcqRowItem_Quiz(), "rowItems", null, 0, -1, TableMultipleChoiceQuiz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTableMultipleChoiceQuiz_ColumnItems(), this.getTableMcqColumnItem(), this.getTableMcqColumnItem_Quiz(), "columnItems", null, 0, -1, TableMultipleChoiceQuiz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTableMultipleChoiceQuiz_Entries(), this.getTableMcqEntry(), this.getTableMcqEntry_Quiz(), "entries", null, 0, -1, TableMultipleChoiceQuiz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(fillInTheBlanksQuizStatementEClass, FillInTheBlanksQuizStatement.class, "FillInTheBlanksQuizStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFillInTheBlanksQuizStatement_Quiz(), this.getFillInTheBlanksQuiz(), this.getFillInTheBlanksQuiz_Statements(), "quiz", null, 1, 1, FillInTheBlanksQuizStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFillInTheBlanksQuizStatement_Statements(), this.getFillInTheBlanksQuizStatementComponent(), this.getFillInTheBlanksQuizStatementComponent_Statement(), "statements", null, 0, -1, FillInTheBlanksQuizStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(fillInTheBlanksQuizStatementComponentEClass, FillInTheBlanksQuizStatementComponent.class, "FillInTheBlanksQuizStatementComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFillInTheBlanksQuizStatementComponent_Statement(), this.getFillInTheBlanksQuizStatement(), this.getFillInTheBlanksQuizStatement_Statements(), "statement", null, 1, 1, FillInTheBlanksQuizStatementComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(nonBlankEClass, NonBlank.class, "NonBlank", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getNonBlank_Text(), ecorePackage.getEString(), "text", null, 0, 1, NonBlank.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(blankEClass, Blank.class, "Blank", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getBlank_CorrectAnswer(), ecorePackage.getEString(), "correctAnswer", null, 0, 1, Blank.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(choiceEClass, Choice.class, "Choice", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getChoice_Quiz(), this.getListMultipleChoiceQuiz(), this.getListMultipleChoiceQuiz_Choices(), "quiz", null, 1, 1, Choice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getChoice_Text(), ecorePackage.getEString(), "text", null, 0, 1, Choice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(tableMcqEntryEClass, TableMcqEntry.class, "TableMcqEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTableMcqEntry_Quiz(), this.getTableMultipleChoiceQuiz(), this.getTableMultipleChoiceQuiz_Entries(), "quiz", null, 1, 1, TableMcqEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTableMcqEntry_ColumnItem(), this.getTableMcqColumnItem(), this.getTableMcqColumnItem_Entries(), "columnItem", null, 1, 1, TableMcqEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTableMcqEntry_Rowitem(), this.getTableMcqRowItem(), this.getTableMcqRowItem_Entries(), "rowitem", null, 1, 1, TableMcqEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(tableMcqRowItemEClass, TableMcqRowItem.class, "TableMcqRowItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTableMcqRowItem_Text(), ecorePackage.getEString(), "text", null, 0, 1, TableMcqRowItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTableMcqRowItem_Quiz(), this.getTableMultipleChoiceQuiz(), this.getTableMultipleChoiceQuiz_RowItems(), "quiz", null, 1, 1, TableMcqRowItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTableMcqRowItem_Entries(), this.getTableMcqEntry(), this.getTableMcqEntry_Rowitem(), "entries", null, 0, -1, TableMcqRowItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(tableMcqColumnItemEClass, TableMcqColumnItem.class, "TableMcqColumnItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTableMcqColumnItem_Text(), ecorePackage.getEString(), "text", null, 0, 1, TableMcqColumnItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTableMcqColumnItem_Quiz(), this.getTableMultipleChoiceQuiz(), this.getTableMultipleChoiceQuiz_ColumnItems(), "quiz", null, 1, 1, TableMcqColumnItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTableMcqColumnItem_Entries(), this.getTableMcqEntry(), this.getTableMcqEntry_ColumnItem(), "entries", null, 0, -1, TableMcqColumnItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

@@ -213,6 +213,16 @@ public class LearningCorpusItemProvider
       (createChildParameter
         (LearningcorpusPackage.Literals.LEARNING_CORPUS__LEARNING_RESOURCES,
          LearningcorpusquizFactory.eINSTANCE.createFillInTheBlanksQuiz()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (LearningcorpusPackage.Literals.LEARNING_CORPUS__LEARNING_RESOURCES,
+         LearningcorpusquizFactory.eINSTANCE.createListMultipleChoiceQuiz()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (LearningcorpusPackage.Literals.LEARNING_CORPUS__LEARNING_RESOURCES,
+         LearningcorpusquizFactory.eINSTANCE.createTableMultipleChoiceQuiz()));
   }
 
   /**

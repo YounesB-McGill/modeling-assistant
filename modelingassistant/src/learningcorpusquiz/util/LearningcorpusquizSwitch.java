@@ -79,6 +79,74 @@ public class LearningcorpusquizSwitch<T> extends Switch<T> {
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case LearningcorpusquizPackage.LIST_MULTIPLE_CHOICE_QUIZ: {
+        ListMultipleChoiceQuiz listMultipleChoiceQuiz = (ListMultipleChoiceQuiz)theEObject;
+        T result = caseListMultipleChoiceQuiz(listMultipleChoiceQuiz);
+        if (result == null) result = caseQuiz(listMultipleChoiceQuiz);
+        if (result == null) result = caseLearningResource(listMultipleChoiceQuiz);
+        if (result == null) result = caseNamedElement(listMultipleChoiceQuiz);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case LearningcorpusquizPackage.TABLE_MULTIPLE_CHOICE_QUIZ: {
+        TableMultipleChoiceQuiz tableMultipleChoiceQuiz = (TableMultipleChoiceQuiz)theEObject;
+        T result = caseTableMultipleChoiceQuiz(tableMultipleChoiceQuiz);
+        if (result == null) result = caseQuiz(tableMultipleChoiceQuiz);
+        if (result == null) result = caseLearningResource(tableMultipleChoiceQuiz);
+        if (result == null) result = caseNamedElement(tableMultipleChoiceQuiz);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT: {
+        FillInTheBlanksQuizStatement fillInTheBlanksQuizStatement = (FillInTheBlanksQuizStatement)theEObject;
+        T result = caseFillInTheBlanksQuizStatement(fillInTheBlanksQuizStatement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT_COMPONENT: {
+        FillInTheBlanksQuizStatementComponent fillInTheBlanksQuizStatementComponent = (FillInTheBlanksQuizStatementComponent)theEObject;
+        T result = caseFillInTheBlanksQuizStatementComponent(fillInTheBlanksQuizStatementComponent);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case LearningcorpusquizPackage.NON_BLANK: {
+        NonBlank nonBlank = (NonBlank)theEObject;
+        T result = caseNonBlank(nonBlank);
+        if (result == null) result = caseFillInTheBlanksQuizStatementComponent(nonBlank);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case LearningcorpusquizPackage.BLANK: {
+        Blank blank = (Blank)theEObject;
+        T result = caseBlank(blank);
+        if (result == null) result = caseFillInTheBlanksQuizStatementComponent(blank);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case LearningcorpusquizPackage.CHOICE: {
+        Choice choice = (Choice)theEObject;
+        T result = caseChoice(choice);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case LearningcorpusquizPackage.TABLE_MCQ_ENTRY: {
+        TableMcqEntry tableMcqEntry = (TableMcqEntry)theEObject;
+        T result = caseTableMcqEntry(tableMcqEntry);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case LearningcorpusquizPackage.TABLE_MCQ_ROW_ITEM: {
+        TableMcqRowItem tableMcqRowItem = (TableMcqRowItem)theEObject;
+        T result = caseTableMcqRowItem(tableMcqRowItem);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case LearningcorpusquizPackage.TABLE_MCQ_COLUMN_ITEM: {
+        TableMcqColumnItem tableMcqColumnItem = (TableMcqColumnItem)theEObject;
+        T result = caseTableMcqColumnItem(tableMcqColumnItem);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
@@ -95,6 +163,156 @@ public class LearningcorpusquizSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseFillInTheBlanksQuiz(FillInTheBlanksQuiz object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>List Multiple Choice Quiz</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>List Multiple Choice Quiz</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseListMultipleChoiceQuiz(ListMultipleChoiceQuiz object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Table Multiple Choice Quiz</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Table Multiple Choice Quiz</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTableMultipleChoiceQuiz(TableMultipleChoiceQuiz object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Fill In The Blanks Quiz Statement</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Fill In The Blanks Quiz Statement</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFillInTheBlanksQuizStatement(FillInTheBlanksQuizStatement object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Fill In The Blanks Quiz Statement Component</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Fill In The Blanks Quiz Statement Component</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFillInTheBlanksQuizStatementComponent(FillInTheBlanksQuizStatementComponent object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Non Blank</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Non Blank</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNonBlank(NonBlank object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Blank</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Blank</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBlank(Blank object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Choice</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Choice</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseChoice(Choice object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Table Mcq Entry</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Table Mcq Entry</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTableMcqEntry(TableMcqEntry object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Table Mcq Row Item</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Table Mcq Row Item</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTableMcqRowItem(TableMcqRowItem object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Table Mcq Column Item</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Table Mcq Column Item</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTableMcqColumnItem(TableMcqColumnItem object) {
     return null;
   }
 

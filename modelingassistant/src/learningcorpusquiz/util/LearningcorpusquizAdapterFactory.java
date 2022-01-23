@@ -76,6 +76,46 @@ public class LearningcorpusquizAdapterFactory extends AdapterFactoryImpl {
         return createFillInTheBlanksQuizAdapter();
       }
       @Override
+      public Adapter caseListMultipleChoiceQuiz(ListMultipleChoiceQuiz object) {
+        return createListMultipleChoiceQuizAdapter();
+      }
+      @Override
+      public Adapter caseTableMultipleChoiceQuiz(TableMultipleChoiceQuiz object) {
+        return createTableMultipleChoiceQuizAdapter();
+      }
+      @Override
+      public Adapter caseFillInTheBlanksQuizStatement(FillInTheBlanksQuizStatement object) {
+        return createFillInTheBlanksQuizStatementAdapter();
+      }
+      @Override
+      public Adapter caseFillInTheBlanksQuizStatementComponent(FillInTheBlanksQuizStatementComponent object) {
+        return createFillInTheBlanksQuizStatementComponentAdapter();
+      }
+      @Override
+      public Adapter caseNonBlank(NonBlank object) {
+        return createNonBlankAdapter();
+      }
+      @Override
+      public Adapter caseBlank(Blank object) {
+        return createBlankAdapter();
+      }
+      @Override
+      public Adapter caseChoice(Choice object) {
+        return createChoiceAdapter();
+      }
+      @Override
+      public Adapter caseTableMcqEntry(TableMcqEntry object) {
+        return createTableMcqEntryAdapter();
+      }
+      @Override
+      public Adapter caseTableMcqRowItem(TableMcqRowItem object) {
+        return createTableMcqRowItemAdapter();
+      }
+      @Override
+      public Adapter caseTableMcqColumnItem(TableMcqColumnItem object) {
+        return createTableMcqColumnItemAdapter();
+      }
+      @Override
       public Adapter caseNamedElement(NamedElement object) {
         return createNamedElementAdapter();
       }
@@ -118,6 +158,146 @@ public class LearningcorpusquizAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createFillInTheBlanksQuizAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link learningcorpusquiz.ListMultipleChoiceQuiz <em>List Multiple Choice Quiz</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see learningcorpusquiz.ListMultipleChoiceQuiz
+   * @generated
+   */
+  public Adapter createListMultipleChoiceQuizAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link learningcorpusquiz.TableMultipleChoiceQuiz <em>Table Multiple Choice Quiz</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see learningcorpusquiz.TableMultipleChoiceQuiz
+   * @generated
+   */
+  public Adapter createTableMultipleChoiceQuizAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link learningcorpusquiz.FillInTheBlanksQuizStatement <em>Fill In The Blanks Quiz Statement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see learningcorpusquiz.FillInTheBlanksQuizStatement
+   * @generated
+   */
+  public Adapter createFillInTheBlanksQuizStatementAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link learningcorpusquiz.FillInTheBlanksQuizStatementComponent <em>Fill In The Blanks Quiz Statement Component</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see learningcorpusquiz.FillInTheBlanksQuizStatementComponent
+   * @generated
+   */
+  public Adapter createFillInTheBlanksQuizStatementComponentAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link learningcorpusquiz.NonBlank <em>Non Blank</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see learningcorpusquiz.NonBlank
+   * @generated
+   */
+  public Adapter createNonBlankAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link learningcorpusquiz.Blank <em>Blank</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see learningcorpusquiz.Blank
+   * @generated
+   */
+  public Adapter createBlankAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link learningcorpusquiz.Choice <em>Choice</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see learningcorpusquiz.Choice
+   * @generated
+   */
+  public Adapter createChoiceAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link learningcorpusquiz.TableMcqEntry <em>Table Mcq Entry</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see learningcorpusquiz.TableMcqEntry
+   * @generated
+   */
+  public Adapter createTableMcqEntryAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link learningcorpusquiz.TableMcqRowItem <em>Table Mcq Row Item</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see learningcorpusquiz.TableMcqRowItem
+   * @generated
+   */
+  public Adapter createTableMcqRowItemAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link learningcorpusquiz.TableMcqColumnItem <em>Table Mcq Column Item</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see learningcorpusquiz.TableMcqColumnItem
+   * @generated
+   */
+  public Adapter createTableMcqColumnItemAdapter() {
     return null;
   }
 
