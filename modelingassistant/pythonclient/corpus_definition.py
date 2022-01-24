@@ -6,9 +6,11 @@ The actual corpus initialization is done in the corpus.py file.
 """
 
 from textwrap import dedent
+
+from constants import T
 from learningcorpus import (Example, Feedback, LearningCorpus, MistakeType, ParametrizedResponse, Quiz, Reference,
                             ResourceResponse, TextResponse)
-from utils import mtc, mt, fbs
+from utils import mcq, mtc, mt, fbs
 
 
 corpus = LearningCorpus(mistakeTypeCategories=[
@@ -235,12 +237,13 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this attribute name."),
                     3: ParametrizedResponse(text="The ${attributeName} attribute should be singular."),
-                    4: ResourceResponse(learningResources=[attribute_quiz := Quiz(content=dedent("""\
-                        Pick the classes which are modeled correctly with Umple.
-                    
-                        - [ ] class Student { courses; }
-                        - [ ] class Folder { List<File> files; }
-                        - [ ] class Restaurant { 1 -- * Employee; }"""))]),
+                    # Create a list multiple choice quiz using the McqFactory. See its documentation for more details
+                    4: ResourceResponse(learningResources=[attribute_quiz := mcq[
+                        "Pick the classes which are modeled correctly with Umple.",  # prompt
+                           "class Student { courses; }",
+                           "class Folder { List<File> files; }",
+                        T: "class Restaurant { 1 -- * Employee; }",  # correct (true) choice
+                    ]]),
                     5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 list_attribute := mt(n="List attribute", feedbacks=fbs({

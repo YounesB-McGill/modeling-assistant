@@ -535,15 +535,13 @@ Level 3: Parametrized response:
 
 > The ${attributeName} attribute should be singular.
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with List multiple-choice quiz:
 
-> Pick the classes which are modeled correctly with Umple.
+Pick the classes which are modeled correctly with Umple.
 
 - [ ] class Student { courses; }
 - [ ] class Folder { List<File> files; }
-- [ ] class Restaurant { 1 -- * Employee; }
-
-Level 5: Resource response with Reference:
+- [x] class Restaurant { 1 -- * Employee; }Level 5: Resource response with Reference:
 
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
@@ -564,15 +562,13 @@ Level 4: Parametrized response:
 
 > ${attributeName} should be modeled as an association instead.
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with List multiple-choice quiz:
 
-> Pick the classes which are modeled correctly with Umple.
+Pick the classes which are modeled correctly with Umple.
 
 - [ ] class Student { courses; }
 - [ ] class Folder { List<File> files; }
-- [ ] class Restaurant { 1 -- * Employee; }
-
-Level 6: Resource response with Reference:
+- [x] class Restaurant { 1 -- * Employee; }Level 6: Resource response with Reference:
 
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 

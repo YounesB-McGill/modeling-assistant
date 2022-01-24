@@ -17,7 +17,8 @@ from pyecore.resources.xmi import XMI, XMIOptions, XMIResource, XMI_URL, XSI
 
 from serdes import set_static_class_for
 from classdiagram import ClassDiagram
-from constants import CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM, LEARNING_CORPUS_PATH
+from constants import (CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, LEARNING_CORPUS_QUIZ_MM, MODELING_ASSISTANT_MM,
+                       LEARNING_CORPUS_PATH)
 from modelingassistant import ModelingAssistant
 from utils import NonNoneDict, warn
 
@@ -34,7 +35,7 @@ class StringEnabledResourceSet(ResourceSet):
     def __init__(self):
         super().__init__()
         self.ma_ids_to_string_resources: NonNoneDict[str, StringEnabledXMIResource] = NonNoneDict()
-        for mm in [CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM]:
+        for mm in [CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, LEARNING_CORPUS_QUIZ_MM, MODELING_ASSISTANT_MM]:
             resource: Resource = self.get_resource(URI(mm))
             mm_root = resource.contents[0]
             self.metamodel_registry[mm_root.nsURI] = mm_root

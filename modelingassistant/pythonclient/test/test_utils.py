@@ -2,7 +2,11 @@
 Tests for utils module.
 """
 
+import pytest
+
+from constants import T
 from learningcorpus import MistakeType, MistakeTypeCategory, Feedback, TextResponse, ParametrizedResponse
+from learningcorpusquiz import ListMultipleChoiceQuiz
 import utils
 
 def test_mtc():
@@ -52,5 +56,23 @@ def test_fbs():
 
 
 def test_mcq():
-    "Test the mcq() helper function."
-    # TODO
+    "Test the McqFactory MCQ creation logic."
+    # invalid inputs
+    with pytest.raises(ValueError):
+        assert utils.mcq["Prompt", "Only 1 choice"]
+    with pytest.raises(ValueError):
+        assert utils.mcq[T: "Choice 1", "Choice 2", "Choice 3"]  # missing prompt
+
+    # valid input
+    quiz = utils.mcq[
+        "Pick the classes which are modeled correctly with Umple.",
+           "class Student { courses; }",
+           "class Folder { List<File> files; }",
+        T: "class Restaurant { 1 -- * Employee; }",
+    ]
+    assert isinstance(quiz, ListMultipleChoiceQuiz)
+    assert quiz.content == "Pick the classes which are modeled correctly with Umple."
+    assert len(quiz.choices) == 3
+    assert quiz.choices[0].text == "class Student { courses; }"
+    assert len(quiz.correctChoices) == 1
+    assert quiz.choices[2] in quiz.correctChoices
