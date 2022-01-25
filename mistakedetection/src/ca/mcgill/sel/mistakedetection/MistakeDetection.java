@@ -62,7 +62,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
-import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_AO_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_PR_PATTERN;
@@ -398,7 +398,8 @@ public class MistakeDetection {
       if(!comparison.mappedClassifiers.containsKey(instClass) || instClass.getSuperTypes().isEmpty()) {
         continue;
       }
-     var studClass = comparison.mapped Classifiers.get(instClass);
+      
+     var studClass = comparison.mappedClassifiers.get(instClass);
      if(studClass == null) {
        continue;
      }
@@ -937,10 +938,10 @@ public class MistakeDetection {
     Classifier studOccClass = comparison.mappedClassifiers.get(instOccClass);
 
     if (!studOccClass.getSuperTypes().isEmpty() && studOccClass.getSuperTypes().get(0).equals(studAbsClass)) {
-      comparison.newMistakes.add(createMistake(SUBCLASS_SHOULD_BE_ASSOC_AO_PATTERN, List.of(studAbsClass, studOccClass),
+      comparison.newMistakes.add(createMistake(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, List.of(studAbsClass, studOccClass),
           List.of(instAbsClass, instOccClass)));
     } else if (!studAbsClass.getSuperTypes().isEmpty() && studAbsClass.getSuperTypes().get(0).equals(studOccClass)) {
-      comparison.newMistakes.add(createMistake(SUBCLASS_SHOULD_BE_ASSOC_AO_PATTERN, List.of(studAbsClass, studOccClass),
+      comparison.newMistakes.add(createMistake(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, List.of(studAbsClass, studOccClass),
           List.of(instAbsClass, instOccClass)));
     }
 

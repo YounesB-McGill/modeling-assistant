@@ -21,7 +21,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_AO_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_PR_PATTERN;
@@ -1686,7 +1686,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(6, comparison.newMistakes.size());
     assertEquals(6, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), SUBCLASS_SHOULD_BE_ASSOC_AO_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
