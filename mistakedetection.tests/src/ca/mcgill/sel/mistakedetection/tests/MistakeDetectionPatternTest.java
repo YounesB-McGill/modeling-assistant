@@ -21,7 +21,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_PR_PATTERN;
@@ -1656,37 +1655,6 @@ public class MistakeDetectionPatternTest {
 
     var studStudentClassMistake = studentMistakeFor(studEmployeeStatusClass);
     assertMistake(studStudentClassMistake, INCOMPLETE_AO_PATTERN, studElements, instElements, 0, 1, false);
-  }
-
-  /**
-   * Test to check generalizations used instead of association in abstraction occurrence class in studentSolution.
-   */
-  @Test
-  public void testGenUsedInAbstractionOccurrenceFullClassPatternBankExample() {
-    var instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_bankExample_pattern/Class Diagram/Instructor_fullPR_bankExample_pattern.domain_model.cdm");
-    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
-    var tagGroup = setAbstractionTagToClassInClassDiag("AccountType", instructorClassDiagram, instructorSolution);
-    setOccurrenceTagToClassInClassDiag("BankAccount", tagGroup, instructorClassDiagram);
-
-    var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_missingGeneralizationAbstractionOcurance/Class Diagram/Student_incompleteAbstractionOcurance.domain_model.cdm");
-    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
-    var instElements = getElementsFromClassDiagram(instructorClassDiagram, "AccountType", "BankAccount");
-
-    var studAccTypeClass = getClassFromClassDiagram("AccountType", studentClassDiagram);
-    var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
-
-    var studElements = List.of(studAccTypeClass,studBankAccClass);
-
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-    assertEquals(6, comparison.newMistakes.size());
-    assertEquals(6, studentSolution.getMistakes().size());
-
-    assertMistake(studentSolution.getMistakes().get(0), SUBCLASS_SHOULD_BE_ASSOC_AO_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
