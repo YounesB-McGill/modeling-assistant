@@ -5,6 +5,7 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMi
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_CLASS_SHOULD_BE_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOC_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT;
@@ -3035,6 +3036,30 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     assertMistake(studentSolution.getMistakes().get(0), ASSOC_CLASS_SHOULD_BE_CLASS, studDriverClass, 0, 1, false);
   }
+
+  /**
+  * Test to check Association class name spelling.
+  */
+ @Test
+ public void testMistakeAssocClassSpelling() {
+   var instructorClassDiagram = cdmFromFile(
+       "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_DriverAssocClass/Class Diagram/Student_DriverAssocClass.domain_model.cdm");
+   var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+   var studentClassDiagram = cdmFromFile(
+       "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_DriverBadAssocClassSpelling/Class Diagram/Student_DriverAssocClass.domain_model.cdm");
+   var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+   var instDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
+   var studDriverClass = getClassFromClassDiagram("Drivar", studentClassDiagram);
+
+   var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+   assertEquals(1, comparison.newMistakes.size());
+   assertEquals(1, studentSolution.getMistakes().size());
+
+   assertMistake(studentSolution.getMistakes().get(0), BAD_ASSOC_CLASS_NAME_SPELLING, studDriverClass, instDriverClass, 0, 1, false);
+ }
 
   /**
    * Test to check Regular class should be Association Class.

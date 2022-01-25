@@ -78,6 +78,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSH
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_GENERALIZATION_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_SUPERCLASS;
@@ -415,7 +416,22 @@ public class MistakeDetection {
         }
       }
     }
+    }
 
+  }
+
+  /** checks if all super classes of instructor class are present for student class */
+  private static boolean isAllSuperClassContained(List<Classifier> studSuperClasses, List<Classifier> instSuperClasses, Comparison comparison) {
+    int count = 0;
+    for(var instClass: instSuperClasses) {
+      if(studSuperClasses.contains(comparison.mappedClassifiers.get(instClass)) || comparison.notMappedInstructorClassifiers.contains(instClass)) {
+        count++;
+      }
+    }
+    if(instSuperClasses.size() == count) {
+      return true;
+    }
+    return false;
   }
 
   private static void checkMistakeExtraGeneralization(Comparison comparison) {
@@ -901,6 +917,8 @@ public class MistakeDetection {
     }
     if (matchedElements == 0 && !totalMatchesExpected.isEmpty()) {
       comparison.newMistakes.add(createMistake(MISSING_AO_PATTERN, null, totalMatchesExpected));
+    } else if (matchedElements != 0 && totalMatchesExpected.size() == matchedElements) {
+      checkMistakeGenInsteadOfAssocInAOPattern(tg, comparison);
     } else if (matchedElements != 0 && totalMatchesExpected.size() != matchedElements) {
       createMistakeIncompleteAOPattern(tg, comparison);
     }
@@ -1526,7 +1544,7 @@ public class MistakeDetection {
 
       if (studentClassifierAssoc.getAssociationClass() != null
           && instructorClassifierAssoc.getAssociationClass() != null) {
-        checkMistakeBadAssociationClassNameSpelling(studentClassifierAssoc, instructorClassifierAssoc)
+        checkMistakeBadAssociationClassNameSpelling(studentClassifierAssoc, instructorClassifierAssoc, comparison)
             .ifPresent(comparison.newMistakes::add);
         checkMistakeSimilarYetIncorrectAssociationClassName(studentClassifierAssoc, instructorClassifierAssoc)
             .ifPresent(comparison.newMistakes::add);
@@ -2587,13 +2605,30 @@ public class MistakeDetection {
 
 
   public static Optional<Mistake> checkMistakeBadAssociationClassNameSpelling(Association studentClassAssoc,
-      Association instructorClassAssoc) {
+      Association instructorClassAssoc, Comparison comparison) {
     if (spellingMistakeCheck(studentClassAssoc.getAssociationClass().getName(),
         instructorClassAssoc.getAssociationClass().getName())) {
+      if (isMistakeExist(BAD_CLASS_NAME_SPELLING, studentClassAssoc.getAssociationClass(), comparison)) {
+        Mistake m = getMistakeForElement(studentClassAssoc.getAssociationClass(), BAD_CLASS_NAME_SPELLING, comparison);
+        if(m != null) {
+          comparison.newMistakes.remove(m);
+        }
+      }
       return Optional.of(createMistake(BAD_ASSOC_CLASS_NAME_SPELLING, studentClassAssoc.getAssociationClass(),
           instructorClassAssoc.getAssociationClass()));
     }
     return Optional.empty();
+  }
+
+  /** Returns mistake for a element, if not found then returns Null. */
+  public static Mistake getMistakeForElement(NamedElement studentElement, MistakeType mistakeType,
+      Comparison comparison) {
+    for (var m : comparison.newMistakes) {
+      if (m.getMistakeType().equals(mistakeType) && m.getStudentElements().get(0).getElement().equals(studentElement)) {
+        return m;
+      }
+    }
+    return null;
   }
 
   public static Optional<Mistake> checkMistakeSimilarYetIncorrectAssociationClassName(Association studentClassAssoc,
