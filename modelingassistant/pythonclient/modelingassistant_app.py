@@ -13,7 +13,7 @@ import requests
 
 from fileserdes import load_default_ma
 from stringserdes import SRSET, str_to_modelingassistant
-from utils import warn
+from utils import ModelingAssistantContainer, warn
 from classdiagram import ClassDiagram
 from modelingassistant import ModelingAssistant
 
@@ -21,7 +21,7 @@ LOGGING_LEVEL = logging.INFO
 
 logging.basicConfig(level=LOGGING_LEVEL, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
-MODELING_ASSISTANT =  load_default_ma()
+MODELING_ASSISTANT = ModelingAssistantContainer(load_default_ma())
 
 MISTAKE_DETECTION_HOST = "localhost"
 MISTAKE_DETECTION_PORT = 8539
@@ -46,6 +46,7 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     # resource = SRSET.create_string_resource()
     # resource.extend([ma, instructor_cdm, student_cdm])
     ma_str = SRSET.create_ma_str(ma)
+    print("Called get_mistakes() with ", ma_str)
 
     try:
         req = call_mistake_detection_system(ma_str)

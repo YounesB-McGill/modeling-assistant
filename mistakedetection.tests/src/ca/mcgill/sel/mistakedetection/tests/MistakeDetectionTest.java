@@ -56,7 +56,6 @@ public class MistakeDetectionTest {
     Classifier driverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
 
     assertTrue(instructorSolution.getClassDiagram().getClasses().containsAll(List.of(busClass, driverClass)));
-
   }
 
   /**
@@ -335,7 +334,7 @@ public class MistakeDetectionTest {
 
     MistakeDetection.compare(instructorSolution, studentSolution);
 
-    assertTrue(studentSolution.getMistakes().stream().anyMatch(m -> m.getMistakeType() == MISSING_CLASS));
+    assertMistakeTypesContain(studentSolution.getMistakes(), MISSING_CLASS);
   }
 
   @Test
@@ -385,12 +384,6 @@ public class MistakeDetectionTest {
     } catch (IOException e) {
       fail();
     }
-  }
-
-  /** Asserts that the given mistakes have the given mistake types. */
-  public static void assertMistakeTypes(List<Mistake> mistakes, MistakeType... mistakeTypes) {
-    assertEquals(new HashSet<>(Arrays.asList(mistakeTypes)),
-        mistakes.stream().map(Mistake::getMistakeType).collect(Collectors.toUnmodifiableSet()));
   }
 
   public static Solution instructorSolutionFromClassDiagram(ClassDiagram classDiagram) {
@@ -453,7 +446,6 @@ public class MistakeDetectionTest {
       assertTrue(mistakeElemsContainGivenElems(mistake.getStudentElements(), elements));
     }
   }
-
 
   /**
    * Asserts a mistake's links with student and instructor element(s).
@@ -732,6 +724,12 @@ public class MistakeDetectionTest {
         assertMistake(mistake, mistakeType, elements, numSinceResolved, numDetections, resolved);
       }
     }
+  }
+
+  /** Asserts that the given mistakes have the given mistake types. */
+  public static void assertMistakeTypes(List<Mistake> mistakes, MistakeType... mistakeTypes) {
+    assertEquals(new HashSet<>(Arrays.asList(mistakeTypes)),
+        mistakes.stream().map(Mistake::getMistakeType).collect(Collectors.toUnmodifiableSet()));
   }
 
   /** Asserts that the given mistakes contain at least the given mistake type(s). */

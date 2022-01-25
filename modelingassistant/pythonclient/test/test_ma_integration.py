@@ -40,6 +40,7 @@ from flaskapp import app, DEBUG_MODE, PORT
 from fileserdes import load_cdm, save_to_file
 from modelingassistant import ModelingAssistant, ProblemStatement, Solution
 from modelingassistant_app import MODELING_ASSISTANT
+from stringserdes import SRSET, str_to_modelingassistant
 
 
 logger = logging.getLogger(__name__)
@@ -47,6 +48,7 @@ logger.setLevel(logging.DEBUG)
 
 CDM_NAME = "MULTIPLE_CLASSES"
 INSTRUCTOR_CDM = f"modelingassistant/testmodels/{CDM_NAME}_instructor.cdm"
+MA_REST_ENDPOINT = f"http://localhost:{PORT}/modelingassistant"
 
 to_simplenamespace = lambda d: SimpleNamespace(**d)  # allow dot notation, eg, d.p instead of d["p"]
 
@@ -71,12 +73,12 @@ def webcore():
         Thread(target=lambda: os.system(f"cd {TOUCHCORE_PATH}/.. && ./start-webcore.sh"), daemon=True).start()
 
 
-@pytest.mark.skip(reason="Not yet implemented")
+#@pytest.mark.skip(reason="Not yet implemented")
 def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     """
     Simplest possible test for the entire system.
 
-    Scenario:
+    Scenario (this needs to be more precise):
 
     0. Instructor sets up Learning Corpus and Modeling Assistant with one problem statement
     1. Student (with id "Student1") logs in and starts a new class diagram for that problem (Unity frontend)
@@ -93,7 +95,7 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     """
     # Step 0
     # use this until TC is updated to allow initializing with a cdm
-    ma = get_ma_with_ps(load_cdm(INSTRUCTOR_CDM))
+    set_modeling_assistant(get_ma_with_ps(load_cdm(INSTRUCTOR_CDM)))
 
     # Step 1
     student = MockStudent(file_name=CDM_NAME)
@@ -104,27 +106,37 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     assert bad_cls_id
     feedback = student.request_feedback()
 
+    ma = get_modeling_assistant()
     assert ma.problemStatements[0].name
+    print(ma.solutions)
     assert ma.solutions[1].classDiagram.name
     assert len(ma.solutions) >= 2
 
     # Step 6
-    assert feedback.highlight
+    assert feedback.highlightSolutionElements
     # more strict checks possible after WebCORE is completed
     print(feedback)
     assert bad_cls_id in feedback.solutionElements
 
     # Steps 7-10
-    student.create_class("Airplane")
+    airplane_id = student.create_class("Airplane")
     feedback = student.request_feedback()
 
+    assert feedback.highlightSolutionElements  # Airplane not contained in Root class
+    assert set(feedback.solutionElements) == {bad_cls_id, airplane_id}  # both should be highlighted
+
     # Step 11
-    assert not feedback.highlight
-    assert not feedback.solutionElements
-    assert "no mistakes" in feedback.writtenFeedback.lower()
+    # TODO Enable these assertions after the necessary updates to WebCORE and the Modeling Assistant are made
+    # It should be possible to delete bad_cls_id without any errors,
+    # and it should be possible to make Airplane contained in the Root class once WebCORE supports this feature
+
+    # assert not feedback.highlightSolutionElements
+    # assert not feedback.solutionElements
+    # assert "no mistakes" in feedback.writtenFeedback.lower()
 
 
-#@pytest.mark.skip(reason="Not running WebCORE right now")
+@pytest.mark.skip(reason="Fails due to invalid WebCORE state. This test can pass only if WebCORE hasn't been called "
+                         "before, but it is in fact called in the more important integration test above.")
 def test_communication_between_mock_frontend_and_webcore(webcore):
     """
     Test the communication between this mock frontend and WebCORE.
@@ -171,13 +183,34 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
         assert cdm[attr].type == type_of[attr_type]
 
 
+def test_communication_between_modeling_assistant_python_app_and_webcore(webcore):
+    """
+    Test the communication between the Modeling Assistant Python app and WebCORE.
+
+    A Modeling Assistant instance has solutions with solution elements, respectively
+    linked to class diagrams (accessed via WebCORE) with cdm elements.
+    """
+
+
+def get_modeling_assistant() -> ModelingAssistant:
+    "Get the ModelingAssistant instance from the Flask app."
+    return str_to_modelingassistant(requests.get(MA_REST_ENDPOINT).json()["modelingAssistantXmi"])
+
+
+def set_modeling_assistant(ma: ModelingAssistant):
+    "Set the Flask app ModelingAssistant instance."
+    ma_str = SRSET.create_ma_str(ma)
+    print(f">>> Setting ma_str to:\n\n{ma_str}\n\n")
+    requests.post(MA_REST_ENDPOINT, json={"modelingAssistantXmi": ma_str})
+
+
 def get_ma_with_ps(instructor_cdm: ClassDiagram) -> ModelingAssistant:
     """
     Create a Modeling Assistant instance with the provided parameters.
     """
     ps = ProblemStatement(name=instructor_cdm.name)
     sol = Solution(classDiagram=instructor_cdm, problemStatement=ps)
-    ma = MODELING_ASSISTANT
+    ma = MODELING_ASSISTANT.instance
     ma.problemStatements.append(ps)
     ma.solutions.append(sol)
     assert ma.problemStatements[0].name
@@ -195,7 +228,8 @@ class MockStudent:
 
     def create_cdm(self):
         "Create a student class diagram."
-        # At the moment, there is exactly one file in WebCORE, so nothing to do here
+        # At the moment, there is exactly one file in WebCORE, so reset it instead
+        requests.post(f"{self.cdm_endpoint()}/reset")
 
     def create_class(self, name: str) -> str:
         "Create a class with the given name and return its _id."
@@ -209,7 +243,7 @@ class MockStudent:
         # logger.debug(f"new_cdm: {new_cdm}")
         logger.debug(_diff(old_cdm, new_cdm))
         cls_id = _diff(old_cdm, new_cdm).additions[0]
-        logger.debug(f"Returning {cls_id}")
+        logger.debug(f"MockStudent: Created class with _id {cls_id}")
         return cls_id
 
     def delete_class(self, cls_id: str):
@@ -232,6 +266,7 @@ class MockStudent:
     def request_feedback(self) -> FeedbackTO:
         "Request feedback from the Modeling Assistant via WebCORE."
         resp = requests.get(f"{self.cdm_endpoint()}/feedback")
+        print(f"{resp.text = }")
         feedback_json = resp.json()
         print(feedback_json)
         return FeedbackTO(**feedback_json)
@@ -347,3 +382,4 @@ def _setup_instructor_solution():
 
 if __name__ == '__main__':
     "Main entry point."
+    test_ma_one_class_student_mistake(ma_rest_app, webcore)

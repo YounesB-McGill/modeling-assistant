@@ -14,9 +14,10 @@ from envvars import CORES_PATH, TOUCHCORE_PATH
 from learningcorpus import LearningCorpus, LearningItem
 from serdes import set_static_class_for
 from stringserdes import SRSET
-from constants import CLASS_DIAGRAM_MM, DEFAULT_MODELING_ASSISTANT_PATH, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM
+from constants import (CLASS_DIAGRAM_MM, DEFAULT_MODELING_ASSISTANT_PATH, LEARNING_CORPUS_MM, LEARNING_CORPUS_QUIZ_MM,
+                       MODELING_ASSISTANT_MM)
 from utils import warn
-from modelingassistant.modelingassistant import ModelingAssistant
+from modelingassistant import ModelingAssistant
 
 
 def load_metamodels(*ecore_files: str) -> ResourceSet:
@@ -141,7 +142,7 @@ def save_to_files(items_by_filename: dict[str, EObject | list[EObject]]):
     """
     uri_to_filename = {URI(fn): fn for fn in items_by_filename.keys()}
     filename_to_uri = {fn: uri for uri, fn in uri_to_filename.items()}
-    rset = load_metamodels(CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, MODELING_ASSISTANT_MM)
+    rset = load_metamodels(CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, LEARNING_CORPUS_QUIZ_MM, MODELING_ASSISTANT_MM)
     resources = []
     for filename in items_by_filename.keys():
         resource: Resource = rset.create_resource(filename_to_uri[filename])

@@ -40,6 +40,34 @@
             id="org.eclipse.emf.ecore.Wizard.category.ID"
             name="%_UI_Wizard_category"/>
       <wizard
+            id="learningcorpusquiz.presentation.LearningcorpusquizModelWizardID"
+            name="%_UI_LearningcorpusquizModelWizard_label"
+            class="learningcorpusquiz.presentation.LearningcorpusquizModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/LearningcorpusquizModelFile.gif">
+         <description>%_UI_LearningcorpusquizModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated modelingassistant -->
+      <editor
+            id="learningcorpusquiz.presentation.LearningcorpusquizEditorID"
+            name="%_UI_LearningcorpusquizEditor_label"
+            icon="icons/full/obj16/LearningcorpusquizModelFile.gif"
+            extensions="learningcorpusquiz"
+            class="learningcorpusquiz.presentation.LearningcorpusquizEditor"
+            contributorClass="learningcorpusquiz.presentation.LearningcorpusquizActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated modelingassistant -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
             id="learningcorpus.presentation.LearningcorpusModelWizardID"
             name="%_UI_LearningcorpusModelWizard_label"
             class="learningcorpus.presentation.LearningcorpusModelWizard"

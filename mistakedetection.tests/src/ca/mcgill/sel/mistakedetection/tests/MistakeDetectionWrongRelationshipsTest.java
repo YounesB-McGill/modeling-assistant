@@ -23,8 +23,8 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_CO
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ATTRIBUTE_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_ASSOC;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
@@ -2729,7 +2729,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_DIRECTED_ASSOC_INSTEAD_OF_UNDIRECTED,
+    assertMistake(studentSolution.getMistakes().get(0), USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED,
         studentMyOfficeAssociationEnd, instructorMyOfficeAssociationEnd, 0, 1, false);
   }
 
@@ -2756,7 +2756,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_UNDIRECTED_ASSOC_INSTEAD_OF_DIRECTED,
+    assertMistake(studentSolution.getMistakes().get(0), USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED,
         studentMyWheelAssociationEnd, instructorMyWheelAssociationEnd, 0, 1, false);
   }
 

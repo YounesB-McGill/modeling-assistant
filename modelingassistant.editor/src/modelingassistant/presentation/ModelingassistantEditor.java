@@ -162,6 +162,7 @@ import ca.mcgill.sel.core.provider.CoreItemProviderAdapterFactory;
 import learningcorpus.presentation.ModelingassistantEditorPlugin;
 import learningcorpus.provider.LearningcorpusItemProviderAdapterFactory;
 
+import learningcorpusquiz.provider.LearningcorpusquizItemProviderAdapterFactory;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 
@@ -717,6 +718,7 @@ public class ModelingassistantEditor
     adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
     adapterFactory.addAdapterFactory(new LearningcorpusItemProviderAdapterFactory());
     adapterFactory.addAdapterFactory(new ModelingassistantItemProviderAdapterFactory());
+    adapterFactory.addAdapterFactory(new LearningcorpusquizItemProviderAdapterFactory());
     adapterFactory.addAdapterFactory(new CdmItemProviderAdapterFactory());
     adapterFactory.addAdapterFactory(new CoreItemProviderAdapterFactory());
     adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());

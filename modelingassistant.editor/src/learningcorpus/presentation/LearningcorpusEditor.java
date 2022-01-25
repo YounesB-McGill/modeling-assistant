@@ -159,6 +159,7 @@ import learningcorpus.provider.LearningcorpusItemProviderAdapterFactory;
 
 import ca.mcgill.sel.classdiagram.provider.CdmItemProviderAdapterFactory;
 import ca.mcgill.sel.core.provider.CoreItemProviderAdapterFactory;
+import learningcorpusquiz.provider.LearningcorpusquizItemProviderAdapterFactory;
 import modelingassistant.provider.ModelingassistantItemProviderAdapterFactory;
 
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
@@ -716,6 +717,7 @@ public class LearningcorpusEditor
     adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
     adapterFactory.addAdapterFactory(new LearningcorpusItemProviderAdapterFactory());
     adapterFactory.addAdapterFactory(new ModelingassistantItemProviderAdapterFactory());
+    adapterFactory.addAdapterFactory(new LearningcorpusquizItemProviderAdapterFactory());
     adapterFactory.addAdapterFactory(new CdmItemProviderAdapterFactory());
     adapterFactory.addAdapterFactory(new CoreItemProviderAdapterFactory());
     adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());

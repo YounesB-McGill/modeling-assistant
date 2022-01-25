@@ -7,11 +7,12 @@ import inspect
 from pyecore.ecore import EObject
 from classdiagram import classdiagram
 from learningcorpus import learningcorpus
+from learningcorpusquiz import learningcorpusquiz
 from modelingassistant import modelingassistant
 
 static_classes_by_name: dict[str, EObject] = {}
 
-for _module in [classdiagram, learningcorpus, modelingassistant]:
+for _module in [classdiagram, learningcorpus, learningcorpusquiz, modelingassistant]:
     for name, cls in inspect.getmembers(importlib.import_module(_module.name), inspect.isclass):
         if "NamedElement" not in name:
             static_classes_by_name[name] = cls

@@ -1,59 +1,62 @@
 #!/usr/bin/env python3
 
-# pylint: disable=wrong-import-position, unused-import, missing-function-docstring
+# pylint: disable=wrong-import-position, missing-function-docstring
 """
 Tests for the createcorpus module.
 """
-# Some of the "unused import" warnings below are false positives
-import ast
-import inspect
+
+from cgi import print_environ
 import os
-import re
 import sys
-from re import Match
-from os import linesep as nl
 from textwrap import dedent
-from types import SimpleNamespace
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from createcorpus import generate_tex, clean
-from learningcorpus import MistakeType, MistakeTypeCategory
+from createcorpus import MarkdownGenerator, LatexGenerator
+from constants import T
+from corpus import effectuate_contextual_capitalization
+from corpus_definition import lowercase_class_name, uppercase_attribute_name
+from learningcorpus import ResourceResponse
+from utils import fbs, mcq, mt
 
 
-# Extract inner functions from createcorpus.generate_tex() and store them in gen_tex to test them below
-# This needs to be done at the global level
-# extract top-level CONSTANTS
-for child in next(ast.iter_child_nodes((ast.parse(inspect.getsource(generate_tex))))).body:
-    if isinstance(child, ast.Assign):
-        exec(ast.unparse(child))  # pylint: disable=exec-used
-    if isinstance(child, ast.FunctionDef):
-        break
-
-# store functions in gen_tex
-gen_tex = {}
-for ast_node in ast.walk(ast.parse(inspect.getsource(generate_tex))):
-    if isinstance(ast_node, ast.FunctionDef):
-        exec(ast.unparse(ast_node))  # pylint: disable=exec-used
-        gen_tex[ast_node.name] = globals()[ast_node.name]
-
-# convert to SimpleNamespace to allow using dot notation (e.g. gen_tex.process_row instead of gen_tex["process_row"])
-gen_tex = SimpleNamespace(**gen_tex)
+plural_attribute_copy_mt = mt(n="Plural attribute copy", feedbacks=fbs({
+    4: ResourceResponse(learningResources=[mcq[
+            "Pick the classes which are modeled correctly with Umple.",
+            "class Student { courses; }",
+            "class Folder { List<File> files; }",
+        T: "class Restaurant { 1 -- * Employee; }",
+    ]]),
+}))
 
 
-def test_inner_functions_extracted():
-    assert gen_tex
-    assert isinstance(gen_tex.process_row("row_data"), str)
+# Test Markdown generation
+
+def test_md_make_quiz():
+    expected_mt_with_quiz_md = dedent("""\
+        ## Plural attribute copy
+        
+        Level 4: Resource response with List multiple-choice quiz:
+
+        Pick the classes which are modeled correctly with Umple.
+    
+        - [ ] class Student { courses; }
+        - [ ] class Folder { List<File> files; }
+        - [x] class Restaurant { 1 -- * Employee; }""")
+    actual_mt_with_quiz_md = MarkdownGenerator.make_mt_body(plural_attribute_copy_mt)
+    assert actual_mt_with_quiz_md == expected_mt_with_quiz_md
 
 
-def test_make_body_title():
-    assert gen_tex.make_body_title("Class mistakes") == "\\section{Class mistakes}\n\n"
-    assert gen_tex.make_body_title("Class name mistakes", 1) == "\\subsection{Class name mistakes}\n\n"
-    assert gen_tex.make_body_title("Plural class name", 2) == "\\subsubsection{Plural class name}\n\n"
+# Test LaTeX generation
+
+def test_make_tex_body_title():
+    assert LatexGenerator.make_body_title("Class mistakes") == "\\section{Class mistakes}\n\n"
+    assert LatexGenerator.make_body_title("Class name mistakes", 1) == "\\subsection{Class name mistakes}\n\n"
+    assert LatexGenerator.make_body_title("Plural class name", 2) == "\\subsubsection{Plural class name}\n\n"
 
 
-def test_blockquote():
-    assert gen_tex.blockquote("Please note these examples of correct vs incorrect class naming:") == dedent("""\
+def test_tex_blockquote():
+    assert LatexGenerator.blockquote("Please note these examples of correct vs incorrect class naming:") == dedent("""\
         \\begin{tabular}{|p{0.9\\linewidth}}
         Please note these examples of correct vs incorrect class naming:
         \\end{tabular} \\medskip
@@ -61,14 +64,38 @@ def test_blockquote():
         """)
 
 
-def test_sanitize():
-    assert gen_tex.sanitize(
+def test_tex_sanitize():
+    assert LatexGenerator.sanitize(
         "Please review the [Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture."
         ) == "Please review the \\textit{Association} part of the Class Diagram lecture."
 
 
+def test_tex_make_quiz():
+    test_md_make_quiz()
+    expected_mt_with_quiz_tex = dedent(R"""
+        \section{Plural attribute copy}
+
+        \noindent Level 4: Resource response with List multiple-choice quiz: \medskip
+
+        \begin{tabular}{|p{0.9\linewidth}}
+
+        Pick the classes which are modeled correctly with Umple.
+
+        \begin{itemize}
+            \item[$\square$] class Student \{ courses; \}
+            \item[$\square$] class Folder \{ List$<$File$>$ files; \}
+            \item[$\boxtimes$] class Restaurant \{ 1 -- * Employee; \}
+        \end{itemize}
+
+        \end{tabular} \medskip
+
+        """).replace("\n", "", 1)  # remove first newline from raw string
+    actual_mt_with_quiz_tex = LatexGenerator.make_mt_body(plural_attribute_copy_mt)
+    assert actual_mt_with_quiz_tex == expected_mt_with_quiz_tex
+
+
 def test_make_tex_table():
-    assert gen_tex.make_tex_table(dedent("""\
+    assert LatexGenerator.make_tex_table(dedent("""\
         Please note these examples of correct vs incorrect class naming:
         :x: Examples to avoid | :heavy_check_mark: Good class names
         --- | ---
@@ -93,5 +120,17 @@ def test_make_tex_table():
         """)
 
 
+# Other corpus generation tests
+
+def test_use_contextual_capitalization():
+    # access corpus items dynamically to avoid overwriting the file
+    for _mt in (lowercase_class_name, uppercase_attribute_name):
+        effectuate_contextual_capitalization(use_caps=True)
+        assert any("Letter" in fb.text for fb in _mt.feedbacks if getattr(fb, "text", None))
+        effectuate_contextual_capitalization(use_caps=False)
+        assert not any("Letter" in fb.text for fb in _mt.feedbacks if getattr(fb, "text", None))
+
+
 if __name__ == "__main__":
     "Main entry point."
+    test_tex_make_quiz()

@@ -9,6 +9,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: learningcorpus.tests,
+ learningcorpusquiz.tests,
  modelingassistant.tests
 Require-Bundle: org.eclipse.core.runtime,
  modelingassistant;visibility:=reexport,

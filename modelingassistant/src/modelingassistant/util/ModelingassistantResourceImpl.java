@@ -24,8 +24,10 @@ public class ModelingassistantResourceImpl extends XMIResourceImpl {
     super(uri);
   }
 
-  /*
+  /**
    * Manual code added to ensure ModelingAssistant instances are serialized using UUIDs.
+   *
+   * @generated NOT
    */
   @Override protected boolean useUUIDs() {
     return true;

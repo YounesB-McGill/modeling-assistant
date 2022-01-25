@@ -9,6 +9,7 @@ import java.util.List;
 import learningcorpus.LearningCorpus;
 import learningcorpus.LearningcorpusFactory;
 import learningcorpus.LearningcorpusPackage;
+import learningcorpusquiz.LearningcorpusquizFactory;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
@@ -207,6 +208,21 @@ public class LearningCorpusItemProvider
       (createChildParameter
         (LearningcorpusPackage.Literals.LEARNING_CORPUS__LEARNING_RESOURCES,
          LearningcorpusFactory.eINSTANCE.createQuiz()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (LearningcorpusPackage.Literals.LEARNING_CORPUS__LEARNING_RESOURCES,
+         LearningcorpusquizFactory.eINSTANCE.createFillInTheBlanksQuiz()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (LearningcorpusPackage.Literals.LEARNING_CORPUS__LEARNING_RESOURCES,
+         LearningcorpusquizFactory.eINSTANCE.createListMultipleChoiceQuiz()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (LearningcorpusPackage.Literals.LEARNING_CORPUS__LEARNING_RESOURCES,
+         LearningcorpusquizFactory.eINSTANCE.createTableMultipleChoiceQuiz()));
   }
 
   /**

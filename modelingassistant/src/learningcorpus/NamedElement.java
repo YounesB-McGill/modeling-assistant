@@ -18,9 +18,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see learningcorpus.LearningcorpusPackage#getNamedElement()
  * @model abstract="true"
- * @generated
+ * @generated NOT
  */
-public interface NamedElement extends EObject {
+public interface NamedElement extends EObject, Comparable<NamedElement> {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
@@ -42,5 +42,14 @@ public interface NamedElement extends EObject {
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Compares named elements by name.
+   *
+   * @generated NOT
+   */
+  @Override public default int compareTo(NamedElement e) {
+    return getName().compareTo(e.getName());
+  }
 
 } // NamedElement
