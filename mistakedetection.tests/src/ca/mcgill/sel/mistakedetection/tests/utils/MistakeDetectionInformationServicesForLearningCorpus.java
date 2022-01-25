@@ -107,7 +107,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
 
   // Run the mistake detection tests in a static block to allow other classes to get data from this one
   static {
-    MistakeDetectionConfig.trackComparisonsInstances = true;
+    MistakeDetectionConfig.trackComparisonInstances = true;
     runAllMistakeDetectionTests();
   }
 
@@ -162,16 +162,29 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   public static Map<MistakeType, TestCompletionStatus> getTestCompletionStatusByMistakeType() {
     var doneMistakeTypes = allMistakes().map(Mistake::getMistakeType).collect(Collectors.toUnmodifiableSet());
     return MistakeTypes.MISTAKE_TYPES_BY_NAME.values().stream().collect(Collectors.toMap(
-        Function.identity(),
+        // Collectors.toMap() can take these 4 inputs when invoked on a stream of items (in this case, mistake types):
+        // 1. Function to map the items to the keys of the output map. Here we map each mistake type to itself.
+        Function.identity(), // mistakeType -> mistakeType
+        // 2. Function to map the items to the values of the output map. Here we map each MT to a TestCompletionStatus.
         mt -> doneMistakeTypes.contains(mt) ? TestCompletionStatus.DONE : (FUTURE_WORK_MISTAKE_TYPES.contains(mt) ?
             TestCompletionStatus.FUTURE_WORK : TestCompletionStatus.IN_PROGRESS),
-        (v1, v2) -> TestCompletionStatus.values()[Math.min(v1.ordinal(), v2.ordinal())], // use older status if in doubt
-        TreeMap::new)); // use TreeMap to sort output by mistake type
+        // 3. Merge function, handles collisions between values with the same key. Here, use older status if in doubt.
+        (v1, v2) -> TestCompletionStatus.values()[Math.min(v1.ordinal(), v2.ordinal())],
+        // 4. The output map of Collectors.toMap(). Use TreeMap to sort output by mistake type.
+        TreeMap::new));
   }
 
   /** Returns the test completion status formatted for logging purposes. */
   public static String getFormattedTestCompletionStatus(Map<MistakeType, TestCompletionStatus> mistakeTypesToStatuses) {
     return mistakeTypesToStatuses.entrySet().stream().map(e -> e.getValue().symbol + " " + e.getKey().getDescription())
+        .collect(Collectors.joining("\n"));
+  }
+
+  /** Returns the tests with the given completion status formatted for logging purposes. */
+  public static String getFormattedTestCompletionStatus(Map<MistakeType, TestCompletionStatus> mistakeTypesToStatuses,
+      TestCompletionStatus status) {
+    return mistakeTypesToStatuses.entrySet().stream().filter(e -> e.getValue() == status)
+        .map(e -> e.getValue().symbol + " " + e.getKey().getDescription())
         .collect(Collectors.joining("\n"));
   }
 

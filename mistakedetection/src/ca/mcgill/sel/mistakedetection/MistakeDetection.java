@@ -290,14 +290,6 @@ public class MistakeDetection {
     checkMistakeExtraAssociationCompositionAggregation(comparison);
 
     updateMistakes(instructorSolution, studentSolution, comparison, filter);
-
-    /*
-    write to tempfile:
-    for (Mistake mistake : mistakes) {
-      print(mistake.type, prettyFormat(mistake.studentElements))
-    }
-    */
-
     return comparison;
   }
 

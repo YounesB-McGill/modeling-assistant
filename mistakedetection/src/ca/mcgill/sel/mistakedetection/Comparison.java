@@ -1,6 +1,6 @@
 package ca.mcgill.sel.mistakedetection;
 
-import static ca.mcgill.sel.mistakedetection.MistakeDetectionConfig.trackComparisonsInstances;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionConfig.trackComparisonInstances;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,7 +69,7 @@ public class Comparison {
 
   // use instance initializer to avoid explicit custom constructor
   {
-    if (trackComparisonsInstances) {
+    if (trackComparisonInstances) {
       instances.add(this);
     }
   }
