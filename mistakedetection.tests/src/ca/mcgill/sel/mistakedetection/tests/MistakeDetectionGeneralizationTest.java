@@ -9,6 +9,7 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentS
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_GENERALIZATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_GENERALIZATION;
 import static learningcorpus.mistaketypes.MistakeTypes.NON_DIFFERENTIATED_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_GENERALIZATION_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_SUPERCLASS;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
@@ -338,4 +339,25 @@ public class MistakeDetectionGeneralizationTest {
     assertEquals(7, studentSolution.getMistakes().size());
     assertMistakeTypesContain(comparison.newMistakes, EXTRA_GENERALIZATION);
   }
+
+  /**
+   * Test to Wrong Generalization direction.
+   */
+  @Test
+  public void testToCheckWrongGenDirection() {
+    var instructorClassDiagram =
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_four_classes/Class Diagram/Four_classes.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram =
+        cdmFromFile(STUDENT_CDM_PATH + "student_four_classes/Class Diagram/Four_classes.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(7, comparison.newMistakes.size());
+    assertEquals(7, studentSolution.getMistakes().size());
+    assertMistakeTypesContain(comparison.newMistakes, WRONG_GENERALIZATION_DIRECTION);
+  }
+
 }

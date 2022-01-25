@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_bHfNoCCGEeyFLMpnlUIPtg" name="Student_DriverAssocClass">
+  <classes xsi:type="classdiagram:Class" xmi:id="_bfcaoCCGEeyFLMpnlUIPtg" name="Root">
+    <associationEnds xmi:id="_hbbQ4SCGEeyFLMpnlUIPtg" name="myBus" assoc="_hbbQ4iCGEeyFLMpnlUIPtg" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_pgukESCGEeyFLMpnlUIPtg" name="myPassenger" assoc="_pgukEiCGEeyFLMpnlUIPtg" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_caqswCCGEeyFLMpnlUIPtg" name="Bus">
+    <associationEnds xmi:id="_hbbQ4CCGEeyFLMpnlUIPtg" name="myRoot" assoc="_hbbQ4iCGEeyFLMpnlUIPtg" lowerBound="1"/>
+    <associationEnds xmi:id="_qT6UgSCGEeyFLMpnlUIPtg" name="myBus" assoc="_qT6UhSCGEeyFLMpnlUIPtg" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_ngmfYCCGEeyFLMpnlUIPtg" name="Passenger">
+    <associationEnds xmi:id="_pgukECCGEeyFLMpnlUIPtg" name="myRoot" assoc="_pgukEiCGEeyFLMpnlUIPtg" lowerBound="1"/>
+    <associationEnds xmi:id="_qT6UgCCGEeyFLMpnlUIPtg" name="myPassenger" assoc="_qT6UhSCGEeyFLMpnlUIPtg" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_qT6UgiCGEeyFLMpnlUIPtg" name="Drivar"/>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_bHfNoSCGEeyFLMpnlUIPtg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_bHfNoiCGEeyFLMpnlUIPtg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_bHfNoyCGEeyFLMpnlUIPtg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_bHfNpCCGEeyFLMpnlUIPtg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_bHfNpSCGEeyFLMpnlUIPtg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_bHfNpiCGEeyFLMpnlUIPtg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_bHfNpyCGEeyFLMpnlUIPtg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_bHfNqCCGEeyFLMpnlUIPtg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_bHfNqSCGEeyFLMpnlUIPtg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_bHfNqiCGEeyFLMpnlUIPtg"/>
+  <associations xmi:id="_hbbQ4iCGEeyFLMpnlUIPtg" name="Bus_Root" ends="_hbbQ4CCGEeyFLMpnlUIPtg _hbbQ4SCGEeyFLMpnlUIPtg"/>
+  <associations xmi:id="_pgukEiCGEeyFLMpnlUIPtg" name="Passenger_Root" ends="_pgukECCGEeyFLMpnlUIPtg _pgukESCGEeyFLMpnlUIPtg"/>
+  <associations xmi:id="_qT6UhSCGEeyFLMpnlUIPtg" name="Passenger_Bus" ends="_qT6UgCCGEeyFLMpnlUIPtg _qT6UgSCGEeyFLMpnlUIPtg" associationClass="_qT6UgiCGEeyFLMpnlUIPtg"/>
+  <layout xmi:id="_bHfNqyCGEeyFLMpnlUIPtg">
+    <containers xmi:id="_bHfNrCCGEeyFLMpnlUIPtg" key="_bHfNoCCGEeyFLMpnlUIPtg">
+      <value xmi:id="_bfdBsCCGEeyFLMpnlUIPtg" key="_bfcaoCCGEeyFLMpnlUIPtg">
+        <value xmi:id="_bfdBsSCGEeyFLMpnlUIPtg" x="813.99976" y="276.00012"/>
+      </value>
+      <value xmi:id="_carT0CCGEeyFLMpnlUIPtg" key="_caqswCCGEeyFLMpnlUIPtg">
+        <value xmi:id="_carT0SCGEeyFLMpnlUIPtg" x="523.0" y="503.0"/>
+      </value>
+      <value xmi:id="_ngnGcCCGEeyFLMpnlUIPtg" key="_ngmfYCCGEeyFLMpnlUIPtg">
+        <value xmi:id="_ngnGcSCGEeyFLMpnlUIPtg" x="1054.0" y="503.0"/>
+      </value>
+      <value xmi:id="_qT6UgyCGEeyFLMpnlUIPtg" key="_qT6UgiCGEeyFLMpnlUIPtg">
+        <value xmi:id="_qT6UhCCGEeyFLMpnlUIPtg" x="842.5" y="806.00024"/>
+      </value>
+      <value xmi:id="_qT9X0CCGEeyFLMpnlUIPtg" key="_qT6UhSCGEeyFLMpnlUIPtg">
+        <value xmi:id="_qT9X0SCGEeyFLMpnlUIPtg" x="905.0" y="699.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
