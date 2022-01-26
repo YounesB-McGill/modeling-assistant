@@ -639,7 +639,7 @@ public class MistakeDetection {
 							&& !getAllSuperClasses(studSubClass)
 									.contains(comparison.mappedClassifiers.get(instSuperclass))
 							&& !isMistakeExist(WRONG_GENERALIZATION_DIRECTION, studSubClass, comparison)) {
-						comparison.newMistakes.add(createMistake(WRONG_SUPERCLASS, studSubClass, instSubclass));
+						comparison.newMistakes.add(createMistake(WRONG_SUPERCLASS,List.of(getSupermostClass(studSubClass) ,studSubClass),List.of(getKey(comparison.mappedClassifiers, getSupermostClass(studSubClass)) ,instSubclass)));
 					}
 				}
 			}

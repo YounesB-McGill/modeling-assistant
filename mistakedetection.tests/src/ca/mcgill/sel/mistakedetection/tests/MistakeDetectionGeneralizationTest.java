@@ -424,6 +424,27 @@ public class MistakeDetectionGeneralizationTest {
 		assertMistakeTypesContain(comparison.newMistakes, MISSING_GENERALIZATION);
 		assertMistakeTypesContain(comparison.newMistakes, EXTRA_GENERALIZATION);
 	}
+	
+	/**
+	 * Test to wrong superclass and missing generalization.
+	 */
+	@Test
+	public void testToCheckWrongSuperClassAndMissingGen() {
+		var instructorClassDiagram = cdmFromFile(
+				INSTRUCTOR_CDM_PATH + "instructor_five_classes/Class Diagram/Five_classes.domain_model.cdm");
+		var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+		var studentClassDiagram = cdmFromFile(STUDENT_CDM_PATH
+				+ "student_five_classes_1MissingWrongSuperClass/Class Diagram/Five_classes_1Missing.domain_model.cdm");
+		var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+		var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+		
+		assertEquals(6, comparison.newMistakes.size());
+		assertEquals(6, studentSolution.getMistakes().size());
+		assertMistakeTypesContain(comparison.newMistakes, MISSING_GENERALIZATION);
+		assertMistakeTypesContain(comparison.newMistakes, WRONG_SUPERCLASS);
+	}
 
 	/**
 	 * Test to wrong Super class and generalization direction.
