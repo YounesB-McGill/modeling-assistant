@@ -505,7 +505,7 @@ public class MistakeDetection {
 		}
 		return false;
 	}
-
+/*//TODO Remove after everything is FInal
 	private static void checkMistakeExtraGeneralization(Comparison comparison) {
 		for (var set : comparison.studentSuperclassesToSubclasses.entrySet()) {
 			Classifier studSuperclass = set.getKey();
@@ -565,7 +565,8 @@ public class MistakeDetection {
 		}
 		return nonSameSupermostClasses;
 	}
-
+*/
+	
 	/** Returns the root most superclass else returns the class itself. */
 	private static Classifier getSupermostClass(Classifier classifier) {
 		Classifier superclass = classifier;
@@ -583,7 +584,7 @@ public class MistakeDetection {
 		}
 		return superclasses;
 	}
-
+	/*//TODO Remove after everything is FInal
 	private static void checkMistakeMissingGeneralization(Comparison comparison) {
 		for (var mapSet : comparison.instructorSuperclassesToSubclasses.entrySet()) {
 			Classifier instSuperclass = mapSet.getKey();
@@ -627,7 +628,7 @@ public class MistakeDetection {
 			}
 		}
 	}
-
+*/
 	private static void checkMistakeWrongSuperclass(Comparison comparison) {
 		for (var mapSet : comparison.instructorSuperclassesToSubclasses.entrySet()) {
 			Classifier instSuperclass = mapSet.getKey();
@@ -639,8 +640,12 @@ public class MistakeDetection {
 							&& !getAllSuperClasses(studSubClass)
 									.contains(comparison.mappedClassifiers.get(instSuperclass))
 							&& !isMistakeExist(WRONG_GENERALIZATION_DIRECTION, studSubClass, comparison)) {
+						if(comparison.mappedClassifiers.containsValue(studSubClass) && comparison.mappedClassifiers.containsValue(getSupermostClass(studSubClass))) {
 						comparison.newMistakes.add(createMistake(WRONG_SUPERCLASS,List.of(getSupermostClass(studSubClass) ,studSubClass),List.of(getKey(comparison.mappedClassifiers, getSupermostClass(studSubClass)) ,instSubclass)));
-					}
+						} else {
+							comparison.newMistakes.add(createMistake(WRONG_SUPERCLASS, studSubClass , instSubclass));
+						}
+						}
 				}
 			}
 		}

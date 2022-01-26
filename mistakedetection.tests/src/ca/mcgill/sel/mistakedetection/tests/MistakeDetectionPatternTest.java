@@ -378,8 +378,7 @@ public class MistakeDetectionPatternTest {
 
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
-    var studStudentClassMistake = studentMistakeFor(studStudentClass);
-    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistakeTypesContain(comparison.newMistakes, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN);
   }
 
   /**
@@ -793,8 +792,8 @@ public class MistakeDetectionPatternTest {
 
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
-    var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
-    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, studElements, instElements, 0, 1, false);
+    
+    assertMistake(comparison.newMistakes.get(0), SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, studElements, instElements, 0, 1, false);
   }
 
   /**
@@ -1105,9 +1104,9 @@ public class MistakeDetectionPatternTest {
     var studElements = List.of(studBankAccClass, studCheckingAccClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-    assertEquals(4, comparison.newMistakes.size());
-    assertEquals(4, studentSolution.getMistakes().size());
+    
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(1), FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, studElements, instElements,
         0, 1, false);
@@ -1217,9 +1216,8 @@ public class MistakeDetectionPatternTest {
 
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
-
-    var studStudentClassMistake = studentMistakeFor(studBankAccClass);
-    assertMistake(studStudentClassMistake, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, studElements, instElements, 0, 1, false);
+    
+    assertMistakeTypesContain(comparison.newMistakes, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN);
   }
 
   /**
