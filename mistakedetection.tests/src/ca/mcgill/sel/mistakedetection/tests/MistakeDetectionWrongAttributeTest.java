@@ -1697,8 +1697,8 @@ public class MistakeDetectionWrongAttributeTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
     assertMistakeTypesContain(comparison.newMistakes, ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY);
   }
 
@@ -1821,8 +1821,8 @@ public class MistakeDetectionWrongAttributeTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
     assertMistakeTypesContain(comparison.newMistakes, ATTRIBUTE_DUPLICATED);
   }
 

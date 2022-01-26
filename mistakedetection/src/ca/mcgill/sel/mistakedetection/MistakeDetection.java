@@ -823,7 +823,7 @@ public class MistakeDetection {
 			for (NamedElement cls : notComposedClasses) {
 				Classifier studClass = (Classifier) cls;
 				if (!studClass.getSuperTypes().isEmpty()) {
-					for (Classifier c : studClass.getSuperTypes()) {
+					for (Classifier c : getAllSuperClasses(studClass)) {
 						if (composedClasses.contains(c)) {
 							notComposedClassesToRemove.add(cls);
 						}

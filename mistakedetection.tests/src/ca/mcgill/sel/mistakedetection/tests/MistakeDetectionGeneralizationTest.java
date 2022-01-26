@@ -187,8 +187,8 @@ public class MistakeDetectionGeneralizationTest {
 
 		var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 	
-		assertEquals(1, comparison.newMistakes.size());
-		assertEquals(1, studentSolution.getMistakes().size());// TODO Update Incomplete Containment Tree
+		assertEquals(0, comparison.newMistakes.size());
+		assertEquals(0, studentSolution.getMistakes().size());
 		
 		assertMistakeTypesDoNotContain(comparison.newMistakes, WRONG_SUPERCLASS);
 	}
@@ -317,7 +317,7 @@ public class MistakeDetectionGeneralizationTest {
 		var studClass1 = getClassFromClassDiagram("TATAManza", studentClassDiagram);
 
 		var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
+		
 		assertEquals(2, comparison.newMistakes.size());
 		assertEquals(2, studentSolution.getMistakes().size());
 		assertMistake(studentSolution.getMistakes().get(0), EXTRA_GENERALIZATION, studClass1, instClass1, 0, 1, false);
@@ -338,8 +338,8 @@ public class MistakeDetectionGeneralizationTest {
 
 		var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-		assertEquals(7, comparison.newMistakes.size());
-		assertEquals(7, studentSolution.getMistakes().size());
+		assertEquals(6, comparison.newMistakes.size());
+		assertEquals(6, studentSolution.getMistakes().size());
 		assertMistakeTypesContain(comparison.newMistakes, EXTRA_GENERALIZATION);
 	}
 
