@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_RrPBYH7HEeyodLuIplQw7Q" name="Fiive_classes_WrongA">
+  <classes xsi:type="classdiagram:Class" xmi:id="_R_A5AH7HEeyodLuIplQw7Q" name="E"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_SiUaYH7HEeyodLuIplQw7Q" name="D" superTypes="_TCGtsH7HEeyodLuIplQw7Q"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_TCGtsH7HEeyodLuIplQw7Q" name="B" superTypes="_R_A5AH7HEeyodLuIplQw7Q"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_TtWqIH7HEeyodLuIplQw7Q" name="C" superTypes="_SiUaYH7HEeyodLuIplQw7Q"/>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_RrPBYX7HEeyodLuIplQw7Q"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_RrPBYn7HEeyodLuIplQw7Q"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_RrPBY37HEeyodLuIplQw7Q"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_RrPBZH7HEeyodLuIplQw7Q"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_RrPBZX7HEeyodLuIplQw7Q"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_RrPBZn7HEeyodLuIplQw7Q"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_RrPBZ37HEeyodLuIplQw7Q"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_RrPBaH7HEeyodLuIplQw7Q"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_RrPBaX7HEeyodLuIplQw7Q"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_RrPBan7HEeyodLuIplQw7Q"/>
+  <layout xmi:id="_RrPBa37HEeyodLuIplQw7Q">
+    <containers xmi:id="_RrPBbH7HEeyodLuIplQw7Q" key="_RrPBYH7HEeyodLuIplQw7Q">
+      <value xmi:id="_R_BgEH7HEeyodLuIplQw7Q" key="_R_A5AH7HEeyodLuIplQw7Q">
+        <value xmi:id="_R_BgEX7HEeyodLuIplQw7Q" x="773.05505" y="196.00024"/>
+      </value>
+      <value xmi:id="_SiVBcH7HEeyodLuIplQw7Q" key="_SiUaYH7HEeyodLuIplQw7Q">
+        <value xmi:id="_SiVBcX7HEeyodLuIplQw7Q" x="773.03125" y="436.00046"/>
+      </value>
+      <value xmi:id="_TCHUwH7HEeyodLuIplQw7Q" key="_TCGtsH7HEeyodLuIplQw7Q">
+        <value xmi:id="_TCHUwX7HEeyodLuIplQw7Q" x="773.05505" y="320.00012"/>
+      </value>
+      <value xmi:id="_TtXRMH7HEeyodLuIplQw7Q" key="_TtWqIH7HEeyodLuIplQw7Q">
+        <value xmi:id="_TtXRMX7HEeyodLuIplQw7Q" x="773.0" y="541.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
