@@ -5,6 +5,9 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instruct
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ENUM_ITEM_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ENUM_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ENUM;
+import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getEnumFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getEnumLiteralFromEnum;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
@@ -169,4 +172,56 @@ public class MistakeDetectionEnumTest {
     assertMistake(studentSolution.getMistakes().get(0), BAD_ENUM_ITEM_SPELLING, studentEnrollmentLiteral,
         instructorEnrollmentLiteral, 0, 1, false);
   }
+  
+  /**
+   * Test to check enumeration class should be regular class.
+   */
+  @Test
+  public void testEnumClassShouldBeRegClass() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestEnum/reg_class/Class Diagram/Reg_class.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestEnum/enum_Class/Class Diagram/Enum_Class.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+    var studentEnumClass = getEnumFromClassDiagram("Bus", studentClassDiagram); 
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    
+    assertMistake(studentSolution.getMistakes().get(0), ENUM_SHOULD_BE_CLASS, studentEnumClass,
+    		instructorClass, 0, 1, false);    
+  }
+  
+  /**
+   * Test to check regular class should be enumeration.
+   */
+  @Test
+  public void testClassShouldBeEnum() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestEnum/enum_Class/Class Diagram/Enum_Class.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestEnum/reg_class/Class Diagram/Reg_class.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorEnrollmentEnum = getEnumFromClassDiagram("Bus", instructorClassDiagram); 
+    var studentClass = getClassFromClassDiagram("Bus", studentClassDiagram);
+   
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+    
+    assertMistake(studentSolution.getMistakes().get(0), CLASS_SHOULD_BE_ENUM, studentClass,
+    		instructorEnrollmentEnum, 0, 1, false);
+    
+  }
+  
 }

@@ -202,6 +202,26 @@ public class MistakeDetection {
 		var studentClassifiers = studentSolution.getClassDiagram().getClasses();
 
 		var processed = false;
+		if(instructorClassifiers.isEmpty()) {
+			for (Classifier studentClassifier : studentClassifiers) {				
+					comparison.extraStudentClassifiers.add(studentClassifier);
+					List<Attribute> studentAttributes = studentClassifier.getAttributes();
+					comparison.extraStudentAttributes.addAll(studentAttributes);
+					List<String> processedStudentAttributes = new ArrayList<String>();
+					for (Attribute studentAttribute : studentAttributes) {
+						if (processedStudentAttributes.contains(studentAttribute.getName())
+								&& !isMistakeExist(ATTRIBUTE_DUPLICATED, studentAttribute, comparison)) {
+							comparison.newMistakes.add(createMistake(ATTRIBUTE_DUPLICATED, studentAttribute, null));
+						}
+						processedStudentAttributes.add(studentAttribute.getName());
+					}
+					studentClassifier.getAssociationEnds().forEach((assoc) -> {
+						if (!comparison.extraStudentAssociations.contains(assoc.getAssoc())) {
+							comparison.extraStudentAssociations.add(assoc.getAssoc());
+						}
+					});
+				}
+		}
 		for (Classifier instructorClassifier : instructorClassifiers) {
 			comparison.notMappedInstructorClassifiers.add(instructorClassifier);
 			List<Attribute> instructorAttributes = instructorClassifier.getAttributes();
@@ -279,7 +299,7 @@ public class MistakeDetection {
 				}
 			}
 		}
-
+		
 		mapClassAndAttribBasedOnAttribsAssocAndAssocEnds(comparison);
 		checkMistakesClassNameSpellings(comparison);
 		mapRelations(comparison);
@@ -287,8 +307,8 @@ public class MistakeDetection {
 		mapPatterns(instructorSolution, studentSolution, comparison);
 		populateGeneralizationTree(comparison, instructorClassifiers, studentClassifiers);
 		mapAttributesBasedOnClassifierMap(comparison);
-		checkMistakeMissingClass(comparison);
-		checkMistakeExtraClass(comparison);
+		checkMistakeMissingClassAndEnumInsteadOfClass(comparison);
+		checkMistakeExtraClassAndClassShouldBeEnum(comparison);
 		checkMistakeMissingExtraEnum(comparison);
 		checkMistakesInGeneralization(comparison);
 		checkMistakeAttributeMisplaced(comparison);
@@ -953,9 +973,7 @@ public class MistakeDetection {
 			List<Mistake> newMistakes) {
 		checkMistakeSoftwareEngineeringTerm(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
 		checkMistakePluralClassName(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
-		checkMistakeLowerClassName(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
-		checkMistakeRegularBeEnumerationClass(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
-		checkMistakeEnumerationBeRegularClass(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
+		checkMistakeLowerClassName(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);		
 		checkMistakeIncorrectClassNameButCorrectAttribRel(studentClassifier, instructorClassifier)
 				.ifPresent(newMistakes::add);
 	}
@@ -2553,23 +2571,7 @@ public class MistakeDetection {
 			return Optional.of(createMistake(LOWERCASE_CLASS_NAME, studentClass, instructorClass));
 		}
 		return Optional.empty();
-	}
-
-	public static Optional<Mistake> checkMistakeEnumerationBeRegularClass(Classifier studentClass,
-			Classifier instructorClass) {
-		if (isClassEnumInsteadOfRegular(studentClass, instructorClass)) {
-			return Optional.of(createMistake(ENUM_SHOULD_BE_CLASS, studentClass, instructorClass));
-		}
-		return Optional.empty();
-	}
-
-	public static Optional<Mistake> checkMistakeRegularBeEnumerationClass(Classifier studentClass,
-			Classifier instructorClass) {
-		if (isClassRegularInsteadOfEnum(studentClass, instructorClass)) {
-			return Optional.of(createMistake(CLASS_SHOULD_BE_ENUM, studentClass, instructorClass));
-		}
-		return Optional.empty();
-	}
+	}	
 
 	public static Optional<Mistake> checkMistakeWrongAttributeTypeAndListAttrib(Attribute studentAttribute,
 			Attribute instructorAttribute) {
@@ -2827,8 +2829,14 @@ public class MistakeDetection {
 
 	}
 
-	public static void checkMistakeMissingClass(Comparison comparison) {
+	public static void checkMistakeMissingClassAndEnumInsteadOfClass(Comparison comparison) {
+
 		comparison.notMappedInstructorClassifiers.forEach(cls -> {
+			comparison.extraStudentEnums.forEach(studEnum ->{ 
+				if(studEnum.getName().equals(cls.getName())){
+				comparison.newMistakes.add(createMistake(ENUM_SHOULD_BE_CLASS, studEnum, cls));
+			}
+			});
 			if (!mistakeForElementExists(cls, comparison.newMistakes)) {
 				comparison.newMistakes.add(createMistake(MISSING_CLASS, null, cls));
 			}
@@ -2856,9 +2864,14 @@ public class MistakeDetection {
 		return mistakesFound;
 	}
 
-	public static void checkMistakeExtraClass(Comparison comparison) {
-		// No Instructor Element
+	public static void checkMistakeExtraClassAndClassShouldBeEnum(Comparison comparison) {
+		
 		comparison.extraStudentClassifiers.forEach(cls -> {
+			comparison.notMappedInstructorEnums.forEach(instEnum ->{ 
+				if(instEnum.getName().equals(cls.getName())){
+				comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ENUM, cls, instEnum));
+			}
+			});
 			if (!mistakeForElementExists(cls, comparison.newMistakes)) {
 				comparison.newMistakes.add(createMistake(EXTRA_CLASS, cls, null));
 			}
@@ -2875,12 +2888,20 @@ public class MistakeDetection {
 				.forEach(cls -> comparison.newMistakes.add(createMistake(MISSING_ENUM_ITEM, null, cls)));
 
 		comparison.notMappedInstructorEnums
-				.forEach(cls -> comparison.newMistakes.add(createMistake(MISSING_ENUM, null, cls)));
+				.forEach(cls -> {
+				if (!mistakeForElementExists(cls, comparison.newMistakes)) {
+				comparison.newMistakes.add(createMistake(MISSING_ENUM, null, cls));
+				}
+				});
 
 		comparison.extraStudentEnumLiterals
 				.forEach(cls -> comparison.newMistakes.add(createMistake(EXTRA_ENUM_ITEM, cls, null)));
 
-		comparison.extraStudentEnums.forEach(cls -> comparison.newMistakes.add(createMistake(EXTRA_ENUM, cls, null)));
+		comparison.extraStudentEnums.forEach(cls -> {
+			if (!mistakeForElementExists(cls, comparison.newMistakes)) {
+		comparison.newMistakes.add(createMistake(EXTRA_ENUM, cls, null));
+			}
+		});
 
 	}
 
@@ -3126,20 +3147,6 @@ public class MistakeDetection {
 	private static boolean spellingMistakeCheck(String name1, String name2) {
 		int lDistance = levenshteinDistance(name1, name2);
 		return lDistance > 0 && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED;
-	}
-
-	/**
-	 * Returns true if student has defined class as type enum instead of regular.
-	 */
-	public static boolean isClassEnumInsteadOfRegular(Classifier studentClassifier, Classifier instructorClassifier) {
-		return !(instructorClassifier instanceof CDEnum) && studentClassifier instanceof CDEnum;
-	}
-
-	/**
-	 * Returns true if student has defined class as regular instead of type enum .
-	 */
-	public static boolean isClassRegularInsteadOfEnum(Classifier studentClassifier, Classifier instructorClassifier) {
-		return instructorClassifier instanceof CDEnum && !(studentClassifier instanceof CDEnum);
 	}
 
 	/**
