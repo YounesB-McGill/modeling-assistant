@@ -173,11 +173,10 @@ public class MistakeDetectionGeneralizationTest {
 	}
 
 	/**
-	 * Test to check wrong superclass.
+	 * Test to check wrong superclass correctness.
 	 */
-	@Disabled("Wrong Superclass logic to correct")
 	@Test
-	public void testToCheckWrongSuperclass() {
+	public void testToCheckNoWrongSuperclass() {
 		var instructorClassDiagram = cdmFromFile(
 				INSTRUCTOR_CDM_PATH + "instructor_wrong_superclass/Class Diagram/Wrong_superclass.domain_model.cdm");
 		var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -187,14 +186,11 @@ public class MistakeDetectionGeneralizationTest {
 		var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
 		var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
-		var instExtraAccountClass = getClassFromClassDiagram("ExtraAccount", instructorClassDiagram);
-		var studExtraAccountClass = getClassFromClassDiagram("ExtraAccount", studentClassDiagram);
-		assertEquals(2, comparison.newMistakes.size());
-		assertEquals(2, studentSolution.getMistakes().size());// TODO Update Incomplete Containment Tree
-
-		assertMistake(studentSolution.getMistakes().get(0), WRONG_SUPERCLASS, studExtraAccountClass,
-				instExtraAccountClass, 0, 1, false);
+	
+		assertEquals(1, comparison.newMistakes.size());
+		assertEquals(1, studentSolution.getMistakes().size());// TODO Update Incomplete Containment Tree
+		
+		assertMistakeTypesDoNotContain(comparison.newMistakes, WRONG_SUPERCLASS);
 	}
 
 	/**
