@@ -3110,6 +3110,9 @@ public class MistakeDetection {
 	 */
 	public static boolean isVerb(String s) {
 		boolean isVerb = false;
+		if(s.isBlank()) {
+			return isVerb;
+		}
 
 		if (verbStatus.containsKey(s)) {
 			return verbStatus.get(s);

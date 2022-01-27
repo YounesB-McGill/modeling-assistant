@@ -15,6 +15,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.COMPOSED_PART_CONTAINED_I
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_COMPOSITION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_CONTAINMENT_TREE;
 import static learningcorpus.mistaketypes.MistakeTypes.INFINITE_RECURSIVE_DEPENDENCY;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
@@ -2847,6 +2848,33 @@ public class MistakeDetectionWrongRelationshipsTest {
 		assertEquals(2, studentSolution.getMistakes().size());
 
 		assertMistake(studentSolution.getMistakes().get(0), REPRESENTING_ACTION_WITH_ASSOC, studentDroveAssociationEnd,
+				instructorMyDriverAssociationEnd, 0, 1, false);
+	}
+	
+	/**
+	 * Test to check Missing Role name.
+	 */
+	@Test
+	public void testMistakeMissingRoleName() {
+		var instructorClassDiagram = cdmFromFile(
+				"../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_bus_driver/Class Diagram/Bus_driver.domain_model.cdm");
+		var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+		var studentClassDiagram = cdmFromFile(
+				"../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_bus_driver_MissingRoleName/Class Diagram/Bus_driver.domain_model.cdm");
+		var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+		var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+		var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+		var instructorMyDriverAssociationEnd = getAssociationEndFromClass("myDriver", instructorRootClass);
+		var studentDroveAssociationEnd = getAssociationEndFromClass("", studentRootClass);
+
+		var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+		assertEquals(2, comparison.newMistakes.size());
+		assertEquals(2, studentSolution.getMistakes().size());
+
+		assertMistake(studentSolution.getMistakes().get(0), MISSING_ROLE_NAMES, studentDroveAssociationEnd,
 				instructorMyDriverAssociationEnd, 0, 1, false);
 	}
 
