@@ -1656,8 +1656,7 @@ public class MistakeDetectionPatternTest {
   }
 
   /**
-   * Test to check generalizations used instead of association in abstraction occurrence class in
-   * studentSolution.
+   * Test to check generalizations used instead of association in abstraction occurrence class in studentSolution.
    */
   @Test
   public void testGenUsedInAbstractionOccurrenceFullClassPatternBankExample() {
@@ -1714,50 +1713,32 @@ public class MistakeDetectionPatternTest {
     assertMistake(studentSolution.getMistakes().get(0), MISSING_AO_PATTERN, instElements, 0, 1, false);
   }
 
-  /**
-   * Returns a list of Employee, FullTimeEmployee and PartTimeEmployee classes from the given class
-   * diagram.
-   */
+  /** Returns a list of Employee, FullTimeEmployee and PartTimeEmployee classes from the given class diagram.*/
   private static List<NamedElement> employeeElements(ClassDiagram classDiagram) {
     return getElementsFromClassDiagram(classDiagram, "Employee", "FullTimeEmployee", "PartTimeEmployee");
   }
 
-  /**
-   * Returns a list of Employee, fullTimeEmployee and partTimeEmployee classes from the given class
-   * diagram.
-   */
+  /** Returns a list of Employee, fullTimeEmployee and partTimeEmployee classes from the given class diagram.*/
   private static List<NamedElement> employeeProjectElements(ClassDiagram classDiagram) {
     return getElementsFromClassDiagram(classDiagram, "Employee", "fullTimeEmployee", "partTimeEmployee");
   }
 
-  /**
-   * Returns a list of BankAccount, CheckingAccount and SavingAccount classes from the given class
-   * diagram.
-   */
+  /** Returns a list of BankAccount, CheckingAccount and SavingAccount classes from the given class diagram.*/
   private static List<NamedElement> bankElements(ClassDiagram classDiagram) {
     return getElementsFromClassDiagram(classDiagram, "BankAccount", "CheckingAccount", "SavingAccount");
   }
 
-  /**
-   * Returns a list of BankAccount, checkingAccount and savingAccount classes from the given class
-   * diagram.
-   */
+  /** Returns a list of BankAccount, checkingAccount and savingAccount classes from the given class diagram.*/
   private static List<NamedElement> bankProjectElements(ClassDiagram classDiagram) {
     return getElementsFromClassDiagram(classDiagram, "BankAccount", "checkingAccount", "savingAccount");
   }
 
-  /**
-   * Returns a list of Student, FullTimeStudent, PartTimeStudent domain model classes from the given
-   * class diagram.
-   */
+  /** Returns a list of Student, FullTimeStudent, PartTimeStudent domain model classes from the given class diagram.*/
   private static List<NamedElement> studentDomainElements(ClassDiagram classDiagram) {
     return getElementsFromClassDiagram(classDiagram, "Student", "FullTimeStudent", "PartTimeStudent");
   }
 
-  /**
-   * Returns a list of Student, fullTimeStudent, partTimeStudent domain model elements from the given
-   * class diagram.
-   */
+  /** Returns a list of Student, fullTimeStudent, partTimeStudent domain model elements from the given class diagram.*/
   private static List<NamedElement> studentProjectDomainElements(ClassDiagram classDiagram) {
     return getElementsFromClassDiagram(classDiagram, "Student", "fullTimeStudent", "partTimeStudent");
   }

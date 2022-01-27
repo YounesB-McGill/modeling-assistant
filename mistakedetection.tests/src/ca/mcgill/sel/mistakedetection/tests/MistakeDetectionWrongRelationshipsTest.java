@@ -34,7 +34,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATION
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
-import static modelingassistant.util.ClassDiagramUtils.getAssociationsFromClassDiagram;
+import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -60,13 +60,13 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
     var instructorAssociations =
-        getAssociationsFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
+        getAssocAggCompFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
     var instructorAssociation0 = instructorAssociations.get(0);
     var instructorAssociation1 = instructorAssociations.get(1);
 
     var studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
     var studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
-    var studentAssociations = getAssociationsFromClassDiagram(studentBusClass, studentDriverClass, studentClassDiagram);
+    var studentAssociations = getAssocAggCompFromClassDiagram(studentBusClass, studentDriverClass, studentClassDiagram);
     var studentAssociation0 = studentAssociations.get(0);
     var studentAssociation1 = studentAssociations.get(1);
 
@@ -94,12 +94,12 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
     var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
     var instructorAssociations =
-        getAssociationsFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
+        getAssocAggCompFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
     var instructorAssociation0 = instructorAssociations.get(0);
 
     var studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
     var studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
-    var studentAssociations = getAssociationsFromClassDiagram(studentBusClass, studentDriverClass, studentClassDiagram);
+    var studentAssociations = getAssocAggCompFromClassDiagram(studentBusClass, studentDriverClass, studentClassDiagram);
     var studentAssociation0 = studentAssociations.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
@@ -1956,7 +1956,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
 
     var instructorCompanyToEmployeeAssociation =
-        getAssociationsFromClassDiagram(instructorCompanyClass, instructorEmployeeClass, instructorClassDiagram);
+        getAssocAggCompFromClassDiagram(instructorCompanyClass, instructorEmployeeClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -1984,7 +1984,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorAirplaneClass = getClassFromClassDiagram("Airplane", instructorClassDiagram);
 
     var instructorRootToAirplaneAssociation =
-        getAssociationsFromClassDiagram(instructorRootClass, instructorAirplaneClass, instructorClassDiagram);
+        getAssocAggCompFromClassDiagram(instructorRootClass, instructorAirplaneClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2012,7 +2012,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
 
     var instructorRootToAirportAssociation =
-        getAssociationsFromClassDiagram(instructorRootClass, instructorAirportClass, instructorClassDiagram);
+        getAssocAggCompFromClassDiagram(instructorRootClass, instructorAirportClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2040,7 +2040,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
 
     var instructorRootToCityAssociation =
-        getAssociationsFromClassDiagram(instructorRootClass, instructorCityClass, instructorClassDiagram);
+        getAssocAggCompFromClassDiagram(instructorRootClass, instructorCityClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2068,7 +2068,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorPeopleClass = getClassFromClassDiagram("Person", instructorClassDiagram);
 
     var instructorRootToPeopleAssociation =
-        getAssociationsFromClassDiagram(instructorRootClass, instructorPeopleClass, instructorClassDiagram);
+        getAssocAggCompFromClassDiagram(instructorRootClass, instructorPeopleClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2096,7 +2096,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var studentPassengerClass = getClassFromClassDiagram("Passenger", studentClassDiagram);
 
     var studentRootToPassengerAssociation =
-        getAssociationsFromClassDiagram(studentRootClass, studentPassengerClass, studentClassDiagram);
+        getAssocAggCompFromClassDiagram(studentRootClass, studentPassengerClass, studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2124,7 +2124,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var studentPilotClass = getClassFromClassDiagram("Pilot", studentClassDiagram);
 
     var studentRootToPilotAssociation =
-        getAssociationsFromClassDiagram(studentRootClass, studentPilotClass, studentClassDiagram);
+        getAssocAggCompFromClassDiagram(studentRootClass, studentPilotClass, studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2152,7 +2152,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorAirportClass = getClassFromClassDiagram("Airport", instructorClassDiagram);
 
     var instructorAirportToAirplaneAssociation =
-        getAssociationsFromClassDiagram(instructorAirplaneClass, instructorAirportClass, instructorClassDiagram);
+        getAssocAggCompFromClassDiagram(instructorAirplaneClass, instructorAirportClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2180,7 +2180,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorPersonClass = getClassFromClassDiagram("Person", instructorClassDiagram);
 
     var instructorPersonToAirplaneAssociation =
-        getAssociationsFromClassDiagram(instructorAirplaneClass, instructorPersonClass, instructorClassDiagram);
+        getAssocAggCompFromClassDiagram(instructorAirplaneClass, instructorPersonClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2208,7 +2208,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
 
     var instructorCityToAirportAssociation =
-        getAssociationsFromClassDiagram(instructorAirportClass, instructorCityClass, instructorClassDiagram);
+        getAssocAggCompFromClassDiagram(instructorAirportClass, instructorCityClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2236,7 +2236,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorChapterClass = getClassFromClassDiagram("Chapter", instructorClassDiagram);
 
     var instructorBookToChapterAssociation =
-        getAssociationsFromClassDiagram(instructorBookClass, instructorChapterClass, instructorClassDiagram);
+        getAssocAggCompFromClassDiagram(instructorBookClass, instructorChapterClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2264,7 +2264,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorPlayerClass = getClassFromClassDiagram("Player", instructorClassDiagram);
 
     var instructorTeamToPlayerAssociation =
-        getAssociationsFromClassDiagram(instructorTeamClass, instructorPlayerClass, instructorClassDiagram);
+        getAssocAggCompFromClassDiagram(instructorTeamClass, instructorPlayerClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2292,7 +2292,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorEngineClass = getClassFromClassDiagram("Engine", instructorClassDiagram);
 
     var instructorCarToEngineAssociation =
-        getAssociationsFromClassDiagram(instructorCarClass, instructorEngineClass, instructorClassDiagram);
+        getAssocAggCompFromClassDiagram(instructorCarClass, instructorEngineClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2320,7 +2320,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorOwnerClass = getClassFromClassDiagram("Owner", instructorClassDiagram);
 
     var instructorCarToOwnerAssociation =
-        getAssociationsFromClassDiagram(instructorCarClass, instructorOwnerClass, instructorClassDiagram);
+        getAssocAggCompFromClassDiagram(instructorCarClass, instructorOwnerClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2348,7 +2348,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorAirplanClass = getClassFromClassDiagram("Airplan", instructorClassDiagram);
 
     var instructorPassengerToAirplanAssociation =
-        getAssociationsFromClassDiagram(instructorPassengerClass, instructorAirplanClass, instructorClassDiagram);
+        getAssocAggCompFromClassDiagram(instructorPassengerClass, instructorAirplanClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2479,7 +2479,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_UsingComInsteadOfAs/Class Diagram/Student_UsingComInsteadOfAs.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
+    
     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
     var instructorOwnerAssociationEnd = getAssociationEndFromClass("Owner", instructorCarClass);
@@ -2488,8 +2488,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(2, comparison.newMistakes.size()); // TODO Figure out one mistake type (Composed in more parts vs
-                                                    // using
-                                                    // Composition instead of aggregation)
+                                                    // using composition instead of aggregation)
     assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_COMPOSITION_INSTEAD_OF_ASSOC, studentOwnerAssociationEnd,
@@ -2783,7 +2782,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
 
     var studentCarToOwnerAssociation =
-        getAssociationsFromClassDiagram(studentOwnerClass, studentCarClass, studentClassDiagram);
+        getAssocAggCompFromClassDiagram(studentOwnerClass, studentCarClass, studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2811,7 +2810,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
 
     var studentRootToCompanyAssociation =
-        getAssociationsFromClassDiagram(studentRootClass, studentCompanyClass, studentClassDiagram);
+        getAssocAggCompFromClassDiagram(studentRootClass, studentCompanyClass, studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -2938,7 +2937,7 @@ public class MistakeDetectionWrongRelationshipsTest {
   }
 
   /**
-   * Test to check no incomplete containment tree mistake.
+   * Test to check no incomplete containment tree mistake because all classes are contained.
    */
   @Test
   public void testNoMistakeIncompleteContainmentRootExample3() {
