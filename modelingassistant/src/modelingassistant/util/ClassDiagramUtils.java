@@ -80,9 +80,9 @@ public class ClassDiagramUtils {
   }
 
   /**
-   * Returns the associations between 2 classes from a class diagram.
+   * Returns the associations, aggregation or composition between 2 classes from a class diagram.
    */
-  public static List<Association> getAssociationsFromClassDiagram(Classifier class1, Classifier class2,
+  public static List<Association> getAssocAggCompFromClassDiagram(Classifier class1, Classifier class2,
       ClassDiagram classDiagram) {
     List<Association> associations = new BasicEList<Association>();
     for (var assoc : classDiagram.getAssociations()) {

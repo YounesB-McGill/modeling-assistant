@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_RKr5EH7HEeyodLuIplQw7Q" name="Fiive_classes_WrongA" featureModel="_RKr5EX7HEeyodLuIplQw7Q" impactModel="_RKr5E37HEeyodLuIplQw7Q">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_RKr5EX7HEeyodLuIplQw7Q" root="_RKr5En7HEeyodLuIplQw7Q">
+    <features xmi:id="_RKr5En7HEeyodLuIplQw7Q" name="Fiive_classes_WrongA" realizedBy="_RrOaUX7HEeyodLuIplQw7Q"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_RKr5E37HEeyodLuIplQw7Q" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_RrOaUH7HEeyodLuIplQw7Q" name="Fiive_classes_WrongA" scene="_RrOaUX7HEeyodLuIplQw7Q" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Fiive_classes_WrongA.domain_model.cdm#_RrPBYH7HEeyodLuIplQw7Q"/>
+  </artefacts>
+  <scenes xmi:id="_RrOaUX7HEeyodLuIplQw7Q" name="Fiive_classes_WrongA" realizes="_RKr5En7HEeyodLuIplQw7Q" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_RrOaUn7HEeyodLuIplQw7Q" value="_RrOaUH7HEeyodLuIplQw7Q" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_NvAewH77Eey3BOtrwImPPg" name="Reg_class" featureModel="_NvAewX77Eey3BOtrwImPPg" impactModel="_NvAew377Eey3BOtrwImPPg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_NvAewX77Eey3BOtrwImPPg" root="_NvAewn77Eey3BOtrwImPPg">
+    <features xmi:id="_NvAewn77Eey3BOtrwImPPg" name="Reg_class" realizedBy="_OLIaEX77Eey3BOtrwImPPg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_NvAew377Eey3BOtrwImPPg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_OLIaEH77Eey3BOtrwImPPg" name="Reg_class" scene="_OLIaEX77Eey3BOtrwImPPg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Reg_class.domain_model.cdm#_OLJBIH77Eey3BOtrwImPPg"/>
+  </artefacts>
+  <scenes xmi:id="_OLIaEX77Eey3BOtrwImPPg" name="Reg_class" realizes="_NvAewn77Eey3BOtrwImPPg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_OLIaEn77Eey3BOtrwImPPg" value="_OLIaEH77Eey3BOtrwImPPg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
