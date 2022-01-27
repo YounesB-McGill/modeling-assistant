@@ -172,7 +172,7 @@ public class MistakeDetectionEnumTest {
     assertMistake(studentSolution.getMistakes().get(0), BAD_ENUM_ITEM_SPELLING, studentEnrollmentLiteral,
         instructorEnrollmentLiteral, 0, 1, false);
   }
-  
+
   /**
    * Test to check enumeration class should be regular class.
    */
@@ -187,17 +187,17 @@ public class MistakeDetectionEnumTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
-    var studentEnumClass = getEnumFromClassDiagram("Bus", studentClassDiagram); 
+    var studentEnumClass = getEnumFromClassDiagram("Bus", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-    
+
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
-    
-    assertMistake(studentSolution.getMistakes().get(0), ENUM_SHOULD_BE_CLASS, studentEnumClass,
-    		instructorClass, 0, 1, false);    
+
+    assertMistake(studentSolution.getMistakes().get(0), ENUM_SHOULD_BE_CLASS, studentEnumClass, instructorClass, 0, 1,
+        false);
   }
-  
+
   /**
    * Test to check regular class should be enumeration.
    */
@@ -211,17 +211,17 @@ public class MistakeDetectionEnumTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestEnum/reg_class/Class Diagram/Reg_class.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instructorEnrollmentEnum = getEnumFromClassDiagram("Bus", instructorClassDiagram); 
+    var instructorEnrollmentEnum = getEnumFromClassDiagram("Bus", instructorClassDiagram);
     var studentClass = getClassFromClassDiagram("Bus", studentClassDiagram);
-   
+
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-    
+
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
-    
-    assertMistake(studentSolution.getMistakes().get(0), CLASS_SHOULD_BE_ENUM, studentClass,
-    		instructorEnrollmentEnum, 0, 1, false);
-    
+
+    assertMistake(studentSolution.getMistakes().get(0), CLASS_SHOULD_BE_ENUM, studentClass, instructorEnrollmentEnum, 0,
+        1, false);
+
   }
-  
+
 }
