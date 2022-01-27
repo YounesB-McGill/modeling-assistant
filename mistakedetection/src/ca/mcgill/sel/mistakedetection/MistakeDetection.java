@@ -2674,7 +2674,7 @@ public class MistakeDetection {
 	}
 
 	public static Optional<Mistake> checkMistakeRepresentingActionWithAssoc(AssociationEnd studentClassAssocEnd,
-			AssociationEnd instructorClassAssocEnd) {
+			AssociationEnd instructorClassAssocEnd) {		
 		if (!isVerb(instructorClassAssocEnd.getName()) && isVerb(studentClassAssocEnd.getName())) {
 			return Optional
 					.of(createMistake(REPRESENTING_ACTION_WITH_ASSOC, studentClassAssocEnd, instructorClassAssocEnd));

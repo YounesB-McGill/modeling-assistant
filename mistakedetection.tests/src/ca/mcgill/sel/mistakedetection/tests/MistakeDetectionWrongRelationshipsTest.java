@@ -7,11 +7,13 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentS
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeTypesDoNotContain;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeTypesContain;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_CLASS_SHOULD_BE_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOC_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_CONTAINMENT_TREE;
 import static learningcorpus.mistaketypes.MistakeTypes.INFINITE_RECURSIVE_DEPENDENCY;
@@ -2793,6 +2795,61 @@ public class MistakeDetectionWrongRelationshipsTest {
 				1, false);
 	}
 
+	/**
+	 * Test to check extra aggregation.
+	 */
+	@Test
+	public void testMistakeExtraAggregation() {
+		var instructorClassDiagram = cdmFromFile(
+				"../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instractor_classCompany/Class Diagram/Instractor_classCompany.domain_model.cdm");
+		var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+		var studentClassDiagram = cdmFromFile(
+				"../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_extra_agg/Class Diagram/Extra_agg.domain_model.cdm");
+		var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+		var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+		var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
+
+		var studentRootToCompanyAssociation = getAssociationsFromClassDiagram(studentRootClass, studentCompanyClass,
+				studentClassDiagram);
+
+		var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+		
+		assertEquals(1, comparison.newMistakes.size());
+		assertEquals(1, studentSolution.getMistakes().size());
+
+		assertMistake(studentSolution.getMistakes().get(0), EXTRA_AGGREGATION, studentRootToCompanyAssociation.get(1), 0,
+				1, false);
+	}
+	
+	/**
+	 * Test to check Action with association.
+	 */
+	@Test
+	public void testMistakeActionInsteadOfAssoc() {
+		var instructorClassDiagram = cdmFromFile(
+				"../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_bus_driver/Class Diagram/Bus_driver.domain_model.cdm");
+		var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+		var studentClassDiagram = cdmFromFile(
+				"../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_bus_driver_action/Class Diagram/Bus_driver.domain_model.cdm");
+		var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+		var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
+		var studentRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
+		var instructorMyDriverAssociationEnd = getAssociationEndFromClass("myDriver", instructorRootClass);
+		var studentDroveAssociationEnd = getAssociationEndFromClass("drove", studentRootClass);
+
+		var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+		
+		assertEquals(2, comparison.newMistakes.size());
+		assertEquals(2, studentSolution.getMistakes().size());
+
+		assertMistake(studentSolution.getMistakes().get(0), REPRESENTING_ACTION_WITH_ASSOC, studentDroveAssociationEnd, instructorMyDriverAssociationEnd, 0,
+				1, false);
+	}
+	
 	/**
 	 * Test to check incomplete containment tree.
 	 */
