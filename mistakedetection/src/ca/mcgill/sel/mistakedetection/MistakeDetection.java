@@ -90,6 +90,7 @@ import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassD
 import static modelingassistant.util.ClassDiagramUtils.getEnumFromClassDiagram;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -486,8 +487,8 @@ public class MistakeDetection {
     }
   }
 
-  private static List<Classifier> getInstructorMissingGenClasses(Set<Classifier> studentGeneralizationClasses,
-      Set<Classifier> instructorGeneralizationClasses, Comparison comparison) {
+  private static List<Classifier> getInstructorMissingGenClasses(Collection<Classifier> studentGeneralizationClasses,
+      Collection<Classifier> instructorGeneralizationClasses, Comparison comparison) {
     List<Classifier> instClasses = new ArrayList<>();
     for (var instClass : instructorGeneralizationClasses) {
       if (!studentGeneralizationClasses.contains(comparison.mappedClassifiers.get(instClass))) {
@@ -498,8 +499,8 @@ public class MistakeDetection {
 
   }
 
-  private static List<Classifier> getStudentExtraGenClasses(Set<Classifier> studentGeneralizationClasses,
-      Set<Classifier> instructorGeneralizationClasses, Comparison comparison) {
+  private static List<Classifier> getStudentExtraGenClasses(Collection<Classifier> studentGeneralizationClasses,
+      Collection<Classifier> instructorGeneralizationClasses, Comparison comparison) {
     List<Classifier> studentClasses = new ArrayList<>();
     for (var studClass : studentGeneralizationClasses) {
       if (!instructorGeneralizationClasses.contains(getKey(comparison.mappedClassifiers, studClass))) {
@@ -511,7 +512,7 @@ public class MistakeDetection {
   }
 
   /** checks if all super classes of instructor class are present for student class*/
-  private static boolean isAllSuperClassContained(List<Classifier> studSuperClasses, List<Classifier> instSuperClasses,
+  private static boolean isAllSuperClassContained(Collection<Classifier> studSuperClasses, Collection<Classifier> instSuperClasses,
       Comparison comparison) {
     int count = 0;
     for (var instClass : instSuperClasses) {
@@ -2993,7 +2994,7 @@ public class MistakeDetection {
   public static boolean isVerb(String s) {
     boolean isVerb = false;
     if (s.isBlank()) {
-      return isVerb;
+      return false;
     }
 
     if (verbStatus.containsKey(s)) {

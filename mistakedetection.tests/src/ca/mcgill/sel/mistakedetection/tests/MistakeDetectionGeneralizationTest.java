@@ -171,7 +171,7 @@ public class MistakeDetectionGeneralizationTest {
   }
 
   /**
-   * Test to check wrong superclass correctness.
+   * Test to check absence of wrong superclass.
    */
   @Test
   public void testToCheckNoWrongSuperclass() {
@@ -415,13 +415,24 @@ public class MistakeDetectionGeneralizationTest {
     var studentClassDiagram =
         cdmFromFile(STUDENT_CDM_PATH + "student_five_classes/Class Diagram/Five_classes.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
+    
+    var instClass1 = getClassFromClassDiagram("E", instructorClassDiagram);
+    var instClass2 = getClassFromClassDiagram("D", instructorClassDiagram);
+    var studClass1 = getClassFromClassDiagram("E", studentClassDiagram);
+    var studClass2 = getClassFromClassDiagram("D", studentClassDiagram);  
+   
+    var instClass3 = getClassFromClassDiagram("C", instructorClassDiagram);    
+    var studClass3 = getClassFromClassDiagram("C", studentClassDiagram);
+    
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
+   
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
-    assertMistakeTypesContain(comparison.newMistakes, WRONG_GENERALIZATION_DIRECTION);
-    assertMistakeTypesContain(comparison.newMistakes, EXTRA_GENERALIZATION);
+    assertMistake(studentSolution.getMistakes().get(5), WRONG_GENERALIZATION_DIRECTION, List.of(studClass2, studClass3),
+        List.of(instClass2, instClass3), 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(4), EXTRA_GENERALIZATION, List.of(studClass1, studClass2),
+        List.of(instClass1, instClass2), 0, 1, false);
+    
   }
 
   /**
@@ -438,13 +449,23 @@ public class MistakeDetectionGeneralizationTest {
     var studentClassDiagram = cdmFromFile(
         STUDENT_CDM_PATH + "student_five_classes_1Missing/Class Diagram/Five_classes_1Missing.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+    
+    var instClass1 = getClassFromClassDiagram("E", instructorClassDiagram);
+    var instClass2 = getClassFromClassDiagram("A", instructorClassDiagram);
+    var studClass1 = getClassFromClassDiagram("E", studentClassDiagram);
+    var studClass2 = getClassFromClassDiagram("A", studentClassDiagram);
 
+    var instClass3 = getClassFromClassDiagram("D", instructorClassDiagram);
+    var instClass4 = getClassFromClassDiagram("C", instructorClassDiagram);
+    
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
+    
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
-    assertMistakeTypesContain(comparison.newMistakes, MISSING_GENERALIZATION);
-    assertMistakeTypesContain(comparison.newMistakes, EXTRA_GENERALIZATION);
+    assertMistake(studentSolution.getMistakes().get(4), MISSING_GENERALIZATION,List.of(instClass3, instClass4),
+        0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(5), EXTRA_GENERALIZATION, List.of(studClass1, studClass2),
+        List.of(instClass1, instClass2), 0, 1, false);
   }
 
   /**
@@ -467,11 +488,15 @@ public class MistakeDetectionGeneralizationTest {
     var studClass1 = getClassFromClassDiagram("E", studentClassDiagram);
     var studClass2 = getClassFromClassDiagram("B", studentClassDiagram);
 
+    var instClass3 = getClassFromClassDiagram("D", instructorClassDiagram);
+    var instClass4 = getClassFromClassDiagram("C", instructorClassDiagram);
+    
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
+    
     assertEquals(6, comparison.newMistakes.size());
     assertEquals(6, studentSolution.getMistakes().size());
-    assertMistakeTypesContain(comparison.newMistakes, MISSING_GENERALIZATION);
+    assertMistake(studentSolution.getMistakes().get(3), MISSING_GENERALIZATION,List.of(instClass3, instClass4),
+        0, 1, false);
     assertMistake(studentSolution.getMistakes().get(4), WRONG_SUPERCLASS, List.of(studClass1, studClass2),
         List.of(instClass1, instClass2), 0, 1, false);
 
@@ -491,12 +516,24 @@ public class MistakeDetectionGeneralizationTest {
     var studentClassDiagram = cdmFromFile(
         STUDENT_CDM_PATH + "student_five_classes_WrongA/Class Diagram/Five_classes_WrongA.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-
+    
+    var instClass1 = getClassFromClassDiagram("E", instructorClassDiagram);
+    var instClass2 = getClassFromClassDiagram("B", instructorClassDiagram);
+    var studClass1 = getClassFromClassDiagram("E", studentClassDiagram);
+    var studClass2 = getClassFromClassDiagram("B", studentClassDiagram);
+    
+    var instClass3 = getClassFromClassDiagram("D", instructorClassDiagram);
+    var instClass4 = getClassFromClassDiagram("C", instructorClassDiagram);
+    var studClass3 = getClassFromClassDiagram("D", studentClassDiagram);
+    var studClass4 = getClassFromClassDiagram("C", studentClassDiagram);
+    
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
+    
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
-    assertMistakeTypesContain(comparison.newMistakes, WRONG_SUPERCLASS);
-    assertMistakeTypesContain(comparison.newMistakes, WRONG_GENERALIZATION_DIRECTION);
+    assertMistake(studentSolution.getMistakes().get(5), WRONG_SUPERCLASS, List.of(studClass1, studClass2),
+        List.of(instClass1, instClass2), 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(4), WRONG_GENERALIZATION_DIRECTION, List.of(studClass3, studClass4),
+        List.of(instClass3, instClass4), 0, 1, false);
   }
 }
