@@ -2815,19 +2815,19 @@ public class MistakeDetectionWrongRelationshipsTest {
 				studentClassDiagram);
 
 		var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-		
+
 		assertEquals(1, comparison.newMistakes.size());
 		assertEquals(1, studentSolution.getMistakes().size());
 
-		assertMistake(studentSolution.getMistakes().get(0), EXTRA_AGGREGATION, studentRootToCompanyAssociation.get(1), 0,
-				1, false);
+		assertMistake(studentSolution.getMistakes().get(0), EXTRA_AGGREGATION, studentRootToCompanyAssociation.get(1),
+				0, 1, false);
 	}
-	
+
 	/**
 	 * Test to check Action with association.
 	 */
 	@Test
-	public void testMistakeActionInsteadOfAssoc() {
+	public void testMistakeActionWithAssoc() {
 		var instructorClassDiagram = cdmFromFile(
 				"../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_bus_driver/Class Diagram/Bus_driver.domain_model.cdm");
 		var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -2842,14 +2842,14 @@ public class MistakeDetectionWrongRelationshipsTest {
 		var studentDroveAssociationEnd = getAssociationEndFromClass("drove", studentRootClass);
 
 		var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-		
+
 		assertEquals(2, comparison.newMistakes.size());
 		assertEquals(2, studentSolution.getMistakes().size());
 
-		assertMistake(studentSolution.getMistakes().get(0), REPRESENTING_ACTION_WITH_ASSOC, studentDroveAssociationEnd, instructorMyDriverAssociationEnd, 0,
-				1, false);
+		assertMistake(studentSolution.getMistakes().get(0), REPRESENTING_ACTION_WITH_ASSOC, studentDroveAssociationEnd,
+				instructorMyDriverAssociationEnd, 0, 1, false);
 	}
-	
+
 	/**
 	 * Test to check incomplete containment tree.
 	 */
