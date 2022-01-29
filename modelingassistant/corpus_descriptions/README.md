@@ -541,7 +541,9 @@ Pick the classes which are modeled correctly with Umple.
 
 - [ ] class Student { courses; }
 - [ ] class Folder { List<File> files; }
-- [x] class Restaurant { 1 -- * Employee; }Level 5: Resource response with Reference:
+- [x] class Restaurant { 1 -- * Employee; }
+
+Level 5: Resource response with Reference:
 
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
@@ -568,7 +570,9 @@ Pick the classes which are modeled correctly with Umple.
 
 - [ ] class Student { courses; }
 - [ ] class Folder { List<File> files; }
-- [x] class Restaurant { 1 -- * Employee; }Level 6: Resource response with Reference:
+- [x] class Restaurant { 1 -- * Employee; }
+
+Level 6: Resource response with Reference:
 
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
@@ -759,12 +763,12 @@ Level 3: Parametrized response:
 
 > ${includingClass.attributeName} should be its own class.
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with List multiple-choice quiz:
 
-> Pick the class(es) modeled correctly in Umple.
+Pick the class(es) modeled correctly in Umple.
 
 - [ ] class BankAccount { Client client; }
-- [ ] class BankAccount { * -- 1..2 Client clients; }; class Client {}
+- [x] class BankAccount { * -- 1..2 Client clients; }; class Client {}
 - [ ] class BankAccount { 1..2 -- * Client clients; }; class Client {}
 - [ ] class Loan { libraryPatron; }
 
@@ -791,9 +795,17 @@ Level 3: Parametrized response:
 
 > The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with List multiple-choice quiz:
 
-> Find all the redundant associations in this class diagram (TODO).
+Find the redundant association(s) in this class diagram:
+
+![Extra associations](images/hospital_cdm_extra_assocs.png)
+
+- [x] Hospital -- Patient
+- [ ] Hospital -- Employee
+- [x] Patient -- Surgeon
+- [x] Doctor -- Ward
+- [ ] Hospital -- Ward
 
 Level 5: Resource response with Reference:
 
@@ -861,7 +873,9 @@ class Employee { 1 supervisor -- * Employee employees; }
 - [ ] The class diagram is correct.
 - [ ] The class diagram is incorrect, because some Employees do not oversee any other Employees.
 - [ ] The "employees" multiplicity should be 1..* instead of *.
-- [x] The class diagram is incorrect, because at least one Employee cannot have a supervisor, otherwise an infinite recursive dependency will occur.Level 6: Resource response with Reference:
+- [x] The class diagram is incorrect, because at least one Employee cannot have a supervisor, otherwise an infinite recursive dependency will occur.
+
+Level 6: Resource response with Reference:
 
 > Please review the [multiplicities](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
@@ -882,13 +896,17 @@ Level 4: Parametrized response:
 
 > How many ${class1}'s does a ${class2} have? [And how many ${class2}'s does ${class1} have?]
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with List multiple-choice quiz:
 
-> Pick the associations with correct multiplicities
+Pick the association(s) with correct multiplicities:
 
 - [ ] 1 EmployeeRole -- 1 Person;
-- [ ] * Episode -- 1 TvSeries;
+- [x] * Episode -- 1 TvSeries;
 - [ ] * Bank -- 1 Client;
+- [ ] * Client -- 1 BankAccount;
+- [x] 0..2 Loan -- 1 Client;
+- [x] * Person -- 1 EmployeeRole;
+- [ ] * EmployeeRole -- 1 Person;
 
 Level 6: Resource response with Reference:
 
@@ -911,13 +929,17 @@ Level 4: Parametrized response:
 
 > How many ${class1}'s does a ${class2} have? [And how many ${class2}'s does ${class1} have?]
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with List multiple-choice quiz:
 
-> Pick the associations with correct multiplicities
+Pick the association(s) with correct multiplicities:
 
 - [ ] 1 EmployeeRole -- 1 Person;
-- [ ] * Episode -- 1 TvSeries;
+- [x] * Episode -- 1 TvSeries;
 - [ ] * Bank -- 1 Client;
+- [ ] * Client -- 1 BankAccount;
+- [x] 0..2 Loan -- 1 Client;
+- [x] * Person -- 1 EmployeeRole;
+- [ ] * EmployeeRole -- 1 Person;
 
 Level 6: Resource response with Reference:
 
@@ -1655,10 +1677,15 @@ Level 3: Parametrized response:
 
 > Is it possible for an instance of ${nondistinctSubclass} to turn into an instance of another subclass over its lifetime?
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with List multiple-choice quiz:
 
-> Which classes are not subclasses of Account?
-* `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`, `ClosedAccount`
+Which classes are not subclasses of Account?
+
+- [ ] SavingsAccount
+- [x] OverdrawnAccount
+- [ ] CheckingAccount
+- [ ] MortgageAccount
+- [x] ClosedAccount
 
 Level 5: Resource response with Reference:
 

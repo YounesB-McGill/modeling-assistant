@@ -328,7 +328,7 @@ class MarkdownGenerator(TextualGenerator):
                             elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
                                 ...
                             content = content.strip()
-                            result += content if content not in result else ""
+                            result += (content + "\n\n") if content not in result else ""
                             _quizzes_to_md[primary_rsc] = content
                         elif is_table(primary_rsc.content):
                             content = f"""Resource response with {rsc_type_name}:\n\n{(2 * nl).join(
@@ -350,7 +350,7 @@ class MarkdownGenerator(TextualGenerator):
         mtcs = corpus.topLevelMistakeTypeCategories()
         return f"""{nl.join(cls.nested_toc_output_for(c) for c in mtcs)}\n{
             nl.join(cls.nested_body_output_for(c) for c in mtcs)}"""
-    
+
     @classmethod
     def save_to_file(cls, filename: str = None):
         if not filename:
@@ -390,7 +390,7 @@ class LatexGenerator(TextualGenerator):
         "Return the string with any params surrounded by `verb|...|` and with links removed and images rendered."
         def find_and_replace_image_link(match: Match[str]) -> str:
             "Find the image link and replace it with actual image with appropriate dimensions."
-            img_name = match.group(1)
+            img_name = match.group(1).replace("\\", "")
             img_path = os.path.join(CORPUS_DESCRIPTION_DIR, img_name)
             img = cv2.imread(img_path)  # pylint: disable=no-member
             height, width, _ = img.shape

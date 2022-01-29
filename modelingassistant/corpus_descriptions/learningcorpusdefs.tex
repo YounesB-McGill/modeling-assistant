@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus script.
-% Generation time: 2022-01-28 22:24:16
+% Generation time: 2022-01-29 00:36:03
 
 \section{Class mistakes}
 
@@ -893,14 +893,15 @@ Remember that attributes are simple pieces of data.
 \verb|${includingClass.attributeName}| should be its own class.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Pick the class(es) modeled correctly in Umple.
 
 \begin{itemize}
     \item[$\square$] class BankAccount \{ Client client; \}
-    \item[$\square$] class BankAccount \{ * -- 1..2 Client clients; \}; class Client \{\}
+    \item[$\boxtimes$] class BankAccount \{ * -- 1..2 Client clients; \}; class Client \{\}
     \item[$\square$] class BankAccount \{ 1..2 -- * Client clients; \}; class Client \{\}
     \item[$\square$] class Loan \{ libraryPatron; \}
 \end{itemize}
@@ -937,10 +938,23 @@ Is this association really necessary?
 The relationship between \verb|${classOne}| and \verb|${classTwo}| is not expressed in the problem description[, but there is a similar relationship with \verb|${classThree}| that is missing].
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Find all the redundant associations in this class diagram (TODO).
+
+Find the redundant association(s) in this class diagram:
+
+\\
+\includegraphics[width=0.6\textwidth]{images/hospital_cdm_extra_assocs.png}
+
+\begin{itemize}
+    \item[$\boxtimes$] Hospital -- Patient
+    \item[$\square$] Hospital -- Employee
+    \item[$\boxtimes$] Patient -- Surgeon
+    \item[$\boxtimes$] Doctor -- Ward
+    \item[$\square$] Hospital -- Ward
+\end{itemize}
+
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -1066,15 +1080,20 @@ The multiplicit(y$|$ies) for this association (is$|$are) incorrect.
 How many \verb|${class1}|'s does a \verb|${class2}| have? [And how many \verb|${class2}|'s does \verb|${class1}| have?]
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Pick the associations with correct multiplicities
+
+Pick the association(s) with correct multiplicities:
 
 \begin{itemize}
     \item[$\square$] 1 EmployeeRole -- 1 Person;
-    \item[$\square$] * Episode -- 1 TvSeries;
+    \item[$\boxtimes$] * Episode -- 1 TvSeries;
     \item[$\square$] * Bank -- 1 Client;
+    \item[$\square$] * Client -- 1 BankAccount;
+    \item[$\boxtimes$] 0..2 Loan -- 1 Client;
+    \item[$\boxtimes$] * Person -- 1 EmployeeRole;
+    \item[$\square$] * EmployeeRole -- 1 Person;
 \end{itemize}
 
 \end{tabular} \medskip
@@ -1108,15 +1127,20 @@ The multiplicit(y$|$ies) for this association (is$|$are) missing.
 How many \verb|${class1}|'s does a \verb|${class2}| have? [And how many \verb|${class2}|'s does \verb|${class1}| have?]
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Pick the associations with correct multiplicities
+
+Pick the association(s) with correct multiplicities:
 
 \begin{itemize}
     \item[$\square$] 1 EmployeeRole -- 1 Person;
-    \item[$\square$] * Episode -- 1 TvSeries;
+    \item[$\boxtimes$] * Episode -- 1 TvSeries;
     \item[$\square$] * Bank -- 1 Client;
+    \item[$\square$] * Client -- 1 BankAccount;
+    \item[$\boxtimes$] 0..2 Loan -- 1 Client;
+    \item[$\boxtimes$] * Person -- 1 EmployeeRole;
+    \item[$\square$] * EmployeeRole -- 1 Person;
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2124,12 +2148,18 @@ Can you find a better way to model this concept?
 Is it possible for an instance of \verb|${nondistinctSubclass}| to turn into an instance of another subclass over its lifetime?
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Which classes are not subclasses of Account?
+
 \begin{itemize}
-    \item SavingsAccount, OverdrawnAccount, CheckingAccount, MortgageAccount, ClosedAccount
+    \item[$\square$] SavingsAccount
+    \item[$\boxtimes$] OverdrawnAccount
+    \item[$\square$] CheckingAccount
+    \item[$\square$] MortgageAccount
+    \item[$\boxtimes$] ClosedAccount
 \end{itemize}
 
 \end{tabular} \medskip

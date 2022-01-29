@@ -303,13 +303,12 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Remember that attributes are simple pieces of data."),
                     3: ParametrizedResponse(text="${includingClass.attributeName} should be its own class."),
-                    4: ResourceResponse(learningResources=[Quiz(content=dedent("""\
-                        Pick the class(es) modeled correctly in Umple.
-
-                        - [ ] class BankAccount { Client client; }
-                        - [ ] class BankAccount { * -- 1..2 Client clients; }; class Client {}
-                        - [ ] class BankAccount { 1..2 -- * Client clients; }; class Client {}
-                        - [ ] class Loan { libraryPatron; }"""))]),
+                    4: ResourceResponse(learningResources=[mcq[
+                        "Pick the class(es) modeled correctly in Umple.",
+                           "class BankAccount { Client client; }",
+                        T: "class BankAccount { * -- 1..2 Client clients; }; class Client {}",
+                           "class BankAccount { 1..2 -- * Client clients; }; class Client {}",
+                           "class Loan { libraryPatron; }"""]]),
                     5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
         ]),
@@ -322,10 +321,18 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         "${classThree} that is missing]."),
                     ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is redundant "
                         "since we can access ${classTwo} from ${classOne} via ${classThree}.")],
-                4: [ResourceResponse(learningResources=[Quiz(
-                        content="Find all the redundant associations in this class diagram (TODO).")]),
-                    ResourceResponse(learningResources=[Quiz(content="Write pseudocode to navigate between "
-                        "ClassOne and ClassTwo in this class diagram (TODO).")])],
+                4: ResourceResponse(learningResources=[mcq[
+                    # Class diagram source: Hospital system sample UML class diagram in Umple Online
+                    dedent("""\
+                        Find the redundant association(s) in this class diagram:
+                        
+                        ![Extra associations](images/hospital_cdm_extra_assocs.png)"""),
+                    T: "Hospital -- Patient",
+                       "Hospital -- Employee",
+                    T: "Patient -- Surgeon",
+                    T: "Doctor -- Ward",
+                       "Hospital -- Ward",
+                    ]]),
                 5: ResourceResponse(learningResources=[generic_extra_item_ref := Reference(
                         content="Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to "
                                 "know which concepts should be a part of a domain model.")]),
@@ -371,12 +378,16 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 3: TextResponse(text="The multiplicit(y|ies) for this association (is|are) incorrect."),
                 4: ParametrizedResponse(text="How many ${class1}'s does a ${class2} have? [And how many "
                     "${class2}'s does ${class1} have?]"),
-                5: ResourceResponse(learningResources=[multiplicities_quiz := Quiz(content=dedent("""\
-                    Pick the associations with correct multiplicities
-
-                    - [ ] 1 EmployeeRole -- 1 Person;
-                    - [ ] * Episode -- 1 TvSeries;
-                    - [ ] * Bank -- 1 Client;"""))]),
+                5: ResourceResponse(learningResources=[multiplicities_quiz := mcq[
+                    "Pick the association(s) with correct multiplicities:",
+                       "1 EmployeeRole -- 1 Person;",
+                    T: "* Episode -- 1 TvSeries;",
+                       "* Bank -- 1 Client;",
+                       "* Client -- 1 BankAccount;",
+                    T: "0..2 Loan -- 1 Client;",
+                    T: "* Person -- 1 EmployeeRole;",
+                       "* EmployeeRole -- 1 Person;",
+                    ]]),
                 6: ResourceResponse(learningResources=[mult_ref]),
             })),
             missing_multiplicity := mt(n="Missing multiplicity", feedbacks=fbs({
@@ -718,10 +729,14 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 2: TextResponse(text="Can you find a better way to model this concept?"),
                 3: ParametrizedResponse(text="Is it possible for an instance of ${nondistinctSubclass} to turn into an "
                     "instance of another subclass over its lifetime?"),
-                4: ResourceResponse(learningResources=[distinct_subclass_quiz := Quiz(content=dedent("""\
-                    Which classes are not subclasses of Account?
-                    * `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`, `ClosedAccount`"""))]
-                    ),
+                4: ResourceResponse(learningResources=[distinct_subclass_quiz := mcq[
+                    "Which classes are not subclasses of Account?",
+                       "SavingsAccount",
+                    T: "OverdrawnAccount",
+                       "CheckingAccount",
+                       "MortgageAccount",
+                    T: "ClosedAccount",
+                    ]]),
                 5: ResourceResponse(learningResources=[gen_ref]),
             })),
             inherited_feature_does_not_make_sense_for_subclass := mt(
