@@ -314,18 +314,6 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 })),
         ]),
         extra_association_mistakes := mtc(n="Extra association mistakes", mistakeTypes=[
-            representing_action_with_assoc := mt(
-                n="Representing action with assoc", d="Representing an action with an association",
-                feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Is association the best way to model this concept?"),
-                    3: [ParametrizedResponse(text="${actionName} should not be modeled as an association."),
-                        ParametrizedResponse(
-                            text="${actionName} does not need be modeled as part of a domain model.")],
-                    4: ResourceResponse(learningResources=[generic_extra_item_ref := Reference(
-                        content="Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to "
-                        "know which concepts should be a part of a domain model.")]),
-                })),
             extra_association := mt(n="Extra association", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this association really necessary?"),
@@ -338,7 +326,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         content="Find all the redundant associations in this class diagram (TODO).")]),
                     ResourceResponse(learningResources=[Quiz(content="Write pseudocode to navigate between "
                         "ClassOne and ClassTwo in this class diagram (TODO).")])],
-                5: ResourceResponse(learningResources=[generic_extra_item_ref]),
+                5: ResourceResponse(learningResources=[generic_extra_item_ref := Reference(
+                        content="Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to "
+                                "know which concepts should be a part of a domain model.")]),
             })),
             extra_aggregation := mt(n="Extra aggregation", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
@@ -356,21 +346,24 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         multiplicity_mistakes := mtc(n="Multiplicity mistakes", mistakeTypes=[
             infinite_recursive_dependency := mt(n="Infinite recursive dependency", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
-                2: TextResponse(text="Double check (this|these) relationship(s)."),
-                3: TextResponse(text="The multiplicities for (this|these) relationship(s) are incorrect."),
-                4: [# For a self-referencing class, eg, a Person has 2 parents.
-                    ParametrizedResponse(
-                        text="Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?"),
-                    # For two classes with multiplicities 1+ on either end.
-                    ParametrizedResponse(text="How many ${class1}'s does a ${class2} have?"),
-                    # For an infinite recursive dependency involving 3 or more classes.
-                    ParametrizedResponse(
-                        text="Double check the multiplicites between ${class1}, ${class2}, and ${class3}.")],
-                5: ResourceResponse(learningResources=[Quiz(
-                    content="Edit the class diagram to allow creating a `Foo`")]),
+                2: TextResponse(text="Double check this relationship."),
+                3: TextResponse(text="The multiplicit(y|ies) for this relationship (is|are) incorrect."),
+                4: ParametrizedResponse(
+                    text="Does every ${className} have exactly ${wrongMultiplicity} ${rolename}[s]?"),
+                5: ResourceResponse(learningResources=[mcq[
+                    dedent("""\
+                        Given the following class diagram modeled in Umple, select the correct answer(s).
+                        
+                        class Employee { 1 supervisor -- * Employee employees; }"""),
+                       "The class diagram is correct.",
+                       "The class diagram is incorrect, because some Employees do not oversee any other Employees.",
+                       'The "employees" multiplicity should be 1..* instead of *.',
+                    T: "The class diagram is incorrect, because at least one Employee cannot have a supervisor, "
+                       "otherwise an infinite recursive dependency will occur.",
+                ]]),
                 6: ResourceResponse(learningResources=[mult_ref := Reference(
-                        content="Please review the [multiplicities](https://mycourses2.mcgill.ca/) part of the "
-                                "Class Diagram lecture.")]),
+                    content="Please review the [multiplicities](https://mycourses2.mcgill.ca/) part of the "
+                            "Class Diagram lecture.")]),
             })),
             wrong_multiplicity := mt(n="Wrong multiplicity", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
@@ -435,6 +428,15 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     "[Association](https://mycourses2.mcgill.ca/) and "
                     "[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.")]),
             })),
+            representing_action_with_assoc := mt(
+                n="Representing action with assoc", d="Representing an action with an association",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Is this the best role name to use here?"),
+                    3: ParametrizedResponse(text="The ${wrongRoleName} role name represents an action, which is not "
+                                                 "correct.[ Use ${correctRoleName} instead.]"),
+                    4: ResourceResponse(learningResources=[assoc_na_ref]),
+                })),
             wrong_role_name := mt(
                 n="Wrong role name", d="Wrong role name but correct association", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
@@ -553,11 +555,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_assoc_class := mt(n="Missing assoc class", d="Missing association class", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you model this relationship more precisely?"),
-                3: ParametrizedResponse(text="Does it make sense to have multiple instances of the "
-                    "${inBetweenClass} linking ${firstClass} and ${secondClass}?"),
-                4: ParametrizedResponse(text="Further details of the association between ${firstClass} and "
+                3: ParametrizedResponse(text="Further details of the association between ${firstClass} and "
                     "${secondClass} should be modeled with an association class."),
-                5: ResourceResponse(learningResources=[assoc_class_ref := Reference(
+                4: ResourceResponse(learningResources=[assoc_class_ref := Reference(
                     content="Association class\n\n![Association class](images/association_class.png)")]),
             })),
             extra_assoc_class := mt(n="Extra assoc class", d="Extra association class", feedbacks=fbs({
@@ -779,10 +779,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(
                     text="Think carefully about how to model the relationships between these concepts."),
-                3: [ParametrizedResponse(text="Modeling all the concepts in one ${playerClass} class will make it "
-                        "very complicated! Think about adding one or more classes to better represent the domain."),
-                    ParametrizedResponse(
-                        text="[Nice try, but ]a ${firstSubclass} can also play the role of a ${secondSubclass}.")],
+                3: ParametrizedResponse(
+                    text="The concepts of ${instructorPlayer} and ${instructorRole} and the relationship between them "
+                         "should be modeled with one of the forms of the Player-Role pattern."),
                 4: ResourceResponse(learningResources=[pr_quiz := Quiz(content=dedent(f"""\
                     Complete the following table:
 
@@ -804,11 +803,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: [ParametrizedResponse(
-                            text="Modeling all the concepts in one ${playerClass} class will make it very "
-                            "complicated! Think about adding one or more classes to better represent the domain."),
-                        ParametrizedResponse(text="[Nice try, but ]a ${firstSubclass} can also play the role of a "
-                            "${secondSubclass}.")],
+                    3: ParametrizedResponse(
+                        text="The concepts of ${instructorPlayer} and ${instructorRole} and the relationship between "
+                             "them should be modeled with one of the forms of the Player-Role pattern."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -967,12 +964,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: [ParametrizedResponse(text="Is there a way to remove the duplicate ${duplicateAttribute} "
-                        "attribute between ${class1} and ${class2}?"),
-                        ParametrizedResponse(text="${wronglySubclass} should not be a subclass of ${superclass}. "
-                        "Is there a design pattern that can be used here?"),
-                        ParametrizedResponse(text="The ${commonAttribute} is common information for all instances of "
-                        "${className}, but this is not enforced.")],
+                    3: ParametrizedResponse(
+                        text="The concepts of ${instructorAbstraction} and ${instructorOccurrence} and the "
+                            "relationship between them should be modeled with the Abstraction-Occurrence pattern."),
                     4: ResourceResponse(learningResources=[ao_ref := Reference(content=dedent("""\
                         The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
                         represent a set of related objects that share common information but also differ
@@ -985,12 +979,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: [ParametrizedResponse(text="Is there a way to remove the duplicate ${duplicateAttribute} "
-                        "attribute between ${class1} and ${class2}?"),
-                        ParametrizedResponse(text="${wronglySubclass} should not be a subclass of ${superclass}. "
-                        "Is there a design pattern that can be used here?"),
-                        ParametrizedResponse(text="The ${commonAttribute} is common information for all instances of "
-                        "${className}, but this is not enforced.")],
+                    3: ParametrizedResponse(
+                        text="The concepts of ${instructorAbstraction} and ${instructorOccurrence} and the "
+                            "relationship between them should be modeled with the Abstraction-Occurrence pattern."),
                     4: ResourceResponse(learningResources=[ao_ref]),
                 })),
             generalization_should_be_assoc_ao_pattern := mt(
@@ -1061,6 +1052,7 @@ mts_by_priority: list[MistakeType] = [
     inherited_feature_does_not_make_sense_for_subclass,
     wrong_multiplicity,
     bad_role_name_spelling,
+    representing_action_with_assoc,
     wrong_role_name,
     role_should_not_be_static,
     role_should_be_static,
@@ -1089,7 +1081,6 @@ mts_by_priority: list[MistakeType] = [
     extra_enum_item,
     extra_generalization,
     extra_composition,
-    representing_action_with_assoc,
     extra_association,
     extra_aggregation,
     extra_nary_association,

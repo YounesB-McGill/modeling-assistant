@@ -42,7 +42,6 @@
       1. [Missing n-ary association](#missing-n-ary-association)
       1. [Using attribute instead of association](#using-attribute-instead-of-association)
    1. [Extra association mistakes](#extra-association-mistakes)
-      1. [Representing an action with an association](#representing-an-action-with-an-association)
       1. [Extra association](#extra-association)
       1. [Extra aggregation](#extra-aggregation)
       1. [Extra n-ary association](#extra-n-ary-association)
@@ -55,6 +54,7 @@
       1. [Role should be static](#role-should-be-static)
       1. [Role should not be static](#role-should-not-be-static)
       1. [Bad role name spelling](#bad-role-name-spelling)
+      1. [Representing an action with an association](#representing-an-action-with-an-association)
       1. [Wrong role name but correct association](#wrong-role-name-but-correct-association)
    1. [Association type mistakes](#association-type-mistakes)
       1. [Using aggregation instead of association](#using-aggregation-instead-of-association)
@@ -779,23 +779,6 @@ better understand these relationships and where they are used.
 
 ### Extra association mistakes
 
-#### Representing an action with an association
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Is association the best way to model this concept?
-
-Level 3: Parametrized response:
-
-> ${actionName} should not be modeled as an association.
-
-Level 4: Resource response with Reference:
-
-> Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to know which concepts should be a part of a domain model.
-
-
 #### Extra association
 
 Level 1: Highlight solution
@@ -859,21 +842,26 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Double check (this|these) relationship(s).
+> Double check this relationship.
 
 Level 3: Text response:
 
-> The multiplicities for (this|these) relationship(s) are incorrect.
+> The multiplicit(y|ies) for this relationship (is|are) incorrect.
 
 Level 4: Parametrized response:
 
-> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
+> Does every ${className} have exactly ${wrongMultiplicity} ${rolename}[s]?
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with List multiple-choice quiz:
 
-> Edit the class diagram to allow creating a `Foo`
+Given the following class diagram modeled in Umple, select the correct answer(s).
 
-Level 6: Resource response with Reference:
+class Employee { 1 supervisor -- * Employee employees; }
+
+- [ ] The class diagram is correct.
+- [ ] The class diagram is incorrect, because some Employees do not oversee any other Employees.
+- [ ] The "employees" multiplicity should be 1..* instead of *.
+- [x] The class diagram is incorrect, because at least one Employee cannot have a supervisor, otherwise an infinite recursive dependency will occur.Level 6: Resource response with Reference:
 
 > Please review the [multiplicities](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
@@ -1006,6 +994,23 @@ Level 2: Text response:
 Level 3: Parametrized response:
 
 > ${roleName} is misspelled.[ Use the same spelling as the problem description.]
+
+Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+#### Representing an action with an association
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Is this the best role name to use here?
+
+Level 3: Parametrized response:
+
+> The ${wrongRoleName} role name represents an action, which is not correct.[ Use ${correctRoleName} instead.]
 
 Level 4: Resource response with Reference:
 
@@ -1258,13 +1263,9 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Does it make sense to have multiple instances of the ${inBetweenClass} linking ${firstClass} and ${secondClass}?
-
-Level 4: Parametrized response:
-
 > Further details of the association between ${firstClass} and ${secondClass} should be modeled with an association class.
 
-Level 5: Resource response with Reference:
+Level 4: Resource response with Reference:
 
 > Association class
 
@@ -1837,7 +1838,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Modeling all the concepts in one ${playerClass} class will make it very complicated! Think about adding one or more classes to better represent the domain.
+> The concepts of ${instructorPlayer} and ${instructorRole} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
 
 Level 4: Resource response with Quiz:
 
@@ -1868,7 +1869,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Modeling all the concepts in one ${playerClass} class will make it very complicated! Think about adding one or more classes to better represent the domain.
+> The concepts of ${instructorPlayer} and ${instructorRole} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
 
 Level 4: Resource response with Quiz:
 
@@ -2273,7 +2274,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
+> The concepts of ${instructorAbstraction} and ${instructorOccurrence} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
 
 Level 4: Resource response with Reference:
 
@@ -2294,7 +2295,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
+> The concepts of ${instructorAbstraction} and ${instructorOccurrence} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
 
 Level 4: Resource response with Reference:
 

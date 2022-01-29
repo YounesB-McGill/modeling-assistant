@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus script.
-% Generation time: 2022-01-23 20:41:48
+% Generation time: 2022-01-28 22:24:16
 
 \section{Class mistakes}
 
@@ -921,29 +921,6 @@ better understand these relationships and where they are used.
 
 \subsection{Extra association mistakes}
 
-\subsubsection{Representing an action with an association}
-
-\noindent Level 1: Highlight solution  \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Is association the best way to model this concept?
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-\verb|${actionName}| should not be modeled as an association.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Please review the \textit{domain modeling lecture} to know which concepts should be a part of a domain model.
-\end{tabular} \medskip
-
-
 \subsubsection{Extra association}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
@@ -1028,25 +1005,36 @@ Please review the \textit{domain modeling lecture} to know which concepts should
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Double check (this$|$these) relationship(s).
+Double check this relationship.
 \end{tabular} \medskip
 
 \noindent Level 3: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The multiplicities for (this$|$these) relationship(s) are incorrect.
+The multiplicit(y$|$ies) for this relationship (is$|$are) incorrect.
 \end{tabular} \medskip
 
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Does every \verb|${class1}| have exactly \verb|${wrongMultiplicity}| \verb|${rolename}|[s]?
+Does every \verb|${className}| have exactly \verb|${wrongMultiplicity}| \verb|${rolename}|[s]?
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Edit the class diagram to allow creating a `Foo`
+
+Given the following class diagram modeled in Umple, select the correct answer(s).
+
+class Employee \{ 1 supervisor -- * Employee employees; \}
+
+\begin{itemize}
+    \item[$\square$] The class diagram is correct.
+    \item[$\square$] The class diagram is incorrect, because some Employees do not oversee any other Employees.
+    \item[$\square$] The "employees" multiplicity should be 1..* instead of *.
+    \item[$\boxtimes$] The class diagram is incorrect, because at least one Employee cannot have a supervisor, otherwise an infinite recursive dependency will occur.
+\end{itemize}
+
 \end{tabular} \medskip
 
 \noindent Level 6: Resource response with Reference: \medskip
@@ -1232,6 +1220,29 @@ Double check this role name
 
 \begin{tabular}{|p{0.9\linewidth}}
 \verb|${roleName}| is misspelled.[ Use the same spelling as the problem description.]
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the \textit{Association} and \textit{Noun Analysis} parts of the Class Diagram lecture.
+\end{tabular} \medskip
+
+
+\subsubsection{Representing an action with an association}
+
+\noindent Level 1: Highlight solution  \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Is this the best role name to use here?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The \verb|${wrongRoleName}| role name represents an action, which is not correct.[ Use \verb|${correctRoleName}| instead.]
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1570,16 +1581,10 @@ Can you model this relationship more precisely?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Does it make sense to have multiple instances of the \verb|${inBetweenClass}| linking \verb|${firstClass}| and \verb|${secondClass}|?
-\end{tabular} \medskip
-
-\noindent Level 4: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
 Further details of the association between \verb|${firstClass}| and \verb|${secondClass}| should be modeled with an association class.
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Reference: \medskip
+\noindent Level 4: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Association class
@@ -2376,7 +2381,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Modeling all the concepts in one \verb|${playerClass}| class will make it very complicated! Think about adding one or more classes to better represent the domain.
+The concepts of \verb|${instructorPlayer}| and \verb|${instructorRole}| and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -2420,7 +2425,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Modeling all the concepts in one \verb|${playerClass}| class will make it very complicated! Think about adding one or more classes to better represent the domain.
+The concepts of \verb|${instructorPlayer}| and \verb|${instructorRole}| and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -2994,7 +2999,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Is there a way to remove the duplicate \verb|${duplicateAttribute}| attribute between \verb|${class1}| and \verb|${class2}|?
+The concepts of \verb|${instructorAbstraction}| and \verb|${instructorOccurrence}| and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -3022,7 +3027,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Is there a way to remove the duplicate \verb|${duplicateAttribute}| attribute between \verb|${class1}| and \verb|${class2}|?
+The concepts of \verb|${instructorAbstraction}| and \verb|${instructorOccurrence}| and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
