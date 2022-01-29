@@ -43,7 +43,7 @@ def test_md_make_quiz():
         - [ ] class Student { courses; }
         - [ ] class Folder { List<File> files; }
         - [x] class Restaurant { 1 -- * Employee; }""")
-    actual_mt_with_quiz_md = MarkdownGenerator.make_mt_body(plural_attribute_copy_mt)
+    actual_mt_with_quiz_md = MarkdownGenerator.make_mt_body(plural_attribute_copy_mt).strip()  # ignore trailing \n
     assert actual_mt_with_quiz_md == expected_mt_with_quiz_md
 
 
