@@ -16,7 +16,7 @@ from constants import T
 from corpus import effectuate_contextual_capitalization
 from corpus_definition import lowercase_class_name, uppercase_attribute_name
 from learningcorpus import ResourceResponse
-from utils import fbs, mcq, mt
+from utils import fbs, fitb, mcq, mt
 
 
 plural_attribute_copy_mt = mt(n="Plural attribute copy", feedbacks=fbs({
@@ -29,18 +29,16 @@ plural_attribute_copy_mt = mt(n="Plural attribute copy", feedbacks=fbs({
 }))
 
 extra_generalization_copy_mt = mt(n="Extra generalization copy", feedbacks=fbs({
-    5: ResourceResponse(learningResources=[inherit_checks_quiz := dedent(f"""\
-        (TODO)
+    5: ResourceResponse(learningResources=[inherit_checks_quiz := fitb(dedent("""\
         Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
         and complete the following:
 
-        The five checks for generalization are:
-        * Obeys the ________. (isA rule)
-        * Subclass must retain its ________. (distinctiveness)
-        * All ________ must make sense in each subclass. (inherited features)
-        * Subclass differs from superclass and other subclasses in ________ or ________.{
-            " "}(behavior, structure)
-        * Subclass must not be ________. (an instance)""")]),
+        The five checks for generalization are:"""),
+        "Obeys the {isA rule}.",
+        "Subclass must retain its {distinctiveness}.",
+        "All {inherited features} must make sense in each subclass.",
+        "Subclass differs from superclass and other subclasses in {behavior} or {structure}.",
+        "Subclass must not be {an instance}.")]),
 }))
 
 
@@ -65,12 +63,13 @@ def test_md_make_fill_in_the_blanks_quiz():
     expected_mt_with_quiz_md = dedent("""\
         ## Extra generalization copy
 
-        Level 5: Resource response with Fill in the blanks multiple-choice quiz:
+        Level 5: Resource response with Fill-in-the-blanks quiz:
         
         Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
         and complete the following:
 
         The five checks for generalization are:
+
         * Obeys the <ins>isA rule</ins>.
         * Subclass must retain its <ins>distinctiveness</ins>.
         * All <ins>inherited features</ins> must make sense in each subclass.
@@ -132,14 +131,15 @@ def test_tex_make_fill_in_the_blanks_quiz():
     expected_mt_with_quiz_tex = dedent(R"""
         \section{Extra generalization copy}
 
-        \noindent Level 5: Resource response with Fill in the blanks multiple-choice quiz: \medskip
-
-        \noindent Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
-        and complete the following:
+        \noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
 
         \begin{tabular}{|p{0.9\linewidth}}
 
+        Please review the \textit{checks for proper generalization} lecture material
+        and complete the following:
+
         The five checks for generalization are:
+
         \begin{itemize}
             \item Obeys the \underline{isA rule}.
             \item Subclass must retain its \underline{distinctiveness}.
@@ -194,4 +194,4 @@ def test_use_contextual_capitalization():
 
 if __name__ == "__main__":
     "Main entry point."
-    test_tex_make_multiple_choice_quiz()
+    test_tex_make_fill_in_the_blanks_quiz()

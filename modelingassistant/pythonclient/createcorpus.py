@@ -23,7 +23,7 @@ from corpus import corpus
 from fileserdes import save_to_file
 from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResponse, ParametrizedResponse,
                             ResourceResponse, Quiz)
-from learningcorpusquiz import FillInTheBlanksQuiz, ListMultipleChoiceQuiz, TableMultipleChoiceQuiz
+from learningcorpusquiz import Blank, FillInTheBlanksQuiz, ListMultipleChoiceQuiz, NonBlank, TableMultipleChoiceQuiz
 from utils import NonNoneDict
 
 
@@ -322,11 +322,18 @@ class MarkdownGenerator(TextualGenerator):
                         rsc_type = type(primary_rsc)
                         rsc_type_name = type(primary_rsc).__name__
                         if issubclass(rsc_type, Quiz) and rsc_type != Quiz:  # Quiz subclasses but not Quiz itself
-                            content = f"Resource response with {QUIZ_DISPLAY_NAMES[type(primary_rsc)]}:\n\n"
+                            content = f"""Resource response with {QUIZ_DISPLAY_NAMES[type(primary_rsc)]}:\n\n{
+                                          primary_rsc.content}\n\n"""
                             if isinstance(primary_rsc, FillInTheBlanksQuiz):
-                                ...  # append to content
+                                for statement in primary_rsc.statements:
+                                    content += "* "
+                                    for component in statement.components:
+                                        if isinstance(component, NonBlank):
+                                            content += f"{component.text}"
+                                        if isinstance(component, Blank):
+                                            content += f"<ins>{component.correctAnswer}</ins>"
+                                    content += "\n"
                             elif isinstance(primary_rsc, ListMultipleChoiceQuiz):
-                                content += f"{primary_rsc.content}\n\n"
                                 for choice in primary_rsc.choices:
                                     sel = "x" if choice in primary_rsc.correctChoices else " "
                                     content += f"- [{sel}] {choice.text}\n"
@@ -430,6 +437,8 @@ class LatexGenerator(TextualGenerator):
 
         # use math notation for certain items so they render as intended
         s = handle_list(s, ("- [ ]","- [x]", "* "), ("\\item[$\\square$]", "\\item[$\\boxtimes$]", "\\item "))
+        # replace <ins>text</ins> with \underline{text}
+        s = re.sub(r"<ins>(.*?)</ins>", r"\\underline{\1}", s)
         for c in "|<>":
             s = s.replace(c, f"${c}$")
         # replace image links with actual images
