@@ -102,6 +102,11 @@ TEX_HEADER = f"""\
 % This tex file was generated automatically by the createcorpus script.
 % Generation time: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
+\textbf{{Legend:}}
+In the textual responses, items in \verb|${{this format}}| represent the parameters of
+a parametrized response, which are computed and substituted at runtime from the general
+template based on the specific mistake. Items [in square brackets] refer to optional
+text which may or may not be included, depending on the student's knowledge.
 """
 
 TEX_PR_TABLE = R"""
@@ -356,7 +361,7 @@ class MarkdownGenerator(TextualGenerator):
         if not filename:
             filename = LEARNING_CORPUS_MARKDOWN_FILE
         md = cls.generate()
-        with open(LEARNING_CORPUS_MARKDOWN_FILE, "w", encoding="utf-8") as f:
+        with open(filename, "w", encoding="utf-8") as f:
             f.write(md)
 
 
@@ -533,7 +538,7 @@ class LatexGenerator(TextualGenerator):
         if not filename:
             filename = LEARNING_CORPUS_TEX_FILE
         tex = cls.generate()
-        with open(LEARNING_CORPUS_TEX_FILE, "w", encoding="utf-8") as f:
+        with open(filename, "w", encoding="utf-8") as f:
             f.write(tex)
 
 

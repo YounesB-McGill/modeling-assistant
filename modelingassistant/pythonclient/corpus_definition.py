@@ -658,10 +658,17 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         root class, `PISystem`.
 
                         ![PISystem](images/PISystem.png)"""))]),
-                    6: ResourceResponse(learningResources=[containment_quiz := Quiz(content=dedent("""\
-                        Complete the containment tree for the following model.
+                    6: ResourceResponse(learningResources=[containment_quiz := mcq[dedent("""\
+                        Which of the following compositions should be added to complete the containment tree for the
+                        following model.
 
-                        ![IRS](images/IRS.png)"""))]),
+                        ![IRS](images/IRS.png)"""),
+                        T: "1 IRS <@>- * StudentRole",
+                        T: "1 IRS <@>- * Person",
+                           "1 IRS <@>- * Game",
+                        T: "1 IRS <@>- * League",
+                           "1 IRS <@>- * RegularLeague",
+                        ]]),
                     7: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
             incomplete_containment_tree := mt(n="Incomplete containment tree", feedbacks=fbs({
