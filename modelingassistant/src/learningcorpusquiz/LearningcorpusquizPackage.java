@@ -352,13 +352,13 @@ public interface LearningcorpusquizPackage extends EPackage {
   int FILL_IN_THE_BLANKS_QUIZ_STATEMENT__QUIZ = 0;
 
   /**
-   * The feature id for the '<em><b>Statements</b></em>' containment reference list.
+   * The feature id for the '<em><b>Components</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS = 1;
+  int FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS = 1;
 
   /**
    * The number of structural features of the '<em>Fill In The Blanks Quiz Statement</em>' class.
@@ -837,15 +837,15 @@ public interface LearningcorpusquizPackage extends EPackage {
   EReference getFillInTheBlanksQuizStatement_Quiz();
 
   /**
-   * Returns the meta object for the containment reference list '{@link learningcorpusquiz.FillInTheBlanksQuizStatement#getStatements <em>Statements</em>}'.
+   * Returns the meta object for the containment reference list '{@link learningcorpusquiz.FillInTheBlanksQuizStatement#getComponents <em>Components</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Statements</em>'.
-   * @see learningcorpusquiz.FillInTheBlanksQuizStatement#getStatements()
+   * @return the meta object for the containment reference list '<em>Components</em>'.
+   * @see learningcorpusquiz.FillInTheBlanksQuizStatement#getComponents()
    * @see #getFillInTheBlanksQuizStatement()
    * @generated
    */
-  EReference getFillInTheBlanksQuizStatement_Statements();
+  EReference getFillInTheBlanksQuizStatement_Components();
 
   /**
    * Returns the meta object for class '{@link learningcorpusquiz.FillInTheBlanksQuizStatementComponent <em>Fill In The Blanks Quiz Statement Component</em>}'.
@@ -1180,12 +1180,12 @@ public interface LearningcorpusquizPackage extends EPackage {
      */
     EReference FILL_IN_THE_BLANKS_QUIZ_STATEMENT__QUIZ = eINSTANCE.getFillInTheBlanksQuizStatement_Quiz();
     /**
-     * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Components</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS = eINSTANCE.getFillInTheBlanksQuizStatement_Statements();
+    EReference FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS = eINSTANCE.getFillInTheBlanksQuizStatement_Components();
     /**
      * The meta object literal for the '{@link learningcorpusquiz.impl.FillInTheBlanksQuizStatementComponentImpl <em>Fill In The Blanks Quiz Statement Component</em>}' class.
      * <!-- begin-user-doc -->

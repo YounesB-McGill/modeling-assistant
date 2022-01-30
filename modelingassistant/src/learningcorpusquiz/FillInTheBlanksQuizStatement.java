@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link learningcorpusquiz.FillInTheBlanksQuizStatement#getQuiz <em>Quiz</em>}</li>
- *   <li>{@link learningcorpusquiz.FillInTheBlanksQuizStatement#getStatements <em>Statements</em>}</li>
+ *   <li>{@link learningcorpusquiz.FillInTheBlanksQuizStatement#getComponents <em>Components</em>}</li>
  * </ul>
  *
  * @see learningcorpusquiz.LearningcorpusquizPackage#getFillInTheBlanksQuizStatement()
@@ -49,17 +49,17 @@ public interface FillInTheBlanksQuizStatement extends EObject {
   void setQuiz(FillInTheBlanksQuiz value);
 
   /**
-   * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Components</b></em>' containment reference list.
    * The list contents are of type {@link learningcorpusquiz.FillInTheBlanksQuizStatementComponent}.
    * It is bidirectional and its opposite is '{@link learningcorpusquiz.FillInTheBlanksQuizStatementComponent#getStatement <em>Statement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Statements</em>' containment reference list.
-   * @see learningcorpusquiz.LearningcorpusquizPackage#getFillInTheBlanksQuizStatement_Statements()
+   * @return the value of the '<em>Components</em>' containment reference list.
+   * @see learningcorpusquiz.LearningcorpusquizPackage#getFillInTheBlanksQuizStatement_Components()
    * @see learningcorpusquiz.FillInTheBlanksQuizStatementComponent#getStatement
    * @model opposite="statement" containment="true"
    * @generated
    */
-  EList<FillInTheBlanksQuizStatementComponent> getStatements();
+  EList<FillInTheBlanksQuizStatementComponent> getComponents();
 
 } // FillInTheBlanksQuizStatement

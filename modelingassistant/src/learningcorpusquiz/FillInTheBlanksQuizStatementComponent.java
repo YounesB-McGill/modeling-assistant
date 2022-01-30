@@ -23,14 +23,14 @@ import org.eclipse.emf.ecore.EObject;
 public interface FillInTheBlanksQuizStatementComponent extends EObject {
   /**
    * Returns the value of the '<em><b>Statement</b></em>' container reference.
-   * It is bidirectional and its opposite is '{@link learningcorpusquiz.FillInTheBlanksQuizStatement#getStatements <em>Statements</em>}'.
+   * It is bidirectional and its opposite is '{@link learningcorpusquiz.FillInTheBlanksQuizStatement#getComponents <em>Components</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Statement</em>' container reference.
    * @see #setStatement(FillInTheBlanksQuizStatement)
    * @see learningcorpusquiz.LearningcorpusquizPackage#getFillInTheBlanksQuizStatementComponent_Statement()
-   * @see learningcorpusquiz.FillInTheBlanksQuizStatement#getStatements
-   * @model opposite="statements" required="true" transient="false"
+   * @see learningcorpusquiz.FillInTheBlanksQuizStatement#getComponents
+   * @model opposite="components" required="true" transient="false"
    * @generated
    */
   FillInTheBlanksQuizStatement getStatement();

@@ -65,7 +65,7 @@ public class FillInTheBlanksQuizStatementItemProvider
       super.getPropertyDescriptors(object);
 
       addQuizPropertyDescriptor(object);
-      addStatementsPropertyDescriptor(object);
+      addComponentsPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -93,19 +93,19 @@ public class FillInTheBlanksQuizStatementItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Statements feature.
+   * This adds a property descriptor for the Components feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addStatementsPropertyDescriptor(Object object) {
+  protected void addComponentsPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_FillInTheBlanksQuizStatement_statements_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_FillInTheBlanksQuizStatement_statements_feature", "_UI_FillInTheBlanksQuizStatement_type"),
-         LearningcorpusquizPackage.Literals.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS,
+         getString("_UI_FillInTheBlanksQuizStatement_components_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_FillInTheBlanksQuizStatement_components_feature", "_UI_FillInTheBlanksQuizStatement_type"),
+         LearningcorpusquizPackage.Literals.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS,
          true,
          false,
          true,
@@ -126,7 +126,7 @@ public class FillInTheBlanksQuizStatementItemProvider
   public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
     if (childrenFeatures == null) {
       super.getChildrenFeatures(object);
-      childrenFeatures.add(LearningcorpusquizPackage.Literals.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS);
+      childrenFeatures.add(LearningcorpusquizPackage.Literals.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS);
     }
     return childrenFeatures;
   }
@@ -179,7 +179,7 @@ public class FillInTheBlanksQuizStatementItemProvider
     updateChildren(notification);
 
     switch (notification.getFeatureID(FillInTheBlanksQuizStatement.class)) {
-      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS:
+      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
     }
@@ -199,17 +199,17 @@ public class FillInTheBlanksQuizStatementItemProvider
 
     newChildDescriptors.add
       (createChildParameter
-        (LearningcorpusquizPackage.Literals.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS,
+        (LearningcorpusquizPackage.Literals.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS,
          LearningcorpusquizFactory.eINSTANCE.createFillInTheBlanksQuizStatementComponent()));
 
     newChildDescriptors.add
       (createChildParameter
-        (LearningcorpusquizPackage.Literals.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS,
+        (LearningcorpusquizPackage.Literals.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS,
          LearningcorpusquizFactory.eINSTANCE.createNonBlank()));
 
     newChildDescriptors.add
       (createChildParameter
-        (LearningcorpusquizPackage.Literals.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS,
+        (LearningcorpusquizPackage.Literals.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS,
          LearningcorpusquizFactory.eINSTANCE.createBlank()));
   }
 

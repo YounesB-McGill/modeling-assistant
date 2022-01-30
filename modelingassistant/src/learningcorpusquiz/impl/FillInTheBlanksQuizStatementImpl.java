@@ -33,22 +33,21 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link learningcorpusquiz.impl.FillInTheBlanksQuizStatementImpl#getQuiz <em>Quiz</em>}</li>
- *   <li>{@link learningcorpusquiz.impl.FillInTheBlanksQuizStatementImpl#getStatements <em>Statements</em>}</li>
+ *   <li>{@link learningcorpusquiz.impl.FillInTheBlanksQuizStatementImpl#getComponents <em>Components</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class FillInTheBlanksQuizStatementImpl extends MinimalEObjectImpl.Container implements FillInTheBlanksQuizStatement {
   /**
-   * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
+   * The cached value of the '{@link #getComponents() <em>Components</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getStatements()
+   * @see #getComponents()
    * @generated
    * @ordered
    */
-  protected EList<FillInTheBlanksQuizStatementComponent> statements;
-
+  protected EList<FillInTheBlanksQuizStatementComponent> components;
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -117,11 +116,11 @@ public class FillInTheBlanksQuizStatementImpl extends MinimalEObjectImpl.Contain
    * @generated
    */
   @Override
-  public EList<FillInTheBlanksQuizStatementComponent> getStatements() {
-    if (statements == null) {
-      statements = new EObjectContainmentWithInverseEList<FillInTheBlanksQuizStatementComponent>(FillInTheBlanksQuizStatementComponent.class, this, LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS, LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT_COMPONENT__STATEMENT);
+  public EList<FillInTheBlanksQuizStatementComponent> getComponents() {
+    if (components == null) {
+      components = new EObjectContainmentWithInverseEList<FillInTheBlanksQuizStatementComponent>(FillInTheBlanksQuizStatementComponent.class, this, LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS, LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT_COMPONENT__STATEMENT);
     }
-    return statements;
+    return components;
   }
 
   /**
@@ -137,8 +136,8 @@ public class FillInTheBlanksQuizStatementImpl extends MinimalEObjectImpl.Contain
         if (eInternalContainer() != null)
           msgs = eBasicRemoveFromContainer(msgs);
         return basicSetQuiz((FillInTheBlanksQuiz)otherEnd, msgs);
-      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS:
-        return ((InternalEList<InternalEObject>)(InternalEList<?>)getStatements()).basicAdd(otherEnd, msgs);
+      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS:
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getComponents()).basicAdd(otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -153,8 +152,8 @@ public class FillInTheBlanksQuizStatementImpl extends MinimalEObjectImpl.Contain
     switch (featureID) {
       case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__QUIZ:
         return basicSetQuiz(null, msgs);
-      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS:
-        return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
+      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS:
+        return ((InternalEList<?>)getComponents()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -183,8 +182,8 @@ public class FillInTheBlanksQuizStatementImpl extends MinimalEObjectImpl.Contain
     switch (featureID) {
       case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__QUIZ:
         return getQuiz();
-      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS:
-        return getStatements();
+      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS:
+        return getComponents();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -201,9 +200,9 @@ public class FillInTheBlanksQuizStatementImpl extends MinimalEObjectImpl.Contain
       case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__QUIZ:
         setQuiz((FillInTheBlanksQuiz)newValue);
         return;
-      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS:
-        getStatements().clear();
-        getStatements().addAll((Collection<? extends FillInTheBlanksQuizStatementComponent>)newValue);
+      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS:
+        getComponents().clear();
+        getComponents().addAll((Collection<? extends FillInTheBlanksQuizStatementComponent>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -220,8 +219,8 @@ public class FillInTheBlanksQuizStatementImpl extends MinimalEObjectImpl.Contain
       case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__QUIZ:
         setQuiz((FillInTheBlanksQuiz)null);
         return;
-      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS:
-        getStatements().clear();
+      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS:
+        getComponents().clear();
         return;
     }
     super.eUnset(featureID);
@@ -237,8 +236,8 @@ public class FillInTheBlanksQuizStatementImpl extends MinimalEObjectImpl.Contain
     switch (featureID) {
       case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__QUIZ:
         return getQuiz() != null;
-      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS:
-        return statements != null && !statements.isEmpty();
+      case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS:
+        return components != null && !components.isEmpty();
     }
     return super.eIsSet(featureID);
   }
