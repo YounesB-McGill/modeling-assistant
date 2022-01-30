@@ -118,10 +118,10 @@ TEX_PR_TABLE = R"""
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 

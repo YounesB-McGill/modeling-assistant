@@ -1908,10 +1908,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -1939,10 +1939,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -1970,10 +1970,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2001,10 +2001,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2032,10 +2032,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2063,10 +2063,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2094,10 +2094,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2125,10 +2125,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2156,10 +2156,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2187,10 +2187,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2218,10 +2218,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2249,10 +2249,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2280,10 +2280,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2311,10 +2311,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 

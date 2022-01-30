@@ -806,16 +806,17 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 3: ParametrizedResponse(
                     text="The concepts of ${instructorPlayer} and ${instructorRole} and the relationship between them "
                          "should be modeled with one of the forms of the Player-Role pattern."),
+                # &#9744; is an unchecked checkbox and &#10003; is a checked checkbox
                 4: ResourceResponse(learningResources=[pr_quiz := Quiz(content=dedent(f"""\
                     Complete the following table:
 
                     Solution | Roles have different features | One role at a time |{
                         " "}Different roles at a time | More than one role at the same time
                     --- | --- | --- | --- | ---
-                    Enumeration         | [ ] | [ ] | [ ] | [ ]
-                    Subclasses          | [ ] | [ ] | [ ] | [ ]
-                    Associations        | [ ] | [ ] | [ ] | [ ]
-                    Player-Role Pattern | [ ] | [ ] | [ ] | [ ]"""))]),
+                    Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+                    Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+                    Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+                    Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;"""))]),
                 5: ResourceResponse(learningResources=[pr_ref := Reference(content=dedent("""\
                     The Player-Role Pattern can be used to capture the fact that an object may play different roles
                     in different contexts.
