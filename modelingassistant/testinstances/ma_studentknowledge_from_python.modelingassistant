@@ -1,17 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:learningcorpus="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0" xmi:id="644011bc-9ab3-48cd-b837-89399734dde7" xmi:version="2.0">
-  <solutions xsi:type="modelingassistant:Solution" xmi:id="47863c22-8262-4aae-957c-2f62caf5a3d3" student="f8b72b6a-b95b-4873-9836-25f4be715ccc">
+<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:learningcorpus="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="ffa53aa0-29b6-4ac9-8269-7d87665727b9" xmi:version="2.0">
+  <students xsi:type="modelingassistant:Student" xmi:id="de17cf2b-80c3-4196-a095-49d07b569cea" solutions="faf1179b-7990-44a1-9b53-d4814baa8f4b" id="1111" studentKnowledges="f31147e4-ba73-41ee-b5be-91ace677901c"/>
+  <students xsi:type="modelingassistant:Student" xmi:id="509a5c7a-cd86-4c17-9138-920f6cef11d6" solutions="fa83e31b-00a8-494b-961b-3b9b8cfb282a" id="2222" studentKnowledges="b049f6a4-22b0-4022-bd1b-1641387dcf5a"/>
+  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="f31147e4-ba73-41ee-b5be-91ace677901c" levelOfKnowledge="10578963.0" student="de17cf2b-80c3-4196-a095-49d07b569cea">
+    <mistakeType href="../learningcorpusinstances/default.learningcorpus#1de65a34-df77-4176-a9e8-eb411084018a" xsi:type="learningcorpus:MistakeType"/>
+  </studentKnowledges>
+  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="b049f6a4-22b0-4022-bd1b-1641387dcf5a" levelOfKnowledge="8996541.0" student="509a5c7a-cd86-4c17-9138-920f6cef11d6">
+    <mistakeType href="../learningcorpusinstances/default.learningcorpus#1de65a34-df77-4176-a9e8-eb411084018a" xsi:type="learningcorpus:MistakeType"/>
+  </studentKnowledges>
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="faf1179b-7990-44a1-9b53-d4814baa8f4b" student="de17cf2b-80c3-4196-a095-49d07b569cea">
     <classDiagram href="ma_studentknowledge_from_python1.cdm#_VQRncElSEeuektpDqzDh1Q" xsi:type="classdiagram:ClassDiagram"/>
   </solutions>
-  <solutions xsi:type="modelingassistant:Solution" xmi:id="1bc08d0d-b117-4f8a-85c2-31f674421965" student="09013af0-6b9f-4ab7-b4cc-f2a631bf80b6">
-    <classDiagram href="ma_studentknowledge_from_python2.cdm#d7066ee4-6e7b-4f6b-884b-17fd2b3e805c" xsi:type="classdiagram:ClassDiagram"/>
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="fa83e31b-00a8-494b-961b-3b9b8cfb282a" student="509a5c7a-cd86-4c17-9138-920f6cef11d6">
+    <classDiagram href="ma_studentknowledge_from_python2.cdm#8c6cc5fa-d386-4e5f-9c32-c253abaca92b" xsi:type="classdiagram:ClassDiagram"/>
   </solutions>
-  <students xsi:type="modelingassistant:Student" xmi:id="f8b72b6a-b95b-4873-9836-25f4be715ccc" id="1111" studentKnowledges="bbfa4541-2f23-4207-a09b-fbd5c0becca2" solutions="47863c22-8262-4aae-957c-2f62caf5a3d3"/>
-  <students xsi:type="modelingassistant:Student" xmi:id="09013af0-6b9f-4ab7-b4cc-f2a631bf80b6" id="2222" studentKnowledges="cc0b42d2-23a2-4bd3-a934-6f38e0e9ebcd" solutions="1bc08d0d-b117-4f8a-85c2-31f674421965"/>
-  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="bbfa4541-2f23-4207-a09b-fbd5c0becca2" student="f8b72b6a-b95b-4873-9836-25f4be715ccc" levelOfKnowledge="10578963.0">
-    <mistakeType href="../learningcorpusinstances/default.learningcorpus#65657d54-4835-4a0f-8729-4202426fe4c1" xsi:type="learningcorpus:MistakeType"/>
-  </studentKnowledges>
-  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="cc0b42d2-23a2-4bd3-a934-6f38e0e9ebcd" student="09013af0-6b9f-4ab7-b4cc-f2a631bf80b6" levelOfKnowledge="8996541.0">
-    <mistakeType href="../learningcorpusinstances/default.learningcorpus#65657d54-4835-4a0f-8729-4202426fe4c1" xsi:type="learningcorpus:MistakeType"/>
-  </studentKnowledges>
 </modelingassistant:ModelingAssistant>

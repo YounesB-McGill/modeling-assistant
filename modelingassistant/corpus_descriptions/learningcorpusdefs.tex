@@ -1,7 +1,13 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus script.
-% Generation time: 2022-01-29 00:36:03
+% Generation time: 2022-01-30 14:21:02
+
+\textbf{Legend:}
+In the textual responses, items in \verb|${this format}| represent the parameters of
+a parametrized response, which are computed and substituted at runtime from the general
+template based on the specific mistake. Items [in square brackets] refer to optional
+text which may or may not be included, depending on the student's knowledge.
 
 \section{Class mistakes}
 
@@ -1923,13 +1929,24 @@ root class, `PISystem`.
 \includegraphics[width=0.6\textwidth]{images/PISystem.png}
 \end{tabular} \medskip
 
-\noindent Level 6: Resource response with Quiz: \medskip
+\noindent Level 6: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Complete the containment tree for the following model.
+
+Which of the following compositions should be added to complete the containment tree for the
+following model.
 
 \\
 \includegraphics[width=0.6\textwidth]{images/IRS.png}
+
+\begin{itemize}
+    \item[$\boxtimes$] 1 IRS $<$@$>$- * StudentRole
+    \item[$\boxtimes$] 1 IRS $<$@$>$- * Person
+    \item[$\square$] 1 IRS $<$@$>$- * Game
+    \item[$\boxtimes$] 1 IRS $<$@$>$- * League
+    \item[$\square$] 1 IRS $<$@$>$- * RegularLeague
+\end{itemize}
+
 \end{tabular} \medskip
 
 \noindent Level 7: Resource response with Reference: \medskip
@@ -1970,13 +1987,24 @@ root class, `PISystem`.
 \includegraphics[width=0.6\textwidth]{images/PISystem.png}
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Complete the containment tree for the following model.
+
+Which of the following compositions should be added to complete the containment tree for the
+following model.
 
 \\
 \includegraphics[width=0.6\textwidth]{images/IRS.png}
+
+\begin{itemize}
+    \item[$\boxtimes$] 1 IRS $<$@$>$- * StudentRole
+    \item[$\boxtimes$] 1 IRS $<$@$>$- * Person
+    \item[$\square$] 1 IRS $<$@$>$- * Game
+    \item[$\boxtimes$] 1 IRS $<$@$>$- * League
+    \item[$\square$] 1 IRS $<$@$>$- * RegularLeague
+\end{itemize}
+
 \end{tabular} \medskip
 
 \noindent Level 6: Resource response with Reference: \medskip
@@ -2009,14 +2037,18 @@ What is the relationship between these classes?
 A \verb|${subclass}| is a \verb|${superclass}|. How should we model this?
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Place the following classes in an inheritance hierarchy:
 
 \begin{itemize}
-    \item Vehicle, LandVehicle, AmphibiousVehicle, AirVehicle, ...
-    \item BusVehicle, LuxuryBus, TourBus, BusRoute, ...
+    \item SportsCar isA \underline{Car}
+    \item \underline{Wheel} isA VehiclePart
+    \item Truck isA \underline{LandVehicle}
+    \item AmphibiousVehicle isA \underline{Vehicle}
+    \item \underline{LuxuryBus} isA BusVehicle
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2044,31 +2076,37 @@ Can you find a better way to express this relationship?
 When creating a generalization between \verb|${wrongSubclass}| and \verb|${wrongSuperclass}|, make sure to follow the \textit{checks for proper generalization}.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Place the following classes in an inheritance hierarchy:
 
 \begin{itemize}
-    \item Vehicle, LandVehicle, AmphibiousVehicle, AirVehicle, ...
-    \item BusVehicle, LuxuryBus, TourBus, BusRoute, ...
+    \item SportsCar isA \underline{Car}
+    \item \underline{Wheel} isA VehiclePart
+    \item Truck isA \underline{LandVehicle}
+    \item AmphibiousVehicle isA \underline{Vehicle}
+    \item \underline{LuxuryBus} isA BusVehicle
 \end{itemize}
 
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Please review the \textit{checks for proper generalization} lecture material
 and complete the following:
 
 The five checks for generalization are:
+
 \begin{itemize}
-    \item Obeys the \_\_\_\_\_\_\_\_. (isA rule)
-    \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
-    \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
-    \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
+    \item Obeys the \underline{isA rule}.
+    \item Subclass must retain its \underline{distinctiveness}.
+    \item All \underline{inherited features} must make sense in each subclass.
+    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
+    \item Subclass must not be \underline{an instance}.
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2096,31 +2134,37 @@ Can you find a better way to express this relationship?
 When creating a generalization between \verb|${wrongSubclass}| and \verb|${wrongSuperclass}|, make sure to follow the \textit{checks for proper generalization}.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Place the following classes in an inheritance hierarchy:
 
 \begin{itemize}
-    \item Vehicle, LandVehicle, AmphibiousVehicle, AirVehicle, ...
-    \item BusVehicle, LuxuryBus, TourBus, BusRoute, ...
+    \item SportsCar isA \underline{Car}
+    \item \underline{Wheel} isA VehiclePart
+    \item Truck isA \underline{LandVehicle}
+    \item AmphibiousVehicle isA \underline{Vehicle}
+    \item \underline{LuxuryBus} isA BusVehicle
 \end{itemize}
 
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Please review the \textit{checks for proper generalization} lecture material
 and complete the following:
 
 The five checks for generalization are:
+
 \begin{itemize}
-    \item Obeys the \_\_\_\_\_\_\_\_. (isA rule)
-    \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
-    \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
-    \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
+    \item Obeys the \underline{isA rule}.
+    \item Subclass must retain its \underline{distinctiveness}.
+    \item All \underline{inherited features} must make sense in each subclass.
+    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
+    \item Subclass must not be \underline{an instance}.
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2187,19 +2231,21 @@ Does this belong here?
 The \verb|${featureName}| feature of the \verb|${superclass}| class does not make sense for its \verb|${subclass}| subclass.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Please review the \textit{checks for proper generalization} lecture material
 and complete the following:
 
 The five checks for generalization are:
+
 \begin{itemize}
-    \item Obeys the \_\_\_\_\_\_\_\_. (isA rule)
-    \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
-    \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
-    \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
+    \item Obeys the \underline{isA rule}.
+    \item Subclass must retain its \underline{distinctiveness}.
+    \item All \underline{inherited features} must make sense in each subclass.
+    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
+    \item Subclass must not be \underline{an instance}.
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2233,19 +2279,21 @@ Remember the definition of the **'instance' rule**.[ Instances should not be mod
 A CheckingAccount isA Account, but account1234 is **not** an Account according to the 'instance' rule.
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Please review the \textit{checks for proper generalization} lecture material
 and complete the following:
 
 The five checks for generalization are:
+
 \begin{itemize}
-    \item Obeys the \_\_\_\_\_\_\_\_. (isA rule)
-    \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
-    \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
-    \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
+    \item Obeys the \underline{isA rule}.
+    \item Subclass must retain its \underline{distinctiveness}.
+    \item All \underline{inherited features} must make sense in each subclass.
+    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
+    \item Subclass must not be \underline{an instance}.
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2273,19 +2321,21 @@ Is it really necessary to model this as a subclass?
 \verb|${wrongSubclass}| needs to be different from its superclass[ and its sibling subclasses] in terms of behavior or structure.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Please review the \textit{checks for proper generalization} lecture material
 and complete the following:
 
 The five checks for generalization are:
+
 \begin{itemize}
-    \item Obeys the \_\_\_\_\_\_\_\_. (isA rule)
-    \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
-    \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
-    \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
+    \item Obeys the \underline{isA rule}.
+    \item Subclass must retain its \underline{distinctiveness}.
+    \item All \underline{inherited features} must make sense in each subclass.
+    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
+    \item Subclass must not be \underline{an instance}.
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2313,31 +2363,37 @@ Can you double check this relationship?
 Is \verb|${superclass}| really a \verb|${subclass}|?[ It should be the other way around.]
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Place the following classes in an inheritance hierarchy:
 
 \begin{itemize}
-    \item Vehicle, LandVehicle, AmphibiousVehicle, AirVehicle, ...
-    \item BusVehicle, LuxuryBus, TourBus, BusRoute, ...
+    \item SportsCar isA \underline{Car}
+    \item \underline{Wheel} isA VehiclePart
+    \item Truck isA \underline{LandVehicle}
+    \item AmphibiousVehicle isA \underline{Vehicle}
+    \item \underline{LuxuryBus} isA BusVehicle
 \end{itemize}
 
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Please review the \textit{checks for proper generalization} lecture material
 and complete the following:
 
 The five checks for generalization are:
+
 \begin{itemize}
-    \item Obeys the \_\_\_\_\_\_\_\_. (isA rule)
-    \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
-    \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
-    \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
+    \item Obeys the \underline{isA rule}.
+    \item Subclass must retain its \underline{distinctiveness}.
+    \item All \underline{inherited features} must make sense in each subclass.
+    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
+    \item Subclass must not be \underline{an instance}.
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2373,14 +2429,18 @@ Can you (find$|$create) a (better$|$different) superclass for \verb|${subclass}|
 What is the inheritance hierarchy between \verb|${hierarchy.classes}|?
 \end{tabular} \medskip
 
-\noindent Level 6: Resource response with Quiz: \medskip
+\noindent Level 6: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Place the following classes in an inheritance hierarchy:
 
 \begin{itemize}
-    \item Vehicle, LandVehicle, AmphibiousVehicle, AirVehicle, ...
-    \item BusVehicle, LuxuryBus, TourBus, BusRoute, ...
+    \item SportsCar isA \underline{Car}
+    \item \underline{Wheel} isA VehiclePart
+    \item Truck isA \underline{LandVehicle}
+    \item AmphibiousVehicle isA \underline{Vehicle}
+    \item \underline{LuxuryBus} isA BusVehicle
 \end{itemize}
 
 \end{tabular} \medskip

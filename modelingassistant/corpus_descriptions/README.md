@@ -1518,11 +1518,18 @@ root class, `PISystem`.
 
 ![PISystem](images/PISystem.png)
 
-Level 6: Resource response with Quiz:
+Level 6: Resource response with List multiple-choice quiz:
 
-> Complete the containment tree for the following model.
+Which of the following compositions should be added to complete the containment tree for the
+following model.
 
 ![IRS](images/IRS.png)
+
+- [x] 1 IRS <@>- * StudentRole
+- [x] 1 IRS <@>- * Person
+- [ ] 1 IRS <@>- * Game
+- [x] 1 IRS <@>- * League
+- [ ] 1 IRS <@>- * RegularLeague
 
 Level 7: Resource response with Reference:
 
@@ -1552,11 +1559,18 @@ root class, `PISystem`.
 
 ![PISystem](images/PISystem.png)
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with List multiple-choice quiz:
 
-> Complete the containment tree for the following model.
+Which of the following compositions should be added to complete the containment tree for the
+following model.
 
 ![IRS](images/IRS.png)
+
+- [x] 1 IRS <@>- * StudentRole
+- [x] 1 IRS <@>- * Person
+- [ ] 1 IRS <@>- * Game
+- [x] 1 IRS <@>- * League
+- [ ] 1 IRS <@>- * RegularLeague
 
 Level 6: Resource response with Reference:
 
@@ -1581,12 +1595,15 @@ Level 3: Parametrized response:
 
 > A ${subclass} is a ${superclass}. How should we model this?
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with Fill-in-the-blanks quiz:
 
-> Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy:
 
-* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
-* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+* SportsCar isA <ins>Car</ins>
+* <ins>Wheel</ins> isA VehiclePart
+* Truck isA <ins>LandVehicle</ins>
+* AmphibiousVehicle isA <ins>Vehicle</ins>
+* <ins>LuxuryBus</ins> isA BusVehicle
 
 Level 5: Resource response with Reference:
 
@@ -1605,24 +1622,28 @@ Level 3: Parametrized response:
 
 > When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with Fill-in-the-blanks quiz:
 
-> Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy:
 
-* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
-* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+* SportsCar isA <ins>Car</ins>
+* <ins>Wheel</ins> isA VehiclePart
+* Truck isA <ins>LandVehicle</ins>
+* AmphibiousVehicle isA <ins>Vehicle</ins>
+* <ins>LuxuryBus</ins> isA BusVehicle
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with Fill-in-the-blanks quiz:
 
-> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
-* Obeys the ________. (isA rule)
-* Subclass must retain its ________. (distinctiveness)
-* All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (an instance)
+
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>.
 
 Level 6: Resource response with Reference:
 
@@ -1641,24 +1662,28 @@ Level 3: Parametrized response:
 
 > When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with Fill-in-the-blanks quiz:
 
-> Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy:
 
-* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
-* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+* SportsCar isA <ins>Car</ins>
+* <ins>Wheel</ins> isA VehiclePart
+* Truck isA <ins>LandVehicle</ins>
+* AmphibiousVehicle isA <ins>Vehicle</ins>
+* <ins>LuxuryBus</ins> isA BusVehicle
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with Fill-in-the-blanks quiz:
 
-> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
-* Obeys the ________. (isA rule)
-* Subclass must retain its ________. (distinctiveness)
-* All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (an instance)
+
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>.
 
 Level 6: Resource response with Reference:
 
@@ -1704,17 +1729,18 @@ Level 3: Parametrized response:
 
 > The ${featureName} feature of the ${superclass} class does not make sense for its ${subclass} subclass.
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with Fill-in-the-blanks quiz:
 
-> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
-* Obeys the ________. (isA rule)
-* Subclass must retain its ________. (distinctiveness)
-* All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (an instance)
+
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>.
 
 Level 5: Resource response with Reference:
 
@@ -1737,17 +1763,18 @@ Level 4: Resource response with Example:
 
 > A CheckingAccount isA Account, but account1234 is **not** an Account according to the 'instance' rule.
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with Fill-in-the-blanks quiz:
 
-> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
-* Obeys the ________. (isA rule)
-* Subclass must retain its ________. (distinctiveness)
-* All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (an instance)
+
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>.
 
 Level 6: Resource response with Reference:
 
@@ -1766,17 +1793,18 @@ Level 3: Parametrized response:
 
 > ${wrongSubclass} needs to be different from its superclass[ and its sibling subclasses] in terms of behavior or structure.
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with Fill-in-the-blanks quiz:
 
-> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
-* Obeys the ________. (isA rule)
-* Subclass must retain its ________. (distinctiveness)
-* All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (an instance)
+
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>.
 
 Level 5: Resource response with Reference:
 
@@ -1795,24 +1823,28 @@ Level 3: Parametrized response:
 
 > Is ${superclass} really a ${subclass}?[ It should be the other way around.]
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with Fill-in-the-blanks quiz:
 
-> Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy:
 
-* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
-* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+* SportsCar isA <ins>Car</ins>
+* <ins>Wheel</ins> isA VehiclePart
+* Truck isA <ins>LandVehicle</ins>
+* AmphibiousVehicle isA <ins>Vehicle</ins>
+* <ins>LuxuryBus</ins> isA BusVehicle
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with Fill-in-the-blanks quiz:
 
-> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
-* Obeys the ________. (isA rule)
-* Subclass must retain its ________. (distinctiveness)
-* All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (an instance)
+
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>.
 
 Level 6: Resource response with Reference:
 
@@ -1837,12 +1869,15 @@ Level 5: Parametrized response:
 
 > What is the inheritance hierarchy between ${hierarchy.classes}?
 
-Level 6: Resource response with Quiz:
+Level 6: Resource response with Fill-in-the-blanks quiz:
 
-> Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy:
 
-* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
-* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+* SportsCar isA <ins>Car</ins>
+* <ins>Wheel</ins> isA VehiclePart
+* Truck isA <ins>LandVehicle</ins>
+* AmphibiousVehicle isA <ins>Vehicle</ins>
+* <ins>LuxuryBus</ins> isA BusVehicle
 
 Level 7: Resource response with Reference:
 

@@ -10,7 +10,7 @@ from textwrap import dedent
 from constants import T
 from learningcorpus import (Example, Feedback, LearningCorpus, MistakeType, ParametrizedResponse, Quiz, Reference,
                             ResourceResponse, TextResponse)
-from utils import mcq, mtc, mt, fbs
+from utils import mcq, mtc, mt, fbs, fitb
 
 
 corpus = LearningCorpus(mistakeTypeCategories=[
@@ -686,11 +686,14 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="What is the relationship between these classes?"),
                 3: ParametrizedResponse(text="A ${subclass} is a ${superclass}. How should we model this?"),
-                4: ResourceResponse(learningResources=[inherit_hierarchy_quiz := Quiz(content=dedent("""\
-                    Place the following classes in an inheritance hierarchy:
-                    
-                    * `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
-                    * `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ..."""))]),
+                4: ResourceResponse(learningResources=[inherit_hierarchy_quiz := fitb(
+                    "Place the following classes in an inheritance hierarchy:",
+                    "SportsCar isA {Car}",
+                    "{Wheel} isA VehiclePart",
+                    "Truck isA {LandVehicle}",
+                    "AmphibiousVehicle isA {Vehicle}",
+                    "{LuxuryBus} isA BusVehicle",
+                )]),
                 5: ResourceResponse(learningResources=[gen_ref := Reference(
                     content="Please review the [Generalization](https://mycourses2.mcgill.ca/) part of the Class "
                             "Diagram lecture.")]),
@@ -704,17 +707,16 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     "[checks for proper generalization](https://mycourses2.mcgill.ca/)."),
                     ParametrizedResponse(text="${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.")],
                 4: ResourceResponse(learningResources=[inherit_hierarchy_quiz]),
-                5: ResourceResponse(learningResources=[inherit_checks_quiz := Quiz(content=dedent(f"""\
+                5: ResourceResponse(learningResources=[inherit_checks_quiz := fitb(dedent("""\
                     Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
                     and complete the following:
 
-                    The five checks for generalization are:
-                    * Obeys the ________. (isA rule)
-                    * Subclass must retain its ________. (distinctiveness)
-                    * All ________ must make sense in each subclass. (inherited features)
-                    * Subclass differs from superclass and other subclasses in ________ or ________.{
-                        " "}(behavior, structure)
-                    * Subclass must not be ________. (an instance)"""))]),
+                    The five checks for generalization are:"""),
+                    "Obeys the {isA rule}.",
+                    "Subclass must retain its {distinctiveness}.",
+                    "All {inherited features} must make sense in each subclass.",
+                    "Subclass differs from superclass and other subclasses in {behavior} or {structure}.",
+                    "Subclass must not be {an instance}.")]),
                 6: ResourceResponse(learningResources=[gen_ref]),
             })),
             generalization_inapplicable := mt(
