@@ -47,7 +47,16 @@ import modelingassistant.SolutionElement;
 /**
  * Leverages the Mistake Detection tests to extract and log useful information about learning corpus items such as
  * mistake types. Running this file will output useful statistics about the mistake detection system, its tests, and how
- * mistake types map to various solution elements.
+ * mistake types map to various solution elements.<br><br>
+ *
+ * Design principles used for this class:
+ *
+ * <ul>
+ *   <li>Use the (functional) pipeline design pattern to transform items in a collection</li>
+ *   <li>Use short helper functions that can be composed to perform something useful</li>
+ *   <li>Separation of logic (eg, mapMistakesToLearningCorpusElementTypes) and presentation (eg, get...AsCsv)</li>
+ *   <li>Only one print statement in entire program, everywhere else strings should be accumulated instead</li>
+ * </ul>
  *
  * @author Younes Boubekeur
  */
