@@ -18,6 +18,7 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPacka
 import java.io.PrintWriter;
 import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -251,8 +252,8 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
    *
    * {@code mistakeType.name: type1, type2, ...}
    */
-  public static String getCdmMetatypeMappingAsCsv(Map<MistakeType,
-      Set<SimpleImmutableEntry<EClass, Boolean>>> mapping) {
+  public static String getCdmMetatypeMappingAsCsv(
+      Map<MistakeType, ? extends Collection<SimpleImmutableEntry<EClass, Boolean>>> mapping) {
     return mapping.entrySet().stream().map(e ->
         e.getKey().getName() + ": " + String.join(", ", e.getValue().stream()
             .map(p -> (p.getValue() ? "Student" : "Instructor") + " " + p.getKey().getName())
@@ -265,7 +266,8 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
    *
    * {@code mistakeType.name: type1, type2, ...}
    */
-  public static String getLearningCorpusElementTypeMappingAsCsv(Map<MistakeType, Set<ElementType>> mapping) {
+  public static String getLearningCorpusElementTypeMappingAsCsv(
+      Map<MistakeType, ? extends Collection<ElementType>> mapping) {
     return mapping.entrySet().stream().map(e ->
         e.getKey().getName() + ": " + String.join(", ", e.getValue().stream().map(ElementType::getName)
             .collect(Collectors.toUnmodifiableList()))).collect(Collectors.joining("\n"));
