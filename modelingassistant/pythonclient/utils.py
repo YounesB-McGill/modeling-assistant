@@ -82,6 +82,14 @@ def fitb(prompt: str, *statements) -> FillInTheBlanksQuiz:
     statements: quiz statements with blanks to be filled in, with the following format:
         "Python formatted string with {blanks} in {curly braces}."
      -> "Python formatted string with ________ in ______________."
+
+    Example usage:
+    ```
+    fitb("Fill in the blanks to complete the sentence:",
+         "The capital of Canada is {Ottawa} and its largest city is {Toronto}.",
+         "The capital and largest city of France is {Paris}.",
+         "The capital of {Australia} is Canberra.")
+    ```
     """
     if not prompt or not isinstance(prompt, str):
         raise ValueError(f"Prompt must be a non-empty string, got {prompt}")
