@@ -37,6 +37,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_GENERALIZATION;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_CONTAINMENT_TREE;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PR_PATTERN;
@@ -62,7 +63,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
-import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_PR_PATTERN;
@@ -139,7 +139,7 @@ public class MistakeDetection {
   public static final CdmFactory CDF = CdmFactory.eINSTANCE;
   public static final ModelingassistantFactory MAF = ModelingassistantFactory.eINSTANCE;
 
-  /** The maximum limit after which a resolved mistake will be removed from student solution.*/
+  /** The maximum limit after which a resolved mistake will be removed from student solution. */
   public static final int MAX_DETECTIONS_AFTER_RESOLUTION = 5;
 
   /** The maximum number of difference two words can have in terms of letters. */
@@ -614,7 +614,7 @@ public class MistakeDetection {
     return superclasses;
   }
 
- 
+
   // TODO Remove after everything is FInal private static void
  /*
   private static void checkMistakeMissingGeneralization(Comparison comparison) {
@@ -659,7 +659,7 @@ public class MistakeDetection {
     }
   }
 */
-   
+
   private static void checkMistakeWrongSuperclass(Comparison comparison) {
     for (var mapSet : comparison.instructorSuperclassesToSubclasses.entrySet()) {
       Classifier instSuperclass = mapSet.getKey();
@@ -1148,7 +1148,7 @@ public class MistakeDetection {
     }
   }
 
-  /** Checks if associations are linked to player class.*/
+  /** Checks if associations are linked to player class. */
   private static boolean assocPatternCorrect(Classifier studentPlayerClass, List<String> studentRoleAssocEnd) {
     int count = 0;
     for (AssociationEnd assocEnd : studentPlayerClass.getAssociationEnds()) {
@@ -1552,7 +1552,7 @@ public class MistakeDetection {
     return true;
   }
 
-  /** Returns true if an association exists between two classes in a solution.*/
+  /** Returns true if an association exists between two classes in a solution. */
   private static boolean assocExists(Classifier class1, Classifier class2) {
     return class1.getAssociationEnds().stream().anyMatch(ae -> getOtherAssocEnd(ae).getClassifier().equals(class2));
   }
@@ -1867,7 +1867,7 @@ public class MistakeDetection {
     });
   }
 
-  /** Returns true if a student element has a mistake associated with it.*/
+  /** Returns true if a student element has a mistake associated with it. */
   private static boolean checkStudentElementForMistake(List<Mistake> newMistakes, NamedElement value) {
     for (Mistake mistake : newMistakes) {
       for (var studentElement : mistake.getStudentElements()) {
@@ -1879,7 +1879,7 @@ public class MistakeDetection {
     return false;
   }
 
-  /** Returns true if a instructor element has a mistake associated with it.*/
+  /** Returns true if a instructor element has a mistake associated with it. */
   private static boolean checkInstructorElementForMistake(List<Mistake> newMistakes, NamedElement value) {
     for (Mistake mistake : newMistakes) {
       for (var instructorElement : mistake.getInstructorElements()) {
@@ -1891,7 +1891,7 @@ public class MistakeDetection {
     return false;
   }
 
-  /** This function updates new and older mistakes in the metamodel and comparison.*/
+  /** This function updates new and older mistakes in the metamodel and comparison. */
   private static void updateMistakes(Solution instructorSolution, Solution studentSolution, Comparison comparison,
       boolean filter) {
     final Consumer<? super Mistake> setSolutionForElems = m -> {
@@ -2067,12 +2067,12 @@ public class MistakeDetection {
   // TODO Move helper methods to their relevant classes so they can be reused
   // elsewhere in the app
 
-  /** Returns true if the given mistake has both instructor and student elements.*/
+  /** Returns true if the given mistake has both instructor and student elements. */
   private static boolean hasInstructorAndStudentElements(Mistake mistake) {
     return !mistake.getInstructorElements().isEmpty() && !mistake.getStudentElements().isEmpty();
   }
 
-  /** Returns true if the given mistakes have both instructor and student elements.*/
+  /** Returns true if the given mistakes have both instructor and student elements. */
   private static boolean haveInstructorAndStudentElements(Mistake... mistakes) {
     return Arrays.stream(mistakes).allMatch(MistakeDetection::hasInstructorAndStudentElements);
   }
@@ -2237,7 +2237,7 @@ public class MistakeDetection {
           mapClasses(comparison, studentClassifier, instructorClassifier);
           checkMistakesInClassifier(studentClassifier, instructorClassifier, comparison.newMistakes);
           List<Attribute> studentAttributes = studentClassifier.getAttributes();
-          for (Attribute instructorAttribute : instructorAttributes) { 
+          for (Attribute instructorAttribute : instructorAttributes) {
             for (Attribute studentAttribute : studentAttributes) {
               float lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
               if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
@@ -2257,8 +2257,10 @@ public class MistakeDetection {
     return !maxAttributeMatch(possibleClassMatch).isEmpty();
   }
 
-  /** Returns the nearest matching student class to the instructorClass.
-   If a match is found then zeroth element of list will be true, else false.*/
+  /**
+   * Returns the nearest matching student class to the instructorClass.
+   * If a match is found then zeroth element of list will be true, else false.
+   */
   private static Classifier getMatchedClassifier(Map<Classifier, Double> possibleClassMatch,
       Classifier instructorClass) {
     var elements = maxAttributeMatch(possibleClassMatch);
@@ -2275,7 +2277,7 @@ public class MistakeDetection {
     return null;
   }
 
-  /**Returns the class with closest number of association ends with that of a instructor class.*/
+  /** Returns the class with closest number of association ends with that of a instructor class. */
   private static Classifier classWithOtherAssociationClassMatch(List<Classifier> studentClasses,
       Classifier instructorClass) {
     List<String> instClassesName = new ArrayList<>();
@@ -2316,7 +2318,7 @@ public class MistakeDetection {
     return seekedClassifier;
   }
 
-  /** Returns the class with closest number of association ends with that of a instructor class.*/
+  /** Returns the class with closest number of association ends with that of a instructor class. */
   private static Classifier classWithAssociationEndsMatch(List<Classifier> studentClasses, Classifier instructorClass) {
     int instAssocEnds = instructorClass.getAssociationEnds().size();
     Classifier seekedClassifier = null;
@@ -2338,7 +2340,7 @@ public class MistakeDetection {
     return seekedClassifier;
   }
 
-  /** Returns the classifiers with maximum number of matched attributes.*/
+  /** Returns the classifiers with maximum number of matched attributes. */
   public static List<Classifier> maxAttributeMatch(Map<Classifier, Double> map) {
     Map.Entry<Classifier, Double> entryWithMaxValue = null;
     List<Classifier> topMatchedElements = new ArrayList<>();
@@ -2376,7 +2378,7 @@ public class MistakeDetection {
 
   /** Returns element closest to target in array. */
   public static int findClosest(List<Integer> assocEndValues, int target) {
-    HashMap<Integer, Integer> closestNumbDiffMap = new HashMap<Integer, Integer>();
+    Map<Integer, Integer> closestNumbDiffMap = new HashMap<>();
     assocEndValues.forEach(value -> {
       int diff = target - value;
       closestNumbDiffMap.put(value, Math.abs(diff));
@@ -2385,24 +2387,24 @@ public class MistakeDetection {
     return sortedClosestNumbDiffMap.keySet().stream().findFirst().get();
   }
 
-  /**  Sorts hash map by values.*/
-  public static Map<Integer, Integer> sortByValue(HashMap<Integer, Integer> hm) {
-    // Create a list from elements of HashMap
-    List<Map.Entry<Integer, Integer>> list = new LinkedList<Map.Entry<Integer, Integer>>(hm.entrySet());
+  /** Sorts input map by values. */
+  public static Map<Integer, Integer> sortByValue(Map<Integer, Integer> hm) {
+    // Create a list from elements of input map
+    List<Map.Entry<Integer, Integer>> list = new LinkedList<>(hm.entrySet());
     // Sort the list
     Collections.sort(list, Comparator.comparing(Map.Entry::getValue));
     // Put data from sorted list to hash map
-    Map<Integer, Integer> result = new LinkedHashMap<Integer, Integer>();
+    Map<Integer, Integer> result = new LinkedHashMap<>();
     for (var entry : list) {
       result.put(entry.getKey(), entry.getValue());
     }
     return result;
   }
 
-  /** Sorts hash map by values. */
-  public static List<Classifier> sortByValueClassifier(HashMap<Classifier, Integer> hm) {
-    // Create a list from elements of HashMap
-    List<Map.Entry<Classifier, Integer>> list = new LinkedList<Map.Entry<Classifier, Integer>>(hm.entrySet());
+  /** Sorts input by values. */
+  public static List<Classifier> sortByValueClassifier(Map<Classifier, Integer> hm) {
+    // Create a list from elements of input map
+    List<Map.Entry<Classifier, Integer>> list = new LinkedList<>(hm.entrySet());
     // Sort the list
     Collections.sort(list, Comparator.comparing(Map.Entry::getValue));
     // Put data from sorted list to hash map
@@ -2960,7 +2962,7 @@ public class MistakeDetection {
     }
   }
 
-  /** Returns true if the input string is a software engineering term.*/
+  /** Returns true if the input string is a software engineering term. */
   public static boolean isSoftwareEngineeringTerm(String s) {
     final var softwareEnginneringTerms = List.of("data", "record", "table", "info", "class", "list");
     for (var seTerm : softwareEnginneringTerms) {
@@ -2970,7 +2972,7 @@ public class MistakeDetection {
     return false;
   }
 
-  /**Returns true if the input string is plural.*/
+  /**Returns true if the input string is plural. */
   public static boolean isPlural(String s) {
     boolean isPlural = false;
 
@@ -2990,7 +2992,7 @@ public class MistakeDetection {
     return isPlural;
   }
 
-  /**Returns true if the input string is a verb.*/
+  /**Returns true if the input string is a verb. */
   public static boolean isVerb(String s) {
     boolean isVerb = false;
     if (s.isBlank()) {
@@ -3035,12 +3037,12 @@ public class MistakeDetection {
     return lDistance > 0 && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED;
   }
 
-  /**Returns true if the student has made attribute not static but static is required.*/
+  /** Returns true if the student has made attribute not static but static is required. */
   public static boolean isAttributeExpectedStatic(Attribute studentAttribute, Attribute instructorAttribute) {
     return !studentAttribute.isStatic() && instructorAttribute.isStatic();
   }
 
-  /**Returns true if the student has made attribute static but static is not required. */
+  /** Returns true if the student has made attribute static but static is not required. */
   public static boolean isAttributeNotExpectedStatic(Attribute studentAttribute, Attribute instructorAttribute) {
     return studentAttribute.isStatic() && !instructorAttribute.isStatic();
   }
@@ -3133,20 +3135,23 @@ public class MistakeDetection {
     return studentClassAssocEnd.isStatic() && !instructorClassAssocEnd.isStatic();
   }
 
-  /**Returns true if association class is extra. */
+  /** Returns true if association class is extra. */
   public static boolean isAssociationClassExtra(Association studentClassAssoc, Association instructorClassAssoc) {
     return studentClassAssoc.getAssociationClass() != null && instructorClassAssoc.getAssociationClass() == null;
   }
 
-  /** Returns true if association class is missing.*/
+  /** Returns true if association class is missing. */
   public static boolean isAssociationClassMissing(Association studentClassAssoc, Association instructorClassAssoc) {
     return studentClassAssoc.getAssociationClass() == null && instructorClassAssoc.getAssociationClass() != null;
   }
 
-  /**Creates a new mistake from the input parameters.   *
+  /**
+   * Creates a new mistake from the input parameters.
+   *
    * @param mistakeType
    * @param studentElement
-   * @param instructorElement */
+   * @param instructorElement
+   */
   private static Mistake createMistake(MistakeType mistakeType, NamedElement studentElement,
       NamedElement instructorElement) {
     var mistake = MAF.createMistakeOfType(mistakeType);
@@ -3195,7 +3200,7 @@ public class MistakeDetection {
     return checkCorrectTest(instructorClassifier, studentClassifier, new Comparison());
   }
 
-  /***
+  /**
    * This is a function created for testing the logic. Only for test.
    *
    * @param instructorClassifier
