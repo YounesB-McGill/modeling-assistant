@@ -138,6 +138,11 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       // getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(studentElems)),
       getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorAndStudentElems)),
 
+      title("Mistake type mapping to instructor/student solution element descriptions"),
+      // getLearningCorpusElementDescriptionMappingAsCsv(mapMistakesToElementDescriptions(studentElems)),
+      // getLearningCorpusElementDescriptionMappingAsCsv(mapMistakesToElementDescriptions(instructorElems)),
+      getLearningCorpusElementDescriptionMappingAsCsv(mapMistakesToElementDescriptions(instructorAndStudentElems)),
+
       title("Mistake type mapping to learning corpus ElementTypes"),
       // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorElems)),
       // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(studentElems)),
@@ -201,14 +206,21 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   /** Maps comparison mistakes to CDM metatypes. */
   public static Map<MistakeType, Set<SimpleImmutableEntry<EClass, Boolean>>> mapMistakesToCdmMetatypes(
       Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer) {
-    return mapMistakesTo(mistakeSolutionElementsStreamer, e ->
+    return mapAllMistakesTo(mistakeSolutionElementsStreamer, e ->
         new SimpleImmutableEntry<>(e.getElement().eClass(), hasStudent(e)));
+  }
+
+  /** Maps comparison mistakes to CDM metatypes. */
+  public static Map<MistakeType, Set<ElementDescription>> mapMistakesToElementDescriptions(
+      Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer) {
+    return mapMistakesTo(allMistakesLimitOneOfEachType(), mistakeSolutionElementsStreamer,
+        ElementDescription::fromElement);
   }
 
   /** Maps comparison mistakes to learning corpus ElementTypes. */
   public static Map<MistakeType, Set<ElementType>> mapMistakesToLearningCorpusElementTypes(
       Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer) {
-    return mapMistakesTo(mistakeSolutionElementsStreamer, e ->
+    return mapAllMistakesTo(mistakeSolutionElementsStreamer, e ->
         cdmMetatypesToLearningCorpusElementTypes.getOrDefault(e.getElement().eClass(),
             // assume for now that all input metatypes are either in map or association instances
             e.getElement() instanceof Association ?
@@ -275,11 +287,24 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
    *
    * {@code mistakeType.name: type1, type2, ...}
    */
+  public static String getLearningCorpusElementDescriptionMappingAsCsv(
+      Map<MistakeType, ? extends Collection<ElementDescription>> mapping) {
+    return mapping.entrySet().stream().map(e ->
+        e.getKey().getName() + ": " + String.join(", ", e.getValue().stream().map(ElementDescription::toString)
+            .collect(Collectors.toUnmodifiableList()))).collect(Collectors.joining("\n"));
+  }
+
+  /**
+   * Returns the mapping of comparison mistakes to learning corpus ElementTypes in a CSV-compatible format.
+   * The format of each row is as follows:<br>
+   *
+   * {@code mistakeType.name: type1, type2, ...}
+   */
   public static String getLearningCorpusElementTypeMappingAsCsv(
       Map<MistakeType, ? extends Collection<ElementType>> mapping) {
     return mapping.entrySet().stream().map(e ->
-        e.getKey().getName() + ": " + String.join(", ", e.getValue().stream().map(ElementType::getName)
-            .collect(Collectors.toUnmodifiableList()))).collect(Collectors.joining("\n"));
+    e.getKey().getName() + ": " + String.join(", ", e.getValue().stream().map(ElementType::getName)
+        .collect(Collectors.toUnmodifiableList()))).collect(Collectors.joining("\n"));
   }
 
   /** Return the string surrounded with hashes as a title for logging purposes. */
@@ -312,6 +337,16 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     return Comparison.instances.stream().map(comp -> comp.newMistakes).flatMap(List::stream);
   }
 
+  /**
+   * Returns all the mistakes from all comparison objects created during the mistake detection tests as a flat stream,
+   * useful for iteration.
+   */
+  private static Stream<Mistake> allMistakesLimitOneOfEachType() {
+    final Set<MistakeType> seen = new HashSet<>();
+    return Comparison.instances.stream().map(comp -> comp.newMistakes).flatMap(List::stream)
+        .filter(m -> seen.add(m.getMistakeType()));
+  }
+
   /** Returns true if the association has an end with the given type. */
   private static boolean cdmAssociationIs(Association assoc, ReferenceType type) {
     return assoc.getEnds().stream().map(AssociationEnd::getReferenceType).anyMatch(t -> t == type);
@@ -322,11 +357,18 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     return e.getSolution().getStudent() != null;
   }
 
-  /** Maps comparison mistakes based on the input mistakeStudentElementTransformation. */
-  private static <T> Map<MistakeType, Set<T>> mapMistakesTo(
+  /** Maps all comparison mistakes based on the input mistakeStudentElementTransformation. */
+  private static <T> Map<MistakeType, Set<T>> mapAllMistakesTo(
       Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer,
       Function<? super SolutionElement, T> mistakeStudentElementTransformation) {
-    return allMistakes().collect(Collectors.toMap(Mistake::getMistakeType,
+    return mapMistakesTo(allMistakes(), mistakeSolutionElementsStreamer, mistakeStudentElementTransformation);
+  }
+
+  /** Maps comparison mistakes based on the input mistakeStudentElementTransformation. */
+  private static <T> Map<MistakeType, Set<T>> mapMistakesTo(Stream<Mistake> mistakes,
+      Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer,
+      Function<? super SolutionElement, T> mistakeStudentElementTransformation) {
+    return mistakes.collect(Collectors.toMap(Mistake::getMistakeType,
         m -> mistakeSolutionElementsStreamer.apply(m).map(mistakeStudentElementTransformation)
             .collect(Collectors.toUnmodifiableSet()), // TODO Update on Java 17+
         (v1, v2) -> Stream.of(v1, v2).flatMap(Set::stream).collect(Collectors.toUnmodifiableSet()), // set union
@@ -339,14 +381,48 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
         .replaceAll("\\s+", "_").replaceAll("_+", "_").toLowerCase();
   }
 
-}
+  /** Container class for Python Learning Corpus initialization code. */
+  static class PythonLearningCorpusInitializationCode {
+    String imports;
+    String learningItems;
 
-class PythonLearningCorpusInitializationCode {
-  String imports;
-  String learningItems;
-
-  PythonLearningCorpusInitializationCode(String imports, String learningItems) {
-    this.imports = imports;
-    this.learningItems = learningItems;
+    PythonLearningCorpusInitializationCode(String imports, String learningItems) {
+      this.imports = imports;
+      this.learningItems = learningItems;
+    }
   }
+
+  /** Container class for an element description. */
+  static class ElementDescription {
+    String name;
+    EClass eClass;
+    boolean hasStudent;
+    String description = "";
+
+    public ElementDescription(String name, EClass eClass, boolean hasStudent) {
+      this.name = name;
+      this.eClass = eClass;
+      this.hasStudent = hasStudent;
+    }
+
+    public ElementDescription(String name, EClass eClass, boolean hasStudent, String description) {
+      this(name, eClass, hasStudent);
+      this.description = description;
+    }
+
+    public ElementDescription(SolutionElement element) {
+      this(element.getElement().getName(), element.getElement().eClass(), hasStudent(element));
+    }
+
+    public static ElementDescription fromElement(SolutionElement element) {
+      return new ElementDescription(element);
+    }
+
+    // eg, "Student Container Class (name: Airplane)"
+    @Override public String toString() {
+      return (hasStudent ? "Student" : "Instructor") + " " + (description.isEmpty() ? "" : description + " ")
+          + eClass.getName() + " (name: " + name + ")";
+    }
+  }
+
 }
