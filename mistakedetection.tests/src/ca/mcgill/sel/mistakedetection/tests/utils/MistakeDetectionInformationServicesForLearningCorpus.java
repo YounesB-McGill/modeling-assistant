@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Function;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.eclipse.emf.ecore.EClass;
@@ -40,6 +41,7 @@ import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetectionConfig;
 import learningcorpus.ElementType;
 import learningcorpus.MistakeType;
+import learningcorpus.ParametrizedResponse;
 import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
 import modelingassistant.SolutionElement;
@@ -125,6 +127,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   public static void main(String[] args) {
     var testCompletionStatusByMistakeType = getTestCompletionStatusByMistakeType();
     var pythonLearningCorpusInitializationCode = generatePythonLearningCorpusInitializationCode();
+    var mistakesToElementDescriptions = mapMistakesToElementDescriptions(instructorAndStudentElems);
 
     // Uncomment the lines that you want to be output
     String[] outputs = {
@@ -139,9 +142,10 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorAndStudentElems)),
 
       title("Mistake type mapping to instructor/student solution element descriptions"),
-      // getLearningCorpusElementDescriptionMappingAsCsv(mapMistakesToElementDescriptions(studentElems)),
-      // getLearningCorpusElementDescriptionMappingAsCsv(mapMistakesToElementDescriptions(instructorElems)),
-      getLearningCorpusElementDescriptionMappingAsCsv(mapMistakesToElementDescriptions(instructorAndStudentElems)),
+      getLearningCorpusElementDescriptionMappingAsCsv(mistakesToElementDescriptions),
+
+      title("Mistake type instructor/student solution element vs parametrized response statistics"),
+      mistakeTypeElementVsParametrizedStringStatistics(mistakesToElementDescriptions),
 
       title("Mistake type mapping to learning corpus ElementTypes"),
       // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorElems)),
@@ -327,6 +331,17 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     return "Summary:\n" + Arrays.stream(TestCompletionStatus.values()).map(s ->
         s.symbol + " " + Collections.frequency(mistakeTypesToStatuses.values(), s) + " " + s.getFormattedName())
         .collect(Collectors.joining("\n")) + "\nTotal: " + mistakeTypesToStatuses.size();
+  }
+
+  private static String mistakeTypeElementVsParametrizedStringStatistics(
+      Map<MistakeType, ? extends Collection<ElementDescription>> mapping) {
+    return "MistakeType, StudentElems, InstructorElems, TotalElems, ParamRespNumParams\n" + mapping.entrySet().stream()
+        .map(e -> e.getKey().getName() + "," + e.getValue().stream().filter(ed -> ed.hasStudent).count() + ","
+            + e.getValue().stream().filter(ed -> !ed.hasStudent).count() + "," + e.getValue().size() + ","
+            + Pattern.compile("\\$\\{.*?\\}").matcher(e.getKey().getFeedbacks().stream()
+                .filter(fb -> fb instanceof ParametrizedResponse).map(pr -> ((ParametrizedResponse) pr).getText())
+                .collect(Collectors.joining(""))).results().count())
+        .collect(Collectors.joining("\n"));
   }
 
   /**
