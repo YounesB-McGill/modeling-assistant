@@ -85,7 +85,7 @@ public class FillInTheBlanksQuizStatementComponentImpl extends MinimalEObjectImp
       if (eInternalContainer() != null)
         msgs = eBasicRemoveFromContainer(msgs);
       if (newStatement != null)
-        msgs = ((InternalEObject)newStatement).eInverseAdd(this, LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS, FillInTheBlanksQuizStatement.class, msgs);
+        msgs = ((InternalEObject)newStatement).eInverseAdd(this, LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS, FillInTheBlanksQuizStatement.class, msgs);
       msgs = basicSetStatement(newStatement, msgs);
       if (msgs != null) msgs.dispatch();
     }
@@ -132,7 +132,7 @@ public class FillInTheBlanksQuizStatementComponentImpl extends MinimalEObjectImp
   public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
     switch (eContainerFeatureID()) {
       case LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT_COMPONENT__STATEMENT:
-        return eInternalContainer().eInverseRemove(this, LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS, FillInTheBlanksQuizStatement.class, msgs);
+        return eInternalContainer().eInverseRemove(this, LearningcorpusquizPackage.FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS, FillInTheBlanksQuizStatement.class, msgs);
     }
     return super.eBasicRemoveFromContainerFeature(msgs);
   }

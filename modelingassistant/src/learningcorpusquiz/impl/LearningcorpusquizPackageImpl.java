@@ -302,7 +302,7 @@ public class LearningcorpusquizPackageImpl extends EPackageImpl implements Learn
    * @generated
    */
   @Override
-  public EReference getFillInTheBlanksQuizStatement_Statements() {
+  public EReference getFillInTheBlanksQuizStatement_Components() {
     return (EReference)fillInTheBlanksQuizStatementEClass.getEStructuralFeatures().get(1);
   }
 
@@ -559,7 +559,7 @@ public class LearningcorpusquizPackageImpl extends EPackageImpl implements Learn
 
     fillInTheBlanksQuizStatementEClass = createEClass(FILL_IN_THE_BLANKS_QUIZ_STATEMENT);
     createEReference(fillInTheBlanksQuizStatementEClass, FILL_IN_THE_BLANKS_QUIZ_STATEMENT__QUIZ);
-    createEReference(fillInTheBlanksQuizStatementEClass, FILL_IN_THE_BLANKS_QUIZ_STATEMENT__STATEMENTS);
+    createEReference(fillInTheBlanksQuizStatementEClass, FILL_IN_THE_BLANKS_QUIZ_STATEMENT__COMPONENTS);
 
     fillInTheBlanksQuizStatementComponentEClass = createEClass(FILL_IN_THE_BLANKS_QUIZ_STATEMENT_COMPONENT);
     createEReference(fillInTheBlanksQuizStatementComponentEClass, FILL_IN_THE_BLANKS_QUIZ_STATEMENT_COMPONENT__STATEMENT);
@@ -642,10 +642,10 @@ public class LearningcorpusquizPackageImpl extends EPackageImpl implements Learn
 
     initEClass(fillInTheBlanksQuizStatementEClass, FillInTheBlanksQuizStatement.class, "FillInTheBlanksQuizStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getFillInTheBlanksQuizStatement_Quiz(), this.getFillInTheBlanksQuiz(), this.getFillInTheBlanksQuiz_Statements(), "quiz", null, 1, 1, FillInTheBlanksQuizStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFillInTheBlanksQuizStatement_Statements(), this.getFillInTheBlanksQuizStatementComponent(), this.getFillInTheBlanksQuizStatementComponent_Statement(), "statements", null, 0, -1, FillInTheBlanksQuizStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFillInTheBlanksQuizStatement_Components(), this.getFillInTheBlanksQuizStatementComponent(), this.getFillInTheBlanksQuizStatementComponent_Statement(), "components", null, 0, -1, FillInTheBlanksQuizStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(fillInTheBlanksQuizStatementComponentEClass, FillInTheBlanksQuizStatementComponent.class, "FillInTheBlanksQuizStatementComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFillInTheBlanksQuizStatementComponent_Statement(), this.getFillInTheBlanksQuizStatement(), this.getFillInTheBlanksQuizStatement_Statements(), "statement", null, 1, 1, FillInTheBlanksQuizStatementComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFillInTheBlanksQuizStatementComponent_Statement(), this.getFillInTheBlanksQuizStatement(), this.getFillInTheBlanksQuizStatement_Components(), "statement", null, 1, 1, FillInTheBlanksQuizStatementComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(nonBlankEClass, NonBlank.class, "NonBlank", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getNonBlank_Text(), ecorePackage.getEString(), "text", null, 0, 1, NonBlank.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

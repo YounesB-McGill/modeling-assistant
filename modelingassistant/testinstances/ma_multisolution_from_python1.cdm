@@ -31,15 +31,15 @@
   <classes xsi:type="classdiagram:Class" xmi:id="_WHVLQElSEeuektpDqzDh1Q" name="Car">
     <attributes xsi:type="classdiagram:Attribute" xmi:id="_e2D18ElSEeuektpDqzDh1Q" type="_VQRndUlSEeuektpDqzDh1Q" name="id"/>
     <attributes xsi:type="classdiagram:Attribute" xmi:id="_gzbhkElSEeuektpDqzDh1Q" type="_VQRnd0lSEeuektpDqzDh1Q" name="make"/>
-    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_cwaGIElUEeuektpDqzDh1Q" assoc="_cwaGIklUEeuektpDqzDh1Q" name="drivers" upperBound="-1"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_cwaGIElUEeuektpDqzDh1Q" assoc="_cwaGIklUEeuektpDqzDh1Q" upperBound="-1" name="drivers"/>
     <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_8e54MUlUEeuektpDqzDh1Q" assoc="_8e54MklUEeuektpDqzDh1Q" referenceType="Composition" upperBound="-1" name="parts"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_YyFPYElUEeuektpDqzDh1Q" name="Driver">
     <attributes xsi:type="classdiagram:Attribute" xmi:id="_atkEoElUEeuektpDqzDh1Q" type="_VQRnd0lSEeuektpDqzDh1Q" name="name"/>
-    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_cwaGIUlUEeuektpDqzDh1Q" assoc="_cwaGIklUEeuektpDqzDh1Q" name="primaryVehicle" lowerBound="1"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_cwaGIUlUEeuektpDqzDh1Q" assoc="_cwaGIklUEeuektpDqzDh1Q" lowerBound="1" name="primaryVehicle"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_pm-I4ElUEeuektpDqzDh1Q" superTypes="_WHVLQElSEeuektpDqzDh1Q" name="SportsCar"/>
   <classes xsi:type="classdiagram:Class" xmi:id="_6CeSAElUEeuektpDqzDh1Q" name="Part">
-    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_8e54MElUEeuektpDqzDh1Q" assoc="_8e54MklUEeuektpDqzDh1Q" name="car" lowerBound="1"/>
+    <associationEnds xsi:type="classdiagram:AssociationEnd" xmi:id="_8e54MElUEeuektpDqzDh1Q" assoc="_8e54MklUEeuektpDqzDh1Q" lowerBound="1" name="car"/>
   </classes>
 </classdiagram:ClassDiagram>

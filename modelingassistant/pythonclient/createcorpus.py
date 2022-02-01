@@ -23,7 +23,7 @@ from corpus import corpus
 from fileserdes import save_to_file
 from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResponse, ParametrizedResponse,
                             ResourceResponse, Quiz)
-from learningcorpusquiz import FillInTheBlanksQuiz, ListMultipleChoiceQuiz, TableMultipleChoiceQuiz
+from learningcorpusquiz import Blank, FillInTheBlanksQuiz, ListMultipleChoiceQuiz, NonBlank, TableMultipleChoiceQuiz
 from utils import NonNoneDict
 
 
@@ -102,6 +102,12 @@ TEX_HEADER = f"""\
 % This tex file was generated automatically by the createcorpus script.
 % Generation time: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
+\\textbf{{Legend:}}
+In the textual responses, items in \\verb|${{this format}}| represent the parameters of
+a parametrized response, which are computed and substituted at runtime from the general
+template based on the specific mistake. Items [in square brackets] refer to optional
+text which may or may not be included, depending on the student's knowledge.
+
 """
 
 TEX_PR_TABLE = R"""
@@ -112,10 +118,10 @@ TEX_PR_TABLE = R"""
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 
@@ -317,18 +323,25 @@ class MarkdownGenerator(TextualGenerator):
                         rsc_type = type(primary_rsc)
                         rsc_type_name = type(primary_rsc).__name__
                         if issubclass(rsc_type, Quiz) and rsc_type != Quiz:  # Quiz subclasses but not Quiz itself
-                            content = f"Resource response with {QUIZ_DISPLAY_NAMES[type(primary_rsc)]}:\n\n"
+                            content = f"""Resource response with {QUIZ_DISPLAY_NAMES[type(primary_rsc)]}:\n\n{
+                                          primary_rsc.content}\n\n"""
                             if isinstance(primary_rsc, FillInTheBlanksQuiz):
-                                ...  # append to content
+                                for statement in primary_rsc.statements:
+                                    content += "* "
+                                    for component in statement.components:
+                                        if isinstance(component, NonBlank):
+                                            content += f"{component.text}"
+                                        if isinstance(component, Blank):
+                                            content += f"<ins>{component.correctAnswer}</ins>"
+                                    content += "\n"
                             elif isinstance(primary_rsc, ListMultipleChoiceQuiz):
-                                content += f"{primary_rsc.content}\n\n"
                                 for choice in primary_rsc.choices:
                                     sel = "x" if choice in primary_rsc.correctChoices else " "
                                     content += f"- [{sel}] {choice.text}\n"
                             elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
                                 ...
                             content = content.strip()
-                            result += content if content not in result else ""
+                            result += (content + "\n\n") if content not in result else ""
                             _quizzes_to_md[primary_rsc] = content
                         elif is_table(primary_rsc.content):
                             content = f"""Resource response with {rsc_type_name}:\n\n{(2 * nl).join(
@@ -350,13 +363,13 @@ class MarkdownGenerator(TextualGenerator):
         mtcs = corpus.topLevelMistakeTypeCategories()
         return f"""{nl.join(cls.nested_toc_output_for(c) for c in mtcs)}\n{
             nl.join(cls.nested_body_output_for(c) for c in mtcs)}"""
-    
+
     @classmethod
     def save_to_file(cls, filename: str = None):
         if not filename:
             filename = LEARNING_CORPUS_MARKDOWN_FILE
         md = cls.generate()
-        with open(LEARNING_CORPUS_MARKDOWN_FILE, "w", encoding="utf-8") as f:
+        with open(filename, "w", encoding="utf-8") as f:
             f.write(md)
 
 
@@ -390,7 +403,7 @@ class LatexGenerator(TextualGenerator):
         "Return the string with any params surrounded by `verb|...|` and with links removed and images rendered."
         def find_and_replace_image_link(match: Match[str]) -> str:
             "Find the image link and replace it with actual image with appropriate dimensions."
-            img_name = match.group(1)
+            img_name = match.group(1).replace("\\", "")
             img_path = os.path.join(CORPUS_DESCRIPTION_DIR, img_name)
             img = cv2.imread(img_path)  # pylint: disable=no-member
             height, width, _ = img.shape
@@ -425,6 +438,8 @@ class LatexGenerator(TextualGenerator):
 
         # use math notation for certain items so they render as intended
         s = handle_list(s, ("- [ ]","- [x]", "* "), ("\\item[$\\square$]", "\\item[$\\boxtimes$]", "\\item "))
+        # replace <ins>text</ins> with \underline{text}
+        s = re.sub(r"<ins>(.*?)</ins>", r"\\underline{\1}", s)
         for c in "|<>":
             s = s.replace(c, f"${c}$")
         # replace image links with actual images
@@ -533,7 +548,7 @@ class LatexGenerator(TextualGenerator):
         if not filename:
             filename = LEARNING_CORPUS_TEX_FILE
         tex = cls.generate()
-        with open(LEARNING_CORPUS_TEX_FILE, "w", encoding="utf-8") as f:
+        with open(filename, "w", encoding="utf-8") as f:
             f.write(tex)
 
 

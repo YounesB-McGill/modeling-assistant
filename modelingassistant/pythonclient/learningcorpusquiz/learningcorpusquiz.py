@@ -18,9 +18,9 @@ getEClassifier = partial(Ecore.getEClassifier, searchspace=eClassifiers)
 class FillInTheBlanksQuizStatement(EObject, metaclass=MetaEClass):
 
     quiz = EReference(ordered=True, unique=True, containment=False, derived=False)
-    statements = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    components = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
 
-    def __init__(self, *, quiz=None, statements=None):
+    def __init__(self, *, quiz=None, components=None):
         # if kwargs:
         #    raise AttributeError('unexpected arguments: {}'.format(kwargs))
 
@@ -29,8 +29,8 @@ class FillInTheBlanksQuizStatement(EObject, metaclass=MetaEClass):
         if quiz is not None:
             self.quiz = quiz
 
-        if statements:
-            self.statements.extend(statements)
+        if components:
+            self.components.extend(components)
 
 
 class FillInTheBlanksQuizStatementComponent(EObject, metaclass=MetaEClass):

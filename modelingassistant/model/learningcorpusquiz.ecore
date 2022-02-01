@@ -23,12 +23,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="FillInTheBlanksQuizStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="quiz" lowerBound="1" eType="#//FillInTheBlanksQuiz"
         eOpposite="#//FillInTheBlanksQuiz/statements"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="components" upperBound="-1"
         eType="#//FillInTheBlanksQuizStatementComponent" containment="true" eOpposite="#//FillInTheBlanksQuizStatementComponent/statement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FillInTheBlanksQuizStatementComponent">
     <eStructuralFeatures xsi:type="ecore:EReference" name="statement" lowerBound="1"
-        eType="#//FillInTheBlanksQuizStatement" eOpposite="#//FillInTheBlanksQuizStatement/statements"/>
+        eType="#//FillInTheBlanksQuizStatement" eOpposite="#//FillInTheBlanksQuizStatement/components"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NonBlank" eSuperTypes="#//FillInTheBlanksQuizStatementComponent">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

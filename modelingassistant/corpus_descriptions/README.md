@@ -42,7 +42,6 @@
       1. [Missing n-ary association](#missing-n-ary-association)
       1. [Using attribute instead of association](#using-attribute-instead-of-association)
    1. [Extra association mistakes](#extra-association-mistakes)
-      1. [Representing an action with an association](#representing-an-action-with-an-association)
       1. [Extra association](#extra-association)
       1. [Extra aggregation](#extra-aggregation)
       1. [Extra n-ary association](#extra-n-ary-association)
@@ -55,6 +54,7 @@
       1. [Role should be static](#role-should-be-static)
       1. [Role should not be static](#role-should-not-be-static)
       1. [Bad role name spelling](#bad-role-name-spelling)
+      1. [Representing an action with an association](#representing-an-action-with-an-association)
       1. [Wrong role name but correct association](#wrong-role-name-but-correct-association)
    1. [Association type mistakes](#association-type-mistakes)
       1. [Using aggregation instead of association](#using-aggregation-instead-of-association)
@@ -541,7 +541,9 @@ Pick the classes which are modeled correctly with Umple.
 
 - [ ] class Student { courses; }
 - [ ] class Folder { List<File> files; }
-- [x] class Restaurant { 1 -- * Employee; }Level 5: Resource response with Reference:
+- [x] class Restaurant { 1 -- * Employee; }
+
+Level 5: Resource response with Reference:
 
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
@@ -568,7 +570,9 @@ Pick the classes which are modeled correctly with Umple.
 
 - [ ] class Student { courses; }
 - [ ] class Folder { List<File> files; }
-- [x] class Restaurant { 1 -- * Employee; }Level 6: Resource response with Reference:
+- [x] class Restaurant { 1 -- * Employee; }
+
+Level 6: Resource response with Reference:
 
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
@@ -759,12 +763,12 @@ Level 3: Parametrized response:
 
 > ${includingClass.attributeName} should be its own class.
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with List multiple-choice quiz:
 
-> Pick the class(es) modeled correctly in Umple.
+Pick the class(es) modeled correctly in Umple.
 
 - [ ] class BankAccount { Client client; }
-- [ ] class BankAccount { * -- 1..2 Client clients; }; class Client {}
+- [x] class BankAccount { * -- 1..2 Client clients; }; class Client {}
 - [ ] class BankAccount { 1..2 -- * Client clients; }; class Client {}
 - [ ] class Loan { libraryPatron; }
 
@@ -779,23 +783,6 @@ better understand these relationships and where they are used.
 
 ### Extra association mistakes
 
-#### Representing an action with an association
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Is association the best way to model this concept?
-
-Level 3: Parametrized response:
-
-> ${actionName} should not be modeled as an association.
-
-Level 4: Resource response with Reference:
-
-> Please review the [domain modeling lecture](https://mycourses2.mcgill.ca/) to know which concepts should be a part of a domain model.
-
-
 #### Extra association
 
 Level 1: Highlight solution
@@ -808,9 +795,17 @@ Level 3: Parametrized response:
 
 > The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with List multiple-choice quiz:
 
-> Find all the redundant associations in this class diagram (TODO).
+Find the redundant association(s) in this class diagram:
+
+![Extra associations](images/hospital_cdm_extra_assocs.png)
+
+- [x] Hospital -- Patient
+- [ ] Hospital -- Employee
+- [x] Patient -- Surgeon
+- [x] Doctor -- Ward
+- [ ] Hospital -- Ward
 
 Level 5: Resource response with Reference:
 
@@ -859,19 +854,26 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Double check (this|these) relationship(s).
+> Double check this relationship.
 
 Level 3: Text response:
 
-> The multiplicities for (this|these) relationship(s) are incorrect.
+> The multiplicit(y|ies) for this relationship (is|are) incorrect.
 
 Level 4: Parametrized response:
 
-> Does every ${class1} have exactly ${wrongMultiplicity} ${rolename}[s]?
+> Does every ${className} have exactly ${wrongMultiplicity} ${rolename}[s]?
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with List multiple-choice quiz:
 
-> Edit the class diagram to allow creating a `Foo`
+Given the following class diagram modeled in Umple, select the correct answer(s).
+
+class Employee { 1 supervisor -- * Employee employees; }
+
+- [ ] The class diagram is correct.
+- [ ] The class diagram is incorrect, because some Employees do not oversee any other Employees.
+- [ ] The "employees" multiplicity should be 1..* instead of *.
+- [x] The class diagram is incorrect, because at least one Employee cannot have a supervisor, otherwise an infinite recursive dependency will occur.
 
 Level 6: Resource response with Reference:
 
@@ -894,13 +896,17 @@ Level 4: Parametrized response:
 
 > How many ${class1}'s does a ${class2} have? [And how many ${class2}'s does ${class1} have?]
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with List multiple-choice quiz:
 
-> Pick the associations with correct multiplicities
+Pick the association(s) with correct multiplicities:
 
 - [ ] 1 EmployeeRole -- 1 Person;
-- [ ] * Episode -- 1 TvSeries;
+- [x] * Episode -- 1 TvSeries;
 - [ ] * Bank -- 1 Client;
+- [ ] * Client -- 1 BankAccount;
+- [x] 0..2 Loan -- 1 Client;
+- [x] * Person -- 1 EmployeeRole;
+- [ ] * EmployeeRole -- 1 Person;
 
 Level 6: Resource response with Reference:
 
@@ -923,13 +929,17 @@ Level 4: Parametrized response:
 
 > How many ${class1}'s does a ${class2} have? [And how many ${class2}'s does ${class1} have?]
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with List multiple-choice quiz:
 
-> Pick the associations with correct multiplicities
+Pick the association(s) with correct multiplicities:
 
 - [ ] 1 EmployeeRole -- 1 Person;
-- [ ] * Episode -- 1 TvSeries;
+- [x] * Episode -- 1 TvSeries;
 - [ ] * Bank -- 1 Client;
+- [ ] * Client -- 1 BankAccount;
+- [x] 0..2 Loan -- 1 Client;
+- [x] * Person -- 1 EmployeeRole;
+- [ ] * EmployeeRole -- 1 Person;
 
 Level 6: Resource response with Reference:
 
@@ -1006,6 +1016,23 @@ Level 2: Text response:
 Level 3: Parametrized response:
 
 > ${roleName} is misspelled.[ Use the same spelling as the problem description.]
+
+Level 4: Resource response with Reference:
+
+> Please review the [Association](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+#### Representing an action with an association
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Is this the best role name to use here?
+
+Level 3: Parametrized response:
+
+> The ${wrongRoleName} role name represents an action, which is not correct.[ Use ${correctRoleName} instead.]
 
 Level 4: Resource response with Reference:
 
@@ -1258,13 +1285,9 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Does it make sense to have multiple instances of the ${inBetweenClass} linking ${firstClass} and ${secondClass}?
-
-Level 4: Parametrized response:
-
 > Further details of the association between ${firstClass} and ${secondClass} should be modeled with an association class.
 
-Level 5: Resource response with Reference:
+Level 4: Resource response with Reference:
 
 > Association class
 
@@ -1495,11 +1518,18 @@ root class, `PISystem`.
 
 ![PISystem](images/PISystem.png)
 
-Level 6: Resource response with Quiz:
+Level 6: Resource response with List multiple-choice quiz:
 
-> Complete the containment tree for the following model.
+Which of the following compositions should be added to complete the containment tree for the
+following model.
 
 ![IRS](images/IRS.png)
+
+- [x] 1 IRS <@>- * StudentRole
+- [x] 1 IRS <@>- * Person
+- [ ] 1 IRS <@>- * Game
+- [x] 1 IRS <@>- * League
+- [ ] 1 IRS <@>- * RegularLeague
 
 Level 7: Resource response with Reference:
 
@@ -1529,11 +1559,18 @@ root class, `PISystem`.
 
 ![PISystem](images/PISystem.png)
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with List multiple-choice quiz:
 
-> Complete the containment tree for the following model.
+Which of the following compositions should be added to complete the containment tree for the
+following model.
 
 ![IRS](images/IRS.png)
+
+- [x] 1 IRS <@>- * StudentRole
+- [x] 1 IRS <@>- * Person
+- [ ] 1 IRS <@>- * Game
+- [x] 1 IRS <@>- * League
+- [ ] 1 IRS <@>- * RegularLeague
 
 Level 6: Resource response with Reference:
 
@@ -1558,12 +1595,15 @@ Level 3: Parametrized response:
 
 > A ${subclass} is a ${superclass}. How should we model this?
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with Fill-in-the-blanks quiz:
 
-> Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy:
 
-* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
-* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+* SportsCar isA <ins>Car</ins>
+* <ins>Wheel</ins> isA VehiclePart
+* Truck isA <ins>LandVehicle</ins>
+* AmphibiousVehicle isA <ins>Vehicle</ins>
+* <ins>LuxuryBus</ins> isA BusVehicle
 
 Level 5: Resource response with Reference:
 
@@ -1582,24 +1622,28 @@ Level 3: Parametrized response:
 
 > When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with Fill-in-the-blanks quiz:
 
-> Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy:
 
-* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
-* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+* SportsCar isA <ins>Car</ins>
+* <ins>Wheel</ins> isA VehiclePart
+* Truck isA <ins>LandVehicle</ins>
+* AmphibiousVehicle isA <ins>Vehicle</ins>
+* <ins>LuxuryBus</ins> isA BusVehicle
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with Fill-in-the-blanks quiz:
 
-> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
-* Obeys the ________. (isA rule)
-* Subclass must retain its ________. (distinctiveness)
-* All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (an instance)
+
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>.
 
 Level 6: Resource response with Reference:
 
@@ -1618,24 +1662,28 @@ Level 3: Parametrized response:
 
 > When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with Fill-in-the-blanks quiz:
 
-> Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy:
 
-* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
-* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+* SportsCar isA <ins>Car</ins>
+* <ins>Wheel</ins> isA VehiclePart
+* Truck isA <ins>LandVehicle</ins>
+* AmphibiousVehicle isA <ins>Vehicle</ins>
+* <ins>LuxuryBus</ins> isA BusVehicle
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with Fill-in-the-blanks quiz:
 
-> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
-* Obeys the ________. (isA rule)
-* Subclass must retain its ________. (distinctiveness)
-* All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (an instance)
+
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>.
 
 Level 6: Resource response with Reference:
 
@@ -1654,10 +1702,15 @@ Level 3: Parametrized response:
 
 > Is it possible for an instance of ${nondistinctSubclass} to turn into an instance of another subclass over its lifetime?
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with List multiple-choice quiz:
 
-> Which classes are not subclasses of Account?
-* `SavingsAccount`, `OverdrawnAccount`, `CheckingAccount`, `MortgageAccount`, `ClosedAccount`
+Which classes are not subclasses of Account?
+
+- [ ] SavingsAccount
+- [x] OverdrawnAccount
+- [ ] CheckingAccount
+- [ ] MortgageAccount
+- [x] ClosedAccount
 
 Level 5: Resource response with Reference:
 
@@ -1676,17 +1729,18 @@ Level 3: Parametrized response:
 
 > The ${featureName} feature of the ${superclass} class does not make sense for its ${subclass} subclass.
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with Fill-in-the-blanks quiz:
 
-> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
-* Obeys the ________. (isA rule)
-* Subclass must retain its ________. (distinctiveness)
-* All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (an instance)
+
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>.
 
 Level 5: Resource response with Reference:
 
@@ -1709,17 +1763,18 @@ Level 4: Resource response with Example:
 
 > A CheckingAccount isA Account, but account1234 is **not** an Account according to the 'instance' rule.
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with Fill-in-the-blanks quiz:
 
-> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
-* Obeys the ________. (isA rule)
-* Subclass must retain its ________. (distinctiveness)
-* All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (an instance)
+
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>.
 
 Level 6: Resource response with Reference:
 
@@ -1738,17 +1793,18 @@ Level 3: Parametrized response:
 
 > ${wrongSubclass} needs to be different from its superclass[ and its sibling subclasses] in terms of behavior or structure.
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with Fill-in-the-blanks quiz:
 
-> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
-* Obeys the ________. (isA rule)
-* Subclass must retain its ________. (distinctiveness)
-* All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (an instance)
+
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>.
 
 Level 5: Resource response with Reference:
 
@@ -1767,24 +1823,28 @@ Level 3: Parametrized response:
 
 > Is ${superclass} really a ${subclass}?[ It should be the other way around.]
 
-Level 4: Resource response with Quiz:
+Level 4: Resource response with Fill-in-the-blanks quiz:
 
-> Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy:
 
-* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
-* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+* SportsCar isA <ins>Car</ins>
+* <ins>Wheel</ins> isA VehiclePart
+* Truck isA <ins>LandVehicle</ins>
+* AmphibiousVehicle isA <ins>Vehicle</ins>
+* <ins>LuxuryBus</ins> isA BusVehicle
 
-Level 5: Resource response with Quiz:
+Level 5: Resource response with Fill-in-the-blanks quiz:
 
-> Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
-* Obeys the ________. (isA rule)
-* Subclass must retain its ________. (distinctiveness)
-* All ________ must make sense in each subclass. (inherited features)
-* Subclass differs from superclass and other subclasses in ________ or ________. (behavior, structure)
-* Subclass must not be ________. (an instance)
+
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>.
 
 Level 6: Resource response with Reference:
 
@@ -1809,12 +1869,15 @@ Level 5: Parametrized response:
 
 > What is the inheritance hierarchy between ${hierarchy.classes}?
 
-Level 6: Resource response with Quiz:
+Level 6: Resource response with Fill-in-the-blanks quiz:
 
-> Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy:
 
-* `Vehicle`, `LandVehicle`, `AmphibiousVehicle`, `AirVehicle`, ...
-* `BusVehicle`, `LuxuryBus`, `TourBus`, `BusRoute`, ...
+* SportsCar isA <ins>Car</ins>
+* <ins>Wheel</ins> isA VehiclePart
+* Truck isA <ins>LandVehicle</ins>
+* AmphibiousVehicle isA <ins>Vehicle</ins>
+* <ins>LuxuryBus</ins> isA BusVehicle
 
 Level 7: Resource response with Reference:
 
@@ -1837,7 +1900,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Modeling all the concepts in one ${playerClass} class will make it very complicated! Think about adding one or more classes to better represent the domain.
+> The concepts of ${instructorPlayer} and ${instructorRole} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
 
 Level 4: Resource response with Quiz:
 
@@ -1845,10 +1908,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -1868,7 +1931,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Modeling all the concepts in one ${playerClass} class will make it very complicated! Think about adding one or more classes to better represent the domain.
+> The concepts of ${instructorPlayer} and ${instructorRole} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
 
 Level 4: Resource response with Quiz:
 
@@ -1876,10 +1939,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -1907,10 +1970,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -1938,10 +2001,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -1969,10 +2032,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2000,10 +2063,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2031,10 +2094,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2062,10 +2125,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2093,10 +2156,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2124,10 +2187,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2155,10 +2218,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2186,10 +2249,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2217,10 +2280,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2248,10 +2311,10 @@ Level 4: Resource response with Quiz:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
-> Enumeration         | [ ] | [ ] | [ ] | [ ]
-> Subclasses          | [ ] | [ ] | [ ] | [ ]
-> Associations        | [ ] | [ ] | [ ] | [ ]
-> Player-Role Pattern | [ ] | [ ] | [ ] | [ ]
+> Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
+> Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
+> Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
+> Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
 Level 5: Resource response with Reference:
 
@@ -2273,7 +2336,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
+> The concepts of ${instructorAbstraction} and ${instructorOccurrence} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
 
 Level 4: Resource response with Reference:
 
@@ -2294,7 +2357,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Is there a way to remove the duplicate ${duplicateAttribute} attribute between ${class1} and ${class2}?
+> The concepts of ${instructorAbstraction} and ${instructorOccurrence} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
 
 Level 4: Resource response with Reference:
 

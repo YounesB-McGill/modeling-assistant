@@ -5,11 +5,13 @@ This module must not depend on any other to avoid circular dependencies.
 
 # Ok to import items from standard library, constants, envvars, and pyecore model code only
 
+from string import Formatter
 from types import SimpleNamespace
 
 from constants import CORRECT_QUIZ_ITEM_NOTATIONS,  MULTIPLE_FEEDBACKS_PER_LEVEL
 from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
-from learningcorpusquiz import Choice, FillInTheBlanksQuiz, ListMultipleChoiceQuiz, TableMultipleChoiceQuiz
+from learningcorpusquiz import (Blank, Choice, FillInTheBlanksQuiz, FillInTheBlanksQuizStatement,
+                                ListMultipleChoiceQuiz, NonBlank, TableMultipleChoiceQuiz)
 from modelingassistant import ModelingAssistant
 
 
@@ -70,6 +72,50 @@ def fbs(fbs_by_level: dict[int, Feedback | list[Feedback]]) -> list[Feedback]:
             fb.level = level
             feedbacks.append(fb)
     return feedbacks
+
+
+def fitb(prompt: str, *statements) -> FillInTheBlanksQuiz:
+    """
+    Shorthand for FillInTheBlanksQuiz initializer.
+
+    prompt: introductory text for the quiz
+    statements: quiz statements with blanks to be filled in, with the following format:
+        "Python formatted string with {blanks} in {curly braces}."
+     -> "Python formatted string with ________ in ______________."
+
+    Example usage:
+    ```
+    fitb("Fill in the blanks to complete the sentence:",
+         "The capital of Canada is {Ottawa} and its largest city is {Toronto}.",
+         "The capital and largest city of France is {Paris}.",
+         "The capital of {Australia} is Canberra.")
+    ```
+    """
+    if not prompt or not isinstance(prompt, str):
+        raise ValueError(f"Prompt must be a non-empty string, got {prompt}")
+    if not statements:
+        raise ValueError("No statements provided for FillInTheBlanksQuiz")
+
+    quiz = FillInTheBlanksQuiz(content=prompt)
+
+    """
+    Use the Python string formatter to parse the statements as in this example:
+
+    >>> list(Formatter().parse("A{B}C{D}{E}F"))
+    [('A', 'B', '', None), ('C', 'D', '', None), ('', 'E', '', None), ('F', None, None, None)]
+    """
+    fmt = Formatter()
+    for statement_str in statements:
+        if not statement_str:
+            continue
+        statement = FillInTheBlanksQuizStatement()
+        for non_blank, blank, _, _ in fmt.parse(statement_str):
+            if non_blank:
+                statement.components.append(NonBlank(text=non_blank))
+            if blank:
+                statement.components.append(Blank(correctAnswer=blank))
+        quiz.statements.append(statement)
+    return quiz
 
 
 class McqFactory:

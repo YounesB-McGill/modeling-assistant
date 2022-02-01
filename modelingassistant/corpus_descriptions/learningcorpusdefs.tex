@@ -1,7 +1,13 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus script.
-% Generation time: 2022-01-23 20:41:48
+% Generation time: 2022-01-30 14:41:12
+
+\textbf{Legend:}
+In the textual responses, items in \verb|${this format}| represent the parameters of
+a parametrized response, which are computed and substituted at runtime from the general
+template based on the specific mistake. Items [in square brackets] refer to optional
+text which may or may not be included, depending on the student's knowledge.
 
 \section{Class mistakes}
 
@@ -893,14 +899,15 @@ Remember that attributes are simple pieces of data.
 \verb|${includingClass.attributeName}| should be its own class.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Pick the class(es) modeled correctly in Umple.
 
 \begin{itemize}
     \item[$\square$] class BankAccount \{ Client client; \}
-    \item[$\square$] class BankAccount \{ * -- 1..2 Client clients; \}; class Client \{\}
+    \item[$\boxtimes$] class BankAccount \{ * -- 1..2 Client clients; \}; class Client \{\}
     \item[$\square$] class BankAccount \{ 1..2 -- * Client clients; \}; class Client \{\}
     \item[$\square$] class Loan \{ libraryPatron; \}
 \end{itemize}
@@ -921,29 +928,6 @@ better understand these relationships and where they are used.
 
 \subsection{Extra association mistakes}
 
-\subsubsection{Representing an action with an association}
-
-\noindent Level 1: Highlight solution  \medskip
-
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Is association the best way to model this concept?
-\end{tabular} \medskip
-
-\noindent Level 3: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-\verb|${actionName}| should not be modeled as an association.
-\end{tabular} \medskip
-
-\noindent Level 4: Resource response with Reference: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Please review the \textit{domain modeling lecture} to know which concepts should be a part of a domain model.
-\end{tabular} \medskip
-
-
 \subsubsection{Extra association}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
@@ -960,10 +944,23 @@ Is this association really necessary?
 The relationship between \verb|${classOne}| and \verb|${classTwo}| is not expressed in the problem description[, but there is a similar relationship with \verb|${classThree}| that is missing].
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Find all the redundant associations in this class diagram (TODO).
+
+Find the redundant association(s) in this class diagram:
+
+\\
+\includegraphics[width=0.6\textwidth]{images/hospital_cdm_extra_assocs.png}
+
+\begin{itemize}
+    \item[$\boxtimes$] Hospital -- Patient
+    \item[$\square$] Hospital -- Employee
+    \item[$\boxtimes$] Patient -- Surgeon
+    \item[$\boxtimes$] Doctor -- Ward
+    \item[$\square$] Hospital -- Ward
+\end{itemize}
+
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -1028,25 +1025,36 @@ Please review the \textit{domain modeling lecture} to know which concepts should
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Double check (this$|$these) relationship(s).
+Double check this relationship.
 \end{tabular} \medskip
 
 \noindent Level 3: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The multiplicities for (this$|$these) relationship(s) are incorrect.
+The multiplicit(y$|$ies) for this relationship (is$|$are) incorrect.
 \end{tabular} \medskip
 
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Does every \verb|${class1}| have exactly \verb|${wrongMultiplicity}| \verb|${rolename}|[s]?
+Does every \verb|${className}| have exactly \verb|${wrongMultiplicity}| \verb|${rolename}|[s]?
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Edit the class diagram to allow creating a `Foo`
+
+Given the following class diagram modeled in Umple, select the correct answer(s).
+
+class Employee \{ 1 supervisor -- * Employee employees; \}
+
+\begin{itemize}
+    \item[$\square$] The class diagram is correct.
+    \item[$\square$] The class diagram is incorrect, because some Employees do not oversee any other Employees.
+    \item[$\square$] The "employees" multiplicity should be 1..* instead of *.
+    \item[$\boxtimes$] The class diagram is incorrect, because at least one Employee cannot have a supervisor, otherwise an infinite recursive dependency will occur.
+\end{itemize}
+
 \end{tabular} \medskip
 
 \noindent Level 6: Resource response with Reference: \medskip
@@ -1078,15 +1086,20 @@ The multiplicit(y$|$ies) for this association (is$|$are) incorrect.
 How many \verb|${class1}|'s does a \verb|${class2}| have? [And how many \verb|${class2}|'s does \verb|${class1}| have?]
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Pick the associations with correct multiplicities
+
+Pick the association(s) with correct multiplicities:
 
 \begin{itemize}
     \item[$\square$] 1 EmployeeRole -- 1 Person;
-    \item[$\square$] * Episode -- 1 TvSeries;
+    \item[$\boxtimes$] * Episode -- 1 TvSeries;
     \item[$\square$] * Bank -- 1 Client;
+    \item[$\square$] * Client -- 1 BankAccount;
+    \item[$\boxtimes$] 0..2 Loan -- 1 Client;
+    \item[$\boxtimes$] * Person -- 1 EmployeeRole;
+    \item[$\square$] * EmployeeRole -- 1 Person;
 \end{itemize}
 
 \end{tabular} \medskip
@@ -1120,15 +1133,20 @@ The multiplicit(y$|$ies) for this association (is$|$are) missing.
 How many \verb|${class1}|'s does a \verb|${class2}| have? [And how many \verb|${class2}|'s does \verb|${class1}| have?]
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Pick the associations with correct multiplicities
+
+Pick the association(s) with correct multiplicities:
 
 \begin{itemize}
     \item[$\square$] 1 EmployeeRole -- 1 Person;
-    \item[$\square$] * Episode -- 1 TvSeries;
+    \item[$\boxtimes$] * Episode -- 1 TvSeries;
     \item[$\square$] * Bank -- 1 Client;
+    \item[$\square$] * Client -- 1 BankAccount;
+    \item[$\boxtimes$] 0..2 Loan -- 1 Client;
+    \item[$\boxtimes$] * Person -- 1 EmployeeRole;
+    \item[$\square$] * EmployeeRole -- 1 Person;
 \end{itemize}
 
 \end{tabular} \medskip
@@ -1232,6 +1250,29 @@ Double check this role name
 
 \begin{tabular}{|p{0.9\linewidth}}
 \verb|${roleName}| is misspelled.[ Use the same spelling as the problem description.]
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the \textit{Association} and \textit{Noun Analysis} parts of the Class Diagram lecture.
+\end{tabular} \medskip
+
+
+\subsubsection{Representing an action with an association}
+
+\noindent Level 1: Highlight solution  \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Is this the best role name to use here?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The \verb|${wrongRoleName}| role name represents an action, which is not correct.[ Use \verb|${correctRoleName}| instead.]
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1570,16 +1611,10 @@ Can you model this relationship more precisely?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Does it make sense to have multiple instances of the \verb|${inBetweenClass}| linking \verb|${firstClass}| and \verb|${secondClass}|?
-\end{tabular} \medskip
-
-\noindent Level 4: Parametrized response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
 Further details of the association between \verb|${firstClass}| and \verb|${secondClass}| should be modeled with an association class.
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Reference: \medskip
+\noindent Level 4: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Association class
@@ -1894,13 +1929,24 @@ root class, `PISystem`.
 \includegraphics[width=0.6\textwidth]{images/PISystem.png}
 \end{tabular} \medskip
 
-\noindent Level 6: Resource response with Quiz: \medskip
+\noindent Level 6: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Complete the containment tree for the following model.
+
+Which of the following compositions should be added to complete the containment tree for the
+following model.
 
 \\
 \includegraphics[width=0.6\textwidth]{images/IRS.png}
+
+\begin{itemize}
+    \item[$\boxtimes$] 1 IRS $<$@$>$- * StudentRole
+    \item[$\boxtimes$] 1 IRS $<$@$>$- * Person
+    \item[$\square$] 1 IRS $<$@$>$- * Game
+    \item[$\boxtimes$] 1 IRS $<$@$>$- * League
+    \item[$\square$] 1 IRS $<$@$>$- * RegularLeague
+\end{itemize}
+
 \end{tabular} \medskip
 
 \noindent Level 7: Resource response with Reference: \medskip
@@ -1941,13 +1987,24 @@ root class, `PISystem`.
 \includegraphics[width=0.6\textwidth]{images/PISystem.png}
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Complete the containment tree for the following model.
+
+Which of the following compositions should be added to complete the containment tree for the
+following model.
 
 \\
 \includegraphics[width=0.6\textwidth]{images/IRS.png}
+
+\begin{itemize}
+    \item[$\boxtimes$] 1 IRS $<$@$>$- * StudentRole
+    \item[$\boxtimes$] 1 IRS $<$@$>$- * Person
+    \item[$\square$] 1 IRS $<$@$>$- * Game
+    \item[$\boxtimes$] 1 IRS $<$@$>$- * League
+    \item[$\square$] 1 IRS $<$@$>$- * RegularLeague
+\end{itemize}
+
 \end{tabular} \medskip
 
 \noindent Level 6: Resource response with Reference: \medskip
@@ -1980,14 +2037,18 @@ What is the relationship between these classes?
 A \verb|${subclass}| is a \verb|${superclass}|. How should we model this?
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Place the following classes in an inheritance hierarchy:
 
 \begin{itemize}
-    \item Vehicle, LandVehicle, AmphibiousVehicle, AirVehicle, ...
-    \item BusVehicle, LuxuryBus, TourBus, BusRoute, ...
+    \item SportsCar isA \underline{Car}
+    \item \underline{Wheel} isA VehiclePart
+    \item Truck isA \underline{LandVehicle}
+    \item AmphibiousVehicle isA \underline{Vehicle}
+    \item \underline{LuxuryBus} isA BusVehicle
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2015,31 +2076,37 @@ Can you find a better way to express this relationship?
 When creating a generalization between \verb|${wrongSubclass}| and \verb|${wrongSuperclass}|, make sure to follow the \textit{checks for proper generalization}.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Place the following classes in an inheritance hierarchy:
 
 \begin{itemize}
-    \item Vehicle, LandVehicle, AmphibiousVehicle, AirVehicle, ...
-    \item BusVehicle, LuxuryBus, TourBus, BusRoute, ...
+    \item SportsCar isA \underline{Car}
+    \item \underline{Wheel} isA VehiclePart
+    \item Truck isA \underline{LandVehicle}
+    \item AmphibiousVehicle isA \underline{Vehicle}
+    \item \underline{LuxuryBus} isA BusVehicle
 \end{itemize}
 
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Please review the \textit{checks for proper generalization} lecture material
 and complete the following:
 
 The five checks for generalization are:
+
 \begin{itemize}
-    \item Obeys the \_\_\_\_\_\_\_\_. (isA rule)
-    \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
-    \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
-    \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
+    \item Obeys the \underline{isA rule}.
+    \item Subclass must retain its \underline{distinctiveness}.
+    \item All \underline{inherited features} must make sense in each subclass.
+    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
+    \item Subclass must not be \underline{an instance}.
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2067,31 +2134,37 @@ Can you find a better way to express this relationship?
 When creating a generalization between \verb|${wrongSubclass}| and \verb|${wrongSuperclass}|, make sure to follow the \textit{checks for proper generalization}.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Place the following classes in an inheritance hierarchy:
 
 \begin{itemize}
-    \item Vehicle, LandVehicle, AmphibiousVehicle, AirVehicle, ...
-    \item BusVehicle, LuxuryBus, TourBus, BusRoute, ...
+    \item SportsCar isA \underline{Car}
+    \item \underline{Wheel} isA VehiclePart
+    \item Truck isA \underline{LandVehicle}
+    \item AmphibiousVehicle isA \underline{Vehicle}
+    \item \underline{LuxuryBus} isA BusVehicle
 \end{itemize}
 
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Please review the \textit{checks for proper generalization} lecture material
 and complete the following:
 
 The five checks for generalization are:
+
 \begin{itemize}
-    \item Obeys the \_\_\_\_\_\_\_\_. (isA rule)
-    \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
-    \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
-    \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
+    \item Obeys the \underline{isA rule}.
+    \item Subclass must retain its \underline{distinctiveness}.
+    \item All \underline{inherited features} must make sense in each subclass.
+    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
+    \item Subclass must not be \underline{an instance}.
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2119,12 +2192,18 @@ Can you find a better way to model this concept?
 Is it possible for an instance of \verb|${nondistinctSubclass}| to turn into an instance of another subclass over its lifetime?
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with List multiple-choice quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Which classes are not subclasses of Account?
+
 \begin{itemize}
-    \item SavingsAccount, OverdrawnAccount, CheckingAccount, MortgageAccount, ClosedAccount
+    \item[$\square$] SavingsAccount
+    \item[$\boxtimes$] OverdrawnAccount
+    \item[$\square$] CheckingAccount
+    \item[$\square$] MortgageAccount
+    \item[$\boxtimes$] ClosedAccount
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2152,19 +2231,21 @@ Does this belong here?
 The \verb|${featureName}| feature of the \verb|${superclass}| class does not make sense for its \verb|${subclass}| subclass.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Please review the \textit{checks for proper generalization} lecture material
 and complete the following:
 
 The five checks for generalization are:
+
 \begin{itemize}
-    \item Obeys the \_\_\_\_\_\_\_\_. (isA rule)
-    \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
-    \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
-    \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
+    \item Obeys the \underline{isA rule}.
+    \item Subclass must retain its \underline{distinctiveness}.
+    \item All \underline{inherited features} must make sense in each subclass.
+    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
+    \item Subclass must not be \underline{an instance}.
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2198,19 +2279,21 @@ Remember the definition of the **'instance' rule**.[ Instances should not be mod
 A CheckingAccount isA Account, but account1234 is **not** an Account according to the 'instance' rule.
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Please review the \textit{checks for proper generalization} lecture material
 and complete the following:
 
 The five checks for generalization are:
+
 \begin{itemize}
-    \item Obeys the \_\_\_\_\_\_\_\_. (isA rule)
-    \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
-    \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
-    \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
+    \item Obeys the \underline{isA rule}.
+    \item Subclass must retain its \underline{distinctiveness}.
+    \item All \underline{inherited features} must make sense in each subclass.
+    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
+    \item Subclass must not be \underline{an instance}.
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2238,19 +2321,21 @@ Is it really necessary to model this as a subclass?
 \verb|${wrongSubclass}| needs to be different from its superclass[ and its sibling subclasses] in terms of behavior or structure.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Please review the \textit{checks for proper generalization} lecture material
 and complete the following:
 
 The five checks for generalization are:
+
 \begin{itemize}
-    \item Obeys the \_\_\_\_\_\_\_\_. (isA rule)
-    \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
-    \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
-    \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
+    \item Obeys the \underline{isA rule}.
+    \item Subclass must retain its \underline{distinctiveness}.
+    \item All \underline{inherited features} must make sense in each subclass.
+    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
+    \item Subclass must not be \underline{an instance}.
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2278,31 +2363,37 @@ Can you double check this relationship?
 Is \verb|${superclass}| really a \verb|${subclass}|?[ It should be the other way around.]
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Quiz: \medskip
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Place the following classes in an inheritance hierarchy:
 
 \begin{itemize}
-    \item Vehicle, LandVehicle, AmphibiousVehicle, AirVehicle, ...
-    \item BusVehicle, LuxuryBus, TourBus, BusRoute, ...
+    \item SportsCar isA \underline{Car}
+    \item \underline{Wheel} isA VehiclePart
+    \item Truck isA \underline{LandVehicle}
+    \item AmphibiousVehicle isA \underline{Vehicle}
+    \item \underline{LuxuryBus} isA BusVehicle
 \end{itemize}
 
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Quiz: \medskip
+\noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Please review the \textit{checks for proper generalization} lecture material
 and complete the following:
 
 The five checks for generalization are:
+
 \begin{itemize}
-    \item Obeys the \_\_\_\_\_\_\_\_. (isA rule)
-    \item Subclass must retain its \_\_\_\_\_\_\_\_. (distinctiveness)
-    \item All \_\_\_\_\_\_\_\_ must make sense in each subclass. (inherited features)
-    \item Subclass differs from superclass and other subclasses in \_\_\_\_\_\_\_\_ or \_\_\_\_\_\_\_\_. (behavior, structure)
-    \item Subclass must not be \_\_\_\_\_\_\_\_. (an instance)
+    \item Obeys the \underline{isA rule}.
+    \item Subclass must retain its \underline{distinctiveness}.
+    \item All \underline{inherited features} must make sense in each subclass.
+    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
+    \item Subclass must not be \underline{an instance}.
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2338,14 +2429,18 @@ Can you (find$|$create) a (better$|$different) superclass for \verb|${subclass}|
 What is the inheritance hierarchy between \verb|${hierarchy.classes}|?
 \end{tabular} \medskip
 
-\noindent Level 6: Resource response with Quiz: \medskip
+\noindent Level 6: Resource response with Fill-in-the-blanks quiz: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
+
 Place the following classes in an inheritance hierarchy:
 
 \begin{itemize}
-    \item Vehicle, LandVehicle, AmphibiousVehicle, AirVehicle, ...
-    \item BusVehicle, LuxuryBus, TourBus, BusRoute, ...
+    \item SportsCar isA \underline{Car}
+    \item \underline{Wheel} isA VehiclePart
+    \item Truck isA \underline{LandVehicle}
+    \item AmphibiousVehicle isA \underline{Vehicle}
+    \item \underline{LuxuryBus} isA BusVehicle
 \end{itemize}
 
 \end{tabular} \medskip
@@ -2376,7 +2471,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Modeling all the concepts in one \verb|${playerClass}| class will make it very complicated! Think about adding one or more classes to better represent the domain.
+The concepts of \verb|${instructorPlayer}| and \verb|${instructorRole}| and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -2389,10 +2484,10 @@ Modeling all the concepts in one \verb|${playerClass}| class will make it very c
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 
@@ -2420,7 +2515,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Modeling all the concepts in one \verb|${playerClass}| class will make it very complicated! Think about adding one or more classes to better represent the domain.
+The concepts of \verb|${instructorPlayer}| and \verb|${instructorRole}| and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -2433,10 +2528,10 @@ Modeling all the concepts in one \verb|${playerClass}| class will make it very c
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 
@@ -2477,10 +2572,10 @@ Think carefully about how to model the relationships between these concepts.
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 
@@ -2521,10 +2616,10 @@ Think carefully about how to model the relationships between these concepts.
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 
@@ -2565,10 +2660,10 @@ Think carefully about how to model the relationships between these concepts.
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 
@@ -2609,10 +2704,10 @@ A \verb|${firstRole}| has different features from a \verb|${secondRole}|.
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 
@@ -2653,10 +2748,10 @@ A \verb|${firstRole}| has different features from a \verb|${secondRole}| and \ve
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 
@@ -2697,10 +2792,10 @@ Will the roles of \verb|${firstRole}| and \verb|${secondRole}| ever be occupied 
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 
@@ -2741,10 +2836,10 @@ A \verb|${firstRole}| has different features from one of the other roles at the 
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 
@@ -2785,10 +2880,10 @@ A \verb|${firstRole}| has different features from one of the other roles and thi
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 
@@ -2829,10 +2924,10 @@ Will the roles of \verb|${firstRole}| and \verb|${secondRole}| ever be occupied 
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 
@@ -2873,10 +2968,10 @@ Can a \verb|${firstRole}| can also play the role of one of the other roles at di
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 
@@ -2917,10 +3012,10 @@ Do \verb|${firstRole}| and \verb|${secondRole}| need to have different features?
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 
@@ -2961,10 +3056,10 @@ Do \verb|${firstRole}| and \verb|${secondRole}| need to have different features 
   \textbf{\begin{tabular}[c]{@{}c@{}}Only one\\ role at\\ a time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Different\\ roles\\ over time\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}More than\\ one role\\ at the\\ same time\end{tabular}} \\ \hline
-Enumeration         & $\square$ & $\square$ & $\square$ & $\square$ \\
-Subclasses          & $\square$ & $\square$ & $\square$ & $\square$ \\
-Associations        & $\square$ & $\square$ & $\square$ & $\square$ \\
-Player-Role Pattern & $\square$ & $\square$ & $\square$ & $\square$ \\ \hline
+Enumeration         & $\square$   & $\boxtimes$ & $\boxtimes$ & $\square$   \\
+Subclasses          & $\boxtimes$ & $\boxtimes$ & $\square$   & $\square$   \\
+Associations        & $\square$   & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\
+Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \hline
 \end{tabular} \bigskip
 
 
@@ -2994,7 +3089,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Is there a way to remove the duplicate \verb|${duplicateAttribute}| attribute between \verb|${class1}| and \verb|${class2}|?
+The concepts of \verb|${instructorAbstraction}| and \verb|${instructorOccurrence}| and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -3022,7 +3117,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Is there a way to remove the duplicate \verb|${duplicateAttribute}| attribute between \verb|${class1}| and \verb|${class2}|?
+The concepts of \verb|${instructorAbstraction}| and \verb|${instructorOccurrence}| and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip

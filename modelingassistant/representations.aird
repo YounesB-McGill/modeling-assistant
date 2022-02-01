@@ -22,7 +22,7 @@
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/learningcorpus.ecore#/"/>
       </ownedRepresentationDescriptors>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_kBr-EHvDEeyg4bHKoZyFPg" name="learningcorpusquiz" repPath="#_kBo6wHvDEeyg4bHKoZyFPg" changeId="f32d01b9-c845-4932-9305-0a1e25b29b5e">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_kBr-EHvDEeyg4bHKoZyFPg" name="learningcorpusquiz" repPath="#_kBo6wHvDEeyg4bHKoZyFPg" changeId="b4136bcc-b4d4-4fe1-8624-fe9f08fe44c7">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/learningcorpusquiz.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -3264,10 +3264,10 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_ljhTg3vfEeyg4bHKoZyFPg" sourceNode="_iRGV8HveEeyg4bHKoZyFPg" targetNode="_mZThcHveEeyg4bHKoZyFPg" beginLabel="[1..1] statement" endLabel="[0..*] statements">
-      <target xmi:type="ecore:EReference" href="model/learningcorpusquiz.ecore#//FillInTheBlanksQuizStatement/statements"/>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_ljhTg3vfEeyg4bHKoZyFPg" sourceNode="_iRGV8HveEeyg4bHKoZyFPg" targetNode="_mZThcHveEeyg4bHKoZyFPg" beginLabel="[1..1] statement" endLabel="[0..*] components">
+      <target xmi:type="ecore:EReference" href="model/learningcorpusquiz.ecore#//FillInTheBlanksQuizStatement/components"/>
+      <semanticElements xmi:type="ecore:EReference" href="model/learningcorpusquiz.ecore#//FillInTheBlanksQuizStatement/components"/>
       <semanticElements xmi:type="ecore:EReference" href="model/learningcorpusquiz.ecore#//FillInTheBlanksQuizStatementComponent/statement"/>
-      <semanticElements xmi:type="ecore:EReference" href="model/learningcorpusquiz.ecore#//FillInTheBlanksQuizStatement/statements"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_pNkjbHvfEeyg4bHKoZyFPg" description="_driqpnvfEeyg4bHKoZyFPg" sourceArrow="FillDiamond" routingStyle="manhattan" strokeColor="0,0,0">
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" uid="_pNkjbXvfEeyg4bHKoZyFPg" showIcon="false"/>
         <endLabelStyle xmi:type="diagram:EndLabelStyle" uid="_pNkjbnvfEeyg4bHKoZyFPg" showIcon="false"/>

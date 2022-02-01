@@ -196,9 +196,6 @@ public class MistakeTypes {
   /** The using attribute instead of association mistake type. */
   public static final MistakeType USING_ATTRIBUTE_INSTEAD_OF_ASSOC = MTS.get("Using attribute instead of assoc");
 
-  /** The representing an action with an association mistake type. */
-  public static final MistakeType REPRESENTING_ACTION_WITH_ASSOC = MTS.get("Representing action with assoc");
-
   /** The extra association mistake type. */
   public static final MistakeType EXTRA_ASSOCIATION = MTS.get("Extra association");
 
@@ -228,6 +225,9 @@ public class MistakeTypes {
 
   /** The bad role name spelling mistake type. */
   public static final MistakeType BAD_ROLE_NAME_SPELLING = MTS.get("Bad role name spelling");
+
+  /** The representing an action with an association mistake type. */
+  public static final MistakeType REPRESENTING_ACTION_WITH_ASSOC = MTS.get("Representing action with assoc");
 
   /** The wrong role name but correct association mistake type. */
   public static final MistakeType WRONG_ROLE_NAME = MTS.get("Wrong role name");

@@ -688,7 +688,7 @@ public class MistakeDetectionWrongClassTest {
     var instructorPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-    
+
     assertEquals(3, comparison.newMistakes.size());
     assertEquals(3, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS, instructorPassengerClass, 0, 1, false);
