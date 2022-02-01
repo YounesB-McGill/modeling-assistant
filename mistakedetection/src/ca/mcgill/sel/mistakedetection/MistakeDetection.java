@@ -673,8 +673,8 @@ public class MistakeDetection {
             if (comparison.mappedClassifiers.containsValue(studSubClass)
                 && comparison.mappedClassifiers.containsValue(getSupermostClass(studSubClass))) {
               comparison.newMistakes
-                  .add(createMistake(WRONG_SUPERCLASS, List.of(getSupermostClass(studSubClass), studSubClass),
-                      List.of(getKey(comparison.mappedClassifiers, getSupermostClass(studSubClass)), instSubclass)));
+                  .add(createMistake(WRONG_SUPERCLASS, List.of(studSubClass, getSupermostClass(studSubClass)),
+                      List.of(instSubclass, getKey(comparison.mappedClassifiers, getSupermostClass(studSubClass)))));
             } else {
               comparison.newMistakes.add(createMistake(WRONG_SUPERCLASS, studSubClass, instSubclass));
             }
