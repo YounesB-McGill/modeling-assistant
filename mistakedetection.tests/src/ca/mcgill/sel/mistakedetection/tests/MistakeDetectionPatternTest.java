@@ -1106,9 +1106,9 @@ public class MistakeDetectionPatternTest {
     var studElements = List.of(studBankAccClass, studCheckingAccClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-
-    assertEquals(5, comparison.newMistakes.size());
-    assertEquals(5, studentSolution.getMistakes().size());
+    
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(1), FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, studElements, instElements,
         0, 1, false);
