@@ -1646,7 +1646,7 @@ public class MistakeDetectionWrongAttributeTest {
     var studentcapacityAttribute = getAttributeFromClass("capacity", studentCarClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
+   
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 

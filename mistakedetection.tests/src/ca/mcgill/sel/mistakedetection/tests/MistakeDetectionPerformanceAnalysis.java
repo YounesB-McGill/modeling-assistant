@@ -30,8 +30,9 @@ public class MistakeDetectionPerformanceAnalysis {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
-   // MistakeDetectionTest.log(comparison);
+    System.out.println(studentSolution.getMistakes().size());
+    System.out.println(comparison.newMistakes.size());
+   MistakeDetectionTest.log(comparison);
   }
 
   @Test

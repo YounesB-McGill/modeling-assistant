@@ -1106,9 +1106,9 @@ public class MistakeDetectionPatternTest {
     var studElements = List.of(studBankAccClass, studCheckingAccClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-    
-    assertEquals(4, comparison.newMistakes.size());
-    assertEquals(4, studentSolution.getMistakes().size());
+   
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(1), FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, studElements, instElements,
         0, 1, false);
@@ -1681,8 +1681,8 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    assertEquals(6, comparison.newMistakes.size());
-    assertEquals(6, studentSolution.getMistakes().size());
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, studElements,
         instElements, 0, 1, false);
