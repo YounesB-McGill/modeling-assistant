@@ -30,24 +30,25 @@ public class MistakeDetectionPerformanceAnalysis {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-    System.out.println(studentSolution.getMistakes().size());
-    System.out.println(comparison.newMistakes.size());
-   MistakeDetectionTest.log(comparison);
+ //   System.out.println(studentSolution.getMistakes().size());
+  //  System.out.println(comparison.newMistakes.size());
+   // MistakeDetectionTest.log(comparison);
   }
 
   @Test
   public void testStudentSolution2() {
     var instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/realModels/instructorSolution/instructorSolution/Class Diagram/InstructorSolution.domain_model.cdm");
+        "../mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/realModels/studentSolution/studentDomainModel - 2/Class Diagram/StudentDomainModel.domain_model.cdm");
+        "../mistakedetection/realModels/studentSolution/studentDomainModel - 1/Class Diagram/StudentDomainModel.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
-   // MistakeDetectionTest.log(comparison);
+    System.out.println(studentSolution.getMistakes().size());
+    System.out.println(comparison.newMistakes.size());
+    MistakeDetectionTest.log(comparison);
 
   }
 }

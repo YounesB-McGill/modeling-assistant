@@ -338,6 +338,8 @@ public class MistakeDetection {
       }
 
       Classifier studMappedSuperClass = comparison.mappedClassifiers.get(instSuperClass);
+  //    boolean isMappedClassNull = studMappedSuperClass == null;    
+     
       var studClassSuperClasses = getAllSuperClasses(studClass);
       // System.out.println(instClass.getName() + " studSuperClass" + studMappedSuperClass);
       if (studMappedSuperClass == null && !studClass.getSuperTypes().isEmpty()) {
@@ -401,8 +403,9 @@ public class MistakeDetection {
 
     for (Attribute studAttrib : comparison.extraStudentAttributes) {
       for (Attribute instAttrib : comparison.notMappedInstructorAttributes) {
-        if (studAttrib.getName().equals(instAttrib.getName()) && studAttrib.getType().equals(instAttrib.getType())) {
+        if (studAttrib.getName().equals(instAttrib.getName())) {
           comparison.newMistakes.add(createMistake(ATTRIBUTE_MISPLACED, studAttrib, instAttrib));
+    //      comparison.newMistakes.add(checkMistakeWrongAttributeTypeAndListAttrib(studAttrib, instAttrib));
           studAttributesProcessed.add(studAttrib);
           instAttributesProcessed.add(instAttrib);
         }
@@ -995,22 +998,32 @@ public class MistakeDetection {
   private static void mapEnumerations(Solution instructorSolution, Solution studentSolution, Comparison comparison) {
     var instructorClassDiagram = instructorSolution.getClassDiagram();
     var studentClassDiagram = studentSolution.getClassDiagram();
-    boolean processed = false;
+   
+    for (Type studElementType : studentClassDiagram.getTypes()) {
+      if (studElementType instanceof CDEnum) {
+        CDEnum studEnumClass = (CDEnum) studElementType;      
+        comparison.extraStudentEnums.add(studEnumClass);
+        comparison.extraStudentEnumLiterals.addAll(studEnumClass.getLiterals());       
+      }
+    }
     for (Type instElementType : instructorClassDiagram.getTypes()) {
       if (instElementType instanceof CDEnum) {
         CDEnum instEnumClass = (CDEnum) instElementType;
         comparison.notMappedInstructorEnums.add(instEnumClass);
         comparison.notMappedInstructorEnumLiterals.addAll(instEnumClass.getLiterals());
-      }
-      for (Type studElementType : studentClassDiagram.getTypes()) {
-        if (studElementType instanceof CDEnum && !processed) {
-          CDEnum studEnumClass = (CDEnum) studElementType;
-          comparison.extraStudentEnums.add(studEnumClass);
-          comparison.extraStudentEnumLiterals.addAll(studEnumClass.getLiterals());
+        for (Type studElementType : studentClassDiagram.getTypes()) {
+          if (studElementType instanceof CDEnum) {
+            CDEnum studEnumClass = (CDEnum) studElementType;           
+            if(studEnumClass.getName().equals(instEnumClass.getName())) {
+              addEnumsToMap(instEnumClass, studEnumClass, comparison);
+              mapEnumLiterals(instEnumClass, studEnumClass, comparison);    
+            }
+          }
         }
-      }
-      processed = true;
+      }    
     }
+
+    
     comparison.mappedAttributes.forEach((key, value) -> {
       if (!(key.getType() instanceof CDEnum && value.getType() instanceof CDEnum)) {
         return;
@@ -1020,25 +1033,35 @@ public class MistakeDetection {
       if (instEnum == null && studEnum == null) {
         return;
       }
-      comparison.mappedEnumerations.put(instEnum, studEnum);
-      comparison.notMappedInstructorEnums.remove(instEnum);
-      comparison.extraStudentEnums.remove(studEnum);
-      checkMistakeBadEnumNameSpelling(studEnum, instEnum).ifPresent(comparison.newMistakes::add);
-
-      for (CDEnumLiteral instEnumLiteral : instEnum.getLiterals()) {
-        for (CDEnumLiteral studEnumLiteral : studEnum.getLiterals()) {
-          var lDistance = levenshteinDistance(instEnumLiteral.getName(), studEnumLiteral.getName());
-          if (lDistance < MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-            comparison.mappedEnumerationItems.put(instEnumLiteral, studEnumLiteral);
-            comparison.notMappedInstructorEnumLiterals.remove(instEnumLiteral);
-            comparison.extraStudentEnumLiterals.remove(studEnumLiteral);
-            checkMistakeBadEnumLiteralSpelling(studEnumLiteral, instEnumLiteral).ifPresent(comparison.newMistakes::add);
-          }
-        }
+      if(!comparison.mappedEnumerations.containsKey(instEnum)) {
+      addEnumsToMap(instEnum, studEnum, comparison);
+      mapEnumLiterals(instEnum, studEnum, comparison); 
       }
     });
   }
+ 
+  
+  private static void mapEnumLiterals(CDEnum instEnum, CDEnum studEnum, Comparison comparison) {
+    
+    for (CDEnumLiteral instEnumLiteral : instEnum.getLiterals()) {
+      for (CDEnumLiteral studEnumLiteral : studEnum.getLiterals()) {
+        var lDistance = levenshteinDistance(instEnumLiteral.getName(), studEnumLiteral.getName());
+        if (lDistance < MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+          comparison.mappedEnumerationItems.put(instEnumLiteral, studEnumLiteral);
+          comparison.notMappedInstructorEnumLiterals.remove(instEnumLiteral);
+          comparison.extraStudentEnumLiterals.remove(studEnumLiteral);
+          checkMistakeBadEnumLiteralSpelling(studEnumLiteral, instEnumLiteral).ifPresent(comparison.newMistakes::add);
+        }
+      }
+    }    
+  }
 
+  private static void addEnumsToMap(CDEnum instEnum, CDEnum studEnum, Comparison comparison) {     
+    comparison.mappedEnumerations.put(instEnum, studEnum);
+    comparison.notMappedInstructorEnums.remove(instEnum);
+    comparison.extraStudentEnums.remove(studEnum);
+    checkMistakeBadEnumNameSpelling(studEnum, instEnum).ifPresent(comparison.newMistakes::add);
+  }
   private static void checkMistakesInAttributes(Attribute studentAttribute, Attribute instructorAttribute,
       List<Mistake> newMistakes) {
     checkMistakeWrongAttributeTypeAndListAttrib(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
