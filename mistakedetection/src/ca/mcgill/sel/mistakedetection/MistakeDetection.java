@@ -1897,7 +1897,7 @@ public class MistakeDetection {
     checkMistakeMissingRoleName(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeRoleNameExpectedStactic(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeRoleNameNotExpectedStactic(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeRoleNamePresentButIncorrect(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeRoleNamePresentButIncorrect(studentClassAssocEnd, instructorClassAssocEnd,comparison).ifPresent(addMist);
     checkMistakeBadRoleNameSpelling(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
   }
 
@@ -2764,9 +2764,10 @@ public class MistakeDetection {
   }
 
   public static Optional<Mistake> checkMistakeRoleNamePresentButIncorrect(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
+      AssociationEnd instructorClassAssocEnd, Comparison comparison) {
     int lDistance = levenshteinDistance(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName());
-    if (lDistance > MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+    var m = getMistakeForElement(studentClassAssocEnd, USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED, comparison);
+    if (lDistance > MAX_LEVENSHTEIN_DISTANCE_ALLOWED && m == null) {
       return Optional.of(createMistake(WRONG_ROLE_NAME, studentClassAssocEnd, instructorClassAssocEnd));
     }
 
@@ -2844,7 +2845,7 @@ public class MistakeDetection {
     }); // No Student Element
   }
 
-  private static boolean mistakeForElementExists(Classifier cls, List<Mistake> newMistakes) {
+  private static boolean mistakeForElementExists(NamedElement cls, List<Mistake> newMistakes) {
     for (Mistake m : newMistakes) {
       if ((!m.getInstructorElements().isEmpty() && m.getInstructorElements().get(0).getElement().equals(cls))
           || (!m.getStudentElements().isEmpty() && m.getStudentElements().get(0).getElement().equals(cls))) {

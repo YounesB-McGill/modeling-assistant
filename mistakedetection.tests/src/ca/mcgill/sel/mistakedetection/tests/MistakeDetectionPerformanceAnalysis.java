@@ -3,8 +3,13 @@ package ca.mcgill.sel.mistakedetection.tests;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
+import static modelingassistant.util.TagUtils.setAbstractionTagToClassInClassDiag;
+import static modelingassistant.util.TagUtils.setOccurrenceTagToClassInClassDiag;
 import org.junit.jupiter.api.Test;
+import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
+import modelingassistant.Solution;
+import modelingassistant.TagGroup;
 
 /**
  *
@@ -18,15 +23,21 @@ import ca.mcgill.sel.mistakedetection.MistakeDetection;
 public class MistakeDetectionPerformanceAnalysis {
 
   //TODO To be completed in near future. The functions below are incomplete
-
+  ClassDiagram instructorClassDiagram;
+  Solution instructorSolution;
+  
+  MistakeDetectionPerformanceAnalysis(){
+    instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm");
+    instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+    TagGroup tagGroup = setAbstractionTagToClassInClassDiag("RoomType", instructorClassDiagram, instructorSolution);
+    setOccurrenceTagToClassInClassDiag("Room", tagGroup, instructorClassDiagram);
+  }
   @Test
-  public void testStudentSolution1() {
-    var instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/realModels/instructorSolution/instructorSolution/Class Diagram/InstructorSolution.domain_model.cdm");
-    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+  public void testStudentSolution1() {    
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/realModels/studentSolution/studentDomainModel - 1/Class Diagram/StudentDomainModel.domain_model.cdm");
+        "../mistakedetection/realModels/studentSolution/studentDomainModel_G12_1/Class Diagram/StudentDomainModel.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
@@ -37,12 +48,8 @@ public class MistakeDetectionPerformanceAnalysis {
 
   @Test
   public void testStudentSolution2() {
-    var instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm");
-    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
-
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/realModels/studentSolution/studentDomainModel - 1/Class Diagram/StudentDomainModel.domain_model.cdm");
+        "../mistakedetection/realModels/studentSolution/studentDomainModel_G12_5/Class Diagram/StudentDomainModel.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
