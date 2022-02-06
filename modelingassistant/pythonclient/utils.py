@@ -8,7 +8,7 @@ This module must not depend on any other to avoid circular dependencies.
 from string import Formatter
 from types import SimpleNamespace
 
-from constants import CORRECT_QUIZ_ITEM_NOTATIONS,  MULTIPLE_FEEDBACKS_PER_LEVEL
+from constants import CORRECT_QUIZ_ITEM_NOTATIONS, MULTIPLE_FEEDBACKS_PER_LEVEL
 from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
 from learningcorpusquiz import (Blank, Choice, FillInTheBlanksQuiz, FillInTheBlanksQuizStatement,
                                 ListMultipleChoiceQuiz, NonBlank, TableMultipleChoiceQuiz)

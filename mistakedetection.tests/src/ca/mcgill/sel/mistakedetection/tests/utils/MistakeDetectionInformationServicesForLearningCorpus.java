@@ -20,6 +20,7 @@ import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -335,12 +336,15 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
 
   private static String mistakeTypeElementVsParametrizedStringStatistics(
       Map<MistakeType, ? extends Collection<ElementDescription>> mapping) {
-    return "MistakeType, StudentElems, InstructorElems, TotalElems, ParamRespNumParams\n" + mapping.entrySet().stream()
-        .map(e -> e.getKey().getName() + "," + e.getValue().stream().filter(ed -> ed.hasStudent).count() + ","
-            + e.getValue().stream().filter(ed -> !ed.hasStudent).count() + "," + e.getValue().size() + ","
-            + Pattern.compile("\\$\\{.*?\\}").matcher(e.getKey().getFeedbacks().stream()
-                .filter(fb -> fb instanceof ParametrizedResponse).map(pr -> ((ParametrizedResponse) pr).getText())
-                .collect(Collectors.joining(""))).results().count())
+    return "MistakeType,StudentElems,InstructorElems,TotalElems,MaxParamRespNumParams\n" + mapping.entrySet().stream()
+        .map(e -> e.getKey().getName() + ","
+            + e.getValue().stream().filter(ed -> ed.hasStudent).count() + ","
+            + e.getValue().stream().filter(ed -> !ed.hasStudent).count() + ","
+            + e.getValue().size() + ","
+            + e.getKey().getFeedbacks().stream()
+                .filter(fb -> fb instanceof ParametrizedResponse).map(pr ->
+                    Pattern.compile("\\$\\{.*?\\}").matcher(((ParametrizedResponse) pr).getText()).results().count())
+                .max(Comparator.naturalOrder()).orElseGet(() -> 0L))
         .collect(Collectors.joining("\n"));
   }
 
@@ -437,6 +441,14 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     @Override public String toString() {
       return (hasStudent ? "Student" : "Instructor") + " " + (description.isEmpty() ? "" : description + " ")
           + eClass.getName() + " (name: " + name + ")";
+    }
+  }
+
+  /** Container class for debug print function. It can be added to a Stream with {@code .map(Debug::print)}. */
+  static class Debug {
+    static <T> T print(T t) {
+      System.out.println(t);
+      return t;
     }
   }
 
