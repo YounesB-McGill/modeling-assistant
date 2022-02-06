@@ -475,7 +475,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   /** Convenience container class for mistake information not in metamodel. To be refactored in the future. */
   static class MistakeInfo {
     static final String TABLE_HEADER =
-        "MistakeType,StudentElems,InstructorElems,TotalElems,MaxParamRespNumParams,ParamRespNumParams\n";
+        "MistakeType,StudentElems,InstructorElems,TotalElems,MaxParamRespNumParams,SolElemDescriptions\n";
 
     Mistake mistake;
     int instructorElems;
@@ -504,18 +504,29 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       return Collections.unmodifiableList(counts);
     }
 
-    @Override public String toString() {
+    private String firstColumnEntries() {
       return mistake.getMistakeType().getName() + "," + studentElems + "," + instructorElems + "," + totalElems + ","
-          + maxParamRespNumParams + "," + paramRespParamNums.toString().replaceAll("[\\[\\]\\s]", "");
+          + maxParamRespNumParams;
+    }
+
+    @Override public String toString() {
+      return firstColumnEntries() + ","
+          + mistake.getStudentElements().stream().map(e -> ElementDescription.fromElement(e).toString())
+              .collect(Collectors.joining(",")) + ","
+          + mistake.getInstructorElements().stream().map(e -> ElementDescription.fromElement(e).toString())
+              .collect(Collectors.joining(","));
     }
 
     // value-based equality based on some fields only, to avoid set duplicates
     @Override public boolean equals(Object o) {
-      return toString().equals(o.toString());
+      if (o instanceof MistakeInfo) {
+        return firstColumnEntries().equals(((MistakeInfo) o).firstColumnEntries());
+      }
+      return false;
     }
 
     @Override public int hashCode() {
-      return toString().hashCode();
+      return firstColumnEntries().hashCode();
     }
   }
 
