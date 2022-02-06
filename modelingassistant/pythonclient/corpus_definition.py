@@ -33,8 +33,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 # these additional feedbacks will be migrated to new mistake types
                 4: [ParametrizedResponse(
                     text="The ${className} class is not part of the problem domain, so please remove it."),
-                    ParametrizedResponse(text="Remember that a domain model should not contain concepts from the user "
-                        "interfaces or databases, like Window, Database, etc.")],
+                    TextResponse(text="Remember that a domain model should not contain concepts from the user "
+                                      "interfaces or databases, like Window, Database, etc.")],
                 5: ResourceResponse(learningResources=[class_ref]),
             })),
         ],
