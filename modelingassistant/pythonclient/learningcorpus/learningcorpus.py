@@ -127,6 +127,10 @@ class MistakeType(NamedElement):
         if mistakeTypeCategory is not None:
             self.mistakeTypeCategory = mistakeTypeCategory
 
+    def parametrized_responses(self) -> list:
+        """Custom function to return all the parametrized responses for this mistake type."""
+        return [fb for fb in self.feedbacks if fb.__class__.__name__ == 'ParametrizedResponse']
+
 class TextResponse(Feedback):
 
     def __init__(self, **kwargs):

@@ -7,6 +7,7 @@ This module must not depend on any other to avoid circular dependencies.
 
 from string import Formatter
 from types import SimpleNamespace
+from typing import NamedTuple
 
 from constants import CORRECT_QUIZ_ITEM_NOTATIONS, MULTIPLE_FEEDBACKS_PER_LEVEL
 from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
@@ -116,6 +117,28 @@ def fitb(prompt: str, *statements) -> FillInTheBlanksQuiz:
                 statement.components.append(Blank(correctAnswer=blank))
         quiz.statements.append(statement)
     return quiz
+
+
+class MistakeDetectionFormat(NamedTuple):
+    """
+    Simple representation of the current mistake detection format for a mistake type.
+
+    stud: ordered list of student solution elements for a particular mistake type
+    inst: ordered list of instructor solution elements
+
+    Note that in both cases, not all slots are occupied. For example, for incomplete containment tree, there may be
+    a variable number of student solution elements.
+
+    This information is not in the metamodel as of now, but is still needed to interpret the results of the
+    Mistake Detection System. This approach is provisional and will be improved in future work.
+    """
+    stud: list[str]
+    inst: list[str]
+
+
+def mdf(student_elems_descriptions: list[str], instructor_elems_descriptions: list[str]) -> MistakeDetectionFormat:
+    "Shorthand for MistakeDetectionFormat initializer."
+    return MistakeDetectionFormat(stud=student_elems_descriptions, inst=instructor_elems_descriptions)
 
 
 class McqFactory:

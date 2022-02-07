@@ -157,31 +157,35 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   public static void main(String[] args) {
     var testCompletionStatusByMistakeType = getTestCompletionStatusByMistakeType();
     var pythonLearningCorpusInitializationCode = generatePythonLearningCorpusInitializationCode();
+
     // Uncomment the lines that you want to be output
     String[] outputs = {
-        title("Color output demo (requires ANSI escaping)"),
-        Color.demo(),
+      title("Color output demo (requires ANSI escaping)"),
+      Color.demo(),
 
       title("Mistake Detection test completion status"),
       formattedTestCompletionStatusLegend(),
       getFormattedTestCompletionStatus(testCompletionStatusByMistakeType),
       overallTestCompletionStatistics(testCompletionStatusByMistakeType),
 
-      title("Mistake type mapping to instructor/student CDM elements"),
+      // title("Mistake type mapping to instructor/student CDM elements"),
       // getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorElems)),
       // getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(studentElems)),
-      getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorAndStudentElems)),
+      // getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorAndStudentElems)),
 
-      title("Mistake type mapping to instructor/student solution element descriptions"),
-      getLearningCorpusElementDescriptionMappingAsCsv(mapMistakesToElementDescriptions(instructorAndStudentElems)),
+      // title("Mistake type mapping to instructor/student solution element descriptions"),
+      // getLearningCorpusElementDescriptionMappingAsCsv(mapMistakesToElementDescriptions(instructorAndStudentElems)),
 
       title("MistakeInfo statistics for each detected mistake"),
       mistakeTypeElementVsParametrizedStringStatistics(mapToMistakeInfos()),
 
-      title("Mistake type mapping to learning corpus ElementTypes"),
+      // title("Mistake type mapping to learning corpus ElementTypes"),
       // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorElems)),
       // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(studentElems)),
-      getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorAndStudentElems)),
+      // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorAndStudentElems)),
+
+      title("Suggested Parametrized Responses"),
+      // TODO
 
       title("Python learning corpus initialization code (imports/learning items)"),
       pythonLearningCorpusInitializationCode.imports,

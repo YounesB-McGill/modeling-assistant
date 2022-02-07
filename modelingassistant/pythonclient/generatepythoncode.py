@@ -44,6 +44,10 @@ def customize_generated_code():
             """
         return [mtc for mtc in self.mistakeTypeCategories if not mtc.supercategory]
 
+    def parametrized_responses(self) -> list:
+        "Custom function to return all the parametrized responses for this mistake type."
+        return [fb for fb in self.feedbacks if fb.__class__.__name__ == "ParametrizedResponse"]
+
     # Add the following items to the generated ModelingAssistant class
     cdm2sols_def = "classDiagramsToSolutions: dict = {}"
 
@@ -78,6 +82,7 @@ def customize_generated_code():
     ma_py = "modelingassistant/pythonclient/modelingassistant/modelingassistant.py"
 
     customize_class(lc_py, "LearningCorpus", [ast_for(mistakeTypes), ast_for(topLevelMistakeTypeCategories)])
+    customize_class(lc_py, "MistakeType", [ast_for(parametrized_responses)])
     customize_class(ma_py, "ModelingAssistant", [ast.parse(cdm2sols_def)])
 
     ma_footer = dedent("""

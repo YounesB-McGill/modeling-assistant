@@ -135,3 +135,10 @@ FULL_PR_PATTERN_SHOULD_BE_ENUM: MistakeType = _MTS["Full PR pattern should be en
 MISSING_AO_PATTERN: MistakeType = _MTS["Missing AO pattern"]
 INCOMPLETE_AO_PATTERN: MistakeType = _MTS["Incomplete AO pattern"]
 GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN: MistakeType = _MTS["Generalization should be assoc AO pattern"]
+
+
+# Add these manually for now
+from utils import mdf  # pylint: disable=wrong-import-position
+# Mistake Detection Formats (student elements, instructor elements)
+MISSING_CLASS.md_format = mdf([], ["cls"])
+SOFTWARE_ENGINEERING_TERM.md_format = mdf(["cls"], ["cls"])

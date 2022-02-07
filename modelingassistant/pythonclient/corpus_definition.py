@@ -10,7 +10,7 @@ from textwrap import dedent
 from constants import T
 from learningcorpus import (Example, Feedback, LearningCorpus, MistakeType, ParametrizedResponse, Quiz, Reference,
                             ResourceResponse, TextResponse)
-from utils import mcq, mtc, mt, fbs, fitb
+from utils import mcq, mtc, mt, fbs, fitb, mdf
 
 
 corpus = LearningCorpus(mistakeTypeCategories=[
@@ -20,7 +20,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightProblem=True),  # Highlight entire sentence. Can infer this from level
                 2: TextResponse(text="Make sure you have modeled all the classes in the problem description."),
                 3: Feedback(highlightProblem=True),
-                4: ParametrizedResponse(text="Remember to add the ${className} class."),
+                4: ParametrizedResponse(text="Remember to add the ${inst_cls} class."),
                 5: ResourceResponse(learningResources=[class_ref := Reference(content="Please review the "
                             "[Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
             })),
@@ -64,7 +64,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Remember that a domain model should not contain software engineering terms."),
-                    3: ParametrizedResponse(text="${className} contains a software engineering term, which does not "
+                    3: ParametrizedResponse(text="${stud_cls} contains a software engineering term, which does not "
                         "belong in a domain model."),
                     4: ResourceResponse(learningResources=[correct_class_naming_example]),
                     5: ResourceResponse(learningResources=[class_ref]),
@@ -1136,3 +1136,8 @@ mts_by_priority: list[MistakeType] = [
     missing_pr_pattern,
     missing_ao_pattern,
 ]
+
+
+# Mistake Detection Formats (student elements, instructor elements)
+missing_class.md_format = mdf([], ["cls"])
+software_engineering_term.md_format = mdf(["cls"], ["cls"])

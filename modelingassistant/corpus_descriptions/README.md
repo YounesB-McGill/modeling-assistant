@@ -181,7 +181,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${className} contains a software engineering term, which does not belong in a domain model.
+> ${stud_cls} contains a software engineering term, which does not belong in a domain model.
 
 Level 4: Resource response with Example:
 
@@ -393,7 +393,7 @@ Level 3: Highlight specific problem statement elements
 
 Level 4: Parametrized response:
 
-> Remember to add the ${className} class.
+> Remember to add the ${inst_cls} class.
 
 Level 5: Resource response with Reference:
 
