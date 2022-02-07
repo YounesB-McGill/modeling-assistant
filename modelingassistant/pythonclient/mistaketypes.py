@@ -3,8 +3,10 @@ This file contains all mistake types and categories.
 """
 
 from constants import LEARNING_CORPUS_PATH
+from corpus import corpus as runtime_corpus
 from fileserdes import load_lc
 from learningcorpus import MistakeTypeCategory, MistakeType
+from utils import mdf
 
 corpus = load_lc(LEARNING_CORPUS_PATH)
 
@@ -12,9 +14,14 @@ corpus = load_lc(LEARNING_CORPUS_PATH)
 MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[str, MistakeTypeCategory] = {c.name: c for c in corpus.mistakeTypeCategories}
 MISTAKE_TYPES_BY_NAME: dict[str, MistakeType] = {mt.name: mt for mt in corpus.mistakeTypes()}
 
-# Short-name references to the above maps for greater code legibility
+# Short-name references to the above dicts for greater code legibility
 _MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
 _MTS = MISTAKE_TYPES_BY_NAME
+
+# Add mistake detection format attribute to mistake types in _MTS
+for mt in runtime_corpus.mistakeTypes():
+    _MTS[mt.name].md_format = getattr(mt, "md_format", mdf([], []))
+
 
 # Mistake type categories
 CLASS_MISTAKES: MistakeTypeCategory = _MTCS["Class mistakes"]
@@ -135,10 +142,3 @@ FULL_PR_PATTERN_SHOULD_BE_ENUM: MistakeType = _MTS["Full PR pattern should be en
 MISSING_AO_PATTERN: MistakeType = _MTS["Missing AO pattern"]
 INCOMPLETE_AO_PATTERN: MistakeType = _MTS["Incomplete AO pattern"]
 GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN: MistakeType = _MTS["Generalization should be assoc AO pattern"]
-
-
-# Add these manually for now
-from utils import mdf  # pylint: disable=wrong-import-position
-# Mistake Detection Formats (student elements, instructor elements)
-MISSING_CLASS.md_format = mdf([], ["cls"])
-SOFTWARE_ENGINEERING_TERM.md_format = mdf(["cls"], ["cls"])
