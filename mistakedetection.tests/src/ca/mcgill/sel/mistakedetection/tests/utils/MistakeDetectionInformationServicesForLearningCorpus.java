@@ -17,6 +17,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
 import java.io.PrintWriter;
 import java.util.AbstractMap.SimpleImmutableEntry;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -184,12 +185,15 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(studentElems)),
       // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorAndStudentElems)),
 
-      title("Suggested Parametrized Responses"),
+      // title("Suggested Parametrized Responses"),
       // TODO
 
-      title("Python learning corpus initialization code (imports/learning items)"),
-      pythonLearningCorpusInitializationCode.imports,
-      pythonLearningCorpusInitializationCode.learningItems,
+      title("Suggested MistakeDetectionFormats"),
+      formatMistakeDetectionFormatsForPython(suggestMistakeDetectionFormats(), true),
+
+//      title("Python learning corpus initialization code (imports/learning items)"),
+//      pythonLearningCorpusInitializationCode.imports,
+//      pythonLearningCorpusInitializationCode.learningItems,
     };
 
     System.out.println(String.join("\n\n", outputs));
@@ -315,6 +319,28 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     return new PythonLearningCorpusInitializationCode(imports.toString(), learningItems.toString());
   }
 
+  /** Suggests mistake detection formats based on the output of the mistake detection tests. */
+  static Map<MistakeType, MistakeDetectionFormat> suggestMistakeDetectionFormats() {
+    return suggestAllMistakeDetectionFormats().entrySet().stream().collect(Collectors.toMap(
+        e -> e.getKey().getMistakeType(),
+        Map.Entry::getValue,
+        (mdf1, mdf2) -> {
+          if (mdf1.inst.size() <= mdf2.inst.size() && mdf1.stud.size() <= mdf2.stud.size()) {
+            return mdf2;
+          } else if (mdf1.inst.size() >= mdf2.inst.size() && mdf1.stud.size() >= mdf2.stud.size()) {
+            return mdf1;
+          }
+          warn("Encountered 2 MistakeDetectionFormats with incompatible numbers of instructor and student elements, "
+              + "returning most recent: " + mdf2);
+          return mdf2;
+        },
+        TreeMap::new));
+  }
+
+  private static Map<Mistake, MistakeDetectionFormat> suggestAllMistakeDetectionFormats() {
+    return allMistakes().collect(Collectors.toMap(Function.identity(), MistakeDetectionFormat::new));
+  }
+
   /**
    * Returns the mapping of comparison mistakes to CDM metatypes in a CSV-compatible format.
    * The format of each row is as follows:<br>
@@ -381,6 +407,14 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       Map<MistakeType, ? extends Collection<MistakeInfo>> mapping) {
     return MistakeInfo.TABLE_HEADER + mapping.entrySet().stream().map(e -> e.getValue().stream()
         .map(MDIS4LC::randomColorString).collect(Collectors.joining("\n"))).collect(Collectors.joining("\n"));
+  }
+
+  /** Format the MistakeDetectionFormats to be used in the Python corpus definition. */
+  private static String formatMistakeDetectionFormatsForPython(Map<MistakeType, MistakeDetectionFormat> mapping,
+      boolean filterNumberedMdfs) {
+    // eg, missing_class.md_format = mdf([], ["cls"])
+    return mapping.entrySet().stream().map(e -> underscorify(e.getKey().getName()) + ".md_format = mdf" + e.getValue())
+        .filter(s -> !(filterNumberedMdfs && s.matches(".*\\d.*"))).collect(Collectors.joining("\n"));
   }
 
   /**
@@ -462,6 +496,12 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   /** Debug print function. It can be added to a Stream with {@code .map(MDIS4LC::debugPrint)}. */
   static <T> T debugPrint(T t) {
     System.out.println(t);
+    return t;
+  }
+
+  /** Prints non-fatal warning to console in orange. */
+  static <T> T warn(T t) {
+    System.out.println(colorString(Color.ORANGE, "Warning: " + t));
     return t;
   }
 
@@ -564,6 +604,14 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     boolean hasStudent;
     String description = "";
 
+    static final Map<EClass, String> eClassesToShortDisplayNames = Map.of(
+        CDF.createAssociationEnd().eClass(), "assocend",
+        CDF.createAssociation().eClass(), "rel", // includes composition and aggregation
+        CDF.createAttribute().eClass(), "attr",
+        CDF.createCDEnum().eClass(), "enum",
+        CDF.createCDEnumLiteral().eClass(), "enumitem",
+        CDF.createClass().eClass(), "cls");
+
     public ElementDescription(String name, EClass eClass, boolean hasStudent) {
       this.name = name;
       this.eClass = eClass;
@@ -587,6 +635,46 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     @Override public String toString() {
       return (hasStudent ? "Student" : "Instructor") + " " + (description.isEmpty() ? "" : description + " ")
           + eClass.getName() + " (name: " + name + ")";
+    }
+
+    // eg, "container_class"
+    public String toShortString(int count) {
+      return ((description.isEmpty() ? count : description) + "_"
+          + eClassesToShortDisplayNames.get(eClass).toString()).toLowerCase(); // trigger NPE for missing eClass
+    }
+
+    public String toShortString() {
+      return toShortString(0);
+    }
+  }
+
+  static class MistakeDetectionFormat {
+    List<String> stud = new ArrayList<>();
+    List<String> inst = new ArrayList<>();
+
+    public MistakeDetectionFormat(Mistake mistake) {
+      int[] cnt = {0, 0};
+      mistake.getStudentElements().forEach(e -> stud.add(ElementDescription.fromElement(e).toShortString(cnt[0]++)));
+      mistake.getInstructorElements().forEach(e -> inst.add(ElementDescription.fromElement(e).toShortString(cnt[1]++)));
+      if (stud.size() == 1) {
+        stud.set(0, stud.get(0).replace("0_", ""));
+      }
+      if (inst.size() == 1) {
+        inst.set(0, inst.get(0).replace("0_", ""));
+      }
+    }
+
+    public MistakeDetectionFormat(List<String> studentElemsDescriptions, List<String> instructorElemsDescriptions) {
+      stud = studentElemsDescriptions;
+      inst = instructorElemsDescriptions;
+    }
+
+    // eg, ([], ["cls"])
+    @Override public String toString() {
+      var studTag = stud.isEmpty() ? "" : "\"";
+      var instTag = inst.isEmpty() ? "" : "\"";
+      return "([" + studTag + String.join("\", \"", stud) + studTag + "], ["
+          + instTag + String.join("\", \"", inst) + instTag + "])";
     }
   }
 
