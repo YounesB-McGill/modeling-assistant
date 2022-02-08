@@ -188,7 +188,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorAndStudentElems)),
 
       title("Suggested Parametrized Responses"),
-      formatSuggestedParametrizedResponses(suggestParametrizedResponses(suggestedMistakeDetectionFormats), true),
+      formatSuggestedParametrizedResponses(suggestParametrizedResponses(suggestedMistakeDetectionFormats, true)),
 
       title("Suggested MistakeDetectionFormats"),
       formatMistakeDetectionFormatsForPython(suggestedMistakeDetectionFormats, true),
@@ -344,12 +344,13 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   }
 
   static Map<MistakeType, Set<String>> suggestParametrizedResponses(
-      Map<MistakeType, MistakeDetectionFormat> mapping) {
-    return mapping.entrySet().stream().collect(Collectors.toMap(
-        Map.Entry::getKey,
-        MDIS4LC::parametrizeResponses,
-        MDIS4LC::setUnion,
-        TreeMap::new));
+      Map<MistakeType, MistakeDetectionFormat> mapping, boolean filterNumberedMdfs) {
+    return mapping.entrySet().stream()
+        .filter(e -> !filterNumberedMdfs || (e.getValue().stud.size() <= 1 && e.getValue().inst.size() <= 1))
+        .collect(Collectors.toMap(Map.Entry::getKey,
+            MDIS4LC::parametrizeResponses,
+            MDIS4LC::setUnion,
+            TreeMap::new));
   }
 
   /** Parametrize all responses for the entry's mistake type. */
@@ -367,7 +368,6 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     } else if (mdf.stud.isEmpty() && mdf.inst.size() == 1) {
       result = matcher.replaceFirst(Matcher.quoteReplacement("${inst_" + mdf.inst.get(0) + "}"));
     } else if (mdf.stud.size() == 1 && mdf.inst.size() == 1) {
-//      var v = Pattern.quote("\\$\\{(?<param>.*?)\\}");
       result = matcher.replaceFirst(Matcher.quoteReplacement("${stud_" + mdf.stud.get(0) + "}"));
       result = matcher.replaceFirst(Matcher.quoteReplacement("${inst_" + mdf.inst.get(0) + "}"));
     }
@@ -450,10 +450,9 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
         .filter(s -> !(filterNumberedMdfs && s.matches(".*\\d.*"))).collect(Collectors.joining("\n"));
   }
 
-  private static String formatSuggestedParametrizedResponses(Map<MistakeType, Set<String>> mapping,
-      boolean filterNumberedMdfs) {
+  private static String formatSuggestedParametrizedResponses(Map<MistakeType, Set<String>> mapping) {
     return mapping.entrySet().stream().map(e -> e.getKey().getName() + ":\n" + String.join("\n", e.getValue()))
-        .filter(s -> !(filterNumberedMdfs && s.matches(".*\\d.*"))).collect(Collectors.joining("\n"));
+        .collect(Collectors.joining("\n\n"));
   }
 
   /**
