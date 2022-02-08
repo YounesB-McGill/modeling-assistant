@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Function;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -158,6 +159,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   public static void main(String[] args) {
     var testCompletionStatusByMistakeType = getTestCompletionStatusByMistakeType();
     var pythonLearningCorpusInitializationCode = generatePythonLearningCorpusInitializationCode();
+    var suggestedMistakeDetectionFormats = suggestMistakeDetectionFormats();
 
     // Uncomment the lines that you want to be output
     String[] outputs = {
@@ -185,15 +187,15 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(studentElems)),
       // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorAndStudentElems)),
 
-      // title("Suggested Parametrized Responses"),
-      // TODO
+      title("Suggested Parametrized Responses"),
+      formatSuggestedParametrizedResponses(suggestParametrizedResponses(suggestedMistakeDetectionFormats), true),
 
       title("Suggested MistakeDetectionFormats"),
-      formatMistakeDetectionFormatsForPython(suggestMistakeDetectionFormats(), true),
+      formatMistakeDetectionFormatsForPython(suggestedMistakeDetectionFormats, true),
 
-//      title("Python learning corpus initialization code (imports/learning items)"),
-//      pythonLearningCorpusInitializationCode.imports,
-//      pythonLearningCorpusInitializationCode.learningItems,
+      // title("Python learning corpus initialization code (imports/learning items)"),
+      // pythonLearningCorpusInitializationCode.imports,
+      // pythonLearningCorpusInitializationCode.learningItems,
     };
 
     System.out.println(String.join("\n\n", outputs));
@@ -341,6 +343,37 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     return allMistakes().collect(Collectors.toMap(Function.identity(), MistakeDetectionFormat::new));
   }
 
+  static Map<MistakeType, Set<String>> suggestParametrizedResponses(
+      Map<MistakeType, MistakeDetectionFormat> mapping) {
+    return mapping.entrySet().stream().collect(Collectors.toMap(
+        Map.Entry::getKey,
+        MDIS4LC::parametrizeResponses,
+        MDIS4LC::setUnion,
+        TreeMap::new));
+  }
+
+  /** Parametrize all responses for the entry's mistake type. */
+  static Set<String> parametrizeResponses(Map.Entry<MistakeType, MistakeDetectionFormat> entry) {
+    return entry.getKey().getFeedbacks().stream().filter(fb -> fb instanceof ParametrizedResponse)
+        .map(fb -> parametrizeResponse((ParametrizedResponse) fb, entry.getValue()))
+        .collect(Collectors.toUnmodifiableSet());
+  }
+
+  private static String parametrizeResponse(ParametrizedResponse pr, MistakeDetectionFormat mdf) {
+    var result = pr.getText();
+    final var matcher = Pattern.compile("\\$\\{(?<param>.*?)\\}").matcher(result);
+    if (mdf.stud.size() == 1 && mdf.inst.isEmpty()) {
+      result = matcher.replaceFirst(Matcher.quoteReplacement("${stud_" + mdf.stud.get(0) + "}"));
+    } else if (mdf.stud.isEmpty() && mdf.inst.size() == 1) {
+      result = matcher.replaceFirst(Matcher.quoteReplacement("${inst_" + mdf.inst.get(0) + "}"));
+    } else if (mdf.stud.size() == 1 && mdf.inst.size() == 1) {
+//      var v = Pattern.quote("\\$\\{(?<param>.*?)\\}");
+      result = matcher.replaceFirst(Matcher.quoteReplacement("${stud_" + mdf.stud.get(0) + "}"));
+      result = matcher.replaceFirst(Matcher.quoteReplacement("${inst_" + mdf.inst.get(0) + "}"));
+    }
+    return result;
+  }
+
   /**
    * Returns the mapping of comparison mistakes to CDM metatypes in a CSV-compatible format.
    * The format of each row is as follows:<br>
@@ -414,6 +447,12 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       boolean filterNumberedMdfs) {
     // eg, missing_class.md_format = mdf([], ["cls"])
     return mapping.entrySet().stream().map(e -> underscorify(e.getKey().getName()) + ".md_format = mdf" + e.getValue())
+        .filter(s -> !(filterNumberedMdfs && s.matches(".*\\d.*"))).collect(Collectors.joining("\n"));
+  }
+
+  private static String formatSuggestedParametrizedResponses(Map<MistakeType, Set<String>> mapping,
+      boolean filterNumberedMdfs) {
+    return mapping.entrySet().stream().map(e -> e.getKey().getName() + ":\n" + String.join("\n", e.getValue()))
         .filter(s -> !(filterNumberedMdfs && s.matches(".*\\d.*"))).collect(Collectors.joining("\n"));
   }
 
@@ -541,7 +580,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       var counts = mistake.getMistakeType().getFeedbacks().stream().filter(fb -> fb instanceof ParametrizedResponse)
           .map(pr -> Pattern.compile("\\$\\{.*?\\}").matcher(((ParametrizedResponse) pr).getText()).results().count())
           .map(Math::toIntExact).collect(Collectors.toList()); // use mutable list to allow sorting in next step
-      if (counts.size() == 0) {
+      if (counts.isEmpty()) {
         return List.of(0);
       }
       Collections.sort(counts);
