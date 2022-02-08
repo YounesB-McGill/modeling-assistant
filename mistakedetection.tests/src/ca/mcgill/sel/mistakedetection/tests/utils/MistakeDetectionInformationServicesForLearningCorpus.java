@@ -190,6 +190,9 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       title("MistakeDetectionFormats for human verification (use to update HumanValidatedMistakeDetectionFormats)"),
       formatMistakeDetectionFormatsForJava(suggestedMistakeDetectionFormats, true),
 
+      title("Parametrized Responses for human verification (use to update HumanValidatedParametrizedResponses)"),
+      formatParametrizedResponsesForJava(suggestParametrizedResponses(suggestedMistakeDetectionFormats, true)),
+
       title("Suggested Parametrized Responses"),
       formatSuggestedParametrizedResponses(suggestParametrizedResponses(suggestedMistakeDetectionFormats, true)),
 
@@ -358,6 +361,9 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
 
   /** Parametrize all responses for the entry's mistake type. */
   static Set<String> parametrizeResponses(Map.Entry<MistakeType, MistakeDetectionFormat> entry) {
+    if (HumanValidatedParametrizedResponses.mappings.containsKey(entry.getKey())) {
+      return HumanValidatedParametrizedResponses.mappings.get(entry.getKey());
+    }
     return entry.getKey().getFeedbacks().stream().filter(fb -> fb instanceof ParametrizedResponse)
         .map(fb -> parametrizeResponse((ParametrizedResponse) fb, entry.getValue()))
         .collect(Collectors.toUnmodifiableSet());
@@ -466,6 +472,15 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   private static String formatSuggestedParametrizedResponses(Map<MistakeType, Set<String>> mapping) {
     return mapping.entrySet().stream().map(e -> e.getKey().getName() + ":\n" + String.join("\n", e.getValue()))
         .collect(Collectors.joining("\n\n"));
+  }
+
+  private static String formatParametrizedResponsesForJava(Map<MistakeType, Set<String>> mapping) {
+    // eg, entry(PLURAL_ATTRIBUTE, Set.of("The ${inst_attr} attribute should be singular."))
+    return mapping.entrySet().stream()
+        .filter(e -> !HumanValidatedParametrizedResponses.mappings.containsKey(e.getKey()))
+        .map(e -> "entry(" + underscorify(e.getKey().getName()).toUpperCase() + ", Set.of(\""
+            + String.join("\",\n    \"", e.getValue()) + "\"))")
+        .collect(Collectors.joining(",\n"));
   }
 
   /**

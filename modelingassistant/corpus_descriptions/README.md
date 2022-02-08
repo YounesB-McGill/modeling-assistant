@@ -207,11 +207,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${incorrectlySpelledClassName} class has a misspelled name.
+> The ${stud_cls} class has a misspelled name.
 
 Level 4: Parametrized response:
 
-> The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}.
+> The ${stud_cls} class should be changed to ${inst_cls}.
 
 Level 5: Resource response with Reference:
 
@@ -436,7 +436,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${wrongAttribute} is misspelled. [Use the same spelling as the problem description.]
+> ${stud_attr} is misspelled. [Use the same spelling as the problem description.]
 
 Level 4: Resource response with Reference:
 
@@ -497,7 +497,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> The ${duplicateAttribute} already exists in ${correctClass}, so there is no need to include it again.
+> The ${stud_attr} already exists in another class, so there is no need to include it again.
 
 Level 5: Resource response with Reference:
 
@@ -1331,11 +1331,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${incorrectlySpelledClassName} class has a misspelled name.
+> The ${stud_cls} class has a misspelled name.
 
 Level 4: Parametrized response:
 
-> The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}.
+> The ${stud_cls} class should be changed to ${inst_cls}.
 
 Level 5: Resource response with Reference:
 
@@ -1356,7 +1356,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> The ${assocClass} class should be a regular class.
+> The ${inst_cls} class should be a regular class.
 
 Level 5: Resource response with Reference:
 

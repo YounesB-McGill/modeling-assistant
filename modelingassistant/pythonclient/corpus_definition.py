@@ -72,9 +72,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 bad_class_name_spelling := mt(n="Bad class name spelling", atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this class name."),
-                    3: ParametrizedResponse(text="The ${incorrectlySpelledClassName} class has a misspelled name."),
+                    3: ParametrizedResponse(text="The ${stud_cls} class has a misspelled name."),
                     4: ParametrizedResponse(
-                        text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
+                        text="The ${stud_cls} class should be changed to ${inst_cls}."),
                     5: ResourceResponse(learningResources=[class_ref]),
                 })),
                 wrong_class_name := mt(n="Wrong class name", d="Wrong class name but correct attribute/relationship",
@@ -195,7 +195,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this attribute name."),
                     3: ParametrizedResponse(
-                        text="${wrongAttribute} is misspelled. [Use the same spelling as the problem description.]"),
+                        text="${stud_attr} is misspelled. [Use the same spelling as the problem description.]"),
                     4: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 uppercase_attribute_name := mt(n="Uppercase attribute name", feedbacks=fbs({
@@ -220,8 +220,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Are you sure this is needed?"),
                     3: TextResponse(text="Does this need to be included more than once?"),
-                    4: ParametrizedResponse(text="The ${duplicateAttribute} already exists in ${correctClass}, "
-                        "so there is no need to include it again."),
+                    4: ParametrizedResponse(text="The ${stud_attr} already exists in another class, so there is no "
+                                                 "need to include it again."),
                     5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 attribute_misplaced_in_generalization_hierarchy := mt(
@@ -585,9 +585,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 n="Bad assoc class name spelling", d="Bad association class name spelling", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this association class name."),
-                    3: ParametrizedResponse(text="The ${incorrectlySpelledClassName} class has a misspelled name."),
+                    3: ParametrizedResponse(text="The ${stud_cls} class has a misspelled name."),
                     4: ParametrizedResponse(
-                        text="The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}."),
+                        text="The ${stud_cls} class should be changed to ${inst_cls}."),
                     5: ResourceResponse(learningResources=[class_ref]),
                 })),
             assoc_class_should_be_class := mt(
@@ -595,7 +595,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you model this relationship in another way?"),
                     3: TextResponse(text="Is using an association class the best way to model this?"),
-                    4: ParametrizedResponse(text="The ${assocClass} class should be a regular class."),
+                    4: ParametrizedResponse(text="The ${inst_cls} class should be a regular class."),
                     5: ResourceResponse(learningResources=[assoc_class_ref]),
                 })),
             class_should_be_assoc_class := mt(
