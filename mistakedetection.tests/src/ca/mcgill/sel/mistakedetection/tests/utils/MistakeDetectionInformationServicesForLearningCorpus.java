@@ -187,10 +187,13 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(studentElems)),
       // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorAndStudentElems)),
 
+      title("MistakeDetectionFormats for human verification (use to update HumanValidatedMistakeDetectionFormats)"),
+      formatMistakeDetectionFormatsForJava(suggestedMistakeDetectionFormats, true),
+
       title("Suggested Parametrized Responses"),
       formatSuggestedParametrizedResponses(suggestParametrizedResponses(suggestedMistakeDetectionFormats, true)),
 
-      title("Suggested MistakeDetectionFormats"),
+      title("Suggested MistakeDetectionFormats (use in Python corpus definition)"),
       formatMistakeDetectionFormatsForPython(suggestedMistakeDetectionFormats, true),
 
       // title("Python learning corpus initialization code (imports/learning items)"),
@@ -340,7 +343,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   }
 
   private static Map<Mistake, MistakeDetectionFormat> suggestAllMistakeDetectionFormats() {
-    return allMistakes().collect(Collectors.toMap(Function.identity(), MistakeDetectionFormat::new));
+    return allMistakes().collect(Collectors.toMap(Function.identity(), MistakeDetectionFormat::forMistake));
   }
 
   static Map<MistakeType, Set<String>> suggestParametrizedResponses(
@@ -440,6 +443,16 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       Map<MistakeType, ? extends Collection<MistakeInfo>> mapping) {
     return MistakeInfo.TABLE_HEADER + mapping.entrySet().stream().map(e -> e.getValue().stream()
         .map(MDIS4LC::randomColorString).collect(Collectors.joining("\n"))).collect(Collectors.joining("\n"));
+  }
+
+  /** Format the MistakeDetectionFormats to be used in the HumanValidatedMistakeDetectionFormats class. */
+  private static String formatMistakeDetectionFormatsForJava(Map<MistakeType, MistakeDetectionFormat> mapping,
+      boolean filterNumberedMdfs) {
+    // eg, entry(ATTRIBUTE_DUPLICATED, mdf(List.of("attr"), List.of()))
+    return mapping.entrySet().stream()
+        .map(e -> "entry(" + underscorify(e.getKey().getName()).toUpperCase() + ", mdf"
+            + e.getValue().toString().replace("[", "List.of(").replace("]", ")") + ")")
+        .filter(s -> !(filterNumberedMdfs && s.matches(".*\\d.*"))).collect(Collectors.joining(",\n"));
   }
 
   /** Format the MistakeDetectionFormats to be used in the Python corpus definition. */
@@ -690,7 +703,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     List<String> stud = new ArrayList<>();
     List<String> inst = new ArrayList<>();
 
-    public MistakeDetectionFormat(Mistake mistake) {
+    private MistakeDetectionFormat(Mistake mistake) {
       int[] cnt = {0, 0};
       mistake.getStudentElements().forEach(e -> stud.add(ElementDescription.fromElement(e).toShortString(cnt[0]++)));
       mistake.getInstructorElements().forEach(e -> inst.add(ElementDescription.fromElement(e).toShortString(cnt[1]++)));
@@ -702,9 +715,21 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       }
     }
 
-    public MistakeDetectionFormat(List<String> studentElemsDescriptions, List<String> instructorElemsDescriptions) {
+    private MistakeDetectionFormat(List<String> studentElemsDescriptions, List<String> instructorElemsDescriptions) {
       stud = studentElemsDescriptions;
       inst = instructorElemsDescriptions;
+    }
+
+    public static MistakeDetectionFormat forMistake(Mistake mistake) {
+      if (HumanValidatedMistakeDetectionFormats.mappings.containsKey(mistake.getMistakeType())) {
+        return HumanValidatedMistakeDetectionFormats.mappings.get(mistake.getMistakeType());
+      }
+      return new MistakeDetectionFormat(mistake);
+    }
+
+    public static MistakeDetectionFormat mdf(List<String> studentElemsDescriptions,
+        List<String> instructorElemsDescriptions) {
+      return new MistakeDetectionFormat(studentElemsDescriptions, instructorElemsDescriptions);
     }
 
     // eg, ([], ["cls"])

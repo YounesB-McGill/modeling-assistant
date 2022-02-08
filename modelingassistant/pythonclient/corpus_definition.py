@@ -1139,6 +1139,7 @@ mts_by_priority: list[MistakeType] = [
 
 
 # Mistake Detection Formats (student elements, instructor elements)
+# paste from MDIS4LC
 assoc_class_should_be_class.md_format = mdf(["cls"], ["cls"])
 attribute_duplicated.md_format = mdf(["attr"], [])
 attribute_misplaced.md_format = mdf(["attr"], ["attr"])
