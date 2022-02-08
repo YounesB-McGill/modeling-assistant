@@ -2941,12 +2941,12 @@ public class MistakeDetection {
 
       for (var attrib : studClassOneAttrib) {
         if (attrib.getName().toLowerCase().equals(assocEnds.get(0).getClassifier().getName().toLowerCase())) {
-          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, null));
+          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(0)));
         }
       }
       for (var attrib : studClassTwoAttrib) {
         if (attrib.getName().toLowerCase().equals(assocEnds.get(0).getClassifier().getName().toLowerCase())) {
-          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, null));
+          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(0)));
         }
       }
     }
@@ -2956,7 +2956,7 @@ public class MistakeDetection {
       for (var attrib : studClassTwoAttrib) {
         if (comparison.notMappedInstructorClassifiers.stream()
             .anyMatch(c -> c.getName().toLowerCase().equals(attrib.getName().toLowerCase()))) {
-          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, null));
+          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(1)));
         }
       }
     }
@@ -2966,7 +2966,7 @@ public class MistakeDetection {
       for (var attrib : studClassOneAttrib) {
         if (comparison.notMappedInstructorClassifiers.stream()
             .anyMatch(c -> c.getName().toLowerCase().equals(attrib.getName().toLowerCase()))) {
-          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, null));
+          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(0)));
         }
       }
     }

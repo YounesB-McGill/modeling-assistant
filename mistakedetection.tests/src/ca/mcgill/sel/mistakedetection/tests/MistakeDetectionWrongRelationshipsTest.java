@@ -5,6 +5,7 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMi
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeTypesDoNotContain;
+import static ca.mcgill.sel.mistakedetection.MistakeDetection.getMistakeForElement;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeTypesContain;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_CLASS_SHOULD_BE_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_ASSOC;
@@ -34,6 +35,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATION
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
+import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
@@ -1894,9 +1896,17 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
+    var instructorClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+    var instructorAssociationEnd = getAssociationEndFromClass("myDriver", instructorClass);
+
+    var studentClass = getClassFromClassDiagram("Bus", studentClassDiagram);
+    var studentAttrib = getAttributeFromClass("driver", studentClass);
+
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
-    assertMistakeTypesContain(comparison.newMistakes, USING_ATTRIBUTE_INSTEAD_OF_ASSOC);
+
+    assertMistake(getMistakeForElement(studentAttrib, USING_ATTRIBUTE_INSTEAD_OF_ASSOC, comparison),
+        USING_ATTRIBUTE_INSTEAD_OF_ASSOC, studentAttrib, instructorAssociationEnd, 0, 1, false);
   }
 
   /**
