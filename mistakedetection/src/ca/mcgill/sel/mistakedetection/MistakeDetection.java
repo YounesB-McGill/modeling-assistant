@@ -401,6 +401,7 @@ public class MistakeDetection {
         if (studAttrib.getName().equals(instAttrib.getName())) {
           comparison.newMistakes.add(createMistake(ATTRIBUTE_MISPLACED, studAttrib, instAttrib));
           comparison.mappedAttributes.put(instAttrib, studAttrib);
+          checkMistakesInAttributes(studAttrib, instAttrib, comparison.newMistakes);
           studAttributesProcessed.add(studAttrib);
           instAttributesProcessed.add(instAttrib);
         }
