@@ -126,8 +126,8 @@ public class MistakeDetectionGeneralizationTest {
         STUDENT_CDM_PATH + "student_same_Assoc_three_subClasses/Class Diagram/Three_subClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    MistakeDetection.compare(instructorSolution, studentSolution, false);
-
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    
     var studLeftCarClass = getClassFromClassDiagram("LeftCar", studentClassDiagram);
     var studRightCarClass = getClassFromClassDiagram("RightCar", studentClassDiagram);
 

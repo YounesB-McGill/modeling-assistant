@@ -196,7 +196,7 @@ public class MistakeDetection {
     var newMistakes = comparison.newMistakes;
     var instructorClassifiers = instructorSolution.getClassDiagram().getClasses();
     var studentClassifiers = studentSolution.getClassDiagram().getClasses();
-
+    
     var processed = false;
     if (instructorClassifiers.isEmpty()) {
       for (Classifier studentClassifier : studentClassifiers) {
@@ -767,8 +767,8 @@ public class MistakeDetection {
       List<Attribute> superClassAttributes = superClass.getAttributes();
       for (Classifier subClass : subClasses) {
         List<Attribute> subClassAttributes = subClass.getAttributes();
-        if (areAttributesEqual(superClassAttributes, subClassAttributes)
-            && comparison.mappedClassifiers.containsValue(subClass) && !superClass.isAbstract()) {
+        if (areAttributesEqual(superClassAttributes, subClassAttributes) 
+             && !superClass.isAbstract()) {
           if (!classesIterated.contains(subClass.getName())) {
             classesIterated.add(subClass.getName());
             comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass, null));
@@ -780,8 +780,8 @@ public class MistakeDetection {
         for (var subClass2 : subClasses) {
           List<Attribute> subClass2Attributes = subClass2.getAttributes();
           if (subClass1 != subClass2 && areAttributesEqual(subClass1Attributes, subClass2Attributes)
-              && subClassesAttriAssocEqual(subClass1, subClass2)
-              && comparison.mappedClassifiers.containsValue(subClass1)) {
+              && subClassesAttriAssocEqual(subClass1, subClass2, comparison)
+              ) {
             if (!classesIterated.contains(subClass1.getName())) {
               classesIterated.add(subClass1.getName());
               comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass1, null));
@@ -792,7 +792,7 @@ public class MistakeDetection {
     }
   }
 
-  private static boolean subClassesAttriAssocEqual(Classifier subClass1, Classifier subClass2) {
+  private static boolean subClassesAttriAssocEqual(Classifier subClass1, Classifier subClass2, Comparison comparison) {
 
     List<AssociationEnd> subClass1AssocEnds = subClass1.getAssociationEnds();
     List<AssociationEnd> subClass2AssocEnds = subClass2.getAssociationEnds();
@@ -826,6 +826,25 @@ public class MistakeDetection {
     for (Classifier cls : subClass1ConnectedClass) {
       if (!subClass2ConnectedClass.contains(cls)) {
         return false;
+      }
+    }
+
+    for (Classifier cls1 : subClass1ConnectedClass) {
+      for (Classifier cls2 : subClass2ConnectedClass) {
+        if (!cls1.equals(cls2)) {
+          continue;
+        }
+        var subCls1AssocEnds = subClass1.getAssociationEnds();
+        var subCls2AssocEnds = subClass2.getAssociationEnds();
+        for (AssociationEnd subCls2AssocEnd : subCls2AssocEnds) {
+          if (subCls1AssocEnds.stream().noneMatch(ae -> ae.getName().equals(subCls2AssocEnd.getName()))) {
+            return false;
+          } else if (subCls1AssocEnds.stream().noneMatch(ae -> ae.getLowerBound() == subCls2AssocEnd.getLowerBound())) {
+            return false;
+          } else if (subCls1AssocEnds.stream().noneMatch(ae -> ae.getUpperBound() == subCls2AssocEnd.getUpperBound())) {
+            return false;
+          }
+        }
       }
     }
     return true;

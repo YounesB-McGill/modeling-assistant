@@ -55,7 +55,7 @@ public class MistakeDetectionPerformanceAnalysis {
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 //    System.out.println(studentSolution.getMistakes().size());
 //    System.out.println(comparison.newMistakes.size());
-//    MistakeDetectionTest.log(comparison);
+  //  MistakeDetectionTest.log(comparison);
 
   }
 }
