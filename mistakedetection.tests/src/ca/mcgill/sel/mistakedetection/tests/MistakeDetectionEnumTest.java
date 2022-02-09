@@ -190,7 +190,7 @@ public class MistakeDetectionEnumTest {
     var studentEnumClass = getEnumFromClassDiagram("Bus", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-    MistakeDetectionTest.log(comparison);
+
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 

@@ -1913,6 +1913,9 @@ public class MistakeDetection {
   }
 
   private static boolean isMistakeExist(MistakeType mistakeType, NamedElement NamedElement, Comparison comparison) {
+    if(NamedElement == null) {
+      return false;
+    }
     for (Mistake mistake : comparison.newMistakes) {
       if (mistake.getMistakeType().equals(mistakeType) && !mistake.getStudentElements().isEmpty()) {
         for (var element : mistake.getStudentElements()) {
@@ -2916,7 +2919,10 @@ public class MistakeDetection {
       checkMistakeAttributeInsteadOfAssociation(association, comparison);
       if (association.getEnds().get(0).getReferenceType().equals(COMPOSITION)
           || association.getEnds().get(1).getReferenceType().equals(COMPOSITION)) {
+        if(!isMistakeExist(INCOMPLETE_CONTAINMENT_TREE,  comparison.mappedClassifiers.get(association.getEnds().get(0).getClassifier()), comparison)
+          || !isMistakeExist(INCOMPLETE_CONTAINMENT_TREE,  comparison.mappedClassifiers.get(association.getEnds().get(1).getClassifier()), comparison)) {
         comparison.newMistakes.add(createMistake(MISSING_COMPOSITION, null, association));
+        }
       } else if (association.getEnds().get(0).getReferenceType().equals(AGGREGATION)
           || association.getEnds().get(1).getReferenceType().equals(AGGREGATION)) {
         comparison.newMistakes.add(createMistake(MISSING_AGGREGATION, null, association));

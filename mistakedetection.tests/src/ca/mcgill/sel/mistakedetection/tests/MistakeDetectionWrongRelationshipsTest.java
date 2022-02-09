@@ -1969,10 +1969,10 @@ public class MistakeDetectionWrongRelationshipsTest {
         getAssocAggCompFromClassDiagram(instructorCompanyClass, instructorEmployeeClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
-
+    
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
+    
     assertMistake(studentSolution.getMistakes().get(1), MISSING_COMPOSITION,
         instructorCompanyToEmployeeAssociation.get(0), 0, 1, false);
   }
@@ -2249,9 +2249,9 @@ public class MistakeDetectionWrongRelationshipsTest {
         getAssocAggCompFromClassDiagram(instructorBookClass, instructorChapterClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
+    
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(1), MISSING_COMPOSITION, instructorBookToChapterAssociation.get(0),
         0, 1, false);
