@@ -90,7 +90,6 @@ import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassD
 import static modelingassistant.util.ClassDiagramUtils.getEnumFromClassDiagram;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -333,15 +332,12 @@ public class MistakeDetection {
       if (!comparison.mappedClassifiers.containsKey(instClass)) {
         comparison.newMistakes.add(createMistake(MISSING_GENERALIZATION, null, List.of(instClass, instSuperClass)));
         comparison.studentGeneralizationClassifiers.remove(studClass);
-        // System.out.println(instClass.getName() + " continued1");
         continue;
       }
 
       Classifier studMappedSuperClass = comparison.mappedClassifiers.get(instSuperClass);
-  //    boolean isMappedClassNull = studMappedSuperClass == null;    
      
       var studClassSuperClasses = getAllSuperClasses(studClass);
-      // System.out.println(instClass.getName() + " studSuperClass" + studMappedSuperClass);
       if (studMappedSuperClass == null && !studClass.getSuperTypes().isEmpty()) {
         comparison.newMistakes.add(createMistake(WRONG_SUPERCLASS, List.of(studClass, studClass.getSuperTypes().get(0)),
             List.of(instClass, instSuperClass)));
@@ -355,7 +351,6 @@ public class MistakeDetection {
 
       if (studClassSuperClasses.contains(studMappedSuperClass)) {
         comparison.studentGeneralizationClassifiers.remove(studClass);
-        // System.out.println(instClass.getName() + " continued2");
         continue;
       }
 
@@ -405,7 +400,7 @@ public class MistakeDetection {
       for (Attribute instAttrib : comparison.notMappedInstructorAttributes) {
         if (studAttrib.getName().equals(instAttrib.getName())) {
           comparison.newMistakes.add(createMistake(ATTRIBUTE_MISPLACED, studAttrib, instAttrib));
-    //      comparison.newMistakes.add(checkMistakeWrongAttributeTypeAndListAttrib(studAttrib, instAttrib));
+          comparison.mappedAttributes.put(instAttrib, studAttrib);
           studAttributesProcessed.add(studAttrib);
           instAttributesProcessed.add(instAttrib);
         }
@@ -417,12 +412,8 @@ public class MistakeDetection {
 
   private static void checkMistakesInGeneralization(Comparison comparison) {
     checkMistakeNonDifferentiatedSubClass(comparison);
-   // checkMistakeWrongGeneralizationDirection(comparison);
-      checkMistakeAttribMisplacedInGenHierarchyAndDuplicateAttrib(comparison);
-      checkMistakesMissingExtraGen_WrongSuperclass_WrongDirection(comparison);
-  //  checkMistakeWrongSuperclass(comparison);
-    // checkMistakeMissingGeneralization(comparison); TODO Logic may be revisited
-    // checkMistakeExtraGeneralization(comparison); TODO Logic may be revisited
+    checkMistakeAttribMisplacedInGenHierarchyAndDuplicateAttrib(comparison);
+    checkMistakesMissingExtraGen_WrongSuperclass_WrongDirection(comparison);
   }
 
   private static void checkMistakeAttribMisplacedInGenHierarchyAndDuplicateAttrib(Comparison comparison) {
@@ -480,206 +471,6 @@ public class MistakeDetection {
     return null;
   }
 
-  private static void checkMistakeWrongGeneralizationDirection(Comparison comparison) {
-    Set<Classifier> instructorGeneralizationClasses =
-        new HashSet<>(comparison.instructorSuperclassesToSubclasses.keySet());
-    Set<Classifier> studentGeneralizationClasses = new HashSet<>(comparison.studentSuperclassesToSubclasses.keySet());
-    for (var classifiers : comparison.instructorSuperclassesToSubclasses.values()) {
-      instructorGeneralizationClasses.addAll(classifiers);
-    }
-
-    for (var classifiers : comparison.studentSuperclassesToSubclasses.values()) {
-      studentGeneralizationClasses.addAll(classifiers);
-    }
-
-    checkMistakeMissingAndExtraGeneralization(studentGeneralizationClasses, instructorGeneralizationClasses,
-        comparison);
-
-    for (var instClass : instructorGeneralizationClasses) {
-      if (!comparison.mappedClassifiers.containsKey(instClass) || instClass.getSuperTypes().isEmpty()) {
-        continue;
-      }
-
-      var studClass = comparison.mappedClassifiers.get(instClass);
-      if (studClass == null) {
-        continue;
-      }
-
-      if (studClass.getSuperTypes().isEmpty() || !studClass.getSuperTypes().get(0)
-          .equals(comparison.mappedClassifiers.get(instClass.getSuperTypes().get(0)))) {
-        if (!isAllSuperClassContained(getAllSuperClasses(studClass), getAllSuperClasses(instClass), comparison)) {
-          var studentSuperClass = comparison.mappedClassifiers.get(instClass.getSuperTypes().get(0));
-          if (studentSuperClass == null) {
-            continue;
-          }
-          if (getAllSuperClasses(studentSuperClass).contains(studClass)) {
-            comparison.newMistakes.add(createMistake(WRONG_GENERALIZATION_DIRECTION, List.of(studClass, studentSuperClass),
-                List.of(instClass, instClass.getSuperTypes().get(0))));
-          }
-        }
-      }
-    }
-
-  }
-
-  private static void checkMistakeMissingAndExtraGeneralization(Set<Classifier> studentGeneralizationClasses,
-      Set<Classifier> instructorGeneralizationClasses, Comparison comparison) {
-
-    var missingGenClasses =
-        getInstructorMissingGenClasses(studentGeneralizationClasses, instructorGeneralizationClasses, comparison);
-    for (var instClass : missingGenClasses) {
-      if (!instClass.getSuperTypes().isEmpty()) {
-        if (comparison.mappedClassifiers.containsKey(instClass)
-            && comparison.mappedClassifiers.containsKey(instClass.getSuperTypes().get(0))) {
-          var mc = comparison.mappedClassifiers;
-          var intSuperClass = instClass.getSuperTypes().get(0);
-          comparison.newMistakes.add(createMistake(MISSING_GENERALIZATION,
-              List.of(mc.get(instClass), mc.get(intSuperClass)), List.of(instClass, intSuperClass)));
-        } else {
-          comparison.newMistakes
-              .add(createMistake(MISSING_GENERALIZATION, null, List.of(instClass, instClass.getSuperTypes().get(0))));
-        }
-      }
-    }
-
-    var extraGenClasses =
-        getStudentExtraGenClasses(studentGeneralizationClasses, instructorGeneralizationClasses, comparison);
-    for (var studClass : extraGenClasses) {
-      if (!studClass.getSuperTypes().isEmpty()) {
-        if (comparison.mappedClassifiers.containsValue(studClass)
-            && comparison.mappedClassifiers.containsValue(studClass.getSuperTypes().get(0))) {
-
-          comparison.newMistakes
-              .add(createMistake(EXTRA_GENERALIZATION, List.of(studClass, studClass.getSuperTypes().get(0)),
-                  List.of(getKey(comparison.mappedClassifiers, studClass),
-                      getKey(comparison.mappedClassifiers, studClass.getSuperTypes().get(0)))));
-        } else {
-          comparison.newMistakes
-              .add(createMistake(EXTRA_GENERALIZATION, List.of(studClass, studClass.getSuperTypes().get(0)), null));
-
-        }
-      }
-    }
-  }
-
-  private static List<Classifier> getInstructorMissingGenClasses(Collection<Classifier> studentGeneralizationClasses,
-      Collection<Classifier> instructorGeneralizationClasses, Comparison comparison) {
-    List<Classifier> instClasses = new ArrayList<>();
-    for (var instClass : instructorGeneralizationClasses) {
-      if (!studentGeneralizationClasses.contains(comparison.mappedClassifiers.get(instClass))) {
-        instClasses.add(instClass);
-      }
-    }
-    return instClasses;
-
-  }
-
-  private static List<Classifier> getStudentExtraGenClasses(Collection<Classifier> studentGeneralizationClasses,
-      Collection<Classifier> instructorGeneralizationClasses, Comparison comparison) {
-    List<Classifier> studentClasses = new ArrayList<>();
-    for (var studClass : studentGeneralizationClasses) {
-      if (!instructorGeneralizationClasses.contains(getKey(comparison.mappedClassifiers, studClass))) {
-        studentClasses.add(studClass);
-      }
-    }
-    return studentClasses;
-
-  }
-
-  /** checks if all super classes of instructor class are present for student class*/
-  private static boolean isAllSuperClassContained(Collection<Classifier> studSuperClasses, Collection<Classifier> instSuperClasses,
-      Comparison comparison) {
-    int count = 0;
-    for (var instClass : instSuperClasses) {
-      if (studSuperClasses.contains(comparison.mappedClassifiers.get(instClass))
-          || comparison.notMappedInstructorClassifiers.contains(instClass)) {
-        count++;
-      }
-    }
-    if (instSuperClasses.size() == count) {
-      return true;
-    }
-    return false;
-  }
-
-  // TODO Remove after everything is FInal private static void
-  /*
-  private static void checkMistakeExtraGeneralization(Comparison comparison) {
-    for (var set : comparison.studentSuperclassesToSubclasses.entrySet()) {
-      Classifier studSuperclass = set.getKey();
-      List<Classifier> studSubclasses = set.getValue();
-      List<Classifier> extraStudGeneralizationClasses = new ArrayList<>();
-      List<Classifier> extraInstGeneralizationClasses = new ArrayList<>();
-      if (comparison.mappedClassifiers.containsValue(studSuperclass)) {
-        if (comparison.instructorSuperclassesToSubclasses
-            .containsKey(getKey(comparison.mappedClassifiers, studSuperclass))) {
-          for (Classifier studClass : studSubclasses) {
-            var instSubClasses =
-                comparison.instructorSuperclassesToSubclasses.get(getKey(comparison.mappedClassifiers, studSuperclass));
-            if (!comparison.mappedClassifiers.containsValue(studClass)) {
-              extraStudGeneralizationClasses.add(studClass);
-            } else if (!instSubClasses.contains(getKey(comparison.mappedClassifiers, studClass))) {
-              extraStudGeneralizationClasses.add(studClass);
-              extraInstGeneralizationClasses.add(getKey(comparison.mappedClassifiers, studClass));
-            }
-          }
-        } else {
-          if (!comparison.mappedClassifiers.containsValue(studSuperclass)) {
-            extraStudGeneralizationClasses.add(studSuperclass);
-            extraStudGeneralizationClasses.addAll(extraStudGeneralizationClasses);
-          }
-          for (Classifier studClass : studSubclasses) {
-            if (!comparison.mappedClassifiers.containsValue(studClass)) {
-              extraStudGeneralizationClasses.add(studClass);
-            }
-          }
-        }
-        if (!extraStudGeneralizationClasses.isEmpty()
-            && !isSuperClassSame(extraStudGeneralizationClasses, comparison)) {
-          comparison.newMistakes
-              .add(createMistake(EXTRA_GENERALIZATION, extraStudGeneralizationClasses, extraInstGeneralizationClasses));
-        }
-      }
-    }
-  }
-
-  private static boolean isSuperClassSame(List<Classifier> extraStudGeneralizationClasses, Comparison comparison) {
-    for (var studClass : extraStudGeneralizationClasses) {
-      var instClass = getKey(comparison.mappedClassifiers, studClass);
-      if (instClass == null) {
-        return false;
-      }
-      if (getSupermostClass(studClass).equals(comparison.mappedClassifiers.get(getSupermostClass(instClass)))) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private static List<Classifier> nonSameSuperStudClasses(List<Classifier> extraStudGeneralizationClasses,
-      Comparison comparison) {
-    // Contains classes which do not have same super most class
-    List<Classifier> nonSameSupermostClasses = new ArrayList<>();
-    for (var studClass : extraStudGeneralizationClasses) {
-      var instClass = getKey(comparison.mappedClassifiers, studClass);
-      if (instClass != null
-          && !getSupermostClass(studClass).equals(comparison.mappedClassifiers.get(getSupermostClass(instClass)))) {
-        nonSameSupermostClasses.add(studClass);
-      }
-    }
-    return nonSameSupermostClasses;
-  }
-*/
-
-  /** Returns the root most superclass else returns the class itself. */
-  private static Classifier getSupermostClass(Classifier classifier) {
-    Classifier superclass = classifier;
-    while (!superclass.getSuperTypes().isEmpty()) {
-      superclass = superclass.getSuperTypes().get(0);
-    }
-    return superclass;
-  }
-
   private static List<Classifier> getAllSuperClasses(Classifier classifier) {
     List<Classifier> superclasses = new ArrayList<Classifier>();
     while (!classifier.getSuperTypes().isEmpty()) {
@@ -687,76 +478,6 @@ public class MistakeDetection {
       superclasses.add(classifier);
     }
     return superclasses;
-  }
-
-
-  // TODO Remove after everything is FInal private static void
- /*
-  private static void checkMistakeMissingGeneralization(Comparison comparison) {
-    for (var mapSet : comparison.instructorSuperclassesToSubclasses.entrySet()) {
-      Classifier instSuperclass = mapSet.getKey();
-      List<Classifier> instSubclasses = mapSet.getValue();
-      List<NamedElement> missingInstGeneralizationClasses = new ArrayList<>();
-      List<NamedElement> missingStudGeneralizationClasses = new ArrayList<>();
-      boolean counted = false;
-      if (comparison.mappedClassifiers.containsKey(instSuperclass)) {
-        if (comparison.studentSuperclassesToSubclasses.containsKey(comparison.mappedClassifiers.get(instSuperclass))) {
-          for (Classifier instClass : instSubclasses) {
-            if (comparison.mappedClassifiers.containsKey(instClass)) {
-              Classifier studClass = comparison.mappedClassifiers.get(instClass);
-              if (studClass.getSuperTypes().isEmpty()) {
-                missingStudGeneralizationClasses.add(studClass);
-                missingInstGeneralizationClasses.add(instClass);
-              }
-            }
-          }
-        } else {
-          for (Classifier instClass : instSubclasses) {
-            if (comparison.mappedClassifiers.containsKey(instClass)) {
-              Classifier studClass = comparison.mappedClassifiers.get(instClass);
-              if (studClass.getSuperTypes().isEmpty()) {
-                if (!counted) {
-                  missingInstGeneralizationClasses.add(instSuperclass);
-                  missingStudGeneralizationClasses.add(comparison.mappedClassifiers.get(instSuperclass));
-                }
-                counted = true;
-                missingStudGeneralizationClasses.add(studClass);
-                missingInstGeneralizationClasses.add(instClass);
-              }
-            }
-          }
-        }
-      }
-      if (!missingInstGeneralizationClasses.isEmpty()) {
-        comparison.newMistakes.add(
-            createMistake(MISSING_GENERALIZATION, missingStudGeneralizationClasses, missingInstGeneralizationClasses));
-      }
-    }
-  }
-*/
-
-  private static void checkMistakeWrongSuperclass(Comparison comparison) {
-    for (var mapSet : comparison.instructorSuperclassesToSubclasses.entrySet()) {
-      Classifier instSuperclass = mapSet.getKey();
-      List<Classifier> instSubclasses = mapSet.getValue();
-      for (Classifier instSubclass : instSubclasses) {
-        if (comparison.mappedClassifiers.containsKey(instSubclass)) {
-          Classifier studSubClass = comparison.mappedClassifiers.get(instSubclass);
-          if (!studSubClass.getSuperTypes().isEmpty()
-              && !getAllSuperClasses(studSubClass).contains(comparison.mappedClassifiers.get(instSuperclass))
-              && !isMistakeExist(WRONG_GENERALIZATION_DIRECTION, studSubClass, comparison)) {
-            if (comparison.mappedClassifiers.containsValue(studSubClass)
-                && comparison.mappedClassifiers.containsValue(getSupermostClass(studSubClass))) {
-              comparison.newMistakes
-                  .add(createMistake(WRONG_SUPERCLASS, List.of(studSubClass, studSubClass.getSuperTypes().get(0)),
-                      List.of(instSubclass, instSubclass.getSuperTypes().get(0))));
-            } else {
-              comparison.newMistakes.add(createMistake(WRONG_SUPERCLASS, studSubClass, instSubclass));
-            }
-          }
-        }
-      }
-    }
   }
 
   private static void checkMistakeNonDifferentiatedSubClass(Comparison comparison) {
