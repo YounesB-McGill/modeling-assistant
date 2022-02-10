@@ -1106,7 +1106,7 @@ public class MistakeDetectionPatternTest {
     var studElements = List.of(studBankAccClass, studCheckingAccClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-   
+
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
 

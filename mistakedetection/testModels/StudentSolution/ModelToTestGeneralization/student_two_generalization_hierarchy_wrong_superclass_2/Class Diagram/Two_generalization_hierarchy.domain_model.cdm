@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="ASCII"?>
-<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_e4VZAIOiEeyt8bFXtO3GaA" name="Two_generalization_heirarchy">
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_e4VZAIOiEeyt8bFXtO3GaA" name="Two_generalization_hierarchy">
   <classes xsi:type="classdiagram:Class" xmi:id="_fTwJsIOiEeyt8bFXtO3GaA" name="Root">
     <associationEnds xmi:id="_pdTzoYOiEeyt8bFXtO3GaA" name="myA" assoc="_pdTzooOiEeyt8bFXtO3GaA" lowerBound="1" referenceType="Composition"/>
     <associationEnds xmi:id="_qJ3XoYOiEeyt8bFXtO3GaA" name="myE" assoc="_qJ3XooOiEeyt8bFXtO3GaA" lowerBound="1" referenceType="Composition"/>
   </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="_gmKMwIOiEeyt8bFXtO3GaA" name="A">
+  <classes xsi:type="classdiagram:Class" xmi:id="_gmKMwIOiEeyt8bFXtO3GaA" name="E">
     <associationEnds xmi:id="_pdTzoIOiEeyt8bFXtO3GaA" name="myRoot" assoc="_pdTzooOiEeyt8bFXtO3GaA" lowerBound="1"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_hI0N4IOiEeyt8bFXtO3GaA" name="B" superTypes="_gmKMwIOiEeyt8bFXtO3GaA"/>
   <classes xsi:type="classdiagram:Class" xmi:id="_h7rOMIOiEeyt8bFXtO3GaA" name="F" superTypes="_hI0N4IOiEeyt8bFXtO3GaA"/>
   <classes xsi:type="classdiagram:Class" xmi:id="_ipIKEIOiEeyt8bFXtO3GaA" name="D" superTypes="_h7rOMIOiEeyt8bFXtO3GaA"/>
-  <classes xsi:type="classdiagram:Class" xmi:id="_jhac8IOiEeyt8bFXtO3GaA" name="E">
+  <classes xsi:type="classdiagram:Class" xmi:id="_jhac8IOiEeyt8bFXtO3GaA" name="A">
     <associationEnds xmi:id="_qJ3XoIOiEeyt8bFXtO3GaA" name="myRoot" assoc="_qJ3XooOiEeyt8bFXtO3GaA" lowerBound="1"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_kLCowIOiEeyt8bFXtO3GaA" name="C" superTypes="_jhac8IOiEeyt8bFXtO3GaA"/>

@@ -195,7 +195,7 @@ public class MistakeDetection {
     var newMistakes = comparison.newMistakes;
     var instructorClassifiers = instructorSolution.getClassDiagram().getClasses();
     var studentClassifiers = studentSolution.getClassDiagram().getClasses();
-    
+
     var processed = false;
     if (instructorClassifiers.isEmpty()) {
       for (Classifier studentClassifier : studentClassifiers) {
@@ -219,7 +219,7 @@ public class MistakeDetection {
     }
     for (Classifier instructorClassifier : instructorClassifiers) {
       comparison.notMappedInstructorClassifiers.add(instructorClassifier);
-      if(!instructorClassifier.getSuperTypes().isEmpty()) {
+      if (!instructorClassifier.getSuperTypes().isEmpty()) {
         comparison.instructorGeneralizationClassifiers.add(instructorClassifier);
       }
       List<Attribute> instructorAttributes = instructorClassifier.getAttributes();
@@ -322,9 +322,8 @@ public class MistakeDetection {
     updateMistakes(instructorSolution, studentSolution, comparison, filter);
     return comparison;
   }
-  
-  private static void checkMistakesMissingExtraGen_WrongSuperclass_WrongDirection(Comparison comparison) {
-    
+
+  private static void checkMistakesMissingExtraGenWrongSuperclassWrongDirection(Comparison comparison) {
     for (Classifier instClass : comparison.instructorGeneralizationClassifiers) {
       Classifier instSuperClass = instClass.getSuperTypes().get(0);
       Classifier studClass = comparison.mappedClassifiers.get(instClass);
@@ -336,7 +335,7 @@ public class MistakeDetection {
       }
 
       Classifier studMappedSuperClass = comparison.mappedClassifiers.get(instSuperClass);
-     
+
       var studClassSuperClasses = getAllSuperClasses(studClass);
       if (studMappedSuperClass == null && !studClass.getSuperTypes().isEmpty()) {
         comparison.newMistakes.add(createMistake(WRONG_SUPERCLASS, List.of(studClass, studClass.getSuperTypes().get(0)),
@@ -381,7 +380,6 @@ public class MistakeDetection {
       } else {
         comparison.newMistakes
             .add(createMistake(EXTRA_GENERALIZATION, List.of(studClass, studClass.getSuperTypes().get(0)), null));
-
       }
     });
   }
@@ -414,7 +412,7 @@ public class MistakeDetection {
   private static void checkMistakesInGeneralization(Comparison comparison) {
     checkMistakeNonDifferentiatedSubClass(comparison);
     checkMistakeAttribMisplacedInGenHierarchyAndDuplicateAttrib(comparison);
-    checkMistakesMissingExtraGen_WrongSuperclass_WrongDirection(comparison);
+    checkMistakesMissingExtraGenWrongSuperclassWrongDirection(comparison);
   }
 
   private static void checkMistakeAttribMisplacedInGenHierarchyAndDuplicateAttrib(Comparison comparison) {
@@ -489,7 +487,7 @@ public class MistakeDetection {
       List<Attribute> superClassAttributes = superClass.getAttributes();
       for (Classifier subClass : subClasses) {
         List<Attribute> subClassAttributes = subClass.getAttributes();
-        if (areAttributesEqual(superClassAttributes, subClassAttributes) 
+        if (areAttributesEqual(superClassAttributes, subClassAttributes)
              && !superClass.isAbstract()) {
           if (!classesIterated.contains(subClass.getName())) {
             classesIterated.add(subClass.getName());
@@ -502,8 +500,7 @@ public class MistakeDetection {
         for (var subClass2 : subClasses) {
           List<Attribute> subClass2Attributes = subClass2.getAttributes();
           if (subClass1 != subClass2 && areAttributesEqual(subClass1Attributes, subClass2Attributes)
-              && subClassesAttriAssocEqual(subClass1, subClass2, comparison)
-              ) {
+              && subClassesAttriAssocEqual(subClass1, subClass2, comparison)) {
             if (!classesIterated.contains(subClass1.getName())) {
               classesIterated.add(subClass1.getName());
               comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass1, null));
@@ -553,17 +550,16 @@ public class MistakeDetection {
 
     for (Classifier cls1 : subClass1ConnectedClass) {
       for (Classifier cls2 : subClass2ConnectedClass) {
-        if (!cls1.equals(cls2)) {
+        if (!cls1.equals(cls2)) { // Only continue if cls1 == cls2
           continue;
         }
         var subCls1AssocEnds = subClass1.getAssociationEnds();
         var subCls2AssocEnds = subClass2.getAssociationEnds();
         for (AssociationEnd subCls2AssocEnd : subCls2AssocEnds) {
-          if (subCls1AssocEnds.stream().noneMatch(ae -> ae.getName().equals(subCls2AssocEnd.getName()))) {
-            return false;
-          } else if (subCls1AssocEnds.stream().noneMatch(ae -> ae.getLowerBound() == subCls2AssocEnd.getLowerBound())) {
-            return false;
-          } else if (subCls1AssocEnds.stream().noneMatch(ae -> ae.getUpperBound() == subCls2AssocEnd.getUpperBound())) {
+          if (subCls1AssocEnds.stream()
+              .noneMatch(ae -> ae.getName().equals(subCls2AssocEnd.getName())
+                            || ae.getLowerBound() == subCls2AssocEnd.getLowerBound()
+                            || ae.getUpperBound() == subCls2AssocEnd.getUpperBound())) {
             return false;
           }
         }
@@ -739,12 +735,12 @@ public class MistakeDetection {
   private static void mapEnumerations(Solution instructorSolution, Solution studentSolution, Comparison comparison) {
     var instructorClassDiagram = instructorSolution.getClassDiagram();
     var studentClassDiagram = studentSolution.getClassDiagram();
-   
+
     for (Type studElementType : studentClassDiagram.getTypes()) {
       if (studElementType instanceof CDEnum) {
-        CDEnum studEnumClass = (CDEnum) studElementType;      
+        CDEnum studEnumClass = (CDEnum) studElementType;
         comparison.extraStudentEnums.add(studEnumClass);
-        comparison.extraStudentEnumLiterals.addAll(studEnumClass.getLiterals());       
+        comparison.extraStudentEnumLiterals.addAll(studEnumClass.getLiterals());
       }
     }
     for (Type instElementType : instructorClassDiagram.getTypes()) {
@@ -754,17 +750,17 @@ public class MistakeDetection {
         comparison.notMappedInstructorEnumLiterals.addAll(instEnumClass.getLiterals());
         for (Type studElementType : studentClassDiagram.getTypes()) {
           if (studElementType instanceof CDEnum) {
-            CDEnum studEnumClass = (CDEnum) studElementType;           
-            if(studEnumClass.getName().equals(instEnumClass.getName())) {
+            CDEnum studEnumClass = (CDEnum) studElementType;
+            if (studEnumClass.getName().equals(instEnumClass.getName())) {
               addEnumsToMap(instEnumClass, studEnumClass, comparison);
-              mapEnumLiterals(instEnumClass, studEnumClass, comparison);    
+              mapEnumLiterals(instEnumClass, studEnumClass, comparison);
             }
           }
         }
-      }    
+      }
     }
 
-    
+
     comparison.mappedAttributes.forEach((key, value) -> {
       if (!(key.getType() instanceof CDEnum && value.getType() instanceof CDEnum)) {
         return;
@@ -774,16 +770,15 @@ public class MistakeDetection {
       if (instEnum == null && studEnum == null) {
         return;
       }
-      if(!comparison.mappedEnumerations.containsKey(instEnum)) {
-      addEnumsToMap(instEnum, studEnum, comparison);
-      mapEnumLiterals(instEnum, studEnum, comparison); 
+      if (!comparison.mappedEnumerations.containsKey(instEnum)) {
+        addEnumsToMap(instEnum, studEnum, comparison);
+        mapEnumLiterals(instEnum, studEnum, comparison);
       }
     });
   }
- 
-  
+
+
   private static void mapEnumLiterals(CDEnum instEnum, CDEnum studEnum, Comparison comparison) {
-    
     for (CDEnumLiteral instEnumLiteral : instEnum.getLiterals()) {
       for (CDEnumLiteral studEnumLiteral : studEnum.getLiterals()) {
         var lDistance = levenshteinDistance(instEnumLiteral.getName(), studEnumLiteral.getName());
@@ -794,10 +789,10 @@ public class MistakeDetection {
           checkMistakeBadEnumLiteralSpelling(studEnumLiteral, instEnumLiteral).ifPresent(comparison.newMistakes::add);
         }
       }
-    }    
+    }
   }
 
-  private static void addEnumsToMap(CDEnum instEnum, CDEnum studEnum, Comparison comparison) {     
+  private static void addEnumsToMap(CDEnum instEnum, CDEnum studEnum, Comparison comparison) {
     comparison.mappedEnumerations.put(instEnum, studEnum);
     comparison.notMappedInstructorEnums.remove(instEnum);
     comparison.extraStudentEnums.remove(studEnum);
@@ -1479,7 +1474,7 @@ public class MistakeDetection {
       Association instructorClassifierAssoc, AssociationEnd studentClassifierAssocEnd,
       AssociationEnd instructorClassifierAssocEnd, AssociationEnd otherStudentClassifierAssocEnd,
       AssociationEnd otherInstructorClassifierAssocEnd) {
-    
+
     if (studentClassifierAssocEnd.getName().equals(otherInstructorClassifierAssocEnd.getName())) {
       var temp = studentClassifierAssocEnd;
       studentClassifierAssocEnd = otherStudentClassifierAssocEnd;
@@ -1487,9 +1482,9 @@ public class MistakeDetection {
     } else if(otherStudentClassifierAssocEnd.getName().equals(instructorClassifierAssocEnd.getName())) {
       var temp = otherStudentClassifierAssocEnd;
       otherStudentClassifierAssocEnd = studentClassifierAssocEnd;
-      studentClassifierAssocEnd = temp;      
+      studentClassifierAssocEnd = temp;
     }
-    
+
     checkAssociationClassMapping(comparison, studentClassifierAssoc, instructorClassifierAssoc);
 
     if (!checkStudentElementForMistake(comparison.newMistakes, studentClassifierAssoc)) {
@@ -1654,7 +1649,7 @@ public class MistakeDetection {
   }
 
   private static boolean isMistakeExist(MistakeType mistakeType, NamedElement NamedElement, Comparison comparison) {
-    if(NamedElement == null) {
+    if (NamedElement == null) {
       return false;
     }
     for (Mistake mistake : comparison.newMistakes) {
@@ -1664,13 +1659,12 @@ public class MistakeDetection {
             return true;
           }
         }
-      } else if(mistake.getMistakeType().equals(mistakeType) && !mistake.getInstructorElements().isEmpty()) {
+      } else if (mistake.getMistakeType().equals(mistakeType) && !mistake.getInstructorElements().isEmpty()) {
         for (var element : mistake.getInstructorElements()) {
           if (element.getElement().equals(NamedElement)) {
             return true;
           }
         }
-
       }
     }
     return false;
@@ -1829,7 +1823,7 @@ public class MistakeDetection {
         List.of(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, ASSOC_SHOULD_BE_FULL_PR_PATTERN, ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN,
             ENUM_SHOULD_BE_ASSOC_PR_PATTERN, ENUM_SHOULD_BE_FULL_PR_PATTERN, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN,
             FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM, FULL_PR_PATTERN_SHOULD_BE_SUBCLASS,
-            SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, INCOMPLETE_PR_PATTERN, 
+            SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, INCOMPLETE_PR_PATTERN,
             GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, INCOMPLETE_AO_PATTERN, MISSING_AO_PATTERN);
     var containmentMistakeTypes = List.of(INCOMPLETE_CONTAINMENT_TREE, COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT);
 
@@ -2124,7 +2118,7 @@ public class MistakeDetection {
     return null;
   }
 
-  /** Returns the class with closest number of association ends with that of a instructor class. */
+  /** Returns the class with closest number of association end class with that of a instructor class. */
   private static Classifier classWithOtherAssociationClassMatch(List<Classifier> studentClasses,
       Classifier instructorClass) {
     List<String> instClassesName = new ArrayList<>();
