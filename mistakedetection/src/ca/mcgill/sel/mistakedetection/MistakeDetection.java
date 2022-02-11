@@ -550,7 +550,8 @@ public class MistakeDetection {
 
     for (Classifier cls1 : subClass1ConnectedClass) {
       for (Classifier cls2 : subClass2ConnectedClass) {
-        if (!cls1.equals(cls2)) { // Only continue if cls1 == cls2
+     // To check associations between subClass1 -- connectedClass and subClass2 -- connectedClass.
+        if (!cls1.equals(cls2)) {
           continue;
         }
         var subCls1AssocEnds = subClass1.getAssociationEnds();
@@ -2118,7 +2119,7 @@ public class MistakeDetection {
     return null;
   }
 
-  /** Returns the class with closest number of association end class with that of a instructor class. */
+  /** Returns the class with closest number of association end classes match with that of a instructor class. */
   private static Classifier classWithOtherAssociationClassMatch(List<Classifier> studentClasses,
       Classifier instructorClass) {
     List<String> instClassesName = new ArrayList<>();
