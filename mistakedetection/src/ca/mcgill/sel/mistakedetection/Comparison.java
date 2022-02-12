@@ -60,6 +60,12 @@ public class Comparison {
 
   /** List to store association classes to remove from mapped classes. */
   public List<Classifier> assocClassifiersToRemove = new ArrayList<>();
+  
+  /** List to store instructor classes which have super classes. */
+  public List<Classifier> instructorGeneralizationClassifiers = new ArrayList<>();
+  
+  /** List to store student classes which have super classes. */
+  public List<Classifier> studentGeneralizationClassifiers = new ArrayList<>();
 
   /** Map stores possible instructor student Association Class pair that are detected after initial class mapping. */
   public Map<Classifier, Classifier> assocClassMappingToAdd = new HashMap<>();
@@ -173,7 +179,19 @@ public class Comparison {
       value.forEach(v -> {System.out.print(v.getName() + " ");});
       System.out.println();
     });
-
+    
+    System.out.println();
+    System.out.print("instructor Generalization clasees : ");
+    for (Classifier c : instructorGeneralizationClassifiers) {
+      System.out.print(c.getName() + " ");
+    }
+    
+    System.out.println();
+    System.out.print("student Generalization clasees : ");
+    for (Classifier c : studentGeneralizationClassifiers) {
+      System.out.print(c.getName() + " ");
+    }
+    
     System.out.println();
     System.out.println("Mistakes : ");
     newMistakes.forEach(m -> {

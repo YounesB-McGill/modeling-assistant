@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="ASCII"?>
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_m96hcN89EeuTLOme1e-z-w" name="Student_missingComposition1">
-  <classes xsi:type="classdiagram:Class" xmi:id="_oLyCwN89EeuTLOme1e-z-w" name="Book"/>
-  <classes xsi:type="classdiagram:Class" xmi:id="_c8en8OAdEeu0Ypi-bebdJw" name="Chapter"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_oLyCwN89EeuTLOme1e-z-w" name="Book">
+    <associationEnds xmi:id="_M1NSQIlqEey7y8LHVTG7Ew" name="myRoot" assoc="_M1NSQolqEey7y8LHVTG7Ew" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_c8en8OAdEeu0Ypi-bebdJw" name="Chapter">
+    <associationEnds xmi:id="_MEkfgIlqEey7y8LHVTG7Ew" name="myRoot" assoc="_MEkfgolqEey7y8LHVTG7Ew" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_LPfRoIlqEey7y8LHVTG7Ew" name="Root">
+    <associationEnds xmi:id="_MEkfgYlqEey7y8LHVTG7Ew" name="myChapter" assoc="_MEkfgolqEey7y8LHVTG7Ew" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_M1NSQYlqEey7y8LHVTG7Ew" name="myBook" assoc="_M1NSQolqEey7y8LHVTG7Ew" lowerBound="1" referenceType="Composition"/>
+  </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_m96hcd89EeuTLOme1e-z-w"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_m96hct89EeuTLOme1e-z-w"/>
   <types xsi:type="classdiagram:CDBoolean" xmi:id="_m96hc989EeuTLOme1e-z-w"/>
@@ -12,6 +20,8 @@
   <types xsi:type="classdiagram:CDByte" xmi:id="_m96heN89EeuTLOme1e-z-w"/>
   <types xsi:type="classdiagram:CDFloat" xmi:id="_m96hed89EeuTLOme1e-z-w"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_m96het89EeuTLOme1e-z-w"/>
+  <associations xmi:id="_MEkfgolqEey7y8LHVTG7Ew" name="Chapter_Root" ends="_MEkfgIlqEey7y8LHVTG7Ew _MEkfgYlqEey7y8LHVTG7Ew"/>
+  <associations xmi:id="_M1NSQolqEey7y8LHVTG7Ew" name="Book_Root" ends="_M1NSQIlqEey7y8LHVTG7Ew _M1NSQYlqEey7y8LHVTG7Ew"/>
   <layout xmi:id="_m96he989EeuTLOme1e-z-w">
     <containers xmi:id="_m96hfN89EeuTLOme1e-z-w" key="_m96hcN89EeuTLOme1e-z-w">
       <value xmi:id="_oLz38N89EeuTLOme1e-z-w" key="_oLyCwN89EeuTLOme1e-z-w">
@@ -19,6 +29,9 @@
       </value>
       <value xmi:id="_c8gdIOAdEeu0Ypi-bebdJw" key="_c8en8OAdEeu0Ypi-bebdJw">
         <value xmi:id="_c8gdIeAdEeu0Ypi-bebdJw" x="1375.0" y="293.0"/>
+      </value>
+      <value xmi:id="_LPlYQIlqEey7y8LHVTG7Ew" key="_LPfRoIlqEey7y8LHVTG7Ew">
+        <value xmi:id="_LPlYQYlqEey7y8LHVTG7Ew" x="869.0" y="195.0"/>
       </value>
     </containers>
   </layout>
