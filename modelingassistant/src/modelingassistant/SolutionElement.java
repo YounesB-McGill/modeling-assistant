@@ -113,12 +113,18 @@ public interface SolutionElement extends EObject {
   void setElement(NamedElement value);
 
   /**
-   * Returns the solution element of a given class diagram element, if any.
+   * Returns the solution element of a given class diagram element, if it exists. Otherwise, creates a new solution
+   * element and associates it with the class diagram element.
    *
    * @generated NOT
    */
   static SolutionElement forCdmElement(NamedElement namedElement) {
-    return cdmElementsToSolutionElements.getOrDefault(namedElement, null);
+    if (cdmElementsToSolutionElements.containsKey(namedElement)) {
+      return cdmElementsToSolutionElements.get(namedElement);
+    }
+    var solutionElement = ModelingassistantFactory.eINSTANCE.createSolutionElement();
+    solutionElement.setElement(namedElement);
+    return solutionElement;
   }
 
   /**
