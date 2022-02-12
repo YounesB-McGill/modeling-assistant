@@ -110,7 +110,7 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(USING_AGGREGATION_INSTEAD_OF_COMPOSITION, mdf(List.of("assocend"), List.of("assocend"))),
       entry(USING_ASSOC_INSTEAD_OF_AGGREGATION, mdf(List.of("assocend"), List.of("assocend"))),
       entry(USING_ASSOC_INSTEAD_OF_COMPOSITION, mdf(List.of("assocend"), List.of("assocend"))),
-      entry(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, mdf(List.of("attr"), List.of())),
+      entry(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, mdf(List.of("attr"), List.of("assocend"))),
       entry(USING_COMPOSITION_INSTEAD_OF_AGGREGATION, mdf(List.of("assocend"), List.of("assocend"))),
       entry(USING_COMPOSITION_INSTEAD_OF_ASSOC, mdf(List.of("assocend"), List.of("assocend"))),
       entry(USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED, mdf(List.of("assocend"), List.of("assocend"))),

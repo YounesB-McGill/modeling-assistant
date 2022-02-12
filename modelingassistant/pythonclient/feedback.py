@@ -33,6 +33,8 @@ class FeedbackTO:
     "Feedback transfer object class. An explicit class is used to allow for compile-time type checking."
     # pylint: disable=invalid-name
     solutionElements: list[str] = field(default_factory=list)  # to avoid mutable default value
+    # TODO add this (or similar)
+    #wrongGeneralizations: list[tuple[str, str]] = field(default_factory=list)
     instructorElements: list[str] = field(default_factory=list)
     problemStatementElements: list[str] = field(default_factory=list)
     highlightProblemStatementElements: bool = False
