@@ -1,5 +1,6 @@
 package ca.mcgill.sel.mistakedetection.tests.utils;
 
+import static ca.mcgill.sel.mistakedetection.tests.utils.Color.colorString;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_N_ARY_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_INAPPLICABLE;
@@ -87,7 +88,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   /** The maximum allowed line length in generated source code. */
   private static final int MAX_LINE_LENGTH = 120;
 
-  private static final boolean USE_COLOR_OUTPUT = true;
+  static final boolean USE_COLOR_OUTPUT = true;
 
   /** Indicates the completion state for each test in the mistakedetection.tests suite. */
   private enum TestCompletionStatus {
@@ -101,33 +102,6 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     String getFormattedName() {
       var name = toString();
       return name.substring(0, 1) + name.substring(1, name.length()).replace("_", " ").toLowerCase();
-    }
-  }
-
-  /** Color enum used to print output in color. Requires ANSI escaping to be enabled in the console. */
-  private enum Color {
-    BLACK(0), GRAY(8), VIOLET(165), BLUE(4), CYAN(39), SEA_GREEN(86), BLUE_GREEN(37), GREEN(28), GREEN_YELLOW(118),
-    YELLOW(226), DARK_YELLOW(214), ORANGE(208), DARK_ORANGE(166), RED(124), PINK(199), ENDC("\033[0m");
-
-    int foregroundColor;
-    String ansiEscapeCode;
-
-    Color(String ansiEscapeCode) {
-      this.ansiEscapeCode = ansiEscapeCode;
-    }
-
-    Color(int foregroundColor) {
-      this("\033[38;5;" + foregroundColor + "m");
-      this.foregroundColor = foregroundColor;
-    }
-
-    @Override public String toString() {
-      return ansiEscapeCode;
-    }
-
-    public static String demo() {
-      return Arrays.stream(Color.values()).map(c -> colorString(c, c.name() + "(" + c.foregroundColor + ")"))
-          .collect(Collectors.joining("\n"));
     }
   }
 
@@ -551,13 +525,6 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     return colorString(Color.values()[Math.floorMod(code, maxPossibleColorIndex)], itemStr);
   }
 
-  /** Returns the given item.toString() in the given color if USE_COLOR_OUTPUT is true. */
-  static <T> String colorString(Color color, T item) {
-    if (!USE_COLOR_OUTPUT) {
-      return item.toString();
-    }
-    return "" + color + item + Color.ENDC;
-  }
 
   /** Debug print function. It can be added to a Stream with {@code .map(MDIS4LC::debugPrint)}. */
   static <T> T debugPrint(T t) {
