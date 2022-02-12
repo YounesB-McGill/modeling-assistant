@@ -145,21 +145,21 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       getFormattedTestCompletionStatus(testCompletionStatusByMistakeType),
       overallTestCompletionStatistics(testCompletionStatusByMistakeType),
 
-      // title("Mistake type mapping to instructor/student CDM elements"),
-      // getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorElems)),
-      // getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(studentElems)),
-      // getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorAndStudentElems)),
+      title("Mistake type mapping to instructor/student CDM elements"),
+      getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorElems)),
+      getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(studentElems)),
+      getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorAndStudentElems)),
 
-      // title("Mistake type mapping to instructor/student solution element descriptions"),
-      // getLearningCorpusElementDescriptionMappingAsCsv(mapMistakesToElementDescriptions(instructorAndStudentElems)),
+      title("Mistake type mapping to instructor/student solution element descriptions"),
+      getLearningCorpusElementDescriptionMappingAsCsv(mapMistakesToElementDescriptions(instructorAndStudentElems)),
 
       title("MistakeInfo statistics for each detected mistake"),
       mistakeTypeElementVsParametrizedStringStatistics(mapToMistakeInfos()),
 
-      // title("Mistake type mapping to learning corpus ElementTypes"),
-      // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorElems)),
-      // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(studentElems)),
-      // getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorAndStudentElems)),
+      title("Mistake type mapping to learning corpus ElementTypes"),
+      getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorElems)),
+      getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(studentElems)),
+      getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorAndStudentElems)),
 
       title("MistakeDetectionFormats for human verification (use to update HumanValidatedMistakeDetectionFormats)"),
       formatMistakeDetectionFormatsForJava(suggestedMistakeDetectionFormats, true),
@@ -173,12 +173,18 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       title("Suggested MistakeDetectionFormats (use in Python corpus definition)"),
       formatMistakeDetectionFormatsForPython(suggestedMistakeDetectionFormats, true),
 
-      // title("Python learning corpus initialization code (imports/learning items)"),
-      // pythonLearningCorpusInitializationCode.imports,
-      // pythonLearningCorpusInitializationCode.learningItems,
+      title("Python learning corpus initialization code (imports/learning items)"),
+      pythonLearningCorpusInitializationCode.imports,
+      pythonLearningCorpusInitializationCode.learningItems,
     };
 
-    System.out.println(String.join("\n\n", outputs));
+    Stream<MistakeDetectionInformationService> outputs2 = Stream.of(
+        ColorDemo.get()
+        );
+
+    //System.out.println(String.join("\n\n", outputs));
+
+    System.out.println(outputs2.map(MistakeDetectionInformationService::getOutput).collect(Collectors.joining("\n\n")));
   }
 
   /** Runs all the mistake detection tests. */
