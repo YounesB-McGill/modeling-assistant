@@ -1,6 +1,6 @@
 package ca.mcgill.sel.mistakedetection.tests.utils;
 
-import static ca.mcgill.sel.mistakedetection.tests.utils.MistakeDetectionFormat.mdf;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeDetectionFormat.mdf;
 import static java.util.Map.entry;
 // Always keep this comment here to allow easy auto-importing of new mistake types in IDEs
 //import static learningcorpus.mistaketypes.MistakeTypes.*;
@@ -59,6 +59,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import java.util.List;
 import java.util.Map;
+import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeDetectionFormat;
 import learningcorpus.MistakeType;
 
 public class HumanValidatedMistakeDetectionFormats {

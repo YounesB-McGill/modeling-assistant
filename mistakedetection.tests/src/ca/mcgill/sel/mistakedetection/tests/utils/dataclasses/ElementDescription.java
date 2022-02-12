@@ -1,4 +1,4 @@
-package ca.mcgill.sel.mistakedetection.tests.utils;
+package ca.mcgill.sel.mistakedetection.tests.utils.dataclasses;
 import static ca.mcgill.sel.mistakedetection.tests.utils.MistakeDetectionInformationServicesForLearningCorpus.hasStudent;
 import java.util.Map;
 import org.eclipse.emf.ecore.EClass;

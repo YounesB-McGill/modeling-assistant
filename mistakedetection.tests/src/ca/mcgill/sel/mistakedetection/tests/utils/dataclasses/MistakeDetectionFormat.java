@@ -1,13 +1,14 @@
-package ca.mcgill.sel.mistakedetection.tests.utils;
+package ca.mcgill.sel.mistakedetection.tests.utils.dataclasses;
 
 import java.util.ArrayList;
 import java.util.List;
+import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
 import modelingassistant.Mistake;
 
 public class MistakeDetectionFormat {
 
-  List<String> stud = new ArrayList<>();
-  List<String> inst = new ArrayList<>();
+  public List<String> stud = new ArrayList<>();
+  public List<String> inst = new ArrayList<>();
 
   private MistakeDetectionFormat(Mistake mistake) {
     int[] cnt = {0, 0};

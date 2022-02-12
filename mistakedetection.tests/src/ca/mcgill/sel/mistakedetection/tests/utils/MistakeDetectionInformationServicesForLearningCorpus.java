@@ -27,6 +27,9 @@ import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.CdmFactory;
 import ca.mcgill.sel.classdiagram.ReferenceType;
 import ca.mcgill.sel.mistakedetection.MistakeDetectionConfig;
+import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.ElementDescription;
+import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeDetectionFormat;
+import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeInfo;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.ColorDemo;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionInformationService;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.TestCompletion;
@@ -364,7 +367,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   }
 
   /** Returns true if the association has an end with the given type. */
-  static boolean hasStudent(SolutionElement e) {
+  public static boolean hasStudent(SolutionElement e) {
     return e.getSolution().getStudent() != null;
   }
 

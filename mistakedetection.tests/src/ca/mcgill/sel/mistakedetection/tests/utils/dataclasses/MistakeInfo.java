@@ -1,4 +1,4 @@
-package ca.mcgill.sel.mistakedetection.tests.utils;
+package ca.mcgill.sel.mistakedetection.tests.utils.dataclasses;
 
 import java.util.Collections;
 import java.util.List;
@@ -9,7 +9,7 @@ import modelingassistant.Mistake;
 
 public class MistakeInfo {
 
-  static final String TABLE_HEADER =
+  public static final String TABLE_HEADER =
       "MistakeType,StudentElems,InstructorElems,TotalElems,MaxParamRespNumParams,SolElemDescriptions\n";
 
   Mistake mistake;
