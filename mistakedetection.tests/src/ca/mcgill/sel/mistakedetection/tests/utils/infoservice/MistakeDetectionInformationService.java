@@ -177,15 +177,20 @@ public abstract class MistakeDetectionInformationService {
   }
 
   private static String parametrizeResponse(ParametrizedResponse pr, MistakeDetectionFormat mdf) {
+    // TODO Work in progress
     var result = pr.getText();
-    final var matcher = Pattern.compile("\\$\\{(?<param>.*?)\\}").matcher(result);
+    final var pattern = Pattern.compile("\\$\\{(?<param>.*?)\\}");
+    var matcher = pattern.matcher(result);
     if (mdf.stud.size() == 1 && mdf.inst.isEmpty()) {
       result = matcher.replaceFirst(Matcher.quoteReplacement("${stud_" + mdf.stud.get(0) + "}"));
     } else if (mdf.stud.isEmpty() && mdf.inst.size() == 1) {
       result = matcher.replaceFirst(Matcher.quoteReplacement("${inst_" + mdf.inst.get(0) + "}"));
     } else if (mdf.stud.size() == 1 && mdf.inst.size() == 1) {
-      result = matcher.replaceFirst(Matcher.quoteReplacement("${stud_" + mdf.stud.get(0) + "}"));
+      final var studRepl = "@@STUD_REPL@@";
+      result = matcher.replaceFirst(Matcher.quoteReplacement(studRepl));
+      matcher = pattern.matcher(result);
       result = matcher.replaceFirst(Matcher.quoteReplacement("${inst_" + mdf.inst.get(0) + "}"));
+      result = result.replace(studRepl, "${stud_" + mdf.stud.get(0) + "}");
     }
     return result;
   }
