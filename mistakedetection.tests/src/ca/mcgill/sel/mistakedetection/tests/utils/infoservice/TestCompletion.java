@@ -1,4 +1,4 @@
-package ca.mcgill.sel.mistakedetection.tests.utils;
+package ca.mcgill.sel.mistakedetection.tests.utils.infoservice;
 
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_N_ARY_ASSOCIATION;

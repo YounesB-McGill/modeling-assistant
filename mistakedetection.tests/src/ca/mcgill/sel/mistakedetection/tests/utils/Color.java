@@ -54,4 +54,16 @@ public enum Color {
     return "" + color + item + Color.ENDC;
   }
 
+  /** Returns the given item.toString() in a random color if USE_COLOR_OUTPUT is true. */
+  static <T> String randomColorString(T item) {
+    var maxPossibleColorIndex = Color.values().length - 1; // do not use Color.ENDC as a possible color
+    var itemStr = item.toString();
+    var code = item.hashCode();
+    if (itemStr.contains(",")) {
+      var beforeComma = itemStr.split(",")[0]; // only take initial part of csv string
+      code = beforeComma.hashCode() + 0 * beforeComma.length(); // work in progress
+    }
+    return colorString(Color.values()[Math.floorMod(code, maxPossibleColorIndex)], itemStr);
+  }
+
 }

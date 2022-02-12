@@ -1,9 +1,9 @@
 package ca.mcgill.sel.mistakedetection.tests.utils;
 
 import static ca.mcgill.sel.mistakedetection.tests.utils.Color.colorString;
-import static ca.mcgill.sel.mistakedetection.tests.utils.MistakeDetectionInformationService.allMistakes;
-import static ca.mcgill.sel.mistakedetection.tests.utils.MistakeDetectionInformationService.allMistakesLimitOneOfEachType;
-import static ca.mcgill.sel.mistakedetection.tests.utils.MistakeDetectionInformationService.title;
+import static ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionInformationService.allMistakes;
+import static ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionInformationService.allMistakesLimitOneOfEachType;
+import static ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionInformationService.title;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
 import java.io.PrintWriter;
 import java.util.AbstractMap.SimpleImmutableEntry;
@@ -27,6 +27,9 @@ import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.CdmFactory;
 import ca.mcgill.sel.classdiagram.ReferenceType;
 import ca.mcgill.sel.mistakedetection.MistakeDetectionConfig;
+import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.ColorDemo;
+import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionInformationService;
+import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.TestCompletion;
 import learningcorpus.ElementType;
 import learningcorpus.MistakeType;
 import learningcorpus.ParametrizedResponse;
@@ -70,7 +73,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       Stream.concat(instructorElems.apply(m), studentElems.apply(m));
 
   /** The maximum allowed line length in generated source code. */
-  static final int MAX_LINE_LENGTH = 120;
+  public static final int MAX_LINE_LENGTH = 120;
 
   static final boolean USE_COLOR_OUTPUT = true;
 
@@ -320,7 +323,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   private static String mistakeTypeElementVsParametrizedStringStatistics(
       Map<MistakeType, ? extends Collection<MistakeInfo>> mapping) {
     return MistakeInfo.TABLE_HEADER + mapping.entrySet().stream().map(e -> e.getValue().stream()
-        .map(MDIS4LC::randomColorString).collect(Collectors.joining("\n"))).collect(Collectors.joining("\n"));
+        .map(Color::randomColorString).collect(Collectors.joining("\n"))).collect(Collectors.joining("\n"));
   }
 
   /** Format the MistakeDetectionFormats to be used in the HumanValidatedMistakeDetectionFormats class. */
@@ -391,18 +394,6 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
   private static String underscorify(String s) {
     return s.replaceAll("\\((.+?)\\)", "").trim().replaceAll("/", "_").replaceAll("-", "_")
         .replaceAll("\\s+", "_").replaceAll("_+", "_").toLowerCase();
-  }
-
-  /** Returns the given item.toString() in a random color if USE_COLOR_OUTPUT is true. */
-  static <T> String randomColorString(T item) {
-    var maxPossibleColorIndex = Color.values().length - 1; // do not use Color.ENDC as a possible color
-    var itemStr = item.toString();
-    var code = item.hashCode();
-    if (itemStr.contains(",")) {
-      var beforeComma = itemStr.split(",")[0]; // only take initial part of csv string
-      code = beforeComma.hashCode() + 0 * beforeComma.length(); // work in progress
-    }
-    return colorString(Color.values()[Math.floorMod(code, maxPossibleColorIndex)], itemStr);
   }
 
 
