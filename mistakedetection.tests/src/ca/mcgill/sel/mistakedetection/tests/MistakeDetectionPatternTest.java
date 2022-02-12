@@ -42,6 +42,7 @@ import static modelingassistant.util.TagUtils.setRoleTagToAttribInClass;
 import static modelingassistant.util.TagUtils.setRoleTagToClassInClassDiag;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.HashSet;
 import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.junit.jupiter.api.Test;
@@ -625,6 +626,10 @@ public class MistakeDetectionPatternTest {
 
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
     assertMistake(studStudentClassMistake, FULL_PR_PATTERN_SHOULD_BE_ENUM, studElements, instElements, 0, 1, false);
+
+    // verify that no duplicate solution elements are created
+    var allStudElements = studentSolution.getSolutionElements();
+    assertEquals(new HashSet<>(allStudElements).size(), allStudElements.size());
   }
 
   /**
@@ -933,6 +938,9 @@ public class MistakeDetectionPatternTest {
 
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
     assertMistake(studStudentClassMistake, FULL_PR_PATTERN_SHOULD_BE_ASSOC, studElements, instElements, 0, 1, false);
+
+    var allStudElements = studentSolution.getSolutionElements();
+    assertEquals(new HashSet<>(allStudElements).size(), allStudElements.size());
   }
 
   /**
@@ -1041,6 +1049,9 @@ public class MistakeDetectionPatternTest {
 
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
     assertMistake(studStudentClassMistake, FULL_PR_PATTERN_SHOULD_BE_ENUM, studElements, instElements, 0, 1, false);
+
+    var allStudElements = studentSolution.getSolutionElements();
+    assertEquals(new HashSet<>(allStudElements).size(), allStudElements.size());
   }
 
   /**
@@ -1371,6 +1382,9 @@ public class MistakeDetectionPatternTest {
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
     assertMistake(studStudentClassMistake, FULL_PR_PATTERN_SHOULD_BE_ASSOC, studElements, instElements, 0, 1, false);
+
+    var allStudElements = studentSolution.getSolutionElements();
+    assertEquals(new HashSet<>(allStudElements).size(), allStudElements.size());
   }
 
   /**

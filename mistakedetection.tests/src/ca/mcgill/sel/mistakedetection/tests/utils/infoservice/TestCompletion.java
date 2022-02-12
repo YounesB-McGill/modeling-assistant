@@ -65,9 +65,9 @@ public class TestCompletion extends MistakeDetectionInformationService {
 
   @Override public String getOutput() {
     var testCompletionStatusByMistakeType = getTestCompletionStatusByMistakeType();
-    return title(name) + "\n" + formattedTestCompletionStatusLegend() + "\n"
-        + getFormattedTestCompletionStatus(testCompletionStatusByMistakeType) + "\n"
-        + overallTestCompletionStatistics(testCompletionStatusByMistakeType) + "\n";
+    return title(name) + "\n" + formattedTestCompletionStatusLegend() + "\n\n"
+        + getFormattedTestCompletionStatus(testCompletionStatusByMistakeType) + "\n\n"
+        + overallTestCompletionStatistics(testCompletionStatusByMistakeType);
   }
 
   public static TestCompletion get() {

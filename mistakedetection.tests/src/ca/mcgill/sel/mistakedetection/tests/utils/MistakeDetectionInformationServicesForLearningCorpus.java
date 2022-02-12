@@ -15,6 +15,7 @@ import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToElementDe
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToLearningCorpusElementTypes;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeDetectionFormats;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeDetectionFormatsForPython;
+import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeInfos;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionInformationService;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.PythonLearningCorpusInitializationCode;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.SuggestedParametrizedResponses;
@@ -26,7 +27,7 @@ import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.TestCompletion;
  * mistake types. Running this file will output useful statistics about the mistake detection system, its tests, and how
  * mistake types map to various solution elements.<br><br>
  *
- * Design principles used for this class:
+ * Design principles used for these classes:
  *
  * <ul>
  *   <li>Use the (functional) pipeline design pattern to transform items in a collection</li>
@@ -45,7 +46,6 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
 
   static final boolean USE_COLOR_OUTPUT = true;
 
-
   // Run the mistake detection tests in a static block to allow other classes to get data from this one
   static {
     MistakeDetectionConfig.trackComparisonInstances = true;
@@ -60,6 +60,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
         TestCompletion.get(),
         MappingToCdmMetatypes.get(),
         MappingToElementDescriptions.get(),
+        MappingToMistakeInfos.get(),
         MappingToLearningCorpusElementTypes.get(),
         MappingToMistakeDetectionFormats.get(),
         SuggestedParametrizedResponsesForJava.get(),
