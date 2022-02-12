@@ -59,7 +59,7 @@ public class TestCompletion extends MistakeDetectionInformationService {
       USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC,
       USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS);
 
-  public TestCompletion() {
+  private TestCompletion() {
     super("Mistake Detection test completion status");
   }
 
@@ -89,15 +89,10 @@ public class TestCompletion extends MistakeDetectionInformationService {
   public static Map<MistakeType, TestCompletionStatus> getTestCompletionStatusByMistakeType() {
     var doneMistakeTypes = allMistakes().map(Mistake::getMistakeType).collect(Collectors.toUnmodifiableSet());
     return MistakeTypes.MISTAKE_TYPES_BY_NAME.values().stream().collect(Collectors.toMap(
-        // Collectors.toMap() can take these 4 inputs when invoked on a stream of items (in this case, mistake types):
-        // 1. Function to map the items to the keys of the output map. Here we map each mistake type to itself.
         Function.identity(), // mistakeType -> mistakeType
-        // 2. Function to map the items to the values of the output map. Here we map each MT to a TestCompletionStatus.
         mt -> doneMistakeTypes.contains(mt) ? TestCompletionStatus.DONE : (FUTURE_WORK_MISTAKE_TYPES.contains(mt) ?
             TestCompletionStatus.FUTURE_WORK : TestCompletionStatus.IN_PROGRESS),
-        // 3. Merge function, handles collisions between values with the same key. Here, use older status if in doubt.
         (v1, v2) -> TestCompletionStatus.values()[Math.min(v1.ordinal(), v2.ordinal())],
-        // 4. The output map of Collectors.toMap(). Use TreeMap to sort output by mistake type.
         TreeMap::new));
   }
 

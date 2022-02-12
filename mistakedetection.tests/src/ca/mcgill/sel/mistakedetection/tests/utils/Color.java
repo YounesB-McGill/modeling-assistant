@@ -47,7 +47,7 @@ public enum Color {
   }
 
   /** Returns the given item.toString() in the given color if USE_COLOR_OUTPUT is true. */
-  static <T> String colorString(Color color, T item) {
+  public static <T> String colorString(Color color, T item) {
     if (!USE_COLOR_OUTPUT) {
       return item.toString();
     }
@@ -55,7 +55,7 @@ public enum Color {
   }
 
   /** Returns the given item.toString() in a random color if USE_COLOR_OUTPUT is true. */
-  static <T> String randomColorString(T item) {
+  public static <T> String randomColorString(T item) {
     var maxPossibleColorIndex = Color.values().length - 1; // do not use Color.ENDC as a possible color
     var itemStr = item.toString();
     var code = item.hashCode();

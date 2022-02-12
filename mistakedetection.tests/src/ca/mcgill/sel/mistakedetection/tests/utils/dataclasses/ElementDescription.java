@@ -1,5 +1,5 @@
 package ca.mcgill.sel.mistakedetection.tests.utils.dataclasses;
-import static ca.mcgill.sel.mistakedetection.tests.utils.MistakeDetectionInformationServicesForLearningCorpus.hasStudent;
+import static ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionInformationService.hasStudent;
 import java.util.Map;
 import org.eclipse.emf.ecore.EClass;
 import ca.mcgill.sel.classdiagram.CdmFactory;

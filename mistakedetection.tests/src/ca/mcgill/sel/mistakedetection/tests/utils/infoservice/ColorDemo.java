@@ -5,7 +5,7 @@ import ca.mcgill.sel.mistakedetection.tests.utils.Color;
 /** Simple class to demonstrate color output demo (requires ANSI escaping). */
 public class ColorDemo extends MistakeDetectionInformationService {
 
-  public ColorDemo() {
+  private ColorDemo() {
     super("Color output demo (requires ANSI escaping)");
   }
 
