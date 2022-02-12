@@ -8,7 +8,7 @@ public class ColorDemo extends MistakeDetectionInformationService {
   }
 
   @Override public String getOutput() {
-    return Color.demo();
+    return title(name) + "\n" + Color.demo();
   }
 
   public static ColorDemo get() {

@@ -1,27 +1,13 @@
 package ca.mcgill.sel.mistakedetection.tests.utils;
 
 import static ca.mcgill.sel.mistakedetection.tests.utils.Color.colorString;
-import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_NAME_SPELLING;
-import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_N_ARY_ASSOCIATION;
-import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_INAPPLICABLE;
-import static learningcorpus.mistaketypes.MistakeTypes.INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE_TYPE;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_MULTIPLICITY;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_N_ARY_ASSOCIATION;
-import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS;
-import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC;
-import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS;
+import static ca.mcgill.sel.mistakedetection.tests.utils.MistakeDetectionInformationService.allMistakes;
+import static ca.mcgill.sel.mistakedetection.tests.utils.MistakeDetectionInformationService.allMistakesLimitOneOfEachType;
+import static ca.mcgill.sel.mistakedetection.tests.utils.MistakeDetectionInformationService.title;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
 import java.io.PrintWriter;
 import java.util.AbstractMap.SimpleImmutableEntry;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -40,12 +26,10 @@ import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.CdmFactory;
 import ca.mcgill.sel.classdiagram.ReferenceType;
-import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.MistakeDetectionConfig;
 import learningcorpus.ElementType;
 import learningcorpus.MistakeType;
 import learningcorpus.ParametrizedResponse;
-import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
 import modelingassistant.SolutionElement;
 
@@ -86,41 +70,9 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       Stream.concat(instructorElems.apply(m), studentElems.apply(m));
 
   /** The maximum allowed line length in generated source code. */
-  private static final int MAX_LINE_LENGTH = 120;
+  static final int MAX_LINE_LENGTH = 120;
 
   static final boolean USE_COLOR_OUTPUT = true;
-
-  /** Indicates the completion state for each test in the mistakedetection.tests suite. */
-  private enum TestCompletionStatus {
-    // In chronological order: a mistake type starts as future work, then it is in progress and finally done
-    FUTURE_WORK("X"), IN_PROGRESS("►"), DONE("√"); // ASCII-compatible symbols
-
-    String symbol;
-    TestCompletionStatus(String symbol) {
-      this.symbol = symbol;
-    }
-    String getFormattedName() {
-      var name = toString();
-      return name.substring(0, 1) + name.substring(1, name.length()).replace("_", " ").toLowerCase();
-    }
-  }
-
-  /** Mistake types which are planned to be implemented in the future. */
-  private static final Set<MistakeType> FUTURE_WORK_MISTAKE_TYPES = Set.of(
-      BAD_ASSOCIATION_NAME_SPELLING,
-      EXTRA_N_ARY_ASSOCIATION,
-      GENERALIZATION_INAPPLICABLE,
-      INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS,
-      MISSING_ASSOCIATION_NAME,
-      MISSING_ATTRIBUTE_TYPE,
-      MISSING_MULTIPLICITY,
-      MISSING_N_ARY_ASSOCIATION,
-      SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS,
-      SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME,
-      USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC,
-      USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC,
-      USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC,
-      USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS);
 
 
   // Run the mistake detection tests in a static block to allow other classes to get data from this one
@@ -131,23 +83,21 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
 
 
   public static void main(String[] args) {
-    var testCompletionStatusByMistakeType = getTestCompletionStatusByMistakeType();
+    // TODO Move outputs to newer, more concise format and reduce the size of this megaclass
+    var outputs1 = Stream.of(
+        ColorDemo.get(),
+        TestCompletion.get());
+
+    System.out.println(outputs1.map(MistakeDetectionInformationService::getOutput).collect(Collectors.joining("\n\n")));
+
     var pythonLearningCorpusInitializationCode = generatePythonLearningCorpusInitializationCode();
     var suggestedMistakeDetectionFormats = suggestMistakeDetectionFormats();
 
     // Uncomment the lines that you want to be output
-    String[] outputs = {
-      title("Color output demo (requires ANSI escaping)"),
-      Color.demo(),
-
-      title("Mistake Detection test completion status"),
-      formattedTestCompletionStatusLegend(),
-      getFormattedTestCompletionStatus(testCompletionStatusByMistakeType),
-      overallTestCompletionStatistics(testCompletionStatusByMistakeType),
-
+    String[] outputs2 = {
       title("Mistake type mapping to instructor/student CDM elements"),
-      getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorElems)),
-      getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(studentElems)),
+      //getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorElems)),
+      //getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(studentElems)),
       getCdmMetatypeMappingAsCsv(mapMistakesToCdmMetatypes(instructorAndStudentElems)),
 
       title("Mistake type mapping to instructor/student solution element descriptions"),
@@ -157,8 +107,8 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       mistakeTypeElementVsParametrizedStringStatistics(mapToMistakeInfos()),
 
       title("Mistake type mapping to learning corpus ElementTypes"),
-      getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorElems)),
-      getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(studentElems)),
+      //getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorElems)),
+      //getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(studentElems)),
       getLearningCorpusElementTypeMappingAsCsv(mapMistakesToLearningCorpusElementTypes(instructorAndStudentElems)),
 
       title("MistakeDetectionFormats for human verification (use to update HumanValidatedMistakeDetectionFormats)"),
@@ -178,13 +128,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       pythonLearningCorpusInitializationCode.learningItems,
     };
 
-    Stream<MistakeDetectionInformationService> outputs2 = Stream.of(
-        ColorDemo.get()
-        );
-
-    //System.out.println(String.join("\n\n", outputs));
-
-    System.out.println(outputs2.map(MistakeDetectionInformationService::getOutput).collect(Collectors.joining("\n\n")));
+    System.out.println(String.join("\n\n", outputs2));
   }
 
   /** Runs all the mistake detection tests. */
@@ -202,36 +146,6 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
       throw new RuntimeException("Cannot perform operation because one or more Mistake Detection tests failed. "
           + "Fix or disable test(s) and try again.");
     }
-  }
-
-  /** Returns a mapping from mistake types to their test completion status. */
-  public static Map<MistakeType, TestCompletionStatus> getTestCompletionStatusByMistakeType() {
-    var doneMistakeTypes = allMistakes().map(Mistake::getMistakeType).collect(Collectors.toUnmodifiableSet());
-    return MistakeTypes.MISTAKE_TYPES_BY_NAME.values().stream().collect(Collectors.toMap(
-        // Collectors.toMap() can take these 4 inputs when invoked on a stream of items (in this case, mistake types):
-        // 1. Function to map the items to the keys of the output map. Here we map each mistake type to itself.
-        Function.identity(), // mistakeType -> mistakeType
-        // 2. Function to map the items to the values of the output map. Here we map each MT to a TestCompletionStatus.
-        mt -> doneMistakeTypes.contains(mt) ? TestCompletionStatus.DONE : (FUTURE_WORK_MISTAKE_TYPES.contains(mt) ?
-            TestCompletionStatus.FUTURE_WORK : TestCompletionStatus.IN_PROGRESS),
-        // 3. Merge function, handles collisions between values with the same key. Here, use older status if in doubt.
-        (v1, v2) -> TestCompletionStatus.values()[Math.min(v1.ordinal(), v2.ordinal())],
-        // 4. The output map of Collectors.toMap(). Use TreeMap to sort output by mistake type.
-        TreeMap::new));
-  }
-
-  /** Returns the test completion status formatted for logging purposes. */
-  public static String getFormattedTestCompletionStatus(Map<MistakeType, TestCompletionStatus> mistakeTypesToStatuses) {
-    return mistakeTypesToStatuses.entrySet().stream().map(e -> e.getValue().symbol + " " + e.getKey().getDescription())
-        .collect(Collectors.joining("\n"));
-  }
-
-  /** Returns the tests with the given completion status formatted for logging purposes. */
-  public static String getFormattedTestCompletionStatus(Map<MistakeType, TestCompletionStatus> mistakeTypesToStatuses,
-      TestCompletionStatus status) {
-    return mistakeTypesToStatuses.entrySet().stream().filter(e -> e.getValue() == status)
-        .map(e -> e.getValue().symbol + " " + e.getKey().getDescription())
-        .collect(Collectors.joining("\n"));
   }
 
   /** Maps comparison mistakes to CDM metatypes. */
@@ -403,28 +317,6 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
         .collect(Collectors.toUnmodifiableList()))).collect(Collectors.joining("\n"));
   }
 
-  /** Return the string surrounded with hashes as a title for logging purposes. */
-  private static String title(String s) {
-    if (s.length() + 2 > MAX_LINE_LENGTH) {
-      return "\n# " + s + "\n";
-    } else {
-      var hashes = "#".repeat(((MAX_LINE_LENGTH - s.length() - 2) / 2));
-      var extraHash = "#".repeat(s.length() % 2); // for inputs of odd length
-      return "\n" + hashes + " " + s + " " + hashes + extraHash + "\n";
-    }
-  }
-
-  private static String formattedTestCompletionStatusLegend() {
-    return "Legend: " + Arrays.stream(TestCompletionStatus.values()).map(s ->
-        s.symbol + " - " + s.getFormattedName()).collect(Collectors.joining(", "));
-  }
-
-  private static String overallTestCompletionStatistics(Map<MistakeType, TestCompletionStatus> mistakeTypesToStatuses) {
-    return "Summary:\n" + Arrays.stream(TestCompletionStatus.values()).map(s ->
-        s.symbol + " " + Collections.frequency(mistakeTypesToStatuses.values(), s) + " " + s.getFormattedName())
-        .collect(Collectors.joining("\n")) + "\nTotal: " + mistakeTypesToStatuses.size();
-  }
-
   private static String mistakeTypeElementVsParametrizedStringStatistics(
       Map<MistakeType, ? extends Collection<MistakeInfo>> mapping) {
     return MistakeInfo.TABLE_HEADER + mapping.entrySet().stream().map(e -> e.getValue().stream()
@@ -463,31 +355,13 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
         .collect(Collectors.joining(",\n"));
   }
 
-  /**
-   * Returns all the mistakes from all comparison objects created during the mistake detection tests as a flat stream,
-   * useful for iteration.
-   */
-  private static Stream<Mistake> allMistakes() {
-    return Comparison.instances.stream().map(comp -> comp.newMistakes).flatMap(List::stream);
-  }
-
-  /**
-   * Returns all the mistakes from all comparison objects created during the mistake detection tests as a flat stream,
-   * useful for iteration.
-   */
-  private static Stream<Mistake> allMistakesLimitOneOfEachType() {
-    final Set<MistakeType> seen = new HashSet<>();
-    return Comparison.instances.stream().map(comp -> comp.newMistakes).flatMap(List::stream)
-        .filter(m -> seen.add(m.getMistakeType()));
-  }
-
   /** Returns true if the association has an end with the given type. */
   private static boolean cdmAssociationIs(Association assoc, ReferenceType type) {
     return assoc.getEnds().stream().map(AssociationEnd::getReferenceType).anyMatch(t -> t == type);
   }
 
   /** Returns true if the association has an end with the given type. */
-  private static boolean hasStudent(SolutionElement e) {
+  static boolean hasStudent(SolutionElement e) {
     return e.getSolution().getStudent() != null;
   }
 
@@ -555,64 +429,6 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
     }
   }
 
-  /** Convenience container class for mistake information not in metamodel. To be refactored in the future. */
-  static class MistakeInfo {
-    static final String TABLE_HEADER =
-        "MistakeType,StudentElems,InstructorElems,TotalElems,MaxParamRespNumParams,SolElemDescriptions\n";
-
-    Mistake mistake;
-    int instructorElems;
-    int studentElems;
-    int totalElems;
-    List<Integer> paramRespParamNums;
-    int maxParamRespNumParams;
-
-    public MistakeInfo(Mistake mistake) {
-      this.mistake = mistake;
-      instructorElems = mistake.getInstructorElements().size();
-      studentElems = mistake.getStudentElements().size();
-      totalElems = instructorElems + studentElems;
-      paramRespParamNums = calculateParamRespParamNums();
-      maxParamRespNumParams = Collections.max(paramRespParamNums);
-    }
-
-    private List<Integer> calculateParamRespParamNums() {
-      var counts = mistake.getMistakeType().getFeedbacks().stream().filter(fb -> fb instanceof ParametrizedResponse)
-          .map(pr -> Pattern.compile("\\$\\{.*?\\}").matcher(((ParametrizedResponse) pr).getText()).results().count())
-          .map(Math::toIntExact).collect(Collectors.toList()); // use mutable list to allow sorting in next step
-      if (counts.isEmpty()) {
-        return List.of(0);
-      }
-      Collections.sort(counts);
-      return Collections.unmodifiableList(counts);
-    }
-
-    private String firstColumnEntries() {
-      return mistake.getMistakeType().getName() + "," + studentElems + "," + instructorElems + "," + totalElems + ","
-          + maxParamRespNumParams;
-    }
-
-    @Override public String toString() {
-      return firstColumnEntries() + ","
-          + mistake.getStudentElements().stream().map(e -> ElementDescription.fromElement(e).toString())
-              .collect(Collectors.joining(",")) + ","
-          + mistake.getInstructorElements().stream().map(e -> ElementDescription.fromElement(e).toString())
-              .collect(Collectors.joining(","));
-    }
-
-    // value-based equality based on some fields only, to avoid set duplicates
-    @Override public boolean equals(Object o) {
-      if (o instanceof MistakeInfo) {
-        return firstColumnEntries().equals(((MistakeInfo) o).firstColumnEntries());
-      }
-      return false;
-    }
-
-    @Override public int hashCode() {
-      return firstColumnEntries().hashCode();
-    }
-  }
-
   // TODO Under construction
   static class MistakeTypeInfo {
     private static final Map<MistakeType, MistakeTypeInfo> instancesByMistakeType = new TreeMap<>(); // ordered map
@@ -633,99 +449,6 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
             + mistakeType.getName() + " because no mistakes of that type have been processed yet.");
       }
       return instancesByMistakeType.get(mistakeType);
-    }
-  }
-
-  /** Container class for an element description. */
-  static class ElementDescription {
-    String name;
-    EClass eClass;
-    boolean hasStudent;
-    String description = "";
-
-    static final Map<EClass, String> eClassesToShortDisplayNames = Map.of(
-        CDF.createAssociationEnd().eClass(), "assocend",
-        CDF.createAssociation().eClass(), "rel", // includes composition and aggregation
-        CDF.createAttribute().eClass(), "attr",
-        CDF.createCDEnum().eClass(), "enum",
-        CDF.createCDEnumLiteral().eClass(), "enumitem",
-        CDF.createClass().eClass(), "cls");
-
-    public ElementDescription(String name, EClass eClass, boolean hasStudent) {
-      this.name = name;
-      this.eClass = eClass;
-      this.hasStudent = hasStudent;
-    }
-
-    public ElementDescription(String name, EClass eClass, boolean hasStudent, String description) {
-      this(name, eClass, hasStudent);
-      this.description = description;
-    }
-
-    public ElementDescription(SolutionElement element) {
-      this(element.getElement().getName(), element.getElement().eClass(), hasStudent(element));
-    }
-
-    public static ElementDescription fromElement(SolutionElement element) {
-      return new ElementDescription(element);
-    }
-
-    // eg, "Student Container Class (name: Airplane)"
-    @Override public String toString() {
-      return (hasStudent ? "Student" : "Instructor") + " " + (description.isEmpty() ? "" : description + " ")
-          + eClass.getName() + " (name: " + name + ")";
-    }
-
-    // eg, "container_class"
-    public String toShortString(int count) {
-      return ((description.isEmpty() ? count : description) + "_"
-          + eClassesToShortDisplayNames.get(eClass).toString()).toLowerCase(); // trigger NPE for missing eClass
-    }
-
-    public String toShortString() {
-      return toShortString(0);
-    }
-  }
-
-  static class MistakeDetectionFormat {
-    List<String> stud = new ArrayList<>();
-    List<String> inst = new ArrayList<>();
-
-    private MistakeDetectionFormat(Mistake mistake) {
-      int[] cnt = {0, 0};
-      mistake.getStudentElements().forEach(e -> stud.add(ElementDescription.fromElement(e).toShortString(cnt[0]++)));
-      mistake.getInstructorElements().forEach(e -> inst.add(ElementDescription.fromElement(e).toShortString(cnt[1]++)));
-      if (stud.size() == 1) {
-        stud.set(0, stud.get(0).replace("0_", ""));
-      }
-      if (inst.size() == 1) {
-        inst.set(0, inst.get(0).replace("0_", ""));
-      }
-    }
-
-    private MistakeDetectionFormat(List<String> studentElemsDescriptions, List<String> instructorElemsDescriptions) {
-      stud = studentElemsDescriptions;
-      inst = instructorElemsDescriptions;
-    }
-
-    public static MistakeDetectionFormat forMistake(Mistake mistake) {
-      if (HumanValidatedMistakeDetectionFormats.mappings.containsKey(mistake.getMistakeType())) {
-        return HumanValidatedMistakeDetectionFormats.mappings.get(mistake.getMistakeType());
-      }
-      return new MistakeDetectionFormat(mistake);
-    }
-
-    public static MistakeDetectionFormat mdf(List<String> studentElemsDescriptions,
-        List<String> instructorElemsDescriptions) {
-      return new MistakeDetectionFormat(studentElemsDescriptions, instructorElemsDescriptions);
-    }
-
-    // eg, ([], ["cls"])
-    @Override public String toString() {
-      var studTag = stud.isEmpty() ? "" : "\"";
-      var instTag = inst.isEmpty() ? "" : "\"";
-      return "([" + studTag + String.join("\", \"", stud) + studTag + "], ["
-          + instTag + String.join("\", \"", inst) + instTag + "])";
     }
   }
 
