@@ -60,10 +60,10 @@ public class Comparison {
 
   /** List to store association classes to remove from mapped classes. */
   public List<Classifier> assocClassifiersToRemove = new ArrayList<>();
-  
+
   /** List to store instructor classes which have super classes. */
   public List<Classifier> instructorGeneralizationClassifiers = new ArrayList<>();
-  
+
   /** List to store student classes which have super classes. */
   public List<Classifier> studentGeneralizationClassifiers = new ArrayList<>();
 
@@ -84,136 +84,142 @@ public class Comparison {
    * Function to print the mapped, unmapped classifier or attributes.
    */
   public Comparison log() {
-    System.out.println();
-    System.out.println("----Test Logger-----");
-    System.out.print("Not Mapped InstructorClassifier List : ");
-    for (Classifier c : notMappedInstructorClassifiers) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.print("Not Mapped extraStudentClassifier : ");
-    for (Classifier c : extraStudentClassifiers) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.println("Mapped Classifiers : ");
-    mappedClassifiers.forEach((key, value) -> System.out.println(key.getName() + " = " + value.getName()));
-    System.out.println();
-    System.out.print("Not Mapped InstructorAttribute List : ");
-    for (Attribute c : notMappedInstructorAttributes) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.print("Not Mapped extraStudentAttribute : ");
-    for (Attribute c : extraStudentAttributes) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.print("duplicate Attribute : ");
-    for (Attribute c : duplicateStudentAttributes) {
-      System.out.print(c.getName() + " ");
-    }
-    System.out.println();
-    System.out.println("Mapped Attributes : ");
-    mappedAttributes.forEach((key, value) -> System.out.println(
-        key.getType().getClass() + " " + key.getName() + " = " + value.getType().getClass() + " " + value.getName()));
+    System.out.println(getLog());
+    return this;
+  }
 
-    System.out.println();
-    System.out.print("Not Mapped Association : ");
-    for (Association assoc : notMappedInstructorAssociations) {
-      System.out.print(assoc.getName() + " ");
+  /** Returns the comparison log as a string. */
+  public String getLog() {
+    var sb = new StringBuilder();
+    sb.append("\n");
+    sb.append("-----Comparison Log-----\n");
+    sb.append("Not Mapped InstructorClassifier List: ");
+    for (Classifier c: notMappedInstructorClassifiers) {
+      sb.append(c.getName() + " ");
     }
-
-    System.out.println();
-    System.out.print("Extra Association : ");
-    for (Association assoc : extraStudentAssociations) {
-      System.out.print(assoc.getName() + " ");
+    sb.append("\n");
+    sb.append("Not Mapped extraStudentClassifier: ");
+    for (Classifier c: extraStudentClassifiers) {
+      sb.append(c.getName() + " ");
     }
-    System.out.println();
-    System.out.println("Mapped Association : ");
-    mappedAssociations.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
-
-    System.out.println();
-    System.out.println("Mapped Enumerations : ");
-    mappedEnumerations.forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
-
-    System.out.println();
-    System.out.print("Not Mapped Enumerations : ");
-    for (CDEnum c : notMappedInstructorEnums) {
-      System.out.print(c.getName() + " ");
+    sb.append("\n");
+    sb.append("Mapped Classifiers: \n");
+    mappedClassifiers.forEach((key, value) -> sb.append(key.getName() + " = " + value.getName() + "\n"));
+    sb.append("\n");
+    sb.append("Not Mapped InstructorAttribute List: ");
+    for (Attribute c: notMappedInstructorAttributes) {
+      sb.append(c.getName() + " ");
     }
-    System.out.println();
-    System.out.print("Extra Enumeration : ");
-    for (CDEnum c : extraStudentEnums) {
-      System.out.print(c.getName() + " ");
+    sb.append("\n");
+    sb.append("Not Mapped extraStudentAttribute: ");
+    for (Attribute c: extraStudentAttributes) {
+      sb.append(c.getName() + " ");
+    }
+    sb.append("\n");
+    sb.append("duplicate Attribute: ");
+    for (Attribute c: duplicateStudentAttributes) {
+      sb.append(c.getName() + " ");
+    }
+    sb.append("\n");
+    sb.append("Mapped Attributes: \n");
+    mappedAttributes.forEach((key, value) -> sb.append(key.getType().getClass() + " " + key.getName() + " = "
+        + value.getType().getClass() + " " + value.getName() + "\n"));
+
+    sb.append("\n");
+    sb.append("Not Mapped Association: ");
+    for (Association assoc: notMappedInstructorAssociations) {
+      sb.append(assoc.getName() + " ");
     }
 
-    System.out.println();
-    System.out.println("Mapped Enumerations items: ");
-    mappedEnumerationItems
-        .forEach((key, value) -> System.out.println(key.getName() + " " + value.getName()));
-
-    System.out.println();
-    System.out.print("Not Mapped Enumerations items : ");
-    for (CDEnumLiteral c : notMappedInstructorEnumLiterals) {
-      System.out.print(c.getName() + " ");
+    sb.append("\n");
+    sb.append("Extra Association: ");
+    for (Association assoc: extraStudentAssociations) {
+      sb.append(assoc.getName() + " ");
     }
-    System.out.println();
-    System.out.print("Extra Enumeration items: ");
-    for (CDEnumLiteral c : extraStudentEnumLiterals) {
-      System.out.print(c.getName() + " ");
+    sb.append("\n");
+    sb.append("Mapped Association: \n");
+    mappedAssociations.forEach((key, value) -> sb.append(key.getName() + " " + value.getName() + "\n"));
+
+    sb.append("\n");
+    sb.append("Mapped Enumerations: \n");
+    mappedEnumerations.forEach((key, value) -> sb.append(key.getName() + " " + value.getName() + "\n"));
+
+    sb.append("\n");
+    sb.append("Not Mapped Enumerations: ");
+    for (CDEnum c: notMappedInstructorEnums) {
+      sb.append(c.getName() + " ");
+    }
+    sb.append("\n");
+    sb.append("Extra Enumeration: ");
+    for (CDEnum c: extraStudentEnums) {
+      sb.append(c.getName() + " ");
     }
 
-    System.out.println();
-    System.out.println("Instuctor Generalization: ");
-    instructorSuperclassesToSubclasses.forEach((key,value) -> {
-      System.out.print(key.getName() + "<- ");
-      value.forEach(v -> {System.out.print(v.getName() + " ");});
-      System.out.println();
+    sb.append("\n");
+    sb.append("Mapped Enumerations items: \n");
+    mappedEnumerationItems.forEach((key, value) -> sb.append(key.getName() + " " + value.getName() + "\n"));
+
+    sb.append("\n");
+    sb.append("Not Mapped Enumerations items: ");
+    for (CDEnumLiteral c: notMappedInstructorEnumLiterals) {
+      sb.append(c.getName() + " ");
+    }
+    sb.append("\n");
+    sb.append("Extra Enumeration items: ");
+    for (CDEnumLiteral c: extraStudentEnumLiterals) {
+      sb.append(c.getName() + " ");
+    }
+
+    sb.append("\n");
+    sb.append("Instuctor Generalizations: \n");
+    instructorSuperclassesToSubclasses.forEach((key, value) -> {
+      sb.append(key.getName() + "<- ");
+      value.forEach(v -> {sb.append(v.getName() + " ");});
+      sb.append("\n");
     });
 
-    System.out.println();
-    System.out.println("Student Generalization: ");
-    studentSuperclassesToSubclasses.forEach((key,value) -> {
-      System.out.print(key.getName() + "<- ");
-      value.forEach(v -> {System.out.print(v.getName() + " ");});
-      System.out.println();
+    sb.append("\n");
+    sb.append("Student Generalizations: \n");
+    studentSuperclassesToSubclasses.forEach((key, value) -> {
+      sb.append(key.getName() + "<- ");
+      value.forEach(v -> sb.append(v.getName() + " "));
+      sb.append("\n");
     });
-    
-    System.out.println();
-    System.out.print("instructor Generalization clasees : ");
-    for (Classifier c : instructorGeneralizationClassifiers) {
-      System.out.print(c.getName() + " ");
+
+    sb.append("\n");
+    sb.append("instructor Generalization clasees: ");
+    for (Classifier c: instructorGeneralizationClassifiers) {
+      sb.append(c.getName() + " ");
     }
-    
-    System.out.println();
-    System.out.print("student Generalization clasees : ");
-    for (Classifier c : studentGeneralizationClassifiers) {
-      System.out.print(c.getName() + " ");
+
+    sb.append("\n");
+    sb.append("student Generalization clasees: ");
+    for (Classifier c: studentGeneralizationClassifiers) {
+      sb.append(c.getName() + " ");
     }
-    
-    System.out.println();
-    System.out.println("Mistakes : ");
+
+    sb.append("\n");
+    sb.append("Mistakes: \n");
     newMistakes.forEach(m -> {
       if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
-        System.out.print(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements : ");
-        m.getInstructorElements().forEach(ie -> System.out.print(ie.getElement().getName() + " "));
-        System.out.print(" student Elements :");
-        m.getStudentElements().forEach(se -> System.out.print(se.getElement().getName() + " "));
-        System.out.println();
+        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
+        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
+        sb.append(" student Elements:");
+        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
+        sb.append("\n");
       } else if (!m.getInstructorElements().isEmpty()) {
-        System.out.print(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements : ");
-        m.getInstructorElements().forEach(ie -> System.out.print(ie.getElement().getName() + " "));
-        System.out.println();
+        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
+        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
+        sb.append("\n");
       } else if (!m.getStudentElements().isEmpty()) {
-        System.out.print(" ' " + m.getMistakeType().getName() + " ' " + " Stud Elements : ");
-        m.getStudentElements().forEach(se -> System.out.print(se.getElement().getName() + " "));
-        System.out.println();
+        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Stud Elements: ");
+        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
+        sb.append("\n");
       } else {
-        System.out.println(" ' " + m.getMistakeType().getName() + " ' ");
+        sb.append(" ' " + m.getMistakeType().getName() + " ' \n");
       }
     });
-    return this;
+    return sb.toString();
   }
 
 }

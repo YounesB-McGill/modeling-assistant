@@ -67,7 +67,7 @@ public class MistakeDetectionGeneralizationTest {
   }
 
   /**
-   * Test to check generalization structure .
+   * Test to check generalization structure.
    */
   @Test
   public void testToCheckGeneralizationTreeWithDiffInput() {
@@ -368,19 +368,19 @@ public class MistakeDetectionGeneralizationTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    var instClass1 = getClassFromClassDiagram("D", instructorClassDiagram);
-    var instClass2 = getClassFromClassDiagram("C", instructorClassDiagram);
-    var studClass1 = getClassFromClassDiagram("D", studentClassDiagram);
-    var studClass2 = getClassFromClassDiagram("C", studentClassDiagram);
+    var instClassD = getClassFromClassDiagram("D", instructorClassDiagram);
+    var instClassC = getClassFromClassDiagram("C", instructorClassDiagram);
+    var studClassD = getClassFromClassDiagram("D", studentClassDiagram);
+    var studClassC = getClassFromClassDiagram("C", studentClassDiagram);
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(3), WRONG_GENERALIZATION_DIRECTION, List.of(studClass1, studClass2),
-        List.of(instClass1, instClass2), 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(3), WRONG_GENERALIZATION_DIRECTION, List.of(studClassD, studClassC),
+        List.of(instClassD, instClassC), 0, 1, false);
   }
 
   /**
-   * Test to Wrong Generalization direction with one less class
+   * Test to Wrong Generalization direction with one less class.
    * IS : A <- B <- C <- D
    * SS : A <- D <- C
    */
@@ -416,22 +416,22 @@ public class MistakeDetectionGeneralizationTest {
         cdmFromFile(STUDENT_CDM_PATH + "student_five_classes/Class Diagram/Five_classes.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instClass1 = getClassFromClassDiagram("E", instructorClassDiagram);
-    var instClass2 = getClassFromClassDiagram("D", instructorClassDiagram);
-    var studClass1 = getClassFromClassDiagram("E", studentClassDiagram);
-    var studClass2 = getClassFromClassDiagram("D", studentClassDiagram);
+    var instClassE = getClassFromClassDiagram("E", instructorClassDiagram);
+    var instClassD = getClassFromClassDiagram("D", instructorClassDiagram);
+    var studClassE = getClassFromClassDiagram("E", studentClassDiagram);
+    var studClassD = getClassFromClassDiagram("D", studentClassDiagram);
 
-    var instClass3 = getClassFromClassDiagram("C", instructorClassDiagram);
-    var studClass3 = getClassFromClassDiagram("C", studentClassDiagram);
+    var instClassC = getClassFromClassDiagram("C", instructorClassDiagram);
+    var studClassC = getClassFromClassDiagram("C", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
-    assertMistake(getMistakeForElement(studClass2, WRONG_GENERALIZATION_DIRECTION, comparison),
-        WRONG_GENERALIZATION_DIRECTION, List.of(studClass2, studClass3), List.of(instClass2, instClass3), 0, 1, false);
-    assertMistake(getMistakeForElement(studClass1, EXTRA_GENERALIZATION, comparison), EXTRA_GENERALIZATION,
-        List.of(studClass1, studClass2), List.of(instClass1, instClass2), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassD, WRONG_GENERALIZATION_DIRECTION, comparison),
+        WRONG_GENERALIZATION_DIRECTION, List.of(studClassD, studClassC), List.of(instClassD, instClassC), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassE, EXTRA_GENERALIZATION, comparison), EXTRA_GENERALIZATION,
+        List.of(studClassE, studClassD), List.of(instClassE, instClassD), 0, 1, false);
 
   }
 
@@ -450,22 +450,22 @@ public class MistakeDetectionGeneralizationTest {
         STUDENT_CDM_PATH + "student_five_classes_1Missing/Class Diagram/Five_classes_1Missing.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instClass1 = getClassFromClassDiagram("E", instructorClassDiagram);
-    var instClass2 = getClassFromClassDiagram("A", instructorClassDiagram);
-    var studClass1 = getClassFromClassDiagram("E", studentClassDiagram);
-    var studClass2 = getClassFromClassDiagram("A", studentClassDiagram);
+    var instClassE = getClassFromClassDiagram("E", instructorClassDiagram);
+    var instClassA = getClassFromClassDiagram("A", instructorClassDiagram);
+    var studClassE = getClassFromClassDiagram("E", studentClassDiagram);
+    var studClassA = getClassFromClassDiagram("A", studentClassDiagram);
 
-    var instClass3 = getClassFromClassDiagram("D", instructorClassDiagram);
-    var instClass4 = getClassFromClassDiagram("C", instructorClassDiagram);
+    var instClassD = getClassFromClassDiagram("D", instructorClassDiagram);
+    var instClassC = getClassFromClassDiagram("C", instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(4), MISSING_GENERALIZATION, List.of(instClass3, instClass4),
+    assertMistake(studentSolution.getMistakes().get(4), MISSING_GENERALIZATION, List.of(instClassD, instClassC),
         0, 1, false);
-    assertMistake(studentSolution.getMistakes().get(5), EXTRA_GENERALIZATION, List.of(studClass1, studClass2),
-        List.of(instClass1, instClass2), 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(5), EXTRA_GENERALIZATION, List.of(studClassE, studClassA),
+        List.of(instClassE, instClassA), 0, 1, false);
   }
 
   /**
@@ -483,22 +483,22 @@ public class MistakeDetectionGeneralizationTest {
         + "student_five_classes_1MissingWrongSuperClass/Class Diagram/Five_classes_1Missing.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instClass1 = getClassFromClassDiagram("B", instructorClassDiagram);
-    var instClass2 = getClassFromClassDiagram("A", instructorClassDiagram);
-    var studClass1 = getClassFromClassDiagram("B", studentClassDiagram);
-    var studClass2 = getClassFromClassDiagram("E", studentClassDiagram);
+    var instClassB = getClassFromClassDiagram("B", instructorClassDiagram);
+    var instClassA = getClassFromClassDiagram("A", instructorClassDiagram);
+    var studClassB = getClassFromClassDiagram("B", studentClassDiagram);
+    var studClassE = getClassFromClassDiagram("E", studentClassDiagram);
 
-    var instClass3 = getClassFromClassDiagram("D", instructorClassDiagram);
-    var instClass4 = getClassFromClassDiagram("C", instructorClassDiagram);
+    var instClassD = getClassFromClassDiagram("D", instructorClassDiagram);
+    var instClassC = getClassFromClassDiagram("C", instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(6, comparison.newMistakes.size());
     assertEquals(6, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(4), MISSING_GENERALIZATION,List.of(instClass3, instClass4),
+    assertMistake(studentSolution.getMistakes().get(4), MISSING_GENERALIZATION, List.of(instClassD, instClassC),
         0, 1, false);
-    assertMistake(studentSolution.getMistakes().get(3), WRONG_SUPERCLASS, List.of(studClass1, studClass2),
-        List.of(instClass1, instClass2), 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(3), WRONG_SUPERCLASS, List.of(studClassB, studClassE),
+        List.of(instClassB, instClassA), 0, 1, false);
 
   }
 
@@ -517,28 +517,28 @@ public class MistakeDetectionGeneralizationTest {
         STUDENT_CDM_PATH + "student_five_classes_WrongA/Class Diagram/Five_classes_WrongA.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instClass1 = getClassFromClassDiagram("B", instructorClassDiagram);
-    var instClass2 = getClassFromClassDiagram("A", instructorClassDiagram);
-    var studClass1 = getClassFromClassDiagram("B", studentClassDiagram);
-    var studClass2 = getClassFromClassDiagram("E", studentClassDiagram);
+    var instClassB = getClassFromClassDiagram("B", instructorClassDiagram);
+    var instClassA = getClassFromClassDiagram("A", instructorClassDiagram);
+    var studClassB = getClassFromClassDiagram("B", studentClassDiagram);
+    var studClassE = getClassFromClassDiagram("E", studentClassDiagram);
 
-    var instClass3 = getClassFromClassDiagram("D", instructorClassDiagram);
-    var instClass4 = getClassFromClassDiagram("C", instructorClassDiagram);
-    var studClass3 = getClassFromClassDiagram("D", studentClassDiagram);
-    var studClass4 = getClassFromClassDiagram("C", studentClassDiagram);
+    var instClassD = getClassFromClassDiagram("D", instructorClassDiagram);
+    var instClassC = getClassFromClassDiagram("C", instructorClassDiagram);
+    var studClassD = getClassFromClassDiagram("D", studentClassDiagram);
+    var studClassC = getClassFromClassDiagram("C", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
-    assertMistake(getMistakeForElement(studClass1, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS, List.of(studClass1, studClass2),
-        List.of(instClass1, instClass2), 0, 1, false);
-    assertMistake(getMistakeForElement(studClass3, WRONG_GENERALIZATION_DIRECTION, comparison), WRONG_GENERALIZATION_DIRECTION, List.of(studClass3, studClass4),
-        List.of(instClass3, instClass4), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassB, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
+        List.of(studClassB, studClassE), List.of(instClassB, instClassA), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassD, WRONG_GENERALIZATION_DIRECTION, comparison),
+        WRONG_GENERALIZATION_DIRECTION, List.of(studClassD, studClassC), List.of(instClassD, instClassC), 0, 1, false);
   }
 
   /**
-   * Test to check wrong Super class
+   * Test to check wrong superclass.
    * IS : A <- B <- C <- D ; E <- F <- G <- H
    * SS : A <- B <- F <- D ; E <- C <- G <- H
    */
@@ -552,36 +552,32 @@ public class MistakeDetectionGeneralizationTest {
         STUDENT_CDM_PATH + "student_two_generalization_heirarchy_wrong_superclass_1/Class Diagram/Two_generalization_hierarchy.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instClass1 = getClassFromClassDiagram("D", instructorClassDiagram);
-    var instClass2 = getClassFromClassDiagram("C", instructorClassDiagram);
-    var studClass1 = getClassFromClassDiagram("D", studentClassDiagram);
-    var studClass2 = getClassFromClassDiagram("F", studentClassDiagram);
+    var instClassD = getClassFromClassDiagram("D", instructorClassDiagram);
+    var instClassC = getClassFromClassDiagram("C", instructorClassDiagram);
+    var studClassD = getClassFromClassDiagram("D", studentClassDiagram);
+    var studClassF = getClassFromClassDiagram("F", studentClassDiagram);
 
-    var instClass3 = getClassFromClassDiagram("C", instructorClassDiagram);
-    var instClass4 = getClassFromClassDiagram("B", instructorClassDiagram);
-    var studClass3 = getClassFromClassDiagram("C", studentClassDiagram);
-    var studClass4 = getClassFromClassDiagram("E", studentClassDiagram);
+    var instClassB = getClassFromClassDiagram("B", instructorClassDiagram);
+    var studClassC = getClassFromClassDiagram("C", studentClassDiagram);
+    var studClassE = getClassFromClassDiagram("E", studentClassDiagram);
 
-    var instClass5 = getClassFromClassDiagram("F", instructorClassDiagram);
-    var instClass6 = getClassFromClassDiagram("E", instructorClassDiagram);
-    var studClass5 = getClassFromClassDiagram("F", studentClassDiagram);
-    var studClass6 = getClassFromClassDiagram("B", studentClassDiagram);
+    var instClassF = getClassFromClassDiagram("F", instructorClassDiagram);
+    var instClassE = getClassFromClassDiagram("E", instructorClassDiagram);
+    var studClassB = getClassFromClassDiagram("B", studentClassDiagram);
 
-    var instClass7 = getClassFromClassDiagram("G", instructorClassDiagram);
-    var instClass8 = getClassFromClassDiagram("F", instructorClassDiagram);
-    var studClass7 = getClassFromClassDiagram("G", studentClassDiagram);
-    var studClass8 = getClassFromClassDiagram("C", studentClassDiagram);
+    var instClassG = getClassFromClassDiagram("G", instructorClassDiagram);
+    var studClassG = getClassFromClassDiagram("G", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertMistake(getMistakeForElement(studClass1, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS, List.of(studClass1, studClass2),
-        List.of(instClass1, instClass2), 0, 1, false);
-    assertMistake(getMistakeForElement(studClass3, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS, List.of(studClass3, studClass4),
-        List.of(instClass3, instClass4), 0, 1, false);
-    assertMistake(getMistakeForElement(studClass5, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS, List.of(studClass5, studClass6),
-        List.of(instClass5, instClass6), 0, 1, false);
-    assertMistake(getMistakeForElement(studClass7, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS, List.of(studClass7, studClass8),
-        List.of(instClass7, instClass8), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassD, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
+        List.of(studClassD, studClassF), List.of(instClassD, instClassC), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassC, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
+        List.of(studClassC, studClassE), List.of(instClassC, instClassB), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassF, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
+        List.of(studClassF, studClassB), List.of(instClassF, instClassE), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassG, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
+        List.of(studClassG, studClassC), List.of(instClassG, instClassF), 0, 1, false);
   }
 
   /**
@@ -599,35 +595,33 @@ public class MistakeDetectionGeneralizationTest {
         STUDENT_CDM_PATH + "student_two_generalization_hierarchy_wrong_superclass_2/Class Diagram/Two_generalization_hierarchy.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instClass1 = getClassFromClassDiagram("B", instructorClassDiagram);
-    var instClass2 = getClassFromClassDiagram("A", instructorClassDiagram);
-    var studClass1 = getClassFromClassDiagram("B", studentClassDiagram);
-    var studClass2 = getClassFromClassDiagram("E", studentClassDiagram);
+    var instClassB = getClassFromClassDiagram("B", instructorClassDiagram);
+    var instClassA = getClassFromClassDiagram("A", instructorClassDiagram);
+    var studClassB = getClassFromClassDiagram("B", studentClassDiagram);
+    var studClassE = getClassFromClassDiagram("E", studentClassDiagram);
 
-    var instClass3 = getClassFromClassDiagram("C", instructorClassDiagram);
-    var instClass4 = getClassFromClassDiagram("B", instructorClassDiagram);
-    var studClass3 = getClassFromClassDiagram("C", studentClassDiagram);
-    var studClass4 = getClassFromClassDiagram("A", studentClassDiagram);
+    var instClassC = getClassFromClassDiagram("C", instructorClassDiagram);
+    var studClassC = getClassFromClassDiagram("C", studentClassDiagram);
+    var studClassA = getClassFromClassDiagram("A", studentClassDiagram);
 
-    var instClass5 = getClassFromClassDiagram("G", instructorClassDiagram);
-    var instClass6 = getClassFromClassDiagram("F", instructorClassDiagram);
-    var studClass5 = getClassFromClassDiagram("G", studentClassDiagram);
-    var studClass6 = getClassFromClassDiagram("C", studentClassDiagram);
+    var instClassG = getClassFromClassDiagram("G", instructorClassDiagram);
+    var instClassF = getClassFromClassDiagram("F", instructorClassDiagram);
+    var studClassG = getClassFromClassDiagram("G", studentClassDiagram);
 
-    var instClass7 = getClassFromClassDiagram("D", instructorClassDiagram);
-    var instClass8 = getClassFromClassDiagram("C", instructorClassDiagram);
-    var studClass7 = getClassFromClassDiagram("D", studentClassDiagram);
-    var studClass8 = getClassFromClassDiagram("F", studentClassDiagram);
+    var instClassD = getClassFromClassDiagram("D", instructorClassDiagram);
+    var studClassD = getClassFromClassDiagram("D", studentClassDiagram);
+    var studClassF = getClassFromClassDiagram("F", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertMistake(getMistakeForElement(studClass1, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS, List.of(studClass1, studClass2),
-        List.of(instClass1, instClass2), 0, 1, false);
-    assertMistake(getMistakeForElement(studClass3, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS, List.of(studClass3, studClass4),
-        List.of(instClass3, instClass4), 0, 1, false);
-    assertMistake(getMistakeForElement(studClass5, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS, List.of(studClass5, studClass6),
-        List.of(instClass5, instClass6), 0, 1, false);
-    assertMistake(getMistakeForElement(studClass7, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS, List.of(studClass7, studClass8),
-        List.of(instClass7, instClass8), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassB, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
+        List.of(studClassB, studClassE), List.of(instClassB, instClassA), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassC, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
+        List.of(studClassC, studClassA), List.of(instClassC, instClassB), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassG, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
+        List.of(studClassG, studClassC), List.of(instClassG, instClassF), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassD, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
+        List.of(studClassD, studClassF), List.of(instClassD, instClassC), 0, 1, false);
   }
+
 }
