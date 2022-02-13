@@ -5,7 +5,7 @@ import org.eclipse.emf.ecore.EClass;
 import ca.mcgill.sel.classdiagram.CdmFactory;
 import modelingassistant.SolutionElement;
 
-/** Container class for an element description. */
+/** Container class for a solution element description. */
 public class ElementDescription {
 
   /** Shorthand for CdmFactory.eINSTANCE. */
@@ -49,7 +49,7 @@ public class ElementDescription {
         + eClass.getName() + " (name: " + name + ")";
   }
 
-  // eg, "container_class"
+  // eg, "container_cls"
   public String toShortString(int count) {
     return ((description.isEmpty() ? count : description) + "_"
         + eClassesToShortDisplayNames.get(eClass).toString()).toLowerCase(); // trigger NPE for missing eClass

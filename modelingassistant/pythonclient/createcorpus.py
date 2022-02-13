@@ -134,6 +134,15 @@ Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \
 
 """
 
+SHORT_TO_LONG_ECLASS_NAMES: dict[str, str] = {
+    "assocend": "Association End",
+    "rel": "Relationship",
+    "attr": "Attribute",
+    "enum": "Enumeration",
+    "enumitem": "Enumeration Item",
+    "cls": "Class",
+}
+
 QUIZ_DISPLAY_NAMES: dict[type, str] = {
     FillInTheBlanksQuiz: "Fill-in-the-blanks quiz",
     ListMultipleChoiceQuiz: "List multiple-choice quiz",
@@ -265,6 +274,43 @@ class TextualGenerator(ABC):
         "Return the body for the mistake type, indented by the given amount."
 
     @classmethod
+    def mdf_item_display_name(cls, mdf_name: str, mt: MistakeType) -> str:
+        "Return the display name for the input MDF name."
+        def display_name(s: str) -> str:
+            name = SHORT_TO_LONG_ECLASS_NAMES.get(s, s)
+            if name.lower() == "relationship" and mt.learningItem.name.lower() in [
+                "association", "aggregation", "composition"]:
+                return mt.learningItem.name
+            return name
+
+        return " ".join([display_name(w).capitalize() for w in mdf_name.split("_")])
+
+    @classmethod
+    @abstractmethod
+    def make_md_format_description(cls, mt: MistakeType) -> str:
+        "Return the mistake detection format description for the mistake type."
+        if not hasattr(mt, "md_format"):  # TODO remove this later
+            return ""  # MistakeDetectionFormat not yet defined for mistake type
+        result = ""
+        match len(mt.md_format.stud):
+            case 0:
+                result += ""
+            case 1:
+                result += f"Student element: {cls.mdf_item_display_name(mt.md_format.stud[0], mt)}. "
+            case _:
+                result += f"""Student elements: {
+                    ', '.join([cls.mdf_item_display_name(e, mt) for e in mt.md_format.stud])}. """
+        match len(mt.md_format.inst):
+            case 0:
+                result += ""
+            case 1:
+                result += f"Instructor element: {cls.mdf_item_display_name(mt.md_format.inst[0], mt)}."
+            case _:
+                result += f"""Instructor elements: {
+                    ', '.join([cls.mdf_item_display_name(e, mt) for e in mt.md_format.inst])}."""
+        return result
+
+    @classmethod
     @abstractmethod
     def generate(cls) -> str:
         "Generate and return the output."
@@ -300,7 +346,7 @@ class MarkdownGenerator(TextualGenerator):
     @classmethod
     def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -> str:
         "Return the Markdown body of the output."
-        result = cls.make_body_title(mt.description, indentation)
+        result = f"{cls.make_body_title(mt.description, indentation)}{cls.make_md_format_description(mt)}"
         levels = sorted(fb.level for fb in mt.feedbacks)
         for level in levels:
             if (level_header := f"Level {level}: ") not in result:
@@ -364,6 +410,11 @@ class MarkdownGenerator(TextualGenerator):
                 if not MULTIPLE_FEEDBACKS_PER_LEVEL:
                     break
         return result
+
+    @classmethod
+    def make_md_format_description(cls, mt: MistakeType) -> str:
+        descr = super().make_md_format_description(mt)
+        return (descr + "\n\n") if descr else ""
 
     @classmethod
     def generate(cls):
@@ -493,7 +544,7 @@ class LatexGenerator(TextualGenerator):
     @classmethod
     def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -> str:
         "Return the LaTeX body of the output."
-        result = cls.make_body_title(mt.description, indentation)
+        result = f"{cls.make_body_title(mt.description, indentation)}{cls.make_md_format_description(mt)}"
         levels = sorted(fb.level for fb in mt.feedbacks)
         for level in levels:
             if (level_header := f"{cls.NO_INDENT}Level {level}: ") not in result:
@@ -545,6 +596,11 @@ class LatexGenerator(TextualGenerator):
                 if not MULTIPLE_FEEDBACKS_PER_LEVEL:
                     break
         return result
+
+    @classmethod
+    def make_md_format_description(cls, mt: MistakeType) -> str:
+        descr = super().make_md_format_description(mt)
+        return f"{descr}{cls.NLS}" if descr else ""
 
     @classmethod
     def generate(cls):

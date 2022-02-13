@@ -121,6 +121,8 @@
 
 #### Plural class name
 
+Student element: Class. Instructor element: Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -146,6 +148,8 @@ Level 5: Resource response with Reference:
 
 
 #### Lowercase class name
+
+Student element: Class. Instructor element: Class.
 
 Level 1: Highlight solution
 
@@ -173,6 +177,8 @@ Level 5: Resource response with Reference:
 
 #### Software engineering term
 
+Student element: Class. Instructor element: Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -199,6 +205,8 @@ Level 5: Resource response with Reference:
 
 #### Bad class name spelling
 
+Student element: Class. Instructor element: Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -219,6 +227,8 @@ Level 5: Resource response with Reference:
 
 
 #### Wrong class name but correct attribute/relationship
+
+Student element: Class. Instructor element: Class.
 
 Level 1: Highlight solution
 
@@ -243,6 +253,8 @@ Level 5: Resource response with Reference:
 
 #### Regular class should be enumeration
 
+Student element: Class. Instructor element: Enumeration.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -260,6 +272,8 @@ Level 4: Resource response with Reference:
 
 #### Enumeration should be regular class
 
+Student element: Enumeration. Instructor element: Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -276,6 +290,8 @@ Level 4: Resource response with Reference:
 
 
 #### Missing enumeration
+
+Instructor element: Enumeration.
 
 Level 1: Highlight sentence in problem statement referring to item
 
@@ -298,6 +314,8 @@ Level 5: Resource response with Reference:
 
 #### Extra enumeration
 
+Student element: Enumeration. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -314,6 +332,8 @@ Level 4: Resource response with Reference:
 
 
 #### Bad enumeration name spelling
+
+Student element: Enumeration. Instructor element: Enumeration.
 
 Level 1: Highlight solution
 
@@ -332,6 +352,8 @@ Level 4: Resource response with Reference:
 
 #### Missing enumeration item
 
+Instructor element: Enumeration item.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -348,6 +370,8 @@ Level 4: Resource response with Reference:
 
 
 #### Extra enumeration item
+
+Student element: Enumeration item. 
 
 Level 1: Highlight solution
 
@@ -366,6 +390,8 @@ Level 4: Resource response with Reference:
 
 #### Bad enumeration item spelling
 
+Student element: Enumeration item. Instructor element: Enumeration item.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -382,6 +408,8 @@ Level 4: Resource response with Reference:
 
 
 ### Missing class
+
+Instructor element: Class.
 
 Level 1: Highlight sentence in problem statement referring to item
 
@@ -401,6 +429,8 @@ Level 5: Resource response with Reference:
 
 
 ### Extra class
+
+Student element: Class. 
 
 Level 1: Highlight solution
 
@@ -428,6 +458,8 @@ Level 5: Resource response with Reference:
 
 #### Bad attribute name spelling
 
+Student element: Attribute. Instructor element: Attribute.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -444,6 +476,8 @@ Level 4: Resource response with Reference:
 
 
 #### Uppercase attribute name
+
+Student element: Attribute. Instructor element: Attribute.
 
 Level 1: Highlight solution
 
@@ -463,6 +497,8 @@ Level 4: Resource response with Reference:
 ### Attribute in wrong class mistakes
 
 #### Attribute misplaced
+
+Student element: Attribute. Instructor element: Attribute.
 
 Level 1: Highlight solution
 
@@ -485,6 +521,8 @@ Level 5: Resource response with Reference:
 
 #### Attribute duplicated
 
+Student element: Attribute. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -506,6 +544,8 @@ Level 5: Resource response with Reference:
 
 #### Attribute misplaced in generalization hierarchy
 
+Student element: Attribute. Instructor element: Attribute.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -524,6 +564,8 @@ Level 4: Resource response with Reference:
 ### Extra attribute mistakes
 
 #### Plural attribute
+
+Student element: Attribute. Instructor element: Attribute.
 
 Level 1: Highlight solution
 
@@ -579,6 +621,8 @@ Level 6: Resource response with Reference:
 
 #### Extra attribute
 
+Student element: Attribute. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -596,6 +640,8 @@ Level 4: Resource response with Reference:
 
 ### Missing attribute
 
+Instructor element: Attribute.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -612,6 +658,8 @@ Level 4: Resource response with Reference:
 
 
 ### Wrong attribute type
+
+Student element: Attribute. Instructor element: Attribute.
 
 Level 1: Highlight solution
 
@@ -651,6 +699,8 @@ Level 4: Resource response with Reference:
 
 ### Attribute should be static
 
+Student element: Attribute. Instructor element: Attribute.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -667,6 +717,8 @@ Level 4: Resource response with Reference:
 
 
 ### Attribute should not be static
+
+Student element: Attribute. Instructor element: Attribute.
 
 Level 1: Highlight solution
 
@@ -690,6 +742,8 @@ Level 4: Resource response with Reference:
 
 #### Missing association
 
+Instructor element: Association.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -710,6 +764,8 @@ better understand these relationships and where they are used.
 
 
 #### Missing aggregation
+
+Instructor element: Association.
 
 Level 1: Highlight solution
 
@@ -753,6 +809,8 @@ better understand these relationships and where they are used.
 
 #### Using attribute instead of association
 
+Student element: Attribute. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -785,6 +843,8 @@ better understand these relationships and where they are used.
 
 #### Extra association
 
+Student element: Association. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -813,6 +873,8 @@ Level 5: Resource response with Reference:
 
 
 #### Extra aggregation
+
+Student element: Association. 
 
 Level 1: Highlight solution
 
@@ -882,6 +944,8 @@ Level 6: Resource response with Reference:
 
 #### Wrong multiplicity
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -950,6 +1014,8 @@ Level 6: Resource response with Reference:
 
 #### Missing role names
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -973,6 +1039,8 @@ between the same two classes.
 
 #### Role should be static
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -989,6 +1057,8 @@ Level 4: Resource response with Reference:
 
 
 #### Role should not be static
+
+Student element: Association end. Instructor element: Association end.
 
 Level 1: Highlight solution
 
@@ -1007,6 +1077,8 @@ Level 4: Resource response with Reference:
 
 #### Bad role name spelling
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1024,6 +1096,8 @@ Level 4: Resource response with Reference:
 
 #### Representing an action with an association
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1040,6 +1114,8 @@ Level 4: Resource response with Reference:
 
 
 #### Wrong role name but correct association
+
+Student element: Association end. Instructor element: Association end.
 
 Level 1: Highlight solution
 
@@ -1091,6 +1167,8 @@ better understand these relationships and where they are used.
 
 #### Using composition instead of association
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1112,6 +1190,8 @@ better understand these relationships and where they are used.
 
 #### Using directed relationship instead of undirected relationship
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1129,6 +1209,8 @@ Level 4: Resource response with Reference:
 
 #### Using undirected relationship instead of directed relationship
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Parametrized response:
@@ -1145,6 +1227,8 @@ Level 4: Resource response with Reference:
 
 
 #### Using composition instead of aggregation
+
+Student element: Association end. Instructor element: Association end.
 
 Level 1: Highlight solution
 
@@ -1277,6 +1361,8 @@ Level 4: Resource response with Reference:
 
 #### Missing association class
 
+Instructor element: Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1295,6 +1381,8 @@ Level 4: Resource response with Reference:
 
 
 #### Extra association class
+
+Student element: Class. 
 
 Level 1: Highlight solution
 
@@ -1323,6 +1411,8 @@ Level 6: Resource response with Reference:
 
 #### Bad association class name spelling
 
+Student element: Class. Instructor element: Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1343,6 +1433,8 @@ Level 5: Resource response with Reference:
 
 
 #### Association class should be regular class
+
+Student element: Class. Instructor element: Class.
 
 Level 1: Highlight solution
 
@@ -1366,6 +1458,8 @@ Level 5: Resource response with Reference:
 
 
 #### Regular class should be association class
+
+Student element: Class. Instructor element: Class.
 
 Level 1: Highlight solution
 
@@ -1392,6 +1486,8 @@ Level 5: Resource response with Reference:
 
 #### Missing composition
 
+Instructor element: Composition.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1412,6 +1508,8 @@ better understand these relationships and where they are used.
 
 
 #### Extra composition
+
+Student element: Composition. 
 
 Level 1: Highlight solution
 
@@ -1434,6 +1532,8 @@ better understand these relationships and where they are used.
 
 #### Using association instead of aggregation
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1455,6 +1555,8 @@ better understand these relationships and where they are used.
 
 #### Using association instead of composition
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1475,6 +1577,8 @@ better understand these relationships and where they are used.
 
 
 #### Using aggregation instead of composition
+
+Student element: Association end. Instructor element: Association end.
 
 Level 1: Highlight solution
 
@@ -1782,6 +1886,8 @@ Level 6: Resource response with Reference:
 
 
 #### Non-differentiated subclass
+
+Student element: Class. 
 
 Level 1: Highlight solution
 
