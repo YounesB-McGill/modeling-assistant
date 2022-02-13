@@ -26,7 +26,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM_ITEM;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
@@ -68,7 +67,7 @@ public class HumanValidatedParametrizedResponses {
       entry(ATTRIBUTE_SHOULD_NOT_BE_STATIC, Set.of("${stud_attr} should not be static, because it does not apply to all instances of ${stud_attr.cls}.")),
       entry(BAD_ASSOC_CLASS_NAME_SPELLING, Set.of("The ${stud_cls} class has a misspelled name.",
           "The ${stud_cls} class should be changed to ${inst_cls}.")),
-      entry(BAD_ATTRIBUTE_NAME_SPELLING, Set.of("${stud_attr} is misspelled. [Use the same spelling as the problem description.]")),
+      entry(BAD_ATTRIBUTE_NAME_SPELLING, Set.of("${stud_attr} is misspelled.[ Use the same spelling as the problem description.]")),
       entry(BAD_CLASS_NAME_SPELLING, Set.of("The ${stud_cls} class has a misspelled name.",
           "The ${stud_cls} class should be changed to ${inst_cls}.")),
       entry(BAD_ENUM_ITEM_SPELLING, Set.of("The ${stud_enumitem} should be changed[ to ${inst_enumitem}].")),
@@ -85,7 +84,6 @@ public class HumanValidatedParametrizedResponses {
       entry(EXTRA_ENUM, Set.of("Remove the ${stud_enum} enumeration. It is not needed.")),
       entry(EXTRA_ENUM_ITEM, Set.of("${stud_enumitem} does not belong in the ${stud_enumitem.enum} enumeration.")),
       entry(LOWERCASE_CLASS_NAME, Set.of("${stud_cls} should be ${inst_cls}, with a capital letter.")),
-      entry(MISSING_AGGREGATION, Set.of("How would you capture that a ${inst_rel.end0} has a ${inst_rel.end1}?")),
       entry(MISSING_ASSOCIATION, Set.of("How would you capture the relationship between ${inst_rel.end0} and ${inst_rel.end0}?")),
       entry(MISSING_ATTRIBUTE, Set.of("A ${inst_attr.cls} has a ${inst_attr}.")),
       entry(MISSING_CLASS, Set.of("Remember to add the ${inst_cls} class.")),
@@ -110,7 +108,7 @@ public class HumanValidatedParametrizedResponses {
           "The ${stud_attr.cls}.${stud_attr} should be of type ${inst_attr.type}.")),
       entry(WRONG_CLASS_NAME, Set.of("The ${stud_cls} class should be changed to ${inst_cls}.",
           "The ${stud_cls} class has a name that is not quite right but the attributes and/or associations are correct.")),
-      entry(WRONG_MULTIPLICITY, Set.of("How many ${stud_assocend.end0}'s does a ${stud_assocend.end1} have? [And how many ${stud_assocend.end1}'s does ${stud_assocend.end0} have?]")),
+      entry(WRONG_MULTIPLICITY, Set.of("How many ${stud_assocend.end0}'s does a ${stud_assocend.end1} have?[ And how many ${stud_assocend.end1}'s does ${stud_assocend.end0} have?]")),
       entry(WRONG_ROLE_NAME, Set.of("The ${stud_assocend} role name should be changed to ${inst_assocend}.",
           "The ${stud_assocend} role name is not correct."))
   );

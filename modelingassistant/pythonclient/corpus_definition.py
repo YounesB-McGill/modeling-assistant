@@ -32,7 +32,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 # added to the learning corpus for now. In the future, detected mistakes will either have a reason, or
                 # these additional feedbacks will be migrated to new mistake types
                 4: [ParametrizedResponse(
-                    text="The ${className} class is not part of the problem domain, so please remove it."),
+                    text="The ${stud_cls} class is not part of the problem domain, so please remove it."),
                     TextResponse(text="Remember that a domain model should not contain concepts from the user "
                                       "interfaces or databases, like Window, Database, etc.")],
                 5: ResourceResponse(learningResources=[class_ref]),
@@ -43,7 +43,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 plural_class_name := mt(n="Plural class name", atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Remember that class names should be singular."),
-                    3: ParametrizedResponse(text="${className} should be ${singular(className)}, using the singular."),
+                    3: ParametrizedResponse(text="${stud_cls} should be ${inst_cls}, using the singular."),
                     4: ResourceResponse(learningResources=[correct_class_naming_example := Example(content=dedent("""\
                         Please note these examples of correct vs incorrect class naming:
                         :x: Examples to avoid | :heavy_check_mark: Good class names
@@ -56,8 +56,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 lowercase_class_name := mt(n="Lowercase class name", atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Remember that class names must start with a Capital Letter."),
-                    3: ParametrizedResponse(text="${className} should be ${pascalCase(className)}, "
-                        "with a Capital Letter."),
+                    3: ParametrizedResponse(text="${stud_cls} should be ${inst_cls}, with a Capital Letter."),
                     4: ResourceResponse(learningResources=[correct_class_naming_example]),
                     5: ResourceResponse(learningResources=[class_ref]),
                 })),
@@ -73,18 +72,16 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this class name."),
                     3: ParametrizedResponse(text="The ${stud_cls} class has a misspelled name."),
-                    4: ParametrizedResponse(
-                        text="The ${stud_cls} class should be changed to ${inst_cls}."),
+                    4: ParametrizedResponse(text="The ${stud_cls} class should be changed to ${inst_cls}."),
                     5: ResourceResponse(learningResources=[class_ref]),
                 })),
                 wrong_class_name := mt(n="Wrong class name", d="Wrong class name but correct attribute/relationship",
                                        atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this class name."),
-                    3: ParametrizedResponse(text="The ${similarYetIncorrectClassName} class has a name that is not "
+                    3: ParametrizedResponse(text="The ${stud_cls} class has a name that is not "
                                                  "quite right but the attributes and/or associations are correct."),
-                    4: ParametrizedResponse(
-                        text="The ${similarYetIncorrectClassName} class should be changed to ${correctClassName}."),
+                    4: ParametrizedResponse(text="The ${stud_cls} class should be changed to ${inst_cls}."),
                     5: ResourceResponse(learningResources=[class_ref]),
                 })),
             ]),
@@ -93,8 +90,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     n="Class should be enum", d="Regular class should be enumeration", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
                         2: TextResponse(text="Is there anything special about this class?"),
-                        3: ParametrizedResponse(text="The ${className} can only be one of ${correctEnumSize} options, "
-                            "so what is the best way to model this?"),
+                        3: ParametrizedResponse(text="The ${stud_cls} can only be one of ${inst_enum.literals.length} "
+                                                     "options, so what is the best way to model this?"),
                         4: ResourceResponse(learningResources=[enum_reference := Reference(content="Please review the "
                             "[Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
                     })),
@@ -102,49 +99,48 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     n="Enum should be class", d="Enumeration should be regular class", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
                         2: TextResponse(text="Is there anything special about this class?"),
-                        3: ParametrizedResponse(text="Is ${className} limited to the options shown in (an|this) "
-                            "enumeration? Can this be modeled differently?"),
+                        3: ParametrizedResponse(
+                            text="Is ${stud_enum} limited to a fixed set of options? Can this be modeled differently?"),
                         4: ResourceResponse(learningResources=[enum_reference]),
                     })),
                 missing_enum := mt(n="Missing enum", d="Missing enumeration", feedbacks=fbs({
                     1: Feedback(highlightProblem=True),
                     2: TextResponse(text="How would you model this concept?"),
                     3: TextResponse(text="Model this concept with an enumeration."),
-                    4: ParametrizedResponse(text="Add an ${enumName} enumeration."),
+                    4: ParametrizedResponse(text="Add an ${inst_enum} enumeration."),
                     5: ResourceResponse(learningResources=[enum_reference]),
                 })),
                 extra_enum := mt(n="Extra enum", d="Extra enumeration", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Is this enumeration really necessary?"),
-                    3: ParametrizedResponse(text="Remove the ${extraEnum} enumeration. It is not needed."),
+                    3: ParametrizedResponse(text="Remove the ${stud_enum} enumeration. It is not needed."),
                     4: ResourceResponse(learningResources=[enum_reference]),
                 })),
                 bad_enum_name_spelling := mt(
                     n="Bad enum name spelling", d="Bad enumeration name spelling", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
                         2: TextResponse(text="Double check the name of this enumeration."),
-                        3: ParametrizedResponse(
-                            text="The ${wronglyNamedEnum} should be changed[ to ${correctEnumName}]."),
+                        3: ParametrizedResponse(text="The ${stud_enum} should be changed[ to ${inst_enum}]."),
                         4: ResourceResponse(learningResources=[enum_reference]),
                     })),
                 missing_enum_item := mt(n="Missing enum item", d="Missing enumeration item", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Is there anything missing here?"),
-                    3: ParametrizedResponse(text="The ${enumName} enumeration is missing an item."),
+                    3: ParametrizedResponse(text="The ${inst_enumitem.enum} enumeration is missing an item."),
                     4: ResourceResponse(learningResources=[enum_reference]),
                 })),
                 extra_enum_item := mt(n="Extra enum item", d="Extra enumeration item", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Should this really be here?"),
-                    3: ParametrizedResponse(text="The ${enumName} enumeration has an extra item."),
+                    3: ParametrizedResponse(
+                        text="${stud_enumitem} does not belong in the ${stud_enumitem.enum} enumeration."),
                     4: ResourceResponse(learningResources=[enum_reference]),
                 })),
                 bad_enum_item_spelling := mt(
                     n="Bad enum item spelling", d="Bad enumeration item spelling", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
                         2: TextResponse(text="Double check this enumeration item."),
-                        3: ParametrizedResponse(
-                            text="The ${wronglyNamedEnumItem} should be changed[ to ${correctEnumItemName}]."),
+                        3: ParametrizedResponse(text="The ${stud_enumitem} should be changed[ to ${inst_enumitem}]."),
                         4: ResourceResponse(learningResources=[enum_reference]),
                     })),
             ]),
@@ -156,7 +152,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_attribute := mt(n="Missing attribute", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Make sure to model all the attributes of this class."),
-                3: ParametrizedResponse(text="A ${className} has a ${missingAttribute}."),
+                3: ParametrizedResponse(text="A ${inst_attr.cls} has a ${inst_attr}."),
                 4: ResourceResponse(learningResources=[attribute_reference := Reference(
                     content="Please review the [Attribute](https://mycourses2.mcgill.ca/) and "
                         "[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.")]),
@@ -164,8 +160,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             wrong_attribute_type := mt(n="Wrong attribute type", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check the properties of this attribute."),
-                3: ParametrizedResponse(text="Can you think of a better type for ${attribute}?"),
-                4: ParametrizedResponse(text="The ${className}.${attribute} should be of type ${correctType}."),
+                3: ParametrizedResponse(text="Can you think of a better type for ${stud_attr}?"),
+                4: ParametrizedResponse(text="The ${stud_attr.cls}.${stud_attr} should be of type ${inst_attr.type}."),
                 5: ResourceResponse(learningResources=[attribute_reference]),
             })),
             missing_attribute_type := mt(n="Missing attribute type", feedbacks=fbs({
@@ -177,15 +173,15 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             attribute_should_be_static := mt(n="Attribute should be static", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Isn't there something special about this attribute?"),
-                3: ParametrizedResponse(text="${attributeName} should be static, because it applies to "
-                    "all instances of ${includingClass}."),
+                3: ParametrizedResponse(text="${stud_attr} should be static, because it applies to all instances of "
+                                             "${stud_attr.cls}."),
                 4: ResourceResponse(learningResources=[attribute_reference]),
             })),
             attribute_should_not_be_static := mt(n="Attribute should not be static", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check the properties of this attribute."),
-                3: ParametrizedResponse(text="${attributeName} should not be static, because it does "
-                    "not apply to all instances of ${includingClass}."),
+                3: ParametrizedResponse(text="${stud_attr} should not be static, because it does not apply to all "
+                                             "instances of ${stud_attr.cls}."),
                 4: ResourceResponse(learningResources=[attribute_reference]),
             })),
         ],
@@ -195,15 +191,15 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this attribute name."),
                     3: ParametrizedResponse(
-                        text="${stud_attr} is misspelled. [Use the same spelling as the problem description.]"),
+                        text="${stud_attr} is misspelled.[ Use the same spelling as the problem description.]"),
                     4: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 uppercase_attribute_name := mt(n="Uppercase attribute name", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: [TextResponse(text="Remember that attributes are written in `lowerCamelCase`."),
                         TextResponse(text="Can this attribute be renamed?")],
-                    3: ParametrizedResponse(text="${wrongAttribute} incorrectly starts with an Uppercase Letter. "
-                        "Attributes should start with a lowercase letter."),
+                    3: ParametrizedResponse(text="${stud_attr.cls}.${stud_attr} incorrectly starts with an Uppercase "
+                        "Letter. Attributes should start with a lowercase letter."),
                     4: ResourceResponse(learningResources=[attribute_reference]),
                 })),
             ]),
@@ -211,9 +207,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 attribute_misplaced := mt(n="Attribute misplaced", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you think of a better place for this attribute?"),
-                    3: ParametrizedResponse(text="The ${misplacedAttribute} does not belong in the ${wrongClass} "
-                        "class. Where else can we place it?"),
-                    4: ParametrizedResponse(text="The ${misplacedAttribute} belongs in the ${correctClass} class."),
+                    3: ParametrizedResponse(text="The ${stud_attr} does not belong in the ${stud_attr.cls} class. "
+                                                 "Where else can we place it?"),
+                    4: ParametrizedResponse(text="The ${stud_attr} belongs in the ${inst_attr.cls} class."),
                     5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 attribute_duplicated := mt(n="Attribute duplicated", feedbacks=fbs({
@@ -228,7 +224,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     n="Attribute misplaced in generalization hierarchy", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
                         2: TextResponse(text="Can you think of a better place for this?"),
-                        3: ParametrizedResponse(text="The ${misplacedAttribute} belongs in ${correctClass}."),
+                        3: ParametrizedResponse(text="The ${stud_attr} belongs in ${inst_attr.cls}."),
                         4: ResourceResponse(learningResources=[attribute_reference]),
                     })),
             ]),
@@ -236,7 +232,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 plural_attribute := mt(n="Plural attribute", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this attribute name."),
-                    3: ParametrizedResponse(text="The ${attributeName} attribute should be singular."),
+                    3: ParametrizedResponse(text="The ${stud_attr.cls}.${stud_attr} attribute should be singular."),
                     # Create a list multiple choice quiz using the McqFactory. See its documentation for more details
                     4: ResourceResponse(learningResources=[attribute_quiz := mcq[
                         "Pick the classes which are modeled correctly with Umple.",  # prompt
@@ -258,7 +254,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 extra_attribute := mt(n="Extra attribute", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Do we really need to model this concept?"),
-                    3: [ParametrizedResponse(text="The ${redundantAttribute} in the ${className} class is not needed."),
+                    3: [ParametrizedResponse(text="The ${stud_attr} in the ${stud_attr.cls} class is not needed."),
                         ParametrizedResponse(text="The ${redundantAttribute} attribute in the ${className} class is "
                             "not needed because it can be derived from ${derivationSources}."),
                         ParametrizedResponse(text="The ${redundantAttribute} attribute in the ${className} class is "
@@ -275,7 +271,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_association := mt(n="Missing association", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="What is the relationship between these classes?"),
-                3: ParametrizedResponse(text="How would you capture that a ${classOne} has a ${classTwo}?"),
+                3: ParametrizedResponse(
+                    text="How would you capture the relationship between ${inst_rel.end0} and ${inst_rel.end0}?"),
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref := Reference(content=dedent("""\
                     Please review the _Composition vs. Aggregation vs. Association_ section of 
                     the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
@@ -302,7 +299,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Remember that attributes are simple pieces of data."),
-                    3: ParametrizedResponse(text="${includingClass.attributeName} should be its own class."),
+                    3: ParametrizedResponse(text="${stud_attr} should be its own class."),
                     4: ResourceResponse(learningResources=[mcq[
                         "Pick the class(es) modeled correctly in Umple.",
                            "class BankAccount { Client client; }",
@@ -316,9 +313,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             extra_association := mt(n="Extra association", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this association really necessary?"),
-                3: [ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is not "
-                        "expressed in the problem description[, but there is a similar relationship with "
-                        "${classThree} that is missing]."),
+                3: [ParametrizedResponse(text="The relationship between ${stud_rel.end0} and ${stud_rel.end1} is not "
+                                              "expressed in the problem description."),
                     ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is redundant "
                         "since we can access ${classTwo} from ${classOne} via ${classThree}.")],
                 4: ResourceResponse(learningResources=[mcq[
@@ -340,7 +336,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             extra_aggregation := mt(n="Extra aggregation", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this aggregation really necessary?"),
-                3: ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is redundant."),
+                3: ParametrizedResponse(
+                    text="The relationship between ${stud_rel.end0} and ${stud_rel.end1} is redundant."),
                 4: ResourceResponse(learningResources=[generic_extra_item_ref]),
             })),
             extra_nary_association := mt(n="Extra n-ary association", feedbacks=fbs({
@@ -376,8 +373,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check this association."),
                 3: TextResponse(text="The multiplicit(y|ies) for this association (is|are) incorrect."),
-                4: ParametrizedResponse(text="How many ${class1}'s does a ${class2} have? [And how many "
-                    "${class2}'s does ${class1} have?]"),
+                4: ParametrizedResponse(text="How many ${stud_assocend.end0}'s does a ${stud_assocend.end1} have?[ And "
+                    "how many ${stud_assocend.end1}'s does ${stud_assocend.end0} have?]"),
                 5: ResourceResponse(learningResources=[multiplicities_quiz := mcq[
                     "Pick the association(s) with correct multiplicities:",
                        "1 EmployeeRole -- 1 Person;",
@@ -404,8 +401,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_role_names := mt(n="Missing role names", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you model this relationship more precisely?"),
-                3: ParametrizedResponse(text="The multiplicities for the ${assoc} association are correct, but "
-                                             "something else is missing!"),
+                3: ParametrizedResponse(text="The multiplicities for the ${stud_assocend} association are correct, "
+                                             "but something else is missing!"),
                 4: ResourceResponse(learningResources=[role_name_ref := Reference(content=dedent("""\
                     Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
                     for this association? Role names help identify the role a class plays in a
@@ -418,23 +415,23 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             role_should_be_static := mt(n="Role should be static", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Isn't there something special about this role name?"),
-                3: ParametrizedResponse(text="${roleName} should be static, because it applies to all instances of "
-                    "the association between ${class1} and ${class2}."),
+                3: ParametrizedResponse(text="${stud_assocend} should be static, because it applies to all instances "
+                    "of the association between ${inst_assocend.end0} and ${inst_assocend.end1}."),
                 4: ResourceResponse(learningResources=[assoc_ref := Reference(content="Please review the "
                     "[Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
             })),
             role_should_not_be_static := mt(n="Role should not be static", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Isn't there something special about this role name?"),
-                3: ParametrizedResponse(text="${roleName} should not be static, because it doesn't apply to all "
-                    "instances of the association between ${class1} and ${class2}."),
+                3: ParametrizedResponse(text="${stud_assocend} should not be static, because it doesn't apply to all "
+                    "instances of the association between ${inst_assocend.end0} and ${inst_assocend.end1}."),
                 4: ResourceResponse(learningResources=[assoc_ref]),
             })),
             bad_role_name_spelling := mt(n="Bad role name spelling", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check this role name"),
-                3: ParametrizedResponse(text="${roleName} is misspelled.[ Use the same spelling as the problem "
-                    "description.]"),
+                3: ParametrizedResponse(
+                    text="${stud_assocend} is misspelled.[ Use the same spelling as the problem description.]"),
                 4: ResourceResponse(learningResources=[assoc_na_ref := Reference(content="Please review the "
                     "[Association](https://mycourses2.mcgill.ca/) and "
                     "[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.")]),
@@ -444,17 +441,17 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Is this the best role name to use here?"),
-                    3: ParametrizedResponse(text="The ${wrongRoleName} role name represents an action, which is not "
-                                                 "correct.[ Use ${correctRoleName} instead.]"),
+                    3: ParametrizedResponse(text="The ${stud_assocend} role name represents an action, which is not "
+                                                 "correct.[ Use ${inst_assocend} instead.]"),
                     4: ResourceResponse(learningResources=[assoc_na_ref]),
                 })),
             wrong_role_name := mt(
                 n="Wrong role name", d="Wrong role name but correct association", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this role name."),
-                    3: ParametrizedResponse(text="The ${wrongRoleName} role name is not correct."),
-                    4: ParametrizedResponse(text="The ${wrongRoleName} role name should be changed to "
-                        "${correctRoleName}."),
+                    3: ParametrizedResponse(text="The ${stud_assocend} role name is not correct."),
+                    4: ParametrizedResponse(
+                        text="The ${stud_assocend} role name should be changed to ${inst_assocend}."),
                     5: ResourceResponse(learningResources=[role_name_ref]),
                 })),
         ]),
@@ -485,8 +482,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Why is navigation restricted for this relationship?"),
-                    3: ParametrizedResponse(
-                        text="The relationship between ${classOne} and ${classTwo} should be undirected."),
+                    3: ParametrizedResponse(text="The relationship between ${stud_assocend.end0} and "
+                                                 "${stud_assocend.end1} should be undirected."),
                     4: ResourceResponse(learningResources=[dir_rel_ref := Reference(
                         content="Please review the _Directionality in Associations_ section of the "
                                 "[UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)")]),
@@ -505,8 +502,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 n="Using composition instead of aggregation", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Is this the best relationship to use here?"),
-                    3: ParametrizedResponse(text="The composition between ${containedClass} and ${containerClass} "
-                        "is better modeled using aggregation."),
+                    3: ParametrizedResponse(text="The composition between ${stud_assocend.end0} and "
+                                                 "${stud_assocend.end1} is better modeled using aggregation."),
                     4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
             using_binary_assoc_instead_of_nary_assoc := mt(
@@ -603,7 +600,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you model this relationship in another way?"),
                     3: TextResponse(text="Is using a regular class the best way to model this?"),
-                    4: ParametrizedResponse(text="The ${regularClass} class should be an association class."),
+                    4: ParametrizedResponse(text="The ${stud_cls} class should be an association class."),
                     5: ResourceResponse(learningResources=[assoc_class_ref]),
                 })),
         ]),
@@ -618,32 +615,31 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             extra_composition := mt(n="Extra composition", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this composition really necessary?"),
-                3: ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is not expressed "
-                    "in the problem description[, but there is a similar relationship with ${classThree} that is "
-                    "missing]."),
+                3: ParametrizedResponse(text="The relationship between ${stud_rel.end0} and ${stud.end1} is not "
+                                             "expressed in the problem description."),
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
             using_assoc_instead_of_aggregation := mt(
                 n="Using assoc instead of aggregation", d="Using association instead of aggregation", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="What is the relationship between these two concepts?"),
-                    3: ParametrizedResponse(text="The relationship between ${containedClass} and ${containerClass} "
-                        "can be modeled more precisely than with a simple association."),
+                    3: ParametrizedResponse(text="The relationship between ${stud_assocend.end0} and "
+                        "${stud_assocend.end1} can be modeled more precisely than with a simple association."),
                     4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
             using_assoc_instead_of_composition := mt(
                 n="Using assoc instead of composition", d="Using association instead of composition", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="What is the relationship between these two concepts?"),
-                    3: ParametrizedResponse(text="The relationship between ${containedClass} and ${containerClass} is "
-                        "more than a simple association."),
+                    3: ParametrizedResponse(text="The relationship between ${stud_assocend.end0} and "
+                        "${stud_assocend.end1} is more than a simple association.."),
                     4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
             using_aggregation_instead_of_composition := mt(n="Using aggregation instead of composition", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this the best relationship to use here?"),
-                3: ParametrizedResponse(text="The relationship between ${containedClass} and ${containerClass} is "
-                    "stronger than an aggregation."),
+                3: ParametrizedResponse(text="The relationship between ${stud_assocend.end0} and ${stud_assocend.end1} "
+                                             "is stronger than an aggregation."),
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
             composed_part_contained_in_more_than_one_parent := mt(
@@ -772,8 +768,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             non_differentiated_subclass := mt(n="Non-differentiated subclass", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is it really necessary to model this as a subclass?"),
-                3: ParametrizedResponse(text="${wrongSubclass} needs to be different from its superclass[ and its "
-                    "sibling subclasses] in terms of behavior or structure."),
+                3: ParametrizedResponse(text="${stud_cls} needs to be different from its superclass, and any sibling "
+                                             "subclasses, in terms of behavior or structure."),
                 4: ResourceResponse(learningResources=[inherit_checks_quiz]),
                 5: ResourceResponse(learningResources=[gen_ref]),
             })),
