@@ -134,7 +134,7 @@ def print_mistake_type_stats_md_format_completion_status():
     def print_mt(mt: MistakeType, indent: int = 0):
         "Print mistake type and show its priority and whether it has feedbacks."
         sign = "+" if hasattr(mt, "md_format") else "-"
-        print(f"{sign}{' ' * indent}{mt.name} ({mt.priority})")
+        print(f"{sign}{' ' * indent}{mt.name}")
 
     def print_mtc(mtc: MistakeTypeCategory, indent: int = 0):
         "Recursively print mistake type category and its subcategories."
