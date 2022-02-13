@@ -12,7 +12,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from learningcorpus import MistakeTypeCategory, MistakeType
 from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, CLASS_MISTAKES, CLASS_NAME_MISTAKES
-from corpus import mts_by_priority
+from corpus import corpus, mts_by_priority
 from utils import COLOR, color_str
 
 import mistaketypes
@@ -128,6 +128,25 @@ def print_mistake_type_stats_md():
     print("```")
 
 
+def print_mistake_type_stats_md_format_completion_status():
+    "Print mistake detection format completion status for each mistake type."
+    # pylint: disable=expression-not-assigned
+    def print_mt(mt: MistakeType, indent: int = 0):
+        "Print mistake type and show its priority and whether it has feedbacks."
+        sign = "+" if hasattr(mt, "md_format") else "-"
+        print(f"{sign}{' ' * indent}{mt.name} ({mt.priority})")
+
+    def print_mtc(mtc: MistakeTypeCategory, indent: int = 0):
+        "Recursively print mistake type category and its subcategories."
+        print(f" {' ' * indent}{mtc.name}")
+        [print_mt(mt, indent + 2) for mt in mtc.mistakeTypes]
+        [print_mtc(c, indent + 2) for c in mtc.subcategories]
+
+    print("```diff")
+    [print_mtc(c) for c in corpus.topLevelMistakeTypeCategories()]
+    print("```")
+
+
 if __name__ == "__main__":
     "Main entry point."
-    print_mistake_type_stats()
+    print_mistake_type_stats_md_format_completion_status()
