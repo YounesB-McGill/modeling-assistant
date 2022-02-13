@@ -2606,7 +2606,6 @@ public class MistakeDetection {
   }
 
   public static void checkMistakeExtraClassAndClassShouldBeEnum(Comparison comparison) {
-
     comparison.extraStudentClassifiers.forEach(cls -> {
       comparison.notMappedInstructorEnums.forEach(instEnum -> {
         if (instEnum.getName().equals(cls.getName())) {
