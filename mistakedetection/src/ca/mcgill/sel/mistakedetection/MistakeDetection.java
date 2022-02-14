@@ -3014,11 +3014,6 @@ public class MistakeDetection {
    */
   private static Mistake createMistake(MistakeType mistakeType, List<? extends NamedElement> studentElements,
       List<? extends NamedElement> instructorElements) {
-    /*
-     * TODO Use existing solution element when available, eg:
-     * if cdmElems2SolElems.containsKey(studentElem) solutionElem = cdmElems2SolElems.get(studentElem)
-     * else solutionElem = MAF.createSolutionElement() cdmElems2SolElems.put()
-     */
     var mistake = MAF.createMistakeOfType(mistakeType);
     if (studentElements != null) {
       studentElements.forEach(se -> {
