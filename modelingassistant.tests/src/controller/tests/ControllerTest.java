@@ -42,6 +42,7 @@ import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
+import modelingassistant.SolutionElement;
 import modelingassistant.util.ModelingassistantResourceFactoryImpl;
 import modelingassistant.util.ResourceHelper;
 
@@ -893,6 +894,19 @@ public class ControllerTest {
     assertTrue(feedback instanceof Feedback);
     assertEquals(1, feedback.getLevel());
     assertTrue(feedback.isHighlightSolution());
+  }
+
+  /** Ensures that SolutionElement.forCdmElement() returns the same object for two successive invocations. */
+  @Test public void testCdmNamedElementsHaveUniqueSolutionElements() {
+    var cdmElem = CDF.createClass();
+    cdmElem.setName("Airplane");
+    assertFalse(SolutionElement.cdmElementsToSolutionElements.containsKey(cdmElem));
+
+    var solElem1 = SolutionElement.forCdmElement(cdmElem);
+    assertTrue(SolutionElement.cdmElementsToSolutionElements.containsKey(cdmElem));
+
+    var solElem2 = SolutionElement.forCdmElement(cdmElem);
+    assertTrue(solElem1 == solElem2); // reference equality: both vars should point to same object
   }
 
   /**

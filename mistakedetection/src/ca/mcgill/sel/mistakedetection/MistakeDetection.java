@@ -164,13 +164,13 @@ public class MistakeDetection {
   public static final String NO_PR_PATTERN_DETECTED = "NoPlayerRolePatternDetected";
 
   /** Cache to map nouns to true if they are plural, false otherwise. */
-  static Map<String, Boolean> nounPluralStatus = new HashMap<String, Boolean>();
+  static final Map<String, Boolean> nounPluralStatus = new HashMap<>();
 
   /** Cache to map verbs to true if they are verb, false otherwise. */
-  static Map<String, Boolean> verbStatus = new HashMap<String, Boolean>();
+  static final Map<String, Boolean> verbStatus = new HashMap<>();
 
   /** The Stanford NLP Maximum Entropy Part-of-Speech Tagger. */
-  private static MaxentTagger maxentTagger = getMaxentTagger();
+  private static final MaxentTagger maxentTagger = getMaxentTagger();
 
   /**
    * Compares the given student solution to the instructor's and adds filtered mistakes to it.
@@ -550,7 +550,7 @@ public class MistakeDetection {
 
     for (Classifier cls1 : subClass1ConnectedClass) {
       for (Classifier cls2 : subClass2ConnectedClass) {
-     // To check associations between subClass1 -- connectedClass and subClass2 -- connectedClass.
+        // To check associations between subClass1 -- connectedClass and subClass2 -- connectedClass.
         if (!cls1.equals(cls2)) {
           continue;
         }
@@ -2119,7 +2119,7 @@ public class MistakeDetection {
     return null;
   }
 
-  /** Returns the class with closest number of association end classes match with that of a instructor class. */
+  /** Returns the class with the closest number of association end classes matching with that of a instructor class. */
   private static Classifier classWithOtherAssociationClassMatch(List<Classifier> studentClasses,
       Classifier instructorClass) {
     List<String> instClassesName = new ArrayList<>();
@@ -2606,7 +2606,6 @@ public class MistakeDetection {
   }
 
   public static void checkMistakeExtraClassAndClassShouldBeEnum(Comparison comparison) {
-
     comparison.extraStudentClassifiers.forEach(cls -> {
       comparison.notMappedInstructorEnums.forEach(instEnum -> {
         if (instEnum.getName().equals(cls.getName())) {
@@ -3000,41 +2999,31 @@ public class MistakeDetection {
    */
   private static Mistake createMistake(MistakeType mistakeType, NamedElement studentElement,
       NamedElement instructorElement) {
-    var mistake = MAF.createMistakeOfType(mistakeType);
-
-    // TODO Use existing solution element when available
-    if (studentElement != null) {
-      var solutionElement = MAF.createSolutionElement();
-      /*
-       * if cdmElems2SolElems.containsKey(studentElem) solutionElem = cdmElems2SolElems.get(studentElem)
-       * else solutionElem = MAF.createSolutionElement() cdmElems2SolElems.put()
-       */
-      solutionElement.setElement(studentElement);
-      mistake.getStudentElements().add(solutionElement);
-    }
-    if (instructorElement != null) {
-      var solutionElement = MAF.createSolutionElement();
-      solutionElement.setElement(instructorElement);
-      mistake.getInstructorElements().add(solutionElement);
-    }
-
-    return mistake;
+    List<NamedElement> studentElements = studentElement == null ? Collections.emptyList() : List.of(studentElement);
+    List<NamedElement> instructorElements =
+        instructorElement == null ? Collections.emptyList() : List.of(instructorElement);
+    return createMistake(mistakeType, studentElements, instructorElements);
   }
 
+  /**
+   * Creates a new mistake from the input parameters.
+   *
+   * @param mistakeType
+   * @param studentElements
+   * @param instructorElements
+   */
   private static Mistake createMistake(MistakeType mistakeType, List<? extends NamedElement> studentElements,
       List<? extends NamedElement> instructorElements) {
     var mistake = MAF.createMistakeOfType(mistakeType);
     if (studentElements != null) {
       studentElements.forEach(se -> {
-        var solutionElement = MAF.createSolutionElement();
-        solutionElement.setElement(se);
+        var solutionElement = SolutionElement.forCdmElement(se);
         mistake.getStudentElements().add(solutionElement);
       });
     }
     if (instructorElements != null) {
       instructorElements.forEach(ie -> {
-        var solutionElement = MAF.createSolutionElement();
-        solutionElement.setElement(ie);
+        var solutionElement = SolutionElement.forCdmElement(ie);
         mistake.getInstructorElements().add(solutionElement);
       });
     }

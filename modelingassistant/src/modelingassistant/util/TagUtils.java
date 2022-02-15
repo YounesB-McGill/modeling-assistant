@@ -11,6 +11,7 @@ import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
+import modelingassistant.SolutionElement;
 import modelingassistant.TagGroup;
 
 /**
@@ -36,8 +37,7 @@ public class TagUtils {
     var tag = maf.createTag();
     tag.setTagType(PLAYER);
     var instClass = getClassFromClassDiagram(className, classDiagram);
-    var se = maf.createSolutionElement();
-    se.setElement(instClass);
+    var se = SolutionElement.forCdmElement(instClass);
     se.setSolution(instructorSolution);
     tag.setSolutionElement(se);
     tag.setTagGroup(tagGroup);
@@ -51,8 +51,7 @@ public class TagUtils {
     var tag = maf.createTag();
     tag.setTagType(ROLE);
     var instClass = getClassFromClassDiagram(className, classDiagram);
-    var se = maf.createSolutionElement();
-    se.setElement(instClass);
+    var se = SolutionElement.forCdmElement(instClass);
     tag.setSolutionElement(se);
     tag.setTagGroup(tagGroup);
     se.setSolution(tag.getTagGroup().getSolution());
@@ -65,8 +64,7 @@ public class TagUtils {
     var tag = maf.createTag();
     tag.setTagType(ROLE);
     var instClass = getAssociationEndFromClass(assocEndName, assocClass);
-    var se = maf.createSolutionElement();
-    se.setElement(instClass);
+    var se = SolutionElement.forCdmElement(instClass);
     tag.setSolutionElement(se);
     tag.setTagGroup(tagGroup);
     se.setSolution(tag.getTagGroup().getSolution());
@@ -79,8 +77,7 @@ public class TagUtils {
     var tag = maf.createTag();
     tag.setTagType(ROLE);
     var instClass = getAttributeFromClass(attributeName, assocClass);
-    var se = maf.createSolutionElement();
-    se.setElement(instClass);
+    var se = SolutionElement.forCdmElement(instClass);
     tag.setSolutionElement(se);
     tag.setTagGroup(tagGroup);
     se.setSolution(tag.getTagGroup().getSolution());
@@ -96,8 +93,7 @@ public class TagUtils {
     var tag = maf.createTag();
     tag.setTagType(ABSTRACTION);
     var instClass = getClassFromClassDiagram(className, classDiagram);
-    var se = maf.createSolutionElement();
-    se.setElement(instClass);
+    var se = SolutionElement.forCdmElement(instClass);
     se.setSolution(instructorSolution);
     tag.setSolutionElement(se);
     tag.setTagGroup(tagGroup);
@@ -112,8 +108,7 @@ public class TagUtils {
     var tag = maf.createTag();
     tag.setTagType(OCCURRENCE);
     var instClass = getClassFromClassDiagram(className, classDiagram);
-    var se = maf.createSolutionElement();
-    se.setElement(instClass);
+    var se = SolutionElement.forCdmElement(instClass);
     tag.setSolutionElement(se);
     tag.setTagGroup(tagGroup);
     se.setSolution(tag.getTagGroup().getSolution());

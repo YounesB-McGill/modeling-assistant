@@ -61,6 +61,7 @@
       1. [Using composition instead of association](#using-composition-instead-of-association)
       1. [Using directed relationship instead of undirected relationship](#using-directed-relationship-instead-of-undirected-relationship)
       1. [Using undirected relationship instead of directed relationship](#using-undirected-relationship-instead-of-directed-relationship)
+      1. [Wrong relationship direction](#wrong-relationship-direction)
       1. [Using composition instead of aggregation](#using-composition-instead-of-aggregation)
       1. [Using binary association instead of n-ary association](#using-binary-association-instead-of-n-ary-association)
       1. [Using n-ary association instead of binary association](#using-n-ary-association-instead-of-binary-association)
@@ -121,6 +122,8 @@
 
 #### Plural class name
 
+Student element: Class. Instructor element: Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -129,7 +132,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${className} should be ${singular(className)}, using the singular.
+> ${stud_cls} should be ${inst_cls}, using the singular.
 
 Level 4: Resource response with Example:
 
@@ -147,6 +150,8 @@ Level 5: Resource response with Reference:
 
 #### Lowercase class name
 
+Student element: Class. Instructor element: Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -155,7 +160,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${className} should be ${pascalCase(className)}, with a capital letter.
+> ${stud_cls} should be ${inst_cls}, with a capital letter.
 
 Level 4: Resource response with Example:
 
@@ -173,6 +178,8 @@ Level 5: Resource response with Reference:
 
 #### Software engineering term
 
+Student element: Class. Instructor element: Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -181,7 +188,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${className} contains a software engineering term, which does not belong in a domain model.
+> ${stud_cls} contains a software engineering term, which does not belong in a domain model.
 
 Level 4: Resource response with Example:
 
@@ -199,6 +206,8 @@ Level 5: Resource response with Reference:
 
 #### Bad class name spelling
 
+Student element: Class. Instructor element: Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -207,11 +216,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${incorrectlySpelledClassName} class has a misspelled name.
+> The ${stud_cls} class has a misspelled name.
 
 Level 4: Parametrized response:
 
-> The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}.
+> The ${stud_cls} class should be changed to ${inst_cls}.
 
 Level 5: Resource response with Reference:
 
@@ -220,6 +229,8 @@ Level 5: Resource response with Reference:
 
 #### Wrong class name but correct attribute/relationship
 
+Student element: Class. Instructor element: Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -228,11 +239,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${similarYetIncorrectClassName} class has a name that is not quite right but the attributes and/or associations are correct.
+> The ${stud_cls} class has a name that is not quite right but the attributes and/or associations are correct.
 
 Level 4: Parametrized response:
 
-> The ${similarYetIncorrectClassName} class should be changed to ${correctClassName}.
+> The ${stud_cls} class should be changed to ${inst_cls}.
 
 Level 5: Resource response with Reference:
 
@@ -243,6 +254,8 @@ Level 5: Resource response with Reference:
 
 #### Regular class should be enumeration
 
+Student element: Class. Instructor element: Enumeration.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -251,7 +264,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${className} can only be one of ${correctEnumSize} options, so what is the best way to model this?
+> The ${stud_cls} can only be one of ${inst_enum.literals.length} options, so what is the best way to model this?
 
 Level 4: Resource response with Reference:
 
@@ -260,6 +273,8 @@ Level 4: Resource response with Reference:
 
 #### Enumeration should be regular class
 
+Student element: Enumeration. Instructor element: Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -268,7 +283,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Is ${className} limited to the options shown in (an|this) enumeration? Can this be modeled differently?
+> Is ${stud_enum} limited to a fixed set of options? Can this be modeled differently?
 
 Level 4: Resource response with Reference:
 
@@ -276,6 +291,8 @@ Level 4: Resource response with Reference:
 
 
 #### Missing enumeration
+
+Instructor element: Enumeration.
 
 Level 1: Highlight sentence in problem statement referring to item
 
@@ -289,7 +306,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> Add an ${enumName} enumeration.
+> Add an ${inst_enum} enumeration.
 
 Level 5: Resource response with Reference:
 
@@ -297,6 +314,8 @@ Level 5: Resource response with Reference:
 
 
 #### Extra enumeration
+
+Student element: Enumeration. 
 
 Level 1: Highlight solution
 
@@ -306,7 +325,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Remove the ${extraEnum} enumeration. It is not needed.
+> Remove the ${stud_enum} enumeration. It is not needed.
 
 Level 4: Resource response with Reference:
 
@@ -314,6 +333,8 @@ Level 4: Resource response with Reference:
 
 
 #### Bad enumeration name spelling
+
+Student element: Enumeration. Instructor element: Enumeration.
 
 Level 1: Highlight solution
 
@@ -323,7 +344,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${wronglyNamedEnum} should be changed[ to ${correctEnumName}].
+> The ${stud_enum} should be changed[ to ${inst_enum}].
 
 Level 4: Resource response with Reference:
 
@@ -331,6 +352,8 @@ Level 4: Resource response with Reference:
 
 
 #### Missing enumeration item
+
+Instructor element: Enumeration item.
 
 Level 1: Highlight solution
 
@@ -340,7 +363,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${enumName} enumeration is missing an item.
+> The ${inst_enumitem.enum} enumeration is missing an item.
 
 Level 4: Resource response with Reference:
 
@@ -348,6 +371,8 @@ Level 4: Resource response with Reference:
 
 
 #### Extra enumeration item
+
+Student element: Enumeration item. 
 
 Level 1: Highlight solution
 
@@ -357,7 +382,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${enumName} enumeration has an extra item.
+> ${stud_enumitem} does not belong in the ${stud_enumitem.enum} enumeration.
 
 Level 4: Resource response with Reference:
 
@@ -365,6 +390,8 @@ Level 4: Resource response with Reference:
 
 
 #### Bad enumeration item spelling
+
+Student element: Enumeration item. Instructor element: Enumeration item.
 
 Level 1: Highlight solution
 
@@ -374,7 +401,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${wronglyNamedEnumItem} should be changed[ to ${correctEnumItemName}].
+> The ${stud_enumitem} should be changed[ to ${inst_enumitem}].
 
 Level 4: Resource response with Reference:
 
@@ -382,6 +409,8 @@ Level 4: Resource response with Reference:
 
 
 ### Missing class
+
+Instructor element: Class.
 
 Level 1: Highlight sentence in problem statement referring to item
 
@@ -393,7 +422,7 @@ Level 3: Highlight specific problem statement elements
 
 Level 4: Parametrized response:
 
-> Remember to add the ${className} class.
+> Remember to add the ${inst_cls} class.
 
 Level 5: Resource response with Reference:
 
@@ -401,6 +430,8 @@ Level 5: Resource response with Reference:
 
 
 ### Extra class
+
+Student element: Class. 
 
 Level 1: Highlight solution
 
@@ -414,7 +445,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> The ${className} class is not part of the problem domain, so please remove it.
+> The ${stud_cls} class is not part of the problem domain, so please remove it.
 
 Level 5: Resource response with Reference:
 
@@ -428,6 +459,8 @@ Level 5: Resource response with Reference:
 
 #### Bad attribute name spelling
 
+Student element: Attribute. Instructor element: Attribute.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -436,7 +469,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${wrongAttribute} is misspelled. [Use the same spelling as the problem description.]
+> ${stud_attr} is misspelled.[ Use the same spelling as the problem description.]
 
 Level 4: Resource response with Reference:
 
@@ -444,6 +477,8 @@ Level 4: Resource response with Reference:
 
 
 #### Uppercase attribute name
+
+Student element: Attribute. Instructor element: Attribute.
 
 Level 1: Highlight solution
 
@@ -453,7 +488,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${wrongAttribute} incorrectly starts with an uppercase letter. Attributes should start with a lowercase letter.
+> ${stud_attr.cls}.${stud_attr} incorrectly starts with an uppercase letter. Attributes should start with a lowercase letter.
 
 Level 4: Resource response with Reference:
 
@@ -464,6 +499,8 @@ Level 4: Resource response with Reference:
 
 #### Attribute misplaced
 
+Student element: Attribute. Instructor element: Attribute.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -472,11 +509,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${misplacedAttribute} does not belong in the ${wrongClass} class. Where else can we place it?
+> The ${stud_attr} does not belong in the ${stud_attr.cls} class. Where else can we place it?
 
 Level 4: Parametrized response:
 
-> The ${misplacedAttribute} belongs in the ${correctClass} class.
+> The ${stud_attr} belongs in the ${inst_attr.cls} class.
 
 Level 5: Resource response with Reference:
 
@@ -484,6 +521,8 @@ Level 5: Resource response with Reference:
 
 
 #### Attribute duplicated
+
+Student element: Attribute. 
 
 Level 1: Highlight solution
 
@@ -497,7 +536,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> The ${duplicateAttribute} already exists in ${correctClass}, so there is no need to include it again.
+> The ${stud_attr} already exists in another class, so there is no need to include it again.
 
 Level 5: Resource response with Reference:
 
@@ -505,6 +544,8 @@ Level 5: Resource response with Reference:
 
 
 #### Attribute misplaced in generalization hierarchy
+
+Student element: Attribute. Instructor element: Attribute.
 
 Level 1: Highlight solution
 
@@ -514,7 +555,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${misplacedAttribute} belongs in ${correctClass}.
+> The ${stud_attr} belongs in ${inst_attr.cls}.
 
 Level 4: Resource response with Reference:
 
@@ -525,6 +566,8 @@ Level 4: Resource response with Reference:
 
 #### Plural attribute
 
+Student element: Attribute. Instructor element: Attribute.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -533,7 +576,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${attributeName} attribute should be singular.
+> The ${stud_attr.cls}.${stud_attr} attribute should be singular.
 
 Level 4: Resource response with List multiple-choice quiz:
 
@@ -579,6 +622,8 @@ Level 6: Resource response with Reference:
 
 #### Extra attribute
 
+Student element: Attribute. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -587,7 +632,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${redundantAttribute} in the ${className} class is not needed.
+> The ${stud_attr} in the ${stud_attr.cls} class is not needed.
 
 Level 4: Resource response with Reference:
 
@@ -595,6 +640,8 @@ Level 4: Resource response with Reference:
 
 
 ### Missing attribute
+
+Instructor element: Attribute.
 
 Level 1: Highlight solution
 
@@ -604,7 +651,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> A ${className} has a ${missingAttribute}.
+> A ${inst_attr.cls} has a ${inst_attr}.
 
 Level 4: Resource response with Reference:
 
@@ -612,6 +659,8 @@ Level 4: Resource response with Reference:
 
 
 ### Wrong attribute type
+
+Student element: Attribute. Instructor element: Attribute.
 
 Level 1: Highlight solution
 
@@ -621,11 +670,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Can you think of a better type for ${attribute}?
+> Can you think of a better type for ${stud_attr}?
 
 Level 4: Parametrized response:
 
-> The ${className}.${attribute} should be of type ${correctType}.
+> The ${stud_attr.cls}.${stud_attr} should be of type ${inst_attr.type}.
 
 Level 5: Resource response with Reference:
 
@@ -651,6 +700,8 @@ Level 4: Resource response with Reference:
 
 ### Attribute should be static
 
+Student element: Attribute. Instructor element: Attribute.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -659,7 +710,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${attributeName} should be static, because it applies to all instances of ${includingClass}.
+> ${stud_attr} should be static, because it applies to all instances of ${stud_attr.cls}.
 
 Level 4: Resource response with Reference:
 
@@ -667,6 +718,8 @@ Level 4: Resource response with Reference:
 
 
 ### Attribute should not be static
+
+Student element: Attribute. Instructor element: Attribute.
 
 Level 1: Highlight solution
 
@@ -676,7 +729,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${attributeName} should not be static, because it does not apply to all instances of ${includingClass}.
+> ${stud_attr} should not be static, because it does not apply to all instances of ${stud_attr.cls}.
 
 Level 4: Resource response with Reference:
 
@@ -690,6 +743,8 @@ Level 4: Resource response with Reference:
 
 #### Missing association
 
+Instructor element: Association.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -698,7 +753,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> How would you capture that a ${classOne} has a ${classTwo}?
+> How would you capture the relationship between ${inst_rel.end0} and ${inst_rel.end0}?
 
 Level 4: Resource response with Reference:
 
@@ -710,6 +765,8 @@ better understand these relationships and where they are used.
 
 
 #### Missing aggregation
+
+Instructor element: Association.
 
 Level 1: Highlight solution
 
@@ -753,6 +810,8 @@ better understand these relationships and where they are used.
 
 #### Using attribute instead of association
 
+Student element: Attribute. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -761,7 +820,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${includingClass.attributeName} should be its own class.
+> ${stud_attr} should be its own class.
 
 Level 4: Resource response with List multiple-choice quiz:
 
@@ -785,6 +844,8 @@ better understand these relationships and where they are used.
 
 #### Extra association
 
+Student element: Association. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -793,7 +854,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
+> The relationship between ${stud_rel.end0} and ${stud_rel.end1} is not expressed in the problem description.
 
 Level 4: Resource response with List multiple-choice quiz:
 
@@ -814,6 +875,8 @@ Level 5: Resource response with Reference:
 
 #### Extra aggregation
 
+Student element: Association. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -822,7 +885,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${classOne} and ${classTwo} is redundant.
+> The relationship between ${stud_rel.end0} and ${stud_rel.end1} is redundant.
 
 Level 4: Resource response with Reference:
 
@@ -882,6 +945,8 @@ Level 6: Resource response with Reference:
 
 #### Wrong multiplicity
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -894,7 +959,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> How many ${class1}'s does a ${class2} have? [And how many ${class2}'s does ${class1} have?]
+> How many ${stud_assocend.end0}'s does a ${stud_assocend.end1} have?[ And how many ${stud_assocend.end1}'s does ${stud_assocend.end0} have?]
 
 Level 5: Resource response with List multiple-choice quiz:
 
@@ -950,6 +1015,8 @@ Level 6: Resource response with Reference:
 
 #### Missing role names
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -958,7 +1025,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The multiplicities for the ${assoc} association are correct, but something else is missing!
+> The multiplicities for the ${stud_assocend} association are correct, but something else is missing!
 
 Level 4: Resource response with Reference:
 
@@ -973,6 +1040,8 @@ between the same two classes.
 
 #### Role should be static
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -981,7 +1050,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${roleName} should be static, because it applies to all instances of the association between ${class1} and ${class2}.
+> ${stud_assocend} should be static, because it applies to all instances of the association between ${inst_assocend.end0} and ${inst_assocend.end1}.
 
 Level 4: Resource response with Reference:
 
@@ -990,6 +1059,8 @@ Level 4: Resource response with Reference:
 
 #### Role should not be static
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -998,7 +1069,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${roleName} should not be static, because it doesn't apply to all instances of the association between ${class1} and ${class2}.
+> ${stud_assocend} should not be static, because it doesn't apply to all instances of the association between ${inst_assocend.end0} and ${inst_assocend.end1}.
 
 Level 4: Resource response with Reference:
 
@@ -1006,6 +1077,8 @@ Level 4: Resource response with Reference:
 
 
 #### Bad role name spelling
+
+Student element: Association end. Instructor element: Association end.
 
 Level 1: Highlight solution
 
@@ -1015,7 +1088,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${roleName} is misspelled.[ Use the same spelling as the problem description.]
+> ${stud_assocend} is misspelled.[ Use the same spelling as the problem description.]
 
 Level 4: Resource response with Reference:
 
@@ -1023,6 +1096,8 @@ Level 4: Resource response with Reference:
 
 
 #### Representing an action with an association
+
+Student element: Association end. Instructor element: Association end.
 
 Level 1: Highlight solution
 
@@ -1032,7 +1107,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${wrongRoleName} role name represents an action, which is not correct.[ Use ${correctRoleName} instead.]
+> The ${stud_assocend} role name represents an action, which is not correct.[ Use ${inst_assocend} instead.]
 
 Level 4: Resource response with Reference:
 
@@ -1040,6 +1115,8 @@ Level 4: Resource response with Reference:
 
 
 #### Wrong role name but correct association
+
+Student element: Association end. Instructor element: Association end.
 
 Level 1: Highlight solution
 
@@ -1049,11 +1126,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${wrongRoleName} role name is not correct.
+> The ${stud_assocend} role name is not correct.
 
 Level 4: Parametrized response:
 
-> The ${wrongRoleName} role name should be changed to ${correctRoleName}.
+> The ${stud_assocend} role name should be changed to ${inst_assocend}.
 
 Level 5: Resource response with Reference:
 
@@ -1091,6 +1168,8 @@ better understand these relationships and where they are used.
 
 #### Using composition instead of association
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1112,6 +1191,8 @@ better understand these relationships and where they are used.
 
 #### Using directed relationship instead of undirected relationship
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1120,7 +1201,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${classOne} and ${classTwo} should be undirected.
+> The relationship between ${stud_assocend.end0} and ${stud_assocend.end1} should be undirected.
 
 Level 4: Resource response with Reference:
 
@@ -1128,6 +1209,8 @@ Level 4: Resource response with Reference:
 
 
 #### Using undirected relationship instead of directed relationship
+
+Student element: Association end. Instructor element: Association end.
 
 Level 1: Highlight solution
 
@@ -1144,7 +1227,26 @@ Level 4: Resource response with Reference:
 > Please review the _Directionality in Associations_ section of the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
 
 
+#### Wrong relationship direction
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Double check the direction for this relationship.
+
+Level 3: Parametrized response:
+
+> The direction of the relationship between ${stud_assocend.end0} and ${stud_assocend.end1} should be reversed.
+
+Level 4: Resource response with Reference:
+
+> Please review the _Directionality in Associations_ section of the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
+
+
 #### Using composition instead of aggregation
+
+Student element: Association end. Instructor element: Association end.
 
 Level 1: Highlight solution
 
@@ -1154,7 +1256,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The composition between ${containedClass} and ${containerClass} is better modeled using aggregation.
+> The composition between ${stud_assocend.end0} and ${stud_assocend.end1} is better modeled using aggregation.
 
 Level 4: Resource response with Reference:
 
@@ -1277,6 +1379,8 @@ Level 4: Resource response with Reference:
 
 #### Missing association class
 
+Instructor element: Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1295,6 +1399,8 @@ Level 4: Resource response with Reference:
 
 
 #### Extra association class
+
+Student element: Class. 
 
 Level 1: Highlight solution
 
@@ -1323,6 +1429,8 @@ Level 6: Resource response with Reference:
 
 #### Bad association class name spelling
 
+Student element: Class. Instructor element: Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1331,11 +1439,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${incorrectlySpelledClassName} class has a misspelled name.
+> The ${stud_cls} class has a misspelled name.
 
 Level 4: Parametrized response:
 
-> The ${incorrectlySpelledClassName} class should be changed to ${correctClassName}.
+> The ${stud_cls} class should be changed to ${inst_cls}.
 
 Level 5: Resource response with Reference:
 
@@ -1343,6 +1451,8 @@ Level 5: Resource response with Reference:
 
 
 #### Association class should be regular class
+
+Student element: Class. Instructor element: Class.
 
 Level 1: Highlight solution
 
@@ -1356,7 +1466,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> The ${assocClass} class should be a regular class.
+> The ${inst_cls} class should be a regular class.
 
 Level 5: Resource response with Reference:
 
@@ -1366,6 +1476,8 @@ Level 5: Resource response with Reference:
 
 
 #### Regular class should be association class
+
+Student element: Class. Instructor element: Class.
 
 Level 1: Highlight solution
 
@@ -1379,7 +1491,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> The ${regularClass} class should be an association class.
+> The ${stud_cls} class should be an association class.
 
 Level 5: Resource response with Reference:
 
@@ -1391,6 +1503,8 @@ Level 5: Resource response with Reference:
 ### Composition mistakes
 
 #### Missing composition
+
+Instructor element: Composition.
 
 Level 1: Highlight solution
 
@@ -1413,6 +1527,8 @@ better understand these relationships and where they are used.
 
 #### Extra composition
 
+Student element: Composition. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1421,7 +1537,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${classOne} and ${classTwo} is not expressed in the problem description[, but there is a similar relationship with ${classThree} that is missing].
+> The relationship between ${stud_rel.end0} and ${stud.end1} is not expressed in the problem description.
 
 Level 4: Resource response with Reference:
 
@@ -1434,6 +1550,8 @@ better understand these relationships and where they are used.
 
 #### Using association instead of aggregation
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1442,7 +1560,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${containedClass} and ${containerClass} can be modeled more precisely than with a simple association.
+> The relationship between ${stud_assocend.end0} and ${stud_assocend.end1} can be modeled more precisely than with a simple association.
 
 Level 4: Resource response with Reference:
 
@@ -1455,6 +1573,8 @@ better understand these relationships and where they are used.
 
 #### Using association instead of composition
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1463,7 +1583,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${containedClass} and ${containerClass} is more than a simple association.
+> The relationship between ${stud_assocend.end0} and ${stud_assocend.end1} is more than a simple association..
 
 Level 4: Resource response with Reference:
 
@@ -1476,6 +1596,8 @@ better understand these relationships and where they are used.
 
 #### Using aggregation instead of composition
 
+Student element: Association end. Instructor element: Association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1484,7 +1606,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${containedClass} and ${containerClass} is stronger than an aggregation.
+> The relationship between ${stud_assocend.end0} and ${stud_assocend.end1} is stronger than an aggregation.
 
 Level 4: Resource response with Reference:
 
@@ -1783,6 +1905,8 @@ Level 6: Resource response with Reference:
 
 #### Non-differentiated subclass
 
+Student element: Class. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1791,7 +1915,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${wrongSubclass} needs to be different from its superclass[ and its sibling subclasses] in terms of behavior or structure.
+> ${stud_cls} needs to be different from its superclass, and any sibling subclasses, in terms of behavior or structure.
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 

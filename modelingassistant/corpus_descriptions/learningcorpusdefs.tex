@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus script.
-% Generation time: 2022-01-30 14:41:12
+% Generation time: 2022-02-15 14:44:54
 
 \textbf{Legend:}
 In the textual responses, items in \verb|${this format}| represent the parameters of
@@ -15,6 +15,8 @@ text which may or may not be included, depending on the student's knowledge.
 
 \subsubsection{Plural class name}
 
+Student element: Class. Instructor element: Class. \medskip
+
 \noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -26,7 +28,7 @@ Remember that class names should be singular.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${className}| should be \verb|${singular(className)}|, using the singular.
+\verb|${stud_cls}| should be \verb|${inst_cls}|, using the singular.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Example: \medskip
@@ -54,6 +56,8 @@ Please review the \textit{Classes} part of the Class Diagram lecture.
 
 \subsubsection{Lowercase class name}
 
+Student element: Class. Instructor element: Class. \medskip
+
 \noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -65,7 +69,7 @@ Remember that class names must start with a capital letter.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${className}| should be \verb|${pascalCase(className)}|, with a capital letter.
+\verb|${stud_cls}| should be \verb|${inst_cls}|, with a capital letter.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Example: \medskip
@@ -93,6 +97,8 @@ Please review the \textit{Classes} part of the Class Diagram lecture.
 
 \subsubsection{Software engineering term}
 
+Student element: Class. Instructor element: Class. \medskip
+
 \noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -104,7 +110,7 @@ Remember that a domain model should not contain software engineering terms.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${className}| contains a software engineering term, which does not belong in a domain model.
+\verb|${stud_cls}| contains a software engineering term, which does not belong in a domain model.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Example: \medskip
@@ -132,6 +138,8 @@ Please review the \textit{Classes} part of the Class Diagram lecture.
 
 \subsubsection{Bad class name spelling}
 
+Student element: Class. Instructor element: Class. \medskip
+
 \noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -143,13 +151,13 @@ Double check this class name.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${incorrectlySpelledClassName}| class has a misspelled name.
+The \verb|${stud_cls}| class has a misspelled name.
 \end{tabular} \medskip
 
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${incorrectlySpelledClassName}| class should be changed to \verb|${correctClassName}|.
+The \verb|${stud_cls}| class should be changed to \verb|${inst_cls}|.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -161,6 +169,8 @@ Please review the \textit{Classes} part of the Class Diagram lecture.
 
 \subsubsection{Wrong class name but correct attribute/relationship}
 
+Student element: Class. Instructor element: Class. \medskip
+
 \noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -172,13 +182,13 @@ Double check this class name.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${similarYetIncorrectClassName}| class has a name that is not quite right but the attributes and/or associations are correct.
+The \verb|${stud_cls}| class has a name that is not quite right but the attributes and/or associations are correct.
 \end{tabular} \medskip
 
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${similarYetIncorrectClassName}| class should be changed to \verb|${correctClassName}|.
+The \verb|${stud_cls}| class should be changed to \verb|${inst_cls}|.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -192,7 +202,9 @@ Please review the \textit{Classes} part of the Class Diagram lecture.
 
 \subsubsection{Regular class should be enumeration}
 
-\noindent Level 1: Highlight solution  \medskip
+Student element: Class. Instructor element: Enumeration. \medskip
+
+\noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -203,7 +215,7 @@ Is there anything special about this class?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${className}| can only be one of \verb|${correctEnumSize}| options, so what is the best way to model this?
+The \verb|${stud_cls}| can only be one of \verb|${inst_enum.literals.length}| options, so what is the best way to model this?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -215,7 +227,9 @@ Please review the \textit{Enumeration} part of the Class Diagram lecture.
 
 \subsubsection{Enumeration should be regular class}
 
-\noindent Level 1: Highlight solution  \medskip
+Student element: Enumeration. Instructor element: Class. \medskip
+
+\noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -226,7 +240,7 @@ Is there anything special about this class?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Is \verb|${className}| limited to the options shown in (an$|$this) enumeration? Can this be modeled differently?
+Is \verb|${stud_enum}| limited to a fixed set of options? Can this be modeled differently?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -237,6 +251,8 @@ Please review the \textit{Enumeration} part of the Class Diagram lecture.
 
 
 \subsubsection{Missing enumeration}
+
+Instructor element: Enumeration. \medskip
 
 \noindent Level 1: Highlight sentence in problem statement referring to item \medskip
 
@@ -255,7 +271,7 @@ Model this concept with an enumeration.
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Add an \verb|${enumName}| enumeration.
+Add an \verb|${inst_enum}| enumeration.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -266,6 +282,8 @@ Please review the \textit{Enumeration} part of the Class Diagram lecture.
 
 
 \subsubsection{Extra enumeration}
+
+Student element: Enumeration.  \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -278,7 +296,7 @@ Is this enumeration really necessary?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Remove the \verb|${extraEnum}| enumeration. It is not needed.
+Remove the \verb|${stud_enum}| enumeration. It is not needed.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -289,6 +307,8 @@ Please review the \textit{Enumeration} part of the Class Diagram lecture.
 
 
 \subsubsection{Bad enumeration name spelling}
+
+Student element: Enumeration. Instructor element: Enumeration. \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -301,7 +321,7 @@ Double check the name of this enumeration.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${wronglyNamedEnum}| should be changed[ to \verb|${correctEnumName}|].
+The \verb|${stud_enum}| should be changed[ to \verb|${inst_enum}|].
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -312,6 +332,8 @@ Please review the \textit{Enumeration} part of the Class Diagram lecture.
 
 
 \subsubsection{Missing enumeration item}
+
+Instructor element: Enumeration item. \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -324,7 +346,7 @@ Is there anything missing here?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${enumName}| enumeration is missing an item.
+The \verb|${inst_enumitem.enum}| enumeration is missing an item.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -335,6 +357,8 @@ Please review the \textit{Enumeration} part of the Class Diagram lecture.
 
 
 \subsubsection{Extra enumeration item}
+
+Student element: Enumeration item.  \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -347,7 +371,7 @@ Should this really be here?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${enumName}| enumeration has an extra item.
+\verb|${stud_enumitem}| does not belong in the \verb|${stud_enumitem.enum}| enumeration.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -358,6 +382,8 @@ Please review the \textit{Enumeration} part of the Class Diagram lecture.
 
 
 \subsubsection{Bad enumeration item spelling}
+
+Student element: Enumeration item. Instructor element: Enumeration item. \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -370,7 +396,7 @@ Double check this enumeration item.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${wronglyNamedEnumItem}| should be changed[ to \verb|${correctEnumItemName}|].
+The \verb|${stud_enumitem}| should be changed[ to \verb|${inst_enumitem}|].
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -381,6 +407,8 @@ Please review the \textit{Enumeration} part of the Class Diagram lecture.
 
 
 \subsection{Missing class}
+
+Instructor element: Class. \medskip
 
 \noindent Level 1: Highlight sentence in problem statement referring to item \medskip
 
@@ -395,7 +423,7 @@ Make sure you have modeled all the classes in the problem description.
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Remember to add the \verb|${className}| class.
+Remember to add the \verb|${inst_cls}| class.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -406,6 +434,8 @@ Please review the \textit{Classes} part of the Class Diagram lecture.
 
 
 \subsection{Extra class}
+
+Student element: Class.  \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -424,7 +454,7 @@ You have an extra class. Can you find it?
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${className}| class is not part of the problem domain, so please remove it.
+The \verb|${stud_cls}| class is not part of the problem domain, so please remove it.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -441,6 +471,8 @@ Please review the \textit{Classes} part of the Class Diagram lecture.
 
 \subsubsection{Bad attribute name spelling}
 
+Student element: Attribute. Instructor element: Attribute. \medskip
+
 \noindent Level 1: Highlight solution (Attribute) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -452,7 +484,7 @@ Double check this attribute name.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${wrongAttribute}| is misspelled. [Use the same spelling as the problem description.]
+\verb|${stud_attr}| is misspelled.[ Use the same spelling as the problem description.]
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -463,6 +495,8 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 
 \subsubsection{Uppercase attribute name}
+
+Student element: Attribute. Instructor element: Attribute. \medskip
 
 \noindent Level 1: Highlight solution (Attribute) \medskip
 
@@ -475,7 +509,7 @@ Remember that attributes are written in `lowerCamelCase`.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${wrongAttribute}| incorrectly starts with an uppercase letter. Attributes should start with a lowercase letter.
+\verb|${stud_attr.cls}|.\verb|${stud_attr}| incorrectly starts with an uppercase letter. Attributes should start with a lowercase letter.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -489,6 +523,8 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 \subsubsection{Attribute misplaced}
 
+Student element: Attribute. Instructor element: Attribute. \medskip
+
 \noindent Level 1: Highlight solution (Attribute) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -500,13 +536,13 @@ Can you think of a better place for this attribute?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${misplacedAttribute}| does not belong in the \verb|${wrongClass}| class. Where else can we place it?
+The \verb|${stud_attr}| does not belong in the \verb|${stud_attr.cls}| class. Where else can we place it?
 \end{tabular} \medskip
 
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${misplacedAttribute}| belongs in the \verb|${correctClass}| class.
+The \verb|${stud_attr}| belongs in the \verb|${inst_attr.cls}| class.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -517,6 +553,8 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 
 \subsubsection{Attribute duplicated}
+
+Student element: Attribute.  \medskip
 
 \noindent Level 1: Highlight solution (Attribute) \medskip
 
@@ -535,7 +573,7 @@ Does this need to be included more than once?
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${duplicateAttribute}| already exists in \verb|${correctClass}|, so there is no need to include it again.
+The \verb|${stud_attr}| already exists in another class, so there is no need to include it again.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -546,6 +584,8 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 
 \subsubsection{Attribute misplaced in generalization hierarchy}
+
+Student element: Attribute. Instructor element: Attribute. \medskip
 
 \noindent Level 1: Highlight solution (Attribute) \medskip
 
@@ -558,7 +598,7 @@ Can you think of a better place for this?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${misplacedAttribute}| belongs in \verb|${correctClass}|.
+The \verb|${stud_attr}| belongs in \verb|${inst_attr.cls}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -572,6 +612,8 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 \subsubsection{Plural attribute}
 
+Student element: Attribute. Instructor element: Attribute. \medskip
+
 \noindent Level 1: Highlight solution (Attribute) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -583,7 +625,7 @@ Double check this attribute name.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${attributeName}| attribute should be singular.
+The \verb|${stud_attr.cls}|.\verb|${stud_attr}| attribute should be singular.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with List multiple-choice quiz: \medskip
@@ -652,6 +694,8 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 \subsubsection{Extra attribute}
 
+Student element: Attribute.  \medskip
+
 \noindent Level 1: Highlight solution (Attribute) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -663,7 +707,7 @@ Do we really need to model this concept?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${redundantAttribute}| in the \verb|${className}| class is not needed.
+The \verb|${stud_attr}| in the \verb|${stud_attr.cls}| class is not needed.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -674,6 +718,8 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 
 \subsection{Missing attribute}
+
+Instructor element: Attribute. \medskip
 
 \noindent Level 1: Highlight solution (Attribute) \medskip
 
@@ -686,7 +732,7 @@ Make sure to model all the attributes of this class.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-A \verb|${className}| has a \verb|${missingAttribute}|.
+A \verb|${inst_attr.cls}| has a \verb|${inst_attr}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -697,6 +743,8 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 
 \subsection{Wrong attribute type}
+
+Student element: Attribute. Instructor element: Attribute. \medskip
 
 \noindent Level 1: Highlight solution (Attribute) \medskip
 
@@ -709,13 +757,13 @@ Double check the properties of this attribute.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can you think of a better type for \verb|${attribute}|?
+Can you think of a better type for \verb|${stud_attr}|?
 \end{tabular} \medskip
 
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${className}|.\verb|${attribute}| should be of type \verb|${correctType}|.
+The \verb|${stud_attr.cls}|.\verb|${stud_attr}| should be of type \verb|${inst_attr.type}|.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -750,6 +798,8 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 \subsection{Attribute should be static}
 
+Student element: Attribute. Instructor element: Attribute. \medskip
+
 \noindent Level 1: Highlight solution (Attribute) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -761,7 +811,7 @@ Isn't there something special about this attribute?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${attributeName}| should be static, because it applies to all instances of \verb|${includingClass}|.
+\verb|${stud_attr}| should be static, because it applies to all instances of \verb|${stud_attr.cls}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -772,6 +822,8 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 
 \subsection{Attribute should not be static}
+
+Student element: Attribute. Instructor element: Attribute. \medskip
 
 \noindent Level 1: Highlight solution (Attribute) \medskip
 
@@ -784,7 +836,7 @@ Double check the properties of this attribute.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${attributeName}| should not be static, because it does not apply to all instances of \verb|${includingClass}|.
+\verb|${stud_attr}| should not be static, because it does not apply to all instances of \verb|${stud_attr.cls}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -801,6 +853,8 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 \subsubsection{Missing association}
 
+Instructor element: Association. \medskip
+
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -812,7 +866,7 @@ What is the relationship between these classes?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How would you capture that a \verb|${classOne}| has a \verb|${classTwo}|?
+How would you capture the relationship between \verb|${inst_rel.end0}| and \verb|${inst_rel.end0}|?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -828,6 +882,8 @@ better understand these relationships and where they are used.
 
 
 \subsubsection{Missing aggregation}
+
+Instructor element: Association. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -885,7 +941,9 @@ better understand these relationships and where they are used.
 
 \subsubsection{Using attribute instead of association}
 
-\noindent Level 1: Highlight solution (Attribute) \medskip
+Student element: Attribute. Instructor element: Association end. \medskip
+
+\noindent Level 1: Highlight solution (Relationship) \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -896,7 +954,7 @@ Remember that attributes are simple pieces of data.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${includingClass.attributeName}| should be its own class.
+\verb|${stud_attr}| should be its own class.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with List multiple-choice quiz: \medskip
@@ -930,6 +988,8 @@ better understand these relationships and where they are used.
 
 \subsubsection{Extra association}
 
+Student element: Association.  \medskip
+
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -941,7 +1001,7 @@ Is this association really necessary?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${classOne}| and \verb|${classTwo}| is not expressed in the problem description[, but there is a similar relationship with \verb|${classThree}| that is missing].
+The relationship between \verb|${stud_rel.end0}| and \verb|${stud_rel.end1}| is not expressed in the problem description.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with List multiple-choice quiz: \medskip
@@ -972,7 +1032,9 @@ Please review the \textit{domain modeling lecture} to know which concepts should
 
 \subsubsection{Extra aggregation}
 
-\noindent Level 1: Highlight solution  \medskip
+Student element: Association.  \medskip
+
+\noindent Level 1: Highlight solution (Relationship) \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -983,7 +1045,7 @@ Is this aggregation really necessary?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${classOne}| and \verb|${classTwo}| is redundant.
+The relationship between \verb|${stud_rel.end0}| and \verb|${stud_rel.end1}| is redundant.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1066,6 +1128,8 @@ Please review the \textit{multiplicities} part of the Class Diagram lecture.
 
 \subsubsection{Wrong multiplicity}
 
+Student element: Association end. Instructor element: Association end. \medskip
+
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -1083,7 +1147,7 @@ The multiplicit(y$|$ies) for this association (is$|$are) incorrect.
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How many \verb|${class1}|'s does a \verb|${class2}| have? [And how many \verb|${class2}|'s does \verb|${class1}| have?]
+How many \verb|${stud_assocend.end0}|'s does a \verb|${stud_assocend.end1}| have?[ And how many \verb|${stud_assocend.end1}|'s does \verb|${stud_assocend.end0}| have?]
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with List multiple-choice quiz: \medskip
@@ -1162,7 +1226,9 @@ Please review the \textit{multiplicities} part of the Class Diagram lecture.
 
 \subsubsection{Missing role names}
 
-\noindent Level 1: Highlight solution  \medskip
+Student element: Association end. Instructor element: Association end. \medskip
+
+\noindent Level 1: Highlight solution (Relationship) \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -1173,7 +1239,7 @@ Can you model this relationship more precisely?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The multiplicities for the \verb|${assoc}| association are correct, but something else is missing!
+The multiplicities for the \verb|${stud_assocend}| association are correct, but something else is missing!
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1192,6 +1258,8 @@ between the same two classes.
 
 \subsubsection{Role should be static}
 
+Student element: Association end. Instructor element: Association end. \medskip
+
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -1203,7 +1271,7 @@ Isn't there something special about this role name?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${roleName}| should be static, because it applies to all instances of the association between \verb|${class1}| and \verb|${class2}|.
+\verb|${stud_assocend}| should be static, because it applies to all instances of the association between \verb|${inst_assocend.end0}| and \verb|${inst_assocend.end1}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1215,6 +1283,8 @@ Please review the \textit{Association} part of the Class Diagram lecture.
 
 \subsubsection{Role should not be static}
 
+Student element: Association end. Instructor element: Association end. \medskip
+
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -1226,7 +1296,7 @@ Isn't there something special about this role name?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${roleName}| should not be static, because it doesn't apply to all instances of the association between \verb|${class1}| and \verb|${class2}|.
+\verb|${stud_assocend}| should not be static, because it doesn't apply to all instances of the association between \verb|${inst_assocend.end0}| and \verb|${inst_assocend.end1}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1237,6 +1307,8 @@ Please review the \textit{Association} part of the Class Diagram lecture.
 
 
 \subsubsection{Bad role name spelling}
+
+Student element: Association end. Instructor element: Association end. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1249,7 +1321,7 @@ Double check this role name
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${roleName}| is misspelled.[ Use the same spelling as the problem description.]
+\verb|${stud_assocend}| is misspelled.[ Use the same spelling as the problem description.]
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1261,7 +1333,9 @@ Please review the \textit{Association} and \textit{Noun Analysis} parts of the C
 
 \subsubsection{Representing an action with an association}
 
-\noindent Level 1: Highlight solution  \medskip
+Student element: Association end. Instructor element: Association end. \medskip
+
+\noindent Level 1: Highlight solution (Relationship) \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -1272,7 +1346,7 @@ Is this the best role name to use here?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${wrongRoleName}| role name represents an action, which is not correct.[ Use \verb|${correctRoleName}| instead.]
+The \verb|${stud_assocend}| role name represents an action, which is not correct.[ Use \verb|${inst_assocend}| instead.]
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1283,6 +1357,8 @@ Please review the \textit{Association} and \textit{Noun Analysis} parts of the C
 
 
 \subsubsection{Wrong role name but correct association}
+
+Student element: Association end. Instructor element: Association end. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1295,13 +1371,13 @@ Double check this role name.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${wrongRoleName}| role name is not correct.
+The \verb|${stud_assocend}| role name is not correct.
 \end{tabular} \medskip
 
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${wrongRoleName}| role name should be changed to \verb|${correctRoleName}|.
+The \verb|${stud_assocend}| role name should be changed to \verb|${inst_assocend}|.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -1350,6 +1426,8 @@ better understand these relationships and where they are used.
 
 \subsubsection{Using composition instead of association}
 
+Student element: Association end. Instructor element: Association end. \medskip
+
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -1378,6 +1456,8 @@ better understand these relationships and where they are used.
 
 \subsubsection{Using directed relationship instead of undirected relationship}
 
+Student element: Association end. Instructor element: Association end. \medskip
+
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -1389,7 +1469,7 @@ Why is navigation restricted for this relationship?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${classOne}| and \verb|${classTwo}| should be undirected.
+The relationship between \verb|${stud_assocend.end0}| and \verb|${stud_assocend.end1}| should be undirected.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1400,6 +1480,8 @@ Please review the _Directionality in Associations_ section of the \textit{UML Cl
 
 
 \subsubsection{Using undirected relationship instead of directed relationship}
+
+Student element: Association end. Instructor element: Association end. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1422,7 +1504,32 @@ Please review the _Directionality in Associations_ section of the \textit{UML Cl
 \end{tabular} \medskip
 
 
+\subsubsection{Wrong relationship direction}
+
+\noindent Level 1: Highlight solution  \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Double check the direction for this relationship.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The direction of the relationship between \verb|${stud_assocend.end0}| and \verb|${stud_assocend.end1}| should be reversed.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the _Directionality in Associations_ section of the \textit{UML Class Diagram lecture slides}
+\end{tabular} \medskip
+
+
 \subsubsection{Using composition instead of aggregation}
+
+Student element: Association end. Instructor element: Association end. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1435,7 +1542,7 @@ Is this the best relationship to use here?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The composition between \verb|${containedClass}| and \verb|${containerClass}| is better modeled using aggregation.
+The composition between \verb|${stud_assocend.end0}| and \verb|${stud_assocend.end1}| is better modeled using aggregation.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1600,6 +1707,8 @@ Please review the \textit{Association} and \textit{Noun Analysis} parts of the C
 
 \subsubsection{Missing association class}
 
+Instructor element: Class. \medskip
+
 \noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -1625,6 +1734,8 @@ Association class
 
 
 \subsubsection{Extra association class}
+
+Student element: Class.  \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -1664,7 +1775,9 @@ Association class
 
 \subsubsection{Bad association class name spelling}
 
-\noindent Level 1: Highlight solution  \medskip
+Student element: Class. Instructor element: Class. \medskip
+
+\noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -1675,13 +1788,13 @@ Double check this association class name.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${incorrectlySpelledClassName}| class has a misspelled name.
+The \verb|${stud_cls}| class has a misspelled name.
 \end{tabular} \medskip
 
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${incorrectlySpelledClassName}| class should be changed to \verb|${correctClassName}|.
+The \verb|${stud_cls}| class should be changed to \verb|${inst_cls}|.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -1692,6 +1805,8 @@ Please review the \textit{Classes} part of the Class Diagram lecture.
 
 
 \subsubsection{Association class should be regular class}
+
+Student element: Class. Instructor element: Class. \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -1710,7 +1825,7 @@ Is using an association class the best way to model this?
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${assocClass}| class should be a regular class.
+The \verb|${inst_cls}| class should be a regular class.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -1724,6 +1839,8 @@ Association class
 
 
 \subsubsection{Regular class should be association class}
+
+Student element: Class. Instructor element: Class. \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -1742,7 +1859,7 @@ Is using a regular class the best way to model this?
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${regularClass}| class should be an association class.
+The \verb|${stud_cls}| class should be an association class.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -1758,6 +1875,8 @@ Association class
 \subsection{Composition mistakes}
 
 \subsubsection{Missing composition}
+
+Instructor element: Composition. \medskip
 
 \noindent Level 1: Highlight solution (Composition) \medskip
 
@@ -1787,6 +1906,8 @@ better understand these relationships and where they are used.
 
 \subsubsection{Extra composition}
 
+Student element: Composition.  \medskip
+
 \noindent Level 1: Highlight solution (Composition) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -1798,7 +1919,7 @@ Is this composition really necessary?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${classOne}| and \verb|${classTwo}| is not expressed in the problem description[, but there is a similar relationship with \verb|${classThree}| that is missing].
+The relationship between \verb|${stud_rel.end0}| and \verb|${stud.end1}| is not expressed in the problem description.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1815,6 +1936,8 @@ better understand these relationships and where they are used.
 
 \subsubsection{Using association instead of aggregation}
 
+Student element: Association end. Instructor element: Association end. \medskip
+
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -1826,7 +1949,7 @@ What is the relationship between these two concepts?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${containedClass}| and \verb|${containerClass}| can be modeled more precisely than with a simple association.
+The relationship between \verb|${stud_assocend.end0}| and \verb|${stud_assocend.end1}| can be modeled more precisely than with a simple association.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1843,6 +1966,8 @@ better understand these relationships and where they are used.
 
 \subsubsection{Using association instead of composition}
 
+Student element: Association end. Instructor element: Association end. \medskip
+
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -1854,7 +1979,7 @@ What is the relationship between these two concepts?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${containedClass}| and \verb|${containerClass}| is more than a simple association.
+The relationship between \verb|${stud_assocend.end0}| and \verb|${stud_assocend.end1}| is more than a simple association..
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1871,6 +1996,8 @@ better understand these relationships and where they are used.
 
 \subsubsection{Using aggregation instead of composition}
 
+Student element: Association end. Instructor element: Association end. \medskip
+
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -1882,7 +2009,7 @@ Is this the best relationship to use here?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${containedClass}| and \verb|${containerClass}| is stronger than an aggregation.
+The relationship between \verb|${stud_assocend.end0}| and \verb|${stud_assocend.end1}| is stronger than an aggregation.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -2307,6 +2434,8 @@ Please review the \textit{Generalization} part of the Class Diagram lecture.
 
 \subsubsection{Non-differentiated subclass}
 
+Student element: Class.  \medskip
+
 \noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -2318,7 +2447,7 @@ Is it really necessary to model this as a subclass?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${wrongSubclass}| needs to be different from its superclass[ and its sibling subclasses] in terms of behavior or structure.
+\verb|${stud_cls}| needs to be different from its superclass, and any sibling subclasses, in terms of behavior or structure.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
@@ -2349,7 +2478,7 @@ Please review the \textit{Generalization} part of the Class Diagram lecture.
 
 \subsubsection{Wrong generalization direction}
 
-\noindent Level 1: Highlight solution  \medskip
+\noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -3134,7 +3263,7 @@ from each other in an important way.
 
 \subsubsection{Generalization should be association in Abstraction-Occurrence pattern}
 
-\noindent Level 1: Highlight solution  \medskip
+\noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
 

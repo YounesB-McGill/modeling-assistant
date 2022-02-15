@@ -3,8 +3,10 @@ This file contains all mistake types and categories.
 """
 
 from constants import LEARNING_CORPUS_PATH
+from corpus import corpus as runtime_corpus
 from fileserdes import load_lc
 from learningcorpus import MistakeTypeCategory, MistakeType
+from utils import mdf
 
 corpus = load_lc(LEARNING_CORPUS_PATH)
 
@@ -12,9 +14,14 @@ corpus = load_lc(LEARNING_CORPUS_PATH)
 MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[str, MistakeTypeCategory] = {c.name: c for c in corpus.mistakeTypeCategories}
 MISTAKE_TYPES_BY_NAME: dict[str, MistakeType] = {mt.name: mt for mt in corpus.mistakeTypes()}
 
-# Short-name references to the above maps for greater code legibility
+# Short-name references to the above dicts for greater code legibility
 _MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
 _MTS = MISTAKE_TYPES_BY_NAME
+
+# Add mistake detection format attribute to mistake types in _MTS
+for mt in runtime_corpus.mistakeTypes():
+    _MTS[mt.name].md_format = getattr(mt, "md_format", mdf([], []))
+
 
 # Mistake type categories
 CLASS_MISTAKES: MistakeTypeCategory = _MTCS["Class mistakes"]
@@ -89,6 +96,7 @@ USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED: MistakeType = \
     _MTS["Using directed relationship instead of undirected"]
 USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED: MistakeType = \
     _MTS["Using undirected relationship instead of directed"]
+WRONG_RELATIONSHIP_DIRECTION: MistakeType = _MTS["Wrong relationship direction"]
 USING_COMPOSITION_INSTEAD_OF_AGGREGATION: MistakeType = _MTS["Using composition instead of aggregation"]
 USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC: MistakeType = _MTS["Using binary assoc instead of n-ary assoc"]
 USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC: MistakeType = _MTS["Using n-ary assoc instead of binary assoc"]
