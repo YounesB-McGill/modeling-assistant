@@ -498,6 +498,13 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         "directed[ from ${classOne} to ${classTwo}]."),
                     4: ResourceResponse(learningResources=[dir_rel_ref]),
                 })),
+            wrong_relationship_direction := mt(n="Wrong relationship direction", feedbacks=fbs({
+                1: Feedback(highlightSolution=True),
+                2: TextResponse(text="Double check the direction for this relationship."),
+                3: ParametrizedResponse(text="The direction of the relationship between ${stud_assocend.end0} and "
+                                             "${stud_assocend.end1} should be reversed."),
+                4: ResourceResponse(learningResources=[dir_rel_ref]),
+            })),
             using_composition_instead_of_aggregation := mt(
                 n="Using composition instead of aggregation", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
@@ -1061,6 +1068,7 @@ mts_by_priority: list[MistakeType] = [
     using_aggregation_instead_of_assoc,
     using_directed_relationship_instead_of_undirected,
     using_undirected_relationship_instead_of_directed,
+    wrong_relationship_direction,
     using_aggregation_instead_of_composition,
     using_composition_instead_of_aggregation,
     using_binary_assoc_instead_of_nary_assoc,

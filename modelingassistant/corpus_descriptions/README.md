@@ -61,6 +61,7 @@
       1. [Using composition instead of association](#using-composition-instead-of-association)
       1. [Using directed relationship instead of undirected relationship](#using-directed-relationship-instead-of-undirected-relationship)
       1. [Using undirected relationship instead of directed relationship](#using-undirected-relationship-instead-of-directed-relationship)
+      1. [Wrong relationship direction](#wrong-relationship-direction)
       1. [Using composition instead of aggregation](#using-composition-instead-of-aggregation)
       1. [Using binary association instead of n-ary association](#using-binary-association-instead-of-n-ary-association)
       1. [Using n-ary association instead of binary association](#using-n-ary-association-instead-of-binary-association)
@@ -1220,6 +1221,23 @@ Level 2: Parametrized response:
 Level 3: Parametrized response:
 
 > The relationship between ${classOne} and ${classTwo} should be directed[ from ${classOne} to ${classTwo}].
+
+Level 4: Resource response with Reference:
+
+> Please review the _Directionality in Associations_ section of the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
+
+
+#### Wrong relationship direction
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Double check the direction for this relationship.
+
+Level 3: Parametrized response:
+
+> The direction of the relationship between ${stud_assocend.end0} and ${stud_assocend.end1} should be reversed.
 
 Level 4: Resource response with Reference:
 
