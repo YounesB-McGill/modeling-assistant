@@ -2944,14 +2944,14 @@ public class MistakeDetection {
   /** Returns true if both association ends have the same reference type. */
   public static boolean associationEndsMatchType(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
-    return studentClassAssocEnd.getReferenceType().equals(instructorClassAssocEnd.getReferenceType());
+    return studentClassAssocEnd.getReferenceType() == instructorClassAssocEnd.getReferenceType();
   }
 
   /** Returns true if both association ends match the given reference type or not. */
   public static boolean associationEndsMatchType(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd, ReferenceType assocTypeS, ReferenceType assocTypeI) {
-    return studentClassAssocEnd.getReferenceType().equals(assocTypeS)
-        && instructorClassAssocEnd.getReferenceType().equals(assocTypeI);
+    return studentClassAssocEnd.getReferenceType() == assocTypeS
+        && instructorClassAssocEnd.getReferenceType() == assocTypeI;
   }
 
   public static boolean associationEndMultiplicityMatch(AssociationEnd studentClassAssocEnd,
