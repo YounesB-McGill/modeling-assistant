@@ -881,9 +881,9 @@ public class MistakeDetection {
     Classifier instAbsClass = null;
     Classifier instOccClass = null;
     for (Tag tag : tg.getTags()) {
-      if (tag.getTagType().equals(ABSTRACTION)) {
+      if (tag.getTagType() == ABSTRACTION) {
         instAbsClass = (Classifier) tag.getSolutionElement().getElement();
-      } else if (tag.getTagType().equals(OCCURRENCE)) {
+      } else if (tag.getTagType() == OCCURRENCE) {
         instOccClass = (Classifier) tag.getSolutionElement().getElement();
       }
     }
@@ -892,7 +892,7 @@ public class MistakeDetection {
 
     if (!studOccClass.getSuperTypes().isEmpty() && studOccClass.getSuperTypes().get(0).equals(studAbsClass)) {
       comparison.newMistakes.add(createMistake(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN,
-          List.of(studAbsClass, studOccClass), List.of(instAbsClass, instOccClass)));
+          List.of(studOccClass, studAbsClass), List.of(instAbsClass, instOccClass)));
     } else if (!studAbsClass.getSuperTypes().isEmpty() && studAbsClass.getSuperTypes().get(0).equals(studOccClass)) {
       comparison.newMistakes.add(createMistake(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN,
           List.of(studAbsClass, studOccClass), List.of(instAbsClass, instOccClass)));
