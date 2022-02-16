@@ -6,7 +6,7 @@
   <classes xsi:type="classdiagram:Class" xmi:id="_9r1NIOTKEeu_VuaFXnESgw" name="Person">
     <associationEnds xmi:id="_-0VGQOTKEeu_VuaFXnESgw" name="myRoot" assoc="_-0VGQuTKEeu_VuaFXnESgw" lowerBound="1"/>
     <associationEnds xmi:id="__nMGkOTKEeu_VuaFXnESgw" name="Parent" assoc="__nMtoOTKEeu_VuaFXnESgw" lowerBound="2" upperBound="2"/>
-    <associationEnds xmi:id="__nMGkeTKEeu_VuaFXnESgw" name="Child" assoc="__nMtoOTKEeu_VuaFXnESgw" lowerBound="1" upperBound="-1"/>
+    <associationEnds xmi:id="__nMGkeTKEeu_VuaFXnESgw" name="Child" assoc="__nMtoOTKEeu_VuaFXnESgw" lowerBound="0" upperBound="-1"/>
   </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_8gk68eTKEeu_VuaFXnESgw"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_8gk68uTKEeu_VuaFXnESgw"/>

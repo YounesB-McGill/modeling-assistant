@@ -1618,34 +1618,38 @@ public class MistakeDetection {
     return seekedAssocAndEnds;
   }
 
-  private static void checkMistakesForAssociationEnds(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd, Comparison comparison) {
+  private static void checkMistakesForAssociationEnds(AssociationEnd studentClassAE,
+      AssociationEnd instructorClassAE, Comparison comparison) {
     final Consumer<? super Mistake> addMist = comparison.newMistakes::add; // method reference to save space
-    checkMistakeUsingAssociationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeUsingAssociationInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeUsingCompositionInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeUsingAggregationInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeUsingAggregationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeUsingCompositionInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeUsingDirectedInsteadOfUndirected(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeUsingUndirectedInsteadOfDirected(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeRepresentingActionWithAssoc(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeOtherWrongMultiplicity(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeMissingRoleName(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeRoleNameExpectedStactic(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeRoleNameNotExpectedStactic(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeRoleNamePresentButIncorrect(studentClassAssocEnd, instructorClassAssocEnd,comparison).ifPresent(addMist);
-    checkMistakeBadRoleNameSpelling(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeUsingAssociationInsteadOfComposition(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeUsingAssociationInsteadOfAggregation(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeUsingCompositionInsteadOfAssociation(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeUsingAggregationInsteadOfAssociation(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeUsingAggregationInsteadOfComposition(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeUsingCompositionInsteadOfAggregation(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeUsingDirectedInsteadOfUndirected(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeUsingUndirectedInsteadOfDirected(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeRepresentingActionWithAssoc(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeOtherWrongMultiplicity(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeMissingRoleName(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeRoleNameExpectedStactic(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeRoleNameNotExpectedStactic(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeRoleNamePresentButIncorrect(studentClassAE, instructorClassAE,comparison).ifPresent(addMist);
+    checkMistakeBadRoleNameSpelling(studentClassAE, instructorClassAE).ifPresent(addMist);
   }
 
   /** Check for infinite recursive dependency. */
-  private static void checkMistakeInfiniteRecursiveDependency(AssociationEnd studentClassAssocEnd,
-      AssociationEnd otherStudentClassAssocEnd, Comparison comparison) {
-    if (!isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, studentClassAssocEnd, comparison)
-        && !isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, otherStudentClassAssocEnd, comparison)
-        && (studentClassAssocEnd.getLowerBound() >= 1 && otherStudentClassAssocEnd.getLowerBound() >= 1)) {
-      comparison.newMistakes.add(
-          createMistake(INFINITE_RECURSIVE_DEPENDENCY, List.of(studentClassAssocEnd, otherStudentClassAssocEnd), null));
+  private static void checkMistakeInfiniteRecursiveDependency(AssociationEnd studentClassAE,
+      AssociationEnd otherStudentClassAE, Comparison comparison) {
+    var aelb = studentClassAE.getLowerBound();
+    var otherAelb = otherStudentClassAE.getLowerBound();
+    if (!isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, studentClassAE, comparison)
+        && !isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, otherStudentClassAE, comparison)
+        && (aelb >= 1 || otherAelb >= 1)) {
+      // associate the AEs to the mistake with the smaller lower bound one first (usually 1)
+      var lowerBoundAE = aelb == Math.min(aelb, otherAelb) ? studentClassAE : otherStudentClassAE;
+      var otherAE = studentClassAE == lowerBoundAE ? otherStudentClassAE : studentClassAE;
+      comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY, List.of(lowerBoundAE, otherAE), null));
     }
   }
 
