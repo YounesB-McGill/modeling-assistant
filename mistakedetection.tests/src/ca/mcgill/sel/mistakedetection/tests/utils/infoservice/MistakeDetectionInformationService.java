@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -17,6 +18,7 @@ import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.CdmFactory;
 import ca.mcgill.sel.classdiagram.ReferenceType;
 import ca.mcgill.sel.mistakedetection.Comparison;
+import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
 import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedParametrizedResponses;
 import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeDetectionFormat;
 import learningcorpus.ElementType;
@@ -41,7 +43,7 @@ public abstract class MistakeDetectionInformationService {
       CDF.createCDEnumLiteral().eClass(), ElementType.CLASS,
       CDF.createClass().eClass(), ElementType.CLASS);
 
-  //Helper Functions to map each mistake to specific solution elements
+  // Helper Functions to map each mistake to specific solution elements
   public static final Function<Mistake, Stream<SolutionElement>> instructorElems =
       m -> m.getInstructorElements().stream();
   public static final Function<Mistake, Stream<SolutionElement>> studentElems = m -> m.getStudentElements().stream();
@@ -50,6 +52,11 @@ public abstract class MistakeDetectionInformationService {
 
   static final Map<MistakeType, MistakeDetectionFormat> suggestedMistakeDetectionFormats =
       suggestMistakeDetectionFormats();
+
+  /** Filtered MDFs which not already validated. */
+  static final Map<MistakeType, MistakeDetectionFormat> filteredSuggestedMistakeDetectionFormats =
+      suggestMistakeDetectionFormats(e ->
+          !e.getValue().equals(HumanValidatedMistakeDetectionFormats.mappings.get(e.getKey())));
 
   static final Map<MistakeType, Set<String>> suggestedParametrizedResponses =
       suggestParametrizedResponses(suggestedMistakeDetectionFormats, true);
@@ -150,6 +157,12 @@ public abstract class MistakeDetectionInformationService {
           return mdf2;
         },
         TreeMap::new));
+  }
+
+  static Map<MistakeType, MistakeDetectionFormat> suggestMistakeDetectionFormats(
+      Predicate<Map.Entry<MistakeType, MistakeDetectionFormat>> filteringFunction) {
+    return suggestMistakeDetectionFormats().entrySet().stream().filter(filteringFunction)
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 
   private static Map<Mistake, MistakeDetectionFormat> suggestAllMistakeDetectionFormats() {

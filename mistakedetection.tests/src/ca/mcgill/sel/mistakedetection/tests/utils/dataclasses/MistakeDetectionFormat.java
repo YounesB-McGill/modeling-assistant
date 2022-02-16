@@ -47,4 +47,16 @@ public class MistakeDetectionFormat {
         + instTag + String.join("\", \"", inst) + instTag + "])";
   }
 
+  @Override public boolean equals(Object o) {
+    if (!(o instanceof MistakeDetectionFormat)) {
+      return false;
+    }
+    var other = (MistakeDetectionFormat) o;
+    return stud.equals(other.stud) && inst.equals(other.inst);
+  }
+
+  @Override public int hashCode() {
+    return 17 * stud.hashCode() + 31 * inst.hashCode();
+  }
+
 }

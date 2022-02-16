@@ -12,7 +12,7 @@ public class MappingToMistakeDetectionFormats extends MistakeDetectionInformatio
   }
 
   @Override public String getOutput() {
-    return title(name) + "\n" + formatMistakeDetectionFormatsForJava(suggestedMistakeDetectionFormats, true);
+    return title(name) + "\n" + formatMistakeDetectionFormatsForJava(suggestedMistakeDetectionFormats, false);
   }
 
   public static MappingToMistakeDetectionFormats get() {
