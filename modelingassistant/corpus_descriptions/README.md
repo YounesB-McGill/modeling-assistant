@@ -913,7 +913,7 @@ Level 4: Resource response with Reference:
 
 #### Infinite recursive dependency
 
-Student elements: Minimum lower bound Association end, Other Association end. 
+Student elements: Minimum lower bound association end, Other association end. 
 
 Level 1: Highlight solution
 
@@ -927,7 +927,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> Does every ${stud_other_assocend.cls} have exactly ${stud_other_assocend.lowerBound} ${stud_other_assocend.rolename}?
+> Does every ${stud_other_assocend.cls} have exactly ${stud_other_assocend.lowerBound} ${stud_other_assocend}?
 
 Level 5: Resource response with List multiple-choice quiz:
 
@@ -1128,11 +1128,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${stud_assocend.rolename} role name is not correct.
+> The ${stud_assocend} role name is not correct.
 
 Level 4: Parametrized response:
 
-> The ${stud_assocend.rolename} role name should be changed to ${inst_assocend.rolename}.
+> The ${stud_assocend} role name should be changed to ${inst_assocend}.
 
 Level 5: Resource response with Reference:
 
@@ -2462,7 +2462,7 @@ in different contexts.
 
 #### Missing Abstraction-Occurrence pattern
 
-Instructor elements: Abstraction Class, Occurrence Class.
+Instructor elements: Abstraction class, Occurrence class.
 
 Level 1: Highlight solution
 
@@ -2506,7 +2506,7 @@ from each other in an important way.
 
 #### Generalization should be association in Abstraction-Occurrence pattern
 
-Student elements: Subclass, Superclass. Instructor elements: Abstraction Class, Occurrence Class.
+Student elements: Subclass, Superclass. Instructor elements: Abstraction class, Occurrence class.
 
 Level 1: Highlight solution
 

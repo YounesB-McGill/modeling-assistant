@@ -93,7 +93,7 @@ public class HumanValidatedParametrizedResponses {
       entry(EXTRA_ENUM_ITEM, Set.of("${stud_enumitem} does not belong in the ${stud_enumitem.enum} enumeration.")),
       entry(EXTRA_GENERALIZATION, Set.of("When creating a generalization between ${stud_sub_cls} and ${stud_super_cls}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).")),
       entry(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, Set.of("The generalization between ${stud_sub_cls} and ${stud_super_cls} should be modeled using the Abstraction-Occurrence pattern[, where ${inst_abs_cls} is the abstraction and ${inst_occ_cls} is the occurrence].")),
-      entry(INFINITE_RECURSIVE_DEPENDENCY, Set.of("Does every ${stud_other_assocend.cls} have exactly ${stud_other_assocend.lowerBound} ${stud_other_assocend.rolename}?")),
+      entry(INFINITE_RECURSIVE_DEPENDENCY, Set.of("Does every ${stud_other_assocend.cls} have exactly ${stud_other_assocend.lowerBound} ${stud_other_assocend}?")),
       entry(LOWERCASE_CLASS_NAME, Set.of("${stud_cls} should be ${inst_cls}, with a capital letter.")),
       entry(MISSING_AO_PATTERN, Set.of("The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.")),
       entry(MISSING_ASSOCIATION, Set.of("How would you capture the relationship between ${inst_assoc.end0} and ${inst_assoc.end0}?")),
@@ -123,8 +123,8 @@ public class HumanValidatedParametrizedResponses {
           "The ${stud_cls} class has a name that is not quite right but the attributes and/or associations are correct.")),
       entry(WRONG_GENERALIZATION_DIRECTION, Set.of("Is ${inst_super_cls} really a ${inst_sub_cls}?[ It should be the other way around.]")),
       entry(WRONG_MULTIPLICITY, Set.of("How many ${stud_assocend.end0}'s does a ${stud_assocend.end1} have?[ And how many ${stud_assocend.end1}'s does ${stud_assocend.end0} have?]")),
-      entry(WRONG_ROLE_NAME, Set.of("The ${stud_assocend.rolename} role name is not correct.",
-          "The ${stud_assocend.rolename} role name should be changed to ${inst_assocend.rolename}.")),
+      entry(WRONG_ROLE_NAME, Set.of("The ${stud_assocend} role name is not correct.",
+          "The ${stud_assocend} role name should be changed to ${inst_assocend}.")),
       entry(WRONG_SUPERCLASS, Set.of("${stud_sub_cls} has an incorrect superclass.",
           "The superclass for ${stud_sub_cls} should be ${inst_super_cls}."))
   );

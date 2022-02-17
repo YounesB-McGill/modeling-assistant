@@ -353,7 +353,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 2: TextResponse(text="Double check this relationship."),
                 3: TextResponse(text="The multiplicit(y|ies) for this relationship (is|are) incorrect."),
                 4: ParametrizedResponse(text="Does every ${stud_other_assocend.cls} have exactly "
-                                             "${stud_other_assocend.lowerBound} ${stud_other_assocend.rolename}?"),
+                                             "${stud_other_assocend.lowerBound} ${stud_other_assocend}?"),
                 5: ResourceResponse(learningResources=[mcq[
                     dedent("""\
                         Given the following class diagram modeled in Umple, select the correct answer(s).
@@ -449,9 +449,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 n="Wrong role name", d="Wrong role name but correct association", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this role name."),
-                    3: ParametrizedResponse(text="The ${stud_assocend.rolename} role name is not correct."),
+                    3: ParametrizedResponse(text="The ${stud_assocend} role name is not correct."),
                     4: ParametrizedResponse(
-                        text="The ${stud_assocend.rolename} role name should be changed to ${inst_assocend.rolename}."),
+                        text="The ${stud_assocend} role name should be changed to ${inst_assocend}."),
                     5: ResourceResponse(learningResources=[role_name_ref]),
                 })),
         ]),

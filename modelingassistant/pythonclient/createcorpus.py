@@ -286,7 +286,7 @@ class TextualGenerator(ABC):
         return (" ".join([display_name(w).capitalize() for w in mdf_name.split("_")])
                 .replace("Sub Class", "Subclass").replace("Super Class", "Superclass")
                 .replace("Minlowerbound", "Minimum lower bound")
-                .replace("Abs", "Abstraction").replace("Occ", "Occurrence"))
+                .replace("Abs", "Abstraction").replace("Occ", "Occurrence")).capitalize()
 
     @classmethod
     @abstractmethod

@@ -38,7 +38,6 @@ def test_prs_correctly_specified():
     - `*` indicates a sequence of items. Only one sequence is allowed in each MistakeDetectionFormat list.
 
     programmatic attributes:
-    rolename: name
     cls: classifier when invoked on an AssociationEnd
     """
     def validate_param(param: str, mt: MistakeType):
