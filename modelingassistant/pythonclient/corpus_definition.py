@@ -352,8 +352,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check this relationship."),
                 3: TextResponse(text="The multiplicit(y|ies) for this relationship (is|are) incorrect."),
-                4: ParametrizedResponse(
-                    text="Does every ${className} have exactly ${wrongMultiplicity} ${rolename}[s]?"),
+                4: ParametrizedResponse(text="Does every ${stud_other_assocend.cls} have exactly "
+                                             "${stud_other_assocend.lowerBound} ${stud_other_assocend.rolename}?"),
                 5: ResourceResponse(learningResources=[mcq[
                     dedent("""\
                         Given the following class diagram modeled in Umple, select the correct answer(s).
@@ -449,9 +449,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 n="Wrong role name", d="Wrong role name but correct association", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this role name."),
-                    3: ParametrizedResponse(text="The ${stud_assocend} role name is not correct."),
+                    3: ParametrizedResponse(text="The ${stud_assocend.rolename} role name is not correct."),
                     4: ParametrizedResponse(
-                        text="The ${stud_assocend} role name should be changed to ${inst_assocend}."),
+                        text="The ${stud_assocend.rolename} role name should be changed to ${inst_assocend.rolename}."),
                     5: ResourceResponse(learningResources=[role_name_ref]),
                 })),
         ]),
@@ -688,7 +688,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_generalization := mt(n="Missing generalization", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="What is the relationship between these classes?"),
-                3: ParametrizedResponse(text="A ${subclass} is a ${superclass}. How should we model this?"),
+                3: ParametrizedResponse(text="A ${inst_sub_cls} is a ${inst_super_cls}. How should we model this?"),
                 4: ResourceResponse(learningResources=[inherit_hierarchy_quiz := fitb(
                     # First parameter is the prompt (learning resource main content)
                     "Place the following classes in an inheritance hierarchy:",
@@ -707,10 +707,10 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: [TextResponse(text="Can you find a better way to express this relationship?"),
                     TextResponse(text="Is there a [direct ]relationship between these two classes?")],
-                3: [ParametrizedResponse(text="When creating a generalization between ${wrongSubclass} and "
-                    "${wrongSuperclass}, make sure to follow the "
+                3: [ParametrizedResponse(text="When creating a generalization between ${stud_sub_cls} and "
+                    "${stud_super_class}, make sure to follow the "
                     "[checks for proper generalization](https://mycourses2.mcgill.ca/)."),
-                    ParametrizedResponse(text="${wrongSubclass} is not a [direct ]subclass of ${wrongSuperclass}.")],
+                    ParametrizedResponse(text="${stud_sub_cls} is not a subclass of ${stud_super_class}.")],
                 4: ResourceResponse(learningResources=[inherit_hierarchy_quiz]),
                 5: ResourceResponse(learningResources=[inherit_checks_quiz := fitb(dedent("""\
                     Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
@@ -784,7 +784,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you double check this relationship?"),
                 3: ParametrizedResponse(
-                    text="Is ${superclass} really a ${subclass}?[ It should be the other way around.]"),
+                    text="Is ${inst_super_cls} really a ${inst_sub_cls}?[ It should be the other way around.]"),
                 4: ResourceResponse(learningResources=[inherit_hierarchy_quiz]),
                 5: ResourceResponse(learningResources=[inherit_checks_quiz]),
                 6: ResourceResponse(learningResources=[gen_ref]),
@@ -792,10 +792,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             wrong_superclass := mt(n="Wrong superclass", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you double check this relationship?"),
-                3: ParametrizedResponse(text="Can you (find|create) a (better|different) superclass for ${subclass}?"
-                    "[ Look at the problem description closely]."),
+                3: ParametrizedResponse(text="${stud_sub_cls} has an incorrect superclass."),
                 4: Feedback(highlightProblem=True),
-                5: ParametrizedResponse(text="What is the inheritance hierarchy between ${hierarchy.classes}?"),
+                5: ParametrizedResponse(text="The superclass for ${stud_sub_cls} should be ${inst_super_cls}."),
                 6: ResourceResponse(learningResources=[inherit_hierarchy_quiz]),
                 7: ResourceResponse(learningResources=[gen_ref]),
             })),
@@ -995,8 +994,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
                     3: ParametrizedResponse(
-                        text="The concepts of ${instructorAbstraction} and ${instructorOccurrence} and the "
-                            "relationship between them should be modeled with the Abstraction-Occurrence pattern."),
+                        text="The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the relationship between them "
+                             "should be modeled with the Abstraction-Occurrence pattern."),
                     4: ResourceResponse(learningResources=[ao_ref := Reference(content=dedent("""\
                         The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
                         represent a set of related objects that share common information but also differ
@@ -1021,8 +1020,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: TextResponse(text="Is generalization the correct way to model this use of the "
-                                         "Abstraction-Occurrence pattern?"),
+                    3: ParametrizedResponse(text="The generalization between ${stud_sub_cls} and ${stud_super_cls} "
+                        "should be modeled using the Abstraction-Occurrence pattern[, where ${inst_abs_cls} is the "
+                        "abstraction and ${inst_occ_cls} is the occurrence]."),
                     4: ResourceResponse(learningResources=[ao_ref]),
                 })),
         ]),

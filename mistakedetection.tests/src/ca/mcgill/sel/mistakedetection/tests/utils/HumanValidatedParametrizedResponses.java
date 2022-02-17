@@ -25,12 +25,17 @@ import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM_ITEM;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_GENERALIZATION;
+import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.INFINITE_RECURSIVE_DEPENDENCY;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM_ITEM;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_GENERALIZATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
 import static learningcorpus.mistaketypes.MistakeTypes.NON_DIFFERENTIATED_SUBCLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
@@ -48,8 +53,10 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_GENERALIZATION_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_SUPERCLASS;
 import java.util.Map;
 import java.util.Set;
 import learningcorpus.MistakeType;
@@ -58,6 +65,7 @@ public class HumanValidatedParametrizedResponses {
 
   public static final Map<MistakeType, Set<String>> mappings = Map.ofEntries(
       // paste entries from MDIS4LC here
+      // done
       entry(ASSOC_CLASS_SHOULD_BE_CLASS, Set.of("The ${inst_cls} class should be a regular class.")),
       entry(ATTRIBUTE_DUPLICATED, Set.of("The ${stud_attr} already exists in another class, so there is no need to include it again.")),
       entry(ATTRIBUTE_MISPLACED, Set.of("The ${stud_attr} belongs in the ${inst_attr.cls} class.",
@@ -110,6 +118,18 @@ public class HumanValidatedParametrizedResponses {
           "The ${stud_cls} class has a name that is not quite right but the attributes and/or associations are correct.")),
       entry(WRONG_MULTIPLICITY, Set.of("How many ${stud_assocend.end0}'s does a ${stud_assocend.end1} have?[ And how many ${stud_assocend.end1}'s does ${stud_assocend.end0} have?]")),
       entry(WRONG_ROLE_NAME, Set.of("The ${stud_assocend} role name should be changed to ${inst_assocend}.",
-          "The ${stud_assocend} role name is not correct."))
+          "The ${stud_assocend} role name is not correct.")),
+
+      // in progress
+      entry(EXTRA_GENERALIZATION, Set.of("When creating a generalization between ${stud_sub_cls} and ${stud_super_class}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).")),
+      entry(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, Set.of("The generalization between ${stud_sub_cls} and ${stud_super_cls} should be modeled using the Abstraction-Occurrence pattern[, where ${inst_abs_cls} is the abstraction and ${inst_occ_cls} is the occurrence].")),
+      entry(INFINITE_RECURSIVE_DEPENDENCY, Set.of("Does every ${stud_other_assocend.cls} have exactly ${stud_other_assocend.lowerBound} ${stud_other_assocend.rolename}?")),
+      entry(MISSING_AO_PATTERN, Set.of("The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.")),
+      entry(MISSING_GENERALIZATION, Set.of("A ${inst_sub_cls} is a ${inst_super_cls}. How should we model this?")),
+      entry(WRONG_GENERALIZATION_DIRECTION, Set.of("Is ${inst_super_cls} really a ${inst_sub_cls}?[ It should be the other way around.]")),
+      entry(WRONG_ROLE_NAME, Set.of("The ${stud_assocend.rolename} role name is not correct.",
+          "The ${stud_assocend.rolename} role name should be changed to ${inst_assocend.rolename}.")),
+      entry(WRONG_SUPERCLASS, Set.of("${stud_sub_cls} has an incorrect superclass.",
+          "The superclass for ${stud_sub_cls} should be ${inst_super_cls}."))
   );
 }

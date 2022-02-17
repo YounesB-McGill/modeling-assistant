@@ -2539,7 +2539,7 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
-  /** Returns mistake for a element, if not found then returns Null. */
+  /** Returns mistake for a element, if not found then returns null. */
   public static Mistake getMistakeForElement(NamedElement studentElement, MistakeType mistakeType,
       Comparison comparison) {
     for (var m : comparison.newMistakes) {

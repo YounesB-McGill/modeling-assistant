@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus script.
-% Generation time: 2022-02-15 14:44:54
+% Generation time: 2022-02-17 00:41:09
 
 \textbf{Legend:}
 In the textual responses, items in \verb|${this format}| represent the parameters of
@@ -1099,7 +1099,7 @@ The multiplicit(y$|$ies) for this relationship (is$|$are) incorrect.
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Does every \verb|${className}| have exactly \verb|${wrongMultiplicity}| \verb|${rolename}|[s]?
+Does every \verb|${stud_other_assocend.cls}| have exactly \verb|${stud_other_assocend.lowerBound}| \verb|${stud_other_assocend.rolename}|?
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with List multiple-choice quiz: \medskip
@@ -1371,13 +1371,13 @@ Double check this role name.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${stud_assocend}| role name is not correct.
+The \verb|${stud_assocend.rolename}| role name is not correct.
 \end{tabular} \medskip
 
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${stud_assocend}| role name should be changed to \verb|${inst_assocend}|.
+The \verb|${stud_assocend.rolename}| role name should be changed to \verb|${inst_assocend.rolename}|.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -2161,7 +2161,7 @@ What is the relationship between these classes?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-A \verb|${subclass}| is a \verb|${superclass}|. How should we model this?
+A \verb|${inst_sub_cls}| is a \verb|${inst_super_cls}|. How should we model this?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
@@ -2200,7 +2200,7 @@ Can you find a better way to express this relationship?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-When creating a generalization between \verb|${wrongSubclass}| and \verb|${wrongSuperclass}|, make sure to follow the \textit{checks for proper generalization}.
+When creating a generalization between \verb|${stud_sub_cls}| and \verb|${stud_super_class}|, make sure to follow the \textit{checks for proper generalization}.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
@@ -2489,7 +2489,7 @@ Can you double check this relationship?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Is \verb|${superclass}| really a \verb|${subclass}|?[ It should be the other way around.]
+Is \verb|${inst_super_cls}| really a \verb|${inst_sub_cls}|?[ It should be the other way around.]
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
@@ -2547,7 +2547,7 @@ Can you double check this relationship?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can you (find$|$create) a (better$|$different) superclass for \verb|${subclass}|?[ Look at the problem description closely].
+\verb|${stud_sub_cls}| has an incorrect superclass.
 \end{tabular} \medskip
 
 \noindent Level 4: Highlight specific problem statement elements \medskip
@@ -2555,7 +2555,7 @@ Can you (find$|$create) a (better$|$different) superclass for \verb|${subclass}|
 \noindent Level 5: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-What is the inheritance hierarchy between \verb|${hierarchy.classes}|?
+The superclass for \verb|${stud_sub_cls}| should be \verb|${inst_super_cls}|.
 \end{tabular} \medskip
 
 \noindent Level 6: Resource response with Fill-in-the-blanks quiz: \medskip
@@ -3218,7 +3218,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The concepts of \verb|${instructorAbstraction}| and \verb|${instructorOccurrence}| and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
+The concepts of \verb|${inst_abs_cls}| and \verb|${inst_occ_cls}| and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -3271,10 +3271,10 @@ from each other in an important way.
 Think carefully about how to model the relationships between these concepts.
 \end{tabular} \medskip
 
-\noindent Level 3: Text response: \medskip
+\noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Is generalization the correct way to model this use of the Abstraction-Occurrence pattern?
+The generalization between \verb|${stud_sub_cls}| and \verb|${stud_super_cls}| should be modeled using the Abstraction-Occurrence pattern[, where \verb|${inst_abs_cls}| is the abstraction and \verb|${inst_occ_cls}| is the occurrence].
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip

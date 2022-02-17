@@ -84,12 +84,12 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(WRONG_SUPERCLASS, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls"))),*/
 
       // in progress
-      entry(EXTRA_GENERALIZATION, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls"))),
+      entry(EXTRA_GENERALIZATION, mdf(List.of("sub_cls", "super_cls"), List.of("cls", "other_cls"))),
       entry(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, mdf(List.of("sub_cls", "super_cls"), List.of("abs_cls", "occ_cls"))),
       entry(INFINITE_RECURSIVE_DEPENDENCY, mdf(List.of("minlowerbound_assocend", "other_assocend"), List.of())),
       entry(MISSING_AO_PATTERN, mdf(List.of(), List.of("abs_cls", "occ_cls"))),
       entry(MISSING_GENERALIZATION, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls"))),
-      entry(WRONG_GENERALIZATION_DIRECTION, mdf(List.of("super_cls", "sub_cls"), List.of("sub_cls", "super_cls"))),
+      entry(WRONG_GENERALIZATION_DIRECTION, mdf(List.of("super_cls", "sub_cls"), List.of("sub_cls", "super_cls"))), // classes returned according to student-instructor mapping order
       entry(WRONG_ROLE_NAME, mdf(List.of("assocend"), List.of("assocend"))),
       entry(WRONG_SUPERCLASS, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls")))
 

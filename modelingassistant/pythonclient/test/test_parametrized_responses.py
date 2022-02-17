@@ -9,6 +9,21 @@ from corpus import missing_class
 from feedback import parametrize_response
 from modelingassistant import Mistake, SolutionElement
 
+def test_prs_correctly_specified():
+    """
+    Ensure that parametrized responses are correctly specified.
+
+    Each parameter must be parsable to a value that can be converted to a string and substituted into the response.
+
+    Each parameter must start with `stud` or `inst`.
+    numbers, `_`, `.`, and `*` have special meanings.
+
+    programmatic attributes:
+    rolename: name
+    cls: classifier when invoked on an AssociationEnd
+    """
+
+
 def test_pr_missing_class():
     "Test parametrized response for missing class mistake."
     missing_class_name = "Airplane"

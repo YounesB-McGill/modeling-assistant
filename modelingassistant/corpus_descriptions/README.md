@@ -925,7 +925,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> Does every ${className} have exactly ${wrongMultiplicity} ${rolename}[s]?
+> Does every ${stud_other_assocend.cls} have exactly ${stud_other_assocend.lowerBound} ${stud_other_assocend.rolename}?
 
 Level 5: Resource response with List multiple-choice quiz:
 
@@ -1126,11 +1126,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${stud_assocend} role name is not correct.
+> The ${stud_assocend.rolename} role name is not correct.
 
 Level 4: Parametrized response:
 
-> The ${stud_assocend} role name should be changed to ${inst_assocend}.
+> The ${stud_assocend.rolename} role name should be changed to ${inst_assocend.rolename}.
 
 Level 5: Resource response with Reference:
 
@@ -1715,7 +1715,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> A ${subclass} is a ${superclass}. How should we model this?
+> A ${inst_sub_cls} is a ${inst_super_cls}. How should we model this?
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
@@ -1742,7 +1742,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
+> When creating a generalization between ${stud_sub_cls} and ${stud_super_class}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
@@ -1945,7 +1945,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Is ${superclass} really a ${subclass}?[ It should be the other way around.]
+> Is ${inst_super_cls} really a ${inst_sub_cls}?[ It should be the other way around.]
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
@@ -1985,13 +1985,13 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Can you (find|create) a (better|different) superclass for ${subclass}?[ Look at the problem description closely].
+> ${stud_sub_cls} has an incorrect superclass.
 
 Level 4: Highlight specific problem statement elements
 
 Level 5: Parametrized response:
 
-> What is the inheritance hierarchy between ${hierarchy.classes}?
+> The superclass for ${stud_sub_cls} should be ${inst_super_cls}.
 
 Level 6: Resource response with Fill-in-the-blanks quiz:
 
@@ -2460,7 +2460,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The concepts of ${instructorAbstraction} and ${instructorOccurrence} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
+> The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
 
 Level 4: Resource response with Reference:
 
@@ -2500,9 +2500,9 @@ Level 2: Text response:
 
 > Think carefully about how to model the relationships between these concepts.
 
-Level 3: Text response:
+Level 3: Parametrized response:
 
-> Is generalization the correct way to model this use of the Abstraction-Occurrence pattern?
+> The generalization between ${stud_sub_cls} and ${stud_super_cls} should be modeled using the Abstraction-Occurrence pattern[, where ${inst_abs_cls} is the abstraction and ${inst_occ_cls} is the occurrence].
 
 Level 4: Resource response with Reference:
 
