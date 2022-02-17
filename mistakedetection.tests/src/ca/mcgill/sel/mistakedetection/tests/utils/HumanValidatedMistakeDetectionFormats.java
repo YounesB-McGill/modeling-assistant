@@ -4,6 +4,8 @@ import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeDete
 import static java.util.Map.entry;
 // Always keep this comment here to allow easy auto-importing of new mistake types in IDEs
 //import static learningcorpus.mistaketypes.MistakeTypes.*;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_GENERALIZATION;
+import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INFINITE_RECURSIVE_DEPENDENCY;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_GENERALIZATION;

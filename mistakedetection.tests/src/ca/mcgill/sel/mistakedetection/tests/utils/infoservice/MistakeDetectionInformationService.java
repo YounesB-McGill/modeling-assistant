@@ -27,6 +27,12 @@ import learningcorpus.ParametrizedResponse;
 import modelingassistant.Mistake;
 import modelingassistant.SolutionElement;
 
+/**
+ * Class to represent an abstract Mistake Detection Information Service. A service returns formatted output based on its
+ * input, which ultimately comes from the result of running the Mistake Detection tests.
+ *
+ * @author Younes Boubekeur
+ */
 public abstract class MistakeDetectionInformationService {
 
   private static final String ERROR = "This method must be treated as abstract and can only be invoked on a subclass! "
@@ -67,6 +73,10 @@ public abstract class MistakeDetectionInformationService {
     this.name = name;
   }
 
+  /**
+   * Returns the formatted output for this service. By convention, implementing subclasses should prepend
+   * {@code title(name) + "\n"} to the returned output.
+   */
   public abstract String getOutput();
 
   /**
