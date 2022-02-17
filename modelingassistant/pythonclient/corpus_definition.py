@@ -372,9 +372,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             wrong_multiplicity := mt(n="Wrong multiplicity", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check this association."),
-                3: TextResponse(text="The multiplicit(y|ies) for this association (is|are) incorrect."),
-                4: ParametrizedResponse(text="How many ${stud_assocend.end0}'s does a ${stud_assocend.end1} have?[ And "
-                    "how many ${stud_assocend.end1}'s does ${stud_assocend.end0} have?]"),
+                3: TextResponse(text="The multiplicity for this association end is incorrect."),
+                4: ParametrizedResponse(
+                    text="How many ${stud_assocend.cls}'s does a ${stud_assocend.opposite.cls} have?"),
                 5: ResourceResponse(learningResources=[multiplicities_quiz := mcq[
                     "Pick the association(s) with correct multiplicities:",
                        "1 EmployeeRole -- 1 Person;",
@@ -416,15 +416,15 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Isn't there something special about this role name?"),
                 3: ParametrizedResponse(text="${stud_assocend} should be static, because it applies to all instances "
-                    "of the association between ${inst_assocend.end0} and ${inst_assocend.end1}."),
+                    "of the association between ${inst_assocend.opposite.cls} and ${inst_assocend.cls}."),
                 4: ResourceResponse(learningResources=[assoc_ref := Reference(content="Please review the "
                     "[Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
             })),
             role_should_not_be_static := mt(n="Role should not be static", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Isn't there something special about this role name?"),
-                3: ParametrizedResponse(text="${stud_assocend} should not be static, because it doesn't apply to all "
-                    "instances of the association between ${inst_assocend.end0} and ${inst_assocend.end1}."),
+                3: ParametrizedResponse(text="${stud_assocend} should not be static, because it does not apply to all "
+                    "instances of the association between ${inst_assocend.opposite.cls} and ${inst_assocend.cls}."),
                 4: ResourceResponse(learningResources=[assoc_ref]),
             })),
             bad_role_name_spelling := mt(n="Bad role name spelling", feedbacks=fbs({
@@ -482,8 +482,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Why is navigation restricted for this relationship?"),
-                    3: ParametrizedResponse(text="The relationship between ${stud_assocend.end0} and "
-                                                 "${stud_assocend.end1} should be undirected."),
+                    3: ParametrizedResponse(text="The relationship between ${stud_assocend.opposite.cls} and "
+                                                 "${stud_assocend.cls} should be undirected."),
                     4: ResourceResponse(learningResources=[dir_rel_ref := Reference(
                         content="Please review the _Directionality in Associations_ section of the "
                                 "[UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)")]),
@@ -501,16 +501,16 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             wrong_relationship_direction := mt(n="Wrong relationship direction", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check the direction for this relationship."),
-                3: ParametrizedResponse(text="The direction of the relationship between ${stud_assocend.end0} and "
-                                             "${stud_assocend.end1} should be reversed."),
+                3: ParametrizedResponse(text="The direction of the relationship between ${stud_assoc.end0} and "
+                                             "${stud_assoc.end1} should be reversed."),
                 4: ResourceResponse(learningResources=[dir_rel_ref]),
             })),
             using_composition_instead_of_aggregation := mt(
                 n="Using composition instead of aggregation", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Is this the best relationship to use here?"),
-                    3: ParametrizedResponse(text="The composition between ${stud_assocend.end0} and "
-                                                 "${stud_assocend.end1} is better modeled using aggregation."),
+                    3: ParametrizedResponse(text="The composition between ${stud_assocend.opposite.cls} and "
+                                                 "${stud_assocend.cls} is better modeled using aggregation."),
                     4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
             using_binary_assoc_instead_of_nary_assoc := mt(
@@ -630,23 +630,23 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 n="Using assoc instead of aggregation", d="Using association instead of aggregation", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="What is the relationship between these two concepts?"),
-                    3: ParametrizedResponse(text="The relationship between ${stud_assocend.end0} and "
-                        "${stud_assocend.end1} can be modeled more precisely than with a simple association."),
+                    3: ParametrizedResponse(text="The relationship between ${stud_assocend.opposite.cls} and "
+                        "${stud_assocend.cls} can be modeled more precisely than with a simple association."),
                     4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
             using_assoc_instead_of_composition := mt(
                 n="Using assoc instead of composition", d="Using association instead of composition", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="What is the relationship between these two concepts?"),
-                    3: ParametrizedResponse(text="The relationship between ${stud_assocend.end0} and "
-                        "${stud_assocend.end1} is more than a simple association.."),
+                    3: ParametrizedResponse(text="The relationship between ${stud_assocend.opposite.cls} and "
+                        "${stud_assocend.cls} is more than a simple association.."),
                     4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
             using_aggregation_instead_of_composition := mt(n="Using aggregation instead of composition", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this the best relationship to use here?"),
-                3: ParametrizedResponse(text="The relationship between ${stud_assocend.end0} and ${stud_assocend.end1} "
-                                             "is stronger than an aggregation."),
+                3: ParametrizedResponse(text="The relationship between ${stud_assocend.opposite.cls} and "
+                                             "${stud_assocend.cls} is stronger than an aggregation."),
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
             composed_part_contained_in_more_than_one_parent := mt(

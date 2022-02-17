@@ -957,11 +957,11 @@ Level 2: Text response:
 
 Level 3: Text response:
 
-> The multiplicit(y|ies) for this association (is|are) incorrect.
+> The multiplicity for this association end is incorrect.
 
 Level 4: Parametrized response:
 
-> How many ${stud_assocend.end0}'s does a ${stud_assocend.end1} have?[ And how many ${stud_assocend.end1}'s does ${stud_assocend.end0} have?]
+> How many ${stud_assocend.cls}'s does a ${stud_assocend.opposite.cls} have?
 
 Level 5: Resource response with List multiple-choice quiz:
 
@@ -1052,7 +1052,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_assocend} should be static, because it applies to all instances of the association between ${inst_assocend.end0} and ${inst_assocend.end1}.
+> ${stud_assocend} should be static, because it applies to all instances of the association between ${inst_assocend.opposite.cls} and ${inst_assocend.cls}.
 
 Level 4: Resource response with Reference:
 
@@ -1071,7 +1071,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_assocend} should not be static, because it doesn't apply to all instances of the association between ${inst_assocend.end0} and ${inst_assocend.end1}.
+> ${stud_assocend} should not be static, because it does not apply to all instances of the association between ${inst_assocend.opposite.cls} and ${inst_assocend.cls}.
 
 Level 4: Resource response with Reference:
 
@@ -1203,7 +1203,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_assocend.end0} and ${stud_assocend.end1} should be undirected.
+> The relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls} should be undirected.
 
 Level 4: Resource response with Reference:
 
@@ -1239,7 +1239,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The direction of the relationship between ${stud_assocend.end0} and ${stud_assocend.end1} should be reversed.
+> The direction of the relationship between ${stud_assoc.end0} and ${stud_assoc.end1} should be reversed.
 
 Level 4: Resource response with Reference:
 
@@ -1258,7 +1258,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The composition between ${stud_assocend.end0} and ${stud_assocend.end1} is better modeled using aggregation.
+> The composition between ${stud_assocend.opposite.cls} and ${stud_assocend.cls} is better modeled using aggregation.
 
 Level 4: Resource response with Reference:
 
@@ -1562,7 +1562,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_assocend.end0} and ${stud_assocend.end1} can be modeled more precisely than with a simple association.
+> The relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls} can be modeled more precisely than with a simple association.
 
 Level 4: Resource response with Reference:
 
@@ -1585,7 +1585,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_assocend.end0} and ${stud_assocend.end1} is more than a simple association..
+> The relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls} is more than a simple association..
 
 Level 4: Resource response with Reference:
 
@@ -1608,7 +1608,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_assocend.end0} and ${stud_assocend.end1} is stronger than an aggregation.
+> The relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls} is stronger than an aggregation.
 
 Level 4: Resource response with Reference:
 
