@@ -753,7 +753,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> How would you capture the relationship between ${inst_rel.end0} and ${inst_rel.end0}?
+> How would you capture the relationship between ${inst_assoc.end0} and ${inst_assoc.end0}?
 
 Level 4: Resource response with Reference:
 
@@ -766,7 +766,7 @@ better understand these relationships and where they are used.
 
 #### Missing aggregation
 
-Instructor element: Association.
+Instructor element: Aggregation.
 
 Level 1: Highlight solution
 
@@ -854,7 +854,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_rel.end0} and ${stud_rel.end1} is not expressed in the problem description.
+> The relationship between ${stud_assoc.end0} and ${stud_assoc.end1} is not expressed in the problem description.
 
 Level 4: Resource response with List multiple-choice quiz:
 
@@ -875,7 +875,7 @@ Level 5: Resource response with Reference:
 
 #### Extra aggregation
 
-Student element: Association. 
+Student element: Aggregation. 
 
 Level 1: Highlight solution
 
@@ -885,7 +885,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_rel.end0} and ${stud_rel.end1} is redundant.
+> The relationship between ${stud_aggr.end0} and ${stud_aggr.end1} is redundant.
 
 Level 4: Resource response with Reference:
 
@@ -912,6 +912,8 @@ Level 4: Resource response with Reference:
 ### Multiplicity mistakes
 
 #### Infinite recursive dependency
+
+Student elements: Minimum lower bound Association end, Other Association end. 
 
 Level 1: Highlight solution
 
@@ -1537,7 +1539,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_rel.end0} and ${stud.end1} is not expressed in the problem description.
+> The relationship between ${stud_compos.end0} and ${stud_compos.end1} is not expressed in the problem description.
 
 Level 4: Resource response with Reference:
 
@@ -1707,6 +1709,8 @@ better understand these relationships and where they are used.
 
 #### Missing generalization
 
+Student elements: Subclass, Superclass. Instructor elements: Subclass, Superclass.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1734,6 +1738,8 @@ Level 5: Resource response with Reference:
 
 #### Extra generalization
 
+Student elements: Subclass, Superclass. Instructor elements: Subclass, Superclass.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1742,7 +1748,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> When creating a generalization between ${stud_sub_cls} and ${stud_super_class}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
+> When creating a generalization between ${stud_sub_cls} and ${stud_super_cls}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
@@ -1937,6 +1943,8 @@ Level 5: Resource response with Reference:
 
 #### Wrong generalization direction
 
+Student elements: Superclass, Subclass. Instructor elements: Subclass, Superclass.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1976,6 +1984,8 @@ Level 6: Resource response with Reference:
 
 
 #### Wrong superclass
+
+Student elements: Subclass, Superclass. Instructor elements: Subclass, Superclass.
 
 Level 1: Highlight solution
 
@@ -2452,6 +2462,8 @@ in different contexts.
 
 #### Missing Abstraction-Occurrence pattern
 
+Instructor elements: Abstraction Class, Occurrence Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -2493,6 +2505,8 @@ from each other in an important way.
 
 
 #### Generalization should be association in Abstraction-Occurrence pattern
+
+Student elements: Subclass, Superclass. Instructor elements: Abstraction Class, Occurrence Class.
 
 Level 1: Highlight solution
 

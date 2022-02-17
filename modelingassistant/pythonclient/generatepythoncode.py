@@ -15,6 +15,9 @@ import os
 from pyecore.ecore import EPackage, EClassifier, EString, EProxy
 from pyecore.valuecontainer import BadValueError
 
+# import previous (bootstrap) versions of the generated code
+from learningcorpus import MistakeTypeCategory, MistakeType, ParametrizedResponse
+
 
 def generate_pyecore():
     "Generate the pyecore Python code from the modeling assistant and learning corpus metamodels."
@@ -31,20 +34,20 @@ def customize_generated_code():
     ast_for = lambda item: ast.parse(dedent(getsource(item)))
 
     # Add the following functions to the generated LearningCorpus class
-    def mistakeTypes(self) -> list:
+    def mistakeTypes(self) -> list[MistakeType]:
         "Custom function to return all the mistake types from their categories."
         import itertools
         return list(itertools.chain(*[mtc.mistakeTypes for mtc in self.mistakeTypeCategories]))
 
     # docstring indentation is intentional, to appear correctly in the generated code
-    def topLevelMistakeTypeCategories(self) -> list:
+    def topLevelMistakeTypeCategories(self) -> list[MistakeTypeCategory]:
         """
             Custom function to return all the top-level mistake type categories,
             ie, those that do not have a supercategory.
             """
         return [mtc for mtc in self.mistakeTypeCategories if not mtc.supercategory]
 
-    def parametrized_responses(self) -> list:
+    def parametrized_responses(self) -> list[ParametrizedResponse]:
         "Custom function to return all the parametrized responses for this mistake type."
         return [fb for fb in self.feedbacks if fb.__class__.__name__ == "ParametrizedResponse"]
 
@@ -91,6 +94,7 @@ def customize_generated_code():
         PyEcoreValue.check = override_pyecorevalue_check
         """)
     customize_module(ma_py, [ast_for(override_pyecorevalue_check)], ma_footer)
+    add_future_import(lc_py)
 
 
 def customize_class(filename: str, classname: str, members: list[AST]):
@@ -109,6 +113,14 @@ def customize_module(filename: str, members: list[AST], footer: str = ""):
     file_ast = read_ast(filename)
     file_ast.body.extend(members)
     save_ast_to_file(file_ast, filename, footer)
+
+
+def add_future_import(filename: str):
+    "Add a `from __future__ import annotations` statement to the beginning of a file."
+    file_ast = read_ast(filename)
+    # Insert the future import statement at position 1, after the docstring
+    file_ast.body.insert(1, ast.ImportFrom(module="__future__", names=[ast.alias(name="annotations")], level=0))
+    save_ast_to_file(file_ast, filename)
 
 
 def read_ast(filename: str) -> AST:

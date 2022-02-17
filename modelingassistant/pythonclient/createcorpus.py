@@ -136,11 +136,15 @@ Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \
 
 SHORT_TO_LONG_ECLASS_NAMES: dict[str, str] = {
     "assocend": "Association End",
-    "rel": "Relationship",
+    "aggr": "Aggregation",
+    "assoc": "Association",
     "attr": "Attribute",
+    "cls": "Class",
+    "compos": "Composition",
     "enum": "Enumeration",
     "enumitem": "Enumeration Item",
-    "cls": "Class",
+    "qualassoc": "Qualified Association",
+    "rel": "Relationship",  # deprecated
 }
 
 QUIZ_DISPLAY_NAMES: dict[type, str] = {
@@ -274,16 +278,15 @@ class TextualGenerator(ABC):
         "Return the body for the mistake type, indented by the given amount."
 
     @classmethod
-    def mdf_item_display_name(cls, mdf_name: str, mt: MistakeType) -> str:
+    def mdf_item_display_name(cls, mdf_name: str) -> str:
         "Return the display name for the input MDF name."
         def display_name(s: str) -> str:
-            name = SHORT_TO_LONG_ECLASS_NAMES.get(s, s)
-            if name.lower() == "relationship" and mt.learningItem.name.lower() in [
-                "association", "aggregation", "composition"]:
-                return mt.learningItem.name
-            return name
+            return SHORT_TO_LONG_ECLASS_NAMES.get(s, s)
 
-        return " ".join([display_name(w).capitalize() for w in mdf_name.split("_")])
+        return (" ".join([display_name(w).capitalize() for w in mdf_name.split("_")])
+                .replace("Sub Class", "Subclass").replace("Super Class", "Superclass")
+                .replace("Minlowerbound", "Minimum lower bound")
+                .replace("Abs", "Abstraction").replace("Occ", "Occurrence"))
 
     @classmethod
     @abstractmethod
@@ -296,18 +299,17 @@ class TextualGenerator(ABC):
             case 0:
                 result += ""
             case 1:
-                result += f"Student element: {cls.mdf_item_display_name(mt.md_format.stud[0], mt)}. "
+                result += f"Student element: {cls.mdf_item_display_name(mt.md_format.stud[0])}. "
             case _:
-                result += f"""Student elements: {
-                    ', '.join([cls.mdf_item_display_name(e, mt) for e in mt.md_format.stud])}. """
+                result += f"Student elements: {', '.join([cls.mdf_item_display_name(e) for e in mt.md_format.stud])}. "
         match len(mt.md_format.inst):
             case 0:
                 result += ""
             case 1:
-                result += f"Instructor element: {cls.mdf_item_display_name(mt.md_format.inst[0], mt)}."
+                result += f"Instructor element: {cls.mdf_item_display_name(mt.md_format.inst[0])}."
             case _:
                 result += f"""Instructor elements: {
-                    ', '.join([cls.mdf_item_display_name(e, mt) for e in mt.md_format.inst])}."""
+                    ', '.join([cls.mdf_item_display_name(e) for e in mt.md_format.inst])}."""
         return result
 
     @classmethod

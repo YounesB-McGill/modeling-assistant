@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus script.
-% Generation time: 2022-02-17 00:41:09
+% Generation time: 2022-02-17 13:13:12
 
 \textbf{Legend:}
 In the textual responses, items in \verb|${this format}| represent the parameters of
@@ -866,7 +866,7 @@ What is the relationship between these classes?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How would you capture the relationship between \verb|${inst_rel.end0}| and \verb|${inst_rel.end0}|?
+How would you capture the relationship between \verb|${inst_assoc.end0}| and \verb|${inst_assoc.end0}|?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -883,7 +883,7 @@ better understand these relationships and where they are used.
 
 \subsubsection{Missing aggregation}
 
-Instructor element: Association. \medskip
+Instructor element: Aggregation. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1001,7 +1001,7 @@ Is this association really necessary?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${stud_rel.end0}| and \verb|${stud_rel.end1}| is not expressed in the problem description.
+The relationship between \verb|${stud_assoc.end0}| and \verb|${stud_assoc.end1}| is not expressed in the problem description.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with List multiple-choice quiz: \medskip
@@ -1032,7 +1032,7 @@ Please review the \textit{domain modeling lecture} to know which concepts should
 
 \subsubsection{Extra aggregation}
 
-Student element: Association.  \medskip
+Student element: Aggregation.  \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1045,7 +1045,7 @@ Is this aggregation really necessary?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${stud_rel.end0}| and \verb|${stud_rel.end1}| is redundant.
+The relationship between \verb|${stud_aggr.end0}| and \verb|${stud_aggr.end1}| is redundant.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1081,6 +1081,8 @@ Please review the \textit{domain modeling lecture} to know which concepts should
 \subsection{Multiplicity mistakes}
 
 \subsubsection{Infinite recursive dependency}
+
+Student elements: Minimum lower bound Association end, Other Association end.  \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1919,7 +1921,7 @@ Is this composition really necessary?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${stud_rel.end0}| and \verb|${stud.end1}| is not expressed in the problem description.
+The relationship between \verb|${stud_compos.end0}| and \verb|${stud_compos.end1}| is not expressed in the problem description.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -2150,6 +2152,8 @@ better understand these relationships and where they are used.
 
 \subsubsection{Missing generalization}
 
+Student elements: Subclass, Superclass. Instructor elements: Subclass, Superclass. \medskip
+
 \noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -2189,6 +2193,8 @@ Please review the \textit{Generalization} part of the Class Diagram lecture.
 
 \subsubsection{Extra generalization}
 
+Student elements: Subclass, Superclass. Instructor elements: Subclass, Superclass. \medskip
+
 \noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -2200,7 +2206,7 @@ Can you find a better way to express this relationship?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-When creating a generalization between \verb|${stud_sub_cls}| and \verb|${stud_super_class}|, make sure to follow the \textit{checks for proper generalization}.
+When creating a generalization between \verb|${stud_sub_cls}| and \verb|${stud_super_cls}|, make sure to follow the \textit{checks for proper generalization}.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
@@ -2478,6 +2484,8 @@ Please review the \textit{Generalization} part of the Class Diagram lecture.
 
 \subsubsection{Wrong generalization direction}
 
+Student elements: Superclass, Subclass. Instructor elements: Subclass, Superclass. \medskip
+
 \noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -2535,6 +2543,8 @@ Please review the \textit{Generalization} part of the Class Diagram lecture.
 
 
 \subsubsection{Wrong superclass}
+
+Student elements: Subclass, Superclass. Instructor elements: Subclass, Superclass. \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -3207,6 +3217,8 @@ in different contexts.
 
 \subsubsection{Missing Abstraction-Occurrence pattern}
 
+Instructor elements: Abstraction Class, Occurrence Class. \medskip
+
 \noindent Level 1: Highlight solution (Class) \medskip
 
 \noindent Level 2: Text response: \medskip
@@ -3262,6 +3274,8 @@ from each other in an important way.
 
 
 \subsubsection{Generalization should be association in Abstraction-Occurrence pattern}
+
+Student elements: Subclass, Superclass. Instructor elements: Abstraction Class, Occurrence Class. \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 

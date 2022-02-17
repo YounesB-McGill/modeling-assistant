@@ -255,9 +255,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Do we really need to model this concept?"),
                     3: [ParametrizedResponse(text="The ${stud_attr} in the ${stud_attr.cls} class is not needed."),
-                        ParametrizedResponse(text="The ${redundantAttribute} attribute in the ${className} class is "
-                            "not needed because it can be derived from ${derivationSources}."),
-                        ParametrizedResponse(text="The ${redundantAttribute} attribute in the ${className} class is "
+                        ParametrizedResponse(text="The ${stud_attr} attribute in the ${stud_attr.cls} class is "
+                            "not needed because it can be derived from ${inst_deriv_cls}."),
+                        ParametrizedResponse(text="The ${stud_attr} attribute in the ${stud_attr.cls} class is "
                             "not needed because it is not part of the domain. You only need to model concepts related "
                             "to the given problem description.")],
                     4: ResourceResponse(learningResources=[attribute_reference]),
@@ -272,7 +272,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="What is the relationship between these classes?"),
                 3: ParametrizedResponse(
-                    text="How would you capture the relationship between ${inst_rel.end0} and ${inst_rel.end0}?"),
+                    text="How would you capture the relationship between ${inst_assoc.end0} and ${inst_assoc.end0}?"),
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref := Reference(content=dedent("""\
                     Please review the _Composition vs. Aggregation vs. Association_ section of 
                     the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
@@ -313,7 +313,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             extra_association := mt(n="Extra association", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this association really necessary?"),
-                3: [ParametrizedResponse(text="The relationship between ${stud_rel.end0} and ${stud_rel.end1} is not "
+                3: [ParametrizedResponse(text="The relationship between ${stud_assoc.end0} and ${stud_assoc.end1} is not "
                                               "expressed in the problem description."),
                     ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is redundant "
                         "since we can access ${classTwo} from ${classOne} via ${classThree}.")],
@@ -337,7 +337,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this aggregation really necessary?"),
                 3: ParametrizedResponse(
-                    text="The relationship between ${stud_rel.end0} and ${stud_rel.end1} is redundant."),
+                    text="The relationship between ${stud_aggr.end0} and ${stud_aggr.end1} is redundant."),
                 4: ResourceResponse(learningResources=[generic_extra_item_ref]),
             })),
             extra_nary_association := mt(n="Extra n-ary association", feedbacks=fbs({
@@ -622,8 +622,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             extra_composition := mt(n="Extra composition", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this composition really necessary?"),
-                3: ParametrizedResponse(text="The relationship between ${stud_rel.end0} and ${stud.end1} is not "
-                                             "expressed in the problem description."),
+                3: ParametrizedResponse(text="The relationship between ${stud_compos.end0} and ${stud_compos.end1} is "
+                                             "not expressed in the problem description."),
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
             using_assoc_instead_of_aggregation := mt(
@@ -708,9 +708,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 2: [TextResponse(text="Can you find a better way to express this relationship?"),
                     TextResponse(text="Is there a [direct ]relationship between these two classes?")],
                 3: [ParametrizedResponse(text="When creating a generalization between ${stud_sub_cls} and "
-                    "${stud_super_class}, make sure to follow the "
+                    "${stud_super_cls}, make sure to follow the "
                     "[checks for proper generalization](https://mycourses2.mcgill.ca/)."),
-                    ParametrizedResponse(text="${stud_sub_cls} is not a subclass of ${stud_super_class}.")],
+                    ParametrizedResponse(text="${stud_sub_cls} is not a subclass of ${stud_super_cls}.")],
                 4: ResourceResponse(learningResources=[inherit_hierarchy_quiz]),
                 5: ResourceResponse(learningResources=[inherit_checks_quiz := fitb(dedent("""\
                     Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
@@ -1159,23 +1159,28 @@ bad_role_name_spelling.md_format = mdf(["assocend"], ["assocend"])
 class_should_be_assoc_class.md_format = mdf(["cls"], ["cls"])
 class_should_be_enum.md_format = mdf(["cls"], ["enum"])
 enum_should_be_class.md_format = mdf(["enum"], ["cls"])
-extra_aggregation.md_format = mdf(["rel"], [])
+extra_aggregation.md_format = mdf(["aggr"], [])
 extra_assoc_class.md_format = mdf(["cls"], [])
-extra_association.md_format = mdf(["rel"], [])
+extra_association.md_format = mdf(["assoc"], [])
 extra_attribute.md_format = mdf(["attr"], [])
 extra_class.md_format = mdf(["cls"], [])
-extra_composition.md_format = mdf(["rel"], [])
+extra_composition.md_format = mdf(["compos"], [])
 extra_enum.md_format = mdf(["enum"], [])
 extra_enum_item.md_format = mdf(["enumitem"], [])
+extra_generalization.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])
+generalization_should_be_assoc_ao_pattern.md_format = mdf(["sub_cls", "super_cls"], ["abs_cls", "occ_cls"])
+infinite_recursive_dependency.md_format = mdf(["minlowerbound_assocend", "other_assocend"], [])
 lowercase_class_name.md_format = mdf(["cls"], ["cls"])
-missing_aggregation.md_format = mdf([], ["rel"])
+missing_ao_pattern.md_format = mdf([], ["abs_cls", "occ_cls"])
+missing_aggregation.md_format = mdf([], ["aggr"])
 missing_assoc_class.md_format = mdf([], ["cls"])
-missing_association.md_format = mdf([], ["rel"])
+missing_association.md_format = mdf([], ["assoc"])
 missing_attribute.md_format = mdf([], ["attr"])
 missing_class.md_format = mdf([], ["cls"])
-missing_composition.md_format = mdf([], ["rel"])
+missing_composition.md_format = mdf([], ["compos"])
 missing_enum.md_format = mdf([], ["enum"])
 missing_enum_item.md_format = mdf([], ["enumitem"])
+missing_generalization.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])
 missing_role_names.md_format = mdf(["assocend"], ["assocend"])
 non_differentiated_subclass.md_format = mdf(["cls"], [])
 plural_attribute.md_format = mdf(["attr"], ["attr"])
@@ -1195,5 +1200,7 @@ using_directed_relationship_instead_of_undirected.md_format = mdf(["assocend"], 
 using_undirected_relationship_instead_of_directed.md_format = mdf(["assocend"], ["assocend"])
 wrong_attribute_type.md_format = mdf(["attr"], ["attr"])
 wrong_class_name.md_format = mdf(["cls"], ["cls"])
+wrong_generalization_direction.md_format = mdf(["super_cls", "sub_cls"], ["sub_cls", "super_cls"])
 wrong_multiplicity.md_format = mdf(["assocend"], ["assocend"])
 wrong_role_name.md_format = mdf(["assocend"], ["assocend"])
+wrong_superclass.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])
