@@ -856,17 +856,23 @@ public class MistakeDetection {
   }
 
   private static void checkStudentAOPattern(TagGroup tg, Comparison comparison, Solution studentSolution) {
-    List<NamedElement> totalMatchesExpected = new ArrayList<>();
+    var totalMatchesExpected = new LinkedList<NamedElement>();
     int matchedElements = 0;
     for (Tag tag : tg.getTags()) {
-      if (comparison.mappedClassifiers.containsKey(tag.getSolutionElement().getElement())) {
-        if (tag.getTagType().equals(ABSTRACTION)
-            && comparison.mappedClassifiers.get(tag.getSolutionElement().getElement()).isAbstract()
-            || tag.getTagType().equals(OCCURRENCE)) {
+      var tagElem = tag.getSolutionElement().getElement();
+      if (comparison.mappedClassifiers.containsKey(tagElem)) {
+        var isAbstraction = tag.getTagType() == ABSTRACTION && comparison.mappedClassifiers.get(tagElem).isAbstract();
+        var isOccurrence = tag.getTagType() == OCCURRENCE;
+        if (isAbstraction) {
+          totalMatchesExpected.addFirst(tagElem); // always put abstraction(s) at the start of the list
+        }
+        if (isAbstraction || isOccurrence) {
           matchedElements++;
         }
       }
-      totalMatchesExpected.add(tag.getSolutionElement().getElement());
+      if (!totalMatchesExpected.contains(tagElem)) {
+        totalMatchesExpected.add(tagElem);
+      }
     }
     if (matchedElements == 0 && !totalMatchesExpected.isEmpty()) {
       comparison.newMistakes.add(createMistake(MISSING_AO_PATTERN, null, totalMatchesExpected));
@@ -2862,11 +2868,9 @@ public class MistakeDetection {
     return isVerb;
   }
 
-  public static String taggerOut(String s) {
-    String taggerInput = s;
+  public static String taggerOut(String taggerInput) {
     taggerInput = taggerInput.toLowerCase(); // Tagger works on lower case string
-    String tagged = maxentTagger.tagString(taggerInput);
-    return tagged;
+    return maxentTagger.tagString(taggerInput);
   }
 
   public static boolean isLowerName(String name) {
@@ -3004,9 +3008,8 @@ public class MistakeDetection {
   private static Mistake createMistake(MistakeType mistakeType, NamedElement studentElement,
       NamedElement instructorElement) {
     List<NamedElement> studentElements = studentElement == null ? Collections.emptyList() : List.of(studentElement);
-    List<NamedElement> instructorElements =
-        instructorElement == null ? Collections.emptyList() : List.of(instructorElement);
-    return createMistake(mistakeType, studentElements, instructorElements);
+    List<NamedElement> instElements = instructorElement == null ? Collections.emptyList() : List.of(instructorElement);
+    return createMistake(mistakeType, studentElements, instElements);
   }
 
   /**
