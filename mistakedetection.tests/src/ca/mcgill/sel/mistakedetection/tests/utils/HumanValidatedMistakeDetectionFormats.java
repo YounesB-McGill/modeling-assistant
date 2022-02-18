@@ -29,6 +29,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM_ITEM;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_GENERALIZATION;
 import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INFINITE_RECURSIVE_DEPENDENCY;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
@@ -99,6 +100,7 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(EXTRA_ENUM_ITEM, mdf(List.of("enumitem"), List.of())),
       entry(EXTRA_GENERALIZATION, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls"))),
       entry(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, mdf(List.of("sub_cls", "super_cls"), List.of("abs_cls", "occ_cls"))),
+      entry(INCOMPLETE_AO_PATTERN, mdf(List.of("abs_cls", "occ_cls"), List.of("abs_cls", "occ_cls"))),
       entry(INFINITE_RECURSIVE_DEPENDENCY, mdf(List.of("minlowerbound_assocend", "other_assocend"), List.of())),
       entry(LOWERCASE_CLASS_NAME, mdf(List.of("cls"), List.of("cls"))),
       entry(MISSING_AGGREGATION, mdf(List.of(), List.of("aggr"))),
@@ -136,32 +138,24 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(WRONG_SUPERCLASS, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls")))/*,
 
       // in progress
-      entry(EXTRA_GENERALIZATION, mdf(List.of("sub_cls", "super_cls"), List.of("cls", "other_cls"))),
-      entry(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, mdf(List.of("sub_cls", "super_cls"), List.of("abs_cls", "occ_cls"))),
-      entry(INFINITE_RECURSIVE_DEPENDENCY, mdf(List.of("minlowerbound_assocend", "other_assocend"), List.of())),
-      entry(MISSING_AO_PATTERN, mdf(List.of(), List.of("abs_cls", "occ_cls"))),
-      entry(MISSING_GENERALIZATION, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls"))),
-      entry(WRONG_GENERALIZATION_DIRECTION, mdf(List.of("super_cls", "sub_cls"), List.of("sub_cls", "super_cls"))), // classes returned according to student-instructor mapping order
-      entry(WRONG_ROLE_NAME, mdf(List.of("assocend"), List.of("assocend"))),
-      entry(WRONG_SUPERCLASS, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls")))*/
 
       // to be done later
-      //:entry(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, mdf(List.of("0_compos", "1_assocend", "2_assocend", "3_cls"), List.of("0_cls", "1_attr"))),
-      //:entry(ASSOC_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("0_compos", "1_assocend", "2_assocend", "3_cls"), List.of("0_cls", "1_cls", "2_cls"))),
-      //:entry(ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, mdf(List.of("0_compos", "1_assocend", "2_assocend", "3_cls"), List.of("0_cls", "1_cls", "2_cls"))),
-      //:entry(COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, mdf(List.of("0_cls", "1_cls"), List.of())),
-      //:entry(ENUM_SHOULD_BE_ASSOC_PR_PATTERN, mdf(List.of("0_enumitem", "1_enumitem", "2_cls"), List.of("0_cls", "1_assocend", "2_assocend"))),
-      //:entry(ENUM_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("0_enumitem", "1_enumitem", "2_cls"), List.of("0_cls", "1_cls", "2_cls"))),
-      //:entry(ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, mdf(List.of("0_enumitem", "1_enumitem", "2_cls"), List.of("0_cls", "1_cls", "2_cls"))),
-      //:entry(FULL_PR_PATTERN_SHOULD_BE_ASSOC, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_assocend", "2_assocend"))),
-      //:entry(FULL_PR_PATTERN_SHOULD_BE_ENUM, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_attr"))),
-      //:entry(FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_cls", "2_cls"))),
-      //:entry(INCOMPLETE_AO_PATTERN, mdf(List.of("0_cls", "1_cls"), List.of("0_cls", "1_cls"))),
-      //:entry(INCOMPLETE_PR_PATTERN, mdf(List.of("0_cls", "1_cls"), List.of("0_cls", "1_cls", "2_cls"))),
-      //:entry(INCOMPLETE_CONTAINMENT_TREE, mdf(List.of("0_cls", "1_cls", "2_cls", "3_cls", "4_cls", "5_cls", "6_cls", "7_cls", "8_cls", "9_cls", "10_cls"), List.of())),
-      //:entry(SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_assocend", "2_assocend"))),
-      //:entry(SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_attr"))),
-      //:entry(SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_cls", "2_cls"))),
+      //entry(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, mdf(List.of("0_compos", "1_assocend", "2_assocend", "3_cls"), List.of("0_cls", "1_attr"))),
+      //entry(ASSOC_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("0_compos", "1_assocend", "2_assocend", "3_cls"), List.of("0_cls", "1_cls", "2_cls"))),
+      //entry(ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, mdf(List.of("0_compos", "1_assocend", "2_assocend", "3_cls"), List.of("0_cls", "1_cls", "2_cls"))),
+      //entry(COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, mdf(List.of("0_cls", "1_cls"), List.of())),
+      //entry(ENUM_SHOULD_BE_ASSOC_PR_PATTERN, mdf(List.of("0_enumitem", "1_enumitem", "2_cls"), List.of("0_cls", "1_assocend", "2_assocend"))),
+      //entry(ENUM_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("0_enumitem", "1_enumitem", "2_cls"), List.of("0_cls", "1_cls", "2_cls"))),
+      //entry(ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, mdf(List.of("0_enumitem", "1_enumitem", "2_cls"), List.of("0_cls", "1_cls", "2_cls"))),
+      //entry(FULL_PR_PATTERN_SHOULD_BE_ASSOC, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_assocend", "2_assocend"))),
+      //entry(FULL_PR_PATTERN_SHOULD_BE_ENUM, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_attr"))),
+      //entry(FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_cls", "2_cls"))),
+      //
+      //entry(INCOMPLETE_PR_PATTERN, mdf(List.of("0_cls", "1_cls"), List.of("0_cls", "1_cls", "2_cls"))),
+      //entry(INCOMPLETE_CONTAINMENT_TREE, mdf(List.of("0_cls", "1_cls", "2_cls", "3_cls", "4_cls", "5_cls", "6_cls", "7_cls", "8_cls", "9_cls", "10_cls"), List.of())),
+      //entry(SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_assocend", "2_assocend"))),
+      //entry(SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_attr"))),
+      //entry(SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_cls", "2_cls"))),*/
   );
 
 }

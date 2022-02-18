@@ -1009,8 +1009,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
                     3: ParametrizedResponse(
-                        text="The concepts of ${instructorAbstraction} and ${instructorOccurrence} and the "
-                            "relationship between them should be modeled with the Abstraction-Occurrence pattern."),
+                        text="The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the "
+                             "relationship between them should be modeled with the Abstraction-Occurrence pattern."),
                     4: ResourceResponse(learningResources=[ao_ref]),
                 })),
             generalization_should_be_assoc_ao_pattern := mt(
@@ -1169,6 +1169,7 @@ extra_enum.md_format = mdf(["enum"], [])
 extra_enum_item.md_format = mdf(["enumitem"], [])
 extra_generalization.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])
 generalization_should_be_assoc_ao_pattern.md_format = mdf(["sub_cls", "super_cls"], ["abs_cls", "occ_cls"])
+incomplete_ao_pattern.md_format = mdf(["abs_cls", "occ_cls"], ["abs_cls", "occ_cls"])
 infinite_recursive_dependency.md_format = mdf(["minlowerbound_assocend", "other_assocend"], [])
 lowercase_class_name.md_format = mdf(["cls"], ["cls"])
 missing_ao_pattern.md_format = mdf([], ["abs_cls", "occ_cls"])

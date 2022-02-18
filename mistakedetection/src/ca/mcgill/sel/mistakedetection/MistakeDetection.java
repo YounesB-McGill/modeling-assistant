@@ -856,7 +856,7 @@ public class MistakeDetection {
   }
 
   private static void checkStudentAOPattern(TagGroup tg, Comparison comparison, Solution studentSolution) {
-    var totalMatchesExpected = new LinkedList<NamedElement>();
+    var totalMatchesExpected = new LinkedList<NamedElement>(); // use LL to insert from both ends of list
     int matchedElements = 0;
     for (Tag tag : tg.getTags()) {
       var tagElem = tag.getSolutionElement().getElement();
@@ -871,7 +871,7 @@ public class MistakeDetection {
         }
       }
       if (!totalMatchesExpected.contains(tagElem)) {
-        totalMatchesExpected.add(tagElem);
+        totalMatchesExpected.addLast(tagElem);
       }
     }
     if (matchedElements == 0 && !totalMatchesExpected.isEmpty()) {
@@ -2762,12 +2762,20 @@ public class MistakeDetection {
   }
 
   public static void createMistakeIncompleteAOPattern(TagGroup tg, Comparison comparison) {
-    List<NamedElement> studentMissingElements = new ArrayList<>();
-    List<NamedElement> instructorElements = new ArrayList<>();
+    var studentMissingElements = new LinkedList<NamedElement>();
+    var instructorElements = new LinkedList<NamedElement>();
     for (Tag tag : tg.getTags()) {
-      instructorElements.add(tag.getSolutionElement().getElement());
-      if (comparison.mappedClassifiers.containsKey(tag.getSolutionElement().getElement())) {
-        studentMissingElements.add(comparison.mappedClassifiers.get(tag.getSolutionElement().getElement()));
+      var instElem = tag.getSolutionElement().getElement();
+      if (tag.getTagType() == ABSTRACTION) {
+        instructorElements.addFirst(instElem);
+        if (comparison.mappedClassifiers.containsKey(instElem)) {
+          studentMissingElements.addFirst(comparison.mappedClassifiers.get(instElem));
+        }
+      } else if (tag.getTagType() == OCCURRENCE) {
+        instructorElements.addLast(instElem);
+        if (comparison.mappedClassifiers.containsKey(instElem)) {
+          studentMissingElements.addLast(comparison.mappedClassifiers.get(instElem));
+        }
       }
     }
     comparison.newMistakes.add(createMistake(INCOMPLETE_AO_PATTERN, studentMissingElements, instructorElements));
