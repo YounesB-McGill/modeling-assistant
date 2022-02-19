@@ -102,6 +102,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import ca.mcgill.sel.classdiagram.Association;
@@ -125,6 +126,7 @@ import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
 import modelingassistant.Tag;
 import modelingassistant.TagGroup;
+import modelingassistant.TagType;
 
 /**
  * This is the main class of Mistake Detection System. This class contains functions that maps and
@@ -856,23 +858,18 @@ public class MistakeDetection {
   }
 
   private static void checkStudentAOPattern(TagGroup tg, Comparison comparison, Solution studentSolution) {
-    var totalMatchesExpected = new LinkedList<NamedElement>(); // use LL to insert from both ends of list
+    List<NamedElement> totalMatchesExpected = new ArrayList<>();
     int matchedElements = 0;
-    for (Tag tag : tg.getTags()) {
-      var tagElem = tag.getSolutionElement().getElement();
-      if (comparison.mappedClassifiers.containsKey(tagElem)) {
-        var isAbstraction = tag.getTagType() == ABSTRACTION && comparison.mappedClassifiers.get(tagElem).isAbstract();
-        var isOccurrence = tag.getTagType() == OCCURRENCE;
-        if (isAbstraction) {
-          totalMatchesExpected.addFirst(tagElem); // always put abstraction(s) at the start of the list
-        }
-        if (isAbstraction || isOccurrence) {
+    var tags = sortAOTags(tg.getTags());
+    for (Tag tag : tags) {
+      if (comparison.mappedClassifiers.containsKey(tag.getSolutionElement().getElement())) {
+        if (tag.getTagType().equals(ABSTRACTION)
+            && comparison.mappedClassifiers.get(tag.getSolutionElement().getElement()).isAbstract()
+            || tag.getTagType().equals(OCCURRENCE)) {
           matchedElements++;
         }
       }
-      if (!totalMatchesExpected.contains(tagElem)) {
-        totalMatchesExpected.addLast(tagElem);
-      }
+      totalMatchesExpected.add(tag.getSolutionElement().getElement());
     }
     if (matchedElements == 0 && !totalMatchesExpected.isEmpty()) {
       comparison.newMistakes.add(createMistake(MISSING_AO_PATTERN, null, totalMatchesExpected));
@@ -2762,20 +2759,13 @@ public class MistakeDetection {
   }
 
   public static void createMistakeIncompleteAOPattern(TagGroup tg, Comparison comparison) {
-    var studentMissingElements = new LinkedList<NamedElement>();
-    var instructorElements = new LinkedList<NamedElement>();
-    for (Tag tag : tg.getTags()) {
-      var instElem = tag.getSolutionElement().getElement();
-      if (tag.getTagType() == ABSTRACTION) {
-        instructorElements.addFirst(instElem);
-        if (comparison.mappedClassifiers.containsKey(instElem)) {
-          studentMissingElements.addFirst(comparison.mappedClassifiers.get(instElem));
-        }
-      } else if (tag.getTagType() == OCCURRENCE) {
-        instructorElements.addLast(instElem);
-        if (comparison.mappedClassifiers.containsKey(instElem)) {
-          studentMissingElements.addLast(comparison.mappedClassifiers.get(instElem));
-        }
+    List<NamedElement> studentMissingElements = new ArrayList<>();
+    List<NamedElement> instructorElements = new ArrayList<>();
+    var tags = sortAOTags(tg.getTags());
+    for (Tag tag : tags) {
+      instructorElements.add(tag.getSolutionElement().getElement());
+      if (comparison.mappedClassifiers.containsKey(tag.getSolutionElement().getElement())) {
+        studentMissingElements.add(comparison.mappedClassifiers.get(tag.getSolutionElement().getElement()));
       }
     }
     comparison.newMistakes.add(createMistake(INCOMPLETE_AO_PATTERN, studentMissingElements, instructorElements));
@@ -3044,6 +3034,49 @@ public class MistakeDetection {
     }
     return mistake;
   }
+
+  /**
+   * Sorts elements based on the input predicates, which are functions that describe the elements that go first or last.
+   * Elements that do not go first or last end up in the middle.
+   *
+   * @param <T>
+   * @param elements
+   * @param elementsThatGoFirst
+   * @param elementsThatGoLast
+   * @return a list of the sorted elements
+   */
+  static <T> List<T> sortElements(List<? extends T> elements,
+      Predicate<T> elementsThatGoFirst, Predicate<T> elementsThatGoLast) {
+    var result = new LinkedList<T>();
+    var lastElements = new LinkedList<T>();
+    elements.forEach(e -> {
+      if (elementsThatGoFirst.test(e)) {
+        result.addFirst(e);
+      } else if (elementsThatGoLast.test(e)) {
+        lastElements.add(e);
+      } else {
+        result.add(e); // element does not go first or last, so add it to what will become the middle
+      }
+    });
+    result.addAll(lastElements);
+    return result;
+  }
+
+  /** Sorts the given tags according to their type. */
+  static List<Tag> sortTags(List<Tag> tags, TagType firstTag, TagType lastTag) {
+    return sortElements(tags, t -> t.getTagType() == firstTag, t -> t.getTagType() == lastTag);
+  }
+
+  /** Sorts the Abstraction-Occurrence tags, first the abstractions, then the occurrences. */
+  static List<Tag> sortAOTags(List<Tag> tags) {
+    return sortTags(tags, ABSTRACTION, OCCURRENCE);
+  }
+
+  /** Sorts the Player-Role tags, first the abstractions, then the occurrences. */
+  static List<Tag> sortPRTags(List<Tag> tags) {
+    return sortTags(tags, PLAYER, ROLE);
+  }
+
 
   /** Overloaded method used for testing. */
   public static boolean checkCorrectTest(Classifier instructorClassifier, Classifier studentClassifier) {
