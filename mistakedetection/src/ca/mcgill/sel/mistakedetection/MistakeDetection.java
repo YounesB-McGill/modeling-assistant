@@ -1641,11 +1641,19 @@ public class MistakeDetection {
   /** Check for infinite recursive dependency. */
   private static void checkMistakeInfiniteRecursiveDependency(AssociationEnd studentClassAssocEnd,
       AssociationEnd otherStudentClassAssocEnd, Comparison comparison) {
+    var studClassAssocEndLowerBound = studentClassAssocEnd.getLowerBound();
+    var otherStudClassAssocEndLowerBound = otherStudentClassAssocEnd.getLowerBound();
+
     if (!isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, studentClassAssocEnd, comparison)
         && !isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, otherStudentClassAssocEnd, comparison)
-        && (studentClassAssocEnd.getLowerBound() >= 1 && otherStudentClassAssocEnd.getLowerBound() >= 1)) {
-      comparison.newMistakes.add(
-          createMistake(INFINITE_RECURSIVE_DEPENDENCY, List.of(studentClassAssocEnd, otherStudentClassAssocEnd), null));
+        && (studClassAssocEndLowerBound >= 1 || otherStudClassAssocEndLowerBound >= 1)) {
+      if (otherStudClassAssocEndLowerBound > studClassAssocEndLowerBound) {
+        comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY,
+            List.of(studentClassAssocEnd, otherStudentClassAssocEnd), null));
+      } else {
+        comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY,
+            List.of(otherStudentClassAssocEnd, studentClassAssocEnd), null));
+      }
     }
   }
 
