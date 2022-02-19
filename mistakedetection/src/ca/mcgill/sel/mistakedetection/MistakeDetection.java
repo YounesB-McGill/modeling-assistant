@@ -892,7 +892,7 @@ public class MistakeDetection {
 
     if (!studOccClass.getSuperTypes().isEmpty() && studOccClass.getSuperTypes().get(0).equals(studAbsClass)) {
       comparison.newMistakes.add(createMistake(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN,
-          List.of(studAbsClass, studOccClass), List.of(instAbsClass, instOccClass)));
+          List.of(studOccClass, studAbsClass), List.of(instAbsClass, instOccClass)));
     } else if (!studAbsClass.getSuperTypes().isEmpty() && studAbsClass.getSuperTypes().get(0).equals(studOccClass)) {
       comparison.newMistakes.add(createMistake(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN,
           List.of(studAbsClass, studOccClass), List.of(instAbsClass, instOccClass)));
