@@ -894,6 +894,7 @@ public class MistakeDetection {
     Classifier studOccClass = comparison.mappedClassifiers.get(instOccClass);
 
     if (!studOccClass.getSuperTypes().isEmpty() && studOccClass.getSuperTypes().get(0).equals(studAbsClass)) {
+      // use (studOccClass, studAbsClass) order to since studOccClass is the subclass and studAbsClass is the superclass
       comparison.newMistakes.add(createMistake(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN,
           List.of(studOccClass, studAbsClass), List.of(instAbsClass, instOccClass)));
     } else if (!studAbsClass.getSuperTypes().isEmpty() && studAbsClass.getSuperTypes().get(0).equals(studOccClass)) {
