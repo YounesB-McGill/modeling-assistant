@@ -150,7 +150,6 @@ public class HumanValidatedMistakeDetectionFormats {
       //entry(FULL_PR_PATTERN_SHOULD_BE_ASSOC, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_assocend", "2_assocend"))),
       //entry(FULL_PR_PATTERN_SHOULD_BE_ENUM, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_attr"))),
       //entry(FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_cls", "2_cls"))),
-      //
       //entry(INCOMPLETE_PR_PATTERN, mdf(List.of("0_cls", "1_cls"), List.of("0_cls", "1_cls", "2_cls"))),
       //entry(INCOMPLETE_CONTAINMENT_TREE, mdf(List.of("0_cls", "1_cls", "2_cls", "3_cls", "4_cls", "5_cls", "6_cls", "7_cls", "8_cls", "9_cls", "10_cls"), List.of())),
       //entry(SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, mdf(List.of("0_cls", "1_cls", "2_cls"), List.of("0_cls", "1_assocend", "2_assocend"))),
