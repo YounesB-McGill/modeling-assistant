@@ -2557,10 +2557,9 @@ public class MistakeDetection {
         }
       }
       removeMistakesRelatedToElement(instructorClassAssoc.getAssociationClass(), newMistakes);
-      newMistakes.add(createMistake(MISSING_ASSOC_CLASS, studentClassAssoc.getAssociationClass(),
-          instructorClassAssoc.getAssociationClass()));
+      newMistakes.add(createMistake(MISSING_ASSOC_CLASS, null,
+          List.of(instructorClassAssoc, instructorClassAssoc.getAssociationClass())));
     }
-
   }
 
   public static void checkMistakeExtraAssociationClass(Association studentClassAssoc, Association instructorClassAssoc,
@@ -2572,8 +2571,8 @@ public class MistakeDetection {
         }
       }
       removeMistakesRelatedToElement(studentClassAssoc.getAssociationClass(), newMistakes);
-      newMistakes.add(createMistake(EXTRA_ASSOC_CLASS, studentClassAssoc.getAssociationClass(),
-          instructorClassAssoc.getAssociationClass()));
+      newMistakes.add(createMistake(EXTRA_ASSOC_CLASS, List.of(studentClassAssoc, studentClassAssoc.getAssociationClass()),
+          null));
     }
 
   }
@@ -2674,7 +2673,7 @@ public class MistakeDetection {
       }
       if (association.getAssociationClass() != null) {
         removeMistakesRelatedToElement(association.getAssociationClass(), comparison.newMistakes);
-        comparison.newMistakes.add(createMistake(MISSING_ASSOC_CLASS, null, association.getAssociationClass()));
+        comparison.newMistakes.add(createMistake(MISSING_ASSOC_CLASS, null, List.of(association, association.getAssociationClass())));
       }
     }
   }
@@ -2734,7 +2733,7 @@ public class MistakeDetection {
       }
       if (association.getAssociationClass() != null) {
         removeMistakesRelatedToElement(association.getAssociationClass(), comparison.newMistakes);
-        comparison.newMistakes.add(createMistake(EXTRA_ASSOC_CLASS, association.getAssociationClass(), null));
+        comparison.newMistakes.add(createMistake(EXTRA_ASSOC_CLASS, List.of(association, association.getAssociationClass()), null));
       }
     }
   }
