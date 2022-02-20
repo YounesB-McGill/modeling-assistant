@@ -4,11 +4,15 @@ import static java.util.Map.entry;
 // Always keep this comment here to allow easy auto-importing of new mistake types in IDEs
 //import static learningcorpus.mistaketypes.MistakeTypes.*;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_CLASS_SHOULD_BE_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_ENUM_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_FULL_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_DUPLICATED;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_MISPLACED;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_NOT_BE_STATIC;
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOC_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
@@ -17,7 +21,11 @@ import static learningcorpus.mistaketypes.MistakeTypes.BAD_ENUM_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ENUM;
+import static learningcorpus.mistaketypes.MistakeTypes.COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT;
+import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_ASSOC_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_FULL_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ATTRIBUTE;
@@ -26,17 +34,31 @@ import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM_ITEM;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_GENERALIZATION;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_N_ARY_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ENUM;
+import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_INAPPLICABLE;
 import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_AO_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_CONTAINMENT_TREE;
+import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INFINITE_RECURSIVE_DEPENDENCY;
+import static learningcorpus.mistaketypes.MistakeTypes.INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.LIST_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM_ITEM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_GENERALIZATION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_MULTIPLICITY;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_N_ARY_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
 import static learningcorpus.mistaketypes.MistakeTypes.NON_DIFFERENTIATED_SUBCLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
@@ -45,17 +67,28 @@ import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.UPPERCASE_ATTRIBUTE_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ATTRIBUTE_INSTEAD_OF_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_GENERALIZATION_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_SUPERCLASS;
 import java.util.Map;
@@ -66,7 +99,7 @@ public class HumanValidatedParametrizedResponses {
 
   public static final Map<MistakeType, Set<String>> mappings = Map.ofEntries(
       // paste entries from MDIS4LC here
-      // done
+      // Already done
       entry(ASSOC_CLASS_SHOULD_BE_CLASS, Set.of("The ${inst_cls} class should be a regular class.")),
       entry(ATTRIBUTE_DUPLICATED, Set.of("The ${stud_attr} already exists in another class, so there is no need to include it again.")),
       entry(ATTRIBUTE_MISPLACED, Set.of("The ${stud_attr} belongs in the ${inst_attr.cls} class.",
@@ -128,6 +161,53 @@ public class HumanValidatedParametrizedResponses {
       entry(WRONG_ROLE_NAME, Set.of("The ${stud_assocend} role name is not correct.",
           "The ${stud_assocend} role name should be changed to ${inst_assocend}.")),
       entry(WRONG_SUPERCLASS, Set.of("${stud_sub_cls} has an incorrect superclass.",
-          "The superclass for ${stud_sub_cls} should be ${inst_super_cls}."))
+          "The superclass for ${stud_sub_cls} should be ${inst_super_cls}.")),
+
+      // In progress
+      entry(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, Set.of("Will the roles of ${stud_role_assocend*} ever be occupied at the same time?")),
+      entry(ASSOC_SHOULD_BE_FULL_PR_PATTERN, Set.of("A ${stud_role_assocend0} has different features from a ${stud_role_assocend1}.")),
+      entry(ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, Set.of("A ${stud_role_assocend0} has different features from a ${stud_role_assocend1} and does not change its role over its lifetime.")),
+      entry(BAD_ASSOCIATION_NAME_SPELLING, Set.of("${stud_assoc} is misspelled.[ Use the same spelling as the problem description.]")),
+      entry(COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, Set.of("${stud_cls*} cannot be contained in more than one class.")),
+      entry(ENUM_SHOULD_BE_ASSOC_PR_PATTERN, Set.of("Will the roles of ${stud_role_assocend*} ever be occupied at the same time?")),
+      entry(ENUM_SHOULD_BE_FULL_PR_PATTERN, Set.of("A ${stud_role_assocend0} has different features from one of the other roles at the same time and different features need to be captured for the roles.")),
+      entry(ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, Set.of("A ${stud_role_assocend0} has different features from one of the other roles and this role never changes to another role.")),
+      entry(EXTRA_N_ARY_ASSOCIATION, Set.of("")),
+      entry(FULL_PR_PATTERN_SHOULD_BE_ASSOC, Set.of("Do ${stud_role_assocend*} need to have different features?")),
+      entry(FULL_PR_PATTERN_SHOULD_BE_ENUM, Set.of("Do ${stud_role_assocend*} need to have different features and is it possible that more than one role is played at the same time?")),
+      entry(FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, Set.of("Can a ${stud_role_assocend0} can also play the role of one of the other roles at different times or at the same time?")),
+      entry(GENERALIZATION_INAPPLICABLE, Set.of("When creating a generalization between ${stud_sub_cls} and ${stud_super_cls}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).")),
+      entry(INCOMPLETE_PR_PATTERN, Set.of("The concepts of ${inst_player_cls}, ${inst_role_cls*} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.")),
+      entry(INCOMPLETE_CONTAINMENT_TREE, Set.of("${stud_cls*} should be contained in the containment tree.[ Use composition for this.]")),
+      entry(INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS, Set.of("The ${stud_attr} feature of the ${stud_super_cls} class does not make sense for its ${stud_sub_cls} subclass.")),
+      entry(LIST_ATTRIBUTE, Set.of("${stud_attr} should be modeled as an association instead.")),
+      entry(MISSING_PR_PATTERN, Set.of("The concepts of ${inst_player_cls} and ${inst_role_cls*} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.")),
+      entry(MISSING_ASSOCIATION_NAME, Set.of("This association should be named ${inst_assoc}.")),
+      entry(MISSING_ATTRIBUTE_TYPE, Set.of("The ${stud_attr.cls}.${stud_attr} attribute is missing something.",
+          "The type of the ${stud_attr.cls}.${stud_attr} attribute should be ${inst_attr.type}.")),
+      entry(MISSING_MULTIPLICITY, Set.of("How many ${stud_assocend.cls}'s does a ${stud_assocend.opposite.cls} have?")),
+      entry(MISSING_N_ARY_ASSOCIATION, Set.of("How would you capture the relationship between ${inst_assoc.cls*}?")),
+      entry(SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS, Set.of("")),
+      entry(SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME, Set.of("Is it possible for an instance of ${stud_sub_cls} to turn into an instance of another subclass over its lifetime?")),
+      entry(SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, Set.of("[Nice try, but] ${stud_role_cls*} can also play the role of one of the other subclasses and different features do not need to be captured for the subclasses.")),
+      entry(SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, Set.of("[Nice try, but] ${stud_role_cls*} do not need to play the role of one of the other subclasses and different features do not need to be captured for the subclasses.")),
+      entry(SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, Set.of("[Nice try, but] ${stud_role_cls*} can also play the role of one of the other subclasses.")),
+      entry(USING_AGGREGATION_INSTEAD_OF_ASSOC, Set.of("The relationship between ${stud_assocend.cls} and ${stud_assocend.opposite.cls} can be modeled with a simple association.")),
+      entry(USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC, Set.of("Use a ${inst_assoc.ends.length}-ary association to represent this relationship.")),
+      entry(USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC, Set.of("Use a ${inst_assoc.ends.length}-ary association to represent this relationship.")),
+      entry(USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC, Set.of("")),
+      entry(USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS, Set.of("")),
+      entry(WRONG_RELATIONSHIP_DIRECTION, Set.of("The direction of the relationship between ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls} should be reversed."))
+      
+      // Under review
+      /*
+      missing_assoc_class
+      using_undirected_relationship_instead_of_directed
+      missing_aggregation
+      using_composition_instead_of_assoc
+      missing_composition
+      extra_assoc_class
+      */
+
   );
 }

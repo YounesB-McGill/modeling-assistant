@@ -8,14 +8,13 @@ Tests for parametrized responses.
 import os
 import re
 import sys
-from termios import VLNEXT
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from classdiagram import Class
 from corpus import corpus, missing_class
 from feedback import parametrize_response
-from learningcorpus import MistakeType
+from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake, SolutionElement
 from utils import warn
 
@@ -87,6 +86,17 @@ def get_all_pr_parameters() -> dict[str, MistakeType]:
 def get_pr_parameters_for_mistake_types_with_md_formats() -> dict[str, MistakeType]:
     "Return a dict of ParametrizedResponse parameters mapped to mistake types with mistake detection formats."
     return {param: mt for param, mt in get_all_pr_parameters().items() if hasattr(mt, "md_format")}
+
+
+def get_number_of_mistake_types_with_parametrized_responses() -> int:
+    "Return the number of mistake types with parametrized responses."
+    result = 0
+    for mt in corpus.mistakeTypes():
+        for fb in mt.feedbacks:
+            if isinstance(fb, ParametrizedResponse):
+                result += 1
+                break
+    return result
 
 
 if __name__ == "__main__":
