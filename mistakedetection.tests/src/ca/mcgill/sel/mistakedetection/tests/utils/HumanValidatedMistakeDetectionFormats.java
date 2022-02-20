@@ -197,16 +197,16 @@ public class HumanValidatedMistakeDetectionFormats {
 
       // In progress: MDS logic implemented (or will be implemented soon) but no tests
       entry(LIST_ATTRIBUTE, mdf(List.of("attr"), List.of("attr"))),
-      entry(MISSING_PR_PATTERN, mdf(List.of(), List.of())), // TODO [], [missingElements]
+      entry(MISSING_PR_PATTERN, mdf(List.of(), List.of(""))), // TODO [], [missingElements]
       entry(USING_AGGREGATION_INSTEAD_OF_ASSOC, mdf(List.of("assocend"), List.of("assocend"))),
-      entry(WRONG_RELATIONSHIP_DIRECTION, mdf(List.of(), List.of())), // TODO
+      entry(WRONG_RELATIONSHIP_DIRECTION, mdf(List.of(""), List.of(""))), // TODO
 
       // Future work: mistake detection not implemented for these mistake types
       // TODO complete student/instructor descriptions
       entry(BAD_ASSOCIATION_NAME_SPELLING, mdf(List.of("assoc"), List.of("assoc"))),
       entry(EXTRA_N_ARY_ASSOCIATION, mdf(List.of("assoc"), List.of())),
       entry(GENERALIZATION_INAPPLICABLE, mdf(List.of("sub_cls", "super_cls"), List.of())),
-      entry(INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS, mdf(List.of(), List.of())),
+      entry(INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS, mdf(List.of("sub_cls", "super_cls"), List.of())),
       entry(MISSING_ASSOCIATION_NAME, mdf(List.of("assoc"), List.of("assoc"))),
       entry(MISSING_ATTRIBUTE_TYPE, mdf(List.of("attr"), List.of("attr"))),
       entry(MISSING_MULTIPLICITY, mdf(List.of("assocend"), List.of("assocend"))),

@@ -13,7 +13,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from learningcorpus import MistakeTypeCategory, MistakeType
 from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, CLASS_MISTAKES, CLASS_NAME_MISTAKES
 from corpus import corpus, mts_by_priority
-from utils import COLOR, color_str
+from utils import COLOR, MistakeDetectionFormat, color_str
 
 import mistaketypes
 
@@ -92,6 +92,39 @@ def test_mistake_type_priorities():
             assert mt.priority
 
 
+def test_mistake_type_formats():
+    """
+    Verify the validity of all mistake type formats.
+
+    - There must be at least one student element or instructor element
+    - Within each of the student element and instructor element lists, there must be no duplicates
+    - There is at most one variable argument (vararg) for each of the student element and instructor element lists,
+      and it must be the last item
+    - Mistakes types that start with "Extra" must have student elements but no instructor elements
+    - Mistakes types that start with "Missing" may have student elements (eg, Missing role name) and must have
+      instructor elements
+    - "sub_cls" cannot exist without "super_cls" and vice versa
+    """
+    for mt in corpus.mistakeTypes():
+        name: str = mt.name
+        assert mt.md_format, f"{name} has no MistakeDetectionFormat"
+        mdf: MistakeDetectionFormat = mt.md_format
+        assert mdf.stud or mdf.inst, f"{name} has no student or instructor elements"
+        assert len(mdf.stud) == len(set(mdf.stud)), f"{name} has duplicate student elements"
+        assert len(mdf.inst) == len(set(mdf.inst)), f"{name} has duplicate instructor elements"
+        assert not any(s.endswith("*") for s in (mdf.stud[:-1] + mdf.inst[:-1])), f"{name} has an invalid vararg"
+        if name.lower().startswith("extra"):
+            assert mdf.stud, f"{name} has no student elements"
+            assert not mdf.inst, f"{name} has instructor elements"
+        if name.lower().startswith("missing"):
+            assert mdf.inst, f"{name} has no instructor elements"
+        for lst in (mdf.stud, mdf.inst):
+            if "sub_cls" in lst:
+                assert "super_cls" in lst, f'{name} has "sub_cls" but no "super_cls"'
+            if "super_cls" in lst:
+                assert "sub_cls" in lst, f'{name} has "super_cls" but no "sub_cls"'
+
+
 def print_mistake_type_stats():
     "Print mistake type statistics to console."
     # pylint: disable=expression-not-assigned
@@ -134,7 +167,9 @@ def print_mistake_type_stats_md_format_completion_status():
     def print_mt(mt: MistakeType, indent: int = 0):
         "Print mistake type and show its priority and whether it has feedbacks."
         sign = "+" if hasattr(mt, "md_format") else "-"
-        print(f"{sign}{' ' * indent}{mt.name}")
+        #print(f"{sign}{' ' * indent}{mt.name}")
+        if not hasattr(mt, "md_format"):
+            print(f"{sign}{' ' * indent}{mt.name}")
 
     def print_mtc(mtc: MistakeTypeCategory, indent: int = 0):
         "Recursively print mistake type category and its subcategories."
