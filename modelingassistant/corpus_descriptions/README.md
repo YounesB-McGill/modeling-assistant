@@ -1647,7 +1647,7 @@ better understand these relationships and where they are used.
 
 #### Composed part contained in more than one parent
 
-Student element: Cls*. 
+Student element: Classes. 
 
 Level 1: Highlight solution
 
@@ -1694,7 +1694,7 @@ better understand these relationships and where they are used.
 
 #### Incomplete containment tree
 
-Student element: Cls*. 
+Student element: Classes. 
 
 Level 1: Highlight solution
 
@@ -2097,7 +2097,7 @@ in different contexts.
 
 #### Incomplete Player-Role pattern
 
-Student element: Cls*. Instructor element: Cls*.
+Student element: Classes. Instructor element: Classes.
 
 Level 1: Highlight solution
 
@@ -2130,7 +2130,7 @@ in different contexts.
 
 #### Subclass should be full Player-Role pattern
 
-Student elements: Player class, Role cls*. Instructor elements: Player class, Role cls*.
+Student elements: Player class, Role classes. Instructor elements: Player class, Role classes.
 
 Level 1: Highlight solution
 
@@ -2163,7 +2163,7 @@ in different contexts.
 
 #### Subclass should be association Player-Role pattern
 
-Student elements: Player class, Role cls*. Instructor elements: Player class, Role assocend*.
+Student elements: Player class, Role classes. Instructor elements: Player class, Role association ends.
 
 Level 1: Highlight solution
 
@@ -2196,7 +2196,7 @@ in different contexts.
 
 #### Subclass should be enumeration Player-Role pattern
 
-Student elements: Player class, Role cls*. Instructor elements: Player class, Role attribute.
+Student elements: Player class, Role classes. Instructor elements: Player class, Role attribute.
 
 Level 1: Highlight solution
 
@@ -2229,7 +2229,7 @@ in different contexts.
 
 #### Association should be full Player-Role pattern
 
-Student elements: Player class, Role assocend*. Instructor elements: Player class, Role cls*.
+Student elements: Player class, Role association ends. Instructor elements: Player class, Role classes.
 
 Level 1: Highlight solution
 
@@ -2262,7 +2262,7 @@ in different contexts.
 
 #### Association should be subclass Player-Role pattern
 
-Student elements: Player class, Role assocend*. Instructor elements: Player class, Role cls*.
+Student elements: Player class, Role association ends. Instructor elements: Player class, Role classes.
 
 Level 1: Highlight solution
 
@@ -2295,7 +2295,7 @@ in different contexts.
 
 #### Association should be enumeration Player-Role pattern
 
-Student elements: Player class, Role assocend*. Instructor elements: Player class, Role attribute.
+Student elements: Player class, Role association ends. Instructor elements: Player class, Role attribute.
 
 Level 1: Highlight solution
 
@@ -2328,7 +2328,7 @@ in different contexts.
 
 #### Enumeration should be full Player-Role pattern
 
-Student elements: Player class, Role enumitem*. Instructor elements: Player class, Role cls*.
+Student elements: Player class, Role enumeration items. Instructor elements: Player class, Role classes.
 
 Level 1: Highlight solution
 
@@ -2361,7 +2361,7 @@ in different contexts.
 
 #### Enumeration should be subclass Player-Role pattern
 
-Student elements: Player class, Role enumitem*. Instructor elements: Player class, Role cls*.
+Student elements: Player class, Role enumeration items. Instructor elements: Player class, Role classes.
 
 Level 1: Highlight solution
 
@@ -2394,7 +2394,7 @@ in different contexts.
 
 #### Enumeration should be association Player-Role pattern
 
-Student elements: Player class, Role enumitem*. Instructor elements: Player class, Role assocend*.
+Student elements: Player class, Role enumeration items. Instructor elements: Player class, Role association ends.
 
 Level 1: Highlight solution
 
@@ -2427,7 +2427,7 @@ in different contexts.
 
 #### Full Player-Role pattern should be subclass
 
-Student elements: Player class, Role cls*. Instructor elements: Player class, Role cls*.
+Student elements: Player class, Role classes. Instructor elements: Player class, Role classes.
 
 Level 1: Highlight solution
 
@@ -2460,7 +2460,7 @@ in different contexts.
 
 #### Full Player-Role pattern should be association
 
-Student elements: Player class, Role cls*. Instructor elements: Player class, Role assocend*.
+Student elements: Player class, Role classes. Instructor elements: Player class, Role association ends.
 
 Level 1: Highlight solution
 
@@ -2493,7 +2493,7 @@ in different contexts.
 
 #### Full Player-Role pattern should be enumeration
 
-Student elements: Player class, Role cls*. Instructor elements: Player class, Role attribute.
+Student elements: Player class, Role classes. Instructor elements: Player class, Role attribute.
 
 Level 1: Highlight solution
 

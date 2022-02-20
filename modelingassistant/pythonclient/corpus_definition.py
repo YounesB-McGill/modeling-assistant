@@ -313,8 +313,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             extra_association := mt(n="Extra association", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this association really necessary?"),
-                3: [ParametrizedResponse(text="The relationship between ${stud_assoc.end0} and ${stud_assoc.end1} is not "
-                                              "expressed in the problem description."),
+                3: [ParametrizedResponse(text="The relationship between ${stud_assoc.end0} and ${stud_assoc.end1} is "
+                                              "not expressed in the problem description."),
                     ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is redundant "
                         "since we can access ${classTwo} from ${classOne} via ${classThree}.")],
                 4: ResourceResponse(learningResources=[mcq[
