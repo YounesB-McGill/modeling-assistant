@@ -13,6 +13,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_MISPLACED;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ATTRIBUTE_SHOULD_NOT_BE_STATIC;
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOCIATION_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ASSOC_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ATTRIBUTE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
@@ -35,25 +36,34 @@ import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ENUM_ITEM;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_GENERALIZATION;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_N_ARY_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.FULL_PR_PATTERN_SHOULD_BE_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_INAPPLICABLE;
 import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_CONTAINMENT_TREE;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INFINITE_RECURSIVE_DEPENDENCY;
+import static learningcorpus.mistaketypes.MistakeTypes.INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.LIST_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM_ITEM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_GENERALIZATION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_MULTIPLICITY;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_N_ARY_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
 import static learningcorpus.mistaketypes.MistakeTypes.NON_DIFFERENTIATED_SUBCLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
@@ -62,22 +72,30 @@ import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.SUBCLASS_SHOULD_BE_FULL_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.UPPERCASE_ATTRIBUTE_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ATTRIBUTE_INSTEAD_OF_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_GENERALIZATION_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_SUPERCLASS;
 import java.util.List;
@@ -89,7 +107,7 @@ public class HumanValidatedMistakeDetectionFormats {
 
   public static final Map<MistakeType, MistakeDetectionFormat> mappings = Map.ofEntries(
       // paste entries from MDIS4LC here (studentElemsDescriptions, instructorElemsDescriptions)
-      // already done (derived from MDS)
+      // Completed entries (derived from MDS)
       entry(ASSOC_CLASS_SHOULD_BE_CLASS, mdf(List.of("cls"), List.of("cls"))),
       entry(ATTRIBUTE_DUPLICATED, mdf(List.of("attr"), List.of())),
       entry(ATTRIBUTE_MISPLACED, mdf(List.of("attr"), List.of("attr"))),
@@ -152,6 +170,7 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(WRONG_ROLE_NAME, mdf(List.of("assocend"), List.of("assocend"))),
       entry(WRONG_SUPERCLASS, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls"))),
 
+      // In progress: MDS logic and tests implemented
       // TODO Prabhsimran: Ensure the MDS returns these results by unit testing or other means
 
       entry(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, mdf(List.of("player_cls", "role_assocend*"), List.of("player_cls", "role_attr"))),
@@ -168,15 +187,36 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(FULL_PR_PATTERN_SHOULD_BE_ENUM, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_attr"))),
       entry(FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_cls*"))),
 
-      entry(INCOMPLETE_PR_PATTERN, mdf(List.of("cls*"), List.of("cls*"))), // TODO Double check
+      entry(INCOMPLETE_PR_PATTERN, mdf(List.of("cls*"), List.of("cls*"))), // TODO Update this based on MDS
 
       entry(INCOMPLETE_CONTAINMENT_TREE, mdf(List.of("cls*"), List.of())),
 
       entry(SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_assocend*"))),
       entry(SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_attr"))),
-      entry(SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_cls*")))
+      entry(SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_cls*"))),
 
-      // to be done later
+      // In progress: MDS logic implemented (or will be implemented soon) but no tests
+      entry(LIST_ATTRIBUTE, mdf(List.of("attr"), List.of("attr"))),
+      entry(MISSING_PR_PATTERN, mdf(List.of(), List.of())), // TODO [], [missingElements]
+      entry(USING_AGGREGATION_INSTEAD_OF_ASSOC, mdf(List.of("assocend"), List.of("assocend"))),
+      entry(WRONG_RELATIONSHIP_DIRECTION, mdf(List.of(), List.of())), // TODO
+
+      // Future work: mistake detection not implemented for these mistake types
+      // TODO complete student/instructor descriptions
+      entry(BAD_ASSOCIATION_NAME_SPELLING, mdf(List.of("assoc"), List.of("assoc"))),
+      entry(EXTRA_N_ARY_ASSOCIATION, mdf(List.of("assoc"), List.of())),
+      entry(GENERALIZATION_INAPPLICABLE, mdf(List.of("sub_cls", "super_cls"), List.of())),
+      entry(INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS, mdf(List.of(), List.of())),
+      entry(MISSING_ASSOCIATION_NAME, mdf(List.of("assoc"), List.of("assoc"))),
+      entry(MISSING_ATTRIBUTE_TYPE, mdf(List.of("attr"), List.of("attr"))),
+      entry(MISSING_MULTIPLICITY, mdf(List.of("assocend"), List.of("assocend"))),
+      entry(MISSING_N_ARY_ASSOCIATION, mdf(List.of(), List.of("assoc"))),
+      entry(SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS, mdf(List.of("sub_cls", "super_cls"), List.of())),
+      entry(SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME, mdf(List.of("sub_cls", "super_cls"), List.of())),
+      entry(USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC, mdf(List.of("assoc"), List.of("assoc"))),
+      entry(USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC, mdf(List.of("cls"), List.of("assoc"))),
+      entry(USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC, mdf(List.of("assoc"), List.of("assoc"))),
+      entry(USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS, mdf(List.of("assoc"), List.of("cls")))
   );
 
 }

@@ -287,7 +287,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 3: ParametrizedResponse(text="How would you capture that a ${classOne} has a ${classTwo}?"),
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
-            missing_nary_association := mt(n="Missing n-ary association", feedbacks=fbs({
+            missing_n_ary_association := mt(n="Missing n-ary association", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="What is the relationship between these classes?"),
                 3: ParametrizedResponse(text="How would you capture the relationship between ${classOne}, "
@@ -340,7 +340,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     text="The relationship between ${stud_aggr.end0} and ${stud_aggr.end1} is redundant."),
                 4: ResourceResponse(learningResources=[generic_extra_item_ref]),
             })),
-            extra_nary_association := mt(n="Extra n-ary association", feedbacks=fbs({
+            extra_n_ary_association := mt(n="Extra n-ary association", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this association really necessary?"),
                 3: TextResponse(text="The relationship between the highlighted classes is redundant."),
@@ -513,7 +513,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                                                  "${stud_assocend.cls} is better modeled using aggregation."),
                     4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
-            using_binary_assoc_instead_of_nary_assoc := mt(
+            using_binary_assoc_instead_of_n_ary_assoc := mt(
                 n="Using binary assoc instead of n-ary assoc",
                 d="Using binary association instead of n-ary association",
                 feedbacks=fbs({
@@ -522,7 +522,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     3: ParametrizedResponse(text="Use a ${n}-ary association to represent this relationship."),
                     4: ResourceResponse(learningResources=[assoc_ref]),
                 })),
-            using_nary_assoc_instead_of_binary_assoc := mt(
+            using_n_ary_assoc_instead_of_binary_assoc := mt(
                 n="Using n-ary assoc instead of binary assoc",
                 d="Using n-ary association instead of binary association",
                 feedbacks=fbs({
@@ -531,7 +531,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     3: TextResponse(text="Use a binary association to represent this relationship."),
                     4: ResourceResponse(learningResources=[assoc_ref]),
                 })),
-            using_intermediate_class_instead_of_nary_assoc := mt(
+            using_intermediate_class_instead_of_n_ary_assoc := mt(
                 n="Using intermediate class instead of n-ary assoc",
                 d="Using intermediate class instead of n-ary association",
                 feedbacks=fbs({
@@ -540,7 +540,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     3: ParametrizedResponse(text="Use a ${n}-ary association to represent this relationship."),
                     4: ResourceResponse(learningResources=[assoc_ref]),
                 })),
-            using_nary_assoc_instead_of_intermediate_class := mt(
+            using_n_ary_assoc_instead_of_intermediate_class := mt(
                 n="Using n-ary assoc instead of intermediate class",
                 d="Using n-ary association instead of intermediate class",
                 feedbacks=fbs({
@@ -1071,10 +1071,10 @@ mts_by_priority: list[MistakeType] = [
     wrong_relationship_direction,
     using_aggregation_instead_of_composition,
     using_composition_instead_of_aggregation,
-    using_binary_assoc_instead_of_nary_assoc,
-    using_nary_assoc_instead_of_binary_assoc,
-    using_nary_assoc_instead_of_intermediate_class,
-    using_intermediate_class_instead_of_nary_assoc,
+    using_binary_assoc_instead_of_n_ary_assoc,
+    using_n_ary_assoc_instead_of_binary_assoc,
+    using_n_ary_assoc_instead_of_intermediate_class,
+    using_intermediate_class_instead_of_n_ary_assoc,
     wrong_generalization_direction,
     wrong_superclass,
     subclass_is_an_instance_of_superclass,
@@ -1114,7 +1114,7 @@ mts_by_priority: list[MistakeType] = [
     extra_composition,
     extra_association,
     extra_aggregation,
-    extra_nary_association,
+    extra_n_ary_association,
     attribute_duplicated,
     extra_attribute,
 
@@ -1129,7 +1129,7 @@ mts_by_priority: list[MistakeType] = [
     missing_composition,
     missing_association,
     missing_aggregation,
-    missing_nary_association,
+    missing_n_ary_association,
     missing_multiplicity,
     missing_role_names,
     missing_association_name,
@@ -1154,6 +1154,7 @@ attribute_misplaced_in_generalization_hierarchy.md_format = mdf(["attr"], ["attr
 attribute_should_be_static.md_format = mdf(["attr"], ["attr"])
 attribute_should_not_be_static.md_format = mdf(["attr"], ["attr"])
 bad_assoc_class_name_spelling.md_format = mdf(["cls"], ["cls"])
+bad_association_name_spelling.md_format = mdf(["assoc"], ["assoc"])
 bad_attribute_name_spelling.md_format = mdf(["attr"], ["attr"])
 bad_class_name_spelling.md_format = mdf(["cls"], ["cls"])
 bad_enum_item_spelling.md_format = mdf(["enumitem"], ["enumitem"])
@@ -1175,25 +1176,34 @@ extra_composition.md_format = mdf(["compos"], [])
 extra_enum.md_format = mdf(["enum"], [])
 extra_enum_item.md_format = mdf(["enumitem"], [])
 extra_generalization.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])
+extra_n_ary_association.md_format = mdf(["assoc"], [])
 full_pr_pattern_should_be_assoc.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_assocend*"])
 full_pr_pattern_should_be_enum.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_attr"])
 full_pr_pattern_should_be_subclass.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_cls*"])
+generalization_inapplicable.md_format = mdf(["sub_cls", "super_cls"], [])
 generalization_should_be_assoc_ao_pattern.md_format = mdf(["sub_cls", "super_cls"], ["abs_cls", "occ_cls"])
 incomplete_ao_pattern.md_format = mdf(["abs_cls", "occ_cls"], ["abs_cls", "occ_cls"])
 incomplete_pr_pattern.md_format = mdf(["cls*"], ["cls*"])
 incomplete_containment_tree.md_format = mdf(["cls*"], [])
 infinite_recursive_dependency.md_format = mdf(["minlowerbound_assocend", "other_assocend"], [])
+inherited_feature_does_not_make_sense_for_subclass.md_format = mdf([], [])
+list_attribute.md_format = mdf(["attr"], ["attr"])
 lowercase_class_name.md_format = mdf(["cls"], ["cls"])
 missing_ao_pattern.md_format = mdf([], ["abs_cls", "occ_cls"])
+missing_pr_pattern.md_format = mdf([], [])
 missing_aggregation.md_format = mdf([], ["aggr"])
 missing_assoc_class.md_format = mdf([], ["cls"])
 missing_association.md_format = mdf([], ["assoc"])
+missing_association_name.md_format = mdf(["assoc"], ["assoc"])
 missing_attribute.md_format = mdf([], ["attr"])
+missing_attribute_type.md_format = mdf(["attr"], ["attr"])
 missing_class.md_format = mdf([], ["cls"])
 missing_composition.md_format = mdf([], ["compos"])
 missing_enum.md_format = mdf([], ["enum"])
 missing_enum_item.md_format = mdf([], ["enumitem"])
 missing_generalization.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])
+missing_multiplicity.md_format = mdf(["assocend"], ["assocend"])
+missing_n_ary_association.md_format = mdf([], ["assoc"])
 missing_role_names.md_format = mdf(["assocend"], ["assocend"])
 non_differentiated_subclass.md_format = mdf(["cls"], [])
 plural_attribute.md_format = mdf(["attr"], ["attr"])
@@ -1202,21 +1212,29 @@ representing_action_with_assoc.md_format = mdf(["assocend"], ["assocend"])
 role_should_be_static.md_format = mdf(["assocend"], ["assocend"])
 role_should_not_be_static.md_format = mdf(["assocend"], ["assocend"])
 software_engineering_term.md_format = mdf(["cls"], ["cls"])
+subclass_is_an_instance_of_superclass.md_format = mdf(["sub_cls", "super_cls"], [])
+subclass_not_distinct_across_lifetime.md_format = mdf(["sub_cls", "super_cls"], [])
 subclass_should_be_assoc_pr_pattern.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_assocend*"])
 subclass_should_be_enum_pr_pattern.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_attr"])
 subclass_should_be_full_pr_pattern.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_cls*"])
 uppercase_attribute_name.md_format = mdf(["attr"], ["attr"])
+using_aggregation_instead_of_assoc.md_format = mdf(["assocend"], ["assocend"])
 using_aggregation_instead_of_composition.md_format = mdf(["assocend"], ["assocend"])
 using_assoc_instead_of_aggregation.md_format = mdf(["assocend"], ["assocend"])
 using_assoc_instead_of_composition.md_format = mdf(["assocend"], ["assocend"])
 using_attribute_instead_of_assoc.md_format = mdf(["attr"], ["assocend"])
+using_binary_assoc_instead_of_n_ary_assoc.md_format = mdf(["assoc"], ["assoc"])
 using_composition_instead_of_aggregation.md_format = mdf(["assocend"], ["assocend"])
 using_composition_instead_of_assoc.md_format = mdf(["assocend"], ["assocend"])
 using_directed_relationship_instead_of_undirected.md_format = mdf(["assocend"], ["assocend"])
+using_intermediate_class_instead_of_n_ary_assoc.md_format = mdf(["cls"], ["assoc"])
+using_n_ary_assoc_instead_of_binary_assoc.md_format = mdf(["assoc"], ["assoc"])
+using_n_ary_assoc_instead_of_intermediate_class.md_format = mdf(["assoc"], ["cls"])
 using_undirected_relationship_instead_of_directed.md_format = mdf(["assocend"], ["assocend"])
 wrong_attribute_type.md_format = mdf(["attr"], ["attr"])
 wrong_class_name.md_format = mdf(["cls"], ["cls"])
 wrong_generalization_direction.md_format = mdf(["super_cls", "sub_cls"], ["sub_cls", "super_cls"])
 wrong_multiplicity.md_format = mdf(["assocend"], ["assocend"])
+wrong_relationship_direction.md_format = mdf([], [])
 wrong_role_name.md_format = mdf(["assocend"], ["assocend"])
 wrong_superclass.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])
