@@ -15,6 +15,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
+import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -1444,10 +1445,13 @@ public class MistakeDetectionWrongClassTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+    var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+    var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
+    var instructorAssociation = getAssocAggCompFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
 
     MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOC_CLASS, instructorCompanyClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOC_CLASS, List.of(instructorAssociation.get(0), instructorCompanyClass), 0, 1, false);
   }
 
   /**
@@ -1484,10 +1488,13 @@ public class MistakeDetectionWrongClassTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
+    var studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
+    var studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
+    var studentAssociation = getAssocAggCompFromClassDiagram(studentBusClass, studentDriverClass, studentClassDiagram);
 
     MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertMistake(studentMistakeFor(studentCompanyClass), EXTRA_ASSOC_CLASS, studentCompanyClass, 0, 1, false);
+    assertMistake(studentMistakeFor(studentCompanyClass), EXTRA_ASSOC_CLASS, List.of(studentAssociation.get(0), studentCompanyClass), 0, 1, false);
   }
 
   /**
