@@ -29,11 +29,12 @@
       1. [Plural attribute](#plural-attribute)
       1. [List attribute](#list-attribute)
       1. [Extra attribute](#extra-attribute)
+   1. [Attribute property mistakes](#attribute-property-mistakes)
+      1. [Wrong attribute type](#wrong-attribute-type)
+      1. [Missing attribute type](#missing-attribute-type)
+      1. [Attribute should be static](#attribute-should-be-static)
+      1. [Attribute should not be static](#attribute-should-not-be-static)
    1. [Missing attribute](#missing-attribute)
-   1. [Wrong attribute type](#wrong-attribute-type)
-   1. [Missing attribute type](#missing-attribute-type)
-   1. [Attribute should be static](#attribute-should-be-static)
-   1. [Attribute should not be static](#attribute-should-not-be-static)
 
 1. [Relationship mistakes](#relationship-mistakes)
    1. [Missing association/aggregation mistakes](#missing-association-aggregation-mistakes)
@@ -471,7 +472,18 @@ Level 3: Parametrized response:
 
 > ${stud_attr} is misspelled.[ Use the same spelling as the problem description.]
 
-Level 4: Resource response with Reference:
+Level 4: Resource response with List multiple-choice quiz:
+
+Select all the correct attribute names from the list below.
+
+- [ ] needsReciept
+- [x] numberOfItems
+- [ ] ID
+- [ ] numItems
+- [ ] Name
+- [x] identifier
+
+Level 5: Resource response with Reference:
 
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
@@ -490,7 +502,18 @@ Level 3: Parametrized response:
 
 > ${stud_attr.cls}.${stud_attr} incorrectly starts with an uppercase letter. Attributes should start with a lowercase letter.
 
-Level 4: Resource response with Reference:
+Level 4: Resource response with List multiple-choice quiz:
+
+Select all the correct attribute names from the list below.
+
+- [ ] needsReciept
+- [x] numberOfItems
+- [ ] ID
+- [ ] numItems
+- [ ] Name
+- [x] identifier
+
+Level 5: Resource response with Reference:
 
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
@@ -641,26 +664,9 @@ Level 4: Resource response with Reference:
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
-### Missing attribute
+### Attribute property mistakes
 
-Instructor element: Attribute.
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Make sure to model all the attributes of this class.
-
-Level 3: Parametrized response:
-
-> A ${inst_attr.cls} has a ${inst_attr}.
-
-Level 4: Resource response with Reference:
-
-> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
-
-
-### Wrong attribute type
+#### Wrong attribute type
 
 Student element: Attribute. Instructor element: Attribute.
 
@@ -683,7 +689,7 @@ Level 5: Resource response with Reference:
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
-### Missing attribute type
+#### Missing attribute type
 
 Student element: Attribute. Instructor element: Attribute.
 
@@ -702,7 +708,7 @@ Level 4: Resource response with Reference:
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
-### Attribute should be static
+#### Attribute should be static
 
 Student element: Attribute. Instructor element: Attribute.
 
@@ -721,7 +727,7 @@ Level 4: Resource response with Reference:
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
-### Attribute should not be static
+#### Attribute should not be static
 
 Student element: Attribute. Instructor element: Attribute.
 
@@ -734,6 +740,25 @@ Level 2: Text response:
 Level 3: Parametrized response:
 
 > ${stud_attr} should not be static, because it does not apply to all instances of ${stud_attr.cls}.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
+### Missing attribute
+
+Instructor element: Attribute.
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Make sure to model all the attributes of this class.
+
+Level 3: Parametrized response:
+
+> A ${inst_attr.cls} has a ${inst_attr}.
 
 Level 4: Resource response with Reference:
 

@@ -157,34 +157,6 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     content="Please review the [Attribute](https://mycourses2.mcgill.ca/) and "
                         "[Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.")]),
             })),
-            wrong_attribute_type := mt(n="Wrong attribute type", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
-                2: TextResponse(text="Double check the properties of this attribute."),
-                3: ParametrizedResponse(text="Can you think of a better type for ${stud_attr}?"),
-                4: ParametrizedResponse(text="The ${stud_attr.cls}.${stud_attr} should be of type ${inst_attr.type}."),
-                5: ResourceResponse(learningResources=[attribute_reference]),
-            })),
-            missing_attribute_type := mt(n="Missing attribute type", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
-                2: ParametrizedResponse(text="The ${stud_attr.cls}.${stud_attr} attribute is missing something."),
-                3: ParametrizedResponse(
-                    text="The type of the ${stud_attr.cls}.${stud_attr} attribute should be ${inst_attr.type}."),
-                4: ResourceResponse(learningResources=[attribute_reference]),
-            })),
-            attribute_should_be_static := mt(n="Attribute should be static", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
-                2: TextResponse(text="Isn't there something special about this attribute?"),
-                3: ParametrizedResponse(text="${stud_attr} should be static, because it applies to all instances of "
-                                             "${stud_attr.cls}."),
-                4: ResourceResponse(learningResources=[attribute_reference]),
-            })),
-            attribute_should_not_be_static := mt(n="Attribute should not be static", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
-                2: TextResponse(text="Double check the properties of this attribute."),
-                3: ParametrizedResponse(text="${stud_attr} should not be static, because it does not apply to all "
-                                             "instances of ${stud_attr.cls}."),
-                4: ResourceResponse(learningResources=[attribute_reference]),
-            })),
         ],
         subcategories=[
             attribute_name_mistakes := mtc(n="Attribute name mistakes", mistakeTypes=[
@@ -193,7 +165,16 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(text="Double check this attribute name."),
                     3: ParametrizedResponse(
                         text="${stud_attr} is misspelled.[ Use the same spelling as the problem description.]"),
-                    4: ResourceResponse(learningResources=[attribute_reference]),
+                    4: ResourceResponse(learningResources=[attr_naming_quiz := mcq[
+                        "Select all the correct attribute names from the list below.",
+                           "needsReciept",
+                        T: "numberOfItems",
+                           "ID",
+                           "numItems",
+                           "Name",
+                        T: "identifier",
+                    ]]),
+                    5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 uppercase_attribute_name := mt(n="Uppercase attribute name", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
@@ -201,7 +182,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         TextResponse(text="Can this attribute be renamed?")],
                     3: ParametrizedResponse(text="${stud_attr.cls}.${stud_attr} incorrectly starts with an Uppercase "
                         "Letter. Attributes should start with a lowercase letter."),
-                    4: ResourceResponse(learningResources=[attribute_reference]),
+                    4: ResourceResponse(learningResources=[attr_naming_quiz]),
+                    5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
             ]),
             attribute_in_wrong_class_mistakes := mtc(n="Attribute in wrong class mistakes", mistakeTypes=[
@@ -261,6 +243,37 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         ParametrizedResponse(text="The ${stud_attr} attribute in the ${stud_attr.cls} class is "
                             "not needed because it is not part of the domain. You only need to model concepts related "
                             "to the given problem description.")],
+                    4: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+            ]),
+            attribute_property_mistakes := mtc(n="Attribute property mistakes", mistakeTypes=[
+                wrong_attribute_type := mt(n="Wrong attribute type", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Double check the properties of this attribute."),
+                    3: ParametrizedResponse(text="Can you think of a better type for ${stud_attr}?"),
+                    4: ParametrizedResponse(
+                        text="The ${stud_attr.cls}.${stud_attr} should be of type ${inst_attr.type}."),
+                    5: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+                missing_attribute_type := mt(n="Missing attribute type", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: ParametrizedResponse(text="The ${stud_attr.cls}.${stud_attr} attribute is missing something."),
+                    3: ParametrizedResponse(
+                        text="The type of the ${stud_attr.cls}.${stud_attr} attribute should be ${inst_attr.type}."),
+                    4: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+                attribute_should_be_static := mt(n="Attribute should be static", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Isn't there something special about this attribute?"),
+                    3: ParametrizedResponse(text="${stud_attr} should be static, because it applies to all instances "
+                                                 "of ${stud_attr.cls}."),
+                    4: ResourceResponse(learningResources=[attribute_reference]),
+                })),
+                attribute_should_not_be_static := mt(n="Attribute should not be static", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(text="Double check the properties of this attribute."),
+                    3: ParametrizedResponse(text="${stud_attr} should not be static, because it does not apply to all "
+                                                 "instances of ${stud_attr.cls}."),
                     4: ResourceResponse(learningResources=[attribute_reference]),
                 })),
             ]),

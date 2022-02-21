@@ -61,6 +61,9 @@ public class MistakeTypes {
   /** The category for extra attribute mistakes. */
   public static final MistakeTypeCategory EXTRA_ATTRIBUTE_MISTAKES = MTCS.get("Extra attribute mistakes");
 
+  /** The category for attribute property mistakes. */
+  public static final MistakeTypeCategory ATTRIBUTE_PROPERTY_MISTAKES = MTCS.get("Attribute property mistakes");
+
   /** The category for missing association/aggregation mistakes. */
   public static final MistakeTypeCategory MISSING_ASSOCIATION_AGGREGATION_MISTAKES =
       MTCS.get("Missing association/aggregation mistakes");
@@ -107,18 +110,6 @@ public class MistakeTypes {
 
   /** The missing attribute mistake type. */
   public static final MistakeType MISSING_ATTRIBUTE = MTS.get("Missing attribute");
-
-  /** The wrong attribute type mistake type. */
-  public static final MistakeType WRONG_ATTRIBUTE_TYPE = MTS.get("Wrong attribute type");
-
-  /** The missing attribute type mistake type. */
-  public static final MistakeType MISSING_ATTRIBUTE_TYPE = MTS.get("Missing attribute type");
-
-  /** The attribute should be static mistake type. */
-  public static final MistakeType ATTRIBUTE_SHOULD_BE_STATIC = MTS.get("Attribute should be static");
-
-  /** The attribute should not be static mistake type. */
-  public static final MistakeType ATTRIBUTE_SHOULD_NOT_BE_STATIC = MTS.get("Attribute should not be static");
 
   /** The plural class name mistake type. */
   public static final MistakeType PLURAL_CLASS_NAME = MTS.get("Plural class name");
@@ -183,6 +174,18 @@ public class MistakeTypes {
 
   /** The extra attribute mistake type. */
   public static final MistakeType EXTRA_ATTRIBUTE = MTS.get("Extra attribute");
+
+  /** The wrong attribute type mistake type. */
+  public static final MistakeType WRONG_ATTRIBUTE_TYPE = MTS.get("Wrong attribute type");
+
+  /** The missing attribute type mistake type. */
+  public static final MistakeType MISSING_ATTRIBUTE_TYPE = MTS.get("Missing attribute type");
+
+  /** The attribute should be static mistake type. */
+  public static final MistakeType ATTRIBUTE_SHOULD_BE_STATIC = MTS.get("Attribute should be static");
+
+  /** The attribute should not be static mistake type. */
+  public static final MistakeType ATTRIBUTE_SHOULD_NOT_BE_STATIC = MTS.get("Attribute should not be static");
 
   /** The missing association mistake type. */
   public static final MistakeType MISSING_ASSOCIATION = MTS.get("Missing association");
