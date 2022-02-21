@@ -2375,11 +2375,17 @@ public class MistakeDetection {
     return Optional.empty();
   }
 
+  /** Returns association, association end and other association end in order. */
+  public static List<NamedElement> getAssociationElements(AssociationEnd assocEnd){
+    return List.of(assocEnd.getAssoc(), assocEnd, getOtherAssocEnd(assocEnd));
+  }
+
+
   public static Optional<Mistake> checkMistakeUsingAssociationInsteadOfComposition(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingAssociationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd)) {
       return Optional
-          .of(createMistake(USING_ASSOC_INSTEAD_OF_COMPOSITION, studentClassAssocEnd, instructorClassAssocEnd));
+          .of(createMistake(USING_ASSOC_INSTEAD_OF_COMPOSITION, getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();
   }
@@ -2388,7 +2394,7 @@ public class MistakeDetection {
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingAssociationInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd)) {
       return Optional
-          .of(createMistake(USING_ASSOC_INSTEAD_OF_AGGREGATION, studentClassAssocEnd, instructorClassAssocEnd));
+          .of(createMistake(USING_ASSOC_INSTEAD_OF_AGGREGATION, getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();
   }
@@ -2397,7 +2403,7 @@ public class MistakeDetection {
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingCompositionInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd)) {
       return Optional
-          .of(createMistake(USING_COMPOSITION_INSTEAD_OF_ASSOC, studentClassAssocEnd, instructorClassAssocEnd));
+          .of(createMistake(USING_COMPOSITION_INSTEAD_OF_ASSOC, getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();
   }
@@ -2406,7 +2412,7 @@ public class MistakeDetection {
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingAggregationInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd)) {
       return Optional
-          .of(createMistake(USING_AGGREGATION_INSTEAD_OF_ASSOC, studentClassAssocEnd, instructorClassAssocEnd));
+          .of(createMistake(USING_AGGREGATION_INSTEAD_OF_ASSOC, getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();
   }
@@ -2415,7 +2421,7 @@ public class MistakeDetection {
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingAggregationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd)) {
       return Optional
-          .of(createMistake(USING_AGGREGATION_INSTEAD_OF_COMPOSITION, studentClassAssocEnd, instructorClassAssocEnd));
+          .of(createMistake(USING_AGGREGATION_INSTEAD_OF_COMPOSITION, getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();
   }
@@ -2424,7 +2430,7 @@ public class MistakeDetection {
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingCompositionInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd)) {
       return Optional
-          .of(createMistake(USING_COMPOSITION_INSTEAD_OF_AGGREGATION, studentClassAssocEnd, instructorClassAssocEnd));
+          .of(createMistake(USING_COMPOSITION_INSTEAD_OF_AGGREGATION, getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();
   }
