@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus script.
-% Generation time: 2022-02-20 02:19:58
+% Generation time: 2022-02-20 20:09:04
 
 \textbf{Legend:}
 In the textual responses, items in \verb|${this format}| represent the parameters of
@@ -887,7 +887,7 @@ better understand these relationships and where they are used.
 
 \subsubsection{Missing aggregation}
 
-Instructor element: Aggregation. \medskip
+Instructor elements: Part association end, Whole association end. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -900,7 +900,7 @@ What is the relationship between these classes?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How would you capture that a \verb|${classOne}| has a \verb|${classTwo}|?
+How would you capture that a \verb|${inst_whole_assocend.cls}| has a \verb|${inst_part_assocend.cls}|?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1440,7 +1440,7 @@ better understand these relationships and where they are used.
 
 \subsubsection{Using composition instead of association}
 
-Student element: Association end. Instructor element: Association end. \medskip
+Student elements: Part association end, Whole association end. Instructor element: Association. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1453,7 +1453,7 @@ What is the relationship between these two concepts?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Why is \verb|${incorrectlyContainedClass}| contained in \verb|${containerClass}|?
+Why is \verb|${stud_part_assocend.cls}| contained in \verb|${stud_whole_assocend.cls}|?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1495,20 +1495,20 @@ Please review the _Directionality in Associations_ section of the \textit{UML Cl
 
 \subsubsection{Using undirected relationship instead of directed relationship}
 
-Student element: Association end. Instructor element: Association end. \medskip
+Student elements: Source association end, Target association end. Instructor elements: Source association end, Target association end. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
 \noindent Level 2: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Does \verb|${targetClass}| need to know about \verb|${sourceClass}|?
+Does \verb|${inst_target_assocend.cls}| need to know about \verb|${inst_source_assocend.cls}|?
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${classOne}| and \verb|${classTwo}| should be directed[ from \verb|${classOne}| to \verb|${classTwo}|].
+The relationship between \verb|${inst_source_assocend.cls}| and \verb|${inst_target_assocend.cls}| should be directed[ from \verb|${inst_source_assocend.cls}| to \verb|${inst_target_assocend.cls}|].
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1520,7 +1520,7 @@ Please review the _Directionality in Associations_ section of the \textit{UML Cl
 
 \subsubsection{Wrong relationship direction}
 
-Student element: Association. Instructor element: Association. \medskip
+Student element: . Instructor element: . \medskip
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -1735,7 +1735,7 @@ Please review the \textit{Association} and \textit{Noun Analysis} parts of the C
 
 \subsubsection{Missing association class}
 
-Instructor element: Class. \medskip
+Instructor elements: Association, Class. \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -1763,7 +1763,7 @@ Association class
 
 \subsubsection{Extra association class}
 
-Student element: Class.  \medskip
+Student elements: Association, Class.  \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -1782,13 +1782,13 @@ Is using an association class the best way to model this?
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Does it make sense to disallow multiple instances of the \verb|${inBetweenClass}| linking \verb|${firstClass}| and \verb|${secondClass}|?
+Does it make sense to disallow multiple instances of the \verb|${stud_cls}| linking \verb|${stud_assoc.ends0.cls}| and \verb|${stud_assoc.ends1.cls}|?
 \end{tabular} \medskip
 
 \noindent Level 5: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Further details of the association between \verb|${firstClass}| and \verb|${secondClass}| should not be modeled with an association class.
+Further details of the association between \verb|${stud_assoc.ends0.cls}| and \verb|${stud_assoc.ends1.cls}| should not be modeled with an association class.
 \end{tabular} \medskip
 
 \noindent Level 6: Resource response with Reference: \medskip
@@ -1803,7 +1803,7 @@ Association class
 
 \subsubsection{Bad association class name spelling}
 
-Student element: Class. Instructor element: Class. \medskip
+Student elements: Association, Class. Instructor elements: Association, Class. \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -1834,7 +1834,7 @@ Please review the \textit{Classes} part of the Class Diagram lecture.
 
 \subsubsection{Association class should be regular class}
 
-Student element: Class. Instructor element: Class. \medskip
+Student elements: Association, Class. Instructor element: Class. \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -1868,7 +1868,7 @@ Association class
 
 \subsubsection{Regular class should be association class}
 
-Student element: Class. Instructor element: Class. \medskip
+Student element: Class. Instructor elements: Association, Class. \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -1904,7 +1904,7 @@ Association class
 
 \subsubsection{Missing composition}
 
-Instructor element: Composition. \medskip
+Instructor elements: Part association end, Whole association end. \medskip
 
 \noindent Level 1: Highlight solution (Composition) \medskip
 
@@ -1917,7 +1917,7 @@ What is the relationship between these classes?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How would you capture that a \verb|${containerClass}| contains a \verb|${containedClass}|?
+How would you capture that a \verb|${inst_whole_assocend.cls}| has a \verb|${inst_part_assocend.cls}|?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip

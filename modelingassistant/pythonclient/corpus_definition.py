@@ -285,7 +285,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_aggregation := mt(n="Missing aggregation", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="What is the relationship between these classes?"),
-                3: ParametrizedResponse(text="How would you capture that a ${classOne} has a ${classTwo}?"),
+                3: ParametrizedResponse(
+                    text="How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?"),
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
             missing_n_ary_association := mt(n="Missing n-ary association", feedbacks=fbs({
@@ -473,7 +474,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="What is the relationship between these two concepts?"),
                     3: ParametrizedResponse(
-                        text="Why is ${incorrectlyContainedClass} contained in ${containerClass}?"),
+                        text="Why is ${stud_part_assocend.cls} contained in ${stud_whole_assocend.cls}?"),
                     4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
             using_directed_relationship_instead_of_undirected := mt(
@@ -493,9 +494,11 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 d="Using undirected relationship instead of directed relationship",
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: ParametrizedResponse(text="Does ${targetClass} need to know about ${sourceClass}?"),
-                    3: ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} should be "
-                        "directed[ from ${classOne} to ${classTwo}]."),
+                    2: ParametrizedResponse(
+                        text="Does ${inst_target_assocend.cls} need to know about ${inst_source_assocend.cls}?"),
+                    3: ParametrizedResponse(
+                        text="The relationship between ${inst_source_assocend.cls} and ${inst_target_assocend.cls} "
+                             "should be directed[ from ${inst_source_assocend.cls} to ${inst_target_assocend.cls}]."),
                     4: ResourceResponse(learningResources=[dir_rel_ref]),
                 })),
             wrong_relationship_direction := mt(n="Wrong relationship direction", feedbacks=fbs({
@@ -582,9 +585,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 2: TextResponse(text="Can you model this relationship in another way?"),
                 3: TextResponse(text="Is using an association class the best way to model this?"),
                 4: ParametrizedResponse(text="Does it make sense to disallow multiple instances of the "
-                    "${inBetweenClass} linking ${firstClass} and ${secondClass}?"),
-                5: ParametrizedResponse(text="Further details of the association between ${firstClass} and "
-                    "${secondClass} should not be modeled with an association class."),
+                    "${stud_cls} linking ${stud_assoc.ends0.cls} and ${stud_assoc.ends1.cls}?"),
+                5: ParametrizedResponse(text="Further details of the association between ${stud_assoc.ends0.cls} and "
+                    "${stud_assoc.ends1.cls} should not be modeled with an association class."),
                 6: ResourceResponse(learningResources=[assoc_class_ref]),
             })),
             bad_assoc_class_name_spelling := mt(
@@ -618,7 +621,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="What is the relationship between these classes?"),
                 3: ParametrizedResponse(
-                    text="How would you capture that a ${containerClass} contains a ${containedClass}?"),
+                    text="How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?"),
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
             extra_composition := mt(n="Extra composition", feedbacks=fbs({
@@ -1145,7 +1148,7 @@ mts_by_priority: list[MistakeType] = [
 
 # Mistake Detection Formats (student elements, instructor elements)
 # paste from MDIS4LC
-assoc_class_should_be_class.md_format = mdf(["cls"], ["cls"])
+assoc_class_should_be_class.md_format = mdf(["assoc", "cls"], ["cls"])
 assoc_should_be_enum_pr_pattern.md_format = mdf(["player_cls", "role_assocend*"], ["player_cls", "role_attr"])
 assoc_should_be_full_pr_pattern.md_format = mdf(["player_cls", "role_assocend*"], ["player_cls", "role_cls*"])
 assoc_should_be_subclass_pr_pattern.md_format = mdf(["player_cls", "role_assocend*"], ["player_cls", "role_cls*"])
@@ -1154,14 +1157,14 @@ attribute_misplaced.md_format = mdf(["attr"], ["attr"])
 attribute_misplaced_in_generalization_hierarchy.md_format = mdf(["attr"], ["attr"])
 attribute_should_be_static.md_format = mdf(["attr"], ["attr"])
 attribute_should_not_be_static.md_format = mdf(["attr"], ["attr"])
-bad_assoc_class_name_spelling.md_format = mdf(["cls"], ["cls"])
+bad_assoc_class_name_spelling.md_format = mdf(["assoc", "cls"], ["assoc", "cls"])
 bad_association_name_spelling.md_format = mdf(["assoc"], ["assoc"])
 bad_attribute_name_spelling.md_format = mdf(["attr"], ["attr"])
 bad_class_name_spelling.md_format = mdf(["cls"], ["cls"])
 bad_enum_item_spelling.md_format = mdf(["enumitem"], ["enumitem"])
 bad_enum_name_spelling.md_format = mdf(["enum"], ["enum"])
 bad_role_name_spelling.md_format = mdf(["assocend"], ["assocend"])
-class_should_be_assoc_class.md_format = mdf(["cls"], ["cls"])
+class_should_be_assoc_class.md_format = mdf(["cls"], ["assoc", "cls"])
 class_should_be_enum.md_format = mdf(["cls"], ["enum"])
 composed_part_contained_in_more_than_one_parent.md_format = mdf(["cls*"], [])
 enum_should_be_assoc_pr_pattern.md_format = mdf(["player_cls", "role_enumitem*"], ["player_cls", "role_assocend*"])
@@ -1169,14 +1172,14 @@ enum_should_be_class.md_format = mdf(["enum"], ["cls"])
 enum_should_be_full_pr_pattern.md_format = mdf(["player_cls", "role_enumitem*"], ["player_cls", "role_cls*"])
 enum_should_be_subclass_pr_pattern.md_format = mdf(["player_cls", "role_enumitem*"], ["player_cls", "role_cls*"])
 extra_aggregation.md_format = mdf(["aggr"], [])
-extra_assoc_class.md_format = mdf(["cls"], [])
+extra_assoc_class.md_format = mdf(["assoc", "cls"], [])
 extra_association.md_format = mdf(["assoc"], [])
 extra_attribute.md_format = mdf(["attr"], [])
 extra_class.md_format = mdf(["cls"], [])
 extra_composition.md_format = mdf(["compos"], [])
 extra_enum.md_format = mdf(["enum"], [])
 extra_enum_item.md_format = mdf(["enumitem"], [])
-extra_generalization.md_format = mdf(["sub_cls", "super_cls"], []) #, ["sub_cls", "super_cls"])
+extra_generalization.md_format = mdf(["sub_cls", "super_cls"], [])
 extra_n_ary_association.md_format = mdf(["assoc"], [])
 full_pr_pattern_should_be_assoc.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_assocend*"])
 full_pr_pattern_should_be_enum.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_attr"])
@@ -1192,14 +1195,14 @@ list_attribute.md_format = mdf(["attr"], ["attr"])
 lowercase_class_name.md_format = mdf(["cls"], ["cls"])
 missing_ao_pattern.md_format = mdf([], ["abs_cls", "occ_cls"])
 missing_pr_pattern.md_format = mdf([], [""])
-missing_aggregation.md_format = mdf([], ["aggr"])
-missing_assoc_class.md_format = mdf([], ["cls"])
+missing_aggregation.md_format = mdf([], ["part_assocend", "whole_assocend"])
+missing_assoc_class.md_format = mdf([], ["assoc", "cls"])
 missing_association.md_format = mdf([], ["assoc"])
 missing_association_name.md_format = mdf(["assoc"], ["assoc"])
 missing_attribute.md_format = mdf([], ["attr"])
 missing_attribute_type.md_format = mdf(["attr"], ["attr"])
 missing_class.md_format = mdf([], ["cls"])
-missing_composition.md_format = mdf([], ["compos"])
+missing_composition.md_format = mdf([], ["part_assocend", "whole_assocend"])
 missing_enum.md_format = mdf([], ["enum"])
 missing_enum_item.md_format = mdf([], ["enumitem"])
 missing_generalization.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])
@@ -1226,16 +1229,17 @@ using_assoc_instead_of_composition.md_format = mdf(["assocend"], ["assocend"])
 using_attribute_instead_of_assoc.md_format = mdf(["attr"], ["assocend"])
 using_binary_assoc_instead_of_n_ary_assoc.md_format = mdf(["assoc"], ["assoc"])
 using_composition_instead_of_aggregation.md_format = mdf(["assocend"], ["assocend"])
-using_composition_instead_of_assoc.md_format = mdf(["assocend"], ["assocend"])
+using_composition_instead_of_assoc.md_format = mdf(["part_assocend", "whole_assocend"], ["assoc"])
 using_directed_relationship_instead_of_undirected.md_format = mdf(["assocend"], ["assocend"])
 using_intermediate_class_instead_of_n_ary_assoc.md_format = mdf(["cls"], ["assoc"])
 using_n_ary_assoc_instead_of_binary_assoc.md_format = mdf(["assoc"], ["assoc"])
 using_n_ary_assoc_instead_of_intermediate_class.md_format = mdf(["assoc"], ["cls"])
-using_undirected_relationship_instead_of_directed.md_format = mdf(["assocend"], ["assocend"])
+using_undirected_relationship_instead_of_directed.md_format = mdf(
+    ["source_assocend", "target_assocend"], ["source_assocend", "target_assocend"])
 wrong_attribute_type.md_format = mdf(["attr"], ["attr"])
 wrong_class_name.md_format = mdf(["cls"], ["cls"])
 wrong_generalization_direction.md_format = mdf(["super_cls", "sub_cls"], ["sub_cls", "super_cls"])
 wrong_multiplicity.md_format = mdf(["assocend"], ["assocend"])
-wrong_relationship_direction.md_format = mdf(["assoc"], ["assoc"])
+wrong_relationship_direction.md_format = mdf([""], [""])
 wrong_role_name.md_format = mdf(["assocend"], ["assocend"])
 wrong_superclass.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])

@@ -770,7 +770,7 @@ better understand these relationships and where they are used.
 
 #### Missing aggregation
 
-Instructor element: Aggregation.
+Instructor elements: Part association end, Whole association end.
 
 Level 1: Highlight solution
 
@@ -780,7 +780,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> How would you capture that a ${classOne} has a ${classTwo}?
+> How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?
 
 Level 4: Resource response with Reference:
 
@@ -1182,7 +1182,7 @@ better understand these relationships and where they are used.
 
 #### Using composition instead of association
 
-Student element: Association end. Instructor element: Association end.
+Student elements: Part association end, Whole association end. Instructor element: Association.
 
 Level 1: Highlight solution
 
@@ -1192,7 +1192,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Why is ${incorrectlyContainedClass} contained in ${containerClass}?
+> Why is ${stud_part_assocend.cls} contained in ${stud_whole_assocend.cls}?
 
 Level 4: Resource response with Reference:
 
@@ -1224,17 +1224,17 @@ Level 4: Resource response with Reference:
 
 #### Using undirected relationship instead of directed relationship
 
-Student element: Association end. Instructor element: Association end.
+Student elements: Source association end, Target association end. Instructor elements: Source association end, Target association end.
 
 Level 1: Highlight solution
 
 Level 2: Parametrized response:
 
-> Does ${targetClass} need to know about ${sourceClass}?
+> Does ${inst_target_assocend.cls} need to know about ${inst_source_assocend.cls}?
 
 Level 3: Parametrized response:
 
-> The relationship between ${classOne} and ${classTwo} should be directed[ from ${classOne} to ${classTwo}].
+> The relationship between ${inst_source_assocend.cls} and ${inst_target_assocend.cls} should be directed[ from ${inst_source_assocend.cls} to ${inst_target_assocend.cls}].
 
 Level 4: Resource response with Reference:
 
@@ -1243,7 +1243,7 @@ Level 4: Resource response with Reference:
 
 #### Wrong relationship direction
 
-Student element: Association. Instructor element: Association.
+Student element: . Instructor element: .
 
 Level 1: Highlight solution
 
@@ -1407,7 +1407,7 @@ Level 4: Resource response with Reference:
 
 #### Missing association class
 
-Instructor element: Class.
+Instructor elements: Association, Class.
 
 Level 1: Highlight solution
 
@@ -1428,7 +1428,7 @@ Level 4: Resource response with Reference:
 
 #### Extra association class
 
-Student element: Class. 
+Student elements: Association, Class. 
 
 Level 1: Highlight solution
 
@@ -1442,11 +1442,11 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> Does it make sense to disallow multiple instances of the ${inBetweenClass} linking ${firstClass} and ${secondClass}?
+> Does it make sense to disallow multiple instances of the ${stud_cls} linking ${stud_assoc.ends0.cls} and ${stud_assoc.ends1.cls}?
 
 Level 5: Parametrized response:
 
-> Further details of the association between ${firstClass} and ${secondClass} should not be modeled with an association class.
+> Further details of the association between ${stud_assoc.ends0.cls} and ${stud_assoc.ends1.cls} should not be modeled with an association class.
 
 Level 6: Resource response with Reference:
 
@@ -1457,7 +1457,7 @@ Level 6: Resource response with Reference:
 
 #### Bad association class name spelling
 
-Student element: Class. Instructor element: Class.
+Student elements: Association, Class. Instructor elements: Association, Class.
 
 Level 1: Highlight solution
 
@@ -1480,7 +1480,7 @@ Level 5: Resource response with Reference:
 
 #### Association class should be regular class
 
-Student element: Class. Instructor element: Class.
+Student elements: Association, Class. Instructor element: Class.
 
 Level 1: Highlight solution
 
@@ -1505,7 +1505,7 @@ Level 5: Resource response with Reference:
 
 #### Regular class should be association class
 
-Student element: Class. Instructor element: Class.
+Student element: Class. Instructor elements: Association, Class.
 
 Level 1: Highlight solution
 
@@ -1532,7 +1532,7 @@ Level 5: Resource response with Reference:
 
 #### Missing composition
 
-Instructor element: Composition.
+Instructor elements: Part association end, Whole association end.
 
 Level 1: Highlight solution
 
@@ -1542,7 +1542,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> How would you capture that a ${containerClass} contains a ${containedClass}?
+> How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?
 
 Level 4: Resource response with Reference:
 

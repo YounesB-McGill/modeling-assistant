@@ -28,6 +28,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_FULL_PR_PA
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_COMPOSITION;
@@ -47,12 +48,15 @@ import static learningcorpus.mistaketypes.MistakeTypes.INFINITE_RECURSIVE_DEPEND
 import static learningcorpus.mistaketypes.MistakeTypes.INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.LIST_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM_ITEM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_GENERALIZATION;
@@ -80,10 +84,12 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_ASSOC_INSTEAD_OF_CO
 import static learningcorpus.mistaketypes.MistakeTypes.USING_ATTRIBUTE_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_AGGREGATION;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_GENERALIZATION_DIRECTION;
@@ -99,7 +105,7 @@ public class HumanValidatedParametrizedResponses {
 
   public static final Map<MistakeType, Set<String>> mappings = Map.ofEntries(
       // paste entries from MDIS4LC here
-      // Already done
+      // Already done and MDFs validated
       entry(ASSOC_CLASS_SHOULD_BE_CLASS, Set.of("The ${inst_cls} class should be a regular class.")),
       entry(ATTRIBUTE_DUPLICATED, Set.of("The ${stud_attr} already exists in another class, so there is no need to include it again.")),
       entry(ATTRIBUTE_MISPLACED, Set.of("The ${stud_attr} belongs in the ${inst_attr.cls} class.",
@@ -163,7 +169,7 @@ public class HumanValidatedParametrizedResponses {
       entry(WRONG_SUPERCLASS, Set.of("${stud_sub_cls} has an incorrect superclass.",
           "The superclass for ${stud_sub_cls} should be ${inst_super_cls}.")),
 
-      // In progress
+      // Done, MDFs not yet validated
       entry(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, Set.of("Will the roles of ${stud_role_assocend*} ever be occupied at the same time?")),
       entry(ASSOC_SHOULD_BE_FULL_PR_PATTERN, Set.of("A ${stud_role_assocend0} has different features from a ${stud_role_assocend1}.")),
       entry(ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, Set.of("A ${stud_role_assocend0} has different features from a ${stud_role_assocend1} and does not change its role over its lifetime.")),
@@ -197,17 +203,17 @@ public class HumanValidatedParametrizedResponses {
       entry(USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC, Set.of("Use a ${inst_assoc.ends.length}-ary association to represent this relationship.")),
       entry(USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC, Set.of("")),
       entry(USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS, Set.of("")),
-      entry(WRONG_RELATIONSHIP_DIRECTION, Set.of("The direction of the relationship between ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls} should be reversed."))
-      
-      // Under review
-      /*
-      missing_assoc_class
-      using_undirected_relationship_instead_of_directed
-      missing_aggregation
-      using_composition_instead_of_assoc
-      missing_composition
-      extra_assoc_class
-      */
+      entry(WRONG_RELATIONSHIP_DIRECTION, Set.of("The direction of the relationship between ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls} should be reversed.")),
 
+      // Under review
+      entry(EXTRA_ASSOC_CLASS, Set.of("Does it make sense to disallow multiple instances of the ${stud_cls} linking ${stud_assoc.ends0.cls} and ${stud_assoc.ends1.cls}?",
+          "Further details of the association between ${stud_assoc.ends0.cls} and ${stud_assoc.ends1.cls} should not be modeled with an association class.")),
+      entry(MISSING_AGGREGATION, Set.of("How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?")),
+      entry(MISSING_ASSOC_CLASS, Set.of("Further details of the association between ${inst_assoc.ends0.cls} and ${inst_assoc.ends1.cls} should be modeled with an association class.")),
+      entry(MISSING_COMPOSITION, Set.of("How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?")),
+      entry(USING_COMPOSITION_INSTEAD_OF_ASSOC, Set.of("Why is ${stud_part_assocend.cls} contained in ${stud_whole_assocend.cls}?")),
+      entry(USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED, Set.of("Does ${inst_target_assocend.cls} need to know about ${inst_source_assocend.cls}?",
+          "The relationship between ${inst_source_assocend.cls} and ${inst_target_assocend.cls} should be directed[ from ${inst_source_assocend.cls} to ${inst_target_assocend.cls}]."))
   );
+
 }
