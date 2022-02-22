@@ -9,14 +9,14 @@ from functools import cache
 from typing import Tuple
 from uuid import uuid4 as uuid
 import logging
-from learningcorpus.learningcorpus import Feedback, ParametrizedResponse
 
-from modelingassistant_app import LOGGING_LEVEL, MODELING_ASSISTANT, get_mistakes
 from classdiagram import ClassDiagram
 from envvars import CORES_PATH
 from fileserdes import load_cdm
-from learningcorpus import TextResponse
+from modelingassistant_app import MODELING_ASSISTANT, get_mistakes
+from parametrizedresponse import parametrize_response
 from stringserdes import str_to_cdm
+from learningcorpus import Feedback, ParametrizedResponse, TextResponse
 from modelingassistant import (ModelingAssistant, Student, ProblemStatement, FeedbackItem, Mistake, Solution,
                                StudentKnowledge)
 
@@ -94,19 +94,6 @@ def next_feedback(mistake: Mistake) -> FeedbackItem:
     if isinstance(next_fb, ParametrizedResponse):
         fb_text = parametrize_response(next_fb, mistake)
     return FeedbackItem(text=fb_text, feedback=next_fb, solution=mistake.solution, mistake=mistake)
-
-
-def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> str:
-    """
-    Return the filled-in parametrized response text for the given response and mistake.
-    """
-    options = {}
-    # Use itertools.zip_longest here?
-    for stud_key, elem in zip(response.mistakeType.md_format.stud, mistake.studentElements):
-        options[f"stud_{stud_key}"] = elem.element.name
-    for inst_key, elem in zip(response.mistakeType.md_format.inst, mistake.instructorElements):
-        options[f"inst_{inst_key}"] = elem.element.name
-    return response.text.format(**options).replace("$", "")
 
 
 def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:

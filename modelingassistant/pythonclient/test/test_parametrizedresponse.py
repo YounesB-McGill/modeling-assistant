@@ -42,12 +42,9 @@ def test_prs_correctly_specified():
     def validate_param(param: str, mt: MistakeType):
         part_before_dot = param.split(".")[0]
         _split = part_before_dot.split("_")
-        person, type_ = _split[0], _split[-1]
-        # TODO Change these to assertions once all PRs are updated
-        if person not in ("stud", "inst"):
-            warn(f'{param} for {mt.name} does not start with "stud" or "inst"')
-        if type_ not in VALID_TYPES:
-            warn(f"{param} for {mt.name} does not end with a valid type")
+        person, type_ = _split[0], re.sub(r"[\*\d]+$", "", _split[-1])
+        assert person in ("stud", "inst"), f'{param} for {mt.name} does not start with "stud" or "inst"'
+        assert type_ in VALID_TYPES, f"{param} for {mt.name} does not end with a valid type"
 
     for param, mt in get_pr_parameters_for_mistake_types_with_md_formats().items():
         validate_param(param, mt)
