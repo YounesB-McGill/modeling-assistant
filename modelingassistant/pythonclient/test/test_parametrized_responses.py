@@ -101,4 +101,4 @@ def get_number_of_mistake_types_with_parametrized_responses() -> int:
 
 if __name__ == "__main__":
     "Main entry point (used for debugging)."
-    test_prs_correctly_specified()
+    print("\n".join(get_pr_parameters_for_mistake_types_with_md_formats().keys()))
