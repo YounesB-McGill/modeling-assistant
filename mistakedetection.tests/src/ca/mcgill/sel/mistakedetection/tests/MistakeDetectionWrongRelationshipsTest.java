@@ -1,5 +1,6 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
+import static ca.mcgill.sel.mistakedetection.MistakeDetection.getAssociationElements;
 import static ca.mcgill.sel.mistakedetection.MistakeDetection.getMistakeForElement;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistake;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistakeTypesContain;
@@ -2392,7 +2393,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_ASSOC_INSTEAD_OF_COMPOSITION,
-        studentMyEmployeeAssociationEnd, instructorMyEmployeeAssociationEnd, 0, 1, false);
+        getAssociationElements(studentMyEmployeeAssociationEnd), getAssociationElements(instructorMyEmployeeAssociationEnd), 0, 1, false);
   }
 
   /**
@@ -2419,7 +2420,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_ASSOC_INSTEAD_OF_AGGREGATION,
-        studentMyEngineAssociationEnd, instructorMyEngineAssociationEnd, 0, 1, false);
+        getAssociationElements(studentMyEngineAssociationEnd), getAssociationElements(instructorMyEngineAssociationEnd), 0, 1, false);
   }
 
   /**
@@ -2446,7 +2447,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_COMPOSITION_INSTEAD_OF_AGGREGATION,
-        studentMyPlayerAssociationEnd, instructorMyPlayerAssociationEnd, 0, 1, false);
+        getAssociationElements(studentMyPlayerAssociationEnd), getAssociationElements(instructorMyPlayerAssociationEnd), 0, 1, false);
   }
 
   /**
@@ -2473,7 +2474,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_AGGREGATION_INSTEAD_OF_COMPOSITION,
-        studentMyEmployeeAssociationEnd, instructorMyEmployeeAssociationEnd, 0, 1, false);
+        getAssociationElements(studentMyEmployeeAssociationEnd), getAssociationElements(instructorMyEmployeeAssociationEnd), 0, 1, false);
   }
 
   /**
@@ -2500,8 +2501,9 @@ public class MistakeDetectionWrongRelationshipsTest {
                                                     // using composition instead of aggregation)
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), USING_COMPOSITION_INSTEAD_OF_ASSOC, studentOwnerAssociationEnd,
-        instructorOwnerAssociationEnd, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), USING_COMPOSITION_INSTEAD_OF_ASSOC,
+        getAssociationElements(studentOwnerAssociationEnd), getAssociationElements(instructorOwnerAssociationEnd), 0, 1,
+        false);
   }
 
   /**
