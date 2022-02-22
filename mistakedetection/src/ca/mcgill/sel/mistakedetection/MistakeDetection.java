@@ -2643,9 +2643,14 @@ public class MistakeDetection {
     });
   }
 
+  /** Creates missing attribute mistake for mapped instructor classes only. */
   public static void checkMistakeMissingAttribute(Comparison comparison) {
-    comparison.notMappedInstructorAttributes
-        .forEach(cls -> comparison.newMistakes.add(createMistake(MISSING_ATTRIBUTE, null, cls)));
+    comparison.notMappedInstructorAttributes.forEach(attrib -> {
+      comparison.mappedClassifiers.keySet().forEach(cls -> {
+        if (cls.getAttributes().contains(attrib))
+          comparison.newMistakes.add(createMistake(MISSING_ATTRIBUTE, comparison.mappedClassifiers.get(cls), attrib));
+      });
+    });
   }
 
   public static void checkMistakeMissingExtraEnum(Comparison comparison) {
