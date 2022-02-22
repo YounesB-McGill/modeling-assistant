@@ -2746,7 +2746,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED,
-        studentMyOfficeAssociationEnd, instructorMyOfficeAssociationEnd, 0, 1, false);
+        getAssociationElements(studentMyOfficeAssociationEnd), getAssociationElements(instructorMyOfficeAssociationEnd), 0, 1, false);
   }
 
   /**
@@ -2773,7 +2773,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED,
-        studentMyWheelAssociationEnd, instructorMyWheelAssociationEnd, 0, 1, false);
+        getAssociationElements(studentMyWheelAssociationEnd), getAssociationElements(instructorMyWheelAssociationEnd),
+        0, 1, false);
   }
 
   /**

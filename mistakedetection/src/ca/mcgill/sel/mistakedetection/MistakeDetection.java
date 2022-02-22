@@ -1834,11 +1834,10 @@ public class MistakeDetection {
             FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM, FULL_PR_PATTERN_SHOULD_BE_SUBCLASS,
             SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, INCOMPLETE_PR_PATTERN,
             GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, INCOMPLETE_AO_PATTERN, MISSING_AO_PATTERN);
-    var containmentMistakeTypes = List.of(INCOMPLETE_CONTAINMENT_TREE, COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT);
 
     if (filter && mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
       updateMistakesInvolvingPattern(newMistakes, patternMistakeTypes, studentSolution);
-    } // TODO ADD For containment Mistake
+    }
     else {
       for (Mistake newMistake : newMistakes) {
         setMistakeProperties(newMistake, false, 1, 0);
@@ -1879,27 +1878,6 @@ public class MistakeDetection {
       setMistakeProperties(newMistake, false, 1, 0);
       newMistake.setSolution(studentSolution);
     }
-    newMistakes.removeAll(newMistakesToRemove);
-  }
-
-  // TODO IN Progress
-  private static void updateMistakesInvolvingContainment(List<Mistake> newMistakes,
-      List<MistakeType> containmentMistakeTypes, Solution studentSolution) {
-    List<Mistake> newMistakesToRemove = new ArrayList<>();
-    var containmentStudentElement = getPatternStudentElements(newMistakes, containmentMistakeTypes);
-    for (Mistake newMistake : newMistakes) {
-      if (!newMistake.getStudentElements().isEmpty() && !containmentMistakeTypes.contains(newMistake.getMistakeType())
-          && containmentStudentElement.contains(newMistake.getStudentElements().get(0).getElement())) {
-        newMistakesToRemove.add(newMistake);
-        continue;
-      }
-      setMistakeProperties(newMistake, false, 1, 0);
-      newMistake.setSolution(studentSolution);
-    }
-    System.out.println("Removed");
-    newMistakesToRemove.forEach(key -> {
-      System.out.println(key.getMistakeType());
-    });
     newMistakes.removeAll(newMistakesToRemove);
   }
 
@@ -2380,12 +2358,11 @@ public class MistakeDetection {
     return List.of(assocEnd.getAssoc(), assocEnd, getOtherAssocEnd(assocEnd));
   }
 
-
   public static Optional<Mistake> checkMistakeUsingAssociationInsteadOfComposition(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingAssociationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional
-          .of(createMistake(USING_ASSOC_INSTEAD_OF_COMPOSITION, getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
+      return Optional.of(createMistake(USING_ASSOC_INSTEAD_OF_COMPOSITION, getAssociationElements(studentClassAssocEnd),
+          getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();
   }
@@ -2393,8 +2370,8 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingAssociationInsteadOfAggregation(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingAssociationInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional
-          .of(createMistake(USING_ASSOC_INSTEAD_OF_AGGREGATION, getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
+      return Optional.of(createMistake(USING_ASSOC_INSTEAD_OF_AGGREGATION, getAssociationElements(studentClassAssocEnd),
+          getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();
   }
@@ -2402,8 +2379,8 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingCompositionInsteadOfAssociation(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingCompositionInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional
-          .of(createMistake(USING_COMPOSITION_INSTEAD_OF_ASSOC, getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
+      return Optional.of(createMistake(USING_COMPOSITION_INSTEAD_OF_ASSOC, getAssociationElements(studentClassAssocEnd),
+          getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();
   }
@@ -2411,8 +2388,8 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingAggregationInsteadOfAssociation(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingAggregationInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional
-          .of(createMistake(USING_AGGREGATION_INSTEAD_OF_ASSOC, getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
+      return Optional.of(createMistake(USING_AGGREGATION_INSTEAD_OF_ASSOC, getAssociationElements(studentClassAssocEnd),
+          getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();
   }
@@ -2420,8 +2397,8 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingAggregationInsteadOfComposition(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingAggregationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional
-          .of(createMistake(USING_AGGREGATION_INSTEAD_OF_COMPOSITION, getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
+      return Optional.of(createMistake(USING_AGGREGATION_INSTEAD_OF_COMPOSITION,
+          getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();
   }
@@ -2429,8 +2406,8 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingCompositionInsteadOfAggregation(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingCompositionInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional
-          .of(createMistake(USING_COMPOSITION_INSTEAD_OF_AGGREGATION, getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
+      return Optional.of(createMistake(USING_COMPOSITION_INSTEAD_OF_AGGREGATION,
+          getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();
   }
@@ -2438,8 +2415,8 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingDirectedInsteadOfUndirected(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingDirectedInsteadOfUndirected(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED, studentClassAssocEnd,
-          instructorClassAssocEnd));
+      return Optional.of(createMistake(USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED,
+          getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();
   }
@@ -2447,8 +2424,8 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeUsingUndirectedInsteadOfDirected(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isUsingUndirectedInsteadOfDirected(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED, studentClassAssocEnd,
-          instructorClassAssocEnd));
+      return Optional.of(createMistake(USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED,
+          getAssociationElements(studentClassAssocEnd), getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();
   }
