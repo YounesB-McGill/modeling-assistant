@@ -80,6 +80,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_GENERALIZATION_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_SUPERCLASS;
 import static modelingassistant.TagType.ABSTRACTION;
@@ -1646,6 +1647,21 @@ public class MistakeDetection {
       checkMistakeRoleNamePresentButIncorrect(studentClassAssocEnd, instructorClassAssocEnd,comparison).ifPresent(addMist);
       checkMistakeBadRoleNameSpelling(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     }
+    checkMistakeWrongRelationshipDirection(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+  }
+
+  private static Optional<Mistake> checkMistakeWrongRelationshipDirection(AssociationEnd studentClassAssocEnd,
+      AssociationEnd instructorClassAssocEnd) {
+    var otherStudentClassAssocEnd = getOtherAssocEnd(studentClassAssocEnd);
+    var otherInstructorClassAssocEnd = getOtherAssocEnd(instructorClassAssocEnd);
+    if (!(studentClassAssocEnd.getReferenceType().equals(REGULAR)
+        && otherStudentClassAssocEnd.getReferenceType().equals(REGULAR))
+        && studentClassAssocEnd.getReferenceType().equals(otherInstructorClassAssocEnd.getReferenceType())
+        && otherStudentClassAssocEnd.getReferenceType().equals(instructorClassAssocEnd.getReferenceType())) {
+      return Optional.of(createMistake(WRONG_RELATIONSHIP_DIRECTION, getAssociationElements(studentClassAssocEnd),
+          getAssociationElements(instructorClassAssocEnd)));
+    }
+    return Optional.empty();
   }
 
   /** Check for infinite recursive dependency. */
