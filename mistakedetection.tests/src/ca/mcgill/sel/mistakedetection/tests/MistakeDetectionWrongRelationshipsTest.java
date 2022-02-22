@@ -33,6 +33,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
+import static learningcorpus.mistaketypes.MistakeTypes.WRONG_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
@@ -162,6 +163,33 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     assertMistake(studentSolution.getMistakes().get(0), BAD_ROLE_NAME_SPELLING, studentMyAirplaneAssociationEnd,
         instructorMyAirplaneAssociationEnd, 0, 1, false);
+  }
+
+  /**
+   * Test to check wrong relationship direction.
+   */
+  @Test
+  public void testMistakeWrongRelationshipDirection() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_wrong_relationship_direction/Class Diagram/Wrong_relationship_direction.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_wrong_relationship_direction/Class Diagram/Wrong_relationship_direction.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
+    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+    var instructorMyEngineAssociationEnd = getAssociationEndFromClass("myEngine", instructorCarClass);
+    var studentMyEngineAssociationEnd = getAssociationEndFromClass("myEngine", studentCarClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_RELATIONSHIP_DIRECTION, getAssociationElements(studentMyEngineAssociationEnd),
+        getAssociationElements(instructorMyEngineAssociationEnd), 0, 1, false);
   }
 
   /**
