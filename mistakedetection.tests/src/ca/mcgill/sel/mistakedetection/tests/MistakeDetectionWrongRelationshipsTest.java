@@ -3126,10 +3126,10 @@ public class MistakeDetectionWrongRelationshipsTest {
   }
 
   /**
-   * Test to check infinite recursive dependency.
+   * Test to check infinite recursive dependency for 2 association ends.
    */
   @Test
-  public void testMistakeInfiniteRecursiveDependency() {
+  public void testMistakeInfiniteRecursiveDependencyTwoAssocEnd() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_personClass/Class Diagram/Instructor_personClass.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -3149,6 +3149,31 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     assertMistake(studentSolution.getMistakes().get(0), INFINITE_RECURSIVE_DEPENDENCY,
         List.of(studentChildAssociationEnd, otherStudentChildAssociationEnd), 0, 1, false);
+  }
+
+  /**
+   * Test to check infinite recursive dependency for 1 association ends.
+   */
+  @Test
+  public void testMistakeInfiniteRecursiveDependencyOneAssocEnd() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestRelationship/instructor_personClass/Class Diagram/Instructor_personClass.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_infiniteRecursiveDependencyOneAssoc/Class Diagram/Student_infiniteRecursiveDependency.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var studentPersonClass = getClassFromClassDiagram("Person", studentClassDiagram);
+    var studentChildAssociationEnd = getAssociationEndFromClass("Parent", studentPersonClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
+
+    assertMistake(studentSolution.getMistakes().get(0), INFINITE_RECURSIVE_DEPENDENCY,
+        studentChildAssociationEnd, 0, 1, false);
   }
 
   /**

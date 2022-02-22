@@ -1673,15 +1673,21 @@ public class MistakeDetection {
     var otherStudClassAssocEndLowerBound = otherStudentClassAssocEnd.getLowerBound();
 
     if (!isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, studentClassAssocEnd, comparison)
-        && !isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, otherStudentClassAssocEnd, comparison)
-       //TODO TO attach only elements with incorrect multiplicitiy.
-        && (studClassAssocEndLowerBound >= 1 || otherStudClassAssocEndLowerBound >= 1)) {
-      if (otherStudClassAssocEndLowerBound > studClassAssocEndLowerBound) {
+        && !isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, otherStudentClassAssocEnd, comparison)){
+      if(studClassAssocEndLowerBound >= 1 && otherStudClassAssocEndLowerBound >= 1) {
+        if (otherStudClassAssocEndLowerBound > studClassAssocEndLowerBound) {
+          comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY,
+              List.of(studentClassAssocEnd, otherStudentClassAssocEnd), null));
+        } else {
+          comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY,
+              List.of(otherStudentClassAssocEnd, studentClassAssocEnd), null));
+        }
+      } else if (studClassAssocEndLowerBound >= 1) {
         comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY,
-            List.of(studentClassAssocEnd, otherStudentClassAssocEnd), null));
-      } else {
+            studentClassAssocEnd, null));
+      } else if (otherStudClassAssocEndLowerBound >= 1) {
         comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY,
-            List.of(otherStudentClassAssocEnd, studentClassAssocEnd), null));
+            otherStudentClassAssocEnd, null));
       }
     }
   }
@@ -1862,7 +1868,7 @@ public class MistakeDetection {
             ENUM_SHOULD_BE_ASSOC_PR_PATTERN, ENUM_SHOULD_BE_FULL_PR_PATTERN, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN,
             FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM, FULL_PR_PATTERN_SHOULD_BE_SUBCLASS,
             SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, INCOMPLETE_PR_PATTERN,
-            GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, INCOMPLETE_AO_PATTERN, MISSING_AO_PATTERN);
+            INCOMPLETE_AO_PATTERN, MISSING_AO_PATTERN);
 
     if (filter && mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
       updateMistakesInvolvingPattern(newMistakes, patternMistakeTypes, studentSolution);
@@ -2754,7 +2760,7 @@ public class MistakeDetection {
   }
 
   /** Returns list of student elements in order based on tagType->Abstraction, Occurrence. */
-  public static LinkedList<NamedElement> getOrderedStudPatternElements(TagGroup tg, Comparison comparison) {
+  public static LinkedList<NamedElement> getOrderedStudAOPatternElements(TagGroup tg, Comparison comparison) {
     LinkedList<NamedElement> studentElements = new LinkedList<>();
     for (Tag tag : tg.getTags()) {
       var tagElement = tag.getSolutionElement().getElement();
@@ -2796,7 +2802,7 @@ public class MistakeDetection {
   }
 
   public static void createMistakeIncompleteAOPattern(TagGroup tg, Comparison comparison) {
-    var studentMissingElements = getOrderedStudPatternElements(tg, comparison);
+    var studentMissingElements = getOrderedStudAOPatternElements(tg, comparison);
     var instructorElements = getOrderedInstPatternElements(tg, comparison, ABSTRACTION);
     comparison.newMistakes.add(createMistake(INCOMPLETE_AO_PATTERN, studentMissingElements, instructorElements));
   }
