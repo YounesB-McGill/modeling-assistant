@@ -1674,6 +1674,7 @@ public class MistakeDetection {
 
     if (!isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, studentClassAssocEnd, comparison)
         && !isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, otherStudentClassAssocEnd, comparison)
+       //TODO TO attach only elements with incorrect multiplicitiy.
         && (studClassAssocEndLowerBound >= 1 || otherStudClassAssocEndLowerBound >= 1)) {
       if (otherStudClassAssocEndLowerBound > studClassAssocEndLowerBound) {
         comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY,
@@ -2670,16 +2671,18 @@ public class MistakeDetection {
   public static void checkMistakeMissingAssociationCompositionAggregation(Comparison comparison) {
     for (Association association : comparison.notMappedInstructorAssociations) {
       checkMistakeAttributeInsteadOfAssociation(association, comparison);
-      if (association.getEnds().get(0).getReferenceType().equals(COMPOSITION)
-          || association.getEnds().get(1).getReferenceType().equals(COMPOSITION)) {
-        if(!isMistakeExist(INCOMPLETE_CONTAINMENT_TREE,  comparison.mappedClassifiers.get(association.getEnds().get(0).getClassifier()), comparison)) {
+      if (association.getEnds().get(0).getReferenceType().equals(COMPOSITION)) {
+       if(!isMistakeExist(INCOMPLETE_CONTAINMENT_TREE,  comparison.mappedClassifiers.get(association.getEnds().get(0).getClassifier()), comparison)) {
         comparison.newMistakes.add(createMistake(MISSING_COMPOSITION, null, getAssociationElements(association.getEnds().get(0))));
-        } else if(!isMistakeExist(INCOMPLETE_CONTAINMENT_TREE,  comparison.mappedClassifiers.get(association.getEnds().get(1).getClassifier()), comparison)) {
+        }
+      } else if (association.getEnds().get(1).getReferenceType().equals(COMPOSITION))  {
+        if(!isMistakeExist(INCOMPLETE_CONTAINMENT_TREE,  comparison.mappedClassifiers.get(association.getEnds().get(1).getClassifier()), comparison)) {
           comparison.newMistakes.add(createMistake(MISSING_COMPOSITION, null, getAssociationElements(association.getEnds().get(1))));
         }
-      } else if (association.getEnds().get(0).getReferenceType().equals(AGGREGATION)
-          || association.getEnds().get(1).getReferenceType().equals(AGGREGATION)) {
-        comparison.newMistakes.add(createMistake(MISSING_AGGREGATION, null, association));
+      } else if (association.getEnds().get(0).getReferenceType().equals(AGGREGATION)) {
+        comparison.newMistakes.add(createMistake(MISSING_AGGREGATION, null, getAssociationElements(association.getEnds().get(0))));
+      } else if (association.getEnds().get(1).getReferenceType().equals(AGGREGATION)) {
+        comparison.newMistakes.add(createMistake(MISSING_AGGREGATION, null, getAssociationElements(association.getEnds().get(1))));
       } else {
         comparison.newMistakes.add(createMistake(MISSING_ASSOCIATION, null, association));
       }

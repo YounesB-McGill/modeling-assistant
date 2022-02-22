@@ -2301,7 +2301,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorTeamClass = getClassFromClassDiagram("Team", instructorClassDiagram);
     var instructorPlayerClass = getClassFromClassDiagram("Player", instructorClassDiagram);
 
-    var instructorTeamToPlayerAssociation =
+    var aggregation =
         getAssocAggCompFromClassDiagram(instructorTeamClass, instructorPlayerClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
@@ -2309,7 +2309,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_AGGREGATION, instructorTeamToPlayerAssociation.get(0),
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_AGGREGATION, getAssociationElements(aggregation.get(0).getEnds().get(0)),
         0, 1, false);
   }
 
@@ -2329,7 +2329,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
     var instructorEngineClass = getClassFromClassDiagram("Engine", instructorClassDiagram);
 
-    var instructorCarToEngineAssociation =
+    var aggregation =
         getAssocAggCompFromClassDiagram(instructorCarClass, instructorEngineClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
@@ -2337,7 +2337,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_AGGREGATION, instructorCarToEngineAssociation.get(0), 0,
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_AGGREGATION, getAssociationElements(aggregation.get(0).getEnds().get(0)), 0,
         1, false);
   }
 
