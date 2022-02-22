@@ -399,7 +399,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup));
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_full_assoc_PR_pateern/Class Diagram/Student_full_assoc_PR_pateern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instElements = studentDomainElements(instructorClassDiagram);
@@ -408,9 +408,9 @@ public class MistakeDetectionPatternTest {
     var studStudentClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
-    //TODO Correct Solutions
-//    assertEquals(10, comparison.newMistakes.size());
-//    assertEquals(10, studentSolution.getMistakes().size());
+
+    assertEquals(8, comparison.newMistakes.size());
+    assertEquals(8, studentSolution.getMistakes().size());
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
 
     assertMistake(studStudentClassMistake, ASSOC_SHOULD_BE_FULL_PR_PATTERN, studElements, instElements, 0, 1, false);
@@ -501,7 +501,7 @@ public class MistakeDetectionPatternTest {
     assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup));
 
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_assoc_full_PR_pattern/Class Diagram/Student_assoc_full_PR_pattern.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instElements = studentProjectDomainElements(instructorClassDiagram);
@@ -511,9 +511,8 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    //TODO Correct Solutions
-//    assertEquals(10, comparison.newMistakes.size());
-//    assertEquals(10, studentSolution.getMistakes().size());
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
     assertMistake(studStudentClassMistake, FULL_PR_PATTERN_SHOULD_BE_ASSOC, studElements, instElements, 0, 1, false);

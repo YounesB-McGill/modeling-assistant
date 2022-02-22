@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_3psDwZP-EeyzlK9p0zqhhA" name="Student_full_assoc_PR_pateern">
+  <classes xsi:type="classdiagram:Class" xmi:id="_4G9OkJP-EeyzlK9p0zqhhA" name="Root">
+    <associationEnds xmi:id="_8C-YMZP-EeyzlK9p0zqhhA" name="myStudent" assoc="_8C-YMpP-EeyzlK9p0zqhhA" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="_8m6LsJP-EeyzlK9p0zqhhA" name="myAttendanceRole" assoc="_8m6LsZP-EeyzlK9p0zqhhA" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_54s5AJP-EeyzlK9p0zqhhA" name="Student">
+    <associationEnds xmi:id="_8C-YMJP-EeyzlK9p0zqhhA" name="myRoot" assoc="_8C-YMpP-EeyzlK9p0zqhhA" lowerBound="1"/>
+    <associationEnds xmi:id="_9otm8JP-EeyzlK9p0zqhhA" name="attendanceRole" assoc="_9otm8pP-EeyzlK9p0zqhhA" lowerBound="1"/>
+    <associationEnds xmi:id="_BkfgAJP_EeyzlK9p0zqhhA" name="attendanceRole" assoc="_BkgHEJP_EeyzlK9p0zqhhA" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_64m20JP-EeyzlK9p0zqhhA" name="AttendanceRole">
+    <associationEnds xmi:id="_8m5koJP-EeyzlK9p0zqhhA" name="myRoot" assoc="_8m6LsZP-EeyzlK9p0zqhhA" lowerBound="1"/>
+    <associationEnds xmi:id="_9otm8ZP-EeyzlK9p0zqhhA" name="fullTimeStudent" assoc="_9otm8pP-EeyzlK9p0zqhhA" lowerBound="1"/>
+    <associationEnds xmi:id="_BkfgAZP_EeyzlK9p0zqhhA" name="partTimeStudent" assoc="_BkgHEJP_EeyzlK9p0zqhhA" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_3psDwpP-EeyzlK9p0zqhhA"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_3psDw5P-EeyzlK9p0zqhhA"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_3psDxJP-EeyzlK9p0zqhhA"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_3psDxZP-EeyzlK9p0zqhhA"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_3psDxpP-EeyzlK9p0zqhhA"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_3psDx5P-EeyzlK9p0zqhhA"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_3psDyJP-EeyzlK9p0zqhhA"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_3psDyZP-EeyzlK9p0zqhhA"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_3psDypP-EeyzlK9p0zqhhA"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_3psDy5P-EeyzlK9p0zqhhA"/>
+  <associations xmi:id="_8C-YMpP-EeyzlK9p0zqhhA" name="Student_Root" ends="_8C-YMJP-EeyzlK9p0zqhhA _8C-YMZP-EeyzlK9p0zqhhA"/>
+  <associations xmi:id="_8m6LsZP-EeyzlK9p0zqhhA" name="AttendanceRole_Root" ends="_8m5koJP-EeyzlK9p0zqhhA _8m6LsJP-EeyzlK9p0zqhhA"/>
+  <associations xmi:id="_9otm8pP-EeyzlK9p0zqhhA" name="Student_AttendanceRole" ends="_9otm8JP-EeyzlK9p0zqhhA _9otm8ZP-EeyzlK9p0zqhhA"/>
+  <associations xmi:id="_BkgHEJP_EeyzlK9p0zqhhA" name="Student_AttendanceRole" ends="_BkfgAJP_EeyzlK9p0zqhhA _BkfgAZP_EeyzlK9p0zqhhA"/>
+  <layout xmi:id="_3psDzJP-EeyzlK9p0zqhhA">
+    <containers xmi:id="_3psDzZP-EeyzlK9p0zqhhA" key="_3psDwZP-EeyzlK9p0zqhhA">
+      <value xmi:id="_4G9OkZP-EeyzlK9p0zqhhA" key="_4G9OkJP-EeyzlK9p0zqhhA">
+        <value xmi:id="_4G9OkpP-EeyzlK9p0zqhhA" x="724.0" y="160.00015"/>
+      </value>
+      <value xmi:id="_54tgEJP-EeyzlK9p0zqhhA" key="_54s5AJP-EeyzlK9p0zqhhA">
+        <value xmi:id="_54tgEZP-EeyzlK9p0zqhhA" x="724.0" y="654.0002"/>
+      </value>
+      <value xmi:id="_64m20ZP-EeyzlK9p0zqhhA" key="_64m20JP-EeyzlK9p0zqhhA">
+        <value xmi:id="_64m20pP-EeyzlK9p0zqhhA" x="1268.0001" y="431.0001"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_xrNy0JQBEey5jPB3ar8ujA" name="Student_assoc_full_PR_pattern">
+  <classes xsi:type="classdiagram:Class" xmi:id="_yT1SAJQBEey5jPB3ar8ujA" name="Root">
+    <associationEnds xmi:id="_5UsFoZQBEey5jPB3ar8ujA" name="myStudents" assoc="_5UsFopQBEey5jPB3ar8ujA" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_zhsMQJQBEey5jPB3ar8ujA" name="Project" abstract="true">
+    <associationEnds xmi:id="_5UsFoJQBEey5jPB3ar8ujA" name="myRoot" assoc="_5UsFopQBEey5jPB3ar8ujA" lowerBound="1"/>
+    <associationEnds xmi:id="_TYGkMJQCEey5jPB3ar8ujA" name="workedFor" assoc="_TYGkMpQCEey5jPB3ar8ujA" upperBound="-1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_01TJMJQBEey5jPB3ar8ujA" name="FullTimeStudent" superTypes="_zhsMQJQBEey5jPB3ar8ujA"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_2SI6oJQBEey5jPB3ar8ujA" name="PartTimeStudent" superTypes="_zhsMQJQBEey5jPB3ar8ujA"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_Q3PJ8JQCEey5jPB3ar8ujA" name="Student">
+    <associationEnds xmi:id="_TYGkMZQCEey5jPB3ar8ujA" name="partTimeStudent" assoc="_TYGkMpQCEey5jPB3ar8ujA" upperBound="-1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_xrNy0ZQBEey5jPB3ar8ujA"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_xrNy0pQBEey5jPB3ar8ujA"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_xrNy05QBEey5jPB3ar8ujA"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_xrNy1JQBEey5jPB3ar8ujA"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_xrNy1ZQBEey5jPB3ar8ujA"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_xrNy1pQBEey5jPB3ar8ujA"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_xrNy15QBEey5jPB3ar8ujA"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_xrNy2JQBEey5jPB3ar8ujA"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_xrNy2ZQBEey5jPB3ar8ujA"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_xrNy2pQBEey5jPB3ar8ujA"/>
+  <associations xmi:id="_5UsFopQBEey5jPB3ar8ujA" name="Student_Root" ends="_5UsFoJQBEey5jPB3ar8ujA _5UsFoZQBEey5jPB3ar8ujA"/>
+  <associations xmi:id="_TYGkMpQCEey5jPB3ar8ujA" name="Student_Project" ends="_TYGkMJQCEey5jPB3ar8ujA _TYGkMZQCEey5jPB3ar8ujA"/>
+  <layout xmi:id="_xrNy25QBEey5jPB3ar8ujA">
+    <containers xmi:id="_xrNy3JQBEey5jPB3ar8ujA" key="_xrNy0JQBEey5jPB3ar8ujA">
+      <value xmi:id="_yT15EJQBEey5jPB3ar8ujA" key="_yT1SAJQBEey5jPB3ar8ujA">
+        <value xmi:id="_yT15EZQBEey5jPB3ar8ujA" x="758.0002" y="286.00003"/>
+      </value>
+      <value xmi:id="_zhszUJQBEey5jPB3ar8ujA" key="_zhsMQJQBEey5jPB3ar8ujA">
+        <value xmi:id="_zhszUZQBEey5jPB3ar8ujA" x="758.0002" y="513.0002"/>
+      </value>
+      <value xmi:id="_01TwQJQBEey5jPB3ar8ujA" key="_01TJMJQBEey5jPB3ar8ujA">
+        <value xmi:id="_01TwQZQBEey5jPB3ar8ujA" x="615.9999" y="682.0002"/>
+      </value>
+      <value xmi:id="_2SJhsJQBEey5jPB3ar8ujA" key="_2SI6oJQBEey5jPB3ar8ujA">
+        <value xmi:id="_2SJhsZQBEey5jPB3ar8ujA" x="947.0001" y="682.0002"/>
+      </value>
+      <value xmi:id="_Q3PxAJQCEey5jPB3ar8ujA" key="_Q3PJ8JQCEey5jPB3ar8ujA">
+        <value xmi:id="_Q3PxAZQCEey5jPB3ar8ujA" x="1244.0" y="513.0002"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

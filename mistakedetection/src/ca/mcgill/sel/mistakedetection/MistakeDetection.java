@@ -1293,6 +1293,10 @@ public class MistakeDetection {
       }
     }
     if (studentSubclassesPatternScore == highestScore) {
+      if (studSubclassElements.contains(studPlayerClass)) {
+        studSubclassElements.remove(studPlayerClass);
+        studSubclassElements.addFirst(studPlayerClass);
+      }
       checkMistakeUsingSubclassPattern(instPattern, studSubclassElements, instElements, comparison);
       return;
     } else if (studentAssocPatternScore == highestScore) {
@@ -1633,12 +1637,15 @@ public class MistakeDetection {
     checkMistakeUsingDirectedInsteadOfUndirected(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeUsingUndirectedInsteadOfDirected(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeRepresentingActionWithAssoc(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeOtherWrongMultiplicity(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeMissingRoleName(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeRoleNameExpectedStactic(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeRoleNameNotExpectedStactic(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeRoleNamePresentButIncorrect(studentClassAssocEnd, instructorClassAssocEnd,comparison).ifPresent(addMist);
-    checkMistakeBadRoleNameSpelling(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    if (!(isUsingDirectedInsteadOfUndirected(studentClassAssocEnd, instructorClassAssocEnd)
+        || isUsingUndirectedInsteadOfDirected(studentClassAssocEnd, instructorClassAssocEnd))) {
+      checkMistakeOtherWrongMultiplicity(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+      checkMistakeMissingRoleName(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+      checkMistakeRoleNamePresentButIncorrect(studentClassAssocEnd, instructorClassAssocEnd,comparison).ifPresent(addMist);
+      checkMistakeBadRoleNameSpelling(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    }
   }
 
   /** Check for infinite recursive dependency. */
@@ -2760,6 +2767,7 @@ public class MistakeDetection {
     comparison.newMistakes.add(createMistake(MISSING_PR_PATTERN, null, missingElements));
   }
 
+  /** Make sure that studentMissingElements are in order -> Player, roles. */
   public static void createMistakeIncompletePRPattern(List<NamedElement> studentMissingElements, TagGroup tg, Comparison comparison) {
     var instructorElements = getOrderedInstPatternElements(tg, comparison, PLAYER);
     comparison.newMistakes.add(createMistake(INCOMPLETE_PR_PATTERN, studentMissingElements, instructorElements));
@@ -2771,6 +2779,7 @@ public class MistakeDetection {
     comparison.newMistakes.add(createMistake(INCOMPLETE_AO_PATTERN, studentMissingElements, instructorElements));
   }
 
+  /** Make sure that studentElements and instructorElements are in order -> Player, roles. */
   public static void checkMistakeUsingEnumPattern(String instPattern, List<NamedElement> studentElements,
       List<NamedElement> instElements, Comparison comparison) {
     if (instPattern.equals(ASSOC_PR_PATTERN)) {
@@ -2782,6 +2791,7 @@ public class MistakeDetection {
     }
   }
 
+  /** Make sure that studentElements and instructorElements are in order -> Player, roles. */
   public static void checkMistakeUsingFullPattern(String instPattern, List<NamedElement> studentElements,
       List<NamedElement> instElements, Comparison comparison) {
     if (instPattern.equals(ASSOC_PR_PATTERN)) {
@@ -2793,6 +2803,7 @@ public class MistakeDetection {
     }
   }
 
+  /** Make sure that studentElements and instructorElements are in order -> Player, roles. */
   public static void checkMistakeUsingSubclassPattern(String instPattern, List<NamedElement> studentElements,
       List<NamedElement> instElements, Comparison comparison) {
     if (instPattern.equals(ASSOC_PR_PATTERN)) {
@@ -2804,6 +2815,7 @@ public class MistakeDetection {
     }
   }
 
+  /** Make sure that studentElements and instructorElements are in order -> Player, roles. */
   public static void checkMistakeUsingAssocPattern(String instPattern, List<NamedElement> studentElements,
       List<NamedElement> instElements, Comparison comparison) {
     if (instPattern.equals(ENUM_PR_PATTERN)) {
