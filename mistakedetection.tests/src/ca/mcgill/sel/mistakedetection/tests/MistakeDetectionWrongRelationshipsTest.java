@@ -2141,7 +2141,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_COMPOSITION, studentRootToPassengerAssociation.get(0), 0,
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_COMPOSITION, getAssociationElements(studentRootToPassengerAssociation.get(0).getEnds().get(0)), 0,
         1, false);
   }
 
@@ -2169,7 +2169,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_COMPOSITION, studentRootToPilotAssociation.get(0), 0, 1,
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_COMPOSITION, getAssociationElements(studentRootToPilotAssociation.get(0).getEnds().get(0)).get(0), 0, 1,
         false);
   }
 
@@ -2857,7 +2857,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_AGGREGATION, studentRootToCompanyAssociation.get(1), 0, 1,
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_AGGREGATION, getAssociationElements(studentRootToCompanyAssociation.get(1).getEnds().get(0)), 0, 1,
         false);
   }
 

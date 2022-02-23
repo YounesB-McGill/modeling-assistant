@@ -2712,23 +2712,30 @@ public class MistakeDetection {
     for (Association association : comparison.notMappedInstructorAssociations) {
       checkMistakeAttributeInsteadOfAssociation(association, comparison);
       if (association.getEnds().get(0).getReferenceType().equals(COMPOSITION)) {
-       if(!isMistakeExist(INCOMPLETE_CONTAINMENT_TREE,  comparison.mappedClassifiers.get(association.getEnds().get(0).getClassifier()), comparison)) {
-        comparison.newMistakes.add(createMistake(MISSING_COMPOSITION, null, getAssociationElements(association.getEnds().get(0))));
+        if (!isMistakeExist(INCOMPLETE_CONTAINMENT_TREE,
+            comparison.mappedClassifiers.get(association.getEnds().get(0).getClassifier()), comparison)) {
+          comparison.newMistakes
+              .add(createMistake(MISSING_COMPOSITION, null, getAssociationElements(association.getEnds().get(0))));
         }
-      } else if (association.getEnds().get(1).getReferenceType().equals(COMPOSITION))  {
-        if(!isMistakeExist(INCOMPLETE_CONTAINMENT_TREE,  comparison.mappedClassifiers.get(association.getEnds().get(1).getClassifier()), comparison)) {
-          comparison.newMistakes.add(createMistake(MISSING_COMPOSITION, null, getAssociationElements(association.getEnds().get(1))));
+      } else if (association.getEnds().get(1).getReferenceType().equals(COMPOSITION)) {
+        if (!isMistakeExist(INCOMPLETE_CONTAINMENT_TREE,
+            comparison.mappedClassifiers.get(association.getEnds().get(1).getClassifier()), comparison)) {
+          comparison.newMistakes
+              .add(createMistake(MISSING_COMPOSITION, null, getAssociationElements(association.getEnds().get(1))));
         }
       } else if (association.getEnds().get(0).getReferenceType().equals(AGGREGATION)) {
-        comparison.newMistakes.add(createMistake(MISSING_AGGREGATION, null, getAssociationElements(association.getEnds().get(0))));
+        comparison.newMistakes
+            .add(createMistake(MISSING_AGGREGATION, null, getAssociationElements(association.getEnds().get(0))));
       } else if (association.getEnds().get(1).getReferenceType().equals(AGGREGATION)) {
-        comparison.newMistakes.add(createMistake(MISSING_AGGREGATION, null, getAssociationElements(association.getEnds().get(1))));
+        comparison.newMistakes
+            .add(createMistake(MISSING_AGGREGATION, null, getAssociationElements(association.getEnds().get(1))));
       } else {
         comparison.newMistakes.add(createMistake(MISSING_ASSOCIATION, null, association));
       }
       if (association.getAssociationClass() != null) {
         removeMistakesRelatedToElement(association.getAssociationClass(), comparison.newMistakes);
-        comparison.newMistakes.add(createMistake(MISSING_ASSOC_CLASS, null, List.of(association, association.getAssociationClass())));
+        comparison.newMistakes
+            .add(createMistake(MISSING_ASSOC_CLASS, null, List.of(association, association.getAssociationClass())));
       }
     }
   }
@@ -2777,18 +2784,25 @@ public class MistakeDetection {
 
   public static void checkMistakeExtraAssociationCompositionAggregation(Comparison comparison) {
     for (Association association : comparison.extraStudentAssociations) {
-      if (association.getEnds().get(0).getReferenceType().equals(COMPOSITION)
-          || association.getEnds().get(1).getReferenceType().equals(COMPOSITION)) {
-        comparison.newMistakes.add(createMistake(EXTRA_COMPOSITION, association, null));
-      } else if (association.getEnds().get(0).getReferenceType().equals(AGGREGATION)
-          || association.getEnds().get(1).getReferenceType().equals(AGGREGATION)) {
-        comparison.newMistakes.add(createMistake(EXTRA_AGGREGATION, association, null));
+      if (association.getEnds().get(0).getReferenceType().equals(COMPOSITION)) {
+        comparison.newMistakes
+            .add(createMistake(EXTRA_COMPOSITION, getAssociationElements(association.getEnds().get(0)), null));
+      } else if (association.getEnds().get(1).getReferenceType().equals(COMPOSITION)) {
+        comparison.newMistakes
+            .add(createMistake(EXTRA_COMPOSITION, getAssociationElements(association.getEnds().get(1)), null));
+      } else if (association.getEnds().get(0).getReferenceType().equals(AGGREGATION)) {
+        comparison.newMistakes
+            .add(createMistake(EXTRA_AGGREGATION, getAssociationElements(association.getEnds().get(0)), null));
+      } else if (association.getEnds().get(1).getReferenceType().equals(AGGREGATION)) {
+        comparison.newMistakes
+            .add(createMistake(EXTRA_AGGREGATION, getAssociationElements(association.getEnds().get(1)), null));
       } else {
         comparison.newMistakes.add(createMistake(EXTRA_ASSOCIATION, association, null));
       }
       if (association.getAssociationClass() != null) {
         removeMistakesRelatedToElement(association.getAssociationClass(), comparison.newMistakes);
-        comparison.newMistakes.add(createMistake(EXTRA_ASSOC_CLASS, List.of(association, association.getAssociationClass()), null));
+        comparison.newMistakes
+            .add(createMistake(EXTRA_ASSOC_CLASS, List.of(association, association.getAssociationClass()), null));
       }
     }
   }
