@@ -2653,6 +2653,7 @@ public class MistakeDetection {
     });
   }
 
+  /** Creates missing enum literal mistake for mapped enums only. */
   public static void checkMistakeMissingExtraEnum(Comparison comparison) {
     comparison.notMappedInstructorEnumLiterals.forEach(enuml -> {
       comparison.mappedEnumerations.keySet().forEach(e -> {
@@ -2667,8 +2668,9 @@ public class MistakeDetection {
       }
     });
 
+    /** Creates extra enum literal mistake for mapped enums only. */
     comparison.extraStudentEnumLiterals.forEach(enuml -> {
-      if(!comparison.extraStudentEnums.contains(enuml.getEnum()))
+      if(comparison.mappedEnumerations.values().contains(enuml.getEnum()))
           comparison.newMistakes.add(createMistake(EXTRA_ENUM_ITEM, enuml, null));
           });
 
@@ -2680,7 +2682,7 @@ public class MistakeDetection {
 
   }
 
-  /** Only creates Extra Attribute for mapped classifiers only. */
+  /** Creates extra attribute mistake for mapped classifiers only. */
   public static void checkMistakeExtraAttribute(Comparison comparison) {
     comparison.extraStudentAttributes.forEach(attrib ->{
       comparison.mappedClassifiers.values().forEach(cls -> {
