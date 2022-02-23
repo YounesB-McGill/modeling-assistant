@@ -15,6 +15,8 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
+//import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ABSTRACT;
+//import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_NOT_BE_ABSTRACT;
 import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
@@ -22,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
@@ -1586,4 +1589,51 @@ public class MistakeDetectionWrongClassTest {
     assertTrue(comparison.extraStudentClassifiers.contains(studentCompanyClass));
   }
 
+  @Disabled("Pending mistake type defination")
+  /**
+   * Check Mistake class should be abstract.
+   */
+  @Test
+  public void testClassSholdBeAbstract() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_abstract_class/Class Diagram/Abstract_class.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_not_abstract_class/Class Diagram/Not_abstract_class.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+    var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(1, comparison.newMistakes.size());
+
+  //  assertMistake(studentMistakeFor(studentCarClass), CLASS_SHOULD_BE_ABSTRACT, studentCarClass, instructorCarClass, 0, 1, false);
+  }
+
+  @Disabled("Pending mistake type defination")
+  /**
+   * Check Mistake class should not be abstract.
+   */
+  @Test
+  public void testClassSholdNotBeAbstract() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_not_abstract_class/Class Diagram/Not_abstract_class.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_abstract_class/Class Diagram/Abstract_class.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+    var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(1, comparison.newMistakes.size());
+
+  //  assertMistake(studentMistakeFor(studentCarClass), CLASS_SHOULD_NOT_BE_ABSTRACT, studentCarClass, instructorCarClass, 0, 1, false);
+  }
 }

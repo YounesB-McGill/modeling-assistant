@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_k_9JEJRtEeyB7IYff3ksGA" name="Not_abstract_class">
+  <classes xsi:type="classdiagram:Class" xmi:id="_lSS2QJRtEeyB7IYff3ksGA" name="Root">
+    <associationEnds xmi:id="_mqcU8ZRtEeyB7IYff3ksGA" name="myCar" assoc="_mqcU8pRtEeyB7IYff3ksGA" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_lzDZ8JRtEeyB7IYff3ksGA" name="Car">
+    <associationEnds xmi:id="_mqcU8JRtEeyB7IYff3ksGA" name="myRoot" assoc="_mqcU8pRtEeyB7IYff3ksGA" lowerBound="1"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_k_9JEZRtEeyB7IYff3ksGA"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_k_9JEpRtEeyB7IYff3ksGA"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_k_9JE5RtEeyB7IYff3ksGA"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_k_9JFJRtEeyB7IYff3ksGA"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_k_9JFZRtEeyB7IYff3ksGA"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_k_9JFpRtEeyB7IYff3ksGA"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_k_9JF5RtEeyB7IYff3ksGA"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_k_9JGJRtEeyB7IYff3ksGA"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_k_9JGZRtEeyB7IYff3ksGA"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_k_9JGpRtEeyB7IYff3ksGA"/>
+  <associations xmi:id="_mqcU8pRtEeyB7IYff3ksGA" name="Car_Root" ends="_mqcU8JRtEeyB7IYff3ksGA _mqcU8ZRtEeyB7IYff3ksGA"/>
+  <layout xmi:id="_k_9JG5RtEeyB7IYff3ksGA">
+    <containers xmi:id="_k_9JHJRtEeyB7IYff3ksGA" key="_k_9JEJRtEeyB7IYff3ksGA">
+      <value xmi:id="_lSTdUJRtEeyB7IYff3ksGA" key="_lSS2QJRtEeyB7IYff3ksGA">
+        <value xmi:id="_lSTdUZRtEeyB7IYff3ksGA" x="763.0" y="122.0"/>
+      </value>
+      <value xmi:id="_lzEoEJRtEeyB7IYff3ksGA" key="_lzDZ8JRtEeyB7IYff3ksGA">
+        <value xmi:id="_lzEoEZRtEeyB7IYff3ksGA" x="763.0" y="323.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

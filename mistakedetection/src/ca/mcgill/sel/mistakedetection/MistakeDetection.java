@@ -20,6 +20,8 @@ import static learningcorpus.mistaketypes.MistakeTypes.BAD_ENUM_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ENUM;
+//import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ABSTRACT;
+//import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_NOT_BE_ABSTRACT;
 import static learningcorpus.mistaketypes.MistakeTypes.COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_ASSOC_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_CLASS;
@@ -820,6 +822,17 @@ public class MistakeDetection {
     checkMistakeLowerClassName(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
     checkMistakeIncorrectClassNameButCorrectAttribRel(studentClassifier, instructorClassifier)
         .ifPresent(newMistakes::add);
+    checkMistakeAbstractClass(studentClassifier, instructorClassifier).ifPresent(newMistakes::add);
+  }
+
+  private static Optional<Mistake> checkMistakeAbstractClass(Classifier studentClassifier,
+      Classifier instructorClassifier) {
+    if (!studentClassifier.isAbstract() && instructorClassifier.isAbstract()) {
+      // return Optional.of(createMistake(CLASS_SHOULD_BE_ABSTRACT, studentClassifier, instructorClassifier));
+    } else if (studentClassifier.isAbstract() && !instructorClassifier.isAbstract()) {
+      // return Optional.of(createMistake(CLASS_SHOULD_NOT_BE_ABSTRACT, studentClassifier, instructorClassifier));
+    }
+    return Optional.empty();
   }
 
   /**
