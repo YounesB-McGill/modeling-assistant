@@ -2654,8 +2654,11 @@ public class MistakeDetection {
   }
 
   public static void checkMistakeMissingExtraEnum(Comparison comparison) {
-    comparison.notMappedInstructorEnumLiterals
-        .forEach(cls -> comparison.newMistakes.add(createMistake(MISSING_ENUM_ITEM, null, cls)));
+    comparison.notMappedInstructorEnumLiterals.forEach(enuml -> {
+      comparison.mappedEnumerations.keySet().forEach(e -> {
+        comparison.newMistakes.add(createMistake(MISSING_ENUM_ITEM, comparison.mappedEnumerations.get(e) , enuml));
+      });
+    });
 
     comparison.notMappedInstructorEnums.forEach(cls -> {
       if (!mistakeForElementExists(cls, comparison.newMistakes)) {
@@ -2663,8 +2666,10 @@ public class MistakeDetection {
       }
     });
 
-    comparison.extraStudentEnumLiterals
-        .forEach(cls -> comparison.newMistakes.add(createMistake(EXTRA_ENUM_ITEM, cls, null)));
+    comparison.extraStudentEnumLiterals.forEach(enuml -> {
+      if(!comparison.extraStudentEnums.contains(enuml.getEnum()))
+          comparison.newMistakes.add(createMistake(EXTRA_ENUM_ITEM, enuml, null));
+          });
 
     comparison.extraStudentEnums.forEach(cls -> {
       if (!mistakeForElementExists(cls, comparison.newMistakes)) {

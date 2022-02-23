@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_2Q0VEJQ6EeyWiOWMa9ZuwQ" name="Enum" featureModel="_2Q0VEZQ6EeyWiOWMa9ZuwQ" impactModel="_2Q0VE5Q6EeyWiOWMa9ZuwQ">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_2Q0VEZQ6EeyWiOWMa9ZuwQ" root="_2Q0VEpQ6EeyWiOWMa9ZuwQ">
+    <features xmi:id="_2Q0VEpQ6EeyWiOWMa9ZuwQ" name="Enum" realizedBy="_2zm5EZQ6EeyWiOWMa9ZuwQ"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_2Q0VE5Q6EeyWiOWMa9ZuwQ" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_2zm5EJQ6EeyWiOWMa9ZuwQ" name="Enum" scene="_2zm5EZQ6EeyWiOWMa9ZuwQ" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Enum.domain_model.cdm#_2zqjcJQ6EeyWiOWMa9ZuwQ"/>
+  </artefacts>
+  <scenes xmi:id="_2zm5EZQ6EeyWiOWMa9ZuwQ" name="Enum" realizes="_2Q0VEpQ6EeyWiOWMa9ZuwQ" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_2zm5EpQ6EeyWiOWMa9ZuwQ" value="_2zm5EJQ6EeyWiOWMa9ZuwQ" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
