@@ -2680,8 +2680,16 @@ public class MistakeDetection {
   }
 
   public static void checkMistakeExtraAttribute(Comparison comparison) {
-    comparison.extraStudentAttributes
-        .forEach(cls -> comparison.newMistakes.add(createMistake(EXTRA_ATTRIBUTE, cls, null)));
+    comparison.extraStudentAttributes.forEach(attrib ->{
+      boolean contained = false;
+      for(Classifier cls :comparison.extraStudentClassifiers){
+        if(cls.getAttributes().contains(attrib))
+          contained = true;
+          break;
+      }
+      if(!contained)
+      comparison.newMistakes.add(createMistake(EXTRA_ATTRIBUTE, attrib, null));
+    });
   }
 
   public static void checkMistakeMissingAssociationCompositionAggregation(Comparison comparison) {

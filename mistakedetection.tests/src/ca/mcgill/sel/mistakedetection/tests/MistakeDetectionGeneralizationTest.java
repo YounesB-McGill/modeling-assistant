@@ -299,8 +299,8 @@ public class MistakeDetectionGeneralizationTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(1), EXTRA_GENERALIZATION, List.of(studClass, studCarClass), 0, 1,
         false);
   }
@@ -346,8 +346,8 @@ public class MistakeDetectionGeneralizationTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(6, comparison.newMistakes.size());
-    assertEquals(6, studentSolution.getMistakes().size());
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
     assertMistakeTypesContain(comparison.newMistakes, EXTRA_GENERALIZATION);
   }
 

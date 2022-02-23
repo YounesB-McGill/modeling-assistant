@@ -757,8 +757,8 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(4, comparison.newMistakes.size());
-    assertEquals(4, studentSolution.getMistakes().size());
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS, studentAirlineClass, 0, 1, false);
   }
 
@@ -779,8 +779,8 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS, studentAirlineClass, 0, 1, false);
   }
 
