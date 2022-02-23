@@ -2343,8 +2343,8 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeAttributeSpelling(Attribute studentAttribute,
       Attribute instructorAttribute) {
-    if (!isPlural(studentAttribute.getName()) && spellingMistakeCheck(studentAttribute.getName().toLowerCase(),
-        instructorAttribute.getName().toLowerCase())) {
+    if (!isPlural(studentAttribute.getName()) && levenshteinDistance(studentAttribute.getName().toLowerCase(),
+        instructorAttribute.getName().toLowerCase()) >= 1) {
       return Optional.of(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, studentAttribute, instructorAttribute));
     }
     return Optional.empty();
@@ -2514,7 +2514,7 @@ public class MistakeDetection {
   }
 
   public static Optional<Mistake> checkMistakeBadEnumNameSpelling(CDEnum studentEnum, CDEnum instructorEnum) {
-    if (spellingMistakeCheck(studentEnum.getName(), instructorEnum.getName())) {
+    if (levenshteinDistance(studentEnum.getName().toLowerCase(), instructorEnum.getName().toLowerCase()) >= 1) {
       return Optional.of(createMistake(BAD_ENUM_NAME_SPELLING, studentEnum, instructorEnum));
     }
     return Optional.empty();
@@ -2522,7 +2522,7 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeBadEnumLiteralSpelling(CDEnumLiteral studentEnumLiteral,
       CDEnumLiteral instructorEnumLiteral) {
-    if (spellingMistakeCheck(studentEnumLiteral.getName(), instructorEnumLiteral.getName())) {
+    if (levenshteinDistance(studentEnumLiteral.getName().toLowerCase(), instructorEnumLiteral.getName().toLowerCase())>= 1) {
       return Optional.of(createMistake(BAD_ENUM_ITEM_SPELLING, studentEnumLiteral, instructorEnumLiteral));
     }
     return Optional.empty();
@@ -2541,8 +2541,8 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeBadAssociationClassNameSpelling(Association studentClassAssoc,
       Association instructorClassAssoc, Comparison comparison) {
-    if (spellingMistakeCheck(studentClassAssoc.getAssociationClass().getName(),
-        instructorClassAssoc.getAssociationClass().getName())) {
+    if (levenshteinDistance(studentClassAssoc.getAssociationClass().getName(),
+        instructorClassAssoc.getAssociationClass().getName())>= 1) {
       if (isMistakeExist(BAD_CLASS_NAME_SPELLING, studentClassAssoc.getAssociationClass(), comparison)) {
         Mistake m = getMistakeForElement(studentClassAssoc.getAssociationClass(), BAD_CLASS_NAME_SPELLING, comparison);
         if (m != null) {
