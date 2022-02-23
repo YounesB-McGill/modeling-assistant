@@ -265,11 +265,13 @@ public class MistakeDetectionEnumTest {
     var studentRoleEnum = getEnumFromClassDiagram("Role", studentClassDiagram);
     var studentEnumLiteral = getEnumLiteralFromEnum("NewStudent", studentRoleEnum);
 
+    var instructorRoleEnum = getEnumFromClassDiagram("Role", instructorClassDiagram);
+
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ENUM_ITEM, studentEnumLiteral, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_ENUM_ITEM, studentEnumLiteral, instructorRoleEnum, 0, 1, false);
   }
 
   /**
