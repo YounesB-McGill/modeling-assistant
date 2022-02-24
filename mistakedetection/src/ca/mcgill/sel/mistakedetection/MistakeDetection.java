@@ -1643,7 +1643,7 @@ public class MistakeDetection {
       AssociationEnd instructorClassAssocEnd, Comparison comparison) {
     final Consumer<? super Mistake> addMist = comparison.newMistakes::add; // method reference to save space
     checkMistakeWrongRelationshipDirection(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    if(!isMistakeExist(WRONG_RELATIONSHIP_DIRECTION, studentClassAssocEnd, comparison)){
+    if (!isMistakeExist(WRONG_RELATIONSHIP_DIRECTION, studentClassAssocEnd, comparison)) {
     checkMistakeUsingAssociationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeUsingAssociationInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeUsingCompositionInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);

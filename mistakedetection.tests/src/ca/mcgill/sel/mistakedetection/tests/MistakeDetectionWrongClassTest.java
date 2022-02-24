@@ -1589,10 +1589,10 @@ public class MistakeDetectionWrongClassTest {
     assertTrue(comparison.extraStudentClassifiers.contains(studentCompanyClass));
   }
 
-  @Disabled("Pending mistake type defination")
   /**
    * Check Mistake class should be abstract.
    */
+  @Disabled("Pending mistake type defination")
   @Test
   public void testClassSholdBeAbstract() {
     var instructorClassDiagram = cdmFromFile(
@@ -1613,10 +1613,10 @@ public class MistakeDetectionWrongClassTest {
   //  assertMistake(studentMistakeFor(studentCarClass), CLASS_SHOULD_BE_ABSTRACT, studentCarClass, instructorCarClass, 0, 1, false);
   }
 
-  @Disabled("Pending mistake type defination")
   /**
    * Check Mistake class should not be abstract.
    */
+  @Disabled("Pending mistake type defination")
   @Test
   public void testClassSholdNotBeAbstract() {
     var instructorClassDiagram = cdmFromFile(

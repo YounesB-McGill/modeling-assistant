@@ -188,8 +188,9 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), WRONG_RELATIONSHIP_DIRECTION, getAssociationElements(studentMyEngineAssociationEnd),
-        getAssociationElements(instructorMyEngineAssociationEnd), 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), WRONG_RELATIONSHIP_DIRECTION,
+        getAssociationElements(studentMyEngineAssociationEnd), getAssociationElements(instructorMyEngineAssociationEnd),
+        0, 1, false);
   }
 
   /**
@@ -2029,8 +2030,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), MISSING_COMPOSITION, getAssociationElements(association.get(0).getEnds().get(0)),
-        0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), MISSING_COMPOSITION,
+        getAssociationElements(association.get(0).getEnds().get(0)), 0, 1, false);
   }
 
   /**
@@ -2057,8 +2058,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), MISSING_COMPOSITION, getAssociationElements(association.get(0).getEnds().get(0)),
-        0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), MISSING_COMPOSITION,
+        getAssociationElements(association.get(0).getEnds().get(0)), 0, 1, false);
   }
 
   /**
@@ -2077,16 +2078,15 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorRootClass = getClassFromClassDiagram("Root", instructorClassDiagram);
     var instructorCityClass = getClassFromClassDiagram("City", instructorClassDiagram);
 
-    var association =
-        getAssocAggCompFromClassDiagram(instructorRootClass, instructorCityClass, instructorClassDiagram);
+    var association = getAssocAggCompFromClassDiagram(instructorRootClass, instructorCityClass, instructorClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), MISSING_COMPOSITION, getAssociationElements(association.get(0).getEnds().get(0)), 0,
-        1, false);
+    assertMistake(studentSolution.getMistakes().get(1), MISSING_COMPOSITION,
+        getAssociationElements(association.get(0).getEnds().get(0)), 0, 1, false);
   }
 
   /**
@@ -2113,8 +2113,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), MISSING_COMPOSITION, getAssociationElements(association.get(0).getEnds().get(0)),
-        0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), MISSING_COMPOSITION,
+        getAssociationElements(association.get(0).getEnds().get(0)), 0, 1, false);
   }
 
   /**
@@ -2141,8 +2141,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_COMPOSITION, getAssociationElements(studentRootToPassengerAssociation.get(0).getEnds().get(0)), 0,
-        1, false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_COMPOSITION,
+        getAssociationElements(studentRootToPassengerAssociation.get(0).getEnds().get(0)), 0, 1, false);
   }
 
   /**
@@ -2169,8 +2169,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_COMPOSITION, getAssociationElements(studentRootToPilotAssociation.get(0).getEnds().get(0)).get(0), 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_COMPOSITION,
+        getAssociationElements(studentRootToPilotAssociation.get(0).getEnds().get(0)).get(0), 0, 1, false);
   }
 
   /**
@@ -2281,8 +2281,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(4, comparison.newMistakes.size());
     assertEquals(4, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), MISSING_COMPOSITION, getAssociationElements(association.get(0).getEnds().get(0)),
-        0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), MISSING_COMPOSITION,
+        getAssociationElements(association.get(0).getEnds().get(0)), 0, 1, false);
   }
 
   /**
@@ -2309,8 +2309,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_AGGREGATION, getAssociationElements(aggregation.get(0).getEnds().get(0)),
-        0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_AGGREGATION,
+        getAssociationElements(aggregation.get(0).getEnds().get(0)), 0, 1, false);
   }
 
   /**
@@ -2337,8 +2337,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_AGGREGATION, getAssociationElements(aggregation.get(0).getEnds().get(0)), 0,
-        1, false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_AGGREGATION,
+        getAssociationElements(aggregation.get(0).getEnds().get(0)), 0, 1, false);
   }
 
   /**
@@ -2421,7 +2421,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_ASSOC_INSTEAD_OF_COMPOSITION,
-        getAssociationElements(studentMyEmployeeAssociationEnd), getAssociationElements(instructorMyEmployeeAssociationEnd), 0, 1, false);
+        getAssociationElements(studentMyEmployeeAssociationEnd),
+        getAssociationElements(instructorMyEmployeeAssociationEnd), 0, 1, false);
   }
 
   /**
@@ -2448,7 +2449,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_ASSOC_INSTEAD_OF_AGGREGATION,
-        getAssociationElements(studentMyEngineAssociationEnd), getAssociationElements(instructorMyEngineAssociationEnd), 0, 1, false);
+        getAssociationElements(studentMyEngineAssociationEnd), getAssociationElements(instructorMyEngineAssociationEnd),
+        0, 1, false);
   }
 
   /**
@@ -2475,7 +2477,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_COMPOSITION_INSTEAD_OF_AGGREGATION,
-        getAssociationElements(studentMyPlayerAssociationEnd), getAssociationElements(instructorMyPlayerAssociationEnd), 0, 1, false);
+        getAssociationElements(studentMyPlayerAssociationEnd), getAssociationElements(instructorMyPlayerAssociationEnd),
+        0, 1, false);
   }
 
   /**
@@ -2502,7 +2505,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_AGGREGATION_INSTEAD_OF_COMPOSITION,
-        getAssociationElements(studentMyEmployeeAssociationEnd), getAssociationElements(instructorMyEmployeeAssociationEnd), 0, 1, false);
+        getAssociationElements(studentMyEmployeeAssociationEnd),
+        getAssociationElements(instructorMyEmployeeAssociationEnd), 0, 1, false);
   }
 
   /**
@@ -2525,8 +2529,8 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(2, comparison.newMistakes.size()); // TODO Figure out one mistake type (Composed in more parts vs
-                                                    // using composition instead of aggregation)
+    // TODO Figure out one mistake type (Composed in more parts vs using composition instead of aggregation)
+    assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_COMPOSITION_INSTEAD_OF_ASSOC,
@@ -2774,7 +2778,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED,
-        getAssociationElements(studentMyOfficeAssociationEnd), getAssociationElements(instructorMyOfficeAssociationEnd), 0, 1, false);
+        getAssociationElements(studentMyOfficeAssociationEnd), getAssociationElements(instructorMyOfficeAssociationEnd),
+        0, 1, false);
   }
 
   /**
@@ -2857,8 +2862,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_AGGREGATION, getAssociationElements(studentRootToCompanyAssociation.get(1).getEnds().get(0)), 0, 1,
-        false);
+    assertMistake(studentSolution.getMistakes().get(0), EXTRA_AGGREGATION,
+        getAssociationElements(studentRootToCompanyAssociation.get(1).getEnds().get(0)), 0, 1, false);
   }
 
   /**
@@ -3172,8 +3177,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), INFINITE_RECURSIVE_DEPENDENCY,
-        studentChildAssociationEnd, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), INFINITE_RECURSIVE_DEPENDENCY, studentChildAssociationEnd, 0, 1,
+        false);
   }
 
   /**
