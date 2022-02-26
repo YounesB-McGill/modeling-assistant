@@ -1935,14 +1935,17 @@ public class MistakeDetection {
     var patternInstructorElement = getPatternInstructorElements(newMistakes, patternMistakeTypes);
     var patternStudentElement = getPatternStudentrElements(newMistakes, patternMistakeTypes);
     for (Mistake newMistake : newMistakes) {
-      if (!newMistake.getInstructorElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
-          && patternInstructorElement.contains(newMistake.getInstructorElements().get(0).getElement())) {
-        newMistakesToRemove.add(newMistake);
-        continue;
-      } else if (!newMistake.getStudentElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
-          && patternStudentElement.contains(newMistake.getStudentElements().get(0).getElement())) {
-        newMistakesToRemove.add(newMistake);
-        continue;
+      if (!(newMistake.getMistakeType().equals(EXTRA_ATTRIBUTE) || newMistake.getMistakeType().equals(MISSING_ATTRIBUTE))) {
+        if (!newMistake.getInstructorElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
+            && patternInstructorElement.contains(newMistake.getInstructorElements().get(0).getElement())) {
+          newMistakesToRemove.add(newMistake);
+          continue;
+        } else if (!newMistake.getStudentElements().isEmpty()
+            && !patternMistakeTypes.contains(newMistake.getMistakeType())
+            && patternStudentElement.contains(newMistake.getStudentElements().get(0).getElement())) {
+          newMistakesToRemove.add(newMistake);
+          continue;
+        }
       }
       setMistakeProperties(newMistake, false, 1, 0);
       newMistake.setSolution(studentSolution);
