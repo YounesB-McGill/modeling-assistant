@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus script.
-% Generation time: 2022-02-15 14:44:54
+% Generation time: 2022-02-26 01:03:58
 
 \textbf{Legend:}
 In the textual responses, items in \verb|${this format}| represent the parameters of
@@ -33,27 +33,13 @@ Remember that class names should be singular.
 
 \noindent Level 4: Resource response with Example: \medskip
 
-\begin{tabular}{|p{0.9\linewidth}}
-Please note these examples of correct vs incorrect class naming:
-\end{tabular} \medskip
-
-\begin{tabular}{ll}
-\hline
-\textcolor{red}{$\times$} Examples to avoid & \textcolor{ForestGreen}{\checkmark} Good class names \\
-\hline
-pilot & Pilot \\
-Airplanes & Airplane  \\
-AirlineData & Airline \\
-\hline
-\end{tabular} \medskip
-
 \noindent Level 5: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Please review the \textit{Classes} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Lowercase class name}
 
 Student element: Class. Instructor element: Class. \medskip
@@ -74,27 +60,13 @@ Remember that class names must start with a capital letter.
 
 \noindent Level 4: Resource response with Example: \medskip
 
-\begin{tabular}{|p{0.9\linewidth}}
-Please note these examples of correct vs incorrect class naming:
-\end{tabular} \medskip
-
-\begin{tabular}{ll}
-\hline
-\textcolor{red}{$\times$} Examples to avoid & \textcolor{ForestGreen}{\checkmark} Good class names \\
-\hline
-pilot & Pilot \\
-Airplanes & Airplane  \\
-AirlineData & Airline \\
-\hline
-\end{tabular} \medskip
-
 \noindent Level 5: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Please review the \textit{Classes} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Software engineering term}
 
 Student element: Class. Instructor element: Class. \medskip
@@ -115,27 +87,13 @@ Remember that a domain model should not contain software engineering terms.
 
 \noindent Level 4: Resource response with Example: \medskip
 
-\begin{tabular}{|p{0.9\linewidth}}
-Please note these examples of correct vs incorrect class naming:
-\end{tabular} \medskip
-
-\begin{tabular}{ll}
-\hline
-\textcolor{red}{$\times$} Examples to avoid & \textcolor{ForestGreen}{\checkmark} Good class names \\
-\hline
-pilot & Pilot \\
-Airplanes & Airplane  \\
-AirlineData & Airline \\
-\hline
-\end{tabular} \medskip
-
 \noindent Level 5: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Please review the \textit{Classes} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Bad class name spelling}
 
 Student element: Class. Instructor element: Class. \medskip
@@ -166,7 +124,7 @@ The \verb|${stud_cls}| class should be changed to \verb|${inst_cls}|.
 Please review the \textit{Classes} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Wrong class name but correct attribute/relationship}
 
 Student element: Class. Instructor element: Class. \medskip
@@ -197,6 +155,20 @@ The \verb|${stud_cls}| class should be changed to \verb|${inst_cls}|.
 Please review the \textit{Classes} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
+
+\subsubsection{Class should be abstract}
+
+Student element: Class. Instructor element: Class. \medskip
+
+\noindent Level 1: Highlight solution  \medskip
+
+
+\subsubsection{Class should not be abstract}
+
+Student element: Class. Instructor element: Class. \medskip
+
+\noindent Level 1: Highlight solution  \medskip
+
 
 \subsection{Enumeration mistakes}
 
@@ -224,7 +196,7 @@ The \verb|${stud_cls}| can only be one of \verb|${inst_enum.literals.length}| op
 Please review the \textit{Enumeration} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Enumeration should be regular class}
 
 Student element: Enumeration. Instructor element: Class. \medskip
@@ -249,7 +221,7 @@ Is \verb|${stud_enum}| limited to a fixed set of options? Can this be modeled di
 Please review the \textit{Enumeration} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Missing enumeration}
 
 Instructor element: Enumeration. \medskip
@@ -280,7 +252,7 @@ Add an \verb|${inst_enum}| enumeration.
 Please review the \textit{Enumeration} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Extra enumeration}
 
 Student element: Enumeration.  \medskip
@@ -305,7 +277,7 @@ Remove the \verb|${stud_enum}| enumeration. It is not needed.
 Please review the \textit{Enumeration} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Bad enumeration name spelling}
 
 Student element: Enumeration. Instructor element: Enumeration. \medskip
@@ -330,7 +302,7 @@ The \verb|${stud_enum}| should be changed[ to \verb|${inst_enum}|].
 Please review the \textit{Enumeration} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Missing enumeration item}
 
 Instructor element: Enumeration item. \medskip
@@ -355,7 +327,7 @@ The \verb|${inst_enumitem.enum}| enumeration is missing an item.
 Please review the \textit{Enumeration} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Extra enumeration item}
 
 Student element: Enumeration item.  \medskip
@@ -380,7 +352,7 @@ Should this really be here?
 Please review the \textit{Enumeration} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Bad enumeration item spelling}
 
 Student element: Enumeration item. Instructor element: Enumeration item. \medskip
@@ -432,7 +404,7 @@ Remember to add the \verb|${inst_cls}| class.
 Please review the \textit{Classes} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsection{Extra class}
 
 Student element: Class.  \medskip
@@ -464,7 +436,7 @@ Please review the \textit{Classes} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
 
-
+
 \section{Attribute mistakes}
 
 \subsection{Attribute name mistakes}
@@ -493,7 +465,7 @@ Double check this attribute name.
 Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Uppercase attribute name}
 
 Student element: Attribute. Instructor element: Attribute. \medskip
@@ -551,7 +523,7 @@ The \verb|${stud_attr}| belongs in the \verb|${inst_attr.cls}| class.
 Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Attribute duplicated}
 
 Student element: Attribute.  \medskip
@@ -582,7 +554,7 @@ The \verb|${stud_attr}| already exists in another class, so there is no need to 
 Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Attribute misplaced in generalization hierarchy}
 
 Student element: Attribute. Instructor element: Attribute. \medskip
@@ -628,17 +600,15 @@ Double check this attribute name.
 The \verb|${stud_attr.cls}|.\verb|${stud_attr}| attribute should be singular.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with List multiple-choice quiz: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
+\noindent Level 4: Resource response with List multiple-choice quiz:
 
 Pick the classes which are modeled correctly with Umple.
 
-\begin{itemize}
-    \item[$\square$] class Student \{ courses; \}
-    \item[$\square$] class Folder \{ List$<$File$>$ files; \}
-    \item[$\boxtimes$] class Restaurant \{ 1 -- * Employee; \}
-\end{itemize}
+- [ ] class Student { courses; }
+- [ ] class Folder { List<File> files; }
+- [x] class Restaurant { 1 -- * Employee; } \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -648,7 +618,7 @@ Pick the classes which are modeled correctly with Umple.
 Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{List attribute}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -671,17 +641,15 @@ Remember that attributes are simple pieces of data.
 \verb|${attributeName}| should be modeled as an association instead.
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with List multiple-choice quiz: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
+\noindent Level 5: Resource response with List multiple-choice quiz:
 
 Pick the classes which are modeled correctly with Umple.
 
-\begin{itemize}
-    \item[$\square$] class Student \{ courses; \}
-    \item[$\square$] class Folder \{ List$<$File$>$ files; \}
-    \item[$\boxtimes$] class Restaurant \{ 1 -- * Employee; \}
-\end{itemize}
+- [ ] class Student { courses; }
+- [ ] class Folder { List<File> files; }
+- [x] class Restaurant { 1 -- * Employee; } \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -691,7 +659,7 @@ Pick the classes which are modeled correctly with Umple.
 Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Extra attribute}
 
 Student element: Attribute.  \medskip
@@ -741,7 +709,7 @@ A \verb|${inst_attr.cls}| has a \verb|${inst_attr}|.
 Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsection{Wrong attribute type}
 
 Student element: Attribute. Instructor element: Attribute. \medskip
@@ -772,7 +740,7 @@ The \verb|${stud_attr.cls}|.\verb|${stud_attr}| should be of type \verb|${inst_a
 Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsection{Missing attribute type}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -795,7 +763,7 @@ What is the type of the \verb|${attribute}| attribute?
 Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsection{Attribute should be static}
 
 Student element: Attribute. Instructor element: Attribute. \medskip
@@ -820,7 +788,7 @@ Isn't there something special about this attribute?
 Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsection{Attribute should not be static}
 
 Student element: Attribute. Instructor element: Attribute. \medskip
@@ -846,7 +814,7 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 \end{tabular} \medskip
 
 
-
+
 \section{Relationship mistakes}
 
 \subsection{Missing association/aggregation mistakes}
@@ -880,7 +848,7 @@ better understand these relationships and where they are used.
 \includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Missing aggregation}
 
 Instructor element: Association. \medskip
@@ -910,7 +878,7 @@ better understand these relationships and where they are used.
 \includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Missing n-ary association}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -938,7 +906,7 @@ better understand these relationships and where they are used.
 \includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Using attribute instead of association}
 
 Student element: Attribute. Instructor element: Association end. \medskip
@@ -957,18 +925,16 @@ Remember that attributes are simple pieces of data.
 \verb|${stud_attr}| should be its own class.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with List multiple-choice quiz: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
+\noindent Level 4: Resource response with List multiple-choice quiz:
 
 Pick the class(es) modeled correctly in Umple.
 
-\begin{itemize}
-    \item[$\square$] class BankAccount \{ Client client; \}
-    \item[$\boxtimes$] class BankAccount \{ * -- 1..2 Client clients; \}; class Client \{\}
-    \item[$\square$] class BankAccount \{ 1..2 -- * Client clients; \}; class Client \{\}
-    \item[$\square$] class Loan \{ libraryPatron; \}
-\end{itemize}
+- [ ] class BankAccount { Client client; }
+- [x] class BankAccount { * -- 1..2 Client clients; }; class Client {}
+- [ ] class BankAccount { 1..2 -- * Client clients; }; class Client {}
+- [ ] class Loan { libraryPatron; } \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -1004,22 +970,19 @@ Is this association really necessary?
 The relationship between \verb|${stud_rel.end0}| and \verb|${stud_rel.end1}| is not expressed in the problem description.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with List multiple-choice quiz: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
+\noindent Level 4: Resource response with List multiple-choice quiz:
 
 Find the redundant association(s) in this class diagram:
 
-\\
-\includegraphics[width=0.6\textwidth]{images/hospital_cdm_extra_assocs.png}
+![Extra associations](images/hospital_cdm_extra_assocs.png)
 
-\begin{itemize}
-    \item[$\boxtimes$] Hospital -- Patient
-    \item[$\square$] Hospital -- Employee
-    \item[$\boxtimes$] Patient -- Surgeon
-    \item[$\boxtimes$] Doctor -- Ward
-    \item[$\square$] Hospital -- Ward
-\end{itemize}
+- [x] Hospital -- Patient
+- [ ] Hospital -- Employee
+- [x] Patient -- Surgeon
+- [x] Doctor -- Ward
+- [ ] Hospital -- Ward \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -1029,7 +992,7 @@ Find the redundant association(s) in this class diagram:
 Please review the \textit{domain modeling lecture} to know which concepts should be a part of a domain model.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Extra aggregation}
 
 Student element: Association.  \medskip
@@ -1054,7 +1017,7 @@ The relationship between \verb|${stud_rel.end0}| and \verb|${stud_rel.end1}| is 
 Please review the \textit{domain modeling lecture} to know which concepts should be a part of a domain model.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Extra n-ary association}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -1102,20 +1065,18 @@ The multiplicit(y$|$ies) for this relationship (is$|$are) incorrect.
 Does every \verb|${className}| have exactly \verb|${wrongMultiplicity}| \verb|${rolename}|[s]?
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with List multiple-choice quiz: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
+\noindent Level 5: Resource response with List multiple-choice quiz:
 
 Given the following class diagram modeled in Umple, select the correct answer(s).
 
-class Employee \{ 1 supervisor -- * Employee employees; \}
+class Employee { 1 supervisor -- * Employee employees; }
 
-\begin{itemize}
-    \item[$\square$] The class diagram is correct.
-    \item[$\square$] The class diagram is incorrect, because some Employees do not oversee any other Employees.
-    \item[$\square$] The "employees" multiplicity should be 1..* instead of *.
-    \item[$\boxtimes$] The class diagram is incorrect, because at least one Employee cannot have a supervisor, otherwise an infinite recursive dependency will occur.
-\end{itemize}
+- [ ] The class diagram is correct.
+- [ ] The class diagram is incorrect, because some Employees do not oversee any other Employees.
+- [ ] The "employees" multiplicity should be 1..* instead of *.
+- [x] The class diagram is incorrect, because at least one Employee cannot have a supervisor, otherwise an infinite recursive dependency will occur. \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -1125,7 +1086,7 @@ class Employee \{ 1 supervisor -- * Employee employees; \}
 Please review the \textit{multiplicities} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Wrong multiplicity}
 
 Student element: Association end. Instructor element: Association end. \medskip
@@ -1150,21 +1111,19 @@ The multiplicit(y$|$ies) for this association (is$|$are) incorrect.
 How many \verb|${stud_assocend.end0}|'s does a \verb|${stud_assocend.end1}| have?[ And how many \verb|${stud_assocend.end1}|'s does \verb|${stud_assocend.end0}| have?]
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with List multiple-choice quiz: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
+\noindent Level 5: Resource response with List multiple-choice quiz:
 
 Pick the association(s) with correct multiplicities:
 
-\begin{itemize}
-    \item[$\square$] 1 EmployeeRole -- 1 Person;
-    \item[$\boxtimes$] * Episode -- 1 TvSeries;
-    \item[$\square$] * Bank -- 1 Client;
-    \item[$\square$] * Client -- 1 BankAccount;
-    \item[$\boxtimes$] 0..2 Loan -- 1 Client;
-    \item[$\boxtimes$] * Person -- 1 EmployeeRole;
-    \item[$\square$] * EmployeeRole -- 1 Person;
-\end{itemize}
+- [ ] 1 EmployeeRole -- 1 Person;
+- [x] * Episode -- 1 TvSeries;
+- [ ] * Bank -- 1 Client;
+- [ ] * Client -- 1 BankAccount;
+- [x] 0..2 Loan -- 1 Client;
+- [x] * Person -- 1 EmployeeRole;
+- [ ] * EmployeeRole -- 1 Person; \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -1174,7 +1133,7 @@ Pick the association(s) with correct multiplicities:
 Please review the \textit{multiplicities} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Missing multiplicity}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -1197,21 +1156,19 @@ The multiplicit(y$|$ies) for this association (is$|$are) missing.
 How many \verb|${class1}|'s does a \verb|${class2}| have? [And how many \verb|${class2}|'s does \verb|${class1}| have?]
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with List multiple-choice quiz: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
+\noindent Level 5: Resource response with List multiple-choice quiz:
 
 Pick the association(s) with correct multiplicities:
 
-\begin{itemize}
-    \item[$\square$] 1 EmployeeRole -- 1 Person;
-    \item[$\boxtimes$] * Episode -- 1 TvSeries;
-    \item[$\square$] * Bank -- 1 Client;
-    \item[$\square$] * Client -- 1 BankAccount;
-    \item[$\boxtimes$] 0..2 Loan -- 1 Client;
-    \item[$\boxtimes$] * Person -- 1 EmployeeRole;
-    \item[$\square$] * EmployeeRole -- 1 Person;
-\end{itemize}
+- [ ] 1 EmployeeRole -- 1 Person;
+- [x] * Episode -- 1 TvSeries;
+- [ ] * Bank -- 1 Client;
+- [ ] * Client -- 1 BankAccount;
+- [x] 0..2 Loan -- 1 Client;
+- [x] * Person -- 1 EmployeeRole;
+- [ ] * EmployeeRole -- 1 Person; \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -1255,7 +1212,7 @@ between the same two classes.
 
 \end{tabular} \medskip
 
-
+
 \subsubsection{Role should be static}
 
 Student element: Association end. Instructor element: Association end. \medskip
@@ -1280,7 +1237,7 @@ Isn't there something special about this role name?
 Please review the \textit{Association} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Role should not be static}
 
 Student element: Association end. Instructor element: Association end. \medskip
@@ -1305,7 +1262,7 @@ Isn't there something special about this role name?
 Please review the \textit{Association} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Bad role name spelling}
 
 Student element: Association end. Instructor element: Association end. \medskip
@@ -1330,7 +1287,7 @@ Double check this role name
 Please review the \textit{Association} and \textit{Noun Analysis} parts of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Representing an action with an association}
 
 Student element: Association end. Instructor element: Association end. \medskip
@@ -1355,7 +1312,7 @@ The \verb|${stud_assocend}| role name represents an action, which is not correct
 Please review the \textit{Association} and \textit{Noun Analysis} parts of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Wrong role name but correct association}
 
 Student element: Association end. Instructor element: Association end. \medskip
@@ -1423,7 +1380,7 @@ better understand these relationships and where they are used.
 \includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Using composition instead of association}
 
 Student element: Association end. Instructor element: Association end. \medskip
@@ -1453,7 +1410,7 @@ better understand these relationships and where they are used.
 \includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Using directed relationship instead of undirected relationship}
 
 Student element: Association end. Instructor element: Association end. \medskip
@@ -1478,7 +1435,7 @@ The relationship between \verb|${stud_assocend.end0}| and \verb|${stud_assocend.
 Please review the _Directionality in Associations_ section of the \textit{UML Class Diagram lecture slides}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Using undirected relationship instead of directed relationship}
 
 Student element: Association end. Instructor element: Association end. \medskip
@@ -1503,7 +1460,7 @@ The relationship between \verb|${classOne}| and \verb|${classTwo}| should be dir
 Please review the _Directionality in Associations_ section of the \textit{UML Class Diagram lecture slides}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Wrong relationship direction}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -1526,7 +1483,7 @@ The direction of the relationship between \verb|${stud_assocend.end0}| and \verb
 Please review the _Directionality in Associations_ section of the \textit{UML Class Diagram lecture slides}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Using composition instead of aggregation}
 
 Student element: Association end. Instructor element: Association end. \medskip
@@ -1556,7 +1513,7 @@ better understand these relationships and where they are used.
 \includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Using binary association instead of n-ary association}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -1579,7 +1536,7 @@ Use a \verb|${n}|-ary association to represent this relationship.
 Please review the \textit{Association} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Using n-ary association instead of binary association}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -1602,7 +1559,7 @@ Use a binary association to represent this relationship.
 Please review the \textit{Association} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Using intermediate class instead of n-ary association}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -1625,7 +1582,7 @@ Use a \verb|${n}|-ary association to represent this relationship.
 Please review the \textit{Association} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Using n-ary association instead of intermediate class}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -1679,7 +1636,7 @@ This association should be named \verb|${associationName}|.
 Please review the \textit{Association} and \textit{Noun Analysis} parts of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Bad association name spelling}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -1732,7 +1689,7 @@ Association class
 \includegraphics[width=0.6\textwidth]{images/association_class.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Extra association class}
 
 Student element: Class.  \medskip
@@ -1772,7 +1729,7 @@ Association class
 \includegraphics[width=0.6\textwidth]{images/association_class.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Bad association class name spelling}
 
 Student element: Class. Instructor element: Class. \medskip
@@ -1803,7 +1760,7 @@ The \verb|${stud_cls}| class should be changed to \verb|${inst_cls}|.
 Please review the \textit{Classes} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Association class should be regular class}
 
 Student element: Class. Instructor element: Class. \medskip
@@ -1837,7 +1794,7 @@ Association class
 \includegraphics[width=0.6\textwidth]{images/association_class.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Regular class should be association class}
 
 Student element: Class. Instructor element: Class. \medskip
@@ -1903,7 +1860,7 @@ better understand these relationships and where they are used.
 \includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Extra composition}
 
 Student element: Composition.  \medskip
@@ -1933,7 +1890,7 @@ better understand these relationships and where they are used.
 \includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Using association instead of aggregation}
 
 Student element: Association end. Instructor element: Association end. \medskip
@@ -1963,7 +1920,7 @@ better understand these relationships and where they are used.
 \includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Using association instead of composition}
 
 Student element: Association end. Instructor element: Association end. \medskip
@@ -1993,7 +1950,7 @@ better understand these relationships and where they are used.
 \includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Using aggregation instead of composition}
 
 Student element: Association end. Instructor element: Association end. \medskip
@@ -2023,7 +1980,7 @@ better understand these relationships and where they are used.
 \includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Composed part contained in more than one parent}
 
 \noindent Level 1: Highlight solution (Class) \medskip
@@ -2056,23 +2013,20 @@ root class, `PISystem`.
 \includegraphics[width=0.6\textwidth]{images/PISystem.png}
 \end{tabular} \medskip
 
-\noindent Level 6: Resource response with List multiple-choice quiz: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
+\noindent Level 6: Resource response with List multiple-choice quiz:
 
 Which of the following compositions should be added to complete the containment tree for the
 following model.
 
-\\
-\includegraphics[width=0.6\textwidth]{images/IRS.png}
+![IRS](images/IRS.png)
 
-\begin{itemize}
-    \item[$\boxtimes$] 1 IRS $<$@$>$- * StudentRole
-    \item[$\boxtimes$] 1 IRS $<$@$>$- * Person
-    \item[$\square$] 1 IRS $<$@$>$- * Game
-    \item[$\boxtimes$] 1 IRS $<$@$>$- * League
-    \item[$\square$] 1 IRS $<$@$>$- * RegularLeague
-\end{itemize}
+- [x] 1 IRS <@>- * StudentRole
+- [x] 1 IRS <@>- * Person
+- [ ] 1 IRS <@>- * Game
+- [x] 1 IRS <@>- * League
+- [ ] 1 IRS <@>- * RegularLeague \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -2087,7 +2041,7 @@ better understand these relationships and where they are used.
 \includegraphics[width=0.9\textwidth]{images/composition_aggregation_association.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Incomplete containment tree}
 
 \noindent Level 1: Highlight solution (Class) \medskip
@@ -2114,23 +2068,20 @@ root class, `PISystem`.
 \includegraphics[width=0.6\textwidth]{images/PISystem.png}
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with List multiple-choice quiz: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
+\noindent Level 5: Resource response with List multiple-choice quiz:
 
 Which of the following compositions should be added to complete the containment tree for the
 following model.
 
-\\
-\includegraphics[width=0.6\textwidth]{images/IRS.png}
+![IRS](images/IRS.png)
 
-\begin{itemize}
-    \item[$\boxtimes$] 1 IRS $<$@$>$- * StudentRole
-    \item[$\boxtimes$] 1 IRS $<$@$>$- * Person
-    \item[$\square$] 1 IRS $<$@$>$- * Game
-    \item[$\boxtimes$] 1 IRS $<$@$>$- * League
-    \item[$\square$] 1 IRS $<$@$>$- * RegularLeague
-\end{itemize}
+- [x] 1 IRS <@>- * StudentRole
+- [x] 1 IRS <@>- * Person
+- [ ] 1 IRS <@>- * Game
+- [x] 1 IRS <@>- * League
+- [ ] 1 IRS <@>- * RegularLeague \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -2164,19 +2115,17 @@ What is the relationship between these classes?
 A \verb|${subclass}| is a \verb|${superclass}|. How should we model this?
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz:
 
 Place the following classes in an inheritance hierarchy:
 
-\begin{itemize}
-    \item SportsCar isA \underline{Car}
-    \item \underline{Wheel} isA VehiclePart
-    \item Truck isA \underline{LandVehicle}
-    \item AmphibiousVehicle isA \underline{Vehicle}
-    \item \underline{LuxuryBus} isA BusVehicle
-\end{itemize}
+* SportsCar isA <ins>Car</ins>
+* <ins>Wheel</ins> isA VehiclePart
+* Truck isA <ins>LandVehicle</ins>
+* AmphibiousVehicle isA <ins>Vehicle</ins>
+* <ins>LuxuryBus</ins> isA BusVehicle \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -2186,7 +2135,7 @@ Place the following classes in an inheritance hierarchy:
 Please review the \textit{Generalization} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Extra generalization}
 
 \noindent Level 1: Highlight solution (Class) \medskip
@@ -2203,38 +2152,34 @@ Can you find a better way to express this relationship?
 When creating a generalization between \verb|${wrongSubclass}| and \verb|${wrongSuperclass}|, make sure to follow the \textit{checks for proper generalization}.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz:
 
 Place the following classes in an inheritance hierarchy:
 
-\begin{itemize}
-    \item SportsCar isA \underline{Car}
-    \item \underline{Wheel} isA VehiclePart
-    \item Truck isA \underline{LandVehicle}
-    \item AmphibiousVehicle isA \underline{Vehicle}
-    \item \underline{LuxuryBus} isA BusVehicle
-\end{itemize}
-
-\end{tabular} \medskip
-
-\noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
+* SportsCar isA <ins>Car</ins>
+* <ins>Wheel</ins> isA VehiclePart
+* Truck isA <ins>LandVehicle</ins>
+* AmphibiousVehicle isA <ins>Vehicle</ins>
+* <ins>LuxuryBus</ins> isA BusVehicle \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 
-Please review the \textit{checks for proper generalization} lecture material
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Fill-in-the-blanks quiz:
+
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
 
-\begin{itemize}
-    \item Obeys the \underline{isA rule}.
-    \item Subclass must retain its \underline{distinctiveness}.
-    \item All \underline{inherited features} must make sense in each subclass.
-    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
-    \item Subclass must not be \underline{an instance}.
-\end{itemize}
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>. \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -2244,7 +2189,7 @@ The five checks for generalization are:
 Please review the \textit{Generalization} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Generalization does not follow isA rule}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -2261,38 +2206,34 @@ Can you find a better way to express this relationship?
 When creating a generalization between \verb|${wrongSubclass}| and \verb|${wrongSuperclass}|, make sure to follow the \textit{checks for proper generalization}.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz:
 
 Place the following classes in an inheritance hierarchy:
 
-\begin{itemize}
-    \item SportsCar isA \underline{Car}
-    \item \underline{Wheel} isA VehiclePart
-    \item Truck isA \underline{LandVehicle}
-    \item AmphibiousVehicle isA \underline{Vehicle}
-    \item \underline{LuxuryBus} isA BusVehicle
-\end{itemize}
-
-\end{tabular} \medskip
-
-\noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
+* SportsCar isA <ins>Car</ins>
+* <ins>Wheel</ins> isA VehiclePart
+* Truck isA <ins>LandVehicle</ins>
+* AmphibiousVehicle isA <ins>Vehicle</ins>
+* <ins>LuxuryBus</ins> isA BusVehicle \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 
-Please review the \textit{checks for proper generalization} lecture material
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Fill-in-the-blanks quiz:
+
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
 
-\begin{itemize}
-    \item Obeys the \underline{isA rule}.
-    \item Subclass must retain its \underline{distinctiveness}.
-    \item All \underline{inherited features} must make sense in each subclass.
-    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
-    \item Subclass must not be \underline{an instance}.
-\end{itemize}
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>. \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -2302,7 +2243,7 @@ The five checks for generalization are:
 Please review the \textit{Generalization} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Subclass not distinct across lifetime}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -2319,19 +2260,17 @@ Can you find a better way to model this concept?
 Is it possible for an instance of \verb|${nondistinctSubclass}| to turn into an instance of another subclass over its lifetime?
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with List multiple-choice quiz: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
+\noindent Level 4: Resource response with List multiple-choice quiz:
 
 Which classes are not subclasses of Account?
 
-\begin{itemize}
-    \item[$\square$] SavingsAccount
-    \item[$\boxtimes$] OverdrawnAccount
-    \item[$\square$] CheckingAccount
-    \item[$\square$] MortgageAccount
-    \item[$\boxtimes$] ClosedAccount
-\end{itemize}
+- [ ] SavingsAccount
+- [x] OverdrawnAccount
+- [ ] CheckingAccount
+- [ ] MortgageAccount
+- [x] ClosedAccount \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -2341,7 +2280,7 @@ Which classes are not subclasses of Account?
 Please review the \textit{Generalization} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Inherited feature does not make sense for subclass}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -2358,22 +2297,20 @@ Does this belong here?
 The \verb|${featureName}| feature of the \verb|${superclass}| class does not make sense for its \verb|${subclass}| subclass.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz:
 
-\begin{tabular}{|p{0.9\linewidth}}
-
-Please review the \textit{checks for proper generalization} lecture material
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
 
-\begin{itemize}
-    \item Obeys the \underline{isA rule}.
-    \item Subclass must retain its \underline{distinctiveness}.
-    \item All \underline{inherited features} must make sense in each subclass.
-    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
-    \item Subclass must not be \underline{an instance}.
-\end{itemize}
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>. \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -2383,7 +2320,7 @@ The five checks for generalization are:
 Please review the \textit{Generalization} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Subclass is an instance of superclass}
 
 \noindent Level 1: Highlight solution  \medskip
@@ -2406,22 +2343,20 @@ Remember the definition of the **'instance' rule**.[ Instances should not be mod
 A CheckingAccount isA Account, but account1234 is **not** an Account according to the 'instance' rule.
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
+\noindent Level 5: Resource response with Fill-in-the-blanks quiz:
 
-\begin{tabular}{|p{0.9\linewidth}}
-
-Please review the \textit{checks for proper generalization} lecture material
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
 
-\begin{itemize}
-    \item Obeys the \underline{isA rule}.
-    \item Subclass must retain its \underline{distinctiveness}.
-    \item All \underline{inherited features} must make sense in each subclass.
-    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
-    \item Subclass must not be \underline{an instance}.
-\end{itemize}
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>. \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -2431,7 +2366,7 @@ The five checks for generalization are:
 Please review the \textit{Generalization} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Non-differentiated subclass}
 
 Student element: Class.  \medskip
@@ -2450,22 +2385,20 @@ Is it really necessary to model this as a subclass?
 \verb|${stud_cls}| needs to be different from its superclass, and any sibling subclasses, in terms of behavior or structure.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz:
 
-\begin{tabular}{|p{0.9\linewidth}}
-
-Please review the \textit{checks for proper generalization} lecture material
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
 
-\begin{itemize}
-    \item Obeys the \underline{isA rule}.
-    \item Subclass must retain its \underline{distinctiveness}.
-    \item All \underline{inherited features} must make sense in each subclass.
-    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
-    \item Subclass must not be \underline{an instance}.
-\end{itemize}
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>. \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -2475,7 +2408,7 @@ The five checks for generalization are:
 Please review the \textit{Generalization} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Wrong generalization direction}
 
 \noindent Level 1: Highlight solution (Class) \medskip
@@ -2492,38 +2425,34 @@ Can you double check this relationship?
 Is \verb|${superclass}| really a \verb|${subclass}|?[ It should be the other way around.]
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
+\noindent Level 4: Resource response with Fill-in-the-blanks quiz:
 
 Place the following classes in an inheritance hierarchy:
 
-\begin{itemize}
-    \item SportsCar isA \underline{Car}
-    \item \underline{Wheel} isA VehiclePart
-    \item Truck isA \underline{LandVehicle}
-    \item AmphibiousVehicle isA \underline{Vehicle}
-    \item \underline{LuxuryBus} isA BusVehicle
-\end{itemize}
-
-\end{tabular} \medskip
-
-\noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
+* SportsCar isA <ins>Car</ins>
+* <ins>Wheel</ins> isA VehiclePart
+* Truck isA <ins>LandVehicle</ins>
+* AmphibiousVehicle isA <ins>Vehicle</ins>
+* <ins>LuxuryBus</ins> isA BusVehicle \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 
-Please review the \textit{checks for proper generalization} lecture material
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Fill-in-the-blanks quiz:
+
+Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
 and complete the following:
 
 The five checks for generalization are:
 
-\begin{itemize}
-    \item Obeys the \underline{isA rule}.
-    \item Subclass must retain its \underline{distinctiveness}.
-    \item All \underline{inherited features} must make sense in each subclass.
-    \item Subclass differs from superclass and other subclasses in \underline{behavior} or \underline{structure}.
-    \item Subclass must not be \underline{an instance}.
-\end{itemize}
+* Obeys the <ins>isA rule</ins>.
+* Subclass must retain its <ins>distinctiveness</ins>.
+* All <ins>inherited features</ins> must make sense in each subclass.
+* Subclass differs from superclass and other subclasses in <ins>behavior</ins> or <ins>structure</ins>.
+* Subclass must not be <ins>an instance</ins>. \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -2533,7 +2462,7 @@ The five checks for generalization are:
 Please review the \textit{Generalization} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
-
+
 \subsubsection{Wrong superclass}
 
 \noindent Level 1: Highlight solution (Class) \medskip
@@ -2558,19 +2487,17 @@ Can you (find$|$create) a (better$|$different) superclass for \verb|${subclass}|
 What is the inheritance hierarchy between \verb|${hierarchy.classes}|?
 \end{tabular} \medskip
 
-\noindent Level 6: Resource response with Fill-in-the-blanks quiz: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
+\noindent Level 6: Resource response with Fill-in-the-blanks quiz:
 
 Place the following classes in an inheritance hierarchy:
 
-\begin{itemize}
-    \item SportsCar isA \underline{Car}
-    \item \underline{Wheel} isA VehiclePart
-    \item Truck isA \underline{LandVehicle}
-    \item AmphibiousVehicle isA \underline{Vehicle}
-    \item \underline{LuxuryBus} isA BusVehicle
-\end{itemize}
+* SportsCar isA <ins>Car</ins>
+* <ins>Wheel</ins> isA VehiclePart
+* Truck isA <ins>LandVehicle</ins>
+* AmphibiousVehicle isA <ins>Vehicle</ins>
+* <ins>LuxuryBus</ins> isA BusVehicle \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
 
 \end{tabular} \medskip
 
@@ -2582,7 +2509,7 @@ Please review the \textit{Generalization} part of the Class Diagram lecture.
 
 
 
-
+
 \section{Design pattern mistakes}
 
 \subsection{Player-Role Pattern mistakes}
@@ -2630,7 +2557,7 @@ in different contexts.
 \includegraphics[width=0.6\textwidth]{images/player_role.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Incomplete Player-Role pattern}
 
 \noindent Level 1: Highlight solution (Class) \medskip
@@ -2674,7 +2601,7 @@ in different contexts.
 \includegraphics[width=0.6\textwidth]{images/player_role.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Subclass should be full Player-Role pattern}
 
 \noindent Level 1: Highlight solution (Class) \medskip
@@ -2718,7 +2645,7 @@ in different contexts.
 \includegraphics[width=0.6\textwidth]{images/player_role.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Subclass should be association Player-Role pattern}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
@@ -2762,7 +2689,7 @@ in different contexts.
 \includegraphics[width=0.6\textwidth]{images/player_role.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Subclass should be enumeration Player-Role pattern}
 
 \noindent Level 1: Highlight solution (Attribute) \medskip
@@ -2806,7 +2733,7 @@ in different contexts.
 \includegraphics[width=0.6\textwidth]{images/player_role.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Association should be full Player-Role pattern}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
@@ -2850,7 +2777,7 @@ in different contexts.
 \includegraphics[width=0.6\textwidth]{images/player_role.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Association should be subclass Player-Role pattern}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
@@ -2894,7 +2821,7 @@ in different contexts.
 \includegraphics[width=0.6\textwidth]{images/player_role.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Association should be enumeration Player-Role pattern}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
@@ -2938,7 +2865,7 @@ in different contexts.
 \includegraphics[width=0.6\textwidth]{images/player_role.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Enumeration should be full Player-Role pattern}
 
 \noindent Level 1: Highlight solution (Class) \medskip
@@ -2982,7 +2909,7 @@ in different contexts.
 \includegraphics[width=0.6\textwidth]{images/player_role.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Enumeration should be subclass Player-Role pattern}
 
 \noindent Level 1: Highlight solution (Class) \medskip
@@ -3026,7 +2953,7 @@ in different contexts.
 \includegraphics[width=0.6\textwidth]{images/player_role.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Enumeration should be association Player-Role pattern}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
@@ -3070,7 +2997,7 @@ in different contexts.
 \includegraphics[width=0.6\textwidth]{images/player_role.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Full Player-Role pattern should be subclass}
 
 \noindent Level 1: Highlight solution (Class) \medskip
@@ -3114,7 +3041,7 @@ in different contexts.
 \includegraphics[width=0.6\textwidth]{images/player_role.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Full Player-Role pattern should be association}
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
@@ -3158,7 +3085,7 @@ in different contexts.
 \includegraphics[width=0.6\textwidth]{images/player_role.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Full Player-Role pattern should be enumeration}
 
 \noindent Level 1: Highlight solution (Attribute) \medskip
@@ -3232,7 +3159,7 @@ from each other in an important way.
 \includegraphics[width=0.6\textwidth]{images/abstraction_occurrence.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Incomplete Abstraction-Occurrence pattern}
 
 \noindent Level 1: Highlight solution (Class) \medskip
@@ -3260,7 +3187,7 @@ from each other in an important way.
 \includegraphics[width=0.6\textwidth]{images/abstraction_occurrence.png}
 \end{tabular} \medskip
 
-
+
 \subsubsection{Generalization should be association in Abstraction-Occurrence pattern}
 
 \noindent Level 1: Highlight solution (Class) \medskip

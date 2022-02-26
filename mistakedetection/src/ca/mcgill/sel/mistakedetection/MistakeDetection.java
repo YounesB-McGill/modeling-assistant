@@ -18,10 +18,10 @@ import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ENUM_ITEM_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ENUM_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ABSTRACT;
 import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ENUM;
-//import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ABSTRACT;
-//import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_NOT_BE_ABSTRACT;
+import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_NOT_BE_ABSTRACT;
 import static learningcorpus.mistaketypes.MistakeTypes.COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_ASSOC_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ENUM_SHOULD_BE_CLASS;
@@ -828,9 +828,9 @@ public class MistakeDetection {
   private static Optional<Mistake> checkMistakeAbstractClass(Classifier studentClassifier,
       Classifier instructorClassifier) {
     if (!studentClassifier.isAbstract() && instructorClassifier.isAbstract()) {
-      // return Optional.of(createMistake(CLASS_SHOULD_BE_ABSTRACT, studentClassifier, instructorClassifier));
+      return Optional.of(createMistake(CLASS_SHOULD_BE_ABSTRACT, studentClassifier, instructorClassifier));
     } else if (studentClassifier.isAbstract() && !instructorClassifier.isAbstract()) {
-      // return Optional.of(createMistake(CLASS_SHOULD_NOT_BE_ABSTRACT, studentClassifier, instructorClassifier));
+      return Optional.of(createMistake(CLASS_SHOULD_NOT_BE_ABSTRACT, studentClassifier, instructorClassifier));
     }
     return Optional.empty();
   }
@@ -1896,8 +1896,22 @@ public class MistakeDetection {
     }
   }
 
+  /** Returns instructor solution elements for a pattern. */
+  private static List<NamedElement> getPatternInstructorElements(List<Mistake> newMistakes,
+      List<MistakeType> patternMistakeTypes) {
+    List<NamedElement> patternSolutionElements = new ArrayList<>();
+    for (Mistake m : newMistakes) {
+      if (patternMistakeTypes.contains(m.getMistakeType())) {
+        for (SolutionElement s : m.getInstructorElements()) {
+          patternSolutionElements.add(s.getElement());
+        }
+      }
+    }
+    return patternSolutionElements;
+  }
+
   /** Returns student solution elements for a pattern. */
-  private static List<NamedElement> getPatternStudentElements(List<Mistake> newMistakes,
+  private static List<NamedElement> getPatternStudentrElements(List<Mistake> newMistakes,
       List<MistakeType> patternMistakeTypes) {
     List<NamedElement> patternSolutionElements = new ArrayList<>();
     for (Mistake m : newMistakes) {
@@ -1917,10 +1931,15 @@ public class MistakeDetection {
 
   private static void updateMistakesInvolvingPattern(List<Mistake> newMistakes, List<MistakeType> patternMistakeTypes,
       Solution studentSolution) {
-    List<Mistake> newMistakesToRemove = new ArrayList<>();
-    var patternStudentElement = getPatternStudentElements(newMistakes, patternMistakeTypes);
+    HashSet<Mistake> newMistakesToRemove = new HashSet<>();
+    var patternInstructorElement = getPatternInstructorElements(newMistakes, patternMistakeTypes);
+    var patternStudentElement = getPatternStudentrElements(newMistakes, patternMistakeTypes);
     for (Mistake newMistake : newMistakes) {
-      if (!newMistake.getStudentElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
+      if (!newMistake.getInstructorElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
+          && patternInstructorElement.contains(newMistake.getInstructorElements().get(0).getElement())) {
+        newMistakesToRemove.add(newMistake);
+        continue;
+      } else if (!newMistake.getStudentElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
           && patternStudentElement.contains(newMistake.getStudentElements().get(0).getElement())) {
         newMistakesToRemove.add(newMistake);
         continue;

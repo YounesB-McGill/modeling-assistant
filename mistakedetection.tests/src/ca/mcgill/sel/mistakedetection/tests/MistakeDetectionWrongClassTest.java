@@ -7,6 +7,8 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instruct
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentMistakeFor;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ABSTRACT;
+import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_NOT_BE_ABSTRACT;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
@@ -15,8 +17,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
-//import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ABSTRACT;
-//import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_NOT_BE_ABSTRACT;
 import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
@@ -1592,7 +1591,6 @@ public class MistakeDetectionWrongClassTest {
   /**
    * Check Mistake class should be abstract.
    */
-  @Disabled("Pending mistake type defination")
   @Test
   public void testClassSholdBeAbstract() {
     var instructorClassDiagram = cdmFromFile(
@@ -1610,13 +1608,12 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(1, comparison.newMistakes.size());
 
-  //  assertMistake(studentMistakeFor(studentCarClass), CLASS_SHOULD_BE_ABSTRACT, studentCarClass, instructorCarClass, 0, 1, false);
+    assertMistake(studentMistakeFor(studentCarClass), CLASS_SHOULD_BE_ABSTRACT, studentCarClass, instructorCarClass, 0, 1, false);
   }
 
   /**
    * Check Mistake class should not be abstract.
    */
-  @Disabled("Pending mistake type defination")
   @Test
   public void testClassSholdNotBeAbstract() {
     var instructorClassDiagram = cdmFromFile(
@@ -1634,6 +1631,6 @@ public class MistakeDetectionWrongClassTest {
 
     assertEquals(1, comparison.newMistakes.size());
 
-  //  assertMistake(studentMistakeFor(studentCarClass), CLASS_SHOULD_NOT_BE_ABSTRACT, studentCarClass, instructorCarClass, 0, 1, false);
+    assertMistake(studentMistakeFor(studentCarClass), CLASS_SHOULD_NOT_BE_ABSTRACT, studentCarClass, instructorCarClass, 0, 1, false);
   }
 }
