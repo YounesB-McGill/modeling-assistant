@@ -710,7 +710,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 3: ParametrizedResponse(text="A ${inst_sub_cls} is a ${inst_super_cls}. How should we model this?"),
                 4: ResourceResponse(learningResources=[inherit_hierarchy_quiz := fitb(
                     # First parameter is the prompt (learning resource main content)
-                    "Place the following classes in an inheritance hierarchy:",
+                    "Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, "
+                    "Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.",
                     # Remaining parameters are the statements with blanks in {curly braces}
                     "SportsCar isA {Car}",
                     "{Wheel} isA VehiclePart",
