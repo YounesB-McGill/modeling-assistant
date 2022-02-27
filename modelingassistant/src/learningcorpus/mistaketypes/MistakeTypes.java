@@ -8,6 +8,7 @@ import learningcorpus.MistakeTypeCategory;
 
 /**
  * This class contains all mistake types and categories.
+ * It is generated automatically by the createcorpus.py script.
  */
 public class MistakeTypes {
 

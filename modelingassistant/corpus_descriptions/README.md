@@ -345,7 +345,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${stud_enum} should be changed[ to ${inst_enum}].
+> The ${stud_enum} should be changed to ${inst_enum}.
 
 Level 4: Resource response with Reference:
 
@@ -402,7 +402,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${stud_enumitem} should be changed[ to ${inst_enumitem}].
+> The ${stud_enumitem} should be changed to ${inst_enumitem}.
 
 Level 4: Resource response with Reference:
 
@@ -782,7 +782,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> How would you capture the relationship between ${inst_assoc.end0} and ${inst_assoc.end0}?
+> How would you capture the relationship between ${inst_assoc.end0.cls} and ${inst_assoc.end0.cls}?
 
 Level 4: Resource response with Reference:
 
@@ -1005,8 +1005,8 @@ Pick the association(s) with correct multiplicities:
 - [ ] * Bank -- 1 Client;
 - [ ] * Client -- 1 BankAccount;
 - [x] 0..2 Loan -- 1 Client;
-- [x] * Person -- 1 EmployeeRole;
-- [ ] * EmployeeRole -- 1 Person;
+- [ ] * Person -- 1 EmployeeRole;
+- [x] * EmployeeRole -- 1 Person;
 
 Level 6: Resource response with Reference:
 
@@ -1040,8 +1040,8 @@ Pick the association(s) with correct multiplicities:
 - [ ] * Bank -- 1 Client;
 - [ ] * Client -- 1 BankAccount;
 - [x] 0..2 Loan -- 1 Client;
-- [x] * Person -- 1 EmployeeRole;
-- [ ] * EmployeeRole -- 1 Person;
+- [ ] * Person -- 1 EmployeeRole;
+- [x] * EmployeeRole -- 1 Person;
 
 Level 6: Resource response with Reference:
 
@@ -1068,7 +1068,7 @@ Level 4: Resource response with Reference:
 
 > Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
 for this association? Role names help identify the role a class plays in a
-relationship and can be important if there is more than one relationship
+relationship and are particularly important if there is more than one relationship
 between the same two classes.
 
 ![Role name](images/role_name.png)
@@ -1121,7 +1121,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Double check this role name
+> Double check this role name.
 
 Level 3: Parametrized response:
 
@@ -1173,7 +1173,7 @@ Level 5: Resource response with Reference:
 
 > Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
 for this association? Role names help identify the role a class plays in a
-relationship and can be important if there is more than one relationship
+relationship and are particularly important if there is more than one relationship
 between the same two classes.
 
 ![Role name](images/role_name.png)
@@ -1446,7 +1446,8 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Reference:
 
-> Association class
+> Please review the _Association class_ section of the
+[UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
 
 ![Association class](images/association_class.png)
 
@@ -1475,7 +1476,8 @@ Level 5: Parametrized response:
 
 Level 6: Resource response with Reference:
 
-> Association class
+> Please review the _Association class_ section of the
+[UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
 
 ![Association class](images/association_class.png)
 
@@ -1511,19 +1513,16 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can you model this relationship in another way?
-
-Level 3: Text response:
-
 > Is using an association class the best way to model this?
 
-Level 4: Parametrized response:
+Level 3: Parametrized response:
 
-> The ${inst_cls} class should be a regular class.
+> The ${stud_cls} class should be a regular class.
 
-Level 5: Resource response with Reference:
+Level 4: Resource response with Reference:
 
-> Association class
+> Please review the _Association class_ section of the
+[UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
 
 ![Association class](images/association_class.png)
 
@@ -1536,19 +1535,16 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can you model this relationship in another way?
-
-Level 3: Text response:
-
 > Is using a regular class the best way to model this?
 
-Level 4: Parametrized response:
+Level 3: Parametrized response:
 
 > The ${stud_cls} class should be an association class.
 
-Level 5: Resource response with Reference:
+Level 4: Resource response with Reference:
 
-> Association class
+> Please review the _Association class_ section of the
+[UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
 
 ![Association class](images/association_class.png)
 
@@ -1590,7 +1586,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_compos.end0} and ${stud_compos.end1} is not expressed in the problem description.
+> The relationship between ${stud_compos.end0.cls} and ${stud_compos.end1.cls} is not expressed in the problem description.
 
 Level 4: Resource response with Reference:
 
@@ -1636,7 +1632,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls} is more than a simple association..
+> The relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls} is more than a simple association.
 
 Level 4: Resource response with Reference:
 
@@ -1778,7 +1774,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
-Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 * SportsCar isA <ins>Car</ins>
 * <ins>Wheel</ins> isA VehiclePart
@@ -1807,7 +1803,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
-Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 * SportsCar isA <ins>Car</ins>
 * <ins>Wheel</ins> isA VehiclePart
@@ -1849,7 +1845,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
-Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 * SportsCar isA <ins>Car</ins>
 * <ins>Wheel</ins> isA VehiclePart
@@ -1984,7 +1980,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_cls} needs to be different from its superclass, and any sibling subclasses, in terms of behavior or structure.
+> ${stud_cls} needs to be different from its superclass, and all sibling subclasses, in terms of behavior or structure.
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
@@ -2020,7 +2016,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
-Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 * SportsCar isA <ins>Car</ins>
 * <ins>Wheel</ins> isA VehiclePart
@@ -2068,7 +2064,7 @@ Level 5: Parametrized response:
 
 Level 6: Resource response with Fill-in-the-blanks quiz:
 
-Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 * SportsCar isA <ins>Car</ins>
 * <ins>Wheel</ins> isA VehiclePart
@@ -2363,7 +2359,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> A ${stud_role_assocend0} has different features from one of the other roles at the same time and different features need to be captured for the roles.
+> A ${stud_role_assocend0} can also play the role of one of the other roles at the same time and different features need to be captured for the roles.
 
 Level 4: Resource response with Quiz:
 
@@ -2462,7 +2458,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Can a ${stud_role_assocend0} can also play the role of one of the other roles at different times or at the same time?
+> Can a ${stud_role_assocend0} also play the role of one of the other roles at different times or at the same time?
 
 Level 4: Resource response with Quiz:
 
@@ -2609,7 +2605,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The generalization between ${stud_sub_cls} and ${stud_super_cls} should be modeled using the Abstraction-Occurrence pattern[, where ${inst_abs_cls} is the abstraction and ${inst_occ_cls} is the occurrence].
+> The relationship between ${stud_sub_cls} and ${stud_super_cls} should be modeled using the Abstraction-Occurrence pattern[, where ${inst_abs_cls} is the abstraction and ${inst_occ_cls} is the occurrence].
 
 Level 4: Resource response with Reference:
 

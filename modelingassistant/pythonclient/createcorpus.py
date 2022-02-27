@@ -17,6 +17,7 @@ from datetime import datetime
 
 import cv2
 
+from cdmmetatypes import CDM_METATYPES
 from constants import LEARNING_CORPUS_PATH, MULTIPLE_FEEDBACKS_PER_LEVEL
 from corpus import corpus
 from fileserdes import save_to_file
@@ -36,8 +37,11 @@ LEARNING_CORPUS_MARKDOWN_FILE = f"{CORPUS_DESCRIPTION_DIR}/README.md"
 LEARNING_CORPUS_TEX_FILE = f"{CORPUS_DESCRIPTION_DIR}/learningcorpusdefs.tex"
 
 NL = "\n"  # Use this instead of os.linesep to ensure consistent line endings across platforms, including Windows
+
+PYTHON_HEADER = f'''\
 """
 This file contains all mistake types and categories.
+It is generated automatically by the {os.path.basename(__file__)} script.
 """
 
 from constants import LEARNING_CORPUS_PATH
@@ -49,8 +53,8 @@ from utils import mdf
 corpus = load_lc(LEARNING_CORPUS_PATH)
 
 # Populate dictionaries
-MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[str, MistakeTypeCategory] = {c.name: c for c in corpus.mistakeTypeCategories}
-MISTAKE_TYPES_BY_NAME: dict[str, MistakeType] = {mt.name: mt for mt in corpus.mistakeTypes()}
+MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[str, MistakeTypeCategory] = {{c.name: c for c in corpus.mistakeTypeCategories}}
+MISTAKE_TYPES_BY_NAME: dict[str, MistakeType] = {{mt.name: mt for mt in corpus.mistakeTypes()}}
 
 # Short-name references to the above dicts for greater code legibility
 _MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
@@ -75,6 +79,7 @@ import learningcorpus.MistakeTypeCategory;
 
 /**
  * This class contains all mistake types and categories.
+ * It is generated automatically by the {os.path.basename(__file__)} script.
  */
 public class MistakeTypes {{
 
@@ -105,7 +110,7 @@ public class MistakeTypes {{
 TEX_HEADER = f"""\
 % Modeling Assistant Learning Corpus
 
-% This tex file was generated automatically by the createcorpus script.
+% This tex file was generated automatically by the {os.path.basename(__file__)} script.
 % Generation time: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 \\textbf{{Legend:}}
@@ -284,7 +289,7 @@ class TextualGenerator(ABC):
     def mdf_item_display_name(cls, mdf_name: str) -> str:
         "Return the display name for the input MDF name."
         def display_name(s: str) -> str:
-            return SHORT_TO_LONG_ECLASS_NAMES.get(s, s)
+            return CDM_METATYPES[s].long_name if s in CDM_METATYPES else s
 
         return (" ".join([display_name(w).capitalize() for w in mdf_name.split("_")])
                 .replace("Sub Class", "Subclass").replace("Super Class", "Superclass")

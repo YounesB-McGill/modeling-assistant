@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
-% This tex file was generated automatically by the createcorpus script.
-% Generation time: 2022-02-21 00:50:27
+% This tex file was generated automatically by the createcorpus.py script.
+% Generation time: 2022-02-27 01:07:30
 
 \textbf{Legend:}
 In the textual responses, items in \verb|${this format}| represent the parameters of
@@ -321,7 +321,7 @@ Double check the name of this enumeration.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${stud_enum}| should be changed[ to \verb|${inst_enum}|].
+The \verb|${stud_enum}| should be changed to \verb|${inst_enum}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -396,7 +396,7 @@ Double check this enumeration item.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${stud_enumitem}| should be changed[ to \verb|${inst_enumitem}|].
+The \verb|${stud_enumitem}| should be changed to \verb|${inst_enumitem}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -906,7 +906,7 @@ What is the relationship between these classes?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How would you capture the relationship between \verb|${inst_assoc.end0}| and \verb|${inst_assoc.end0}|?
+How would you capture the relationship between \verb|${inst_assoc.end0.cls}| and \verb|${inst_assoc.end0.cls}|?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1208,8 +1208,8 @@ Pick the association(s) with correct multiplicities:
     \item[$\square$] * Bank -- 1 Client;
     \item[$\square$] * Client -- 1 BankAccount;
     \item[$\boxtimes$] 0..2 Loan -- 1 Client;
-    \item[$\boxtimes$] * Person -- 1 EmployeeRole;
-    \item[$\square$] * EmployeeRole -- 1 Person;
+    \item[$\square$] * Person -- 1 EmployeeRole;
+    \item[$\boxtimes$] * EmployeeRole -- 1 Person;
 \end{itemize}
 
 \end{tabular} \medskip
@@ -1257,8 +1257,8 @@ Pick the association(s) with correct multiplicities:
     \item[$\square$] * Bank -- 1 Client;
     \item[$\square$] * Client -- 1 BankAccount;
     \item[$\boxtimes$] 0..2 Loan -- 1 Client;
-    \item[$\boxtimes$] * Person -- 1 EmployeeRole;
-    \item[$\square$] * EmployeeRole -- 1 Person;
+    \item[$\square$] * Person -- 1 EmployeeRole;
+    \item[$\boxtimes$] * EmployeeRole -- 1 Person;
 \end{itemize}
 
 \end{tabular} \medskip
@@ -1295,7 +1295,7 @@ The multiplicities for the \verb|${stud_assocend}| association are correct, but 
 \begin{tabular}{|p{0.9\linewidth}}
 Can you think of appropriate \textit{role names}
 for this association? Role names help identify the role a class plays in a
-relationship and can be important if there is more than one relationship
+relationship and are particularly important if there is more than one relationship
 between the same two classes.
 
 \\
@@ -1363,7 +1363,7 @@ Student element: Association end. Instructor element: Association end. \medskip
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Double check this role name
+Double check this role name.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -1433,7 +1433,7 @@ The \verb|${stud_assocend}| role name should be changed to \verb|${inst_assocend
 \begin{tabular}{|p{0.9\linewidth}}
 Can you think of appropriate \textit{role names}
 for this association? Role names help identify the role a class plays in a
-relationship and can be important if there is more than one relationship
+relationship and are particularly important if there is more than one relationship
 between the same two classes.
 
 \\
@@ -1790,7 +1790,8 @@ Further details of the association between \verb|${inst_assoc.ends0.cls}| and \v
 \noindent Level 4: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Association class
+Please review the _Association class_ section of the
+\textit{UML Class Diagram lecture slides}
 
 \\
 \includegraphics[width=0.6\textwidth]{images/association_class.png}
@@ -1830,7 +1831,8 @@ Further details of the association between \verb|${stud_assoc.ends0.cls}| and \v
 \noindent Level 6: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Association class
+Please review the _Association class_ section of the
+\textit{UML Class Diagram lecture slides}
 
 \\
 \includegraphics[width=0.6\textwidth]{images/association_class.png}
@@ -1877,25 +1879,20 @@ Student elements: Association, Class. Instructor element: Class. \medskip
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can you model this relationship in another way?
-\end{tabular} \medskip
-
-\noindent Level 3: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
 Is using an association class the best way to model this?
 \end{tabular} \medskip
 
-\noindent Level 4: Parametrized response: \medskip
+\noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${inst_cls}| class should be a regular class.
+The \verb|${stud_cls}| class should be a regular class.
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Reference: \medskip
+\noindent Level 4: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Association class
+Please review the _Association class_ section of the
+\textit{UML Class Diagram lecture slides}
 
 \\
 \includegraphics[width=0.6\textwidth]{images/association_class.png}
@@ -1911,25 +1908,20 @@ Student element: Class. Instructor elements: Association, Class. \medskip
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can you model this relationship in another way?
-\end{tabular} \medskip
-
-\noindent Level 3: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
 Is using a regular class the best way to model this?
 \end{tabular} \medskip
 
-\noindent Level 4: Parametrized response: \medskip
+\noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 The \verb|${stud_cls}| class should be an association class.
 \end{tabular} \medskip
 
-\noindent Level 5: Resource response with Reference: \medskip
+\noindent Level 4: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Association class
+Please review the _Association class_ section of the
+\textit{UML Class Diagram lecture slides}
 
 \\
 \includegraphics[width=0.6\textwidth]{images/association_class.png}
@@ -1983,7 +1975,7 @@ Is this composition really necessary?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${stud_compos.end0}| and \verb|${stud_compos.end1}| is not expressed in the problem description.
+The relationship between \verb|${stud_compos.end0.cls}| and \verb|${stud_compos.end1.cls}| is not expressed in the problem description.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -2043,7 +2035,7 @@ What is the relationship between these two concepts?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}| is more than a simple association..
+The relationship between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}| is more than a simple association.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -2238,7 +2230,7 @@ A \verb|${inst_sub_cls}| is a \verb|${inst_super_cls}|. How should we model this
 
 \begin{tabular}{|p{0.9\linewidth}}
 
-Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 \begin{itemize}
     \item SportsCar isA \underline{Car}
@@ -2279,7 +2271,7 @@ When creating a generalization between \verb|${stud_sub_cls}| and \verb|${stud_s
 
 \begin{tabular}{|p{0.9\linewidth}}
 
-Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 \begin{itemize}
     \item SportsCar isA \underline{Car}
@@ -2339,7 +2331,7 @@ When creating a generalization between \verb|${stud_sub_cls}| and \verb|${stud_s
 
 \begin{tabular}{|p{0.9\linewidth}}
 
-Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 \begin{itemize}
     \item SportsCar isA \underline{Car}
@@ -2527,7 +2519,7 @@ Is it really necessary to model this as a subclass?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${stud_cls}| needs to be different from its superclass, and any sibling subclasses, in terms of behavior or structure.
+\verb|${stud_cls}| needs to be different from its superclass, and all sibling subclasses, in terms of behavior or structure.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
@@ -2578,7 +2570,7 @@ Is \verb|${inst_super_cls}| really a \verb|${inst_sub_cls}|?[ It should be the o
 
 \begin{tabular}{|p{0.9\linewidth}}
 
-Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 \begin{itemize}
     \item SportsCar isA \underline{Car}
@@ -2646,7 +2638,7 @@ The superclass for \verb|${stud_sub_cls}| should be \verb|${inst_super_cls}|.
 
 \begin{tabular}{|p{0.9\linewidth}}
 
-Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 \begin{itemize}
     \item SportsCar isA \underline{Car}
@@ -3054,7 +3046,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-A \verb|${stud_role_assocend0}| has different features from one of the other roles at the same time and different features need to be captured for the roles.
+A \verb|${stud_role_assocend0}| can also play the role of one of the other roles at the same time and different features need to be captured for the roles.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3192,7 +3184,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can a \verb|${stud_role_assocend0}| can also play the role of one of the other roles at different times or at the same time?
+Can a \verb|${stud_role_assocend0}| also play the role of one of the other roles at different times or at the same time?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3392,7 +3384,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The generalization between \verb|${stud_sub_cls}| and \verb|${stud_super_cls}| should be modeled using the Abstraction-Occurrence pattern[, where \verb|${inst_abs_cls}| is the abstraction and \verb|${inst_occ_cls}| is the occurrence].
+The relationship between \verb|${stud_sub_cls}| and \verb|${stud_super_cls}| should be modeled using the Abstraction-Occurrence pattern[, where \verb|${inst_abs_cls}| is the abstraction and \verb|${inst_occ_cls}| is the occurrence].
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip

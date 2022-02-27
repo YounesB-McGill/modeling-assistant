@@ -1,5 +1,6 @@
 """
 This file contains all mistake types and categories.
+It is generated automatically by the createcorpus.py script.
 """
 
 from constants import LEARNING_CORPUS_PATH
