@@ -1646,12 +1646,12 @@ public class MistakeDetection {
     final Consumer<? super Mistake> addMist = comparison.newMistakes::add; // method reference to save space
     checkMistakeWrongRelationshipDirection(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     if (!isMistakeExist(WRONG_RELATIONSHIP_DIRECTION, studentClassAssocEnd, comparison)) {
-    checkMistakeUsingAssociationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeUsingAssociationInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeUsingCompositionInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeUsingAggregationInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeUsingAggregationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeUsingCompositionInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+      checkMistakeUsingAssociationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+      checkMistakeUsingAssociationInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+      checkMistakeUsingCompositionInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+      checkMistakeUsingAggregationInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+      checkMistakeUsingAggregationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+      checkMistakeUsingCompositionInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     }
     checkMistakeUsingDirectedInsteadOfUndirected(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
     checkMistakeUsingUndirectedInsteadOfDirected(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
@@ -1675,6 +1675,16 @@ public class MistakeDetection {
         && otherStudentClassAssocEnd.getReferenceType().equals(REGULAR))
         && studentClassAssocEnd.getReferenceType().equals(otherInstructorClassAssocEnd.getReferenceType())
         && otherStudentClassAssocEnd.getReferenceType().equals(instructorClassAssocEnd.getReferenceType())) {
+      return Optional.of(createMistake(WRONG_RELATIONSHIP_DIRECTION, getAssociationElements(studentClassAssocEnd),
+          getAssociationElements(instructorClassAssocEnd)));
+    } else if (studentClassAssocEnd.getReferenceType().equals(REGULAR) // checks bi-directional associations.
+        && otherStudentClassAssocEnd.getReferenceType().equals(REGULAR)
+        && studentClassAssocEnd.getReferenceType().equals(otherInstructorClassAssocEnd.getReferenceType())
+        && otherStudentClassAssocEnd.getReferenceType().equals(instructorClassAssocEnd.getReferenceType())
+        && ((studentClassAssocEnd.isNavigable() && !instructorClassAssocEnd.isNavigable()
+            && !otherStudentClassAssocEnd.isNavigable() && otherInstructorClassAssocEnd.isNavigable())
+            || (!studentClassAssocEnd.isNavigable() && instructorClassAssocEnd.isNavigable()
+                && otherStudentClassAssocEnd.isNavigable() && !otherInstructorClassAssocEnd.isNavigable()))) {
       return Optional.of(createMistake(WRONG_RELATIONSHIP_DIRECTION, getAssociationElements(studentClassAssocEnd),
           getAssociationElements(instructorClassAssocEnd)));
     }
@@ -2863,7 +2873,7 @@ public class MistakeDetection {
   }
 
   public static void checkMistakeMissingPattern(TagGroup tg, Comparison comparison) {
-    var missingElements =  getOrderedInstPatternElements(tg, comparison, PLAYER);
+    var missingElements = getOrderedInstPatternElements(tg, comparison, PLAYER);
     comparison.newMistakes.add(createMistake(MISSING_PR_PATTERN, null, missingElements));
   }
 
