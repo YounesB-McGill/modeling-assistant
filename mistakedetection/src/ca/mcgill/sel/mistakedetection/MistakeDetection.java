@@ -1681,14 +1681,21 @@ public class MistakeDetection {
         && otherStudentClassAssocEnd.getReferenceType().equals(REGULAR)
         && studentClassAssocEnd.getReferenceType().equals(otherInstructorClassAssocEnd.getReferenceType())
         && otherStudentClassAssocEnd.getReferenceType().equals(instructorClassAssocEnd.getReferenceType())
-        && ((studentClassAssocEnd.isNavigable() && !instructorClassAssocEnd.isNavigable()
-            && !otherStudentClassAssocEnd.isNavigable() && otherInstructorClassAssocEnd.isNavigable())
-            || (!studentClassAssocEnd.isNavigable() && instructorClassAssocEnd.isNavigable()
-                && otherStudentClassAssocEnd.isNavigable() && !otherInstructorClassAssocEnd.isNavigable()))) {
+        && (isBiDirectionAssocDirectionWrong(studentClassAssocEnd, otherStudentClassAssocEnd,
+            instructorClassAssocEnd, otherInstructorClassAssocEnd))) {
       return Optional.of(createMistake(WRONG_RELATIONSHIP_DIRECTION, getAssociationElements(studentClassAssocEnd),
           getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();
+  }
+
+  public static boolean isBiDirectionAssocDirectionWrong(AssociationEnd studentClassAssocEnd,
+      AssociationEnd otherStudentClassAssocEnd, AssociationEnd instructorClassAssocEnd,
+      AssociationEnd otherInstructorClassAssocEnd) {
+    return (studentClassAssocEnd.isNavigable() && !instructorClassAssocEnd.isNavigable()
+        && !otherStudentClassAssocEnd.isNavigable() && otherInstructorClassAssocEnd.isNavigable())
+        || (!studentClassAssocEnd.isNavigable() && instructorClassAssocEnd.isNavigable()
+            && otherStudentClassAssocEnd.isNavigable() && !otherInstructorClassAssocEnd.isNavigable());
   }
 
   /** Check for infinite recursive dependency. */
