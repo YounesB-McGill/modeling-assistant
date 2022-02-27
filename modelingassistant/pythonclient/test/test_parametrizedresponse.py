@@ -11,12 +11,13 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from cdmmetatypes import assoc, cls
 from classdiagram import Class
-from corpus import corpus, missing_class
+from corpus import corpus
+from corpus_definition import missing_association_name, missing_class
 from feedback import parametrize_response
 from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake, SolutionElement
-from utils import warn
 
 
 VALID_TYPES = ("aggr", "assoc", "assocend", "attr", "cls", "compos", "enum", "enumitem", "qualassoc")
@@ -50,10 +51,36 @@ def test_prs_correctly_specified():
         validate_param(param, mt)
 
 
-def test_pr_missing_class():
-    "Test parametrized response for missing class mistake."
-    missing_class_name = "Airplane"
+def test_pr_assoc():
+    "Test parametrized response for a single association."
     # Assume this is returned from the Mistake Detection System
+    missing_assoc_name_mistake = Mistake(instructorElements=[SolutionElement(element=assoc.example)],
+                                         mistakeType=missing_association_name)
+    missing_assoc_name_pr = missing_association_name.parametrized_responses()[0]
+    pr_result = parametrize_response(missing_assoc_name_pr, missing_assoc_name_mistake)
+    assert pr_result
+    assert "${" not in pr_result
+    assert pr_result == f"This association should be named {assoc.example.name}."
+
+
+def test_pr_cls():
+    "Test parametrized response for a single class."
+    missing_class_mistake = Mistake(instructorElements=[SolutionElement(element=cls.example)],
+                                    mistakeType=missing_class)
+    missing_class_pr = missing_class.parametrized_responses()[0]
+    pr_result = parametrize_response(missing_class_pr, missing_class_mistake)
+    assert pr_result
+    assert "${" not in pr_result
+    assert pr_result == f"Remember to add the {cls.example.name} class."
+
+
+def test_pr_missing_class():
+    """
+    Test parametrized response for missing class mistake.
+    Note that for the time being, this test is a duplicate of another test above. In the future, tests should cover
+    all mistake types explicitly, and the assertions may be different.
+    """
+    missing_class_name = "Airplane"
     missing_class_mistake = Mistake(instructorElements=[SolutionElement(element=Class(name=missing_class_name))],
                                     mistakeType=missing_class)
     missing_class_pr = missing_class.parametrized_responses()[0]
