@@ -7,6 +7,8 @@ import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instruct
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentMistakeFor;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
+import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_BE_ABSTRACT;
+import static learningcorpus.mistaketypes.MistakeTypes.CLASS_SHOULD_NOT_BE_ABSTRACT;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
@@ -15,6 +17,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
+import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -623,8 +626,8 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(4, comparison.newMistakes.size());
-    assertEquals(4, studentSolution.getMistakes().size());
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS, instructorCityClass, 0, 1, false);
   }
 
@@ -645,8 +648,8 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(5, comparison.newMistakes.size());
-    assertEquals(5, studentSolution.getMistakes().size());
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS, instructorAirportClass, 0, 1, false);
   }
 
@@ -667,8 +670,8 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(6, comparison.newMistakes.size());
-    assertEquals(6, studentSolution.getMistakes().size());
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS, instructorAirlaneClass, 0, 1, false);
   }
 
@@ -689,8 +692,8 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS, instructorPassengerClass, 0, 1, false);
   }
 
@@ -734,8 +737,8 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), MISSING_CLASS, instructorPilotClass, 0, 1, false);
   }
 
@@ -756,8 +759,8 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(4, comparison.newMistakes.size());
-    assertEquals(4, studentSolution.getMistakes().size());
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS, studentAirlineClass, 0, 1, false);
   }
 
@@ -778,8 +781,8 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), EXTRA_CLASS, studentAirlineClass, 0, 1, false);
   }
 
@@ -1444,10 +1447,13 @@ public class MistakeDetectionWrongClassTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
+    var instructorBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+    var instructorDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
+    var instructorAssociation = getAssocAggCompFromClassDiagram(instructorBusClass, instructorDriverClass, instructorClassDiagram);
 
     MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOC_CLASS, instructorCompanyClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ASSOC_CLASS, List.of(instructorAssociation.get(0), instructorCompanyClass), 0, 1, false);
   }
 
   /**
@@ -1484,10 +1490,13 @@ public class MistakeDetectionWrongClassTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
+    var studentBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
+    var studentDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
+    var studentAssociation = getAssocAggCompFromClassDiagram(studentBusClass, studentDriverClass, studentClassDiagram);
 
     MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertMistake(studentMistakeFor(studentCompanyClass), EXTRA_ASSOC_CLASS, studentCompanyClass, 0, 1, false);
+    assertMistake(studentMistakeFor(studentCompanyClass), EXTRA_ASSOC_CLASS, List.of(studentAssociation.get(0), studentCompanyClass), 0, 1, false);
   }
 
   /**
@@ -1579,4 +1588,49 @@ public class MistakeDetectionWrongClassTest {
     assertTrue(comparison.extraStudentClassifiers.contains(studentCompanyClass));
   }
 
+  /**
+   * Check Mistake class should be abstract.
+   */
+  @Test
+  public void testClassSholdBeAbstract() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_abstract_class/Class Diagram/Abstract_class.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_not_abstract_class/Class Diagram/Not_abstract_class.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+    var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(1, comparison.newMistakes.size());
+
+    assertMistake(studentMistakeFor(studentCarClass), CLASS_SHOULD_BE_ABSTRACT, studentCarClass, instructorCarClass, 0, 1, false);
+  }
+
+  /**
+   * Check Mistake class should not be abstract.
+   */
+  @Test
+  public void testClassSholdNotBeAbstract() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_not_abstract_class/Class Diagram/Not_abstract_class.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_abstract_class/Class Diagram/Abstract_class.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var studentCarClass = getClassFromClassDiagram("Car", studentClassDiagram);
+    var instructorCarClass = getClassFromClassDiagram("Car", instructorClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(1, comparison.newMistakes.size());
+
+    assertMistake(studentMistakeFor(studentCarClass), CLASS_SHOULD_NOT_BE_ABSTRACT, studentCarClass, instructorCarClass, 0, 1, false);
+  }
 }

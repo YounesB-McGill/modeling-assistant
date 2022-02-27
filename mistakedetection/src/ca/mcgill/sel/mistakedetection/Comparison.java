@@ -17,8 +17,6 @@ import modelingassistant.Mistake;
  */
 public class Comparison {
 
-  // TODO Refactor lists and hashmaps
-
   /** Maps an instructor solution classifier to student solution classifier. */
   public Map<Classifier, Classifier> mappedClassifiers = new HashMap<>();
 
@@ -199,7 +197,7 @@ public class Comparison {
     }
 
     sb.append("\n");
-    sb.append("Mistakes: \n");
+    sb.append("Total Mistakes: "+ newMistakes.size() +"\nMistakes: \n");
     newMistakes.forEach(m -> {
       if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
         sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");

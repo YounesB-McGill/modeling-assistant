@@ -127,6 +127,12 @@ public class MistakeTypes {
   /** The wrong class name but correct attribute/relationship mistake type. */
   public static final MistakeType WRONG_CLASS_NAME = MTS.get("Wrong class name");
 
+  /** The class should be abstract mistake type. */
+  public static final MistakeType CLASS_SHOULD_BE_ABSTRACT = MTS.get("Class should be abstract");
+
+  /** The class should not be abstract mistake type. */
+  public static final MistakeType CLASS_SHOULD_NOT_BE_ABSTRACT = MTS.get("Class should not be abstract");
+
   /** The regular class should be enumeration mistake type. */
   public static final MistakeType CLASS_SHOULD_BE_ENUM = MTS.get("Class should be enum");
 

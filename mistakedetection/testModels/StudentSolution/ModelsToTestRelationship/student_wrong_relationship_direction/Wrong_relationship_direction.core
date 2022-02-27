@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_vZBw8JQFEeycmON2NEShcg" name="Wrong_relationship_direction" featureModel="_vZBw8ZQFEeycmON2NEShcg" impactModel="_vZBw85QFEeycmON2NEShcg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_vZBw8ZQFEeycmON2NEShcg" root="_vZBw8pQFEeycmON2NEShcg">
+    <features xmi:id="_vZBw8pQFEeycmON2NEShcg" name="Wrong_relationship_direction" realizedBy="_v3gcsJQFEeycmON2NEShcg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_vZBw85QFEeycmON2NEShcg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_v3fOkJQFEeycmON2NEShcg" name="Wrong_relationship_direction" scene="_v3gcsJQFEeycmON2NEShcg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Wrong_relationship_direction.domain_model.cdm#_v3hq0JQFEeycmON2NEShcg"/>
+  </artefacts>
+  <scenes xmi:id="_v3gcsJQFEeycmON2NEShcg" name="Wrong_relationship_direction" realizes="_vZBw8pQFEeycmON2NEShcg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_v3gcsZQFEeycmON2NEShcg" value="_v3fOkJQFEeycmON2NEShcg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

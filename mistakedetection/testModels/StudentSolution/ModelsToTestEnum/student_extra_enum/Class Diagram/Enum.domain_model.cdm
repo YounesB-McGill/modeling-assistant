@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_2zqjcJQ6EeyWiOWMa9ZuwQ" name="Enum">
+  <classes xsi:type="classdiagram:Class" xmi:id="_3VihcJQ6EeyWiOWMa9ZuwQ" name="Student">
+    <associationEnds xmi:id="_6gk6EJQ6EeyWiOWMa9ZuwQ" name="myRoot" assoc="_6gk6EpQ6EeyWiOWMa9ZuwQ" lowerBound="1"/>
+    <attributes xmi:id="_5KXVEJQ6EeyWiOWMa9ZuwQ" name="role" type="_7uKHgJQ6EeyWiOWMa9ZuwQ"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="_51920JQ6EeyWiOWMa9ZuwQ" name="Root">
+    <associationEnds xmi:id="_6gk6EZQ6EeyWiOWMa9ZuwQ" name="myStudent" assoc="_6gk6EpQ6EeyWiOWMa9ZuwQ" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_2zqjcZQ6EeyWiOWMa9ZuwQ"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_2zqjcpQ6EeyWiOWMa9ZuwQ"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_2zqjc5Q6EeyWiOWMa9ZuwQ"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_2zqjdJQ6EeyWiOWMa9ZuwQ"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_2zqjdZQ6EeyWiOWMa9ZuwQ"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_2zqjdpQ6EeyWiOWMa9ZuwQ"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_2zqjd5Q6EeyWiOWMa9ZuwQ"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_2zqjeJQ6EeyWiOWMa9ZuwQ"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_2zqjeZQ6EeyWiOWMa9ZuwQ"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_2zqjepQ6EeyWiOWMa9ZuwQ"/>
+  <types xsi:type="classdiagram:CDEnum" xmi:id="_7uKHgJQ6EeyWiOWMa9ZuwQ" name="Role">
+    <literals xmi:id="_9eZWEJQ6EeyWiOWMa9ZuwQ" name="FullTimeStudent"/>
+    <literals xmi:id="_-2HW8JQ6EeyWiOWMa9ZuwQ" name="PartTimeStudent"/>
+  </types>
+  <types xsi:type="classdiagram:CDEnum" xmi:id="_PMsj0JQ7EeyWiOWMa9ZuwQ" name="NewRole">
+    <literals xmi:id="_RDS5EJQ7EeyWiOWMa9ZuwQ" name="NewRole1"/>
+  </types>
+  <associations xmi:id="_6gk6EpQ6EeyWiOWMa9ZuwQ" name="Student_Root" ends="_6gk6EJQ6EeyWiOWMa9ZuwQ _6gk6EZQ6EeyWiOWMa9ZuwQ"/>
+  <layout xmi:id="_2zqje5Q6EeyWiOWMa9ZuwQ">
+    <containers xmi:id="_2zqjfJQ6EeyWiOWMa9ZuwQ" key="_2zqjcJQ6EeyWiOWMa9ZuwQ">
+      <value xmi:id="_3VjIgJQ6EeyWiOWMa9ZuwQ" key="_3VihcJQ6EeyWiOWMa9ZuwQ">
+        <value xmi:id="_3VjIgZQ6EeyWiOWMa9ZuwQ" x="609.99976" y="398.00027"/>
+      </value>
+      <value xmi:id="_51-d4JQ6EeyWiOWMa9ZuwQ" key="_51920JQ6EeyWiOWMa9ZuwQ">
+        <value xmi:id="_51-d4ZQ6EeyWiOWMa9ZuwQ" x="762.00024" y="121.00009"/>
+      </value>
+      <value xmi:id="_7uKukJQ6EeyWiOWMa9ZuwQ" key="_7uKHgJQ6EeyWiOWMa9ZuwQ">
+        <value xmi:id="_7uKukZQ6EeyWiOWMa9ZuwQ" x="952.0001" y="378.50027"/>
+      </value>
+      <value xmi:id="_PMtK4JQ7EeyWiOWMa9ZuwQ" key="_PMsj0JQ7EeyWiOWMa9ZuwQ">
+        <value xmi:id="_PMtK4ZQ7EeyWiOWMa9ZuwQ" x="1097.0" y="115.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>
