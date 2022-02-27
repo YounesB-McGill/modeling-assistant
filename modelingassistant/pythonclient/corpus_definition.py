@@ -84,6 +84,14 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     4: ParametrizedResponse(text="The ${stud_cls} class should be changed to ${inst_cls}."),
                     5: ResourceResponse(learningResources=[class_ref]),
                 })),
+                class_should_be_abstract := mt(n="Class should be abstract", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    #TODO Add levels
+                })),
+                class_should_not_be_abstract := mt(n="Class should not be abstract", feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    #TODO Add levels
+                })),
             ]),
             enumeration_mistakes := mtc(n="Enumeration mistakes", mistakeTypes=[
                 class_should_be_enum := mt(
@@ -1041,6 +1049,8 @@ mts_by_priority: list[MistakeType] = [
     bad_assoc_class_name_spelling,
     assoc_class_should_be_class,
     class_should_be_assoc_class,
+    class_should_be_abstract,
+    class_should_not_be_abstract,
     class_should_be_enum,
     enum_should_be_class,
     bad_enum_name_spelling,
@@ -1197,3 +1207,5 @@ wrong_attribute_type.md_format = mdf(["attr"], ["attr"])
 wrong_class_name.md_format = mdf(["cls"], ["cls"])
 wrong_multiplicity.md_format = mdf(["assocend"], ["assocend"])
 wrong_role_name.md_format = mdf(["assocend"], ["assocend"])
+class_should_be_abstract.md_format = mdf(["cls"], ["cls"])
+class_should_not_be_abstract.md_format = mdf(["cls"], ["cls"])

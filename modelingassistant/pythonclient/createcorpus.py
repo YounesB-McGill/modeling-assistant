@@ -12,7 +12,7 @@ Script to create these Learning Corpus artifacts from corpus.py:
 import os
 import re
 from abc import ABC, abstractmethod
-from os import linesep as nl
+nl = "\n"
 from re import Match
 from datetime import datetime
 

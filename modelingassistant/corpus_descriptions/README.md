@@ -5,6 +5,8 @@
       1. [Software engineering term](#software-engineering-term)
       1. [Bad class name spelling](#bad-class-name-spelling)
       1. [Wrong class name but correct attribute/relationship](#wrong-class-name-but-correct-attribute-relationship)
+      1. [Class should be abstract](#class-should-be-abstract)
+      1. [Class should not be abstract](#class-should-not-be-abstract)
    1. [Enumeration mistakes](#enumeration-mistakes)
       1. [Regular class should be enumeration](#regular-class-should-be-enumeration)
       1. [Enumeration should be regular class](#enumeration-should-be-regular-class)
@@ -248,6 +250,20 @@ Level 4: Parametrized response:
 Level 5: Resource response with Reference:
 
 > Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
+
+#### Class should be abstract
+
+Student element: Class. Instructor element: Class.
+
+Level 1: Highlight solution
+
+
+#### Class should not be abstract
+
+Student element: Class. Instructor element: Class.
+
+Level 1: Highlight solution
 
 
 ### Enumeration mistakes
