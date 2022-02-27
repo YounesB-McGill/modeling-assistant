@@ -11,6 +11,7 @@ Welcome to the team! :tada:
 * Mistake Detection System [overview presentation](mistake-detection-system-info/Guide-to-understanding-MDS.pdf).
 
 ### Project Tools
+
 * Familiarity with one or more of Java, Python, C#, and TypeScript/JavaScript, as applicable.
 * Familiarity with the associated test frameworks of the above languages (eg, JUnit, pytest, etc).
 * Version control (`git` and GitHub).
@@ -20,15 +21,4 @@ Welcome to the team! :tada:
 * TouchCore class diagram ([cdm](modelingassistant/model/classdiagram.jpg))
 and [Modeling Assistant](modelingassistant/model/modelingassistant.jpg) metamodels.
 * [Learning corpus](modelingassistant/corpus_descriptions/README.md), including mistake types.
-
-
-## Computer setup
-
-* Java 11+. <!-- Exact version TBD after mavenization, 17 in the fall -->
-* Recent version of
-[Eclipse Modeling Tools](https://www.eclipse.org/downloads/packages/).
-* [TouchCORE](https://bitbucket.org/mcgillram/touchram/src/master/)
-sources on your local machine. <!-- To be reviewed after mavenization -->
-
-_(Detailed setup instructions coming soon!)_
 
