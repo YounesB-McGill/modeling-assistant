@@ -1646,26 +1646,26 @@ public class MistakeDetection {
   private static void checkMistakesForAssociationEnds(AssociationEnd studentClassAE,
       AssociationEnd instructorClassAE, Comparison comparison) {
     final Consumer<? super Mistake> addMist = comparison.newMistakes::add; // method reference to save space
-    checkMistakeWrongRelationshipDirection(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    if (!isMistakeExist(WRONG_RELATIONSHIP_DIRECTION, studentClassAssocEnd, comparison)) {
-      checkMistakeUsingAssociationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-      checkMistakeUsingAssociationInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-      checkMistakeUsingCompositionInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-      checkMistakeUsingAggregationInsteadOfAssociation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-      checkMistakeUsingAggregationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-      checkMistakeUsingCompositionInsteadOfAggregation(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeWrongRelationshipDirection(studentClassAE, instructorClassAE).ifPresent(addMist);
+    if (!isMistakeExist(WRONG_RELATIONSHIP_DIRECTION, studentClassAE, comparison)) {
+      checkMistakeUsingAssociationInsteadOfComposition(studentClassAE, instructorClassAE).ifPresent(addMist);
+      checkMistakeUsingAssociationInsteadOfAggregation(studentClassAE, instructorClassAE).ifPresent(addMist);
+      checkMistakeUsingCompositionInsteadOfAssociation(studentClassAE, instructorClassAE).ifPresent(addMist);
+      checkMistakeUsingAggregationInsteadOfAssociation(studentClassAE, instructorClassAE).ifPresent(addMist);
+      checkMistakeUsingAggregationInsteadOfComposition(studentClassAE, instructorClassAE).ifPresent(addMist);
+      checkMistakeUsingCompositionInsteadOfAggregation(studentClassAE, instructorClassAE).ifPresent(addMist);
     }
-    checkMistakeUsingDirectedInsteadOfUndirected(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeUsingUndirectedInsteadOfDirected(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeRepresentingActionWithAssoc(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeRoleNameExpectedStactic(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeRoleNameNotExpectedStactic(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    if (!(isUsingDirectedInsteadOfUndirected(studentClassAssocEnd, instructorClassAssocEnd)
-        || isUsingUndirectedInsteadOfDirected(studentClassAssocEnd, instructorClassAssocEnd))) {
-      checkMistakeOtherWrongMultiplicity(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-      checkMistakeMissingRoleName(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-      checkMistakeRoleNamePresentButIncorrect(studentClassAssocEnd, instructorClassAssocEnd,comparison).ifPresent(addMist);
-      checkMistakeBadRoleNameSpelling(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeUsingDirectedInsteadOfUndirected(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeUsingUndirectedInsteadOfDirected(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeRepresentingActionWithAssoc(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeRoleNameExpectedStactic(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeRoleNameNotExpectedStactic(studentClassAE, instructorClassAE).ifPresent(addMist);
+    if (!(isUsingDirectedInsteadOfUndirected(studentClassAE, instructorClassAE)
+        || isUsingUndirectedInsteadOfDirected(studentClassAE, instructorClassAE))) {
+      checkMistakeOtherWrongMultiplicity(studentClassAE, instructorClassAE).ifPresent(addMist);
+      checkMistakeMissingRoleName(studentClassAE, instructorClassAE).ifPresent(addMist);
+      checkMistakeRoleNamePresentButIncorrect(studentClassAE, instructorClassAE,comparison).ifPresent(addMist);
+      checkMistakeBadRoleNameSpelling(studentClassAE, instructorClassAE).ifPresent(addMist);
     }
   }
 
