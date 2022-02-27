@@ -12,7 +12,6 @@ Script to create these Learning Corpus artifacts from corpus.py:
 import os
 import re
 from abc import ABC, abstractmethod
-from os import linesep as nl
 from re import Match
 from datetime import datetime
 
@@ -36,7 +35,7 @@ CORPUS_DESCRIPTION_DIR = "modelingassistant/corpus_descriptions"
 LEARNING_CORPUS_MARKDOWN_FILE = f"{CORPUS_DESCRIPTION_DIR}/README.md"
 LEARNING_CORPUS_TEX_FILE = f"{CORPUS_DESCRIPTION_DIR}/learningcorpusdefs.tex"
 
-PYTHON_HEADER = '''\
+NL = "\n"  # Use this instead of os.linesep to ensure consistent line endings across platforms, including Windows
 """
 This file contains all mistake types and categories.
 """
@@ -219,7 +218,7 @@ def generate_python_mts(mtc: MistakeTypeCategory) -> str:
     if not mtc.mistakeTypes:
         return ""
     return f''', mistakeTypes=[\n{[
-        nl.join(f'{8 * " "}{underscorify(mt.name)} := mt(n={nl}{mt.name}{nl}),')
+        NL.join(f'{8 * " "}{underscorify(mt.name)} := mt(n={NL}{mt.name}{NL}),')
         for mt in mtc.mistakeTypes]}\n    ]'''
 
 
@@ -269,7 +268,7 @@ class TextualGenerator(ABC):
         "Return the nested body output for the input in a recursive way."
         return f'''{cls.make_body_title(mtc.name, indentation)}{
             "".join([cls.nested_body_output_for(sc, indentation + 1) for sc in mtc.subcategories])}{
-            nl.join([cls.make_mt_body(mt, indentation + 1) for mt in mtc.mistakeTypes])}\n'''
+            NL.join([cls.make_mt_body(mt, indentation + 1) for mt in mtc.mistakeTypes])}\n'''
 
     @classmethod
     @abstractmethod
@@ -375,7 +374,7 @@ class MarkdownGenerator(TextualGenerator):
                     case ParametrizedResponse() as resp:
                         if resp.text not in result:
                             result += f"""{
-                                '' if isinstance(prev_fb, ParametrizedResponse) else f'Parametrized response:{nl}'
+                                '' if isinstance(prev_fb, ParametrizedResponse) else f'Parametrized response:{NL}'
                                 }\n> {resp.text}\n\n"""
                     case ResourceResponse() as resp if resp.learningResources:
                         primary_rsc = resp.learningResources[0]
@@ -403,12 +402,12 @@ class MarkdownGenerator(TextualGenerator):
                             result += (content + "\n\n") if content not in result else ""
                             _quizzes_to_md[primary_rsc] = content
                         elif is_table(primary_rsc.content):
-                            content = f"""Resource response with {rsc_type_name}:\n\n{(2 * nl).join(
-                                [f"> {f.learningResources[0].content.replace(nl, f'{nl}> ')}"
+                            content = f"""Resource response with {rsc_type_name}:\n\n{(2 * NL).join(
+                                [f"> {f.learningResources[0].content.replace(NL, f'{NL}> ')}"
                                  for f in mt.feedbacks if f.level == level])}\n\n"""
                             result += content if content not in result else ""
                         else:
-                            content = f"""Resource response with {rsc_type_name}:\n\n{(2 * nl).join(
+                            content = f"""Resource response with {rsc_type_name}:\n\n{(2 * NL).join(
                                 [f"> {f.learningResources[0].content}" for f in mt.feedbacks if f.level == level])
                                 }\n\n"""
                             result += content if content not in result else ""
@@ -425,8 +424,8 @@ class MarkdownGenerator(TextualGenerator):
     @classmethod
     def generate(cls):
         mtcs = corpus.topLevelMistakeTypeCategories()
-        return f"""{nl.join(cls.nested_toc_output_for(c) for c in mtcs)}\n{
-            nl.join(cls.nested_body_output_for(c) for c in mtcs)}"""
+        return f"""{NL.join(cls.nested_toc_output_for(c) for c in mtcs)}\n{
+            NL.join(cls.nested_body_output_for(c) for c in mtcs)}"""
 
     @classmethod
     def save_to_file(cls, filename: str = None):
@@ -528,7 +527,7 @@ class LatexGenerator(TextualGenerator):
 
         if "Player-Role Pattern" in s:
             return TEX_PR_TABLE
-        lines = s.strip().split(nl)
+        lines = s.strip().split(NL)
         result = ""
         prev_in_table = in_table = False
         for line in lines:
@@ -582,19 +581,19 @@ class LatexGenerator(TextualGenerator):
                         rsc_type_name = rsc_type.__name__
                         if issubclass(rsc_type, Quiz) and rsc_type != Quiz:  # Quiz subclasses but not Quiz itself
                             if isinstance(primary_rsc, FillInTheBlanksQuiz | ListMultipleChoiceQuiz):
-                                quiz_md_lines = _quizzes_to_md[primary_rsc].split(nl)
-                                title, body = quiz_md_lines[0], nl.join(quiz_md_lines[1:])
+                                quiz_md_lines = _quizzes_to_md[primary_rsc].split(NL)
+                                title, body = quiz_md_lines[0], NL.join(quiz_md_lines[1:])
                             elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
                                 ...
                             content = f"{title}{cls.NLS}{cls.blockquote(body)}"
                             result += content if content not in result else ""
                         elif is_table(primary_rsc.content):
-                            content = f"""Resource response with {rsc_type_name}:{cls.NLS}{(2 * nl).join(
+                            content = f"""Resource response with {rsc_type_name}:{cls.NLS}{(2 * NL).join(
                                 [cls.make_tex_table(f.learningResources[0].content)
                                  for f in mt.feedbacks if f.level == level])}"""
                             result += content if content not in result else ""
                         else:
-                            content = f"""Resource response with {rsc_type_name}:{cls.NLS}{(2 * nl).join(
+                            content = f"""Resource response with {rsc_type_name}:{cls.NLS}{(2 * NL).join(
                                 [f"{cls.blockquote(f.learningResources[0].content)}"
                                  for f in mt.feedbacks if f.level == level])}"""
                             result += content if content not in result else ""
@@ -610,7 +609,7 @@ class LatexGenerator(TextualGenerator):
 
     @classmethod
     def generate(cls):
-        return TEX_HEADER + nl.join(cls.nested_body_output_for(c) for c in corpus.topLevelMistakeTypeCategories())
+        return TEX_HEADER + NL.join(cls.nested_body_output_for(c) for c in corpus.topLevelMistakeTypeCategories())
 
     @classmethod
     def save_to_file(cls, filename: str = None):
