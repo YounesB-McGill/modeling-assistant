@@ -365,7 +365,8 @@ public class MistakeDetection {
         comparison.studentGeneralizationClassifiers.remove(studClass);
       } else {
         if (studClass.getSuperTypes().isEmpty()) {
-          comparison.newMistakes.add(createMistake(MISSING_GENERALIZATION, List.of(studClass, studMappedSuperClass), List.of(instClass, instSuperClass)));
+          comparison.newMistakes.add(createMistake(MISSING_GENERALIZATION, List.of(studClass, studMappedSuperClass),
+              List.of(instClass, instSuperClass)));
           comparison.studentGeneralizationClassifiers.remove(studClass);
         } else {
           comparison.newMistakes.add(createMistake(WRONG_SUPERCLASS,
@@ -1664,7 +1665,7 @@ public class MistakeDetection {
         || isUsingUndirectedInsteadOfDirected(studentClassAE, instructorClassAE))) {
       checkMistakeOtherWrongMultiplicity(studentClassAE, instructorClassAE).ifPresent(addMist);
       checkMistakeMissingRoleName(studentClassAE, instructorClassAE).ifPresent(addMist);
-      checkMistakeRoleNamePresentButIncorrect(studentClassAE, instructorClassAE,comparison).ifPresent(addMist);
+      checkMistakeRoleNamePresentButIncorrect(studentClassAE, instructorClassAE, comparison).ifPresent(addMist);
       checkMistakeBadRoleNameSpelling(studentClassAE, instructorClassAE).ifPresent(addMist);
     }
   }
@@ -1825,8 +1826,7 @@ public class MistakeDetection {
 
     // List containing existing mistakes that are equal to newMistakes
     List<Mistake> existingMistakesProcessed = new ArrayList<>();
-    // List containing new mistakes that are already present in a solution (i.e
-    // existingMistakes)
+    // List containing new mistakes that are already present in a solution (i.e. existingMistakes)
     List<Mistake> newMistakesProcessed = new ArrayList<>();
 
     // Condition when only new mistakes exists.
@@ -2578,7 +2578,8 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeBadEnumLiteralSpelling(CDEnumLiteral studentEnumLiteral,
       CDEnumLiteral instructorEnumLiteral) {
-    if (levenshteinDistance(studentEnumLiteral.getName().toLowerCase(), instructorEnumLiteral.getName().toLowerCase())>= 1) {
+    if (levenshteinDistance(studentEnumLiteral.getName().toLowerCase(),
+        instructorEnumLiteral.getName().toLowerCase()) >= 1) {
       return Optional.of(createMistake(BAD_ENUM_ITEM_SPELLING, studentEnumLiteral, instructorEnumLiteral));
     }
     return Optional.empty();
@@ -2645,8 +2646,8 @@ public class MistakeDetection {
         }
       }
       removeMistakesRelatedToElement(studentClassAssoc.getAssociationClass(), newMistakes);
-      newMistakes.add(createMistake(EXTRA_ASSOC_CLASS, List.of(studentClassAssoc, studentClassAssoc.getAssociationClass()),
-          null));
+      newMistakes.add(
+          createMistake(EXTRA_ASSOC_CLASS, List.of(studentClassAssoc, studentClassAssoc.getAssociationClass()), null));
     }
 
   }
@@ -2887,7 +2888,8 @@ public class MistakeDetection {
   }
 
   /** Make sure that studentMissingElements are in order -> Player, roles. */
-  public static void createMistakeIncompletePRPattern(List<NamedElement> studentMissingElements, TagGroup tg, Comparison comparison) {
+  public static void createMistakeIncompletePRPattern(List<NamedElement> studentMissingElements, TagGroup tg,
+      Comparison comparison) {
     var instructorElements = getOrderedInstPatternElements(tg, comparison, PLAYER);
     comparison.newMistakes.add(createMistake(INCOMPLETE_PR_PATTERN, studentMissingElements, instructorElements));
   }
