@@ -875,8 +875,7 @@ public class MistakeDetection {
   private static void checkStudentAOPattern(TagGroup tg, Comparison comparison, Solution studentSolution) {
     List<NamedElement> totalMatchesExpected = new ArrayList<>();
     int matchedElements = 0;
-    var tags = sortAOTags(tg.getTags());
-    for (Tag tag : tags) {
+    for (Tag tag : tg.getTags()) {
       if (comparison.mappedClassifiers.containsKey(tag.getSolutionElement().getElement())) {
         if (tag.getTagType().equals(ABSTRACTION)
             && comparison.mappedClassifiers.get(tag.getSolutionElement().getElement()).isAbstract()
