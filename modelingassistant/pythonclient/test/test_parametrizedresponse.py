@@ -11,10 +11,10 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from cdmmetatypes import aggr, assoc, cls
+from cdmmetatypes import aggr, assoc, assocend, cls
 from classdiagram import Association, Class
 from corpus import corpus
-from corpus_definition import missing_association_name, missing_class
+from corpus_definition import missing_association_name, missing_class, wrong_role_name
 from feedback import parametrize_response
 from utils import mdf, mt
 from learningcorpus import MistakeType, ParametrizedResponse
@@ -80,6 +80,17 @@ def test_pr_assoc():
     assert pr_result == f"This association should be named {assoc.example.name}."
 
 
+def test_pr_assoc_end():
+    "Test parametrized response for a single association end."
+    wrong_role_name_mistake = Mistake(studentElements=[SolutionElement(element=assocend.example)],
+                                      mistakeType=wrong_role_name)
+    wrong_role_name_pr = wrong_role_name.parametrized_responses()[0]
+    pr_result = parametrize_response(wrong_role_name_pr, wrong_role_name_mistake)
+    assert pr_result
+    assert "${" not in pr_result
+    assert pr_result == f"The {assocend.example.name} role name is not correct."
+
+
 def test_pr_cls():
     "Test parametrized response for a single class."
     missing_class_mistake = Mistake(instructorElements=[SolutionElement(element=cls.example)],
@@ -143,4 +154,4 @@ def get_number_of_mistake_types_with_parametrized_responses() -> int:
 if __name__ == "__main__":
     "Main entry point (used for debugging)."
     #print("\n".join(get_pr_parameters_for_mistake_types_with_md_formats().keys()))
-    test_pr_aggr()
+    test_pr_assoc_end()
