@@ -40,7 +40,7 @@ public class MistakeDetectionPerformanceAnalysis {
         "../mistakedetection/realModels/studentSolution/studentDomainModel_G12_1/Class Diagram/StudentDomainModel.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
  //   System.out.println(studentSolution.getMistakes().size());
   //  System.out.println(comparison.newMistakes.size());
    // MistakeDetectionTest.log(comparison);
@@ -52,7 +52,7 @@ public class MistakeDetectionPerformanceAnalysis {
         "../mistakedetection/realModels/studentSolution/studentDomainModel_G12_5/Class Diagram/StudentDomainModel.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 //    System.out.println(studentSolution.getMistakes().size());
 //    System.out.println(comparison.newMistakes.size());
 //  MistakeDetectionTest.log(comparison);
@@ -65,7 +65,7 @@ public class MistakeDetectionPerformanceAnalysis {
         "../mistakedetection/realModels/studentSolution/studentDomainModel_G12_9/Class Diagram/StudentDomainModel.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 //    System.out.println(studentSolution.getMistakes().size());
 //    System.out.println(comparison.newMistakes.size());
 //    MistakeDetectionTest.log(comparison);
@@ -85,6 +85,51 @@ public class MistakeDetectionPerformanceAnalysis {
   public void testStudentSolution5() {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/realModels/studentSolution/studentDomainModel_G13_3/Class Diagram/StudentDomainModel.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
+  }
+
+  @Test
+  public void testStudentSolution6() {
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/realModels/studentSolution/studentDomainModel_G13_6/Class Diagram/StudentDomainModel.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
+  }
+
+  @Test
+  public void testStudentSolution7() {
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/realModels/studentSolution/studentDomainModel_G13_10/Class Diagram/StudentDomainModel.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
+  }
+
+  @Test
+  public void testStudentSolution8() {
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/realModels/studentSolution/studentDomainModel_G14_4/Class Diagram/StudentDomainModel.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
+  }
+
+  @Test
+  public void testStudentSolution9() {
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/realModels/studentSolution/studentDomainModel_G14_8/Class Diagram/StudentDomainModel.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
+  }
+
+  @Test
+  public void testStudentSolution10() {
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/realModels/studentSolution/studentDomainModel_G14_15/Class Diagram/StudentDomainModel.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);

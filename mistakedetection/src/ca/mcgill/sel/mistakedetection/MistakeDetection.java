@@ -298,7 +298,7 @@ public class MistakeDetection {
           float lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
           if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
             mapAttributes(comparison, studentAttribute, instructorAttribute);
-            checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison.newMistakes);
+            checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison);
             break;
           }
         }
@@ -308,10 +308,10 @@ public class MistakeDetection {
     mapClassAndAttribBasedOnAttribsAssocAndAssocEnds(comparison);
     checkMistakesClassNameSpellings(comparison);
     mapRelations(comparison);
+    mapAttributesBasedOnClassifierMap(comparison);
     mapEnumerations(instructorSolution, studentSolution, comparison);
     mapPatterns(instructorSolution, studentSolution, comparison);
     populateGeneralizationTree(comparison, instructorClassifiers, studentClassifiers);
-    mapAttributesBasedOnClassifierMap(comparison);
     checkMistakeMissingClassAndEnumInsteadOfClass(comparison);
     checkMistakeExtraClassAndClassShouldBeEnum(comparison);
     checkMistakeMissingExtraEnum(comparison);
@@ -403,7 +403,7 @@ public class MistakeDetection {
         if (studAttrib.getName().equals(instAttrib.getName())) {
           comparison.newMistakes.add(createMistake(ATTRIBUTE_MISPLACED, studAttrib, instAttrib));
           comparison.mappedAttributes.put(instAttrib, studAttrib);
-          checkMistakesInAttributes(studAttrib, instAttrib, comparison.newMistakes);
+          checkMistakesInAttributes(studAttrib, instAttrib, comparison);
           studAttributesProcessed.add(studAttrib);
           instAttributesProcessed.add(instAttrib);
         }
@@ -804,14 +804,14 @@ public class MistakeDetection {
     checkMistakeBadEnumNameSpelling(studEnum, instEnum).ifPresent(comparison.newMistakes::add);
   }
   private static void checkMistakesInAttributes(Attribute studentAttribute, Attribute instructorAttribute,
-      List<Mistake> newMistakes) {
-    checkMistakeWrongAttributeTypeAndListAttrib(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
-    checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
-    checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
+      Comparison comparison) {
+    checkMistakeWrongAttributeTypeAndListAttrib(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
+    checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
+    checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
     if (studentAttribute.getName() != instructorAttribute.getName()) {
-      checkMistakeAttributeSpelling(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
-      checkMistakePluralAttribName(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
-      checkMistakeUppercaseAttribName(studentAttribute, instructorAttribute).ifPresent(newMistakes::add);
+      checkMistakeAttributeSpelling(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
+      checkMistakePluralAttribName(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
+      checkMistakeUppercaseAttribName(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
     }
   }
 
@@ -1759,21 +1759,17 @@ public class MistakeDetection {
                 comparison.mappedAttributes.put(instAttrib, studAttrib);
                 comparison.notMappedInstructorAttributes.remove(instAttrib);
                 comparison.extraStudentAttributes.remove(studAttrib);
-                checkMistakePluralAttribName(studAttrib, instAttrib).ifPresent(comparison.newMistakes::add);
+                checkMistakesInAttributes(studAttrib, instAttrib, comparison);
               }
               break;
             }
             String[] attribNameSunStrings = studAttrib.getName().split("(?=\\p{Upper})");
             for (String subString : attribNameSunStrings) {
-              if (instAttrib.getName().contains(subString)) {
+              if (instAttrib.getName().toLowerCase().contains(subString.toLowerCase())) {
                 comparison.mappedAttributes.put(instAttrib, studAttrib);
+                checkMistakesInAttributes(studAttrib, instAttrib, comparison);
                 comparison.notMappedInstructorAttributes.remove(instAttrib);
                 comparison.extraStudentAttributes.remove(studAttrib);
-                if (isPlural(studAttrib.getName())) {
-                  comparison.newMistakes.add(createMistake(PLURAL_ATTRIBUTE, studAttrib, instAttrib));
-                } else {
-                  comparison.newMistakes.add(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, studAttrib, instAttrib));
-                }
                 break;
               }
             }
@@ -2159,7 +2155,7 @@ public class MistakeDetection {
               float lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
               if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
                 mapAttributes(comparison, studentAttribute, instructorAttribute);
-                checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison.newMistakes);
+                checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison);
                 break;
               }
             }
