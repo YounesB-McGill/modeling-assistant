@@ -11,11 +11,12 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from cdmmetatypes import assoc, cls
-from classdiagram import Class
+from cdmmetatypes import aggr, assoc, cls
+from classdiagram import Association, Class
 from corpus import corpus
 from corpus_definition import missing_association_name, missing_class
 from feedback import parametrize_response
+from utils import mdf, mt
 from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake, SolutionElement
 
@@ -40,20 +41,36 @@ def test_prs_correctly_specified():
     programmatic attributes:
     cls: classifier when invoked on an AssociationEnd
     """
-    def validate_param(param: str, mt: MistakeType):
+    def validate_param(param: str, mt_: MistakeType):
         part_before_dot = param.split(".")[0]
         _split = part_before_dot.split("_")
         person, type_ = _split[0], re.sub(r"[\*\d]+$", "", _split[-1])
-        assert person in ("stud", "inst"), f'{param} for {mt.name} does not start with "stud" or "inst"'
-        assert type_ in VALID_TYPES, f"{param} for {mt.name} does not end with a valid type"
+        assert person in ("stud", "inst"), f'{param} for {mt_.name} does not start with "stud" or "inst"'
+        assert type_ in VALID_TYPES, f"{param} for {mt_.name} does not end with a valid type"
 
-    for param, mt in get_pr_parameters_for_mistake_types_with_md_formats().items():
-        validate_param(param, mt)
+    for param, mt_ in get_pr_parameters_for_mistake_types_with_md_formats().items():
+        validate_param(param, mt_)
+
+
+def test_pr_aggr():
+    "Test parametrized response for a single aggregation."
+    # Dummy mistake type used for testing
+    wrong_aggr_name = mt("Wrong aggregation name", feedbacks=[wrong_aggr_name_pr := ParametrizedResponse(
+        text="The {stud_aggr} aggregation should be renamed to {inst_aggr}.")])
+    wrong_aggr_name.md_format = mdf(["aggr"], ["aggr"])
+    bad_name = "Bad_Name"
+    # Assume this mistake is returned from the Mistake Detection System
+    wrong_aggr_name_mistake = Mistake(instructorElements=[SolutionElement(element=aggr.example)],
+                                      studentElements=[SolutionElement(element=Association(name=bad_name))],
+                                      mistakeType=wrong_aggr_name)
+    pr_result = parametrize_response(wrong_aggr_name_pr, wrong_aggr_name_mistake)
+    assert pr_result
+    assert "${" not in pr_result
+    assert pr_result == f"The {bad_name} aggregation should be renamed to {aggr.example.name}."
 
 
 def test_pr_assoc():
     "Test parametrized response for a single association."
-    # Assume this is returned from the Mistake Detection System
     missing_assoc_name_mistake = Mistake(instructorElements=[SolutionElement(element=assoc.example)],
                                          mistakeType=missing_association_name)
     missing_assoc_name_pr = missing_association_name.parametrized_responses()[0]
@@ -97,26 +114,26 @@ def get_all_pr_parameters() -> dict[str, MistakeType]:
     """
     prs = {}
     pattern = re.compile(r"\$\{(?P<param>.*?)\}")
-    for mt in corpus.mistakeTypes():
-        for pr in mt.parametrized_responses():
+    for mt_ in corpus.mistakeTypes():
+        for pr in mt_.parametrized_responses():
             matches = re.finditer(pattern, pr.text)
             assert matches, f"""The parametrized response for mistake type {pr.mistakeType} with text {pr.text
                              } does not contain any parameters."""
             for match_ in matches:
-                prs[match_.group("param")] = mt
+                prs[match_.group("param")] = mt_
     return prs
 
 
 def get_pr_parameters_for_mistake_types_with_md_formats() -> dict[str, MistakeType]:
     "Return a dict of ParametrizedResponse parameters mapped to mistake types with mistake detection formats."
-    return {param: mt for param, mt in get_all_pr_parameters().items() if hasattr(mt, "md_format")}
+    return {param: mt_ for param, mt_ in get_all_pr_parameters().items() if hasattr(mt_, "md_format")}
 
 
 def get_number_of_mistake_types_with_parametrized_responses() -> int:
     "Return the number of mistake types with parametrized responses."
     result = 0
-    for mt in corpus.mistakeTypes():
-        for fb in mt.feedbacks:
+    for mt_ in corpus.mistakeTypes():
+        for fb in mt_.feedbacks:
             if isinstance(fb, ParametrizedResponse):
                 result += 1
                 break
@@ -125,4 +142,5 @@ def get_number_of_mistake_types_with_parametrized_responses() -> int:
 
 if __name__ == "__main__":
     "Main entry point (used for debugging)."
-    print("\n".join(get_pr_parameters_for_mistake_types_with_md_formats().keys()))
+    #print("\n".join(get_pr_parameters_for_mistake_types_with_md_formats().keys()))
+    test_pr_aggr()

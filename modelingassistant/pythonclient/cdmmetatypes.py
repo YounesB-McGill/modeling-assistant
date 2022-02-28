@@ -99,17 +99,17 @@ _airline_system_persons = Association(ends=[
     _airline_system_composend := ae(_airline_system, 1, 1, ReferenceType.Composition),
     ae(_person, 0, _MANY, n="persons")])
 _person_roles = Association(ends=[ae(_person, 1, 1), _roles := ae(_person_role, 0, 3, n="roles")])
-_passengerroles_bookings = Association(ends=[
+_passengerroles_bookings = Association(name="Booking_PassengerRole", ends=[
     _passenger_aggrend := ae(_passenger_role, 1, 1, ReferenceType.Aggregation, "passenger"),
     ae(_booking, 0, _MANY, n="bookings")])
 
 
 CDM_METATYPES = {
+    "aggr": (aggr := CdmMetatype("aggr", "Aggregation", Association, _passengerroles_bookings)),
+    "assoc": (assoc := CdmMetatype("assoc", "Association", Association, _person_roles)),
     "assocend": (assocend := CdmMetatype("assocend", "Association End", AssociationEnd, _roles)),
     "assocend*": (assocends := CdmMetatype("assocend*", "Association Ends", AssociationEnd,
                                            [_roles, _airline_system_composend, _passenger_aggrend])),
-    "aggr": (aggr := CdmMetatype("aggr", "Aggregation", Association, _passengerroles_bookings)),
-    "assoc": (assoc := CdmMetatype("assoc", "Association", Association, _person_roles)),
     "attr": (attr := CdmMetatype("attr", "Attribute", Attribute, _person_name)),
     "attr*": (attrs := CdmMetatype("attr*", "Attributes", Attribute, [_person_name, _person_id])),
     "cls": (cls := CdmMetatype("cls", "Class", Class, _person)),
