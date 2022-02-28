@@ -138,23 +138,6 @@ Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \
 
 """
 
-SHORT_TO_LONG_ECLASS_NAMES: dict[str, str] = {
-    "assocend": "Association End",
-    "assocend*": "Association Ends",
-    "aggr": "Aggregation",
-    "assoc": "Association",
-    "attr": "Attribute",
-    "attr*": "Attributes",
-    "cls": "Class",
-    "cls*": "Classes",
-    "compos": "Composition",
-    "enum": "Enumeration",
-    "enumitem": "Enumeration Item",
-    "enumitem*": "Enumeration Items",
-    "qualassoc": "Qualified Association",
-    "rel": "Relationship",  # deprecated
-}
-
 QUIZ_DISPLAY_NAMES: dict[type, str] = {
     FillInTheBlanksQuiz: "Fill-in-the-blanks quiz",
     ListMultipleChoiceQuiz: "List multiple-choice quiz",

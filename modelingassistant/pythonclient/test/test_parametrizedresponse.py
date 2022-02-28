@@ -3,6 +3,9 @@
 
 """
 Tests for parametrized responses.
+
+Note that some of the examples are somewhat contrived, since the focus of the tests is on the correctness of the
+parametrized responses and not the correctness of the example domain models.
 """
 
 import os
@@ -11,11 +14,11 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from cdmmetatypes import aggr, assoc, assocend, cls
+from cdmmetatypes import aggr, assoc, assocend, attr, cls, compos, enum, enumitem
 from classdiagram import Association, Class
 from corpus import corpus
-from corpus_definition import missing_association_name, missing_class, wrong_role_name
-from feedback import parametrize_response
+from corpus_definition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
+from parametrizedresponse import parametrize_response, param_valid
 from utils import mdf, mt
 from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake, SolutionElement
@@ -41,15 +44,8 @@ def test_prs_correctly_specified():
     programmatic attributes:
     cls: classifier when invoked on an AssociationEnd
     """
-    def validate_param(param: str, mt_: MistakeType):
-        part_before_dot = param.split(".")[0]
-        _split = part_before_dot.split("_")
-        person, type_ = _split[0], re.sub(r"[\*\d]+$", "", _split[-1])
-        assert person in ("stud", "inst"), f'{param} for {mt_.name} does not start with "stud" or "inst"'
-        assert type_ in VALID_TYPES, f"{param} for {mt_.name} does not end with a valid type"
-
     for param, mt_ in get_pr_parameters_for_mistake_types_with_md_formats().items():
-        validate_param(param, mt_)
+        assert param_valid(param, mt_)
 
 
 def test_pr_aggr():
@@ -89,6 +85,17 @@ def test_pr_assoc_end():
     assert pr_result
     assert "${" not in pr_result
     assert pr_result == f"The {assocend.example.name} role name is not correct."
+
+
+def test_pr_attr():
+    "Test parametrized response for a single attribute."
+    attribute_misplaced_mistake = Mistake(studentElements=[SolutionElement(element=attr.example)],
+                                          mistakeType=attribute_misplaced)
+    attribute_misplaced_pr = attribute_misplaced.parametrized_responses()[0]
+    pr_result = parametrize_response(attribute_misplaced_pr, attribute_misplaced_mistake)
+    assert pr_result
+    assert "${" not in pr_result
+    assert pr_result.startswith(f"The ${attr.example.name} does not belong in the ${attr.example.classifier} class.")
 
 
 def test_pr_cls():
@@ -154,4 +161,4 @@ def get_number_of_mistake_types_with_parametrized_responses() -> int:
 if __name__ == "__main__":
     "Main entry point (used for debugging)."
     #print("\n".join(get_pr_parameters_for_mistake_types_with_md_formats().keys()))
-    test_pr_assoc_end()
+    test_pr_attr()
