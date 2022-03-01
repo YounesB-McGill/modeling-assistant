@@ -18,7 +18,7 @@ from cdmmetatypes import aggr, assoc, assocend, attr, cls, compos, enum, enumite
 from classdiagram import Association, Class
 from corpus import corpus
 from corpus_definition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
-from parametrizedresponse import get_mdf_items_to_mistake_elem_dict, parametrize_response, param_valid
+from parametrizedresponse import extract_params, get_mdf_items_to_mistake_elem_dict, parametrize_response, param_valid
 from utils import mdf, mt
 from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake, SolutionElement
@@ -144,6 +144,13 @@ def test_get_mdf_items_to_mistake_elem_dict():
         "stud_c*": [varargs_mistake.studentElements[i].element for i in range(2, len(varargs_mistake.studentElements))],
     }
 
+
+def test_extract_params():
+    "Test extract_params() helper function."
+    assert extract_params("Example without params") == []
+    assert extract_params("Example with one ${stud_aggr}") == ["stud_aggr"]
+    assert extract_params("Example ${stud_cls} and ${stud_compos.end1.cls} and even ${inst_assoc.cls*}.") == [
+        "stud_cls", "stud_compos.end1.cls", "inst_assoc.cls*"]
 
 
 def get_all_pr_parameters() -> dict[str, MistakeType]:

@@ -121,6 +121,15 @@ def get_mdf_items_to_mistake_elem_dict(mistake: Mistake) -> dict[str, NamedEleme
     return mdf_items_to_elems
 
 
+def extract_params(pr_text: str) -> list[str]:
+    "Return a list of parametrized response parameters."
+    params = re.findall(r"\$\{(?P<param>.*?)\}", pr_text)
+    for param in params:
+        if not param_valid(param):
+            raise ValueError(f"Invalid parametrized response parameter: {param}")
+    return params
+
+
 def comma_seperated_with_and(elems: list[NamedElement]) -> str:
     """
     Return a comma-seperated string of the names of the elements, with "and" before the last element.
