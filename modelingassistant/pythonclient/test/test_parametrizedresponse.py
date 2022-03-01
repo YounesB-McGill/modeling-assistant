@@ -18,7 +18,7 @@ from cdmmetatypes import aggr, assoc, assocend, attr, cls, compos, enum, enumite
 from classdiagram import Association, Class
 from corpus import corpus
 from corpus_definition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
-from parametrizedresponse import parametrize_response, param_valid
+from parametrizedresponse import get_mdf_items_to_mistake_elem_dict, parametrize_response, param_valid
 from utils import mdf, mt
 from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake, SolutionElement
@@ -125,6 +125,27 @@ def test_pr_missing_class():
     assert pr_result == f"Remember to add the {missing_class_name} class."
 
 
+def test_get_mdf_items_to_mistake_elem_dict():
+    "Test get_mdf_items_to_mistake_elem_dict() helper function."
+    simple_mistake = Mistake(studentElements=[SolutionElement(element=Class(name=c)) for c in "ab"],
+                             mistakeType=(simple_mt := MistakeType(name="Simple mistake")))
+    varargs_mistake = Mistake(studentElements=[SolutionElement(element=Class(name=c)) for c in "abxyz"],
+                              mistakeType=(varargs_mt := MistakeType(name="Varargs mistake")))
+    simple_mt.md_format = mdf(["a", "b"], [])
+    varargs_mt.md_format = mdf(["a", "b", "c*"], [])
+
+    assert get_mdf_items_to_mistake_elem_dict(simple_mistake) == {
+        "stud_a": simple_mistake.studentElements[0].element,
+        "stud_b": simple_mistake.studentElements[1].element,
+    }
+    assert get_mdf_items_to_mistake_elem_dict(varargs_mistake) == {
+        "stud_a": varargs_mistake.studentElements[0].element,
+        "stud_b": varargs_mistake.studentElements[1].element,
+        "stud_c*": [varargs_mistake.studentElements[i].element for i in range(2, len(varargs_mistake.studentElements))],
+    }
+
+
+
 def get_all_pr_parameters() -> dict[str, MistakeType]:
     """
     Return a dict of all ParametrizedResponse parameters mapped to their mistake types. Note that a parameter may be
@@ -161,4 +182,5 @@ def get_number_of_mistake_types_with_parametrized_responses() -> int:
 if __name__ == "__main__":
     "Main entry point (used for debugging)."
     #print("\n".join(get_pr_parameters_for_mistake_types_with_md_formats().keys()))
-    test_pr_attr()
+    test_get_mdf_items_to_mistake_elem_dict()
+    #test_pr_attr()

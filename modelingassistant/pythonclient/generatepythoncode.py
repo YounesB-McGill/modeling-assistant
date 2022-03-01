@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Module to generate the pyecore Python code from the modeling assistant ecore metamodel.
+Module to generate and customize the pyecore Python code from the modeling assistant ecore metamodel.
 """
 
 # pylint: disable=invalid-name, import-outside-toplevel

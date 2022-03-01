@@ -3,15 +3,27 @@ Logic to handle parametrized responses.
 """
 
 import re
+from string import Formatter
 
 from cdmmetatypes import CDM_METATYPES
+from utils import MistakeDetectionFormat, warn
 from classdiagram import NamedElement
-from learningcorpus import ParametrizedResponse
-from learningcorpus.learningcorpus import MistakeType
+from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake
 
 
+MAX_VARARG_SEQUENCE_LENGTH = float("inf")  # The maximum number of vararg elements for a parameter
+
 _MAX_PARSE_DEPTH = 15  # Maximum depth of parse tree, eg, A.B.C... cannot have more (\.\*\d) than this
+
+# CDM metamodel shorthands
+SHORTHANDS: dict[str, str] = {
+    "cls": "classifier",
+    "end": "ends",
+    "opposite": "oppositeEnd",
+}
+
+_formatter = Formatter()
 
 
 def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> str:
@@ -20,16 +32,20 @@ def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> st
     """
     options = {}
     # Use itertools.zip_longest here?
+    mdf: MistakeDetectionFormat = response.mistakeType.md_format
+    resp_text = response.text.replace("$", "")  # remove all $ from the response text
     for stud_key, elem in zip(response.mistakeType.md_format.stud, mistake.studentElements):
-        options[f"stud_{stud_key}"] = elem.element.name
+        print(f'Parsing stud_{stud_key}: {parse(f"stud_{stud_key}", elem.element)}')
+        options[f"stud_{stud_key}"] = parse(f"stud_{stud_key}", elem.element)
     for inst_key, elem in zip(response.mistakeType.md_format.inst, mistake.instructorElements):
-        options[f"inst_{inst_key}"] = elem.element.name
+        print(f'Parsing inst_{inst_key}: {parse(f"inst_{inst_key}", elem.element)}')
+        options[f"inst_{inst_key}"] = parse(f"inst_{inst_key}", elem.element)
     return response.text.format(**options).replace("$", "")
 
 
 def parse(s: str, start_elem: NamedElement) -> str:
     """
-    Parse a parameter from a parametrized response string, as applied on the input starting element.
+    Recursively parse a parameter from a parametrized response string, as applied on the input starting element.
     The format of the parameter is as follows:
 
     ```
@@ -45,7 +61,81 @@ def parse(s: str, start_elem: NamedElement) -> str:
     """
     if not param_valid(s):
         raise ValueError(f"Invalid parametrized response parameter: {s}")
-    return "TODO"
+    # base cases
+    if re.match(r"^[A-Za-z_]+$", s):  # simplest case, only a metatype
+        return getattr(start_elem, "name", str(start_elem))
+    if re.match(r"^[A-Za-z_]+\*$", s):  # simple varargs list of metatypes
+        return comma_seperated_with_and(start_elem)
+    if idx := re.match(r".*?(\d+)$", s).group(1):  # index
+        if hasattr(start_elem, "__getitem__") and int(idx) < len(start_elem):
+            return start_elem[int(idx)]
+        warn(f"""parametrizedresponse.parse(): Attempted to access element {start_elem} at index {idx
+              }, but the element is not a sequence, so returning the element itself""")
+        return getattr(start_elem, "name", str(start_elem))
+
+    # Dot-separated properties are in the form a.b.c.d...
+    dot_sep_elems = s.split(".")
+    a = dot_sep_elems[0]
+    b = dot_sep_elems[1]
+    if b == "length":  # special case
+        if hasattr(start_elem, "__len__"):
+            return len(start_elem)
+        warn(f"""parametrizedresponse.parse(): Attempted to get length of element {start_elem
+              }, but the element is not a sequence, so returning the element itself""")
+        return getattr(start_elem, "name", str(start_elem))
+    cd = dot_sep_elems[2:]
+    a_dot_b = getattr(a, SHORTHANDS.get(b, b), a)
+    return parse(f"{b}.{'.'.join(cd)}", a_dot_b)  # recurse to next dot-separated element
+
+
+def get_mdf_items_to_mistake_elem_dict(mistake: Mistake) -> dict[str, NamedElement | list[NamedElement]]:
+    """
+    Return a dict of mistake detection format to mistake elements.
+    """
+    mdf_items_to_elems = {}
+    mdf: MistakeDetectionFormat = mistake.mistakeType.md_format
+    for stud_key, elem in zip(mdf.stud[:-1], mistake.studentElements[:-1]):
+        mdf_items_to_elems[f"stud_{stud_key}"] = elem.element
+    for inst_key, elem in zip(mdf.inst[:-1], mistake.instructorElements[:-1]):
+        mdf_items_to_elems[f"inst_{inst_key}"] = elem.element
+
+    # handle the last element separately
+    if mdf.stud:
+        if mdf.stud[-1].endswith("*"):
+            # varargs: last student element is a list of elements, eg,
+            # mdf = ([A, B, C*], [])
+            # studentElems = [a, b, c1, c2, c3, ...]
+            # want studentElems[2:], which corresponds to the last MDF element (there are 2 elems before C*)
+            # the list() call is to convert OrderedSet to list
+            mdf_items_to_elems[f"stud_{mdf.stud[-1]}"] = [
+                e.element for e in mistake.studentElements[len(mdf.stud) - 1:]]
+        else:
+            # no varargs: last student element is a single element
+            mdf_items_to_elems[f"stud_{mdf.stud[-1]}"] = mistake.studentElements[-1].element
+    if mdf.inst:
+        if mdf.inst[-1].endswith("*"):
+            mdf_items_to_elems[f"inst_{mdf.inst[-1]}"] = [
+                e.element for e in mistake.instructorElements[len(mdf.inst) - 1:]]
+        else:
+            mdf_items_to_elems[f"inst_{mdf.inst[-1]}"] = mistake.instructorElements[-1].element
+    return mdf_items_to_elems
+
+
+def comma_seperated_with_and(elems: list[NamedElement]) -> str:
+    """
+    Return a comma-seperated string of the names of the elements, with "and" before the last element.
+    """
+    if not hasattr(elems, "__getitem__"):
+        warn(f"comma_seperated_with_and(): {elems} is not a sequence, returning elems.name")
+        return getattr(elems, "name", str(elems))
+    if len(elems) == 0:
+        warn("comma_seperated_with_and(): elems is empty, returning empty string")
+        return ""
+    if len(elems) == 1:
+        return elems[0].name
+    if len(elems) == 2:
+        return f"{elems[0].name} and {elems[1].name}"
+    return f"{', '.join(e.name for e in elems[:-1])}, and {elems[-1].name}"
 
 
 def param_valid(param: str, mt: MistakeType = None) -> bool:
