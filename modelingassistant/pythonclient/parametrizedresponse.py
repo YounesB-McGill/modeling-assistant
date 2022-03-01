@@ -130,6 +130,17 @@ def extract_params(pr_text: str) -> list[str]:
     return params
 
 
+def param_parts_before_dot(params: list[str]) -> list[str]:
+    """
+    Return the list defined as
+
+    ```js
+    params.map(param => param.split(".")[0])
+    ```
+    """
+    return [param.split(".")[0] for param in params]
+
+
 def comma_seperated_with_and(elems: list[NamedElement]) -> str:
     """
     Return a comma-seperated string of the names of the elements, with "and" before the last element.

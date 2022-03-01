@@ -18,7 +18,8 @@ from cdmmetatypes import aggr, assoc, assocend, attr, cls, compos, enum, enumite
 from classdiagram import Association, Class
 from corpus import corpus
 from corpus_definition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
-from parametrizedresponse import extract_params, get_mdf_items_to_mistake_elem_dict, parametrize_response, param_valid
+from parametrizedresponse import (extract_params, get_mdf_items_to_mistake_elem_dict, parametrize_response,
+                                  param_parts_before_dot, param_valid)
 from utils import mdf, mt
 from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake, SolutionElement
@@ -151,6 +152,14 @@ def test_extract_params():
     assert extract_params("Example with one ${stud_aggr}") == ["stud_aggr"]
     assert extract_params("Example ${stud_cls} and ${stud_compos.end1.cls} and even ${inst_assoc.cls*}.") == [
         "stud_cls", "stud_compos.end1.cls", "inst_assoc.cls*"]
+
+
+def test_param_parts_before_dot():
+    "Test param_parts_before_dot() helper function."
+    assert param_parts_before_dot([]) == []
+    assert param_parts_before_dot(["stud_cls"]) == ["stud_cls"]
+    assert param_parts_before_dot(
+        ["stud_cls", "stud_attr.cls", "stud_compos.end1.cls"]) == ["stud_cls", "stud_attr", "stud_compos"]
 
 
 def get_all_pr_parameters() -> dict[str, MistakeType]:
