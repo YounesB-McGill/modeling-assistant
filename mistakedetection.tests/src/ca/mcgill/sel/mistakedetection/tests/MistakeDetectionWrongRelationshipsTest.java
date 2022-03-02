@@ -3221,7 +3221,7 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var studDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false).log();
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());

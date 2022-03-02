@@ -776,7 +776,6 @@ public class MistakeDetection {
         return;
       }
       if (!comparison.mappedEnumerations.containsKey(instEnum)) {
-        System.out.println("3");
         addEnumsToMap(instEnum, studEnum, comparison);
         mapEnumLiterals(instEnum, studEnum, comparison);
       }
@@ -1560,20 +1559,20 @@ public class MistakeDetection {
       if (comparison.mappedClassifiers.containsKey(instAssocClass)) {
         comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS,
             comparison.mappedClassifiers.get(instAssocClass), instAssocClass));
-        comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
-        comparison.notMappedInstructorClassifiers.add(instAssocClass);
-        comparison.assocClassifiersToRemove.add(instAssocClass);
+       // comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
+       // comparison.notMappedInstructorClassifiers.add(instAssocClass);
+       // comparison.assocClassifiersToRemove.add(instAssocClass);
       }
     }
     if (studentClassifierAssoc.getAssociationClass() != null
         && instructorClassifierAssoc.getAssociationClass() == null) {
       Classifier studAssocClass = studentClassifierAssoc.getAssociationClass();
       if (comparison.mappedClassifiers.containsValue(studAssocClass)) {
-        comparison.extraStudentClassifiers.add(studAssocClass);
+       // comparison.extraStudentClassifiers.add(studAssocClass);
         comparison.mappedClassifiers.forEach((key, value) -> {
           if (value.equals(studAssocClass)) {
-            comparison.notMappedInstructorClassifiers.add(key);
-            comparison.assocClassifiersToRemove.add(key);
+           // comparison.notMappedInstructorClassifiers.add(key);
+          //  comparison.assocClassifiersToRemove.add(key);
             comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS, studAssocClass, key));
             return;
           }

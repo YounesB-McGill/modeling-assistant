@@ -1368,8 +1368,8 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertTrue(comparison.extraStudentClassifiers.contains(studentCompanyClass));
-    assertTrue(comparison.notMappedInstructorClassifiers.contains(instructorCompanyClass));
+    assertFalse(comparison.extraStudentClassifiers.contains(studentCompanyClass));
+    assertFalse(comparison.notMappedInstructorClassifiers.contains(instructorCompanyClass));
   }
 
   /**
@@ -1564,7 +1564,7 @@ public class MistakeDetectionWrongClassTest {
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(studentCompanyClass, comparison.mappedClassifiers.get(instructorBusPassClass));
-    assertTrue(comparison.notMappedInstructorClassifiers.contains(instructorCompanyClass));
+    assertFalse(comparison.notMappedInstructorClassifiers.contains(instructorCompanyClass));
   }
 
   /**
