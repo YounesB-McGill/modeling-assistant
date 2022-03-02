@@ -2,6 +2,8 @@ package ca.mcgill.sel.mistakedetection;
 
 import static ca.mcgill.sel.mistakedetection.MistakeDetectionConfig.trackComparisonInstances;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -196,9 +198,11 @@ public class Comparison {
       sb.append(c.getName() + " ");
     }
 
+    var sortedList = getSortedMistakeList(newMistakes);
+
     sb.append("\n");
     sb.append("Total Mistakes: "+ newMistakes.size() +"\nMistakes: \n");
-    newMistakes.forEach(m -> {
+    sortedList.forEach(m -> {
       if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
         sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
         m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
@@ -218,6 +222,16 @@ public class Comparison {
       }
     });
     return sb.toString();
+  }
+
+  public static List<Mistake> getSortedMistakeList(List<Mistake> mistakes){
+    Collections.sort(mistakes, new Comparator<Mistake>() {
+      @Override
+      public int compare(Mistake m1, Mistake m2){
+        return m1.getMistakeType().getName().compareTo(m2.getMistakeType().getName());
+     }
+    });
+    return mistakes;
   }
 
 }

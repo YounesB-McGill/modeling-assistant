@@ -1714,10 +1714,10 @@ public class MistakeDetection {
           comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY,
               List.of(otherStudentClassAssocEnd, studentClassAssocEnd), null));
         }
-      } else if (studClassAssocEndLowerBound >= 1) {
+      } else if (studClassAssocEndLowerBound >= 1 && studentClassAssocEnd.isNavigable()) {
         comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY,
             studentClassAssocEnd, null));
-      } else if (otherStudClassAssocEndLowerBound >= 1) {
+      } else if (otherStudClassAssocEndLowerBound >= 1 && otherStudentClassAssocEnd.isNavigable()) {
         comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY,
             otherStudentClassAssocEnd, null));
       }
@@ -1735,7 +1735,7 @@ public class MistakeDetection {
             return true;
           }
         }
-      } else if (mistake.getMistakeType().equals(mistakeType) && !mistake.getInstructorElements().isEmpty()) {
+      } if (mistake.getMistakeType().equals(mistakeType) && !mistake.getInstructorElements().isEmpty()) {
         for (var element : mistake.getInstructorElements()) {
           if (element.getElement().equals(NamedElement)) {
             return true;
@@ -2755,14 +2755,12 @@ public class MistakeDetection {
     for (Association association : comparison.notMappedInstructorAssociations) {
       checkMistakeAttributeInsteadOfAssociation(association, comparison);
       if (association.getEnds().get(0).getReferenceType().equals(COMPOSITION)) {
-        if (!isMistakeExist(INCOMPLETE_CONTAINMENT_TREE,
-            comparison.mappedClassifiers.get(association.getEnds().get(0).getClassifier()), comparison)) {
+        if (!isIncompleteContainmentMistakeExists(association, comparison)) {
           comparison.newMistakes
               .add(createMistake(MISSING_COMPOSITION, null, getAssociationElements(association.getEnds().get(0))));
         }
       } else if (association.getEnds().get(1).getReferenceType().equals(COMPOSITION)) {
-        if (!isMistakeExist(INCOMPLETE_CONTAINMENT_TREE,
-            comparison.mappedClassifiers.get(association.getEnds().get(1).getClassifier()), comparison)) {
+        if (!isIncompleteContainmentMistakeExists(association, comparison)) {
           comparison.newMistakes
               .add(createMistake(MISSING_COMPOSITION, null, getAssociationElements(association.getEnds().get(1))));
         }
@@ -2781,6 +2779,12 @@ public class MistakeDetection {
             .add(createMistake(MISSING_ASSOC_CLASS, null, List.of(association, association.getAssociationClass())));
       }
     }
+  }
+
+  private static boolean isIncompleteContainmentMistakeExists(Association association, Comparison comparison) {
+    return (isMistakeExist(INCOMPLETE_CONTAINMENT_TREE, comparison.mappedClassifiers.get(association.getEnds().get(0).getClassifier()), comparison)
+        || isMistakeExist(INCOMPLETE_CONTAINMENT_TREE, comparison.mappedClassifiers.get(association.getEnds().get(1).getClassifier()), comparison));
+
   }
 
   private static void checkMistakeAttributeInsteadOfAssociation(Association association, Comparison comparison) {
