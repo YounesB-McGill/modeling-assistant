@@ -2025,7 +2025,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var association =
         getAssocAggCompFromClassDiagram(instructorRootClass, instructorAirplaneClass, instructorClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false).log();
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());

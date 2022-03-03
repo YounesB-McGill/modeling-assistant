@@ -875,21 +875,49 @@ public class MistakeDetection {
     int matchedElements = 0;
     for (Tag tag : tg.getTags()) {
       if (comparison.mappedClassifiers.containsKey(tag.getSolutionElement().getElement())) {
-        if (tag.getTagType().equals(ABSTRACTION)
-            && comparison.mappedClassifiers.get(tag.getSolutionElement().getElement()).isAbstract()
-            || tag.getTagType().equals(OCCURRENCE)) {
           matchedElements++;
-        }
       }
       totalMatchesExpected.add(tag.getSolutionElement().getElement());
     }
     if (matchedElements == 0 && !totalMatchesExpected.isEmpty()) {
       comparison.newMistakes.add(createMistake(MISSING_AO_PATTERN, null, totalMatchesExpected));
     } else if (matchedElements != 0 && totalMatchesExpected.size() == matchedElements) {
+      if (!isAssociationInAO(tg, comparison)) {
+        createMistakeIncompleteAOPattern(tg, comparison);
+      }
       checkMistakeGenInsteadOfAssocInAOPattern(tg, comparison);
     } else if (matchedElements != 0 && totalMatchesExpected.size() != matchedElements) {
       createMistakeIncompleteAOPattern(tg, comparison);
     }
+  }
+
+  private static boolean isAssociationInAO(TagGroup tg, Comparison comparison) {
+   NamedElement abstraction = null;
+   List< NamedElement> occurences = new ArrayList<>();
+   for(Tag t : tg.getTags()){
+     if(t.getTagType().equals(ABSTRACTION)) {
+       abstraction = t.getSolutionElement().getElement();
+     } else {
+       occurences.add(t.getSolutionElement().getElement());
+     }
+   }
+   if (abstraction == null|| occurences == null) {
+     return false;
+   }
+   return containsAssociation(abstraction, occurences, comparison);
+  }
+
+  private static boolean containsAssociation(NamedElement abstraction, List<NamedElement> occurences,
+      Comparison comparison) {
+    for (var occ : occurences) {
+      for (var assoc : comparison.notMappedInstructorAssociations) {
+        if ((assoc.getEnds().get(0).equals(occ) && assoc.getEnds().get(1).equals(abstraction))
+            || (assoc.getEnds().get(1).equals(occ) && assoc.getEnds().get(0).equals(abstraction))) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   private static void checkMistakeGenInsteadOfAssocInAOPattern(TagGroup tg, Comparison comparison) {
@@ -1476,13 +1504,25 @@ public class MistakeDetection {
         }
       }
       if (!possibleAssocMatch.isEmpty()) {
-        var values = getMatchedAssoc(possibleAssocMatch);
-        mapAssociation(comparison, instructorClassifierAssoc, (Association) values.get(0));
-        detectMistakeInAssoc(comparison, (Association) values.get(0), instructorClassifierAssoc,
-            (AssociationEnd) values.get(1), (AssociationEnd) values.get(2), (AssociationEnd) values.get(3),
-            (AssociationEnd) values.get(4));
+        Association studAssoc = getMatchedAssoc(possibleAssocMatch);
+        mapAssociation(comparison, instructorClassifierAssoc, studAssoc);
+        var instAssocEnd = instructorClassifierAssoc.getEnds().get(0);
+        var studAssocEnd = getStudentAssocEnd(instAssocEnd, studAssoc, comparison);
+        var otherInstAssocEnd = instructorClassifierAssoc.getEnds().get(1);
+        var otherStudAssocEnd = getStudentAssocEnd(otherInstAssocEnd, studAssoc, comparison);
+        detectMistakeInAssoc(comparison, studAssoc, instructorClassifierAssoc,
+            studAssocEnd, instAssocEnd, otherStudAssocEnd,
+            otherInstAssocEnd);
       }
     }
+  }
+
+  private static AssociationEnd getStudentAssocEnd(AssociationEnd instAssocEnd, Association assoc, Comparison comparison) {
+    var studAssocEnd = assoc.getEnds().get(0);
+    if (!studAssocEnd.getClassifier().equals(comparison.mappedClassifiers.get(instAssocEnd.getClassifier()))){
+      studAssocEnd = assoc.getEnds().get(1);
+    }
+    return studAssocEnd;
   }
 
   public static AssociationEnd getOtherAssocEnd(AssociationEnd assocEnd) {
@@ -1508,11 +1548,10 @@ public class MistakeDetection {
       otherStudentClassifierAssocEnd = studentClassifierAssocEnd;
       studentClassifierAssocEnd = temp;
     }
-
     checkAssociationClassMapping(comparison, studentClassifierAssoc, instructorClassifierAssoc);
 
     if (!checkStudentElementForMistake(comparison.newMistakes, studentClassifierAssoc)) {
-      checkMistakeExtraAssociationClass(studentClassifierAssoc, instructorClassifierAssoc, comparison.newMistakes);
+      checkMistakeExtraAssociationClass(studentClassifierAssoc, instructorClassifierAssoc, comparison);
 
       if (studentClassifierAssoc.getAssociationClass() != null
           && instructorClassifierAssoc.getAssociationClass() != null) {
@@ -1522,7 +1561,7 @@ public class MistakeDetection {
     }
 
     if (!checkInstructorElementForMistake(comparison.newMistakes, instructorClassifierAssoc)) {
-      checkMistakeMissingAssociationClass(studentClassifierAssoc, instructorClassifierAssoc, comparison.newMistakes);
+      checkMistakeMissingAssociationClass(studentClassifierAssoc, instructorClassifierAssoc, comparison);
     }
     if (!checkInstructorElementForMistake(comparison.newMistakes, instructorClassifierAssocEnd)) {
       checkMistakesForAssociationEnds(studentClassifierAssocEnd, instructorClassifierAssocEnd, comparison);
@@ -1601,8 +1640,8 @@ public class MistakeDetection {
     comparison.extraStudentAssociations.remove(studentClassifierAssoc);
   }
 
-  private static List<Object> getMatchedAssoc(Map<Association, List<AssociationEnd>> possibleAssocMatch) {
-    List<Object> seekedAssocAndEnds = new ArrayList<>();
+  private static Association getMatchedAssoc(Map<Association, List<AssociationEnd>> possibleAssocMatch) {
+
     // use linked hash map to preserve insertion order
     Map<Association, Double> assocScoreMap = new LinkedHashMap<Association, Double>();
     for (var entry : possibleAssocMatch.entrySet()) {
@@ -1632,13 +1671,8 @@ public class MistakeDetection {
       assocScoreMap.put(entry.getKey(), score);
     } ;
     var matchedAssoc = maxAssociationMatch(assocScoreMap);
-    for (var entry : possibleAssocMatch.entrySet()) {
-      if (entry.getKey() == matchedAssoc.get(0)) {
-        seekedAssocAndEnds.addAll(List.of(entry.getKey(), entry.getValue().get(0), entry.getValue().get(1),
-            entry.getValue().get(2), entry.getValue().get(3)));
-      }
-    }
-    return seekedAssocAndEnds;
+
+    return matchedAssoc.get(0);
   }
 
   private static void checkMistakesForAssociationEnds(AssociationEnd studentClassAssocEnd,
@@ -2446,7 +2480,7 @@ public class MistakeDetection {
 
   /** Returns association, association end and other association end in order. */
   public static List<NamedElement> getAssociationElements(AssociationEnd assocEnd){
-    return List.of(assocEnd.getAssoc(), assocEnd, getOtherAssocEnd(assocEnd));
+    return List.of(assocEnd.getAssoc(), getOtherAssocEnd(assocEnd), assocEnd);
   }
 
   public static Optional<Mistake> checkMistakeUsingAssociationInsteadOfComposition(AssociationEnd studentClassAssocEnd,
@@ -2623,30 +2657,34 @@ public class MistakeDetection {
   }
 
   public static void checkMistakeMissingAssociationClass(Association studentClassAssoc,
-      Association instructorClassAssoc, List<Mistake> newMistakes) {
+      Association instructorClassAssoc, Comparison comparison) {
     if (isAssociationClassMissing(studentClassAssoc, instructorClassAssoc)) {
-      for (Mistake m : mistakeForElement(instructorClassAssoc.getAssociationClass(), newMistakes)) {
+      for (Mistake m : mistakeForElement(instructorClassAssoc.getAssociationClass(), comparison.newMistakes)) {
         if (m.getMistakeType().equals(CLASS_SHOULD_BE_ASSOC_CLASS)) {
           return;
         }
       }
-      removeMistakesRelatedToElement(instructorClassAssoc.getAssociationClass(), newMistakes);
-      newMistakes.add(createMistake(MISSING_ASSOC_CLASS, null,
-          List.of(instructorClassAssoc, instructorClassAssoc.getAssociationClass())));
+      if (!comparison.mappedClassifiers.containsValue(instructorClassAssoc.getAssociationClass())) {
+        removeMistakesRelatedToElement(instructorClassAssoc.getAssociationClass(), comparison.newMistakes);
+        comparison.newMistakes.add(createMistake(MISSING_ASSOC_CLASS, null,
+            List.of(instructorClassAssoc, instructorClassAssoc.getAssociationClass())));
+      }
     }
   }
 
   public static void checkMistakeExtraAssociationClass(Association studentClassAssoc, Association instructorClassAssoc,
-      List<Mistake> newMistakes) {
+      Comparison comparison) {
     if (isAssociationClassExtra(studentClassAssoc, instructorClassAssoc)) {
-      for (Mistake m : mistakeForElement(studentClassAssoc.getAssociationClass(), newMistakes)) {
+      for (Mistake m : mistakeForElement(studentClassAssoc.getAssociationClass(), comparison.newMistakes)) {
         if (m.getMistakeType().equals(ASSOC_CLASS_SHOULD_BE_CLASS)) {
           return;
         }
       }
-      removeMistakesRelatedToElement(studentClassAssoc.getAssociationClass(), newMistakes);
-      newMistakes.add(createMistake(EXTRA_ASSOC_CLASS, List.of(studentClassAssoc, studentClassAssoc.getAssociationClass()),
-          null));
+      if (!comparison.mappedClassifiers.containsValue(studentClassAssoc.getAssociationClass())) {
+        removeMistakesRelatedToElement(studentClassAssoc.getAssociationClass(), comparison.newMistakes);
+        comparison.newMistakes.add(createMistake(EXTRA_ASSOC_CLASS,
+            List.of(studentClassAssoc, studentClassAssoc.getAssociationClass()), null));
+      }
     }
 
   }
@@ -2667,8 +2705,10 @@ public class MistakeDetection {
 
   private static boolean mistakeForElementExists(NamedElement cls, List<Mistake> newMistakes) {
     for (Mistake m : newMistakes) {
-      if ((!m.getInstructorElements().isEmpty() && m.getInstructorElements().get(0).getElement().equals(cls))
-          || (!m.getStudentElements().isEmpty() && m.getStudentElements().get(0).getElement().equals(cls))) {
+      if ((!m.getInstructorElements().isEmpty() && (m.getInstructorElements().get(0).getElement().equals(cls)
+          || (m.getInstructorElements().size() > 1 && (m.getInstructorElements().get(1).getElement().equals(cls)))))
+          || (!m.getStudentElements().isEmpty() && m.getStudentElements().get(0).getElement().equals(cls)
+          || (m.getStudentElements().size() > 1 && (m.getStudentElements().get(1).getElement().equals(cls))))) {
         return true;
       }
     }
@@ -2773,7 +2813,7 @@ public class MistakeDetection {
       } else {
         comparison.newMistakes.add(createMistake(MISSING_ASSOCIATION, null, association));
       }
-      if (association.getAssociationClass() != null) {
+      if (association.getAssociationClass() != null && !comparison.mappedClassifiers.containsKey(association.getAssociationClass())) {
         removeMistakesRelatedToElement(association.getAssociationClass(), comparison.newMistakes);
         comparison.newMistakes
             .add(createMistake(MISSING_ASSOC_CLASS, null, List.of(association, association.getAssociationClass())));
@@ -2797,13 +2837,15 @@ public class MistakeDetection {
       var studClassTwoAttrib = otherAssocEndStudClass.getAttributes();
 
       for (var attrib : studClassOneAttrib) {
+        if(!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison))
         if (attrib.getName().toLowerCase().equals(assocEnds.get(0).getClassifier().getName().toLowerCase())) {
           comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(0)));
         }
       }
       for (var attrib : studClassTwoAttrib) {
-        if (attrib.getName().toLowerCase().equals(assocEnds.get(0).getClassifier().getName().toLowerCase())) {
-          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(0)));
+        if(!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison))
+        if (attrib.getName().toLowerCase().equals(assocEnds.get(1).getClassifier().getName().toLowerCase())) {
+          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(1)));
         }
       }
     }
@@ -2811,22 +2853,38 @@ public class MistakeDetection {
     else if (assocEndStudClass == null && otherAssocEndStudClass != null) {
       var studClassTwoAttrib = otherAssocEndStudClass.getAttributes();
       for (var attrib : studClassTwoAttrib) {
-        if (comparison.notMappedInstructorClassifiers.stream()
-            .anyMatch(c -> c.getName().toLowerCase().equals(attrib.getName().toLowerCase()))) {
-          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(1)));
-        }
+        if (!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison))
+          for (var c : comparison.notMappedInstructorClassifiers) {
+            var cName = c.getName().toLowerCase();
+            if (cName.equals(attrib.getName().toLowerCase()) && isAssociationLinkedToClass(association, c)) {
+              var assocEnd = assocEnds.get(0);
+              if (!assocEnd.getClassifier().getName().toLowerCase().equals(cName))
+                assocEnd = assocEnds.get(1);
+
+              comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnd));            }
+          }
       }
     }
 
     else if (assocEndStudClass != null && otherAssocEndStudClass == null) {
       var studClassOneAttrib = assocEndStudClass.getAttributes();
       for (var attrib : studClassOneAttrib) {
-        if (comparison.notMappedInstructorClassifiers.stream()
-            .anyMatch(c -> c.getName().toLowerCase().equals(attrib.getName().toLowerCase()))) {
-          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(0)));
-        }
+        if(!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison))
+          for (var c : comparison.notMappedInstructorClassifiers) {
+            var cName = c.getName().toLowerCase();
+            if (cName.equals(attrib.getName().toLowerCase())&& isAssociationLinkedToClass(association, c)) {
+              var assocEnd = assocEnds.get(0);
+              if (!assocEnd.getClassifier().getName().toLowerCase().equals(cName))
+                assocEnd = assocEnds.get(1);
+
+              comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnd));            }
+          }
       }
     }
+  }
+
+  private static boolean isAssociationLinkedToClass(Association association, Classifier c) {
+    return association.getEnds().stream().anyMatch(ae -> ae.getClassifier().equals(c));
   }
 
   public static void checkMistakeExtraAssociationCompositionAggregation(Comparison comparison) {
@@ -2846,7 +2904,7 @@ public class MistakeDetection {
       } else {
         comparison.newMistakes.add(createMistake(EXTRA_ASSOCIATION, association, null));
       }
-      if (association.getAssociationClass() != null) {
+      if (association.getAssociationClass() != null && !comparison.mappedClassifiers.containsValue(association.getAssociationClass())) {
         removeMistakesRelatedToElement(association.getAssociationClass(), comparison.newMistakes);
         comparison.newMistakes
             .add(createMistake(EXTRA_ASSOC_CLASS, List.of(association, association.getAssociationClass()), null));
