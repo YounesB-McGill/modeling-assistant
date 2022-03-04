@@ -1508,8 +1508,8 @@ public class MistakeDetection {
         mapAssociation(comparison, instructorClassifierAssoc, studAssoc);
         var instAssocEnd = instructorClassifierAssoc.getEnds().get(0);
         var studAssocEnd = getStudentAssocEnd(instAssocEnd, studAssoc, comparison);
-        var otherInstAssocEnd = instructorClassifierAssoc.getEnds().get(1);
-        var otherStudAssocEnd = getStudentAssocEnd(otherInstAssocEnd, studAssoc, comparison);
+        var otherInstAssocEnd = getOtherAssocEnd(instAssocEnd);
+        var otherStudAssocEnd = getOtherAssocEnd(studAssocEnd);
         detectMistakeInAssoc(comparison, studAssoc, instructorClassifierAssoc,
             studAssocEnd, instAssocEnd, otherStudAssocEnd,
             otherInstAssocEnd);
@@ -2860,8 +2860,8 @@ public class MistakeDetection {
       }
       for (var attrib : studClassTwoAttrib) {
         if(!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison))
-        if (attrib.getName().toLowerCase().equals(assocEnds.get(1).getClassifier().getName().toLowerCase())) {
-          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(1)));
+        if (attrib.getName().toLowerCase().equals(assocEnds.get(0).getClassifier().getName().toLowerCase())) {
+          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(0)));
         }
       }
     }
@@ -2874,7 +2874,7 @@ public class MistakeDetection {
             var cName = c.getName().toLowerCase();
             if (cName.equals(attrib.getName().toLowerCase()) && isAssociationLinkedToClass(association, c)) {
               var assocEnd = assocEnds.get(0);
-              if (!assocEnd.getClassifier().getName().toLowerCase().equals(cName))
+              if (assocEnds.get(1).getClassifier().getName().toLowerCase().equals(cName))
                 assocEnd = assocEnds.get(1);
 
               comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnd));            }
@@ -2890,7 +2890,7 @@ public class MistakeDetection {
             var cName = c.getName().toLowerCase();
             if (cName.equals(attrib.getName().toLowerCase())&& isAssociationLinkedToClass(association, c)) {
               var assocEnd = assocEnds.get(0);
-              if (!assocEnd.getClassifier().getName().toLowerCase().equals(cName))
+              if (assocEnds.get(1).getClassifier().getName().toLowerCase().equals(cName))
                 assocEnd = assocEnds.get(1);
 
               comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnd));            }

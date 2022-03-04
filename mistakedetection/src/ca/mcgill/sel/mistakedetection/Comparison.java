@@ -81,15 +81,23 @@ public class Comparison {
   }
 
   /**
+   * Function to print the mapped, unmapped classifier or attributes in ascending order of mistake types.
+   */
+  public Comparison sortedLog() {
+    System.out.println(getLog(true));
+    return this;
+  }
+
+  /**
    * Function to print the mapped, unmapped classifier or attributes.
    */
   public Comparison log() {
-    System.out.println(getLog());
+    System.out.println(getLog(false));
     return this;
   }
 
   /** Returns the comparison log as a string. */
-  public String getLog() {
+  public String getLog(boolean sort) {
     var sb = new StringBuilder();
     sb.append("\n");
     sb.append("-----Comparison Log-----\n");
@@ -198,7 +206,9 @@ public class Comparison {
       sb.append(c.getName() + " ");
     }
 
-    var sortedList = getSortedMistakeList(newMistakes);
+    var sortedList =  newMistakes;
+    if(sort)
+      sortedList = getSortedMistakeList(newMistakes);
 
     sb.append("\n");
     sb.append("Total Mistakes: "+ newMistakes.size() +"\nMistakes: \n");

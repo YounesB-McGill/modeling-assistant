@@ -3,7 +3,7 @@
   <classes xsi:type="classdiagram:Class" xmi:id="_K_I98O0pEeus8tKl7Xc0wQ" name="Root">
     <associationEnds xmi:id="_RQTaAO0pEeus8tKl7Xc0wQ" name="myAccountType" assoc="_RQTaAe0pEeus8tKl7Xc0wQ" lowerBound="1" referenceType="Composition"/>
   </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="_LubF0O0pEeus8tKl7Xc0wQ" name="AccountType">
+  <classes xsi:type="classdiagram:Class" xmi:id="_LubF0O0pEeus8tKl7Xc0wQ" name="Account">
     <associationEnds xmi:id="_RQSy8O0pEeus8tKl7Xc0wQ" name="myRoot" assoc="_RQTaAe0pEeus8tKl7Xc0wQ" lowerBound="1"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_M_sgcO0pEeus8tKl7Xc0wQ" name="CheckingAccount" superTypes="_LubF0O0pEeus8tKl7Xc0wQ"/>
@@ -31,7 +31,7 @@
         <value xmi:id="_M_vjwe0pEeus8tKl7Xc0wQ" x="648.99976" y="422.99994"/>
       </value>
       <value xmi:id="_OQ-iIO0pEeus8tKl7Xc0wQ" key="_OQ6QsO0pEeus8tKl7Xc0wQ">
-        <value xmi:id="_OQ-iIe0pEeus8tKl7Xc0wQ" x="963.0" y="377.00006"/>
+        <value xmi:id="_OQ-iIe0pEeus8tKl7Xc0wQ" x="987.99976" y="422.99994"/>
       </value>
     </containers>
   </layout>

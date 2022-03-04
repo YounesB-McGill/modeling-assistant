@@ -264,7 +264,7 @@ public class MistakeDetectionTest {
   @Test
   public void testCheckMappingWithMultiDiffNames() {
     var instructorClassDiagram = cdmFromFile(
-        "../mistakedetection/testModels/InstructorSolution/two(withAttributes)/Class Diagram/Two(withAttributes).domain_model.cdm");
+        "../mistakedetection/testModels/InstructorSolution/two(withAttributes)_diffClassNames/Class Diagram/Two(withAttributes).domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram = cdmFromFile(
@@ -277,7 +277,7 @@ public class MistakeDetectionTest {
 
     Attribute instructorBusClassAttributeCapacity = getAttributeFromClass("capacity", instructorBusClass);
     Attribute instructorBusClassAttributeNumberPlate = getAttributeFromClass("numberPlate", instructorBusClass);
-    Attribute instructorDriverClassAttributeName = getAttributeFromClass("name", instructorDriverClass);
+    Attribute instructorDriverClassAttributeName = getAttributeFromClass("ID", instructorDriverClass);
     Attribute instructorPassengerClassAttributeName = getAttributeFromClass("name", instructorPassengerClass);
 
     Classifier studentVehicleClass = getClassFromClassDiagram("Vehicle", studentClassDiagram);
@@ -286,7 +286,7 @@ public class MistakeDetectionTest {
 
     Attribute studentVehicleClassAttributeCapacity = getAttributeFromClass("capacity", studentVehicleClass);
     Attribute studentVehicleClassAttributeNumberPlate = getAttributeFromClass("numberPlate", studentVehicleClass);
-    Attribute studentPilotClassAttributeName = getAttributeFromClass("name", studentPilotClass);
+    Attribute studentPilotClassAttributeName = getAttributeFromClass("ID", studentPilotClass);
     Attribute studentCustomerClassAttributeName = getAttributeFromClass("name", studentCustomerClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
@@ -311,8 +311,8 @@ public class MistakeDetectionTest {
         studentVehicleClassAttributeNumberPlate);
     assertEquals(comparison.mappedAttributes.get(instructorDriverClassAttributeName), studentPilotClassAttributeName);
 
-    assertEquals(comparison.newMistakes.size(), 4); // 3 + Incomplete Containment tree
-    assertEquals(studentSolution.getMistakes().size(), 4);
+    assertEquals(comparison.newMistakes.size(), 5); // 4 + Incomplete Containment tree
+    assertEquals(studentSolution.getMistakes().size(), 5);
   }
 
   /**
@@ -352,8 +352,10 @@ public class MistakeDetectionTest {
     studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-
-    assertMistakeTypes(comparison.newMistakes, INCOMPLETE_CONTAINMENT_TREE, MISSING_COMPOSITION);
+    //Current Update: If a class is not contained then only Incomplete_containement_tree mistake will be given
+    // assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, INCOMPLETE_CONTAINMENT_TREE);
+    //assertMistakeTypes(comparison.newMistakes, INCOMPLETE_CONTAINMENT_TREE, MISSING_COMPOSITION);
+    assertMistakeTypes(comparison.newMistakes, INCOMPLETE_CONTAINMENT_TREE);
   }
 
   @Test
@@ -366,6 +368,7 @@ public class MistakeDetectionTest {
       var studentSolution = ma.getSolutions().stream().filter(sol -> sol.getStudent() != null).findFirst().get();
 
       var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
       assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, MISSING_CLASS);
       assertNotNull(ma.toEcoreString());
 
@@ -379,7 +382,9 @@ public class MistakeDetectionTest {
 
       comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-      assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, INCOMPLETE_CONTAINMENT_TREE);
+     //Current Update: If a class is not contained then only Incomplete_containement_tree mistake will be given
+     // assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, INCOMPLETE_CONTAINMENT_TREE);
+      assertMistakeTypes(comparison.newMistakes, INCOMPLETE_CONTAINMENT_TREE);
       assertNotNull(ma.toEcoreString());
     } catch (IOException e) {
       fail();

@@ -12,7 +12,7 @@
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_AJPP8HXLEeuY_PpV95KZPg" name="Pilot">
     <associationEnds xmi:id="_CqpcwXXLEeuY_PpV95KZPg" name="myBus" assoc="_CqpcwnXLEeuY_PpV95KZPg" lowerBound="1"/>
-    <attributes xmi:id="_BU6_8HXLEeuY_PpV95KZPg" name="name" type="_6eqSx3XKEeuY_PpV95KZPg"/>
+    <attributes xmi:id="_BU6_8HXLEeuY_PpV95KZPg" name="ID" type="_6eqSx3XKEeuY_PpV95KZPg"/>
   </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_6eqSwXXKEeuY_PpV95KZPg"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_6eqSwnXKEeuY_PpV95KZPg"/>
