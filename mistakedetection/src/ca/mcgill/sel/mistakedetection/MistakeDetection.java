@@ -1625,12 +1625,25 @@ public class MistakeDetection {
       if (instAssoc.getAssociationClass() != null
           && comparison.mappedClassifiers.containsKey(instAssoc.getAssociationClass())) {
         Classifier instAssocClass = instAssoc.getAssociationClass();
-        comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
-        comparison.notMappedInstructorClassifiers.add(instAssocClass);
-        comparison.assocClassifiersToRemove.add(instAssocClass);
+        comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS,
+            comparison.mappedClassifiers.get(instAssocClass), instAssocClass));
+        // comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
+        // comparison.notMappedInstructorClassifiers.add(instAssocClass);
+        // comparison.assocClassifiersToRemove.add(instAssocClass);
       }
     }
 
+    for (Association studAssoc : comparison.extraStudentAssociations) {
+      if (studAssoc.getAssociationClass() != null
+          && comparison.mappedClassifiers.containsValue(studAssoc.getAssociationClass())) {
+        Classifier studAssocClass = studAssoc.getAssociationClass();
+        comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS, studAssocClass,
+            getKey(comparison.mappedClassifiers, studAssocClass)));
+        // comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
+        // comparison.notMappedInstructorClassifiers.add(instAssocClass);
+        // comparison.assocClassifiersToRemove.add(instAssocClass);
+      }
+    }
   }
 
   private static void mapAssociation(Comparison comparison, Association instructorClassifierAssoc,
@@ -1739,8 +1752,9 @@ public class MistakeDetection {
     var otherStudClassAssocEndLowerBound = otherStudentClassAssocEnd.getLowerBound();
 
     if (!isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, studentClassAssocEnd, comparison)
-        && !isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, otherStudentClassAssocEnd, comparison)){
-      if(studClassAssocEndLowerBound >= 1 && otherStudClassAssocEndLowerBound >= 1) {
+        && !isMistakeExist(INFINITE_RECURSIVE_DEPENDENCY, otherStudentClassAssocEnd, comparison)) {
+      if (studClassAssocEndLowerBound >= 1 && otherStudClassAssocEndLowerBound >= 1
+          && otherStudentClassAssocEnd.isNavigable() && studentClassAssocEnd.isNavigable()) {
         if (otherStudClassAssocEndLowerBound > studClassAssocEndLowerBound) {
           comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY,
               List.of(studentClassAssocEnd, otherStudentClassAssocEnd), null));
@@ -1979,10 +1993,11 @@ public class MistakeDetection {
   private static void updateMistakesInvolvingPattern(List<Mistake> newMistakes, List<MistakeType> patternMistakeTypes,
       Solution studentSolution) {
     HashSet<Mistake> newMistakesToRemove = new HashSet<>();
+    var exemptMistrakes = List.of(EXTRA_ATTRIBUTE, MISSING_ATTRIBUTE, INCOMPLETE_CONTAINMENT_TREE);
     var patternInstructorElement = getPatternInstructorElements(newMistakes, patternMistakeTypes);
     var patternStudentElement = getPatternStudentrElements(newMistakes, patternMistakeTypes);
     for (Mistake newMistake : newMistakes) {
-      if (!(newMistake.getMistakeType().equals(EXTRA_ATTRIBUTE) || newMistake.getMistakeType().equals(MISSING_ATTRIBUTE))) {
+      if (!(exemptMistrakes.contains(newMistake.getMistakeType()))) {
         if (!newMistake.getInstructorElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
             && patternInstructorElement.contains(newMistake.getInstructorElements().get(0).getElement())) {
           newMistakesToRemove.add(newMistake);
@@ -2179,6 +2194,7 @@ public class MistakeDetection {
         if (totalAttributes == 0) {
           continue;
         }
+
         if (!possibleClassMatch.isEmpty() && nearestMatchExists(possibleClassMatch)) {
           Classifier studentClassifier = getMatchedClassifier(possibleClassMatch, instructorClassifier);
           counter++;
