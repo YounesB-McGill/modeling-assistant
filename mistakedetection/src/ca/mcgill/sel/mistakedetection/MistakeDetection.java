@@ -1710,7 +1710,9 @@ public class MistakeDetection {
       checkMistakeOtherWrongMultiplicity(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
       checkMistakeMissingRoleName(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
       checkMistakeRoleNamePresentButIncorrect(studentClassAssocEnd, instructorClassAssocEnd,comparison).ifPresent(addMist);
+      if (!isMistakeExist(REPRESENTING_ACTION_WITH_ASSOC, studentClassAssocEnd, comparison)) {
       checkMistakeBadRoleNameSpelling(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+      }
     }
   }
 
