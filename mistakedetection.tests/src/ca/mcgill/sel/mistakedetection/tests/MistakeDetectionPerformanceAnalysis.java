@@ -216,7 +216,7 @@ public class MistakeDetectionPerformanceAnalysis {
   }
 
   @Test
-  public void testStudentSolution() {
+  public void testStudentSolution20() {
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/realModels/studentSolution/studentDomainModel_G17_25/Class Diagram/StudentDomainModel.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);

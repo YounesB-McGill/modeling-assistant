@@ -882,10 +882,11 @@ public class MistakeDetection {
     if (matchedElements == 0 && !totalMatchesExpected.isEmpty()) {
       comparison.newMistakes.add(createMistake(MISSING_AO_PATTERN, null, totalMatchesExpected));
     } else if (matchedElements != 0 && totalMatchesExpected.size() == matchedElements) {
-      if (!isAssociationInAO(tg, comparison)) {
+      checkMistakeGenInsteadOfAssocInAOPattern(tg, comparison);
+      if (!isMistakeExist(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN,
+          tg.getTags().get(0).getSolutionElement().getElement(), comparison) && !isAssociationInAO(tg, comparison)) {
         createMistakeIncompleteAOPattern(tg, comparison);
       }
-      checkMistakeGenInsteadOfAssocInAOPattern(tg, comparison);
     } else if (matchedElements != 0 && totalMatchesExpected.size() != matchedElements) {
       createMistakeIncompleteAOPattern(tg, comparison);
     }
@@ -911,8 +912,8 @@ public class MistakeDetection {
       Comparison comparison) {
     for (var occ : occurences) {
       for (var assoc : comparison.notMappedInstructorAssociations) {
-        if ((assoc.getEnds().get(0).equals(occ) && assoc.getEnds().get(1).equals(abstraction))
-            || (assoc.getEnds().get(1).equals(occ) && assoc.getEnds().get(0).equals(abstraction))) {
+        if ((assoc.getEnds().get(0).getClassifier().equals(occ) && assoc.getEnds().get(1).getClassifier().equals(abstraction))
+            || (assoc.getEnds().get(1).getClassifier().equals(occ) && assoc.getEnds().get(0).getClassifier().equals(abstraction))) {
           return false;
         }
       }
