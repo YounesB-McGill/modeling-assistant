@@ -893,24 +893,24 @@ public class MistakeDetection {
   }
 
   private static boolean isAssociationInAO(TagGroup tg, Comparison comparison) {
-   NamedElement abstraction = null;
-   List< NamedElement> occurences = new ArrayList<>();
-   for(Tag t : tg.getTags()){
-     if(t.getTagType().equals(ABSTRACTION)) {
-       abstraction = t.getSolutionElement().getElement();
-     } else {
-       occurences.add(t.getSolutionElement().getElement());
-     }
-   }
-   if (abstraction == null|| occurences == null) {
-     return false;
-   }
-   return containsAssociation(abstraction, occurences, comparison);
+    NamedElement abstraction = null;
+    List<NamedElement> occurrences = new ArrayList<>();
+    for (Tag t : tg.getTags()) {
+      if (t.getTagType().equals(ABSTRACTION)) {
+        abstraction = t.getSolutionElement().getElement();
+      } else {
+        occurrences.add(t.getSolutionElement().getElement());
+      }
+    }
+    if (abstraction == null || occurrences == null) {
+      return false;
+    }
+    return containsAssociation(abstraction, occurrences, comparison);
   }
 
-  private static boolean containsAssociation(NamedElement abstraction, List<NamedElement> occurences,
+  private static boolean containsAssociation(NamedElement abstraction, List<NamedElement> occurrences,
       Comparison comparison) {
-    for (var occ : occurences) {
+    for (var occ : occurrences) {
       for (var assoc : comparison.notMappedInstructorAssociations) {
         if ((assoc.getEnds().get(0).getClassifier().equals(occ) && assoc.getEnds().get(1).getClassifier().equals(abstraction))
             || (assoc.getEnds().get(1).getClassifier().equals(occ) && assoc.getEnds().get(0).getClassifier().equals(abstraction))) {
@@ -1511,9 +1511,8 @@ public class MistakeDetection {
         var studAssocEnd = getStudentAssocEnd(instAssocEnd, studAssoc, comparison);
         var otherInstAssocEnd = getOtherAssocEnd(instAssocEnd);
         var otherStudAssocEnd = getOtherAssocEnd(studAssocEnd);
-        detectMistakeInAssoc(comparison, studAssoc, instructorClassifierAssoc,
-            studAssocEnd, instAssocEnd, otherStudAssocEnd,
-            otherInstAssocEnd);
+        detectMistakeInAssoc(comparison, studAssoc, instructorClassifierAssoc, studAssocEnd, instAssocEnd,
+            otherStudAssocEnd, otherInstAssocEnd);
       }
     }
   }
@@ -1683,7 +1682,7 @@ public class MistakeDetection {
         score = score + roleNameWeightage;
       }
       assocScoreMap.put(entry.getKey(), score);
-    } ;
+    }
     var matchedAssoc = maxAssociationMatch(assocScoreMap);
 
     return matchedAssoc.get(0);
@@ -1712,7 +1711,7 @@ public class MistakeDetection {
       checkMistakeMissingRoleName(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
       checkMistakeRoleNamePresentButIncorrect(studentClassAssocEnd, instructorClassAssocEnd,comparison).ifPresent(addMist);
       if (!isMistakeExist(REPRESENTING_ACTION_WITH_ASSOC, studentClassAssocEnd, comparison)) {
-      checkMistakeBadRoleNameSpelling(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+        checkMistakeBadRoleNameSpelling(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
       }
     }
   }
@@ -1786,7 +1785,8 @@ public class MistakeDetection {
             return true;
           }
         }
-      } if (mistake.getMistakeType().equals(mistakeType) && !mistake.getInstructorElements().isEmpty()) {
+      }
+      if (mistake.getMistakeType().equals(mistakeType) && !mistake.getInstructorElements().isEmpty()) {
         for (var element : mistake.getInstructorElements()) {
           if (element.getElement().equals(NamedElement)) {
             return true;
@@ -1996,11 +1996,11 @@ public class MistakeDetection {
   private static void updateMistakesInvolvingPattern(List<Mistake> newMistakes, List<MistakeType> patternMistakeTypes,
       Solution studentSolution) {
     HashSet<Mistake> newMistakesToRemove = new HashSet<>();
-    var exemptMistrakes = List.of(EXTRA_ATTRIBUTE, MISSING_ATTRIBUTE, INCOMPLETE_CONTAINMENT_TREE);
+    var exemptMistakes = List.of(EXTRA_ATTRIBUTE, MISSING_ATTRIBUTE, INCOMPLETE_CONTAINMENT_TREE);
     var patternInstructorElement = getPatternInstructorElements(newMistakes, patternMistakeTypes);
     var patternStudentElement = getPatternStudentrElements(newMistakes, patternMistakeTypes);
     for (Mistake newMistake : newMistakes) {
-      if (!(exemptMistrakes.contains(newMistake.getMistakeType()))) {
+      if (!(exemptMistakes.contains(newMistake.getMistakeType()))) {
         if (!newMistake.getInstructorElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
             && patternInstructorElement.contains(newMistake.getInstructorElements().get(0).getElement())) {
           newMistakesToRemove.add(newMistake);
@@ -2272,8 +2272,8 @@ public class MistakeDetection {
     // System.out.println("classs"+closestAssocValue);
 
     // Return null if the student class have do not have a 50% match assoc match).
-    if( instructorClass.getAttributes().size() == 0 && instAssocEnds>0 && !(closestAssocValue/instAssocEnds > 0.5)) {
-       return seekedClassifiers;
+    if (instructorClass.getAttributes().isEmpty() && instAssocEnds > 0 && !(closestAssocValue / instAssocEnds > 0.5)) {
+      return seekedClassifiers;
     }
 
     for (Map.Entry<Classifier, Integer> entry : possibleClassMatches.entrySet()) {
@@ -2856,10 +2856,10 @@ public class MistakeDetection {
       var studClassTwoAttrib = otherAssocEndStudClass.getAttributes();
 
       for (var attrib : studClassOneAttrib) {
-        if(!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison))
-        if (attrib.getName().toLowerCase().equals(assocEnds.get(0).getClassifier().getName().toLowerCase())) {
-          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(0)));
-        }
+        if (!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison))
+          if (attrib.getName().toLowerCase().equals(assocEnds.get(0).getClassifier().getName().toLowerCase())) {
+            comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(0)));
+          }
       }
       for (var attrib : studClassTwoAttrib) {
         if(!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison))
@@ -2872,7 +2872,7 @@ public class MistakeDetection {
     else if (assocEndStudClass == null && otherAssocEndStudClass != null) {
       var studClassTwoAttrib = otherAssocEndStudClass.getAttributes();
       for (var attrib : studClassTwoAttrib) {
-        if (!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison))
+        if (!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison)) {
           for (var c : comparison.notMappedInstructorClassifiers) {
             var cName = c.getName().toLowerCase();
             if (cName.equals(attrib.getName().toLowerCase()) && isAssociationLinkedToClass(association, c)) {
@@ -2880,24 +2880,28 @@ public class MistakeDetection {
               if (assocEnds.get(1).getClassifier().getName().toLowerCase().equals(cName))
                 assocEnd = assocEnds.get(1);
 
-              comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnd));            }
+              comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnd));
+            }
           }
+        }
       }
     }
 
     else if (assocEndStudClass != null && otherAssocEndStudClass == null) {
       var studClassOneAttrib = assocEndStudClass.getAttributes();
       for (var attrib : studClassOneAttrib) {
-        if(!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison))
+        if (!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison)) {
           for (var c : comparison.notMappedInstructorClassifiers) {
             var cName = c.getName().toLowerCase();
-            if (cName.equals(attrib.getName().toLowerCase())&& isAssociationLinkedToClass(association, c)) {
+            if (cName.equals(attrib.getName().toLowerCase()) && isAssociationLinkedToClass(association, c)) {
               var assocEnd = assocEnds.get(0);
               if (assocEnds.get(1).getClassifier().getName().toLowerCase().equals(cName))
                 assocEnd = assocEnds.get(1);
 
-              comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnd));            }
+              comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnd));
+            }
           }
+        }
       }
     }
   }

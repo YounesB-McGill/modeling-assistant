@@ -1584,7 +1584,6 @@ public class MistakeDetectionWrongClassTest {
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    // UPDATE : association class -> regular class mapping now exists
     assertTrue(comparison.mappedClassifiers.containsKey(instructorCompanyClass));
     assertTrue(comparison.mappedClassifiers.containsValue(studentCompanyClass));
   }

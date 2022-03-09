@@ -277,7 +277,7 @@ public class MistakeDetectionTest {
 
     Attribute instructorBusClassAttributeCapacity = getAttributeFromClass("capacity", instructorBusClass);
     Attribute instructorBusClassAttributeNumberPlate = getAttributeFromClass("numberPlate", instructorBusClass);
-    Attribute instructorDriverClassAttributeName = getAttributeFromClass("ID", instructorDriverClass);
+    Attribute instructorDriverClassAttributeID = getAttributeFromClass("ID", instructorDriverClass);
     Attribute instructorPassengerClassAttributeName = getAttributeFromClass("name", instructorPassengerClass);
 
     Classifier studentVehicleClass = getClassFromClassDiagram("Vehicle", studentClassDiagram);
@@ -286,7 +286,7 @@ public class MistakeDetectionTest {
 
     Attribute studentVehicleClassAttributeCapacity = getAttributeFromClass("capacity", studentVehicleClass);
     Attribute studentVehicleClassAttributeNumberPlate = getAttributeFromClass("numberPlate", studentVehicleClass);
-    Attribute studentPilotClassAttributeName = getAttributeFromClass("ID", studentPilotClass);
+    Attribute studentPilotClassAttributeID = getAttributeFromClass("ID", studentPilotClass);
     Attribute studentCustomerClassAttributeName = getAttributeFromClass("name", studentCustomerClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
@@ -309,7 +309,7 @@ public class MistakeDetectionTest {
         studentCustomerClassAttributeName);
     assertEquals(comparison.mappedAttributes.get(instructorBusClassAttributeNumberPlate),
         studentVehicleClassAttributeNumberPlate);
-    assertEquals(comparison.mappedAttributes.get(instructorDriverClassAttributeName), studentPilotClassAttributeName);
+    assertEquals(comparison.mappedAttributes.get(instructorDriverClassAttributeID), studentPilotClassAttributeID);
 
     assertEquals(comparison.newMistakes.size(), 5); // 4 + Incomplete Containment tree
     assertEquals(studentSolution.getMistakes().size(), 5);
@@ -352,9 +352,6 @@ public class MistakeDetectionTest {
     studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-    //Current Update: If a class is not contained then only Incomplete_containement_tree mistake will be given
-    // assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, INCOMPLETE_CONTAINMENT_TREE);
-    //assertMistakeTypes(comparison.newMistakes, INCOMPLETE_CONTAINMENT_TREE, MISSING_COMPOSITION);
     assertMistakeTypes(comparison.newMistakes, INCOMPLETE_CONTAINMENT_TREE);
   }
 
@@ -382,8 +379,6 @@ public class MistakeDetectionTest {
 
       comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-     //Current Update: If a class is not contained then only Incomplete_containement_tree mistake will be given
-     // assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, INCOMPLETE_CONTAINMENT_TREE);
       assertMistakeTypes(comparison.newMistakes, INCOMPLETE_CONTAINMENT_TREE);
       assertNotNull(ma.toEcoreString());
     } catch (IOException e) {

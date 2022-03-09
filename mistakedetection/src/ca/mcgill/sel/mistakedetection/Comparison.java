@@ -84,7 +84,7 @@ public class Comparison {
    * Function to print the mapped, unmapped classifier or attributes in ascending order of mistake types.
    */
   public Comparison sortedLog() {
-    System.out.println(getLog(true));
+    System.out.println(getSortedLog());
     return this;
   }
 
@@ -92,12 +92,69 @@ public class Comparison {
    * Function to print the mapped, unmapped classifier or attributes.
    */
   public Comparison log() {
-    System.out.println(getLog(false));
+    System.out.println(getLog());
     return this;
   }
 
-  /** Returns the comparison log as a string. */
-  public String getLog(boolean sort) {
+  /** Returns the comparison sorted log as a string. */
+  public String getSortedLog() {
+    var sb = new StringBuilder();
+    sb.append(printMappings());
+    var sortedList = newMistakes;
+    sortedList = getSortedMistakeList(newMistakes);
+    sb.append("\n");
+    sb.append("Total Mistakes: "+ newMistakes.size() +"\nMistakes: \n");
+    sortedList.forEach(m -> {
+      if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
+        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
+        sb.append(" student Elements:");
+        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
+        sb.append("\n");
+      } else if (!m.getInstructorElements().isEmpty()) {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
+        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
+        sb.append("\n");
+      } else if (!m.getStudentElements().isEmpty()) {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Stud Elements: ");
+        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
+        sb.append("\n");
+      } else {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' \n");
+      }
+    });
+    return sb.toString();
+  }
+
+  /** Returns the comparison sorted log as a string. */
+  public String getLog() {
+    var sb = new StringBuilder();
+    sb.append(printMappings());
+    sb.append("\n");
+    sb.append("Total Mistakes: "+ newMistakes.size() +"\nMistakes: \n");
+    newMistakes.forEach(m -> {
+      if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
+        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
+        sb.append(" student Elements:");
+        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
+        sb.append("\n");
+      } else if (!m.getInstructorElements().isEmpty()) {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
+        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
+        sb.append("\n");
+      } else if (!m.getStudentElements().isEmpty()) {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Stud Elements: ");
+        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
+        sb.append("\n");
+      } else {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' \n");
+      }
+    });
+    return sb.toString();
+  }
+
+  public String printMappings() {
     var sb = new StringBuilder();
     sb.append("\n");
     sb.append("-----Comparison Log-----\n");
@@ -206,31 +263,6 @@ public class Comparison {
       sb.append(c.getName() + " ");
     }
 
-    var sortedList =  newMistakes;
-    if(sort)
-      sortedList = getSortedMistakeList(newMistakes);
-
-    sb.append("\n");
-    sb.append("Total Mistakes: "+ newMistakes.size() +"\nMistakes: \n");
-    sortedList.forEach(m -> {
-      if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
-        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
-        sb.append(" student Elements:");
-        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
-        sb.append("\n");
-      } else if (!m.getInstructorElements().isEmpty()) {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
-        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
-        sb.append("\n");
-      } else if (!m.getStudentElements().isEmpty()) {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Stud Elements: ");
-        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
-        sb.append("\n");
-      } else {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' \n");
-      }
-    });
     return sb.toString();
   }
 
