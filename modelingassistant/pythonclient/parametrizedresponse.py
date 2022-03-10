@@ -31,11 +31,16 @@ def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> st
     Return the filled-in parametrized response text for the given response and mistake.
     """
     options = {}
-    # Use itertools.zip_longest here?
-    mdf: MistakeDetectionFormat = response.mistakeType.md_format
-    resp_text = response.text.replace("$", "")  # remove all $ from the response text
+    resp_text: str = response.text.replace("$", "")  # remove all $ from the response text
     mdf_items_to_mistake_elems = get_mdf_items_to_mistake_elem_dict(mistake)
-    # TODO
+    params = extract_params(resp_text)
+    param_roots = param_parts_before_dot(params)
+    for param, param_root in zip(params, param_roots):
+        start_elem = mdf_items_to_mistake_elems.get(param_root)
+        if start_elem is None:
+            warn(f"parametrizedresponse.parametrize_response(): Parameter {param} not found for mistake {mistake}")
+            continue
+        options[param] = parse(param, start_elem)
     return resp_text.format(**options)
 
 
@@ -66,7 +71,7 @@ def parse(s: str, start_elem: NamedElement) -> str:
         if hasattr(start_elem, "__getitem__") and int(idx) < len(start_elem):
             return start_elem[int(idx)]
         warn(f"""parametrizedresponse.parse(): Attempted to access element {start_elem} at index {idx
-              }, but the element is not a sequence, so returning the element itself""")
+              }, but the element is not a sequence or has no such index, so returning the element itself""")
         return getattr(start_elem, "name", str(start_elem))
 
     # Dot-separated properties are in the form a.b.c.d...
@@ -86,7 +91,7 @@ def parse(s: str, start_elem: NamedElement) -> str:
 
 def get_mdf_items_to_mistake_elem_dict(mistake: Mistake) -> dict[str, NamedElement | list[NamedElement]]:
     """
-    Return a dict of mistake detection format to mistake elements.
+    Return a dict of mistake detection format items to mistake elements.
     """
     mdf_items_to_elems = {}
     mdf: MistakeDetectionFormat = mistake.mistakeType.md_format
@@ -102,7 +107,6 @@ def get_mdf_items_to_mistake_elem_dict(mistake: Mistake) -> dict[str, NamedEleme
             # mdf = ([A, B, C*], [])
             # studentElems = [a, b, c1, c2, c3, ...]
             # want studentElems[2:], which corresponds to the last MDF element (there are 2 elems before C*)
-            # the list() call is to convert OrderedSet to list
             mdf_items_to_elems[f"stud_{mdf.stud[-1]}"] = [
                 e.element for e in mistake.studentElements[len(mdf.stud) - 1:]]
         else:

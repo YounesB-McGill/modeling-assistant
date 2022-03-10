@@ -198,5 +198,5 @@ def get_number_of_mistake_types_with_parametrized_responses() -> int:
 if __name__ == "__main__":
     "Main entry point (used for debugging)."
     #print("\n".join(get_pr_parameters_for_mistake_types_with_md_formats().keys()))
-    test_get_mdf_items_to_mistake_elem_dict()
-    #test_pr_attr()
+    #test_get_mdf_items_to_mistake_elem_dict()
+    test_pr_attr()
