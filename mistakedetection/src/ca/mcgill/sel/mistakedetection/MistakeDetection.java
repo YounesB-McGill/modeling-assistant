@@ -1702,18 +1702,18 @@ public class MistakeDetection {
       checkMistakeUsingAggregationInsteadOfComposition(studentClassAE, instructorClassAE).ifPresent(addMist);
       checkMistakeUsingCompositionInsteadOfAggregation(studentClassAE, instructorClassAE).ifPresent(addMist);
     }
-    checkMistakeUsingDirectedInsteadOfUndirected(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeUsingUndirectedInsteadOfDirected(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeRepresentingActionWithAssoc(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeRoleNameExpectedStactic(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    checkMistakeRoleNameNotExpectedStactic(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-    if (!(isUsingDirectedInsteadOfUndirected(studentClassAssocEnd, instructorClassAssocEnd)
-        || isUsingUndirectedInsteadOfDirected(studentClassAssocEnd, instructorClassAssocEnd))) {
-      checkMistakeOtherWrongMultiplicity(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-      checkMistakeMissingRoleName(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
-      checkMistakeRoleNamePresentButIncorrect(studentClassAssocEnd, instructorClassAssocEnd,comparison).ifPresent(addMist);
-      if (!isMistakeExist(REPRESENTING_ACTION_WITH_ASSOC, studentClassAssocEnd, comparison)) {
-        checkMistakeBadRoleNameSpelling(studentClassAssocEnd, instructorClassAssocEnd).ifPresent(addMist);
+    checkMistakeUsingDirectedInsteadOfUndirected(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeUsingUndirectedInsteadOfDirected(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeRepresentingActionWithAssoc(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeRoleNameExpectedStactic(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeRoleNameNotExpectedStactic(studentClassAE, instructorClassAE).ifPresent(addMist);
+    if (!(isUsingDirectedInsteadOfUndirected(studentClassAE, instructorClassAE)
+        || isUsingUndirectedInsteadOfDirected(studentClassAE, instructorClassAE))) {
+      checkMistakeOtherWrongMultiplicity(studentClassAE, instructorClassAE).ifPresent(addMist);
+      checkMistakeMissingRoleName(studentClassAE, instructorClassAE).ifPresent(addMist);
+      checkMistakeRoleNamePresentButIncorrect(studentClassAE, instructorClassAE,comparison).ifPresent(addMist);
+      if (!isMistakeExist(REPRESENTING_ACTION_WITH_ASSOC, studentClassAE, comparison)) {
+        checkMistakeBadRoleNameSpelling(studentClassAE, instructorClassAE).ifPresent(addMist);
       }
     }
   }
