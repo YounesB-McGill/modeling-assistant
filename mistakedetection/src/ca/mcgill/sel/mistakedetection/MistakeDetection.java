@@ -1598,6 +1598,7 @@ public class MistakeDetection {
       if (comparison.mappedClassifiers.containsKey(instAssocClass)) {
         comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS,
             comparison.mappedClassifiers.get(instAssocClass), instAssocClass));
+        //TODO: Work in progress
        // comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
        // comparison.notMappedInstructorClassifiers.add(instAssocClass);
        // comparison.assocClassifiersToRemove.add(instAssocClass);
@@ -1607,10 +1608,10 @@ public class MistakeDetection {
         && instructorClassifierAssoc.getAssociationClass() == null) {
       Classifier studAssocClass = studentClassifierAssoc.getAssociationClass();
       if (comparison.mappedClassifiers.containsValue(studAssocClass)) {
-       // comparison.extraStudentClassifiers.add(studAssocClass);
+       // comparison.extraStudentClassifiers.add(studAssocClass); //TODO: Work in progress
         comparison.mappedClassifiers.forEach((key, value) -> {
           if (value.equals(studAssocClass)) {
-           // comparison.notMappedInstructorClassifiers.add(key);
+           // comparison.notMappedInstructorClassifiers.add(key); //TODO: Work in progress
           //  comparison.assocClassifiersToRemove.add(key);
             comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS, studAssocClass, key));
             return;
@@ -2856,15 +2857,17 @@ public class MistakeDetection {
       var studClassTwoAttrib = otherAssocEndStudClass.getAttributes();
 
       for (var attrib : studClassOneAttrib) {
-        if (!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison))
+        if (!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison)) {
           if (attrib.getName().toLowerCase().equals(assocEnds.get(0).getClassifier().getName().toLowerCase())) {
             comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(0)));
           }
+        }
       }
       for (var attrib : studClassTwoAttrib) {
-        if(!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison))
-        if (attrib.getName().toLowerCase().equals(assocEnds.get(0).getClassifier().getName().toLowerCase())) {
-          comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(0)));
+        if (!isMistakeExist(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, comparison)) {
+          if (attrib.getName().toLowerCase().equals(assocEnds.get(0).getClassifier().getName().toLowerCase())) {
+            comparison.newMistakes.add(createMistake(USING_ATTRIBUTE_INSTEAD_OF_ASSOC, attrib, assocEnds.get(0)));
+          }
         }
       }
     }

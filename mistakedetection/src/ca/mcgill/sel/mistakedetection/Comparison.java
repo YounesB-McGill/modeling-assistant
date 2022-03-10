@@ -99,7 +99,7 @@ public class Comparison {
   /** Returns the comparison sorted log as a string. */
   public String getSortedLog() {
     var sb = new StringBuilder();
-    sb.append(printMappings());
+    sb.append(getMappings());
     var sortedList = newMistakes;
     sortedList = getSortedMistakeList(newMistakes);
     sb.append("\n");
@@ -129,7 +129,7 @@ public class Comparison {
   /** Returns the comparison sorted log as a string. */
   public String getLog() {
     var sb = new StringBuilder();
-    sb.append(printMappings());
+    sb.append(getMappings());
     sb.append("\n");
     sb.append("Total Mistakes: "+ newMistakes.size() +"\nMistakes: \n");
     newMistakes.forEach(m -> {
@@ -154,7 +154,7 @@ public class Comparison {
     return sb.toString();
   }
 
-  public String printMappings() {
+  public String getMappings() {
     var sb = new StringBuilder();
     sb.append("\n");
     sb.append("-----Comparison Log-----\n");
@@ -267,12 +267,7 @@ public class Comparison {
   }
 
   public static List<Mistake> getSortedMistakeList(List<Mistake> mistakes){
-    Collections.sort(mistakes, new Comparator<Mistake>() {
-      @Override
-      public int compare(Mistake m1, Mistake m2){
-        return m1.getMistakeType().getName().compareTo(m2.getMistakeType().getName());
-     }
-    });
+    Collections.sort(mistakes, Comparator.comparing(Mistake::getMistakeType));
     return mistakes;
   }
 
