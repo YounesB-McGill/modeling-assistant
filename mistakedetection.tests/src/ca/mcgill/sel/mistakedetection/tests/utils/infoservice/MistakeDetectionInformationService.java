@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
@@ -56,6 +57,17 @@ public abstract class MistakeDetectionInformationService {
   public static final Function<Mistake, Stream<SolutionElement>> instructorAndStudentElems =
       m -> Stream.concat(instructorElems.apply(m), studentElems.apply(m));
 
+  static final BinaryOperator<MistakeDetectionFormat> mdfCollisionFunction = (mdf1, mdf2) -> {
+    if (mdf1.inst.size() <= mdf2.inst.size() && mdf1.stud.size() <= mdf2.stud.size()) {
+      return mdf2;
+    } else if (mdf1.inst.size() >= mdf2.inst.size() && mdf1.stud.size() >= mdf2.stud.size()) {
+      return mdf1;
+    }
+    warn("Encountered 2 MistakeDetectionFormats with incompatible numbers of instructor and student elements, "
+        + "returning most recent: " + mdf2);
+    return mdf2;
+  };
+
   static final Map<MistakeType, MistakeDetectionFormat> suggestedMistakeDetectionFormats =
       suggestMistakeDetectionFormats();
 
@@ -65,12 +77,20 @@ public abstract class MistakeDetectionInformationService {
           !e.getValue().equals(HumanValidatedMistakeDetectionFormats.mappings.get(e.getKey())));
 
   static final Map<MistakeType, Set<String>> suggestedParametrizedResponses =
-      suggestParametrizedResponses(suggestedMistakeDetectionFormats, true);
+      suggestParametrizedResponses(
+          //suggestedMistakeDetectionFormats,
+          HumanValidatedMistakeDetectionFormats.mappings,
+          false);
+
+  static {
+    System.out.println("MistakeDetectionInformationService static block mdfCollisionFunction: " + mdfCollisionFunction);
+  }
 
   public final String name;
 
   public MistakeDetectionInformationService(String name) {
     this.name = name;
+    System.out.println("MistakeDetectionInformationService constructor mdfCollisionFunction: " + mdfCollisionFunction);
   }
 
   /**
@@ -153,19 +173,11 @@ public abstract class MistakeDetectionInformationService {
 
   /** Suggests mistake detection formats based on the output of the mistake detection tests. */
   static Map<MistakeType, MistakeDetectionFormat> suggestMistakeDetectionFormats() {
+    System.out.println("mdfCollisionFunction: " + mdfCollisionFunction);
     return suggestAllMistakeDetectionFormats().entrySet().stream().collect(Collectors.toMap(
         e -> e.getKey().getMistakeType(),
         Map.Entry::getValue,
-        (mdf1, mdf2) -> {
-          if (mdf1.inst.size() <= mdf2.inst.size() && mdf1.stud.size() <= mdf2.stud.size()) {
-            return mdf2;
-          } else if (mdf1.inst.size() >= mdf2.inst.size() && mdf1.stud.size() >= mdf2.stud.size()) {
-            return mdf1;
-          }
-          warn("Encountered 2 MistakeDetectionFormats with incompatible numbers of instructor and student elements, "
-              + "returning most recent: " + mdf2);
-          return mdf2;
-        },
+        mdfCollisionFunction,
         TreeMap::new));
   }
 
@@ -175,8 +187,28 @@ public abstract class MistakeDetectionInformationService {
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 
+  /** Returns the MDFs as implemented in the Mistake Detection System, regardless of validation status. */
+  static Map<MistakeType, MistakeDetectionFormat> getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem() {
+    return getAllMistakeDetectionFormatsAsIsFromMistakeDetectionSystem().entrySet().stream().collect(Collectors.toMap(
+        e -> e.getKey().getMistakeType(),
+        Map.Entry::getValue,
+        mdfCollisionFunction,
+        TreeMap::new));
+  }
+
+  /** Returns the MDFs as implemented in the Mistake Detection System, regardless of validation status. */
+  static Map<MistakeType, MistakeDetectionFormat> getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem(
+      Predicate<Map.Entry<MistakeType, MistakeDetectionFormat>> filteringFunction) {
+    return getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem().entrySet().stream().filter(filteringFunction)
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+  }
+
   private static Map<Mistake, MistakeDetectionFormat> suggestAllMistakeDetectionFormats() {
     return allMistakes().collect(Collectors.toMap(Function.identity(), MistakeDetectionFormat::forMistake));
+  }
+
+  private static Map<Mistake, MistakeDetectionFormat> getAllMistakeDetectionFormatsAsIsFromMistakeDetectionSystem() {
+    return allMistakes().collect(Collectors.toMap(Function.identity(), MistakeDetectionFormat::new));
   }
 
   private static Map<MistakeType, Set<String>> suggestParametrizedResponses(
