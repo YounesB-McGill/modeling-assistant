@@ -34,13 +34,9 @@ def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> st
     # Use itertools.zip_longest here?
     mdf: MistakeDetectionFormat = response.mistakeType.md_format
     resp_text = response.text.replace("$", "")  # remove all $ from the response text
-    for stud_key, elem in zip(response.mistakeType.md_format.stud, mistake.studentElements):
-        print(f'Parsing stud_{stud_key}: {parse(f"stud_{stud_key}", elem.element)}')
-        options[f"stud_{stud_key}"] = parse(f"stud_{stud_key}", elem.element)
-    for inst_key, elem in zip(response.mistakeType.md_format.inst, mistake.instructorElements):
-        print(f'Parsing inst_{inst_key}: {parse(f"inst_{inst_key}", elem.element)}')
-        options[f"inst_{inst_key}"] = parse(f"inst_{inst_key}", elem.element)
-    return response.text.format(**options).replace("$", "")
+    mdf_items_to_mistake_elems = get_mdf_items_to_mistake_elem_dict(mistake)
+    # TODO
+    return resp_text.format(**options)
 
 
 def parse(s: str, start_elem: NamedElement) -> str:
