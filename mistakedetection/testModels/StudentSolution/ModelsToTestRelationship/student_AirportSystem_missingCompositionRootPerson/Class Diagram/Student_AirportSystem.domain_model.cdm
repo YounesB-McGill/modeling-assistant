@@ -13,7 +13,7 @@
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_DO8bgAT4EeyXe5VBBNZ50w" name="Airplane">
     <associationEnds xmi:id="_OHTsMQT4EeyXe5VBBNZ50w" name="myAirports" assoc="_OHTsMgT4EeyXe5VBBNZ50w" upperBound="-1"/>
-    <associationEnds xmi:id="_ROgGoQT4EeyXe5VBBNZ50w" name="myPersons" assoc="_ROgGogT4EeyXe5VBBNZ50w" upperBound="-1"/>
+    <associationEnds xmi:id="_ROgGoQT4EeyXe5VBBNZ50w" name="myPersons" assoc="_ROgGogT4EeyXe5VBBNZ50w" upperBound="-1" referenceType="Composition"/>
     <associationEnds xmi:id="_U5vCQAT4EeyXe5VBBNZ50w" name="myRoot" assoc="_U5vCQgT4EeyXe5VBBNZ50w" lowerBound="1"/>
     <attributes xmi:id="_EtVFEAT4EeyXe5VBBNZ50w" name="company" type="_-EtLRwT3EeyXe5VBBNZ50w"/>
     <attributes xmi:id="_FeOWgAT4EeyXe5VBBNZ50w" name="flightNo" type="_-EtLRQT3EeyXe5VBBNZ50w"/>
@@ -54,7 +54,7 @@
         <value xmi:id="_-ZS7MQT3EeyXe5VBBNZ50w" x="816.0" y="150.0"/>
       </value>
       <value xmi:id="_AHOcoAT4EeyXe5VBBNZ50w" key="_AHN1kAT4EeyXe5VBBNZ50w">
-        <value xmi:id="_AHOcoQT4EeyXe5VBBNZ50w" x="772.0" y="313.00006"/>
+        <value xmi:id="_AHOcoQT4EeyXe5VBBNZ50w" x="694.9999" y="436.00006"/>
       </value>
       <value xmi:id="_DO9CkAT4EeyXe5VBBNZ50w" key="_DO8bgAT4EeyXe5VBBNZ50w">
         <value xmi:id="_DO9CkQT4EeyXe5VBBNZ50w" x="1158.5001" y="328.002"/>

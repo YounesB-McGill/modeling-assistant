@@ -11,7 +11,7 @@
     <attributes xmi:id="_Cgh2UAT4EeyXe5VBBNZ50w" name="code" type="_-EtLRwT3EeyXe5VBBNZ50w"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_DO8bgAT4EeyXe5VBBNZ50w" name="Airplane">
-    <associationEnds xmi:id="_OHTsMQT4EeyXe5VBBNZ50w" name="myAirports" assoc="_OHTsMgT4EeyXe5VBBNZ50w" upperBound="-1"/>
+    <associationEnds xmi:id="_OHTsMQT4EeyXe5VBBNZ50w" name="myAirports" assoc="_OHTsMgT4EeyXe5VBBNZ50w" upperBound="-1" referenceType="Composition"/>
     <associationEnds xmi:id="_ROgGoQT4EeyXe5VBBNZ50w" name="myPersons" assoc="_ROgGogT4EeyXe5VBBNZ50w" upperBound="-1"/>
     <associationEnds xmi:id="_U5vCQAT4EeyXe5VBBNZ50w" name="myRoot" assoc="_U5vCQgT4EeyXe5VBBNZ50w" lowerBound="1"/>
     <attributes xmi:id="_EtVFEAT4EeyXe5VBBNZ50w" name="company" type="_-EtLRwT3EeyXe5VBBNZ50w"/>

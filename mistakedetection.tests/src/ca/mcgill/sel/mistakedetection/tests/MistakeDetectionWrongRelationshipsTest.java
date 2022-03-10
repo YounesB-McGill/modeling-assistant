@@ -1925,8 +1925,8 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    var instructorClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
-    var instructorAssociationEnd = getAssociationEndFromClass("myDriver", instructorClass);
+    var instructorClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
+    var instructorAssociationEnd = getAssociationEndFromClass("myBus", instructorClass);
 
     var studentClass = getClassFromClassDiagram("Bus", studentClassDiagram);
     var studentAttrib = getAttributeFromClass("driver", studentClass);

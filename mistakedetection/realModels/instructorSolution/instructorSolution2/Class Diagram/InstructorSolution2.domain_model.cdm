@@ -76,7 +76,7 @@
   </types>
   <types xsi:type="classdiagram:CDEnum" xmi:id="_6uMfA4SGEeyCR8dJI_dwQQ" name="Quality">
     <literals xmi:id="_6uMfBISGEeyCR8dJI_dwQQ" name="Standard"/>
-    <literals xmi:id="_6uMfBYSGEeyCR8dJI_dwQQ" name="SandardWithView"/>
+    <literals xmi:id="_6uMfBYSGEeyCR8dJI_dwQQ" name="StandardWithView"/>
     <literals xmi:id="_6uMfBoSGEeyCR8dJI_dwQQ" name="Superior"/>
     <literals xmi:id="_6uMfB4SGEeyCR8dJI_dwQQ" name="SuperiorWithView"/>
   </types>
