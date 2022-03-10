@@ -1368,8 +1368,11 @@ public class MistakeDetectionWrongClassTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertTrue(comparison.extraStudentClassifiers.contains(studentCompanyClass));
-    assertTrue(comparison.notMappedInstructorClassifiers.contains(instructorCompanyClass));
+    assertFalse(comparison.extraStudentClassifiers.contains(studentCompanyClass));
+    assertFalse(comparison.notMappedInstructorClassifiers.contains(instructorCompanyClass));
+
+    assertTrue(comparison.mappedClassifiers.containsKey(instructorCompanyClass));
+    assertTrue(comparison.mappedClassifiers.containsValue(studentCompanyClass));
   }
 
   /**
@@ -1564,7 +1567,7 @@ public class MistakeDetectionWrongClassTest {
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(studentCompanyClass, comparison.mappedClassifiers.get(instructorBusPassClass));
-    assertTrue(comparison.notMappedInstructorClassifiers.contains(instructorCompanyClass));
+    assertFalse(comparison.notMappedInstructorClassifiers.contains(instructorCompanyClass));
   }
 
   /**
@@ -1584,8 +1587,8 @@ public class MistakeDetectionWrongClassTest {
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertTrue(comparison.notMappedInstructorClassifiers.contains(instructorCompanyClass));
-    assertTrue(comparison.extraStudentClassifiers.contains(studentCompanyClass));
+    assertTrue(comparison.mappedClassifiers.containsKey(instructorCompanyClass));
+    assertTrue(comparison.mappedClassifiers.containsValue(studentCompanyClass));
   }
 
   /**

@@ -2,6 +2,8 @@ package ca.mcgill.sel.mistakedetection;
 
 import static ca.mcgill.sel.mistakedetection.MistakeDetectionConfig.trackComparisonInstances;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +81,14 @@ public class Comparison {
   }
 
   /**
+   * Function to print the mapped, unmapped classifier or attributes in ascending order of mistake types.
+   */
+  public Comparison sortedLog() {
+    System.out.println(getSortedLog());
+    return this;
+  }
+
+  /**
    * Function to print the mapped, unmapped classifier or attributes.
    */
   public Comparison log() {
@@ -86,8 +96,65 @@ public class Comparison {
     return this;
   }
 
-  /** Returns the comparison log as a string. */
+  /** Returns the comparison sorted log as a string. */
+  public String getSortedLog() {
+    var sb = new StringBuilder();
+    sb.append(getMappings());
+    var sortedList = newMistakes;
+    sortedList = getSortedMistakeList(newMistakes);
+    sb.append("\n");
+    sb.append("Total Mistakes: "+ newMistakes.size() +"\nMistakes: \n");
+    sortedList.forEach(m -> {
+      if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
+        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
+        sb.append(" student Elements:");
+        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
+        sb.append("\n");
+      } else if (!m.getInstructorElements().isEmpty()) {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
+        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
+        sb.append("\n");
+      } else if (!m.getStudentElements().isEmpty()) {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Stud Elements: ");
+        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
+        sb.append("\n");
+      } else {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' \n");
+      }
+    });
+    return sb.toString();
+  }
+
+  /** Returns the comparison sorted log as a string. */
   public String getLog() {
+    var sb = new StringBuilder();
+    sb.append(getMappings());
+    sb.append("\n");
+    sb.append("Total Mistakes: "+ newMistakes.size() +"\nMistakes: \n");
+    newMistakes.forEach(m -> {
+      if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
+        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
+        sb.append(" student Elements:");
+        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
+        sb.append("\n");
+      } else if (!m.getInstructorElements().isEmpty()) {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
+        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
+        sb.append("\n");
+      } else if (!m.getStudentElements().isEmpty()) {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Stud Elements: ");
+        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
+        sb.append("\n");
+      } else {
+        sb.append(" ' " + m.getMistakeType().getName() + " ' \n");
+      }
+    });
+    return sb.toString();
+  }
+
+  public String getMappings() {
     var sb = new StringBuilder();
     sb.append("\n");
     sb.append("-----Comparison Log-----\n");
@@ -196,28 +263,12 @@ public class Comparison {
       sb.append(c.getName() + " ");
     }
 
-    sb.append("\n");
-    sb.append("Total Mistakes: "+ newMistakes.size() +"\nMistakes: \n");
-    newMistakes.forEach(m -> {
-      if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
-        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
-        sb.append(" student Elements:");
-        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
-        sb.append("\n");
-      } else if (!m.getInstructorElements().isEmpty()) {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
-        m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
-        sb.append("\n");
-      } else if (!m.getStudentElements().isEmpty()) {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Stud Elements: ");
-        m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
-        sb.append("\n");
-      } else {
-        sb.append(" ' " + m.getMistakeType().getName() + " ' \n");
-      }
-    });
     return sb.toString();
+  }
+
+  public static List<Mistake> getSortedMistakeList(List<Mistake> mistakes){
+    Collections.sort(mistakes, Comparator.comparing(Mistake::getMistakeType));
+    return mistakes;
   }
 
 }
