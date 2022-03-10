@@ -1656,7 +1656,6 @@ public class MistakeDetection {
 
   private static Association getMatchedAssoc(Map<Association, List<AssociationEnd>> possibleAssocMatch) {
 
-    // use linked hash map to preserve insertion order
     Map<Association, Double> assocScoreMap = new LinkedHashMap<Association, Double>();
     for (var entry : possibleAssocMatch.entrySet()) {
       double score = 0;
