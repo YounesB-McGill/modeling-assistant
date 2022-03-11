@@ -99,7 +99,7 @@ _airline_system_persons = Association(ends=[
     _airline_system_composend := ae(_airline_system, 1, 1, ReferenceType.Composition),
     ae(_person, 0, _MANY, n="persons")])
 _person_roles = Association(ends=[ae(_person, 1, 1), _roles := ae(_person_role, 0, 3, n="roles")])
-_passengerroles_bookings = Association(name="Booking_PassengerRole", ends=[
+_passengerroles_bookings = Association(ends=[
     _passenger_aggrend := ae(_passenger_role, 1, 1, ReferenceType.Aggregation, "passenger"),
     ae(_booking, 0, _MANY, n="bookings")])
 

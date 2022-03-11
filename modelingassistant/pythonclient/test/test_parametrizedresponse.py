@@ -15,7 +15,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from cdmmetatypes import aggr, assoc, assocend, assocends, attr, attrs, cls, compos, enum, enumitem
-from classdiagram import Association, Class
+from classdiagram import Association, AssociationEnd, Class
 from corpus import corpus
 from corpus_definition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
 from parametrizedresponse import (extract_params, get_mdf_items_to_mistake_elem_dict, parametrize_response,
@@ -55,15 +55,17 @@ def test_pr_aggr():
     wrong_aggr_name = mt("Wrong aggregation name", feedbacks=[wrong_aggr_name_pr := ParametrizedResponse(
         text="The ${stud_aggr} aggregation should be renamed to ${inst_aggr}.")])
     wrong_aggr_name.md_format = mdf(["aggr"], ["aggr"])
-    bad_name = "Bad_Name"
     # Assume this mistake is returned from the Mistake Detection System
     wrong_aggr_name_mistake = Mistake(instructorElements=[SolutionElement(element=aggr.example)],
-                                      studentElements=[SolutionElement(element=Association(name=bad_name))],
+                                      studentElements=[SolutionElement(element=Association(ends=(stud_aes := [
+                                          AssociationEnd(classifier=Class(name=n)) for n in ("Bad", "Name")])))],
                                       mistakeType=wrong_aggr_name)
     pr_result = parametrize_response(wrong_aggr_name_pr, wrong_aggr_name_mistake)
     assert pr_result
     assert "${" not in pr_result
-    assert pr_result == f"The {bad_name} aggregation should be renamed to {aggr.example.name}."
+    inst_cls0, inst_cls1 = (ae.classifier.name for ae in aggr.example.ends)
+    stud_cls0, stud_cls1 = (ae.classifier.name for ae in stud_aes)
+    assert pr_result == f"The {stud_cls0}_{stud_cls1} aggregation should be renamed to {inst_cls0}_{inst_cls1}."
 
 
 def test_pr_assoc():

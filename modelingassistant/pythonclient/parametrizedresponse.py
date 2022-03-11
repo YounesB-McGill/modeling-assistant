@@ -80,7 +80,7 @@ def _parse(s: str, start_elem: NamedElement, depth: int = 0) -> str:
     # base cases
     if re.match(r"^[A-Za-z_]+$", s):  # simplest case, only a metatype
         if isinstance(start_elem, Association):  # do not rely on TouchCORE assoc naming since it is an internal detail
-            return f"{start_elem.ends[0].classifier.name}_{start_elem.ends[1].classifier.name}"
+            return "_".join((ae.classifier.name for ae in start_elem.ends))
         return getattr(start_elem, "name", str(start_elem))
     if re.match(r"^[A-Za-z_]+\*$", s):  # simple varargs list of metatypes
         return comma_seperated_with_and(start_elem)
