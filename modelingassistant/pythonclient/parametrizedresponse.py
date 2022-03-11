@@ -8,7 +8,7 @@ from string import Formatter
 
 from cdmmetatypes import CDM_METATYPES
 from utils import MistakeDetectionFormat, warn
-from classdiagram import Attribute, NamedElement
+from classdiagram import Association, Attribute, NamedElement
 from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake
 
@@ -41,9 +41,10 @@ def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> st
             warn(f"parametrizedresponse.parametrize_response(): Parameter {param} not found for mistake {mistake}")
             continue
         options[param] = parse(param, start_elem)
-    # print(f"parametrizedresponse.parametrize_response(): options: {options}")  # TODO remove later
+    # print(f"parametrizedresponse.parametrize_response(): {options = }")  # TODO remove later
     resp_text: str = response.text.replace("$", "")  # remove all $ from the response text
     for t in _formatter.parse(resp_text):
+        # print(f"parametrizedresponse.parametrize_response(): {t = }")  # TODO remove later
         if t[1] is not None:
             resp_text = resp_text.replace(f"{{{t[1]}}}", options[t[1]], 1)
     return resp_text
@@ -71,12 +72,15 @@ def parse(s: str, start_elem: NamedElement) -> str:
 
 
 def _parse(s: str, start_elem: NamedElement, depth: int = 0) -> str:
-    # print(f"parametrizedresponse._parse({s = }, {start_elem = }) called")  # TODO remove later
+    # pylint: disable=too-many-return-statements
+    # print(f"parametrizedresponse.parse({s = }, {start_elem = }) called")  # TODO remove later
     if depth > _MAX_PARSE_DEPTH:
         raise ValueError(f"parametrizedresponse.parse(): reached max parse depth ({_MAX_PARSE_DEPTH})")
 
     # base cases
     if re.match(r"^[A-Za-z_]+$", s):  # simplest case, only a metatype
+        if isinstance(start_elem, Association):  # do not rely on TouchCORE assoc naming since it is an internal detail
+            return f"{start_elem.ends[0].classifier.name}_{start_elem.ends[1].classifier.name}"
         return getattr(start_elem, "name", str(start_elem))
     if re.match(r"^[A-Za-z_]+\*$", s):  # simple varargs list of metatypes
         return comma_seperated_with_and(start_elem)

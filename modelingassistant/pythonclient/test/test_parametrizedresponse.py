@@ -14,7 +14,7 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from cdmmetatypes import aggr, assoc, assocend, attr, attrs, cls, compos, enum, enumitem
+from cdmmetatypes import aggr, assoc, assocend, assocends, attr, attrs, cls, compos, enum, enumitem
 from classdiagram import Association, Class
 from corpus import corpus
 from corpus_definition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
@@ -53,7 +53,7 @@ def test_pr_aggr():
     "Test parametrized response for a single aggregation."
     # Dummy mistake type used for testing
     wrong_aggr_name = mt("Wrong aggregation name", feedbacks=[wrong_aggr_name_pr := ParametrizedResponse(
-        text="The {stud_aggr} aggregation should be renamed to {inst_aggr}.")])
+        text="The ${stud_aggr} aggregation should be renamed to ${inst_aggr}.")])
     wrong_aggr_name.md_format = mdf(["aggr"], ["aggr"])
     bad_name = "Bad_Name"
     # Assume this mistake is returned from the Mistake Detection System
@@ -69,17 +69,20 @@ def test_pr_aggr():
 def test_pr_assoc():
     "Test parametrized response for a single association."
     missing_assoc_name_mistake = Mistake(instructorElements=[SolutionElement(element=assoc.example)],
+                                         studentElements=[SolutionElement(element=Association())],
                                          mistakeType=missing_association_name)
     missing_assoc_name_pr = missing_association_name.parametrized_responses()[0]
     pr_result = parametrize_response(missing_assoc_name_pr, missing_assoc_name_mistake)
     assert pr_result
     assert "${" not in pr_result
-    assert pr_result == f"This association should be named {assoc.example.name}."
+    cls0, cls1 = (ae.classifier.name for ae in assoc.example.ends)
+    assert pr_result == f"This association should be named {cls0}_{cls1}."
 
 
 def test_pr_assoc_end():
     "Test parametrized response for a single association end."
-    wrong_role_name_mistake = Mistake(studentElements=[SolutionElement(element=assocend.example)],
+    wrong_role_name_mistake = Mistake(instructorElements=[SolutionElement(element=assocends.example[1])],
+                                      studentElements=[SolutionElement(element=assocend.example)],
                                       mistakeType=wrong_role_name)
     wrong_role_name_pr = wrong_role_name.parametrized_responses()[0]
     pr_result = parametrize_response(wrong_role_name_pr, wrong_role_name_mistake)
@@ -201,4 +204,4 @@ if __name__ == "__main__":
     "Main entry point (used for debugging)."
     #print("\n".join(sorted([k[5:] for k in get_pr_parameters_for_mistake_types_with_md_formats().keys() if "." in k])))
     #test_get_mdf_items_to_mistake_elem_dict()
-    test_pr_attr()
+    test_pr_assoc()
