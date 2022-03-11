@@ -2,12 +2,13 @@
 Logic to handle parametrized responses.
 """
 
+from itertools import count
 import re
 from string import Formatter
 
 from cdmmetatypes import CDM_METATYPES
 from utils import MistakeDetectionFormat, warn
-from classdiagram import NamedElement
+from classdiagram import Attribute, NamedElement
 from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake
 
@@ -31,9 +32,8 @@ def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> st
     Return the filled-in parametrized response text for the given response and mistake.
     """
     options = {}
-    resp_text: str = response.text.replace("$", "")  # remove all $ from the response text
     mdf_items_to_mistake_elems = get_mdf_items_to_mistake_elem_dict(mistake)
-    params = extract_params(resp_text)
+    params = extract_params(response.text)
     param_roots = param_parts_before_dot(params)
     for param, param_root in zip(params, param_roots):
         start_elem = mdf_items_to_mistake_elems.get(param_root)
@@ -41,7 +41,12 @@ def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> st
             warn(f"parametrizedresponse.parametrize_response(): Parameter {param} not found for mistake {mistake}")
             continue
         options[param] = parse(param, start_elem)
-    return resp_text.format(**options)
+    # print(f"parametrizedresponse.parametrize_response(): options: {options}")  # TODO remove later
+    resp_text: str = response.text.replace("$", "")  # remove all $ from the response text
+    for t in _formatter.parse(resp_text):
+        if t[1] is not None:
+            resp_text = resp_text.replace(f"{{{t[1]}}}", options[t[1]], 1)
+    return resp_text
 
 
 def parse(s: str, start_elem: NamedElement) -> str:
@@ -62,31 +67,54 @@ def parse(s: str, start_elem: NamedElement) -> str:
     """
     if not param_valid(s):
         raise ValueError(f"Invalid parametrized response parameter: {s}")
+    return _parse(s, start_elem)  # call internal helper function to do actual parsing
+
+
+def _parse(s: str, start_elem: NamedElement, depth: int = 0) -> str:
+    # print(f"parametrizedresponse._parse({s = }, {start_elem = }) called")  # TODO remove later
+    if depth > _MAX_PARSE_DEPTH:
+        raise ValueError(f"parametrizedresponse.parse(): reached max parse depth ({_MAX_PARSE_DEPTH})")
+
     # base cases
     if re.match(r"^[A-Za-z_]+$", s):  # simplest case, only a metatype
         return getattr(start_elem, "name", str(start_elem))
     if re.match(r"^[A-Za-z_]+\*$", s):  # simple varargs list of metatypes
         return comma_seperated_with_and(start_elem)
-    if idx := re.match(r".*?(\d+)$", s).group(1):  # index
-        if hasattr(start_elem, "__getitem__") and int(idx) < len(start_elem):
-            return start_elem[int(idx)]
+    if (match_ := re.match(r".*?(\d+)$", s)) and (idx := int(match_.group(1))):  # index
+        if hasattr(start_elem, "__getitem__") and idx < len(start_elem):
+            return start_elem[idx]
         warn(f"""parametrizedresponse.parse(): Attempted to access element {start_elem} at index {idx
               }, but the element is not a sequence or has no such index, so returning the element itself""")
         return getattr(start_elem, "name", str(start_elem))
 
     # Dot-separated properties are in the form a.b.c.d...
+    # print(f"parametrizedresponse.parse(): non base case s: {s}")  # TODO remove later
     dot_sep_elems = s.split(".")
-    a = dot_sep_elems[0]
+    a = start_elem
     b = dot_sep_elems[1]
     if b == "length":  # special case
-        if hasattr(start_elem, "__len__"):
-            return len(start_elem)
-        warn(f"""parametrizedresponse.parse(): Attempted to get length of element {start_elem
-              }, but the element is not a sequence, so returning the element itself""")
-        return getattr(start_elem, "name", str(start_elem))
+        if hasattr(a, "__len__"):
+            return len(a)
+        warn(f"""parametrizedresponse.parse(): Attempted to get length of element {a
+              }, but the element is not a sequence, so returning the element name or string representation""")
+        return getattr(a, "name", str(a))
     cd = dot_sep_elems[2:]
-    a_dot_b = getattr(a, SHORTHANDS.get(b, b), a)
-    return parse(f"{b}.{'.'.join(cd)}", a_dot_b)  # recurse to next dot-separated element
+    a_dot_b = resolve_attribute(a, b)  # needs to change for attr.cls (use eContainer)
+    # print(f"parametrizedresponse.parse(): [{b = }], [{'.'.join(cd) = }], [{a_dot_b = }]")  # TODO remove later
+    return _parse(f"{b}{'.' if cd else ''}{'.'.join(cd)}", a_dot_b, depth + 1)  # recurse to next dot-separated element
+
+
+def resolve_attribute(elem, attr_name: str):
+    """
+    Return the value of the attribute for the given element. Attribute is used here in the programmatic sense, not in
+    the class diagram sense.
+    """
+    # special cases
+    if isinstance(elem, Attribute) and attr_name == "cls":  
+        return elem.eContainer()
+
+    # general case
+    return getattr(elem, SHORTHANDS.get(attr_name, attr_name), elem)
 
 
 def get_mdf_items_to_mistake_elem_dict(mistake: Mistake) -> dict[str, NamedElement | list[NamedElement]]:
@@ -117,7 +145,10 @@ def get_mdf_items_to_mistake_elem_dict(mistake: Mistake) -> dict[str, NamedEleme
             mdf_items_to_elems[f"inst_{mdf.inst[-1]}"] = [
                 e.element for e in mistake.instructorElements[len(mdf.inst) - 1:]]
         else:
-            mdf_items_to_elems[f"inst_{mdf.inst[-1]}"] = mistake.instructorElements[-1].element
+            mdf_items_to_elems[
+                f"inst_{mdf.inst[-1]}"
+                ] = (
+                    mistake.instructorElements[-1].element)
     return mdf_items_to_elems
 
 

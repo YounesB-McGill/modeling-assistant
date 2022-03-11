@@ -14,7 +14,7 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from cdmmetatypes import aggr, assoc, assocend, attr, cls, compos, enum, enumitem
+from cdmmetatypes import aggr, assoc, assocend, attr, attrs, cls, compos, enum, enumitem
 from classdiagram import Association, Class
 from corpus import corpus
 from corpus_definition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
@@ -91,12 +91,14 @@ def test_pr_assoc_end():
 def test_pr_attr():
     "Test parametrized response for a single attribute."
     attribute_misplaced_mistake = Mistake(studentElements=[SolutionElement(element=attr.example)],
+                                          instructorElements=[SolutionElement(element=attrs.example[1])],
                                           mistakeType=attribute_misplaced)
     attribute_misplaced_pr = attribute_misplaced.parametrized_responses()[0]
     pr_result = parametrize_response(attribute_misplaced_pr, attribute_misplaced_mistake)
     assert pr_result
     assert "${" not in pr_result
-    assert pr_result.startswith(f"The ${attr.example.name} does not belong in the ${attr.example.classifier} class.")
+    assert pr_result.startswith(
+        f"The {attr.example.name} does not belong in the {attr.example.eContainer().name} class.")
 
 
 def test_pr_cls():
@@ -197,6 +199,6 @@ def get_number_of_mistake_types_with_parametrized_responses() -> int:
 
 if __name__ == "__main__":
     "Main entry point (used for debugging)."
-    #print("\n".join(get_pr_parameters_for_mistake_types_with_md_formats().keys()))
+    #print("\n".join(sorted([k[5:] for k in get_pr_parameters_for_mistake_types_with_md_formats().keys() if "." in k])))
     #test_get_mdf_items_to_mistake_elem_dict()
     test_pr_attr()
