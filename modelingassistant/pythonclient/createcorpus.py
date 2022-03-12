@@ -17,14 +17,14 @@ from datetime import datetime
 
 import cv2
 
-from cdmmetatypes import CDM_METATYPES
+from cdmmetatypes import CDM_METATYPES, CdmMetatype
 from constants import LEARNING_CORPUS_PATH, MULTIPLE_FEEDBACKS_PER_LEVEL
 from corpus import corpus
 from fileserdes import save_to_file
 from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResponse, ParametrizedResponse,
                             ResourceResponse, Quiz)
 from learningcorpusquiz import Blank, FillInTheBlanksQuiz, ListMultipleChoiceQuiz, NonBlank, TableMultipleChoiceQuiz
-from utils import NonNoneDict
+from utils import mdf, NonNoneDict
 
 
 MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
@@ -546,11 +546,14 @@ class LatexGenerator(TextualGenerator):
             for fb in mt.feedbacks:
                 if fb.level != level:
                     continue
-                elem_type = (f"{mt.learningItem.name.replace('End', '').replace('Association', 'Relationship')}"
-                             if mt.learningItem else "")
+                # safe navigation equivalent of CDM_METATYPES[mt.md_format.stud[0]].long_name
+                elem_type = getattr(CDM_METATYPES.get(next(iter(getattr(mt, "md_format", mdf([], [])).stud), ""),
+                                                      CdmMetatype(short_name="", long_name="", eClass=None)),
+                                    "long_name")
+                elem_type = ""  # for now, don't show the element type
                 match fb:
                     case Feedback(highlightProblem=True):
-                        sp = "specific" if fb.level > 1 else "sentence in"
+                        sp = "specific" if fb.level > 1 else "sentence(s) in"
                         # use elem_type here in the future if it can be made more specific, eg, enum instead of class
                         elem = "elements" if fb.level > 1 else "referring to item"
                         result += f"Highlight {sp} problem statement {elem}{cls.NLS}"

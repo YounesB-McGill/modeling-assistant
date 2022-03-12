@@ -27,7 +27,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             extra_class := mt(n="Extra class", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Make sure you only model the concepts mentioned in the problem description."),
-                3: TextResponse(text="You have an extra class. Can you find it?"),
+                3: TextResponse(text="Is it really necessary to include this class?"),
                 # Context-specific written feedbacks are not yet supported. Only the zeroth items in these lists are
                 # added to the learning corpus for now. In the future, detected mistakes will either have a reason, or
                 # these additional feedbacks will be migrated to new mistake types
@@ -63,8 +63,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 software_engineering_term := mt(n="Software engineering term", atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Remember that a domain model should not contain software engineering terms."),
-                    3: ParametrizedResponse(text="${stud_cls} contains a software engineering term, which does not "
-                        "belong in a domain model."),
+                    3: ParametrizedResponse(text="${stud_cls} contains a software engineering term (e.g., data, "
+                        "database, table), which does not belong in a domain model."),
                     4: ResourceResponse(learningResources=[correct_class_naming_example]),
                     5: ResourceResponse(learningResources=[class_ref]),
                 })),
@@ -153,7 +153,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     n="Bad enum item spelling", d="Bad enumeration item spelling", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
                         2: TextResponse(text="Double check this enumeration item."),
-                        3: ParametrizedResponse(text="The ${stud_enumitem} should be changed to ${inst_enumitem}."),
+                        3: ParametrizedResponse(text="${stud_enumitem} in the ${stud_enumitem.enum} should be changed "
+                                                     "to ${inst_enumitem}."),
                         4: ResourceResponse(learningResources=[enum_reference]),
                     })),
             ]),
@@ -176,8 +177,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 bad_attribute_name_spelling := mt(n="Bad attribute name spelling", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this attribute name."),
-                    3: ParametrizedResponse(
-                        text="${stud_attr} is misspelled.[ Use the same spelling as the problem description.]"),
+                    3: ParametrizedResponse(text="${stud_attr.cls}.${stud_attr} is misspelled.[ Use the same spelling "
+                                                 "as the problem description.]"),
                     4: ResourceResponse(learningResources=[attr_naming_quiz := mcq[
                         "Select all the correct attribute names from the list below.",
                            "needsReciept",
@@ -205,7 +206,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(text="Can you think of a better place for this attribute?"),
                     3: ParametrizedResponse(text="The ${stud_attr} does not belong in the ${stud_attr.cls} class. "
                                                  "Where else can we place it?"),
-                    4: ParametrizedResponse(text="The ${stud_attr} belongs in the ${inst_attr.cls} class."),
+                    4: ParametrizedResponse(text="The ${stud_attr} belongs in the ${inst_attr.cls} class, i.e., a "
+                                                 "different class in the inheritance hierarchy."),
                     5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 attribute_duplicated := mt(n="Attribute duplicated", feedbacks=fbs({

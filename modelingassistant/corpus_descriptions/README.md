@@ -191,7 +191,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_cls} contains a software engineering term, which does not belong in a domain model.
+> ${stud_cls} contains a software engineering term (e.g., data, database, table), which does not belong in a domain model.
 
 Level 4: Resource response with Example:
 
@@ -446,7 +446,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${stud_enumitem} should be changed to ${inst_enumitem}.
+> ${stud_enumitem} in the ${stud_enumitem.enum} should be changed to ${inst_enumitem}.
 
 Level 4: Resource response with Reference:
 
@@ -486,7 +486,7 @@ Level 2: Text response:
 
 Level 3: Text response:
 
-> You have an extra class. Can you find it?
+> Is it really necessary to include this class?
 
 Level 4: Parametrized response:
 
@@ -514,7 +514,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_attr} is misspelled.[ Use the same spelling as the problem description.]
+> ${stud_attr.cls}.${stud_attr} is misspelled.[ Use the same spelling as the problem description.]
 
 Level 4: Resource response with List multiple-choice quiz:
 
@@ -580,7 +580,7 @@ Level 3: Parametrized response:
 
 Level 4: Parametrized response:
 
-> The ${stud_attr} belongs in the ${inst_attr.cls} class.
+> The ${stud_attr} belongs in the ${inst_attr.cls} class, i.e., a different class in the inheritance hierarchy.
 
 Level 5: Resource response with Reference:
 
