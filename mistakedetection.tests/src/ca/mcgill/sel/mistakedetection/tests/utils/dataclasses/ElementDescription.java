@@ -98,9 +98,7 @@ public class ElementDescription {
   }
 
   private String assocEndShortDisplayName(AssociationEnd ae) {
-    if (specialAssocRefTypes.containsKey(ae.getReferenceType())) {
-      return specialAssocRefTypes.get(ae.getReferenceType());
-    }
+    // in the future, can add logic here to return "aggrend" and "composend" if needed
     return "assocend";
   }
 

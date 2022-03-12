@@ -25,12 +25,16 @@ public class MappingToMistakeDetectionFormatsForPython extends MistakeDetectionI
       boolean filterNumberedMdfs) {
     // eg, missing_class.md_format = mdf([], ["cls"])
     return mapping.entrySet().stream().map(e -> {
+      var mdf = e.getValue();
       var name = underscorify(e.getKey().getName());
-      var decl = name + ".md_format = mdf" + e.getValue();
+      var decl = name + ".md_format = mdf" + mdf;
       if (decl.length() <= MAX_LINE_LENGTH) {
         return decl;
       }
-      return name + ".md_format = mdf(\n    " + e.getValue().toString().replaceFirst("\\(", "");
+      if (mdf.toString().length() + 3 <= MAX_LINE_LENGTH) { // 4 space indentation - 1 paren = 3
+        return name + ".md_format = mdf(\n    " + mdf.toString().replaceFirst("\\(", "");
+      }
+      return name + ".md_format = mdf(\n    " + mdf.studAsString() + ",\n    " + mdf.instAsString() + ")";
     }).filter(s -> !(filterNumberedMdfs && s.matches(".*\\d.*"))).collect(Collectors.joining("\n"));
   }
 

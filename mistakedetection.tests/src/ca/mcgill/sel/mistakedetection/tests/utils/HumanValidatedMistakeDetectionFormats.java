@@ -111,6 +111,9 @@ public class HumanValidatedMistakeDetectionFormats {
       // paste entries from MDIS4LC here (studentElemsDescriptions, instructorElemsDescriptions)
       // Completed entries (derived from MDS)
       entry(ASSOC_CLASS_SHOULD_BE_CLASS, mdf(List.of("assoc", "cls"), List.of("cls"))),
+      entry(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, mdf(List.of("player_cls", "role_assocend*"), List.of("player_cls", "role_attr"))),
+      entry(ASSOC_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("player_cls", "role_assocend*"), List.of("player_cls", "role_cls*"))),
+      entry(ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, mdf(List.of("player_cls", "role_assocend*"), List.of("player_cls", "role_cls*"))),
       entry(ATTRIBUTE_DUPLICATED, mdf(List.of("attr"), List.of())),
       entry(ATTRIBUTE_MISPLACED, mdf(List.of("attr"), List.of("attr"))),
       entry(ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY, mdf(List.of("attr"), List.of("attr"))),
@@ -126,7 +129,11 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(CLASS_SHOULD_BE_ASSOC_CLASS, mdf(List.of("cls"), List.of("assoc", "cls"))),
       entry(CLASS_SHOULD_BE_ENUM, mdf(List.of("cls"), List.of("enum"))),
       entry(CLASS_SHOULD_NOT_BE_ABSTRACT, mdf(List.of("cls"), List.of("cls"))),
+      entry(COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, mdf(List.of("cls*"), List.of())),
+      entry(ENUM_SHOULD_BE_ASSOC_PR_PATTERN, mdf(List.of("player_cls", "role_enumitem*"), List.of("player_cls", "role_assocend*"))),
       entry(ENUM_SHOULD_BE_CLASS, mdf(List.of("enum"), List.of("cls"))),
+      entry(ENUM_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("player_cls", "role_enumitem*"), List.of("player_cls", "role_cls*"))),
+      entry(ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, mdf(List.of("player_cls", "role_enumitem*"), List.of("player_cls", "role_cls*"))),
       entry(EXTRA_AGGREGATION, mdf(List.of("aggr", "part_assocend", "whole_assocend"), List.of())),
       entry(EXTRA_ASSOC_CLASS, mdf(List.of("assoc", "cls"), List.of())),
       entry(EXTRA_ASSOCIATION, mdf(List.of("assoc"), List.of())),
@@ -136,8 +143,12 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(EXTRA_ENUM, mdf(List.of("enum"), List.of())),
       entry(EXTRA_ENUM_ITEM, mdf(List.of("enumitem"), List.of(/*"enum" ?*/))), // TODO double check
       entry(EXTRA_GENERALIZATION, mdf(List.of("sub_cls", "super_cls"), List.of(/*"sub_cls", "super_cls"*/))), // TODO double check
+      entry(FULL_PR_PATTERN_SHOULD_BE_ASSOC, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_assocend*"))),
+      entry(FULL_PR_PATTERN_SHOULD_BE_ENUM, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_attr"))),
+      entry(FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_cls*"))),
       entry(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, mdf(List.of("sub_cls", "super_cls"), List.of("abs_cls", "occ_cls"))),
       entry(INCOMPLETE_AO_PATTERN, mdf(List.of("abs_cls", "occ_cls"), List.of("abs_cls", "occ_cls"))),
+      entry(INCOMPLETE_CONTAINMENT_TREE, mdf(List.of("cls*"), List.of())),
       entry(INFINITE_RECURSIVE_DEPENDENCY, mdf(List.of("minlowerbound_assocend", "other_assocend"), List.of())),
       entry(LOWERCASE_CLASS_NAME, mdf(List.of("cls"), List.of("cls"))),
       entry(MISSING_AGGREGATION, mdf(List.of(), List.of("aggr", "part_assocend", "whole_assocend"))),
@@ -158,6 +169,9 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(ROLE_SHOULD_BE_STATIC, mdf(List.of("assocend"), List.of("assocend"))),
       entry(ROLE_SHOULD_NOT_BE_STATIC, mdf(List.of("assocend"), List.of("assocend"))),
       entry(SOFTWARE_ENGINEERING_TERM, mdf(List.of("cls"), List.of("cls"))),
+      entry(SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_assocend*"))),
+      entry(SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_attr"))),
+      entry(SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_cls*"))),
       entry(UPPERCASE_ATTRIBUTE_NAME, mdf(List.of("attr"), List.of("attr"))),
       entry(USING_AGGREGATION_INSTEAD_OF_ASSOC, mdf(List.of("aggr", "part_assocend", "whole_assocend"), List.of("assoc", "assocend", "other_assocend"))),
       entry(USING_AGGREGATION_INSTEAD_OF_COMPOSITION, mdf(List.of("aggr", "part_assocend", "whole_assocend"), List.of("compos", "part_assocend", "whole_assocend"))),
@@ -176,39 +190,21 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(WRONG_ROLE_NAME, mdf(List.of("assocend"), List.of("assocend"))),
       entry(WRONG_SUPERCLASS, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls"))),
 
-      // In progress: MDS logic and tests implemented
-      // TODO Prabhsimran: Ensure the MDS returns these results by unit testing or other means
-
-      entry(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, mdf(List.of("player_cls", "role_assocend*"), List.of("player_cls", "role_attr"))),
-      entry(ASSOC_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("player_cls", "role_assocend*"), List.of("player_cls", "role_cls*"))),
-      entry(ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, mdf(List.of("player_cls", "role_assocend*"), List.of("player_cls", "role_cls*"))),
-      entry(COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, mdf(List.of("cls*"), List.of())),
-      entry(ENUM_SHOULD_BE_ASSOC_PR_PATTERN, mdf(List.of("player_cls", "role_enumitem*"), List.of("player_cls", "role_assocend*"))),
-      entry(ENUM_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("player_cls", "role_enumitem*"), List.of("player_cls", "role_cls*"))),
-      entry(ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, mdf(List.of("player_cls", "role_enumitem*"), List.of("player_cls", "role_cls*"))),
-      entry(FULL_PR_PATTERN_SHOULD_BE_ASSOC, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_assocend*"))),
-      entry(FULL_PR_PATTERN_SHOULD_BE_ENUM, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_attr"))),
-      entry(FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_cls*"))),
-      entry(INCOMPLETE_PR_PATTERN, mdf(List.of("cls*"), List.of("cls*"))), // TODO Update this based on MDS
-      entry(INCOMPLETE_CONTAINMENT_TREE, mdf(List.of("cls*"), List.of())),
-      entry(SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_assocend*"))),
-      entry(SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_attr"))),
-      entry(SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_cls*"))),
-
       // In progress: MDS logic implemented (or will be implemented soon) but no tests
       entry(LIST_ATTRIBUTE, mdf(List.of("attr"), List.of("attr"))),
-      entry(MISSING_PR_PATTERN, mdf(List.of(), List.of(""))), // TODO [], [missingElements]
 
       // Future work: mistake detection not implemented for these mistake types
       // TODO complete student/instructor descriptions
       entry(BAD_ASSOCIATION_NAME_SPELLING, mdf(List.of("assoc"), List.of("assoc"))),
       entry(EXTRA_N_ARY_ASSOCIATION, mdf(List.of("assoc"), List.of())),
       entry(GENERALIZATION_INAPPLICABLE, mdf(List.of("sub_cls", "super_cls"), List.of())),
+      entry(INCOMPLETE_PR_PATTERN, mdf(List.of(/*"cls*"*/), List.of(/*"cls*"*/""))), // TODO Formalize MDFs, make them dynamic, or create new mistakes
       entry(INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS, mdf(List.of("attr", "sub_cls", "super_cls"), List.of())),
       entry(MISSING_ASSOCIATION_NAME, mdf(List.of("assoc"), List.of("assoc"))),
       entry(MISSING_ATTRIBUTE_TYPE, mdf(List.of("attr"), List.of("attr"))),
       entry(MISSING_MULTIPLICITY, mdf(List.of("assocend"), List.of("assocend"))),
       entry(MISSING_N_ARY_ASSOCIATION, mdf(List.of(), List.of("assoc"))),
+      entry(MISSING_PR_PATTERN, mdf(List.of(), List.of(""))), // TODO [], [missingElements]
       entry(SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS, mdf(List.of("sub_cls", "super_cls"), List.of())),
       entry(SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME, mdf(List.of("sub_cls", "super_cls"), List.of())),
       entry(USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC, mdf(List.of("assoc"), List.of("assoc"))),

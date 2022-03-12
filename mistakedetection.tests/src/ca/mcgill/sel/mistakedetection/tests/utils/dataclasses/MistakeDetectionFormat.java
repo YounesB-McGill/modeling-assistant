@@ -44,12 +44,22 @@ public class MistakeDetectionFormat {
     return new MistakeDetectionFormat.Shape(this);
   }
 
+  public String studAsString() {
+    return listAsString(stud);
+  }
+
+  public String instAsString() {
+    return listAsString(inst);
+  }
+
+  private String listAsString(List<String> list) {
+    var maybeQuote = stud.isEmpty() ? "" : "\""; // first and last double-quote, if applicable
+    return maybeQuote + String.join("\", \"", stud) + maybeQuote;
+  }
+
   // eg, ([], ["cls"])
   @Override public String toString() {
-    var studTag = stud.isEmpty() ? "" : "\"";
-    var instTag = inst.isEmpty() ? "" : "\"";
-    return "([" + studTag + String.join("\", \"", stud) + studTag + "], ["
-        + instTag + String.join("\", \"", inst) + instTag + "])";
+    return "([" + studAsString() + "], [" + instAsString() + "])";
   }
 
   @Override public boolean equals(Object o) {
