@@ -2419,7 +2419,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> A ${stud_role_assocend0} can also play the role of one of the other roles at the same time and different features need to be captured for the roles.
+> A ${stud_role_assocend} can also play the role of one of the other roles at the same time and different features need to be captured for the roles.
 
 Level 4: Resource response with Quiz:
 
@@ -2611,7 +2611,7 @@ in different contexts.
 
 Instructor elements: Abstraction class, Occurrence class.
 
-Level 1: Highlight solution
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 

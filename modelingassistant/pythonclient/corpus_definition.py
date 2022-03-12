@@ -969,7 +969,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
                     3: ParametrizedResponse(
-                        text="A ${stud_role_assocend0} can also play the role of one of the other roles at the same "
+                        text="A ${stud_role_assocend} can also play the role of one of the other roles at the same "
                              "time and different features need to be captured for the roles."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
@@ -1038,7 +1038,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         abstraction_occurrence_pattern_mistakes := mtc(n="Abstraction-Occurrence pattern mistakes", mistakeTypes=[
             missing_ao_pattern := mt(
                 n="Missing AO pattern", d="Missing Abstraction-Occurrence pattern", feedbacks=fbs({
-                    1: Feedback(highlightSolution=True),
+                    1: Feedback(highlightProblem=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
                     3: ParametrizedResponse(
