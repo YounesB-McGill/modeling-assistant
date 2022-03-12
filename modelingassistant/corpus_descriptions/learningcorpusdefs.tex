@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus.py script.
-% Generation time: 2022-03-12 03:36:32
+% Generation time: 2022-03-12 16:52:21
 
 \textbf{Legend:}
 In the textual responses, items in \verb|${this format}| represent the parameters of
@@ -951,18 +951,18 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 Instructor element: Association. \medskip
 
-\noindent Level 1: Highlight solution  \medskip
+\noindent Level 1: Highlight sentence(s) in problem statement referring to item \medskip
 
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-What is the relationship between these classes?
+How should this relationship be modeled?
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How would you capture the relationship between \verb|${inst_assoc.end0.cls}| and \verb|${inst_assoc.end0.cls}|?
+How would you capture the relationship between \verb|${inst_assoc.end0.cls}| and \verb|${inst_assoc.end1.cls}|?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -981,12 +981,12 @@ better understand these relationships and where they are used.
 
 Instructor elements: Aggregation, Part association end, Whole association end. \medskip
 
-\noindent Level 1: Highlight solution  \medskip
+\noindent Level 1: Highlight sentence(s) in problem statement referring to item \medskip
 
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-What is the relationship between these classes?
+How should this relationship be modeled?
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -1011,12 +1011,12 @@ better understand these relationships and where they are used.
 
 Instructor element: Association. \medskip
 
-\noindent Level 1: Highlight solution  \medskip
+\noindent Level 1: Highlight sentence(s) in problem statement referring to item \medskip
 
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-What is the relationship between these classes?
+How should this relationship be modeled?
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -1099,7 +1099,7 @@ Is this association really necessary?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${stud_assoc.end0}| and \verb|${stud_assoc.end1}| is not expressed in the problem description.
+There should not be an association between \verb|${stud_assoc.end0.cls}| and \verb|${stud_assoc.end1.cls}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with List multiple-choice quiz: \medskip
@@ -1143,7 +1143,7 @@ Is this aggregation really necessary?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${stud_aggr.end0}| and \verb|${stud_aggr.end1}| is redundant.
+There should not be an aggregation between \verb|${stud_aggr.end0.cls}| and \verb|${stud_aggr.end1.cls}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1249,7 +1249,7 @@ The multiplicity for this association end is incorrect.
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How many \verb|${stud_assocend.cls}|'s does a \verb|${stud_assocend.opposite.cls}| have?
+How many \verb|${stud_assocend.cls}| instances does a \verb|${stud_assocend.opposite.cls}| have?
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with List multiple-choice quiz: \medskip
@@ -1343,7 +1343,7 @@ Can you model this relationship more precisely?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The multiplicities for the \verb|${stud_assocend}| association are correct, but something else is missing!
+The association between \verb|${stud_assocend.cls}| and \verb|${stud_assocend.opposite.cls}| is missing a role name.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1375,7 +1375,7 @@ Isn't there something special about this role name?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${stud_assocend}| should be static, because it applies to all instances of the association between \verb|${inst_assocend.opposite.cls}| and \verb|${inst_assocend.cls}|.
+\verb|${stud_assocend}| should be static, because it applies to all instances of the association between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1394,13 +1394,13 @@ Student element: Association end. Instructor element: Association end. \medskip
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Isn't there something special about this role name?
+Is there something special about this role name?
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${stud_assocend}| should not be static, because it does not apply to all instances of the association between \verb|${inst_assocend.opposite.cls}| and \verb|${inst_assocend.cls}|.
+\verb|${stud_assocend}| should not be static, because it does not apply to all instances of the association between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1835,7 +1835,7 @@ Please review the \textit{Association} and \textit{Noun Analysis} parts of the C
 
 Instructor elements: Association, Class. \medskip
 
-\noindent Level 1: Highlight solution  \medskip
+\noindent Level 1: Highlight sentence(s) in problem statement referring to item \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -1996,12 +1996,12 @@ Please review the _Association class_ section of the
 
 Instructor elements: Composition, Part association end, Whole association end. \medskip
 
-\noindent Level 1: Highlight solution  \medskip
+\noindent Level 1: Highlight sentence(s) in problem statement referring to item \medskip
 
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-What is the relationship between these classes?
+How should this relationship be modeled?
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -2549,13 +2549,13 @@ Can you find a better way to express this relationship?
 \noindent Level 3: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Remember the definition of the **'instance' rule**.[ Instances should not be modeled as subclasses].
+Remember the definition of the 'instance' rule.[ Instances should not be modeled as subclasses].
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Example: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-A CheckingAccount isA Account, but account1234 is **not** an Account according to the 'instance' rule.
+A CheckingAccount isA Account, but account1234 is not an Account according to the 'instance' rule.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip

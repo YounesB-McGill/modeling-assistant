@@ -298,10 +298,10 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     relationship_mistakes := mtc(n="Relationship mistakes", subcategories=[
         missing_association_aggregation_mistakes := mtc(n="Missing association/aggregation mistakes", mistakeTypes=[
             missing_association := mt(n="Missing association", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
-                2: TextResponse(text="What is the relationship between these classes?"),
+                1: Feedback(highlightProblem=True),
+                2: TextResponse(text="How should this relationship be modeled?"),
                 3: ParametrizedResponse(text="How would you capture the relationship between ${inst_assoc.end0.cls} "
-                                             "and ${inst_assoc.end0.cls}?"),
+                                             "and ${inst_assoc.end1.cls}?"),
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref := Reference(content=dedent("""\
                     Please review the _Composition vs. Aggregation vs. Association_ section of 
                     the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
@@ -311,15 +311,15 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 )]),
             })),
             missing_aggregation := mt(n="Missing aggregation", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
-                2: TextResponse(text="What is the relationship between these classes?"),
+                1: Feedback(highlightProblem=True),
+                2: TextResponse(text="How should this relationship be modeled?"),
                 3: ParametrizedResponse(
                     text="How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?"),
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
             missing_n_ary_association := mt(n="Missing n-ary association", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
-                2: TextResponse(text="What is the relationship between these classes?"),
+                1: Feedback(highlightProblem=True),
+                2: TextResponse(text="How should this relationship be modeled?"),
                 3: ParametrizedResponse(text="How would you capture the relationship between ${inst_assoc.cls*}?"),
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
@@ -342,8 +342,10 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             extra_association := mt(n="Extra association", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this association really necessary?"),
-                3: [ParametrizedResponse(text="The relationship between ${stud_assoc.end0} and ${stud_assoc.end1} is "
-                                              "not expressed in the problem description."),
+                3: [ParametrizedResponse(text="There should not be an association between ${stud_assoc.end0.cls} and "
+                                              "${stud_assoc.end1.cls}."),
+                    ParametrizedResponse(text="The relationship between ${stud_assoc.end0.cls} and "
+                                              "${stud_assoc.end1.cls} is not expressed in the problem description."),
                     ParametrizedResponse(text="The relationship between ${classOne} and ${classTwo} is redundant "
                         "since we can access ${classTwo} from ${classOne} via ${classThree}.")],
                 4: ResourceResponse(learningResources=[mcq[
@@ -366,7 +368,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this aggregation really necessary?"),
                 3: ParametrizedResponse(
-                    text="The relationship between ${stud_aggr.end0} and ${stud_aggr.end1} is redundant."),
+                    text="There should not be an aggregation between ${stud_aggr.end0.cls} and ${stud_aggr.end1.cls}."),
                 4: ResourceResponse(learningResources=[generic_extra_item_ref]),
             })),
             extra_n_ary_association := mt(n="Extra n-ary association", feedbacks=fbs({
@@ -403,7 +405,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 2: TextResponse(text="Double check this association."),
                 3: TextResponse(text="The multiplicity for this association end is incorrect."),
                 4: ParametrizedResponse(
-                    text="How many ${stud_assocend.cls}'s does a ${stud_assocend.opposite.cls} have?"),
+                    text="How many ${stud_assocend.cls} instances does a ${stud_assocend.opposite.cls} have?"),
                 5: ResourceResponse(learningResources=[multiplicities_quiz := mcq[
                     "Pick the association(s) with correct multiplicities:",
                        "1 EmployeeRole -- 1 Person;",
@@ -412,7 +414,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                        "* Client -- 1 BankAccount;",
                     T: "0..2 Loan -- 1 Client;",
                        "* Person -- 1 EmployeeRole;",
-                    T:  "* EmployeeRole -- 1 Person;",
+                    T: "* EmployeeRole -- 1 Person;",
                     ]]),
                 6: ResourceResponse(learningResources=[mult_ref]),
             })),
@@ -430,8 +432,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_role_names := mt(n="Missing role names", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you model this relationship more precisely?"),
-                3: ParametrizedResponse(text="The multiplicities for the ${stud_assocend} association are correct, "
-                                             "but something else is missing!"),
+                3: ParametrizedResponse(text="The association between ${stud_assocend.cls} and "
+                    "${stud_assocend.opposite.cls} is missing a role name."),
                 4: ResourceResponse(learningResources=[role_name_ref := Reference(content=dedent("""\
                     Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
                     for this association? Role names help identify the role a class plays in a
@@ -445,15 +447,15 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Isn't there something special about this role name?"),
                 3: ParametrizedResponse(text="${stud_assocend} should be static, because it applies to all instances "
-                    "of the association between ${inst_assocend.opposite.cls} and ${inst_assocend.cls}."),
+                    "of the association between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}."),
                 4: ResourceResponse(learningResources=[assoc_ref := Reference(content="Please review the "
                     "[Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
             })),
             role_should_not_be_static := mt(n="Role should not be static", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
-                2: TextResponse(text="Isn't there something special about this role name?"),
+                2: TextResponse(text="Is there something special about this role name?"),
                 3: ParametrizedResponse(text="${stud_assocend} should not be static, because it does not apply to all "
-                    "instances of the association between ${inst_assocend.opposite.cls} and ${inst_assocend.cls}."),
+                    "instances of the association between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}."),
                 4: ResourceResponse(learningResources=[assoc_ref]),
             })),
             bad_role_name_spelling := mt(n="Bad role name spelling", feedbacks=fbs({
@@ -603,7 +605,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         ]),
         association_class_mistakes := mtc(n="Association class mistakes", mistakeTypes=[
             missing_assoc_class := mt(n="Missing assoc class", d="Missing association class", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
+                1: Feedback(highlightProblem=True),
                 2: TextResponse(text="Can you model this relationship more precisely?"),
                 3: ParametrizedResponse(text="Further details of the association between ${inst_assoc.ends0.cls} "
                     "and ${inst_assoc.ends1.cls} should be modeled with an association class."),
@@ -649,8 +651,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         ]),
         composition_mistakes := mtc(n="Composition mistakes", mistakeTypes=[
             missing_composition := mt(n="Missing composition", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
-                2: TextResponse(text="What is the relationship between these classes?"),
+                1: Feedback(highlightProblem=True),
+                2: TextResponse(text="How should this relationship be modeled?"),
                 3: ParametrizedResponse(
                     text="How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?"),
                 4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
@@ -808,10 +810,10 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             subclass_is_an_instance_of_superclass := mt(n="Subclass is an instance of superclass", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you find a better way to express this relationship?"),
-                3: TextResponse(text="Remember the definition of the **'instance' rule**.[ Instances should not be "
+                3: TextResponse(text="Remember the definition of the 'instance' rule.[ Instances should not be "
                     "modeled as subclasses]."),
                 4: ResourceResponse(learningResources=[Example(content="A CheckingAccount isA Account, but account1234 "
-                    "is **not** an Account according to the 'instance' rule.")]),
+                    "is not an Account according to the 'instance' rule.")]),
                 5: ResourceResponse(learningResources=[inherit_checks_quiz]),
                 6: ResourceResponse(learningResources=[gen_ref]),
             })),

@@ -335,7 +335,7 @@ Level 4: Resource response with Reference:
 
 Instructor element: Enumeration.
 
-Level 1: Highlight sentence in problem statement referring to item
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 
@@ -457,7 +457,7 @@ Level 4: Resource response with Reference:
 
 Instructor element: Class.
 
-Level 1: Highlight sentence in problem statement referring to item
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 
@@ -818,15 +818,15 @@ Level 4: Resource response with Reference:
 
 Instructor element: Association.
 
-Level 1: Highlight solution
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 
-> What is the relationship between these classes?
+> How should this relationship be modeled?
 
 Level 3: Parametrized response:
 
-> How would you capture the relationship between ${inst_assoc.end0.cls} and ${inst_assoc.end0.cls}?
+> How would you capture the relationship between ${inst_assoc.end0.cls} and ${inst_assoc.end1.cls}?
 
 Level 4: Resource response with Reference:
 
@@ -841,11 +841,11 @@ better understand these relationships and where they are used.
 
 Instructor elements: Aggregation, Part association end, Whole association end.
 
-Level 1: Highlight solution
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 
-> What is the relationship between these classes?
+> How should this relationship be modeled?
 
 Level 3: Parametrized response:
 
@@ -864,11 +864,11 @@ better understand these relationships and where they are used.
 
 Instructor element: Association.
 
-Level 1: Highlight solution
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 
-> What is the relationship between these classes?
+> How should this relationship be modeled?
 
 Level 3: Parametrized response:
 
@@ -929,7 +929,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_assoc.end0} and ${stud_assoc.end1} is not expressed in the problem description.
+> There should not be an association between ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls}.
 
 Level 4: Resource response with List multiple-choice quiz:
 
@@ -960,7 +960,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_aggr.end0} and ${stud_aggr.end1} is redundant.
+> There should not be an aggregation between ${stud_aggr.end0.cls} and ${stud_aggr.end1.cls}.
 
 Level 4: Resource response with Reference:
 
@@ -1038,7 +1038,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> How many ${stud_assocend.cls}'s does a ${stud_assocend.opposite.cls} have?
+> How many ${stud_assocend.cls} instances does a ${stud_assocend.opposite.cls} have?
 
 Level 5: Resource response with List multiple-choice quiz:
 
@@ -1106,7 +1106,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The multiplicities for the ${stud_assocend} association are correct, but something else is missing!
+> The association between ${stud_assocend.cls} and ${stud_assocend.opposite.cls} is missing a role name.
 
 Level 4: Resource response with Reference:
 
@@ -1131,7 +1131,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_assocend} should be static, because it applies to all instances of the association between ${inst_assocend.opposite.cls} and ${inst_assocend.cls}.
+> ${stud_assocend} should be static, because it applies to all instances of the association between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}.
 
 Level 4: Resource response with Reference:
 
@@ -1146,11 +1146,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Isn't there something special about this role name?
+> Is there something special about this role name?
 
 Level 3: Parametrized response:
 
-> ${stud_assocend} should not be static, because it does not apply to all instances of the association between ${inst_assocend.opposite.cls} and ${inst_assocend.cls}.
+> ${stud_assocend} should not be static, because it does not apply to all instances of the association between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}.
 
 Level 4: Resource response with Reference:
 
@@ -1482,7 +1482,7 @@ Level 4: Resource response with Reference:
 
 Instructor elements: Association, Class.
 
-Level 1: Highlight solution
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 
@@ -1603,11 +1603,11 @@ Level 4: Resource response with Reference:
 
 Instructor elements: Composition, Part association end, Whole association end.
 
-Level 1: Highlight solution
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 
-> What is the relationship between these classes?
+> How should this relationship be modeled?
 
 Level 3: Parametrized response:
 
@@ -2004,11 +2004,11 @@ Level 2: Text response:
 
 Level 3: Text response:
 
-> Remember the definition of the **'instance' rule**.[ Instances should not be modeled as subclasses].
+> Remember the definition of the 'instance' rule.[ Instances should not be modeled as subclasses].
 
 Level 4: Resource response with Example:
 
-> A CheckingAccount isA Account, but account1234 is **not** an Account according to the 'instance' rule.
+> A CheckingAccount isA Account, but account1234 is not an Account according to the 'instance' rule.
 
 Level 5: Resource response with Fill-in-the-blanks quiz:
 

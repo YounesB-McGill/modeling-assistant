@@ -350,7 +350,7 @@ class MarkdownGenerator(TextualGenerator):
                     continue
                 match fb:
                     case Feedback(highlightProblem=True):
-                        sp = "specific" if fb.level > 1 else "sentence in"
+                        sp = "specific" if fb.level > 1 else "sentence(s) in"
                         # use elem type here in the future if it can be made more specific, eg, enum instead of class
                         elem = "elements" if fb.level > 1 else "referring to item"
                         result += f"Highlight {sp} problem statement {elem}\n\n"
