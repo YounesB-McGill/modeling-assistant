@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus.py script.
-% Generation time: 2022-02-27 01:33:32
+% Generation time: 2022-03-12 02:36:19
 
 \textbf{Legend:}
 In the textual responses, items in \verb|${this format}| represent the parameters of
@@ -204,12 +204,48 @@ Student element: Class. Instructor element: Class. \medskip
 
 \noindent Level 1: Highlight solution  \medskip
 
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Isn't there something special about this class?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+\verb|${stud_cls}| should be abstract.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the \textit{Classes} part of the Class Diagram lecture.
+\end{tabular} \medskip
+
 
 \subsubsection{Class should not be abstract}
 
 Student element: Class. Instructor element: Class. \medskip
 
 \noindent Level 1: Highlight solution  \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Is there something special about this class?
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+\verb|${stud_cls}| should not be abstract.
+\end{tabular} \medskip
+
+\noindent Level 4: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Please review the \textit{Classes} part of the Class Diagram lecture.
+\end{tabular} \medskip
 
 
 \subsection{Enumeration mistakes}
@@ -347,7 +383,7 @@ Please review the \textit{Enumeration} part of the Class Diagram lecture.
 
 \subsubsection{Missing enumeration item}
 
-Instructor element: Enumeration item. \medskip
+Student element: Enumeration. Instructor element: Enumeration item. \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -363,7 +399,13 @@ Is there anything missing here?
 The \verb|${inst_enumitem.enum}| enumeration is missing an item.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Reference: \medskip
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Add \verb|${inst_enumitem}| to the \verb|${inst_enumitem.enum}| enumeration.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Please review the \textit{Enumeration} part of the Class Diagram lecture.
@@ -877,7 +919,7 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 \subsection{Missing attribute}
 
-Instructor element: Attribute. \medskip
+Student element: Class. Instructor element: Attribute. \medskip
 
 \noindent Level 1: Highlight solution (Attribute) \medskip
 
@@ -937,7 +979,7 @@ better understand these relationships and where they are used.
 
 \subsubsection{Missing aggregation}
 
-Instructor elements: Part association end, Whole association end. \medskip
+Instructor elements: Aggregation, Part association end, Whole association end. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1088,7 +1130,7 @@ Please review the \textit{domain modeling lecture} to know which concepts should
 
 \subsubsection{Extra aggregation}
 
-Student element: Aggregation.  \medskip
+Student elements: Aggregation, Part association end, Whole association end.  \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1460,7 +1502,7 @@ between the same two classes.
 
 \subsubsection{Using aggregation instead of association}
 
-Student element: Association end. Instructor element: Association end. \medskip
+Student elements: Aggregation, Part association end, Whole association end. Instructor elements: Association, Association end, Other association end. \medskip
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -1473,7 +1515,7 @@ What is the relationship between these two concepts?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${stud_assocend.cls}| and \verb|${stud_assocend.opposite.cls}| can be modeled with a simple association.
+The relationship between \verb|${stud_part_assocend.cls}| and \verb|${stud_whole_assocend.cls}| can be modeled with a simple association.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1490,7 +1532,7 @@ better understand these relationships and where they are used.
 
 \subsubsection{Using composition instead of association}
 
-Student elements: Part association end, Whole association end. Instructor element: Association. \medskip
+Student elements: Composition, Part association end, Whole association end. Instructor elements: Association, Association end, Other association end. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1506,7 +1548,13 @@ What is the relationship between these two concepts?
 Why is \verb|${stud_part_assocend.cls}| contained in \verb|${stud_whole_assocend.cls}|?
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Reference: \medskip
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The relationship between \verb|${stud_part_assocend.cls}| and \verb|${stud_whole_assocend.cls}| should be modeled with a simple association.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Please review the _Composition vs. Aggregation vs. Association_ section of 
@@ -1520,7 +1568,7 @@ better understand these relationships and where they are used.
 
 \subsubsection{Using directed relationship instead of undirected relationship}
 
-Student element: Association end. Instructor element: Association end. \medskip
+Student elements: Aggregation composition or association, Source association end, Target association end. Instructor elements: Aggregation composition or association, Association end, Other association end. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1533,7 +1581,7 @@ Why is navigation restricted for this relationship?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}| should be undirected.
+The relationship between \verb|${stud_source_assocend.cls}| and \verb|${stud_target_assocend.cls}| should be undirected.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1545,7 +1593,7 @@ Please review the _Directionality in Associations_ section of the \textit{UML Cl
 
 \subsubsection{Using undirected relationship instead of directed relationship}
 
-Student elements: Source association end, Target association end. Instructor elements: Source association end, Target association end. \medskip
+Student elements: Aggregation composition or association, Association end, Other association end. Instructor elements: Aggregation composition or association, Source association end, Target association end. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1570,7 +1618,7 @@ Please review the _Directionality in Associations_ section of the \textit{UML Cl
 
 \subsubsection{Wrong relationship direction}
 
-Student element: . Instructor element: . \medskip
+Student elements: Aggregation composition or association, Source association end, Target association end. Instructor elements: Aggregation composition or association, Source association end, Target association end. \medskip
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -1583,7 +1631,7 @@ Double check the direction for this relationship.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The direction of the relationship between \verb|${stud_assoc.end0.cls}| and \verb|${stud_assoc.end1.cls}| should be reversed.
+The direction of the relationship between \verb|${stud_source_assocend.cls}| and \verb|${stud_target_assocend.cls}| should be reversed.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1595,7 +1643,7 @@ Please review the _Directionality in Associations_ section of the \textit{UML Cl
 
 \subsubsection{Using composition instead of aggregation}
 
-Student element: Association end. Instructor element: Association end. \medskip
+Student elements: Composition, Part association end, Whole association end. Instructor elements: Aggregation, Part association end, Whole association end. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -1608,7 +1656,7 @@ Is this the best relationship to use here?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The composition between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}| is better modeled using aggregation.
+The composition between \verb|${stud_part_assocend.cls}| and \verb|${stud_whole_assocend.cls}| is better modeled using aggregation.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1946,7 +1994,7 @@ Please review the _Association class_ section of the
 
 \subsubsection{Missing composition}
 
-Instructor elements: Part association end, Whole association end. \medskip
+Instructor elements: Composition, Part association end, Whole association end. \medskip
 
 \noindent Level 1: Highlight solution (Composition) \medskip
 
@@ -1976,7 +2024,7 @@ better understand these relationships and where they are used.
 
 \subsubsection{Extra composition}
 
-Student element: Composition.  \medskip
+Student elements: Composition, Part association end, Whole association end.  \medskip
 
 \noindent Level 1: Highlight solution (Composition) \medskip
 
@@ -2006,7 +2054,7 @@ better understand these relationships and where they are used.
 
 \subsubsection{Using association instead of aggregation}
 
-Student element: Association end. Instructor element: Association end. \medskip
+Student elements: Association, Association end, Other association end. Instructor elements: Aggregation, Part association end, Whole association end. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -2019,10 +2067,16 @@ What is the relationship between these two concepts?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}| can be modeled more precisely than with a simple association.
+The relationship between \verb|${stud_assocend.cls}| and \verb|${stud_other_assocend.cls}| can be modeled more precisely than with a simple association.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Reference: \medskip
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The relationship between \verb|${stud_assocend.cls}| and \verb|${stud_other_assocend.cls}| should be modeled with an aggregation.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Please review the _Composition vs. Aggregation vs. Association_ section of 
@@ -2036,7 +2090,7 @@ better understand these relationships and where they are used.
 
 \subsubsection{Using association instead of composition}
 
-Student element: Association end. Instructor element: Association end. \medskip
+Student elements: Association, Association end, Other association end. Instructor elements: Composition, Part association end, Whole association end. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -2049,10 +2103,16 @@ What is the relationship between these two concepts?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}| is more than a simple association.
+The relationship between \verb|${stud_assocend.cls}| and \verb|${stud_other_assocend.cls}| is more than a simple association.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Reference: \medskip
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The relationship between \verb|${stud_assocend.cls}| and \verb|${stud_other_assocend.cls}| should be modeled with a composition.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Please review the _Composition vs. Aggregation vs. Association_ section of 
@@ -2066,7 +2126,7 @@ better understand these relationships and where they are used.
 
 \subsubsection{Using aggregation instead of composition}
 
-Student element: Association end. Instructor element: Association end. \medskip
+Student elements: Aggregation, Part association end, Whole association end. Instructor elements: Composition, Part association end, Whole association end. \medskip
 
 \noindent Level 1: Highlight solution (Relationship) \medskip
 
@@ -2079,10 +2139,16 @@ Is this the best relationship to use here?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}| is stronger than an aggregation.
+The relationship between \verb|${stud_part_assocend.cls}| and \verb|${stud_whole_assocend.cls}| is stronger than an aggregation.
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Reference: \medskip
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The relationship between \verb|${stud_part_assocend.cls}| and \verb|${stud_whole_assocend.cls}| should be modeled with a composition.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Please review the _Composition vs. Aggregation vs. Association_ section of 
@@ -2689,10 +2755,10 @@ Instructor element: . \medskip
 Think carefully about how to model the relationships between these concepts.
 \end{tabular} \medskip
 
-\noindent Level 3: Parametrized response: \medskip
+\noindent Level 3: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The concepts of \verb|${inst_player_cls}| and \verb|${inst_role_cls*}| and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
+Use the Player-Role pattern to model the relationships between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -2725,7 +2791,7 @@ in different contexts.
 
 \subsubsection{Incomplete Player-Role pattern}
 
-Student element: Classes. Instructor element: Classes. \medskip
+Instructor element: . \medskip
 
 \noindent Level 1: Highlight solution (Class) \medskip
 
@@ -2735,10 +2801,10 @@ Student element: Classes. Instructor element: Classes. \medskip
 Think carefully about how to model the relationships between these concepts.
 \end{tabular} \medskip
 
-\noindent Level 3: Parametrized response: \medskip
+\noindent Level 3: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The concepts of \verb|${inst_player_cls}|, \verb|${inst_role_cls*}| and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
+Use the Player-Role pattern to model the relationships between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip

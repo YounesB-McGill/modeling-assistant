@@ -82,15 +82,10 @@ public abstract class MistakeDetectionInformationService {
           HumanValidatedMistakeDetectionFormats.mappings,
           false);
 
-  static {
-    System.out.println("MistakeDetectionInformationService static block mdfCollisionFunction: " + mdfCollisionFunction);
-  }
-
   public final String name;
 
   public MistakeDetectionInformationService(String name) {
     this.name = name;
-    System.out.println("MistakeDetectionInformationService constructor mdfCollisionFunction: " + mdfCollisionFunction);
   }
 
   /**
@@ -173,7 +168,6 @@ public abstract class MistakeDetectionInformationService {
 
   /** Suggests mistake detection formats based on the output of the mistake detection tests. */
   static Map<MistakeType, MistakeDetectionFormat> suggestMistakeDetectionFormats() {
-    System.out.println("mdfCollisionFunction: " + mdfCollisionFunction);
     return suggestAllMistakeDetectionFormats().entrySet().stream().collect(Collectors.toMap(
         e -> e.getKey().getMistakeType(),
         Map.Entry::getValue,

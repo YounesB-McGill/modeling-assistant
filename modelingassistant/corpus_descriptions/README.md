@@ -259,12 +259,36 @@ Student element: Class. Instructor element: Class.
 
 Level 1: Highlight solution
 
+Level 2: Text response:
+
+> Isn't there something special about this class?
+
+Level 3: Parametrized response:
+
+> ${stud_cls} should be abstract.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 #### Class should not be abstract
 
 Student element: Class. Instructor element: Class.
 
 Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Is there something special about this class?
+
+Level 3: Parametrized response:
+
+> ${stud_cls} should not be abstract.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 ### Enumeration mistakes
@@ -370,7 +394,7 @@ Level 4: Resource response with Reference:
 
 #### Missing enumeration item
 
-Instructor element: Enumeration item.
+Student element: Enumeration. Instructor element: Enumeration item.
 
 Level 1: Highlight solution
 
@@ -382,7 +406,11 @@ Level 3: Parametrized response:
 
 > The ${inst_enumitem.enum} enumeration is missing an item.
 
-Level 4: Resource response with Reference:
+Level 4: Parametrized response:
+
+> Add ${inst_enumitem} to the ${inst_enumitem.enum} enumeration.
+
+Level 5: Resource response with Reference:
 
 > Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
@@ -764,7 +792,7 @@ Level 4: Resource response with Reference:
 
 ### Missing attribute
 
-Instructor element: Attribute.
+Student element: Class. Instructor element: Attribute.
 
 Level 1: Highlight solution
 
@@ -811,7 +839,7 @@ better understand these relationships and where they are used.
 
 #### Missing aggregation
 
-Instructor elements: Part association end, Whole association end.
+Instructor elements: Aggregation, Part association end, Whole association end.
 
 Level 1: Highlight solution
 
@@ -922,7 +950,7 @@ Level 5: Resource response with Reference:
 
 #### Extra aggregation
 
-Student element: Aggregation. 
+Student elements: Aggregation, Part association end, Whole association end. 
 
 Level 1: Highlight solution
 
@@ -1200,7 +1228,7 @@ between the same two classes.
 
 #### Using aggregation instead of association
 
-Student element: Association end. Instructor element: Association end.
+Student elements: Aggregation, Part association end, Whole association end. Instructor elements: Association, Association end, Other association end.
 
 Level 1: Highlight solution
 
@@ -1210,7 +1238,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_assocend.cls} and ${stud_assocend.opposite.cls} can be modeled with a simple association.
+> The relationship between ${stud_part_assocend.cls} and ${stud_whole_assocend.cls} can be modeled with a simple association.
 
 Level 4: Resource response with Reference:
 
@@ -1223,7 +1251,7 @@ better understand these relationships and where they are used.
 
 #### Using composition instead of association
 
-Student elements: Part association end, Whole association end. Instructor element: Association.
+Student elements: Composition, Part association end, Whole association end. Instructor elements: Association, Association end, Other association end.
 
 Level 1: Highlight solution
 
@@ -1235,7 +1263,11 @@ Level 3: Parametrized response:
 
 > Why is ${stud_part_assocend.cls} contained in ${stud_whole_assocend.cls}?
 
-Level 4: Resource response with Reference:
+Level 4: Parametrized response:
+
+> The relationship between ${stud_part_assocend.cls} and ${stud_whole_assocend.cls} should be modeled with a simple association.
+
+Level 5: Resource response with Reference:
 
 > Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
@@ -1246,7 +1278,7 @@ better understand these relationships and where they are used.
 
 #### Using directed relationship instead of undirected relationship
 
-Student element: Association end. Instructor element: Association end.
+Student elements: Aggregation composition or association, Source association end, Target association end. Instructor elements: Aggregation composition or association, Association end, Other association end.
 
 Level 1: Highlight solution
 
@@ -1256,7 +1288,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls} should be undirected.
+> The relationship between ${stud_source_assocend.cls} and ${stud_target_assocend.cls} should be undirected.
 
 Level 4: Resource response with Reference:
 
@@ -1265,7 +1297,7 @@ Level 4: Resource response with Reference:
 
 #### Using undirected relationship instead of directed relationship
 
-Student elements: Source association end, Target association end. Instructor elements: Source association end, Target association end.
+Student elements: Aggregation composition or association, Association end, Other association end. Instructor elements: Aggregation composition or association, Source association end, Target association end.
 
 Level 1: Highlight solution
 
@@ -1284,7 +1316,7 @@ Level 4: Resource response with Reference:
 
 #### Wrong relationship direction
 
-Student element: . Instructor element: .
+Student elements: Aggregation composition or association, Source association end, Target association end. Instructor elements: Aggregation composition or association, Source association end, Target association end.
 
 Level 1: Highlight solution
 
@@ -1294,7 +1326,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The direction of the relationship between ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls} should be reversed.
+> The direction of the relationship between ${stud_source_assocend.cls} and ${stud_target_assocend.cls} should be reversed.
 
 Level 4: Resource response with Reference:
 
@@ -1303,7 +1335,7 @@ Level 4: Resource response with Reference:
 
 #### Using composition instead of aggregation
 
-Student element: Association end. Instructor element: Association end.
+Student elements: Composition, Part association end, Whole association end. Instructor elements: Aggregation, Part association end, Whole association end.
 
 Level 1: Highlight solution
 
@@ -1313,7 +1345,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The composition between ${stud_assocend.opposite.cls} and ${stud_assocend.cls} is better modeled using aggregation.
+> The composition between ${stud_part_assocend.cls} and ${stud_whole_assocend.cls} is better modeled using aggregation.
 
 Level 4: Resource response with Reference:
 
@@ -1569,7 +1601,7 @@ Level 4: Resource response with Reference:
 
 #### Missing composition
 
-Instructor elements: Part association end, Whole association end.
+Instructor elements: Composition, Part association end, Whole association end.
 
 Level 1: Highlight solution
 
@@ -1592,7 +1624,7 @@ better understand these relationships and where they are used.
 
 #### Extra composition
 
-Student element: Composition. 
+Student elements: Composition, Part association end, Whole association end. 
 
 Level 1: Highlight solution
 
@@ -1615,7 +1647,7 @@ better understand these relationships and where they are used.
 
 #### Using association instead of aggregation
 
-Student element: Association end. Instructor element: Association end.
+Student elements: Association, Association end, Other association end. Instructor elements: Aggregation, Part association end, Whole association end.
 
 Level 1: Highlight solution
 
@@ -1625,9 +1657,13 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls} can be modeled more precisely than with a simple association.
+> The relationship between ${stud_assocend.cls} and ${stud_other_assocend.cls} can be modeled more precisely than with a simple association.
 
-Level 4: Resource response with Reference:
+Level 4: Parametrized response:
+
+> The relationship between ${stud_assocend.cls} and ${stud_other_assocend.cls} should be modeled with an aggregation.
+
+Level 5: Resource response with Reference:
 
 > Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
@@ -1638,7 +1674,7 @@ better understand these relationships and where they are used.
 
 #### Using association instead of composition
 
-Student element: Association end. Instructor element: Association end.
+Student elements: Association, Association end, Other association end. Instructor elements: Composition, Part association end, Whole association end.
 
 Level 1: Highlight solution
 
@@ -1648,9 +1684,13 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls} is more than a simple association.
+> The relationship between ${stud_assocend.cls} and ${stud_other_assocend.cls} is more than a simple association.
 
-Level 4: Resource response with Reference:
+Level 4: Parametrized response:
+
+> The relationship between ${stud_assocend.cls} and ${stud_other_assocend.cls} should be modeled with a composition.
+
+Level 5: Resource response with Reference:
 
 > Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
@@ -1661,7 +1701,7 @@ better understand these relationships and where they are used.
 
 #### Using aggregation instead of composition
 
-Student element: Association end. Instructor element: Association end.
+Student elements: Aggregation, Part association end, Whole association end. Instructor elements: Composition, Part association end, Whole association end.
 
 Level 1: Highlight solution
 
@@ -1671,9 +1711,13 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls} is stronger than an aggregation.
+> The relationship between ${stud_part_assocend.cls} and ${stud_whole_assocend.cls} is stronger than an aggregation.
 
-Level 4: Resource response with Reference:
+Level 4: Parametrized response:
+
+> The relationship between ${stud_part_assocend.cls} and ${stud_whole_assocend.cls} should be modeled with a composition.
+
+Level 5: Resource response with Reference:
 
 > Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
@@ -2109,9 +2153,9 @@ Level 2: Text response:
 
 > Think carefully about how to model the relationships between these concepts.
 
-Level 3: Parametrized response:
+Level 3: Text response:
 
-> The concepts of ${inst_player_cls} and ${inst_role_cls*} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
+> Use the Player-Role pattern to model the relationships between these concepts.
 
 Level 4: Resource response with Quiz:
 
@@ -2134,7 +2178,7 @@ in different contexts.
 
 #### Incomplete Player-Role pattern
 
-Student element: Classes. Instructor element: Classes.
+Instructor element: .
 
 Level 1: Highlight solution
 
@@ -2142,9 +2186,9 @@ Level 2: Text response:
 
 > Think carefully about how to model the relationships between these concepts.
 
-Level 3: Parametrized response:
+Level 3: Text response:
 
-> The concepts of ${inst_player_cls}, ${inst_role_cls*} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
+> Use the Player-Role pattern to model the relationships between these concepts.
 
 Level 4: Resource response with Quiz:
 

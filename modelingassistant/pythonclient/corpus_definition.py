@@ -851,7 +851,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 # 3: ParametrizedResponse(
                 #     text="The concepts of ${inst_player_cls} and ${inst_role_cls*} and the relationship between them "
                 #          "should be modeled with one of the forms of the Player-Role pattern."),
-                3: TextResponse("Use the Player-Role pattern to model the relationships between these concepts."),
+                3: TextResponse(text="Use the Player-Role pattern to model the relationships between these concepts."),
                 # &#9744; is an unchecked checkbox and &#10003; is a checked checkbox
                 4: ResourceResponse(learningResources=[pr_quiz := Quiz(content=dedent(f"""\
                     Complete the following table:
@@ -878,7 +878,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     # 3: ParametrizedResponse(
                     #    text="The concepts of ${inst_player_cls}, ${inst_role_cls*} and the relationship between them "
                     #          "should be modeled with one of the forms of the Player-Role pattern."),
-                    3: TextResponse("Use the Player-Role pattern to model the relationships between these concepts."),
+                    3: TextResponse(
+                        text="Use the Player-Role pattern to model the relationships between these concepts."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
