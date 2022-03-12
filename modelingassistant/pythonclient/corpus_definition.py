@@ -86,11 +86,15 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 })),
                 class_should_be_abstract := mt(n="Class should be abstract", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    #TODO Add levels
+                    2: TextResponse(text="Isn't there something special about this class?"),
+                    3: ParametrizedResponse(text="${stud_cls} should be abstract."),
+                    4: ResourceResponse(learningResources=[class_ref]),
                 })),
                 class_should_not_be_abstract := mt(n="Class should not be abstract", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    #TODO Add levels
+                    2: TextResponse(text="Is there something special about this class?"),
+                    3: ParametrizedResponse(text="${stud_cls} should not be abstract."),
+                    4: ResourceResponse(learningResources=[class_ref]),
                 })),
             ]),
             enumeration_mistakes := mtc(n="Enumeration mistakes", mistakeTypes=[
@@ -135,7 +139,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Is there anything missing here?"),
                     3: ParametrizedResponse(text="The ${inst_enumitem.enum} enumeration is missing an item."),
-                    4: ResourceResponse(learningResources=[enum_reference]),
+                    4: ParametrizedResponse(text="Add ${inst_enumitem} to the ${inst_enumitem.enum} enumeration."),
+                    5: ResourceResponse(learningResources=[enum_reference]),
                 })),
                 extra_enum_item := mt(n="Extra enum item", d="Extra enumeration item", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
@@ -484,8 +489,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="What is the relationship between these two concepts?"),
-                    3: ParametrizedResponse(text="The relationship between ${stud_assocend.cls} and "
-                        "${stud_assocend.opposite.cls} can be modeled with a simple association."),
+                    3: ParametrizedResponse(text="The relationship between ${stud_part_assocend.cls} and "
+                        "${stud_whole_assocend.cls} can be modeled with a simple association."),
                     4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
             using_composition_instead_of_assoc := mt(
@@ -496,7 +501,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(text="What is the relationship between these two concepts?"),
                     3: ParametrizedResponse(
                         text="Why is ${stud_part_assocend.cls} contained in ${stud_whole_assocend.cls}?"),
-                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                    4: ParametrizedResponse(text="The relationship between ${stud_part_assocend.cls} and "
+                        "${stud_whole_assocend.cls} should be modeled with a simple association."),
+                    5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
             using_directed_relationship_instead_of_undirected := mt(
                 n="Using directed relationship instead of undirected",
@@ -504,8 +511,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Why is navigation restricted for this relationship?"),
-                    3: ParametrizedResponse(text="The relationship between ${stud_assocend.opposite.cls} and "
-                                                 "${stud_assocend.cls} should be undirected."),
+                    3: ParametrizedResponse(text="The relationship between ${stud_source_assocend.cls} and "
+                                                 "${stud_target_assocend.cls} should be undirected."),
                     4: ResourceResponse(learningResources=[dir_rel_ref := Reference(
                         content="Please review the _Directionality in Associations_ section of the "
                                 "[UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)")]),
@@ -525,16 +532,16 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             wrong_relationship_direction := mt(n="Wrong relationship direction", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check the direction for this relationship."),
-                3: ParametrizedResponse(text="The direction of the relationship between ${stud_assoc.end0.cls} and "
-                                             "${stud_assoc.end1.cls} should be reversed."),
+                3: ParametrizedResponse(text="The direction of the relationship between ${stud_source_assocend.cls} "
+                                             "and ${stud_target_assocend.cls} should be reversed."),
                 4: ResourceResponse(learningResources=[dir_rel_ref]),
             })),
             using_composition_instead_of_aggregation := mt(
                 n="Using composition instead of aggregation", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Is this the best relationship to use here?"),
-                    3: ParametrizedResponse(text="The composition between ${stud_assocend.opposite.cls} and "
-                                                 "${stud_assocend.cls} is better modeled using aggregation."),
+                    3: ParametrizedResponse(text="The composition between ${stud_part_assocend.cls} and "
+                                                 "${stud_whole_assocend.cls} is better modeled using aggregation."),
                     4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
             using_binary_assoc_instead_of_n_ary_assoc := mt(
@@ -657,24 +664,30 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 n="Using assoc instead of aggregation", d="Using association instead of aggregation", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="What is the relationship between these two concepts?"),
-                    3: ParametrizedResponse(text="The relationship between ${stud_assocend.opposite.cls} and "
-                        "${stud_assocend.cls} can be modeled more precisely than with a simple association."),
-                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                    3: ParametrizedResponse(text="The relationship between ${stud_assocend.cls} and "
+                        "${stud_other_assocend.cls} can be modeled more precisely than with a simple association."),
+                    4: ParametrizedResponse(text="The relationship between ${stud_assocend.cls} and "
+                        "${stud_other_assocend.cls} should be modeled with an aggregation."),
+                    5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
             using_assoc_instead_of_composition := mt(
                 n="Using assoc instead of composition", d="Using association instead of composition", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="What is the relationship between these two concepts?"),
-                    3: ParametrizedResponse(text="The relationship between ${stud_assocend.opposite.cls} and "
-                        "${stud_assocend.cls} is more than a simple association."),
-                    4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                    3: ParametrizedResponse(text="The relationship between ${stud_assocend.cls} and "
+                        "${stud_other_assocend.cls} is more than a simple association."),
+                    4: ParametrizedResponse(text="The relationship between ${stud_assocend.cls} and "
+                        "${stud_other_assocend.cls} should be modeled with a composition."),
+                    5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
             using_aggregation_instead_of_composition := mt(n="Using aggregation instead of composition", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this the best relationship to use here?"),
-                3: ParametrizedResponse(text="The relationship between ${stud_assocend.opposite.cls} and "
-                                             "${stud_assocend.cls} is stronger than an aggregation."),
-                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                3: ParametrizedResponse(text="The relationship between ${stud_part_assocend.cls} and "
+                                             "${stud_whole_assocend.cls} is stronger than an aggregation."),
+                4: ParametrizedResponse(text="The relationship between ${stud_part_assocend.cls} and "
+                                             "${stud_whole_assocend.cls} should be modeled with a composition."),
+                5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
             composed_part_contained_in_more_than_one_parent := mt(
                 n="Composed part contained in more than one parent", feedbacks=fbs({
@@ -833,11 +846,12 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         player_role_pattern_mistakes := mtc(n="Player-Role Pattern mistakes", mistakeTypes=[
             missing_pr_pattern := mt(n="Missing PR pattern", d="Missing Player-Role pattern", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
-                2: TextResponse(
-                    text="Think carefully about how to model the relationships between these concepts."),
-                3: ParametrizedResponse(
-                    text="The concepts of ${inst_player_cls} and ${inst_role_cls*} and the relationship between them "
-                         "should be modeled with one of the forms of the Player-Role pattern."),
+                2: TextResponse(text="Think carefully about how to model the relationships between these concepts."),
+                # Leave PR for future work because it has an indeterminate MDF, use text response instead
+                # 3: ParametrizedResponse(
+                #     text="The concepts of ${inst_player_cls} and ${inst_role_cls*} and the relationship between them "
+                #          "should be modeled with one of the forms of the Player-Role pattern."),
+                3: TextResponse("Use the Player-Role pattern to model the relationships between these concepts."),
                 # &#9744; is an unchecked checkbox and &#10003; is a checked checkbox
                 4: ResourceResponse(learningResources=[pr_quiz := Quiz(content=dedent(f"""\
                     Complete the following table:
@@ -860,9 +874,11 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(
-                        text="The concepts of ${inst_player_cls}, ${inst_role_cls*} and the relationship between them "
-                             "should be modeled with one of the forms of the Player-Role pattern."),
+                    # Leave PR for future work because it has an indeterminate MDF, use text response instead
+                    # 3: ParametrizedResponse(
+                    #    text="The concepts of ${inst_player_cls}, ${inst_role_cls*} and the relationship between them "
+                    #          "should be modeled with one of the forms of the Player-Role pattern."),
+                    3: TextResponse("Use the Player-Role pattern to model the relationships between these concepts."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -1214,7 +1230,7 @@ full_pr_pattern_should_be_subclass.md_format = mdf(["player_cls", "role_cls*"], 
 generalization_inapplicable.md_format = mdf(["sub_cls", "super_cls"], [])
 generalization_should_be_assoc_ao_pattern.md_format = mdf(["sub_cls", "super_cls"], ["abs_cls", "occ_cls"])
 incomplete_ao_pattern.md_format = mdf(["abs_cls", "occ_cls"], ["abs_cls", "occ_cls"])
-incomplete_pr_pattern.md_format = mdf(["cls*"], ["cls*"])
+incomplete_pr_pattern.md_format = mdf([], [""])
 incomplete_containment_tree.md_format = mdf(["cls*"], [])
 infinite_recursive_dependency.md_format = mdf(["minlowerbound_assocend", "other_assocend"], [])
 inherited_feature_does_not_make_sense_for_subclass.md_format = mdf(["attr", "sub_cls", "super_cls"], [])
@@ -1264,17 +1280,20 @@ using_composition_instead_of_aggregation.md_format = mdf(
 using_composition_instead_of_assoc.md_format = mdf(
     ["compos", "part_assocend", "whole_assocend"], ["assoc", "assocend", "other_assocend"])
 using_directed_relationship_instead_of_undirected.md_format = mdf(
-    ["aggr_compos_or_assoc", "source_assocend", "target_assocend"], ["aggr_compos_or_assoc", "assocend", "other_assocend"])
+    ["aggr_compos_or_assoc", "source_assocend", "target_assocend"],
+    ["aggr_compos_or_assoc", "assocend", "other_assocend"])
 using_intermediate_class_instead_of_n_ary_assoc.md_format = mdf(["cls"], ["assoc"])
 using_n_ary_assoc_instead_of_binary_assoc.md_format = mdf(["assoc"], ["assoc"])
 using_n_ary_assoc_instead_of_intermediate_class.md_format = mdf(["assoc"], ["cls"])
 using_undirected_relationship_instead_of_directed.md_format = mdf(
-    ["aggr_compos_or_assoc", "assocend", "other_assocend"], ["aggr_compos_or_assoc", "source_assocend", "target_assocend"])
+    ["aggr_compos_or_assoc", "assocend", "other_assocend"],
+    ["aggr_compos_or_assoc", "source_assocend", "target_assocend"])
 wrong_attribute_type.md_format = mdf(["attr"], ["attr"])
 wrong_class_name.md_format = mdf(["cls"], ["cls"])
 wrong_generalization_direction.md_format = mdf(["super_cls", "sub_cls"], ["sub_cls", "super_cls"])
 wrong_multiplicity.md_format = mdf(["assocend"], ["assocend"])
 wrong_relationship_direction.md_format = mdf(
-    ["aggr_compos_or_assoc", "source_assocend", "target_assocend"], ["aggr_compos_or_assoc", "source_assocend", "target_assocend"])
+    ["aggr_compos_or_assoc", "source_assocend", "target_assocend"],
+    ["aggr_compos_or_assoc", "source_assocend", "target_assocend"])
 wrong_role_name.md_format = mdf(["assocend"], ["assocend"])
 wrong_superclass.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])

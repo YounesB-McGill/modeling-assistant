@@ -132,6 +132,8 @@ def test_pr_missing_class():
     assert "${" not in pr_result
     assert pr_result == f"Remember to add the {missing_class_name} class."
 
+# TODO Add test here to verify all possible PR parameters can be parsed (save to file), and re-enable assertions 
+
 
 def test_get_mdf_items_to_mistake_elem_dict():
     "Test get_mdf_items_to_mistake_elem_dict() helper function."
