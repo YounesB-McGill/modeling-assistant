@@ -63,7 +63,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_GENERALIZATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_N_ARY_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_PR_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.NON_DIFFERENTIATED_SUBCLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
@@ -143,7 +143,7 @@ public class HumanValidatedParametrizedResponses {
       entry(MISSING_ENUM, Set.of("Add an ${inst_enum} enumeration.")),
       entry(MISSING_ENUM_ITEM, Set.of("The ${inst_enumitem.enum} enumeration is missing an item.")),
       entry(MISSING_GENERALIZATION, Set.of("A ${inst_sub_cls} is a ${inst_super_cls}. How should we model this?")),
-      entry(MISSING_ROLE_NAMES, Set.of("The multiplicities for the ${stud_assocend} association are correct, but something else is missing!")),
+      entry(MISSING_ROLE_NAME, Set.of("The multiplicities for the ${stud_assocend} association are correct, but something else is missing!")),
       entry(NON_DIFFERENTIATED_SUBCLASS, Set.of("${stud_cls} needs to be different from its superclass, and any sibling subclasses, in terms of behavior or structure.")),
       entry(PLURAL_ATTRIBUTE, Set.of("The ${stud_attr.cls}.${stud_attr} attribute should be singular.")),
       entry(PLURAL_CLASS_NAME, Set.of("${stud_cls} should be ${inst_cls}, using the singular.")),

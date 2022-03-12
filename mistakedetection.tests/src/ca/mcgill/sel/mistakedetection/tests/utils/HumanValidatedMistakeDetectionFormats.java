@@ -66,7 +66,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_GENERALIZATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_N_ARY_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_PR_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.NON_DIFFERENTIATED_SUBCLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
@@ -161,7 +161,7 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(MISSING_ENUM, mdf(List.of(), List.of("enum"))),
       entry(MISSING_ENUM_ITEM, mdf(List.of("enum"), List.of("enumitem"))),
       entry(MISSING_GENERALIZATION, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls"))),
-      entry(MISSING_ROLE_NAMES, mdf(List.of("assocend"), List.of("assocend"))),
+      entry(MISSING_ROLE_NAME, mdf(List.of("assocend"), List.of("assocend"))),
       entry(NON_DIFFERENTIATED_SUBCLASS, mdf(List.of("cls"), List.of())),
       entry(PLURAL_ATTRIBUTE, mdf(List.of("attr"), List.of("attr"))),
       entry(PLURAL_CLASS_NAME, mdf(List.of("cls"), List.of("cls"))),

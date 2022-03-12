@@ -149,7 +149,7 @@ public abstract class MistakeDetectionInformationService {
         // 2. Function to map the items to the values of the output map. Here we map each mistake to a set.
         m -> mistakeSolutionElementsStreamer.apply(m).map(mistakeStudentElementTransformation)
             .collect(Collectors.toUnmodifiableSet()), // TODO Update on Java 17+
-        // 3. Merge function, handles collisions between values with the same key. Here, use merge the 2 sets.
+        // 3. Merge function, handles collisions between values with the same key. Here, we merge the 2 sets.
         MistakeDetectionInformationService::setUnion,
         // 4. The output map of Collectors.toMap(). Use TreeMap to sort output by mistake type.
         TreeMap::new));
@@ -244,7 +244,7 @@ public abstract class MistakeDetectionInformationService {
     return result;
   }
 
-  /** Returns true if the association has an end with the given type. */
+  /** Returns true if the solution element is part of a student solution. */
   public static boolean hasStudent(SolutionElement e) {
     return e.getSolution().getStudent() != null;
   }

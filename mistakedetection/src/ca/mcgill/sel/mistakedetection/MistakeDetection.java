@@ -57,7 +57,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM_ITEM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_GENERALIZATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_PR_PATTERN;
-import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAMES;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.NON_DIFFERENTIATED_SUBCLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
@@ -2594,7 +2594,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeMissingRoleName(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd) {
     if (isRoleNameMissing(studentClassAssocEnd, instructorClassAssocEnd)) {
-      return Optional.of(createMistake(MISSING_ROLE_NAMES, studentClassAssocEnd, instructorClassAssocEnd));
+      return Optional.of(createMistake(MISSING_ROLE_NAME, studentClassAssocEnd, instructorClassAssocEnd));
     }
     return Optional.empty();
   }
