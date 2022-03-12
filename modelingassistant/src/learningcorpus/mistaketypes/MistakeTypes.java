@@ -224,8 +224,8 @@ public class MistakeTypes {
   /** The missing multiplicity mistake type. */
   public static final MistakeType MISSING_MULTIPLICITY = MTS.get("Missing multiplicity");
 
-  /** The missing role names mistake type. */
-  public static final MistakeType MISSING_ROLE_NAME = MTS.get("Missing role names");
+  /** The missing role name mistake type. */
+  public static final MistakeType MISSING_ROLE_NAME = MTS.get("Missing role name");
 
   /** The role should be static mistake type. */
   public static final MistakeType ROLE_SHOULD_BE_STATIC = MTS.get("Role should be static");

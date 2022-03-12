@@ -53,7 +53,7 @@
       1. [Wrong multiplicity](#wrong-multiplicity)
       1. [Missing multiplicity](#missing-multiplicity)
    1. [Role name mistakes](#role-name-mistakes)
-      1. [Missing role names](#missing-role-names)
+      1. [Missing role name](#missing-role-name)
       1. [Role should be static](#role-should-be-static)
       1. [Role should not be static](#role-should-not-be-static)
       1. [Bad role name spelling](#bad-role-name-spelling)
@@ -1094,7 +1094,7 @@ Level 6: Resource response with Reference:
 
 ### Role name mistakes
 
-#### Missing role names
+#### Missing role name
 
 Student element: Association end. Instructor element: Association end.
 

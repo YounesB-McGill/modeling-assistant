@@ -22,7 +22,7 @@ from corpus_definition import (corpus as corpus_def, mts_by_priority as mts_by_p
     extra_association, missing_association, role_should_not_be_static, bad_role_name_spelling,
     using_composition_instead_of_assoc, using_directed_relationship_instead_of_undirected,
     using_composition_instead_of_aggregation, wrong_role_name, infinite_recursive_dependency,
-    using_aggregation_instead_of_composition, missing_role_names, wrong_multiplicity,
+    using_aggregation_instead_of_composition, missing_role_name, wrong_multiplicity,
     using_assoc_instead_of_composition, role_should_be_static, using_undirected_relationship_instead_of_directed,
     representing_action_with_assoc, using_assoc_instead_of_aggregation, extra_composition, missing_composition)
 from constants import USE_CONTEXTUAL_CAPITALIZATION
@@ -64,7 +64,7 @@ associationend = LearningItem(name="AssociationEnd", learningCorpus=corpus, mist
     role_should_not_be_static, using_attribute_instead_of_assoc, assoc_should_be_subclass_pr_pattern,
     bad_role_name_spelling, using_composition_instead_of_assoc, enum_should_be_assoc_pr_pattern,
     using_directed_relationship_instead_of_undirected, using_composition_instead_of_aggregation, wrong_role_name,
-    infinite_recursive_dependency, using_aggregation_instead_of_composition, missing_role_names, wrong_multiplicity,
+    infinite_recursive_dependency, using_aggregation_instead_of_composition, missing_role_name, wrong_multiplicity,
     using_assoc_instead_of_composition, subclass_should_be_assoc_pr_pattern, assoc_should_be_enum_pr_pattern,
     role_should_be_static, using_undirected_relationship_instead_of_directed, full_pr_pattern_should_be_assoc,
     representing_action_with_assoc, using_assoc_instead_of_aggregation, assoc_should_be_full_pr_pattern])

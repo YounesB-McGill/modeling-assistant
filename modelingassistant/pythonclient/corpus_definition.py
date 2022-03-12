@@ -429,7 +429,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             })),
         ]),
         role_name_mistakes := mtc(n="Role name mistakes", mistakeTypes=[
-            missing_role_names := mt(n="Missing role names", feedbacks=fbs({
+            missing_role_name := mt(n="Missing role name", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you model this relationship more precisely?"),
                 3: ParametrizedResponse(text="The association between ${stud_assocend.cls} and "
@@ -1181,7 +1181,7 @@ mts_by_priority: list[MistakeType] = [
     missing_aggregation,
     missing_n_ary_association,
     missing_multiplicity,
-    missing_role_names,
+    missing_role_name,
     missing_association_name,
 
     # missing/incomplete patterns
@@ -1256,7 +1256,7 @@ missing_enum_item.md_format = mdf(["enum"], ["enumitem"])
 missing_generalization.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])
 missing_multiplicity.md_format = mdf(["assocend"], ["assocend"])
 missing_n_ary_association.md_format = mdf([], ["assoc"])
-missing_role_names.md_format = mdf(["assocend"], ["assocend"])
+missing_role_name.md_format = mdf(["assocend"], ["assocend"])
 non_differentiated_subclass.md_format = mdf(["cls"], [])
 plural_attribute.md_format = mdf(["attr"], ["attr"])
 plural_class_name.md_format = mdf(["cls"], ["cls"])
