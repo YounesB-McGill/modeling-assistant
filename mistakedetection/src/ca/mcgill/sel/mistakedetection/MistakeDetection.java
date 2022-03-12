@@ -105,7 +105,6 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import ca.mcgill.sel.classdiagram.Association;
@@ -3255,49 +3254,6 @@ public class MistakeDetection {
     }
     return mistake;
   }
-
-  /**
-   * Sorts elements based on the input predicates, which are functions that describe the elements that go first or last.
-   * Elements that do not go first or last end up in the middle.
-   *
-   * @param <T>
-   * @param elements
-   * @param elementsThatGoFirst
-   * @param elementsThatGoLast
-   * @return a list of the sorted elements
-   */
-  static <T> List<T> sortElements(List<? extends T> elements,
-      Predicate<T> elementsThatGoFirst, Predicate<T> elementsThatGoLast) {
-    var result = new LinkedList<T>();
-    var lastElements = new LinkedList<T>();
-    elements.forEach(e -> {
-      if (elementsThatGoFirst.test(e)) {
-        result.addFirst(e);
-      } else if (elementsThatGoLast.test(e)) {
-        lastElements.add(e);
-      } else {
-        result.add(e); // element does not go first or last, so add it to what will become the middle
-      }
-    });
-    result.addAll(lastElements);
-    return result;
-  }
-
-  /** Sorts the given tags according to their type. */
-  static List<Tag> sortTags(List<Tag> tags, TagType firstTag, TagType lastTag) {
-    return sortElements(tags, t -> t.getTagType() == firstTag, t -> t.getTagType() == lastTag);
-  }
-
-  /** Sorts the Abstraction-Occurrence tags, first the abstractions, then the occurrences. */
-  static List<Tag> sortAOTags(List<Tag> tags) {
-    return sortTags(tags, ABSTRACTION, OCCURRENCE);
-  }
-
-  /** Sorts the Player-Role tags, first the abstractions, then the occurrences. */
-  static List<Tag> sortPRTags(List<Tag> tags) {
-    return sortTags(tags, PLAYER, ROLE);
-  }
-
 
   /** Overloaded method used for testing. */
   public static boolean checkCorrectTest(Classifier instructorClassifier, Classifier studentClassifier) {
