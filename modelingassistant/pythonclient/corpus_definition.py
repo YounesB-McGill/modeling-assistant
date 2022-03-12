@@ -44,6 +44,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Remember that class names should be singular."),
                     3: ParametrizedResponse(text="${stud_cls} should be ${inst_cls}, using the singular."),
+                    # markdown emojis ✔ and ❌, which can be transform to LaTeX
                     4: ResourceResponse(learningResources=[correct_class_naming_example := Example(content=dedent("""\
                         Please note these examples of correct vs incorrect class naming:
                         :x: Examples to avoid | :heavy_check_mark: Good class names
