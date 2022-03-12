@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
+import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
 
 public class MistakeDetectionFormat {
 
-  public List<String> stud = new ArrayList<>();
-  public List<String> inst = new ArrayList<>();
+  public final List<String> stud = new ArrayList<>();
+  public final List<String> inst = new ArrayList<>();
 
   public MistakeDetectionFormat(Mistake mistake) {
+    if (mistake.getMistakeType().equals(MistakeTypes.ASSOC_SHOULD_BE_ENUM_PR_PATTERN)) {
+      mistake.eClass();
+    }
     int[] cnt = {0, 0};
     mistake.getStudentElements().forEach(e -> stud.add(ElementDescription.fromElement(e).toShortString(cnt[0]++)));
     mistake.getInstructorElements().forEach(e -> inst.add(ElementDescription.fromElement(e).toShortString(cnt[1]++)));
@@ -24,8 +28,8 @@ public class MistakeDetectionFormat {
   }
 
   private MistakeDetectionFormat(List<String> studentElemsDescriptions, List<String> instructorElemsDescriptions) {
-    stud = studentElemsDescriptions;
-    inst = instructorElemsDescriptions;
+    stud.addAll(studentElemsDescriptions);
+    inst.addAll(instructorElemsDescriptions);
   }
 
   public static MistakeDetectionFormat forMistake(Mistake mistake) {
@@ -53,13 +57,15 @@ public class MistakeDetectionFormat {
   }
 
   private String listAsString(List<String> list) {
-    var maybeQuote = stud.isEmpty() ? "" : "\""; // first and last double-quote, if applicable
-    return maybeQuote + String.join("\", \"", stud) + maybeQuote;
+    if (list.isEmpty()) {
+      return "[]";
+    }
+    return "[\"" + String.join("\", \"", list) + "\"]";
   }
 
   // eg, ([], ["cls"])
   @Override public String toString() {
-    return "([" + studAsString() + "], [" + instAsString() + "])";
+    return "(" + studAsString() + ", " + instAsString() + ")";
   }
 
   @Override public boolean equals(Object o) {
@@ -75,14 +81,10 @@ public class MistakeDetectionFormat {
   }
 
   /** The shape of the mistake detection format, which is the lists of its student and instructor metatypes. */
-  public static class Shape {
-
-    public final List<String> stud;
-    public final List<String> inst;
+  public static class Shape extends MistakeDetectionFormat {
 
     public Shape(MistakeDetectionFormat mdf) {
-      stud = mapToShape(mdf.stud);
-      inst = mapToShape(mdf.inst);
+      super(mapToShape(mdf.stud), mapToShape(mdf.inst));
     }
 
     /** Maps type lists, eg, ["compos", "cls", "cls", "cls"] -> ["compos", "cls*"]. */
@@ -112,23 +114,12 @@ public class MistakeDetectionFormat {
       return shape;
     }
 
-    @Override public String toString() {
-      var studTag = stud.isEmpty() ? "" : "\"";
-      var instTag = inst.isEmpty() ? "" : "\"";
-      return "([" + studTag + String.join("\", \"", stud) + studTag + "], ["
-          + instTag + String.join("\", \"", inst) + instTag + "])";
-    }
-
     @Override public boolean equals(Object o) {
       if (!(o instanceof MistakeDetectionFormat.Shape)) {
         return false;
       }
       var other = (MistakeDetectionFormat.Shape) o;
       return stud.equals(other.stud) && inst.equals(other.inst);
-    }
-
-    @Override public int hashCode() {
-      return 17 * stud.hashCode() + 31 * inst.hashCode();
     }
 
   }
