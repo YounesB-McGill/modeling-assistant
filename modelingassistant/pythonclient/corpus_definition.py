@@ -1220,12 +1220,12 @@ enum_should_be_assoc_pr_pattern.md_format = mdf(["player_cls", "role_enumitem*"]
 enum_should_be_class.md_format = mdf(["enum"], ["cls"])
 enum_should_be_full_pr_pattern.md_format = mdf(["player_cls", "role_enumitem*"], ["player_cls", "role_cls*"])
 enum_should_be_subclass_pr_pattern.md_format = mdf(["player_cls", "role_enumitem*"], ["player_cls", "role_cls*"])
-extra_aggregation.md_format = mdf(["aggr", "part_assocend", "whole_assocend"], [])
+extra_aggregation.md_format = mdf(["aggr", "whole_assocend", "part_assocend"], [])
 extra_assoc_class.md_format = mdf(["assoc", "cls"], [])
 extra_association.md_format = mdf(["assoc"], [])
 extra_attribute.md_format = mdf(["attr"], [])
 extra_class.md_format = mdf(["cls"], [])
-extra_composition.md_format = mdf(["compos", "part_assocend", "whole_assocend"], [])
+extra_composition.md_format = mdf(["compos", "whole_assocend", "part_assocend"], [])
 extra_enum.md_format = mdf(["enum"], [])
 extra_enum_item.md_format = mdf(["enumitem"], [])
 extra_generalization.md_format = mdf(["sub_cls", "super_cls"], [])
@@ -1244,14 +1244,14 @@ list_attribute.md_format = mdf(["attr"], ["attr"])
 lowercase_class_name.md_format = mdf(["cls"], ["cls"])
 missing_ao_pattern.md_format = mdf([], ["abs_cls", "occ_cls"])
 missing_pr_pattern.md_format = mdf([], [""])
-missing_aggregation.md_format = mdf([], ["aggr", "part_assocend", "whole_assocend"])
+missing_aggregation.md_format = mdf([], ["aggr", "whole_assocend", "part_assocend"])
 missing_assoc_class.md_format = mdf([], ["assoc", "cls"])
 missing_association.md_format = mdf([], ["assoc"])
 missing_association_name.md_format = mdf(["assoc"], ["assoc"])
 missing_attribute.md_format = mdf(["cls"], ["attr"])
 missing_attribute_type.md_format = mdf(["attr"], ["attr"])
 missing_class.md_format = mdf([], ["cls"])
-missing_composition.md_format = mdf([], ["compos", "part_assocend", "whole_assocend"])
+missing_composition.md_format = mdf([], ["compos", "whole_assocend", "part_assocend"])
 missing_enum.md_format = mdf([], ["enum"])
 missing_enum_item.md_format = mdf(["enum"], ["enumitem"])
 missing_generalization.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])
@@ -1272,34 +1272,34 @@ subclass_should_be_enum_pr_pattern.md_format = mdf(["player_cls", "role_cls*"], 
 subclass_should_be_full_pr_pattern.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_cls*"])
 uppercase_attribute_name.md_format = mdf(["attr"], ["attr"])
 using_aggregation_instead_of_assoc.md_format = mdf(
-    ["aggr", "part_assocend", "whole_assocend"], ["assoc", "assocend", "other_assocend"])
+    ["aggr", "whole_assocend", "part_assocend"], ["assoc", "assocend", "other_assocend"])
 using_aggregation_instead_of_composition.md_format = mdf(
-    ["aggr", "part_assocend", "whole_assocend"], ["compos", "part_assocend", "whole_assocend"])
+    ["aggr", "whole_assocend", "part_assocend"], ["compos", "whole_assocend", "part_assocend"])
 using_assoc_instead_of_aggregation.md_format = mdf(
-    ["assoc", "assocend", "other_assocend"], ["aggr", "part_assocend", "whole_assocend"])
+    ["assoc", "assocend", "other_assocend"], ["aggr", "whole_assocend", "part_assocend"])
 using_assoc_instead_of_composition.md_format = mdf(
-    ["assoc", "assocend", "other_assocend"], ["compos", "part_assocend", "whole_assocend"])
+    ["assoc", "assocend", "other_assocend"], ["compos", "whole_assocend", "part_assocend"])
 using_attribute_instead_of_assoc.md_format = mdf(["attr"], ["assocend"])
 using_binary_assoc_instead_of_n_ary_assoc.md_format = mdf(["assoc"], ["assoc"])
 using_composition_instead_of_aggregation.md_format = mdf(
-    ["compos", "part_assocend", "whole_assocend"], ["aggr", "part_assocend", "whole_assocend"])
+    ["compos", "whole_assocend", "part_assocend"], ["aggr", "whole_assocend", "part_assocend"])
 using_composition_instead_of_assoc.md_format = mdf(
-    ["compos", "part_assocend", "whole_assocend"], ["assoc", "assocend", "other_assocend"])
+    ["compos", "whole_assocend", "part_assocend"], ["assoc", "assocend", "other_assocend"])
 using_directed_relationship_instead_of_undirected.md_format = mdf(
-    ["aggr_compos_or_assoc", "source_assocend", "target_assocend"],
+    ["aggr_compos_or_assoc", "target_assocend", "source_assocend"],
     ["aggr_compos_or_assoc", "assocend", "other_assocend"])
 using_intermediate_class_instead_of_n_ary_assoc.md_format = mdf(["cls"], ["assoc"])
 using_n_ary_assoc_instead_of_binary_assoc.md_format = mdf(["assoc"], ["assoc"])
 using_n_ary_assoc_instead_of_intermediate_class.md_format = mdf(["assoc"], ["cls"])
 using_undirected_relationship_instead_of_directed.md_format = mdf(
     ["aggr_compos_or_assoc", "assocend", "other_assocend"],
-    ["aggr_compos_or_assoc", "source_assocend", "target_assocend"])
+    ["aggr_compos_or_assoc", "target_assocend", "source_assocend"])
 wrong_attribute_type.md_format = mdf(["attr"], ["attr"])
 wrong_class_name.md_format = mdf(["cls"], ["cls"])
 wrong_generalization_direction.md_format = mdf(["super_cls", "sub_cls"], ["sub_cls", "super_cls"])
 wrong_multiplicity.md_format = mdf(["assocend"], ["assocend"])
 wrong_relationship_direction.md_format = mdf(
-    ["aggr_compos_or_assoc", "source_assocend", "target_assocend"],
-    ["aggr_compos_or_assoc", "source_assocend", "target_assocend"])
+    ["aggr_compos_or_assoc", "target_assocend", "source_assocend"],
+    ["aggr_compos_or_assoc", "target_assocend", "source_assocend"])
 wrong_role_name.md_format = mdf(["assocend"], ["assocend"])
 wrong_superclass.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])

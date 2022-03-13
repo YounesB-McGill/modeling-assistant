@@ -252,13 +252,13 @@ public class Comparison {
     });
 
     sb.append("\n");
-    sb.append("instructor Generalization clasees: ");
+    sb.append("instructor Generalization classes: ");
     for (Classifier c: instructorGeneralizationClassifiers) {
       sb.append(c.getName() + " ");
     }
 
     sb.append("\n");
-    sb.append("student Generalization clasees: ");
+    sb.append("student Generalization classes: ");
     for (Classifier c: studentGeneralizationClassifiers) {
       sb.append(c.getName() + " ");
     }

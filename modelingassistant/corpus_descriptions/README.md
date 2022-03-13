@@ -839,7 +839,7 @@ better understand these relationships and where they are used.
 
 #### Missing aggregation
 
-Instructor elements: Aggregation, Part association end, Whole association end.
+Instructor elements: Aggregation, Whole association end, Part association end.
 
 Level 1: Highlight sentence(s) in problem statement referring to item
 
@@ -950,7 +950,7 @@ Level 5: Resource response with Reference:
 
 #### Extra aggregation
 
-Student elements: Aggregation, Part association end, Whole association end. 
+Student elements: Aggregation, Whole association end, Part association end. 
 
 Level 1: Highlight solution
 
@@ -1228,7 +1228,7 @@ between the same two classes.
 
 #### Using aggregation instead of association
 
-Student elements: Aggregation, Part association end, Whole association end. Instructor elements: Association, Association end, Other association end.
+Student elements: Aggregation, Whole association end, Part association end. Instructor elements: Association, Association end, Other association end.
 
 Level 1: Highlight solution
 
@@ -1251,7 +1251,7 @@ better understand these relationships and where they are used.
 
 #### Using composition instead of association
 
-Student elements: Composition, Part association end, Whole association end. Instructor elements: Association, Association end, Other association end.
+Student elements: Composition, Whole association end, Part association end. Instructor elements: Association, Association end, Other association end.
 
 Level 1: Highlight solution
 
@@ -1278,7 +1278,7 @@ better understand these relationships and where they are used.
 
 #### Using directed relationship instead of undirected relationship
 
-Student elements: Aggregation composition or association, Source association end, Target association end. Instructor elements: Aggregation composition or association, Association end, Other association end.
+Student elements: Aggregation composition or association, Target association end, Source association end. Instructor elements: Aggregation composition or association, Association end, Other association end.
 
 Level 1: Highlight solution
 
@@ -1297,7 +1297,7 @@ Level 4: Resource response with Reference:
 
 #### Using undirected relationship instead of directed relationship
 
-Student elements: Aggregation composition or association, Association end, Other association end. Instructor elements: Aggregation composition or association, Source association end, Target association end.
+Student elements: Aggregation composition or association, Association end, Other association end. Instructor elements: Aggregation composition or association, Target association end, Source association end.
 
 Level 1: Highlight solution
 
@@ -1316,7 +1316,7 @@ Level 4: Resource response with Reference:
 
 #### Wrong relationship direction
 
-Student elements: Aggregation composition or association, Source association end, Target association end. Instructor elements: Aggregation composition or association, Source association end, Target association end.
+Student elements: Aggregation composition or association, Target association end, Source association end. Instructor elements: Aggregation composition or association, Target association end, Source association end.
 
 Level 1: Highlight solution
 
@@ -1335,7 +1335,7 @@ Level 4: Resource response with Reference:
 
 #### Using composition instead of aggregation
 
-Student elements: Composition, Part association end, Whole association end. Instructor elements: Aggregation, Part association end, Whole association end.
+Student elements: Composition, Whole association end, Part association end. Instructor elements: Aggregation, Whole association end, Part association end.
 
 Level 1: Highlight solution
 
@@ -1601,7 +1601,7 @@ Level 4: Resource response with Reference:
 
 #### Missing composition
 
-Instructor elements: Composition, Part association end, Whole association end.
+Instructor elements: Composition, Whole association end, Part association end.
 
 Level 1: Highlight sentence(s) in problem statement referring to item
 
@@ -1624,7 +1624,7 @@ better understand these relationships and where they are used.
 
 #### Extra composition
 
-Student elements: Composition, Part association end, Whole association end. 
+Student elements: Composition, Whole association end, Part association end. 
 
 Level 1: Highlight solution
 
@@ -1647,7 +1647,7 @@ better understand these relationships and where they are used.
 
 #### Using association instead of aggregation
 
-Student elements: Association, Association end, Other association end. Instructor elements: Aggregation, Part association end, Whole association end.
+Student elements: Association, Association end, Other association end. Instructor elements: Aggregation, Whole association end, Part association end.
 
 Level 1: Highlight solution
 
@@ -1674,7 +1674,7 @@ better understand these relationships and where they are used.
 
 #### Using association instead of composition
 
-Student elements: Association, Association end, Other association end. Instructor elements: Composition, Part association end, Whole association end.
+Student elements: Association, Association end, Other association end. Instructor elements: Composition, Whole association end, Part association end.
 
 Level 1: Highlight solution
 
@@ -1701,7 +1701,7 @@ better understand these relationships and where they are used.
 
 #### Using aggregation instead of composition
 
-Student elements: Aggregation, Part association end, Whole association end. Instructor elements: Composition, Part association end, Whole association end.
+Student elements: Aggregation, Whole association end, Part association end. Instructor elements: Composition, Whole association end, Part association end.
 
 Level 1: Highlight solution
 
