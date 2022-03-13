@@ -3,13 +3,14 @@ Logic to handle parametrized responses.
 """
 
 import re
+from collections.abc import Iterable
 from string import Formatter
 
 from pyecore.ecore import EClass
 
 from cdmmetatypes import CDM_METATYPES, CdmMetatype
 from utils import MistakeDetectionFormat, warn
-from classdiagram import Association, Attribute, NamedElement
+from classdiagram import Association, AssociationEnd, Attribute, NamedElement
 from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake
 
@@ -87,8 +88,9 @@ def _parse(s: str, start_elem: NamedElement, depth: int = 0) -> str:
             return "_".join((ae.classifier.name for ae in start_elem.ends))
         return getattr(start_elem, "name", str(start_elem))
     if re.match(r"^[A-Za-z_]+\*$", s):  # simple varargs list of metatypes
-        if isinstance(start_elem, Association) and s == "cls*":  # special case for n-ary associations
-            return comma_seperated_with_and(ae.classifier for ae in start_elem.ends)
+        # special case for n-ary associations
+        if isinstance(start_elem, Iterable) and all(isinstance(e, AssociationEnd) for e in start_elem) and s == "cls*":
+            return comma_seperated_with_and([ae.classifier for ae in start_elem])
         return comma_seperated_with_and(start_elem)
     if (match_ := re.match(r".*?(\d+)$", s)) and ((idx := int(match_.group(1))) in range(_MAX_INDEX + 1)):  # index
         if hasattr(start_elem, "__getitem__") and idx < len(start_elem):

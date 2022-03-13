@@ -140,6 +140,13 @@ def test_all_pr_params_can_be_parsed():
     Test that all possible PR parameters can logically be parsed and save them to file for manual verification of
     correctness.
     """
+    # param = "inst_assoc.cls*"
+    # start_elem = param_start_elem_type(param, as_type=CdmMetatype).example
+    # output = parse(param, start_elem)
+    # print(start_elem)
+    # print(output)
+    # assert False
+
     params_to_parsed_output: dict[str, str] = {}
     for param in get_pr_parameters_for_mistake_types_with_md_formats():
         assert (start_elem := param_start_elem_type(param, as_type=CdmMetatype).example), f"Invalid {start_elem = }"

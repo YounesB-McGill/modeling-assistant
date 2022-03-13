@@ -20,7 +20,7 @@ assoc.end0.cls | Person_PersonRole
 assoc.end1.cls | Person_PersonRole
 whole_assocend.cls | PersonRole
 part_assocend.cls | PersonRole
-assoc.cls* | roles and person
+assoc.cls* | Person and PersonRole
 aggr.end0.cls | PassengerRole_Booking
 aggr.end1.cls | PassengerRole_Booking
 other_assocend.cls | PersonRole
