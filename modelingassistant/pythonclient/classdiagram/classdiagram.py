@@ -276,16 +276,10 @@ class CDAny(ObjectType):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def getName(self):
-        raise NotImplementedError('operation getName(...) not yet implemented')
-
 class CDVoid(ObjectType):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-    def getName(self):
-        raise NotImplementedError('operation getName(...) not yet implemented')
 
 class Class(Classifier):
 
@@ -318,16 +312,10 @@ class CDCollection(ImplementationClass):
         if type is not None:
             self.type = type
 
-    def getName(self):
-        raise NotImplementedError('operation getName(...) not yet implemented')
-
 class CDBoolean(PrimitiveType):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-    def getName(self):
-        raise NotImplementedError('operation getName(...) not yet implemented')
 
     def getInstanceClassName(self):
         raise NotImplementedError('operation getInstanceClassName(...) not yet implemented')
@@ -337,9 +325,6 @@ class CDDouble(PrimitiveType):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def getName(self):
-        raise NotImplementedError('operation getName(...) not yet implemented')
-
     def getInstanceClassName(self):
         raise NotImplementedError('operation getInstanceClassName(...) not yet implemented')
 
@@ -347,9 +332,6 @@ class CDInt(PrimitiveType):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-    def getName(self):
-        raise NotImplementedError('operation getName(...) not yet implemented')
 
     def getInstanceClassName(self):
         raise NotImplementedError('operation getInstanceClassName(...) not yet implemented')
@@ -359,9 +341,6 @@ class CDLong(PrimitiveType):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def getName(self):
-        raise NotImplementedError('operation getName(...) not yet implemented')
-
     def getInstanceClassName(self):
         raise NotImplementedError('operation getInstanceClassName(...) not yet implemented')
 
@@ -369,9 +348,6 @@ class CDString(PrimitiveType):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-    def getName(self):
-        raise NotImplementedError('operation getName(...) not yet implemented')
 
     def getInstanceClassName(self):
         raise NotImplementedError('operation getInstanceClassName(...) not yet implemented')
@@ -381,9 +357,6 @@ class CDByte(PrimitiveType):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def getName(self):
-        raise NotImplementedError('operation getName(...) not yet implemented')
-
     def getInstanceClassName(self):
         raise NotImplementedError('operation getInstanceClassName(...) not yet implemented')
 
@@ -391,9 +364,6 @@ class CDFloat(PrimitiveType):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-    def getName(self):
-        raise NotImplementedError('operation getName(...) not yet implemented')
 
     def getInstanceClassName(self):
         raise NotImplementedError('operation getInstanceClassName(...) not yet implemented')
@@ -409,9 +379,6 @@ class CDArray(PrimitiveType):
         if type is not None:
             self.type = type
 
-    def getName(self):
-        raise NotImplementedError('operation getName(...) not yet implemented')
-
     def getInstanceClassName(self):
         raise NotImplementedError('operation getInstanceClassName(...) not yet implemented')
 
@@ -419,9 +386,6 @@ class CDChar(PrimitiveType):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-    def getName(self):
-        raise NotImplementedError('operation getName(...) not yet implemented')
 
     def getInstanceClassName(self):
         raise NotImplementedError('operation getInstanceClassName(...) not yet implemented')

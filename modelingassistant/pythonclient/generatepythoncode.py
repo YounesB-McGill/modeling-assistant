@@ -34,6 +34,7 @@ def customize_generated_code():
     "Add custom functionality to the generated code, similar to `@generated NOT` in the Java ecore implementation."
     ast_for = lambda item: ast.parse(dedent(getsource(item)))
 
+    # Add the following items to the generated ClassDiagram class
     # Override CDM AssociationEnd.getOppositeEnd() and add oppositeEnd attribute
     # docstring indentation is intentional, to appear correctly in the generated code
     def getOppositeEnd(self) -> AssociationEnd:
@@ -112,6 +113,10 @@ def customize_generated_code():
     lc_py = "modelingassistant/pythonclient/learningcorpus/learningcorpus.py"
     ma_py = "modelingassistant/pythonclient/modelingassistant/modelingassistant.py"
 
+    # remove the NotImplementedError stubs for CDM getName() and replace with actual implementations
+    remove_from_module(cdm_py, "getName")
+    # TODO Add actual implementations
+
     customize_class(cdm_py, "AssociationEnd", [ast_for(getOppositeEnd), ast.parse(oppositeEnd)])
     customize_class(lc_py, "LearningCorpus", [ast_for(mistakeTypes), ast_for(topLevelMistakeTypeCategories)])
     customize_class(lc_py, "MistakeType", [ast_for(parametrized_responses)])
@@ -132,7 +137,7 @@ def customize_class(filename: str, classname: str, members: list[AST]):
     file_ast = read_ast(filename)
     for e in file_ast.body:
         # Find the class
-        if "name" in dir(e) and e.name == classname:
+        if hasattr(e, "name") and e.name == classname:
             # Add the custom members to it, removing the old versions of them if they exist
             for member_to_add in members:
                 for e_body_member in e.body:
@@ -148,6 +153,21 @@ def customize_module(filename: str, members: list[AST], footer: str = ""):
     file_ast = read_ast(filename)
     file_ast.body.extend(members)
     save_ast_to_file(file_ast, filename, footer)
+
+
+def remove_from_module(filename: str, name: str):
+    "Remove all items with the given name from the given module."
+    class ItemRemover(ast.NodeTransformer):
+        "Remove the matching items from the module."
+        # pylint: disable=no-self-use
+        def visit_FunctionDef(self, node):
+            "Remove the matching function definitions from the module."
+            if hasattr(node, "name") and node.name == name:
+                return None
+            return node
+
+    file_ast = ItemRemover().visit(read_ast(filename))
+    save_ast_to_file(file_ast, filename)
 
 
 def add_future_import(filename: str):
