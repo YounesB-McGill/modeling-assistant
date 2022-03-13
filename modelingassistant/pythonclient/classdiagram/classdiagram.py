@@ -22,6 +22,12 @@ class NamedElement(EObject, metaclass=MetaEClass):
         if name is not None:
             self.name = name
 
+    def getName(self) -> str:
+        """
+        Return the name of this named element.
+        """
+        return self.name or self.__class__.__name__
+
 class Note(EObject, metaclass=MetaEClass):
     content = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
     notedElement = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)

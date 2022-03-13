@@ -61,6 +61,19 @@ def customize_generated_code():
             return self.getOppositeEnd()
         """)
 
+    def getName(self) -> str:
+        """
+            Return the name of this named element.
+            """
+        return self.name or self.__class__.__name__  # fallback to class name to handle Types
+
+    name = dedent("""\
+        @property
+        def name(self) -> str:
+            "Return the name of this named element."
+            return self.getName()
+        """)
+
     # Add the following functions to the generated LearningCorpus class
     def mistakeTypes(self) -> list[MistakeType]:
         "Custom function to return all the mistake types from their categories."
@@ -113,9 +126,9 @@ def customize_generated_code():
     lc_py = "modelingassistant/pythonclient/learningcorpus/learningcorpus.py"
     ma_py = "modelingassistant/pythonclient/modelingassistant/modelingassistant.py"
 
-    # remove the NotImplementedError stubs for CDM getName() and replace with actual implementations
+    # remove the NotImplementedError stubs for CDM getName() and replace with actual implementation
     remove_from_module(cdm_py, "getName")
-    # TODO Add actual implementations
+    customize_class(cdm_py, "NamedElement", [ast_for(getName)])
 
     customize_class(cdm_py, "AssociationEnd", [ast_for(getOppositeEnd), ast.parse(oppositeEnd)])
     customize_class(lc_py, "LearningCorpus", [ast_for(mistakeTypes), ast_for(topLevelMistakeTypeCategories)])
