@@ -16,7 +16,7 @@ from pyecore.ecore import EPackage, EClassifier, EString, EProxy
 from pyecore.valuecontainer import BadValueError
 
 # import previous (bootstrap) versions of the generated code
-from classdiagram import AssociationEnd
+from classdiagram import AssociationEnd, Type
 from learningcorpus import MistakeTypeCategory, MistakeType, ParametrizedResponse
 
 
@@ -67,12 +67,12 @@ def customize_generated_code():
             """
         return self.name or self.__class__.__name__  # fallback to class name to handle Types
 
-    name = dedent("""\
-        @property
-        def name(self) -> str:
-            "Return the name of this named element."
-            return self.getName()
-        """)
+    class ObjectType(Type):
+        'Replacement ObjectType that returns the class name as name, eg, CDString().name == "CDString".'
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs)
+            if not self.name:
+                self.name = self.__class__.__name__
 
     # Add the following functions to the generated LearningCorpus class
     def mistakeTypes(self) -> list[MistakeType]:
@@ -129,7 +129,7 @@ def customize_generated_code():
     # remove the NotImplementedError stubs for CDM getName() and replace with actual implementation
     remove_from_module(cdm_py, "getName")
     customize_class(cdm_py, "NamedElement", [ast_for(getName)])
-
+    customize_class(cdm_py, "ObjectType", [ast_for(ObjectType.__init__)])
     customize_class(cdm_py, "AssociationEnd", [ast_for(getOppositeEnd), ast.parse(oppositeEnd)])
     customize_class(lc_py, "LearningCorpus", [ast_for(mistakeTypes), ast_for(topLevelMistakeTypeCategories)])
     customize_class(lc_py, "MistakeType", [ast_for(parametrized_responses)])

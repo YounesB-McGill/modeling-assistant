@@ -179,6 +179,8 @@ class ObjectType(Type):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        if not self.name:
+            self.name = self.__class__.__name__
 
 class TypeParameter(Type):
     genericType = EReference(ordered=True, unique=True, containment=False, derived=False)
