@@ -14,12 +14,12 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from cdmmetatypes import aggr, assoc, assocend, assocends, attr, attrs, cls, compos, enum, enumitem
-from classdiagram import Association, AssociationEnd, Class
+from cdmmetatypes import CdmMetatype, aggr, assoc, assocend, assocends, attr, attrs, cls, compos, enum, enumitem
+from classdiagram import Association, AssociationEnd, Class, NamedElement
 from corpus import corpus
 from corpus_definition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
 from parametrizedresponse import (extract_params, get_mdf_items_to_mistake_elem_dict, parametrize_response,
-                                  param_parts_before_dot, param_valid, parse)
+                                  param_parts_before_dot, param_start_elem_type, param_valid, parse)
 from utils import mdf, mt
 from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake, SolutionElement
@@ -133,15 +133,17 @@ def test_pr_missing_class():
     assert pr_result == f"Remember to add the {missing_class_name} class."
 
 
-# TODO Add test here to verify all possible PR parameters can be parsed (save to file), and re-enable assertions
+# TODO Add test here to verify all possible PR parameters can be parsed (save to file)
 def test_all_pr_params_can_be_parsed():
     """
     Test that all possible PR parameters can be parsed.
     """
-    prefix_len = len("stud_")  # "inst_" has same length
-    params = sorted([k[prefix_len:] for k in get_pr_parameters_for_mistake_types_with_md_formats().keys()])
-    # for param, mt_ in get_pr_parameters_for_mistake_types_with_md_formats().items():
-    #     assert parse()
+    for param in get_pr_parameters_for_mistake_types_with_md_formats():
+        print(param)
+        assert (start_elem := param_start_elem_type(param, as_type=CdmMetatype).example), f"{start_elem = }"
+        print(start_elem)
+        assert (parsed_output := parse(param, start_elem)), f"{parsed_output = }"
+        assert "${" not in parsed_output
 
 
 def test_get_mdf_items_to_mistake_elem_dict():
@@ -217,4 +219,4 @@ if __name__ == "__main__":
     "Main entry point (used for debugging)."
     #print("\n".join(sorted([k[5:] for k in get_pr_parameters_for_mistake_types_with_md_formats().keys() if "." in k])))
     #test_get_mdf_items_to_mistake_elem_dict()
-    test_pr_assoc()
+    test_all_pr_params_can_be_parsed()

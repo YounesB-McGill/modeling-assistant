@@ -21,6 +21,7 @@ _MAX_PARSE_DEPTH = 15  # Maximum depth of parse tree, eg, A.B.C... cannot have m
 # CDM metamodel shorthands
 SHORTHANDS: dict[str, str] = {
     "cls": "classifier",
+    "cls*": "ends",  # fallback
     "end": "ends",
     "opposite": "oppositeEnd",
 }
@@ -74,7 +75,7 @@ def parse(s: str, start_elem: NamedElement) -> str:
 
 def _parse(s: str, start_elem: NamedElement, depth: int = 0) -> str:
     # pylint: disable=too-many-return-statements
-    # print(f"parametrizedresponse.parse({s = }, {start_elem = }) called")  # TODO remove later
+    print(f"parametrizedresponse.parse({s = }, {start_elem = }) called")  # TODO remove later
     if depth > _MAX_PARSE_DEPTH:
         raise ValueError(f"parametrizedresponse.parse(): reached max parse depth ({_MAX_PARSE_DEPTH})")
 
@@ -84,6 +85,8 @@ def _parse(s: str, start_elem: NamedElement, depth: int = 0) -> str:
             return "_".join((ae.classifier.name for ae in start_elem.ends))
         return getattr(start_elem, "name", str(start_elem))
     if re.match(r"^[A-Za-z_]+\*$", s):  # simple varargs list of metatypes
+        if isinstance(start_elem, Association) and s == "cls*":  # special case for n-ary associations
+            return comma_seperated_with_and(ae.classifier for ae in start_elem.ends)
         return comma_seperated_with_and(start_elem)
     if (match_ := re.match(r".*?(\d+)$", s)) and (idx := int(match_.group(1))):  # index
         if hasattr(start_elem, "__getitem__") and idx < len(start_elem):
