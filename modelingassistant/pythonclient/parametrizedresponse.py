@@ -18,6 +18,8 @@ MAX_VARARG_SEQUENCE_LENGTH = float("inf")  # The maximum number of vararg elemen
 
 _MAX_PARSE_DEPTH = 15  # Maximum depth of parse tree, eg, A.B.C... cannot have more (\.\*\d) than this
 
+_MAX_INDEX = 15  # Maximum value of a sequence index, eg, inst_assocend1
+
 # CDM metamodel shorthands
 SHORTHANDS: dict[str, str] = {
     "cls": "classifier",
@@ -75,7 +77,7 @@ def parse(s: str, start_elem: NamedElement) -> str:
 
 def _parse(s: str, start_elem: NamedElement, depth: int = 0) -> str:
     # pylint: disable=too-many-return-statements
-    print(f"parametrizedresponse.parse({s = }, {start_elem = }) called")  # TODO remove later
+    # print(f"parametrizedresponse.parse({s = }, {start_elem = }) called")  # TODO remove later
     if depth > _MAX_PARSE_DEPTH:
         raise ValueError(f"parametrizedresponse.parse(): reached max parse depth ({_MAX_PARSE_DEPTH})")
 
@@ -88,9 +90,9 @@ def _parse(s: str, start_elem: NamedElement, depth: int = 0) -> str:
         if isinstance(start_elem, Association) and s == "cls*":  # special case for n-ary associations
             return comma_seperated_with_and(ae.classifier for ae in start_elem.ends)
         return comma_seperated_with_and(start_elem)
-    if (match_ := re.match(r".*?(\d+)$", s)) and (idx := int(match_.group(1))):  # index
+    if (match_ := re.match(r".*?(\d+)$", s)) and ((idx := int(match_.group(1))) in range(_MAX_INDEX + 1)):  # index
         if hasattr(start_elem, "__getitem__") and idx < len(start_elem):
-            return start_elem[idx]
+            return getattr(start_elem[idx], "name", str(start_elem[idx]))
         warn(f"""parametrizedresponse.parse(): Attempted to access element {start_elem} at index {idx
               }, but the element is not a sequence or has no such index, so returning the element itself""")
         return getattr(start_elem, "name", str(start_elem))
@@ -194,6 +196,8 @@ def comma_seperated_with_and(elems: list[NamedElement]) -> str:
         return elems[0].name
     if len(elems) == 2:
         return f"{elems[0].name} and {elems[1].name}"
+    if len(elems) > MAX_VARARG_SEQUENCE_LENGTH:
+        elems = elems[:MAX_VARARG_SEQUENCE_LENGTH]
     return f"{', '.join(e.name for e in elems[:-1])}, and {elems[-1].name}"
 
 
@@ -208,7 +212,7 @@ def param_start_elem_type(param: str, as_type: type = None) -> str | CdmMetatype
     ```
     """
     part_before_dot = param.split(".")[0]
-    type_name = re.sub(r"[\*\d]+$", "", part_before_dot.split("_")[-1])
+    type_name = re.sub(r"[\d]+$", "*", part_before_dot.split("_")[-1])
     if as_type == str:
         return type_name
     if as_type == CdmMetatype:

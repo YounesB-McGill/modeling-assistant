@@ -139,11 +139,9 @@ def test_all_pr_params_can_be_parsed():
     Test that all possible PR parameters can be parsed.
     """
     for param in get_pr_parameters_for_mistake_types_with_md_formats():
-        print(param)
-        assert (start_elem := param_start_elem_type(param, as_type=CdmMetatype).example), f"{start_elem = }"
-        print(start_elem)
-        assert (parsed_output := parse(param, start_elem)), f"{parsed_output = }"
-        assert "${" not in parsed_output
+        assert (start_elem := param_start_elem_type(param, as_type=CdmMetatype).example), f"Invalid {start_elem = }"
+        assert (parsed_output := parse(param, start_elem)), f"Invalid {parsed_output = }"
+        assert isinstance(parsed_output, str) and "${" not in parsed_output
 
 
 def test_get_mdf_items_to_mistake_elem_dict():
