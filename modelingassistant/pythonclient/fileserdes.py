@@ -112,21 +112,20 @@ def load_from_touchcore(filename: str, as_type: type = None, use_static_classes:
         if filename.endswith(".cdm"):
             return load_cdm(filename, use_static_classes)
         # these 2 cases are not expected
-        elif filename.endswith(".learningcorpus"):
+        if filename.endswith(".learningcorpus"):
             return load_lc(filename, use_static_classes)
-        elif filename.endswith(".modelingassistant"):
+        if filename.endswith(".modelingassistant"):
             return load_ma(filename, use_static_classes)
-        else:
-            try:
-                resource = SRSET.get_resource(URI(filename))
-                result = resource.contents[0]
-                if as_type not in (None, EObject) and use_static_classes:
-                    result.__class__ = as_type  # pylint: disable=invalid-class-object
-                else:
-                    warn(f"Attempted to load a file from TouchCORE as an EObject with unknown extension: {filename}")
-                return result
-            except Exception:  # pylint: disable=broad-except
-                return filename
+        try:
+            resource = SRSET.get_resource(URI(filename))
+            result = resource.contents[0]
+            if as_type not in (None, EObject) and use_static_classes:
+                result.__class__ = as_type  # pylint: disable=invalid-class-object
+            else:
+                warn(f"Attempted to load a file from TouchCORE as an EObject with unknown extension: {filename}")
+            return result
+        except Exception:  # pylint: disable=broad-except
+            return filename
 
 
 def load_from_webcore_cores(filename: str, as_type: type = None, use_static_classes: bool = True) -> EObject:

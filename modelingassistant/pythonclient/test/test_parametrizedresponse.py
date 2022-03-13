@@ -19,7 +19,7 @@ from classdiagram import Association, AssociationEnd, Class
 from corpus import corpus
 from corpus_definition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
 from parametrizedresponse import (extract_params, get_mdf_items_to_mistake_elem_dict, parametrize_response,
-                                  param_parts_before_dot, param_valid)
+                                  param_parts_before_dot, param_valid, parse)
 from utils import mdf, mt
 from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake, SolutionElement
@@ -132,7 +132,16 @@ def test_pr_missing_class():
     assert "${" not in pr_result
     assert pr_result == f"Remember to add the {missing_class_name} class."
 
-# TODO Add test here to verify all possible PR parameters can be parsed (save to file), and re-enable assertions 
+
+# TODO Add test here to verify all possible PR parameters can be parsed (save to file), and re-enable assertions
+def test_all_pr_params_can_be_parsed():
+    """
+    Test that all possible PR parameters can be parsed.
+    """
+    prefix_len = len("stud_")  # "inst_" has same length
+    params = sorted([k[prefix_len:] for k in get_pr_parameters_for_mistake_types_with_md_formats().keys()])
+    # for param, mt_ in get_pr_parameters_for_mistake_types_with_md_formats().items():
+    #     assert parse()
 
 
 def test_get_mdf_items_to_mistake_elem_dict():

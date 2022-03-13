@@ -2,11 +2,12 @@
 Logic to handle parametrized responses.
 """
 
-from itertools import count
 import re
 from string import Formatter
 
-from cdmmetatypes import CDM_METATYPES
+from pyecore.ecore import EClass
+
+from cdmmetatypes import CDM_METATYPES, CdmMetatype
 from utils import MistakeDetectionFormat, warn
 from classdiagram import Association, Attribute, NamedElement
 from learningcorpus import MistakeType, ParametrizedResponse
@@ -193,6 +194,28 @@ def comma_seperated_with_and(elems: list[NamedElement]) -> str:
     return f"{', '.join(e.name for e in elems[:-1])}, and {elems[-1].name}"
 
 
+def param_start_elem_type(param: str, as_type: type = None) -> str:
+    """
+    Return the CDM metatype of the given parametrized response parameter.
+
+    ```
+    param_start_elem_type("stud_cls") -> cdmmetatypes.cls.eClass = classdiagram.Class
+    param_start_elem_type("stud_cls", as_type=str) -> cdmmetatypes.cls.short_name = "cls"
+    param_start_elem_type("inst_attr.type") -> cdmmetatypes.attr.eClass = classdiagram.Attribute
+    ```
+    """
+    part_before_dot = param.split(".")[0]
+    type_name = re.sub(r"[\*\d]+$", "", part_before_dot.split("_")[-1])
+    if as_type == str:
+        return type_name
+    if as_type == CdmMetatype:
+        return CDM_METATYPES.get(type_name, None)
+    if as_type not in (None, EClass, type):
+        warn(f"param_start_elem_type(): {as_type = } is not a valid type")
+    # default return value is CDM_METATYPES[type_name].eClass if it exists
+    return getattr(CDM_METATYPES.get(type_name, None), "eClass", None)
+
+
 def param_valid(param: str, mt: MistakeType = None) -> bool:
     """
     Validate that the parameter is syntactically correct.
@@ -212,10 +235,7 @@ def param_valid(param: str, mt: MistakeType = None) -> bool:
     if (param.count(".") + param.count("*") + sum(c.isdigit() for c in param)) > _MAX_PARSE_DEPTH:
         raise ValueError(f"{prp} cannot exceed the maximum parse depth of {_MAX_PARSE_DEPTH}: {param}")
 
-    part_before_dot = param.split(".")[0]
-    type_ = re.sub(r"[\*\d]+$", "", part_before_dot.split("_")[-1])
-
-    if type_ not in CDM_METATYPES:
+    if not param_start_elem_type(param):
         raise ValueError(f"{prp} must be a valid CDM metatype: {param}")
 
     return True

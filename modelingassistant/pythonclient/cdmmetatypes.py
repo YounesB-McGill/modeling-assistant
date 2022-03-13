@@ -1,5 +1,8 @@
 """
 Module to store information about TouchCORE CDM (class diagram) metatypes.
+
+To simplify the Modeling Assistant implementation, a few additional metatype-like concepts are defined here, eg,
+composition and plural classes.
 """
 # pylint: disable=no-member
 
