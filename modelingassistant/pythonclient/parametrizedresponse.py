@@ -99,7 +99,7 @@ def _parse(s: str, start_elem: NamedElement, depth: int = 0) -> str:
     b = dot_sep_elems[1]
     if b == "length":  # special case
         if hasattr(a, "__len__"):
-            return len(a)
+            return str(len(a))
         warn(f"""parametrizedresponse.parse(): Attempted to get length of element {a
               }, but the element is not a sequence, so returning the element name or string representation""")
         return getattr(a, "name", str(a))
@@ -115,7 +115,7 @@ def resolve_attribute(elem, attr_name: str):
     the class diagram sense.
     """
     # special cases
-    if isinstance(elem, Attribute) and attr_name == "cls":  
+    if isinstance(elem, Attribute) and attr_name == "cls":
         return elem.eContainer()
 
     # general case
@@ -194,14 +194,14 @@ def comma_seperated_with_and(elems: list[NamedElement]) -> str:
     return f"{', '.join(e.name for e in elems[:-1])}, and {elems[-1].name}"
 
 
-def param_start_elem_type(param: str, as_type: type = None) -> str:
+def param_start_elem_type(param: str, as_type: type = None) -> str | CdmMetatype | EClass:
     """
-    Return the CDM metatype of the given parametrized response parameter.
+    Return the CDM metatype of the starting element (part before dot) of the given parametrized response parameter.
 
     ```
-    param_start_elem_type("stud_cls") -> cdmmetatypes.cls.eClass = classdiagram.Class
+    param_start_elem_type("stud_cls") -> cdmmetatypes.cls.eClass = classdiagram.Class  # default
     param_start_elem_type("stud_cls", as_type=str) -> cdmmetatypes.cls.short_name = "cls"
-    param_start_elem_type("inst_attr.type") -> cdmmetatypes.attr.eClass = classdiagram.Attribute
+    param_start_elem_type("inst_attr.type", as_type=CdmMetatype) -> cdmmetatypes.attr
     ```
     """
     part_before_dot = param.split(".")[0]
