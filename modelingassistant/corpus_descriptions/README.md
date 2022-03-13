@@ -2221,7 +2221,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> [Nice try, but] ${stud_role_cls*} can also play the role of one of the other subclasses.
+> [Nice try, but ]${stud_role_cls*} can also play the role of one of the other subclasses.
 
 Level 4: Resource response with Quiz:
 
@@ -2254,7 +2254,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> [Nice try, but] ${stud_role_cls*} can also play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
+> [Nice try, but ]${stud_role_cls*} can also play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
 
 Level 4: Resource response with Quiz:
 
@@ -2287,7 +2287,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> [Nice try, but] ${stud_role_cls*} do not need to play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
+> [Nice try, but ]${stud_role_cls*} do not need to play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
 
 Level 4: Resource response with Quiz:
 

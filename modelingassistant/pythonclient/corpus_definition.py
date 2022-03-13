@@ -895,7 +895,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="[Nice try, but] ${stud_role_cls*} can also play the role of "
+                    3: ParametrizedResponse(text="[Nice try, but ]${stud_role_cls*} can also play the role of "
                                                  "one of the other subclasses."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
@@ -908,7 +908,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
                     3: ParametrizedResponse(
-                        text="[Nice try, but] ${stud_role_cls*} can also play the role of one of the other "
+                        text="[Nice try, but ]${stud_role_cls*} can also play the role of one of the other "
                              "subclasses and different features do not need to be captured for the subclasses."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
@@ -920,7 +920,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="[Nice try, but] ${stud_role_cls*} do not need to play the "
+                    3: ParametrizedResponse(text="[Nice try, but ]${stud_role_cls*} do not need to play the "
                                                  "role of one of the other subclasses and different features "
                                                  "do not need to be captured for the subclasses."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
