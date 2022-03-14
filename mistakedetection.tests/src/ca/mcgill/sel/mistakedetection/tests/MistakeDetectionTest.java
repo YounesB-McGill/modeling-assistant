@@ -761,7 +761,7 @@ public class MistakeDetectionTest {
    * @param givenElements
    * @return true if mistakeElements contain givenElements
    */
-  public static boolean mistakeElemsContainGivenElems(List<? extends SolutionElement> mistakeElements,
+  public static boolean mistakeElemsContainGivenElems(List<SolutionElement> mistakeElements,
       List<? extends NamedElement> givenElements) {
     var namedElemsFromMistake = mistakeElements.stream().map(SolutionElement::getElement).collect(Collectors.toList());
     return namedElemsFromMistake.containsAll(givenElements);
