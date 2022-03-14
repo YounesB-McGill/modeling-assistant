@@ -141,7 +141,7 @@ def test_all_pr_params_can_be_parsed():
     Test that all possible PR parameters can logically be parsed and save them to file for manual verification of
     correctness.
     """
-    # param = "inst_assoc.cls*"
+    # param = "stud_assoc.end0.cls"
     # start_elem = param_start_elem_type(param, as_type=CdmMetatype).example
     # output = parse(param, start_elem)
     # print(start_elem)
@@ -169,7 +169,7 @@ def test_all_pr_params_can_be_parsed():
         Parameter | Parsed Output
         --------- | -------------
         """)
-    for param, output in params_to_parsed_output.items():
+    for param, output in sorted(params_to_parsed_output.items()):
         pr_md += f"{param} | {output}\n"
 
     with open(_PR_PARAM_PARSED_OUTPUT_FILE, "w", encoding="utf-8") as f:

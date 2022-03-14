@@ -1490,7 +1490,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Further details of the association between ${inst_assoc.ends0.cls} and ${inst_assoc.ends1.cls} should be modeled with an association class.
+> Further details of the association between ${inst_assoc.end0.cls} and ${inst_assoc.end1.cls} should be modeled with an association class.
 
 Level 4: Resource response with Reference:
 
@@ -1516,11 +1516,11 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> Does it make sense to disallow multiple instances of the ${stud_cls} linking ${stud_assoc.ends0.cls} and ${stud_assoc.ends1.cls}?
+> Does it make sense to disallow multiple instances of the ${stud_cls} linking ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls}?
 
 Level 5: Parametrized response:
 
-> Further details of the association between ${stud_assoc.ends0.cls} and ${stud_assoc.ends1.cls} should not be modeled with an association class.
+> Further details of the association between ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls} should not be modeled with an association class.
 
 Level 6: Resource response with Reference:
 

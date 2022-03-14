@@ -122,8 +122,16 @@ def resolve_attribute(elem, attr_name: str):
     the class diagram sense.
     """
     # special cases
-    if isinstance(elem, Attribute) and attr_name == "cls":
-        return elem.eContainer()
+    match elem:
+        case Association() if (match_ := re.match(r"ends?(\d+)$", attr_name)):
+            return elem.ends[int(match_.group(1))]
+        case AssociationEnd() if attr_name in ("lowerBound", "upperBound"):
+            bound = getattr(elem, attr_name)
+            return "*" if bound == -1 else str(bound)
+        case Attribute() if attr_name == "cls":
+            return elem.eContainer()
+        case Attribute() if attr_name == "type":
+            return elem.type.name.removeprefix("CD")
 
     # general case
     return getattr(elem, SHORTHANDS.get(attr_name, attr_name), elem)

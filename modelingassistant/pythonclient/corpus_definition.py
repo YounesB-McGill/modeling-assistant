@@ -608,8 +608,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_assoc_class := mt(n="Missing assoc class", d="Missing association class", feedbacks=fbs({
                 1: Feedback(highlightProblem=True),
                 2: TextResponse(text="Can you model this relationship more precisely?"),
-                3: ParametrizedResponse(text="Further details of the association between ${inst_assoc.ends0.cls} "
-                    "and ${inst_assoc.ends1.cls} should be modeled with an association class."),
+                3: ParametrizedResponse(text="Further details of the association between ${inst_assoc.end0.cls} "
+                    "and ${inst_assoc.end1.cls} should be modeled with an association class."),
                 4: ResourceResponse(learningResources=[assoc_class_ref := Reference(content=dedent("""\
                     Please review the _Association class_ section of the
                     [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
@@ -621,9 +621,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 2: TextResponse(text="Can you model this relationship in another way?"),
                 3: TextResponse(text="Is using an association class the best way to model this?"),
                 4: ParametrizedResponse(text="Does it make sense to disallow multiple instances of the "
-                    "${stud_cls} linking ${stud_assoc.ends0.cls} and ${stud_assoc.ends1.cls}?"),
-                5: ParametrizedResponse(text="Further details of the association between ${stud_assoc.ends0.cls} and "
-                    "${stud_assoc.ends1.cls} should not be modeled with an association class."),
+                    "${stud_cls} linking ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls}?"),
+                5: ParametrizedResponse(text="Further details of the association between ${stud_assoc.end0.cls} and "
+                    "${stud_assoc.end1.cls} should not be modeled with an association class."),
                 6: ResourceResponse(learningResources=[assoc_class_ref]),
             })),
             bad_assoc_class_name_spelling := mt(

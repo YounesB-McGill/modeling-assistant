@@ -8,25 +8,24 @@ To avoid repetition, parameter prefixes such as "stud_" have been omitted from t
 
 Parameter | Parsed Output
 --------- | -------------
-cls | Person
-attr.cls | Person
-attr | name
-enum.literals.length | 3
-enum | SeatType
-enumitem.enum | SeatType
-enumitem | FirstClass
-attr.type | :x: CDString
-assoc.end0.cls | :x: Person_PersonRole
-assocend.cls | PersonRole
-assoc.cls* | Person and PersonRole
-aggr.end0.cls | :x: PassengerRole_Booking
-assocend.lowerBound | :x: 1
-assocend | person
-assocend.opposite.cls | Person
-assoc.ends.length | 2
+aggr.end0.cls | PassengerRole
 assoc | Person_PersonRole
-assoc.ends0.cls | :x: Person_PersonRole
-compos.end0.cls | :x: AirlineSystem_Person
-cls* | PassengerRole, EmployeeRole, and VisitorRole
-assocend0 | person
+assoc.cls* | Person and PersonRole
+assoc.end0.cls | Person
+assoc.ends.length | 2
+assocend | person
 assocend* | person, persons, airlineSystem, and bookings
+assocend.cls | PersonRole
+assocend.lowerBound | 1
+assocend.opposite.cls | Person
+assocend0 | person
+attr | name
+attr.cls | Person
+attr.type | String
+cls | Person
+cls* | PassengerRole, EmployeeRole, and VisitorRole
+compos.end0.cls | AirlineSystem
+enum | SeatType
+enum.literals.length | 3
+enumitem | FirstClass
+enumitem.enum | SeatType
