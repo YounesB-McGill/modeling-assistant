@@ -17,7 +17,8 @@ from textwrap import dedent
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from cdmmetatypes import CdmMetatype, aggr, assoc, assocend, assocends, attr, attrs, cls, compos, enum, enumitem
-from classdiagram import Association, AssociationEnd, Class, NamedElement
+from classdiagram import Association, AssociationEnd, Class
+from createcorpus import underscorify
 from corpus import corpus
 from corpus_definition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
 from parametrizedresponse import (extract_params, get_mdf_items_to_mistake_elem_dict, parametrize_response,
@@ -245,8 +246,40 @@ def get_number_of_mistake_types_with_parametrized_responses() -> int:
     return result
 
 
+def get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries() -> str:
+    """
+    Return the mapping entries for the HumanValidatedParametrizedResponses.java file.
+
+    Example entry:
+
+    ```java
+    entry(MISSING_ATTRIBUTE_TYPE, Set.of("The ${stud_attr.cls}.${stud_attr} attribute is missing something.",
+        "The type of the ${stud_attr.cls}.${stud_attr} attribute should be ${inst_attr.type}.")),
+    ```
+    """
+    entries = ""
+    mts_to_prs: dict[MistakeType, str | list[str]] = {}
+    for mt_ in corpus.mistakeTypes():
+        for fb in mt_.feedbacks:
+            if isinstance(fb, ParametrizedResponse):
+                if mt_ not in mts_to_prs:
+                    mts_to_prs[mt_] = fb.text
+                else:
+                    if isinstance(mts_to_prs[mt_], str):
+                        mts_to_prs[mt_] = [mts_to_prs[mt_], fb.text]
+                    else:
+                        mts_to_prs[mt_].append(fb.text)
+
+    for mt_, pr_text in sorted(mts_to_prs.items(), key=lambda pair: pair[0].name):
+        name = underscorify(mt_.name)
+        nl = "\n"
+        if isinstance(pr_text, str):
+            entries += f'      entry({name}, Set.of("{pr_text}")),\n'
+        else:
+            entries += f"""      entry({name}, Set.of("{f'",{nl}          "'.join(pr_text)}")),\n"""
+
+    return entries
+
+
 if __name__ == "__main__":
     "Main entry point (used for debugging)."
-    #print("\n".join(sorted([k[5:] for k in get_pr_parameters_for_mistake_types_with_md_formats().keys() if "." in k])))
-    #test_get_mdf_items_to_mistake_elem_dict()
-    test_all_pr_params_can_be_parsed()

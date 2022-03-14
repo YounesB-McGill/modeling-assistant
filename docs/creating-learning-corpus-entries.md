@@ -30,7 +30,7 @@ based on what is specified in the `corpus_definition.py` file.
    and the trailing commas.
 
 2. Add the mistake type to the priority list in the corpus definition file.
-3. Add the mistake detection formats to the corpus definition file.
+3. Add the mistake detection format for the mistake type to the corpus definition file.
 
 ### Step 2: Update Corpus Instance
 
