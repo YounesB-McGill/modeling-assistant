@@ -804,15 +804,15 @@ public class MistakeDetection {
     comparison.extraStudentEnums.remove(studEnum);
     checkMistakeBadEnumNameSpelling(studEnum, instEnum).ifPresent(comparison.newMistakes::add);
   }
-  private static void checkMistakesInAttributes(Attribute studentAttribute, Attribute instructorAttribute,
+  private static void checkMistakesInAttributes(Attribute studentAttr, Attribute instructorAttr,
       Comparison comparison) {
-    checkMistakeWrongAttributeTypeAndListAttrib(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
-    checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
-    checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
-    if (studentAttribute.getName() != instructorAttribute.getName()) {
-      checkMistakeAttributeSpelling(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
-      checkMistakePluralAttribName(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
-      checkMistakeUppercaseAttribName(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
+    checkMistakeWrongAttributeTypeAndListAttrib(studentAttr, instructorAttr).ifPresent(comparison.newMistakes::add);
+    checkMistakeAttributeExpectedStatic(studentAttr, instructorAttr).ifPresent(comparison.newMistakes::add);
+    checkMistakeAttributeNotExpectedStatic(studentAttr, instructorAttr).ifPresent(comparison.newMistakes::add);
+    if (studentAttr.getName() != instructorAttr.getName()) {
+      checkMistakeAttributeSpelling(studentAttr, instructorAttr).ifPresent(comparison.newMistakes::add);
+      checkMistakePluralAttribName(studentAttr, instructorAttr).ifPresent(comparison.newMistakes::add);
+      checkMistakeUppercaseAttribName(studentAttr, instructorAttr).ifPresent(comparison.newMistakes::add);
     }
   }
 
@@ -913,8 +913,9 @@ public class MistakeDetection {
       Comparison comparison) {
     for (var occ : occurrences) {
       for (var assoc : comparison.notMappedInstructorAssociations) {
-        if ((assoc.getEnds().get(0).getClassifier().equals(occ) && assoc.getEnds().get(1).getClassifier().equals(abstraction))
-            || (assoc.getEnds().get(1).getClassifier().equals(occ) && assoc.getEnds().get(0).getClassifier().equals(abstraction))) {
+        var cls0 = assoc.getEnds().get(0).getClassifier();
+        var cls1 = assoc.getEnds().get(1).getClassifier();
+        if ((cls0.equals(occ) && cls1.equals(abstraction)) || (cls1.equals(occ) && cls0.equals(abstraction))) {
           return false;
         }
       }
@@ -1518,7 +1519,8 @@ public class MistakeDetection {
     }
   }
 
-  private static AssociationEnd getStudentAssocEnd(AssociationEnd instAssocEnd, Association assoc, Comparison comparison) {
+  private static AssociationEnd getStudentAssocEnd(AssociationEnd instAssocEnd, Association assoc,
+      Comparison comparison) {
     var studAssocEnd = assoc.getEnds().get(0);
     if (!studAssocEnd.getClassifier().equals(comparison.mappedClassifiers.get(instAssocEnd.getClassifier()))){
       studAssocEnd = assoc.getEnds().get(1);
@@ -1599,7 +1601,7 @@ public class MistakeDetection {
       if (comparison.mappedClassifiers.containsKey(instAssocClass)) {
         comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS,
             comparison.mappedClassifiers.get(instAssocClass), instAssocClass));
-        //TODO: Work in progress
+       // TODO: Work in progress
        // comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
        // comparison.notMappedInstructorClassifiers.add(instAssocClass);
        // comparison.assocClassifiersToRemove.add(instAssocClass);
@@ -1629,6 +1631,7 @@ public class MistakeDetection {
         Classifier instAssocClass = instAssoc.getAssociationClass();
         comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS,
             comparison.mappedClassifiers.get(instAssocClass), instAssocClass));
+        // TODO: Work in progress
         // comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
         // comparison.notMappedInstructorClassifiers.add(instAssocClass);
         // comparison.assocClassifiersToRemove.add(instAssocClass);
@@ -2244,7 +2247,9 @@ public class MistakeDetection {
     return null;
   }
 
-  /** Returns the classes with the closest number of association end classes matching with that of a instructor class. */
+  /**
+   * Returns the classes with the closest number of association end classes matching with that of a instructor class.
+   */
   private static List<Classifier> classWithOtherAssociationClassMatch(List<Classifier> studentClasses,
       Classifier instructorClass) {
     List<String> instClassesName = new ArrayList<>();
@@ -2833,7 +2838,8 @@ public class MistakeDetection {
       } else {
         comparison.newMistakes.add(createMistake(MISSING_ASSOCIATION, null, association));
       }
-      if (association.getAssociationClass() != null && !comparison.mappedClassifiers.containsKey(association.getAssociationClass())) {
+      if (association.getAssociationClass() != null
+          && !comparison.mappedClassifiers.containsKey(association.getAssociationClass())) {
         removeMistakesRelatedToElement(association.getAssociationClass(), comparison.newMistakes);
         comparison.newMistakes
             .add(createMistake(MISSING_ASSOC_CLASS, null, List.of(association, association.getAssociationClass())));
@@ -2841,10 +2847,10 @@ public class MistakeDetection {
     }
   }
 
-  private static boolean isIncompleteContainmentMistakeExists(Association association, Comparison comparison) {
-    return (isMistakeExist(INCOMPLETE_CONTAINMENT_TREE, comparison.mappedClassifiers.get(association.getEnds().get(0).getClassifier()), comparison)
-        || isMistakeExist(INCOMPLETE_CONTAINMENT_TREE, comparison.mappedClassifiers.get(association.getEnds().get(1).getClassifier()), comparison));
-
+  private static boolean isIncompleteContainmentMistakeExists(Association assoc, Comparison comparison) {
+    var mc = comparison.mappedClassifiers;
+    return (isMistakeExist(INCOMPLETE_CONTAINMENT_TREE, mc.get(assoc.getEnds().get(0).getClassifier()), comparison)
+        || isMistakeExist(INCOMPLETE_CONTAINMENT_TREE, mc.get(assoc.getEnds().get(1).getClassifier()), comparison));
   }
 
   private static void checkMistakeAttributeInsteadOfAssociation(Association association, Comparison comparison) {
@@ -2930,7 +2936,8 @@ public class MistakeDetection {
       } else {
         comparison.newMistakes.add(createMistake(EXTRA_ASSOCIATION, association, null));
       }
-      if (association.getAssociationClass() != null && !comparison.mappedClassifiers.containsValue(association.getAssociationClass())) {
+      if (association.getAssociationClass() != null
+          && !comparison.mappedClassifiers.containsValue(association.getAssociationClass())) {
         removeMistakesRelatedToElement(association.getAssociationClass(), comparison.newMistakes);
         comparison.newMistakes
             .add(createMistake(EXTRA_ASSOC_CLASS, List.of(association, association.getAssociationClass()), null));
