@@ -136,12 +136,12 @@ def test_pr_missing_class():
     assert pr_result == f"Remember to add the {missing_class_name} class."
 
 
-# TODO Add test here to verify all possible PR parameters can be parsed (save to file)
 def test_all_pr_params_can_be_parsed():
     """
     Test that all possible PR parameters can logically be parsed and save them to file for manual verification of
     correctness.
     """
+    # TODO Remove this debugging code once logic is more stable
     # param = "stud_assoc.end0.cls"
     # start_elem = param_start_elem_type(param, as_type=CdmMetatype).example
     # output = parse(param, start_elem)

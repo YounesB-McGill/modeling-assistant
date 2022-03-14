@@ -35,6 +35,28 @@ _formatter = Formatter()
 def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> str:
     """
     Return the filled-in parametrized response text for the given response and mistake.
+
+    This function uses the following approach to determing the returned text:
+
+    1. Map MistakeDetectionFormat items to mistake elements
+    2. Extract parameter template strings from parametrized response text, eg, ${stud_attr.cls}
+    3. Get parameter part before dot, eg, stud_attr. This is the start element, passed into the parse() function
+    4. Populate the options dictionary with (original parameter, replacement) pairs
+    5. Use the Python string formatter to replace the parameter template strings with the corresponding values
+
+    Example execution (Python-like pseudocode):
+
+    ```
+    WRONG_CLASS_NAME.md_format = mdf(["cls"], ["cls"])
+    parametrize_response(resp="${stud_cls} should be ${inst_cls}.", mistake={mt: WRONG_CLASS_NAME, se: [sc], ie: [ic]}):
+        1. Establish mapping {stud_cls: sc, inst_cls: ic}
+        2. Extract parameters: stud_cls, inst_cls
+        3. Get part before dot: stud_cls, inst_cls (no change for this example)
+        4. Populate options by calling parse() for each one: {stud_cls: sc, inst_cls: ic}
+        5. Return resulting string with replacements: "sc should be ic."
+    ```
+
+    For other more interesting examples, see the unit tests.
     """
     options = {}
     mdf_items_to_mistake_elems = get_mdf_items_to_mistake_elem_dict(mistake)
@@ -48,7 +70,7 @@ def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> st
         options[param] = parse(param, start_elem)
     # print(f"parametrizedresponse.parametrize_response(): {options = }")  # TODO remove later
     resp_text: str = response.text.replace("$", "")  # remove all $ from the response text
-    for t in _formatter.parse(resp_text):
+    for t in _formatter.parse(resp_text):  # not to be confused with the parse() function defined below
         # print(f"parametrizedresponse.parametrize_response(): {t = }")  # TODO remove later
         if t[1] is not None:
             resp_text = resp_text.replace(f"{{{t[1]}}}", options[t[1]], 1)
