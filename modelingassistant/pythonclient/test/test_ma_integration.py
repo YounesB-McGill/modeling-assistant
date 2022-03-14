@@ -73,7 +73,7 @@ def webcore():
         Thread(target=lambda: os.system(f"cd {TOUCHCORE_PATH}/.. && ./start-webcore.sh"), daemon=True).start()
 
 
-@pytest.mark.skip(reason="Temporarily disabled")
+#@pytest.mark.skip(reason="Temporarily disabled")
 def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     """
     Simplest possible test for the entire system.
