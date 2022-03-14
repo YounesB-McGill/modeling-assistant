@@ -11,6 +11,7 @@ parametrized responses and not the correctness of the example domain models.
 import os
 import re
 import sys
+from string import digits
 from textwrap import dedent
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -152,6 +153,8 @@ def test_all_pr_params_can_be_parsed():
         assert (start_elem := param_start_elem_type(param, as_type=CdmMetatype).example), f"Invalid {start_elem = }"
         assert (parsed_output := parse(param, start_elem)), f"Invalid {parsed_output = }"
         assert isinstance(parsed_output, str) and "${" not in parsed_output
+        if any((c in param) for c in digits[1:]):
+            continue  # skip items with digits other than 0
         params_to_parsed_output[param.split("_")[-1]] = parsed_output
 
     pr_md = dedent("""\

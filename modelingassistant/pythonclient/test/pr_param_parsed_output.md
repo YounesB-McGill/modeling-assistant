@@ -17,21 +17,16 @@ enumitem.enum | SeatType
 enumitem | FirstClass
 attr.type | CDString
 assoc.end0.cls | Person_PersonRole
-assoc.end1.cls | Person_PersonRole
 assocend.cls | PersonRole
 assoc.cls* | Person and PersonRole
 aggr.end0.cls | PassengerRole_Booking
-aggr.end1.cls | PassengerRole_Booking
 assocend.lowerBound | 1
 assocend | person
 assocend.opposite.cls | Person
 assoc.ends.length | 2
 assoc | Person_PersonRole
 assoc.ends0.cls | Person_PersonRole
-assoc.ends1.cls | Person_PersonRole
 compos.end0.cls | AirlineSystem_Person
-compos.end1.cls | AirlineSystem_Person
 cls* | PassengerRole, EmployeeRole, and VisitorRole
 assocend0 | person
-assocend1 | persons
 assocend* | person, persons, airlineSystem, and bookings
