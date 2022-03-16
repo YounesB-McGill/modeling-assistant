@@ -417,7 +417,7 @@ Level 5: Resource response with Reference:
 
 #### Extra enumeration item
 
-Student element: Enumeration item. 
+Student element: Enumeration item. Instructor element: Enumeration.
 
 Level 1: Highlight solution
 
@@ -691,7 +691,7 @@ Level 6: Resource response with Reference:
 
 #### Extra attribute
 
-Student element: Attribute. 
+Student element: Attribute. Instructor element: Class.
 
 Level 1: Highlight solution
 
@@ -990,7 +990,7 @@ Level 4: Resource response with Reference:
 
 #### Infinite recursive dependency
 
-Student elements: Minimum lower bound association end, Other association end. 
+Student element: Association ends. 
 
 Level 1: Highlight solution
 
@@ -1004,7 +1004,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> Does every ${stud_other_assocend.cls} have exactly ${stud_other_assocend.lowerBound} ${stud_other_assocend}?
+> Does every ${stud_assocend0.cls} have exactly ${stud_assocend0.lowerBound} ${stud_assocend0}?
 
 Level 5: Resource response with List multiple-choice quiz:
 
@@ -1358,7 +1358,7 @@ better understand these relationships and where they are used.
 
 #### Using binary association instead of n-ary association
 
-Student element: Association. Instructor element: Association.
+Student elements: Association, Association end, Other association end. Instructor elements: Association, Association ends.
 
 Level 1: Highlight solution
 
@@ -1377,7 +1377,7 @@ Level 4: Resource response with Reference:
 
 #### Using n-ary association instead of binary association
 
-Student element: Association. Instructor element: Association.
+Student elements: Association, Association ends. Instructor elements: Association, Association end, Other association end.
 
 Level 1: Highlight solution
 
@@ -1396,7 +1396,7 @@ Level 4: Resource response with Reference:
 
 #### Using intermediate class instead of n-ary association
 
-Student element: Class. Instructor element: Association.
+Student element: Class. Instructor elements: Association, Association ends.
 
 Level 1: Highlight solution
 
@@ -1415,7 +1415,7 @@ Level 4: Resource response with Reference:
 
 #### Using n-ary association instead of intermediate class
 
-Student element: Association. Instructor element: Class.
+Student elements: Association, Association ends. Instructor element: Class.
 
 Level 1: Highlight solution
 
@@ -1423,9 +1423,9 @@ Level 2: Text response:
 
 > Is this the best way to model this concept?
 
-Level 3: Text response:
+Level 3: Parametrized response:
 
-> Use an intermediate class instead of an n-ary association.
+> Use an intermediate ${inst_cls} class instead of an n-ary association.
 
 Level 4: Resource response with Reference:
 
@@ -2145,7 +2145,7 @@ Level 7: Resource response with Reference:
 
 #### Missing Player-Role pattern
 
-Instructor element: .
+Student elements: Player class, Roles. Instructor elements: Player class, Roles.
 
 Level 1: Highlight solution
 
@@ -2157,7 +2157,11 @@ Level 3: Text response:
 
 > Use the Player-Role pattern to model the relationships between these concepts.
 
-Level 4: Resource response with Quiz:
+Level 4: Parametrized response:
+
+> The concepts of ${inst_player_cls} and ${inst_role*} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
+
+Level 5: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -2168,7 +2172,7 @@ Level 4: Resource response with Quiz:
 > Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
 > Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
-Level 5: Resource response with Reference:
+Level 6: Resource response with Reference:
 
 > The Player-Role Pattern can be used to capture the fact that an object may play different roles
 in different contexts.
@@ -2178,7 +2182,7 @@ in different contexts.
 
 #### Incomplete Player-Role pattern
 
-Instructor element: .
+Student elements: Player class, Roles. Instructor elements: Player class, Roles.
 
 Level 1: Highlight solution
 
@@ -2190,7 +2194,11 @@ Level 3: Text response:
 
 > Use the Player-Role pattern to model the relationships between these concepts.
 
-Level 4: Resource response with Quiz:
+Level 4: Parametrized response:
+
+> The concepts of ${inst_player_cls}, ${inst_role*} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
+
+Level 5: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -2201,7 +2209,7 @@ Level 4: Resource response with Quiz:
 > Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
 > Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
-Level 5: Resource response with Reference:
+Level 6: Resource response with Reference:
 
 > The Player-Role Pattern can be used to capture the fact that an object may play different roles
 in different contexts.
@@ -2632,7 +2640,7 @@ from each other in an important way.
 
 #### Incomplete Abstraction-Occurrence pattern
 
-Student elements: Abstraction class, Occurrence class. Instructor elements: Abstraction class, Occurrence class.
+Student element: Existing class. Instructor elements: Abstraction class, Occurrence class.
 
 Level 1: Highlight solution
 
@@ -2642,9 +2650,13 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
+> The ${stud_existing_cls} should be part of an Abstraction-Occurrence relationship.
+
+Level 4: Parametrized response:
+
 > The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
 
-Level 4: Resource response with Reference:
+Level 5: Resource response with Reference:
 
 > The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
 represent a set of related objects that share common information but also differ

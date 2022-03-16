@@ -13,6 +13,11 @@ from learningcorpus import (Example, Feedback, LearningCorpus, MistakeType, Para
 from utils import mcq, mtc, mt, fbs, fitb, mdf
 
 
+# HTML checked and unchecked boxes, used in generated output
+CHECKED_BOX = "&#10003;"
+UNCHECKED_BOX = "&#9744;"
+
+
 corpus = LearningCorpus(mistakeTypeCategories=[
     class_mistakes := mtc(n="Class mistakes",
         mistakeTypes=[
@@ -384,8 +389,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check this relationship."),
                 3: TextResponse(text="The multiplicit(y|ies) for this relationship (is|are) incorrect."),
-                4: ParametrizedResponse(text="Does every ${stud_other_assocend.cls} have exactly "
-                                             "${stud_other_assocend.lowerBound} ${stud_other_assocend}?"),
+                4: ParametrizedResponse(text="Does every ${stud_assocend0.cls} have exactly "
+                                             "${stud_assocend0.lowerBound} ${stud_assocend0}?"),
                 5: ResourceResponse(learningResources=[mcq[
                     dedent("""\
                         Given the following class diagram modeled in Umple, select the correct answer(s).
@@ -584,7 +589,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Is this the best way to model this concept?"),
-                    3: TextResponse(text="Use an intermediate class instead of an n-ary association."),
+                    3: ParametrizedResponse(
+                        text="Use an intermediate ${inst_cls} class instead of an n-ary association."),
                     4: ResourceResponse(learningResources=[assoc_ref]),
                 })),
         ]),
@@ -852,23 +858,22 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_pr_pattern := mt(n="Missing PR pattern", d="Missing Player-Role pattern", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Think carefully about how to model the relationships between these concepts."),
-                # Leave PR for future work because it has an indeterminate MDF, use text response instead
-                # 3: ParametrizedResponse(
-                #     text="The concepts of ${inst_player_cls} and ${inst_role_cls*} and the relationship between them "
-                #          "should be modeled with one of the forms of the Player-Role pattern."),
                 3: TextResponse(text="Use the Player-Role pattern to model the relationships between these concepts."),
-                # &#9744; is an unchecked checkbox and &#10003; is a checked checkbox
-                4: ResourceResponse(learningResources=[pr_quiz := Quiz(content=dedent(f"""\
+                4: ParametrizedResponse(
+                    text="The concepts of ${inst_player_cls} and ${inst_role*} and the relationship between them "
+                         "should be modeled with one of the forms of the Player-Role pattern."),
+                # the spacing below is intentional, for the output to be properly aligned
+                5: ResourceResponse(learningResources=[pr_quiz := Quiz(content=dedent(f"""\
                     Complete the following table:
 
                     Solution | Roles have different features | One role at a time |{
                         " "}Different roles at a time | More than one role at the same time
                     --- | --- | --- | --- | ---
-                    Enumeration         |  &#9744; | &#10003; | &#10003; |  &#9744;
-                    Subclasses          | &#10003; | &#10003; |  &#9744; |  &#9744;
-                    Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
-                    Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;"""))]),
-                5: ResourceResponse(learningResources=[pr_ref := Reference(content=dedent("""\
+                    Enumeration         |  {UNCHECKED_BOX} | {CHECKED_BOX} | {CHECKED_BOX} |  {UNCHECKED_BOX}
+                    Subclasses          | {CHECKED_BOX} | {CHECKED_BOX} |  {UNCHECKED_BOX} |  {UNCHECKED_BOX}
+                    Associations        |  {UNCHECKED_BOX} | {CHECKED_BOX} | {CHECKED_BOX} | {CHECKED_BOX}
+                    Player-Role Pattern | {CHECKED_BOX} | {CHECKED_BOX} | {CHECKED_BOX} | {CHECKED_BOX}"""))]),
+                6: ResourceResponse(learningResources=[pr_ref := Reference(content=dedent("""\
                     The Player-Role Pattern can be used to capture the fact that an object may play different roles
                     in different contexts.
 
@@ -878,15 +883,14 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 n="Incomplete PR pattern", d="Incomplete Player-Role pattern", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
-                        text="Think carefully about how to model the relationships between these concepts."),
-                    # Leave PR for future work because it has an indeterminate MDF, use text response instead
-                    # 3: ParametrizedResponse(
-                    #    text="The concepts of ${inst_player_cls}, ${inst_role_cls*} and the relationship between them "
-                    #          "should be modeled with one of the forms of the Player-Role pattern."),
+                        text="Think carefully about how to model the relationships between these concepts."),                    
                     3: TextResponse(
                         text="Use the Player-Role pattern to model the relationships between these concepts."),
-                    4: ResourceResponse(learningResources=[pr_quiz]),
-                    5: ResourceResponse(learningResources=[pr_ref]),
+                    4: ParametrizedResponse(
+                        text="The concepts of ${inst_player_cls}, ${inst_role*} and the relationship between them "
+                             "should be modeled with one of the forms of the Player-Role pattern."),
+                    5: ResourceResponse(learningResources=[pr_quiz]),
+                    6: ResourceResponse(learningResources=[pr_ref]),
                 })),
             subclass_should_be_full_pr_pattern := mt(
                 n="Subclass should be full PR pattern",
@@ -1058,9 +1062,11 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
                     3: ParametrizedResponse(
+                        text="The ${stud_existing_cls} should be part of an Abstraction-Occurrence relationship."),
+                    4: ParametrizedResponse(
                         text="The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the "
                              "relationship between them should be modeled with the Abstraction-Occurrence pattern."),
-                    4: ResourceResponse(learningResources=[ao_ref]),
+                    5: ResourceResponse(learningResources=[ao_ref]),
                 })),
             generalization_should_be_assoc_ao_pattern := mt(
                 n="Generalization should be assoc AO pattern",
@@ -1223,11 +1229,11 @@ enum_should_be_subclass_pr_pattern.md_format = mdf(["player_cls", "role_enumitem
 extra_aggregation.md_format = mdf(["aggr", "whole_assocend", "part_assocend"], [])
 extra_assoc_class.md_format = mdf(["assoc", "cls"], [])
 extra_association.md_format = mdf(["assoc"], [])
-extra_attribute.md_format = mdf(["attr"], [])
+extra_attribute.md_format = mdf(["attr"], ["cls"])
 extra_class.md_format = mdf(["cls"], [])
 extra_composition.md_format = mdf(["compos", "whole_assocend", "part_assocend"], [])
 extra_enum.md_format = mdf(["enum"], [])
-extra_enum_item.md_format = mdf(["enumitem"], [])
+extra_enum_item.md_format = mdf(["enumitem"], ["enum"])
 extra_generalization.md_format = mdf(["sub_cls", "super_cls"], [])
 extra_n_ary_association.md_format = mdf(["assoc"], [])
 full_pr_pattern_should_be_assoc.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_assocend*"])
@@ -1235,15 +1241,15 @@ full_pr_pattern_should_be_enum.md_format = mdf(["player_cls", "role_cls*"], ["pl
 full_pr_pattern_should_be_subclass.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_cls*"])
 generalization_inapplicable.md_format = mdf(["sub_cls", "super_cls"], [])
 generalization_should_be_assoc_ao_pattern.md_format = mdf(["sub_cls", "super_cls"], ["abs_cls", "occ_cls"])
-incomplete_ao_pattern.md_format = mdf(["abs_cls", "occ_cls"], ["abs_cls", "occ_cls"])
-incomplete_pr_pattern.md_format = mdf([], [""])
+incomplete_ao_pattern.md_format = mdf(["existing_cls"], ["abs_cls", "occ_cls"])
+incomplete_pr_pattern.md_format = mdf(["player_cls", "role*"], ["player_cls", "role*"])
 incomplete_containment_tree.md_format = mdf(["cls*"], [])
-infinite_recursive_dependency.md_format = mdf(["minlowerbound_assocend", "other_assocend"], [])
+infinite_recursive_dependency.md_format = mdf(["assocend*"], [])
 inherited_feature_does_not_make_sense_for_subclass.md_format = mdf(["attr", "sub_cls", "super_cls"], [])
 list_attribute.md_format = mdf(["attr"], ["attr"])
 lowercase_class_name.md_format = mdf(["cls"], ["cls"])
 missing_ao_pattern.md_format = mdf([], ["abs_cls", "occ_cls"])
-missing_pr_pattern.md_format = mdf([], [""])
+missing_pr_pattern.md_format = mdf(["player_cls", "role*"], ["player_cls", "role*"])
 missing_aggregation.md_format = mdf([], ["aggr", "whole_assocend", "part_assocend"])
 missing_assoc_class.md_format = mdf([], ["assoc", "cls"])
 missing_association.md_format = mdf([], ["assoc"])
@@ -1280,7 +1286,8 @@ using_assoc_instead_of_aggregation.md_format = mdf(
 using_assoc_instead_of_composition.md_format = mdf(
     ["assoc", "assocend", "other_assocend"], ["compos", "whole_assocend", "part_assocend"])
 using_attribute_instead_of_assoc.md_format = mdf(["attr"], ["assocend"])
-using_binary_assoc_instead_of_n_ary_assoc.md_format = mdf(["assoc"], ["assoc"])
+using_binary_assoc_instead_of_n_ary_assoc.md_format = mdf(
+    ["assoc", "assocend", "other_assocend"], ["assoc", "assocend*"])
 using_composition_instead_of_aggregation.md_format = mdf(
     ["compos", "whole_assocend", "part_assocend"], ["aggr", "whole_assocend", "part_assocend"])
 using_composition_instead_of_assoc.md_format = mdf(
@@ -1288,9 +1295,10 @@ using_composition_instead_of_assoc.md_format = mdf(
 using_directed_relationship_instead_of_undirected.md_format = mdf(
     ["aggr_compos_or_assoc", "target_assocend", "source_assocend"],
     ["aggr_compos_or_assoc", "assocend", "other_assocend"])
-using_intermediate_class_instead_of_n_ary_assoc.md_format = mdf(["cls"], ["assoc"])
-using_n_ary_assoc_instead_of_binary_assoc.md_format = mdf(["assoc"], ["assoc"])
-using_n_ary_assoc_instead_of_intermediate_class.md_format = mdf(["assoc"], ["cls"])
+using_intermediate_class_instead_of_n_ary_assoc.md_format = mdf(["cls"], ["assoc", "assocend*"])
+using_n_ary_assoc_instead_of_binary_assoc.md_format = mdf(
+    ["assoc", "assocend*"], ["assoc", "assocend", "other_assocend"])
+using_n_ary_assoc_instead_of_intermediate_class.md_format = mdf(["assoc", "assocend*"], ["cls"])
 using_undirected_relationship_instead_of_directed.md_format = mdf(
     ["aggr_compos_or_assoc", "assocend", "other_assocend"],
     ["aggr_compos_or_assoc", "target_assocend", "source_assocend"])

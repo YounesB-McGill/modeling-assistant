@@ -804,15 +804,18 @@ public class MistakeDetection {
     comparison.extraStudentEnums.remove(studEnum);
     checkMistakeBadEnumNameSpelling(studEnum, instEnum).ifPresent(comparison.newMistakes::add);
   }
-  private static void checkMistakesInAttributes(Attribute studentAttr, Attribute instructorAttr,
+
+  private static void checkMistakesInAttributes(Attribute studentAttribute, Attribute instructorAttribute,
       Comparison comparison) {
-    checkMistakeWrongAttributeTypeAndListAttrib(studentAttr, instructorAttr).ifPresent(comparison.newMistakes::add);
-    checkMistakeAttributeExpectedStatic(studentAttr, instructorAttr).ifPresent(comparison.newMistakes::add);
-    checkMistakeAttributeNotExpectedStatic(studentAttr, instructorAttr).ifPresent(comparison.newMistakes::add);
-    if (studentAttr.getName() != instructorAttr.getName()) {
-      checkMistakeAttributeSpelling(studentAttr, instructorAttr).ifPresent(comparison.newMistakes::add);
-      checkMistakePluralAttribName(studentAttr, instructorAttr).ifPresent(comparison.newMistakes::add);
-      checkMistakeUppercaseAttribName(studentAttr, instructorAttr).ifPresent(comparison.newMistakes::add);
+    checkMistakeWrongAttributeTypeAndListAttrib(studentAttribute, instructorAttribute)
+        .ifPresent(comparison.newMistakes::add);
+    checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
+    checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute)
+        .ifPresent(comparison.newMistakes::add);
+    if (studentAttribute.getName() != instructorAttribute.getName()) {
+      checkMistakeAttributeSpelling(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
+      checkMistakePluralAttribName(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
+      checkMistakeUppercaseAttribName(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
     }
   }
 
@@ -1692,30 +1695,30 @@ public class MistakeDetection {
     return matchedAssoc.get(0);
   }
 
-  private static void checkMistakesForAssociationEnds(AssociationEnd studentClassAE,
-      AssociationEnd instructorClassAE, Comparison comparison) {
+  private static void checkMistakesForAssociationEnds(AssociationEnd studAssocEnd, AssociationEnd instAssocEnd,
+      Comparison comparison) {
     final Consumer<? super Mistake> addMist = comparison.newMistakes::add; // method reference to save space
-    checkMistakeWrongRelationshipDirection(studentClassAE, instructorClassAE).ifPresent(addMist);
-    if (!isMistakeExist(WRONG_RELATIONSHIP_DIRECTION, studentClassAE, comparison)) {
-      checkMistakeUsingAssociationInsteadOfComposition(studentClassAE, instructorClassAE).ifPresent(addMist);
-      checkMistakeUsingAssociationInsteadOfAggregation(studentClassAE, instructorClassAE).ifPresent(addMist);
-      checkMistakeUsingCompositionInsteadOfAssociation(studentClassAE, instructorClassAE).ifPresent(addMist);
-      checkMistakeUsingAggregationInsteadOfAssociation(studentClassAE, instructorClassAE).ifPresent(addMist);
-      checkMistakeUsingAggregationInsteadOfComposition(studentClassAE, instructorClassAE).ifPresent(addMist);
-      checkMistakeUsingCompositionInsteadOfAggregation(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeWrongRelationshipDirection(studAssocEnd, instAssocEnd).ifPresent(addMist);
+    if (!isMistakeExist(WRONG_RELATIONSHIP_DIRECTION, studAssocEnd, comparison)) {
+      checkMistakeUsingAssociationInsteadOfComposition(studAssocEnd, instAssocEnd).ifPresent(addMist);
+      checkMistakeUsingAssociationInsteadOfAggregation(studAssocEnd, instAssocEnd).ifPresent(addMist);
+      checkMistakeUsingCompositionInsteadOfAssociation(studAssocEnd, instAssocEnd).ifPresent(addMist);
+      checkMistakeUsingAggregationInsteadOfAssociation(studAssocEnd, instAssocEnd).ifPresent(addMist);
+      checkMistakeUsingAggregationInsteadOfComposition(studAssocEnd, instAssocEnd).ifPresent(addMist);
+      checkMistakeUsingCompositionInsteadOfAggregation(studAssocEnd, instAssocEnd).ifPresent(addMist);
     }
-    checkMistakeUsingDirectedInsteadOfUndirected(studentClassAE, instructorClassAE).ifPresent(addMist);
-    checkMistakeUsingUndirectedInsteadOfDirected(studentClassAE, instructorClassAE).ifPresent(addMist);
-    checkMistakeRepresentingActionWithAssoc(studentClassAE, instructorClassAE).ifPresent(addMist);
-    checkMistakeRoleNameExpectedStactic(studentClassAE, instructorClassAE).ifPresent(addMist);
-    checkMistakeRoleNameNotExpectedStactic(studentClassAE, instructorClassAE).ifPresent(addMist);
-    if (!(isUsingDirectedInsteadOfUndirected(studentClassAE, instructorClassAE)
-        || isUsingUndirectedInsteadOfDirected(studentClassAE, instructorClassAE))) {
-      checkMistakeOtherWrongMultiplicity(studentClassAE, instructorClassAE).ifPresent(addMist);
-      checkMistakeMissingRoleName(studentClassAE, instructorClassAE).ifPresent(addMist);
-      checkMistakeRoleNamePresentButIncorrect(studentClassAE, instructorClassAE,comparison).ifPresent(addMist);
-      if (!isMistakeExist(REPRESENTING_ACTION_WITH_ASSOC, studentClassAE, comparison)) {
-        checkMistakeBadRoleNameSpelling(studentClassAE, instructorClassAE).ifPresent(addMist);
+    checkMistakeUsingDirectedInsteadOfUndirected(studAssocEnd, instAssocEnd).ifPresent(addMist);
+    checkMistakeUsingUndirectedInsteadOfDirected(studAssocEnd, instAssocEnd).ifPresent(addMist);
+    checkMistakeRepresentingActionWithAssoc(studAssocEnd, instAssocEnd).ifPresent(addMist);
+    checkMistakeRoleNameExpectedStactic(studAssocEnd, instAssocEnd).ifPresent(addMist);
+    checkMistakeRoleNameNotExpectedStactic(studAssocEnd, instAssocEnd).ifPresent(addMist);
+    if (!(isUsingDirectedInsteadOfUndirected(studAssocEnd, instAssocEnd)
+        || isUsingUndirectedInsteadOfDirected(studAssocEnd, instAssocEnd))) {
+      checkMistakeOtherWrongMultiplicity(studAssocEnd, instAssocEnd).ifPresent(addMist);
+      checkMistakeMissingRoleName(studAssocEnd, instAssocEnd).ifPresent(addMist);
+      checkMistakeRoleNamePresentButIncorrect(studAssocEnd, instAssocEnd, comparison).ifPresent(addMist);
+      if (!isMistakeExist(REPRESENTING_ACTION_WITH_ASSOC, studAssocEnd, comparison)) {
+        checkMistakeBadRoleNameSpelling(studAssocEnd, instAssocEnd).ifPresent(addMist);
       }
     }
   }
@@ -1778,21 +1781,21 @@ public class MistakeDetection {
     }
   }
 
-  private static boolean isMistakeExist(MistakeType mistakeType, NamedElement NamedElement, Comparison comparison) {
-    if (NamedElement == null) {
+  private static boolean isMistakeExist(MistakeType mistakeType, NamedElement namedElement, Comparison comparison) {
+    if (namedElement == null) {
       return false;
     }
     for (Mistake mistake : comparison.newMistakes) {
       if (mistake.getMistakeType().equals(mistakeType) && !mistake.getStudentElements().isEmpty()) {
         for (var element : mistake.getStudentElements()) {
-          if (element.getElement().equals(NamedElement)) {
+          if (element.getElement().equals(namedElement)) {
             return true;
           }
         }
       }
       if (mistake.getMistakeType().equals(mistakeType) && !mistake.getInstructorElements().isEmpty()) {
         for (var element : mistake.getInstructorElements()) {
-          if (element.getElement().equals(NamedElement)) {
+          if (element.getElement().equals(namedElement)) {
             return true;
           }
         }

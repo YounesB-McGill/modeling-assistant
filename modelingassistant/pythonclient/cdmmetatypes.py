@@ -19,7 +19,7 @@ class CdmMetatype:
     "Represents a CDM metatype or list thereof."
     short_name: str
     long_name: str
-    eClass: EClass  # pylint: disable=invalid-name
+    eClass: EClass | list[EClass] # pylint: disable=invalid-name
     example: NamedElement | list[NamedElement] = None  # used for tests
 
 
@@ -91,10 +91,10 @@ _cd_int = CDInt()
 _airlinesystem = Class(name="AirlineSystem")
 _person = Class(name="Person", attributes=[
     _person_name := Attribute(name="name", type=_cd_string), _person_id := Attribute(name="idNumber", type=_cd_int)])
-_person_role = Class(name="PersonRole")
-_passenger_role = Class(name="PassengerRole", superTypes=[_person_role])
-_employee_role = Class(name="EmployeeRole", superTypes=[_person_role])
-_visitor_role = Class(name="VisitorRole", superTypes=[_person_role])
+_personrole = Class(name="PersonRole")
+_passengerrole = Class(name="PassengerRole", superTypes=[_personrole])
+_employeerole = Class(name="EmployeeRole", superTypes=[_personrole])
+_visitorrole = Class(name="VisitorRole", superTypes=[_personrole])
 _booking = Class(name="Booking", attributes=[Attribute(name="seatType", type=(_seat_type := CDEnum(
     name="SeatType", literals=[_first_class := CDEnumLiteral(name="FirstClass"),
                                CDEnumLiteral(name="Business"), CDEnumLiteral(name="Economy")])))])
@@ -114,29 +114,33 @@ There are five concepts defined as follows, according to the CDM metamodel:
      Note that this is the opposite of where the composition filled diamond is drawn in the diagram!
   5. The airlineSystem association end, which is contained in the Person class and has a Regular reference type.
 """
-_airlinesystem_persons = Association(ends=[
-    _persons_composend := ae(_airlinesystem, 0, _MANY, ReferenceType.Composition, n="persons"),
-    _airlinesystem_assocend := ae(_person, 1, 1, n="airlineSystem")])
-_person_roles = Association(ends=[ae(_person, 0, 3, n="roles"), _roles := ae(_person_role, 1, 1, n="person")])
+_airlinesystem_person = Association(ends=[
+    _airlinesystem_persons := ae(_airlinesystem, 0, _MANY, ReferenceType.Composition, n="persons"),
+    _person_airlinesystem := ae(_person, 1, 1, n="airlineSystem")])
+_person_personrole = Association(ends=[_person_roles := ae(_person, 0, 3, n="roles"),
+                                        _personrole_person := ae(_personrole, 1, 1, n="person")])
 _passengerroles_bookings = Association(ends=[
-    _bookings_aggrend := ae(_passenger_role, 0, _MANY, ReferenceType.Aggregation, "bookings"),
+    _bookings_aggrend := ae(_passengerrole, 0, _MANY, ReferenceType.Aggregation, "bookings"),
     ae(_booking, 1, 1, n="passenger")])
 
+_role_types: list[EClass] = [AssociationEnd, Attribute, Class]
 
 CDM_METATYPES = {
     "aggr": (aggr := CdmMetatype("aggr", "Aggregation", Association, _passengerroles_bookings)),
-    "assoc": (assoc := CdmMetatype("assoc", "Association", Association, _person_roles)),
-    "assocend": (assocend := CdmMetatype("assocend", "Association End", AssociationEnd, _roles)),
-    "assocend*": (assocends := CdmMetatype("assocend*", "Association Ends", AssociationEnd,
-                                           [_roles, _persons_composend, _airlinesystem_assocend, _bookings_aggrend])),
+    "assoc": (assoc := CdmMetatype("assoc", "Association", Association, _person_personrole)),
+    "assocend": (assocend := CdmMetatype("assocend", "Association End", AssociationEnd, _personrole_person)),
+    "assocend*": (assocends := CdmMetatype("assocend*", "Association Ends", AssociationEnd, [
+        _personrole_person, _airlinesystem_persons, _person_airlinesystem, _bookings_aggrend])),
     "attr": (attr := CdmMetatype("attr", "Attribute", Attribute, _person_name)),
     "attr*": (attrs := CdmMetatype("attr*", "Attributes", Attribute, [_person_name, _person_id])),
     "cls": (cls := CdmMetatype("cls", "Class", Class, _person)),
-    "cls*": (clss := CdmMetatype("cls*", "Classes", Class, [_passenger_role, _employee_role, _visitor_role])),
+    "cls*": (clss := CdmMetatype("cls*", "Classes", Class, [_passengerrole, _employeerole, _visitorrole])),
     "compos": (compos := CdmMetatype("compos", "Composition", Association, _airlinesystem_persons)),
     "enum": (enum := CdmMetatype("enum", "Enumeration", CDEnum, _seat_type)),
     "enumitem": (enumitem := CdmMetatype("enumitem", "Enumeration Item", CDEnumLiteral, _first_class)),
     "enumitem*": (enumitems := CdmMetatype("enumitem*", "Enumeration Items", CDEnumLiteral, _seat_type.literals)),
     "qualassoc": (qualassoc := CdmMetatype("qualassoc", "Qualified Association", Association)),  # not yet supported
+    "role": (role := CdmMetatype("role", "Role", _role_types, _person_roles)),
+    "role*": (roles := CdmMetatype("role*", "Roles", _role_types, [_person_roles, _person_airlinesystem])),
     "rel": (rel := CdmMetatype("rel", "Relationship", Association)),  # deprecated
 }

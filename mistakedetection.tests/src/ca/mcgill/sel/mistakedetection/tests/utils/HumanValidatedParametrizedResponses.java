@@ -44,6 +44,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_INAPPLICAB
 import static learningcorpus.mistaketypes.MistakeTypes.GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_CONTAINMENT_TREE;
+import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.INFINITE_RECURSIVE_DEPENDENCY;
 import static learningcorpus.mistaketypes.MistakeTypes.INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.LIST_ATTRIBUTE;
@@ -62,6 +63,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ENUM_ITEM;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_GENERALIZATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_N_ARY_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.NON_DIFFERENTIATED_SUBCLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
@@ -85,6 +87,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD_OF_ASSOC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
@@ -145,13 +148,16 @@ public class HumanValidatedParametrizedResponses {
       entry(FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, Set.of("Can a ${stud_role_assocend0} also play the role of one of the other roles at different times or at the same time?")),
       entry(GENERALIZATION_INAPPLICABLE, Set.of("When creating a generalization between ${stud_sub_cls} and ${stud_super_cls}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).")),
       entry(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, Set.of("The relationship between ${stud_sub_cls} and ${stud_super_cls} should be modeled using the Abstraction-Occurrence pattern[, where ${inst_abs_cls} is the abstraction and ${inst_occ_cls} is the occurrence].")),
-      entry(INCOMPLETE_AO_PATTERN, Set.of("The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.")),
+      entry(INCOMPLETE_AO_PATTERN, Set.of("The ${stud_existing_cls} should be part of an Abstraction-Occurrence relationship.",
+          "The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.")),
+      entry(INCOMPLETE_PR_PATTERN, Set.of("The concepts of ${inst_player_cls}, ${inst_role*} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.")),
       entry(INCOMPLETE_CONTAINMENT_TREE, Set.of("${stud_cls*} should be contained in the containment tree.[ Use composition for this.]")),
-      entry(INFINITE_RECURSIVE_DEPENDENCY, Set.of("Does every ${stud_other_assocend.cls} have exactly ${stud_other_assocend.lowerBound} ${stud_other_assocend}?")),
+      entry(INFINITE_RECURSIVE_DEPENDENCY, Set.of("Does every ${stud_assocend0.cls} have exactly ${stud_assocend0.lowerBound} ${stud_assocend0}?")),
       entry(INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS, Set.of("The ${stud_attr} feature of the ${stud_super_cls} class does not make sense for its ${stud_sub_cls} subclass.")),
       entry(LIST_ATTRIBUTE, Set.of("${stud_attr} should be modeled as an association instead.")),
       entry(LOWERCASE_CLASS_NAME, Set.of("${stud_cls} should be ${inst_cls}, with a capital letter.")),
       entry(MISSING_AO_PATTERN, Set.of("The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.")),
+      entry(MISSING_PR_PATTERN, Set.of("The concepts of ${inst_player_cls} and ${inst_role*} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.")),
       entry(MISSING_AGGREGATION, Set.of("How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?")),
       entry(MISSING_ASSOC_CLASS, Set.of("Further details of the association between ${inst_assoc.end0.cls} and ${inst_assoc.end1.cls} should be modeled with an association class.")),
       entry(MISSING_ASSOCIATION, Set.of("How would you capture the relationship between ${inst_assoc.end0.cls} and ${inst_assoc.end1.cls}?")),
@@ -194,6 +200,7 @@ public class HumanValidatedParametrizedResponses {
           "The relationship between ${stud_part_assocend.cls} and ${stud_whole_assocend.cls} should be modeled with a simple association.")),
       entry(USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED, Set.of("The relationship between ${stud_source_assocend.cls} and ${stud_target_assocend.cls} should be undirected.")),
       entry(USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC, Set.of("Use a ${inst_assoc.ends.length}-ary association to represent this relationship.")),
+      entry(USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS, Set.of("Use an intermediate ${inst_cls} class instead of an n-ary association.")),
       entry(USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED, Set.of("Does ${inst_target_assocend.cls} need to know about ${inst_source_assocend.cls}?",
           "The relationship between ${inst_source_assocend.cls} and ${inst_target_assocend.cls} should be directed[ from ${inst_source_assocend.cls} to ${inst_target_assocend.cls}].")),
       entry(WRONG_ATTRIBUTE_TYPE, Set.of("Can you think of a better type for ${stud_attr}?",

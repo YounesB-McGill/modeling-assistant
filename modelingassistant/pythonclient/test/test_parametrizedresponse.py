@@ -142,11 +142,13 @@ def test_all_pr_params_can_be_parsed():
     correctness.
     """
     # TODO Remove this debugging code once logic is more stable
-    # param = "stud_assoc.end0.cls"
+    # param = "stud_assocend0.cls"
     # start_elem = param_start_elem_type(param, as_type=CdmMetatype).example
     # output = parse(param, start_elem)
-    # print(start_elem)
-    # print(output)
+    # print(f"{param = }")
+    # print(f"cdm metatype = {param_start_elem_type(param, as_type=CdmMetatype).short_name}")
+    # print(f"{start_elem = }")
+    # print(f"{output = }")
     # assert False
 
     params_to_parsed_output: dict[str, str] = {}

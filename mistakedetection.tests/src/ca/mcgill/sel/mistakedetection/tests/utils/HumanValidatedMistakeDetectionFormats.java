@@ -137,19 +137,19 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(EXTRA_AGGREGATION, mdf(List.of("aggr", "whole_assocend", "part_assocend"), List.of())),
       entry(EXTRA_ASSOC_CLASS, mdf(List.of("assoc", "cls"), List.of())),
       entry(EXTRA_ASSOCIATION, mdf(List.of("assoc"), List.of())),
-      entry(EXTRA_ATTRIBUTE, mdf(List.of("attr"), List.of(/*"cls"*/))), // TODO double check
+      entry(EXTRA_ATTRIBUTE, mdf(List.of("attr"), List.of("cls"))),
       entry(EXTRA_CLASS, mdf(List.of("cls"), List.of())),
       entry(EXTRA_COMPOSITION, mdf(List.of("compos", "whole_assocend", "part_assocend"), List.of())),
       entry(EXTRA_ENUM, mdf(List.of("enum"), List.of())),
-      entry(EXTRA_ENUM_ITEM, mdf(List.of("enumitem"), List.of(/*"enum" ?*/))), // TODO double check
-      entry(EXTRA_GENERALIZATION, mdf(List.of("sub_cls", "super_cls"), List.of(/*"sub_cls", "super_cls"*/))), // TODO double check
+      entry(EXTRA_ENUM_ITEM, mdf(List.of("enumitem"), List.of("enum"))),
+      entry(EXTRA_GENERALIZATION, mdf(List.of("sub_cls", "super_cls"), List.of())),
       entry(FULL_PR_PATTERN_SHOULD_BE_ASSOC, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_assocend*"))),
       entry(FULL_PR_PATTERN_SHOULD_BE_ENUM, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_attr"))),
       entry(FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_cls*"))),
       entry(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, mdf(List.of("sub_cls", "super_cls"), List.of("abs_cls", "occ_cls"))),
-      entry(INCOMPLETE_AO_PATTERN, mdf(List.of("abs_cls", "occ_cls"), List.of("abs_cls", "occ_cls"))),
+      entry(INCOMPLETE_AO_PATTERN, mdf(List.of("existing_cls"), List.of("abs_cls", "occ_cls"))),
       entry(INCOMPLETE_CONTAINMENT_TREE, mdf(List.of("cls*"), List.of())),
-      entry(INFINITE_RECURSIVE_DEPENDENCY, mdf(List.of("minlowerbound_assocend", "other_assocend"), List.of())),
+      entry(INFINITE_RECURSIVE_DEPENDENCY, mdf(List.of("assocend*"), List.of())),
       entry(LOWERCASE_CLASS_NAME, mdf(List.of("cls"), List.of("cls"))),
       entry(MISSING_AGGREGATION, mdf(List.of(), List.of("aggr", "whole_assocend", "part_assocend"))),
       entry(MISSING_AO_PATTERN, mdf(List.of(), List.of("abs_cls", "occ_cls"))),
@@ -198,19 +198,19 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(BAD_ASSOCIATION_NAME_SPELLING, mdf(List.of("assoc"), List.of("assoc"))),
       entry(EXTRA_N_ARY_ASSOCIATION, mdf(List.of("assoc"), List.of())),
       entry(GENERALIZATION_INAPPLICABLE, mdf(List.of("sub_cls", "super_cls"), List.of())),
-      entry(INCOMPLETE_PR_PATTERN, mdf(List.of(/*"cls*"*/), List.of(/*"cls*"*/""))), // TODO Formalize MDFs, make them dynamic, or create new mistakes
+      entry(INCOMPLETE_PR_PATTERN, mdf(List.of("player_cls", "role*"), List.of("player_cls", "role*"))),
       entry(INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS, mdf(List.of("attr", "sub_cls", "super_cls"), List.of())),
       entry(MISSING_ASSOCIATION_NAME, mdf(List.of("assoc"), List.of("assoc"))),
       entry(MISSING_ATTRIBUTE_TYPE, mdf(List.of("attr"), List.of("attr"))),
       entry(MISSING_MULTIPLICITY, mdf(List.of("assocend"), List.of("assocend"))),
       entry(MISSING_N_ARY_ASSOCIATION, mdf(List.of(), List.of("assoc"))),
-      entry(MISSING_PR_PATTERN, mdf(List.of(), List.of(""))), // TODO [], [missingElements]
+      entry(MISSING_PR_PATTERN, mdf(List.of("player_cls", "role*"), List.of("player_cls", "role*"))),
       entry(SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS, mdf(List.of("sub_cls", "super_cls"), List.of())),
       entry(SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME, mdf(List.of("sub_cls", "super_cls"), List.of())),
-      entry(USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC, mdf(List.of("assoc"), List.of("assoc"))),
-      entry(USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC, mdf(List.of("cls"), List.of("assoc"))),
-      entry(USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC, mdf(List.of("assoc"), List.of("assoc"))),
-      entry(USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS, mdf(List.of("assoc"), List.of("cls")))
+      entry(USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC, mdf(List.of("assoc", "assocend", "other_assocend"), List.of("assoc", "assocend*"))),
+      entry(USING_INTERMEDIATE_CLASS_INSTEAD_OF_N_ARY_ASSOC, mdf(List.of("cls"), List.of("assoc", "assocend*"))),
+      entry(USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC, mdf(List.of("assoc", "assocend*"), List.of("assoc", "assocend", "other_assocend"))),
+      entry(USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS, mdf(List.of("assoc", "assocend*"), List.of("cls")))
   );
 
 }

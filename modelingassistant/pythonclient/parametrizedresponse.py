@@ -124,7 +124,12 @@ def _parse(s: str, start_elem: NamedElement, depth: int = 0) -> str:
     # Dot-separated properties are in the form a.b.c.d...
     # print(f"parametrizedresponse.parse(): non base case s: {s}")  # TODO remove later
     dot_sep_elems = s.split(".")
-    a = start_elem
+    # if valid list and index, use the list element, eg, assocend0.cls means get classifier of zeroth association end
+    if (isinstance(start_elem, Iterable) and (match_ := re.match(r".*?(\d+)$", dot_sep_elems[0])) and (
+            idx := int(match_.group(1))) < len(start_elem) and idx in range(_MAX_INDEX + 1)):
+        a = start_elem[idx]
+    else:
+        a = start_elem
     b = dot_sep_elems[1]
     if b == "length":  # special case
         if hasattr(a, "__len__"):

@@ -16,9 +16,10 @@ assoc.ends.length | 2
 assocend | person
 assocend* | person, persons, airlineSystem, and bookings
 assocend.cls | PersonRole
-assocend.lowerBound | 1
 assocend.opposite.cls | Person
 assocend0 | person
+assocend0.cls | PersonRole
+assocend0.lowerBound | 1
 attr | name
 attr.cls | Person
 attr.type | String
@@ -29,3 +30,4 @@ enum | SeatType
 enum.literals.length | 3
 enumitem | FirstClass
 enumitem.enum | SeatType
+role* | roles and airlineSystem
