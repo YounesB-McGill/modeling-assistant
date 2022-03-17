@@ -2806,7 +2806,7 @@ public class MistakeDetection {
     comparison.extraStudentEnumLiterals.forEach(enuml -> {
       comparison.mappedEnumerations.forEach((key,value) -> {
         if (value.equals(enuml.getEnum())) {
-          comparison.newMistakes.add(createMistake(EXTRA_ENUM_ITEM, enuml, key));
+          comparison.newMistakes.add(createMistake(EXTRA_ENUM_ITEM, enuml, null));
         }
       });
     });
@@ -2824,7 +2824,7 @@ public class MistakeDetection {
     comparison.extraStudentAttributes.forEach(attrib ->{
       comparison.mappedClassifiers.forEach((key, value) -> {
         if (value.getAttributes().contains(attrib))
-          comparison.newMistakes.add(createMistake(EXTRA_ATTRIBUTE, attrib, key));
+          comparison.newMistakes.add(createMistake(EXTRA_ATTRIBUTE, attrib, null));
       });
     });
   }
