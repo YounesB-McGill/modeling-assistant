@@ -3219,6 +3219,12 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_DriverAssocClass/Class Diagram/Student_DriverAssocClass.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
+    var instDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
+
+    var studPassengerClass = getClassFromClassDiagram("Passenger", studentClassDiagram);
+    var studBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
+    var studPassengerBusAssociation =
+        getAssocAggCompFromClassDiagram(studPassengerClass, studBusClass, studentClassDiagram);
     var studDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
@@ -3226,7 +3232,8 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), ASSOC_CLASS_SHOULD_BE_CLASS, studDriverClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), ASSOC_CLASS_SHOULD_BE_CLASS,
+        List.of(studPassengerBusAssociation.get(0), studDriverClass), instDriverClass, 0, 1, false);
   }
 
   /**
@@ -3242,7 +3249,16 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_DriverBadAssocClassSpelling/Class Diagram/Student_DriverAssocClass.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
+    var instPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+    var instBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+    var instPassengerBusAssociation =
+        getAssocAggCompFromClassDiagram(instPassengerClass, instBusClass, instructorClassDiagram);
     var instDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
+
+    var studPassengerClass = getClassFromClassDiagram("Passenger", studentClassDiagram);
+    var studBusClass = getClassFromClassDiagram("Bus", studentClassDiagram);
+    var studPassengerBusAssociation =
+        getAssocAggCompFromClassDiagram(studPassengerClass, studBusClass, studentClassDiagram);
     var studDriverClass = getClassFromClassDiagram("Drivar", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
@@ -3250,8 +3266,9 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), BAD_ASSOC_CLASS_NAME_SPELLING, studDriverClass, instDriverClass,
-        0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), BAD_ASSOC_CLASS_NAME_SPELLING,
+        List.of(studPassengerBusAssociation.get(0), studDriverClass),
+        List.of(instPassengerBusAssociation.get(0), instDriverClass), 0, 1, false);
   }
 
   /**
@@ -3266,13 +3283,20 @@ public class MistakeDetectionWrongRelationshipsTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestRelationship/student_RegDriverClass/Class Diagram/Student_RegDriverClass.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
+    var instPassengerClass = getClassFromClassDiagram("Passenger", instructorClassDiagram);
+    var instBusClass = getClassFromClassDiagram("Bus", instructorClassDiagram);
+    var instPassengerBusAssociation =
+        getAssocAggCompFromClassDiagram(instPassengerClass, instBusClass, instructorClassDiagram);
+    var instDriverClass = getClassFromClassDiagram("Driver", instructorClassDiagram);
+
     var studDriverClass = getClassFromClassDiagram("Driver", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), CLASS_SHOULD_BE_ASSOC_CLASS, studDriverClass, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), CLASS_SHOULD_BE_ASSOC_CLASS, studDriverClass,
+        List.of(instPassengerBusAssociation.get(0), instDriverClass), 0, 1, false);
   }
 
 }

@@ -1610,8 +1610,9 @@ public class MistakeDetection {
         && instructorClassifierAssoc.getAssociationClass() != null) {
       Classifier instAssocClass = instructorClassifierAssoc.getAssociationClass();
       if (comparison.mappedClassifiers.containsKey(instAssocClass)) {
-        comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS,
-            comparison.mappedClassifiers.get(instAssocClass), instAssocClass));
+        comparison.newMistakes
+            .add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS, List.of(comparison.mappedClassifiers.get(instAssocClass)),
+                List.of(instructorClassifierAssoc, instAssocClass)));
        // TODO: Work in progress
        // comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
        // comparison.notMappedInstructorClassifiers.add(instAssocClass);
@@ -1627,7 +1628,8 @@ public class MistakeDetection {
           if (value.equals(studAssocClass)) {
            // comparison.notMappedInstructorClassifiers.add(key); //TODO: Work in progress
           //  comparison.assocClassifiersToRemove.add(key);
-            comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS, studAssocClass, key));
+            comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS,
+                List.of(studentClassifierAssoc, studAssocClass), List.of(key)));
             return;
           }
         });
@@ -1641,7 +1643,7 @@ public class MistakeDetection {
           && comparison.mappedClassifiers.containsKey(instAssoc.getAssociationClass())) {
         Classifier instAssocClass = instAssoc.getAssociationClass();
         comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS,
-            comparison.mappedClassifiers.get(instAssocClass), instAssocClass));
+            List.of(comparison.mappedClassifiers.get(instAssocClass)), List.of(instAssoc, instAssocClass)));
         // TODO: Work in progress
         // comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
         // comparison.notMappedInstructorClassifiers.add(instAssocClass);
@@ -1653,8 +1655,8 @@ public class MistakeDetection {
       if (studAssoc.getAssociationClass() != null
           && comparison.mappedClassifiers.containsValue(studAssoc.getAssociationClass())) {
         Classifier studAssocClass = studAssoc.getAssociationClass();
-        comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS, studAssocClass,
-            getKey(comparison.mappedClassifiers, studAssocClass)));
+        comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS, List.of(studAssoc, studAssocClass),
+            List.of(getKey(comparison.mappedClassifiers, studAssocClass))));
         // comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
         // comparison.notMappedInstructorClassifiers.add(instAssocClass);
         // comparison.assocClassifiersToRemove.add(instAssocClass);
@@ -2675,8 +2677,8 @@ public class MistakeDetection {
           comparison.newMistakes.remove(m);
         }
       }
-      return Optional.of(createMistake(BAD_ASSOC_CLASS_NAME_SPELLING, studentClassAssoc.getAssociationClass(),
-          instructorClassAssoc.getAssociationClass()));
+      return Optional.of(createMistake(BAD_ASSOC_CLASS_NAME_SPELLING, List.of(studentClassAssoc, studentClassAssoc.getAssociationClass()),
+          List.of(instructorClassAssoc, instructorClassAssoc.getAssociationClass())));
     }
     return Optional.empty();
   }

@@ -530,6 +530,40 @@ public class MistakeDetectionTest {
     assertMistakeLinks(mistake, mistakeType, studentElements, instructorElements);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
   }
+  
+  /**
+   * Asserts a mistake with multiple instructor and single student element.
+   *
+   * @param mistake
+   * @param mistakeType
+   * @param element
+   * @param numSinceResolved
+   * @param numDetections
+   * @param resolved
+   */
+  public static void assertMistake(Mistake mistake, MistakeType mistakeType,
+      NamedElement studentElement, List<? extends NamedElement> instructorElements,
+      int numSinceResolved, int numDetections, boolean resolved) {
+    assertMistakeLinks(mistake, mistakeType, studentElement, instructorElements);
+    assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
+  }
+  
+  /**
+   * Asserts a mistake with single instructor and multiple student element.
+   *
+   * @param mistake
+   * @param mistakeType
+   * @param element
+   * @param numSinceResolved
+   * @param numDetections
+   * @param resolved
+   */
+  public static void assertMistake(Mistake mistake, MistakeType mistakeType,
+      List<? extends NamedElement> studentElements, NamedElement instructorElement,
+      int numSinceResolved, int numDetections, boolean resolved) {
+    assertMistakeLinks(mistake, mistakeType, studentElements, instructorElement);
+    assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
+  }
 
   /**
    * Asserts a mistake with only single instructor or student element.
