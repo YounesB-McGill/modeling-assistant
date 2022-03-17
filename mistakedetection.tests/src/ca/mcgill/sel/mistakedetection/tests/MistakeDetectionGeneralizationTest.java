@@ -226,15 +226,13 @@ public class MistakeDetectionGeneralizationTest {
 
     var instClass1 = getClassFromClassDiagram("TATAManza", instructorClassDiagram);
     var instClass2 = getClassFromClassDiagram("Car", instructorClassDiagram);
-    var studClass1 = getClassFromClassDiagram("TATAManza", studentClassDiagram);
-    var studClass2 = getClassFromClassDiagram("Car", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(3, comparison.newMistakes.size());
     assertEquals(3, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_GENERALIZATION, List.of(studClass1, studClass2),
-        List.of(instClass1, instClass2), 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_GENERALIZATION, List.of(instClass1, instClass2),
+        0, 1, false);
   }
 
   /**

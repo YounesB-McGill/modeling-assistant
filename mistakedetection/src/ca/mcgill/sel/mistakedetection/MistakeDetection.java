@@ -364,7 +364,7 @@ public class MistakeDetection {
         comparison.studentGeneralizationClassifiers.remove(studClass);
       } else {
         if (studClass.getSuperTypes().isEmpty()) {
-          comparison.newMistakes.add(createMistake(MISSING_GENERALIZATION, List.of(studClass, studMappedSuperClass),
+          comparison.newMistakes.add(createMistake(MISSING_GENERALIZATION, null,
               List.of(instClass, instSuperClass)));
           comparison.studentGeneralizationClassifiers.remove(studClass);
         } else {
