@@ -136,7 +136,7 @@ public class Comparison {
       if (!m.getInstructorElements().isEmpty() && !m.getStudentElements().isEmpty()) {
         sb.append(" ' " + m.getMistakeType().getName() + " ' " + " Inst Elements: ");
         m.getInstructorElements().forEach(ie -> sb.append(ie.getElement().getName() + " "));
-        sb.append(" student Elements:");
+        sb.append(" Student Elements: ");
         m.getStudentElements().forEach(se -> sb.append(se.getElement().getName() + " "));
         sb.append("\n");
       } else if (!m.getInstructorElements().isEmpty()) {
@@ -252,13 +252,13 @@ public class Comparison {
     });
 
     sb.append("\n");
-    sb.append("instructor Generalization clasees: ");
+    sb.append("instructor Generalization classes: ");
     for (Classifier c: instructorGeneralizationClassifiers) {
       sb.append(c.getName() + " ");
     }
 
     sb.append("\n");
-    sb.append("student Generalization clasees: ");
+    sb.append("student Generalization classes: ");
     for (Classifier c: studentGeneralizationClassifiers) {
       sb.append(c.getName() + " ");
     }

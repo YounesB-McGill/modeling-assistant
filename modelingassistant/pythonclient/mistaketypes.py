@@ -1,5 +1,6 @@
 """
 This file contains all mistake types and categories.
+It is generated automatically by the createcorpus.py script.
 """
 
 from constants import LEARNING_CORPUS_PATH
@@ -33,6 +34,7 @@ ENUMERATION_MISTAKES: MistakeTypeCategory = _MTCS["Enumeration mistakes"]
 ATTRIBUTE_NAME_MISTAKES: MistakeTypeCategory = _MTCS["Attribute name mistakes"]
 ATTRIBUTE_IN_WRONG_CLASS_MISTAKES: MistakeTypeCategory = _MTCS["Attribute in wrong class mistakes"]
 EXTRA_ATTRIBUTE_MISTAKES: MistakeTypeCategory = _MTCS["Extra attribute mistakes"]
+ATTRIBUTE_PROPERTY_MISTAKES: MistakeTypeCategory = _MTCS["Attribute property mistakes"]
 MISSING_ASSOCIATION_AGGREGATION_MISTAKES: MistakeTypeCategory = _MTCS["Missing association/aggregation mistakes"]
 EXTRA_ASSOCIATION_MISTAKES: MistakeTypeCategory = _MTCS["Extra association mistakes"]
 MULTIPLICITY_MISTAKES: MistakeTypeCategory = _MTCS["Multiplicity mistakes"]
@@ -49,10 +51,6 @@ ABSTRACTION_OCCURRENCE_PATTERN_MISTAKES: MistakeTypeCategory = _MTCS["Abstractio
 MISSING_CLASS: MistakeType = _MTS["Missing class"]
 EXTRA_CLASS: MistakeType = _MTS["Extra class"]
 MISSING_ATTRIBUTE: MistakeType = _MTS["Missing attribute"]
-WRONG_ATTRIBUTE_TYPE: MistakeType = _MTS["Wrong attribute type"]
-MISSING_ATTRIBUTE_TYPE: MistakeType = _MTS["Missing attribute type"]
-ATTRIBUTE_SHOULD_BE_STATIC: MistakeType = _MTS["Attribute should be static"]
-ATTRIBUTE_SHOULD_NOT_BE_STATIC: MistakeType = _MTS["Attribute should not be static"]
 PLURAL_CLASS_NAME: MistakeType = _MTS["Plural class name"]
 LOWERCASE_CLASS_NAME: MistakeType = _MTS["Lowercase class name"]
 SOFTWARE_ENGINEERING_TERM: MistakeType = _MTS["Software engineering term"]
@@ -76,6 +74,10 @@ ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY: MistakeType = _MTS["Attribute m
 PLURAL_ATTRIBUTE: MistakeType = _MTS["Plural attribute"]
 LIST_ATTRIBUTE: MistakeType = _MTS["List attribute"]
 EXTRA_ATTRIBUTE: MistakeType = _MTS["Extra attribute"]
+WRONG_ATTRIBUTE_TYPE: MistakeType = _MTS["Wrong attribute type"]
+MISSING_ATTRIBUTE_TYPE: MistakeType = _MTS["Missing attribute type"]
+ATTRIBUTE_SHOULD_BE_STATIC: MistakeType = _MTS["Attribute should be static"]
+ATTRIBUTE_SHOULD_NOT_BE_STATIC: MistakeType = _MTS["Attribute should not be static"]
 MISSING_ASSOCIATION: MistakeType = _MTS["Missing association"]
 MISSING_AGGREGATION: MistakeType = _MTS["Missing aggregation"]
 MISSING_N_ARY_ASSOCIATION: MistakeType = _MTS["Missing n-ary association"]
@@ -86,7 +88,7 @@ EXTRA_N_ARY_ASSOCIATION: MistakeType = _MTS["Extra n-ary association"]
 INFINITE_RECURSIVE_DEPENDENCY: MistakeType = _MTS["Infinite recursive dependency"]
 WRONG_MULTIPLICITY: MistakeType = _MTS["Wrong multiplicity"]
 MISSING_MULTIPLICITY: MistakeType = _MTS["Missing multiplicity"]
-MISSING_ROLE_NAMES: MistakeType = _MTS["Missing role names"]
+MISSING_ROLE_NAME: MistakeType = _MTS["Missing role name"]
 ROLE_SHOULD_BE_STATIC: MistakeType = _MTS["Role should be static"]
 ROLE_SHOULD_NOT_BE_STATIC: MistakeType = _MTS["Role should not be static"]
 BAD_ROLE_NAME_SPELLING: MistakeType = _MTS["Bad role name spelling"]

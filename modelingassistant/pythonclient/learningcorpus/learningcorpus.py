@@ -1,4 +1,5 @@
 """Definition of meta model 'learningcorpus'."""
+from __future__ import annotations
 from functools import partial
 import pyecore.ecore as Ecore
 from pyecore.ecore import *
@@ -66,12 +67,12 @@ class LearningCorpus(EObject, metaclass=MetaEClass):
         if learningResources:
             self.learningResources.extend(learningResources)
 
-    def mistakeTypes(self) -> list:
+    def mistakeTypes(self) -> list[MistakeType]:
         """Custom function to return all the mistake types from their categories."""
         import itertools
         return list(itertools.chain(*[mtc.mistakeTypes for mtc in self.mistakeTypeCategories]))
 
-    def topLevelMistakeTypeCategories(self) -> list:
+    def topLevelMistakeTypeCategories(self) -> list[MistakeTypeCategory]:
         """
         Custom function to return all the top-level mistake type categories,
         ie, those that do not have a supercategory.
@@ -127,7 +128,7 @@ class MistakeType(NamedElement):
         if mistakeTypeCategory is not None:
             self.mistakeTypeCategory = mistakeTypeCategory
 
-    def parametrized_responses(self) -> list:
+    def parametrized_responses(self) -> list[ParametrizedResponse]:
         """Custom function to return all the parametrized responses for this mistake type."""
         return [fb for fb in self.feedbacks if fb.__class__.__name__ == 'ParametrizedResponse']
 

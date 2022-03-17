@@ -6,12 +6,17 @@ Interactive domain modeling assistant.
 
 ### Prerequisites
 
+* Java 11+. <!-- Exact version TBD after mavenization, 17 in the future -->
+* Python. See exact version required in `Pipfile`.
+* The [`pipenv`](https://pipenv.pypa.io/) package manager (`pip install --user pipenv`)
 * Recent version of
 [Eclipse Modeling Tools](https://www.eclipse.org/downloads/packages/).
 * [TouchCORE](https://bitbucket.org/mcgillram/touchram/src/master/)
-sources on your local machine.
+sources on your local machine. <!-- To be reviewed after mavenization -->
 
 ### Setup
+
+#### Eclipse Development Environment
 
 0. `cd` into your Eclipse workspace and link the following TouchCORE projects to it using the following commands:
    ```bash
@@ -46,6 +51,20 @@ mistake types and their categories in a tree view. This functionality has been
 removed from the main repo but can be accessed
 [here](https://github.com/YounesB-McGill/modeling-assistant/releases/tag/ma-with-all-mistake-types-and-umple-mm).
 
+#### Python Environment
+
+**One-time setup:** In the repo root, run `pipenv install` to install dependencies.
+**To run Python scripts in this repo:** First activate the Python environment. This can be done in an IDE like
+Visual Studio Code or by running `pipenv shell` in the terminal. Then run the desired script from the repo root.
+
+Commonly run commands:
+
+```bash
+pytest  # This runs all tests for the Python app
+python modelingassistant/pythonclient/flaskapp.py  # Run the Modeling Assistant Feedback Mechanism backend
+python modelingassistant/pythonclient/createcorpus.py  # updates learning corpus from corpus definition file
+```
+
 ## Updating the Metamodel(s)
 
 These are the steps that need to be followed every time one of the app's metamodels is updated.
@@ -56,7 +75,8 @@ via the [`representations.aird`](modelingassistant/representations.aird) file.
 1. Export the metamodel to image files using the :camera: icon, eg,
 [`learningcorpus.jpg`](modelingassistant/model/learningcorpus.jpg).
 **Double-check that the modifications are correct and complete!**
-1. Autogenerate the Java code in Eclipse by opening the [`modelingassistant.genmodel`](modelingassistant/model/modelingassistant.genmodel)
+1. Autogenerate the Java code in Eclipse by opening the
+[`modelingassistant.genmodel`](modelingassistant/model/modelingassistant.genmodel)
 file, right-clicking `Modelingassistant`, and selecting the `Generate All` option.
 Make sure the code compiles.
 1. Autogenerate the Python code using the command

@@ -31,11 +31,12 @@
       1. [Plural attribute](#plural-attribute)
       1. [List attribute](#list-attribute)
       1. [Extra attribute](#extra-attribute)
+   1. [Attribute property mistakes](#attribute-property-mistakes)
+      1. [Wrong attribute type](#wrong-attribute-type)
+      1. [Missing attribute type](#missing-attribute-type)
+      1. [Attribute should be static](#attribute-should-be-static)
+      1. [Attribute should not be static](#attribute-should-not-be-static)
    1. [Missing attribute](#missing-attribute)
-   1. [Wrong attribute type](#wrong-attribute-type)
-   1. [Missing attribute type](#missing-attribute-type)
-   1. [Attribute should be static](#attribute-should-be-static)
-   1. [Attribute should not be static](#attribute-should-not-be-static)
 
 1. [Relationship mistakes](#relationship-mistakes)
    1. [Missing association/aggregation mistakes](#missing-association-aggregation-mistakes)
@@ -52,7 +53,7 @@
       1. [Wrong multiplicity](#wrong-multiplicity)
       1. [Missing multiplicity](#missing-multiplicity)
    1. [Role name mistakes](#role-name-mistakes)
-      1. [Missing role names](#missing-role-names)
+      1. [Missing role name](#missing-role-name)
       1. [Role should be static](#role-should-be-static)
       1. [Role should not be static](#role-should-not-be-static)
       1. [Bad role name spelling](#bad-role-name-spelling)
@@ -190,7 +191,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_cls} contains a software engineering term, which does not belong in a domain model.
+> ${stud_cls} contains a software engineering term (e.g., data, database, table), which does not belong in a domain model.
 
 Level 4: Resource response with Example:
 
@@ -258,12 +259,36 @@ Student element: Class. Instructor element: Class.
 
 Level 1: Highlight solution
 
+Level 2: Text response:
+
+> Isn't there something special about this class?
+
+Level 3: Parametrized response:
+
+> ${stud_cls} should be abstract.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
+
 
 #### Class should not be abstract
 
 Student element: Class. Instructor element: Class.
 
 Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Is there something special about this class?
+
+Level 3: Parametrized response:
+
+> ${stud_cls} should not be abstract.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
 ### Enumeration mistakes
@@ -310,7 +335,7 @@ Level 4: Resource response with Reference:
 
 Instructor element: Enumeration.
 
-Level 1: Highlight sentence in problem statement referring to item
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 
@@ -360,7 +385,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${stud_enum} should be changed[ to ${inst_enum}].
+> The ${stud_enum} should be changed to ${inst_enum}.
 
 Level 4: Resource response with Reference:
 
@@ -369,7 +394,7 @@ Level 4: Resource response with Reference:
 
 #### Missing enumeration item
 
-Instructor element: Enumeration item.
+Student element: Enumeration. Instructor element: Enumeration item.
 
 Level 1: Highlight solution
 
@@ -381,7 +406,11 @@ Level 3: Parametrized response:
 
 > The ${inst_enumitem.enum} enumeration is missing an item.
 
-Level 4: Resource response with Reference:
+Level 4: Parametrized response:
+
+> Add ${inst_enumitem} to the ${inst_enumitem.enum} enumeration.
+
+Level 5: Resource response with Reference:
 
 > Please review the [Enumeration](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
@@ -417,7 +446,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${stud_enumitem} should be changed[ to ${inst_enumitem}].
+> ${stud_enumitem} in the ${stud_enumitem.enum} should be changed to ${inst_enumitem}.
 
 Level 4: Resource response with Reference:
 
@@ -428,7 +457,7 @@ Level 4: Resource response with Reference:
 
 Instructor element: Class.
 
-Level 1: Highlight sentence in problem statement referring to item
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 
@@ -457,7 +486,7 @@ Level 2: Text response:
 
 Level 3: Text response:
 
-> You have an extra class. Can you find it?
+> Is it really necessary to include this class?
 
 Level 4: Parametrized response:
 
@@ -485,9 +514,20 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_attr} is misspelled.[ Use the same spelling as the problem description.]
+> ${stud_attr.cls}.${stud_attr} is misspelled.[ Use the same spelling as the problem description.]
 
-Level 4: Resource response with Reference:
+Level 4: Resource response with List multiple-choice quiz:
+
+Select all the correct attribute names from the list below.
+
+- [ ] needsReciept
+- [x] numberOfItems
+- [ ] ID
+- [ ] numItems
+- [ ] Name
+- [x] identifier
+
+Level 5: Resource response with Reference:
 
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
@@ -506,7 +546,18 @@ Level 3: Parametrized response:
 
 > ${stud_attr.cls}.${stud_attr} incorrectly starts with an uppercase letter. Attributes should start with a lowercase letter.
 
-Level 4: Resource response with Reference:
+Level 4: Resource response with List multiple-choice quiz:
+
+Select all the correct attribute names from the list below.
+
+- [ ] needsReciept
+- [x] numberOfItems
+- [ ] ID
+- [ ] numItems
+- [ ] Name
+- [x] identifier
+
+Level 5: Resource response with Reference:
 
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
@@ -529,7 +580,7 @@ Level 3: Parametrized response:
 
 Level 4: Parametrized response:
 
-> The ${stud_attr} belongs in the ${inst_attr.cls} class.
+> The ${stud_attr} belongs in the ${inst_attr.cls} class, i.e., a different class in the inheritance hierarchy.
 
 Level 5: Resource response with Reference:
 
@@ -609,6 +660,8 @@ Level 5: Resource response with Reference:
 
 #### List attribute
 
+Student element: Attribute. Instructor element: Attribute.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -621,7 +674,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> ${attributeName} should be modeled as an association instead.
+> ${stud_attr} should be modeled as an association instead.
 
 Level 5: Resource response with List multiple-choice quiz:
 
@@ -655,26 +708,9 @@ Level 4: Resource response with Reference:
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
-### Missing attribute
+### Attribute property mistakes
 
-Instructor element: Attribute.
-
-Level 1: Highlight solution
-
-Level 2: Text response:
-
-> Make sure to model all the attributes of this class.
-
-Level 3: Parametrized response:
-
-> A ${inst_attr.cls} has a ${inst_attr}.
-
-Level 4: Resource response with Reference:
-
-> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
-
-
-### Wrong attribute type
+#### Wrong attribute type
 
 Student element: Attribute. Instructor element: Attribute.
 
@@ -697,24 +733,26 @@ Level 5: Resource response with Reference:
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
-### Missing attribute type
+#### Missing attribute type
+
+Student element: Attribute. Instructor element: Attribute.
 
 Level 1: Highlight solution
 
 Level 2: Parametrized response:
 
-> The ${attribute} attribute is missing something.
+> The ${stud_attr.cls}.${stud_attr} attribute is missing something.
 
 Level 3: Parametrized response:
 
-> What is the type of the ${attribute} attribute?
+> The type of the ${stud_attr.cls}.${stud_attr} attribute should be ${inst_attr.type}.
 
 Level 4: Resource response with Reference:
 
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
-### Attribute should be static
+#### Attribute should be static
 
 Student element: Attribute. Instructor element: Attribute.
 
@@ -733,7 +771,7 @@ Level 4: Resource response with Reference:
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
-### Attribute should not be static
+#### Attribute should not be static
 
 Student element: Attribute. Instructor element: Attribute.
 
@@ -752,6 +790,25 @@ Level 4: Resource response with Reference:
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
 
+### Missing attribute
+
+Student element: Class. Instructor element: Attribute.
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Make sure to model all the attributes of this class.
+
+Level 3: Parametrized response:
+
+> A ${inst_attr.cls} has a ${inst_attr}.
+
+Level 4: Resource response with Reference:
+
+> Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
+
+
 
 ## Relationship mistakes
 
@@ -761,15 +818,15 @@ Level 4: Resource response with Reference:
 
 Instructor element: Association.
 
-Level 1: Highlight solution
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 
-> What is the relationship between these classes?
+> How should this relationship be modeled?
 
 Level 3: Parametrized response:
 
-> How would you capture the relationship between ${inst_rel.end0} and ${inst_rel.end0}?
+> How would you capture the relationship between ${inst_assoc.end0.cls} and ${inst_assoc.end1.cls}?
 
 Level 4: Resource response with Reference:
 
@@ -782,17 +839,17 @@ better understand these relationships and where they are used.
 
 #### Missing aggregation
 
-Instructor element: Association.
+Instructor elements: Aggregation, Whole association end, Part association end.
 
-Level 1: Highlight solution
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 
-> What is the relationship between these classes?
+> How should this relationship be modeled?
 
 Level 3: Parametrized response:
 
-> How would you capture that a ${classOne} has a ${classTwo}?
+> How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?
 
 Level 4: Resource response with Reference:
 
@@ -805,15 +862,17 @@ better understand these relationships and where they are used.
 
 #### Missing n-ary association
 
-Level 1: Highlight solution
+Instructor element: Association.
+
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 
-> What is the relationship between these classes?
+> How should this relationship be modeled?
 
 Level 3: Parametrized response:
 
-> How would you capture the relationship between ${classOne}, ${classTwo}, [and] ${classThree}[, [and] ${classFour}[, [and] ${classFive}]]?
+> How would you capture the relationship between ${inst_assoc.cls*}?
 
 Level 4: Resource response with Reference:
 
@@ -870,7 +929,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_rel.end0} and ${stud_rel.end1} is not expressed in the problem description.
+> There should not be an association between ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls}.
 
 Level 4: Resource response with List multiple-choice quiz:
 
@@ -891,7 +950,7 @@ Level 5: Resource response with Reference:
 
 #### Extra aggregation
 
-Student element: Association. 
+Student elements: Aggregation, Whole association end, Part association end. 
 
 Level 1: Highlight solution
 
@@ -901,7 +960,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_rel.end0} and ${stud_rel.end1} is redundant.
+> There should not be an aggregation between ${stud_aggr.end0.cls} and ${stud_aggr.end1.cls}.
 
 Level 4: Resource response with Reference:
 
@@ -909,6 +968,8 @@ Level 4: Resource response with Reference:
 
 
 #### Extra n-ary association
+
+Student element: Association. 
 
 Level 1: Highlight solution
 
@@ -929,6 +990,8 @@ Level 4: Resource response with Reference:
 
 #### Infinite recursive dependency
 
+Student element: Association ends. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -941,7 +1004,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> Does every ${className} have exactly ${wrongMultiplicity} ${rolename}[s]?
+> Does every ${stud_assocend0.cls} have exactly ${stud_assocend0.lowerBound} ${stud_assocend0}?
 
 Level 5: Resource response with List multiple-choice quiz:
 
@@ -971,11 +1034,11 @@ Level 2: Text response:
 
 Level 3: Text response:
 
-> The multiplicit(y|ies) for this association (is|are) incorrect.
+> The multiplicity for this association end is incorrect.
 
 Level 4: Parametrized response:
 
-> How many ${stud_assocend.end0}'s does a ${stud_assocend.end1} have?[ And how many ${stud_assocend.end1}'s does ${stud_assocend.end0} have?]
+> How many ${stud_assocend.cls} instances does a ${stud_assocend.opposite.cls} have?
 
 Level 5: Resource response with List multiple-choice quiz:
 
@@ -986,8 +1049,8 @@ Pick the association(s) with correct multiplicities:
 - [ ] * Bank -- 1 Client;
 - [ ] * Client -- 1 BankAccount;
 - [x] 0..2 Loan -- 1 Client;
-- [x] * Person -- 1 EmployeeRole;
-- [ ] * EmployeeRole -- 1 Person;
+- [ ] * Person -- 1 EmployeeRole;
+- [x] * EmployeeRole -- 1 Person;
 
 Level 6: Resource response with Reference:
 
@@ -995,6 +1058,8 @@ Level 6: Resource response with Reference:
 
 
 #### Missing multiplicity
+
+Student element: Association end. Instructor element: Association end.
 
 Level 1: Highlight solution
 
@@ -1008,7 +1073,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> How many ${class1}'s does a ${class2} have? [And how many ${class2}'s does ${class1} have?]
+> How many ${stud_assocend.cls}'s does a ${stud_assocend.opposite.cls} have?
 
 Level 5: Resource response with List multiple-choice quiz:
 
@@ -1019,8 +1084,8 @@ Pick the association(s) with correct multiplicities:
 - [ ] * Bank -- 1 Client;
 - [ ] * Client -- 1 BankAccount;
 - [x] 0..2 Loan -- 1 Client;
-- [x] * Person -- 1 EmployeeRole;
-- [ ] * EmployeeRole -- 1 Person;
+- [ ] * Person -- 1 EmployeeRole;
+- [x] * EmployeeRole -- 1 Person;
 
 Level 6: Resource response with Reference:
 
@@ -1029,7 +1094,7 @@ Level 6: Resource response with Reference:
 
 ### Role name mistakes
 
-#### Missing role names
+#### Missing role name
 
 Student element: Association end. Instructor element: Association end.
 
@@ -1041,13 +1106,13 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The multiplicities for the ${stud_assocend} association are correct, but something else is missing!
+> The association between ${stud_assocend.cls} and ${stud_assocend.opposite.cls} is missing a role name.
 
 Level 4: Resource response with Reference:
 
 > Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
 for this association? Role names help identify the role a class plays in a
-relationship and can be important if there is more than one relationship
+relationship and are particularly important if there is more than one relationship
 between the same two classes.
 
 ![Role name](images/role_name.png)
@@ -1066,7 +1131,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_assocend} should be static, because it applies to all instances of the association between ${inst_assocend.end0} and ${inst_assocend.end1}.
+> ${stud_assocend} should be static, because it applies to all instances of the association between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}.
 
 Level 4: Resource response with Reference:
 
@@ -1081,11 +1146,11 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Isn't there something special about this role name?
+> Is there something special about this role name?
 
 Level 3: Parametrized response:
 
-> ${stud_assocend} should not be static, because it doesn't apply to all instances of the association between ${inst_assocend.end0} and ${inst_assocend.end1}.
+> ${stud_assocend} should not be static, because it does not apply to all instances of the association between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}.
 
 Level 4: Resource response with Reference:
 
@@ -1100,7 +1165,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Double check this role name
+> Double check this role name.
 
 Level 3: Parametrized response:
 
@@ -1152,7 +1217,7 @@ Level 5: Resource response with Reference:
 
 > Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
 for this association? Role names help identify the role a class plays in a
-relationship and can be important if there is more than one relationship
+relationship and are particularly important if there is more than one relationship
 between the same two classes.
 
 ![Role name](images/role_name.png)
@@ -1163,6 +1228,8 @@ between the same two classes.
 
 #### Using aggregation instead of association
 
+Student elements: Aggregation, Whole association end, Part association end. Instructor elements: Association, Association end, Other association end.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1171,7 +1238,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${containedClass} and ${containerClass} can be modeled with a simple association.
+> The relationship between ${stud_part_assocend.cls} and ${stud_whole_assocend.cls} can be modeled with a simple association.
 
 Level 4: Resource response with Reference:
 
@@ -1184,7 +1251,7 @@ better understand these relationships and where they are used.
 
 #### Using composition instead of association
 
-Student element: Association end. Instructor element: Association end.
+Student elements: Composition, Whole association end, Part association end. Instructor elements: Association, Association end, Other association end.
 
 Level 1: Highlight solution
 
@@ -1194,9 +1261,13 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Why is ${incorrectlyContainedClass} contained in ${containerClass}?
+> Why is ${stud_part_assocend.cls} contained in ${stud_whole_assocend.cls}?
 
-Level 4: Resource response with Reference:
+Level 4: Parametrized response:
+
+> The relationship between ${stud_part_assocend.cls} and ${stud_whole_assocend.cls} should be modeled with a simple association.
+
+Level 5: Resource response with Reference:
 
 > Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
@@ -1207,7 +1278,7 @@ better understand these relationships and where they are used.
 
 #### Using directed relationship instead of undirected relationship
 
-Student element: Association end. Instructor element: Association end.
+Student elements: Aggregation composition or association, Target association end, Source association end. Instructor elements: Aggregation composition or association, Association end, Other association end.
 
 Level 1: Highlight solution
 
@@ -1217,7 +1288,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_assocend.end0} and ${stud_assocend.end1} should be undirected.
+> The relationship between ${stud_source_assocend.cls} and ${stud_target_assocend.cls} should be undirected.
 
 Level 4: Resource response with Reference:
 
@@ -1226,17 +1297,17 @@ Level 4: Resource response with Reference:
 
 #### Using undirected relationship instead of directed relationship
 
-Student element: Association end. Instructor element: Association end.
+Student elements: Aggregation composition or association, Association end, Other association end. Instructor elements: Aggregation composition or association, Target association end, Source association end.
 
 Level 1: Highlight solution
 
 Level 2: Parametrized response:
 
-> Does ${targetClass} need to know about ${sourceClass}?
+> Does ${inst_target_assocend.cls} need to know about ${inst_source_assocend.cls}?
 
 Level 3: Parametrized response:
 
-> The relationship between ${classOne} and ${classTwo} should be directed[ from ${classOne} to ${classTwo}].
+> The relationship between ${inst_source_assocend.cls} and ${inst_target_assocend.cls} should be directed[ from ${inst_source_assocend.cls} to ${inst_target_assocend.cls}].
 
 Level 4: Resource response with Reference:
 
@@ -1244,6 +1315,8 @@ Level 4: Resource response with Reference:
 
 
 #### Wrong relationship direction
+
+Student elements: Aggregation composition or association, Target association end, Source association end. Instructor elements: Aggregation composition or association, Target association end, Source association end.
 
 Level 1: Highlight solution
 
@@ -1253,7 +1326,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The direction of the relationship between ${stud_assocend.end0} and ${stud_assocend.end1} should be reversed.
+> The direction of the relationship between ${stud_source_assocend.cls} and ${stud_target_assocend.cls} should be reversed.
 
 Level 4: Resource response with Reference:
 
@@ -1262,7 +1335,7 @@ Level 4: Resource response with Reference:
 
 #### Using composition instead of aggregation
 
-Student element: Association end. Instructor element: Association end.
+Student elements: Composition, Whole association end, Part association end. Instructor elements: Aggregation, Whole association end, Part association end.
 
 Level 1: Highlight solution
 
@@ -1272,7 +1345,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The composition between ${stud_assocend.end0} and ${stud_assocend.end1} is better modeled using aggregation.
+> The composition between ${stud_part_assocend.cls} and ${stud_whole_assocend.cls} is better modeled using aggregation.
 
 Level 4: Resource response with Reference:
 
@@ -1285,6 +1358,8 @@ better understand these relationships and where they are used.
 
 #### Using binary association instead of n-ary association
 
+Student elements: Association, Association end, Other association end. Instructor elements: Association, Association ends.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1293,7 +1368,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Use a ${n}-ary association to represent this relationship.
+> Use a ${inst_assoc.ends.length}-ary association to represent this relationship.
 
 Level 4: Resource response with Reference:
 
@@ -1301,6 +1376,8 @@ Level 4: Resource response with Reference:
 
 
 #### Using n-ary association instead of binary association
+
+Student elements: Association, Association ends. Instructor elements: Association, Association end, Other association end.
 
 Level 1: Highlight solution
 
@@ -1319,6 +1396,8 @@ Level 4: Resource response with Reference:
 
 #### Using intermediate class instead of n-ary association
 
+Student element: Class. Instructor elements: Association, Association ends.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1327,7 +1406,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Use a ${n}-ary association to represent this relationship.
+> Use a ${inst_assoc.ends.length}-ary association to represent this relationship.
 
 Level 4: Resource response with Reference:
 
@@ -1336,15 +1415,17 @@ Level 4: Resource response with Reference:
 
 #### Using n-ary association instead of intermediate class
 
+Student elements: Association, Association ends. Instructor element: Class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
 
 > Is this the best way to model this concept?
 
-Level 3: Text response:
+Level 3: Parametrized response:
 
-> Use an intermediate class instead of an n-ary association.
+> Use an intermediate ${inst_cls} class instead of an n-ary association.
 
 Level 4: Resource response with Reference:
 
@@ -1354,6 +1435,8 @@ Level 4: Resource response with Reference:
 ### Association name mistakes
 
 #### Missing association name
+
+Student element: Association. Instructor element: Association.
 
 Level 1: Highlight solution
 
@@ -1367,7 +1450,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> This association should be named ${associationName}.
+> This association should be named ${inst_assoc}.
 
 Level 5: Resource response with Reference:
 
@@ -1375,6 +1458,8 @@ Level 5: Resource response with Reference:
 
 
 #### Bad association name spelling
+
+Student element: Association. Instructor element: Association.
 
 Level 1: Highlight solution
 
@@ -1384,7 +1469,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${associationName} is misspelled.[ Use the same spelling as the problem description.]
+> ${stud_assoc} is misspelled.[ Use the same spelling as the problem description.]
 
 Level 4: Resource response with Reference:
 
@@ -1395,9 +1480,9 @@ Level 4: Resource response with Reference:
 
 #### Missing association class
 
-Instructor element: Class.
+Instructor elements: Association, Class.
 
-Level 1: Highlight solution
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 
@@ -1405,18 +1490,19 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Further details of the association between ${firstClass} and ${secondClass} should be modeled with an association class.
+> Further details of the association between ${inst_assoc.end0.cls} and ${inst_assoc.end1.cls} should be modeled with an association class.
 
 Level 4: Resource response with Reference:
 
-> Association class
+> Please review the _Association class_ section of the
+[UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
 
 ![Association class](images/association_class.png)
 
 
 #### Extra association class
 
-Student element: Class. 
+Student elements: Association, Class. 
 
 Level 1: Highlight solution
 
@@ -1430,22 +1516,23 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> Does it make sense to disallow multiple instances of the ${inBetweenClass} linking ${firstClass} and ${secondClass}?
+> Does it make sense to disallow multiple instances of the ${stud_cls} linking ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls}?
 
 Level 5: Parametrized response:
 
-> Further details of the association between ${firstClass} and ${secondClass} should not be modeled with an association class.
+> Further details of the association between ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls} should not be modeled with an association class.
 
 Level 6: Resource response with Reference:
 
-> Association class
+> Please review the _Association class_ section of the
+[UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
 
 ![Association class](images/association_class.png)
 
 
 #### Bad association class name spelling
 
-Student element: Class. Instructor element: Class.
+Student elements: Association, Class. Instructor elements: Association, Class.
 
 Level 1: Highlight solution
 
@@ -1468,50 +1555,44 @@ Level 5: Resource response with Reference:
 
 #### Association class should be regular class
 
-Student element: Class. Instructor element: Class.
+Student elements: Association, Class. Instructor element: Class.
 
 Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can you model this relationship in another way?
-
-Level 3: Text response:
-
 > Is using an association class the best way to model this?
 
-Level 4: Parametrized response:
+Level 3: Parametrized response:
 
-> The ${inst_cls} class should be a regular class.
+> The ${stud_cls} class should be a regular class.
 
-Level 5: Resource response with Reference:
+Level 4: Resource response with Reference:
 
-> Association class
+> Please review the _Association class_ section of the
+[UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
 
 ![Association class](images/association_class.png)
 
 
 #### Regular class should be association class
 
-Student element: Class. Instructor element: Class.
+Student element: Class. Instructor elements: Association, Class.
 
 Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Can you model this relationship in another way?
-
-Level 3: Text response:
-
 > Is using a regular class the best way to model this?
 
-Level 4: Parametrized response:
+Level 3: Parametrized response:
 
 > The ${stud_cls} class should be an association class.
 
-Level 5: Resource response with Reference:
+Level 4: Resource response with Reference:
 
-> Association class
+> Please review the _Association class_ section of the
+[UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
 
 ![Association class](images/association_class.png)
 
@@ -1520,17 +1601,17 @@ Level 5: Resource response with Reference:
 
 #### Missing composition
 
-Instructor element: Composition.
+Instructor elements: Composition, Whole association end, Part association end.
 
-Level 1: Highlight solution
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 
-> What is the relationship between these classes?
+> How should this relationship be modeled?
 
 Level 3: Parametrized response:
 
-> How would you capture that a ${containerClass} contains a ${containedClass}?
+> How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?
 
 Level 4: Resource response with Reference:
 
@@ -1543,7 +1624,7 @@ better understand these relationships and where they are used.
 
 #### Extra composition
 
-Student element: Composition. 
+Student elements: Composition, Whole association end, Part association end. 
 
 Level 1: Highlight solution
 
@@ -1553,7 +1634,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_rel.end0} and ${stud.end1} is not expressed in the problem description.
+> The relationship between ${stud_compos.end0.cls} and ${stud_compos.end1.cls} is not expressed in the problem description.
 
 Level 4: Resource response with Reference:
 
@@ -1566,7 +1647,7 @@ better understand these relationships and where they are used.
 
 #### Using association instead of aggregation
 
-Student element: Association end. Instructor element: Association end.
+Student elements: Association, Association end, Other association end. Instructor elements: Aggregation, Whole association end, Part association end.
 
 Level 1: Highlight solution
 
@@ -1576,9 +1657,13 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_assocend.end0} and ${stud_assocend.end1} can be modeled more precisely than with a simple association.
+> The relationship between ${stud_assocend.cls} and ${stud_other_assocend.cls} can be modeled more precisely than with a simple association.
 
-Level 4: Resource response with Reference:
+Level 4: Parametrized response:
+
+> The relationship between ${stud_assocend.cls} and ${stud_other_assocend.cls} should be modeled with an aggregation.
+
+Level 5: Resource response with Reference:
 
 > Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
@@ -1589,7 +1674,7 @@ better understand these relationships and where they are used.
 
 #### Using association instead of composition
 
-Student element: Association end. Instructor element: Association end.
+Student elements: Association, Association end, Other association end. Instructor elements: Composition, Whole association end, Part association end.
 
 Level 1: Highlight solution
 
@@ -1599,9 +1684,13 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_assocend.end0} and ${stud_assocend.end1} is more than a simple association..
+> The relationship between ${stud_assocend.cls} and ${stud_other_assocend.cls} is more than a simple association.
 
-Level 4: Resource response with Reference:
+Level 4: Parametrized response:
+
+> The relationship between ${stud_assocend.cls} and ${stud_other_assocend.cls} should be modeled with a composition.
+
+Level 5: Resource response with Reference:
 
 > Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
@@ -1612,7 +1701,7 @@ better understand these relationships and where they are used.
 
 #### Using aggregation instead of composition
 
-Student element: Association end. Instructor element: Association end.
+Student elements: Aggregation, Whole association end, Part association end. Instructor elements: Composition, Whole association end, Part association end.
 
 Level 1: Highlight solution
 
@@ -1622,9 +1711,13 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The relationship between ${stud_assocend.end0} and ${stud_assocend.end1} is stronger than an aggregation.
+> The relationship between ${stud_part_assocend.cls} and ${stud_whole_assocend.cls} is stronger than an aggregation.
 
-Level 4: Resource response with Reference:
+Level 4: Parametrized response:
+
+> The relationship between ${stud_part_assocend.cls} and ${stud_whole_assocend.cls} should be modeled with a composition.
+
+Level 5: Resource response with Reference:
 
 > Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
@@ -1634,6 +1727,8 @@ better understand these relationships and where they are used.
 
 
 #### Composed part contained in more than one parent
+
+Student element: Classes. 
 
 Level 1: Highlight solution
 
@@ -1647,7 +1742,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> ${incorrectlyContainedClass} cannot be contained in more than one class.
+> ${stud_cls*} cannot be contained in more than one class.
 
 Level 5: Resource response with Example:
 
@@ -1680,6 +1775,8 @@ better understand these relationships and where they are used.
 
 #### Incomplete containment tree
 
+Student element: Classes. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1688,7 +1785,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> {containedClass} is a part of ${containerClass}, so how would you model this?
+> ${stud_cls*} should be contained in the containment tree.[ Use composition for this.]
 
 Level 4: Resource response with Example:
 
@@ -1723,6 +1820,8 @@ better understand these relationships and where they are used.
 
 #### Missing generalization
 
+Student elements: Subclass, Superclass. Instructor elements: Subclass, Superclass.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1731,11 +1830,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> A ${subclass} is a ${superclass}. How should we model this?
+> A ${inst_sub_cls} is a ${inst_super_cls}. How should we model this?
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
-Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 * SportsCar isA <ins>Car</ins>
 * <ins>Wheel</ins> isA VehiclePart
@@ -1750,6 +1849,8 @@ Level 5: Resource response with Reference:
 
 #### Extra generalization
 
+Student elements: Subclass, Superclass. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1758,11 +1859,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
+> When creating a generalization between ${stud_sub_cls} and ${stud_super_cls}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
-Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 * SportsCar isA <ins>Car</ins>
 * <ins>Wheel</ins> isA VehiclePart
@@ -1790,6 +1891,8 @@ Level 6: Resource response with Reference:
 
 #### Generalization does not follow isA rule
 
+Student elements: Subclass, Superclass. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1798,11 +1901,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> When creating a generalization between ${wrongSubclass} and ${wrongSuperclass}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
+> When creating a generalization between ${stud_sub_cls} and ${stud_super_cls}, make sure to follow the [checks for proper generalization](https://mycourses2.mcgill.ca/).
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
-Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 * SportsCar isA <ins>Car</ins>
 * <ins>Wheel</ins> isA VehiclePart
@@ -1830,6 +1933,8 @@ Level 6: Resource response with Reference:
 
 #### Subclass not distinct across lifetime
 
+Student elements: Subclass, Superclass. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1838,7 +1943,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Is it possible for an instance of ${nondistinctSubclass} to turn into an instance of another subclass over its lifetime?
+> Is it possible for an instance of ${stud_sub_cls} to turn into an instance of another subclass over its lifetime?
 
 Level 4: Resource response with List multiple-choice quiz:
 
@@ -1857,6 +1962,8 @@ Level 5: Resource response with Reference:
 
 #### Inherited feature does not make sense for subclass
 
+Student elements: Attribute, Subclass, Superclass. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1865,7 +1972,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${featureName} feature of the ${superclass} class does not make sense for its ${subclass} subclass.
+> The ${stud_attr} feature of the ${stud_super_cls} class does not make sense for its ${stud_sub_cls} subclass.
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
@@ -1887,6 +1994,8 @@ Level 5: Resource response with Reference:
 
 #### Subclass is an instance of superclass
 
+Student elements: Subclass, Superclass. 
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1895,11 +2004,11 @@ Level 2: Text response:
 
 Level 3: Text response:
 
-> Remember the definition of the **'instance' rule**.[ Instances should not be modeled as subclasses].
+> Remember the definition of the 'instance' rule.[ Instances should not be modeled as subclasses].
 
 Level 4: Resource response with Example:
 
-> A CheckingAccount isA Account, but account1234 is **not** an Account according to the 'instance' rule.
+> A CheckingAccount isA Account, but account1234 is not an Account according to the 'instance' rule.
 
 Level 5: Resource response with Fill-in-the-blanks quiz:
 
@@ -1931,7 +2040,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_cls} needs to be different from its superclass, and any sibling subclasses, in terms of behavior or structure.
+> ${stud_cls} needs to be different from its superclass, and all sibling subclasses, in terms of behavior or structure.
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
@@ -1953,6 +2062,8 @@ Level 5: Resource response with Reference:
 
 #### Wrong generalization direction
 
+Student elements: Superclass, Subclass. Instructor elements: Subclass, Superclass.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -1961,11 +2072,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Is ${superclass} really a ${subclass}?[ It should be the other way around.]
+> Is ${inst_super_cls} really a ${inst_sub_cls}?[ It should be the other way around.]
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
-Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 * SportsCar isA <ins>Car</ins>
 * <ins>Wheel</ins> isA VehiclePart
@@ -1993,6 +2104,8 @@ Level 6: Resource response with Reference:
 
 #### Wrong superclass
 
+Student elements: Subclass, Superclass. Instructor elements: Subclass, Superclass.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -2001,17 +2114,17 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Can you (find|create) a (better|different) superclass for ${subclass}?[ Look at the problem description closely].
+> ${stud_sub_cls} has an incorrect superclass.
 
 Level 4: Highlight specific problem statement elements
 
 Level 5: Parametrized response:
 
-> What is the inheritance hierarchy between ${hierarchy.classes}?
+> The superclass for ${stud_sub_cls} should be ${inst_super_cls}.
 
 Level 6: Resource response with Fill-in-the-blanks quiz:
 
-Place the following classes in an inheritance hierarchy:
+Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 * SportsCar isA <ins>Car</ins>
 * <ins>Wheel</ins> isA VehiclePart
@@ -2032,17 +2145,23 @@ Level 7: Resource response with Reference:
 
 #### Missing Player-Role pattern
 
+Instructor elements: Player class, Roles.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
 
 > Think carefully about how to model the relationships between these concepts.
 
-Level 3: Parametrized response:
+Level 3: Text response:
 
-> The concepts of ${instructorPlayer} and ${instructorRole} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
+> Use the Player-Role pattern to model the relationships between these concepts.
 
-Level 4: Resource response with Quiz:
+Level 4: Parametrized response:
+
+> The concepts of ${inst_player_cls} and ${inst_role*} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
+
+Level 5: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -2053,7 +2172,7 @@ Level 4: Resource response with Quiz:
 > Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
 > Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
-Level 5: Resource response with Reference:
+Level 6: Resource response with Reference:
 
 > The Player-Role Pattern can be used to capture the fact that an object may play different roles
 in different contexts.
@@ -2063,17 +2182,23 @@ in different contexts.
 
 #### Incomplete Player-Role pattern
 
+Student elements: Player class, Roles. Instructor elements: Player class, Roles.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
 
 > Think carefully about how to model the relationships between these concepts.
 
-Level 3: Parametrized response:
+Level 3: Text response:
 
-> The concepts of ${instructorPlayer} and ${instructorRole} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
+> Use the Player-Role pattern to model the relationships between these concepts.
 
-Level 4: Resource response with Quiz:
+Level 4: Parametrized response:
+
+> The concepts of ${inst_player_cls}, ${inst_role*} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
+
+Level 5: Resource response with Quiz:
 
 > Complete the following table:
 > 
@@ -2084,7 +2209,7 @@ Level 4: Resource response with Quiz:
 > Associations        |  &#9744; | &#10003; | &#10003; | &#10003;
 > Player-Role Pattern | &#10003; | &#10003; | &#10003; | &#10003;
 
-Level 5: Resource response with Reference:
+Level 6: Resource response with Reference:
 
 > The Player-Role Pattern can be used to capture the fact that an object may play different roles
 in different contexts.
@@ -2094,6 +2219,8 @@ in different contexts.
 
 #### Subclass should be full Player-Role pattern
 
+Student elements: Player class, Role classes. Instructor elements: Player class, Role classes.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -2102,7 +2229,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> [Nice try, but] a ${firstSubclass} can also play the role of one of the other subclasses.
+> [Nice try, but ]${stud_role_cls*} can also play the role of one of the other subclasses.
 
 Level 4: Resource response with Quiz:
 
@@ -2125,6 +2252,8 @@ in different contexts.
 
 #### Subclass should be association Player-Role pattern
 
+Student elements: Player class, Role classes. Instructor elements: Player class, Role association ends.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -2133,7 +2262,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> [Nice try, but] a ${firstSubclass} can also play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
+> [Nice try, but ]${stud_role_cls*} can also play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
 
 Level 4: Resource response with Quiz:
 
@@ -2156,6 +2285,8 @@ in different contexts.
 
 #### Subclass should be enumeration Player-Role pattern
 
+Student elements: Player class, Role classes. Instructor elements: Player class, Role attribute.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -2164,7 +2295,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> [Nice try, but] a ${firstSubclass} does not need to play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
+> [Nice try, but ]${stud_role_cls*} do not need to play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
 
 Level 4: Resource response with Quiz:
 
@@ -2187,6 +2318,8 @@ in different contexts.
 
 #### Association should be full Player-Role pattern
 
+Student elements: Player class, Role association ends. Instructor elements: Player class, Role classes.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -2195,7 +2328,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> A ${firstRole} has different features from a ${secondRole}.
+> A ${stud_role_assocend0} has different features from a ${stud_role_assocend1}.
 
 Level 4: Resource response with Quiz:
 
@@ -2218,6 +2351,8 @@ in different contexts.
 
 #### Association should be subclass Player-Role pattern
 
+Student elements: Player class, Role association ends. Instructor elements: Player class, Role classes.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -2226,7 +2361,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> A ${firstRole} has different features from a ${secondRole} and ${role} does not change its role over its lifetime.
+> A ${stud_role_assocend0} has different features from a ${stud_role_assocend1} and does not change its role over its lifetime.
 
 Level 4: Resource response with Quiz:
 
@@ -2249,6 +2384,8 @@ in different contexts.
 
 #### Association should be enumeration Player-Role pattern
 
+Student elements: Player class, Role association ends. Instructor elements: Player class, Role attribute.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -2257,7 +2394,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Will the roles of ${firstRole} and ${secondRole} ever be occupied at the same time?
+> Will the roles of ${stud_role_assocend*} ever be occupied at the same time?
 
 Level 4: Resource response with Quiz:
 
@@ -2280,6 +2417,8 @@ in different contexts.
 
 #### Enumeration should be full Player-Role pattern
 
+Student elements: Player class, Role enumeration items. Instructor elements: Player class, Role classes.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -2288,7 +2427,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> A ${firstRole} has different features from one of the other roles at the same time and different features need to be captured for the roles.
+> A ${stud_role_assocend} can also play the role of one of the other roles at the same time and different features need to be captured for the roles.
 
 Level 4: Resource response with Quiz:
 
@@ -2311,6 +2450,8 @@ in different contexts.
 
 #### Enumeration should be subclass Player-Role pattern
 
+Student elements: Player class, Role enumeration items. Instructor elements: Player class, Role classes.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -2319,7 +2460,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> A ${firstRole} has different features from one of the other roles and this role never changes to another role.
+> A ${stud_role_assocend0} has different features from one of the other roles and this role never changes to another role.
 
 Level 4: Resource response with Quiz:
 
@@ -2342,6 +2483,8 @@ in different contexts.
 
 #### Enumeration should be association Player-Role pattern
 
+Student elements: Player class, Role enumeration items. Instructor elements: Player class, Role association ends.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -2350,7 +2493,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Will the roles of ${firstRole} and ${secondRole} ever be occupied at the same time?
+> Will the roles of ${stud_role_assocend*} ever be occupied at the same time?
 
 Level 4: Resource response with Quiz:
 
@@ -2373,6 +2516,8 @@ in different contexts.
 
 #### Full Player-Role pattern should be subclass
 
+Student elements: Player class, Role classes. Instructor elements: Player class, Role classes.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -2381,7 +2526,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Can a ${firstRole} can also play the role of one of the other roles at different times or at the same time?
+> Can a ${stud_role_assocend0} also play the role of one of the other roles at different times or at the same time?
 
 Level 4: Resource response with Quiz:
 
@@ -2404,6 +2549,8 @@ in different contexts.
 
 #### Full Player-Role pattern should be association
 
+Student elements: Player class, Role classes. Instructor elements: Player class, Role association ends.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -2412,7 +2559,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Do ${firstRole} and ${secondRole} need to have different features?
+> Do ${stud_role_assocend*} need to have different features?
 
 Level 4: Resource response with Quiz:
 
@@ -2435,6 +2582,8 @@ in different contexts.
 
 #### Full Player-Role pattern should be enumeration
 
+Student elements: Player class, Role classes. Instructor elements: Player class, Role attribute.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -2443,7 +2592,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Do ${firstRole} and ${secondRole} need to have different features and is it possible that more than one role is played at the same time?
+> Do ${stud_role_assocend*} need to have different features and is it possible that more than one role is played at the same time?
 
 Level 4: Resource response with Quiz:
 
@@ -2468,7 +2617,9 @@ in different contexts.
 
 #### Missing Abstraction-Occurrence pattern
 
-Level 1: Highlight solution
+Instructor elements: Abstraction class, Occurrence class.
+
+Level 1: Highlight sentence(s) in problem statement referring to item
 
 Level 2: Text response:
 
@@ -2476,7 +2627,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The concepts of ${instructorAbstraction} and ${instructorOccurrence} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
+> The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
 
 Level 4: Resource response with Reference:
 
@@ -2489,6 +2640,8 @@ from each other in an important way.
 
 #### Incomplete Abstraction-Occurrence pattern
 
+Student element: Existing class. Instructor elements: Abstraction class, Occurrence class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
@@ -2497,9 +2650,13 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The concepts of ${instructorAbstraction} and ${instructorOccurrence} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
+> The ${stud_existing_cls} should be part of an Abstraction-Occurrence relationship.
 
-Level 4: Resource response with Reference:
+Level 4: Parametrized response:
+
+> The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
+
+Level 5: Resource response with Reference:
 
 > The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
 represent a set of related objects that share common information but also differ
@@ -2510,15 +2667,17 @@ from each other in an important way.
 
 #### Generalization should be association in Abstraction-Occurrence pattern
 
+Student elements: Subclass, Superclass. Instructor elements: Abstraction class, Occurrence class.
+
 Level 1: Highlight solution
 
 Level 2: Text response:
 
 > Think carefully about how to model the relationships between these concepts.
 
-Level 3: Text response:
+Level 3: Parametrized response:
 
-> Is generalization the correct way to model this use of the Abstraction-Occurrence pattern?
+> The relationship between ${stud_sub_cls} and ${stud_super_cls} should be modeled using the Abstraction-Occurrence pattern[, where ${inst_abs_cls} is the abstraction and ${inst_occ_cls} is the occurrence].
 
 Level 4: Resource response with Reference:
 

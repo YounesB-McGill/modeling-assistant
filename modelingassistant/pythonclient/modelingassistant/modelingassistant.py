@@ -258,6 +258,7 @@ def override_pyecorevalue_check(self, value, _isinstance=isinstance):
                 if name == value.eClass.name and etype.name in (c.__name__ for c in cls.__bases__):
                     return True
         raise BadValueError(got=value, expected=etype, feature=feature)
+    return True
 
 from pyecore.valuecontainer import PyEcoreValue
 PyEcoreValue.check = override_pyecorevalue_check

@@ -23,7 +23,7 @@ from fileserdes import load_cdm
 from learningcorpus import Feedback, ParametrizedResponse, ResourceResponse, TextResponse
 from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, MISSING_CLASS, MISSING_COMPOSITION,
     SOFTWARE_ENGINEERING_TERM)
-from stringserdes import SRSET, StringEnabledXMIResource, str_to_modelingassistant
+from stringserdes import SRSET, str_to_modelingassistant
 from modelingassistant import (FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, Solution, SolutionElement,
     Student, StudentKnowledge)
 
@@ -40,7 +40,11 @@ def make_ma_without_mistakes() -> ModelingAssistant:
     bus_ps = ProblemStatement(name="Bus Management System", modelingAssistant=ma)
     alice = Student(name="Alice", modelingAssistant=ma)
     StudentKnowledge(mistakeType=SOFTWARE_ENGINEERING_TERM, student=alice, modelingAssistant=ma)
+    # Need to set both ends of ProblemStatement-Solution relationship manually since is actually 3 one-way relationships
+    inst_sol = Solution(problemStatement=bus_ps, modelingAssistant=ma)
+    bus_ps.instructorSolution = inst_sol
     alice_bus_sol = Solution(student=alice, problemStatement=bus_ps, modelingAssistant=ma)
+    bus_ps.studentSolutions.append(alice_bus_sol)
     alice.currentSolution = alice_bus_sol
     return ma
 
@@ -48,10 +52,12 @@ def make_ma_without_mistakes() -> ModelingAssistant:
 def make_ma_with_1_new_mistake(num_detection: int=1) -> ModelingAssistant:
     "Make a simple Modeling Assistant instance with one mistake, detected `num_detection` times."
     ma = make_ma_without_mistakes()
-    alice_bus_sol = ma.solutions[0]
+    inst_sol = ma.problemStatements[0].instructorSolution
+    alice_bus_sol = ma.problemStatements[0].studentSolutions[0]
+    bus_cls = SolutionElement(solution=inst_sol, element=Class(name="Bus"))
     bus_data_cls = SolutionElement(solution=alice_bus_sol, element=Class(name="BusData"))
-    set_mistake = Mistake(solution=alice_bus_sol, mistakeType=SOFTWARE_ENGINEERING_TERM,
-                          numDetections=num_detection, studentElements=[bus_data_cls])
+    set_mistake = Mistake(solution=alice_bus_sol, mistakeType=SOFTWARE_ENGINEERING_TERM, numDetections=num_detection,
+                          studentElements=[bus_data_cls], instructorElements=[bus_cls])
     if num_detection > 1:
         set_mistake.lastFeedback = FeedbackItem(feedback=Feedback(level=num_detection - 1))
     return ma
@@ -59,7 +65,7 @@ def make_ma_with_1_new_mistake(num_detection: int=1) -> ModelingAssistant:
 
 def test_feedback_without_mistakes():
     "Test feedback for a solution without any mistakes."
-    solution = make_ma_without_mistakes().solutions[0]
+    solution = make_ma_without_mistakes().problemStatements[0].studentSolutions[0]
     feedback_item = give_feedback(solution)
     assert "no mistakes found" in feedback_item.feedback.text.lower()
 
@@ -71,7 +77,7 @@ def test_feedback_with_1_mistake_level_1():
     BusData detected for first time -> highlight BusData
     """
     ma = make_ma_with_1_new_mistake(1)
-    solution = ma.solutions[0]
+    solution = ma.problemStatements[0].studentSolutions[0]
     feedback_item = give_feedback(solution)
     curr_mistake = feedback_item.mistake
 
@@ -92,7 +98,7 @@ def test_feedback_with_1_mistake_level_2():
     BusData (or similar) detected for second time -> text response
     """
     ma = make_ma_with_1_new_mistake(2)
-    solution = ma.solutions[0]
+    solution = ma.problemStatements[0].studentSolutions[0]
     feedback_item = give_feedback(solution)
     curr_mistake = feedback_item.mistake
 
@@ -114,7 +120,7 @@ def test_feedback_with_1_mistake_level_3():
     BusData (or similar) detected for third time -> parameterized response
     """
     ma = make_ma_with_1_new_mistake(3)
-    solution = ma.solutions[0]
+    solution = ma.problemStatements[0].studentSolutions[0]
     feedback_item = give_feedback(solution)
     curr_mistake = feedback_item.mistake
 
@@ -125,7 +131,7 @@ def test_feedback_with_1_mistake_level_3():
     assert 3 == feedback.level
     assert not feedback.highlightSolution
     assert "software engineering term" in feedback.text
-    #assert "BusData" in feedback.text  # TODO Implement parameterized response later
+    assert "BusData" in feedback_item.text
     assert curr_mistake.mistakeType is feedback.mistakeType
     assert 7 == ma.studentKnowledges[0].levelOfKnowledge
 
@@ -137,7 +143,7 @@ def test_feedback_with_1_mistake_level_4():
     BusData (or similar) detected for fourth time -> resource response with example
     """
     ma = make_ma_with_1_new_mistake(4)
-    solution = ma.solutions[0]
+    solution = ma.problemStatements[0].studentSolutions[0]
     feedback_item = give_feedback(solution)
     curr_mistake = feedback_item.mistake
 
@@ -147,11 +153,9 @@ def test_feedback_with_1_mistake_level_4():
     assert isinstance(feedback, ResourceResponse)
     assert 4 == feedback.level
     assert not feedback.highlightSolution
-    # TODO Restore `resource_content` after metamodel update for LearningResource.content
-    # resource_content = feedback.learningResources[0].content
-    # assert "incorrect class naming" in resource_content
-    # TODO Determine exact emoji serialization mechanism
-    # assert ":x: Examples to avoid | :heavy_check_mark: Good class names" in resource_content
+    resource_content = feedback.learningResources[0].content
+    assert "incorrect class naming" in resource_content
+    assert ":x: Examples to avoid | :heavy_check_mark: Good class names" in resource_content
     assert curr_mistake.mistakeType is feedback.mistakeType
     assert 6 == ma.studentKnowledges[0].levelOfKnowledge
 
@@ -163,7 +167,7 @@ def test_feedback_with_1_mistake_levels_1_4():
     BusData detected 4 times -> 4 levels of feedback, given one at a time.
     """
     ma = make_ma_with_1_new_mistake(1)
-    solution = ma.solutions[0]
+    solution = ma.problemStatements[0].studentSolutions[0]
     feedback_item = give_feedback(solution)
     curr_mistake = feedback_item.mistake
 
@@ -176,7 +180,7 @@ def test_feedback_with_1_mistake_levels_1_4():
     assert curr_mistake.mistakeType is feedback.mistakeType
     assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
-    ma.solutions[0].mistakes[0].numDetections += 1
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
     feedback_item = give_feedback(solution)
 
     assert feedback_item.solution is solution
@@ -189,7 +193,7 @@ def test_feedback_with_1_mistake_levels_1_4():
     assert curr_mistake.mistakeType is feedback.mistakeType
     assert 8 == ma.studentKnowledges[0].levelOfKnowledge
 
-    ma.solutions[0].mistakes[0].numDetections += 1
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
     feedback_item = give_feedback(solution)
 
     assert feedback_item.solution is solution
@@ -199,11 +203,11 @@ def test_feedback_with_1_mistake_levels_1_4():
     assert 3 == feedback.level
     assert not feedback.highlightSolution
     assert "software engineering term" in feedback.text
-    #assert "BusData" in feedback.text  # TODO Implement parameterized response later
+    assert "BusData" in feedback_item.text
     assert curr_mistake.mistakeType is feedback.mistakeType
     assert 7 == ma.studentKnowledges[0].levelOfKnowledge
 
-    ma.solutions[0].mistakes[0].numDetections += 1
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
     feedback_item = give_feedback(solution)
 
     assert feedback_item.solution is solution
@@ -212,11 +216,9 @@ def test_feedback_with_1_mistake_levels_1_4():
     assert isinstance(feedback, ResourceResponse)
     assert 4 == feedback.level
     assert not feedback.highlightSolution
-    # TODO Restore `resource_content` after metamodel update for LearningResource.content
-    #resource_content = feedback.learningResources[0].content
-    #assert "incorrect class naming" in resource_content
-    # TODO Determine exact emoji serialization mechanism
-    #assert ":x: Examples to avoid | :heavy_check_mark: Good class names" in resource_content
+    resource_content = feedback.learningResources[0].content
+    assert "incorrect class naming" in resource_content
+    assert ":x: Examples to avoid | :heavy_check_mark: Good class names" in resource_content
     assert curr_mistake.mistakeType is feedback.mistakeType
     assert 6 == ma.studentKnowledges[0].levelOfKnowledge
 
@@ -326,7 +328,7 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     mistakes: list[Mistake] = solution.mistakes
 
     assert fb.highlightSolutionElements
-    assert [m.mistakeType for m in solution.mistakes] == [INCOMPLETE_CONTAINMENT_TREE, MISSING_COMPOSITION]
+    assert solution.mistakes[0].mistakeType == INCOMPLETE_CONTAINMENT_TREE
 
 
 if __name__ == '__main__':

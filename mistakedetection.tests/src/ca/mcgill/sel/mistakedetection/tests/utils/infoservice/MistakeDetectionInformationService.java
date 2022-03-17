@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -17,6 +19,7 @@ import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.CdmFactory;
 import ca.mcgill.sel.classdiagram.ReferenceType;
 import ca.mcgill.sel.mistakedetection.Comparison;
+import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
 import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedParametrizedResponses;
 import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeDetectionFormat;
 import learningcorpus.ElementType;
@@ -25,6 +28,12 @@ import learningcorpus.ParametrizedResponse;
 import modelingassistant.Mistake;
 import modelingassistant.SolutionElement;
 
+/**
+ * Class to represent an abstract Mistake Detection Information Service. A service returns formatted output based on its
+ * input, which ultimately comes from the result of running the Mistake Detection tests.
+ *
+ * @author Younes Boubekeur
+ */
 public abstract class MistakeDetectionInformationService {
 
   private static final String ERROR = "This method must be treated as abstract and can only be invoked on a subclass! "
@@ -41,18 +50,37 @@ public abstract class MistakeDetectionInformationService {
       CDF.createCDEnumLiteral().eClass(), ElementType.CLASS,
       CDF.createClass().eClass(), ElementType.CLASS);
 
-  //Helper Functions to map each mistake to specific solution elements
+  // Helper Functions to map each mistake to specific solution elements
   public static final Function<Mistake, Stream<SolutionElement>> instructorElems =
       m -> m.getInstructorElements().stream();
   public static final Function<Mistake, Stream<SolutionElement>> studentElems = m -> m.getStudentElements().stream();
   public static final Function<Mistake, Stream<SolutionElement>> instructorAndStudentElems =
       m -> Stream.concat(instructorElems.apply(m), studentElems.apply(m));
 
+  static final BinaryOperator<MistakeDetectionFormat> mdfCollisionFunction = (mdf1, mdf2) -> {
+    if (mdf1.inst.size() <= mdf2.inst.size() && mdf1.stud.size() <= mdf2.stud.size()) {
+      return mdf2;
+    } else if (mdf1.inst.size() >= mdf2.inst.size() && mdf1.stud.size() >= mdf2.stud.size()) {
+      return mdf1;
+    }
+    warn("Encountered 2 MistakeDetectionFormats with incompatible numbers of instructor and student elements, "
+        + "returning most recent: " + mdf2);
+    return mdf2;
+  };
+
   static final Map<MistakeType, MistakeDetectionFormat> suggestedMistakeDetectionFormats =
       suggestMistakeDetectionFormats();
 
+  /** Filtered MDFs which not already validated. */
+  static final Map<MistakeType, MistakeDetectionFormat> filteredSuggestedMistakeDetectionFormats =
+      suggestMistakeDetectionFormats(e ->
+          !e.getValue().equals(HumanValidatedMistakeDetectionFormats.mappings.get(e.getKey())));
+
   static final Map<MistakeType, Set<String>> suggestedParametrizedResponses =
-      suggestParametrizedResponses(suggestedMistakeDetectionFormats, true);
+      suggestParametrizedResponses(
+          //suggestedMistakeDetectionFormats,
+          HumanValidatedMistakeDetectionFormats.mappings,
+          false);
 
   public final String name;
 
@@ -60,6 +88,10 @@ public abstract class MistakeDetectionInformationService {
     this.name = name;
   }
 
+  /**
+   * Returns the formatted output for this service. By convention, implementing subclasses should prepend
+   * {@code title(name) + "\n"} to the returned output.
+   */
   public abstract String getOutput();
 
   /**
@@ -117,7 +149,7 @@ public abstract class MistakeDetectionInformationService {
         // 2. Function to map the items to the values of the output map. Here we map each mistake to a set.
         m -> mistakeSolutionElementsStreamer.apply(m).map(mistakeStudentElementTransformation)
             .collect(Collectors.toUnmodifiableSet()), // TODO Update on Java 17+
-        // 3. Merge function, handles collisions between values with the same key. Here, use merge the 2 sets.
+        // 3. Merge function, handles collisions between values with the same key. Here, we merge the 2 sets.
         MistakeDetectionInformationService::setUnion,
         // 4. The output map of Collectors.toMap(). Use TreeMap to sort output by mistake type.
         TreeMap::new));
@@ -139,21 +171,38 @@ public abstract class MistakeDetectionInformationService {
     return suggestAllMistakeDetectionFormats().entrySet().stream().collect(Collectors.toMap(
         e -> e.getKey().getMistakeType(),
         Map.Entry::getValue,
-        (mdf1, mdf2) -> {
-          if (mdf1.inst.size() <= mdf2.inst.size() && mdf1.stud.size() <= mdf2.stud.size()) {
-            return mdf2;
-          } else if (mdf1.inst.size() >= mdf2.inst.size() && mdf1.stud.size() >= mdf2.stud.size()) {
-            return mdf1;
-          }
-          warn("Encountered 2 MistakeDetectionFormats with incompatible numbers of instructor and student elements, "
-              + "returning most recent: " + mdf2);
-          return mdf2;
-        },
+        mdfCollisionFunction,
         TreeMap::new));
+  }
+
+  static Map<MistakeType, MistakeDetectionFormat> suggestMistakeDetectionFormats(
+      Predicate<Map.Entry<MistakeType, MistakeDetectionFormat>> filteringFunction) {
+    return suggestMistakeDetectionFormats().entrySet().stream().filter(filteringFunction)
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+  }
+
+  /** Returns the MDFs as implemented in the Mistake Detection System, regardless of validation status. */
+  static Map<MistakeType, MistakeDetectionFormat> getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem() {
+    return getAllMistakeDetectionFormatsAsIsFromMistakeDetectionSystem().entrySet().stream().collect(Collectors.toMap(
+        e -> e.getKey().getMistakeType(),
+        Map.Entry::getValue,
+        mdfCollisionFunction,
+        TreeMap::new));
+  }
+
+  /** Returns the MDFs as implemented in the Mistake Detection System, regardless of validation status. */
+  static Map<MistakeType, MistakeDetectionFormat> getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem(
+      Predicate<Map.Entry<MistakeType, MistakeDetectionFormat>> filteringFunction) {
+    return getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem().entrySet().stream().filter(filteringFunction)
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 
   private static Map<Mistake, MistakeDetectionFormat> suggestAllMistakeDetectionFormats() {
     return allMistakes().collect(Collectors.toMap(Function.identity(), MistakeDetectionFormat::forMistake));
+  }
+
+  private static Map<Mistake, MistakeDetectionFormat> getAllMistakeDetectionFormatsAsIsFromMistakeDetectionSystem() {
+    return allMistakes().collect(Collectors.toMap(Function.identity(), MistakeDetectionFormat::new));
   }
 
   private static Map<MistakeType, Set<String>> suggestParametrizedResponses(
@@ -195,7 +244,7 @@ public abstract class MistakeDetectionInformationService {
     return result;
   }
 
-  /** Returns true if the association has an end with the given type. */
+  /** Returns true if the solution element is part of a student solution. */
   public static boolean hasStudent(SolutionElement e) {
     return e.getSolution().getStudent() != null;
   }

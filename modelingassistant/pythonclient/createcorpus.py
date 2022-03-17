@@ -12,19 +12,19 @@ Script to create these Learning Corpus artifacts from corpus.py:
 import os
 import re
 from abc import ABC, abstractmethod
-nl = "\n"
 from re import Match
 from datetime import datetime
 
 import cv2
 
+from cdmmetatypes import CDM_METATYPES, CdmMetatype
 from constants import LEARNING_CORPUS_PATH, MULTIPLE_FEEDBACKS_PER_LEVEL
 from corpus import corpus
 from fileserdes import save_to_file
 from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResponse, ParametrizedResponse,
                             ResourceResponse, Quiz)
 from learningcorpusquiz import Blank, FillInTheBlanksQuiz, ListMultipleChoiceQuiz, NonBlank, TableMultipleChoiceQuiz
-from utils import NonNoneDict
+from utils import mdf, NonNoneDict
 
 
 MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
@@ -36,9 +36,12 @@ CORPUS_DESCRIPTION_DIR = "modelingassistant/corpus_descriptions"
 LEARNING_CORPUS_MARKDOWN_FILE = f"{CORPUS_DESCRIPTION_DIR}/README.md"
 LEARNING_CORPUS_TEX_FILE = f"{CORPUS_DESCRIPTION_DIR}/learningcorpusdefs.tex"
 
-PYTHON_HEADER = '''\
+NL = "\n"  # Use this instead of os.linesep to ensure consistent line endings across platforms, including Windows
+
+PYTHON_HEADER = f'''\
 """
 This file contains all mistake types and categories.
+It is generated automatically by the {os.path.basename(__file__)} script.
 """
 
 from constants import LEARNING_CORPUS_PATH
@@ -50,8 +53,8 @@ from utils import mdf
 corpus = load_lc(LEARNING_CORPUS_PATH)
 
 # Populate dictionaries
-MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[str, MistakeTypeCategory] = {c.name: c for c in corpus.mistakeTypeCategories}
-MISTAKE_TYPES_BY_NAME: dict[str, MistakeType] = {mt.name: mt for mt in corpus.mistakeTypes()}
+MISTAKE_TYPE_CATEGORIES_BY_NAME: dict[str, MistakeTypeCategory] = {{c.name: c for c in corpus.mistakeTypeCategories}}
+MISTAKE_TYPES_BY_NAME: dict[str, MistakeType] = {{mt.name: mt for mt in corpus.mistakeTypes()}}
 
 # Short-name references to the above dicts for greater code legibility
 _MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
@@ -76,6 +79,7 @@ import learningcorpus.MistakeTypeCategory;
 
 /**
  * This class contains all mistake types and categories.
+ * It is generated automatically by the {os.path.basename(__file__)} script.
  */
 public class MistakeTypes {{
 
@@ -106,7 +110,7 @@ public class MistakeTypes {{
 TEX_HEADER = f"""\
 % Modeling Assistant Learning Corpus
 
-% This tex file was generated automatically by the createcorpus script.
+% This tex file was generated automatically by the {os.path.basename(__file__)} script.
 % Generation time: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 \\textbf{{Legend:}}
@@ -133,15 +137,6 @@ Player-Role Pattern & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ & $\boxtimes$ \\ \
 
 
 """
-
-SHORT_TO_LONG_ECLASS_NAMES: dict[str, str] = {
-    "assocend": "Association End",
-    "rel": "Relationship",
-    "attr": "Attribute",
-    "enum": "Enumeration",
-    "enumitem": "Enumeration Item",
-    "cls": "Class",
-}
 
 QUIZ_DISPLAY_NAMES: dict[type, str] = {
     FillInTheBlanksQuiz: "Fill-in-the-blanks quiz",
@@ -211,7 +206,7 @@ def generate_python_mts(mtc: MistakeTypeCategory) -> str:
     if not mtc.mistakeTypes:
         return ""
     return f''', mistakeTypes=[\n{[
-        nl.join(f'{8 * " "}{underscorify(mt.name)} := mt(n={nl}{mt.name}{nl}),')
+        NL.join(f'{8 * " "}{underscorify(mt.name)} := mt(n={NL}{mt.name}{NL}),')
         for mt in mtc.mistakeTypes]}\n    ]'''
 
 
@@ -261,7 +256,7 @@ class TextualGenerator(ABC):
         "Return the nested body output for the input in a recursive way."
         return f'''{cls.make_body_title(mtc.name, indentation)}{
             "".join([cls.nested_body_output_for(sc, indentation + 1) for sc in mtc.subcategories])}{
-            nl.join([cls.make_mt_body(mt, indentation + 1) for mt in mtc.mistakeTypes])}\n'''
+            NL.join([cls.make_mt_body(mt, indentation + 1) for mt in mtc.mistakeTypes])}\n'''
 
     @classmethod
     @abstractmethod
@@ -274,16 +269,15 @@ class TextualGenerator(ABC):
         "Return the body for the mistake type, indented by the given amount."
 
     @classmethod
-    def mdf_item_display_name(cls, mdf_name: str, mt: MistakeType) -> str:
+    def mdf_item_display_name(cls, mdf_name: str) -> str:
         "Return the display name for the input MDF name."
         def display_name(s: str) -> str:
-            name = SHORT_TO_LONG_ECLASS_NAMES.get(s, s)
-            if name.lower() == "relationship" and mt.learningItem.name.lower() in [
-                "association", "aggregation", "composition"]:
-                return mt.learningItem.name
-            return name
+            return CDM_METATYPES[s].long_name if s in CDM_METATYPES else s
 
-        return " ".join([display_name(w).capitalize() for w in mdf_name.split("_")])
+        return (" ".join([display_name(w).capitalize() for w in mdf_name.split("_")])
+                .replace("Sub Class", "Subclass").replace("Super Class", "Superclass")
+                .replace("Minlowerbound", "Minimum lower bound")
+                .replace("Abs", "Abstraction").replace("Occ", "Occurrence")).capitalize()
 
     @classmethod
     @abstractmethod
@@ -296,18 +290,17 @@ class TextualGenerator(ABC):
             case 0:
                 result += ""
             case 1:
-                result += f"Student element: {cls.mdf_item_display_name(mt.md_format.stud[0], mt)}. "
+                result += f"Student element: {cls.mdf_item_display_name(mt.md_format.stud[0])}. "
             case _:
-                result += f"""Student elements: {
-                    ', '.join([cls.mdf_item_display_name(e, mt) for e in mt.md_format.stud])}. """
+                result += f"Student elements: {', '.join([cls.mdf_item_display_name(e) for e in mt.md_format.stud])}. "
         match len(mt.md_format.inst):
             case 0:
                 result += ""
             case 1:
-                result += f"Instructor element: {cls.mdf_item_display_name(mt.md_format.inst[0], mt)}."
+                result += f"Instructor element: {cls.mdf_item_display_name(mt.md_format.inst[0])}."
             case _:
                 result += f"""Instructor elements: {
-                    ', '.join([cls.mdf_item_display_name(e, mt) for e in mt.md_format.inst])}."""
+                    ', '.join([cls.mdf_item_display_name(e) for e in mt.md_format.inst])}."""
         return result
 
     @classmethod
@@ -357,7 +350,7 @@ class MarkdownGenerator(TextualGenerator):
                     continue
                 match fb:
                     case Feedback(highlightProblem=True):
-                        sp = "specific" if fb.level > 1 else "sentence in"
+                        sp = "specific" if fb.level > 1 else "sentence(s) in"
                         # use elem type here in the future if it can be made more specific, eg, enum instead of class
                         elem = "elements" if fb.level > 1 else "referring to item"
                         result += f"Highlight {sp} problem statement {elem}\n\n"
@@ -369,7 +362,7 @@ class MarkdownGenerator(TextualGenerator):
                     case ParametrizedResponse() as resp:
                         if resp.text not in result:
                             result += f"""{
-                                '' if isinstance(prev_fb, ParametrizedResponse) else f'Parametrized response:{nl}'
+                                '' if isinstance(prev_fb, ParametrizedResponse) else f'Parametrized response:{NL}'
                                 }\n> {resp.text}\n\n"""
                     case ResourceResponse() as resp if resp.learningResources:
                         primary_rsc = resp.learningResources[0]
@@ -397,12 +390,12 @@ class MarkdownGenerator(TextualGenerator):
                             result += (content + "\n\n") if content not in result else ""
                             _quizzes_to_md[primary_rsc] = content
                         elif is_table(primary_rsc.content):
-                            content = f"""Resource response with {rsc_type_name}:\n\n{(2 * nl).join(
-                                [f"> {f.learningResources[0].content.replace(nl, f'{nl}> ')}"
+                            content = f"""Resource response with {rsc_type_name}:\n\n{(2 * NL).join(
+                                [f"> {f.learningResources[0].content.replace(NL, f'{NL}> ')}"
                                  for f in mt.feedbacks if f.level == level])}\n\n"""
                             result += content if content not in result else ""
                         else:
-                            content = f"""Resource response with {rsc_type_name}:\n\n{(2 * nl).join(
+                            content = f"""Resource response with {rsc_type_name}:\n\n{(2 * NL).join(
                                 [f"> {f.learningResources[0].content}" for f in mt.feedbacks if f.level == level])
                                 }\n\n"""
                             result += content if content not in result else ""
@@ -419,8 +412,8 @@ class MarkdownGenerator(TextualGenerator):
     @classmethod
     def generate(cls):
         mtcs = corpus.topLevelMistakeTypeCategories()
-        return f"""{nl.join(cls.nested_toc_output_for(c) for c in mtcs)}\n{
-            nl.join(cls.nested_body_output_for(c) for c in mtcs)}"""
+        return f"""{NL.join(cls.nested_toc_output_for(c) for c in mtcs)}\n{
+            NL.join(cls.nested_body_output_for(c) for c in mtcs)}"""
 
     @classmethod
     def save_to_file(cls, filename: str = None):
@@ -522,7 +515,7 @@ class LatexGenerator(TextualGenerator):
 
         if "Player-Role Pattern" in s:
             return TEX_PR_TABLE
-        lines = s.strip().split(nl)
+        lines = s.strip().split(NL)
         result = ""
         prev_in_table = in_table = False
         for line in lines:
@@ -553,11 +546,14 @@ class LatexGenerator(TextualGenerator):
             for fb in mt.feedbacks:
                 if fb.level != level:
                     continue
-                elem_type = (f"{mt.learningItem.name.replace('End', '').replace('Association', 'Relationship')}"
-                             if mt.learningItem else "")
+                # safe navigation equivalent of CDM_METATYPES[mt.md_format.stud[0]].long_name
+                elem_type = getattr(CDM_METATYPES.get(next(iter(getattr(mt, "md_format", mdf([], [])).stud), ""),
+                                                      CdmMetatype(short_name="", long_name="", eClass=None)),
+                                    "long_name")
+                elem_type = ""  # for now, don't show the element type
                 match fb:
                     case Feedback(highlightProblem=True):
-                        sp = "specific" if fb.level > 1 else "sentence in"
+                        sp = "specific" if fb.level > 1 else "sentence(s) in"
                         # use elem_type here in the future if it can be made more specific, eg, enum instead of class
                         elem = "elements" if fb.level > 1 else "referring to item"
                         result += f"Highlight {sp} problem statement {elem}{cls.NLS}"
@@ -576,19 +572,19 @@ class LatexGenerator(TextualGenerator):
                         rsc_type_name = rsc_type.__name__
                         if issubclass(rsc_type, Quiz) and rsc_type != Quiz:  # Quiz subclasses but not Quiz itself
                             if isinstance(primary_rsc, FillInTheBlanksQuiz | ListMultipleChoiceQuiz):
-                                quiz_md_lines = _quizzes_to_md[primary_rsc].split(nl)
-                                title, body = quiz_md_lines[0], nl.join(quiz_md_lines[1:])
+                                quiz_md_lines = _quizzes_to_md[primary_rsc].split(NL)
+                                title, body = quiz_md_lines[0], NL.join(quiz_md_lines[1:])
                             elif isinstance(primary_rsc, TableMultipleChoiceQuiz):
                                 ...
                             content = f"{title}{cls.NLS}{cls.blockquote(body)}"
                             result += content if content not in result else ""
                         elif is_table(primary_rsc.content):
-                            content = f"""Resource response with {rsc_type_name}:{cls.NLS}{(2 * nl).join(
+                            content = f"""Resource response with {rsc_type_name}:{cls.NLS}{(2 * NL).join(
                                 [cls.make_tex_table(f.learningResources[0].content)
                                  for f in mt.feedbacks if f.level == level])}"""
                             result += content if content not in result else ""
                         else:
-                            content = f"""Resource response with {rsc_type_name}:{cls.NLS}{(2 * nl).join(
+                            content = f"""Resource response with {rsc_type_name}:{cls.NLS}{(2 * NL).join(
                                 [f"{cls.blockquote(f.learningResources[0].content)}"
                                  for f in mt.feedbacks if f.level == level])}"""
                             result += content if content not in result else ""
@@ -604,7 +600,7 @@ class LatexGenerator(TextualGenerator):
 
     @classmethod
     def generate(cls):
-        return TEX_HEADER + nl.join(cls.nested_body_output_for(c) for c in corpus.topLevelMistakeTypeCategories())
+        return TEX_HEADER + NL.join(cls.nested_body_output_for(c) for c in corpus.topLevelMistakeTypeCategories())
 
     @classmethod
     def save_to_file(cls, filename: str = None):

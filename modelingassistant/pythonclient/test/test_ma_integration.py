@@ -73,7 +73,7 @@ def webcore():
         Thread(target=lambda: os.system(f"cd {TOUCHCORE_PATH}/.. && ./start-webcore.sh"), daemon=True).start()
 
 
-@pytest.mark.skip(reason="Not yet implemented")
+@pytest.mark.skip(reason="Temporarily disabled")
 def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     """
     Simplest possible test for the entire system.
@@ -181,6 +181,7 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
         assert cdm[attr]
         assert cdm[attr].name == name
         assert cdm[attr].type == type_of[attr_type]
+
 
 @pytest.mark.skip(reason="Not yet implemented")
 def test_communication_between_modeling_assistant_python_app_and_webcore(webcore):
