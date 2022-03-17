@@ -375,6 +375,13 @@ public class MistakeDetection {
       }
     }
     comparison.studentGeneralizationClassifiers.forEach(studClass -> {
+        comparison.newMistakes
+            .add(createMistake(EXTRA_GENERALIZATION, List.of(studClass, studClass.getSuperTypes().get(0)), null));
+    });
+
+    // Code to add instructor elements to EXTRA_GENERALIZATION if present.
+    /*
+    comparison.studentGeneralizationClassifiers.forEach(studClass -> {
       if (comparison.mappedClassifiers.containsValue(studClass)
           && comparison.mappedClassifiers.containsValue(studClass.getSuperTypes().get(0))) {
 
@@ -387,6 +394,7 @@ public class MistakeDetection {
             .add(createMistake(EXTRA_GENERALIZATION, List.of(studClass, studClass.getSuperTypes().get(0)), null));
       }
     });
+    */
   }
 
   private static void checkMistakesClassNameSpellings(Comparison comparison) {
