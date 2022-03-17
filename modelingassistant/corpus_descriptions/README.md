@@ -417,7 +417,7 @@ Level 5: Resource response with Reference:
 
 #### Extra enumeration item
 
-Student element: Enumeration item. Instructor element: Enumeration.
+Student element: Enumeration item. 
 
 Level 1: Highlight solution
 
@@ -691,7 +691,7 @@ Level 6: Resource response with Reference:
 
 #### Extra attribute
 
-Student element: Attribute. Instructor element: Class.
+Student element: Attribute. 
 
 Level 1: Highlight solution
 
@@ -2145,7 +2145,7 @@ Level 7: Resource response with Reference:
 
 #### Missing Player-Role pattern
 
-Student elements: Player class, Roles. Instructor elements: Player class, Roles.
+Instructor elements: Player class, Roles.
 
 Level 1: Highlight solution
 
