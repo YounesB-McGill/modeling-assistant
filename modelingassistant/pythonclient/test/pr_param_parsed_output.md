@@ -30,4 +30,4 @@ enum | SeatType
 enum.literals.length | 3
 enumitem | FirstClass
 enumitem.enum | SeatType
-role* | roles and airlineSystem
+role* | PersonRole and AirlineSystem

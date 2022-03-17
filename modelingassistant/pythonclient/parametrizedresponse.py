@@ -10,7 +10,7 @@ from pyecore.ecore import EClass
 
 from cdmmetatypes import CDM_METATYPES, CdmMetatype
 from utils import MistakeDetectionFormat, warn
-from classdiagram import Association, AssociationEnd, Attribute, NamedElement
+from classdiagram import Association, AssociationEnd, Attribute, Classifier, NamedElement
 from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake
 
@@ -98,7 +98,7 @@ def parse(s: str, start_elem: NamedElement) -> str:
     return _parse(s, start_elem)  # call internal helper function to do actual parsing
 
 
-def _parse(s: str, start_elem: NamedElement, depth: int = 0) -> str:
+def _parse(s: str, start_elem: NamedElement | Iterable, depth: int = 0) -> str:
     # pylint: disable=too-many-return-statements
     # print(f"parametrizedresponse.parse({s = }, {start_elem = }) called")  # TODO remove later
     if depth > _MAX_PARSE_DEPTH:
@@ -113,6 +113,9 @@ def _parse(s: str, start_elem: NamedElement, depth: int = 0) -> str:
         # special case for n-ary associations
         if isinstance(start_elem, Iterable) and all(isinstance(e, AssociationEnd) for e in start_elem) and s == "cls*":
             return comma_seperated_with_and([ae.classifier for ae in start_elem])
+        # special case for Player-Role pattern roles
+        if s.endswith("role*"):
+            return comma_seperated_with_and(get_role_named_elems(start_elem))
         return comma_seperated_with_and(start_elem)
     if (match_ := re.match(r".*?(\d+)$", s)) and ((idx := int(match_.group(1))) in range(_MAX_INDEX + 1)):  # index
         if hasattr(start_elem, "__getitem__") and idx < len(start_elem):
@@ -236,6 +239,24 @@ def comma_seperated_with_and(elems: list[NamedElement]) -> str:
     if len(elems) > MAX_VARARG_SEQUENCE_LENGTH:
         elems = elems[:MAX_VARARG_SEQUENCE_LENGTH]
     return f"{', '.join(e.name for e in elems[:-1])}, and {elems[-1].name}"
+
+
+def get_role_named_elems(start_elem: NamedElement | Iterable) -> list[NamedElement]:
+    "Return a list of all Player-Role pattern roles to be displayed."
+    if isinstance(start_elem, NamedElement):
+        return [get_role_named_elem(start_elem)]
+    roles = []
+    if (isinstance(start_elem, Iterable) and not isinstance(start_elem, str)):
+        for elem in start_elem:
+            roles.append(get_role_named_elem(elem))
+    return roles
+
+
+def get_role_named_elem(start_elem: AssociationEnd | Attribute | Classifier) -> Attribute | Classifier:
+    "Return a single Player-Role pattern role to be displayed."
+    if isinstance(start_elem, AssociationEnd):
+        return start_elem.getOppositeEnd().classifier
+    return start_elem
 
 
 def param_start_elem_type(param: str, as_type: type = None) -> str | CdmMetatype | EClass:
