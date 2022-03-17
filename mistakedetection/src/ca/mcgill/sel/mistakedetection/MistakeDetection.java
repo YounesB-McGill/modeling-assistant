@@ -1783,10 +1783,10 @@ public class MistakeDetection {
         }
       } else if (studClassAssocEndLowerBound >= 1 && studentClassAssocEnd.isNavigable()) {
         comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY,
-            studentClassAssocEnd, null));
+            List.of(studentClassAssocEnd), null));
       } else if (otherStudClassAssocEndLowerBound >= 1 && otherStudentClassAssocEnd.isNavigable()) {
         comparison.newMistakes.add(createMistake(INFINITE_RECURSIVE_DEPENDENCY,
-            otherStudentClassAssocEnd, null));
+            List.of(otherStudentClassAssocEnd), null));
       }
     }
   }
