@@ -423,8 +423,8 @@ public class MistakeDetectionGeneralizationTest {
 
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
-    assertMistake(getMistakeForElement(studClassD, WRONG_GENERALIZATION_DIRECTION, comparison),
-        WRONG_GENERALIZATION_DIRECTION, List.of(studClassD, studClassC), List.of(instClassD, instClassC), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassC, WRONG_GENERALIZATION_DIRECTION, comparison),
+        WRONG_GENERALIZATION_DIRECTION, List.of(studClassC, studClassD), List.of(instClassD, instClassC), 0, 1, false);
     assertMistake(getMistakeForElement(studClassE, EXTRA_GENERALIZATION, comparison), EXTRA_GENERALIZATION,
         List.of(studClassE, studClassD), 0, 1, false);
 
@@ -526,8 +526,8 @@ public class MistakeDetectionGeneralizationTest {
     assertEquals(7, studentSolution.getMistakes().size());
     assertMistake(getMistakeForElement(studClassB, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
         List.of(studClassB, studClassE), List.of(instClassB, instClassA), 0, 1, false);
-    assertMistake(getMistakeForElement(studClassD, WRONG_GENERALIZATION_DIRECTION, comparison),
-        WRONG_GENERALIZATION_DIRECTION, List.of(studClassD, studClassC), List.of(instClassD, instClassC), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassC, WRONG_GENERALIZATION_DIRECTION, comparison),
+        WRONG_GENERALIZATION_DIRECTION, List.of(studClassC, studClassD), List.of(instClassD, instClassC), 0, 1, false);
   }
 
   /**
@@ -626,24 +626,24 @@ public class MistakeDetectionGeneralizationTest {
         cdmFromFile(STUDENT_CDM_PATH + "student_multiGenMistake/Class Diagram/multiGenMistake_stud.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-      var instCrediCardClass = getClassFromClassDiagram("CreditCard", instructorClassDiagram);
+      var instCreditCardClass = getClassFromClassDiagram("CreditCard", instructorClassDiagram);
       var instDebitCardClass =  getClassFromClassDiagram("DebitCard", instructorClassDiagram);
       var instReusableFinancialInstrumentClass = getClassFromClassDiagram("ReusableFinancialInstrument", instructorClassDiagram);
 
-      var studCrediCardClass = getClassFromClassDiagram("CreditCard", studentClassDiagram);
+      var studCreditCardClass = getClassFromClassDiagram("CreditCard", studentClassDiagram);
       var studDebitCardClass =  getClassFromClassDiagram("DebitCard", studentClassDiagram);
       var studReusableFinancialInstrumentClass = getClassFromClassDiagram("ReusableFinancialInstrument", studentClassDiagram);
 
       var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-      assertMistake(comparison.newMistakes.get(0), NON_DIFFERENTIATED_SUBCLASS, studCrediCardClass,
+      assertMistake(comparison.newMistakes.get(0), NON_DIFFERENTIATED_SUBCLASS, studCreditCardClass,
           0, 1, false);
       assertMistake(comparison.newMistakes.get(1), NON_DIFFERENTIATED_SUBCLASS, studDebitCardClass,
           0, 1, false);
       assertMistake(comparison.newMistakes.get(2), NON_DIFFERENTIATED_SUBCLASS, studReusableFinancialInstrumentClass,
           0, 1, false);
-      assertMistake(comparison.newMistakes.get(3), WRONG_GENERALIZATION_DIRECTION, List.of(studCrediCardClass, studReusableFinancialInstrumentClass),
-          List.of(instCrediCardClass, instReusableFinancialInstrumentClass), 0, 1, false);
+      assertMistake(comparison.newMistakes.get(3), WRONG_GENERALIZATION_DIRECTION, List.of(studReusableFinancialInstrumentClass, studCreditCardClass),
+          List.of(instCreditCardClass, instReusableFinancialInstrumentClass), 0, 1, false);
       assertMistake(comparison.newMistakes.get(4), MISSING_GENERALIZATION, List.of(instDebitCardClass, instReusableFinancialInstrumentClass),
           0, 1, false);
   }

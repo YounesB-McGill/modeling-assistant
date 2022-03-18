@@ -530,9 +530,9 @@ public class MistakeDetectionTest {
     assertMistakeLinks(mistake, mistakeType, studentElements, instructorElements);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
   }
-  
+
   /**
-   * Asserts a mistake with multiple instructor and single student element.
+   * Asserts a mistake with multiple instructor elements and single student element.
    *
    * @param mistake
    * @param mistakeType
@@ -547,9 +547,9 @@ public class MistakeDetectionTest {
     assertMistakeLinks(mistake, mistakeType, studentElement, instructorElements);
     assertMistakeAttribute(mistake, numSinceResolved, numDetections, resolved);
   }
-  
+
   /**
-   * Asserts a mistake with single instructor and multiple student element.
+   * Asserts a mistake with single instructor element and multiple student elements.
    *
    * @param mistake
    * @param mistakeType

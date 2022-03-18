@@ -360,7 +360,7 @@ public class MistakeDetection {
       studClassSuperClasses = getAllSuperClasses(studMappedSuperClass);
       if (studClassSuperClasses.contains(studClass)) {
         comparison.newMistakes.add(createMistake(WRONG_GENERALIZATION_DIRECTION,
-            List.of(studClass, studMappedSuperClass), List.of(instClass, instSuperClass)));
+            List.of(studMappedSuperClass, studClass), List.of(instClass, instSuperClass)));
         comparison.studentGeneralizationClassifiers.remove(studClass);
       } else {
         Classifier instMappedSuperClass = null;
