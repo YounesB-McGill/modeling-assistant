@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_AYGj4KF9EeyJHfa9zVABwg" name="multiGenMistake_stud">
+  <classes xsi:type="classdiagram:Class" xmi:id="_Ott-kKF9EeyJHfa9zVABwg" name="FinancialInstrument"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_PyEXgKF9EeyJHfa9zVABwg" name="CreditCard" superTypes="_Ott-kKF9EeyJHfa9zVABwg"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_RKcfsKF9EeyJHfa9zVABwg" name="ReusableFinancialInstrument" superTypes="_PyEXgKF9EeyJHfa9zVABwg"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_TxBgYKF9EeyJHfa9zVABwg" name="DebitCard" superTypes="_Ott-kKF9EeyJHfa9zVABwg"/>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_AYHK8KF9EeyJHfa9zVABwg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_AYHK8aF9EeyJHfa9zVABwg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_AYHK8qF9EeyJHfa9zVABwg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_AYHK86F9EeyJHfa9zVABwg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_AYHK9KF9EeyJHfa9zVABwg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_AYHK9aF9EeyJHfa9zVABwg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_AYHK9qF9EeyJHfa9zVABwg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_AYHK96F9EeyJHfa9zVABwg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_AYHK-KF9EeyJHfa9zVABwg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_AYHK-aF9EeyJHfa9zVABwg"/>
+  <layout xmi:id="_AYHK-qF9EeyJHfa9zVABwg">
+    <containers xmi:id="_AYHK-6F9EeyJHfa9zVABwg" key="_AYGj4KF9EeyJHfa9zVABwg">
+      <value xmi:id="_OtuloKF9EeyJHfa9zVABwg" key="_Ott-kKF9EeyJHfa9zVABwg">
+        <value xmi:id="_OtuloaF9EeyJHfa9zVABwg" x="899.79474" y="275.0175"/>
+      </value>
+      <value xmi:id="_PyE-kKF9EeyJHfa9zVABwg" key="_PyEXgKF9EeyJHfa9zVABwg">
+        <value xmi:id="_PyE-kaF9EeyJHfa9zVABwg" x="922.79474" y="379.11136"/>
+      </value>
+      <value xmi:id="_RKdGwKF9EeyJHfa9zVABwg" key="_RKcfsKF9EeyJHfa9zVABwg">
+        <value xmi:id="_RKdGwaF9EeyJHfa9zVABwg" x="858.29474" y="513.11523"/>
+      </value>
+      <value xmi:id="_TxCHcKF9EeyJHfa9zVABwg" key="_TxBgYKF9EeyJHfa9zVABwg">
+        <value xmi:id="_TxCHcaF9EeyJHfa9zVABwg" x="1175.0269" y="513.11334"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

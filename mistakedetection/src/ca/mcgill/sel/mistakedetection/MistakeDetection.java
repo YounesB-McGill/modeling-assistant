@@ -363,7 +363,11 @@ public class MistakeDetection {
             List.of(studClass, studMappedSuperClass), List.of(instClass, instSuperClass)));
         comparison.studentGeneralizationClassifiers.remove(studClass);
       } else {
-        if (studClass.getSuperTypes().isEmpty()) {
+        Classifier instMappedSuperClass = null;
+        if (!studClass.getSuperTypes().isEmpty()) {
+        instMappedSuperClass = getKey(comparison.mappedClassifiers, studClass.getSuperTypes().get(0));
+        }
+        if (studClass.getSuperTypes().isEmpty() || (instMappedSuperClass!= null && getAllSuperClasses(instClass).contains(instMappedSuperClass))) {
           comparison.newMistakes.add(createMistake(MISSING_GENERALIZATION, null,
               List.of(instClass, instSuperClass)));
           comparison.studentGeneralizationClassifiers.remove(studClass);
