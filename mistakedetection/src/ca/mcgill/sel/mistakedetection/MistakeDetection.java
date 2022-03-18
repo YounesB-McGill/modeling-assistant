@@ -1819,7 +1819,8 @@ public class MistakeDetection {
     comparison.mappedClassifiers.forEach((key, value) -> {
       for (Attribute instAttrib : key.getAttributes()) {
         for (Attribute studAttrib : value.getAttributes()) {
-          if (!comparison.mappedAttributes.containsKey(instAttrib)) {
+          if (!comparison.mappedAttributes.containsKey(instAttrib)
+              && !comparison.mappedAttributes.containsValue(studAttrib)) {
             if (studAttrib.getName().contains("ies")) { // To deal with cases like companies and company
               String name = studAttrib.getName();
               name = name.replaceAll("ies", "y");
