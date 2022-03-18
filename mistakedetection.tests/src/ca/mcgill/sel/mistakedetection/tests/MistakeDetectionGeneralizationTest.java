@@ -605,7 +605,7 @@ public class MistakeDetectionGeneralizationTest {
     var studClassD = getClassFromClassDiagram("D", studentClassDiagram);
     var studClassF = getClassFromClassDiagram("F", studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false).log();
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertMistake(getMistakeForElement(studClassB, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
         List.of(studClassB, studClassE), List.of(instClassB, instClassA), 0, 1, false);
@@ -625,34 +625,26 @@ public class MistakeDetectionGeneralizationTest {
     var studentClassDiagram =
         cdmFromFile(STUDENT_CDM_PATH + "student_multiGenMistake/Class Diagram/multiGenMistake_stud.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
-    /*
-     * var instClassB = getClassFromClassDiagram("B", instructorClassDiagram); var instClassA =
-     * getClassFromClassDiagram("A", instructorClassDiagram); var studClassB = getClassFromClassDiagram("B",
-     * studentClassDiagram); var studClassE = getClassFromClassDiagram("E", studentClassDiagram);
-     *
-     * var instClassC = getClassFromClassDiagram("C", instructorClassDiagram); var studClassC =
-     * getClassFromClassDiagram("C", studentClassDiagram); var studClassA = getClassFromClassDiagram("A",
-     * studentClassDiagram);
-     *
-     * var instClassG = getClassFromClassDiagram("G", instructorClassDiagram); var instClassF =
-     * getClassFromClassDiagram("F", instructorClassDiagram); var studClassG = getClassFromClassDiagram("G",
-     * studentClassDiagram);
-     *
-     * var instClassD = getClassFromClassDiagram("D", instructorClassDiagram); var studClassD =
-     * getClassFromClassDiagram("D", studentClassDiagram); var studClassF = getClassFromClassDiagram("F",
-     * studentClassDiagram);
-     *
-     *
-     *
-     * assertMistake(getMistakeForElement(studClassB, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
-     * List.of(studClassB, studClassE), List.of(instClassB, instClassA), 0, 1, false);
-     * assertMistake(getMistakeForElement(studClassC, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
-     * List.of(studClassC, studClassA), List.of(instClassC, instClassB), 0, 1, false);
-     * assertMistake(getMistakeForElement(studClassG, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
-     * List.of(studClassG, studClassC), List.of(instClassG, instClassF), 0, 1, false);
-     * assertMistake(getMistakeForElement(studClassD, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
-     * List.of(studClassD, studClassF), List.of(instClassD, instClassC), 0, 1, false);
-     */
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false).log();
+
+      var instCrediCardClass = getClassFromClassDiagram("CreditCard", instructorClassDiagram);
+      var instDebitCardClass =  getClassFromClassDiagram("DebitCard", instructorClassDiagram);
+      var instReusableFinancialInstrumentClass = getClassFromClassDiagram("ReusableFinancialInstrument", instructorClassDiagram);
+
+      var studCrediCardClass = getClassFromClassDiagram("CreditCard", studentClassDiagram);
+      var studDebitCardClass =  getClassFromClassDiagram("DebitCard", studentClassDiagram);
+      var studReusableFinancialInstrumentClass = getClassFromClassDiagram("ReusableFinancialInstrument", studentClassDiagram);
+
+      var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+      assertMistake(comparison.newMistakes.get(0), NON_DIFFERENTIATED_SUBCLASS, studCrediCardClass,
+          0, 1, false);
+      assertMistake(comparison.newMistakes.get(1), NON_DIFFERENTIATED_SUBCLASS, studDebitCardClass,
+          0, 1, false);
+      assertMistake(comparison.newMistakes.get(2), NON_DIFFERENTIATED_SUBCLASS, studReusableFinancialInstrumentClass,
+          0, 1, false);
+      assertMistake(comparison.newMistakes.get(3), WRONG_GENERALIZATION_DIRECTION, List.of(studCrediCardClass, studReusableFinancialInstrumentClass),
+          List.of(instCrediCardClass, instReusableFinancialInstrumentClass), 0, 1, false);
+      assertMistake(comparison.newMistakes.get(4), MISSING_GENERALIZATION, List.of(instDebitCardClass, instReusableFinancialInstrumentClass),
+          0, 1, false);
   }
 }
