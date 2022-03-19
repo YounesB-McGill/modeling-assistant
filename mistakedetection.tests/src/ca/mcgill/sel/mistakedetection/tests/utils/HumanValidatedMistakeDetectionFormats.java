@@ -160,7 +160,7 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(MISSING_COMPOSITION, mdf(List.of(), List.of("compos", "whole_assocend", "part_assocend"))),
       entry(MISSING_ENUM, mdf(List.of(), List.of("enum"))),
       entry(MISSING_ENUM_ITEM, mdf(List.of("enum"), List.of("enumitem"))),
-      entry(MISSING_GENERALIZATION, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls"))),
+      entry(MISSING_GENERALIZATION, mdf(List.of(), List.of("sub_cls", "super_cls"))),
       entry(MISSING_ROLE_NAME, mdf(List.of("assocend"), List.of("assocend"))),
       entry(NON_DIFFERENTIATED_SUBCLASS, mdf(List.of("cls"), List.of())),
       entry(PLURAL_ATTRIBUTE, mdf(List.of("attr"), List.of("attr"))),

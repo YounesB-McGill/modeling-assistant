@@ -360,12 +360,16 @@ public class MistakeDetection {
       studClassSuperClasses = getAllSuperClasses(studMappedSuperClass);
       if (studClassSuperClasses.contains(studClass)) {
         comparison.newMistakes.add(createMistake(WRONG_GENERALIZATION_DIRECTION,
-            List.of(studClass, studMappedSuperClass), List.of(instClass, instSuperClass)));
+            List.of(studMappedSuperClass, studClass), List.of(instClass, instSuperClass)));
         comparison.studentGeneralizationClassifiers.remove(studClass);
       } else {
-        if (studClass.getSuperTypes().isEmpty()) {
-          comparison.newMistakes.add(createMistake(MISSING_GENERALIZATION, List.of(studClass, studMappedSuperClass),
-              List.of(instClass, instSuperClass)));
+        Classifier instMappedSuperClass = null;
+        if (!studClass.getSuperTypes().isEmpty()) {
+          instMappedSuperClass = getKey(comparison.mappedClassifiers, studClass.getSuperTypes().get(0));
+        }
+        if (studClass.getSuperTypes().isEmpty()
+            || (instMappedSuperClass != null && getAllSuperClasses(instClass).contains(instMappedSuperClass))) {
+          comparison.newMistakes.add(createMistake(MISSING_GENERALIZATION, null, List.of(instClass, instSuperClass)));
           comparison.studentGeneralizationClassifiers.remove(studClass);
         } else {
           comparison.newMistakes.add(createMistake(WRONG_SUPERCLASS,
@@ -374,6 +378,13 @@ public class MistakeDetection {
         }
       }
     }
+    comparison.studentGeneralizationClassifiers.forEach(studClass -> {
+        comparison.newMistakes
+            .add(createMistake(EXTRA_GENERALIZATION, List.of(studClass, studClass.getSuperTypes().get(0)), null));
+    });
+
+    // Code to add instructor elements to EXTRA_GENERALIZATION if present.
+    /*
     comparison.studentGeneralizationClassifiers.forEach(studClass -> {
       if (comparison.mappedClassifiers.containsValue(studClass)
           && comparison.mappedClassifiers.containsValue(studClass.getSuperTypes().get(0))) {
@@ -387,6 +398,7 @@ public class MistakeDetection {
             .add(createMistake(EXTRA_GENERALIZATION, List.of(studClass, studClass.getSuperTypes().get(0)), null));
       }
     });
+    */
   }
 
   private static void checkMistakesClassNameSpellings(Comparison comparison) {
@@ -1602,8 +1614,9 @@ public class MistakeDetection {
         && instructorClassifierAssoc.getAssociationClass() != null) {
       Classifier instAssocClass = instructorClassifierAssoc.getAssociationClass();
       if (comparison.mappedClassifiers.containsKey(instAssocClass)) {
-        comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS,
-            comparison.mappedClassifiers.get(instAssocClass), instAssocClass));
+        comparison.newMistakes
+            .add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS, List.of(comparison.mappedClassifiers.get(instAssocClass)),
+                List.of(instructorClassifierAssoc, instAssocClass)));
        // TODO: Work in progress
        // comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
        // comparison.notMappedInstructorClassifiers.add(instAssocClass);
@@ -1619,7 +1632,8 @@ public class MistakeDetection {
           if (value.equals(studAssocClass)) {
            // comparison.notMappedInstructorClassifiers.add(key); //TODO: Work in progress
           //  comparison.assocClassifiersToRemove.add(key);
-            comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS, studAssocClass, key));
+            comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS,
+                List.of(studentClassifierAssoc, studAssocClass), List.of(key)));
             return;
           }
         });
@@ -1633,7 +1647,7 @@ public class MistakeDetection {
           && comparison.mappedClassifiers.containsKey(instAssoc.getAssociationClass())) {
         Classifier instAssocClass = instAssoc.getAssociationClass();
         comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS,
-            comparison.mappedClassifiers.get(instAssocClass), instAssocClass));
+            List.of(comparison.mappedClassifiers.get(instAssocClass)), List.of(instAssoc, instAssocClass)));
         // TODO: Work in progress
         // comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
         // comparison.notMappedInstructorClassifiers.add(instAssocClass);
@@ -1645,8 +1659,8 @@ public class MistakeDetection {
       if (studAssoc.getAssociationClass() != null
           && comparison.mappedClassifiers.containsValue(studAssoc.getAssociationClass())) {
         Classifier studAssocClass = studAssoc.getAssociationClass();
-        comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS, studAssocClass,
-            getKey(comparison.mappedClassifiers, studAssocClass)));
+        comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS, List.of(studAssoc, studAssocClass),
+            List.of(getKey(comparison.mappedClassifiers, studAssocClass))));
         // comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
         // comparison.notMappedInstructorClassifiers.add(instAssocClass);
         // comparison.assocClassifiersToRemove.add(instAssocClass);
@@ -1809,7 +1823,8 @@ public class MistakeDetection {
     comparison.mappedClassifiers.forEach((key, value) -> {
       for (Attribute instAttrib : key.getAttributes()) {
         for (Attribute studAttrib : value.getAttributes()) {
-          if (!comparison.mappedAttributes.containsKey(instAttrib)) {
+          if (!comparison.mappedAttributes.containsKey(instAttrib)
+              && !comparison.mappedAttributes.containsValue(studAttrib)) {
             if (studAttrib.getName().contains("ies")) { // To deal with cases like companies and company
               String name = studAttrib.getName();
               name = name.replaceAll("ies", "y");
@@ -2667,8 +2682,8 @@ public class MistakeDetection {
           comparison.newMistakes.remove(m);
         }
       }
-      return Optional.of(createMistake(BAD_ASSOC_CLASS_NAME_SPELLING, studentClassAssoc.getAssociationClass(),
-          instructorClassAssoc.getAssociationClass()));
+      return Optional.of(createMistake(BAD_ASSOC_CLASS_NAME_SPELLING, List.of(studentClassAssoc, studentClassAssoc.getAssociationClass()),
+          List.of(instructorClassAssoc, instructorClassAssoc.getAssociationClass())));
     }
     return Optional.empty();
   }
@@ -2796,7 +2811,7 @@ public class MistakeDetection {
     comparison.extraStudentEnumLiterals.forEach(enuml -> {
       comparison.mappedEnumerations.forEach((key,value) -> {
         if (value.equals(enuml.getEnum())) {
-          comparison.newMistakes.add(createMistake(EXTRA_ENUM_ITEM, enuml, key));
+          comparison.newMistakes.add(createMistake(EXTRA_ENUM_ITEM, enuml, null));
         }
       });
     });
@@ -2814,7 +2829,7 @@ public class MistakeDetection {
     comparison.extraStudentAttributes.forEach(attrib ->{
       comparison.mappedClassifiers.forEach((key, value) -> {
         if (value.getAttributes().contains(attrib))
-          comparison.newMistakes.add(createMistake(EXTRA_ATTRIBUTE, attrib, key));
+          comparison.newMistakes.add(createMistake(EXTRA_ATTRIBUTE, attrib, null));
       });
     });
   }

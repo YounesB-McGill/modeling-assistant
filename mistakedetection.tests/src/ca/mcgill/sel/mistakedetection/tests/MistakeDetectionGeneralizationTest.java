@@ -226,15 +226,13 @@ public class MistakeDetectionGeneralizationTest {
 
     var instClass1 = getClassFromClassDiagram("TATAManza", instructorClassDiagram);
     var instClass2 = getClassFromClassDiagram("Car", instructorClassDiagram);
-    var studClass1 = getClassFromClassDiagram("TATAManza", studentClassDiagram);
-    var studClass2 = getClassFromClassDiagram("Car", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(3, comparison.newMistakes.size());
     assertEquals(3, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), MISSING_GENERALIZATION, List.of(studClass1, studClass2),
-        List.of(instClass1, instClass2), 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_GENERALIZATION, List.of(instClass1, instClass2),
+        0, 1, false);
   }
 
   /**
@@ -318,8 +316,6 @@ public class MistakeDetectionGeneralizationTest {
         cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_two_subClasses/Class Diagram/Two_subClasses.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instClass1 = getClassFromClassDiagram("TATAManza", instructorClassDiagram);
-    var instClass2 = getClassFromClassDiagram("Car", instructorClassDiagram);
     var studClass1 = getClassFromClassDiagram("TATAManza", studentClassDiagram);
     var studClass2 = getClassFromClassDiagram("Car", studentClassDiagram);
 
@@ -328,7 +324,7 @@ public class MistakeDetectionGeneralizationTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), EXTRA_GENERALIZATION, List.of(studClass1, studClass2),
-        List.of(instClass1, instClass2), 0, 1, false);
+        0, 1, false);
   }
 
   /**
@@ -416,7 +412,6 @@ public class MistakeDetectionGeneralizationTest {
         cdmFromFile(STUDENT_CDM_PATH + "student_five_classes/Class Diagram/Five_classes.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instClassE = getClassFromClassDiagram("E", instructorClassDiagram);
     var instClassD = getClassFromClassDiagram("D", instructorClassDiagram);
     var studClassE = getClassFromClassDiagram("E", studentClassDiagram);
     var studClassD = getClassFromClassDiagram("D", studentClassDiagram);
@@ -428,10 +423,10 @@ public class MistakeDetectionGeneralizationTest {
 
     assertEquals(7, comparison.newMistakes.size());
     assertEquals(7, studentSolution.getMistakes().size());
-    assertMistake(getMistakeForElement(studClassD, WRONG_GENERALIZATION_DIRECTION, comparison),
-        WRONG_GENERALIZATION_DIRECTION, List.of(studClassD, studClassC), List.of(instClassD, instClassC), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassC, WRONG_GENERALIZATION_DIRECTION, comparison),
+        WRONG_GENERALIZATION_DIRECTION, List.of(studClassC, studClassD), List.of(instClassD, instClassC), 0, 1, false);
     assertMistake(getMistakeForElement(studClassE, EXTRA_GENERALIZATION, comparison), EXTRA_GENERALIZATION,
-        List.of(studClassE, studClassD), List.of(instClassE, instClassD), 0, 1, false);
+        List.of(studClassE, studClassD), 0, 1, false);
 
   }
 
@@ -450,8 +445,6 @@ public class MistakeDetectionGeneralizationTest {
         STUDENT_CDM_PATH + "student_five_classes_1Missing/Class Diagram/Five_classes_1Missing.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var instClassE = getClassFromClassDiagram("E", instructorClassDiagram);
-    var instClassA = getClassFromClassDiagram("A", instructorClassDiagram);
     var studClassE = getClassFromClassDiagram("E", studentClassDiagram);
     var studClassA = getClassFromClassDiagram("A", studentClassDiagram);
 
@@ -465,7 +458,7 @@ public class MistakeDetectionGeneralizationTest {
     assertMistake(studentSolution.getMistakes().get(4), MISSING_GENERALIZATION, List.of(instClassD, instClassC),
         0, 1, false);
     assertMistake(studentSolution.getMistakes().get(5), EXTRA_GENERALIZATION, List.of(studClassE, studClassA),
-        List.of(instClassE, instClassA), 0, 1, false);
+        0, 1, false);
   }
 
   /**
@@ -533,8 +526,8 @@ public class MistakeDetectionGeneralizationTest {
     assertEquals(7, studentSolution.getMistakes().size());
     assertMistake(getMistakeForElement(studClassB, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
         List.of(studClassB, studClassE), List.of(instClassB, instClassA), 0, 1, false);
-    assertMistake(getMistakeForElement(studClassD, WRONG_GENERALIZATION_DIRECTION, comparison),
-        WRONG_GENERALIZATION_DIRECTION, List.of(studClassD, studClassC), List.of(instClassD, instClassC), 0, 1, false);
+    assertMistake(getMistakeForElement(studClassC, WRONG_GENERALIZATION_DIRECTION, comparison),
+        WRONG_GENERALIZATION_DIRECTION, List.of(studClassC, studClassD), List.of(instClassD, instClassC), 0, 1, false);
   }
 
   /**
@@ -616,12 +609,42 @@ public class MistakeDetectionGeneralizationTest {
 
     assertMistake(getMistakeForElement(studClassB, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
         List.of(studClassB, studClassE), List.of(instClassB, instClassA), 0, 1, false);
-    assertMistake(getMistakeForElement(studClassC, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
-        List.of(studClassC, studClassA), List.of(instClassC, instClassB), 0, 1, false);
+    assertMistake(comparison.newMistakes.get(9), MISSING_GENERALIZATION, List.of(instClassC, instClassB), 0, 1, false);
     assertMistake(getMistakeForElement(studClassG, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
         List.of(studClassG, studClassC), List.of(instClassG, instClassF), 0, 1, false);
     assertMistake(getMistakeForElement(studClassD, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
         List.of(studClassD, studClassF), List.of(instClassD, instClassC), 0, 1, false);
   }
 
+  @Test
+  public void testToCheckMultipleGenMistakes() {
+    var instructorClassDiagram = cdmFromFile(
+        INSTRUCTOR_CDM_PATH + "instructor_multiGenMistake/Class Diagram/multiGenMistake_inst.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram =
+        cdmFromFile(STUDENT_CDM_PATH + "student_multiGenMistake/Class Diagram/multiGenMistake_stud.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+      var instCreditCardClass = getClassFromClassDiagram("CreditCard", instructorClassDiagram);
+      var instDebitCardClass =  getClassFromClassDiagram("DebitCard", instructorClassDiagram);
+      var instReusableFinancialInstrumentClass = getClassFromClassDiagram("ReusableFinancialInstrument", instructorClassDiagram);
+
+      var studCreditCardClass = getClassFromClassDiagram("CreditCard", studentClassDiagram);
+      var studDebitCardClass =  getClassFromClassDiagram("DebitCard", studentClassDiagram);
+      var studReusableFinancialInstrumentClass = getClassFromClassDiagram("ReusableFinancialInstrument", studentClassDiagram);
+
+      var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+      assertMistake(studentMistakeFor(studCreditCardClass), NON_DIFFERENTIATED_SUBCLASS, studCreditCardClass,
+          0, 1, false);
+      assertMistake(studentMistakeFor(studDebitCardClass), NON_DIFFERENTIATED_SUBCLASS, studDebitCardClass,
+          0, 1, false);
+      assertMistake(studentMistakeFor(studReusableFinancialInstrumentClass), NON_DIFFERENTIATED_SUBCLASS, studReusableFinancialInstrumentClass,
+          0, 1, false);
+      assertMistake(comparison.newMistakes.get(3), WRONG_GENERALIZATION_DIRECTION, List.of(studReusableFinancialInstrumentClass, studCreditCardClass),
+          List.of(instCreditCardClass, instReusableFinancialInstrumentClass), 0, 1, false);
+      assertMistake(comparison.newMistakes.get(4), MISSING_GENERALIZATION, List.of(instDebitCardClass, instReusableFinancialInstrumentClass),
+          0, 1, false);
+  }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="__xU3wKF8EeyJHfa9zVABwg" name="multiGenMistake_inst" featureModel="__xVe0KF8EeyJHfa9zVABwg" impactModel="__xVe0qF8EeyJHfa9zVABwg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="__xVe0KF8EeyJHfa9zVABwg" root="__xVe0aF8EeyJHfa9zVABwg">
+    <features xmi:id="__xVe0aF8EeyJHfa9zVABwg" name="A_instGen" realizedBy="_AYFVwKF9EeyJHfa9zVABwg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="__xVe0qF8EeyJHfa9zVABwg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_AYEHoKF9EeyJHfa9zVABwg" name="A_instGen" scene="_AYFVwKF9EeyJHfa9zVABwg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/A_instGen.domain_model.cdm#_AYGj4KF9EeyJHfa9zVABwg"/>
+  </artefacts>
+  <scenes xmi:id="_AYFVwKF9EeyJHfa9zVABwg" name="multiGenMistake_inst" realizes="__xVe0aF8EeyJHfa9zVABwg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_AYFVwaF9EeyJHfa9zVABwg" value="_AYEHoKF9EeyJHfa9zVABwg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
