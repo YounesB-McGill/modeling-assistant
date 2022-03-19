@@ -636,11 +636,11 @@ public class MistakeDetectionGeneralizationTest {
 
       var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-      assertMistake(comparison.newMistakes.get(0), NON_DIFFERENTIATED_SUBCLASS, studCreditCardClass,
+      assertMistake(studentMistakeFor(studCreditCardClass), NON_DIFFERENTIATED_SUBCLASS, studCreditCardClass,
           0, 1, false);
-      assertMistake(comparison.newMistakes.get(1), NON_DIFFERENTIATED_SUBCLASS, studDebitCardClass,
+      assertMistake(studentMistakeFor(studDebitCardClass), NON_DIFFERENTIATED_SUBCLASS, studDebitCardClass,
           0, 1, false);
-      assertMistake(comparison.newMistakes.get(2), NON_DIFFERENTIATED_SUBCLASS, studReusableFinancialInstrumentClass,
+      assertMistake(studentMistakeFor(studReusableFinancialInstrumentClass), NON_DIFFERENTIATED_SUBCLASS, studReusableFinancialInstrumentClass,
           0, 1, false);
       assertMistake(comparison.newMistakes.get(3), WRONG_GENERALIZATION_DIRECTION, List.of(studReusableFinancialInstrumentClass, studCreditCardClass),
           List.of(instCreditCardClass, instReusableFinancialInstrumentClass), 0, 1, false);
