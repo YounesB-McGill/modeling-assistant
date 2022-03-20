@@ -124,7 +124,7 @@ public class MistakeTypes {
   /** The bad class name spelling mistake type. */
   public static final MistakeType BAD_CLASS_NAME_SPELLING = MTS.get("Bad class name spelling");
 
-  /** The wrong class name but correct attribute/relationship mistake type. */
+  /** The wrong class name but correct attributes/relationships mistake type. */
   public static final MistakeType WRONG_CLASS_NAME = MTS.get("Wrong class name");
 
   /** The class should be abstract mistake type. */

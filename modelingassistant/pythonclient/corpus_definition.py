@@ -81,7 +81,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     4: ParametrizedResponse(text="The ${stud_cls} class should be changed to ${inst_cls}."),
                     5: ResourceResponse(learningResources=[class_ref]),
                 })),
-                wrong_class_name := mt(n="Wrong class name", d="Wrong class name but correct attribute/relationship",
+                wrong_class_name := mt(n="Wrong class name", d="Wrong class name but correct attributes/relationships",
                                        atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this class name."),
@@ -125,7 +125,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightProblem=True),
                     2: TextResponse(text="How would you model this concept?"),
                     3: TextResponse(text="Model this concept with an enumeration."),
-                    4: ParametrizedResponse(text="Add an ${inst_enum} enumeration."),
+                    4: ParametrizedResponse(text="Add a ${inst_enum} enumeration."),
                     5: ResourceResponse(learningResources=[enum_reference]),
                 })),
                 extra_enum := mt(n="Extra enum", d="Extra enumeration", feedbacks=fbs({
@@ -144,8 +144,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 missing_enum_item := mt(n="Missing enum item", d="Missing enumeration item", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Is there anything missing here?"),
-                    3: ParametrizedResponse(text="The ${inst_enumitem.enum} enumeration is missing an item."),
-                    4: ParametrizedResponse(text="Add ${inst_enumitem} to the ${inst_enumitem.enum} enumeration."),
+                    3: ParametrizedResponse(text="The ${stud_enum} enumeration is missing an item."),
+                    4: ParametrizedResponse(text="Add ${inst_enumitem} to the ${stud_enum} enumeration."),
                     5: ResourceResponse(learningResources=[enum_reference]),
                 })),
                 extra_enum_item := mt(n="Extra enum item", d="Extra enumeration item", feedbacks=fbs({
@@ -183,8 +183,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 bad_attribute_name_spelling := mt(n="Bad attribute name spelling", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this attribute name."),
-                    3: ParametrizedResponse(text="${stud_attr.cls}.${stud_attr} is misspelled.[ Use the same spelling "
-                                                 "as the problem description.]"),
+                    3: ParametrizedResponse(text="The ${stud_attr.cls}.${stud_attr} attribute is misspelled.[ Use the "
+                                                 "same spelling as the problem description.]"),
                     4: ResourceResponse(learningResources=[attr_naming_quiz := mcq[
                         "Select all the correct attribute names from the list below.",
                            "needsReciept",

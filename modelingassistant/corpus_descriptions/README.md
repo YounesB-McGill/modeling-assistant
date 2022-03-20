@@ -4,7 +4,7 @@
       1. [Lowercase class name](#lowercase-class-name)
       1. [Software engineering term](#software-engineering-term)
       1. [Bad class name spelling](#bad-class-name-spelling)
-      1. [Wrong class name but correct attribute/relationship](#wrong-class-name-but-correct-attribute-relationship)
+      1. [Wrong class name but correct attributes/relationships](#wrong-class-name-but-correct-attributes-relationships)
       1. [Class should be abstract](#class-should-be-abstract)
       1. [Class should not be abstract](#class-should-not-be-abstract)
    1. [Enumeration mistakes](#enumeration-mistakes)
@@ -230,7 +230,7 @@ Level 5: Resource response with Reference:
 > Please review the [Classes](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
-#### Wrong class name but correct attribute/relationship
+#### Wrong class name but correct attributes/relationships
 
 Student element: Class. Instructor element: Class.
 
@@ -335,7 +335,7 @@ Level 4: Resource response with Reference:
 
 Instructor element: Enumeration.
 
-Level 1: Highlight sentence(s) in problem statement referring to item
+Level 1: Highlight sentence(s) in problem statement referring to the instructor element
 
 Level 2: Text response:
 
@@ -347,7 +347,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> Add an ${inst_enum} enumeration.
+> Add a ${inst_enum} enumeration.
 
 Level 5: Resource response with Reference:
 
@@ -404,11 +404,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${inst_enumitem.enum} enumeration is missing an item.
+> The ${stud_enum} enumeration is missing an item.
 
 Level 4: Parametrized response:
 
-> Add ${inst_enumitem} to the ${inst_enumitem.enum} enumeration.
+> Add ${inst_enumitem} to the ${stud_enum} enumeration.
 
 Level 5: Resource response with Reference:
 
@@ -457,13 +457,13 @@ Level 4: Resource response with Reference:
 
 Instructor element: Class.
 
-Level 1: Highlight sentence(s) in problem statement referring to item
+Level 1: Highlight sentence(s) in problem statement referring to the instructor element
 
 Level 2: Text response:
 
 > Make sure you have modeled all the classes in the problem description.
 
-Level 3: Highlight specific problem statement elements
+Level 3: Highlight specific problem statement elements referring to the instructor element
 
 Level 4: Parametrized response:
 
@@ -514,7 +514,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_attr.cls}.${stud_attr} is misspelled.[ Use the same spelling as the problem description.]
+> The ${stud_attr.cls}.${stud_attr} attribute is misspelled.[ Use the same spelling as the problem description.]
 
 Level 4: Resource response with List multiple-choice quiz:
 
@@ -818,7 +818,7 @@ Level 4: Resource response with Reference:
 
 Instructor element: Association.
 
-Level 1: Highlight sentence(s) in problem statement referring to item
+Level 1: Highlight sentence(s) in problem statement referring to the instructor element
 
 Level 2: Text response:
 
@@ -841,7 +841,7 @@ better understand these relationships and where they are used.
 
 Instructor elements: Aggregation, Whole association end, Part association end.
 
-Level 1: Highlight sentence(s) in problem statement referring to item
+Level 1: Highlight sentence(s) in problem statement referring to the instructor element(s)
 
 Level 2: Text response:
 
@@ -864,7 +864,7 @@ better understand these relationships and where they are used.
 
 Instructor element: Association.
 
-Level 1: Highlight sentence(s) in problem statement referring to item
+Level 1: Highlight sentence(s) in problem statement referring to the instructor element
 
 Level 2: Text response:
 
@@ -1482,7 +1482,7 @@ Level 4: Resource response with Reference:
 
 Instructor elements: Association, Class.
 
-Level 1: Highlight sentence(s) in problem statement referring to item
+Level 1: Highlight sentence(s) in problem statement referring to the instructor element(s)
 
 Level 2: Text response:
 
@@ -1603,7 +1603,7 @@ Level 4: Resource response with Reference:
 
 Instructor elements: Composition, Whole association end, Part association end.
 
-Level 1: Highlight sentence(s) in problem statement referring to item
+Level 1: Highlight sentence(s) in problem statement referring to the instructor element(s)
 
 Level 2: Text response:
 
@@ -1820,7 +1820,7 @@ better understand these relationships and where they are used.
 
 #### Missing generalization
 
-Student elements: Subclass, Superclass. Instructor elements: Subclass, Superclass.
+Instructor elements: Subclass, Superclass.
 
 Level 1: Highlight solution
 
@@ -2116,7 +2116,7 @@ Level 3: Parametrized response:
 
 > ${stud_sub_cls} has an incorrect superclass.
 
-Level 4: Highlight specific problem statement elements
+Level 4: Highlight specific problem statement elements referring to the instructor element(s)
 
 Level 5: Parametrized response:
 
@@ -2619,7 +2619,7 @@ in different contexts.
 
 Instructor elements: Abstraction class, Occurrence class.
 
-Level 1: Highlight sentence(s) in problem statement referring to item
+Level 1: Highlight sentence(s) in problem statement referring to the instructor element(s)
 
 Level 2: Text response:
 
