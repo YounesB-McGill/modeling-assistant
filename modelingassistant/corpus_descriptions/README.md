@@ -544,7 +544,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_attr.cls}.${stud_attr} incorrectly starts with an uppercase letter. Attributes should start with a lowercase letter.
+> The ${stud_attr.cls}.${stud_attr} attribute incorrectly starts with an uppercase letter. Attributes should start with a lowercase letter.
 
 Level 4: Resource response with List multiple-choice quiz:
 
@@ -576,11 +576,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${stud_attr} does not belong in the ${stud_attr.cls} class. Where else can we place it?
+> The ${stud_attr} attribute does not belong in the ${stud_attr.cls} class. Where else can we place it?
 
 Level 4: Parametrized response:
 
-> The ${stud_attr} belongs in the ${inst_attr.cls} class, i.e., a different class in the inheritance hierarchy.
+> The ${stud_attr} attribute belongs in the ${inst_attr.cls} class.
 
 Level 5: Resource response with Reference:
 
@@ -622,7 +622,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${stud_attr} belongs in ${inst_attr.cls}.
+> The ${stud_attr} belongs in the ${inst_attr.cls} class, i.e., a different class in the inheritance hierarchy.
 
 Level 4: Resource response with Reference:
 
@@ -726,7 +726,7 @@ Level 3: Parametrized response:
 
 Level 4: Parametrized response:
 
-> The ${stud_attr.cls}.${stud_attr} should be of type ${inst_attr.type}.
+> The ${stud_attr.cls}.${stud_attr} attribute should be of type ${inst_attr.type}.
 
 Level 5: Resource response with Reference:
 
@@ -764,7 +764,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_attr} should be static, because it applies to all instances of ${stud_attr.cls}.
+> ${stud_attr} should be static, because its value is the same for all instances of ${stud_attr.cls}.
 
 Level 4: Resource response with Reference:
 
@@ -783,7 +783,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_attr} should not be static, because it does not apply to all instances of ${stud_attr.cls}.
+> ${stud_attr} should not be static, because its value may be different for instances of ${stud_attr.cls}.
 
 Level 4: Resource response with Reference:
 

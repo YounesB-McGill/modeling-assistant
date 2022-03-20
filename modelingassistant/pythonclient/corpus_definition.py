@@ -200,8 +200,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: [TextResponse(text="Remember that attributes are written in `lowerCamelCase`."),
                         TextResponse(text="Can this attribute be renamed?")],
-                    3: ParametrizedResponse(text="${stud_attr.cls}.${stud_attr} incorrectly starts with an Uppercase "
-                        "Letter. Attributes should start with a lowercase letter."),
+                    3: ParametrizedResponse(text="The ${stud_attr.cls}.${stud_attr} attribute incorrectly starts with "
+                        "an Uppercase Letter. Attributes should start with a lowercase letter."),
                     4: ResourceResponse(learningResources=[attr_naming_quiz]),
                     5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
@@ -210,10 +210,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 attribute_misplaced := mt(n="Attribute misplaced", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you think of a better place for this attribute?"),
-                    3: ParametrizedResponse(text="The ${stud_attr} does not belong in the ${stud_attr.cls} class. "
-                                                 "Where else can we place it?"),
-                    4: ParametrizedResponse(text="The ${stud_attr} belongs in the ${inst_attr.cls} class, i.e., a "
-                                                 "different class in the inheritance hierarchy."),
+                    3: ParametrizedResponse(text="The ${stud_attr} attribute does not belong in the ${stud_attr.cls} "
+                                                 "class. Where else can we place it?"),
+                    4: ParametrizedResponse(text="The ${stud_attr} attribute belongs in the ${inst_attr.cls} class."),
                     5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 attribute_duplicated := mt(n="Attribute duplicated", feedbacks=fbs({
@@ -228,7 +227,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     n="Attribute misplaced in generalization hierarchy", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
                         2: TextResponse(text="Can you think of a better place for this?"),
-                        3: ParametrizedResponse(text="The ${stud_attr} belongs in ${inst_attr.cls}."),
+                        3: ParametrizedResponse(text="The ${stud_attr} belongs in the ${inst_attr.cls} class, i.e., a "
+                                                     "different class in the inheritance hierarchy."),
                         4: ResourceResponse(learningResources=[attribute_reference]),
                     })),
             ]),
@@ -273,7 +273,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(text="Double check the properties of this attribute."),
                     3: ParametrizedResponse(text="Can you think of a better type for ${stud_attr}?"),
                     4: ParametrizedResponse(
-                        text="The ${stud_attr.cls}.${stud_attr} should be of type ${inst_attr.type}."),
+                        text="The ${stud_attr.cls}.${stud_attr} attribute should be of type ${inst_attr.type}."),
                     5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 missing_attribute_type := mt(n="Missing attribute type", feedbacks=fbs({
@@ -286,15 +286,15 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 attribute_should_be_static := mt(n="Attribute should be static", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Isn't there something special about this attribute?"),
-                    3: ParametrizedResponse(text="${stud_attr} should be static, because it applies to all instances "
-                                                 "of ${stud_attr.cls}."),
+                    3: ParametrizedResponse(text="${stud_attr} should be static, because its value is the same for all "
+                                                 "instances of ${stud_attr.cls}."),
                     4: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 attribute_should_not_be_static := mt(n="Attribute should not be static", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check the properties of this attribute."),
-                    3: ParametrizedResponse(text="${stud_attr} should not be static, because it does not apply to all "
-                                                 "instances of ${stud_attr.cls}."),
+                    3: ParametrizedResponse(text="${stud_attr} should not be static, because its value may be "
+                                                 "different for instances of ${stud_attr.cls}."),
                     4: ResourceResponse(learningResources=[attribute_reference]),
                 })),
             ]),

@@ -106,7 +106,7 @@ def test_pr_attr():
     assert pr_result
     assert "${" not in pr_result
     assert pr_result.startswith(
-        f"The {attr.example.name} does not belong in the {attr.example.eContainer().name} class.")
+        f"The {attr.example.name} attribute does not belong in the {attr.example.eContainer().name} class.")
 
 
 def test_pr_cls():
