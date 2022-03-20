@@ -203,7 +203,7 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(MISSING_ASSOCIATION_NAME, mdf(List.of("assoc"), List.of("assoc"))),
       entry(MISSING_ATTRIBUTE_TYPE, mdf(List.of("attr"), List.of("attr"))),
       entry(MISSING_MULTIPLICITY, mdf(List.of("assocend"), List.of("assocend"))),
-      entry(MISSING_N_ARY_ASSOCIATION, mdf(List.of(), List.of("assoc"))),
+      entry(MISSING_N_ARY_ASSOCIATION, mdf(List.of(), List.of("assoc", "assocend*"))),
       entry(MISSING_PR_PATTERN, mdf(List.of(), List.of("player_cls", "role*"))),
       entry(SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS, mdf(List.of("sub_cls", "super_cls"), List.of())),
       entry(SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME, mdf(List.of("sub_cls", "super_cls"), List.of())),

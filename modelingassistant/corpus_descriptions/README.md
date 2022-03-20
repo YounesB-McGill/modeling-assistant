@@ -862,9 +862,9 @@ better understand these relationships and where they are used.
 
 #### Missing n-ary association
 
-Instructor element: Association.
+Instructor elements: Association, Association ends.
 
-Level 1: Highlight sentence(s) in problem statement referring to the instructor element
+Level 1: Highlight sentence(s) in problem statement referring to the instructor element(s)
 
 Level 2: Text response:
 
