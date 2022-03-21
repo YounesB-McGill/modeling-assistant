@@ -12,7 +12,6 @@ aggr.end0.cls | PassengerRole
 assoc | Person_PersonRole
 assoc.cls* | Person and PersonRole
 assoc.end0.cls | Person
-assoc.ends.length | 2
 assocend | person
 assocend* | person, persons, airlineSystem, and bookings
 assocend.cls | PersonRole

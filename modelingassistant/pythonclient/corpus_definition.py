@@ -581,8 +581,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you model this relationship in a different way?"),
-                    3: ParametrizedResponse(
-                        text="Use a ${inst_assoc.ends.length}-ary association to represent this relationship."),
+                    3: ParametrizedResponse(text="Use an n-ary association to represent the relationship between the "
+                                                 "${inst_assoc.cls*} classes."),
                     4: ResourceResponse(learningResources=[assoc_ref]),
                 })),
             using_n_ary_assoc_instead_of_intermediate_class := mt(
@@ -628,8 +628,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you model this relationship in another way?"),
                 3: TextResponse(text="Is using an association class the best way to model this?"),
-                4: ParametrizedResponse(text="Does it make sense to disallow multiple instances of the "
-                    "${stud_cls} linking ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls}?"),
+                4: ParametrizedResponse(text="Does it make sense to disallow multiple instances of ${stud_cls} with "
+                    "the same pair of ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls} instances?"),
                 5: ParametrizedResponse(text="Further details of the association between ${stud_assoc.end0.cls} and "
                     "${stud_assoc.end1.cls} should not be modeled with an association class."),
                 6: ResourceResponse(learningResources=[assoc_class_ref]),
@@ -705,7 +705,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             composed_part_contained_in_more_than_one_parent := mt(
                 n="Composed part contained in more than one parent", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Please double-check this relationship."),
+                    2: TextResponse(text="Please double-check the relationships between these classes."),  # TODO 1 cls?
                     3: TextResponse(text="Please review the model containment hierarchy."),
                     4: ParametrizedResponse(
                         text="${stud_cls*} cannot be contained in more than one class."),
@@ -729,7 +729,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 })),
             incomplete_containment_tree := mt(n="Incomplete containment tree", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
-                2: TextResponse(text="What is the relationship between these classes?"),
+                2: TextResponse(text="Please double-check the relationships of these classes."),
                 3: ParametrizedResponse(
                     text="${stud_cls*} should be contained in the containment tree.[ Use composition for this.]"),
                 4: ResourceResponse(learningResources=[containment_example]),

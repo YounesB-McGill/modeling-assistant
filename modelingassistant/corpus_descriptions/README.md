@@ -1406,7 +1406,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Use a ${inst_assoc.ends.length}-ary association to represent this relationship.
+> Use an n-ary association to represent the relationship between the ${inst_assoc.cls*} classes.
 
 Level 4: Resource response with Reference:
 
@@ -1516,7 +1516,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> Does it make sense to disallow multiple instances of the ${stud_cls} linking ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls}?
+> Does it make sense to disallow multiple instances of ${stud_cls} with the same pair of ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls} instances?
 
 Level 5: Parametrized response:
 
@@ -1734,7 +1734,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Please double-check this relationship.
+> Please double-check the relationships between these classes.
 
 Level 3: Text response:
 
@@ -1781,7 +1781,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> What is the relationship between these classes?
+> Please double-check the relationships of these classes.
 
 Level 3: Parametrized response:
 
