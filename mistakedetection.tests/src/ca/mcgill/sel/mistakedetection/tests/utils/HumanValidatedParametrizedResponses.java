@@ -93,7 +93,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_GENERALIZATION_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
-import static learningcorpus.mistaketypes.MistakeTypes.WRONG_RELATIONSHIP_DIRECTION;
+import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_SUPERCLASS;
 import java.util.Map;
@@ -209,7 +209,7 @@ public class HumanValidatedParametrizedResponses {
           "The ${stud_cls} class should be changed to ${inst_cls}.")),
       entry(WRONG_GENERALIZATION_DIRECTION, Set.of("Is ${inst_super_cls} really a ${inst_sub_cls}?[ It should be the other way around.]")),
       entry(WRONG_MULTIPLICITY, Set.of("How many ${stud_assocend.cls} instances does a ${stud_assocend.opposite.cls} have?")),
-      entry(WRONG_RELATIONSHIP_DIRECTION, Set.of("The direction of the relationship between ${stud_source_assocend.cls} and ${stud_target_assocend.cls} should be reversed.")),
+      entry(REVERSED_RELATIONSHIP_DIRECTION, Set.of("The direction of the relationship between ${stud_source_assocend.cls} and ${stud_target_assocend.cls} should be reversed.")),
       entry(WRONG_ROLE_NAME, Set.of("The ${stud_assocend} role name is not correct.",
           "The ${stud_assocend} role name should be changed to ${inst_assocend}.")),
       entry(WRONG_SUPERCLASS, Set.of("${stud_sub_cls} has an incorrect superclass.",

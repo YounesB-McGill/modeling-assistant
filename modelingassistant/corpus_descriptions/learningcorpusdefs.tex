@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus.py script.
-% Generation time: 2022-03-20 15:30:28
+% Generation time: 2022-03-20 16:25:52
 
 \textbf{Legend:}
 In the textual responses, items in \verb|${this format}| represent the parameters of
@@ -1155,7 +1155,7 @@ Please review the \textit{domain modeling lecture} to know which concepts should
 
 \subsubsection{Extra n-ary association}
 
-Student element: Association.  \medskip
+Student elements: Association, Association ends.  \medskip
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -1165,10 +1165,10 @@ Student element: Association.  \medskip
 Is this association really necessary?
 \end{tabular} \medskip
 
-\noindent Level 3: Text response: \medskip
+\noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between the highlighted classes is redundant.
+The relationship between the \verb|${stud_assoc.cls*}| classes is redundant.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1201,7 +1201,7 @@ The multiplicit(y$|$ies) for this relationship (is$|$are) incorrect.
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Does every \verb|${stud_assocend0.cls}| have exactly \verb|${stud_assocend0.lowerBound}| \verb|${stud_assocend0}|?
+Is it a good idea to specify that every \verb|${stud_assocend0.cls}| has a minimum of \verb|${stud_assocend0.lowerBound}| \verb|${stud_assocend0}|?
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with List multiple-choice quiz: \medskip
@@ -1249,7 +1249,7 @@ The multiplicity for this association end is incorrect.
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How many \verb|${stud_assocend.cls}| instances does a \verb|${stud_assocend.opposite.cls}| have?
+How many \verb|${stud_assocend.opposite.cls}| instances does a \verb|${stud_assocend.cls}| have?
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with List multiple-choice quiz: \medskip
@@ -1298,7 +1298,7 @@ The multiplicit(y$|$ies) for this association (is$|$are) missing.
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How many \verb|${stud_assocend.cls}|'s does a \verb|${stud_assocend.opposite.cls}| have?
+How many \verb|${stud_assocend.opposite.cls}| instances does a \verb|${stud_assocend.cls}| have?
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with List multiple-choice quiz: \medskip
@@ -1343,14 +1343,14 @@ Can you model this relationship more precisely?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The association between \verb|${stud_assocend.cls}| and \verb|${stud_assocend.opposite.cls}| is missing a role name.
+The relationship between \verb|${stud_assocend.cls}| and \verb|${stud_assocend.opposite.cls}| is missing a role name.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Can you think of appropriate \textit{role names}
-for this association? Role names help identify the role a class plays in a
+for this relationship? Role names help identify the role a class plays in a
 relationship and are particularly important if there is more than one relationship
 between the same two classes.
 
@@ -1375,7 +1375,7 @@ Isn't there something special about this role name?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${stud_assocend}| should be static, because it applies to all instances of the association between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}|.
+\verb|${stud_assocend}| should be static, because its value is the same for all instances of the relationship between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1400,7 +1400,7 @@ Is there something special about this role name?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${stud_assocend}| should not be static, because it does not apply to all instances of the association between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}|.
+\verb|${stud_assocend}| should not be static, because its value may be different for the instances of the relationship between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1488,7 +1488,7 @@ The \verb|${stud_assocend}| role name should be changed to \verb|${inst_assocend
 
 \begin{tabular}{|p{0.9\linewidth}}
 Can you think of appropriate \textit{role names}
-for this association? Role names help identify the role a class plays in a
+for this relationship? Role names help identify the role a class plays in a
 relationship and are particularly important if there is more than one relationship
 between the same two classes.
 
@@ -1616,7 +1616,7 @@ Please review the _Directionality in Associations_ section of the \textit{UML Cl
 \end{tabular} \medskip
 
 
-\subsubsection{Wrong relationship direction}
+\subsubsection{Reversed relationship direction}
 
 Student elements: Aggregation composition or association, Target association end, Source association end. Instructor elements: Aggregation composition or association, Target association end, Source association end. \medskip
 
@@ -1686,7 +1686,7 @@ Can you model this relationship more precisely?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Use a \verb|${inst_assoc.ends.length}|-ary association to represent this relationship.
+Use an n-ary association to represent the relationship between the \verb|${inst_assoc.cls*}| classes.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1708,10 +1708,10 @@ Student elements: Association, Association ends. Instructor elements: Associatio
 Can you model this relationship more precisely?
 \end{tabular} \medskip
 
-\noindent Level 3: Text response: \medskip
+\noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Use a binary association to represent this relationship.
+Use a binary association to represent the relationship between the \verb|${inst_assoc.cls*}| classes.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip

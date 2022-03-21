@@ -256,8 +256,8 @@ public class MistakeTypes {
   public static final MistakeType USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED =
       MTS.get("Using undirected relationship instead of directed");
 
-  /** The wrong relationship direction mistake type. */
-  public static final MistakeType WRONG_RELATIONSHIP_DIRECTION = MTS.get("Wrong relationship direction");
+  /** The reversed relationship direction mistake type. */
+  public static final MistakeType REVERSED_RELATIONSHIP_DIRECTION = MTS.get("Reversed relationship direction");
 
   /** The using composition instead of aggregation mistake type. */
   public static final MistakeType USING_COMPOSITION_INSTEAD_OF_AGGREGATION =

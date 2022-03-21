@@ -100,7 +100,7 @@ USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED: MistakeType = \
     _MTS["Using directed relationship instead of undirected"]
 USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED: MistakeType = \
     _MTS["Using undirected relationship instead of directed"]
-WRONG_RELATIONSHIP_DIRECTION: MistakeType = _MTS["Wrong relationship direction"]
+REVERSED_RELATIONSHIP_DIRECTION: MistakeType = _MTS["Reversed relationship direction"]
 USING_COMPOSITION_INSTEAD_OF_AGGREGATION: MistakeType = _MTS["Using composition instead of aggregation"]
 USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC: MistakeType = _MTS["Using binary assoc instead of n-ary assoc"]
 USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC: MistakeType = _MTS["Using n-ary assoc instead of binary assoc"]

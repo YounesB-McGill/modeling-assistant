@@ -380,7 +380,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             extra_n_ary_association := mt(n="Extra n-ary association", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this association really necessary?"),
-                3: TextResponse(text="The relationship between the highlighted classes is redundant."),
+                3: ParametrizedResponse(text="The relationship between the ${stud_assoc.cls*} classes is redundant."),
                 4: ResourceResponse(learningResources=[generic_extra_item_ref]),
             })),
         ]),
@@ -389,8 +389,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check this relationship."),
                 3: TextResponse(text="The multiplicit(y|ies) for this relationship (is|are) incorrect."),
-                4: ParametrizedResponse(text="Does every ${stud_assocend0.cls} have exactly "
-                                             "${stud_assocend0.lowerBound} ${stud_assocend0}?"),
+                4: ParametrizedResponse(text="Is it a good idea to specify that every ${stud_assocend0.cls} has a "
+                                             "minimum of ${stud_assocend0.lowerBound} ${stud_assocend0}?"),
                 5: ResourceResponse(learningResources=[mcq[
                     dedent("""\
                         Given the following class diagram modeled in Umple, select the correct answer(s).
@@ -411,7 +411,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 2: TextResponse(text="Double check this association."),
                 3: TextResponse(text="The multiplicity for this association end is incorrect."),
                 4: ParametrizedResponse(
-                    text="How many ${stud_assocend.cls} instances does a ${stud_assocend.opposite.cls} have?"),
+                    text="How many ${stud_assocend.opposite.cls} instances does a ${stud_assocend.cls} have?"),
                 5: ResourceResponse(learningResources=[multiplicities_quiz := mcq[
                     "Pick the association(s) with correct multiplicities:",
                        "1 EmployeeRole -- 1 Person;",
@@ -429,7 +429,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 2: TextResponse(text="Double check this association."),
                 3: TextResponse(text="The multiplicit(y|ies) for this association (is|are) missing."),
                 4: ParametrizedResponse(
-                    text="How many ${stud_assocend.cls}'s does a ${stud_assocend.opposite.cls} have?"),
+                    text="How many ${stud_assocend.opposite.cls} instances does a ${stud_assocend.cls} have?"),
                 5: ResourceResponse(learningResources=[multiplicities_quiz]),
                 6: ResourceResponse(learningResources=[mult_ref]),
             })),
@@ -438,11 +438,11 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_role_name := mt(n="Missing role name", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you model this relationship more precisely?"),
-                3: ParametrizedResponse(text="The association between ${stud_assocend.cls} and "
+                3: ParametrizedResponse(text="The relationship between ${stud_assocend.cls} and "
                     "${stud_assocend.opposite.cls} is missing a role name."),
                 4: ResourceResponse(learningResources=[role_name_ref := Reference(content=dedent("""\
                     Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
-                    for this association? Role names help identify the role a class plays in a
+                    for this relationship? Role names help identify the role a class plays in a
                     relationship and are particularly important if there is more than one relationship
                     between the same two classes.
 
@@ -452,16 +452,17 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             role_should_be_static := mt(n="Role should be static", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Isn't there something special about this role name?"),
-                3: ParametrizedResponse(text="${stud_assocend} should be static, because it applies to all instances "
-                    "of the association between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}."),
+                3: ParametrizedResponse(text="${stud_assocend} should be static, because its value is the same for all "
+                    "instances of the relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}."),
                 4: ResourceResponse(learningResources=[assoc_ref := Reference(content="Please review the "
                     "[Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
             })),
             role_should_not_be_static := mt(n="Role should not be static", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is there something special about this role name?"),
-                3: ParametrizedResponse(text="${stud_assocend} should not be static, because it does not apply to all "
-                    "instances of the association between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}."),
+                3: ParametrizedResponse(
+                    text="${stud_assocend} should not be static, because its value may be different for the instances "
+                         "of the relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}."),
                 4: ResourceResponse(learningResources=[assoc_ref]),
             })),
             bad_role_name_spelling := mt(n="Bad role name spelling", feedbacks=fbs({
@@ -539,7 +540,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                              "should be directed[ from ${inst_source_assocend.cls} to ${inst_target_assocend.cls}]."),
                     4: ResourceResponse(learningResources=[dir_rel_ref]),
                 })),
-            wrong_relationship_direction := mt(n="Wrong relationship direction", feedbacks=fbs({
+            reversed_relationship_direction := mt(n="Reversed relationship direction", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check the direction for this relationship."),
                 3: ParametrizedResponse(text="The direction of the relationship between ${stud_source_assocend.cls} "
@@ -560,8 +561,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you model this relationship more precisely?"),
-                    3: ParametrizedResponse(
-                        text="Use a ${inst_assoc.ends.length}-ary association to represent this relationship."),
+                    3: ParametrizedResponse(text="Use an n-ary association to represent the relationship between the "
+                                                 "${inst_assoc.cls*} classes."),
                     4: ResourceResponse(learningResources=[assoc_ref]),
                 })),
             using_n_ary_assoc_instead_of_binary_assoc := mt(
@@ -570,7 +571,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you model this relationship more precisely?"),
-                    3: TextResponse(text="Use a binary association to represent this relationship."),
+                    3: ParametrizedResponse(text="Use a binary association to represent the relationship between the "
+                                                 "${inst_assoc.cls*} classes."),
                     4: ResourceResponse(learningResources=[assoc_ref]),
                 })),
             using_intermediate_class_instead_of_n_ary_assoc := mt(
@@ -1125,7 +1127,7 @@ mts_by_priority: list[MistakeType] = [
     using_aggregation_instead_of_assoc,
     using_directed_relationship_instead_of_undirected,
     using_undirected_relationship_instead_of_directed,
-    wrong_relationship_direction,
+    reversed_relationship_direction,
     using_aggregation_instead_of_composition,
     using_composition_instead_of_aggregation,
     using_binary_assoc_instead_of_n_ary_assoc,
@@ -1235,7 +1237,7 @@ extra_composition.md_format = mdf(["compos", "whole_assocend", "part_assocend"],
 extra_enum.md_format = mdf(["enum"], [])
 extra_enum_item.md_format = mdf(["enumitem"], [])
 extra_generalization.md_format = mdf(["sub_cls", "super_cls"], [])
-extra_n_ary_association.md_format = mdf(["assoc"], [])
+extra_n_ary_association.md_format = mdf(["assoc", "assocend*"], [])
 full_pr_pattern_should_be_assoc.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_assocend*"])
 full_pr_pattern_should_be_enum.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_attr"])
 full_pr_pattern_should_be_subclass.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_cls*"])
@@ -1306,7 +1308,7 @@ wrong_attribute_type.md_format = mdf(["attr"], ["attr"])
 wrong_class_name.md_format = mdf(["cls"], ["cls"])
 wrong_generalization_direction.md_format = mdf(["super_cls", "sub_cls"], ["sub_cls", "super_cls"])
 wrong_multiplicity.md_format = mdf(["assocend"], ["assocend"])
-wrong_relationship_direction.md_format = mdf(
+reversed_relationship_direction.md_format = mdf(
     ["aggr_compos_or_assoc", "target_assocend", "source_assocend"],
     ["aggr_compos_or_assoc", "target_assocend", "source_assocend"])
 wrong_role_name.md_format = mdf(["assocend"], ["assocend"])

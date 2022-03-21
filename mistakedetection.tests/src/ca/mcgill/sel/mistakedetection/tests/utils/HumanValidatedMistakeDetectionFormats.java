@@ -97,7 +97,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_GENERALIZATION_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
-import static learningcorpus.mistaketypes.MistakeTypes.WRONG_RELATIONSHIP_DIRECTION;
+import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_SUPERCLASS;
 import java.util.List;
@@ -186,7 +186,7 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(WRONG_CLASS_NAME, mdf(List.of("cls"), List.of("cls"))),
       entry(WRONG_GENERALIZATION_DIRECTION, mdf(List.of("super_cls", "sub_cls"), List.of("sub_cls", "super_cls"))),
       entry(WRONG_MULTIPLICITY, mdf(List.of("assocend"), List.of("assocend"))),
-      entry(WRONG_RELATIONSHIP_DIRECTION, mdf(List.of("aggr_compos_or_assoc", "target_assocend", "source_assocend"), List.of("aggr_compos_or_assoc", "target_assocend", "source_assocend"))),
+      entry(REVERSED_RELATIONSHIP_DIRECTION, mdf(List.of("aggr_compos_or_assoc", "target_assocend", "source_assocend"), List.of("aggr_compos_or_assoc", "target_assocend", "source_assocend"))),
       entry(WRONG_ROLE_NAME, mdf(List.of("assocend"), List.of("assocend"))),
       entry(WRONG_SUPERCLASS, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls"))),
 
@@ -196,7 +196,7 @@ public class HumanValidatedMistakeDetectionFormats {
       // Future work: mistake detection not implemented for these mistake types
       // TODO complete student/instructor descriptions
       entry(BAD_ASSOCIATION_NAME_SPELLING, mdf(List.of("assoc"), List.of("assoc"))),
-      entry(EXTRA_N_ARY_ASSOCIATION, mdf(List.of("assoc"), List.of())),
+      entry(EXTRA_N_ARY_ASSOCIATION, mdf(List.of("assoc", "assocend*"), List.of())),
       entry(GENERALIZATION_INAPPLICABLE, mdf(List.of("sub_cls", "super_cls"), List.of())),
       entry(INCOMPLETE_PR_PATTERN, mdf(List.of("player_cls", "role*"), List.of("player_cls", "role*"))),
       entry(INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS, mdf(List.of("attr", "sub_cls", "super_cls"), List.of())),

@@ -64,7 +64,7 @@
       1. [Using composition instead of association](#using-composition-instead-of-association)
       1. [Using directed relationship instead of undirected relationship](#using-directed-relationship-instead-of-undirected-relationship)
       1. [Using undirected relationship instead of directed relationship](#using-undirected-relationship-instead-of-directed-relationship)
-      1. [Wrong relationship direction](#wrong-relationship-direction)
+      1. [Reversed relationship direction](#reversed-relationship-direction)
       1. [Using composition instead of aggregation](#using-composition-instead-of-aggregation)
       1. [Using binary association instead of n-ary association](#using-binary-association-instead-of-n-ary-association)
       1. [Using n-ary association instead of binary association](#using-n-ary-association-instead-of-binary-association)
@@ -969,7 +969,7 @@ Level 4: Resource response with Reference:
 
 #### Extra n-ary association
 
-Student element: Association. 
+Student elements: Association, Association ends. 
 
 Level 1: Highlight solution
 
@@ -977,9 +977,9 @@ Level 2: Text response:
 
 > Is this association really necessary?
 
-Level 3: Text response:
+Level 3: Parametrized response:
 
-> The relationship between the highlighted classes is redundant.
+> The relationship between the ${stud_assoc.cls*} classes is redundant.
 
 Level 4: Resource response with Reference:
 
@@ -1004,7 +1004,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> Does every ${stud_assocend0.cls} have exactly ${stud_assocend0.lowerBound} ${stud_assocend0}?
+> Is it a good idea to specify that every ${stud_assocend0.cls} has a minimum of ${stud_assocend0.lowerBound} ${stud_assocend0}?
 
 Level 5: Resource response with List multiple-choice quiz:
 
@@ -1038,7 +1038,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> How many ${stud_assocend.cls} instances does a ${stud_assocend.opposite.cls} have?
+> How many ${stud_assocend.opposite.cls} instances does a ${stud_assocend.cls} have?
 
 Level 5: Resource response with List multiple-choice quiz:
 
@@ -1073,7 +1073,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> How many ${stud_assocend.cls}'s does a ${stud_assocend.opposite.cls} have?
+> How many ${stud_assocend.opposite.cls} instances does a ${stud_assocend.cls} have?
 
 Level 5: Resource response with List multiple-choice quiz:
 
@@ -1106,12 +1106,12 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The association between ${stud_assocend.cls} and ${stud_assocend.opposite.cls} is missing a role name.
+> The relationship between ${stud_assocend.cls} and ${stud_assocend.opposite.cls} is missing a role name.
 
 Level 4: Resource response with Reference:
 
 > Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
-for this association? Role names help identify the role a class plays in a
+for this relationship? Role names help identify the role a class plays in a
 relationship and are particularly important if there is more than one relationship
 between the same two classes.
 
@@ -1131,7 +1131,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_assocend} should be static, because it applies to all instances of the association between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}.
+> ${stud_assocend} should be static, because its value is the same for all instances of the relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}.
 
 Level 4: Resource response with Reference:
 
@@ -1150,7 +1150,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_assocend} should not be static, because it does not apply to all instances of the association between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}.
+> ${stud_assocend} should not be static, because its value may be different for the instances of the relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}.
 
 Level 4: Resource response with Reference:
 
@@ -1216,7 +1216,7 @@ Level 4: Parametrized response:
 Level 5: Resource response with Reference:
 
 > Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
-for this association? Role names help identify the role a class plays in a
+for this relationship? Role names help identify the role a class plays in a
 relationship and are particularly important if there is more than one relationship
 between the same two classes.
 
@@ -1314,7 +1314,7 @@ Level 4: Resource response with Reference:
 > Please review the _Directionality in Associations_ section of the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/)
 
 
-#### Wrong relationship direction
+#### Reversed relationship direction
 
 Student elements: Aggregation composition or association, Target association end, Source association end. Instructor elements: Aggregation composition or association, Target association end, Source association end.
 
@@ -1368,7 +1368,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Use a ${inst_assoc.ends.length}-ary association to represent this relationship.
+> Use an n-ary association to represent the relationship between the ${inst_assoc.cls*} classes.
 
 Level 4: Resource response with Reference:
 
@@ -1385,9 +1385,9 @@ Level 2: Text response:
 
 > Can you model this relationship more precisely?
 
-Level 3: Text response:
+Level 3: Parametrized response:
 
-> Use a binary association to represent this relationship.
+> Use a binary association to represent the relationship between the ${inst_assoc.cls*} classes.
 
 Level 4: Resource response with Reference:
 
