@@ -12,7 +12,7 @@ from corpus_definition import (corpus as corpus_def, mts_by_priority as mts_by_p
     assoc_should_be_subclass_pr_pattern, extra_enum_item, subclass_should_be_full_pr_pattern,
     non_differentiated_subclass, extra_class, enum_should_be_assoc_pr_pattern, bad_assoc_class_name_spelling,
     bad_enum_name_spelling, missing_enum_item, lowercase_class_name, full_pr_pattern_should_be_subclass,
-    class_should_be_assoc_class, wrong_superclass, wrong_generalization_direction, missing_assoc_class,
+    class_should_be_assoc_class, wrong_superclass, reversed_generalization_direction, missing_assoc_class,
     plural_class_name, subclass_should_be_assoc_pr_pattern, assoc_should_be_enum_pr_pattern,
     generalization_should_be_assoc_ao_pattern, missing_class, enum_should_be_class, incomplete_ao_pattern,
     composed_part_contained_in_more_than_one_parent, extra_generalization, attribute_should_not_be_static,
@@ -49,7 +49,7 @@ class_ = LearningItem(name="Class", learningCorpus=corpus, mistakeTypes=[
     assoc_should_be_subclass_pr_pattern, extra_enum_item, subclass_should_be_full_pr_pattern,
     non_differentiated_subclass, extra_class, enum_should_be_assoc_pr_pattern, bad_assoc_class_name_spelling,
     bad_enum_name_spelling, missing_enum_item, lowercase_class_name, full_pr_pattern_should_be_subclass,
-    class_should_be_assoc_class, wrong_superclass, wrong_generalization_direction, missing_assoc_class,
+    class_should_be_assoc_class, wrong_superclass, reversed_generalization_direction, missing_assoc_class,
     plural_class_name, subclass_should_be_assoc_pr_pattern, assoc_should_be_enum_pr_pattern,
     generalization_should_be_assoc_ao_pattern, missing_class, enum_should_be_class, incomplete_ao_pattern,
     composed_part_contained_in_more_than_one_parent, extra_generalization])

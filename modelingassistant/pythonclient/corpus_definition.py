@@ -739,12 +739,12 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         ]),
         generalization_mistakes := mtc(n="Generalization mistakes", mistakeTypes=[
             missing_generalization := mt(n="Missing generalization", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
+                1: Feedback(highlightProblem=True),
                 2: TextResponse(text="What is the relationship between these classes?"),
                 3: ParametrizedResponse(text="A ${inst_sub_cls} is a ${inst_super_cls}. How should we model this?"),
                 4: ResourceResponse(learningResources=[inherit_hierarchy_quiz := fitb(
                     # First parameter is the prompt (learning resource main content)
-                    "Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, "
+                    "Place the following classes in an inheritance hierarchy: Vehicle, Wheel, LuxuryBus, "
                     "Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.",
                     # Remaining parameters are the statements with blanks in {curly braces}
                     "SportsCar isA {Car}",
@@ -796,7 +796,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you find a better way to model this concept?"),
                 3: ParametrizedResponse(text="Is it possible for an instance of ${stud_sub_cls} to turn into an "
-                    "instance of another subclass over its lifetime?"),
+                    "instance of another subclass of ${stud_super_cls} over its lifetime?"),
                 4: ResourceResponse(learningResources=[distinct_subclass_quiz := mcq[
                     "Which classes are not subclasses of Account?",
                        "SavingsAccount",
@@ -834,7 +834,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 4: ResourceResponse(learningResources=[inherit_checks_quiz]),
                 5: ResourceResponse(learningResources=[gen_ref]),
             })),
-            wrong_generalization_direction := mt(n="Wrong generalization direction", feedbacks=fbs({
+            reversed_generalization_direction := mt(n="Reversed generalization direction", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you double check this relationship?"),
                 3: ParametrizedResponse(
@@ -858,12 +858,12 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     design_pattern_mistakes := mtc(n="Design pattern mistakes", subcategories=[
         player_role_pattern_mistakes := mtc(n="Player-Role Pattern mistakes", mistakeTypes=[
             missing_pr_pattern := mt(n="Missing PR pattern", d="Missing Player-Role pattern", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
+                1: Feedback(highlightProblem=True),
                 2: TextResponse(text="Think carefully about how to model the relationships between these concepts."),
                 3: TextResponse(text="Use the Player-Role pattern to model the relationships between these concepts."),
                 4: ParametrizedResponse(
-                    text="The concepts of ${inst_player_cls} and ${inst_role*} and the relationship between them "
-                         "should be modeled with one of the forms of the Player-Role pattern."),
+                    text="The concepts of ${inst_player_cls} and its roles ${inst_role*} and the relationship between "
+                         "them should be modeled with one of the forms of the Player-Role pattern."),
                 # the spacing below is intentional, for the output to be properly aligned
                 5: ResourceResponse(learningResources=[pr_quiz := Quiz(content=dedent(f"""\
                     Complete the following table:
@@ -889,8 +889,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     3: TextResponse(
                         text="Use the Player-Role pattern to model the relationships between these concepts."),
                     4: ParametrizedResponse(
-                        text="The concepts of ${inst_player_cls}, ${inst_role*} and the relationship between them "
-                             "should be modeled with one of the forms of the Player-Role pattern."),
+                        text="The concepts of ${inst_player_cls} and its roles ${inst_role*} and the relationship "
+                             "between them should be modeled with one of the forms of the Player-Role pattern."),
                     5: ResourceResponse(learningResources=[pr_quiz]),
                     6: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -901,8 +901,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="[Nice try, but ]${stud_role_cls*} can also play the role of "
-                                                 "one of the other subclasses."),
+                    3: ParametrizedResponse(
+                        text="An instance of ${stud_player_cls} can play more than one role out of ${stud_role*}."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -1134,7 +1134,7 @@ mts_by_priority: list[MistakeType] = [
     using_n_ary_assoc_instead_of_binary_assoc,
     using_n_ary_assoc_instead_of_intermediate_class,
     using_intermediate_class_instead_of_n_ary_assoc,
-    wrong_generalization_direction,
+    reversed_generalization_direction,
     wrong_superclass,
     subclass_is_an_instance_of_superclass,
     non_differentiated_subclass,
@@ -1251,7 +1251,6 @@ inherited_feature_does_not_make_sense_for_subclass.md_format = mdf(["attr", "sub
 list_attribute.md_format = mdf(["attr"], ["attr"])
 lowercase_class_name.md_format = mdf(["cls"], ["cls"])
 missing_ao_pattern.md_format = mdf([], ["abs_cls", "occ_cls"])
-missing_pr_pattern.md_format = mdf([], ["player_cls", "role*"])
 missing_aggregation.md_format = mdf([], ["aggr", "whole_assocend", "part_assocend"])
 missing_assoc_class.md_format = mdf([], ["assoc", "cls"])
 missing_association.md_format = mdf([], ["assoc"])
@@ -1265,11 +1264,16 @@ missing_enum_item.md_format = mdf(["enum"], ["enumitem"])
 missing_generalization.md_format = mdf([], ["sub_cls", "super_cls"])
 missing_multiplicity.md_format = mdf(["assocend"], ["assocend"])
 missing_n_ary_association.md_format = mdf([], ["assoc", "assocend*"])
+missing_pr_pattern.md_format = mdf([], ["player_cls", "role*"])
 missing_role_name.md_format = mdf(["assocend"], ["assocend"])
 non_differentiated_subclass.md_format = mdf(["cls"], [])
 plural_attribute.md_format = mdf(["attr"], ["attr"])
 plural_class_name.md_format = mdf(["cls"], ["cls"])
 representing_action_with_assoc.md_format = mdf(["assocend"], ["assocend"])
+reversed_generalization_direction.md_format = mdf(["super_cls", "sub_cls"], ["sub_cls", "super_cls"])
+reversed_relationship_direction.md_format = mdf(
+    ["aggr_compos_or_assoc", "target_assocend", "source_assocend"],
+    ["aggr_compos_or_assoc", "target_assocend", "source_assocend"])
 role_should_be_static.md_format = mdf(["assocend"], ["assocend"])
 role_should_not_be_static.md_format = mdf(["assocend"], ["assocend"])
 software_engineering_term.md_format = mdf(["cls"], ["cls"])
@@ -1306,10 +1310,6 @@ using_undirected_relationship_instead_of_directed.md_format = mdf(
     ["aggr_compos_or_assoc", "target_assocend", "source_assocend"])
 wrong_attribute_type.md_format = mdf(["attr"], ["attr"])
 wrong_class_name.md_format = mdf(["cls"], ["cls"])
-wrong_generalization_direction.md_format = mdf(["super_cls", "sub_cls"], ["sub_cls", "super_cls"])
 wrong_multiplicity.md_format = mdf(["assocend"], ["assocend"])
-reversed_relationship_direction.md_format = mdf(
-    ["aggr_compos_or_assoc", "target_assocend", "source_assocend"],
-    ["aggr_compos_or_assoc", "target_assocend", "source_assocend"])
 wrong_role_name.md_format = mdf(["assocend"], ["assocend"])
 wrong_superclass.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])

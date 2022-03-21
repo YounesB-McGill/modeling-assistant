@@ -80,7 +80,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSH
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.WRONG_GENERALIZATION_DIRECTION;
+import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_GENERALIZATION_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
@@ -359,7 +359,7 @@ public class MistakeDetection {
 
       studClassSuperClasses = getAllSuperClasses(studMappedSuperClass);
       if (studClassSuperClasses.contains(studClass)) {
-        comparison.newMistakes.add(createMistake(WRONG_GENERALIZATION_DIRECTION,
+        comparison.newMistakes.add(createMistake(REVERSED_GENERALIZATION_DIRECTION,
             List.of(studMappedSuperClass, studClass), List.of(instClass, instSuperClass)));
         comparison.studentGeneralizationClassifiers.remove(studClass);
       } else {

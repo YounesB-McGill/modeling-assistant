@@ -132,6 +132,22 @@ def test_mistake_type_formats():
                 assert "sub_cls" in lst, f'{name} has "super_cls" but no "sub_cls"'
 
 
+def test_no_bad_highlighting():
+    """
+    Verify that a the student solution is highlighted only if there are student elements. 
+    """
+    for mt in corpus.mistakeTypes():
+        mdf: MistakeDetectionFormat = mt.md_format
+        if not mdf.inst:
+            for fb in mt.feedbacks:
+                assert not fb.highlightProblem, f"""Cannot highlight problem statement for {mt.name
+                                                 } without instructor elements"""
+        if not mdf.stud:
+            for fb in mt.feedbacks:
+                assert not fb.highlightSolution, f"Cannot highlight solution for {mt.name} without student elements"
+
+
+
 def print_mistake_type_stats():
     "Print mistake type statistics to console."
     # pylint: disable=expression-not-assigned

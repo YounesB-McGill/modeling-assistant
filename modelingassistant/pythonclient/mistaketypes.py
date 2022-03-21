@@ -128,7 +128,7 @@ INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS: MistakeType = \
     _MTS["Inherited feature does not make sense for subclass"]
 SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS: MistakeType = _MTS["Subclass is an instance of superclass"]
 NON_DIFFERENTIATED_SUBCLASS: MistakeType = _MTS["Non-differentiated subclass"]
-WRONG_GENERALIZATION_DIRECTION: MistakeType = _MTS["Wrong generalization direction"]
+REVERSED_GENERALIZATION_DIRECTION: MistakeType = _MTS["Reversed generalization direction"]
 WRONG_SUPERCLASS: MistakeType = _MTS["Wrong superclass"]
 MISSING_PR_PATTERN: MistakeType = _MTS["Missing PR pattern"]
 INCOMPLETE_PR_PATTERN: MistakeType = _MTS["Incomplete PR pattern"]

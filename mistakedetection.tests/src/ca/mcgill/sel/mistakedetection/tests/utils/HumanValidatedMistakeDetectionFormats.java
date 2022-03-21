@@ -95,7 +95,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.WRONG_GENERALIZATION_DIRECTION;
+import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_GENERALIZATION_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
 import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
@@ -184,7 +184,7 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED, mdf(List.of("aggr_compos_or_assoc", "assocend", "other_assocend"), List.of("aggr_compos_or_assoc", "target_assocend", "source_assocend"))),
       entry(WRONG_ATTRIBUTE_TYPE, mdf(List.of("attr"), List.of("attr"))),
       entry(WRONG_CLASS_NAME, mdf(List.of("cls"), List.of("cls"))),
-      entry(WRONG_GENERALIZATION_DIRECTION, mdf(List.of("super_cls", "sub_cls"), List.of("sub_cls", "super_cls"))),
+      entry(REVERSED_GENERALIZATION_DIRECTION, mdf(List.of("super_cls", "sub_cls"), List.of("sub_cls", "super_cls"))),
       entry(WRONG_MULTIPLICITY, mdf(List.of("assocend"), List.of("assocend"))),
       entry(REVERSED_RELATIONSHIP_DIRECTION, mdf(List.of("aggr_compos_or_assoc", "target_assocend", "source_assocend"), List.of("aggr_compos_or_assoc", "target_assocend", "source_assocend"))),
       entry(WRONG_ROLE_NAME, mdf(List.of("assocend"), List.of("assocend"))),

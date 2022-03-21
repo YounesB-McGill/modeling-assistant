@@ -77,7 +77,7 @@ public class SourceTargetVerifier extends MistakeDetectionInformationService {
             sb.append(", ");
           }
         }
-        if (!mdf.stud.isEmpty()) {
+        if (!mdf.stud.isEmpty() && ! mdf.inst.isEmpty()) {
           sb.append(". ");
         }
         for (int i = 0; i < mdf.inst.size(); i++) {
@@ -112,14 +112,14 @@ public class SourceTargetVerifier extends MistakeDetectionInformationService {
     var ae = (AssociationEnd) elem.getElement();
     var refType = ae.getReferenceType();
     if (format.contains("target") && !ae.isNavigable()) {
-      return warn("\nThe directed association end " + ae.getName() + specAs + "target but is not navigable!\n");
+      return "\n" + warn("The directed association end " + ae.getName() + specAs + "target but is not navigable!\n");
     } else if (format.contains("source") && ae.isNavigable()) {
-      return warn("\nThe directed association end " + ae.getName() + specAs + "source but is navigable!\n");
+      return "\n" + warn("The directed association end " + ae.getName() + specAs + "source but is navigable!\n");
     } else if (format.contains("whole") && refType == REGULAR) {
-      return warn("\nThe aggregation/composition end " + ae.getName() + specAs + "whole but has a regular "
+      return "\n" + warn("The aggregation/composition end " + ae.getName() + specAs + "whole but has a regular "
           + "reference type!\n");
     } else if (format.contains("part") && List.of(AGGREGATION, COMPOSITION).contains(refType)) {
-      return warn("\nThe association end " + ae.getName() + specAs + "part but has a " + refType.getName()
+      return "\n" + warn("The association end " + ae.getName() + specAs + "part but has a " + refType.getName()
           + " reference type!\n");
     }
     return "";

@@ -347,8 +347,8 @@ public class MistakeTypes {
   /** The non-differentiated subclass mistake type. */
   public static final MistakeType NON_DIFFERENTIATED_SUBCLASS = MTS.get("Non-differentiated subclass");
 
-  /** The wrong generalization direction mistake type. */
-  public static final MistakeType WRONG_GENERALIZATION_DIRECTION = MTS.get("Wrong generalization direction");
+  /** The reversed generalization direction mistake type. */
+  public static final MistakeType REVERSED_GENERALIZATION_DIRECTION = MTS.get("Reversed generalization direction");
 
   /** The wrong superclass mistake type. */
   public static final MistakeType WRONG_SUPERCLASS = MTS.get("Wrong superclass");

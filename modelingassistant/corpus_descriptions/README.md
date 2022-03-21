@@ -95,7 +95,7 @@
       1. [Inherited feature does not make sense for subclass](#inherited-feature-does-not-make-sense-for-subclass)
       1. [Subclass is an instance of superclass](#subclass-is-an-instance-of-superclass)
       1. [Non-differentiated subclass](#non-differentiated-subclass)
-      1. [Wrong generalization direction](#wrong-generalization-direction)
+      1. [Reversed generalization direction](#reversed-generalization-direction)
       1. [Wrong superclass](#wrong-superclass)
 
 1. [Design pattern mistakes](#design-pattern-mistakes)
@@ -1822,7 +1822,7 @@ better understand these relationships and where they are used.
 
 Instructor elements: Subclass, Superclass.
 
-Level 1: Highlight solution
+Level 1: Highlight sentence(s) in problem statement referring to the instructor element(s)
 
 Level 2: Text response:
 
@@ -1834,7 +1834,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
-Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
+Place the following classes in an inheritance hierarchy: Vehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 * SportsCar isA <ins>Car</ins>
 * <ins>Wheel</ins> isA VehiclePart
@@ -1863,7 +1863,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
-Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
+Place the following classes in an inheritance hierarchy: Vehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 * SportsCar isA <ins>Car</ins>
 * <ins>Wheel</ins> isA VehiclePart
@@ -1905,7 +1905,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
-Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
+Place the following classes in an inheritance hierarchy: Vehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 * SportsCar isA <ins>Car</ins>
 * <ins>Wheel</ins> isA VehiclePart
@@ -1943,7 +1943,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Is it possible for an instance of ${stud_sub_cls} to turn into an instance of another subclass over its lifetime?
+> Is it possible for an instance of ${stud_sub_cls} to turn into an instance of another subclass of ${stud_super_cls} over its lifetime?
 
 Level 4: Resource response with List multiple-choice quiz:
 
@@ -2060,7 +2060,7 @@ Level 5: Resource response with Reference:
 > Please review the [Generalization](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.
 
 
-#### Wrong generalization direction
+#### Reversed generalization direction
 
 Student elements: Superclass, Subclass. Instructor elements: Subclass, Superclass.
 
@@ -2076,7 +2076,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
-Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
+Place the following classes in an inheritance hierarchy: Vehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 * SportsCar isA <ins>Car</ins>
 * <ins>Wheel</ins> isA VehiclePart
@@ -2124,7 +2124,7 @@ Level 5: Parametrized response:
 
 Level 6: Resource response with Fill-in-the-blanks quiz:
 
-Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
+Place the following classes in an inheritance hierarchy: Vehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 * SportsCar isA <ins>Car</ins>
 * <ins>Wheel</ins> isA VehiclePart
@@ -2147,7 +2147,7 @@ Level 7: Resource response with Reference:
 
 Instructor elements: Player class, Roles.
 
-Level 1: Highlight solution
+Level 1: Highlight sentence(s) in problem statement referring to the instructor element(s)
 
 Level 2: Text response:
 
@@ -2159,7 +2159,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> The concepts of ${inst_player_cls} and ${inst_role*} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
+> The concepts of ${inst_player_cls} and its roles ${inst_role*} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
 
 Level 5: Resource response with Quiz:
 
@@ -2196,7 +2196,7 @@ Level 3: Text response:
 
 Level 4: Parametrized response:
 
-> The concepts of ${inst_player_cls}, ${inst_role*} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
+> The concepts of ${inst_player_cls} and its roles ${inst_role*} and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
 
 Level 5: Resource response with Quiz:
 
@@ -2229,7 +2229,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> [Nice try, but ]${stud_role_cls*} can also play the role of one of the other subclasses.
+> An instance of ${stud_player_cls} can play more than one role out of ${stud_role*}.
 
 Level 4: Resource response with Quiz:
 
