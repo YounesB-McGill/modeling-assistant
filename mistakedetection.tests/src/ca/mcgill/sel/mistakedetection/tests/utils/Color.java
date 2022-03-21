@@ -54,6 +54,11 @@ public enum Color {
     return "" + color + item + Color.ENDC;
   }
 
+  /** Returns the given item.toString() in orange and preceded with "Warning: " if USE_COLOR_OUTPUT is true. */
+  public static <T> String warn(T item) {
+    return colorString(Color.ORANGE, "Warning: " + item);
+  }
+
   /** Returns the given item.toString() in a random color if USE_COLOR_OUTPUT is true. */
   public static <T> String randomColorString(T item) {
     var maxPossibleColorIndex = Color.values().length - 1; // do not use Color.ENDC as a possible color

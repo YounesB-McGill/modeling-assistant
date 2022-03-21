@@ -1,11 +1,17 @@
 package ca.mcgill.sel.mistakedetection.tests.utils.infoservice;
-
+import static ca.mcgill.sel.classdiagram.ReferenceType.AGGREGATION;
+import static ca.mcgill.sel.classdiagram.ReferenceType.COMPOSITION;
+import static ca.mcgill.sel.classdiagram.ReferenceType.REGULAR;
+import static ca.mcgill.sel.mistakedetection.tests.utils.Color.warn;
 import static ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeInfos.mapToMistakeInfos;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
+import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
 import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.ElementDescription;
+import modelingassistant.SolutionElement;
 
 /**
  * Helps verify that the source, target, whole, and part classes and association ends are properly defined in the
@@ -63,13 +69,22 @@ public class SourceTargetVerifier extends MistakeDetectionInformationService {
         var studElems = mi.mistake.getStudentElements();
         var instElems = mi.mistake.getInstructorElements();
         for (int i = 0; i < mdf.stud.size(); i++) {
-          sb.append(mdf.stud.get(i) + ": " + ElementDescription.fromElement(studElems.get(i)));
+          var format = mdf.stud.get(i);
+          var elem = studElems.get(i);
+          sb.append(format + ": " + ElementDescription.fromElement(elem))
+              .append(validateFormatMatchesElement(format, elem));
           if (i < mdf.stud.size() - 1) {
             sb.append(", ");
           }
         }
+        if (!mdf.stud.isEmpty()) {
+          sb.append(". ");
+        }
         for (int i = 0; i < mdf.inst.size(); i++) {
-          sb.append(mdf.inst.get(i) + ": " + ElementDescription.fromElement(instElems.get(i)));
+          var format = mdf.inst.get(i);
+          var elem = instElems.get(i);
+          sb.append(format + ": " + ElementDescription.fromElement(elem))
+              .append(validateFormatMatchesElement(format, elem));
           if (i < mdf.inst.size() - 1) {
             sb.append(", ");
           }
@@ -83,6 +98,31 @@ public class SourceTargetVerifier extends MistakeDetectionInformationService {
 
   public static SourceTargetVerifier get() {
     return new SourceTargetVerifier();
+  }
+
+  /**
+   * Validates that the given mistake detection format string is consistent with the given solution element.
+   * If not, a non-empty string warning will be returned to the caller.
+   */
+  private static String validateFormatMatchesElement(String format, SolutionElement elem) {
+    final var specAs = " is specified as a "; // to save space below
+    if (!(elem.getElement() instanceof AssociationEnd)) {
+      return "";
+    }
+    var ae = (AssociationEnd) elem.getElement();
+    var refType = ae.getReferenceType();
+    if (format.contains("target") && !ae.isNavigable()) {
+      return warn("\nThe directed association end " + ae.getName() + specAs + "target but is not navigable!\n");
+    } else if (format.contains("source") && ae.isNavigable()) {
+      return warn("\nThe directed association end " + ae.getName() + specAs + "source but is navigable!\n");
+    } else if (format.contains("whole") && refType == REGULAR) {
+      return warn("\nThe aggregation/composition end " + ae.getName() + specAs + "whole but has a regular "
+          + "reference type!\n");
+    } else if (format.contains("part") && List.of(AGGREGATION, COMPOSITION).contains(refType)) {
+      return warn("\nThe association end " + ae.getName() + specAs + "part but has a " + refType.getName()
+          + " reference type!\n");
+    }
+    return "";
   }
 
 }

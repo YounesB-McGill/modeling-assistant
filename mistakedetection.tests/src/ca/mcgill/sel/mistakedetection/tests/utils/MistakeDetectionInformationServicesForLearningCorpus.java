@@ -1,6 +1,5 @@
 package ca.mcgill.sel.mistakedetection.tests.utils;
 
-import static ca.mcgill.sel.mistakedetection.tests.utils.Color.colorString;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
 import java.io.PrintWriter;
 import java.util.stream.Collectors;
@@ -16,6 +15,7 @@ import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToLearningC
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeDetectionFormats;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeDetectionFormatsForPython;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeInfos;
+import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionFormatComparison;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionInformationService;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.SourceTargetVerifier;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.SuggestedParametrizedResponses;
@@ -97,7 +97,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
 
   /** Prints non-fatal warning to console in orange. */
   public static <T> T warn(T t) {
-    System.out.println(colorString(Color.ORANGE, "Warning: " + t));
+    System.out.println(Color.warn(t));
     return t;
   }
 
