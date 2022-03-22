@@ -135,6 +135,9 @@ class MistakeDetectionFormat(NamedTuple):
     stud: list[str]
     inst: list[str]
 
+    def __repr__(self) -> str:
+        return f"({self.stud}, {self.inst})"
+
 
 def mdf(student_elems_descriptions: list[str], instructor_elems_descriptions: list[str]) -> MistakeDetectionFormat:
     "Shorthand for MistakeDetectionFormat initializer."

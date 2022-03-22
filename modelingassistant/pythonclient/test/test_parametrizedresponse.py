@@ -45,11 +45,22 @@ def test_prs_correctly_specified():
       Python's `getattr` is used to get the attribute.
     - `*` indicates a sequence of items. Only one sequence is allowed in each MistakeDetectionFormat list.
 
-    programmatic attributes:
-    cls: classifier when invoked on an AssociationEnd
+    Programmatic attributes are a cdm metamodel property or a shorthand for it defined in parametrizedresponse.py.
     """
+    # assert syntactic correctness
     for param, mt_ in get_pr_parameters_for_mistake_types_with_md_formats().items():
         assert param_valid(param, mt_)
+    # assert parameters in parametrized response text are actually contained in the mistake type's detection format
+    for mt_ in corpus.mistakeTypes():
+        if not hasattr(mt_, "md_format"):
+            continue
+        for pr in mt_.parametrized_responses():
+            for param in extract_params(pr.text):
+                for person in ("stud", "inst"):
+                    if param.startswith(pers_ := f"{person}_"):
+                        assert (re.sub(r"\d+", "*", param.removeprefix(pers_).split(".")[0])
+                                in getattr(mt_.md_format, person)
+                        ), f"Param {param} for {mt_.name} does not match MDF: {mt_.md_format}"
 
 
 def test_pr_aggr():

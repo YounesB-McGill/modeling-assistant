@@ -2229,7 +2229,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> An instance of ${stud_player_cls} can play more than one role out of ${stud_role*}.
+> An instance of ${stud_player_cls} can play more than one role out of ${stud_role_cls*}.
 
 Level 4: Resource response with Quiz:
 
@@ -2262,7 +2262,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> An instance of ${stud_player_cls} can play more than one role out of ${stud_role*} and different features do not need to be captured for the roles.
+> An instance of ${stud_player_cls} can play more than one role out of ${inst_role_assocend*} and different features do not need to be captured for the roles.
 
 Level 4: Resource response with Quiz:
 
@@ -2295,7 +2295,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> An instance of ${stud_player_cls} does not need to play more than one role out of ${stud_role*} at the same time and different features do not need to be captured for the roles.
+> An instance of ${stud_player_cls} does not need to play more than one role out of ${stud_role_cls*} at the same time and different features do not need to be captured for the roles.
 
 Level 4: Resource response with Quiz:
 
@@ -2328,7 +2328,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The roles ${stud_role*} have different features that need to be modeled.
+> The roles ${stud_role_assocend*} have different features that need to be modeled.
 
 Level 4: Resource response with Quiz:
 
@@ -2361,7 +2361,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The roles ${stud_role*} have different features that need to be modeled, but an instance of ${stud_player_cls} does not change its role over its lifetime.
+> The roles ${stud_role_assocend*} have different features that need to be modeled, but an instance of ${stud_player_cls} does not change its role over its lifetime.
 
 Level 4: Resource response with Quiz:
 
@@ -2394,7 +2394,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Will the roles ${stud_role*} ever be played by an instance of ${stud_player_cls} at the same time?
+> Will the roles ${stud_role_assocend*} ever be played by an instance of ${stud_player_cls} at the same time?
 
 Level 4: Resource response with Quiz:
 
@@ -2427,7 +2427,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> A ${stud_role_assocend} can also play the role of one of the other roles at the same time and different features need to be captured for the roles.
+> A ${stud_role_enumitem0} can also play the role of one of the other roles at the same time and different features need to be captured for the roles.
 
 Level 4: Resource response with Quiz:
 
@@ -2460,7 +2460,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> A ${stud_role_assocend0} has different features from one of the other roles and this role never changes to another role.
+> A ${stud_role_enumitem0} has different features from one of the other roles and this role never changes to another role.
 
 Level 4: Resource response with Quiz:
 
@@ -2493,7 +2493,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Will the roles of ${stud_role_assocend*} ever be occupied at the same time?
+> Will the roles of ${stud_role_enumitem*} ever be occupied at the same time?
 
 Level 4: Resource response with Quiz:
 
@@ -2592,7 +2592,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Do the roles ${stud_role_cls*} need to have different features and is it possible that more than one role is played at the same time?
+> Do the roles ${stud_role_cls*} need to have different features and is it possible that more than one role is played by an instance of ${stud_player_cls} at the same time?
 
 Level 4: Resource response with Quiz:
 

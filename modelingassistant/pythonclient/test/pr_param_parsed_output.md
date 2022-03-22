@@ -28,5 +28,7 @@ compos.end0.cls | AirlineSystem
 enum | SeatType
 enum.literals.length | 3
 enumitem | FirstClass
+enumitem* | FirstClass, Business, and Economy
 enumitem.enum | SeatType
+enumitem0 | FirstClass
 role* | PersonRole and AirlineSystem
