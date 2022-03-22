@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus.py script.
-% Generation time: 2022-03-21 02:50:22
+% Generation time: 2022-03-21 20:21:48
 
 \textbf{Legend:}
 In the textual responses, items in \verb|${this format}| represent the parameters of
@@ -2908,7 +2908,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-[Nice try, but ]\verb|${stud_role_cls*}| can also play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
+An instance of \verb|${stud_player_cls}| can play more than one role out of \verb|${stud_role*}| and different features do not need to be captured for the roles.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -2954,7 +2954,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-[Nice try, but ]\verb|${stud_role_cls*}| do not need to play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
+An instance of \verb|${stud_player_cls}| does not need to play more than one role out of \verb|${stud_role*}| at the same time and different features do not need to be captured for the roles.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3000,7 +3000,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-A \verb|${stud_role_assocend0}| has different features from a \verb|${stud_role_assocend1}|.
+The roles \verb|${stud_role*}| have different features that need to be modeled.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3046,7 +3046,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-A \verb|${stud_role_assocend0}| has different features from a \verb|${stud_role_assocend1}| and does not change its role over its lifetime.
+The roles \verb|${stud_role*}| have different features that need to be modeled, but an instance of \verb|${stud_player_cls}| does not change its role over its lifetime.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3092,7 +3092,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Will the roles of \verb|${stud_role_assocend*}| ever be occupied at the same time?
+Will the roles \verb|${stud_role*}| ever be played by an instance of \verb|${stud_player_cls}| at the same time?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3276,7 +3276,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can a \verb|${stud_role_assocend0}| also play the role of one of the other roles at different times or at the same time?
+an instance of \verb|${stud_player_cls}| play more than one role out of \verb|${stud_role_cls*}| at different times or at the same time?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3322,7 +3322,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Do \verb|${stud_role_assocend*}| need to have different features?
+Do the roles \verb|${stud_role_cls*}| need to have different features?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3368,7 +3368,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Do \verb|${stud_role_assocend*}| need to have different features and is it possible that more than one role is played at the same time?
+Do the roles \verb|${stud_role_cls*}| need to have different features and is it possible that more than one role is played at the same time?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip

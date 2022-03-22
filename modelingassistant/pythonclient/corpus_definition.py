@@ -913,9 +913,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(
-                        text="[Nice try, but ]${stud_role_cls*} can also play the role of one of the other "
-                             "subclasses and different features do not need to be captured for the subclasses."),
+                    3: ParametrizedResponse(text="An instance of ${stud_player_cls} can play more than one role out of "
+                        "${stud_role*} and different features do not need to be captured for the roles."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -926,9 +925,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="[Nice try, but ]${stud_role_cls*} do not need to play the "
-                                                 "role of one of the other subclasses and different features "
-                                                 "do not need to be captured for the subclasses."),
+                    3: ParametrizedResponse(text="An instance of ${stud_player_cls} does not need to play more than "
+                                                 "one role out of ${stud_role*} at the same time and different "
+                                                 "features do not need to be captured for the roles."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -940,7 +939,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
                     3: ParametrizedResponse(
-                        text="A ${stud_role_assocend0} has different features from a ${stud_role_assocend1}."),
+                        text="The roles ${stud_role*} have different features that need to be modeled."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -951,8 +950,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="A ${stud_role_assocend0} has different features from a "
-                        "${stud_role_assocend1} and does not change its role over its lifetime."),
+                    3: ParametrizedResponse(text="The roles ${stud_role*} have different features that need to be "
+                        "modeled, but an instance of ${stud_player_cls} does not change its role over its lifetime."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -963,8 +962,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(
-                        text="Will the roles of ${stud_role_assocend*} ever be occupied at the same time?"),
+                    3: ParametrizedResponse(text="Will the roles ${stud_role*} ever be played by an instance of "
+                                                 "${stud_player_cls} at the same time?"),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -1012,8 +1011,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="Can a ${stud_role_assocend0} also play the role of one of the "
-                                                 "other roles at different times or at the same time?"),
+                    3: ParametrizedResponse(text="an instance of ${stud_player_cls} play more than one role out of "
+                                                 "${stud_role_cls*} at different times or at the same time?"),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -1024,7 +1023,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="Do ${stud_role_assocend*} need to have different features?"),
+                    3: ParametrizedResponse(text="Do the roles ${stud_role_cls*} need to have different features?"),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -1036,7 +1035,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
                     3: ParametrizedResponse(
-                        text="Do ${stud_role_assocend*} need to have different features and is it "
+                        text="Do the roles ${stud_role_cls*} need to have different features and is it "
                              "possible that more than one role is played at the same time?"),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
