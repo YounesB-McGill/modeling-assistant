@@ -597,7 +597,6 @@ public class MistakeDetectionGeneralizationTest {
 
     var instClassC = getClassFromClassDiagram("C", instructorClassDiagram);
     var studClassC = getClassFromClassDiagram("C", studentClassDiagram);
-    var studClassA = getClassFromClassDiagram("A", studentClassDiagram);
 
     var instClassG = getClassFromClassDiagram("G", instructorClassDiagram);
     var instClassF = getClassFromClassDiagram("F", instructorClassDiagram);

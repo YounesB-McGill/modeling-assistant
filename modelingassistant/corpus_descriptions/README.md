@@ -1316,7 +1316,7 @@ Level 4: Resource response with Reference:
 
 #### Reversed relationship direction
 
-Student elements: Aggregation composition or association, Target association end, Source association end. Instructor elements: Aggregation composition or association, Target association end, Source association end.
+Student elements: Aggregation composition or association, Whole or target association end, Part or source association end. Instructor elements: Aggregation composition or association, Whole or target association end, Part or source association end.
 
 Level 1: Highlight solution
 
@@ -1326,7 +1326,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The direction of the relationship between ${stud_source_assocend.cls} and ${stud_target_assocend.cls} should be reversed.
+> The direction of the relationship between ${stud_part_or_source_assocend.cls} and ${stud_whole_or_target_assocend.cls} should be reversed.
 
 Level 4: Resource response with Reference:
 

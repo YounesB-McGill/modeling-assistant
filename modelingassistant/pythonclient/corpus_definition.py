@@ -543,8 +543,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             reversed_relationship_direction := mt(n="Reversed relationship direction", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check the direction for this relationship."),
-                3: ParametrizedResponse(text="The direction of the relationship between ${stud_source_assocend.cls} "
-                                             "and ${stud_target_assocend.cls} should be reversed."),
+                3: ParametrizedResponse(
+                    text="The direction of the relationship between ${stud_part_or_source_assocend.cls} and "
+                         "${stud_whole_or_target_assocend.cls} should be reversed."),
                 4: ResourceResponse(learningResources=[dir_rel_ref]),
             })),
             using_composition_instead_of_aggregation := mt(
@@ -1272,8 +1273,8 @@ plural_class_name.md_format = mdf(["cls"], ["cls"])
 representing_action_with_assoc.md_format = mdf(["assocend"], ["assocend"])
 reversed_generalization_direction.md_format = mdf(["super_cls", "sub_cls"], ["sub_cls", "super_cls"])
 reversed_relationship_direction.md_format = mdf(
-    ["aggr_compos_or_assoc", "target_assocend", "source_assocend"],
-    ["aggr_compos_or_assoc", "target_assocend", "source_assocend"])
+    ["aggr_compos_or_assoc", "whole_or_target_assocend", "part_or_source_assocend"],
+    ["aggr_compos_or_assoc", "whole_or_target_assocend", "part_or_source_assocend"])
 role_should_be_static.md_format = mdf(["assocend"], ["assocend"])
 role_should_not_be_static.md_format = mdf(["assocend"], ["assocend"])
 software_engineering_term.md_format = mdf(["cls"], ["cls"])

@@ -111,14 +111,17 @@ public class SourceTargetVerifier extends MistakeDetectionInformationService {
     }
     var ae = (AssociationEnd) elem.getElement();
     var refType = ae.getReferenceType();
-    if (format.contains("target") && !ae.isNavigable()) {
+    if ((format.contains("whole") && format.contains("target"))
+        || (format.contains("part") && format.contains("source"))) {
+      return ""; // special case
+    } else if (format.contains("target") && !ae.isNavigable()) {
       return "\n" + warn("The directed association end " + ae.getName() + specAs + "target but is not navigable!\n");
     } else if (format.contains("source") && ae.isNavigable()) {
       return "\n" + warn("The directed association end " + ae.getName() + specAs + "source but is navigable!\n");
-    } else if (format.contains("whole") && refType == REGULAR) {
+    } else if (format.contains("whole") && List.of(AGGREGATION, COMPOSITION).contains(refType)) {
       return "\n" + warn("The aggregation/composition end " + ae.getName() + specAs + "whole but has a regular "
           + "reference type!\n");
-    } else if (format.contains("part") && List.of(AGGREGATION, COMPOSITION).contains(refType)) {
+    } else if (format.contains("part") && refType == REGULAR) {
       return "\n" + warn("The association end " + ae.getName() + specAs + "part but has a " + refType.getName()
           + " reference type!\n");
     }
