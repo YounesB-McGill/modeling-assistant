@@ -33,7 +33,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
-import static learningcorpus.mistaketypes.MistakeTypes.WRONG_RELATIONSHIP_DIRECTION;
+import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
@@ -188,7 +188,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(0), WRONG_RELATIONSHIP_DIRECTION,
+    assertMistake(studentSolution.getMistakes().get(0), REVERSED_RELATIONSHIP_DIRECTION,
         getAssociationElements(studentMyEngineAssociationEnd), getAssociationElements(instructorMyEngineAssociationEnd),
         0, 1, false);
   }

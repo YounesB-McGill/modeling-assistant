@@ -2,14 +2,12 @@
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_v3hq0JQFEeycmON2NEShcg" name="Wrong_relationship_direction">
   <classes xsi:type="classdiagram:Class" xmi:id="_wNodsJQFEeycmON2NEShcg" name="Root">
     <associationEnds xmi:id="_1F8QcZQFEeycmON2NEShcg" name="myCar" assoc="_1F8QcpQFEeycmON2NEShcg" lowerBound="1" referenceType="Composition"/>
-    <associationEnds xmi:id="_1qoR4ZQFEeycmON2NEShcg" name="myEngine" assoc="_1qoR4pQFEeycmON2NEShcg" lowerBound="1" referenceType="Composition"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_xUAP4JQFEeycmON2NEShcg" name="Car">
     <associationEnds xmi:id="_1F8QcJQFEeycmON2NEShcg" name="myRoot" assoc="_1F8QcpQFEeycmON2NEShcg" lowerBound="1"/>
     <associationEnds xmi:id="_3ZPv0JQFEeycmON2NEShcg" name="myEngine" assoc="_3ZPv0pQFEeycmON2NEShcg" lowerBound="1"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_ywMhEJQFEeycmON2NEShcg" name="Engine">
-    <associationEnds xmi:id="_1qoR4JQFEeycmON2NEShcg" name="myRoot" assoc="_1qoR4pQFEeycmON2NEShcg" lowerBound="1"/>
     <associationEnds xmi:id="_3ZPv0ZQFEeycmON2NEShcg" name="myCar" assoc="_3ZPv0pQFEeycmON2NEShcg" lowerBound="1" referenceType="Composition"/>
   </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_v3hq0ZQFEeycmON2NEShcg"/>
@@ -23,18 +21,17 @@
   <types xsi:type="classdiagram:CDFloat" xmi:id="_v3hq2ZQFEeycmON2NEShcg"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_v3hq2pQFEeycmON2NEShcg"/>
   <associations xmi:id="_1F8QcpQFEeycmON2NEShcg" name="Car_Root" ends="_1F8QcJQFEeycmON2NEShcg _1F8QcZQFEeycmON2NEShcg"/>
-  <associations xmi:id="_1qoR4pQFEeycmON2NEShcg" name="Engine_Root" ends="_1qoR4JQFEeycmON2NEShcg _1qoR4ZQFEeycmON2NEShcg"/>
   <associations xmi:id="_3ZPv0pQFEeycmON2NEShcg" name="Car_Engine" ends="_3ZPv0JQFEeycmON2NEShcg _3ZPv0ZQFEeycmON2NEShcg"/>
   <layout xmi:id="_v3hq25QFEeycmON2NEShcg">
     <containers xmi:id="_v3hq3JQFEeycmON2NEShcg" key="_v3hq0JQFEeycmON2NEShcg">
       <value xmi:id="_wOh1kJQFEeycmON2NEShcg" key="_wNodsJQFEeycmON2NEShcg">
-        <value xmi:id="_wOh1kZQFEeycmON2NEShcg" x="806.9999" y="234.99997"/>
+        <value xmi:id="_wOh1kZQFEeycmON2NEShcg" x="762.9549" y="370.0"/>
       </value>
       <value xmi:id="_xUA28JQFEeycmON2NEShcg" key="_xUAP4JQFEeycmON2NEShcg">
         <value xmi:id="_xUA28ZQFEeycmON2NEShcg" x="762.97235" y="570.9999"/>
       </value>
       <value xmi:id="_ywMhEZQFEeycmON2NEShcg" key="_ywMhEJQFEeycmON2NEShcg">
-        <value xmi:id="_ywMhEpQFEeycmON2NEShcg" x="1315.0" y="458.99994"/>
+        <value xmi:id="_ywMhEpQFEeycmON2NEShcg" x="762.9646" y="839.0003"/>
       </value>
     </containers>
   </layout>

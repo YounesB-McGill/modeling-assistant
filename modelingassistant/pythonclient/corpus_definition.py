@@ -81,7 +81,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     4: ParametrizedResponse(text="The ${stud_cls} class should be changed to ${inst_cls}."),
                     5: ResourceResponse(learningResources=[class_ref]),
                 })),
-                wrong_class_name := mt(n="Wrong class name", d="Wrong class name but correct attribute/relationship",
+                wrong_class_name := mt(n="Wrong class name", d="Wrong class name but correct attributes/relationships",
                                        atomic=True, feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this class name."),
@@ -125,7 +125,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightProblem=True),
                     2: TextResponse(text="How would you model this concept?"),
                     3: TextResponse(text="Model this concept with an enumeration."),
-                    4: ParametrizedResponse(text="Add an ${inst_enum} enumeration."),
+                    4: ParametrizedResponse(text="Add a ${inst_enum} enumeration."),
                     5: ResourceResponse(learningResources=[enum_reference]),
                 })),
                 extra_enum := mt(n="Extra enum", d="Extra enumeration", feedbacks=fbs({
@@ -144,8 +144,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 missing_enum_item := mt(n="Missing enum item", d="Missing enumeration item", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Is there anything missing here?"),
-                    3: ParametrizedResponse(text="The ${inst_enumitem.enum} enumeration is missing an item."),
-                    4: ParametrizedResponse(text="Add ${inst_enumitem} to the ${inst_enumitem.enum} enumeration."),
+                    3: ParametrizedResponse(text="The ${stud_enum} enumeration is missing an item."),
+                    4: ParametrizedResponse(text="Add ${inst_enumitem} to the ${stud_enum} enumeration."),
                     5: ResourceResponse(learningResources=[enum_reference]),
                 })),
                 extra_enum_item := mt(n="Extra enum item", d="Extra enumeration item", feedbacks=fbs({
@@ -183,8 +183,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 bad_attribute_name_spelling := mt(n="Bad attribute name spelling", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check this attribute name."),
-                    3: ParametrizedResponse(text="${stud_attr.cls}.${stud_attr} is misspelled.[ Use the same spelling "
-                                                 "as the problem description.]"),
+                    3: ParametrizedResponse(text="The ${stud_attr.cls}.${stud_attr} attribute is misspelled.[ Use the "
+                                                 "same spelling as the problem description.]"),
                     4: ResourceResponse(learningResources=[attr_naming_quiz := mcq[
                         "Select all the correct attribute names from the list below.",
                            "needsReciept",
@@ -200,8 +200,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: [TextResponse(text="Remember that attributes are written in `lowerCamelCase`."),
                         TextResponse(text="Can this attribute be renamed?")],
-                    3: ParametrizedResponse(text="${stud_attr.cls}.${stud_attr} incorrectly starts with an Uppercase "
-                        "Letter. Attributes should start with a lowercase letter."),
+                    3: ParametrizedResponse(text="The ${stud_attr.cls}.${stud_attr} attribute incorrectly starts with "
+                        "an Uppercase Letter. Attributes should start with a lowercase letter."),
                     4: ResourceResponse(learningResources=[attr_naming_quiz]),
                     5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
@@ -210,25 +210,24 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 attribute_misplaced := mt(n="Attribute misplaced", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you think of a better place for this attribute?"),
-                    3: ParametrizedResponse(text="The ${stud_attr} does not belong in the ${stud_attr.cls} class. "
-                                                 "Where else can we place it?"),
-                    4: ParametrizedResponse(text="The ${stud_attr} belongs in the ${inst_attr.cls} class, i.e., a "
-                                                 "different class in the inheritance hierarchy."),
+                    3: ParametrizedResponse(text="The ${stud_attr} attribute does not belong in the ${stud_attr.cls} "
+                                                 "class. Where else can we place it?"),
+                    4: ParametrizedResponse(text="The ${stud_attr} attribute belongs in the ${inst_attr.cls} class."),
                     5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 attribute_duplicated := mt(n="Attribute duplicated", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Are you sure this is needed?"),
                     3: TextResponse(text="Does this need to be included more than once?"),
-                    4: ParametrizedResponse(text="The ${stud_attr} already exists in another class, so there is no "
-                                                 "need to include it again."),
+                    4: ParametrizedResponse(text="The ${stud_attr} already exists in the same class or another class "
+                        "in the generalization hierarchy, so there is no need to include it again."),
                     5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 attribute_misplaced_in_generalization_hierarchy := mt(
                     n="Attribute misplaced in generalization hierarchy", feedbacks=fbs({
                         1: Feedback(highlightSolution=True),
                         2: TextResponse(text="Can you think of a better place for this?"),
-                        3: ParametrizedResponse(text="The ${stud_attr} belongs in ${inst_attr.cls}."),
+                        3: ParametrizedResponse(text="The ${stud_attr} belongs in the ${inst_attr.cls} class, i.e., a "
+                                                     "different class in the inheritance hierarchy."),
                         4: ResourceResponse(learningResources=[attribute_reference]),
                     })),
             ]),
@@ -273,7 +272,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(text="Double check the properties of this attribute."),
                     3: ParametrizedResponse(text="Can you think of a better type for ${stud_attr}?"),
                     4: ParametrizedResponse(
-                        text="The ${stud_attr.cls}.${stud_attr} should be of type ${inst_attr.type}."),
+                        text="The ${stud_attr.cls}.${stud_attr} attribute should be of type ${inst_attr.type}."),
                     5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 missing_attribute_type := mt(n="Missing attribute type", feedbacks=fbs({
@@ -286,15 +285,15 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 attribute_should_be_static := mt(n="Attribute should be static", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Isn't there something special about this attribute?"),
-                    3: ParametrizedResponse(text="${stud_attr} should be static, because it applies to all instances "
-                                                 "of ${stud_attr.cls}."),
+                    3: ParametrizedResponse(text="${stud_attr} should be static, because its value is the same for all "
+                                                 "instances of ${stud_attr.cls}."),
                     4: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 attribute_should_not_be_static := mt(n="Attribute should not be static", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Double check the properties of this attribute."),
-                    3: ParametrizedResponse(text="${stud_attr} should not be static, because it does not apply to all "
-                                                 "instances of ${stud_attr.cls}."),
+                    3: ParametrizedResponse(text="${stud_attr} should not be static, because its value may be "
+                                                 "different for instances of ${stud_attr.cls}."),
                     4: ResourceResponse(learningResources=[attribute_reference]),
                 })),
             ]),
@@ -319,9 +318,11 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_aggregation := mt(n="Missing aggregation", feedbacks=fbs({
                 1: Feedback(highlightProblem=True),
                 2: TextResponse(text="How should this relationship be modeled?"),
-                3: ParametrizedResponse(
-                    text="How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?"),
-                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                3: ParametrizedResponse(text="How would you capture that a ${inst_whole_assocend.refcls} has a "
+                                             "${inst_part_assocend.refcls}?"),
+                4: ParametrizedResponse(text="Use aggregation to model the relationship between "
+                                             "${inst_part_assocend.cls} and ${inst_whole_assocend.cls}."),
+                5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
             missing_n_ary_association := mt(n="Missing n-ary association", feedbacks=fbs({
                 1: Feedback(highlightProblem=True),
@@ -380,7 +381,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             extra_n_ary_association := mt(n="Extra n-ary association", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is this association really necessary?"),
-                3: TextResponse(text="The relationship between the highlighted classes is redundant."),
+                3: ParametrizedResponse(text="The relationship between the ${stud_assoc.cls*} classes is redundant."),
                 4: ResourceResponse(learningResources=[generic_extra_item_ref]),
             })),
         ]),
@@ -389,8 +390,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check this relationship."),
                 3: TextResponse(text="The multiplicit(y|ies) for this relationship (is|are) incorrect."),
-                4: ParametrizedResponse(text="Does every ${stud_assocend0.cls} have exactly "
-                                             "${stud_assocend0.lowerBound} ${stud_assocend0}?"),
+                4: ParametrizedResponse(text="Is it a good idea to specify that every ${stud_assocend0.cls} has a "
+                                             "minimum of ${stud_assocend0.lowerBound} ${stud_assocend0}?"),
                 5: ResourceResponse(learningResources=[mcq[
                     dedent("""\
                         Given the following class diagram modeled in Umple, select the correct answer(s).
@@ -411,7 +412,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 2: TextResponse(text="Double check this association."),
                 3: TextResponse(text="The multiplicity for this association end is incorrect."),
                 4: ParametrizedResponse(
-                    text="How many ${stud_assocend.cls} instances does a ${stud_assocend.opposite.cls} have?"),
+                    text="How many ${stud_assocend.opposite.cls} instances does a ${stud_assocend.cls} have?"),
                 5: ResourceResponse(learningResources=[multiplicities_quiz := mcq[
                     "Pick the association(s) with correct multiplicities:",
                        "1 EmployeeRole -- 1 Person;",
@@ -429,7 +430,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 2: TextResponse(text="Double check this association."),
                 3: TextResponse(text="The multiplicit(y|ies) for this association (is|are) missing."),
                 4: ParametrizedResponse(
-                    text="How many ${stud_assocend.cls}'s does a ${stud_assocend.opposite.cls} have?"),
+                    text="How many ${stud_assocend.opposite.cls} instances does a ${stud_assocend.cls} have?"),
                 5: ResourceResponse(learningResources=[multiplicities_quiz]),
                 6: ResourceResponse(learningResources=[mult_ref]),
             })),
@@ -438,11 +439,11 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_role_name := mt(n="Missing role name", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you model this relationship more precisely?"),
-                3: ParametrizedResponse(text="The association between ${stud_assocend.cls} and "
+                3: ParametrizedResponse(text="The relationship between ${stud_assocend.cls} and "
                     "${stud_assocend.opposite.cls} is missing a role name."),
                 4: ResourceResponse(learningResources=[role_name_ref := Reference(content=dedent("""\
                     Can you think of appropriate [role names](https://mycourses2.mcgill.ca/)
-                    for this association? Role names help identify the role a class plays in a
+                    for this relationship? Role names help identify the role a class plays in a
                     relationship and are particularly important if there is more than one relationship
                     between the same two classes.
 
@@ -452,16 +453,17 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             role_should_be_static := mt(n="Role should be static", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Isn't there something special about this role name?"),
-                3: ParametrizedResponse(text="${stud_assocend} should be static, because it applies to all instances "
-                    "of the association between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}."),
+                3: ParametrizedResponse(text="${stud_assocend} should be static, because its value is the same for all "
+                    "instances of the relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}."),
                 4: ResourceResponse(learningResources=[assoc_ref := Reference(content="Please review the "
                     "[Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
             })),
             role_should_not_be_static := mt(n="Role should not be static", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Is there something special about this role name?"),
-                3: ParametrizedResponse(text="${stud_assocend} should not be static, because it does not apply to all "
-                    "instances of the association between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}."),
+                3: ParametrizedResponse(
+                    text="${stud_assocend} should not be static, because its value may be different for the instances "
+                         "of the relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}."),
                 4: ResourceResponse(learningResources=[assoc_ref]),
             })),
             bad_role_name_spelling := mt(n="Bad role name spelling", feedbacks=fbs({
@@ -510,7 +512,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="What is the relationship between these two concepts?"),
                     3: ParametrizedResponse(
-                        text="Why is ${stud_part_assocend.cls} contained in ${stud_whole_assocend.cls}?"),
+                        text="Why is ${stud_part_assocend.refcls} contained in ${stud_whole_assocend.refcls}?"),
                     4: ParametrizedResponse(text="The relationship between ${stud_part_assocend.cls} and "
                         "${stud_whole_assocend.cls} should be modeled with a simple association."),
                     5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
@@ -533,17 +535,18 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: ParametrizedResponse(
-                        text="Does ${inst_target_assocend.cls} need to know about ${inst_source_assocend.cls}?"),
-                    3: ParametrizedResponse(
-                        text="The relationship between ${inst_source_assocend.cls} and ${inst_target_assocend.cls} "
-                             "should be directed[ from ${inst_source_assocend.cls} to ${inst_target_assocend.cls}]."),
+                        text="Does ${inst_target_assocend.refcls} need to know about ${inst_source_assocend.refcls}?"),
+                    3: ParametrizedResponse(text="The relationship between ${inst_source_assocend.refcls} and "
+                                                 "${inst_target_assocend.refcls} should be directed[ from "
+                                                 "${inst_source_assocend.refcls} to ${inst_target_assocend.refcls}]."),
                     4: ResourceResponse(learningResources=[dir_rel_ref]),
                 })),
-            wrong_relationship_direction := mt(n="Wrong relationship direction", feedbacks=fbs({
+            reversed_relationship_direction := mt(n="Reversed relationship direction", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Double check the direction for this relationship."),
-                3: ParametrizedResponse(text="The direction of the relationship between ${stud_source_assocend.cls} "
-                                             "and ${stud_target_assocend.cls} should be reversed."),
+                3: ParametrizedResponse(
+                    text="The direction of the relationship between ${stud_part_or_source_assocend.cls} and "
+                         "${stud_whole_or_target_assocend.cls} should be reversed."),
                 4: ResourceResponse(learningResources=[dir_rel_ref]),
             })),
             using_composition_instead_of_aggregation := mt(
@@ -560,8 +563,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you model this relationship more precisely?"),
-                    3: ParametrizedResponse(
-                        text="Use a ${inst_assoc.ends.length}-ary association to represent this relationship."),
+                    3: ParametrizedResponse(text="Use an n-ary association to represent the relationship between the "
+                                                 "${inst_assoc.cls*} classes."),
                     4: ResourceResponse(learningResources=[assoc_ref]),
                 })),
             using_n_ary_assoc_instead_of_binary_assoc := mt(
@@ -570,7 +573,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you model this relationship more precisely?"),
-                    3: TextResponse(text="Use a binary association to represent this relationship."),
+                    3: ParametrizedResponse(text="Use a binary association to represent the relationship between the "
+                                                 "${inst_assoc.cls*} classes."),
                     4: ResourceResponse(learningResources=[assoc_ref]),
                 })),
             using_intermediate_class_instead_of_n_ary_assoc := mt(
@@ -579,8 +583,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Can you model this relationship in a different way?"),
-                    3: ParametrizedResponse(
-                        text="Use a ${inst_assoc.ends.length}-ary association to represent this relationship."),
+                    3: ParametrizedResponse(text="Use an n-ary association to represent the relationship between the "
+                                                 "${inst_assoc.cls*} classes."),
                     4: ResourceResponse(learningResources=[assoc_ref]),
                 })),
             using_n_ary_assoc_instead_of_intermediate_class := mt(
@@ -626,8 +630,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you model this relationship in another way?"),
                 3: TextResponse(text="Is using an association class the best way to model this?"),
-                4: ParametrizedResponse(text="Does it make sense to disallow multiple instances of the "
-                    "${stud_cls} linking ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls}?"),
+                4: ParametrizedResponse(text="Does it make sense to disallow multiple instances of ${stud_cls} with "
+                    "the same pair of ${stud_assoc.end0.cls} and ${stud_assoc.end1.cls} instances?"),
                 5: ParametrizedResponse(text="Further details of the association between ${stud_assoc.end0.cls} and "
                     "${stud_assoc.end1.cls} should not be modeled with an association class."),
                 6: ResourceResponse(learningResources=[assoc_class_ref]),
@@ -660,9 +664,11 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_composition := mt(n="Missing composition", feedbacks=fbs({
                 1: Feedback(highlightProblem=True),
                 2: TextResponse(text="How should this relationship be modeled?"),
-                3: ParametrizedResponse(
-                    text="How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?"),
-                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                3: ParametrizedResponse(text="How would you capture that a ${inst_whole_assocend.refcls} has a "
+                                             "${inst_part_assocend.refcls}?"),
+                4: ParametrizedResponse(text="Use composition to show that the ${inst_part_assocend.refcls} class "
+                                             "is contained in the ${inst_whole_assocend.refcls} class."),
+                5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
             extra_composition := mt(n="Extra composition", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
@@ -703,7 +709,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             composed_part_contained_in_more_than_one_parent := mt(
                 n="Composed part contained in more than one parent", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Please double-check this relationship."),
+                    2: TextResponse(text="Please double-check the relationship(s) between these class(es)."),
                     3: TextResponse(text="Please review the model containment hierarchy."),
                     4: ParametrizedResponse(
                         text="${stud_cls*} cannot be contained in more than one class."),
@@ -727,7 +733,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 })),
             incomplete_containment_tree := mt(n="Incomplete containment tree", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
-                2: TextResponse(text="What is the relationship between these classes?"),
+                2: TextResponse(text="Please double-check the relationships of these classes."),
                 3: ParametrizedResponse(
                     text="${stud_cls*} should be contained in the containment tree.[ Use composition for this.]"),
                 4: ResourceResponse(learningResources=[containment_example]),
@@ -737,12 +743,12 @@ corpus = LearningCorpus(mistakeTypeCategories=[
         ]),
         generalization_mistakes := mtc(n="Generalization mistakes", mistakeTypes=[
             missing_generalization := mt(n="Missing generalization", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
+                1: Feedback(highlightProblem=True),
                 2: TextResponse(text="What is the relationship between these classes?"),
                 3: ParametrizedResponse(text="A ${inst_sub_cls} is a ${inst_super_cls}. How should we model this?"),
                 4: ResourceResponse(learningResources=[inherit_hierarchy_quiz := fitb(
                     # First parameter is the prompt (learning resource main content)
-                    "Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, "
+                    "Place the following classes in an inheritance hierarchy: Vehicle, Wheel, LuxuryBus, "
                     "Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.",
                     # Remaining parameters are the statements with blanks in {curly braces}
                     "SportsCar isA {Car}",
@@ -794,7 +800,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you find a better way to model this concept?"),
                 3: ParametrizedResponse(text="Is it possible for an instance of ${stud_sub_cls} to turn into an "
-                    "instance of another subclass over its lifetime?"),
+                    "instance of another subclass of ${stud_super_cls} over its lifetime?"),
                 4: ResourceResponse(learningResources=[distinct_subclass_quiz := mcq[
                     "Which classes are not subclasses of Account?",
                        "SavingsAccount",
@@ -809,7 +815,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 n="Inherited feature does not make sense for subclass", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Does this belong here?"),
-                    3: ParametrizedResponse(text="The ${stud_attr} feature of the ${stud_super_cls} class does not "
+                    # In the future, add ${stud_feature} to the parameterized response if supported by MDS
+                    3: ParametrizedResponse(text="A feature of the ${stud_super_cls} class does not "
                         "make sense for its ${stud_sub_cls} subclass."),
                     4: ResourceResponse(learningResources=[inherit_checks_quiz]),
                     5: ResourceResponse(learningResources=[gen_ref]),
@@ -832,7 +839,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 4: ResourceResponse(learningResources=[inherit_checks_quiz]),
                 5: ResourceResponse(learningResources=[gen_ref]),
             })),
-            wrong_generalization_direction := mt(n="Wrong generalization direction", feedbacks=fbs({
+            reversed_generalization_direction := mt(n="Reversed generalization direction", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
                 2: TextResponse(text="Can you double check this relationship?"),
                 3: ParametrizedResponse(
@@ -856,12 +863,12 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     design_pattern_mistakes := mtc(n="Design pattern mistakes", subcategories=[
         player_role_pattern_mistakes := mtc(n="Player-Role Pattern mistakes", mistakeTypes=[
             missing_pr_pattern := mt(n="Missing PR pattern", d="Missing Player-Role pattern", feedbacks=fbs({
-                1: Feedback(highlightSolution=True),
+                1: Feedback(highlightProblem=True),
                 2: TextResponse(text="Think carefully about how to model the relationships between these concepts."),
                 3: TextResponse(text="Use the Player-Role pattern to model the relationships between these concepts."),
                 4: ParametrizedResponse(
-                    text="The concepts of ${inst_player_cls} and ${inst_role*} and the relationship between them "
-                         "should be modeled with one of the forms of the Player-Role pattern."),
+                    text="The concepts of ${inst_player_cls} and its roles ${inst_role*} and the relationship between "
+                         "them should be modeled with one of the forms of the Player-Role pattern."),
                 # the spacing below is intentional, for the output to be properly aligned
                 5: ResourceResponse(learningResources=[pr_quiz := Quiz(content=dedent(f"""\
                     Complete the following table:
@@ -883,12 +890,12 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 n="Incomplete PR pattern", d="Incomplete Player-Role pattern", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
-                        text="Think carefully about how to model the relationships between these concepts."),                    
+                        text="Think carefully about how to model the relationships between these concepts."),
                     3: TextResponse(
                         text="Use the Player-Role pattern to model the relationships between these concepts."),
                     4: ParametrizedResponse(
-                        text="The concepts of ${inst_player_cls}, ${inst_role*} and the relationship between them "
-                             "should be modeled with one of the forms of the Player-Role pattern."),
+                        text="The concepts of ${inst_player_cls} and its roles ${inst_role*} and the relationship "
+                             "between them should be modeled with one of the forms of the Player-Role pattern."),
                     5: ResourceResponse(learningResources=[pr_quiz]),
                     6: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -899,8 +906,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="[Nice try, but ]${stud_role_cls*} can also play the role of "
-                                                 "one of the other subclasses."),
+                    3: ParametrizedResponse(
+                        text="An instance of ${stud_player_cls} can play more than one role out of ${stud_role_cls*}."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -911,9 +918,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(
-                        text="[Nice try, but ]${stud_role_cls*} can also play the role of one of the other "
-                             "subclasses and different features do not need to be captured for the subclasses."),
+                    3: ParametrizedResponse(text="An instance of ${stud_player_cls} can play more than one role out of "
+                        "${inst_role_assocend*} and different features do not need to be captured for the roles."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -924,9 +930,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="[Nice try, but ]${stud_role_cls*} do not need to play the "
-                                                 "role of one of the other subclasses and different features "
-                                                 "do not need to be captured for the subclasses."),
+                    3: ParametrizedResponse(text="An instance of ${stud_player_cls} does not need to play more than "
+                                                 "one role out of ${stud_role_cls*} at the same time and different "
+                                                 "features do not need to be captured for the roles."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -938,7 +944,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
                     3: ParametrizedResponse(
-                        text="A ${stud_role_assocend0} has different features from a ${stud_role_assocend1}."),
+                        text="The roles ${stud_role_assocend*} have different features that need to be modeled."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -949,8 +955,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="A ${stud_role_assocend0} has different features from a "
-                        "${stud_role_assocend1} and does not change its role over its lifetime."),
+                    3: ParametrizedResponse(
+                        text="The roles ${stud_role_assocend*} have different features that need to be modeled, but an "
+                             "instance of ${stud_player_cls} does not change its role over its lifetime."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -961,8 +968,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(
-                        text="Will the roles of ${stud_role_assocend*} ever be occupied at the same time?"),
+                    3: ParametrizedResponse(text="Will the roles ${stud_role_assocend*} ever be played by an instance "
+                                                 "of ${stud_player_cls} at the same time?"),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -974,7 +981,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
                     3: ParametrizedResponse(
-                        text="A ${stud_role_assocend} can also play the role of one of the other roles at the same "
+                        text="A ${stud_role_enumitem0} can also play the role of one of the other roles at the same "
                              "time and different features need to be captured for the roles."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
@@ -986,7 +993,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="A ${stud_role_assocend0} has different features from one of the "
+                    3: ParametrizedResponse(text="A ${stud_role_enumitem0} has different features from one of the "
                                                  "other roles and this role never changes to another role."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
@@ -999,7 +1006,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
                     3: ParametrizedResponse(
-                        text="Will the roles of ${stud_role_assocend*} ever be occupied at the same time?"),
+                        text="Will the roles of ${stud_role_enumitem*} ever be occupied at the same time?"),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -1010,8 +1017,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="Can a ${stud_role_assocend0} also play the role of one of the "
-                                                 "other roles at different times or at the same time?"),
+                    3: ParametrizedResponse(text="an instance of ${stud_player_cls} play more than one role out of "
+                                                 "${stud_role_cls*} at different times or at the same time?"),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -1022,7 +1029,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="Do ${stud_role_assocend*} need to have different features?"),
+                    3: ParametrizedResponse(text="Do the roles ${stud_role_cls*} need to have different features?"),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -1033,9 +1040,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(
-                        text="Do ${stud_role_assocend*} need to have different features and is it "
-                             "possible that more than one role is played at the same time?"),
+                    3: ParametrizedResponse(text="Do the roles ${stud_role_cls*} need to have different features and "
+                                                 "is it possible that more than one role is played by an instance of "
+                                                 "${stud_player_cls} at the same time?"),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -1045,7 +1052,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 n="Missing AO pattern", d="Missing Abstraction-Occurrence pattern", feedbacks=fbs({
                     1: Feedback(highlightProblem=True),
                     2: TextResponse(
-                        text="Think carefully about how to model the relationships between these concepts."),
+                        text="Think carefully about how to model the relationship between these concepts."),
                     3: ParametrizedResponse(
                         text="The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the relationship between them "
                              "should be modeled with the Abstraction-Occurrence pattern."),
@@ -1060,12 +1067,25 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 n="Incomplete AO pattern", d="Incomplete Abstraction-Occurrence pattern", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
-                        text="Think carefully about how to model the relationships between these concepts."),
+                        text="Think carefully about how to model the relationship between these concepts."),
                     3: ParametrizedResponse(
                         text="The ${stud_existing_cls} should be part of an Abstraction-Occurrence relationship."),
                     4: ParametrizedResponse(
                         text="The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the "
                              "relationship between them should be modeled with the Abstraction-Occurrence pattern."),
+                    5: ResourceResponse(learningResources=[ao_ref]),
+                })),
+            missing_association_in_ao_pattern := mt(
+                n="Missing association in AO pattern", d="Missing association in Abstraction-Occurrence pattern",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationship between these concepts."),
+                    3: ParametrizedResponse(text="The ${stud_abs_cls} and ${stud_occ_cls} should be in an "
+                                                 "Abstraction-Occurrence relationship."),
+                    4: ParametrizedResponse(
+                        text="The relationship between ${stud_abs_cls} and ${stud_occ_cls} should be modeled with an "
+                             "association as part of the Abstraction-Occurrence pattern."),
                     5: ResourceResponse(learningResources=[ao_ref]),
                 })),
             generalization_should_be_assoc_ao_pattern := mt(
@@ -1125,14 +1145,14 @@ mts_by_priority: list[MistakeType] = [
     using_aggregation_instead_of_assoc,
     using_directed_relationship_instead_of_undirected,
     using_undirected_relationship_instead_of_directed,
-    wrong_relationship_direction,
+    reversed_relationship_direction,
     using_aggregation_instead_of_composition,
     using_composition_instead_of_aggregation,
     using_binary_assoc_instead_of_n_ary_assoc,
     using_n_ary_assoc_instead_of_binary_assoc,
     using_n_ary_assoc_instead_of_intermediate_class,
     using_intermediate_class_instead_of_n_ary_assoc,
-    wrong_generalization_direction,
+    reversed_generalization_direction,
     wrong_superclass,
     subclass_is_an_instance_of_superclass,
     non_differentiated_subclass,
@@ -1192,6 +1212,7 @@ mts_by_priority: list[MistakeType] = [
     missing_association_name,
 
     # missing/incomplete patterns
+    missing_association_in_ao_pattern,
     incomplete_pr_pattern,
     incomplete_ao_pattern,
     missing_pr_pattern,
@@ -1235,7 +1256,7 @@ extra_composition.md_format = mdf(["compos", "whole_assocend", "part_assocend"],
 extra_enum.md_format = mdf(["enum"], [])
 extra_enum_item.md_format = mdf(["enumitem"], [])
 extra_generalization.md_format = mdf(["sub_cls", "super_cls"], [])
-extra_n_ary_association.md_format = mdf(["assoc"], [])
+extra_n_ary_association.md_format = mdf(["assoc", "assocend*"], [])
 full_pr_pattern_should_be_assoc.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_assocend*"])
 full_pr_pattern_should_be_enum.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_attr"])
 full_pr_pattern_should_be_subclass.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_cls*"])
@@ -1245,14 +1266,14 @@ incomplete_ao_pattern.md_format = mdf(["existing_cls"], ["abs_cls", "occ_cls"])
 incomplete_pr_pattern.md_format = mdf(["player_cls", "role*"], ["player_cls", "role*"])
 incomplete_containment_tree.md_format = mdf(["cls*"], [])
 infinite_recursive_dependency.md_format = mdf(["assocend*"], [])
-inherited_feature_does_not_make_sense_for_subclass.md_format = mdf(["attr", "sub_cls", "super_cls"], [])
+inherited_feature_does_not_make_sense_for_subclass.md_format = mdf(["sub_cls", "super_cls"], [])
 list_attribute.md_format = mdf(["attr"], ["attr"])
 lowercase_class_name.md_format = mdf(["cls"], ["cls"])
 missing_ao_pattern.md_format = mdf([], ["abs_cls", "occ_cls"])
-missing_pr_pattern.md_format = mdf([], ["player_cls", "role*"])
 missing_aggregation.md_format = mdf([], ["aggr", "whole_assocend", "part_assocend"])
 missing_assoc_class.md_format = mdf([], ["assoc", "cls"])
 missing_association.md_format = mdf([], ["assoc"])
+missing_association_in_ao_pattern.md_format = mdf(["abs_cls", "occ_cls"], ["abs_cls", "occ_cls"])
 missing_association_name.md_format = mdf(["assoc"], ["assoc"])
 missing_attribute.md_format = mdf(["cls"], ["attr"])
 missing_attribute_type.md_format = mdf(["attr"], ["attr"])
@@ -1262,12 +1283,17 @@ missing_enum.md_format = mdf([], ["enum"])
 missing_enum_item.md_format = mdf(["enum"], ["enumitem"])
 missing_generalization.md_format = mdf([], ["sub_cls", "super_cls"])
 missing_multiplicity.md_format = mdf(["assocend"], ["assocend"])
-missing_n_ary_association.md_format = mdf([], ["assoc"])
+missing_n_ary_association.md_format = mdf([], ["assoc", "assocend*"])
+missing_pr_pattern.md_format = mdf([], ["player_cls", "role*"])
 missing_role_name.md_format = mdf(["assocend"], ["assocend"])
 non_differentiated_subclass.md_format = mdf(["cls"], [])
 plural_attribute.md_format = mdf(["attr"], ["attr"])
 plural_class_name.md_format = mdf(["cls"], ["cls"])
 representing_action_with_assoc.md_format = mdf(["assocend"], ["assocend"])
+reversed_generalization_direction.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])
+reversed_relationship_direction.md_format = mdf(
+    ["aggr_compos_or_assoc", "whole_or_target_assocend", "part_or_source_assocend"],
+    ["aggr_compos_or_assoc", "whole_or_target_assocend", "part_or_source_assocend"])
 role_should_be_static.md_format = mdf(["assocend"], ["assocend"])
 role_should_not_be_static.md_format = mdf(["assocend"], ["assocend"])
 software_engineering_term.md_format = mdf(["cls"], ["cls"])
@@ -1304,10 +1330,6 @@ using_undirected_relationship_instead_of_directed.md_format = mdf(
     ["aggr_compos_or_assoc", "target_assocend", "source_assocend"])
 wrong_attribute_type.md_format = mdf(["attr"], ["attr"])
 wrong_class_name.md_format = mdf(["cls"], ["cls"])
-wrong_generalization_direction.md_format = mdf(["super_cls", "sub_cls"], ["sub_cls", "super_cls"])
 wrong_multiplicity.md_format = mdf(["assocend"], ["assocend"])
-wrong_relationship_direction.md_format = mdf(
-    ["aggr_compos_or_assoc", "target_assocend", "source_assocend"],
-    ["aggr_compos_or_assoc", "target_assocend", "source_assocend"])
 wrong_role_name.md_format = mdf(["assocend"], ["assocend"])
 wrong_superclass.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])

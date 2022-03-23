@@ -100,7 +100,7 @@ USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED: MistakeType = \
     _MTS["Using directed relationship instead of undirected"]
 USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED: MistakeType = \
     _MTS["Using undirected relationship instead of directed"]
-WRONG_RELATIONSHIP_DIRECTION: MistakeType = _MTS["Wrong relationship direction"]
+REVERSED_RELATIONSHIP_DIRECTION: MistakeType = _MTS["Reversed relationship direction"]
 USING_COMPOSITION_INSTEAD_OF_AGGREGATION: MistakeType = _MTS["Using composition instead of aggregation"]
 USING_BINARY_ASSOC_INSTEAD_OF_N_ARY_ASSOC: MistakeType = _MTS["Using binary assoc instead of n-ary assoc"]
 USING_N_ARY_ASSOC_INSTEAD_OF_BINARY_ASSOC: MistakeType = _MTS["Using n-ary assoc instead of binary assoc"]
@@ -128,7 +128,7 @@ INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS: MistakeType = \
     _MTS["Inherited feature does not make sense for subclass"]
 SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS: MistakeType = _MTS["Subclass is an instance of superclass"]
 NON_DIFFERENTIATED_SUBCLASS: MistakeType = _MTS["Non-differentiated subclass"]
-WRONG_GENERALIZATION_DIRECTION: MistakeType = _MTS["Wrong generalization direction"]
+REVERSED_GENERALIZATION_DIRECTION: MistakeType = _MTS["Reversed generalization direction"]
 WRONG_SUPERCLASS: MistakeType = _MTS["Wrong superclass"]
 MISSING_PR_PATTERN: MistakeType = _MTS["Missing PR pattern"]
 INCOMPLETE_PR_PATTERN: MistakeType = _MTS["Incomplete PR pattern"]
@@ -146,4 +146,5 @@ FULL_PR_PATTERN_SHOULD_BE_ASSOC: MistakeType = _MTS["Full PR pattern should be a
 FULL_PR_PATTERN_SHOULD_BE_ENUM: MistakeType = _MTS["Full PR pattern should be enum"]
 MISSING_AO_PATTERN: MistakeType = _MTS["Missing AO pattern"]
 INCOMPLETE_AO_PATTERN: MistakeType = _MTS["Incomplete AO pattern"]
+MISSING_ASSOCIATION_IN_AO_PATTERN: MistakeType = _MTS["Missing association in AO pattern"]
 GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN: MistakeType = _MTS["Generalization should be assoc AO pattern"]

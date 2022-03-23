@@ -12,7 +12,7 @@ from typing import NamedTuple
 from constants import CORRECT_QUIZ_ITEM_NOTATIONS, MULTIPLE_FEEDBACKS_PER_LEVEL
 from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
 from learningcorpusquiz import (Blank, Choice, FillInTheBlanksQuiz, FillInTheBlanksQuizStatement,
-                                ListMultipleChoiceQuiz, NonBlank, TableMultipleChoiceQuiz)
+                                ListMultipleChoiceQuiz, NonBlank)
 from modelingassistant import ModelingAssistant
 
 
@@ -134,6 +134,9 @@ class MistakeDetectionFormat(NamedTuple):
     """
     stud: list[str]
     inst: list[str]
+
+    def __repr__(self) -> str:
+        return f"({self.stud}, {self.inst})"
 
 
 def mdf(student_elems_descriptions: list[str], instructor_elems_descriptions: list[str]) -> MistakeDetectionFormat:

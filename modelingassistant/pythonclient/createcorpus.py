@@ -351,9 +351,16 @@ class MarkdownGenerator(TextualGenerator):
                 match fb:
                     case Feedback(highlightProblem=True):
                         sp = "specific" if fb.level > 1 else "sentence(s) in"
+                        pse = "elements " if fb.level > 1 else ""
                         # use elem type here in the future if it can be made more specific, eg, enum instead of class
-                        elem = "elements" if fb.level > 1 else "referring to item"
-                        result += f"Highlight {sp} problem statement {elem}\n\n"
+                        plural_item_marker = "(s)"
+                        elem_owner = ""
+                        if hasattr(mt, "md_format") and mt.md_format.inst:
+                            elem_owner = "the instructor "
+                            if len(mt.md_format.inst) == 1:
+                                plural_item_marker = ""
+                        elem = f"referring to {elem_owner}element{plural_item_marker}"
+                        result += f"Highlight {sp} problem statement {pse}{elem}\n\n"
                     case Feedback(highlightSolution=True):
                         result += "Highlight solution\n\n"
                     case TextResponse() as resp:
@@ -554,9 +561,16 @@ class LatexGenerator(TextualGenerator):
                 match fb:
                     case Feedback(highlightProblem=True):
                         sp = "specific" if fb.level > 1 else "sentence(s) in"
+                        pse = "elements " if fb.level > 1 else ""
                         # use elem_type here in the future if it can be made more specific, eg, enum instead of class
-                        elem = "elements" if fb.level > 1 else "referring to item"
-                        result += f"Highlight {sp} problem statement {elem}{cls.NLS}"
+                        plural_item_marker = "(s)"
+                        elem_owner = ""
+                        if hasattr(mt, "md_format") and mt.md_format.inst:
+                            elem_owner = "the instructor "
+                            if len(mt.md_format.inst) == 1:
+                                plural_item_marker = ""
+                        elem = f"referring to {elem_owner}element{plural_item_marker}"
+                        result += f"Highlight {sp} problem statement {pse}{elem}{cls.NLS}"
                     case Feedback(highlightSolution=True):
                         result += f"Highlight solution {f'({elem_type})' if elem_type else ''}{cls.NLS}"
                     case TextResponse() as resp:

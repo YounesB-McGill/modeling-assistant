@@ -905,7 +905,7 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     initEAttribute(getFeedback_Usefulness(), ecorePackage.getEDouble(), "usefulness", null, 0, 1, Feedback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getFeedback_HighlightProblem(), ecorePackage.getEBoolean(), "highlightProblem", null, 0, 1, Feedback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getFeedback_HighlightSolution(), ecorePackage.getEBoolean(), "highlightSolution", null, 0, 1, Feedback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFeedback_MistakeType(), this.getMistakeType(), this.getMistakeType_Feedbacks(), "mistakeType", null, 1, 1, Feedback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFeedback_MistakeType(), this.getMistakeType(), this.getMistakeType_Feedbacks(), "mistakeType", null, 0, 1, Feedback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getFeedback_Text(), ecorePackage.getEString(), "text", null, 0, 1, Feedback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFeedback_LearningCorpus(), this.getLearningCorpus(), this.getLearningCorpus_Feedbacks(), "learningCorpus", null, 1, 1, Feedback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -951,6 +951,7 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     addEEnumLiteral(elementTypeEEnum, ElementType.ATTRIBUTE);
     addEEnumLiteral(elementTypeEEnum, ElementType.ASSOCIATION);
     addEEnumLiteral(elementTypeEEnum, ElementType.ASSOCIATION_END);
+    addEEnumLiteral(elementTypeEEnum, ElementType.AGGREGATION);
     addEEnumLiteral(elementTypeEEnum, ElementType.COMPOSITION);
     addEEnumLiteral(elementTypeEEnum, ElementType.GENERALIZATION);
     addEEnumLiteral(elementTypeEEnum, ElementType.PLAYER_ROLE_PATTERN);

@@ -80,9 +80,9 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSH
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.WRONG_GENERALIZATION_DIRECTION;
+import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_GENERALIZATION_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
-import static learningcorpus.mistaketypes.MistakeTypes.WRONG_RELATIONSHIP_DIRECTION;
+import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_SUPERCLASS;
 import static modelingassistant.TagType.ABSTRACTION;
@@ -359,7 +359,7 @@ public class MistakeDetection {
 
       studClassSuperClasses = getAllSuperClasses(studMappedSuperClass);
       if (studClassSuperClasses.contains(studClass)) {
-        comparison.newMistakes.add(createMistake(WRONG_GENERALIZATION_DIRECTION,
+        comparison.newMistakes.add(createMistake(REVERSED_GENERALIZATION_DIRECTION,
             List.of(studMappedSuperClass, studClass), List.of(instClass, instSuperClass)));
         comparison.studentGeneralizationClassifiers.remove(studClass);
       } else {
@@ -1713,7 +1713,7 @@ public class MistakeDetection {
       Comparison comparison) {
     final Consumer<? super Mistake> addMist = comparison.newMistakes::add; // method reference to save space
     checkMistakeWrongRelationshipDirection(studAssocEnd, instAssocEnd).ifPresent(addMist);
-    if (!isMistakeExist(WRONG_RELATIONSHIP_DIRECTION, studAssocEnd, comparison)) {
+    if (!isMistakeExist(REVERSED_RELATIONSHIP_DIRECTION, studAssocEnd, comparison)) {
       checkMistakeUsingAssociationInsteadOfComposition(studAssocEnd, instAssocEnd).ifPresent(addMist);
       checkMistakeUsingAssociationInsteadOfAggregation(studAssocEnd, instAssocEnd).ifPresent(addMist);
       checkMistakeUsingCompositionInsteadOfAssociation(studAssocEnd, instAssocEnd).ifPresent(addMist);
@@ -1745,7 +1745,7 @@ public class MistakeDetection {
         && otherStudentClassAssocEnd.getReferenceType().equals(REGULAR))
         && studentClassAssocEnd.getReferenceType().equals(otherInstructorClassAssocEnd.getReferenceType())
         && otherStudentClassAssocEnd.getReferenceType().equals(instructorClassAssocEnd.getReferenceType())) {
-      return Optional.of(createMistake(WRONG_RELATIONSHIP_DIRECTION, getAssociationElements(studentClassAssocEnd),
+      return Optional.of(createMistake(REVERSED_RELATIONSHIP_DIRECTION, getAssociationElements(studentClassAssocEnd),
           getAssociationElements(instructorClassAssocEnd)));
     } else if (studentClassAssocEnd.getReferenceType().equals(REGULAR) // checks bi-directional associations.
         && otherStudentClassAssocEnd.getReferenceType().equals(REGULAR)
@@ -1753,7 +1753,7 @@ public class MistakeDetection {
         && otherStudentClassAssocEnd.getReferenceType().equals(instructorClassAssocEnd.getReferenceType())
         && (isBiDirectionAssocDirectionWrong(studentClassAssocEnd, otherStudentClassAssocEnd,
             instructorClassAssocEnd, otherInstructorClassAssocEnd))) {
-      return Optional.of(createMistake(WRONG_RELATIONSHIP_DIRECTION, getAssociationElements(studentClassAssocEnd),
+      return Optional.of(createMistake(REVERSED_RELATIONSHIP_DIRECTION, getAssociationElements(studentClassAssocEnd),
           getAssociationElements(instructorClassAssocEnd)));
     }
     return Optional.empty();

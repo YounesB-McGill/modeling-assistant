@@ -54,6 +54,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_IN_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
@@ -71,6 +72,8 @@ import static learningcorpus.mistaketypes.MistakeTypes.NON_DIFFERENTIATED_SUBCLA
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_GENERALIZATION_DIRECTION;
+import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
@@ -95,9 +98,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_N_ARY_ASSOC_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.WRONG_GENERALIZATION_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
-import static learningcorpus.mistaketypes.MistakeTypes.WRONG_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_SUPERCLASS;
 import java.util.List;
@@ -166,6 +167,8 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(PLURAL_ATTRIBUTE, mdf(List.of("attr"), List.of("attr"))),
       entry(PLURAL_CLASS_NAME, mdf(List.of("cls"), List.of("cls"))),
       entry(REPRESENTING_ACTION_WITH_ASSOC, mdf(List.of("assocend"), List.of("assocend"))),
+      entry(REVERSED_GENERALIZATION_DIRECTION, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls"))),
+      entry(REVERSED_RELATIONSHIP_DIRECTION, mdf(List.of("aggr_compos_or_assoc", "whole_or_target_assocend", "part_or_source_assocend"), List.of("aggr_compos_or_assoc", "whole_or_target_assocend", "part_or_source_assocend"))),
       entry(ROLE_SHOULD_BE_STATIC, mdf(List.of("assocend"), List.of("assocend"))),
       entry(ROLE_SHOULD_NOT_BE_STATIC, mdf(List.of("assocend"), List.of("assocend"))),
       entry(SOFTWARE_ENGINEERING_TERM, mdf(List.of("cls"), List.of("cls"))),
@@ -184,9 +187,7 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED, mdf(List.of("aggr_compos_or_assoc", "assocend", "other_assocend"), List.of("aggr_compos_or_assoc", "target_assocend", "source_assocend"))),
       entry(WRONG_ATTRIBUTE_TYPE, mdf(List.of("attr"), List.of("attr"))),
       entry(WRONG_CLASS_NAME, mdf(List.of("cls"), List.of("cls"))),
-      entry(WRONG_GENERALIZATION_DIRECTION, mdf(List.of("super_cls", "sub_cls"), List.of("sub_cls", "super_cls"))),
       entry(WRONG_MULTIPLICITY, mdf(List.of("assocend"), List.of("assocend"))),
-      entry(WRONG_RELATIONSHIP_DIRECTION, mdf(List.of("aggr_compos_or_assoc", "target_assocend", "source_assocend"), List.of("aggr_compos_or_assoc", "target_assocend", "source_assocend"))),
       entry(WRONG_ROLE_NAME, mdf(List.of("assocend"), List.of("assocend"))),
       entry(WRONG_SUPERCLASS, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls"))),
 
@@ -196,14 +197,15 @@ public class HumanValidatedMistakeDetectionFormats {
       // Future work: mistake detection not implemented for these mistake types
       // TODO complete student/instructor descriptions
       entry(BAD_ASSOCIATION_NAME_SPELLING, mdf(List.of("assoc"), List.of("assoc"))),
-      entry(EXTRA_N_ARY_ASSOCIATION, mdf(List.of("assoc"), List.of())),
+      entry(EXTRA_N_ARY_ASSOCIATION, mdf(List.of("assoc", "assocend*"), List.of())),
       entry(GENERALIZATION_INAPPLICABLE, mdf(List.of("sub_cls", "super_cls"), List.of())),
       entry(INCOMPLETE_PR_PATTERN, mdf(List.of("player_cls", "role*"), List.of("player_cls", "role*"))),
-      entry(INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS, mdf(List.of("attr", "sub_cls", "super_cls"), List.of())),
+      entry(INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS, mdf(List.of("sub_cls", "super_cls"), List.of())),
+      entry(MISSING_ASSOCIATION_IN_AO_PATTERN, mdf(List.of("abs_cls", "occ_cls"), List.of("abs_cls", "occ_cls"))),
       entry(MISSING_ASSOCIATION_NAME, mdf(List.of("assoc"), List.of("assoc"))),
       entry(MISSING_ATTRIBUTE_TYPE, mdf(List.of("attr"), List.of("attr"))),
       entry(MISSING_MULTIPLICITY, mdf(List.of("assocend"), List.of("assocend"))),
-      entry(MISSING_N_ARY_ASSOCIATION, mdf(List.of(), List.of("assoc"))),
+      entry(MISSING_N_ARY_ASSOCIATION, mdf(List.of(), List.of("assoc", "assocend*"))),
       entry(MISSING_PR_PATTERN, mdf(List.of(), List.of("player_cls", "role*"))),
       entry(SUBCLASS_IS_AN_INSTANCE_OF_SUPERCLASS, mdf(List.of("sub_cls", "super_cls"), List.of())),
       entry(SUBCLASS_NOT_DISTINCT_ACROSS_LIFETIME, mdf(List.of("sub_cls", "super_cls"), List.of())),

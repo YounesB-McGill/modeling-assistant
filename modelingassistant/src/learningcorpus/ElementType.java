@@ -59,6 +59,16 @@ public enum ElementType implements Enumerator {
   ASSOCIATION_END(3, "AssociationEnd", "AssociationEnd"),
 
   /**
+   * The '<em><b>Aggregation</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #AGGREGATION_VALUE
+   * @generated
+   * @ordered
+   */
+  AGGREGATION(4, "Aggregation", "Aggregation"),
+
+  /**
    * The '<em><b>Composition</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -66,7 +76,7 @@ public enum ElementType implements Enumerator {
    * @generated
    * @ordered
    */
-  COMPOSITION(4, "Composition", "Composition"),
+  COMPOSITION(5, "Composition", "Composition"),
 
   /**
    * The '<em><b>Generalization</b></em>' literal object.
@@ -76,7 +86,7 @@ public enum ElementType implements Enumerator {
    * @generated
    * @ordered
    */
-  GENERALIZATION(5, "Generalization", "Generalization"),
+  GENERALIZATION(6, "Generalization", "Generalization"),
 
   /**
    * The '<em><b>Player Role Pattern</b></em>' literal object.
@@ -86,7 +96,7 @@ public enum ElementType implements Enumerator {
    * @generated
    * @ordered
    */
-  PLAYER_ROLE_PATTERN(6, "PlayerRolePattern", "PlayerRolePattern"),
+  PLAYER_ROLE_PATTERN(7, "PlayerRolePattern", "PlayerRolePattern"),
 
   /**
    * The '<em><b>Abstraction Occurrence Pattern</b></em>' literal object.
@@ -96,7 +106,7 @@ public enum ElementType implements Enumerator {
    * @generated
    * @ordered
    */
-  ABSTRACTION_OCCURRENCE_PATTERN(7, "AbstractionOccurrencePattern", "AbstractionOccurrencePattern");
+  ABSTRACTION_OCCURRENCE_PATTERN(8, "AbstractionOccurrencePattern", "AbstractionOccurrencePattern");
 
   /**
    * The '<em><b>Class</b></em>' literal value.
@@ -143,6 +153,17 @@ public enum ElementType implements Enumerator {
   public static final int ASSOCIATION_END_VALUE = 3;
 
   /**
+   * The '<em><b>Aggregation</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #AGGREGATION
+   * @model name="Aggregation"
+   * @generated
+   * @ordered
+   */
+  public static final int AGGREGATION_VALUE = 4;
+
+  /**
    * The '<em><b>Composition</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -151,7 +172,7 @@ public enum ElementType implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int COMPOSITION_VALUE = 4;
+  public static final int COMPOSITION_VALUE = 5;
 
   /**
    * The '<em><b>Generalization</b></em>' literal value.
@@ -162,7 +183,7 @@ public enum ElementType implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int GENERALIZATION_VALUE = 5;
+  public static final int GENERALIZATION_VALUE = 6;
 
   /**
    * The '<em><b>Player Role Pattern</b></em>' literal value.
@@ -173,7 +194,7 @@ public enum ElementType implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int PLAYER_ROLE_PATTERN_VALUE = 6;
+  public static final int PLAYER_ROLE_PATTERN_VALUE = 7;
 
   /**
    * The '<em><b>Abstraction Occurrence Pattern</b></em>' literal value.
@@ -184,7 +205,7 @@ public enum ElementType implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int ABSTRACTION_OCCURRENCE_PATTERN_VALUE = 7;
+  public static final int ABSTRACTION_OCCURRENCE_PATTERN_VALUE = 8;
 
   /**
    * An array of all the '<em><b>Element Type</b></em>' enumerators.
@@ -198,6 +219,7 @@ public enum ElementType implements Enumerator {
       ATTRIBUTE,
       ASSOCIATION,
       ASSOCIATION_END,
+      AGGREGATION,
       COMPOSITION,
       GENERALIZATION,
       PLAYER_ROLE_PATTERN,
@@ -262,6 +284,7 @@ public enum ElementType implements Enumerator {
       case ATTRIBUTE_VALUE: return ATTRIBUTE;
       case ASSOCIATION_VALUE: return ASSOCIATION;
       case ASSOCIATION_END_VALUE: return ASSOCIATION_END;
+      case AGGREGATION_VALUE: return AGGREGATION;
       case COMPOSITION_VALUE: return COMPOSITION;
       case GENERALIZATION_VALUE: return GENERALIZATION;
       case PLAYER_ROLE_PATTERN_VALUE: return PLAYER_ROLE_PATTERN;

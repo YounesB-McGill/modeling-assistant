@@ -7,8 +7,8 @@ import learningcorpus.mistaketypes.MistakeTypes;
 
 public class MistakeDetectionFormatComparison extends MistakeDetectionInformationService {
 
-  private static final String CHECK = "√";
-  private static final String X = "X";
+  static final String CHECK = "√";
+  static final String X = "X";
 
   private MistakeDetectionFormatComparison() {
     super("Mistake Dectection Format Comparison (MDS vs Human-validated)");

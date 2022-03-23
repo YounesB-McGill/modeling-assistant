@@ -124,7 +124,7 @@ public class MistakeTypes {
   /** The bad class name spelling mistake type. */
   public static final MistakeType BAD_CLASS_NAME_SPELLING = MTS.get("Bad class name spelling");
 
-  /** The wrong class name but correct attribute/relationship mistake type. */
+  /** The wrong class name but correct attributes/relationships mistake type. */
   public static final MistakeType WRONG_CLASS_NAME = MTS.get("Wrong class name");
 
   /** The class should be abstract mistake type. */
@@ -256,8 +256,8 @@ public class MistakeTypes {
   public static final MistakeType USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED =
       MTS.get("Using undirected relationship instead of directed");
 
-  /** The wrong relationship direction mistake type. */
-  public static final MistakeType WRONG_RELATIONSHIP_DIRECTION = MTS.get("Wrong relationship direction");
+  /** The reversed relationship direction mistake type. */
+  public static final MistakeType REVERSED_RELATIONSHIP_DIRECTION = MTS.get("Reversed relationship direction");
 
   /** The using composition instead of aggregation mistake type. */
   public static final MistakeType USING_COMPOSITION_INSTEAD_OF_AGGREGATION =
@@ -347,8 +347,8 @@ public class MistakeTypes {
   /** The non-differentiated subclass mistake type. */
   public static final MistakeType NON_DIFFERENTIATED_SUBCLASS = MTS.get("Non-differentiated subclass");
 
-  /** The wrong generalization direction mistake type. */
-  public static final MistakeType WRONG_GENERALIZATION_DIRECTION = MTS.get("Wrong generalization direction");
+  /** The reversed generalization direction mistake type. */
+  public static final MistakeType REVERSED_GENERALIZATION_DIRECTION = MTS.get("Reversed generalization direction");
 
   /** The wrong superclass mistake type. */
   public static final MistakeType WRONG_SUPERCLASS = MTS.get("Wrong superclass");
@@ -400,6 +400,9 @@ public class MistakeTypes {
 
   /** The incomplete abstraction-occurrence pattern mistake type. */
   public static final MistakeType INCOMPLETE_AO_PATTERN = MTS.get("Incomplete AO pattern");
+
+  /** The missing association in abstraction-occurrence pattern mistake type. */
+  public static final MistakeType MISSING_ASSOCIATION_IN_AO_PATTERN = MTS.get("Missing association in AO pattern");
 
   /** The generalization should be association in abstraction-occurrence pattern mistake type. */
   public static final MistakeType GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN =

@@ -41,10 +41,10 @@ namespace Airline;
 
 class AirlineSystem{ 1 airlineSystem <@>- * Person persons; }
 
-class PersonRole {}
+class PersonRole { abstract; }
 class PassengerRole {
   isA PersonRole;
-  1 passenger -- * Booking bookings; // aggregation
+  1 passenger -- * Booking bookings; // show aggregation in image
 }
 class EmployeeRole { isA PersonRole; }
 class VisitorRole { isA PersonRole; }
@@ -58,6 +58,13 @@ class Person {
 class Booking {
   enum SeatType { FirstClass, Business, Economy }
   SeatType seatType;
+}
+
+class SeatType { // used only for visualizing enumeration
+  abstract; // change to << enumeration >>
+  SeatType FirstClass;
+  SeatType Business;
+  SeatType Economy;
 }
 
 namespace -;
@@ -82,6 +89,7 @@ class AirlineSystem {
 }
 class EmployeeRole { position 291 278 116.812 41; }
 class VisitorRole { position 450 279 109 41; }
+class SeatType { position 344 347 160.031 108; }
 """
 
 _MANY = -1
@@ -114,19 +122,19 @@ There are five concepts defined as follows, according to the CDM metamodel:
      Note that this is the opposite of where the composition filled diamond is drawn in the diagram!
   5. The airlineSystem association end, which is contained in the Person class and has a Regular reference type.
 """
-_airlinesystem_person = Association(ends=[
+_airlinesystem_person = Association(name="AirlineSystem_Person", ends=[
     _airlinesystem_persons := ae(_airlinesystem, 0, _MANY, ReferenceType.Composition, n="persons"),
     _person_airlinesystem := ae(_person, 1, 1, n="airlineSystem")])
-_person_personrole = Association(ends=[_person_roles := ae(_person, 0, 3, n="roles"),
-                                        _personrole_person := ae(_personrole, 1, 1, n="person")])
-_passengerroles_bookings = Association(ends=[
-    _bookings_aggrend := ae(_passengerrole, 0, _MANY, ReferenceType.Aggregation, "bookings"),
-    ae(_booking, 1, 1, n="passenger")])
+_person_personrole = Association(name="Person_PersonRole", ends=[
+    _personrole_person := ae(_personrole, 1, 1, n="person"), _person_roles := ae(_person, 0, 3, n="roles")])
+_passengerrole_booking = Association(name="PassengerRole_Booking", ends=[
+    ae(_booking, 1, 1, n="passenger"),
+    _bookings_aggrend := ae(_passengerrole, 0, _MANY, ReferenceType.Aggregation, "bookings")])
 
-_role_types: list[EClass] = [AssociationEnd, Attribute, Class]
+_role_types: list[EClass] = [AssociationEnd, CDEnumLiteral, Class]
 
 CDM_METATYPES = {
-    "aggr": (aggr := CdmMetatype("aggr", "Aggregation", Association, _passengerroles_bookings)),
+    "aggr": (aggr := CdmMetatype("aggr", "Aggregation", Association, _passengerrole_booking)),
     "assoc": (assoc := CdmMetatype("assoc", "Association", Association, _person_personrole)),
     "assocend": (assocend := CdmMetatype("assocend", "Association End", AssociationEnd, _personrole_person)),
     "assocend*": (assocends := CdmMetatype("assocend*", "Association Ends", AssociationEnd, [
@@ -141,6 +149,6 @@ CDM_METATYPES = {
     "enumitem*": (enumitems := CdmMetatype("enumitem*", "Enumeration Items", CDEnumLiteral, _seat_type.literals)),
     "qualassoc": (qualassoc := CdmMetatype("qualassoc", "Qualified Association", Association)),  # not yet supported
     "role": (role := CdmMetatype("role", "Role", _role_types, _person_roles)),
-    "role*": (roles := CdmMetatype("role*", "Roles", _role_types, [_person_roles, _person_airlinesystem])),
+    "role*": (roles := CdmMetatype("role*", "Roles", _role_types, [_passengerrole, _employeerole, _visitorrole])),
     "rel": (rel := CdmMetatype("rel", "Relationship", Association)),  # deprecated
 }

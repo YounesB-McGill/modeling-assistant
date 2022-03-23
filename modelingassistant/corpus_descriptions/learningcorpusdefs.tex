@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus.py script.
-% Generation time: 2022-03-17 13:55:04
+% Generation time: 2022-03-23 00:15:37
 
 \textbf{Legend:}
 In the textual responses, items in \verb|${this format}| represent the parameters of
@@ -167,7 +167,7 @@ Please review the \textit{Classes} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
 
-\subsubsection{Wrong class name but correct attribute/relationship}
+\subsubsection{Wrong class name but correct attributes/relationships}
 
 Student element: Class. Instructor element: Class. \medskip
 
@@ -304,7 +304,7 @@ Please review the \textit{Enumeration} part of the Class Diagram lecture.
 
 Instructor element: Enumeration. \medskip
 
-\noindent Level 1: Highlight sentence(s) in problem statement referring to item \medskip
+\noindent Level 1: Highlight sentence(s) in problem statement referring to the instructor element \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -321,7 +321,7 @@ Model this concept with an enumeration.
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Add an \verb|${inst_enum}| enumeration.
+Add a \verb|${inst_enum}| enumeration.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -396,13 +396,13 @@ Is there anything missing here?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${inst_enumitem.enum}| enumeration is missing an item.
+The \verb|${stud_enum}| enumeration is missing an item.
 \end{tabular} \medskip
 
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Add \verb|${inst_enumitem}| to the \verb|${inst_enumitem.enum}| enumeration.
+Add \verb|${inst_enumitem}| to the \verb|${stud_enum}| enumeration.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -466,7 +466,7 @@ Please review the \textit{Enumeration} part of the Class Diagram lecture.
 
 Instructor element: Class. \medskip
 
-\noindent Level 1: Highlight sentence(s) in problem statement referring to item \medskip
+\noindent Level 1: Highlight sentence(s) in problem statement referring to the instructor element \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -474,7 +474,7 @@ Instructor element: Class. \medskip
 Make sure you have modeled all the classes in the problem description.
 \end{tabular} \medskip
 
-\noindent Level 3: Highlight specific problem statement elements \medskip
+\noindent Level 3: Highlight specific problem statement elements referring to the instructor element \medskip
 
 \noindent Level 4: Parametrized response: \medskip
 
@@ -540,7 +540,7 @@ Double check this attribute name.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${stud_attr.cls}|.\verb|${stud_attr}| is misspelled.[ Use the same spelling as the problem description.]
+The \verb|${stud_attr.cls}|.\verb|${stud_attr}| attribute is misspelled.[ Use the same spelling as the problem description.]
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with List multiple-choice quiz: \medskip
@@ -582,7 +582,7 @@ Remember that attributes are written in `lowerCamelCase`.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${stud_attr.cls}|.\verb|${stud_attr}| incorrectly starts with an uppercase letter. Attributes should start with a lowercase letter.
+The \verb|${stud_attr.cls}|.\verb|${stud_attr}| attribute incorrectly starts with an uppercase letter. Attributes should start with a lowercase letter.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with List multiple-choice quiz: \medskip
@@ -626,13 +626,13 @@ Can you think of a better place for this attribute?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${stud_attr}| does not belong in the \verb|${stud_attr.cls}| class. Where else can we place it?
+The \verb|${stud_attr}| attribute does not belong in the \verb|${stud_attr.cls}| class. Where else can we place it?
 \end{tabular} \medskip
 
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${stud_attr}| belongs in the \verb|${inst_attr.cls}| class, i.e., a different class in the inheritance hierarchy.
+The \verb|${stud_attr}| attribute belongs in the \verb|${inst_attr.cls}| class.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -648,12 +648,6 @@ Student element: Attribute.  \medskip
 
 \noindent Level 1: Highlight solution  \medskip
 
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Are you sure this is needed?
-\end{tabular} \medskip
-
 \noindent Level 3: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
@@ -663,7 +657,7 @@ Does this need to be included more than once?
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${stud_attr}| already exists in another class, so there is no need to include it again.
+The \verb|${stud_attr}| already exists in the same class or another class in the generalization hierarchy, so there is no need to include it again.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -688,7 +682,7 @@ Can you think of a better place for this?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${stud_attr}| belongs in \verb|${inst_attr.cls}|.
+The \verb|${stud_attr}| belongs in the \verb|${inst_attr.cls}| class, i.e., a different class in the inheritance hierarchy.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -832,7 +826,7 @@ Can you think of a better type for \verb|${stud_attr}|?
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${stud_attr.cls}|.\verb|${stud_attr}| should be of type \verb|${inst_attr.type}|.
+The \verb|${stud_attr.cls}|.\verb|${stud_attr}| attribute should be of type \verb|${inst_attr.type}|.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -882,7 +876,7 @@ Isn't there something special about this attribute?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${stud_attr}| should be static, because it applies to all instances of \verb|${stud_attr.cls}|.
+\verb|${stud_attr}| should be static, because its value is the same for all instances of \verb|${stud_attr.cls}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -907,7 +901,7 @@ Double check the properties of this attribute.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${stud_attr}| should not be static, because it does not apply to all instances of \verb|${stud_attr.cls}|.
+\verb|${stud_attr}| should not be static, because its value may be different for instances of \verb|${stud_attr.cls}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -951,7 +945,7 @@ Please review the \textit{Attribute} and \textit{Noun Analysis} parts of the Cla
 
 Instructor element: Association. \medskip
 
-\noindent Level 1: Highlight sentence(s) in problem statement referring to item \medskip
+\noindent Level 1: Highlight sentence(s) in problem statement referring to the instructor element \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -981,7 +975,7 @@ better understand these relationships and where they are used.
 
 Instructor elements: Aggregation, Whole association end, Part association end. \medskip
 
-\noindent Level 1: Highlight sentence(s) in problem statement referring to item \medskip
+\noindent Level 1: Highlight sentence(s) in problem statement referring to the instructor element(s) \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -992,10 +986,16 @@ How should this relationship be modeled?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How would you capture that a \verb|${inst_whole_assocend.cls}| has a \verb|${inst_part_assocend.cls}|?
+How would you capture that a \verb|${inst_whole_assocend.refcls}| has a \verb|${inst_part_assocend.refcls}|?
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Reference: \medskip
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Use aggregation to model the relationship between \verb|${inst_part_assocend.cls}| and \verb|${inst_whole_assocend.cls}|.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Please review the _Composition vs. Aggregation vs. Association_ section of 
@@ -1009,9 +1009,9 @@ better understand these relationships and where they are used.
 
 \subsubsection{Missing n-ary association}
 
-Instructor element: Association. \medskip
+Instructor elements: Association, Association ends. \medskip
 
-\noindent Level 1: Highlight sentence(s) in problem statement referring to item \medskip
+\noindent Level 1: Highlight sentence(s) in problem statement referring to the instructor element(s) \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -1155,7 +1155,7 @@ Please review the \textit{domain modeling lecture} to know which concepts should
 
 \subsubsection{Extra n-ary association}
 
-Student element: Association.  \medskip
+Student elements: Association, Association ends.  \medskip
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -1165,10 +1165,10 @@ Student element: Association.  \medskip
 Is this association really necessary?
 \end{tabular} \medskip
 
-\noindent Level 3: Text response: \medskip
+\noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between the highlighted classes is redundant.
+The relationship between the \verb|${stud_assoc.cls*}| classes is redundant.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1201,7 +1201,7 @@ The multiplicit(y$|$ies) for this relationship (is$|$are) incorrect.
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Does every \verb|${stud_assocend0.cls}| have exactly \verb|${stud_assocend0.lowerBound}| \verb|${stud_assocend0}|?
+Is it a good idea to specify that every \verb|${stud_assocend0.cls}| has a minimum of \verb|${stud_assocend0.lowerBound}| \verb|${stud_assocend0}|?
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with List multiple-choice quiz: \medskip
@@ -1249,7 +1249,7 @@ The multiplicity for this association end is incorrect.
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How many \verb|${stud_assocend.cls}| instances does a \verb|${stud_assocend.opposite.cls}| have?
+How many \verb|${stud_assocend.opposite.cls}| instances does a \verb|${stud_assocend.cls}| have?
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with List multiple-choice quiz: \medskip
@@ -1298,7 +1298,7 @@ The multiplicit(y$|$ies) for this association (is$|$are) missing.
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How many \verb|${stud_assocend.cls}|'s does a \verb|${stud_assocend.opposite.cls}| have?
+How many \verb|${stud_assocend.opposite.cls}| instances does a \verb|${stud_assocend.cls}| have?
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with List multiple-choice quiz: \medskip
@@ -1343,14 +1343,14 @@ Can you model this relationship more precisely?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The association between \verb|${stud_assocend.cls}| and \verb|${stud_assocend.opposite.cls}| is missing a role name.
+The relationship between \verb|${stud_assocend.cls}| and \verb|${stud_assocend.opposite.cls}| is missing a role name.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Can you think of appropriate \textit{role names}
-for this association? Role names help identify the role a class plays in a
+for this relationship? Role names help identify the role a class plays in a
 relationship and are particularly important if there is more than one relationship
 between the same two classes.
 
@@ -1375,7 +1375,7 @@ Isn't there something special about this role name?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${stud_assocend}| should be static, because it applies to all instances of the association between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}|.
+\verb|${stud_assocend}| should be static, because its value is the same for all instances of the relationship between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1400,7 +1400,7 @@ Is there something special about this role name?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-\verb|${stud_assocend}| should not be static, because it does not apply to all instances of the association between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}|.
+\verb|${stud_assocend}| should not be static, because its value may be different for the instances of the relationship between \verb|${stud_assocend.opposite.cls}| and \verb|${stud_assocend.cls}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1488,7 +1488,7 @@ The \verb|${stud_assocend}| role name should be changed to \verb|${inst_assocend
 
 \begin{tabular}{|p{0.9\linewidth}}
 Can you think of appropriate \textit{role names}
-for this association? Role names help identify the role a class plays in a
+for this relationship? Role names help identify the role a class plays in a
 relationship and are particularly important if there is more than one relationship
 between the same two classes.
 
@@ -1545,7 +1545,7 @@ What is the relationship between these two concepts?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Why is \verb|${stud_part_assocend.cls}| contained in \verb|${stud_whole_assocend.cls}|?
+Why is \verb|${stud_part_assocend.refcls}| contained in \verb|${stud_whole_assocend.refcls}|?
 \end{tabular} \medskip
 
 \noindent Level 4: Parametrized response: \medskip
@@ -1600,13 +1600,13 @@ Student elements: Aggregation composition or association, Association end, Other
 \noindent Level 2: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Does \verb|${inst_target_assocend.cls}| need to know about \verb|${inst_source_assocend.cls}|?
+Does \verb|${inst_target_assocend.refcls}| need to know about \verb|${inst_source_assocend.refcls}|?
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${inst_source_assocend.cls}| and \verb|${inst_target_assocend.cls}| should be directed[ from \verb|${inst_source_assocend.cls}| to \verb|${inst_target_assocend.cls}|].
+The relationship between \verb|${inst_source_assocend.refcls}| and \verb|${inst_target_assocend.refcls}| should be directed[ from \verb|${inst_source_assocend.refcls}| to \verb|${inst_target_assocend.refcls}|].
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1616,9 +1616,9 @@ Please review the _Directionality in Associations_ section of the \textit{UML Cl
 \end{tabular} \medskip
 
 
-\subsubsection{Wrong relationship direction}
+\subsubsection{Reversed relationship direction}
 
-Student elements: Aggregation composition or association, Target association end, Source association end. Instructor elements: Aggregation composition or association, Target association end, Source association end. \medskip
+Student elements: Aggregation composition or association, Whole or target association end, Part or source association end. Instructor elements: Aggregation composition or association, Whole or target association end, Part or source association end. \medskip
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -1631,7 +1631,7 @@ Double check the direction for this relationship.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The direction of the relationship between \verb|${stud_source_assocend.cls}| and \verb|${stud_target_assocend.cls}| should be reversed.
+The direction of the relationship between \verb|${stud_part_or_source_assocend.cls}| and \verb|${stud_whole_or_target_assocend.cls}| should be reversed.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1686,7 +1686,7 @@ Can you model this relationship more precisely?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Use a \verb|${inst_assoc.ends.length}|-ary association to represent this relationship.
+Use an n-ary association to represent the relationship between the \verb|${inst_assoc.cls*}| classes.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1708,10 +1708,10 @@ Student elements: Association, Association ends. Instructor elements: Associatio
 Can you model this relationship more precisely?
 \end{tabular} \medskip
 
-\noindent Level 3: Text response: \medskip
+\noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Use a binary association to represent this relationship.
+Use a binary association to represent the relationship between the \verb|${inst_assoc.cls*}| classes.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1736,7 +1736,7 @@ Can you model this relationship in a different way?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Use a \verb|${inst_assoc.ends.length}|-ary association to represent this relationship.
+Use an n-ary association to represent the relationship between the \verb|${inst_assoc.cls*}| classes.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -1835,7 +1835,7 @@ Please review the \textit{Association} and \textit{Noun Analysis} parts of the C
 
 Instructor elements: Association, Class. \medskip
 
-\noindent Level 1: Highlight sentence(s) in problem statement referring to item \medskip
+\noindent Level 1: Highlight sentence(s) in problem statement referring to the instructor element(s) \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -1881,7 +1881,7 @@ Is using an association class the best way to model this?
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Does it make sense to disallow multiple instances of the \verb|${stud_cls}| linking \verb|${stud_assoc.end0.cls}| and \verb|${stud_assoc.end1.cls}|?
+Does it make sense to disallow multiple instances of \verb|${stud_cls}| with the same pair of \verb|${stud_assoc.end0.cls}| and \verb|${stud_assoc.end1.cls}| instances?
 \end{tabular} \medskip
 
 \noindent Level 5: Parametrized response: \medskip
@@ -1996,7 +1996,7 @@ Please review the _Association class_ section of the
 
 Instructor elements: Composition, Whole association end, Part association end. \medskip
 
-\noindent Level 1: Highlight sentence(s) in problem statement referring to item \medskip
+\noindent Level 1: Highlight sentence(s) in problem statement referring to the instructor element(s) \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -2007,10 +2007,16 @@ How should this relationship be modeled?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How would you capture that a \verb|${inst_whole_assocend.cls}| has a \verb|${inst_part_assocend.cls}|?
+How would you capture that a \verb|${inst_whole_assocend.refcls}| has a \verb|${inst_part_assocend.refcls}|?
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Reference: \medskip
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Use composition to show that the \verb|${inst_part_assocend.refcls}| class is contained in the \verb|${inst_whole_assocend.refcls}| class.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Please review the _Composition vs. Aggregation vs. Association_ section of 
@@ -2169,7 +2175,7 @@ Student element: Classes.  \medskip
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Please double-check this relationship.
+Please double-check the relationship(s) between these class(es).
 \end{tabular} \medskip
 
 \noindent Level 3: Text response: \medskip
@@ -2235,7 +2241,7 @@ Student element: Classes.  \medskip
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-What is the relationship between these classes?
+Please double-check the relationships of these classes.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -2290,9 +2296,9 @@ better understand these relationships and where they are used.
 
 \subsubsection{Missing generalization}
 
-Student elements: Subclass, Superclass. Instructor elements: Subclass, Superclass. \medskip
+Instructor elements: Subclass, Superclass. \medskip
 
-\noindent Level 1: Highlight solution  \medskip
+\noindent Level 1: Highlight sentence(s) in problem statement referring to the instructor element(s) \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -2310,7 +2316,7 @@ A \verb|${inst_sub_cls}| is a \verb|${inst_super_cls}|. How should we model this
 
 \begin{tabular}{|p{0.9\linewidth}}
 
-Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
+Place the following classes in an inheritance hierarchy: Vehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 \begin{itemize}
     \item SportsCar isA \underline{Car}
@@ -2351,7 +2357,7 @@ When creating a generalization between \verb|${stud_sub_cls}| and \verb|${stud_s
 
 \begin{tabular}{|p{0.9\linewidth}}
 
-Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
+Place the following classes in an inheritance hierarchy: Vehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 \begin{itemize}
     \item SportsCar isA \underline{Car}
@@ -2411,7 +2417,7 @@ When creating a generalization between \verb|${stud_sub_cls}| and \verb|${stud_s
 
 \begin{tabular}{|p{0.9\linewidth}}
 
-Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
+Place the following classes in an inheritance hierarchy: Vehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 \begin{itemize}
     \item SportsCar isA \underline{Car}
@@ -2464,7 +2470,7 @@ Can you find a better way to model this concept?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Is it possible for an instance of \verb|${stud_sub_cls}| to turn into an instance of another subclass over its lifetime?
+Is it possible for an instance of \verb|${stud_sub_cls}| to turn into an instance of another subclass of \verb|${stud_super_cls}| over its lifetime?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with List multiple-choice quiz: \medskip
@@ -2492,7 +2498,7 @@ Please review the \textit{Generalization} part of the Class Diagram lecture.
 
 \subsubsection{Inherited feature does not make sense for subclass}
 
-Student elements: Attribute, Subclass, Superclass.  \medskip
+Student elements: Subclass, Superclass.  \medskip
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -2505,7 +2511,7 @@ Does this belong here?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${stud_attr}| feature of the \verb|${stud_super_cls}| class does not make sense for its \verb|${stud_sub_cls}| subclass.
+A feature of the \verb|${stud_super_cls}| class does not make sense for its \verb|${stud_sub_cls}| subclass.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
@@ -2628,9 +2634,9 @@ Please review the \textit{Generalization} part of the Class Diagram lecture.
 \end{tabular} \medskip
 
 
-\subsubsection{Wrong generalization direction}
+\subsubsection{Reversed generalization direction}
 
-Student elements: Superclass, Subclass. Instructor elements: Subclass, Superclass. \medskip
+Student elements: Subclass, Superclass. Instructor elements: Subclass, Superclass. \medskip
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -2650,7 +2656,7 @@ Is \verb|${inst_super_cls}| really a \verb|${inst_sub_cls}|?[ It should be the o
 
 \begin{tabular}{|p{0.9\linewidth}}
 
-Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
+Place the following classes in an inheritance hierarchy: Vehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 \begin{itemize}
     \item SportsCar isA \underline{Car}
@@ -2706,7 +2712,7 @@ Can you double check this relationship?
 \verb|${stud_sub_cls}| has an incorrect superclass.
 \end{tabular} \medskip
 
-\noindent Level 4: Highlight specific problem statement elements \medskip
+\noindent Level 4: Highlight specific problem statement elements referring to the instructor element(s) \medskip
 
 \noindent Level 5: Parametrized response: \medskip
 
@@ -2718,7 +2724,7 @@ The superclass for \verb|${stud_sub_cls}| should be \verb|${inst_super_cls}|.
 
 \begin{tabular}{|p{0.9\linewidth}}
 
-Place the following classes in an inheritance hierarchy: AmphibiousVehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
+Place the following classes in an inheritance hierarchy: Vehicle, Wheel, LuxuryBus, Airplane, Car, Driver, LandVehicle, Bus. Only use a term once.
 
 \begin{itemize}
     \item SportsCar isA \underline{Car}
@@ -2747,7 +2753,7 @@ Please review the \textit{Generalization} part of the Class Diagram lecture.
 
 Instructor elements: Player class, Roles. \medskip
 
-\noindent Level 1: Highlight solution  \medskip
+\noindent Level 1: Highlight sentence(s) in problem statement referring to the instructor element(s) \medskip
 
 \noindent Level 2: Text response: \medskip
 
@@ -2764,7 +2770,7 @@ Use the Player-Role pattern to model the relationships between these concepts.
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The concepts of \verb|${inst_player_cls}| and \verb|${inst_role*}| and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
+The concepts of \verb|${inst_player_cls}| and its roles \verb|${inst_role*}| and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Quiz: \medskip
@@ -2816,7 +2822,7 @@ Use the Player-Role pattern to model the relationships between these concepts.
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The concepts of \verb|${inst_player_cls}|, \verb|${inst_role*}| and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
+The concepts of \verb|${inst_player_cls}| and its roles \verb|${inst_role*}| and the relationship between them should be modeled with one of the forms of the Player-Role pattern.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Quiz: \medskip
@@ -2862,7 +2868,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-[Nice try, but ]\verb|${stud_role_cls*}| can also play the role of one of the other subclasses.
+An instance of \verb|${stud_player_cls}| can play more than one role out of \verb|${stud_role_cls*}|.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -2908,7 +2914,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-[Nice try, but ]\verb|${stud_role_cls*}| can also play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
+An instance of \verb|${stud_player_cls}| can play more than one role out of \verb|${inst_role_assocend*}| and different features do not need to be captured for the roles.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -2954,7 +2960,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-[Nice try, but ]\verb|${stud_role_cls*}| do not need to play the role of one of the other subclasses and different features do not need to be captured for the subclasses.
+An instance of \verb|${stud_player_cls}| does not need to play more than one role out of \verb|${stud_role_cls*}| at the same time and different features do not need to be captured for the roles.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3000,7 +3006,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-A \verb|${stud_role_assocend0}| has different features from a \verb|${stud_role_assocend1}|.
+The roles \verb|${stud_role_assocend*}| have different features that need to be modeled.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3046,7 +3052,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-A \verb|${stud_role_assocend0}| has different features from a \verb|${stud_role_assocend1}| and does not change its role over its lifetime.
+The roles \verb|${stud_role_assocend*}| have different features that need to be modeled, but an instance of \verb|${stud_player_cls}| does not change its role over its lifetime.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3092,7 +3098,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Will the roles of \verb|${stud_role_assocend*}| ever be occupied at the same time?
+Will the roles \verb|${stud_role_assocend*}| ever be played by an instance of \verb|${stud_player_cls}| at the same time?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3138,7 +3144,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-A \verb|${stud_role_assocend}| can also play the role of one of the other roles at the same time and different features need to be captured for the roles.
+A \verb|${stud_role_enumitem0}| can also play the role of one of the other roles at the same time and different features need to be captured for the roles.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3184,7 +3190,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-A \verb|${stud_role_assocend0}| has different features from one of the other roles and this role never changes to another role.
+A \verb|${stud_role_enumitem0}| has different features from one of the other roles and this role never changes to another role.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3230,7 +3236,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Will the roles of \verb|${stud_role_assocend*}| ever be occupied at the same time?
+Will the roles of \verb|${stud_role_enumitem*}| ever be occupied at the same time?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3276,7 +3282,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Can a \verb|${stud_role_assocend0}| also play the role of one of the other roles at different times or at the same time?
+an instance of \verb|${stud_player_cls}| play more than one role out of \verb|${stud_role_cls*}| at different times or at the same time?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3322,7 +3328,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Do \verb|${stud_role_assocend*}| need to have different features?
+Do the roles \verb|${stud_role_cls*}| need to have different features?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3368,7 +3374,7 @@ Think carefully about how to model the relationships between these concepts.
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Do \verb|${stud_role_assocend*}| need to have different features and is it possible that more than one role is played at the same time?
+Do the roles \verb|${stud_role_cls*}| need to have different features and is it possible that more than one role is played by an instance of \verb|${stud_player_cls}| at the same time?
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Quiz: \medskip
@@ -3405,12 +3411,12 @@ in different contexts.
 
 Instructor elements: Abstraction class, Occurrence class. \medskip
 
-\noindent Level 1: Highlight sentence(s) in problem statement referring to item \medskip
+\noindent Level 1: Highlight sentence(s) in problem statement referring to the instructor element(s) \medskip
 
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
+Think carefully about how to model the relationship between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -3440,7 +3446,7 @@ Student element: Existing class. Instructor elements: Abstraction class, Occurre
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
+Think carefully about how to model the relationship between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -3453,6 +3459,42 @@ The \verb|${stud_existing_cls}| should be part of an Abstraction-Occurrence rela
 
 \begin{tabular}{|p{0.9\linewidth}}
 The concepts of \verb|${inst_abs_cls}| and \verb|${inst_occ_cls}| and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The \textit{Abstraction-Occurrence Pattern} can be used to 
+represent a set of related objects that share common information but also differ
+from each other in an important way.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/abstraction_occurrence.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Missing association in Abstraction-Occurrence pattern}
+
+Student elements: Abstraction class, Occurrence class. Instructor elements: Abstraction class, Occurrence class. \medskip
+
+\noindent Level 1: Highlight solution  \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationship between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The \verb|${stud_abs_cls}| and \verb|${stud_occ_cls}| should be in an Abstraction-Occurrence relationship.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The relationship between \verb|${stud_abs_cls}| and \verb|${stud_occ_cls}| should be modeled with an association as part of the Abstraction-Occurrence pattern.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip

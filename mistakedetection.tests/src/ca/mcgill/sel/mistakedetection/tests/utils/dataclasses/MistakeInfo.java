@@ -12,7 +12,7 @@ public class MistakeInfo {
   public static final String TABLE_HEADER =
       "MistakeType,StudentElems,InstructorElems,TotalElems,MaxParamRespNumParams,SolElemDescriptions\n";
 
-  Mistake mistake;
+  public Mistake mistake;
   int instructorElems;
   int studentElems;
   int totalElems;
