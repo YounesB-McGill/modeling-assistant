@@ -9,7 +9,7 @@ nsPrefix = 'learningcorpus'
 eClass = EPackage(name=name, nsURI=nsURI, nsPrefix=nsPrefix)
 eClassifiers = {}
 getEClassifier = partial(Ecore.getEClassifier, searchspace=eClassifiers)
-ElementType = EEnum('ElementType', literals=['Class', 'Attribute', 'Association', 'AssociationEnd', 'Composition', 'Generalization', 'PlayerRolePattern', 'AbstractionOccurrencePattern'])
+ElementType = EEnum('ElementType', literals=['Class', 'Attribute', 'Association', 'AssociationEnd', 'Aggregation', 'Composition', 'Generalization', 'PlayerRolePattern', 'AbstractionOccurrencePattern'])
 Time = EDataType('Time', instanceClassName='java.sql.Time')
 
 class Feedback(EObject, metaclass=MetaEClass):
