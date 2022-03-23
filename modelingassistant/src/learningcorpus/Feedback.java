@@ -147,7 +147,7 @@ public interface Feedback extends EObject {
    * @see #setMistakeType(MistakeType)
    * @see learningcorpus.LearningcorpusPackage#getFeedback_MistakeType()
    * @see learningcorpus.MistakeType#getFeedbacks
-   * @model opposite="feedbacks" required="true"
+   * @model opposite="feedbacks"
    * @generated
    */
   MistakeType getMistakeType();
