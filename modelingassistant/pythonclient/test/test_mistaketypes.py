@@ -134,7 +134,7 @@ def test_mistake_type_formats():
 
 def test_no_bad_highlighting():
     """
-    Verify that a the student solution is highlighted only if there are student elements. 
+    Verify that a the student solution is highlighted only if there are student elements.
     """
     for mt in corpus.mistakeTypes():
         mdf: MistakeDetectionFormat = mt.md_format

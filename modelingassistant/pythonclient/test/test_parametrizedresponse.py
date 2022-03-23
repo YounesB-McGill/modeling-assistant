@@ -22,8 +22,9 @@ from classdiagram import Association, AssociationEnd, Class, NamedElement
 from createcorpus import underscorify
 from corpus import corpus
 from corpus_definition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
-from parametrizedresponse import (comma_seperated_with_and, extract_params, get_mdf_items_to_mistake_elem_dict, parametrize_response,
-                                  param_parts_before_dot, param_start_elem_type, param_valid, parse)
+from parametrizedresponse import (comma_seperated_with_and, extract_params, get_mdf_items_to_mistake_elem_dict,
+                                  parametrize_response, param_parts_before_dot, param_start_elem_type, param_valid,
+                                  parse)
 from utils import mdf, mt
 from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake, SolutionElement

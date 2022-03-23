@@ -593,17 +593,13 @@ Student element: Attribute.
 
 Level 1: Highlight solution
 
-Level 2: Text response:
-
-> Are you sure this is needed?
-
 Level 3: Text response:
 
 > Does this need to be included more than once?
 
 Level 4: Parametrized response:
 
-> The ${stud_attr} already exists in another class, so there is no need to include it again.
+> The ${stud_attr} already exists in the same class or another class in the generalization hierarchy, so there is no need to include it again.
 
 Level 5: Resource response with Reference:
 
@@ -849,9 +845,13 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?
+> How would you capture that a ${inst_whole_assocend.refcls} has a ${inst_part_assocend.refcls}?
 
-Level 4: Resource response with Reference:
+Level 4: Parametrized response:
+
+> Use aggregation to model the relationship between ${inst_part_assocend.cls} and ${inst_whole_assocend.cls}.
+
+Level 5: Resource response with Reference:
 
 > Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
@@ -1261,7 +1261,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Why is ${stud_part_assocend.cls} contained in ${stud_whole_assocend.cls}?
+> Why is ${stud_part_assocend.refcls} contained in ${stud_whole_assocend.refcls}?
 
 Level 4: Parametrized response:
 
@@ -1303,11 +1303,11 @@ Level 1: Highlight solution
 
 Level 2: Parametrized response:
 
-> Does ${inst_target_assocend.cls} need to know about ${inst_source_assocend.cls}?
+> Does ${inst_target_assocend.refcls} need to know about ${inst_source_assocend.refcls}?
 
 Level 3: Parametrized response:
 
-> The relationship between ${inst_source_assocend.cls} and ${inst_target_assocend.cls} should be directed[ from ${inst_source_assocend.cls} to ${inst_target_assocend.cls}].
+> The relationship between ${inst_source_assocend.refcls} and ${inst_target_assocend.refcls} should be directed[ from ${inst_source_assocend.refcls} to ${inst_target_assocend.refcls}].
 
 Level 4: Resource response with Reference:
 
@@ -1611,9 +1611,13 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?
+> How would you capture that a ${inst_whole_assocend.refcls} has a ${inst_part_assocend.refcls}?
 
-Level 4: Resource response with Reference:
+Level 4: Parametrized response:
+
+> Use composition to show that the ${inst_part_assocend.refcls} class is contained in the ${inst_whole_assocend.refcls} class.
+
+Level 5: Resource response with Reference:
 
 > Please review the _Composition vs. Aggregation vs. Association_ section of 
 the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 

@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus.py script.
-% Generation time: 2022-03-22 00:45:33
+% Generation time: 2022-03-22 23:34:25
 
 \textbf{Legend:}
 In the textual responses, items in \verb|${this format}| represent the parameters of
@@ -648,12 +648,6 @@ Student element: Attribute.  \medskip
 
 \noindent Level 1: Highlight solution  \medskip
 
-\noindent Level 2: Text response: \medskip
-
-\begin{tabular}{|p{0.9\linewidth}}
-Are you sure this is needed?
-\end{tabular} \medskip
-
 \noindent Level 3: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
@@ -663,7 +657,7 @@ Does this need to be included more than once?
 \noindent Level 4: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${stud_attr}| already exists in another class, so there is no need to include it again.
+The \verb|${stud_attr}| already exists in the same class or another class in the generalization hierarchy, so there is no need to include it again.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip
@@ -992,10 +986,16 @@ How should this relationship be modeled?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How would you capture that a \verb|${inst_whole_assocend.cls}| has a \verb|${inst_part_assocend.cls}|?
+How would you capture that a \verb|${inst_whole_assocend.refcls}| has a \verb|${inst_part_assocend.refcls}|?
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Reference: \medskip
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Use aggregation to model the relationship between \verb|${inst_part_assocend.cls}| and \verb|${inst_whole_assocend.cls}|.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Please review the _Composition vs. Aggregation vs. Association_ section of 
@@ -1545,7 +1545,7 @@ What is the relationship between these two concepts?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Why is \verb|${stud_part_assocend.cls}| contained in \verb|${stud_whole_assocend.cls}|?
+Why is \verb|${stud_part_assocend.refcls}| contained in \verb|${stud_whole_assocend.refcls}|?
 \end{tabular} \medskip
 
 \noindent Level 4: Parametrized response: \medskip
@@ -1600,13 +1600,13 @@ Student elements: Aggregation composition or association, Association end, Other
 \noindent Level 2: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Does \verb|${inst_target_assocend.cls}| need to know about \verb|${inst_source_assocend.cls}|?
+Does \verb|${inst_target_assocend.refcls}| need to know about \verb|${inst_source_assocend.refcls}|?
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The relationship between \verb|${inst_source_assocend.cls}| and \verb|${inst_target_assocend.cls}| should be directed[ from \verb|${inst_source_assocend.cls}| to \verb|${inst_target_assocend.cls}|].
+The relationship between \verb|${inst_source_assocend.refcls}| and \verb|${inst_target_assocend.refcls}| should be directed[ from \verb|${inst_source_assocend.refcls}| to \verb|${inst_target_assocend.refcls}|].
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Reference: \medskip
@@ -2007,10 +2007,16 @@ How should this relationship be modeled?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-How would you capture that a \verb|${inst_whole_assocend.cls}| has a \verb|${inst_part_assocend.cls}|?
+How would you capture that a \verb|${inst_whole_assocend.refcls}| has a \verb|${inst_part_assocend.refcls}|?
 \end{tabular} \medskip
 
-\noindent Level 4: Resource response with Reference: \medskip
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Use composition to show that the \verb|${inst_part_assocend.refcls}| class is contained in the \verb|${inst_whole_assocend.refcls}| class.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
 Please review the _Composition vs. Aggregation vs. Association_ section of 

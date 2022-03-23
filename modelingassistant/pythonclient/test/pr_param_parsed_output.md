@@ -16,6 +16,7 @@ assocend | person | person
 assocend* | person, persons, airlineSystem, and bookings | person, persons, airlineSystem, and bookings
 assocend.cls | person | PersonRole
 assocend.opposite.cls | person | Person
+assocend.refcls | person | Person
 assocend0 | person, persons, airlineSystem, and bookings | person
 assocend0.cls | person, persons, airlineSystem, and bookings | PersonRole
 assocend0.lowerBound | person, persons, airlineSystem, and bookings | 1

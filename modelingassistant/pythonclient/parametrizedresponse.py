@@ -26,6 +26,7 @@ SHORTHANDS: dict[str, str] = {
     "cls": "classifier",
     "cls*": "ends",  # fallback
     "end": "ends",
+    "refcls": "oppositeEnd",  # fallback
     "opposite": "oppositeEnd",
 }
 
@@ -158,6 +159,8 @@ def resolve_attribute(elem, attr_name: str):
         case AssociationEnd() if attr_name in ("lowerBound", "upperBound"):
             bound = getattr(elem, attr_name)
             return "*" if bound == -1 else str(bound)
+        case AssociationEnd() if attr_name == "refcls":
+            return elem.oppositeEnd.classifier
         case Attribute() if attr_name == "cls":
             return elem.eContainer()
         case Attribute() if attr_name == "type":

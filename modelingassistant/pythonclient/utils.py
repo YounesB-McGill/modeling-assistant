@@ -12,7 +12,7 @@ from typing import NamedTuple
 from constants import CORRECT_QUIZ_ITEM_NOTATIONS, MULTIPLE_FEEDBACKS_PER_LEVEL
 from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
 from learningcorpusquiz import (Blank, Choice, FillInTheBlanksQuiz, FillInTheBlanksQuizStatement,
-                                ListMultipleChoiceQuiz, NonBlank, TableMultipleChoiceQuiz)
+                                ListMultipleChoiceQuiz, NonBlank)
 from modelingassistant import ModelingAssistant
 
 

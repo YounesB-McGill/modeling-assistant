@@ -217,10 +217,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 })),
                 attribute_duplicated := mt(n="Attribute duplicated", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Are you sure this is needed?"),
                     3: TextResponse(text="Does this need to be included more than once?"),
-                    4: ParametrizedResponse(text="The ${stud_attr} already exists in another class, so there is no "
-                                                 "need to include it again."),
+                    4: ParametrizedResponse(text="The ${stud_attr} already exists in the same class or another class "
+                        "in the generalization hierarchy, so there is no need to include it again."),
                     5: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 attribute_misplaced_in_generalization_hierarchy := mt(
@@ -319,9 +318,11 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_aggregation := mt(n="Missing aggregation", feedbacks=fbs({
                 1: Feedback(highlightProblem=True),
                 2: TextResponse(text="How should this relationship be modeled?"),
-                3: ParametrizedResponse(
-                    text="How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?"),
-                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                3: ParametrizedResponse(text="How would you capture that a ${inst_whole_assocend.refcls} has a "
+                                             "${inst_part_assocend.refcls}?"),
+                4: ParametrizedResponse(text="Use aggregation to model the relationship between "
+                                             "${inst_part_assocend.cls} and ${inst_whole_assocend.cls}."),
+                5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
             missing_n_ary_association := mt(n="Missing n-ary association", feedbacks=fbs({
                 1: Feedback(highlightProblem=True),
@@ -511,7 +512,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="What is the relationship between these two concepts?"),
                     3: ParametrizedResponse(
-                        text="Why is ${stud_part_assocend.cls} contained in ${stud_whole_assocend.cls}?"),
+                        text="Why is ${stud_part_assocend.refcls} contained in ${stud_whole_assocend.refcls}?"),
                     4: ParametrizedResponse(text="The relationship between ${stud_part_assocend.cls} and "
                         "${stud_whole_assocend.cls} should be modeled with a simple association."),
                     5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
@@ -534,10 +535,10 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: ParametrizedResponse(
-                        text="Does ${inst_target_assocend.cls} need to know about ${inst_source_assocend.cls}?"),
-                    3: ParametrizedResponse(
-                        text="The relationship between ${inst_source_assocend.cls} and ${inst_target_assocend.cls} "
-                             "should be directed[ from ${inst_source_assocend.cls} to ${inst_target_assocend.cls}]."),
+                        text="Does ${inst_target_assocend.refcls} need to know about ${inst_source_assocend.refcls}?"),
+                    3: ParametrizedResponse(text="The relationship between ${inst_source_assocend.refcls} and "
+                                                 "${inst_target_assocend.refcls} should be directed[ from "
+                                                 "${inst_source_assocend.refcls} to ${inst_target_assocend.refcls}]."),
                     4: ResourceResponse(learningResources=[dir_rel_ref]),
                 })),
             reversed_relationship_direction := mt(n="Reversed relationship direction", feedbacks=fbs({
@@ -663,9 +664,11 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             missing_composition := mt(n="Missing composition", feedbacks=fbs({
                 1: Feedback(highlightProblem=True),
                 2: TextResponse(text="How should this relationship be modeled?"),
-                3: ParametrizedResponse(
-                    text="How would you capture that a ${inst_whole_assocend.cls} has a ${inst_part_assocend.cls}?"),
-                4: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+                3: ParametrizedResponse(text="How would you capture that a ${inst_whole_assocend.refcls} has a "
+                                             "${inst_part_assocend.refcls}?"),
+                4: ParametrizedResponse(text="Use composition to show that the ${inst_part_assocend.refcls} class "
+                                             "is contained in the ${inst_whole_assocend.refcls} class."),
+                5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
             })),
             extra_composition := mt(n="Extra composition", feedbacks=fbs({
                 1: Feedback(highlightSolution=True),
@@ -706,7 +709,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             composed_part_contained_in_more_than_one_parent := mt(
                 n="Composed part contained in more than one parent", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Please double-check the relationships between these classes."),  # TODO 1 cls?
+                    2: TextResponse(text="Please double-check the relationships between these classes."),
                     3: TextResponse(text="Please review the model containment hierarchy."),
                     4: ParametrizedResponse(
                         text="${stud_cls*} cannot be contained in more than one class."),
@@ -886,7 +889,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 n="Incomplete PR pattern", d="Incomplete Player-Role pattern", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
-                        text="Think carefully about how to model the relationships between these concepts."),                    
+                        text="Think carefully about how to model the relationships between these concepts."),
                     3: TextResponse(
                         text="Use the Player-Role pattern to model the relationships between these concepts."),
                     4: ParametrizedResponse(
