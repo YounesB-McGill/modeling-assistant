@@ -709,7 +709,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             composed_part_contained_in_more_than_one_parent := mt(
                 n="Composed part contained in more than one parent", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
-                    2: TextResponse(text="Please double-check the relationships between these classes."),
+                    2: TextResponse(text="Please double-check the relationship(s) between these class(es)."),
                     3: TextResponse(text="Please review the model containment hierarchy."),
                     4: ParametrizedResponse(
                         text="${stud_cls*} cannot be contained in more than one class."),
@@ -815,7 +815,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 n="Inherited feature does not make sense for subclass", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(text="Does this belong here?"),
-                    3: ParametrizedResponse(text="The ${stud_attr} feature of the ${stud_super_cls} class does not "
+                    # In the future, add ${stud_feature} to the parameterized response if supported by MDS
+                    3: ParametrizedResponse(text="A feature of the ${stud_super_cls} class does not "
                         "make sense for its ${stud_sub_cls} subclass."),
                     4: ResourceResponse(learningResources=[inherit_checks_quiz]),
                     5: ResourceResponse(learningResources=[gen_ref]),
@@ -1051,7 +1052,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 n="Missing AO pattern", d="Missing Abstraction-Occurrence pattern", feedbacks=fbs({
                     1: Feedback(highlightProblem=True),
                     2: TextResponse(
-                        text="Think carefully about how to model the relationships between these concepts."),
+                        text="Think carefully about how to model the relationship between these concepts."),
                     3: ParametrizedResponse(
                         text="The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the relationship between them "
                              "should be modeled with the Abstraction-Occurrence pattern."),
@@ -1066,12 +1067,25 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 n="Incomplete AO pattern", d="Incomplete Abstraction-Occurrence pattern", feedbacks=fbs({
                     1: Feedback(highlightSolution=True),
                     2: TextResponse(
-                        text="Think carefully about how to model the relationships between these concepts."),
+                        text="Think carefully about how to model the relationship between these concepts."),
                     3: ParametrizedResponse(
                         text="The ${stud_existing_cls} should be part of an Abstraction-Occurrence relationship."),
                     4: ParametrizedResponse(
                         text="The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the "
                              "relationship between them should be modeled with the Abstraction-Occurrence pattern."),
+                    5: ResourceResponse(learningResources=[ao_ref]),
+                })),
+            missing_association_in_ao_pattern := mt(
+                n="Missing association in AO pattern", d="Missing association in Abstraction-Occurrence pattern",
+                feedbacks=fbs({
+                    1: Feedback(highlightSolution=True),
+                    2: TextResponse(
+                        text="Think carefully about how to model the relationship between these concepts."),
+                    3: ParametrizedResponse(text="The ${stud_abs_cls} and ${stud_occ_cls} should be in an "
+                                                 "Abstraction-Occurrence relationship."),
+                    4: ParametrizedResponse(
+                        text="The relationship between ${stud_abs_cls} and ${stud_occ_cls} should be modeled with an "
+                             "association as part of the Abstraction-Occurrence pattern."),
                     5: ResourceResponse(learningResources=[ao_ref]),
                 })),
             generalization_should_be_assoc_ao_pattern := mt(
@@ -1198,6 +1212,7 @@ mts_by_priority: list[MistakeType] = [
     missing_association_name,
 
     # missing/incomplete patterns
+    missing_association_in_ao_pattern,
     incomplete_pr_pattern,
     incomplete_ao_pattern,
     missing_pr_pattern,
@@ -1251,13 +1266,14 @@ incomplete_ao_pattern.md_format = mdf(["existing_cls"], ["abs_cls", "occ_cls"])
 incomplete_pr_pattern.md_format = mdf(["player_cls", "role*"], ["player_cls", "role*"])
 incomplete_containment_tree.md_format = mdf(["cls*"], [])
 infinite_recursive_dependency.md_format = mdf(["assocend*"], [])
-inherited_feature_does_not_make_sense_for_subclass.md_format = mdf(["attr", "sub_cls", "super_cls"], [])
+inherited_feature_does_not_make_sense_for_subclass.md_format = mdf(["sub_cls", "super_cls"], [])
 list_attribute.md_format = mdf(["attr"], ["attr"])
 lowercase_class_name.md_format = mdf(["cls"], ["cls"])
 missing_ao_pattern.md_format = mdf([], ["abs_cls", "occ_cls"])
 missing_aggregation.md_format = mdf([], ["aggr", "whole_assocend", "part_assocend"])
 missing_assoc_class.md_format = mdf([], ["assoc", "cls"])
 missing_association.md_format = mdf([], ["assoc"])
+missing_association_in_ao_pattern.md_format = mdf(["abs_cls", "occ_cls"], ["abs_cls", "occ_cls"])
 missing_association_name.md_format = mdf(["assoc"], ["assoc"])
 missing_attribute.md_format = mdf(["cls"], ["attr"])
 missing_attribute_type.md_format = mdf(["attr"], ["attr"])
@@ -1274,7 +1290,7 @@ non_differentiated_subclass.md_format = mdf(["cls"], [])
 plural_attribute.md_format = mdf(["attr"], ["attr"])
 plural_class_name.md_format = mdf(["cls"], ["cls"])
 representing_action_with_assoc.md_format = mdf(["assocend"], ["assocend"])
-reversed_generalization_direction.md_format = mdf(["super_cls", "sub_cls"], ["sub_cls", "super_cls"])
+reversed_generalization_direction.md_format = mdf(["sub_cls", "super_cls"], ["sub_cls", "super_cls"])
 reversed_relationship_direction.md_format = mdf(
     ["aggr_compos_or_assoc", "whole_or_target_assocend", "part_or_source_assocend"],
     ["aggr_compos_or_assoc", "whole_or_target_assocend", "part_or_source_assocend"])

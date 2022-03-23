@@ -401,6 +401,9 @@ public class MistakeTypes {
   /** The incomplete abstraction-occurrence pattern mistake type. */
   public static final MistakeType INCOMPLETE_AO_PATTERN = MTS.get("Incomplete AO pattern");
 
+  /** The missing association in abstraction-occurrence pattern mistake type. */
+  public static final MistakeType MISSING_ASSOCIATION_IN_AO_PATTERN = MTS.get("Missing association in AO pattern");
+
   /** The generalization should be association in abstraction-occurrence pattern mistake type. */
   public static final MistakeType GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN =
       MTS.get("Generalization should be assoc AO pattern");

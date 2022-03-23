@@ -146,4 +146,5 @@ FULL_PR_PATTERN_SHOULD_BE_ASSOC: MistakeType = _MTS["Full PR pattern should be a
 FULL_PR_PATTERN_SHOULD_BE_ENUM: MistakeType = _MTS["Full PR pattern should be enum"]
 MISSING_AO_PATTERN: MistakeType = _MTS["Missing AO pattern"]
 INCOMPLETE_AO_PATTERN: MistakeType = _MTS["Incomplete AO pattern"]
+MISSING_ASSOCIATION_IN_AO_PATTERN: MistakeType = _MTS["Missing association in AO pattern"]
 GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN: MistakeType = _MTS["Generalization should be assoc AO pattern"]

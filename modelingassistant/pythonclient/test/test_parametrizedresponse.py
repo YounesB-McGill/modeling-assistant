@@ -303,7 +303,7 @@ def get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries() ->
         else:
             entries += f"""      entry({name}, Set.of("{f'",{nl}          "'.join(pr_text)}")),\n"""
 
-    return entries
+    return entries.removesuffix(",\n")
 
 
 if __name__ == "__main__":

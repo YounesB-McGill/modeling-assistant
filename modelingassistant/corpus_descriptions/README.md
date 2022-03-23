@@ -117,6 +117,7 @@
    1. [Abstraction-Occurrence pattern mistakes](#abstraction-occurrence-pattern-mistakes)
       1. [Missing Abstraction-Occurrence pattern](#missing-abstraction-occurrence-pattern)
       1. [Incomplete Abstraction-Occurrence pattern](#incomplete-abstraction-occurrence-pattern)
+      1. [Missing association in Abstraction-Occurrence pattern](#missing-association-in-abstraction-occurrence-pattern)
       1. [Generalization should be association in Abstraction-Occurrence pattern](#generalization-should-be-association-in-abstraction-occurrence-pattern)
 
 ## Class mistakes
@@ -1738,7 +1739,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Please double-check the relationships between these classes.
+> Please double-check the relationship(s) between these class(es).
 
 Level 3: Text response:
 
@@ -1966,7 +1967,7 @@ Level 5: Resource response with Reference:
 
 #### Inherited feature does not make sense for subclass
 
-Student elements: Attribute, Subclass, Superclass. 
+Student elements: Subclass, Superclass. 
 
 Level 1: Highlight solution
 
@@ -1976,7 +1977,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${stud_attr} feature of the ${stud_super_cls} class does not make sense for its ${stud_sub_cls} subclass.
+> A feature of the ${stud_super_cls} class does not make sense for its ${stud_sub_cls} subclass.
 
 Level 4: Resource response with Fill-in-the-blanks quiz:
 
@@ -2066,7 +2067,7 @@ Level 5: Resource response with Reference:
 
 #### Reversed generalization direction
 
-Student elements: Superclass, Subclass. Instructor elements: Subclass, Superclass.
+Student elements: Subclass, Superclass. Instructor elements: Subclass, Superclass.
 
 Level 1: Highlight solution
 
@@ -2627,7 +2628,7 @@ Level 1: Highlight sentence(s) in problem statement referring to the instructor 
 
 Level 2: Text response:
 
-> Think carefully about how to model the relationships between these concepts.
+> Think carefully about how to model the relationship between these concepts.
 
 Level 3: Parametrized response:
 
@@ -2650,7 +2651,7 @@ Level 1: Highlight solution
 
 Level 2: Text response:
 
-> Think carefully about how to model the relationships between these concepts.
+> Think carefully about how to model the relationship between these concepts.
 
 Level 3: Parametrized response:
 
@@ -2659,6 +2660,33 @@ Level 3: Parametrized response:
 Level 4: Parametrized response:
 
 > The concepts of ${inst_abs_cls} and ${inst_occ_cls} and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
+
+Level 5: Resource response with Reference:
+
+> The [Abstraction-Occurrence Pattern](https://mycourses2.mcgill.ca/) can be used to 
+represent a set of related objects that share common information but also differ
+from each other in an important way.
+
+![Abstraction-Occurrence Pattern](images/abstraction_occurrence.png)
+
+
+#### Missing association in Abstraction-Occurrence pattern
+
+Student elements: Abstraction class, Occurrence class. Instructor elements: Abstraction class, Occurrence class.
+
+Level 1: Highlight solution
+
+Level 2: Text response:
+
+> Think carefully about how to model the relationship between these concepts.
+
+Level 3: Parametrized response:
+
+> The ${stud_abs_cls} and ${stud_occ_cls} should be in an Abstraction-Occurrence relationship.
+
+Level 4: Parametrized response:
+
+> The relationship between ${stud_abs_cls} and ${stud_occ_cls} should be modeled with an association as part of the Abstraction-Occurrence pattern.
 
 Level 5: Resource response with Reference:
 

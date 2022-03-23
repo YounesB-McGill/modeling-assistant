@@ -1,7 +1,7 @@
 % Modeling Assistant Learning Corpus
 
 % This tex file was generated automatically by the createcorpus.py script.
-% Generation time: 2022-03-22 23:34:25
+% Generation time: 2022-03-23 00:15:37
 
 \textbf{Legend:}
 In the textual responses, items in \verb|${this format}| represent the parameters of
@@ -2175,7 +2175,7 @@ Student element: Classes.  \medskip
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Please double-check the relationships between these classes.
+Please double-check the relationship(s) between these class(es).
 \end{tabular} \medskip
 
 \noindent Level 3: Text response: \medskip
@@ -2498,7 +2498,7 @@ Please review the \textit{Generalization} part of the Class Diagram lecture.
 
 \subsubsection{Inherited feature does not make sense for subclass}
 
-Student elements: Attribute, Subclass, Superclass.  \medskip
+Student elements: Subclass, Superclass.  \medskip
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -2511,7 +2511,7 @@ Does this belong here?
 \noindent Level 3: Parametrized response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-The \verb|${stud_attr}| feature of the \verb|${stud_super_cls}| class does not make sense for its \verb|${stud_sub_cls}| subclass.
+A feature of the \verb|${stud_super_cls}| class does not make sense for its \verb|${stud_sub_cls}| subclass.
 \end{tabular} \medskip
 
 \noindent Level 4: Resource response with Fill-in-the-blanks quiz: \medskip
@@ -2636,7 +2636,7 @@ Please review the \textit{Generalization} part of the Class Diagram lecture.
 
 \subsubsection{Reversed generalization direction}
 
-Student elements: Superclass, Subclass. Instructor elements: Subclass, Superclass. \medskip
+Student elements: Subclass, Superclass. Instructor elements: Subclass, Superclass. \medskip
 
 \noindent Level 1: Highlight solution  \medskip
 
@@ -3416,7 +3416,7 @@ Instructor elements: Abstraction class, Occurrence class. \medskip
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
+Think carefully about how to model the relationship between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -3446,7 +3446,7 @@ Student element: Existing class. Instructor elements: Abstraction class, Occurre
 \noindent Level 2: Text response: \medskip
 
 \begin{tabular}{|p{0.9\linewidth}}
-Think carefully about how to model the relationships between these concepts.
+Think carefully about how to model the relationship between these concepts.
 \end{tabular} \medskip
 
 \noindent Level 3: Parametrized response: \medskip
@@ -3459,6 +3459,42 @@ The \verb|${stud_existing_cls}| should be part of an Abstraction-Occurrence rela
 
 \begin{tabular}{|p{0.9\linewidth}}
 The concepts of \verb|${inst_abs_cls}| and \verb|${inst_occ_cls}| and the relationship between them should be modeled with the Abstraction-Occurrence pattern.
+\end{tabular} \medskip
+
+\noindent Level 5: Resource response with Reference: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The \textit{Abstraction-Occurrence Pattern} can be used to 
+represent a set of related objects that share common information but also differ
+from each other in an important way.
+
+\\
+\includegraphics[width=0.6\textwidth]{images/abstraction_occurrence.png}
+\end{tabular} \medskip
+
+
+\subsubsection{Missing association in Abstraction-Occurrence pattern}
+
+Student elements: Abstraction class, Occurrence class. Instructor elements: Abstraction class, Occurrence class. \medskip
+
+\noindent Level 1: Highlight solution  \medskip
+
+\noindent Level 2: Text response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+Think carefully about how to model the relationship between these concepts.
+\end{tabular} \medskip
+
+\noindent Level 3: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The \verb|${stud_abs_cls}| and \verb|${stud_occ_cls}| should be in an Abstraction-Occurrence relationship.
+\end{tabular} \medskip
+
+\noindent Level 4: Parametrized response: \medskip
+
+\begin{tabular}{|p{0.9\linewidth}}
+The relationship between \verb|${stud_abs_cls}| and \verb|${stud_occ_cls}| should be modeled with an association as part of the Abstraction-Occurrence pattern.
 \end{tabular} \medskip
 
 \noindent Level 5: Resource response with Reference: \medskip

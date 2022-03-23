@@ -54,6 +54,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_IN_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
@@ -166,7 +167,7 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(PLURAL_ATTRIBUTE, mdf(List.of("attr"), List.of("attr"))),
       entry(PLURAL_CLASS_NAME, mdf(List.of("cls"), List.of("cls"))),
       entry(REPRESENTING_ACTION_WITH_ASSOC, mdf(List.of("assocend"), List.of("assocend"))),
-      entry(REVERSED_GENERALIZATION_DIRECTION, mdf(List.of("super_cls", "sub_cls"), List.of("sub_cls", "super_cls"))),
+      entry(REVERSED_GENERALIZATION_DIRECTION, mdf(List.of("sub_cls", "super_cls"), List.of("sub_cls", "super_cls"))),
       entry(REVERSED_RELATIONSHIP_DIRECTION, mdf(List.of("aggr_compos_or_assoc", "whole_or_target_assocend", "part_or_source_assocend"), List.of("aggr_compos_or_assoc", "whole_or_target_assocend", "part_or_source_assocend"))),
       entry(ROLE_SHOULD_BE_STATIC, mdf(List.of("assocend"), List.of("assocend"))),
       entry(ROLE_SHOULD_NOT_BE_STATIC, mdf(List.of("assocend"), List.of("assocend"))),
@@ -199,7 +200,8 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(EXTRA_N_ARY_ASSOCIATION, mdf(List.of("assoc", "assocend*"), List.of())),
       entry(GENERALIZATION_INAPPLICABLE, mdf(List.of("sub_cls", "super_cls"), List.of())),
       entry(INCOMPLETE_PR_PATTERN, mdf(List.of("player_cls", "role*"), List.of("player_cls", "role*"))),
-      entry(INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS, mdf(List.of("attr", "sub_cls", "super_cls"), List.of())),
+      entry(INHERITED_FEATURE_DOES_NOT_MAKE_SENSE_FOR_SUBCLASS, mdf(List.of("sub_cls", "super_cls"), List.of())),
+      entry(MISSING_ASSOCIATION_IN_AO_PATTERN, mdf(List.of("abs_cls", "occ_cls"), List.of("abs_cls", "occ_cls"))),
       entry(MISSING_ASSOCIATION_NAME, mdf(List.of("assoc"), List.of("assoc"))),
       entry(MISSING_ATTRIBUTE_TYPE, mdf(List.of("attr"), List.of("attr"))),
       entry(MISSING_MULTIPLICITY, mdf(List.of("assocend"), List.of("assocend"))),
