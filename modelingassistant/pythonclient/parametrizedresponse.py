@@ -10,7 +10,7 @@ from pyecore.ecore import EClass
 
 from cdmmetatypes import CDM_METATYPES, CdmMetatype
 from utils import MistakeDetectionFormat, warn
-from classdiagram import Association, AssociationEnd, Attribute, Classifier, NamedElement
+from classdiagram import Association, AssociationEnd, Attribute, CDEnumLiteral, Classifier, NamedElement
 from learningcorpus import MistakeType, ParametrizedResponse
 from modelingassistant import Mistake
 
@@ -252,7 +252,7 @@ def get_role_named_elems(start_elem: NamedElement | Iterable) -> list[NamedEleme
     return roles
 
 
-def get_role_named_elem(start_elem: AssociationEnd | Attribute | Classifier) -> Attribute | Classifier:
+def get_role_named_elem(start_elem: AssociationEnd | CDEnumLiteral | Classifier) -> CDEnumLiteral | Classifier:
     "Return a single Player-Role pattern role to be displayed."
     if isinstance(start_elem, AssociationEnd):
         return start_elem.getOppositeEnd().classifier

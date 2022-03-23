@@ -11,17 +11,18 @@ parametrized responses and not the correctness of the example domain models.
 import os
 import re
 import sys
+from collections.abc import Iterable
 from string import digits
 from textwrap import dedent
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from cdmmetatypes import CdmMetatype, aggr, assoc, assocend, assocends, attr, attrs, cls, compos, enum, enumitem
-from classdiagram import Association, AssociationEnd, Class
+from classdiagram import Association, AssociationEnd, Class, NamedElement
 from createcorpus import underscorify
 from corpus import corpus
 from corpus_definition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
-from parametrizedresponse import (extract_params, get_mdf_items_to_mistake_elem_dict, parametrize_response,
+from parametrizedresponse import (comma_seperated_with_and, extract_params, get_mdf_items_to_mistake_elem_dict, parametrize_response,
                                   param_parts_before_dot, param_start_elem_type, param_valid, parse)
 from utils import mdf, mt
 from learningcorpus import MistakeType, ParametrizedResponse
@@ -162,14 +163,14 @@ def test_all_pr_params_can_be_parsed():
     # print(f"{output = }")
     # assert False
 
-    params_to_parsed_output: dict[str, str] = {}
+    params_to_start_elem_and_parsed_output: dict[str, tuple[str, str]] = {}
     for param in get_pr_parameters_for_mistake_types_with_md_formats():
         assert (start_elem := param_start_elem_type(param, as_type=CdmMetatype).example), f"Invalid {start_elem = }"
         assert (parsed_output := parse(param, start_elem)), f"Invalid {parsed_output = }"
         assert isinstance(parsed_output, str) and "${" not in parsed_output
         if any((c in param) for c in digits[1:]):
             continue  # skip items with digits other than 0
-        params_to_parsed_output[param.split("_")[-1]] = parsed_output
+        params_to_start_elem_and_parsed_output[param.split("_")[-1]] = (start_elem, parsed_output)
 
     pr_md = dedent("""\
         # Parametrized Response Parameters and Parsed Outputs
@@ -180,11 +181,21 @@ def test_all_pr_params_can_be_parsed():
         The example domain model used in the test is defined in the `cdmmetatypes.py` file.
         To avoid repetition, parameter prefixes such as "stud_" have been omitted from this document.
 
-        Parameter | Parsed Output
-        --------- | -------------
+        Parameter | Start Element(s) | Parsed Output
+        --------- | ---------------- | -------------
         """)
-    for param, output in sorted(params_to_parsed_output.items()):
-        pr_md += f"{param} | {output}\n"
+    for param, start_elem_and_output in sorted(params_to_start_elem_and_parsed_output.items()):
+        start_elem, parsed_output = start_elem_and_output
+        if isinstance(start_elem, NamedElement):
+            start_elem = start_elem.name
+        elif isinstance(start_elem, Iterable):
+            if start_elem and isinstance(start_elem[0], NamedElement):
+                start_elem = comma_seperated_with_and(start_elem)
+            else:  # these last 2 cases should not happen, but are useful for debugging
+                start_elem = "[]"
+        else:
+            start_elem = getattr(start_elem, "name", str(start_elem))
+        pr_md += f"{param} | {start_elem} | {parsed_output}\n"
 
     with open(_PR_PARAM_PARSED_OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write(pr_md)
