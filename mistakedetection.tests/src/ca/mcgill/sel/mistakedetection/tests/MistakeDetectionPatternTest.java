@@ -91,7 +91,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup, null));
   }
 
   /**
@@ -107,7 +107,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup, null));
   }
 
   /**
@@ -124,7 +124,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("fullTimeStudent", tagGroup, projectClass);
     setRoleTagToAssocEndInClass("partTimeStudent", tagGroup, projectClass);
 
-    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup, null));
   }
 
   /**
@@ -140,7 +140,7 @@ public class MistakeDetectionPatternTest {
     var studentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
     setRoleTagToAttribInClass("level", tagGroup, studentClass);
 
-    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup, null));
   }
 
   /**
@@ -156,7 +156,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
@@ -186,7 +186,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
@@ -217,7 +217,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("fullTimeStudent", tagGroup, projectClass);
     setRoleTagToAssocEndInClass("partTimeStudent", tagGroup, projectClass);
 
-    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
@@ -240,7 +240,7 @@ public class MistakeDetectionPatternTest {
     var studentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
     setRoleTagToAttribInClass("level", tagGroup, studentClass);
 
-    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
@@ -263,7 +263,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
@@ -294,7 +294,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
@@ -331,7 +331,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
@@ -364,7 +364,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
@@ -397,7 +397,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_full_assoc_PR_pateern/Class Diagram/Student_full_assoc_PR_pateern.domain_model.cdm");
@@ -430,7 +430,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeStudent", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeStudent", tagGroup, instructorClassDiagram);
 
-    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
@@ -466,7 +466,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("fullTimeStudent", tagGroup, projectClass);
     setRoleTagToAssocEndInClass("partTimeStudent", tagGroup, projectClass);
 
-    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
@@ -499,7 +499,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("fullTimeStudent", tagGroup, projectClass);
     setRoleTagToAssocEndInClass("partTimeStudent", tagGroup, projectClass);
 
-    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_assoc_full_PR_pattern/Class Diagram/Student_assoc_full_PR_pattern.domain_model.cdm");
@@ -533,7 +533,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("fullTimeStudent", tagGroup, projectClass);
     setRoleTagToAssocEndInClass("partTimeStudent", tagGroup, projectClass);
 
-    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_pattern/Class Diagram/Instructor_enumPR_pattern.domain_model.cdm");
@@ -568,7 +568,7 @@ public class MistakeDetectionPatternTest {
     var studentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
     setRoleTagToAttribInClass("level", tagGroup, studentClass);
 
-    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_Pattern/Class Diagram/Instructor_subClassPR_Pattern.domain_model.cdm");
@@ -608,7 +608,7 @@ public class MistakeDetectionPatternTest {
     var studentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
     setRoleTagToAttribInClass("level", tagGroup, studentClass);
 
-    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_FullPR_Pattern/Class Diagram/Instructor_FullPR_Pattern.domain_model.cdm");
@@ -653,7 +653,7 @@ public class MistakeDetectionPatternTest {
     var studentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
     setRoleTagToAttribInClass("level", tagGroup, studentClass);
 
-    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_Pattern/Class Diagram/Instructor_assocPR_Pattern.domain_model.cdm");
@@ -694,7 +694,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeEmployee", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeEmployee", tagGroup, instructorClassDiagram);
 
-    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_employeeExample_pattern/Class Diagram/Instructor_fullPR_employeeExample_pattern.domain_model.cdm");
@@ -726,7 +726,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeEmployee", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeEmployee", tagGroup, instructorClassDiagram);
 
-    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_employeeExample_pattern/Class Diagram/Instructor_enumPR_employeeExample_pattern.domain_model.cdm");
@@ -761,7 +761,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeEmployee", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeEmployee", tagGroup, instructorClassDiagram);
 
-    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_employeeExample_pattern/Class Diagram/Instructor_assocPR_employeeExample_pattern.domain_model.cdm");
@@ -794,7 +794,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeEmployee", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeEmployee", tagGroup, instructorClassDiagram);
 
-    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_employeeExample_pattern/Class Diagram/Instructor_subClassPR_employeeExample_pattern.domain_model.cdm");
@@ -827,7 +827,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeEmployee", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeEmployee", tagGroup, instructorClassDiagram);
 
-    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_employeeExample_pattern/Class Diagram/Instructor_assocPR_employeeExample_pattern.domain_model.cdm");
@@ -859,7 +859,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("FullTimeEmployee", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("PartTimeEmployee", tagGroup, instructorClassDiagram);
 
-    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_employeeExample_pattern/Class Diagram/Instructor_enumPR_employeeExample_pattern.domain_model.cdm");
@@ -897,7 +897,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("fullTimeEmployee", tagGroup, projectClass);
     setRoleTagToAssocEndInClass("partTimeEmployee", tagGroup, projectClass);
 
-    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_employeeExample_pattern/Class Diagram/Instructor_subClassPR_employeeExample_pattern.domain_model.cdm");
@@ -931,7 +931,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("fullTimeEmployee", tagGroup, projectClass);
     setRoleTagToAssocEndInClass("partTimeEmployee", tagGroup, projectClass);
 
-    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_employeeExample_pattern/Class Diagram/Instructor_fullPR_employeeExample_pattern.domain_model.cdm");
@@ -968,7 +968,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("fullTimeEmployee", tagGroup, projectClass);
     setRoleTagToAssocEndInClass("partTimeEmployee", tagGroup, projectClass);
 
-    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_enumPR_employeeExample_pattern/Class Diagram/Instructor_enumPR_employeeExample_pattern.domain_model.cdm");
@@ -1004,7 +1004,7 @@ public class MistakeDetectionPatternTest {
     var studentClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
     setRoleTagToAttribInClass("status", tagGroup, studentClass);
 
-    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_subClassPR_employeeExample_pattern/Class Diagram/Instructor_subClassPR_employeeExample_pattern.domain_model.cdm");
@@ -1045,7 +1045,7 @@ public class MistakeDetectionPatternTest {
     var studentClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
     setRoleTagToAttribInClass("status", tagGroup, studentClass);
 
-    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_fullPR_employeeExample_pattern/Class Diagram/Instructor_fullPR_employeeExample_pattern.domain_model.cdm");
@@ -1089,7 +1089,7 @@ public class MistakeDetectionPatternTest {
     var studentClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
     setRoleTagToAttribInClass("status", tagGroup, studentClass);
 
-    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestPattern/instructor_assocPR_employeeExample_pattern/Class Diagram/Instructor_assocPR_employeeExample_pattern.domain_model.cdm");
@@ -1130,7 +1130,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
 
-    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_fullPR_bankExample/Class Diagram/Student_fullPR_bankExample.domain_model.cdm");
@@ -1165,7 +1165,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
 
-    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_enumPR_bankExample/Class Diagram/Student_enumPR_bankExample.domain_model.cdm");
@@ -1203,7 +1203,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
 
-    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_assocPR_bankExample/Class Diagram/Student_assocPR_bankExample.domain_model.cdm");
@@ -1239,7 +1239,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
 
-    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_subClassPR_bankExample/Class Diagram/Student_subClassPR_bankExample.domain_model.cdm");
@@ -1274,7 +1274,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
 
-    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_assocPR_bankExample/Class Diagram/Student_assocPR_bankExample.domain_model.cdm");
@@ -1310,7 +1310,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
 
-    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_enumPR_bankExample/Class Diagram/Student_enumPR_bankExample.domain_model.cdm");
@@ -1348,7 +1348,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("checkingAccount", tagGroup, AccountHolderClass);
     setRoleTagToAssocEndInClass("savingAccount", tagGroup, AccountHolderClass);
 
-    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_subClassPR_bankExample/Class Diagram/Student_subClassPR_bankExample.domain_model.cdm");
@@ -1385,7 +1385,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("checkingAccount", tagGroup, AccountHolderClass);
     setRoleTagToAssocEndInClass("savingAccount", tagGroup, AccountHolderClass);
 
-    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_fullPR_bankExample/Class Diagram/Student_fullPR_bankExample.domain_model.cdm");
@@ -1429,7 +1429,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToAssocEndInClass("checkingAccount", tagGroup, AccountHolderClass);
     setRoleTagToAssocEndInClass("savingAccount", tagGroup, AccountHolderClass);
 
-    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ASSOC_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_enumPR_bankExample/Class Diagram/Student_enumPR_bankExample.domain_model.cdm");
@@ -1466,7 +1466,7 @@ public class MistakeDetectionPatternTest {
     var studentClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
     setRoleTagToAttribInClass("type", tagGroup, studentClass);
 
-    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_subClassPR_bankExample/Class Diagram/Student_subClassPR_bankExample.domain_model.cdm");
@@ -1508,7 +1508,7 @@ public class MistakeDetectionPatternTest {
     var studentClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
     setRoleTagToAttribInClass("type", tagGroup, studentClass);
 
-    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_fullPR_bankExample/Class Diagram/Student_fullPR_bankExample.domain_model.cdm");
@@ -1551,7 +1551,7 @@ public class MistakeDetectionPatternTest {
     var studentClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
     setRoleTagToAttribInClass("type", tagGroup, studentClass);
 
-    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(ENUM_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_assocPR_bankExample/Class Diagram/Student_assocPR_bankExample.domain_model.cdm");
@@ -1595,7 +1595,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
 
-    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(SUB_CLASS_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_incompletePattern_bankExample/Class Diagram/Student_incompletePattern_bankExample.domain_model.cdm");
@@ -1629,7 +1629,7 @@ public class MistakeDetectionPatternTest {
     setRoleTagToClassInClassDiag("CheckingAccount", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("SavingAccount", tagGroup, instructorClassDiagram);
 
-    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup));
+    assertEquals(FULL_PR_PATTERN, checkPRPattern(tagGroup, null));
 
     var studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/ModelsToTestPattern/student_fullPR_bankExample/Class Diagram/Student_fullPR_bankExample.domain_model.cdm");

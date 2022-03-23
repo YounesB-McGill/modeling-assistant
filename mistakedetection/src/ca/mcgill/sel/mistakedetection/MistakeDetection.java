@@ -1420,29 +1420,6 @@ public class MistakeDetection {
     return NO_PR_PATTERN_DETECTED;
   }
 
-  /** Returns the pattern detected in the instructor solution. */
-  public static String checkPRPattern(TagGroup tg) {
-    SolutionElement playerSolutionElement = null;
-    List<SolutionElement> roleSolutionElements = new ArrayList<>();
-    for (Tag tag : tg.getTags()) {
-      if (tag.getTagType().equals(PLAYER)) {
-        playerSolutionElement = tag.getSolutionElement();
-      } else if (tag.getTagType().equals(ROLE)) {
-        roleSolutionElements.add(tag.getSolutionElement());
-      }
-    }
-    if (subclassPattern(playerSolutionElement, roleSolutionElements)) {
-      return SUB_CLASS_PR_PATTERN;
-    } else if (fullPattern(playerSolutionElement, roleSolutionElements, null)) {
-      return FULL_PR_PATTERN;
-    } else if (assocPattern(playerSolutionElement, roleSolutionElements)) {
-      return ASSOC_PR_PATTERN;
-    } else if (enumPattern(playerSolutionElement, roleSolutionElements)) {
-      return ENUM_PR_PATTERN;
-    }
-    return NO_PR_PATTERN_DETECTED;
-  }
-
   private static boolean enumPattern(SolutionElement playerSolutionElement,
       List<SolutionElement> roleSolutionElements) {
     if (!(playerSolutionElement.getElement() instanceof Classifier)) {
