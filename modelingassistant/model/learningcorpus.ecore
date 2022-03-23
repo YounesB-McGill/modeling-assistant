@@ -33,8 +33,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="usefulness" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="highlightProblem" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="highlightSolution" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeType" lowerBound="1"
-        eType="#//MistakeType" eOpposite="#//MistakeType/feedbacks"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mistakeType" eType="#//MistakeType"
+        eOpposite="#//MistakeType/feedbacks"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="learningCorpus" lowerBound="1"
         eType="#//LearningCorpus" eOpposite="#//LearningCorpus/feedbacks"/>
@@ -86,9 +86,10 @@
     <eLiterals name="Attribute" value="1"/>
     <eLiterals name="Association" value="2"/>
     <eLiterals name="AssociationEnd" value="3"/>
-    <eLiterals name="Composition" value="4"/>
-    <eLiterals name="Generalization" value="5"/>
-    <eLiterals name="PlayerRolePattern" value="6"/>
-    <eLiterals name="AbstractionOccurrencePattern" value="7"/>
+    <eLiterals name="Aggregation" value="4"/>
+    <eLiterals name="Composition" value="5"/>
+    <eLiterals name="Generalization" value="6"/>
+    <eLiterals name="PlayerRolePattern" value="7"/>
+    <eLiterals name="AbstractionOccurrencePattern" value="8"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -14,6 +14,7 @@
       <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/Attribute"/>
       <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/Association"/>
       <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/AssociationEnd"/>
+      <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/Aggregation"/>
       <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/Composition"/>
       <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/Generalization"/>
       <genEnumLiterals ecoreEnumLiteral="learningcorpus.ecore#//ElementType/PlayerRolePattern"/>
