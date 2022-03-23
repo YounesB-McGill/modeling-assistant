@@ -62,6 +62,8 @@ import static learningcorpus.mistaketypes.MistakeTypes.NON_DIFFERENTIATED_SUBCLA
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_GENERALIZATION_DIRECTION;
+import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
@@ -80,9 +82,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSH
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_GENERALIZATION_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
-import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_SUPERCLASS;
 import static modelingassistant.TagType.ABSTRACTION;
@@ -199,6 +199,7 @@ public class MistakeDetection {
     var newMistakes = comparison.newMistakes;
     var instructorClassifiers = instructorSolution.getClassDiagram().getClasses();
     var studentClassifiers = studentSolution.getClassDiagram().getClasses();
+    comparison.instructorCDM = instructorSolution.getClassDiagram();
 
     var processed = false;
     if (instructorClassifiers.isEmpty()) {
@@ -2988,7 +2989,17 @@ public class MistakeDetection {
       if (tag.getTagType().equals(tagType)) {
         instructorElements.addFirst(tag.getSolutionElement().getElement());
       } else {
-        instructorElements.add(tag.getSolutionElement().getElement());
+        if (tag.getSolutionElement().getElement() instanceof Attribute) {
+          Attribute attribute = (Attribute) tag.getSolutionElement().getElement();
+          if (attribute.getType() instanceof CDEnum) {
+            CDEnum enumeration = getEnumFromClassDiagram(attribute.getType().getName(), comparison.instructorCDM);
+            for (CDEnumLiteral enumLiteral : enumeration.getLiterals()) {
+              instructorElements.add(enumLiteral);
+            }
+          }
+        } else {
+          instructorElements.add(tag.getSolutionElement().getElement());
+        }
       }
     }
     return instructorElements;
