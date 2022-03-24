@@ -96,7 +96,5 @@ public class MistakeDetectionTestForPaper {
 
    MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-
-
   }
 }

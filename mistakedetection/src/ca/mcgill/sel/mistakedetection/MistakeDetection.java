@@ -49,6 +49,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.LOWERCASE_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AGGREGATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_IN_AO_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOC_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
@@ -908,7 +909,7 @@ public class MistakeDetection {
       checkMistakeGenInsteadOfAssocInAOPattern(tg, comparison);
       if (!isMistakeExist(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN,
           tg.getTags().get(0).getSolutionElement().getElement(), comparison) && !isAssociationInAO(tg, comparison)) {
-        createMistakeIncompleteAOPattern(tg, comparison);
+        createMistakeMissingAssocInAOPattern(tg, comparison);
       }
     } else if (matchedElements != 0 && totalMatchesExpected.size() != matchedElements) {
       createMistakeIncompleteAOPattern(tg, comparison);
@@ -2029,7 +2030,7 @@ public class MistakeDetection {
   private static void updateMistakesInvolvingPattern(List<Mistake> newMistakes, List<MistakeType> patternMistakeTypes,
       Solution studentSolution, Comparison comparison) {
     HashSet<Mistake> newMistakesToRemove = new HashSet<>();
-    var exemptMistakes = List.of(EXTRA_ATTRIBUTE, MISSING_ATTRIBUTE, INCOMPLETE_CONTAINMENT_TREE);
+    var exemptMistakes = List.of(EXTRA_ATTRIBUTE, MISSING_ATTRIBUTE, INCOMPLETE_CONTAINMENT_TREE, COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT);
     var patternInstructorElement = getPatternInstructorElements(newMistakes, patternMistakeTypes);
     var patternStudentElement = getPatternStudentrElements(newMistakes, patternMistakeTypes);
     for (Mistake newMistake : newMistakes) {
@@ -3033,6 +3034,12 @@ public class MistakeDetection {
     var studentMissingElements = getOrderedStudAOPatternElements(tg, comparison);
     var instructorElements = getOrderedInstPatternElements(tg, comparison, ABSTRACTION);
     comparison.newMistakes.add(createMistake(INCOMPLETE_AO_PATTERN, studentMissingElements, instructorElements));
+  }
+
+  public static void createMistakeMissingAssocInAOPattern(TagGroup tg, Comparison comparison) {
+    var studentMissingElements = getOrderedStudAOPatternElements(tg, comparison);
+    var instructorElements = getOrderedInstPatternElements(tg, comparison, ABSTRACTION);
+    comparison.newMistakes.add(createMistake(MISSING_ASSOCIATION_IN_AO_PATTERN, studentMissingElements, instructorElements));
   }
 
   /** Make sure that studentElements and instructorElements are in order -> Player, roles. */
