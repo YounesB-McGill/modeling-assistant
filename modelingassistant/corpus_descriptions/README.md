@@ -2290,7 +2290,7 @@ in different contexts.
 
 #### Subclass should be enumeration Player-Role pattern
 
-Student elements: Player class, Role classes. Instructor elements: Player class, Role attribute.
+Student elements: Player class, Role classes. Instructor elements: Player class, Role enumeration items.
 
 Level 1: Highlight solution
 
@@ -2389,7 +2389,7 @@ in different contexts.
 
 #### Association should be enumeration Player-Role pattern
 
-Student elements: Player class, Role association ends. Instructor elements: Player class, Role attribute.
+Student elements: Player class, Role association ends. Instructor elements: Player class, Role enumeration items.
 
 Level 1: Highlight solution
 
@@ -2587,7 +2587,7 @@ in different contexts.
 
 #### Full Player-Role pattern should be enumeration
 
-Student elements: Player class, Role classes. Instructor elements: Player class, Role attribute.
+Student elements: Player class, Role classes. Instructor elements: Player class, Role enumeration items.
 
 Level 1: Highlight solution
 
