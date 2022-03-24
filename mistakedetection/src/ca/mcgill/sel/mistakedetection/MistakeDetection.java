@@ -199,7 +199,7 @@ public class MistakeDetection {
     var newMistakes = comparison.newMistakes;
     var instructorClassifiers = instructorSolution.getClassDiagram().getClasses();
     var studentClassifiers = studentSolution.getClassDiagram().getClasses();
-    comparison.instructorCDM = instructorSolution.getClassDiagram();
+    comparison.instructorCdm = instructorSolution.getClassDiagram();
 
     var processed = false;
     if (instructorClassifiers.isEmpty()) {
@@ -1461,7 +1461,7 @@ public class MistakeDetection {
     if (comparison != null) {
       comparison.fullPlayerRoleAbstractClass = superAbstractClass;
       comparison.fullPlayerRoleAbstractPlayerAssoc = getAssocAggCompFromClassDiagram(superAbstractClass,
-          (Classifier) playerSolutionElement.getElement(), comparison.instructorCDM).get(0);
+          (Classifier) playerSolutionElement.getElement(), comparison.instructorCdm).get(0);
     }
     return true;
   }
@@ -3006,7 +3006,7 @@ public class MistakeDetection {
         if (tag.getSolutionElement().getElement() instanceof Attribute) {
           Attribute attribute = (Attribute) tag.getSolutionElement().getElement();
           if (attribute.getType() instanceof CDEnum) {
-            CDEnum enumeration = getEnumFromClassDiagram(attribute.getType().getName(), comparison.instructorCDM);
+            CDEnum enumeration = getEnumFromClassDiagram(attribute.getType().getName(), comparison.instructorCdm);
             instructorElements.addAll(enumeration.getLiterals());
           }
         } else {

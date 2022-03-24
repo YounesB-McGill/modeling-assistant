@@ -21,7 +21,7 @@ import modelingassistant.Mistake;
 public class Comparison {
 
   /** Variable to store instructor class diagram. */
-  public ClassDiagram instructorCDM;
+  public ClassDiagram instructorCdm;
 
   /** Variable to store abstract class for full PR pattern. */
   public Classifier fullPlayerRoleAbstractClass;
