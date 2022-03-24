@@ -727,13 +727,8 @@ public class MistakeDetection {
     }
   }
 
-  private static boolean isSuperClassContained(Classifier otherClass, List<Classifier> composedClasses) {
-    for(var superClass : getAllSuperClasses(otherClass)) {
-      if (composedClasses.contains(superClass)){
-        return true;
-      }
-    }
-    return false;
+  private static boolean isSuperClassContained(Classifier studClass, List<Classifier> composedClasses) {
+    return getAllSuperClasses(studClass).stream().anyMatch(composedClasses::contains);
   }
 
   /** Return the set of duplicate elements. */
@@ -1464,8 +1459,8 @@ public class MistakeDetection {
       }
     }
     if (comparison != null) {
-      comparison.fullPRAbstractClass = superAbstractClass;
-      comparison.fullPRAbstractPlayerAssoc = getAssocAggCompFromClassDiagram(superAbstractClass,
+      comparison.fullPlayerRoleAbstractClass = superAbstractClass;
+      comparison.fullPlayerRoleAbstractPlayerAssoc = getAssocAggCompFromClassDiagram(superAbstractClass,
           (Classifier) playerSolutionElement.getElement(), comparison.instructorCDM).get(0);
     }
     return true;
@@ -2041,9 +2036,9 @@ public class MistakeDetection {
       if (!(exemptMistakes.contains(newMistake.getMistakeType()))) {
         if (!newMistake.getInstructorElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
             && (patternInstructorElement.contains(newMistake.getInstructorElements().get(0).getElement())
-                || newMistake.getInstructorElements().get(0).getElement().equals(comparison.fullPRAbstractClass)
+                || newMistake.getInstructorElements().get(0).getElement().equals(comparison.fullPlayerRoleAbstractClass)
                 || newMistake.getInstructorElements().get(0).getElement()
-                    .equals(comparison.fullPRAbstractPlayerAssoc))) {
+                    .equals(comparison.fullPlayerRoleAbstractPlayerAssoc))) {
           newMistakesToRemove.add(newMistake);
           continue;
         } else if (!newMistake.getStudentElements().isEmpty()
@@ -3012,9 +3007,7 @@ public class MistakeDetection {
           Attribute attribute = (Attribute) tag.getSolutionElement().getElement();
           if (attribute.getType() instanceof CDEnum) {
             CDEnum enumeration = getEnumFromClassDiagram(attribute.getType().getName(), comparison.instructorCDM);
-            for (CDEnumLiteral enumLiteral : enumeration.getLiterals()) {
-              instructorElements.add(enumLiteral);
-            }
+            instructorElements.addAll(enumeration.getLiterals());
           }
         } else {
           instructorElements.add(tag.getSolutionElement().getElement());

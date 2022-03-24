@@ -41,12 +41,12 @@ import static modelingassistant.util.TagUtils.setRoleTagToAttribInClass;
 import static modelingassistant.util.TagUtils.setRoleTagToClassInClassDiag;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.CDEnum;
-import ca.mcgill.sel.classdiagram.CDEnumLiteral;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.NamedElement;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
@@ -577,12 +577,10 @@ public class MistakeDetectionPatternTest {
     var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
     var instStudentClassLevelAttrib = getAttributeFromClass("level", instStudentClass);
 
-    var instElements = new BasicEList<NamedElement>();
+    List<NamedElement> instElements = new ArrayList<>();
     instElements.add(instStudentClass);
     CDEnum enumeration = getEnumFromClassDiagram(instStudentClassLevelAttrib.getType().getName(), instructorClassDiagram);
-    for (CDEnumLiteral enumLiteral : enumeration.getLiterals()) {
-      instElements.add(enumLiteral);
-    }
+    instElements.addAll(enumeration.getLiterals());
 
     var studElements = studentDomainElements(studentClassDiagram);
     var studStudentClass = studElements.get(0);
@@ -617,12 +615,10 @@ public class MistakeDetectionPatternTest {
     var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
     var instStudentClassLevelAttrib = getAttributeFromClass("level", instStudentClass);
 
-    var instElements = new BasicEList<NamedElement>();
+    List<NamedElement> instElements = new ArrayList<>();
     instElements.add(instStudentClass);
     CDEnum enumeration = getEnumFromClassDiagram(instStudentClassLevelAttrib.getType().getName(), instructorClassDiagram);
-    for (CDEnumLiteral enumLiteral : enumeration.getLiterals()) {
-      instElements.add(enumLiteral);
-    }
+    instElements.addAll(enumeration.getLiterals());
 
     var studElements = studentDomainElements(studentClassDiagram);
     var studStudentClass = studElements.get(0);
@@ -662,12 +658,10 @@ public class MistakeDetectionPatternTest {
     var instStudentClass = getClassFromClassDiagram("Student", instructorClassDiagram);
     var instStudentClassLevelAttrib = getAttributeFromClass("level", instStudentClass);
 
-    var instElements = new BasicEList<NamedElement>();
+    List<NamedElement> instElements = new ArrayList<>();
     instElements.add(instStudentClass);
     CDEnum enumeration = getEnumFromClassDiagram(instStudentClassLevelAttrib.getType().getName(), instructorClassDiagram);
-    for (CDEnumLiteral enumLiteral : enumeration.getLiterals()) {
-      instElements.add(enumLiteral);
-    }
+    instElements.addAll(enumeration.getLiterals());
 
     var studElements = studentProjectDomainElements(studentClassDiagram);
     var studStudentClass = studElements.get(0);
@@ -1013,12 +1007,10 @@ public class MistakeDetectionPatternTest {
     var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
     var instEmployeeClassStatusAttrib = getAttributeFromClass("status", instEmployeeClass);
 
-    var instElements = new BasicEList<NamedElement>();
+    List<NamedElement> instElements = new ArrayList<>();
     instElements.add(instEmployeeClass);
     CDEnum enumeration = getEnumFromClassDiagram(instEmployeeClassStatusAttrib .getType().getName(), instructorClassDiagram);
-    for (CDEnumLiteral enumLiteral : enumeration.getLiterals()) {
-      instElements.add(enumLiteral);
-    }
+    instElements.addAll(enumeration.getLiterals());
 
     var studElements = employeeElements(studentClassDiagram);
     var studEmployeeClass = studElements.get(0);
@@ -1054,12 +1046,10 @@ public class MistakeDetectionPatternTest {
     var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
     var instEmployeeClassStatusAttrib = getAttributeFromClass("status", instEmployeeClass);
 
-    var instElements = new BasicEList<NamedElement>();
+    List<NamedElement> instElements = new ArrayList<>();
     instElements.add(instEmployeeClass);
     CDEnum enumeration = getEnumFromClassDiagram(instEmployeeClassStatusAttrib .getType().getName(), instructorClassDiagram);
-    for (CDEnumLiteral enumLiteral : enumeration.getLiterals()) {
-      instElements.add(enumLiteral);
-    }
+    instElements.addAll(enumeration.getLiterals());
 
     var studElements = employeeElements(studentClassDiagram);
     var studEmployeeClass = studElements.get(0);
@@ -1098,12 +1088,10 @@ public class MistakeDetectionPatternTest {
     var instEmployeeClass = getClassFromClassDiagram("Employee", instructorClassDiagram);
     var instEmployeeClassStatusAttrib = getAttributeFromClass("status", instEmployeeClass);
 
-    var instElements = new BasicEList<NamedElement>();
+    List<NamedElement> instElements = new ArrayList<>();
     instElements.add(instEmployeeClass);
     CDEnum enumeration = getEnumFromClassDiagram(instEmployeeClassStatusAttrib .getType().getName(), instructorClassDiagram);
-    for (CDEnumLiteral enumLiteral : enumeration.getLiterals()) {
-      instElements.add(enumLiteral);
-    }
+    instElements.addAll(enumeration.getLiterals());
 
     var studElements = employeeProjectElements(studentClassDiagram);
     var studEmployeeClass = studElements.get(0);
@@ -1475,12 +1463,11 @@ public class MistakeDetectionPatternTest {
     var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
     var instAccountTypeAttrib = getAttributeFromClass("type", instBankAccClass);
 
-    var instElements = new BasicEList<NamedElement>();
+    List<NamedElement> instElements = new ArrayList<>();
     instElements.add(instBankAccClass);
     CDEnum enumeration = getEnumFromClassDiagram(instAccountTypeAttrib .getType().getName(), instructorClassDiagram);
-    for (CDEnumLiteral enumLiteral : enumeration.getLiterals()) {
-      instElements.add(enumLiteral);
-    }
+    instElements.addAll(enumeration.getLiterals());
+
     var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
     var studSavingAccClass = getClassFromClassDiagram("SavingAccount", studentClassDiagram);
 
@@ -1517,12 +1504,10 @@ public class MistakeDetectionPatternTest {
     var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
     var instAccountTypeAttrib = getAttributeFromClass("type", instBankAccClass);
 
-    var instElements = new BasicEList<NamedElement>();
+    List<NamedElement> instElements = new ArrayList<>();
     instElements.add(instBankAccClass);
     CDEnum enumeration = getEnumFromClassDiagram(instAccountTypeAttrib .getType().getName(), instructorClassDiagram);
-    for (CDEnumLiteral enumLiteral : enumeration.getLiterals()) {
-      instElements.add(enumLiteral);
-    }
+    instElements.addAll(enumeration.getLiterals());
 
     var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
     var studCheckingAccClass = getClassFromClassDiagram("CheckingAccount", studentClassDiagram);
@@ -1560,12 +1545,10 @@ public class MistakeDetectionPatternTest {
     var instBankAccClass = getClassFromClassDiagram("BankAccount", instructorClassDiagram);
     var instAccountTypeAttrib = getAttributeFromClass("type", instBankAccClass);
 
-    var instElements = new BasicEList<NamedElement>();
+    List<NamedElement> instElements = new ArrayList<>();
     instElements.add(instBankAccClass);
     CDEnum enumeration = getEnumFromClassDiagram(instAccountTypeAttrib .getType().getName(), instructorClassDiagram);
-    for (CDEnumLiteral enumLiteral : enumeration.getLiterals()) {
-      instElements.add(enumLiteral);
-    }
+    instElements.addAll(enumeration.getLiterals());
 
     var studBankAccClass = getClassFromClassDiagram("BankAccount", studentClassDiagram);
     var studAccountHolderClass = getClassFromClassDiagram("AccountHolder", studentClassDiagram);

@@ -21,13 +21,13 @@ import modelingassistant.Mistake;
 public class Comparison {
 
   /** Variable to store instructor class diagram. */
-  public ClassDiagram instructorCDM = null;
+  public ClassDiagram instructorCDM;
 
   /** Variable to store abstract class for full PR pattern. */
-  public Classifier fullPRAbstractClass = null;
+  public Classifier fullPlayerRoleAbstractClass;
 
   /** Variable to store association between abstract class and player class for full PR pattern. */
-  public Association fullPRAbstractPlayerAssoc;
+  public Association fullPlayerRoleAbstractPlayerAssoc;
 
   /** Maps an instructor solution classifier to student solution classifier. */
   public Map<Classifier, Classifier> mappedClassifiers = new HashMap<>();
