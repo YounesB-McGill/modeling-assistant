@@ -3,7 +3,10 @@ package ca.mcgill.sel.mistakedetection.tests;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
+import static modelingassistant.util.TagUtils.setPlayerTagToClassInClassDiag;
+import static modelingassistant.util.TagUtils.setRoleTagToClassInClassDiag;
 import org.junit.jupiter.api.Test;
+import ca.mcgill.sel.mistakedetection.MistakeDetection;
 
 public class MistakeDetectionTestForPaper {
 
@@ -85,14 +88,15 @@ public class MistakeDetectionTestForPaper {
       assertMistakeConditional(m, MISSING_ATTRIBUTE, instructorEndDateAttribute, 0, 1, false);
       assertMistakeConditional(m, MISSING_COMPOSITION, instructorPoliceOfficerPISystem.get(0), 0, 1, false);
         }
-
+   */
+    //TODO Work in Progress
     var tagGroup = setPlayerTagToClassInClassDiag("Person", instructorClassDiagram, instructorSolution);
     setRoleTagToClassInClassDiag("PoliceOfficer", tagGroup, instructorClassDiagram);
     setRoleTagToClassInClassDiag("Victim", tagGroup, instructorClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
-    MistakeDetectionTest.log(comparison);
+   MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    */
+
+
   }
 }

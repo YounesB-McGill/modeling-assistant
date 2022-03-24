@@ -62,6 +62,8 @@ import static learningcorpus.mistaketypes.MistakeTypes.NON_DIFFERENTIATED_SUBCLA
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
 import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_GENERALIZATION_DIRECTION;
+import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
@@ -80,9 +82,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSH
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_CLASS_NAME;
-import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_GENERALIZATION_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
-import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_SUPERCLASS;
 import static modelingassistant.TagType.ABSTRACTION;
@@ -199,6 +199,7 @@ public class MistakeDetection {
     var newMistakes = comparison.newMistakes;
     var instructorClassifiers = instructorSolution.getClassDiagram().getClasses();
     var studentClassifiers = studentSolution.getClassDiagram().getClasses();
+    comparison.instructorCdm = instructorSolution.getClassDiagram();
 
     var processed = false;
     if (instructorClassifiers.isEmpty()) {
@@ -710,8 +711,10 @@ public class MistakeDetection {
     composedClasses.add(rootClass);
     for (Association assoc : classDiagram.getAssociations()) {
       for (AssociationEnd assocEnd : assoc.getEnds()) {
-        if (assocEnd.getReferenceType().equals(COMPOSITION)) {
-          composedClasses.add(getOtherAssocEnd(assocEnd).getClassifier());
+        var otherClass = getOtherAssocEnd(assocEnd).getClassifier();
+        if (assocEnd.getReferenceType().equals(COMPOSITION)
+            || isSuperClassContained(otherClass, composedClasses)) {
+          composedClasses.add(otherClass);
         }
       }
     }
@@ -722,6 +725,10 @@ public class MistakeDetection {
     if (!multiComposedClasses.isEmpty()) {
       comparison.newMistakes.add(createMistake(COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, studClasses, null));
     }
+  }
+
+  private static boolean isSuperClassContained(Classifier studClass, List<Classifier> composedClasses) {
+    return getAllSuperClasses(studClass).stream().anyMatch(composedClasses::contains);
   }
 
   /** Return the set of duplicate elements. */
@@ -866,7 +873,7 @@ public class MistakeDetection {
     for (TagGroup tg : instructorSolution.getTagGroups()) {
       for (Tag tag : tg.getTags()) {
         if (tag.getTagType().equals(PLAYER)) {
-          instPattern = checkPRPattern(tg);
+          instPattern = checkPRPattern(tg, comparison);
           if (instPattern.equals(FULL_PR_PATTERN)) {
             checkStudentFullPattern(tg, comparison, instPattern, studentSolution);
           } else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
@@ -1386,7 +1393,7 @@ public class MistakeDetection {
   }
 
   /** Returns the pattern detected in the instructor solution. */
-  public static String checkPRPattern(TagGroup tg) {
+  public static String checkPRPattern(TagGroup tg, Comparison comparison) {
     SolutionElement playerSolutionElement = null;
     List<SolutionElement> roleSolutionElements = new ArrayList<>();
     for (Tag tag : tg.getTags()) {
@@ -1398,7 +1405,7 @@ public class MistakeDetection {
     }
     if (subclassPattern(playerSolutionElement, roleSolutionElements)) {
       return SUB_CLASS_PR_PATTERN;
-    } else if (fullPattern(playerSolutionElement, roleSolutionElements)) {
+    } else if (fullPattern(playerSolutionElement, roleSolutionElements, comparison)) {
       return FULL_PR_PATTERN;
     } else if (assocPattern(playerSolutionElement, roleSolutionElements)) {
       return ASSOC_PR_PATTERN;
@@ -1426,13 +1433,13 @@ public class MistakeDetection {
   }
 
   private static boolean fullPattern(SolutionElement playerSolutionElement,
-      List<SolutionElement> roleSolutionElements) {
+      List<SolutionElement> roleSolutionElements, Comparison comparison) {
+    Classifier superAbstractClass = null;
     if (playerSolutionElement.getElement() instanceof Classifier) {
       if (!(roleSolutionElements.get(0).getElement() instanceof Classifier)) {
         return false;
       }
       Classifier cl = (Classifier) roleSolutionElements.get(0).getElement();
-      Classifier superAbstractClass = null;
       for (Classifier c : cl.getSuperTypes()) {
         if (c.isAbstract()) {
           superAbstractClass = c;
@@ -1450,6 +1457,11 @@ public class MistakeDetection {
           return false;
         }
       }
+    }
+    if (comparison != null) {
+      comparison.fullPlayerRoleAbstractClass = superAbstractClass;
+      comparison.fullPlayerRoleAbstractPlayerAssoc = getAssocAggCompFromClassDiagram(superAbstractClass,
+          (Classifier) playerSolutionElement.getElement(), comparison.instructorCdm).get(0);
     }
     return true;
   }
@@ -1897,7 +1909,7 @@ public class MistakeDetection {
 
     // Condition when only new mistakes exists.
     if (existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
-      updateNewMistakes(newMistakes, studentSolution, filter);
+      updateNewMistakes(newMistakes, studentSolution, filter, comparison);
     } else if (!existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
       for (Mistake existingMistake : existingMistakes) {
         for (Mistake newMistake : newMistakes) {
@@ -1929,7 +1941,7 @@ public class MistakeDetection {
       List<Mistake> newUnProcessedMistakes = new ArrayList<>();
       newUnProcessedMistakes.addAll(newMistakes);
       newUnProcessedMistakes.removeAll(newMistakesProcessed);
-      updateNewMistakes(newUnProcessedMistakes, studentSolution, filter);
+      updateNewMistakes(newUnProcessedMistakes, studentSolution, filter, comparison);
       for (var existingMistake : existingMistakes) {
         if (!existingMistakesProcessed.contains(existingMistake)) {
           if (existingMistake.getNumSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION
@@ -1962,7 +1974,7 @@ public class MistakeDetection {
     mistake.setSolution(null);
   }
 
-  private static void updateNewMistakes(List<Mistake> newMistakes, Solution studentSolution, boolean filter) {
+  private static void updateNewMistakes(List<Mistake> newMistakes, Solution studentSolution, boolean filter, Comparison comparison) {
     var patternMistakeTypes =
         List.of(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, ASSOC_SHOULD_BE_FULL_PR_PATTERN, ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN,
             ENUM_SHOULD_BE_ASSOC_PR_PATTERN, ENUM_SHOULD_BE_FULL_PR_PATTERN, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN,
@@ -1971,7 +1983,7 @@ public class MistakeDetection {
             INCOMPLETE_AO_PATTERN, MISSING_AO_PATTERN);
 
     if (filter && mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
-      updateMistakesInvolvingPattern(newMistakes, patternMistakeTypes, studentSolution);
+      updateMistakesInvolvingPattern(newMistakes, patternMistakeTypes, studentSolution, comparison);
     }
     else {
       for (Mistake newMistake : newMistakes) {
@@ -2015,7 +2027,7 @@ public class MistakeDetection {
   }
 
   private static void updateMistakesInvolvingPattern(List<Mistake> newMistakes, List<MistakeType> patternMistakeTypes,
-      Solution studentSolution) {
+      Solution studentSolution, Comparison comparison) {
     HashSet<Mistake> newMistakesToRemove = new HashSet<>();
     var exemptMistakes = List.of(EXTRA_ATTRIBUTE, MISSING_ATTRIBUTE, INCOMPLETE_CONTAINMENT_TREE);
     var patternInstructorElement = getPatternInstructorElements(newMistakes, patternMistakeTypes);
@@ -2023,7 +2035,10 @@ public class MistakeDetection {
     for (Mistake newMistake : newMistakes) {
       if (!(exemptMistakes.contains(newMistake.getMistakeType()))) {
         if (!newMistake.getInstructorElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
-            && patternInstructorElement.contains(newMistake.getInstructorElements().get(0).getElement())) {
+            && (patternInstructorElement.contains(newMistake.getInstructorElements().get(0).getElement())
+                || newMistake.getInstructorElements().get(0).getElement().equals(comparison.fullPlayerRoleAbstractClass)
+                || newMistake.getInstructorElements().get(0).getElement()
+                    .equals(comparison.fullPlayerRoleAbstractPlayerAssoc))) {
           newMistakesToRemove.add(newMistake);
           continue;
         } else if (!newMistake.getStudentElements().isEmpty()
@@ -2988,7 +3003,15 @@ public class MistakeDetection {
       if (tag.getTagType().equals(tagType)) {
         instructorElements.addFirst(tag.getSolutionElement().getElement());
       } else {
-        instructorElements.add(tag.getSolutionElement().getElement());
+        if (tag.getSolutionElement().getElement() instanceof Attribute) {
+          Attribute attribute = (Attribute) tag.getSolutionElement().getElement();
+          if (attribute.getType() instanceof CDEnum) {
+            CDEnum enumeration = getEnumFromClassDiagram(attribute.getType().getName(), comparison.instructorCdm);
+            instructorElements.addAll(enumeration.getLiterals());
+          }
+        } else {
+          instructorElements.add(tag.getSolutionElement().getElement());
+        }
       }
     }
     return instructorElements;

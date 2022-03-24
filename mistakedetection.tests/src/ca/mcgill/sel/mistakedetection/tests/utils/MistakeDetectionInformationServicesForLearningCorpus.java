@@ -17,6 +17,7 @@ import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeDe
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeInfos;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionFormatComparison;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionInformationService;
+import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.PythonLearningCorpusInitializationCode;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.SourceTargetVerifier;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.SuggestedParametrizedResponses;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.SuggestedParametrizedResponsesForJava;
@@ -62,10 +63,12 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
         MappingToElementDescriptions.get(),
         MappingToMistakeInfos.get(),
         SourceTargetVerifier.get(),
+        MappingToLearningCorpusElementTypes.get(),
         MappingToMistakeDetectionFormats.get(),
         SuggestedParametrizedResponsesForJava.get(),
         SuggestedParametrizedResponses.get(),
         MappingToMistakeDetectionFormatsForPython.get(),
+        MistakeDetectionFormatComparison.get(),
         PythonLearningCorpusInitializationCode.get()
         ).map(MistakeDetectionInformationService::getOutput);
 

@@ -11,6 +11,7 @@ import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.CDEnum;
 import ca.mcgill.sel.classdiagram.CDEnumLiteral;
+import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
 import modelingassistant.Mistake;
 
@@ -18,6 +19,15 @@ import modelingassistant.Mistake;
  * Helper class to represent information about a mistake detection comparison.
  */
 public class Comparison {
+
+  /** Variable to store instructor class diagram. */
+  public ClassDiagram instructorCdm;
+
+  /** Variable to store abstract class for full PR pattern. */
+  public Classifier fullPlayerRoleAbstractClass;
+
+  /** Variable to store association between abstract class and player class for full PR pattern. */
+  public Association fullPlayerRoleAbstractPlayerAssoc;
 
   /** Maps an instructor solution classifier to student solution classifier. */
   public Map<Classifier, Classifier> mappedClassifiers = new HashMap<>();
