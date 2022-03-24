@@ -112,7 +112,7 @@ public class HumanValidatedMistakeDetectionFormats {
       // paste entries from MDIS4LC here (studentElemsDescriptions, instructorElemsDescriptions)
       // Completed entries (derived from MDS)
       entry(ASSOC_CLASS_SHOULD_BE_CLASS, mdf(List.of("assoc", "cls"), List.of("cls"))),
-      entry(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, mdf(List.of("player_cls", "role_assocend*"), List.of("player_cls", "role_attr"))),
+      entry(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, mdf(List.of("player_cls", "role_assocend*"), List.of("player_cls", "role_enumitem*"))),
       entry(ASSOC_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("player_cls", "role_assocend*"), List.of("player_cls", "role_cls*"))),
       entry(ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, mdf(List.of("player_cls", "role_assocend*"), List.of("player_cls", "role_cls*"))),
       entry(ATTRIBUTE_DUPLICATED, mdf(List.of("attr"), List.of())),
@@ -145,7 +145,7 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(EXTRA_ENUM_ITEM, mdf(List.of("enumitem"), List.of())),
       entry(EXTRA_GENERALIZATION, mdf(List.of("sub_cls", "super_cls"), List.of())),
       entry(FULL_PR_PATTERN_SHOULD_BE_ASSOC, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_assocend*"))),
-      entry(FULL_PR_PATTERN_SHOULD_BE_ENUM, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_attr"))),
+      entry(FULL_PR_PATTERN_SHOULD_BE_ENUM, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_enumitem*"))),
       entry(FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_cls*"))),
       entry(GENERALIZATION_SHOULD_BE_ASSOC_AO_PATTERN, mdf(List.of("sub_cls", "super_cls"), List.of("abs_cls", "occ_cls"))),
       entry(INCOMPLETE_AO_PATTERN, mdf(List.of("existing_cls"), List.of("abs_cls", "occ_cls"))),
@@ -173,7 +173,7 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(ROLE_SHOULD_NOT_BE_STATIC, mdf(List.of("assocend"), List.of("assocend"))),
       entry(SOFTWARE_ENGINEERING_TERM, mdf(List.of("cls"), List.of("cls"))),
       entry(SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_assocend*"))),
-      entry(SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_attr"))),
+      entry(SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_enumitem*"))),
       entry(SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, mdf(List.of("player_cls", "role_cls*"), List.of("player_cls", "role_cls*"))),
       entry(UPPERCASE_ATTRIBUTE_NAME, mdf(List.of("attr"), List.of("attr"))),
       entry(USING_AGGREGATION_INSTEAD_OF_ASSOC, mdf(List.of("aggr", "whole_assocend", "part_assocend"), List.of("assoc", "assocend", "other_assocend"))),
