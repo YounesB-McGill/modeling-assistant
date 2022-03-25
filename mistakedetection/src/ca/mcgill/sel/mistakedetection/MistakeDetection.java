@@ -1975,18 +1975,17 @@ public class MistakeDetection {
     mistake.setSolution(null);
   }
 
-  private static void updateNewMistakes(List<Mistake> newMistakes, Solution studentSolution, boolean filter, Comparison comparison) {
-    var patternMistakeTypes =
-        List.of(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, ASSOC_SHOULD_BE_FULL_PR_PATTERN, ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN,
-            ENUM_SHOULD_BE_ASSOC_PR_PATTERN, ENUM_SHOULD_BE_FULL_PR_PATTERN, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN,
-            FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM, FULL_PR_PATTERN_SHOULD_BE_SUBCLASS,
-            SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, INCOMPLETE_PR_PATTERN,
-            INCOMPLETE_AO_PATTERN, MISSING_AO_PATTERN);
+  private static void updateNewMistakes(List<Mistake> newMistakes, Solution studentSolution, boolean filter,
+      Comparison comparison) {
+    var patternMistakeTypes = List.of(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, ASSOC_SHOULD_BE_FULL_PR_PATTERN,
+        ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, ENUM_SHOULD_BE_ASSOC_PR_PATTERN, ENUM_SHOULD_BE_FULL_PR_PATTERN,
+        ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM,
+        FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN,
+        INCOMPLETE_PR_PATTERN, INCOMPLETE_AO_PATTERN, MISSING_AO_PATTERN);
 
     if (filter && mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
       updateMistakesInvolvingPattern(newMistakes, patternMistakeTypes, studentSolution, comparison);
-    }
-    else {
+    } else {
       for (Mistake newMistake : newMistakes) {
         setMistakeProperties(newMistake, false, 1, 0);
         newMistake.setSolution(studentSolution);
@@ -2692,14 +2691,15 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeBadAssociationClassNameSpelling(Association studentClassAssoc,
       Association instructorClassAssoc, Comparison comparison) {
     if (levenshteinDistance(studentClassAssoc.getAssociationClass().getName(),
-        instructorClassAssoc.getAssociationClass().getName())>= 1) {
+        instructorClassAssoc.getAssociationClass().getName()) >= 1) {
       if (isMistakeExist(BAD_CLASS_NAME_SPELLING, studentClassAssoc.getAssociationClass(), comparison)) {
         Mistake m = getMistakeForElement(studentClassAssoc.getAssociationClass(), BAD_CLASS_NAME_SPELLING, comparison);
         if (m != null) {
           comparison.newMistakes.remove(m);
         }
       }
-      return Optional.of(createMistake(BAD_ASSOC_CLASS_NAME_SPELLING, List.of(studentClassAssoc, studentClassAssoc.getAssociationClass()),
+      return Optional.of(createMistake(BAD_ASSOC_CLASS_NAME_SPELLING,
+          List.of(studentClassAssoc, studentClassAssoc.getAssociationClass()),
           List.of(instructorClassAssoc, instructorClassAssoc.getAssociationClass())));
     }
     return Optional.empty();
