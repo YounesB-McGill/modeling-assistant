@@ -61,7 +61,9 @@ import modelingassistant.Mistake;
  */
 public class MistakeDetectionPatternTest {
 
-  public Comparison mockComparison;
+  /** Mock comparison used for testing purposes. */
+  private static final Comparison mockComparison = new Comparison();
+
   /**
    * Test to check assigning of Tag and TagGroup.
    */
@@ -1654,8 +1656,6 @@ public class MistakeDetectionPatternTest {
     var instElements = getElementsFromClassDiagram(instructorClassDiagram, "AccountType", "BankAccount");
 
     var studAccTypeClass = getClassFromClassDiagram("AccountType", studentClassDiagram);
-
-
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 

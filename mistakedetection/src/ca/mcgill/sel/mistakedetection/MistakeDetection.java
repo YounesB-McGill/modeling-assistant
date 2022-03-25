@@ -1459,7 +1459,7 @@ public class MistakeDetection {
         }
       }
     }
-    if (comparison != null) {
+    if (comparison != null && comparison.instructorCdm != null) {
       comparison.fullPlayerRoleAbstractClass = superAbstractClass;
       comparison.fullPlayerRoleAbstractPlayerAssoc = getAssocAggCompFromClassDiagram(superAbstractClass,
           (Classifier) playerSolutionElement.getElement(), comparison.instructorCdm).get(0);
@@ -2030,7 +2030,8 @@ public class MistakeDetection {
   private static void updateMistakesInvolvingPattern(List<Mistake> newMistakes, List<MistakeType> patternMistakeTypes,
       Solution studentSolution, Comparison comparison) {
     HashSet<Mistake> newMistakesToRemove = new HashSet<>();
-    var exemptMistakes = List.of(EXTRA_ATTRIBUTE, MISSING_ATTRIBUTE, INCOMPLETE_CONTAINMENT_TREE, COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT);
+    var exemptMistakes = List.of(EXTRA_ATTRIBUTE, MISSING_ATTRIBUTE, INCOMPLETE_CONTAINMENT_TREE,
+        COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT);
     var patternInstructorElement = getPatternInstructorElements(newMistakes, patternMistakeTypes);
     var patternStudentElement = getPatternStudentrElements(newMistakes, patternMistakeTypes);
     for (Mistake newMistake : newMistakes) {
@@ -3039,7 +3040,8 @@ public class MistakeDetection {
   public static void createMistakeMissingAssocInAOPattern(TagGroup tg, Comparison comparison) {
     var studentMissingElements = getOrderedStudAOPatternElements(tg, comparison);
     var instructorElements = getOrderedInstPatternElements(tg, comparison, ABSTRACTION);
-    comparison.newMistakes.add(createMistake(MISSING_ASSOCIATION_IN_AO_PATTERN, studentMissingElements, instructorElements));
+    comparison.newMistakes
+        .add(createMistake(MISSING_ASSOCIATION_IN_AO_PATTERN, studentMissingElements, instructorElements));
   }
 
   /** Make sure that studentElements and instructorElements are in order -> Player, roles. */
