@@ -507,6 +507,7 @@ public class MistakeDetection {
       for (Classifier subClass : subClasses) {
         List<Attribute> subClassAttributes = subClass.getAttributes();
         if (areAttributesEqual(superClassAttributes, subClassAttributes)
+             && subClassesAttriAssocEqual(superClass, subClass, comparison)
              && !superClass.isAbstract()) {
           if (!classesIterated.contains(subClass.getName())) {
             classesIterated.add(subClass.getName());
@@ -573,14 +574,19 @@ public class MistakeDetection {
         if (!cls1.equals(cls2)) {
           continue;
         }
+
         var subCls1AssocEnds = subClass1.getAssociationEnds();
         var subCls2AssocEnds = subClass2.getAssociationEnds();
         for (AssociationEnd subCls2AssocEnd : subCls2AssocEnds) {
-          if (subCls1AssocEnds.stream()
-              .noneMatch(ae -> ae.getName().equals(subCls2AssocEnd.getName())
-                            || ae.getLowerBound() == subCls2AssocEnd.getLowerBound()
-                            || ae.getUpperBound() == subCls2AssocEnd.getUpperBound())) {
-            return false;
+          for (AssociationEnd subCls1AssocEnd : subCls1AssocEnds) {
+            if (getOtherAssocEnd(subCls2AssocEnd).getClassifier() == getOtherAssocEnd(subCls2AssocEnd)
+                .getClassifier()) {
+              if (!subCls1AssocEnd.getName().equals(subCls2AssocEnd.getName())
+                  || subCls1AssocEnd.getLowerBound() != subCls2AssocEnd.getLowerBound()
+                  || subCls1AssocEnd.getUpperBound() != subCls2AssocEnd.getUpperBound()) {
+                return false;
+              }
+            }
           }
         }
       }

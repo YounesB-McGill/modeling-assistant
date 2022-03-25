@@ -275,10 +275,10 @@ public class MistakeDetectionWrongAttributeTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), MISSING_ATTRIBUTE, studentPilotClass, instructornameAttribute,
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, studentPilotClass, instructornameAttribute,
         0, 1, false);
   }
 
@@ -303,10 +303,10 @@ public class MistakeDetectionWrongAttributeTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), MISSING_ATTRIBUTE, studentPassengerClass,
+    assertMistake(studentSolution.getMistakes().get(0), MISSING_ATTRIBUTE, studentPassengerClass,
         instructorticketNoAttribute, 0, 1, false);
   }
 
@@ -1723,8 +1723,8 @@ public class MistakeDetectionWrongAttributeTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
     assertMistakeTypesContain(comparison.newMistakes, ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY);
   }
 
