@@ -61,7 +61,9 @@ import modelingassistant.Mistake;
  */
 public class MistakeDetectionPatternTest {
 
-  public Comparison mockComparison;
+  /** Mock comparison used for testing purposes. */
+  private static final Comparison mockComparison = new Comparison();
+
   /**
    * Test to check assigning of Tag and TagGroup.
    */
@@ -1655,15 +1657,13 @@ public class MistakeDetectionPatternTest {
 
     var studAccTypeClass = getClassFromClassDiagram("AccountType", studentClassDiagram);
 
-    var studElements = List.of(studAccTypeClass);
-
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studAccTypeClass);
-    assertMistake(studStudentClassMistake, INCOMPLETE_AO_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, INCOMPLETE_AO_PATTERN, studAccTypeClass, instElements, 0, 1, false);
   }
 
   /**
@@ -1687,15 +1687,13 @@ public class MistakeDetectionPatternTest {
 
     var studEmployeeStatusClass = getClassFromClassDiagram("EmployeeStatus", studentClassDiagram);
 
-    var studElements = List.of(studEmployeeStatusClass);
-
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studEmployeeStatusClass);
-    assertMistake(studStudentClassMistake, INCOMPLETE_AO_PATTERN, studElements, instElements, 0, 1, false);
+    assertMistake(studStudentClassMistake, INCOMPLETE_AO_PATTERN, studEmployeeStatusClass, instElements, 0, 1, false);
   }
 
   /**
