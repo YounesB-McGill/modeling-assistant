@@ -743,6 +743,57 @@ public class MistakeDetection {
     return list.stream().filter(i -> Collections.frequency(list, i) > 1).collect(Collectors.toList());
   }
 
+  private static void checkMistakeIncompleteContainmentTree_1(Comparison comparison, ClassDiagram classDiagram) {
+
+    var studentClassifiers = classDiagram.getClasses();
+    if (studentClassifiers.size() < 2) {
+      return;
+    }
+    List<Classifier> notComposedClasses = new ArrayList<>();
+    List<Classifier> multiComposedClasses = new ArrayList<>();
+    List<Classifier> composedClasses = new ArrayList<>();
+
+    for (Classifier studClass : studentClassifiers) {
+      int compositionEnds = 0;
+      for (AssociationEnd assocEnd : studClass.getAssociationEnds()) {
+        if (getOtherAssocEnd(assocEnd).getReferenceType().equals(COMPOSITION)
+            || isSuperClassContained(studClass, composedClasses)) {
+          compositionEnds++;
+        }
+      }
+      if (compositionEnds == 0) {
+        notComposedClasses.add(studClass);
+      } else if (compositionEnds == 1) {
+        composedClasses.add(studClass);
+      } else {
+        composedClasses.add(studClass);
+        if(!areAllLowerBoundsZero(studClass)) {
+          multiComposedClasses.add(studClass);
+        }
+      }
+    }
+
+    List<Classifier> composedClassesToRemove = new ArrayList<>();
+    for(Classifier studClass : notComposedClasses) {
+      if(isSuperClassContained(studClass, composedClasses)) {
+        composedClassesToRemove.add(studClass);
+      }
+    }
+    notComposedClasses.removeAll(composedClassesToRemove);
+
+    if (notComposedClasses.size() > 1) {
+      comparison.newMistakes.add(createMistake(INCOMPLETE_CONTAINMENT_TREE, notComposedClasses, null));
+    }
+    if (!multiComposedClasses.isEmpty()) {
+      comparison.newMistakes.add(createMistake(COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, multiComposedClasses, null));
+    }
+
+  }
+
+  private static boolean areAllLowerBoundsZero(Classifier studClass) {
+    return studClass.getAssociationEnds().stream().anyMatch(ae -> ae.getLowerBound()>0);
+  }
+
   private static boolean includesComposition(List<Association> associations) {
     for (Association assoc : associations) {
       for (AssociationEnd assocEnd : assoc.getEnds()) {
