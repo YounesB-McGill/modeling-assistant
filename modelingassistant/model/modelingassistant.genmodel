@@ -167,6 +167,7 @@
     </genClasses>
   </genPackages>
   <genPackages prefix="Learningcorpusquiz" disposableProviderFactory="true" ecorePackage="learningcorpusquiz.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="learningcorpusquiz.ecore#//NewEnum1"/>
     <genClasses ecoreClass="learningcorpusquiz.ecore#//FillInTheBlanksQuiz">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpusquiz.ecore#//FillInTheBlanksQuiz/statements"/>
     </genClasses>
