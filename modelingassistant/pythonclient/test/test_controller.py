@@ -745,7 +745,7 @@ def _create_using_attribute_instead_of_assoc_mistake_type() -> MistakeType:
     using_attribute_instead_of_assoc := mt(
         n="Using attribute instead of assoc", d="Using attribute instead of association",
         feedbacks=fbs({
-            1: Feedback(highlightSolution=True),
+            1: HighlightSolution(),
             2: TextResponse(text="Remember that attributes are simple pieces of data."),
             3: ParametrizedResponse(text="${stud_attr} should be its own class."),
             4: ResourceResponse(learningResources=[mcq[

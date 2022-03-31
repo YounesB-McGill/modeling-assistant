@@ -44,7 +44,7 @@ def test_fbs():
             "interfaces or databases, like Window, Database, etc.")  # se term
     ]
     actual = utils.fbs({
-        1: Feedback(highlightSolution=True),
+        1: utils.HighlightSolution(),
         2: TextResponse(text="Make sure you only model the concepts mentioned in the problem description."),
         3: TextResponse(text="You have an extra class. Can you find it?"),
         4: [ParametrizedResponse(text="The ${className} class is not part of the domain, so please remove it."),

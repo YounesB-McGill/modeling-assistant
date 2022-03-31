@@ -119,6 +119,19 @@ def fitb(prompt: str, *statements) -> FillInTheBlanksQuiz:
     return quiz
 
 
+class HighlightProblem(Feedback):
+    "Shorthand for Feedback initializer with highlightProblem=True."
+    # Use __new__ here to create a Feedback instance instead of a subclass not found in the metamodel
+    def __new__(cls, *args, **kwargs):
+        return Feedback(*args, highlightProblem=True, **kwargs)
+
+
+class HighlightSolution(Feedback):
+    "Shorthand for Feedback initializer with highlightSolution=True."
+    def __new__(cls, *args, **kwargs):
+        return Feedback(*args, highlightSolution=True, **kwargs)
+
+
 class MistakeDetectionFormat(NamedTuple):
     """
     Simple representation of the current mistake detection format for a mistake type.
