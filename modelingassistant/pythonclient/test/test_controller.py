@@ -9,13 +9,18 @@ import os
 import re
 from textwrap import dedent
 
-import pytest  # pylint: disable=unused-import
+import pytest
+import learningcorpus  # pylint: disable=unused-import
 from stringserdes import SRSET, str_to_modelingassistant
-from classdiagram import ClassDiagram, Class, Attribute, CDInt, CDString, AssociationEnd, Association, ReferenceType
+from classdiagram import ClassDiagram, Class, Attribute, CDInt, CDString, AssociationEnd, Association
 from constants import LEARNING_CORPUS_PATH
+from corpus import corpus
+from corpus_definition import missing_association_aggregation_mistakes, using_attribute_instead_of_assoc
 from fileserdes import load_cdm, load_lc, load_ma, save_to_files
-from learningcorpus import LearningItem
-from mistaketypes import BAD_CLASS_NAME_SPELLING, corpus
+from learningcorpus import (Feedback, LearningItem, MistakeType, ParametrizedResponse, Reference, ResourceResponse,
+                            TextResponse)
+from learningcorpusquiz import Choice, ListMultipleChoiceQuiz
+from mistaketypes import BAD_CLASS_NAME_SPELLING
 from modelingassistant import ModelingAssistant, Solution, Student, StudentKnowledge
 
 
@@ -664,7 +669,6 @@ def test_student_knowledge_persisted_correctly():
     for p in [ma_file, cd1_file, cd2_file]:
         assert os.path.exists(p)
 
-    # TODO modify lists to reflect what should be in each file
     with open(ma_file, encoding="utf-8") as f:
         file_contents = f.read()
         for s in ["1111", "2222", f"{lok1}", f"{lok2}", "mistakeType"]:
@@ -708,10 +712,10 @@ def test_learning_corpus_top_level_mtcs():
 
 
 def test_debug_ma4():
-    ""
+    "Debugging test for MA4."
     ma_file = f"{MA_PATH}/ma-test4.modelingassistant"
     ma1 = load_ma(ma_file)
-    with open(ma_file) as f:
+    with open(ma_file, encoding="utf-8") as f:
         ma_str = f.read()
     ma2 = str_to_modelingassistant(ma_str)
     for ma in (ma1, ma2):
@@ -719,125 +723,86 @@ def test_debug_ma4():
             assert len(a.ends) == 2
 
 
-def associate(class1, class2):
+def test_creating_using_attribute_instead_of_assoc_learning_corpus_entry():
+    "Test the runtime creation of the Using attribute instead of assoc corpus entry using PyEcore generated code."
+    expected = using_attribute_instead_of_assoc
+    actual = _create_using_attribute_instead_of_assoc_mistake_type()
+    mtas = ["atomic", "timeToAddress", "numStepsBeforeNotification", "priority", "description", "mistakeTypeCategory"]
+    fbas = ["level", "congratulatory", "usefulness", "highlightProblem", "highlightSolution", "text"]
+    for attr in mtas:
+        assert getattr(actual, attr) == getattr(expected, attr)
+    for actual_fb, expected_fb in zip(actual.feedbacks, expected.feedbacks, strict=True):
+        for attr in fbas:
+            assert getattr(actual_fb, attr) == getattr(expected_fb, attr)
+
+
+def _create_using_attribute_instead_of_assoc_mistake_type() -> MistakeType:
     """
-    Associate the two classes in memory (modify classes and return None).
+    Create an instance of the Using attribute instead of assoc mistake type. This code is the plain PyEcore
+    equivalent of the following PyEcore-based DSL code:
+
+    ```
+    using_attribute_instead_of_assoc := mt(
+        n="Using attribute instead of assoc", d="Using attribute instead of association",
+        feedbacks=fbs({
+            1: HighlightSolution(),
+            2: TextResponse(text="Remember that attributes are simple pieces of data."),
+            3: ParametrizedResponse(text="${stud_attr} should be its own class."),
+            4: ResourceResponse(learningResources=[mcq[
+                "Pick the class(es) modeled correctly in Umple.",
+                   "class BankAccount { Client client; }",
+                T: "class BankAccount { * -- 1..2 Client clients; }; class Client {}",
+                   "class BankAccount { 1..2 -- * Client clients; }; class Client {}",
+                   "class Loan { libraryPatron; }"]]),
+            5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+        })),
+    ```
+
+    This method is intentionally written to be mostly self-contained, since it is one of the thesis examples.
     """
-    class12_association_end = AssociationEnd(classifier=class1, navigable=True, lowerBound=0, upperBound=-1)
-    class21_association_end = AssociationEnd(classifier=class2, navigable=True, lowerBound=0, upperBound=-1)
-    class1.associationEnds.append(class12_association_end)
-    class2.associationEnds.append(class21_association_end)
-    association = Association(ends=[class12_association_end, class21_association_end])
-    class12_association_end.assoc = association
-    class21_association_end.assoc = association
+    assoc_end_learning_item = _get_assoc_end_learning_item()
+    compos_aggreg_assoc_ref = _get_compos_aggreg_assoc_reference()
+
+    using_attribute_instead_of_assoc_mistake_type = MistakeType(
+        mistakeTypeCategory=missing_association_aggregation_mistakes,
+        learningItem=assoc_end_learning_item,
+        name="Using attribute instead of assoc",
+        description="Using attribute instead of association",
+        priority=24,
+        feedbacks=[
+            Feedback(level=1, highlightSolution=True, learningCorpus=corpus),
+            TextResponse(level=2, text="Remember that attributes are simple pieces of data."),
+            ParametrizedResponse(level=3, text="${stud_attr} should be its own class."),
+            ResourceResponse(level=4, learningResources=[ListMultipleChoiceQuiz(
+                content="Pick the class(es) modeled correctly in Umple.",
+                choices=[
+                    Choice(text="class BankAccount { Client client; }"),
+                    correct_choice := Choice(
+                           text="class BankAccount { * -- 1..2 Client clients; }; class Client {}"),
+                    Choice(text="class BankAccount { 1..2 -- * Client clients; }; class Client {}"),
+                    Choice(text="class Loan { libraryPatron; }")
+                ],
+                correctChoices=[correct_choice]
+            )]),
+            ResourceResponse(level=5, learningResources=[compos_aggreg_assoc_ref]),
+        ])
+
+    # copy MDF to fake MT pass test
+    using_attribute_instead_of_assoc_mistake_type.md_format = using_attribute_instead_of_assoc.md_format
+    return using_attribute_instead_of_assoc_mistake_type
 
 
-def contains(container_class, contained_class):
-    """
-    Associate the two classes in memory (modify classes and return None).
-    """
-    class12_association_end = AssociationEnd(
-        classifier=container_class, navigable=True, lowerBound=1, upperBound=1, referenceType=ReferenceType.Composition)  # pylint: disable=no-member
-    class21_association_end = AssociationEnd(classifier=contained_class, navigable=True, lowerBound=0, upperBound=-1)
-    container_class.associationEnds.append(class12_association_end)
-    contained_class.associationEnds.append(class21_association_end)
-    association = Association(ends=[class12_association_end, class21_association_end])
-    class12_association_end.assoc = association
-    class21_association_end.assoc = association
+def _get_assoc_end_learning_item() -> LearningItem:
+    return next((li for li in corpus.learningItems if li.name == "AssociationEnd"), None)
 
 
-def check_for_incomplete_containment_tree(solution: Solution) -> bool:
-    """
-    Return True if containment is complete, False otherwise.
-    """
-    # Find the root class (if not given)
-    num_compositions: dict[Class, int] = {}
-    for c in solution.classDiagram.classes:
-        num_compositions[c] = 0
-        for ae in c.associationEnds:
-            if str(ae.referenceType) == "Composition":
-                num_compositions[c] += 1
+def _get_compos_aggreg_assoc_reference() -> Reference:
+    return Reference(learningCorpus=corpus, content=dedent("""\
+        Please review the _Composition vs. Aggregation vs. Association_ section of 
+        the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to 
+        better understand these relationships and where they are used.
 
-    classes_with_most_compositions = [c for c, n in num_compositions.items() if n == max(num_compositions.values())]
-    if len(classes_with_most_compositions) != 1:
-        return False
-    root_class = classes_with_most_compositions[0]
-
-    # Check every assoc end to see if they connect to all other classes and reference type is Composition
-    for ae in root_class.associationEnds:
-        if str(ae.referenceType) != "Composition":
-            return False
-
-    # TODO Check subclasses, which do not to be contained directly
-    for c in solution.classDiagram.classes:
-        if c == root_class:
-            continue
-        contained = False
-        for ae in c.associationEnds:
-            other_ae = ae.assoc.ends[0] if ae.assoc.ends[0] != ae else ae.assoc.ends[1]
-            if other_ae.classifier == root_class:
-                contained = True
-        if not contained:
-            return False
-
-    return True
-
-
-def test_check_for_incomplete_containment_tree_success_case():
-    """
-    Test the above function with this example:
-
-    class Flexibook {
-      1 <@>- * Owner;
-      1 <@>- * Customer;
-      1 <@>- * Service;
-    }
-    class Owner {}
-    class Customer {}
-    class Service {
-      * -- * Owner;
-      * -- * Customer;
-    }
-    """
-    # Dynamically create a modeling assistant and link it with a TouchCore class diagram
-    modeling_assistant = ModelingAssistant()
-    solution = Solution()
-    class_diagram = ClassDiagram(name="Instructor_solution")
-    solution.classDiagram = class_diagram
-    modeling_assistant.solutions.append(solution)
-    flexibook_class = Class(name="Flexibook")
-    owner_class = Class(name="Owner")
-    customer_class = Class(name="Customer")
-    service_class = Class(name="Service")
-    associate(service_class, owner_class)
-    associate(service_class, customer_class)
-    for c in [owner_class, customer_class, service_class]:
-        contains(flexibook_class, c)
-    class_diagram.classes.extend([flexibook_class, owner_class, customer_class, service_class])
-
-    assert check_for_incomplete_containment_tree(solution)
-
-
-def test_check_for_incomplete_containment_tree_failure_case():
-    """
-    Similar to above, except Sevice is not contained in Flexibook
-    """
-    modeling_assistant = ModelingAssistant()
-    solution = Solution()
-    class_diagram = ClassDiagram(name="Student1_solution")
-    solution.classDiagram = class_diagram
-    modeling_assistant.solutions.append(solution)
-    flexibook_class = Class(name="Flexibook")
-    owner_class = Class(name="Owner")
-    customer_class = Class(name="Customer")
-    service_class = Class(name="Service")
-    associate(service_class, owner_class)
-    associate(service_class, customer_class)
-    for c in [owner_class, customer_class]:
-        contains(flexibook_class, c)
-    class_diagram.classes.extend([flexibook_class, owner_class, customer_class, service_class])
-
-    assert not check_for_incomplete_containment_tree(solution)
+        ![composition vs aggregation vs association](images/composition_aggregation_association.png)"""))
 
 
 if __name__ == "__main__":
