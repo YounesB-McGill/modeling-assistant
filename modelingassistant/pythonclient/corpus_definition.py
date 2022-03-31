@@ -341,7 +341,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                            "class BankAccount { Client client; }",
                         T: "class BankAccount { * -- 1..2 Client clients; }; class Client {}",
                            "class BankAccount { 1..2 -- * Client clients; }; class Client {}",
-                           "class Loan { libraryPatron; }"""]]),
+                           "class Loan { libraryPatron; }"]]),
                     5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
                 })),
         ]),

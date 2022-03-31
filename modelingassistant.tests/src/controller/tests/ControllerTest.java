@@ -3,8 +3,10 @@ package controller.tests;
 import static learningcorpus.mistaketypes.MistakeTypes.BAD_CLASS_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.CLASS_MISTAKES;
 import static learningcorpus.mistaketypes.MistakeTypes.CLASS_NAME_MISTAKES;
+import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION_AGGREGATION_MISTAKES;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
+import static learningcorpus.mistaketypes.MistakeTypes.USING_ATTRIBUTE_INSTEAD_OF_ASSOC;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -37,8 +40,13 @@ import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import ca.mcgill.sel.mistakedetection.MistakeDetectionConfig;
 import learningcorpus.Feedback;
 import learningcorpus.LearningCorpus;
+import learningcorpus.LearningItem;
+import learningcorpus.LearningcorpusFactory;
 import learningcorpus.LearningcorpusPackage;
+import learningcorpus.MistakeType;
+import learningcorpus.Reference;
 import learningcorpus.mistaketypes.MistakeTypes;
+import learningcorpusquiz.LearningcorpusquizFactory;
 import modelingassistant.ModelingAssistant;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.ModelingassistantPackage;
@@ -909,47 +917,129 @@ public class ControllerTest {
     assertTrue(solElem1 == solElem2); // reference equality: both vars should point to same object
   }
 
-  /**
-   * Associates the two classes in memory (modifies classes and returns nothing).
-   */
-  public static void associate(Classifier class1, Classifier class2) {
-    var class12AssociationEnd = CDF.createAssociationEnd();
-    class12AssociationEnd.setClassifier(class1);
-    class12AssociationEnd.setNavigable(true); // hardcoded for brevity
-    class12AssociationEnd.setLowerBound(0);
-    class12AssociationEnd.setUpperBound(-1);
-    var class21AssociationEnd = CDF.createAssociationEnd();
-    class21AssociationEnd.setClassifier(class2);
-    class21AssociationEnd.setNavigable(true);
-    class21AssociationEnd.setLowerBound(0);
-    class21AssociationEnd.setUpperBound(-1);
-    class1.getAssociationEnds().add(class12AssociationEnd);
-    class2.getAssociationEnds().add(class21AssociationEnd);
-    var association = CDF.createAssociation();
-    association.getEnds().addAll(List.of(class12AssociationEnd, class21AssociationEnd));
-    class12AssociationEnd.setAssoc(association);
-    class21AssociationEnd.setAssoc(association);
+  /** Tests the runtime creation of the Using attribute instead of assoc corpus entry using EMF generated Java code. */
+  @Test public void testCreatingUsingAttributeInsteadOfAssocLearningCorpusEntry() {
+    var expected = USING_ATTRIBUTE_INSTEAD_OF_ASSOC;
+    var actual = createUsingAttributeInsteadOfAssocMistakeType();
+    List.of("atomic", "timeToAddress", "numStepsBeforeNotification", "priority", "description", "mistakeTypeCategory")
+        .forEach(attr -> assertEquals(getattr(expected, attr), getattr(actual, attr)));
+    for (int i = 0; i < expected.getFeedbacks().size(); i++) {
+      var expectedFb = expected.getFeedbacks().get(i);
+      var actualFb = actual.getFeedbacks().get(i);
+      List.of("level", "congratulatory", "usefulness", "highlightProblem", "highlightSolution", "text")
+          .forEach(attr -> assertEquals(getattr(expectedFb, attr), getattr(actualFb, attr)));
+    }
   }
 
-  public void contain(Classifier containedClass, Classifier containerClass) {
-    var containerClassAssociationEnd = CDF.createAssociationEnd();
-    containerClassAssociationEnd.setClassifier(containerClass);
-    containerClassAssociationEnd.setNavigable(true);
-    containerClassAssociationEnd.setLowerBound(1);
-    containerClassAssociationEnd.setUpperBound(1);
-    containerClassAssociationEnd.setReferenceType(ReferenceType.COMPOSITION);
-    var containedClassAssociationEnd = CDF.createAssociationEnd();
-    containedClassAssociationEnd.setClassifier(containedClass);
-    containedClassAssociationEnd.setNavigable(true);
-    containedClassAssociationEnd.setLowerBound(0);
-    containedClassAssociationEnd.setUpperBound(-1);
-    containerClass.getAssociationEnds().add(containerClassAssociationEnd);
-    containedClass.getAssociationEnds().add(containedClassAssociationEnd);
-    var containerClassContainedClassAssociation = CDF.createAssociation();
-    containerClassContainedClassAssociation.getEnds()
-        .addAll(List.of(containerClassAssociationEnd, containedClassAssociationEnd));
-    containerClassAssociationEnd.setAssoc(containerClassContainedClassAssociation);
-    containedClassAssociationEnd.setAssoc(containerClassContainedClassAssociation);
+  /**
+   * Creates an instance of the Using attribute instead of assoc mistake type. This code is the plain Java Ecore
+   * equivalent of the following PyEcore-based DSL code:
+   *
+   * <pre>
+   * using_attribute_instead_of_assoc := mt(
+   *     n="Using attribute instead of assoc", d="Using attribute instead of association",
+   *     feedbacks=fbs({
+   *         1: Feedback(highlightSolution=True),
+   *         2: TextResponse(text="Remember that attributes are simple pieces of data."),
+   *         3: ParametrizedResponse(text="${stud_attr} should be its own class."),
+   *         4: ResourceResponse(learningResources=[mcq[
+   *             "Pick the class(es) modeled correctly in Umple.",
+   *                "class BankAccount { Client client; }",
+   *             T: "class BankAccount { * -- 1..2 Client clients; }; class Client {}",
+   *                "class BankAccount { 1..2 -- * Client clients; }; class Client {}",
+   *                "class Loan { libraryPatron; }"]]),
+   *         5: ResourceResponse(learningResources=[compos_aggreg_assoc_ref]),
+   *     })),
+   * </pre>
+   *
+   * This method is intentionally written to be mostly self-contained, since it is one of the thesis examples.
+   */
+  private static MistakeType createUsingAttributeInsteadOfAssocMistakeType() {
+    final var assocEndLearningItem = getAssocEndLearningItem();
+    final var composAggregAssocReference = getComposAggregAssocReference();
+
+    var usingAttributeInsteadOfAssocMistakeType = LearningcorpusFactory.eINSTANCE.createMistakeType();
+    usingAttributeInsteadOfAssocMistakeType.setMistakeTypeCategory(MISSING_ASSOCIATION_AGGREGATION_MISTAKES);
+    usingAttributeInsteadOfAssocMistakeType.setLearningItem(assocEndLearningItem);
+    usingAttributeInsteadOfAssocMistakeType.setName("Using attribute instead of assoc");
+    usingAttributeInsteadOfAssocMistakeType.setDescription("Using attribute instead of association");
+    usingAttributeInsteadOfAssocMistakeType.setPriority(24);
+    var level1Fb = LearningcorpusFactory.eINSTANCE.createFeedback();
+    level1Fb.setHighlightSolution(true);
+    var level2Fb = LearningcorpusFactory.eINSTANCE.createTextResponse();
+    level2Fb.setText("Remember that attributes are simple pieces of data.");
+    var level3Fb = LearningcorpusFactory.eINSTANCE.createParametrizedResponse();
+    level3Fb.setText("${stud_attr} should be its own class.");
+    var level4Fb = LearningcorpusFactory.eINSTANCE.createResourceResponse();
+    var correctAttrQuiz = LearningcorpusquizFactory.eINSTANCE.createListMultipleChoiceQuiz();
+    correctAttrQuiz.setContent("Pick the class(es) modeled correctly in Umple.");
+    var quizChoice0 = LearningcorpusquizFactory.eINSTANCE.createChoice();
+    quizChoice0.setText("class BankAccount { Client client; }");
+    var quizChoice1 = LearningcorpusquizFactory.eINSTANCE.createChoice();
+    quizChoice1.setText("class BankAccount { * -- 1..2 Client clients; }; class Client {}");
+    var quizChoice2 = LearningcorpusquizFactory.eINSTANCE.createChoice();
+    quizChoice2.setText("class BankAccount { 1..2 -- * Client clients; }; class Client {}");
+    var quizChoice3 = LearningcorpusquizFactory.eINSTANCE.createChoice();
+    quizChoice3.setText("class Loan { libraryPatron; }");
+    correctAttrQuiz.getChoices().addAll(List.of(quizChoice0, quizChoice1, quizChoice2, quizChoice3));
+    correctAttrQuiz.getCorrectChoices().add(quizChoice1);
+    level4Fb.getLearningResources().add(correctAttrQuiz);
+    var level5Fb = LearningcorpusFactory.eINSTANCE.createResourceResponse();
+    level4Fb.getLearningResources().add(composAggregAssocReference);
+    var feedbacks = List.of(level1Fb, level2Fb, level3Fb, level4Fb, level5Fb);
+    for (int i = 0; i < feedbacks.size(); i++) {
+      feedbacks.get(i).setLevel(i + 1);
+      feedbacks.get(i).setLearningCorpus(getLearningCorpus());
+      usingAttributeInsteadOfAssocMistakeType.getFeedbacks().add(feedbacks.get(i));
+    }
+
+    return usingAttributeInsteadOfAssocMistakeType;
+  }
+
+  private static LearningItem getAssocEndLearningItem() {
+    return getLearningCorpus().getLearningItems().stream().filter(li -> "AssociationEnd".equals(li.getName()))
+        .findFirst().orElse(null);
+  }
+
+  private static Reference getComposAggregAssocReference() {
+    var reference = LearningcorpusFactory.eINSTANCE.createReference();
+    reference.setLearningCorpus(getLearningCorpus());
+    // use multi-line strings after upgrade to Java 17+
+    reference.setContent("Please review the _Composition vs. Aggregation vs. Association_ section of \n"
+        + "the [UML Class Diagram lecture slides](https://mycourses2.mcgill.ca/) to \n"
+        + "better understand these relationships and where they are used.\n"
+        + "\n"
+        + "![composition vs aggregation vs association](images/composition_aggregation_association.png)");
+    return reference;
+  }
+
+  /** Equivalent of Python getattr() function, to reduce boilerplate code in some tests. */
+  private static Object getattr(Object o, String name) {
+    // nested try-catch blocks needed since Java makes runtime reflection difficult
+    Object result = null;
+    try {
+      try {
+        result = o.getClass().getField(name).get(o);
+      } catch (Exception e) {
+        Method method = null;
+        try {
+          method = o.getClass().getMethod(name);
+        } catch (Exception e2) {
+          var upperName = Character.toUpperCase(name.charAt(0)) + name.substring(1);
+          try {
+            var getterName = "get" + upperName;
+            method = o.getClass().getMethod(getterName);
+          } catch (Exception e3) {
+            var booleanGetterName = "is" + upperName;
+            method = o.getClass().getMethod(booleanGetterName);
+          }
+        }
+        result = method.invoke(o);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return result;
   }
 
   /** Returns the default learning corpus. */
