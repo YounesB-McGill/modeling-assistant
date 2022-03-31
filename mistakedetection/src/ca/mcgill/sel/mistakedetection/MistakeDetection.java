@@ -2922,12 +2922,12 @@ public class MistakeDetection {
     for (Association association : comparison.notMappedInstructorAssociations) {
       checkMistakeAttributeInsteadOfAssociation(association, comparison);
       if (association.getEnds().get(0).getReferenceType().equals(COMPOSITION)) {
-        if (!isIncompleteContainmentMistakeExists(association.getEnds().get(0), comparison)) {
+        if (!isIncompleteContainmentMistakeExists(association, comparison)) {
           comparison.newMistakes
               .add(createMistake(MISSING_COMPOSITION, null, getAssociationElements(association.getEnds().get(0))));
         }
       } else if (association.getEnds().get(1).getReferenceType().equals(COMPOSITION)) {
-        if (!isIncompleteContainmentMistakeExists(association.getEnds().get(1), comparison)) {
+        if (!isIncompleteContainmentMistakeExists(association, comparison)) {
           comparison.newMistakes
               .add(createMistake(MISSING_COMPOSITION, null, getAssociationElements(association.getEnds().get(1))));
         }
@@ -2949,9 +2949,10 @@ public class MistakeDetection {
     }
   }
 
-  private static boolean isIncompleteContainmentMistakeExists(AssociationEnd associationEnd, Comparison comparison) {
+  private static boolean isIncompleteContainmentMistakeExists(Association assoc, Comparison comparison) {
     var mc = comparison.mappedClassifiers;
-    return (isMistakeExist(INCOMPLETE_CONTAINMENT_TREE, mc.get(associationEnd.getClassifier()), comparison));
+    return (isMistakeExist(INCOMPLETE_CONTAINMENT_TREE, mc.get(assoc.getEnds().get(0).getClassifier()), comparison)
+        || isMistakeExist(INCOMPLETE_CONTAINMENT_TREE, mc.get(assoc.getEnds().get(1).getClassifier()), comparison));
   }
 
   private static void checkMistakeAttributeInsteadOfAssociation(Association association, Comparison comparison) {
