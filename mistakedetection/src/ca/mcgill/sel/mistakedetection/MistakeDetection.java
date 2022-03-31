@@ -637,7 +637,7 @@ public class MistakeDetection {
     }
   }
 
-  private static void checkMistakeIncompleteContainmentTree(Comparison comparison, ClassDiagram classDiagram) {
+  private static void checkMistakeIncompleteContainmentTree_old(Comparison comparison, ClassDiagram classDiagram) {
 
     var studentClassifiers = classDiagram.getClasses();
     if (studentClassifiers.size() < 2) {
@@ -743,7 +743,7 @@ public class MistakeDetection {
     return list.stream().filter(i -> Collections.frequency(list, i) > 1).collect(Collectors.toList());
   }
 
-  private static void checkMistakeIncompleteContainmentTree_1(Comparison comparison, ClassDiagram classDiagram) {
+  private static void checkMistakeIncompleteContainmentTree(Comparison comparison, ClassDiagram classDiagram) {
 
     var studentClassifiers = classDiagram.getClasses();
     if (studentClassifiers.size() < 2) {
@@ -752,6 +752,13 @@ public class MistakeDetection {
     List<Classifier> notComposedClasses = new ArrayList<>();
     List<Classifier> multiComposedClasses = new ArrayList<>();
     List<Classifier> composedClasses = new ArrayList<>();
+    List<Classifier> assocClasses = new ArrayList<>();
+
+    for (Association assoc : classDiagram.getAssociations()) {
+      if (assoc.getAssociationClass() != null) {
+        assocClasses.add(assoc.getAssociationClass());
+      }
+    }
 
     for (Classifier studClass : studentClassifiers) {
       int compositionEnds = 0;
@@ -761,21 +768,23 @@ public class MistakeDetection {
           compositionEnds++;
         }
       }
-      if (compositionEnds == 0) {
-        notComposedClasses.add(studClass);
-      } else if (compositionEnds == 1) {
-        composedClasses.add(studClass);
-      } else {
-        composedClasses.add(studClass);
-        if(!areAllLowerBoundsZero(studClass)) {
-          multiComposedClasses.add(studClass);
+      if (!assocClasses.contains(studClass)) {
+        if (compositionEnds == 0) {
+          notComposedClasses.add(studClass);
+        } else if (compositionEnds == 1) {
+          composedClasses.add(studClass);
+        } else {
+          composedClasses.add(studClass);
+          if (areAllLowerBoundsGreaterThanOne(studClass)) {
+            multiComposedClasses.add(studClass);
+          }
         }
       }
     }
 
     List<Classifier> composedClassesToRemove = new ArrayList<>();
-    for(Classifier studClass : notComposedClasses) {
-      if(isSuperClassContained(studClass, composedClasses)) {
+    for (Classifier studClass : notComposedClasses) {
+      if (isSuperClassContained(studClass, composedClasses)) {
         composedClassesToRemove.add(studClass);
       }
     }
@@ -785,12 +794,13 @@ public class MistakeDetection {
       comparison.newMistakes.add(createMistake(INCOMPLETE_CONTAINMENT_TREE, notComposedClasses, null));
     }
     if (!multiComposedClasses.isEmpty()) {
-      comparison.newMistakes.add(createMistake(COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, multiComposedClasses, null));
+      comparison.newMistakes
+          .add(createMistake(COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, multiComposedClasses, null));
     }
 
   }
 
-  private static boolean areAllLowerBoundsZero(Classifier studClass) {
+  private static boolean areAllLowerBoundsGreaterThanOne(Classifier studClass) {
     return studClass.getAssociationEnds().stream().anyMatch(ae -> ae.getLowerBound()>0);
   }
 
@@ -2912,12 +2922,12 @@ public class MistakeDetection {
     for (Association association : comparison.notMappedInstructorAssociations) {
       checkMistakeAttributeInsteadOfAssociation(association, comparison);
       if (association.getEnds().get(0).getReferenceType().equals(COMPOSITION)) {
-        if (!isIncompleteContainmentMistakeExists(association, comparison)) {
+        if (!isIncompleteContainmentMistakeExists(association.getEnds().get(0), comparison)) {
           comparison.newMistakes
               .add(createMistake(MISSING_COMPOSITION, null, getAssociationElements(association.getEnds().get(0))));
         }
       } else if (association.getEnds().get(1).getReferenceType().equals(COMPOSITION)) {
-        if (!isIncompleteContainmentMistakeExists(association, comparison)) {
+        if (!isIncompleteContainmentMistakeExists(association.getEnds().get(1), comparison)) {
           comparison.newMistakes
               .add(createMistake(MISSING_COMPOSITION, null, getAssociationElements(association.getEnds().get(1))));
         }
@@ -2939,10 +2949,9 @@ public class MistakeDetection {
     }
   }
 
-  private static boolean isIncompleteContainmentMistakeExists(Association assoc, Comparison comparison) {
+  private static boolean isIncompleteContainmentMistakeExists(AssociationEnd associationEnd, Comparison comparison) {
     var mc = comparison.mappedClassifiers;
-    return (isMistakeExist(INCOMPLETE_CONTAINMENT_TREE, mc.get(assoc.getEnds().get(0).getClassifier()), comparison)
-        || isMistakeExist(INCOMPLETE_CONTAINMENT_TREE, mc.get(assoc.getEnds().get(1).getClassifier()), comparison));
+    return (isMistakeExist(INCOMPLETE_CONTAINMENT_TREE, mc.get(associationEnd.getClassifier()), comparison));
   }
 
   private static void checkMistakeAttributeInsteadOfAssociation(Association association, Comparison comparison) {
