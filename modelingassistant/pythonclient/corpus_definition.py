@@ -8,7 +8,7 @@ The actual corpus initialization is done in the corpus.py file.
 from textwrap import dedent
 
 from constants import T
-from learningcorpus import (Example, Feedback, LearningCorpus, MistakeType, ParametrizedResponse, Quiz, Reference,
+from learningcorpus import (Example, LearningCorpus, MistakeType, ParametrizedResponse, Quiz, Reference,
                             ResourceResponse, TextResponse)
 from utils import mcq, mtc, mt, fbs, fitb, mdf, HighlightProblem, HighlightSolution
 
