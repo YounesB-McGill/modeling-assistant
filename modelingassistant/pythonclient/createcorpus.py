@@ -24,7 +24,7 @@ from fileserdes import save_to_file
 from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResponse, ParametrizedResponse,
                             ResourceResponse, Quiz)
 from learningcorpusquiz import Blank, FillInTheBlanksQuiz, ListMultipleChoiceQuiz, NonBlank, TableMultipleChoiceQuiz
-from utils import mdf, NonNoneDict
+from utils import mdf, warn, NonNoneDict
 
 
 MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
@@ -142,7 +142,7 @@ QUIZ_DISPLAY_NAMES: dict[type, str] = {
     FillInTheBlanksQuiz: "Fill-in-the-blanks quiz",
     ListMultipleChoiceQuiz: "List multiple-choice quiz",
     TableMultipleChoiceQuiz: "Table multiple-choice quiz",
-    Quiz: "Quiz",  # TODO: Remove this once we have a better way of handling Quiz subclasses
+    Quiz: "Quiz",  # fallback option, not expected to be used
 }
 
 _quizzes_to_md: dict[Quiz, str] = NonNoneDict()
@@ -283,7 +283,8 @@ class TextualGenerator(ABC):
     @abstractmethod
     def make_md_format_description(cls, mt: MistakeType) -> str:
         "Return the mistake detection format description for the mistake type."
-        if not hasattr(mt, "md_format"):  # TODO remove this later
+        if not hasattr(mt, "md_format"):
+            warn(f"Mistake type {mt.name} does not have a Mistake Detection Format")
             return ""  # MistakeDetectionFormat not yet defined for mistake type
         result = ""
         match len(mt.md_format.stud):
