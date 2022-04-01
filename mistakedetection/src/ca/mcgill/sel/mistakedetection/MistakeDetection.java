@@ -579,7 +579,7 @@ public class MistakeDetection {
         var subCls2AssocEnds = subClass2.getAssociationEnds();
         for (AssociationEnd subCls2AssocEnd : subCls2AssocEnds) {
           for (AssociationEnd subCls1AssocEnd : subCls1AssocEnds) {
-            if (getOtherAssocEnd(subCls2AssocEnd).getClassifier() == getOtherAssocEnd(subCls2AssocEnd)
+            if (getOtherAssocEnd(subCls2AssocEnd).getClassifier() == getOtherAssocEnd(subCls1AssocEnd)
                 .getClassifier()) {
               if (!subCls1AssocEnd.getName().equals(subCls2AssocEnd.getName())
                   || subCls1AssocEnd.getLowerBound() != subCls2AssocEnd.getLowerBound()
@@ -763,7 +763,7 @@ public class MistakeDetection {
     for (Classifier studClass : studentClassifiers) {
       int compositionEnds = 0;
       for (AssociationEnd assocEnd : studClass.getAssociationEnds()) {
-        if (getOtherAssocEnd(assocEnd).getReferenceType().equals(COMPOSITION)
+        if (getOtherAssocEnd(assocEnd).getReferenceType() == COMPOSITION
             || isSuperClassContained(studClass, composedClasses)) {
           compositionEnds++;
         }
@@ -801,7 +801,7 @@ public class MistakeDetection {
   }
 
   private static boolean areAllLowerBoundsGreaterThanOne(Classifier studClass) {
-    return studClass.getAssociationEnds().stream().anyMatch(ae -> ae.getLowerBound()>0);
+    return studClass.getAssociationEnds().stream().anyMatch(ae -> ae.getLowerBound() > 0);
   }
 
   private static boolean includesComposition(List<Association> associations) {
