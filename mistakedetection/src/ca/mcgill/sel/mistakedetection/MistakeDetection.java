@@ -2097,7 +2097,7 @@ public class MistakeDetection {
       Solution studentSolution, Comparison comparison) {
     HashSet<Mistake> newMistakesToRemove = new HashSet<>();
     var exemptMistakes = List.of(EXTRA_ATTRIBUTE, MISSING_ATTRIBUTE, INCOMPLETE_CONTAINMENT_TREE,
-        COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT);
+        COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, EXTRA_GENERALIZATION);
     var patternInstructorElement = getPatternInstructorElements(newMistakes, patternMistakeTypes);
     var patternStudentElement = getPatternStudentrElements(newMistakes, patternMistakeTypes);
     for (Mistake newMistake : newMistakes) {
