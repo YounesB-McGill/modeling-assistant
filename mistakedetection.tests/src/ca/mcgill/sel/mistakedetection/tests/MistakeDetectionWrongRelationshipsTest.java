@@ -22,6 +22,7 @@ import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ASSOCIATION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_ROLE_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.REPRESENTING_ACTION_WITH_ASSOC;
+import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.ROLE_SHOULD_NOT_BE_STATIC;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_AGGREGATION_INSTEAD_OF_COMPOSITION;
@@ -33,7 +34,6 @@ import static learningcorpus.mistaketypes.MistakeTypes.USING_COMPOSITION_INSTEAD
 import static learningcorpus.mistaketypes.MistakeTypes.USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_MULTIPLICITY;
-import static learningcorpus.mistaketypes.MistakeTypes.REVERSED_RELATIONSHIP_DIRECTION;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ROLE_NAME;
 import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getAssociationEndFromClass;
@@ -185,8 +185,8 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), REVERSED_RELATIONSHIP_DIRECTION,
         getAssociationElements(studentMyEngineAssociationEnd), getAssociationElements(instructorMyEngineAssociationEnd),
@@ -2473,7 +2473,7 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(2, comparison.newMistakes.size()); // TODO
+    assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_COMPOSITION_INSTEAD_OF_AGGREGATION,
@@ -2529,7 +2529,6 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    // TODO Figure out one mistake type (Composed in more parts vs using composition instead of aggregation)
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
@@ -3050,13 +3049,14 @@ public class MistakeDetectionWrongRelationshipsTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var studcls1Class = getClassFromClassDiagram("Cls3", studentClassDiagram);
+    var studRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE, studcls1Class, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE, List.of(studRootClass ,studcls1Class), 0, 1, false);
   }
 
   /**
@@ -3073,13 +3073,14 @@ public class MistakeDetectionWrongRelationshipsTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var studcls1Class = getClassFromClassDiagram("Cl5", studentClassDiagram);
+    var studRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE, studcls1Class, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE, List.of(studRootClass, studcls1Class), 0, 1, false);
   }
 
   /**
@@ -3096,7 +3097,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var studcls1Class = getClassFromClassDiagram("Cls7", studentClassDiagram);
-    var studcls2Class = getClassFromClassDiagram("Cls8", studentClassDiagram);
+    var studRootClass = getClassFromClassDiagram("Root", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
@@ -3104,7 +3105,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE,
-        List.of(studcls1Class, studcls2Class), 0, 1, false);
+        List.of(studRootClass ,studcls1Class), 0, 1, false);
   }
 
   /**

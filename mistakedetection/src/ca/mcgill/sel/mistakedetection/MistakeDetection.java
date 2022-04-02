@@ -507,6 +507,7 @@ public class MistakeDetection {
       for (Classifier subClass : subClasses) {
         List<Attribute> subClassAttributes = subClass.getAttributes();
         if (areAttributesEqual(superClassAttributes, subClassAttributes)
+             && subClassesAttriAssocEqual(superClass, subClass, comparison)
              && !superClass.isAbstract()) {
           if (!classesIterated.contains(subClass.getName())) {
             classesIterated.add(subClass.getName());
@@ -573,14 +574,19 @@ public class MistakeDetection {
         if (!cls1.equals(cls2)) {
           continue;
         }
+
         var subCls1AssocEnds = subClass1.getAssociationEnds();
         var subCls2AssocEnds = subClass2.getAssociationEnds();
         for (AssociationEnd subCls2AssocEnd : subCls2AssocEnds) {
-          if (subCls1AssocEnds.stream()
-              .noneMatch(ae -> ae.getName().equals(subCls2AssocEnd.getName())
-                            || ae.getLowerBound() == subCls2AssocEnd.getLowerBound()
-                            || ae.getUpperBound() == subCls2AssocEnd.getUpperBound())) {
-            return false;
+          for (AssociationEnd subCls1AssocEnd : subCls1AssocEnds) {
+            if (getOtherAssocEnd(subCls2AssocEnd).getClassifier() == getOtherAssocEnd(subCls1AssocEnd)
+                .getClassifier()) {
+              if (!subCls1AssocEnd.getName().equals(subCls2AssocEnd.getName())
+                  || subCls1AssocEnd.getLowerBound() != subCls2AssocEnd.getLowerBound()
+                  || subCls1AssocEnd.getUpperBound() != subCls2AssocEnd.getUpperBound()) {
+                return false;
+              }
+            }
           }
         }
       }
@@ -631,7 +637,7 @@ public class MistakeDetection {
     }
   }
 
-  private static void checkMistakeIncompleteContainmentTree(Comparison comparison, ClassDiagram classDiagram) {
+  private static void checkMistakeIncompleteContainmentTree_old(Comparison comparison, ClassDiagram classDiagram) {
 
     var studentClassifiers = classDiagram.getClasses();
     if (studentClassifiers.size() < 2) {
@@ -735,6 +741,67 @@ public class MistakeDetection {
   /** Return the set of duplicate elements. */
   public static List<Classifier> findDuplicateInList(List<Classifier> list) {
     return list.stream().filter(i -> Collections.frequency(list, i) > 1).collect(Collectors.toList());
+  }
+
+  private static void checkMistakeIncompleteContainmentTree(Comparison comparison, ClassDiagram classDiagram) {
+
+    var studentClassifiers = classDiagram.getClasses();
+    if (studentClassifiers.size() < 2) {
+      return;
+    }
+    List<Classifier> notComposedClasses = new ArrayList<>();
+    List<Classifier> multiComposedClasses = new ArrayList<>();
+    List<Classifier> composedClasses = new ArrayList<>();
+    List<Classifier> assocClasses = new ArrayList<>();
+
+    for (Association assoc : classDiagram.getAssociations()) {
+      if (assoc.getAssociationClass() != null) {
+        assocClasses.add(assoc.getAssociationClass());
+      }
+    }
+
+    for (Classifier studClass : studentClassifiers) {
+      int compositionEnds = 0;
+      for (AssociationEnd assocEnd : studClass.getAssociationEnds()) {
+        if (getOtherAssocEnd(assocEnd).getReferenceType() == COMPOSITION
+            || isSuperClassContained(studClass, composedClasses)) {
+          compositionEnds++;
+        }
+      }
+      if (!assocClasses.contains(studClass)) {
+        if (compositionEnds == 0) {
+          notComposedClasses.add(studClass);
+        } else if (compositionEnds == 1) {
+          composedClasses.add(studClass);
+        } else {
+          composedClasses.add(studClass);
+          if (areAllLowerBoundsGreaterThanOne(studClass)) {
+            multiComposedClasses.add(studClass);
+          }
+        }
+      }
+    }
+
+    List<Classifier> composedClassesToRemove = new ArrayList<>();
+    for (Classifier studClass : notComposedClasses) {
+      if (isSuperClassContained(studClass, composedClasses)) {
+        composedClassesToRemove.add(studClass);
+      }
+    }
+    notComposedClasses.removeAll(composedClassesToRemove);
+
+    if (notComposedClasses.size() > 1) {
+      comparison.newMistakes.add(createMistake(INCOMPLETE_CONTAINMENT_TREE, notComposedClasses, null));
+    }
+    if (!multiComposedClasses.isEmpty()) {
+      comparison.newMistakes
+          .add(createMistake(COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, multiComposedClasses, null));
+    }
+
+  }
+
+  private static boolean areAllLowerBoundsGreaterThanOne(Classifier studClass) {
+    return studClass.getAssociationEnds().stream().anyMatch(ae -> ae.getLowerBound() > 0);
   }
 
   private static boolean includesComposition(List<Association> associations) {
@@ -1981,7 +2048,7 @@ public class MistakeDetection {
         ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, ENUM_SHOULD_BE_ASSOC_PR_PATTERN, ENUM_SHOULD_BE_FULL_PR_PATTERN,
         ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM,
         FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN,
-        INCOMPLETE_PR_PATTERN, INCOMPLETE_AO_PATTERN, MISSING_AO_PATTERN);
+        INCOMPLETE_PR_PATTERN, INCOMPLETE_AO_PATTERN, MISSING_AO_PATTERN, MISSING_ASSOCIATION_IN_AO_PATTERN);
 
     if (filter && mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
       updateMistakesInvolvingPattern(newMistakes, patternMistakeTypes, studentSolution, comparison);
@@ -2030,7 +2097,7 @@ public class MistakeDetection {
       Solution studentSolution, Comparison comparison) {
     HashSet<Mistake> newMistakesToRemove = new HashSet<>();
     var exemptMistakes = List.of(EXTRA_ATTRIBUTE, MISSING_ATTRIBUTE, INCOMPLETE_CONTAINMENT_TREE,
-        COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT);
+        COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, EXTRA_GENERALIZATION);
     var patternInstructorElement = getPatternInstructorElements(newMistakes, patternMistakeTypes);
     var patternStudentElement = getPatternStudentrElements(newMistakes, patternMistakeTypes);
     for (Mistake newMistake : newMistakes) {

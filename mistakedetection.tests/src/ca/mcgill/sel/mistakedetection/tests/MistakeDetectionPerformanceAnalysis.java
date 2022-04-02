@@ -73,7 +73,7 @@ public class MistakeDetectionPerformanceAnalysis {
   @Test
   public void testStudentSolution4() {
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/realModels/studentSolution/studentDomainModel_G12_15/Class Diagram/StudentDomainModel.domain_model.cdm");
+        "../mistakedetection/realModels/studentSolution/studentDomainModel_G12_11/Class Diagram/StudentDomainModel.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
@@ -91,7 +91,7 @@ public class MistakeDetectionPerformanceAnalysis {
   @Test
   public void testStudentSolution6() {
     var studentClassDiagram = cdmFromFile(
-        "../mistakedetection/realModels/studentSolution/studentDomainModel_G13_6/Class Diagram/StudentDomainModel.domain_model.cdm");
+        "../mistakedetection/realModels/studentSolution/studentDomainModel_G13_7/Class Diagram/StudentDomainModel.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
