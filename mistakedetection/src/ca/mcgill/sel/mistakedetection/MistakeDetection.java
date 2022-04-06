@@ -507,9 +507,9 @@ public class MistakeDetection {
       List<Attribute> superClassAttributes = superClass.getAttributes();
       for (Classifier subClass : subClasses) {
         List<Attribute> subClassAttributes = subClass.getAttributes();
-        if (areAttributesEqual(superClassAttributes, subClassAttributes)
+        if ((areAttributesEqual(superClassAttributes, subClassAttributes)
              && subClassesAttriAssocEqual(superClass, subClass, comparison)
-             && !superClass.isAbstract()) {
+             && !superClass.isAbstract()) || (subClassAttributes.isEmpty() && subClass.getAssociationEnds().isEmpty())) {
           if (!classesIterated.contains(subClass.getName())) {
             classesIterated.add(subClass.getName());
             comparison.newMistakes.add(createMistake(NON_DIFFERENTIATED_SUBCLASS, subClass, null));
