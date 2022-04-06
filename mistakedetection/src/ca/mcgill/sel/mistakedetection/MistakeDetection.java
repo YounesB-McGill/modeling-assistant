@@ -1694,6 +1694,16 @@ public class MistakeDetection {
     if (!checkInstructorElementForMistake(comparison.newMistakes, otherInstructorClassifierAssocEnd)) {
       checkMistakesForAssociationEnds(otherStudentClassifierAssocEnd, otherInstructorClassifierAssocEnd, comparison);
     }
+
+    if (studentClassifierAssocEnd.isNavigable() && instructorClassifierAssocEnd.isNavigable()) {
+      checkMultiplicity(studentClassifierAssocEnd, instructorClassifierAssocEnd, comparison);
+      checkRoleNames(studentClassifierAssocEnd, instructorClassifierAssocEnd, comparison);
+    }
+
+    if (otherStudentClassifierAssocEnd.isNavigable() && otherInstructorClassifierAssocEnd.isNavigable()) {
+      checkMultiplicity(otherStudentClassifierAssocEnd, otherInstructorClassifierAssocEnd, comparison);
+      checkRoleNames(otherStudentClassifierAssocEnd, otherInstructorClassifierAssocEnd, comparison);
+    }
   }
 
   private static void removeMistakesRelatedToElement(Classifier cls, List<Mistake> newMistakes) {
@@ -1832,14 +1842,21 @@ public class MistakeDetection {
     checkMistakeRepresentingActionWithAssoc(studAssocEnd, instAssocEnd).ifPresent(addMist);
     checkMistakeRoleNameExpectedStactic(studAssocEnd, instAssocEnd).ifPresent(addMist);
     checkMistakeRoleNameNotExpectedStactic(studAssocEnd, instAssocEnd).ifPresent(addMist);
-    if (!(isUsingDirectedInsteadOfUndirected(studAssocEnd, instAssocEnd)
-        || isUsingUndirectedInsteadOfDirected(studAssocEnd, instAssocEnd))) {
-      checkMistakeOtherWrongMultiplicity(studAssocEnd, instAssocEnd).ifPresent(addMist);
-      checkMistakeMissingRoleName(studAssocEnd, instAssocEnd).ifPresent(addMist);
-      checkMistakeRoleNamePresentButIncorrect(studAssocEnd, instAssocEnd, comparison).ifPresent(addMist);
-      if (!isMistakeExist(REPRESENTING_ACTION_WITH_ASSOC, studAssocEnd, comparison)) {
-        checkMistakeBadRoleNameSpelling(studAssocEnd, instAssocEnd).ifPresent(addMist);
-      }
+  }
+
+  public static void checkMultiplicity(AssociationEnd studAssocEnd, AssociationEnd instAssocEnd, Comparison comparison) {
+    if(!isMistakeExist(WRONG_MULTIPLICITY, instAssocEnd, comparison)) {
+    checkMistakeOtherWrongMultiplicity(studAssocEnd, instAssocEnd).ifPresent(comparison.newMistakes::add);
+    }
+  }
+
+  public static void checkRoleNames(AssociationEnd studAssocEnd, AssociationEnd instAssocEnd, Comparison comparison) {
+    if(!isMistakeExist(WRONG_ROLE_NAME, instAssocEnd, comparison)) {
+    checkMistakeMissingRoleName(studAssocEnd, instAssocEnd).ifPresent(comparison.newMistakes::add);
+    checkMistakeRoleNamePresentButIncorrect(studAssocEnd, instAssocEnd, comparison).ifPresent(comparison.newMistakes::add);
+    if (!isMistakeExist(REPRESENTING_ACTION_WITH_ASSOC, studAssocEnd, comparison)) {
+      checkMistakeBadRoleNameSpelling(studAssocEnd, instAssocEnd).ifPresent(comparison.newMistakes::add);
+    }
     }
   }
 
@@ -2775,8 +2792,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeRoleNamePresentButIncorrect(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd, Comparison comparison) {
     int lDistance = levenshteinDistance(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName());
-    var m = getMistakeForElement(studentClassAssocEnd, USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED, comparison);
-    if (lDistance > MAX_LEVENSHTEIN_DISTANCE_ALLOWED && m == null) {
+    if (lDistance > MAX_LEVENSHTEIN_DISTANCE_ALLOWED ) {
       return Optional.of(createMistake(WRONG_ROLE_NAME, studentClassAssocEnd, instructorClassAssocEnd));
     }
 
