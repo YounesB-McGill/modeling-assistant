@@ -415,7 +415,7 @@ public class MistakeDetection {
 
     for (Attribute studAttrib : comparison.extraStudentAttributes) {
       for (Attribute instAttrib : comparison.notMappedInstructorAttributes) {
-        if (studAttrib.getName().equals(instAttrib.getName())) {
+        if (levenshteinDistance(studAttrib.getName(), instAttrib.getName()) <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
           comparison.newMistakes.add(createMistake(ATTRIBUTE_MISPLACED, studAttrib, instAttrib));
           comparison.mappedAttributes.put(instAttrib, studAttrib);
           checkMistakesInAttributes(studAttrib, instAttrib, comparison);
@@ -481,7 +481,7 @@ public class MistakeDetection {
     superclasses.add(classifier);
     for (var sc : superclasses) {
       for (var attrib : sc.getAttributes()) {
-        if (attrib.getName().toLowerCase().equals(attribute.getName().toLowerCase())) {
+        if (levenshteinDistance(attrib.getName().toLowerCase(), attribute.getName().toLowerCase()) <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
           return attrib;
         }
       }
