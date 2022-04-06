@@ -1659,8 +1659,8 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    assertEquals(5, comparison.newMistakes.size());
-    assertEquals(5, studentSolution.getMistakes().size());
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studAccTypeClass);
     assertMistake(studStudentClassMistake, INCOMPLETE_AO_PATTERN, studAccTypeClass, instElements, 0, 1, false);
@@ -1748,8 +1748,8 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    assertEquals(10, comparison.newMistakes.size());
-    assertEquals(10, studentSolution.getMistakes().size());
+    assertEquals(9, comparison.newMistakes.size());
+    assertEquals(9, studentSolution.getMistakes().size());
 
     assertMistake(comparison.newMistakes.get(0), MISSING_AO_PATTERN, instElements, 0, 1, false);
   }

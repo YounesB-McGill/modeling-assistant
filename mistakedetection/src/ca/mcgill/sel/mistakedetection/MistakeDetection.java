@@ -481,7 +481,8 @@ public class MistakeDetection {
     superclasses.add(classifier);
     for (var sc : superclasses) {
       for (var attrib : sc.getAttributes()) {
-        if (levenshteinDistance(attrib.getName().toLowerCase(), attribute.getName().toLowerCase()) <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+        if (levenshteinDistance(attrib.getName().toLowerCase(),
+            attribute.getName().toLowerCase()) <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
           return attrib;
         }
       }
@@ -989,10 +990,12 @@ public class MistakeDetection {
     int matchedElements = 0;
     for (Tag tag : tg.getTags()) {
       if (comparison.mappedClassifiers.containsKey(tag.getSolutionElement().getElement())) {
-          matchedElements++;
+        matchedElements++;
       }
       totalMatchesExpected.add(tag.getSolutionElement().getElement());
     }
+    comparison.abstractionOccurrenceAssoc = getAssocAggCompFromClassDiagram((Classifier) totalMatchesExpected.get(0),
+        (Classifier) totalMatchesExpected.get(1), comparison.instructorCdm).get(0);
     if (matchedElements == 0 && !totalMatchesExpected.isEmpty()) {
       comparison.newMistakes.add(createMistake(MISSING_AO_PATTERN, null, totalMatchesExpected));
     } else if (matchedElements != 0 && totalMatchesExpected.size() == matchedElements) {
@@ -2129,7 +2132,9 @@ public class MistakeDetection {
             && (patternInstructorElement.contains(newMistake.getInstructorElements().get(0).getElement())
                 || newMistake.getInstructorElements().get(0).getElement().equals(comparison.fullPlayerRoleAbstractClass)
                 || newMistake.getInstructorElements().get(0).getElement()
-                    .equals(comparison.fullPlayerRoleAbstractPlayerAssoc))) {
+                    .equals(comparison.fullPlayerRoleAbstractPlayerAssoc)
+                || newMistake.getInstructorElements().get(0).getElement()
+                    .equals(comparison.abstractionOccurrenceAssoc))) {
           newMistakesToRemove.add(newMistake);
           continue;
         } else if (!newMistake.getStudentElements().isEmpty()

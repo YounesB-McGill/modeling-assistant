@@ -2415,7 +2415,7 @@ public class MistakeDetectionWrongRelationshipsTest {
     var instructorMyEmployeeAssociationEnd = getAssociationEndFromClass("myEmployee", instructorCompanyClass);
     var studentMyEmployeeAssociationEnd = getAssociationEndFromClass("myEmployee", studentCompanyClass);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false).log();
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
