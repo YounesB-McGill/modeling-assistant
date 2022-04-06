@@ -792,12 +792,35 @@ public class MistakeDetection {
 
     if (notComposedClasses.size() > 1) {
       comparison.newMistakes.add(createMistake(INCOMPLETE_CONTAINMENT_TREE, notComposedClasses, null));
+      removeAssocInsteadOfCompMistake(notComposedClasses, comparison);
     }
     if (!multiComposedClasses.isEmpty()) {
       comparison.newMistakes
           .add(createMistake(COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, multiComposedClasses, null));
     }
 
+  }
+
+  private static void removeAssocInsteadOfCompMistake(List<Classifier> notComposedClasses, Comparison comparison) {
+    var mistakes = getAssocInsteadOfCompoMistakes(comparison.newMistakes);
+    if(!mistakes.isEmpty()) {
+      for(Mistake mistake : mistakes) {
+        AssociationEnd assocEnd = (AssociationEnd) mistake.getStudentElements().get(1).getElement();
+        if(notComposedClasses.contains(assocEnd.getClassifier())) {
+          comparison.newMistakes.remove(mistake);
+        }
+      }
+    }
+  }
+
+  private static List<Mistake> getAssocInsteadOfCompoMistakes(List<Mistake> newMistakes) {
+    List<Mistake> reqMistakes = new ArrayList<>();
+    for(Mistake mistake : newMistakes) {
+      if(mistake.getMistakeType().equals(USING_ASSOC_INSTEAD_OF_COMPOSITION)) {
+        reqMistakes.add(mistake);
+      }
+    }
+    return reqMistakes;
   }
 
   private static boolean areAllLowerBoundsGreaterThanOne(Classifier studClass) {
@@ -1794,7 +1817,7 @@ public class MistakeDetection {
     final Consumer<? super Mistake> addMist = comparison.newMistakes::add; // method reference to save space
     checkMistakeWrongRelationshipDirection(studAssocEnd, instAssocEnd).ifPresent(addMist);
     if (!isMistakeExist(REVERSED_RELATIONSHIP_DIRECTION, studAssocEnd, comparison)) {
-      checkMistakeUsingAssociationInsteadOfComposition(studAssocEnd, instAssocEnd).ifPresent(addMist);
+      checkMistakeUsingAssociationInsteadOfComposition(studAssocEnd, instAssocEnd, comparison).ifPresent(addMist);
       checkMistakeUsingAssociationInsteadOfAggregation(studAssocEnd, instAssocEnd).ifPresent(addMist);
       checkMistakeUsingCompositionInsteadOfAssociation(studAssocEnd, instAssocEnd).ifPresent(addMist);
       checkMistakeUsingAggregationInsteadOfAssociation(studAssocEnd, instAssocEnd).ifPresent(addMist);
@@ -2609,7 +2632,7 @@ public class MistakeDetection {
   }
 
   public static Optional<Mistake> checkMistakeUsingAssociationInsteadOfComposition(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
+      AssociationEnd instructorClassAssocEnd, Comparison comparison) {
     if (isUsingAssociationInsteadOfComposition(studentClassAssocEnd, instructorClassAssocEnd)) {
       return Optional.of(createMistake(USING_ASSOC_INSTEAD_OF_COMPOSITION, getAssociationElements(studentClassAssocEnd),
           getAssociationElements(instructorClassAssocEnd)));
