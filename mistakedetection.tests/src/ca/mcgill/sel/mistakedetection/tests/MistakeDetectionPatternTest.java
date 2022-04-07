@@ -1479,8 +1479,8 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    assertEquals(5, comparison.newMistakes.size());
-    assertEquals(5, studentSolution.getMistakes().size());
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, studElements, instElements,
         0, 1, false);

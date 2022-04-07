@@ -13,7 +13,9 @@
   <classes xsi:type="classdiagram:Class" xmi:id="_Qid0AE1aEeyaw5LGC19Rlg" name="LeftCar" superTypes="_F0IpEE1aEeyaw5LGC19Rlg">
     <associationEnds xmi:id="_jT4HwE1eEeyNz7H1EG2j6A" name="myLeftCarNew" assoc="_jT4Hwk1eEeyNz7H1EG2j6A" lowerBound="1"/>
   </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="_RxUz0E1aEeyaw5LGC19Rlg" name="RightCar" superTypes="_F0IpEE1aEeyaw5LGC19Rlg"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_RxUz0E1aEeyaw5LGC19Rlg" name="RightCar" superTypes="_F0IpEE1aEeyaw5LGC19Rlg">
+    <attributes xmi:id="_yF1wULaSEeyNiYYpbownIw" name="name" type="_Ek6c501aEeyaw5LGC19Rlg"/>
+  </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_gwpWAE1eEeyNz7H1EG2j6A" name="LeftCarNew">
     <associationEnds xmi:id="_jT4HwU1eEeyNz7H1EG2j6A" name="myLeftCar" assoc="_jT4Hwk1eEeyNz7H1EG2j6A" lowerBound="1"/>
   </classes>
