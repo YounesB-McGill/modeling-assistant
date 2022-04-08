@@ -226,8 +226,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     n="Attribute misplaced in generalization hierarchy", feedbacks=fbs({
                         1: HighlightSolution(),
                         2: TextResponse(text="Can you think of a better place for this?"),
-                        3: ParametrizedResponse(text="The ${stud_attr} belongs in the ${inst_attr.cls} class, i.e., a "
-                                                     "different class in the inheritance hierarchy."),
+                        3: ParametrizedResponse(text="The ${stud_attr} attribute belongs in the ${inst_attr.cls} "
+                                                     "class, i.e., a different class in the inheritance hierarchy."),
                         4: ResourceResponse(learningResources=[attribute_reference]),
                     })),
             ]),
@@ -980,9 +980,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: HighlightSolution(),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(
-                        text="A ${stud_role_enumitem0} can also play the role of one of the other roles at the same "
-                             "time and different features need to be captured for the roles."),
+                    3: ParametrizedResponse(text="An instance of ${stud_player_cls} can play more than one role out of "
+                                                  "${stud_role_enumitem*} at the same time and different features need "
+                                                  "to be captured for the roles."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -993,8 +993,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: HighlightSolution(),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="A ${stud_role_enumitem0} has different features from one of the "
-                                                 "other roles and this role never changes to another role."),
+                    3: ParametrizedResponse(text="The roles ${stud_role_enumitem*} have different features and never "
+                                                 "change to another role."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -1005,8 +1005,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: HighlightSolution(),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(
-                        text="Will the roles of ${stud_role_enumitem*} ever be occupied at the same time?"),
+                    3: ParametrizedResponse(text="Will an instance of ${stud_player_cls} ever play more than one role "
+                                                 "out of ${stud_role_enumitem*} at the same time?"),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -1017,7 +1017,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: HighlightSolution(),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="an instance of ${stud_player_cls} play more than one role out of "
+                    3: ParametrizedResponse(text="Can an instance of ${stud_player_cls} play more than one role out of "
                                                  "${stud_role_cls*} at different times or at the same time?"),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),

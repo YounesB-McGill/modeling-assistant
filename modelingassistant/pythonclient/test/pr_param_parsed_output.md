@@ -31,5 +31,4 @@ enum.literals.length | SeatType | 3
 enumitem | FirstClass | FirstClass
 enumitem* | FirstClass, Business, and Economy | FirstClass, Business, and Economy
 enumitem.enum | FirstClass | SeatType
-enumitem0 | FirstClass, Business, and Economy | FirstClass
 role* | PassengerRole, EmployeeRole, and VisitorRole | PassengerRole, EmployeeRole, and VisitorRole
