@@ -53,7 +53,7 @@
         </path>
         <path d="M131.0 109h0.0">
         </path>
-        <rect style="#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="60.0" y="98">
+        <rect style="fill:#ffeccc;" height="22" rx="10" ry="10" width="71.0" x="60.0" y="98">
         </rect>
         <text x="95.5" y="113">
           'stud'
@@ -68,7 +68,7 @@
         </path>
         <path d="M131.0 139h0.0">
         </path>
-        <rect style="#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="60.0" y="128">
+        <rect style="fill:#ffeccc;" height="22" rx="10" ry="10" width="71.0" x="60.0" y="128">
         </rect>
         <text x="95.5" y="143">
           'inst'
@@ -89,7 +89,7 @@
         </path>
         <path d="M206.5 109h0.0">
         </path>
-        <rect style="#ccffcc;" height="22" rx="10" ry="10" width="45.5" x="161.0" y="98">
+        <rect style="fill:#ffeccc;" height="22" rx="10" ry="10" width="45.5" x="161.0" y="98">
         </rect>
         <text x="183.75" y="113">
           '&#95;'
@@ -110,7 +110,7 @@
         </path>
         <path d="M350.0 89h0.0">
         </path>
-        <rect style="#ccffcc;" height="22" rx="10" ry="10" width="113.5" x="236.5" y="78">
+        <rect style="fill:#cceeff;" height="22" rx="10" ry="10" width="113.5" x="236.5" y="78">
         </rect>
         <text x="293.25" y="93">
           description
@@ -139,7 +139,7 @@
         </path>
         <path d="M493.5 109h0.0">
         </path>
-        <rect style="#ccffcc;" height="22" rx="10" ry="10" width="113.5" x="380.0" y="98">
+        <rect style="fill:#cceeff;" height="22" rx="10" ry="10" width="113.5" x="380.0" y="98">
         </rect>
         <text x="436.75" y="113">
           elementtype
@@ -160,7 +160,7 @@
         </path>
         <path d="M594.5 89h0.0">
         </path>
-        <rect style="#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="523.5" y="78">
+        <rect style="fill:#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="523.5" y="78">
         </rect>
         <text x="559.0" y="93">
           number
@@ -169,7 +169,7 @@
         </path>
         <path d="M958.5 61h0.0">
         </path>
-        <rect style="#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="887.5" y="50">
+        <rect style="fill:#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="887.5" y="50">
         </rect>
         <text x="923.0" y="65">
           number
@@ -184,7 +184,7 @@
         </path>
         <path d="M581.75 59h12.75">
         </path>
-        <rect style="#ccffcc;" height="22" rx="10" ry="10" width="45.5" x="536.25" y="48">
+        <rect style="fill:#ffeccc;" height="22" rx="10" ry="10" width="45.5" x="536.25" y="48">
         </rect>
         <text x="559.0" y="63">
           '&#42;'
@@ -193,7 +193,7 @@
         </path>
         <path d="M945.75 31h12.75">
         </path>
-        <rect style="#ccffcc;" height="22" rx="10" ry="10" width="45.5" x="900.25" y="20">
+        <rect style="fill:#ffeccc;" height="22" rx="10" ry="10" width="45.5" x="900.25" y="20">
         </rect>
         <text x="923.0" y="35">
           '&#42;'
@@ -218,11 +218,11 @@
       <path d="M867.5 81a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10">
       </path>
       <g class="terminal ">
-        <path d="M523.5 89h0.0"  fill="#AB7C94">
+        <path d="M523.5 89h0.0">
         </path>
         <path d="M594.5 89h0.0">
         </path>
-        <rect style="#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="523.5" y="78">
+        <rect style="fill:#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="523.5" y="78">
         </rect>
         <text x="559.0" y="93">
           number
@@ -231,7 +231,7 @@
         </path>
         <path d="M958.5 61h0.0">
         </path>
-        <rect style="#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="887.5" y="50"  fill="#AB7C94">
+        <rect style="fill:#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="887.5" y="50">
         </rect>
         <text x="923.0" y="65">
           number
@@ -246,7 +246,7 @@
         </path>
         <path d="M581.75 59h12.75">
         </path>
-        <rect style="#ccffcc;" height="22" rx="10" ry="10" width="45.5" x="536.25" y="48">
+        <rect style="fill:#ffeccc;" height="22" rx="10" ry="10" width="45.5" x="536.25" y="48">
         </rect>
         <text x="559.0" y="63">
           '&#42;'
@@ -255,7 +255,7 @@
         </path>
         <path d="M945.75 31h12.75">
         </path>
-        <rect style="#ccffcc;" height="22" rx="10" ry="10" width="45.5" x="900.25" y="20">
+        <rect style="fill:#ffeccc;" height="22" rx="10" ry="10" width="45.5" x="900.25" y="20">
         </rect>
         <text x="923.0" y="35">
           '&#42;'
@@ -298,7 +298,7 @@
             </path>
             <path d="M690.0 81h0.0">
             </path>
-            <rect style="#ccffcc;" height="22" rx="10" ry="10" width="45.5" x="644.5" y="70">
+            <rect style="fill:#ffeccc;" height="22" rx="10" ry="10" width="45.5" x="644.5" y="70">
             </rect>
             <text x="667.25" y="85">
               '.'
@@ -313,7 +313,7 @@
             </path>
             <path d="M857.5 81h0.0">
             </path>
-            <rect style="#ccffcc;" height="22" rx="10" ry="10" width="147.5" x="710.0" y="70">
+            <rect style="fill:#cceeff;" height="22" rx="10" ry="10" width="147.5" x="710.0" y="70">
             </rect>
             <text x="783.75" y="85">
               elementproperty
@@ -333,7 +333,7 @@
               </path>
               <path d="M594.5 89h0.0">
               </path>
-              <rect style="#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="523.5" y="78">
+              <rect style="fill:#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="523.5" y="78">
               </rect>
               <text x="559.0" y="93">
                 number
@@ -342,7 +342,7 @@
               </path>
               <path d="M958.5 61h0.0">
               </path>
-              <rect style="#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="887.5" y="50">
+              <rect style="fill:#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="887.5" y="50">
               </rect>
               <text x="923.0" y="65">
                 number
@@ -357,7 +357,7 @@
               </path>
               <path d="M581.75 59h12.75">
               </path>
-              <rect style="#ccffcc;" height="22" rx="10" ry="10" width="45.5" x="536.25" y="48">
+              <rect style="fill:#ffeccc;" height="22" rx="10" ry="10" width="45.5" x="536.25" y="48">
               </rect>
               <text x="559.0" y="63">
                 '&#42;'
@@ -366,7 +366,7 @@
               </path>
               <path d="M945.75 31h12.75">
               </path>
-              <rect style="#ccffcc;" height="22" rx="10" ry="10" width="45.5" x="900.25" y="20">
+              <rect style="fill:#ffeccc;" height="22" rx="10" ry="10" width="45.5" x="900.25" y="20">
               </rect>
               <text x="923.0" y="35">
                 '&#42;'
@@ -395,7 +395,7 @@
               </path>
               <path d="M594.5 89h0.0">
               </path>
-              <rect style="#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="523.5" y="78">
+              <rect style="fill:#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="523.5" y="78">
               </rect>
               <text x="559.0" y="93">
                 number
@@ -404,7 +404,7 @@
               </path>
               <path d="M958.5 61h0.0">
               </path>
-              <rect style="#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="887.5" y="50">
+              <rect style="fill:#ccffcc;" height="22" rx="10" ry="10" width="71.0" x="887.5" y="50">
               </rect>
               <text x="923.0" y="65">
                 number
@@ -419,7 +419,7 @@
               </path>
               <path d="M581.75 59h12.75">
               </path>
-              <rect style="#ccffcc;" height="22" rx="10" ry="10" width="45.5" x="536.25" y="48">
+              <rect style="fill:#ffeccc;" height="22" rx="10" ry="10" width="45.5" x="536.25" y="48">
               </rect>
               <text x="559.0" y="63">
                 '&#42;'
@@ -428,7 +428,7 @@
               </path>
               <path d="M945.75 31h12.75">
               </path>
-              <rect style="#ccffcc;" height="22" rx="10" ry="10" width="45.5" x="900.25" y="20">
+              <rect style="fill:#ffeccc;" height="22" rx="10" ry="10" width="45.5" x="900.25" y="20">
               </rect>
               <text x="923.0" y="35">
                 '&#42;'
