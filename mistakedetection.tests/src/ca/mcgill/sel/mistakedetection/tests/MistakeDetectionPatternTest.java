@@ -587,12 +587,11 @@ public class MistakeDetectionPatternTest {
     instElements.addAll(enumeration.getLiterals());
 
     var studElements = studentDomainElements(studentClassDiagram);
-    var studStudentClass = studElements.get(0);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    assertEquals(8, comparison.newMistakes.size());
-    assertEquals(8, studentSolution.getMistakes().size());
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
 
     assertMistake(comparison.newMistakes.get(0), SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, studElements, instElements, 0, 1, false);
   }
@@ -1021,8 +1020,8 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    assertEquals(8, comparison.newMistakes.size());
-    assertEquals(8, studentSolution.getMistakes().size());
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, studElements, instElements,
         0, 1, false);
@@ -1479,8 +1478,8 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    assertEquals(6, comparison.newMistakes.size());
-    assertEquals(6, studentSolution.getMistakes().size());
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, studElements, instElements,
         0, 1, false);
@@ -1748,8 +1747,8 @@ public class MistakeDetectionPatternTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    assertEquals(9, comparison.newMistakes.size());
-    assertEquals(9, studentSolution.getMistakes().size());
+    assertEquals(7, comparison.newMistakes.size());
+    assertEquals(7, studentSolution.getMistakes().size());
 
     assertMistake(comparison.newMistakes.get(0), MISSING_AO_PATTERN, instElements, 0, 1, false);
   }

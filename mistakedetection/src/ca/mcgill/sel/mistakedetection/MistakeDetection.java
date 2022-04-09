@@ -2087,11 +2087,12 @@ public class MistakeDetection {
 
   private static void updateNewMistakes(List<Mistake> newMistakes, Solution studentSolution, boolean filter,
       Comparison comparison) {
-    var patternMistakeTypes = List.of(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, ASSOC_SHOULD_BE_FULL_PR_PATTERN,
-        ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN, ENUM_SHOULD_BE_ASSOC_PR_PATTERN, ENUM_SHOULD_BE_FULL_PR_PATTERN,
-        ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM,
-        FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN,
-        INCOMPLETE_PR_PATTERN, INCOMPLETE_AO_PATTERN, MISSING_AO_PATTERN, MISSING_ASSOCIATION_IN_AO_PATTERN);
+    var patternMistakeTypes =
+        List.of(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, ASSOC_SHOULD_BE_FULL_PR_PATTERN, ASSOC_SHOULD_BE_SUBCLASS_PR_PATTERN,
+            ENUM_SHOULD_BE_ASSOC_PR_PATTERN, ENUM_SHOULD_BE_FULL_PR_PATTERN, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN,
+            FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM, FULL_PR_PATTERN_SHOULD_BE_SUBCLASS,
+            SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN,
+            INCOMPLETE_PR_PATTERN, INCOMPLETE_AO_PATTERN, MISSING_AO_PATTERN, MISSING_ASSOCIATION_IN_AO_PATTERN);
 
     if (filter && mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
       updateMistakesInvolvingPattern(newMistakes, patternMistakeTypes, studentSolution, comparison);
@@ -2146,7 +2147,7 @@ public class MistakeDetection {
     for (Mistake newMistake : newMistakes) {
       if (!(exemptMistakes.contains(newMistake.getMistakeType()))) {
         if (!newMistake.getInstructorElements().isEmpty() && !patternMistakeTypes.contains(newMistake.getMistakeType())
-            && (patternInstructorElement.contains(newMistake.getInstructorElements().get(0).getElement())
+            && (checkInstructorElementMistake(patternInstructorElement, newMistake)
                 || newMistake.getInstructorElements().get(0).getElement().equals(comparison.fullPlayerRoleAbstractClass)
                 || newMistake.getInstructorElements().get(0).getElement()
                     .equals(comparison.fullPlayerRoleAbstractPlayerAssoc)
@@ -2156,7 +2157,7 @@ public class MistakeDetection {
           continue;
         } else if (!newMistake.getStudentElements().isEmpty()
             && !patternMistakeTypes.contains(newMistake.getMistakeType())
-            && patternStudentElement.contains(newMistake.getStudentElements().get(0).getElement())) {
+            && checkStudentElementMistake(patternStudentElement, newMistake)) {
           newMistakesToRemove.add(newMistake);
           continue;
         }
@@ -2165,6 +2166,24 @@ public class MistakeDetection {
       newMistake.setSolution(studentSolution);
     }
     newMistakes.removeAll(newMistakesToRemove);
+  }
+
+  private static boolean checkInstructorElementMistake(List<NamedElement> patternInstructorElement, Mistake newMistake) {
+    for(int i =0; i < newMistake.getInstructorElements().size() ; i++) {
+      if(patternInstructorElement.contains(newMistake.getInstructorElements().get(i).getElement())){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static boolean checkStudentElementMistake(List<NamedElement> patternStudentElement, Mistake newMistake) {
+    for(int i =0; i < newMistake.getStudentElements().size() ; i++) {
+      if(patternStudentElement.contains(newMistake.getStudentElements().get(i).getElement())){
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
