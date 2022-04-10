@@ -585,6 +585,8 @@ public class MistakeDetectionPatternTest {
     instElements.add(instStudentClass);
     CDEnum enumeration = getEnumFromClassDiagram(instStudentClassLevelAttrib.getType().getName(), instructorClassDiagram);
     instElements.addAll(enumeration.getLiterals());
+    instElements.add(enumeration);
+    instElements.add(instStudentClassLevelAttrib);
 
     var studElements = studentDomainElements(studentClassDiagram);
 
