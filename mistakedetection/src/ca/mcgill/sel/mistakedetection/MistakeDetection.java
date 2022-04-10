@@ -1197,7 +1197,7 @@ public class MistakeDetection {
 
     if (totalMatched == totalMatcheExpected) {
       if (studentAbstractClass == studentPlayerClass && studentPlayerClass != null) {
-        checkMistakeUsingSubclassPattern(instPattern, studentMatchedElements, instElements, comparison);
+        checkMistakeUsingSubclassPattern(instPattern, studentMatchedElements, instElements, instElements, comparison);
         return;
       }
       if (!studentAbstractClass.isAbstract()) {
@@ -1309,6 +1309,9 @@ public class MistakeDetection {
     List<CDEnum> studSolutionEnums = new ArrayList<>();
     List<CDEnumLiteral> studSolutionEnumLiterals = new ArrayList<>();
 
+    CDEnum instRoleEnum = null;
+    Attribute instRoleAtrib = null;
+
     for (Type ty : studentClassDiagram.getTypes()) {
       if (ty instanceof CDEnum) {
         studSolutionEnums.add((CDEnum) ty);
@@ -1328,6 +1331,8 @@ public class MistakeDetection {
         if (instAttrib.getType() instanceof CDEnum) {
           CDEnum instEnum = getEnumFromClassDiagram(instAttrib.getType().getName(),
               tag.getTagGroup().getSolution().getClassDiagram());
+          instRoleAtrib = instAttrib;
+          instRoleEnum = instEnum;
           for (CDEnumLiteral enumLitral : instEnum.getLiterals()) {
             instEnumLiterals.add(enumLitral.getName());
           }
@@ -1460,7 +1465,12 @@ public class MistakeDetection {
         studSubclassElements.remove(studPlayerClass);
         studSubclassElements.addFirst(studPlayerClass);
       }
-      checkMistakeUsingSubclassPattern(instPattern, studSubclassElements, instElements, comparison);
+      List<NamedElement> enumInstElements  = new ArrayList<NamedElement>();
+      if(instRoleAtrib != null) {
+      enumInstElements.addAll(instElements);
+      enumInstElements.addAll(List.of(instRoleEnum, instRoleAtrib));
+      }
+      checkMistakeUsingSubclassPattern(instPattern, studSubclassElements, instElements, enumInstElements, comparison);
       return;
     } else if (studentAssocPatternScore == highestScore) {
       if (assocPatternCorrect(studPlayerClass, studRoleAssocEndName)) {
@@ -2140,8 +2150,8 @@ public class MistakeDetection {
   private static void updateMistakesInvolvingPattern(List<Mistake> newMistakes, List<MistakeType> patternMistakeTypes,
       Solution studentSolution, Comparison comparison) {
     HashSet<Mistake> newMistakesToRemove = new HashSet<>();
-    var exemptMistakes = List.of(EXTRA_ATTRIBUTE, MISSING_ATTRIBUTE, INCOMPLETE_CONTAINMENT_TREE,
-        COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, EXTRA_GENERALIZATION);
+    var exemptMistakes = List.of(EXTRA_ATTRIBUTE, INCOMPLETE_CONTAINMENT_TREE,
+        COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT);
     var patternInstructorElement = getPatternInstructorElements(newMistakes, patternMistakeTypes);
     var patternStudentElement = getPatternStudentrElements(newMistakes, patternMistakeTypes);
     for (Mistake newMistake : newMistakes) {
@@ -3198,15 +3208,16 @@ public class MistakeDetection {
     }
   }
 
-  /** Make sure that studentElements and instructorElements are in order -> Player, roles. */
+  /** Make sure that studentElements and instructorElements are in order -> Player, roles.
+   * @param enumInstElements */
   public static void checkMistakeUsingSubclassPattern(String instPattern, List<NamedElement> studentElements,
-      List<NamedElement> instElements, Comparison comparison) {
+      List<NamedElement> instElements, List<NamedElement> enumInstElements, Comparison comparison) {
     if (instPattern.equals(ASSOC_PR_PATTERN)) {
       comparison.newMistakes.add(createMistake(SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, studentElements, instElements));
     } else if (instPattern.equals(FULL_PR_PATTERN)) {
       comparison.newMistakes.add(createMistake(SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, studentElements, instElements));
     } else if (instPattern.equals(ENUM_PR_PATTERN)) {
-      comparison.newMistakes.add(createMistake(SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, studentElements, instElements));
+      comparison.newMistakes.add(createMistake(SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN, studentElements, enumInstElements));
     }
   }
 
