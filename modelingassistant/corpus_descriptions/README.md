@@ -1759,7 +1759,7 @@ root class, `PISystem`.
 Level 6: Resource response with List multiple-choice quiz:
 
 Which of the following compositions should be added to complete the containment tree for the
-following model.
+following model?
 
 ![IRS](images/IRS.png)
 
@@ -1802,7 +1802,7 @@ root class, `PISystem`.
 Level 5: Resource response with List multiple-choice quiz:
 
 Which of the following compositions should be added to complete the containment tree for the
-following model.
+following model?
 
 ![IRS](images/IRS.png)
 
@@ -2168,7 +2168,7 @@ Level 4: Parametrized response:
 
 Level 5: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2205,7 +2205,7 @@ Level 4: Parametrized response:
 
 Level 5: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2238,7 +2238,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2271,7 +2271,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2304,7 +2304,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2337,7 +2337,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2370,7 +2370,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2403,7 +2403,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2436,7 +2436,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2469,7 +2469,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2502,7 +2502,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2535,7 +2535,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2568,7 +2568,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2601,7 +2601,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---

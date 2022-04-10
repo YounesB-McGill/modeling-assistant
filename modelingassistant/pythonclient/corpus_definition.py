@@ -720,7 +720,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         ![PISystem](images/PISystem.png)"""))]),
                     6: ResourceResponse(learningResources=[containment_quiz := mcq[dedent("""\
                         Which of the following compositions should be added to complete the containment tree for the
-                        following model.
+                        following model?
 
                         ![IRS](images/IRS.png)"""),
                         T: "1 IRS <@>- * StudentRole",
@@ -871,7 +871,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                          "them should be modeled with one of the forms of the Player-Role pattern."),
                 # the spacing below is intentional, for the output to be properly aligned
                 5: ResourceResponse(learningResources=[pr_quiz := Quiz(content=dedent(f"""\
-                    Complete the following table:
+                    Complete the following table by checking the correct boxes:
 
                     Solution | Roles have different features | One role at a time |{
                         " "}Different roles at a time | More than one role at the same time
