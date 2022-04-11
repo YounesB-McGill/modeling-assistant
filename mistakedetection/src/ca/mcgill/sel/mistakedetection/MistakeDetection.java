@@ -2102,7 +2102,7 @@ public class MistakeDetection {
             ENUM_SHOULD_BE_ASSOC_PR_PATTERN, ENUM_SHOULD_BE_FULL_PR_PATTERN, ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN,
             FULL_PR_PATTERN_SHOULD_BE_ASSOC, FULL_PR_PATTERN_SHOULD_BE_ENUM, FULL_PR_PATTERN_SHOULD_BE_SUBCLASS,
             SUBCLASS_SHOULD_BE_ASSOC_PR_PATTERN, SUBCLASS_SHOULD_BE_FULL_PR_PATTERN, SUBCLASS_SHOULD_BE_ENUM_PR_PATTERN,
-            INCOMPLETE_PR_PATTERN, INCOMPLETE_AO_PATTERN, MISSING_AO_PATTERN, MISSING_ASSOCIATION_IN_AO_PATTERN);
+            INCOMPLETE_PR_PATTERN, INCOMPLETE_AO_PATTERN, MISSING_AO_PATTERN);
 
     if (filter && mistakesInvolvePattern(newMistakes, patternMistakeTypes)) {
       updateMistakesInvolvingPattern(newMistakes, patternMistakeTypes, studentSolution, comparison);
@@ -2933,7 +2933,7 @@ public class MistakeDetection {
           comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ENUM, cls, instEnum));
         }
       });
-      if (!mistakeForElementExists(cls, comparison.newMistakes)) {
+      if (!isMistakeExist(CLASS_SHOULD_BE_ENUM, cls, comparison)) {
         comparison.newMistakes.add(createMistake(EXTRA_CLASS, cls, null));
       }
     });
