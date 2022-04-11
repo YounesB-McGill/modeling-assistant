@@ -108,6 +108,8 @@ def test_mistake_type_formats():
     - Mistakes types that start with "Missing" may have student elements (eg, Missing role name) and must have
       instructor elements
     - "sub_cls" cannot exist without "super_cls" and vice versa
+    - "whole" cannot exist without "part" and vice versa
+    - "source" cannot exist without "target" and vice versa
     """
     for mt in corpus.mistakeTypes():
         name: str = mt.name
@@ -126,15 +128,17 @@ def test_mistake_type_formats():
         if name.lower().startswith("missing"):
             assert mdf.inst, f"{name} has no instructor elements"
         for lst in (mdf.stud, mdf.inst):
-            if "sub_cls" in lst:
-                assert "super_cls" in lst, f'{name} has "sub_cls" but no "super_cls"'
-            if "super_cls" in lst:
-                assert "sub_cls" in lst, f'{name} has "super_cls" but no "sub_cls"'
+            for e1, e2 in (("sub_cls", "super_cls"), ("whole", "part"), ("source", "target")):
+                if e1 in lst:
+                    assert e2 in lst, f'{name} has "{e1}" but no "{e2}"'
+                if e2 in lst:
+                    assert e1 in lst, f'{name} has "{e2}" but no "{e1}"'
 
 
 def test_no_bad_highlighting():
     """
-    Verify that a the student solution is highlighted only if there are student elements.
+    Verify that a student solution element is highlighted only if there are student elements and
+    that a problem statement element(s) is highlighted only if there are instructor elements.
     """
     for mt in corpus.mistakeTypes():
         mdf: MistakeDetectionFormat = mt.md_format
@@ -145,7 +149,6 @@ def test_no_bad_highlighting():
         if not mdf.stud:
             for fb in mt.feedbacks:
                 assert not fb.highlightSolution, f"Cannot highlight solution for {mt.name} without student elements"
-
 
 
 def print_mistake_type_stats():

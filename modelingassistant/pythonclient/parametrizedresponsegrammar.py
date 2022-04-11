@@ -63,4 +63,4 @@ if __name__ == "__main__":
     Main entry point. Uncomment the line below to update the parametrized response grammar diagram file.
     Note that this will overwrite the file!
     """
-    save_prg_svg_diagram(PRG_DIAGRAM_SVG_FILE)
+    # save_prg_svg_diagram(PRG_DIAGRAM_SVG_FILE)

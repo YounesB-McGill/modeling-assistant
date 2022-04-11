@@ -1106,8 +1106,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
 
 
 # mistake types by priority, from most to least important
-mts_by_priority: list[MistakeType] = [
-    # mistakes in an existing class
+mts_by_priority: list[MistakeType | str] = [
+    "Mistakes in an existing class",
     bad_class_name_spelling,
     lowercase_class_name,
     plural_class_name,
@@ -1123,7 +1123,7 @@ mts_by_priority: list[MistakeType] = [
     bad_enum_name_spelling,
     bad_enum_item_spelling,
 
-    # mistakes in an existing attribute
+    "Mistakes in an existing attribute",
     bad_attribute_name_spelling,
     uppercase_attribute_name,
     plural_attribute,
@@ -1132,7 +1132,7 @@ mts_by_priority: list[MistakeType] = [
     attribute_should_not_be_static,
     attribute_should_be_static,
 
-    # mistakes in an existing relationship
+    "Mistakes in an existing relationship",
     infinite_recursive_dependency,
     composed_part_contained_in_more_than_one_parent,
     using_attribute_instead_of_assoc,
@@ -1167,7 +1167,7 @@ mts_by_priority: list[MistakeType] = [
     bad_association_name_spelling,
     incomplete_containment_tree,
 
-    # design pattern mistakes
+    "Design pattern mistakes",
     generalization_should_be_assoc_ao_pattern,
     subclass_should_be_full_pr_pattern,
     subclass_should_be_assoc_pr_pattern,
@@ -1182,7 +1182,7 @@ mts_by_priority: list[MistakeType] = [
     full_pr_pattern_should_be_assoc,
     full_pr_pattern_should_be_enum,
 
-    # extra items
+    "Extra items",
     extra_class,
     extra_assoc_class,
     extra_enum,
@@ -1195,7 +1195,7 @@ mts_by_priority: list[MistakeType] = [
     attribute_duplicated,
     extra_attribute,
 
-    # missing items
+    "Missing items",
     missing_class,
     missing_attribute,
     missing_attribute_type,
@@ -1211,7 +1211,7 @@ mts_by_priority: list[MistakeType] = [
     missing_role_name,
     missing_association_name,
 
-    # missing/incomplete patterns
+    "Missing/incomplete patterns",
     missing_association_in_ao_pattern,
     incomplete_pr_pattern,
     incomplete_ao_pattern,
