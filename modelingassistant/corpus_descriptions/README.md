@@ -2290,7 +2290,7 @@ in different contexts.
 
 #### Subclass should be enumeration Player-Role pattern
 
-Student elements: Player class, Role classes. Instructor elements: Player class, Role enumeration items.
+Student elements: Player class, Role classes. Instructor elements: Player class, Role attribute, Role enumeration, Role enumeration items.
 
 Level 1: Highlight solution
 
@@ -2389,7 +2389,7 @@ in different contexts.
 
 #### Association should be enumeration Player-Role pattern
 
-Student elements: Player class, Role association ends. Instructor elements: Player class, Role enumeration items.
+Student elements: Player class, Role association ends. Instructor elements: Player class, Role attribute, Role enumeration, Role enumeration items.
 
 Level 1: Highlight solution
 
@@ -2422,7 +2422,7 @@ in different contexts.
 
 #### Enumeration should be full Player-Role pattern
 
-Student elements: Player class, Role enumeration items. Instructor elements: Player class, Role classes.
+Student elements: Player class, Role attribute, Role enumeration, Role enumeration items. Instructor elements: Player class, Role classes.
 
 Level 1: Highlight solution
 
@@ -2455,7 +2455,7 @@ in different contexts.
 
 #### Enumeration should be subclass Player-Role pattern
 
-Student elements: Player class, Role enumeration items. Instructor elements: Player class, Role classes.
+Student elements: Player class, Role attribute, Role enumeration, Role enumeration items. Instructor elements: Player class, Role classes.
 
 Level 1: Highlight solution
 
@@ -2488,7 +2488,7 @@ in different contexts.
 
 #### Enumeration should be association Player-Role pattern
 
-Student elements: Player class, Role enumeration items. Instructor elements: Player class, Role association ends.
+Student elements: Player class, Role attribute, Role enumeration, Role enumeration items. Instructor elements: Player class, Role association ends.
 
 Level 1: Highlight solution
 
@@ -2587,7 +2587,7 @@ in different contexts.
 
 #### Full Player-Role pattern should be enumeration
 
-Student elements: Player class, Role classes. Instructor elements: Player class, Role enumeration items.
+Student elements: Player class, Role classes. Instructor elements: Player class, Role attribute, Role enumeration, Role enumeration items.
 
 Level 1: Highlight solution
 

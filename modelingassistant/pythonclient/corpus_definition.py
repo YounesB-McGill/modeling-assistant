@@ -1223,7 +1223,8 @@ mts_by_priority: list[MistakeType | str] = [
 # Mistake Detection Formats (student elements, instructor elements)
 # paste from MDIS4LC
 assoc_class_should_be_class.md_format = mdf(["assoc", "cls"], ["cls"])
-assoc_should_be_enum_pr_pattern.md_format = mdf(["player_cls", "role_assocend*"], ["player_cls", "role_enumitem*"])
+assoc_should_be_enum_pr_pattern.md_format = mdf(
+    ["player_cls", "role_assocend*"], ["player_cls", "role_attr", "role_enum", "role_enumitem*"])
 assoc_should_be_full_pr_pattern.md_format = mdf(["player_cls", "role_assocend*"], ["player_cls", "role_cls*"])
 assoc_should_be_subclass_pr_pattern.md_format = mdf(["player_cls", "role_assocend*"], ["player_cls", "role_cls*"])
 attribute_duplicated.md_format = mdf(["attr"], [])
@@ -1243,10 +1244,13 @@ class_should_be_assoc_class.md_format = mdf(["cls"], ["assoc", "cls"])
 class_should_be_enum.md_format = mdf(["cls"], ["enum"])
 class_should_not_be_abstract.md_format = mdf(["cls"], ["cls"])
 composed_part_contained_in_more_than_one_parent.md_format = mdf(["cls*"], [])
-enum_should_be_assoc_pr_pattern.md_format = mdf(["player_cls", "role_enumitem*"], ["player_cls", "role_assocend*"])
+enum_should_be_assoc_pr_pattern.md_format = mdf(
+    ["player_cls", "role_attr", "role_enum", "role_enumitem*"], ["player_cls", "role_assocend*"])
 enum_should_be_class.md_format = mdf(["enum"], ["cls"])
-enum_should_be_full_pr_pattern.md_format = mdf(["player_cls", "role_enumitem*"], ["player_cls", "role_cls*"])
-enum_should_be_subclass_pr_pattern.md_format = mdf(["player_cls", "role_enumitem*"], ["player_cls", "role_cls*"])
+enum_should_be_full_pr_pattern.md_format = mdf(
+    ["player_cls", "role_attr", "role_enum", "role_enumitem*"], ["player_cls", "role_cls*"])
+enum_should_be_subclass_pr_pattern.md_format = mdf(
+    ["player_cls", "role_attr", "role_enum", "role_enumitem*"], ["player_cls", "role_cls*"])
 extra_aggregation.md_format = mdf(["aggr", "whole_assocend", "part_assocend"], [])
 extra_assoc_class.md_format = mdf(["assoc", "cls"], [])
 extra_association.md_format = mdf(["assoc"], [])
@@ -1258,7 +1262,8 @@ extra_enum_item.md_format = mdf(["enumitem"], [])
 extra_generalization.md_format = mdf(["sub_cls", "super_cls"], [])
 extra_n_ary_association.md_format = mdf(["assoc", "assocend*"], [])
 full_pr_pattern_should_be_assoc.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_assocend*"])
-full_pr_pattern_should_be_enum.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_enumitem*"])
+full_pr_pattern_should_be_enum.md_format = mdf(
+    ["player_cls", "role_cls*"], ["player_cls", "role_attr", "role_enum", "role_enumitem*"])
 full_pr_pattern_should_be_subclass.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_cls*"])
 generalization_inapplicable.md_format = mdf(["sub_cls", "super_cls"], [])
 generalization_should_be_assoc_ao_pattern.md_format = mdf(["sub_cls", "super_cls"], ["abs_cls", "occ_cls"])
@@ -1300,7 +1305,8 @@ software_engineering_term.md_format = mdf(["cls"], ["cls"])
 subclass_is_an_instance_of_superclass.md_format = mdf(["sub_cls", "super_cls"], [])
 subclass_not_distinct_across_lifetime.md_format = mdf(["sub_cls", "super_cls"], [])
 subclass_should_be_assoc_pr_pattern.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_assocend*"])
-subclass_should_be_enum_pr_pattern.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_enumitem*"])
+subclass_should_be_enum_pr_pattern.md_format = mdf(
+    ["player_cls", "role_cls*"], ["player_cls", "role_attr", "role_enum", "role_enumitem*"])
 subclass_should_be_full_pr_pattern.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_cls*"])
 uppercase_attribute_name.md_format = mdf(["attr"], ["attr"])
 using_aggregation_instead_of_assoc.md_format = mdf(
