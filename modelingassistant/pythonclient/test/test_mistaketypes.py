@@ -7,6 +7,7 @@ Module to test mistake types and categories.
 
 import os
 import sys
+from textwrap import dedent
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -14,6 +15,7 @@ from learningcorpus import MistakeTypeCategory, MistakeType
 from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, CLASS_MISTAKES, CLASS_NAME_MISTAKES
 from cdmmetatypes import CDM_METATYPES
 from corpus import corpus, mts_by_priority
+from corpus_definition import mts_by_priority as mts_by_priority_with_labels
 from utils import COLOR, MistakeDetectionFormat, color_str
 
 import mistaketypes
@@ -208,6 +210,30 @@ def print_mistake_type_stats_md_format_completion_status():
     print("```")
 
 
+def print_mts_by_priority_with_labels_latex_table():
+    "Print Mistake types by priority LaTeX table."
+    tex = dedent("""\
+        \\begin{table}[!h]
+        %\\scriptsize
+        \\caption{Mistake Types Sorted by Priority} \\medskip
+        \\begin{tabular}{l}
+        \\hline
+        \\multicolumn{1}{c}{\\textbf{Mistake Types}} \\\\ \\hline
+        """)
+    processed_mt = False
+    for e in mts_by_priority_with_labels:
+        if isinstance(e, str):
+            if processed_mt:
+                tex = f"{tex.strip().removesuffix(',')}\n\\end{{tabular}} \\\\ \\hline\n"
+            tex += f"\\begin{{tabular}}[c]{{@{{}}l@{{}}}}\\textbf{{{e}}} \\\\ \n"
+        if isinstance(e, MistakeType):
+            tex += f"{e.description}, \n"
+            processed_mt = True
+    tex = f"""{tex.strip().removesuffix(',')
+              }\n\\end{{tabular}} \\\\ \\hline\n\\end{{tabular}}\n\\label{{tbl:mts}}\n\\end{{table}}"""
+    print(tex)
+
+
 if __name__ == "__main__":
     "Main entry point."
-    print_mistake_type_stats_md_format_completion_status()
+    print_mts_by_priority_with_labels_latex_table()
