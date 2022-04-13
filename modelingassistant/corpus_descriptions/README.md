@@ -1132,7 +1132,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_assocend} should be static, because its value is the same for all instances of the relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}.
+> ${stud_assocend} should be static, because each ${stud_assocend.cls} instance is related to the same set of ${stud_assocend.opposite.cls} instances.
 
 Level 4: Resource response with Reference:
 
@@ -1151,7 +1151,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_assocend} should not be static, because its value may be different for the instances of the relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}.
+> ${stud_assocend} should not be static, because different ${stud_assocend.cls} instances may be related to different ${stud_assocend.opposite.cls} instances.
 
 Level 4: Resource response with Reference:
 

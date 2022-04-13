@@ -562,6 +562,7 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     assert feedback.highlightSolution
     assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
+
 @pytest.mark.skip(reason="Longer test time")
 def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
     """

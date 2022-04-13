@@ -453,8 +453,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             role_should_be_static := mt(n="Role should be static", feedbacks=fbs({
                 1: HighlightSolution(),
                 2: TextResponse(text="Isn't there something special about this role name?"),
-                3: ParametrizedResponse(text="${stud_assocend} should be static, because its value is the same for all "
-                    "instances of the relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}."),
+                3: ParametrizedResponse(text="${stud_assocend} should be static, because each ${stud_assocend.cls} "
+                    "instance is related to the same set of ${stud_assocend.opposite.cls} instances."),
                 4: ResourceResponse(learningResources=[assoc_ref := Reference(content="Please review the "
                     "[Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
             })),
@@ -462,8 +462,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: HighlightSolution(),
                 2: TextResponse(text="Is there something special about this role name?"),
                 3: ParametrizedResponse(
-                    text="${stud_assocend} should not be static, because its value may be different for the instances "
-                         "of the relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}."),
+                    text="${stud_assocend} should not be static, because different ${stud_assocend.cls} instances may "
+                         "be related to different ${stud_assocend.opposite.cls} instances."),
                 4: ResourceResponse(learningResources=[assoc_ref]),
             })),
             bad_role_name_spelling := mt(n="Bad role name spelling", feedbacks=fbs({
