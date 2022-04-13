@@ -277,7 +277,7 @@ def get_latex_pr_param_parsed_output() -> str:
     "Return the latex code for the parsed output of all parametrized response parameters."
     tex = LatexGenerator.make_tex_table(test_all_pr_params_can_be_parsed())
     print(tex)
-    return LatexGenerator.make_tex_table(tex)
+    return tex
 
 
 def get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries() -> str:

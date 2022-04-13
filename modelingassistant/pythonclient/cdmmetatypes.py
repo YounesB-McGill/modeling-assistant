@@ -118,8 +118,8 @@ There are five concepts defined as follows, according to the CDM metamodel:
   5. The airlineSystem association end, which is contained in the Person class and has a Regular reference type.
 """
 _airlinesystem_person = Association(name="AirlineSystem_Person", ends=[
-    _airlinesystem_persons := ae(_airlinesystem, 0, MANY, ReferenceType.Composition, n="persons"),
-    _person_airlinesystem := ae(_person, 1, 1, n="airlineSystem")])
+    _person_airlinesystem := ae(_person, 1, 1, n="airlineSystem"),
+    _airlinesystem_persons := ae(_airlinesystem, 0, MANY, ReferenceType.Composition, n="persons")])
 _person_personrole = Association(name="Person_PersonRole", ends=[
     _personrole_person := ae(_personrole, 1, 1, n="person"), _person_roles := ae(_person, 0, 3, n="roles")])
 _passengerrole_booking = Association(name="PassengerRole_Booking", ends=[
@@ -138,7 +138,7 @@ CDM_METATYPES = {
     "attr*": (attrs := CdmMetatype("attr*", "Attributes", Attribute, [_person_name, _person_id])),
     "cls": (cls := CdmMetatype("cls", "Class", Class, _person)),
     "cls*": (clss := CdmMetatype("cls*", "Classes", Class, [_passengerrole, _employeerole, _visitorrole])),
-    "compos": (compos := CdmMetatype("compos", "Composition", Association, _airlinesystem_persons)),
+    "compos": (compos := CdmMetatype("compos", "Composition", Association, _airlinesystem_person)),
     "enum": (enum := CdmMetatype("enum", "Enumeration", CDEnum, _seat_type)),
     "enumitem": (enumitem := CdmMetatype("enumitem", "Enumeration Item", CDEnumLiteral, _first_class)),
     "enumitem*": (enumitems := CdmMetatype("enumitem*", "Enumeration Items", CDEnumLiteral, _seat_type.literals)),

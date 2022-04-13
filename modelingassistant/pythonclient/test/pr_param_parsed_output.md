@@ -25,7 +25,7 @@ attr.cls | name | Person
 attr.type | name | String
 cls | Person | Person
 cls* | PassengerRole, EmployeeRole, and VisitorRole | PassengerRole, EmployeeRole, and VisitorRole
-compos.end0.cls | persons | AirlineSystem
+compos.end0.cls | AirlineSystem_Person | Person
 enum | SeatType | SeatType
 enum.literals.length | SeatType | 3
 enumitem | FirstClass | FirstClass
