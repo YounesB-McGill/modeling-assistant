@@ -10,8 +10,10 @@ from dataclasses import dataclass
 
 from pyecore.ecore import EClass
 
-from classdiagram import (CDInt, CDString, Association, AssociationEnd, Attribute, Class, CDEnum,
-                          CDEnumLiteral, Classifier, NamedElement, ReferenceType)
+from constants import MANY
+from classdiagram import (CDInt, CDString, Association, AssociationEnd, Attribute, Class, CDEnum, CDEnumLiteral,
+                          NamedElement, ReferenceType)
+from utils import ae
 
 
 @dataclass
@@ -21,12 +23,6 @@ class CdmMetatype:
     long_name: str
     eClass: EClass | list[EClass] # pylint: disable=invalid-name
     example: NamedElement | list[NamedElement] = None  # used for tests
-
-
-def ae(cls_: Classifier, lb: int = 1, ub: int = 1, ref_type: ReferenceType = ReferenceType.Regular, n: str = ""
-       ) -> AssociationEnd:
-    "Shorthand to create a CDM association end."
-    return AssociationEnd(classifier=cls_, lowerBound=lb, upperBound=ub, referenceType=ref_type, name=n)
 
 
 """
@@ -92,7 +88,6 @@ class VisitorRole { position 450 279 109 41; }
 class SeatType { position 344 347 160.031 108; }
 """
 
-_MANY = -1
 _cd_string = CDString()
 _cd_int = CDInt()
 
@@ -123,13 +118,13 @@ There are five concepts defined as follows, according to the CDM metamodel:
   5. The airlineSystem association end, which is contained in the Person class and has a Regular reference type.
 """
 _airlinesystem_person = Association(name="AirlineSystem_Person", ends=[
-    _airlinesystem_persons := ae(_airlinesystem, 0, _MANY, ReferenceType.Composition, n="persons"),
+    _airlinesystem_persons := ae(_airlinesystem, 0, MANY, ReferenceType.Composition, n="persons"),
     _person_airlinesystem := ae(_person, 1, 1, n="airlineSystem")])
 _person_personrole = Association(name="Person_PersonRole", ends=[
     _personrole_person := ae(_personrole, 1, 1, n="person"), _person_roles := ae(_person, 0, 3, n="roles")])
 _passengerrole_booking = Association(name="PassengerRole_Booking", ends=[
     ae(_booking, 1, 1, n="passenger"),
-    _bookings_aggrend := ae(_passengerrole, 0, _MANY, ReferenceType.Aggregation, "bookings")])
+    _bookings_aggrend := ae(_passengerrole, 0, MANY, ReferenceType.Aggregation, "bookings")])
 
 _role_types: list[EClass] = [AssociationEnd, CDEnumLiteral, Class]
 

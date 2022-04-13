@@ -17,15 +17,17 @@ import pytest  # (to allow tests to be skipped) pylint: disable=unused-import
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from classdiagram import Class, ClassDiagram
+from classdiagram import Association, Class, ClassDiagram
+from constants import MANY
 from feedback import give_feedback, give_feedback_for_student_cdm
 from fileserdes import load_cdm
-from learningcorpus import Feedback, ParametrizedResponse, ResourceResponse, TextResponse
-from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, MISSING_CLASS, MISSING_COMPOSITION,
-    SOFTWARE_ENGINEERING_TERM)
+from learningcorpus import Feedback, ParametrizedResponse, Reference, ResourceResponse, TextResponse, Quiz
+from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, MISSING_CLASS,
+    SOFTWARE_ENGINEERING_TERM, WRONG_MULTIPLICITY)
 from stringserdes import SRSET, str_to_modelingassistant
 from modelingassistant import (FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, Solution, SolutionElement,
     Student, StudentKnowledge)
+from utils import ae
 
 
 HOST = "localhost"
@@ -49,8 +51,11 @@ def make_ma_without_mistakes() -> ModelingAssistant:
     return ma
 
 
-def make_ma_with_1_new_mistake(num_detection: int=1) -> ModelingAssistant:
-    "Make a simple Modeling Assistant instance with one mistake, detected `num_detection` times."
+def make_ma_with_1_sw_eng_terms_mistake(num_detection: int=1) -> ModelingAssistant:
+    """
+    Make a simple Modeling Assistant instance with one Software engineering term mistake, detected `num_detection`
+    times.
+    """
     ma = make_ma_without_mistakes()
     inst_sol = ma.problemStatements[0].instructorSolution
     alice_bus_sol = ma.problemStatements[0].studentSolutions[0]
@@ -60,6 +65,32 @@ def make_ma_with_1_new_mistake(num_detection: int=1) -> ModelingAssistant:
                           studentElements=[bus_data_cls], instructorElements=[bus_cls])
     if num_detection > 1:
         set_mistake.lastFeedback = FeedbackItem(feedback=Feedback(level=num_detection - 1))
+    return ma
+
+
+def make_ma_with_1_wrong_mult_terms_mistake(num_detection: int=1) -> ModelingAssistant:
+    """
+    Make a simple Modeling Assistant instance with one Wrong multiplicity mistake, detected `num_detection` times.
+    """
+    ma = make_ma_without_mistakes()
+    inst_sol = ma.problemStatements[0].instructorSolution
+    stud_sol = ma.problemStatements[0].studentSolutions[0]
+    # a bus has only one garage, but a garage has multiple buses
+    inst_bus_cls = SolutionElement(solution=inst_sol, element=Class(name="Bus"))
+    inst_garage_cls = SolutionElement(solution=inst_sol, element=Class(name="Garage"))
+    SolutionElement(solution=inst_sol, element=Association(ends=[
+        inst_bus_garage := ae(inst_bus_cls.element, n="garage"),
+        ae(inst_garage_cls.element, 0, MANY, n="bus")]))
+    stud_bus_cls = SolutionElement(solution=stud_sol, element=Class(name="Bus"))
+    stud_garage_cls = SolutionElement(solution=stud_sol, element=Class(name="Garage"))
+    SolutionElement(solution=stud_sol, element=Association(ends=[
+        stud_bus_garage := ae(stud_bus_cls.element, ub=MANY, n="garage"),  # mistake is here: bus only has one garage
+        ae(stud_garage_cls.element, 0, MANY, n="bus")]))
+    wm_mistake = Mistake(solution=stud_sol, mistakeType=WRONG_MULTIPLICITY, numDetections=num_detection,
+                         studentElements=[SolutionElement(solution=stud_sol, element=stud_bus_garage)],
+                         instructorElements=[SolutionElement(solution=inst_sol, element=inst_bus_garage)])
+    if num_detection > 1:
+        wm_mistake.lastFeedback = FeedbackItem(feedback=Feedback(level=num_detection - 1))
     return ma
 
 
@@ -76,7 +107,7 @@ def test_feedback_with_1_mistake_level_1():
 
     BusData detected for first time -> highlight BusData
     """
-    ma = make_ma_with_1_new_mistake(1)
+    ma = make_ma_with_1_sw_eng_terms_mistake(1)
     solution = ma.problemStatements[0].studentSolutions[0]
     feedback_item = give_feedback(solution)
     curr_mistake = feedback_item.mistake
@@ -97,7 +128,7 @@ def test_feedback_with_1_mistake_level_2():
 
     BusData (or similar) detected for second time -> text response
     """
-    ma = make_ma_with_1_new_mistake(2)
+    ma = make_ma_with_1_sw_eng_terms_mistake(2)
     solution = ma.problemStatements[0].studentSolutions[0]
     feedback_item = give_feedback(solution)
     curr_mistake = feedback_item.mistake
@@ -119,7 +150,7 @@ def test_feedback_with_1_mistake_level_3():
 
     BusData (or similar) detected for third time -> parameterized response
     """
-    ma = make_ma_with_1_new_mistake(3)
+    ma = make_ma_with_1_sw_eng_terms_mistake(3)
     solution = ma.problemStatements[0].studentSolutions[0]
     feedback_item = give_feedback(solution)
     curr_mistake = feedback_item.mistake
@@ -142,7 +173,7 @@ def test_feedback_with_1_mistake_level_4():
 
     BusData (or similar) detected for fourth time -> resource response with example
     """
-    ma = make_ma_with_1_new_mistake(4)
+    ma = make_ma_with_1_sw_eng_terms_mistake(4)
     solution = ma.problemStatements[0].studentSolutions[0]
     feedback_item = give_feedback(solution)
     curr_mistake = feedback_item.mistake
@@ -166,7 +197,7 @@ def test_feedback_with_1_mistake_levels_1_4():
 
     BusData detected 4 times -> 4 levels of feedback, given one at a time.
     """
-    ma = make_ma_with_1_new_mistake(1)
+    ma = make_ma_with_1_sw_eng_terms_mistake(1)
     solution = ma.problemStatements[0].studentSolutions[0]
     feedback_item = give_feedback(solution)
     curr_mistake = feedback_item.mistake
@@ -221,6 +252,98 @@ def test_feedback_with_1_mistake_levels_1_4():
     assert ":x: Examples to avoid | :heavy_check_mark: Good class names" in resource_content
     assert curr_mistake.mistakeType is feedback.mistakeType
     assert 6 == ma.studentKnowledges[0].levelOfKnowledge
+
+
+def test_feedback_with_1_mistake_levels_1_6():
+    """
+    Test feedback for a solution with one mistake made four times in a row.
+
+    BusData detected 4 times -> 4 levels of feedback, given one at a time.
+    """
+    ma = make_ma_with_1_wrong_mult_terms_mistake(1)
+    solution = ma.problemStatements[0].studentSolutions[0]
+    feedback_item = give_feedback(solution)
+    curr_mistake = feedback_item.mistake
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, Feedback)
+    assert 1 == feedback.level
+    assert feedback.highlightSolution
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    wrong_mult_sk = next(sk for sk in ma.studentKnowledges if sk.mistakeType is curr_mistake.mistakeType)
+    assert 9 == wrong_mult_sk.levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, TextResponse)
+    assert 2 == feedback.level
+    assert not feedback.highlightSolution
+    assert "Double check this association" in feedback.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 8 == wrong_mult_sk.levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, TextResponse)
+    assert 3 == feedback.level
+    assert not feedback.highlightSolution
+    assert "multiplicity" in feedback.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 7 == wrong_mult_sk.levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ParametrizedResponse)
+    assert 4 == feedback.level
+    assert not feedback.highlightSolution
+    assert "instances" in feedback.text
+    assert "Garage" in feedback_item.text
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 6 == wrong_mult_sk.levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert isinstance(feedback.learningResources[0], Quiz)
+    assert 5 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert "Pick the association" in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 5 == wrong_mult_sk.levelOfKnowledge
+
+    ma.problemStatements[0].studentSolutions[0].mistakes[0].numDetections += 1
+    feedback_item = give_feedback(solution)
+
+    assert feedback_item.solution is solution
+    assert curr_mistake.lastFeedback is feedback_item
+    feedback = feedback_item.feedback
+    assert isinstance(feedback, ResourceResponse)
+    assert isinstance(feedback.learningResources[0], Reference)
+    assert 6 == feedback.level
+    assert not feedback.highlightSolution
+    resource_content = feedback.learningResources[0].content
+    assert "multiplicities" in resource_content
+    assert curr_mistake.mistakeType is feedback.mistakeType
+    assert 4 == wrong_mult_sk.levelOfKnowledge
 
 
 def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cdm: ClassDiagram) -> ModelingAssistant:
@@ -333,4 +456,4 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
 
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
-    test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system()
+    test_feedback_with_1_mistake_levels_1_6()
