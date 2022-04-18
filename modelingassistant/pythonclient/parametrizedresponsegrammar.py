@@ -11,8 +11,7 @@ from textwrap import dedent
 from railroad import Choice, Diagram, OneOrMore, Sequence, Skip
 
 
-
-PRG_DIAGRAM_SVG_FILE = "modelingassistant/pythonclient/parametrized_response_grammar.svg"
+PRG_DIAGRAM_SVG_FILE = "modelingassistant/model/parametrized_response_grammar.svg"
 
 
 def get_prg_grammar():
@@ -33,9 +32,8 @@ def get_prg_grammar():
         person: 'stud' | 'inst'
         description: identifier
         elementtype: 
-            | 'aggr' | 'assoc' | 'assocend' | 'assocend*' | 'attr' | 'attr*'
-            | 'cls' | 'cls*' | 'compos' | 'enum' | 'enumitem' | 'enumitem*'
-            | 'qualassoc' | 'role' | 'role*' | 'rel'
+            | 'aggr' | 'assoc' | 'assocend' | 'attr' | 'cls' | 'compos' | 'enum' | 'enumitem'
+            | 'qualassoc' | 'rel' | 'role'
         star_or_index: '*' | number
         dereference: '.', elementproperty, star_or_index?
         elementproperty: identifier
