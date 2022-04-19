@@ -23,6 +23,9 @@ public class Comparison {
   /** Variable to store instructor class diagram. */
   public ClassDiagram instructorCdm;
 
+  /** Variable to store student class diagram. */
+  public ClassDiagram studentCdm;
+
   /** Variable to store abstract class for full PR pattern. */
   public Classifier fullPlayerRoleAbstractClass;
 

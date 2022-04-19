@@ -201,6 +201,7 @@ public class MistakeDetection {
     var instructorClassifiers = instructorSolution.getClassDiagram().getClasses();
     var studentClassifiers = studentSolution.getClassDiagram().getClasses();
     comparison.instructorCdm = instructorSolution.getClassDiagram();
+    comparison.studentCdm = studentSolution.getClassDiagram();
 
     var processed = false;
     if (instructorClassifiers.isEmpty()) {
@@ -416,11 +417,32 @@ public class MistakeDetection {
     for (Attribute studAttrib : comparison.extraStudentAttributes) {
       for (Attribute instAttrib : comparison.notMappedInstructorAttributes) {
         if (levenshteinDistance(studAttrib.getName(), instAttrib.getName()) <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-          comparison.newMistakes.add(createMistake(ATTRIBUTE_MISPLACED, studAttrib, instAttrib));
-          comparison.mappedAttributes.put(instAttrib, studAttrib);
-          checkMistakesInAttributes(studAttrib, instAttrib, comparison);
-          studAttributesProcessed.add(studAttrib);
-          instAttributesProcessed.add(instAttrib);
+          Classifier instClass = getClass(instAttrib, comparison);
+          Classifier studClass = getClass(studAttrib, comparison);
+
+          if (comparison.mappedClassifiers.containsKey(instClass)
+              && comparison.mappedClassifiers.containsValue(studClass)) {
+            if (isGeneralizationRelationshipPresent(instClass, studClass, comparison)) {
+              comparison.newMistakes
+                  .add(createMistake(ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY, studAttrib, instAttrib));
+              comparison.mappedAttributes.put(instAttrib, studAttrib);
+              checkMistakesInAttributes(studAttrib, instAttrib, comparison);
+              studAttributesProcessed.add(studAttrib);
+              instAttributesProcessed.add(instAttrib);
+            } else {
+              comparison.newMistakes.add(createMistake(ATTRIBUTE_MISPLACED, studAttrib, instAttrib));
+              comparison.mappedAttributes.put(instAttrib, studAttrib);
+              checkMistakesInAttributes(studAttrib, instAttrib, comparison);
+              studAttributesProcessed.add(studAttrib);
+              instAttributesProcessed.add(instAttrib);
+            }
+          } else {
+            comparison.newMistakes.add(createMistake(ATTRIBUTE_MISPLACED, studAttrib, instAttrib));
+            comparison.mappedAttributes.put(instAttrib, studAttrib);
+            checkMistakesInAttributes(studAttrib, instAttrib, comparison);
+            studAttributesProcessed.add(studAttrib);
+            instAttributesProcessed.add(instAttrib);
+          }
         }
       }
     }
@@ -428,13 +450,33 @@ public class MistakeDetection {
     comparison.notMappedInstructorAttributes.removeAll(instAttributesProcessed);
   }
 
+  private static boolean isGeneralizationRelationshipPresent(Classifier instClass, Classifier studClass,
+      Comparison comparison) {
+    return getAllSuperClasses(studClass).contains(comparison.mappedClassifiers.get(instClass))
+        || getAllSuperClasses(instClass).contains(getKey(comparison.mappedClassifiers, studClass));
+  }
+
+  private static Classifier getClass(Attribute attrib, Comparison comparison) {
+    for(Classifier cls : comparison.instructorCdm.getClasses()) {
+      if(cls.getAttributes().contains(attrib)) {
+        return cls;
+      }
+    }
+    for(Classifier cls : comparison.studentCdm.getClasses()) {
+      if(cls.getAttributes().contains(attrib)) {
+        return cls;
+      }
+    }
+    return null;
+  }
+
   private static void checkMistakesInGeneralization(Comparison comparison) {
     checkMistakeNonDifferentiatedSubClass(comparison);
-    checkMistakeAttribMisplacedInGenHierarchyAndDuplicateAttrib(comparison);
+    checkMistakeDuplicateAttrib(comparison);
     checkMistakesMissingExtraGenWrongSuperclassWrongDirection(comparison);
   }
 
-  private static void checkMistakeAttribMisplacedInGenHierarchyAndDuplicateAttrib(Comparison comparison) {
+  private static void checkMistakeDuplicateAttrib(Comparison comparison) {
     Set<Classifier> studentGeneralizationClasses = new HashSet<>(comparison.studentSuperclassesToSubclasses.keySet());
     for (var classifiers : comparison.studentSuperclassesToSubclasses.values()) {
       studentGeneralizationClasses.addAll(classifiers);
@@ -448,20 +490,6 @@ public class MistakeDetection {
         }
       }
     }
-
-    for (var classifier : studentGeneralizationClasses) {
-      List<Attribute> attribsToRemove = new ArrayList<Attribute>();
-      for (var attribute : comparison.notMappedInstructorAttributes) {
-        var attrib = matchedSuperClassAttribMatch(attribute, classifier);
-        if (attrib != null && !isMistakeExist(ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY, attrib, comparison)
-            && !comparison.mappedAttributes.containsValue(attrib)) {
-          comparison.newMistakes.add(createMistake(ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY, attrib, attribute));
-          attribsToRemove.add(attribute);
-          comparison.extraStudentAttributes.remove(attrib);
-        }
-      }
-      comparison.notMappedInstructorAttributes.removeAll(attribsToRemove);
-    }
   }
 
   private static boolean isSuperClassAttribMatch(Attribute attribute, Classifier classifier) {
@@ -473,21 +501,6 @@ public class MistakeDetection {
       }
     }
     return false;
-  }
-
-  /** Returns an attribute if found in any superclass else returns null. */
-  private static Attribute matchedSuperClassAttribMatch(Attribute attribute, Classifier classifier) {
-    var superclasses = getAllSuperClasses(classifier);
-    superclasses.add(classifier);
-    for (var sc : superclasses) {
-      for (var attrib : sc.getAttributes()) {
-        if (levenshteinDistance(attrib.getName().toLowerCase(),
-            attribute.getName().toLowerCase()) <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-          return attrib;
-        }
-      }
-    }
-    return null;
   }
 
   private static List<Classifier> getAllSuperClasses(Classifier classifier) {
