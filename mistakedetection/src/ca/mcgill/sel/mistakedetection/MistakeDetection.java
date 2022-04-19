@@ -651,103 +651,6 @@ public class MistakeDetection {
     }
   }
 
-  private static void checkMistakeIncompleteContainmentTree_old(Comparison comparison, ClassDiagram classDiagram) {
-
-    var studentClassifiers = classDiagram.getClasses();
-    if (studentClassifiers.size() < 2) {
-      return;
-    }
-    Map<Classifier, Integer> classCompositionCount = new HashMap<Classifier, Integer>();
-    List<NamedElement> notComposedClasses = new ArrayList<>();
-    for (Classifier studClass : studentClassifiers) {
-      classCompositionCount.put(studClass, 0);
-      notComposedClasses.add(studClass);
-      for (AssociationEnd assocEnd : studClass.getAssociationEnds()) {
-        if (assocEnd.getReferenceType().equals(COMPOSITION)) {
-          classCompositionCount.put(studClass, classCompositionCount.get(studClass) + 1);
-        }
-      }
-    }
-    Classifier ClassWithMostCompositions = null;
-    int maxValue = 0;
-    for (Classifier i : classCompositionCount.keySet()) {
-      if (classCompositionCount.get(i) > maxValue) {
-        ClassWithMostCompositions = i;
-        maxValue = classCompositionCount.get(i);
-      }
-    }
-    if (ClassWithMostCompositions == null) {
-      comparison.newMistakes.add(createMistake(INCOMPLETE_CONTAINMENT_TREE, notComposedClasses, null));
-      return;
-    }
-    Classifier rootClass = ClassWithMostCompositions;
-    List<Classifier> composedClasses = new ArrayList<Classifier>();
-    composedClasses.add(rootClass);
-    for (AssociationEnd assocEnd : rootClass.getAssociationEnds()) {
-      if (assocEnd.getReferenceType().equals(COMPOSITION)) {
-        composedClasses.add(getOtherAssocEnd(assocEnd).getClassifier());
-      }
-    }
-    for (Classifier studClass : studentClassifiers) {
-      if (composedClasses.contains(studClass)) {
-        continue;
-      }
-      for (AssociationEnd assocEnd : studClass.getAssociationEnds()) {
-        List<Association> associations =
-            getAssocAggCompFromClassDiagram(studClass, getOtherAssocEnd(assocEnd).getClassifier(), classDiagram);
-        if (includesComposition(associations) && composedClasses.contains(getOtherAssocEnd(assocEnd).getClassifier())) {
-          composedClasses.add(studClass);
-        }
-      }
-    }
-    if (!composedClasses.containsAll(studentClassifiers)) {
-      composedClasses.forEach(notComposedClasses::remove);
-      List<NamedElement> notComposedClassesToRemove = new ArrayList<>();
-      for (NamedElement cls : notComposedClasses) {
-        Classifier studClass = (Classifier) cls;
-        if (!studClass.getSuperTypes().isEmpty()) {
-          for (Classifier c : getAllSuperClasses(studClass)) {
-            if (composedClasses.contains(c)) {
-              notComposedClassesToRemove.add(cls);
-            }
-          }
-        }
-      }
-      notComposedClasses.removeAll(notComposedClassesToRemove);
-      for (Association assoc : classDiagram.getAssociations()) {
-        if (assoc.getAssociationClass() != null && notComposedClasses.contains(assoc.getAssociationClass())) {
-          notComposedClasses.remove(assoc.getAssociationClass());
-        }
-      }
-      if (!notComposedClasses.isEmpty()) {
-        comparison.newMistakes.add(createMistake(INCOMPLETE_CONTAINMENT_TREE, notComposedClasses, null));
-      }
-    }
-    checkMistakeContainedInMoreThanOneParent(rootClass, comparison, classDiagram);
-  }
-
-  private static void checkMistakeContainedInMoreThanOneParent(Classifier rootClass, Comparison comparison,
-      ClassDiagram classDiagram) {
-    List<Classifier> composedClasses = new ArrayList<Classifier>();
-    composedClasses.add(rootClass);
-    for (Association assoc : classDiagram.getAssociations()) {
-      for (AssociationEnd assocEnd : assoc.getEnds()) {
-        var otherClass = getOtherAssocEnd(assocEnd).getClassifier();
-        if (assocEnd.getReferenceType().equals(COMPOSITION)
-            || isSuperClassContained(otherClass, composedClasses)) {
-          composedClasses.add(otherClass);
-        }
-      }
-    }
-    Set<NamedElement> multiComposedClasses = new HashSet<>();
-    multiComposedClasses.addAll(findDuplicateInList(composedClasses));
-    List<NamedElement> studClasses = new ArrayList<>();
-    studClasses.addAll(multiComposedClasses);
-    if (!multiComposedClasses.isEmpty()) {
-      comparison.newMistakes.add(createMistake(COMPOSED_PART_CONTAINED_IN_MORE_THAN_ONE_PARENT, studClasses, null));
-    }
-  }
-
   private static boolean isSuperClassContained(Classifier studClass, List<Classifier> composedClasses) {
     return getAllSuperClasses(studClass).stream().anyMatch(composedClasses::contains);
   }
@@ -839,17 +742,6 @@ public class MistakeDetection {
 
   private static boolean areAllLowerBoundsGreaterThanOne(Classifier studClass) {
     return studClass.getAssociationEnds().stream().anyMatch(ae -> ae.getLowerBound() > 0);
-  }
-
-  private static boolean includesComposition(List<Association> associations) {
-    for (Association assoc : associations) {
-      for (AssociationEnd assocEnd : assoc.getEnds()) {
-        if (assocEnd.getReferenceType().equals(COMPOSITION)) {
-          return true;
-        }
-      }
-    }
-    return false;
   }
 
   /** Returns null if key not found in mapping. */
