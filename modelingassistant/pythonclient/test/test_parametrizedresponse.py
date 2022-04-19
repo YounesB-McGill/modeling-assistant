@@ -19,7 +19,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from cdmmetatypes import CdmMetatype, aggr, assoc, assocend, assocends, attr, attrs, cls, compos, enum, enumitem
 from classdiagram import Association, AssociationEnd, Class, NamedElement
-from createcorpus import underscorify
+from createcorpus import LatexGenerator, underscorify
 from corpus import corpus
 from corpus_definition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
 from parametrizedresponse import (comma_seperated_with_and, extract_params, get_mdf_items_to_mistake_elem_dict,
@@ -201,6 +201,8 @@ def test_all_pr_params_can_be_parsed():
     with open(_PR_PARAM_PARSED_OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write(pr_md)
 
+    return pr_md
+
 
 def test_get_mdf_items_to_mistake_elem_dict():
     "Test get_mdf_items_to_mistake_elem_dict() helper function."
@@ -271,6 +273,13 @@ def get_number_of_mistake_types_with_parametrized_responses() -> int:
     return result
 
 
+def get_latex_pr_param_parsed_output() -> str:
+    "Return the latex code for the parsed output of all parametrized response parameters."
+    tex = LatexGenerator.make_tex_table(test_all_pr_params_can_be_parsed())
+    print(tex)
+    return tex
+
+
 def get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries() -> str:
     """
     Return the mapping entries for the HumanValidatedParametrizedResponses.java file.
@@ -308,3 +317,4 @@ def get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries() ->
 
 if __name__ == "__main__":
     "Main entry point (used for debugging)."
+    get_latex_pr_param_parsed_output()

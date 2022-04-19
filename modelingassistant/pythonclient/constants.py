@@ -21,3 +21,6 @@ USE_CONTEXTUAL_CAPITALIZATION = False  # When True, capitalize feedback Capital/
 MULTIPLE_FEEDBACKS_PER_LEVEL = False  # Allow multiple context-specific written feedbacks per level (future work)
 CORRECT_QUIZ_ITEM_NOTATIONS = ["true", "t", "√", "1", "7", "correct", "right", "answer"]
 T = True  # Not to be confused with T used as a generic type
+
+# TouchCORE conventions
+MANY = -1  # the value of -1 is used to indicate a many (*) multiplicity

@@ -226,8 +226,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     n="Attribute misplaced in generalization hierarchy", feedbacks=fbs({
                         1: HighlightSolution(),
                         2: TextResponse(text="Can you think of a better place for this?"),
-                        3: ParametrizedResponse(text="The ${stud_attr} belongs in the ${inst_attr.cls} class, i.e., a "
-                                                     "different class in the inheritance hierarchy."),
+                        3: ParametrizedResponse(text="The ${stud_attr} attribute belongs in the ${inst_attr.cls} "
+                                                     "class, i.e., a different class in the inheritance hierarchy."),
                         4: ResourceResponse(learningResources=[attribute_reference]),
                     })),
             ]),
@@ -453,8 +453,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
             role_should_be_static := mt(n="Role should be static", feedbacks=fbs({
                 1: HighlightSolution(),
                 2: TextResponse(text="Isn't there something special about this role name?"),
-                3: ParametrizedResponse(text="${stud_assocend} should be static, because its value is the same for all "
-                    "instances of the relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}."),
+                3: ParametrizedResponse(text="${stud_assocend} should be static, because each ${stud_assocend.cls} "
+                    "instance is related to the same set of ${stud_assocend.opposite.cls} instances."),
                 4: ResourceResponse(learningResources=[assoc_ref := Reference(content="Please review the "
                     "[Association](https://mycourses2.mcgill.ca/) part of the Class Diagram lecture.")]),
             })),
@@ -462,8 +462,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 1: HighlightSolution(),
                 2: TextResponse(text="Is there something special about this role name?"),
                 3: ParametrizedResponse(
-                    text="${stud_assocend} should not be static, because its value may be different for the instances "
-                         "of the relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}."),
+                    text="${stud_assocend} should not be static, because different ${stud_assocend.cls} instances may "
+                         "be related to different ${stud_assocend.opposite.cls} instances."),
                 4: ResourceResponse(learningResources=[assoc_ref]),
             })),
             bad_role_name_spelling := mt(n="Bad role name spelling", feedbacks=fbs({
@@ -720,7 +720,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                         ![PISystem](images/PISystem.png)"""))]),
                     6: ResourceResponse(learningResources=[containment_quiz := mcq[dedent("""\
                         Which of the following compositions should be added to complete the containment tree for the
-                        following model.
+                        following model?
 
                         ![IRS](images/IRS.png)"""),
                         T: "1 IRS <@>- * StudentRole",
@@ -871,7 +871,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                          "them should be modeled with one of the forms of the Player-Role pattern."),
                 # the spacing below is intentional, for the output to be properly aligned
                 5: ResourceResponse(learningResources=[pr_quiz := Quiz(content=dedent(f"""\
-                    Complete the following table:
+                    Complete the following table by checking the correct boxes:
 
                     Solution | Roles have different features | One role at a time |{
                         " "}Different roles at a time | More than one role at the same time
@@ -980,9 +980,9 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: HighlightSolution(),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(
-                        text="A ${stud_role_enumitem0} can also play the role of one of the other roles at the same "
-                             "time and different features need to be captured for the roles."),
+                    3: ParametrizedResponse(text="An instance of ${stud_player_cls} can play more than one role out of "
+                                                  "${stud_role_enumitem*} at the same time and different features need "
+                                                  "to be captured for the roles."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -993,8 +993,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: HighlightSolution(),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="A ${stud_role_enumitem0} has different features from one of the "
-                                                 "other roles and this role never changes to another role."),
+                    3: ParametrizedResponse(text="The roles ${stud_role_enumitem*} have different features and never "
+                                                 "change to another role."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -1005,8 +1005,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: HighlightSolution(),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(
-                        text="Will the roles of ${stud_role_enumitem*} ever be occupied at the same time?"),
+                    3: ParametrizedResponse(text="Will an instance of ${stud_player_cls} ever play more than one role "
+                                                 "out of ${stud_role_enumitem*} at the same time?"),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
@@ -1017,7 +1017,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: HighlightSolution(),
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
-                    3: ParametrizedResponse(text="an instance of ${stud_player_cls} play more than one role out of "
+                    3: ParametrizedResponse(text="Can an instance of ${stud_player_cls} play more than one role out of "
                                                  "${stud_role_cls*} at different times or at the same time?"),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
@@ -1106,8 +1106,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
 
 
 # mistake types by priority, from most to least important
-mts_by_priority: list[MistakeType] = [
-    # mistakes in an existing class
+mts_by_priority: list[MistakeType | str] = [
+    "Mistakes in an existing class",
     bad_class_name_spelling,
     lowercase_class_name,
     plural_class_name,
@@ -1123,7 +1123,7 @@ mts_by_priority: list[MistakeType] = [
     bad_enum_name_spelling,
     bad_enum_item_spelling,
 
-    # mistakes in an existing attribute
+    "Mistakes in an existing attribute",
     bad_attribute_name_spelling,
     uppercase_attribute_name,
     plural_attribute,
@@ -1132,7 +1132,7 @@ mts_by_priority: list[MistakeType] = [
     attribute_should_not_be_static,
     attribute_should_be_static,
 
-    # mistakes in an existing relationship
+    "Mistakes in an existing relationship",
     infinite_recursive_dependency,
     composed_part_contained_in_more_than_one_parent,
     using_attribute_instead_of_assoc,
@@ -1167,7 +1167,7 @@ mts_by_priority: list[MistakeType] = [
     bad_association_name_spelling,
     incomplete_containment_tree,
 
-    # design pattern mistakes
+    "Design pattern mistakes",
     generalization_should_be_assoc_ao_pattern,
     subclass_should_be_full_pr_pattern,
     subclass_should_be_assoc_pr_pattern,
@@ -1182,7 +1182,7 @@ mts_by_priority: list[MistakeType] = [
     full_pr_pattern_should_be_assoc,
     full_pr_pattern_should_be_enum,
 
-    # extra items
+    "Extra items",
     extra_class,
     extra_assoc_class,
     extra_enum,
@@ -1195,7 +1195,7 @@ mts_by_priority: list[MistakeType] = [
     attribute_duplicated,
     extra_attribute,
 
-    # missing items
+    "Missing items",
     missing_class,
     missing_attribute,
     missing_attribute_type,
@@ -1211,7 +1211,7 @@ mts_by_priority: list[MistakeType] = [
     missing_role_name,
     missing_association_name,
 
-    # missing/incomplete patterns
+    "Missing/incomplete patterns",
     missing_association_in_ao_pattern,
     incomplete_pr_pattern,
     incomplete_ao_pattern,
@@ -1223,7 +1223,8 @@ mts_by_priority: list[MistakeType] = [
 # Mistake Detection Formats (student elements, instructor elements)
 # paste from MDIS4LC
 assoc_class_should_be_class.md_format = mdf(["assoc", "cls"], ["cls"])
-assoc_should_be_enum_pr_pattern.md_format = mdf(["player_cls", "role_assocend*"], ["player_cls", "role_enumitem*"])
+assoc_should_be_enum_pr_pattern.md_format = mdf(
+    ["player_cls", "role_assocend*"], ["player_cls", "role_attr", "role_enum", "role_enumitem*"])
 assoc_should_be_full_pr_pattern.md_format = mdf(["player_cls", "role_assocend*"], ["player_cls", "role_cls*"])
 assoc_should_be_subclass_pr_pattern.md_format = mdf(["player_cls", "role_assocend*"], ["player_cls", "role_cls*"])
 attribute_duplicated.md_format = mdf(["attr"], [])
@@ -1243,10 +1244,13 @@ class_should_be_assoc_class.md_format = mdf(["cls"], ["assoc", "cls"])
 class_should_be_enum.md_format = mdf(["cls"], ["enum"])
 class_should_not_be_abstract.md_format = mdf(["cls"], ["cls"])
 composed_part_contained_in_more_than_one_parent.md_format = mdf(["cls*"], [])
-enum_should_be_assoc_pr_pattern.md_format = mdf(["player_cls", "role_enumitem*"], ["player_cls", "role_assocend*"])
+enum_should_be_assoc_pr_pattern.md_format = mdf(
+    ["player_cls", "role_attr", "role_enum", "role_enumitem*"], ["player_cls", "role_assocend*"])
 enum_should_be_class.md_format = mdf(["enum"], ["cls"])
-enum_should_be_full_pr_pattern.md_format = mdf(["player_cls", "role_enumitem*"], ["player_cls", "role_cls*"])
-enum_should_be_subclass_pr_pattern.md_format = mdf(["player_cls", "role_enumitem*"], ["player_cls", "role_cls*"])
+enum_should_be_full_pr_pattern.md_format = mdf(
+    ["player_cls", "role_attr", "role_enum", "role_enumitem*"], ["player_cls", "role_cls*"])
+enum_should_be_subclass_pr_pattern.md_format = mdf(
+    ["player_cls", "role_attr", "role_enum", "role_enumitem*"], ["player_cls", "role_cls*"])
 extra_aggregation.md_format = mdf(["aggr", "whole_assocend", "part_assocend"], [])
 extra_assoc_class.md_format = mdf(["assoc", "cls"], [])
 extra_association.md_format = mdf(["assoc"], [])
@@ -1258,7 +1262,8 @@ extra_enum_item.md_format = mdf(["enumitem"], [])
 extra_generalization.md_format = mdf(["sub_cls", "super_cls"], [])
 extra_n_ary_association.md_format = mdf(["assoc", "assocend*"], [])
 full_pr_pattern_should_be_assoc.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_assocend*"])
-full_pr_pattern_should_be_enum.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_enumitem*"])
+full_pr_pattern_should_be_enum.md_format = mdf(
+    ["player_cls", "role_cls*"], ["player_cls", "role_attr", "role_enum", "role_enumitem*"])
 full_pr_pattern_should_be_subclass.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_cls*"])
 generalization_inapplicable.md_format = mdf(["sub_cls", "super_cls"], [])
 generalization_should_be_assoc_ao_pattern.md_format = mdf(["sub_cls", "super_cls"], ["abs_cls", "occ_cls"])
@@ -1300,7 +1305,8 @@ software_engineering_term.md_format = mdf(["cls"], ["cls"])
 subclass_is_an_instance_of_superclass.md_format = mdf(["sub_cls", "super_cls"], [])
 subclass_not_distinct_across_lifetime.md_format = mdf(["sub_cls", "super_cls"], [])
 subclass_should_be_assoc_pr_pattern.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_assocend*"])
-subclass_should_be_enum_pr_pattern.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_enumitem*"])
+subclass_should_be_enum_pr_pattern.md_format = mdf(
+    ["player_cls", "role_cls*"], ["player_cls", "role_attr", "role_enum", "role_enumitem*"])
 subclass_should_be_full_pr_pattern.md_format = mdf(["player_cls", "role_cls*"], ["player_cls", "role_cls*"])
 uppercase_attribute_name.md_format = mdf(["attr"], ["attr"])
 using_aggregation_instead_of_assoc.md_format = mdf(

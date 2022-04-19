@@ -13,9 +13,6 @@ public class MistakeDetectionFormat {
   public final List<String> inst = new ArrayList<>();
 
   public MistakeDetectionFormat(Mistake mistake) {
-    if (mistake.getMistakeType().equals(MistakeTypes.ASSOC_SHOULD_BE_ENUM_PR_PATTERN)) {
-      mistake.eClass();
-    }
     int[] cnt = {0, 0};
     mistake.getStudentElements().forEach(e -> stud.add(ElementDescription.fromElement(e).toShortString(cnt[0]++)));
     mistake.getInstructorElements().forEach(e -> inst.add(ElementDescription.fromElement(e).toShortString(cnt[1]++)));
