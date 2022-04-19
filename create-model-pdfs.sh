@@ -2,6 +2,8 @@
 
 # This script is used to create the PDFs for the modeling assistant application metamodels,
 # including the TouchCORE ClassDiagram metamodels, from their SVG versions created by the Eclipse Aird editor.
+# It also creates PDFs for other model SVG files in the same directory, such as the one for the parametrized response
+# grammar.
 
 # It requires that rsvg-convert be installed. On Linux, this can be done with `sudo apt-get install librsvg2-bin`
 

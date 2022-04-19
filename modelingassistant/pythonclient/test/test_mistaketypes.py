@@ -7,6 +7,7 @@ Module to test mistake types and categories.
 
 import os
 import sys
+from textwrap import dedent
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -14,6 +15,7 @@ from learningcorpus import MistakeTypeCategory, MistakeType
 from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, CLASS_MISTAKES, CLASS_NAME_MISTAKES
 from cdmmetatypes import CDM_METATYPES
 from corpus import corpus, mts_by_priority
+from corpus_definition import mts_by_priority as mts_by_priority_with_labels
 from utils import COLOR, MistakeDetectionFormat, color_str
 
 import mistaketypes
@@ -108,6 +110,8 @@ def test_mistake_type_formats():
     - Mistakes types that start with "Missing" may have student elements (eg, Missing role name) and must have
       instructor elements
     - "sub_cls" cannot exist without "super_cls" and vice versa
+    - "whole" cannot exist without "part" and vice versa
+    - "source" cannot exist without "target" and vice versa
     """
     for mt in corpus.mistakeTypes():
         name: str = mt.name
@@ -126,15 +130,17 @@ def test_mistake_type_formats():
         if name.lower().startswith("missing"):
             assert mdf.inst, f"{name} has no instructor elements"
         for lst in (mdf.stud, mdf.inst):
-            if "sub_cls" in lst:
-                assert "super_cls" in lst, f'{name} has "sub_cls" but no "super_cls"'
-            if "super_cls" in lst:
-                assert "sub_cls" in lst, f'{name} has "super_cls" but no "sub_cls"'
+            for e1, e2 in (("sub_cls", "super_cls"), ("whole", "part"), ("source", "target")):
+                if e1 in lst:
+                    assert e2 in lst, f'{name} has "{e1}" but no "{e2}"'
+                if e2 in lst:
+                    assert e1 in lst, f'{name} has "{e2}" but no "{e1}"'
 
 
 def test_no_bad_highlighting():
     """
-    Verify that a the student solution is highlighted only if there are student elements.
+    Verify that a student solution element is highlighted only if there are student elements and
+    that a problem statement element(s) is highlighted only if there are instructor elements.
     """
     for mt in corpus.mistakeTypes():
         mdf: MistakeDetectionFormat = mt.md_format
@@ -145,7 +151,6 @@ def test_no_bad_highlighting():
         if not mdf.stud:
             for fb in mt.feedbacks:
                 assert not fb.highlightSolution, f"Cannot highlight solution for {mt.name} without student elements"
-
 
 
 def print_mistake_type_stats():
@@ -205,6 +210,30 @@ def print_mistake_type_stats_md_format_completion_status():
     print("```")
 
 
+def print_mts_by_priority_with_labels_latex_table():
+    "Print Mistake types by priority LaTeX table."
+    tex = dedent("""\
+        \\begin{table}[!h]
+        %\\scriptsize
+        \\caption{Mistake Types Sorted by Priority} \\medskip
+        \\begin{tabular}{l}
+        \\hline
+        \\multicolumn{1}{c}{\\textbf{Mistake Types}} \\\\ \\hline
+        """)
+    processed_mt = False
+    for e in mts_by_priority_with_labels:
+        if isinstance(e, str):
+            if processed_mt:
+                tex = f"{tex.strip().removesuffix(',')}\n\\end{{tabular}} \\\\ \\hline\n"
+            tex += f"\\begin{{tabular}}[c]{{@{{}}l@{{}}}}\\textbf{{{e}}} \\\\ \n"
+        if isinstance(e, MistakeType):
+            tex += f"{e.description}, \n"
+            processed_mt = True
+    tex = f"""{tex.strip().removesuffix(',')
+              }\n\\end{{tabular}} \\\\ \\hline\n\\end{{tabular}}\n\\label{{tbl:mts}}\n\\end{{table}}"""
+    print(tex)
+
+
 if __name__ == "__main__":
     "Main entry point."
-    print_mistake_type_stats_md_format_completion_status()
+    print_mts_by_priority_with_labels_latex_table()

@@ -16,6 +16,8 @@ requests = "*"
 autopep8 = "*"
 opencv-python = "*"
 pydeps = "*"
+graphviz = "*"
+railroad-diagrams = "*"
 
 [requires]
 python_version = "3.10"

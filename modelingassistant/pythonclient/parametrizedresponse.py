@@ -59,7 +59,7 @@ def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> st
 
     For other more interesting examples, see the unit tests.
     """
-    options = {}
+    options: dict[str, str] = {}
     mdf_items_to_mistake_elems = get_mdf_items_to_mistake_elem_dict(mistake)
     params = extract_params(response.text)
     param_roots = param_parts_before_dot(params)
@@ -142,7 +142,7 @@ def _parse(s: str, start_elem: NamedElement | Iterable, depth: int = 0) -> str:
               }, but the element is not a sequence, so returning the element name or string representation""")
         return getattr(a, "name", str(a))
     cd = dot_sep_elems[2:]
-    a_dot_b = resolve_attribute(a, b)  # needs to change for attr.cls (use eContainer)
+    a_dot_b = resolve_attribute(a, b)
     # print(f"parametrizedresponse.parse(): [{b = }], [{'.'.join(cd) = }], [{a_dot_b = }]")  # TODO remove later
     return _parse(f"{b}{'.' if cd else ''}{'.'.join(cd)}", a_dot_b, depth + 1)  # recurse to next dot-separated element
 

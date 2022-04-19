@@ -2,6 +2,7 @@
 Utility functions for the Modeling Assistant Python app.
 This module must not depend on any other to avoid circular dependencies.
 """
+# pylint: disable=no-member
 
 # Ok to import items from standard library, constants, envvars, and pyecore model code only
 
@@ -9,6 +10,7 @@ from string import Formatter
 from types import SimpleNamespace
 from typing import NamedTuple
 
+from classdiagram import AssociationEnd, Classifier, ReferenceType
 from constants import CORRECT_QUIZ_ITEM_NOTATIONS, MULTIPLE_FEEDBACKS_PER_LEVEL
 from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
 from learningcorpusquiz import (Blank, Choice, FillInTheBlanksQuiz, FillInTheBlanksQuizStatement,
@@ -30,6 +32,12 @@ def color_str(color: str, text: str) -> str:
 def warn(text: str):
     "Print a warning message to the console."
     print(color_str(COLOR.ORANGE, f"Warning: {text}"))
+
+
+def ae(cls_: Classifier, lb: int = 1, ub: int = 1, ref_type: ReferenceType = ReferenceType.Regular, n: str = ""
+       ) -> AssociationEnd:
+    "Shorthand to create a CDM association end."
+    return AssociationEnd(classifier=cls_, lowerBound=lb, upperBound=ub, referenceType=ref_type, name=n)
 
 
 def mtc(n, s=None, **kwargs) -> MistakeTypeCategory:

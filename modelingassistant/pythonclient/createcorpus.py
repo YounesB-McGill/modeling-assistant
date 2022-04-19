@@ -14,6 +14,7 @@ import re
 from abc import ABC, abstractmethod
 from re import Match
 from datetime import datetime
+from textwrap import dedent
 
 import cv2
 
@@ -386,6 +387,7 @@ class MarkdownGenerator(TextualGenerator):
                                         if isinstance(component, NonBlank):
                                             content += f"{component.text}"
                                         if isinstance(component, Blank):
+                                            # use <ins> to underline answer, which makes it appear as a filled blank
                                             content += f"<ins>{component.correctAnswer}</ins>"
                                     content += "\n"
                             elif isinstance(primary_rsc, ListMultipleChoiceQuiz):
@@ -505,6 +507,19 @@ class LatexGenerator(TextualGenerator):
         s = re.sub(r"!\[.*?\]\((?P<img>.*?)\)", find_and_replace_image_link, s)
         # replace regular links with italics
         s = re.sub(r"\[(?P<text>.*?)\]\(.*?\)" , r"\\textit{\g<text>}", s)  # regex101.com/r/m58sNO/1
+        # replace markdown bold and italics with latex versions (do this more elegantly in the future)
+        s = re.sub(r"\*\*(.*?)\*\*", r"\\textbf{\1}", s)
+        if "_" in s:
+            lines = s.splitlines()
+            new_lines: list[str] = []
+            for line in lines:
+                if "${" not in line and "\\includegraphics" not in line:
+                    new_lines.append(re.sub(r"_(.*?)_", r"\\textit{\1}", line))
+                else:
+                    new_lines.append(line)
+            s = "\n".join(new_lines)
+            if "itemize" in s:
+                s += "\n"
         if "verb|" in s:
             return s  # already verbized
         return re.sub(r"\${(?P<text>.*?)}", r"\\verb|${\g<text>}|", s)
@@ -522,7 +537,8 @@ class LatexGenerator(TextualGenerator):
             return "&".join(processed(s).split("|")) + " \\\\\n"
 
         if "Player-Role Pattern" in s:
-            return TEX_PR_TABLE
+            return dedent(f"""{cls.blockquote('Complete the following table by checking the correct boxes:').strip()}
+                {TEX_PR_TABLE}""")
         lines = s.strip().split(NL)
         result = ""
         prev_in_table = in_table = False

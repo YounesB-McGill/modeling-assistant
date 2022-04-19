@@ -619,7 +619,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> The ${stud_attr} belongs in the ${inst_attr.cls} class, i.e., a different class in the inheritance hierarchy.
+> The ${stud_attr} attribute belongs in the ${inst_attr.cls} class, i.e., a different class in the inheritance hierarchy.
 
 Level 4: Resource response with Reference:
 
@@ -1132,7 +1132,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_assocend} should be static, because its value is the same for all instances of the relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}.
+> ${stud_assocend} should be static, because each ${stud_assocend.cls} instance is related to the same set of ${stud_assocend.opposite.cls} instances.
 
 Level 4: Resource response with Reference:
 
@@ -1151,7 +1151,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_assocend} should not be static, because its value may be different for the instances of the relationship between ${stud_assocend.opposite.cls} and ${stud_assocend.cls}.
+> ${stud_assocend} should not be static, because different ${stud_assocend.cls} instances may be related to different ${stud_assocend.opposite.cls} instances.
 
 Level 4: Resource response with Reference:
 
@@ -1759,7 +1759,7 @@ root class, `PISystem`.
 Level 6: Resource response with List multiple-choice quiz:
 
 Which of the following compositions should be added to complete the containment tree for the
-following model.
+following model?
 
 ![IRS](images/IRS.png)
 
@@ -1802,7 +1802,7 @@ root class, `PISystem`.
 Level 5: Resource response with List multiple-choice quiz:
 
 Which of the following compositions should be added to complete the containment tree for the
-following model.
+following model?
 
 ![IRS](images/IRS.png)
 
@@ -2168,7 +2168,7 @@ Level 4: Parametrized response:
 
 Level 5: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2205,7 +2205,7 @@ Level 4: Parametrized response:
 
 Level 5: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2238,7 +2238,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2271,7 +2271,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2290,7 +2290,7 @@ in different contexts.
 
 #### Subclass should be enumeration Player-Role pattern
 
-Student elements: Player class, Role classes. Instructor elements: Player class, Role enumeration items.
+Student elements: Player class, Role classes. Instructor elements: Player class, Role attribute, Role enumeration, Role enumeration items.
 
 Level 1: Highlight solution
 
@@ -2304,7 +2304,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2337,7 +2337,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2370,7 +2370,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2389,7 +2389,7 @@ in different contexts.
 
 #### Association should be enumeration Player-Role pattern
 
-Student elements: Player class, Role association ends. Instructor elements: Player class, Role enumeration items.
+Student elements: Player class, Role association ends. Instructor elements: Player class, Role attribute, Role enumeration, Role enumeration items.
 
 Level 1: Highlight solution
 
@@ -2403,7 +2403,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2422,7 +2422,7 @@ in different contexts.
 
 #### Enumeration should be full Player-Role pattern
 
-Student elements: Player class, Role enumeration items. Instructor elements: Player class, Role classes.
+Student elements: Player class, Role attribute, Role enumeration, Role enumeration items. Instructor elements: Player class, Role classes.
 
 Level 1: Highlight solution
 
@@ -2432,11 +2432,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> A ${stud_role_enumitem0} can also play the role of one of the other roles at the same time and different features need to be captured for the roles.
+> An instance of ${stud_player_cls} can play more than one role out of ${stud_role_enumitem*} at the same time and different features need to be captured for the roles.
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2455,7 +2455,7 @@ in different contexts.
 
 #### Enumeration should be subclass Player-Role pattern
 
-Student elements: Player class, Role enumeration items. Instructor elements: Player class, Role classes.
+Student elements: Player class, Role attribute, Role enumeration, Role enumeration items. Instructor elements: Player class, Role classes.
 
 Level 1: Highlight solution
 
@@ -2465,11 +2465,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> A ${stud_role_enumitem0} has different features from one of the other roles and this role never changes to another role.
+> The roles ${stud_role_enumitem*} have different features and never change to another role.
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2488,7 +2488,7 @@ in different contexts.
 
 #### Enumeration should be association Player-Role pattern
 
-Student elements: Player class, Role enumeration items. Instructor elements: Player class, Role association ends.
+Student elements: Player class, Role attribute, Role enumeration, Role enumeration items. Instructor elements: Player class, Role association ends.
 
 Level 1: Highlight solution
 
@@ -2498,11 +2498,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> Will the roles of ${stud_role_enumitem*} ever be occupied at the same time?
+> Will an instance of ${stud_player_cls} ever play more than one role out of ${stud_role_enumitem*} at the same time?
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2531,11 +2531,11 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> an instance of ${stud_player_cls} play more than one role out of ${stud_role_cls*} at different times or at the same time?
+> Can an instance of ${stud_player_cls} play more than one role out of ${stud_role_cls*} at different times or at the same time?
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2568,7 +2568,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
@@ -2587,7 +2587,7 @@ in different contexts.
 
 #### Full Player-Role pattern should be enumeration
 
-Student elements: Player class, Role classes. Instructor elements: Player class, Role enumeration items.
+Student elements: Player class, Role classes. Instructor elements: Player class, Role attribute, Role enumeration, Role enumeration items.
 
 Level 1: Highlight solution
 
@@ -2601,7 +2601,7 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Quiz:
 
-> Complete the following table:
+> Complete the following table by checking the correct boxes:
 > 
 > Solution | Roles have different features | One role at a time | Different roles at a time | More than one role at the same time
 > --- | --- | --- | --- | ---
