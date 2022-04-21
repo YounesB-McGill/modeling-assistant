@@ -417,8 +417,8 @@ public class MistakeDetection {
     for (Attribute studAttrib : comparison.extraStudentAttributes) {
       for (Attribute instAttrib : comparison.notMappedInstructorAttributes) {
         if (levenshteinDistance(studAttrib.getName(), instAttrib.getName()) <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-          Classifier instClass = getClass(instAttrib, comparison);
-          Classifier studClass = getClass(studAttrib, comparison);
+          Classifier instClass = (Classifier) instAttrib.eContainer();
+          Classifier studClass = (Classifier) studAttrib.eContainer();
 
           if (comparison.mappedClassifiers.containsKey(instClass)
               && comparison.mappedClassifiers.containsValue(studClass)) {
@@ -427,22 +427,18 @@ public class MistakeDetection {
                   .add(createMistake(ATTRIBUTE_MISPLACED_IN_GENERALIZATION_HIERARCHY, studAttrib, instAttrib));
               comparison.mappedAttributes.put(instAttrib, studAttrib);
               checkMistakesInAttributes(studAttrib, instAttrib, comparison);
-              studAttributesProcessed.add(studAttrib);
-              instAttributesProcessed.add(instAttrib);
             } else {
               comparison.newMistakes.add(createMistake(ATTRIBUTE_MISPLACED, studAttrib, instAttrib));
               comparison.mappedAttributes.put(instAttrib, studAttrib);
               checkMistakesInAttributes(studAttrib, instAttrib, comparison);
-              studAttributesProcessed.add(studAttrib);
-              instAttributesProcessed.add(instAttrib);
             }
           } else {
             comparison.newMistakes.add(createMistake(ATTRIBUTE_MISPLACED, studAttrib, instAttrib));
             comparison.mappedAttributes.put(instAttrib, studAttrib);
             checkMistakesInAttributes(studAttrib, instAttrib, comparison);
-            studAttributesProcessed.add(studAttrib);
-            instAttributesProcessed.add(instAttrib);
           }
+          studAttributesProcessed.add(studAttrib);
+          instAttributesProcessed.add(instAttrib);
         }
       }
     }
@@ -450,24 +446,11 @@ public class MistakeDetection {
     comparison.notMappedInstructorAttributes.removeAll(instAttributesProcessed);
   }
 
+  /** Checks if mapped instructor class is a superclass of a student and vice-versa.*/
   private static boolean isGeneralizationRelationshipPresent(Classifier instClass, Classifier studClass,
       Comparison comparison) {
     return getAllSuperClasses(studClass).contains(comparison.mappedClassifiers.get(instClass))
         || getAllSuperClasses(instClass).contains(getKey(comparison.mappedClassifiers, studClass));
-  }
-
-  private static Classifier getClass(Attribute attrib, Comparison comparison) {
-    for(Classifier cls : comparison.instructorCdm.getClasses()) {
-      if(cls.getAttributes().contains(attrib)) {
-        return cls;
-      }
-    }
-    for(Classifier cls : comparison.studentCdm.getClasses()) {
-      if(cls.getAttributes().contains(attrib)) {
-        return cls;
-      }
-    }
-    return null;
   }
 
   private static void checkMistakesInGeneralization(Comparison comparison) {
@@ -709,7 +692,7 @@ public class MistakeDetection {
 
     if (notComposedClasses.size() > 1) {
       comparison.newMistakes.add(createMistake(INCOMPLETE_CONTAINMENT_TREE, notComposedClasses, null));
-      removeAssocInsteadOfCompMistake(notComposedClasses, comparison);
+      removeAssocInsteadOfCompMistake(notComposedClasses, comparison); // Subsumed by INCOMPLETE_CONTAINMENT_TREE.
     }
     if (!multiComposedClasses.isEmpty()) {
       comparison.newMistakes
@@ -719,18 +702,16 @@ public class MistakeDetection {
   }
 
   private static void removeAssocInsteadOfCompMistake(List<Classifier> notComposedClasses, Comparison comparison) {
-    var mistakes = getAssocInsteadOfCompoMistakes(comparison.newMistakes);
-    if(!mistakes.isEmpty()) {
-      for(Mistake mistake : mistakes) {
-        AssociationEnd assocEnd = (AssociationEnd) mistake.getStudentElements().get(1).getElement();
-        if(notComposedClasses.contains(assocEnd.getClassifier())) {
-          comparison.newMistakes.remove(mistake);
-        }
+    var mistakes = getAssocInsteadOfComposMistakes(comparison.newMistakes);
+    for (Mistake mistake : mistakes) {
+      AssociationEnd assocEnd = (AssociationEnd) mistake.getStudentElements().get(1).getElement();
+      if (notComposedClasses.contains(assocEnd.getClassifier())) {
+        comparison.newMistakes.remove(mistake);
       }
     }
   }
 
-  private static List<Mistake> getAssocInsteadOfCompoMistakes(List<Mistake> newMistakes) {
+  private static List<Mistake> getAssocInsteadOfComposMistakes(List<Mistake> newMistakes) {
     List<Mistake> reqMistakes = new ArrayList<>();
     for(Mistake mistake : newMistakes) {
       if(mistake.getMistakeType().equals(USING_ASSOC_INSTEAD_OF_COMPOSITION)) {
@@ -741,7 +722,7 @@ public class MistakeDetection {
   }
 
   private static boolean areAllLowerBoundsGreaterThanOne(Classifier studClass) {
-    return studClass.getAssociationEnds().stream().anyMatch(ae -> ae.getLowerBound() > 0);
+    return studClass.getAssociationEnds().stream().allMatch(ae -> ae.getLowerBound() > 0);
   }
 
   /** Returns null if key not found in mapping. */
@@ -1215,7 +1196,7 @@ public class MistakeDetection {
     List<CDEnumLiteral> studSolutionEnumLiterals = new ArrayList<>();
 
     CDEnum instRoleEnum = null;
-    Attribute instRoleAtrib = null;
+    Attribute instRoleAttrib = null;
 
     for (Type ty : studentClassDiagram.getTypes()) {
       if (ty instanceof CDEnum) {
@@ -1236,7 +1217,7 @@ public class MistakeDetection {
         if (instAttrib.getType() instanceof CDEnum) {
           CDEnum instEnum = getEnumFromClassDiagram(instAttrib.getType().getName(),
               tag.getTagGroup().getSolution().getClassDiagram());
-          instRoleAtrib = instAttrib;
+          instRoleAttrib = instAttrib;
           instRoleEnum = instEnum;
           for (CDEnumLiteral enumLitral : instEnum.getLiterals()) {
             instEnumLiterals.add(enumLitral.getName());
@@ -1370,10 +1351,10 @@ public class MistakeDetection {
         studSubclassElements.remove(studPlayerClass);
         studSubclassElements.addFirst(studPlayerClass);
       }
-      List<NamedElement> enumInstElements  = new ArrayList<NamedElement>();
-      if(instRoleAtrib != null) {
-      enumInstElements.addAll(instElements);
-      enumInstElements.addAll(List.of(instRoleEnum, instRoleAtrib));
+      List<NamedElement> enumInstElements = new ArrayList<NamedElement>();
+      if (instRoleAttrib != null) {
+        enumInstElements.addAll(instElements);
+        enumInstElements.addAll(List.of(instRoleEnum, instRoleAttrib));
       }
       checkMistakeUsingSubclassPattern(instPattern, studSubclassElements, instElements, enumInstElements, comparison);
       return;
@@ -1759,19 +1740,21 @@ public class MistakeDetection {
     checkMistakeRoleNameNotExpectedStactic(studAssocEnd, instAssocEnd).ifPresent(addMist);
   }
 
-  public static void checkMultiplicity(AssociationEnd studAssocEnd, AssociationEnd instAssocEnd, Comparison comparison) {
-    if(!isMistakeExist(WRONG_MULTIPLICITY, instAssocEnd, comparison)) {
-    checkMistakeOtherWrongMultiplicity(studAssocEnd, instAssocEnd).ifPresent(comparison.newMistakes::add);
+  public static void checkMultiplicity(AssociationEnd studAssocEnd, AssociationEnd instAssocEnd,
+      Comparison comparison) {
+    if (!isMistakeExist(WRONG_MULTIPLICITY, instAssocEnd, comparison)) {
+      checkMistakeOtherWrongMultiplicity(studAssocEnd, instAssocEnd).ifPresent(comparison.newMistakes::add);
     }
   }
 
   public static void checkRoleNames(AssociationEnd studAssocEnd, AssociationEnd instAssocEnd, Comparison comparison) {
-    if(!isMistakeExist(WRONG_ROLE_NAME, instAssocEnd, comparison)) {
-    checkMistakeMissingRoleName(studAssocEnd, instAssocEnd).ifPresent(comparison.newMistakes::add);
-    checkMistakeRoleNamePresentButIncorrect(studAssocEnd, instAssocEnd, comparison).ifPresent(comparison.newMistakes::add);
-    if (!isMistakeExist(REPRESENTING_ACTION_WITH_ASSOC, studAssocEnd, comparison)) {
-      checkMistakeBadRoleNameSpelling(studAssocEnd, instAssocEnd).ifPresent(comparison.newMistakes::add);
-    }
+    if (!isMistakeExist(WRONG_ROLE_NAME, instAssocEnd, comparison)) {
+      checkMistakeMissingRoleName(studAssocEnd, instAssocEnd).ifPresent(comparison.newMistakes::add);
+      checkMistakeRoleNamePresentButIncorrect(studAssocEnd, instAssocEnd, comparison)
+          .ifPresent(comparison.newMistakes::add);
+      if (!isMistakeExist(REPRESENTING_ACTION_WITH_ASSOC, studAssocEnd, comparison)) {
+        checkMistakeBadRoleNameSpelling(studAssocEnd, instAssocEnd).ifPresent(comparison.newMistakes::add);
+      }
     }
   }
 
@@ -1789,8 +1772,8 @@ public class MistakeDetection {
         && otherStudentClassAssocEnd.getReferenceType().equals(REGULAR)
         && studentClassAssocEnd.getReferenceType().equals(otherInstructorClassAssocEnd.getReferenceType())
         && otherStudentClassAssocEnd.getReferenceType().equals(instructorClassAssocEnd.getReferenceType())
-        && (isBiDirectionAssocDirectionWrong(studentClassAssocEnd, otherStudentClassAssocEnd,
-            instructorClassAssocEnd, otherInstructorClassAssocEnd))) {
+        && (isBiDirectionAssocDirectionWrong(studentClassAssocEnd, otherStudentClassAssocEnd, instructorClassAssocEnd,
+            otherInstructorClassAssocEnd))) {
       return Optional.of(createMistake(REVERSED_RELATIONSHIP_DIRECTION, getAssociationElements(studentClassAssocEnd),
           getAssociationElements(instructorClassAssocEnd)));
     }
@@ -2083,22 +2066,15 @@ public class MistakeDetection {
     newMistakes.removeAll(newMistakesToRemove);
   }
 
-  private static boolean checkInstructorElementMistake(List<NamedElement> patternInstructorElement, Mistake newMistake) {
-    for(int i =0; i < newMistake.getInstructorElements().size() ; i++) {
-      if(patternInstructorElement.contains(newMistake.getInstructorElements().get(i).getElement())){
-        return true;
-      }
-    }
-    return false;
+  /** Checks if instructor elements related to a pattern contains the elements in the mistake. **/
+  private static boolean checkInstructorElementMistake(List<NamedElement> patternInstructorElement, Mistake mistake) {
+    return mistake.getInstructorElements().stream()
+        .anyMatch(solElem -> patternInstructorElement.contains(solElem.getElement()));
   }
 
-  private static boolean checkStudentElementMistake(List<NamedElement> patternStudentElement, Mistake newMistake) {
-    for(int i =0; i < newMistake.getStudentElements().size() ; i++) {
-      if(patternStudentElement.contains(newMistake.getStudentElements().get(i).getElement())){
-        return true;
-      }
-    }
-    return false;
+  private static boolean checkStudentElementMistake(List<NamedElement> patternStudentElement, Mistake mistake) {
+    return mistake.getStudentElements().stream()
+        .anyMatch(solElem -> patternStudentElement.contains(solElem.getElement()));
   }
 
   /**
@@ -3113,8 +3089,7 @@ public class MistakeDetection {
     }
   }
 
-  /** Make sure that studentElements and instructorElements are in order -> Player, roles.
-   * @param enumInstElements */
+  /** Make sure that studentElements and instructorElements are in order -> Player, roles. */
   public static void checkMistakeUsingSubclassPattern(String instPattern, List<NamedElement> studentElements,
       List<NamedElement> instElements, List<NamedElement> enumInstElements, Comparison comparison) {
     if (instPattern.equals(ASSOC_PR_PATTERN)) {

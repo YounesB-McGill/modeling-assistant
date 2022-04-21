@@ -2528,8 +2528,8 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_COMPOSITION_INSTEAD_OF_ASSOC,
         getAssociationElements(studentOwnerAssociationEnd), getAssociationElements(instructorOwnerAssociationEnd), 0, 1,
