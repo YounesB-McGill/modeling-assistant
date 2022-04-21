@@ -91,6 +91,7 @@ import static modelingassistant.TagType.OCCURRENCE;
 import static modelingassistant.TagType.PLAYER;
 import static modelingassistant.TagType.ROLE;
 import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassDiagram;
+import static modelingassistant.util.ClassDiagramUtils.getAttributeFromType;
 import static modelingassistant.util.ClassDiagramUtils.getEnumFromClassDiagram;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1140,7 +1141,7 @@ public class MistakeDetection {
       if (!subClassPatternCorrect(studentPlayerClass, studentRoleClasses)) {
         if (studentRoleClasses.get(0).getSuperTypes().get(0).isAbstract()) {
           if (assocExists(studentRoleClasses.get(0).getSuperTypes().get(0), studentPlayerClass)) {
-            checkMistakeUsingFullPattern(instPattern, studentMatchedElements, instElements, comparison);
+            checkMistakeUsingFullPattern(instPattern, studentMatchedElements, instElements, instElements, comparison);
             return;
           }
         }
@@ -1346,36 +1347,57 @@ public class MistakeDetection {
         return;
       }
     }
+    List<NamedElement> enumInstElements = new ArrayList<NamedElement>();
+    if (instRoleAttrib != null) {
+      enumInstElements.addAll(instElements);
+      enumInstElements.add(instRoleEnum);
+      enumInstElements.addAll(instRoleEnum.getLiterals());
+    }
     if (studentSubclassesPatternScore == highestScore) {
       if (studSubclassElements.contains(studPlayerClass)) {
         studSubclassElements.remove(studPlayerClass);
         studSubclassElements.addFirst(studPlayerClass);
       }
-      List<NamedElement> enumInstElements = new ArrayList<NamedElement>();
-      if (instRoleAttrib != null) {
-        enumInstElements.addAll(instElements);
-        enumInstElements.addAll(List.of(instRoleEnum, instRoleAttrib));
-      }
       checkMistakeUsingSubclassPattern(instPattern, studSubclassElements, instElements, enumInstElements, comparison);
       return;
     } else if (studentAssocPatternScore == highestScore) {
       if (assocPatternCorrect(studPlayerClass, studRoleAssocEndName)) {
-        checkMistakeUsingAssocPattern(instPattern, studAssocElements, instElements, comparison);
+        checkMistakeUsingAssocPattern(instPattern, studAssocElements, instElements, enumInstElements, comparison);
         return;
       } else {
         checkMistakeMissingPattern(tg, comparison);
         return;
       }
     } else if (studentFullPatternScore == highestScore) {
-      checkMistakeUsingFullPattern(instPattern, studFullElements, instElements, comparison);
+      checkMistakeUsingFullPattern(instPattern, studFullElements, instElements, enumInstElements, comparison);
       return;
     } else if (studentEnumsPatternScore == highestScore) {
-      checkMistakeUsingEnumPattern(instPattern, studEnumElements, instElements, comparison);
+      studEnumElements = getEnumStudentElements(studEnumElements, comparison);
+      checkMistakeUsingEnumPattern(instPattern, studEnumElements, instElements,comparison);
       return;
     } else {
       checkMistakeMissingPattern(tg, comparison);
       return;
     }
+  }
+
+  private static LinkedList<NamedElement> getEnumStudentElements(LinkedList<NamedElement> studEnumElements,
+      Comparison comparison) {
+    LinkedList<NamedElement> orderedList = new LinkedList<>();
+    for (NamedElement el : studEnumElements) {
+      if (el instanceof Classifier) {
+        orderedList.addFirst(el);
+      } else if (el instanceof CDEnum) {
+        orderedList.add(getAttributeFromType(el.getName(), comparison.studentCdm));
+        orderedList.add(el);
+      }
+    }
+    for (NamedElement el : studEnumElements) {
+      if (el instanceof CDEnumLiteral) {
+        orderedList.add(el);
+      }
+    }
+    return orderedList;
   }
 
   private static boolean subClassPatternCorrect(Classifier studentPlayerClass, List<Classifier> studentRoleClasses) {
@@ -3026,15 +3048,7 @@ public class MistakeDetection {
       if (tag.getTagType().equals(tagType)) {
         instructorElements.addFirst(tag.getSolutionElement().getElement());
       } else {
-        if (tag.getSolutionElement().getElement() instanceof Attribute) {
-          Attribute attribute = (Attribute) tag.getSolutionElement().getElement();
-          if (attribute.getType() instanceof CDEnum) {
-            CDEnum enumeration = getEnumFromClassDiagram(attribute.getType().getName(), comparison.instructorCdm);
-            instructorElements.addAll(enumeration.getLiterals());
-          }
-        } else {
           instructorElements.add(tag.getSolutionElement().getElement());
-        }
       }
     }
     return instructorElements;
@@ -3079,11 +3093,11 @@ public class MistakeDetection {
 
   /** Make sure that studentElements and instructorElements are in order -> Player, roles. */
   public static void checkMistakeUsingFullPattern(String instPattern, List<NamedElement> studentElements,
-      List<NamedElement> instElements, Comparison comparison) {
+      List<NamedElement> instElements, List<NamedElement> enumInstElements, Comparison comparison) {
     if (instPattern.equals(ASSOC_PR_PATTERN)) {
       comparison.newMistakes.add(createMistake(FULL_PR_PATTERN_SHOULD_BE_ASSOC, studentElements, instElements));
     } else if (instPattern.equals(ENUM_PR_PATTERN)) {
-      comparison.newMistakes.add(createMistake(FULL_PR_PATTERN_SHOULD_BE_ENUM, studentElements, instElements));
+      comparison.newMistakes.add(createMistake(FULL_PR_PATTERN_SHOULD_BE_ENUM, studentElements, enumInstElements));
     } else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
       comparison.newMistakes.add(createMistake(FULL_PR_PATTERN_SHOULD_BE_SUBCLASS, studentElements, instElements));
     }
@@ -3103,9 +3117,9 @@ public class MistakeDetection {
 
   /** Make sure that studentElements and instructorElements are in order -> Player, roles. */
   public static void checkMistakeUsingAssocPattern(String instPattern, List<NamedElement> studentElements,
-      List<NamedElement> instElements, Comparison comparison) {
+      List<NamedElement> instElements, List<NamedElement> enumInstElements, Comparison comparison) {
     if (instPattern.equals(ENUM_PR_PATTERN)) {
-      comparison.newMistakes.add(createMistake(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, studentElements, instElements));
+      comparison.newMistakes.add(createMistake(ASSOC_SHOULD_BE_ENUM_PR_PATTERN, studentElements, enumInstElements));
     } else if (instPattern.equals(FULL_PR_PATTERN)) {
       comparison.newMistakes.add(createMistake(ASSOC_SHOULD_BE_FULL_PR_PATTERN, studentElements, instElements));
     } else if (instPattern.equals(SUB_CLASS_PR_PATTERN)) {
