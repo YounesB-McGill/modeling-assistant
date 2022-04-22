@@ -2,9 +2,11 @@
 <classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_fHUc8OAfEeu0Ypi-bebdJw" name="Student_usingAsInsteadOfCom">
   <classes xsi:type="classdiagram:Class" xmi:id="_g0TjMOAfEeu0Ypi-bebdJw" name="Company">
     <associationEnds xmi:id="_pxNMweAfEeu0Ypi-bebdJw" name="myEmployee" assoc="_pxNz0OAfEeu0Ypi-bebdJw" lowerBound="1"/>
+    <associationEnds xmi:id="_rB-SALU_EeyAvo6CLr0OqA" name="emp" assoc="_rB-SAbU_EeyAvo6CLr0OqA" upperBound="-1" referenceType="Composition"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_ly6LMOAfEeu0Ypi-bebdJw" name="Employee">
     <associationEnds xmi:id="_pxNMwOAfEeu0Ypi-bebdJw" name="myCompany" assoc="_pxNz0OAfEeu0Ypi-bebdJw" lowerBound="1"/>
+    <associationEnds xmi:id="_rB9D4LU_EeyAvo6CLr0OqA" name="root" assoc="_rB-SAbU_EeyAvo6CLr0OqA" lowerBound="1"/>
   </classes>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_fHUc8eAfEeu0Ypi-bebdJw"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_fHUc8uAfEeu0Ypi-bebdJw"/>
@@ -17,13 +19,14 @@
   <types xsi:type="classdiagram:CDFloat" xmi:id="_fHUc-eAfEeu0Ypi-bebdJw"/>
   <types xsi:type="classdiagram:CDChar" xmi:id="_fHUc-uAfEeu0Ypi-bebdJw"/>
   <associations xmi:id="_pxNz0OAfEeu0Ypi-bebdJw" name="Employee_Company" ends="_pxNMwOAfEeu0Ypi-bebdJw _pxNMweAfEeu0Ypi-bebdJw"/>
+  <associations xmi:id="_rB-SAbU_EeyAvo6CLr0OqA" name="Employee_Company" ends="_rB9D4LU_EeyAvo6CLr0OqA _rB-SALU_EeyAvo6CLr0OqA"/>
   <layout xmi:id="_fHUc--AfEeu0Ypi-bebdJw">
     <containers xmi:id="_fHUc_OAfEeu0Ypi-bebdJw" key="_fHUc8OAfEeu0Ypi-bebdJw">
       <value xmi:id="_g0V_cOAfEeu0Ypi-bebdJw" key="_g0TjMOAfEeu0Ypi-bebdJw">
         <value xmi:id="_g0V_ceAfEeu0Ypi-bebdJw" x="799.00037" y="285.00195"/>
       </value>
       <value xmi:id="_ly8AYOAfEeu0Ypi-bebdJw" key="_ly6LMOAfEeu0Ypi-bebdJw">
-        <value xmi:id="_ly8AYeAfEeu0Ypi-bebdJw" x="1020.0" y="520.0015"/>
+        <value xmi:id="_ly8AYeAfEeu0Ypi-bebdJw" x="799.00037" y="687.0017"/>
       </value>
     </containers>
   </layout>

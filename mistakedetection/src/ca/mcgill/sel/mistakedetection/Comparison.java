@@ -23,11 +23,17 @@ public class Comparison {
   /** Variable to store instructor class diagram. */
   public ClassDiagram instructorCdm;
 
+  /** Variable to store student class diagram. */
+  public ClassDiagram studentCdm;
+
   /** Variable to store abstract class for full PR pattern. */
   public Classifier fullPlayerRoleAbstractClass;
 
   /** Variable to store association between abstract class and player class for full PR pattern. */
   public Association fullPlayerRoleAbstractPlayerAssoc;
+
+  /** Variable to store association between abstraction and occurrence classes in AO pattern. */
+  public Association abstractionOccurrenceAssoc;
 
   /** Maps an instructor solution classifier to student solution classifier. */
   public Map<Classifier, Classifier> mappedClassifiers = new HashMap<>();

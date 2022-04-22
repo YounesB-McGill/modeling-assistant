@@ -2416,7 +2416,6 @@ public class MistakeDetectionWrongRelationshipsTest {
     var studentMyEmployeeAssociationEnd = getAssociationEndFromClass("myEmployee", studentCompanyClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
@@ -2529,8 +2528,8 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), USING_COMPOSITION_INSTEAD_OF_ASSOC,
         getAssociationElements(studentOwnerAssociationEnd), getAssociationElements(instructorOwnerAssociationEnd), 0, 1,
@@ -2936,10 +2935,10 @@ public class MistakeDetectionWrongRelationshipsTest {
     var studentAccountClass = getClassFromClassDiagram("Account", studentClassDiagram);
     var studentClassList = List.of(studentBankClass, studentAccountClass);
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE, studentClassList, 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), INCOMPLETE_CONTAINMENT_TREE, studentClassList, 0, 1, false);
   }
 
   /**
@@ -3053,10 +3052,10 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE, List.of(studRootClass ,studcls1Class), 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), INCOMPLETE_CONTAINMENT_TREE, List.of(studRootClass ,studcls1Class), 0, 1, false);
   }
 
   /**
@@ -3077,10 +3076,10 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE, List.of(studRootClass, studcls1Class), 0, 1, false);
+    assertMistake(studentSolution.getMistakes().get(0), INCOMPLETE_CONTAINMENT_TREE, List.of(studRootClass, studcls1Class), 0, 1, false);
   }
 
   /**
@@ -3101,10 +3100,10 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
 
-    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE,
+    assertMistake(studentSolution.getMistakes().get(0), INCOMPLETE_CONTAINMENT_TREE,
         List.of(studRootClass ,studcls1Class), 0, 1, false);
   }
 
@@ -3126,7 +3125,7 @@ public class MistakeDetectionWrongRelationshipsTest {
 
     MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertMistake(studentSolution.getMistakes().get(2), INCOMPLETE_CONTAINMENT_TREE,
+    assertMistake(studentSolution.getMistakes().get(1), INCOMPLETE_CONTAINMENT_TREE,
         List.of(studentCarClass, studentWheelClass), 0, 1, false);
 
   }

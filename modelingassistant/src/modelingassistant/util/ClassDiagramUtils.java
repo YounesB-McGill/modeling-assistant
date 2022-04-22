@@ -73,6 +73,25 @@ public class ClassDiagramUtils {
   }
 
   /**
+   * Returns an attribute from a cdm based on enumeration.
+   */
+  public static Attribute getAttributeFromEnumeration(String attributeType, ClassDiagram cdm) {
+    Attribute attribute = null;
+    for (Classifier givenClass : cdm.getClasses()) {
+      for (var a : givenClass.getAttributes()) {
+        if (a.getType() instanceof CDEnum && attributeType.equals(a.getType().getName())) {
+          attribute = a;
+          break;
+        }
+      }
+    }
+    if (attribute == null) {
+      throw new IllegalArgumentException("Attribute with " + attributeType + " not found in cdm");
+    }
+    return attribute;
+  }
+
+  /**
    * Returns the attribute with the given name and class name from the given diagram.
    */
   public static Attribute getAttributeFromDiagram(String className, String attributeName, ClassDiagram classDiagram) {

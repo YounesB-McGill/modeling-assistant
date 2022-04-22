@@ -185,8 +185,8 @@ public class MistakeDetectionGeneralizationTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(0, comparison.newMistakes.size());
-    assertEquals(0, studentSolution.getMistakes().size());
+    assertEquals(1, comparison.newMistakes.size());
+    assertEquals(1, studentSolution.getMistakes().size());
 
     assertMistakeTypesDoNotContain(comparison.newMistakes, WRONG_SUPERCLASS);
   }
@@ -206,8 +206,8 @@ public class MistakeDetectionGeneralizationTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(7, comparison.newMistakes.size());
-    assertEquals(7, studentSolution.getMistakes().size());
+    assertEquals(8, comparison.newMistakes.size());
+    assertEquals(8, studentSolution.getMistakes().size());
     assertMistakeTypesContain(comparison.newMistakes, MISSING_GENERALIZATION);
   }
 
@@ -253,9 +253,9 @@ public class MistakeDetectionGeneralizationTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(1), MISSING_GENERALIZATION, List.of(instClassB, instClassA), 0, 1,
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(2), MISSING_GENERALIZATION, List.of(instClassB, instClassA), 0, 1,
         false);
   }
 
@@ -274,8 +274,8 @@ public class MistakeDetectionGeneralizationTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(4, comparison.newMistakes.size());
+    assertEquals(4, studentSolution.getMistakes().size());
     assertMistakeTypesContain(comparison.newMistakes, MISSING_GENERALIZATION);
   }
 
@@ -297,9 +297,9 @@ public class MistakeDetectionGeneralizationTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(1), EXTRA_GENERALIZATION, List.of(studClass, studCarClass), 0, 1,
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(2), EXTRA_GENERALIZATION, List.of(studClass, studCarClass), 0, 1,
         false);
   }
 
@@ -321,9 +321,9 @@ public class MistakeDetectionGeneralizationTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(2, comparison.newMistakes.size());
-    assertEquals(2, studentSolution.getMistakes().size());
-    assertMistake(studentSolution.getMistakes().get(0), EXTRA_GENERALIZATION, List.of(studClass1, studClass2),
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
+    assertMistake(studentSolution.getMistakes().get(1), EXTRA_GENERALIZATION, List.of(studClass1, studClass2),
         0, 1, false);
   }
 
@@ -342,8 +342,8 @@ public class MistakeDetectionGeneralizationTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(4, comparison.newMistakes.size());
-    assertEquals(4, studentSolution.getMistakes().size());
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
     assertMistakeTypesContain(comparison.newMistakes, EXTRA_GENERALIZATION);
   }
 
@@ -610,7 +610,7 @@ public class MistakeDetectionGeneralizationTest {
 
     assertMistake(getMistakeForElement(studClassB, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
         List.of(studClassB, studClassE), List.of(instClassB, instClassA), 0, 1, false);
-    assertMistake(comparison.newMistakes.get(7), MISSING_GENERALIZATION, List.of(instClassC, instClassB), 0, 1, false);
+    assertMistake(comparison.newMistakes.get(9), MISSING_GENERALIZATION, List.of(instClassC, instClassB), 0, 1, false);
     assertMistake(getMistakeForElement(studClassG, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
         List.of(studClassG, studClassC), List.of(instClassG, instClassF), 0, 1, false);
     assertMistake(getMistakeForElement(studClassD, WRONG_SUPERCLASS, comparison), WRONG_SUPERCLASS,
