@@ -311,12 +311,14 @@ public class MistakeDetectionPatternTest {
 
     var studElements = new BasicEList<NamedElement>();
     studElements.add(studStudentClass);
+    studElements.add(getAttributeFromClass("level", studStudentClass));
+    studElements.add(getEnumFromClassDiagram("StudentLevel", studentClassDiagram));
     studElements.addAll(getEnumFromClassDiagram("StudentLevel", studentClassDiagram).getLiterals());
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, studElements, instElements,
         0, 1, false);
@@ -446,11 +448,14 @@ public class MistakeDetectionPatternTest {
 
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studStudentClass);
+    studElements.add(getAttributeFromClass("level", studStudentClass));
+    studElements.add(getEnumFromClassDiagram("StudentLevel", studentClassDiagram));
     studElements.addAll(getEnumFromClassDiagram("StudentLevel", studentClassDiagram).getLiterals());
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    assertEquals(4, comparison.newMistakes.size());
-    assertEquals(4, studentSolution.getMistakes().size());
+
+    assertEquals(3, comparison.newMistakes.size());
+    assertEquals(3, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
     assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_FULL_PR_PATTERN, studElements, instElements, 0, 1, false);
@@ -549,11 +554,13 @@ public class MistakeDetectionPatternTest {
 
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studStudentClass);
+    studElements.add(getAttributeFromClass("level", studStudentClass));
+    studElements.add(getEnumFromClassDiagram("StudentLevel", studentClassDiagram));
     studElements.addAll(getEnumFromClassDiagram("StudentLevel", studentClassDiagram).getLiterals());
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    assertEquals(8, comparison.newMistakes.size());
-    assertEquals(8, studentSolution.getMistakes().size());
+    assertEquals(7, comparison.newMistakes.size());
+    assertEquals(7, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studStudentClass);
     assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1, false);
@@ -739,13 +746,18 @@ public class MistakeDetectionPatternTest {
     var instElements = employeeElements(instructorClassDiagram);
 
     var studEmployeeClass = getClassFromClassDiagram("Employee", studentClassDiagram);
+    ArrayList<NamedElement> studElements = new ArrayList<>();
+    studElements.add(studEmployeeClass);
+    studElements.add(getAttributeFromClass("status", studEmployeeClass));
+    var studEnum = getEnumFromClassDiagram("EmployeeStatus", studentClassDiagram);
+    studElements.add(studEnum);
+    studElements.addAll(studEnum.getLiterals());
 
-    var studElements = List.of(studEmployeeClass);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, studElements, instElements,
         0, 1, false);
@@ -984,11 +996,14 @@ public class MistakeDetectionPatternTest {
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studEmployeeClass);
     CDEnum studEnum = getEnumFromClassDiagram("EmployeeStatus", studentClassDiagram);
+    studElements.add(getAttributeFromClass("status", studEmployeeClass));
+    studElements.add(studEnum);
     studElements.addAll(studEnum.getLiterals());
+
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    assertEquals(7, comparison.newMistakes.size());
-    assertEquals(7, studentSolution.getMistakes().size());
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studEmployeeClass);
     assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1, false);
@@ -1179,13 +1194,15 @@ public class MistakeDetectionPatternTest {
 
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studBankAccClass);
+    studElements.add(getAttributeFromClass("type", studBankAccClass));
     CDEnum studEnum = getEnumFromClassDiagram("AccountType", studentClassDiagram);
+    studElements.add(studEnum);
     studElements.addAll(studEnum.getLiterals());
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    assertEquals(3, comparison.newMistakes.size());
-    assertEquals(3, studentSolution.getMistakes().size());
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
 
     assertMistake(studentSolution.getMistakes().get(0), ENUM_SHOULD_BE_SUBCLASS_PR_PATTERN, studElements, instElements,
         0, 1, false);
@@ -1442,13 +1459,15 @@ public class MistakeDetectionPatternTest {
 
     List<NamedElement> studElements = new BasicEList<NamedElement>();
     studElements.add(studBankAccClass);
+    studElements.add(getAttributeFromClass("type", studBankAccClass));
     CDEnum studEnum = getEnumFromClassDiagram("AccountType", studentClassDiagram);
+    studElements.add(studEnum);
     studElements.addAll(studEnum.getLiterals());
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
 
-    assertEquals(7, comparison.newMistakes.size());
-    assertEquals(7, studentSolution.getMistakes().size());
+    assertEquals(6, comparison.newMistakes.size());
+    assertEquals(6, studentSolution.getMistakes().size());
 
     var studStudentClassMistake = studentMistakeFor(studBankAccClass);
     assertMistake(studStudentClassMistake, ENUM_SHOULD_BE_ASSOC_PR_PATTERN, studElements, instElements, 0, 1, false);

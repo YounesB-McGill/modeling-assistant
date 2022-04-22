@@ -73,13 +73,13 @@ public class ClassDiagramUtils {
   }
 
   /**
-   * Returns an attribute from a class based on attribute type.
+   * Returns an attribute from a cdm based on enumeration.
    */
-  public static Attribute getAttributeFromType(String attributeType, ClassDiagram cdm) {
+  public static Attribute getAttributeFromEnumeration(String attributeType, ClassDiagram cdm) {
     Attribute attribute = null;
     for (Classifier givenClass : cdm.getClasses()) {
       for (var a : givenClass.getAttributes()) {
-        if (attributeType.equals(a.getType().getName())) {
+        if (a.getType() instanceof CDEnum && attributeType.equals(a.getType().getName())) {
           attribute = a;
           break;
         }

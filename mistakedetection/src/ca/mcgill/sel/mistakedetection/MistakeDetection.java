@@ -91,7 +91,7 @@ import static modelingassistant.TagType.OCCURRENCE;
 import static modelingassistant.TagType.PLAYER;
 import static modelingassistant.TagType.ROLE;
 import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassDiagram;
-import static modelingassistant.util.ClassDiagramUtils.getAttributeFromType;
+import static modelingassistant.util.ClassDiagramUtils.getAttributeFromEnumeration;
 import static modelingassistant.util.ClassDiagramUtils.getEnumFromClassDiagram;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1383,12 +1383,18 @@ public class MistakeDetection {
       if (el instanceof Classifier) {
         orderedList.addFirst(el);
       } else if (el instanceof CDEnum) {
-        orderedList.add(getAttributeFromType(el.getName(), comparison.studentCdm));
+        orderedList.add(getAttributeFromEnumeration(el.getName(), comparison.studentCdm));
         orderedList.add(el);
       }
     }
     for (NamedElement el : studEnumElements) {
       if (el instanceof CDEnumLiteral) {
+        if(orderedList.size() <= 1) {
+          CDEnumLiteral studLiteral = (CDEnumLiteral) el;
+          CDEnum studEnum = studLiteral.getEnum();
+          orderedList.add(getAttributeFromEnumeration(studEnum.getName(), comparison.studentCdm));
+          orderedList.add(studEnum);
+        }
         orderedList.add(el);
       }
     }
