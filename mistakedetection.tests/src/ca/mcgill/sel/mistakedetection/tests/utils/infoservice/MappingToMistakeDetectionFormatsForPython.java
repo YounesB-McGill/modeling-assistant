@@ -15,9 +15,8 @@ public class MappingToMistakeDetectionFormatsForPython extends MistakeDetectionI
   }
 
   @Override public String getOutput() {
-    return title(name) + "\n" + formatMistakeDetectionFormatsForPython(
-        new TreeMap<>(HumanValidatedMistakeDetectionFormats.mappings),
-        true);
+    return title(name) + "\n"
+        + formatMistakeDetectionFormatsForPython(new TreeMap<>(HumanValidatedMistakeDetectionFormats.mappings), true);
   }
 
   public static MappingToMistakeDetectionFormatsForPython get() {

@@ -1,11 +1,14 @@
 package ca.mcgill.sel.mistakedetection.tests.utils.infoservice;
 
+import static ca.mcgill.sel.mistakedetection.tests.utils.Color.colorString;
+import ca.mcgill.sel.mistakedetection.tests.utils.Color;
 import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
 import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeDetectionFormat;
 
 public class MistakeDetectionFormatComparison extends MistakeDetectionInformationService {
 
   static final String CHECK = "√";
+  static final String WARN = "!";
   static final String X = "X";
 
   private MistakeDetectionFormatComparison() {
@@ -29,8 +32,11 @@ public class MistakeDetectionFormatComparison extends MistakeDetectionInformatio
       var hvMdfShape = humanValidatedMdfs.getOrDefault(mt, MistakeDetectionFormat.emptyMdf()).shape();
       if (mdfFromMdsShape.equals(hvMdfShape)) {
         sb.append(CHECK + " " + mt.getName() + "\n\n");
+      } else if (mdfFromMdsShape.isCompatibleWith(hvMdfShape)) {
+        sb.append(colorString(Color.DARK_YELLOW, WARN + " " + mt.getName() + "\n~ " + mdf.shape().reduceToSimplestForm()
+            + "\n\n"));
       } else {
-        sb.append(X + " " + mt.getName() + "\n" + mdf.shape() + "\n" + hvMdfShape + "\n\n");
+        sb.append(colorString(Color.ORANGE, X + " " + mt.getName() + "\n" + mdf.shape() + "\n" + hvMdfShape + "\n\n"));
       }
     });
     return sb.toString();
