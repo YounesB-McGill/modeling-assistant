@@ -2,7 +2,9 @@ package ca.mcgill.sel.mistakedetection.tests.utils.infoservice;
 
 import static ca.mcgill.sel.mistakedetection.tests.utils.MistakeDetectionInformationServicesForLearningCorpus.MAX_LINE_LENGTH;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
+import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
 import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeDetectionFormat;
 import learningcorpus.MistakeType;
 
@@ -13,7 +15,9 @@ public class MappingToMistakeDetectionFormatsForPython extends MistakeDetectionI
   }
 
   @Override public String getOutput() {
-    return title(name) + "\n" + formatMistakeDetectionFormatsForPython(suggestedMistakeDetectionFormats, true);
+    return title(name) + "\n" + formatMistakeDetectionFormatsForPython(
+        new TreeMap<>(HumanValidatedMistakeDetectionFormats.mappings),
+        true);
   }
 
   public static MappingToMistakeDetectionFormatsForPython get() {

@@ -1,10 +1,10 @@
 package ca.mcgill.sel.mistakedetection.tests.utils.dataclasses;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
-import learningcorpus.mistaketypes.MistakeTypes;
 import modelingassistant.Mistake;
 
 public class MistakeDetectionFormat {
@@ -39,6 +39,10 @@ public class MistakeDetectionFormat {
   public static MistakeDetectionFormat mdf(List<String> studentElemsDescriptions,
       List<String> instructorElemsDescriptions) {
     return new MistakeDetectionFormat(studentElemsDescriptions, instructorElemsDescriptions);
+  }
+
+  public static MistakeDetectionFormat emptyMdf() {
+    return new MistakeDetectionFormat(Collections.emptyList(), Collections.emptyList());
   }
 
   public MistakeDetectionFormat.Shape shape() {
