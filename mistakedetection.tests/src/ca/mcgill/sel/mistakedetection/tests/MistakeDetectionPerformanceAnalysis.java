@@ -19,8 +19,7 @@ import modelingassistant.TagGroup;
  *  @author Prabhsimran Singh
  *
  */
-
-public class MistakeDetectionPerformanceAnalysis {
+public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTest {
 
   //TODO To be completed in near future. The functions below are incomplete
   ClassDiagram instructorClassDiagram;

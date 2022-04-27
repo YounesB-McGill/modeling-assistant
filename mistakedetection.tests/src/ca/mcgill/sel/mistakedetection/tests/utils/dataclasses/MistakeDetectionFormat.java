@@ -137,7 +137,7 @@ public class MistakeDetectionFormat {
 
     /** Returns true if the shape's simplest form is equal to that of the input. */
     public boolean isCompatibleWith(MistakeDetectionFormat.Shape shape) {
-      return reduceToSimplestForm().equals(shape.reduceToSimplestForm());
+      return equals(shape) || reduceToSimplestForm().equals(shape.reduceToSimplestForm());
     }
 
     @Override

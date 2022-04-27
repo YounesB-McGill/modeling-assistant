@@ -29,7 +29,7 @@ import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import learningcorpus.mistaketypes.MistakeTypes;
 
-public class MistakeDetectionWrongClassTest {
+public class MistakeDetectionWrongClassTest extends MistakeDetectionBaseTest {
 
   /**
    * Test to check for plural class names in student solution.

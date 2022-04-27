@@ -45,7 +45,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 
-public class MistakeDetectionWrongRelationshipsTest {
+public class MistakeDetectionWrongRelationshipsTest extends MistakeDetectionBaseTest {
 
   /**
    * Test to check mapping of relationships (No Mistakes).

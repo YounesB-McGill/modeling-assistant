@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import modelingassistant.Mistake;
 
-public class MistakeDetectionWrongAttributeTest {
+public class MistakeDetectionWrongAttributeTest extends MistakeDetectionBaseTest {
 
   /**
    * Test to check for attributes(name,capacity,name,numberPlate)

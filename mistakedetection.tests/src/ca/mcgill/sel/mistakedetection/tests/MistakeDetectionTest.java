@@ -37,7 +37,7 @@ import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
 import modelingassistant.util.ResourceHelper;
 
-public class MistakeDetectionTest {
+public class MistakeDetectionTest extends MistakeDetectionBaseTest {
 
   /** The ModelingassistantFactory instance. */
   private static final ModelingassistantFactory maf = ModelingassistantFactory.eINSTANCE;

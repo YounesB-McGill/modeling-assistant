@@ -8,7 +8,7 @@ import static modelingassistant.util.TagUtils.setRoleTagToClassInClassDiag;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 
-public class MistakeDetectionTestForPaper {
+public class MistakeDetectionTestForPaper extends MistakeDetectionBaseTest {
 
   @Test
   public void mistakeDetectionForPaperExample() {
