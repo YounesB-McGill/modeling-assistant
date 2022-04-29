@@ -68,14 +68,6 @@ public abstract class MistakeDetectionInformationService {
     return mdf2;
   };
 
-  static final Map<MistakeType, MistakeDetectionFormat> suggestedMistakeDetectionFormats =
-      suggestMistakeDetectionFormats();
-
-  /** Filtered MDFs which not already validated. */
-  static final Map<MistakeType, MistakeDetectionFormat> filteredSuggestedMistakeDetectionFormats =
-      suggestMistakeDetectionFormats(e ->
-          !e.getValue().equals(HumanValidatedMistakeDetectionFormats.mappings.get(e.getKey())));
-
   static final Map<MistakeType, Set<String>> suggestedParametrizedResponses =
       suggestParametrizedResponses(
           //suggestedMistakeDetectionFormats,
@@ -164,6 +156,12 @@ public abstract class MistakeDetectionInformationService {
             e.getElement() instanceof Association ?
                 (cdmAssociationIs((Association) e.getElement(), ReferenceType.COMPOSITION) ?
                     ElementType.COMPOSITION : ElementType.ASSOCIATION) : null)); // can't easily detect inheritance here
+  }
+
+  /** Filtered MDFs which not already validated. */
+  static final Map<MistakeType, MistakeDetectionFormat> filteredSuggestedMistakeDetectionFormats() {
+      return suggestMistakeDetectionFormats(e ->
+          !e.getValue().equals(HumanValidatedMistakeDetectionFormats.mappings.get(e.getKey())));
   }
 
   /** Suggests mistake detection formats based on the output of the mistake detection tests. */
