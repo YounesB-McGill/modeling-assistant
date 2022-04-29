@@ -1,10 +1,14 @@
 package ca.mcgill.sel.mistakedetection.tests.utils.dataclasses;
-
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.AGGR;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.ASSOC;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.CLS;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.COMPOS;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.REL;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.ROLE;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
 import modelingassistant.Mistake;
@@ -14,8 +18,11 @@ public class MistakeDetectionFormat {
   public final List<String> stud = new ArrayList<>();
   public final List<String> inst = new ArrayList<>();
 
-  static final Map<String, String> typeNamesToReplacements =
-      Map.of("aggr", "assoc", "compos", "assoc", "rel", "assoc", "role", "cls");
+  static final Map<CdmMetatype, CdmMetatype> typesToReplacements = Map.of(
+      AGGR, ASSOC,
+      COMPOS, ASSOC,
+      REL, ASSOC,
+      ROLE, CLS);
 
   public MistakeDetectionFormat(Mistake mistake) {
     int[] cnt = {0, 0};
@@ -126,18 +133,43 @@ public class MistakeDetectionFormat {
      * with their concrete equivalents.
      */
     public MistakeDetectionFormat.Shape reduceToSimplestForm() {
-      final Function<String, String> replacer = e -> {
+      return new Shape(mdf(simplify(stud), simplify(inst)));
+    }
+
+    private static List<String> simplify(List<String> elems) {
+      return simplify(elems, true);
+    }
+
+    private static List<String> simplify(List<String> elems, boolean keepStar) {
+      return elems.stream().map(e -> {
         var eNoStar = e.replace("*", "");
-        return e.replace(eNoStar, typeNamesToReplacements.getOrDefault(eNoStar, eNoStar));
-      };
-      var studElems = stud.stream().map(replacer).collect(Collectors.toUnmodifiableList());
-      var instElems = inst.stream().map(replacer).collect(Collectors.toUnmodifiableList());
-      return new Shape(mdf(studElems, instElems));
+        var type = CdmMetatype.withName(eNoStar);
+        var replacement = e.replace(eNoStar, typesToReplacements.getOrDefault(type, type).shortName);
+        if (keepStar) {
+          return replacement;
+        }
+        return replacement.replace("*", "");
+      }).collect(Collectors.toUnmodifiableList());
     }
 
     /** Returns true if the shape's simplest form is equal to that of the input. */
     public boolean isCompatibleWith(MistakeDetectionFormat.Shape shape) {
-      return equals(shape) || reduceToSimplestForm().equals(shape.reduceToSimplestForm());
+      return equals(shape) || reduceToSimplestForm().equals(shape.reduceToSimplestForm())
+          || matchesVarargsOf(shape);
+    }
+
+    public boolean matchesVarargsOf(MistakeDetectionFormat.Shape shape) {
+      return varargsMatch(stud, shape.stud) && varargsMatch(inst, shape.inst);
+    }
+
+    private static boolean varargsMatch(List<String> list1, List<String> list2) {
+      if (list1.equals(list2)) {
+        return true;
+      }
+      if (list1.size() * list2.size() == 0) {
+        return false; // exactly one of the lists is empty, so it cannot have matching varargs
+      }
+      return simplify(mapToShape(list1), false).equals(simplify(mapToShape(list2), false));
     }
 
     @Override

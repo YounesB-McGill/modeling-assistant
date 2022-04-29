@@ -13,7 +13,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.eclipse.emf.ecore.EClass;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.CdmFactory;
@@ -21,6 +20,7 @@ import ca.mcgill.sel.classdiagram.ReferenceType;
 import ca.mcgill.sel.mistakedetection.Comparison;
 import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
 import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedParametrizedResponses;
+import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype;
 import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeDetectionFormat;
 import learningcorpus.ElementType;
 import learningcorpus.MistakeType;
@@ -43,12 +43,12 @@ public abstract class MistakeDetectionInformationService {
   static final CdmFactory CDF = CdmFactory.eINSTANCE;
 
   /** Map of CDM metatypes to learning corpus ElementTypes. */
-  public static final Map<EClass, ElementType> cdmMetatypesToLearningCorpusElementTypes = Map.of(
-      CDF.createAssociationEnd().eClass(), ElementType.ASSOCIATION_END,
-      CDF.createAttribute().eClass(), ElementType.ATTRIBUTE,
-      CDF.createCDEnum().eClass(), ElementType.CLASS,
-      CDF.createCDEnumLiteral().eClass(), ElementType.CLASS,
-      CDF.createClass().eClass(), ElementType.CLASS);
+  public static final Map<CdmMetatype, ElementType> cdmMetatypesToLearningCorpusElementTypes = Map.of(
+      CdmMetatype.ASSOCEND, ElementType.ASSOCIATION_END,
+      CdmMetatype.ATTR, ElementType.ATTRIBUTE,
+      CdmMetatype.CLS, ElementType.CLASS,
+      CdmMetatype.ENUM, ElementType.CLASS,
+      CdmMetatype.ENUMITEM, ElementType.CLASS);
 
   // Helper Functions to map each mistake to specific solution elements
   public static final Function<Mistake, Stream<SolutionElement>> instructorElems =
@@ -159,7 +159,7 @@ public abstract class MistakeDetectionInformationService {
   public static Map<MistakeType, Set<ElementType>> mapMistakesToLearningCorpusElementTypes(
       Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer) {
     return mapAllMistakesTo(mistakeSolutionElementsStreamer, e ->
-        cdmMetatypesToLearningCorpusElementTypes.getOrDefault(e.getElement().eClass(),
+        cdmMetatypesToLearningCorpusElementTypes.getOrDefault(CdmMetatype.withEClass(e.getElement().eClass()),
             // assume for now that all input metatypes are either in map or association instances
             e.getElement() instanceof Association ?
                 (cdmAssociationIs((Association) e.getElement(), ReferenceType.COMPOSITION) ?
@@ -182,7 +182,7 @@ public abstract class MistakeDetectionInformationService {
   }
 
   /** Returns the MDFs as implemented in the Mistake Detection System, regardless of validation status. */
-  static Map<MistakeType, MistakeDetectionFormat> getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem() {
+  public static Map<MistakeType, MistakeDetectionFormat> getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem() {
     return getAllMistakeDetectionFormatsAsIsFromMistakeDetectionSystem().entrySet().stream().collect(Collectors.toMap(
         e -> e.getKey().getMistakeType(),
         Map.Entry::getValue,
