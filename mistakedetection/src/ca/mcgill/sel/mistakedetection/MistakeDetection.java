@@ -128,6 +128,7 @@ import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
+import modelingassistant.Synonym;
 import modelingassistant.Tag;
 import modelingassistant.TagGroup;
 import modelingassistant.TagType;
@@ -262,7 +263,7 @@ public class MistakeDetection {
           });
         }
 
-        if (classifierNameMatch(instructorClassifier, studentClassifier)) { // Add synonyms here + add to LD
+        if (classifierNameAndSynonymMatch(instructorClassifier, studentClassifier)) { // Add synonyms here + add to LD
           if (priority <= HIGH_PRIORITY) {
             possibleClassifierMatch = studentClassifier;
             priority = HIGH_PRIORITY;
@@ -2208,8 +2209,17 @@ public class MistakeDetection {
    * @param studentClass
    * @return true if classifier match
    */
-  public static boolean classifierNameMatch(Classifier instructorClass, Classifier studentClass) {
-    return instructorClass.getName().toLowerCase().equals(studentClass.getName().toLowerCase());
+  public static boolean classifierNameAndSynonymMatch(Classifier instructorClass, Classifier studentClass) {
+    if (instructorClass.getName().toLowerCase().equals(studentClass.getName().toLowerCase())) {
+      return true;
+    }
+    var se = SolutionElement.forCdmElement(instructorClass);
+    for(Synonym syn : se.getSynonyms()) {
+      if(studentClass.getName().toLowerCase().equals(syn.getName().toLowerCase())){
+        return true;
+      }
+    }
+    return false;
   }
 
   /** Map classes with levenshtein distance less than or eqauls to MAX_LEVENSHTEIN_DISTANCE_ALLOWED*/
