@@ -70,6 +70,7 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
       case ModelingassistantPackage.FEEDBACK_ITEM: return createFeedbackItem();
       case ModelingassistantPackage.TAG: return createTag();
       case ModelingassistantPackage.TAG_GROUP: return createTagGroup();
+      case ModelingassistantPackage.SYNONYM: return createSynonym();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -228,6 +229,17 @@ public class ModelingassistantFactoryImpl extends EFactoryImpl implements Modeli
   public TagGroup createTagGroup() {
     TagGroupImpl tagGroup = new TagGroupImpl();
     return tagGroup;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Synonym createSynonym() {
+    SynonymImpl synonym = new SynonymImpl();
+    return synonym;
   }
 
   /**

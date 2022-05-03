@@ -23,6 +23,7 @@ import ca.mcgill.sel.classdiagram.NamedElement;
  *   <li>{@link modelingassistant.SolutionElement#getElement <em>Element</em>}</li>
  *   <li>{@link modelingassistant.SolutionElement#getInstructorElementMistakes <em>Instructor Element Mistakes</em>}</li>
  *   <li>{@link modelingassistant.SolutionElement#getTags <em>Tags</em>}</li>
+ *   <li>{@link modelingassistant.SolutionElement#getSynonyms <em>Synonyms</em>}</li>
  * </ul>
  *
  * @see modelingassistant.ModelingassistantPackage#getSolutionElement()
@@ -154,5 +155,19 @@ public interface SolutionElement extends EObject {
    * @generated
    */
   EList<Tag> getTags();
+
+  /**
+   * Returns the value of the '<em><b>Synonyms</b></em>' containment reference list.
+   * The list contents are of type {@link modelingassistant.Synonym}.
+   * It is bidirectional and its opposite is '{@link modelingassistant.Synonym#getSolutionElement <em>Solution Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Synonyms</em>' containment reference list.
+   * @see modelingassistant.ModelingassistantPackage#getSolutionElement_Synonyms()
+   * @see modelingassistant.Synonym#getSolutionElement
+   * @model opposite="solutionElement" containment="true"
+   * @generated
+   */
+  EList<Synonym> getSynonyms();
 
 } // SolutionElement
