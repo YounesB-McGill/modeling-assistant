@@ -262,7 +262,7 @@ public class MistakeDetection {
           });
         }
 
-        if (classifierNameMatch(instructorClassifier, studentClassifier)) {
+        if (classifierNameMatch(instructorClassifier, studentClassifier)) { // Add synonyms here + add to LD
           if (priority <= HIGH_PRIORITY) {
             possibleClassifierMatch = studentClassifier;
             priority = HIGH_PRIORITY;

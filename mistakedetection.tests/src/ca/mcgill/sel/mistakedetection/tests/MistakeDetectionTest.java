@@ -421,6 +421,7 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
     var instructorSolution = maf.createSolution();
     instructorSolution.setModelingAssistant(modelingAssistant);
     instructorSolution.setClassDiagram(classDiagram);
+  //modelingAssistant.getInstructorSolutions().add(instructorSolution);
     return instructorSolution;
   }
 
