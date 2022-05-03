@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 
-public class MistakeDetectionGeneralizationTest {
+public class MistakeDetectionGeneralizationTest extends MistakeDetectionBaseTest {
 
   static final String INSTRUCTOR_CDM_PATH =
       "../mistakedetection/testModels/InstructorSolution/ModelToTestGeneralization/";

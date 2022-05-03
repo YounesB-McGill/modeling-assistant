@@ -39,8 +39,8 @@ import static modelingassistant.util.TagUtils.setPlayerTagToClassInClassDiag;
 import static modelingassistant.util.TagUtils.setRoleTagToAssocEndInClass;
 import static modelingassistant.util.TagUtils.setRoleTagToAttribInClass;
 import static modelingassistant.util.TagUtils.setRoleTagToClassInClassDiag;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -59,7 +59,7 @@ import modelingassistant.Mistake;
  *
  * @author Prabhsimran Singh
  */
-public class MistakeDetectionPatternTest {
+public class MistakeDetectionPatternTest extends MistakeDetectionBaseTest {
 
   /** Mock comparison used for testing purposes. */
   private static final Comparison mockComparison = new Comparison();

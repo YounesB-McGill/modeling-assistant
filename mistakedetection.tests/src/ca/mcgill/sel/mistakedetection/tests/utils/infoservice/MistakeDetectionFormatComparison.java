@@ -1,17 +1,18 @@
 package ca.mcgill.sel.mistakedetection.tests.utils.infoservice;
 
-import java.util.List;
+import static ca.mcgill.sel.mistakedetection.tests.utils.Color.colorString;
+import ca.mcgill.sel.mistakedetection.tests.utils.Color;
 import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
 import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeDetectionFormat;
-import learningcorpus.mistaketypes.MistakeTypes;
 
 public class MistakeDetectionFormatComparison extends MistakeDetectionInformationService {
 
   static final String CHECK = "√";
+  static final String WARN = "!";
   static final String X = "X";
 
   private MistakeDetectionFormatComparison() {
-    super("Mistake Dectection Format Comparison (MDS vs Human-validated)");
+    super("Mistake Detection Format Comparison (MDS vs Human-validated)");
   }
 
   @Override public String getOutput() {
@@ -28,24 +29,16 @@ public class MistakeDetectionFormatComparison extends MistakeDetectionInformatio
     var sb = new StringBuilder();
     mdfsFromMds.forEach((mt, mdf) -> {
       var mdfFromMdsShape = mdf.shape();
-      var hvMdfShape = humanValidatedMdfs.getOrDefault(mt, MistakeDetectionFormat.mdf(List.of(), List.of())).shape();
+      var hvMdfShape = humanValidatedMdfs.getOrDefault(mt, MistakeDetectionFormat.emptyMdf()).shape();
       if (mdfFromMdsShape.equals(hvMdfShape)) {
-        //sb.append(CHECK + " " + mt.getName() + "\n\n");
+        sb.append(CHECK + " " + mt.getName() + "\n\n");
+      } else if (mdfFromMdsShape.isCompatibleWith(hvMdfShape)) {
+        sb.append(colorString(Color.DARK_YELLOW, WARN + " " + mt.getName() + "\n~ " + mdf.shape().reduceToSimplestForm()
+            + "\n\n"));
       } else {
-        sb.append(X + " " + mt.getName() + "\n" + mdf.shape() + "\n" + hvMdfShape + "\n\n");
+        sb.append(colorString(Color.ORANGE, X + " " + mt.getName() + "\n" + mdf.shape() + "\n" + hvMdfShape + "\n\n"));
       }
     });
-
-    // debug only
-    var mt = MistakeTypes.USING_ASSOC_INSTEAD_OF_COMPOSITION;
-    allMistakes().filter(m -> m.getMistakeType().equals(mt))
-//      .forEach(m ->
-//        sb.append("> " + m.getStudentElements().stream().map(e -> e.getElement()).collect(Collectors.toUnmodifiableList())
-//             + ", " + m.getInstructorElements().stream().map(e -> e.getElement()).collect(Collectors.toUnmodifiableList()) + "\n"))
-    ;
-
-
-
     return sb.toString();
   }
 

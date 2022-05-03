@@ -145,5 +145,5 @@ CDM_METATYPES = {
     "qualassoc": (qualassoc := CdmMetatype("qualassoc", "Qualified Association", Association)),  # not yet supported
     "role": (role := CdmMetatype("role", "Role", _role_types, _person_roles)),
     "role*": (roles := CdmMetatype("role*", "Roles", _role_types, [_passengerrole, _employeerole, _visitorrole])),
-    "rel": (rel := CdmMetatype("rel", "Relationship", Association)),  # deprecated
+    "rel": (rel := CdmMetatype("rel", "Relationship", Association)),
 }

@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 
-public class MistakeDetectionEnumTest {
+public class MistakeDetectionEnumTest extends MistakeDetectionBaseTest {
 
   /**
    * Test to check wrong enumeration name spelling.

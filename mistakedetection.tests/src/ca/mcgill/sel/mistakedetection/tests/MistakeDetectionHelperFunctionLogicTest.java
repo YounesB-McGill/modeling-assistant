@@ -7,7 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 
-public class MistakeDetectionHelperFunctionLogicTest {
+public class MistakeDetectionHelperFunctionLogicTest extends MistakeDetectionBaseTest {
 
   /**
    * Tests for checking Software Engineering terms, eg, CarData.

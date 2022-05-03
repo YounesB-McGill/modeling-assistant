@@ -1,5 +1,16 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.AGGR;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.ASSOC;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.ASSOCEND;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.ATTR;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.CLS;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.COMPOS;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.ENUM;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.ENUMITEM;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.QUALASSOC;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.REL;
+import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.ROLE;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_CONTAINMENT_TREE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
@@ -37,7 +48,7 @@ import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
 import modelingassistant.util.ResourceHelper;
 
-public class MistakeDetectionTest {
+public class MistakeDetectionTest extends MistakeDetectionBaseTest {
 
   /** The ModelingassistantFactory instance. */
   private static final ModelingassistantFactory maf = ModelingassistantFactory.eINSTANCE;
@@ -384,6 +395,25 @@ public class MistakeDetectionTest {
     } catch (IOException e) {
       fail();
     }
+  }
+
+  @Test
+  public void testCdmMetatypeRelationships() {
+    assertTrue(CLS.canBeOfType(CLS));
+    assertFalse(ATTR.canBeOfType(CLS));
+
+    assertTrue(REL.canBeOfType(ASSOC));
+    assertTrue(REL.canBeOfType(AGGR));
+    assertTrue(ASSOC.canBeOfType(COMPOS));
+    assertTrue(ASSOC.canBeOfType(QUALASSOC));
+    assertFalse(REL.canBeOfType(ATTR));
+    assertFalse(REL.canBeOfType(ENUM));
+    assertFalse(COMPOS.canBeOfType(ASSOC));
+    assertFalse(COMPOS.canBeOfType(REL));
+
+    assertTrue(ROLE.canBeOfType(ASSOCEND));
+    assertTrue(ROLE.canBeOfType(CLS));
+    assertTrue(ROLE.canBeOfType(ENUMITEM));
   }
 
   public static Solution instructorSolutionFromClassDiagram(ClassDiagram classDiagram) {

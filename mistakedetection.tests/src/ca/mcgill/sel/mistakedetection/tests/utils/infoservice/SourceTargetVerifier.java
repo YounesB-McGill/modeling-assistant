@@ -6,11 +6,14 @@ import static ca.mcgill.sel.mistakedetection.tests.utils.Color.warn;
 import static ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeInfos.mapToMistakeInfos;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
 import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.ElementDescription;
+import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeInfo;
+import learningcorpus.MistakeType;
 import modelingassistant.SolutionElement;
 
 /**
@@ -53,17 +56,9 @@ public class SourceTargetVerifier extends MistakeDetectionInformationService {
 
   @Override
   public String getOutput() {
-    final var mdfs = HumanValidatedMistakeDetectionFormats.mappings;
-    var relevantMistakeTypesAndInfos = mapToMistakeInfos().entrySet().stream()
-        .filter(e -> mdfs.get(e.getKey()).toString().toLowerCase().contains("target")
-            || mdfs.get(e.getKey()).toString().toLowerCase().contains("whole"))
-        .collect(Collectors.toMap(Map.Entry::getKey,
-            Map.Entry::getValue,
-            MistakeDetectionInformationService::setUnion,
-            TreeMap::new));
     var sb = new StringBuilder();
-    relevantMistakeTypesAndInfos.forEach((mt, mis) -> {
-      var mdf = mdfs.get(mt);
+    sourceTargetWholePartMistakeTypesAndInfos().forEach((mt, mis) -> {
+      var mdf = HumanValidatedMistakeDetectionFormats.mappings.get(mt);
       sb.append(mt.getName() + ": \n");
       mis.forEach(mi -> {
         var studElems = mi.mistake.getStudentElements();
@@ -77,8 +72,8 @@ public class SourceTargetVerifier extends MistakeDetectionInformationService {
             sb.append(", ");
           }
         }
-        if (!mdf.stud.isEmpty() && ! mdf.inst.isEmpty()) {
-          sb.append(". ");
+        if (!mdf.stud.isEmpty() && !mdf.inst.isEmpty()) {
+          sb.append(". "); // visual separator between student and instructor elements
         }
         for (int i = 0; i < mdf.inst.size(); i++) {
           var format = mdf.inst.get(i);
@@ -98,6 +93,18 @@ public class SourceTargetVerifier extends MistakeDetectionInformationService {
 
   public static SourceTargetVerifier get() {
     return new SourceTargetVerifier();
+  }
+
+  /** Returns the source, target, whole, or part mistake types and their MistakeInfos. */
+  public static Map<MistakeType, Set<MistakeInfo>> sourceTargetWholePartMistakeTypesAndInfos() {
+    final var mdfs = HumanValidatedMistakeDetectionFormats.mappings;
+    return mapToMistakeInfos().entrySet().stream()
+        .filter(e -> mdfs.get(e.getKey()).toString().toLowerCase().contains("target")
+            || mdfs.get(e.getKey()).toString().toLowerCase().contains("whole"))
+        .collect(Collectors.toMap(Map.Entry::getKey,
+            Map.Entry::getValue,
+            MistakeDetectionInformationService::setUnion,
+            TreeMap::new));
   }
 
   /**
