@@ -321,8 +321,8 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
         studentVehicleClassAttributeNumberPlate);
     assertEquals(comparison.mappedAttributes.get(instructorDriverClassAttributeID), studentPilotClassAttributeID);
 
-    assertEquals(comparison.newMistakes.size(), 5); // 4 + Incomplete Containment tree
-    assertEquals(studentSolution.getMistakes().size(), 5);
+    assertEquals(comparison.newMistakes.size(), 4); // 3 + Incomplete Containment tree
+    assertEquals(studentSolution.getMistakes().size(), 4);
   }
 
   /**

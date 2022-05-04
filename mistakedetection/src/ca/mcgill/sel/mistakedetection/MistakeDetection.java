@@ -1728,7 +1728,7 @@ public class MistakeDetection {
       if (associationEndMultiplicityLowerBoundsMatch(entry.getValue().get(0), entry.getValue().get(1))) {
         score = score + multiplicityWeightage;
       }
-      if (lDistance1 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+      if (lDistance1 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(entry.getValue().get(1), entry.getValue().get(0))) {
         score = score + roleNameWeightage;
       }
       if (associationEndMultiplicityUpperBoundsMatch(entry.getValue().get(2), entry.getValue().get(3))) {
@@ -1737,7 +1737,7 @@ public class MistakeDetection {
       if (associationEndMultiplicityLowerBoundsMatch(entry.getValue().get(2), entry.getValue().get(3))) {
         score = score + multiplicityWeightage;
       }
-      if (lDistance2 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+      if (lDistance2 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(entry.getValue().get(3), entry.getValue().get(2))) {
         score = score + roleNameWeightage;
       }
       assocScoreMap.put(entry.getKey(), score);
@@ -2236,6 +2236,18 @@ public class MistakeDetection {
     return false;
   }
 
+  /** Returns true if studentAssocEnd name is synonym of instructorAssocEnd name. */
+  public static boolean isSynonym(AssociationEnd instructorAttrib, AssociationEnd studentAttrib) {
+    var se = SolutionElement.forCdmElement(instructorAttrib);
+    for (Synonym syn : se.getSynonyms()) {
+      if (studentAttrib.getName().toLowerCase().equals(syn.getName().toLowerCase())) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
   /** Map classes with levenshtein distance less than or eqauls to MAX_LEVENSHTEIN_DISTANCE_ALLOWED*/
   public static boolean checkClassAndAttribBasedOnSpellingError(Classifier instructorClass, Classifier studentClass) {
     float lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
@@ -2546,7 +2558,7 @@ public class MistakeDetection {
   }
 
   public static Optional<Mistake> checkMistakeUppercaseAttribName(Attribute studentAttrib, Attribute instructorAttrib) {
-    if (startsWithUppercase(studentAttrib.getName())) {
+    if (startsWithUppercase(studentAttrib.getName()) && !studentAttrib.getName().equals(instructorAttrib.getName())) {
       return Optional.of(createMistake(UPPERCASE_ATTRIBUTE_NAME, studentAttrib, instructorAttrib));
     }
     return Optional.empty();
@@ -2563,7 +2575,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeAttributeSpelling(Attribute studentAttribute,
       Attribute instructorAttribute) {
     if (!isPlural(studentAttribute.getName()) && levenshteinDistance(studentAttribute.getName().toLowerCase(),
-        instructorAttribute.getName().toLowerCase()) >= 1) {
+        instructorAttribute.getName().toLowerCase()) >= 1 && !isSynonym(instructorAttribute, studentAttribute)) {
       return Optional.of(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, studentAttribute, instructorAttribute));
     }
     return Optional.empty();
@@ -2751,7 +2763,7 @@ public class MistakeDetection {
   public static Optional<Mistake> checkMistakeRoleNamePresentButIncorrect(AssociationEnd studentClassAssocEnd,
       AssociationEnd instructorClassAssocEnd, Comparison comparison) {
     int lDistance = levenshteinDistance(studentClassAssocEnd.getName(), instructorClassAssocEnd.getName());
-    if (lDistance > MAX_LEVENSHTEIN_DISTANCE_ALLOWED ) {
+    if (lDistance > MAX_LEVENSHTEIN_DISTANCE_ALLOWED && !isSynonym(instructorClassAssocEnd, studentClassAssocEnd)) {
       return Optional.of(createMistake(WRONG_ROLE_NAME, studentClassAssocEnd, instructorClassAssocEnd));
     }
 
