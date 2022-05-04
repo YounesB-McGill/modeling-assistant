@@ -2210,12 +2210,15 @@ public class MistakeDetection {
    * @return true if classifier match
    */
   public static boolean classifierNameAndSynonymMatch(Classifier instructorClass, Classifier studentClass) {
-    if (instructorClass.getName().toLowerCase().equals(studentClass.getName().toLowerCase())) {
-      return true;
-    }
+    return instructorClass.getName().toLowerCase().equals(studentClass.getName().toLowerCase())
+        || isSynonym(instructorClass, studentClass);
+  }
+
+  /** Returns true if studentClass name is synonym of nstructorClass name. */
+  public static boolean isSynonym(Classifier instructorClass, Classifier studentClass) {
     var se = SolutionElement.forCdmElement(instructorClass);
-    for(Synonym syn : se.getSynonyms()) {
-      if(studentClass.getName().toLowerCase().equals(syn.getName().toLowerCase())){
+    for (Synonym syn : se.getSynonyms()) {
+      if (studentClass.getName().toLowerCase().equals(syn.getName().toLowerCase())) {
         return true;
       }
     }
@@ -2518,7 +2521,7 @@ public class MistakeDetection {
       Classifier instructorClass) {
     int lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
     if (!isPlural(studentClass.getName()) && !isSoftwareEngineeringTerm(studentClass.getName())
-        && lDistance > MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+        && !isSynonym(instructorClass, studentClass) && lDistance > MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
       return Optional.of(createMistake(WRONG_CLASS_NAME, studentClass, instructorClass));
     }
     return Optional.empty();

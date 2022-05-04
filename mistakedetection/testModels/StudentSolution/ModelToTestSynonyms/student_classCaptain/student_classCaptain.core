@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_yobvMNpYEeuihpv-j2laQg" name="student_classCaptain" featureModel="_yobvMdpYEeuihpv-j2laQg" impactModel="_yobvM9pYEeuihpv-j2laQg">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_yobvMdpYEeuihpv-j2laQg" root="_yobvMtpYEeuihpv-j2laQg">
+    <features xmi:id="_yobvMtpYEeuihpv-j2laQg" name="student_classCaptain" realizedBy="_zbe8wdpYEeuihpv-j2laQg"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_yobvM9pYEeuihpv-j2laQg" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_zbe8wNpYEeuihpv-j2laQg" name="student_classCaptain" scene="_zbe8wdpYEeuihpv-j2laQg" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/student_classCaptain.domain_model.cdm#_zbfj0NpYEeuihpv-j2laQg"/>
+  </artefacts>
+  <scenes xmi:id="_zbe8wdpYEeuihpv-j2laQg" name="student_classCaptain" realizes="_yobvMtpYEeuihpv-j2laQg" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_zbe8wtpYEeuihpv-j2laQg" value="_zbe8wNpYEeuihpv-j2laQg" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
