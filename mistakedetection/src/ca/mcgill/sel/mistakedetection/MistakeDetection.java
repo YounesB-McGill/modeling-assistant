@@ -263,7 +263,7 @@ public class MistakeDetection {
           });
         }
 
-        if (classifierNameAndSynonymMatch(instructorClassifier, studentClassifier)) { // Add synonyms here + add to LD
+        if (classifierNameAndSynonymMatch(instructorClassifier, studentClassifier)) {
           if (priority <= HIGH_PRIORITY) {
             possibleClassifierMatch = studentClassifier;
             priority = HIGH_PRIORITY;
@@ -301,7 +301,7 @@ public class MistakeDetection {
       for (Attribute instructorAttribute : instructorAttributes) {
         for (Attribute studentAttribute : studentAttributes) {
           float lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-          if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+          if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)) {
             mapAttributes(comparison, studentAttribute, instructorAttribute);
             checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison);
             break;
@@ -806,7 +806,7 @@ public class MistakeDetection {
     checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
     checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute)
         .ifPresent(comparison.newMistakes::add);
-    if (studentAttribute.getName() != instructorAttribute.getName()) {
+    if (studentAttribute.getName() != instructorAttribute.getName() || !isSynonym(instructorAttribute, studentAttribute)) {
       checkMistakeAttributeSpelling(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
       checkMistakePluralAttribName(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
       checkMistakeUppercaseAttribName(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
@@ -2214,11 +2214,22 @@ public class MistakeDetection {
         || isSynonym(instructorClass, studentClass);
   }
 
-  /** Returns true if studentClass name is synonym of nstructorClass name. */
+  /** Returns true if studentClass name is synonym of instructorClass name. */
   public static boolean isSynonym(Classifier instructorClass, Classifier studentClass) {
     var se = SolutionElement.forCdmElement(instructorClass);
     for (Synonym syn : se.getSynonyms()) {
       if (studentClass.getName().toLowerCase().equals(syn.getName().toLowerCase())) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /** Returns true if studentAttribute name is synonym of instructorAttribute name. */
+  public static boolean isSynonym(Attribute instructorAttrib, Attribute studentAttrib) {
+    var se = SolutionElement.forCdmElement(instructorAttrib);
+    for (Synonym syn : se.getSynonyms()) {
+      if (studentAttrib.getName().toLowerCase().equals(syn.getName().toLowerCase())) {
         return true;
       }
     }
@@ -2304,7 +2315,7 @@ public class MistakeDetection {
           for (Attribute instructorAttribute : instructorAttributes) {
             for (Attribute studentAttribute : studentAttributes) {
               float lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-              if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+              if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)) {
                 mapAttributes(comparison, studentAttribute, instructorAttribute);
                 checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison);
                 break;
