@@ -1655,21 +1655,14 @@ public class MistakeDetection {
         comparison.newMistakes
             .add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS, List.of(comparison.mappedClassifiers.get(instAssocClass)),
                 List.of(instructorClassifierAssoc, instAssocClass)));
-       // TODO: Work in progress
-       // comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
-       // comparison.notMappedInstructorClassifiers.add(instAssocClass);
-       // comparison.assocClassifiersToRemove.add(instAssocClass);
       }
     }
     if (studentClassifierAssoc.getAssociationClass() != null
         && instructorClassifierAssoc.getAssociationClass() == null) {
       Classifier studAssocClass = studentClassifierAssoc.getAssociationClass();
       if (comparison.mappedClassifiers.containsValue(studAssocClass)) {
-       // comparison.extraStudentClassifiers.add(studAssocClass); //TODO: Work in progress
         comparison.mappedClassifiers.forEach((key, value) -> {
           if (value.equals(studAssocClass)) {
-           // comparison.notMappedInstructorClassifiers.add(key); //TODO: Work in progress
-          //  comparison.assocClassifiersToRemove.add(key);
             comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS,
                 List.of(studentClassifierAssoc, studAssocClass), List.of(key)));
             return;
@@ -1686,10 +1679,6 @@ public class MistakeDetection {
         Classifier instAssocClass = instAssoc.getAssociationClass();
         comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS,
             List.of(comparison.mappedClassifiers.get(instAssocClass)), List.of(instAssoc, instAssocClass)));
-        // TODO: Work in progress
-        // comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
-        // comparison.notMappedInstructorClassifiers.add(instAssocClass);
-        // comparison.assocClassifiersToRemove.add(instAssocClass);
       }
     }
 
@@ -1699,9 +1688,6 @@ public class MistakeDetection {
         Classifier studAssocClass = studAssoc.getAssociationClass();
         comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS, List.of(studAssoc, studAssocClass),
             List.of(getKey(comparison.mappedClassifiers, studAssocClass))));
-        // comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
-        // comparison.notMappedInstructorClassifiers.add(instAssocClass);
-        // comparison.assocClassifiersToRemove.add(instAssocClass);
       }
     }
   }
@@ -1903,7 +1889,7 @@ public class MistakeDetection {
   private static boolean checkStudentElementForMistake(List<Mistake> newMistakes, NamedElement value) {
     for (Mistake mistake : newMistakes) {
       for (var studentElement : mistake.getStudentElements()) {
-        if (studentElement.getElement().equals(value)) { // TODO Double check whether equals() works here
+        if (studentElement.getElement().equals(value)) {
           return true;
         }
       }
