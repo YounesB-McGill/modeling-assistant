@@ -418,7 +418,7 @@ public class MistakeDetection {
 
     for (Attribute studAttrib : comparison.extraStudentAttributes) {
       for (Attribute instAttrib : comparison.notMappedInstructorAttributes) {
-        if (levenshteinDistance(studAttrib.getName(), instAttrib.getName()) <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+        if (levenshteinDistance(studAttrib.getName(), instAttrib.getName()) <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instAttrib, studAttrib)) {
           Classifier instClass = (Classifier) instAttrib.eContainer();
           Classifier studClass = (Classifier) studAttrib.eContainer();
 
@@ -2287,7 +2287,7 @@ public class MistakeDetection {
           for (Attribute instructorAttribute : instructorAttributes) {
             for (Attribute studentAttribute : studentAttributes) {
               float lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-              if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
+              if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)) {
                 correctAttribute++;
                 break;
               }
