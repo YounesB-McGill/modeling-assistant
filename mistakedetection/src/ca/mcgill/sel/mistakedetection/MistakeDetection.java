@@ -116,6 +116,9 @@ import ca.mcgill.sel.classdiagram.CDArray;
 import ca.mcgill.sel.classdiagram.CDCollection;
 import ca.mcgill.sel.classdiagram.CDEnum;
 import ca.mcgill.sel.classdiagram.CDEnumLiteral;
+import ca.mcgill.sel.classdiagram.CDFloat;
+import ca.mcgill.sel.classdiagram.CDInt;
+import ca.mcgill.sel.classdiagram.CDLong;
 import ca.mcgill.sel.classdiagram.CdmFactory;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
@@ -3217,7 +3220,15 @@ public class MistakeDetection {
   }
 
   public static boolean attributeTypesMatch(Attribute studentAttribute, Attribute instructorAttribute) {
-    return studentAttribute.getType().getClass().equals(instructorAttribute.getType().getClass());
+    if (!studentAttribute.getType().getClass().equals(instructorAttribute.getType().getClass())) {
+      if ((instructorAttribute.getType() instanceof CDInt
+          && (studentAttribute.getType() instanceof CDFloat || studentAttribute.getType() instanceof CDLong))
+          || (instructorAttribute.getType() instanceof CDFloat && studentAttribute.getType() instanceof CDLong)) {
+        return true;
+      }
+      return false;
+    }
+    return true;
   }
 
   private static boolean spellingMistakeCheck(String name1, String name2) {
