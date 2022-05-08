@@ -26,6 +26,7 @@ import json
 import logging
 import os
 import sys
+import time
 
 import pytest
 import requests
@@ -98,7 +99,7 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     set_modeling_assistant(get_ma_with_ps(load_cdm(INSTRUCTOR_CDM)))
 
     # Step 1
-    student = MockStudent(file_name=CDM_NAME)
+    student = MockStudent("", "", file_name=CDM_NAME)  # TODO
     student.create_cdm()
 
     # Steps 2-5
@@ -141,7 +142,7 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
     """
     Test the communication between this mock frontend and WebCORE.
     """
-    student = MockStudent(file_name=CDM_NAME)
+    student = MockStudent("", "", file_name=CDM_NAME)  # TODO
     student.create_cdm()  # no-op for now
 
     cdm = student.get_cdm()
@@ -193,6 +194,30 @@ def test_communication_between_modeling_assistant_python_app_and_webcore(webcore
     """
 
 
+def test_webcore_auth_register():
+    "Test the WebCORE authentication register API endpoint."
+    name, password = f"alice{int(time.time())}", "aaa"  # ensure unique name for new user by using current timestamp
+    response = requests.put(f"{WEBCORE_ENDPOINT}/user/public/register", json={"username": name, "password": password})
+    assert response.ok
+    assert "User registered. Your authorization token is" in response.text
+
+
+def test_webcore_auth_login():
+    "Test the WebCORE authentication login API endpoint."
+    ...
+
+
+def test_webcore_auth_logout():
+    "Test the WebCORE authentication logout API endpoint."
+    ...
+
+
+def test_webcore_auth_getcurrent():
+    "Test the WebCORE authentication getCurrent API endpoint."
+    ...
+
+
+
 def get_modeling_assistant() -> ModelingAssistant:
     "Get the ModelingAssistant instance from the Flask app."
     return str_to_modelingassistant(requests.get(MA_REST_ENDPOINT).json()["modelingAssistantXmi"])
@@ -224,7 +249,9 @@ class MockStudent:
     Mock student used for testing.
     This represents a student who only interacts with the application via the frontend.
     """
-    def __init__(self, file_name: str = ""):
+    def __init__(self, name: str, password, file_name: str = ""):
+        self.name = name
+        self.password = password
         self.file_name: str = file_name  # assume one file name for now
 
     def create_cdm(self):
@@ -383,4 +410,4 @@ def _setup_instructor_solution():
 
 if __name__ == '__main__':
     "Main entry point."
-    test_ma_one_class_student_mistake(ma_rest_app, webcore)
+    test_webcore_auth_register()

@@ -75,13 +75,11 @@ public class MistakeDetectionFormat {
   }
 
   // eg, ([], ["cls"])
-  @Override
-  public String toString() {
+  @Override public String toString() {
     return "(" + studAsString() + ", " + instAsString() + ")";
   }
 
-  @Override
-  public boolean equals(Object o) {
+  @Override public boolean equals(Object o) {
     if (!(o instanceof MistakeDetectionFormat)) {
       return false;
     }
@@ -89,8 +87,7 @@ public class MistakeDetectionFormat {
     return stud.equals(other.stud) && inst.equals(other.inst);
   }
 
-  @Override
-  public int hashCode() {
+  @Override public int hashCode() {
     return 17 * stud.hashCode() + 31 * inst.hashCode();
   }
 
@@ -172,8 +169,7 @@ public class MistakeDetectionFormat {
       return simplify(mapToShape(list1), false).equals(simplify(mapToShape(list2), false));
     }
 
-    @Override
-    public boolean equals(Object o) {
+    @Override public boolean equals(Object o) {
       if (!(o instanceof MistakeDetectionFormat.Shape)) {
         return false;
       }
