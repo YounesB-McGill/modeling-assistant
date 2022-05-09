@@ -39,7 +39,7 @@ class User:
 
     def get_token(self):
         "Get the user's token."
-        response = requests.put(USER_REGISTER_ENDPOINT, json={"username": self.name, "password": self.password})
+        response = requests.put(USER_REGISTER_ENDPOINT, json=self._auth_creds)
         if not response.ok:
             raise ValueError(f"Could not get token for user {self.name}.\nError: {response.text}")
         return response.text.strip().removeprefix("User registered. Your authorization token is '").removesuffix(
@@ -47,8 +47,7 @@ class User:
 
     def login(self) -> bool:
         "Login the user and update their token if needed."
-        response = requests.post(USER_LOGIN_ENDPOINT, headers={"Authorization": f"Bearer {self.token}"},
-                                 json={"username": self.name, "password": self.password})
+        response = requests.post(USER_LOGIN_ENDPOINT, headers=self._auth_header, json=self._auth_creds)
         if not response.ok:
             return False
         self.token = response.text.strip().removeprefix("Logged in. Your authorization token is '").removesuffix(
@@ -58,7 +57,7 @@ class User:
 
     def logout(self) -> bool:
         "Logout the user."
-        response = requests.post(USER_LOGOUT_ENDPOINT, headers={"Authorization": f"Bearer {self.token}"})
+        response = requests.post(USER_LOGOUT_ENDPOINT, headers=self._auth_header)
         if not response.ok:
             return False
         del self.token  # token invalidated in WebCORE, so get rid of here on the client side as well
@@ -67,8 +66,18 @@ class User:
 
     @property
     def logged_in(self):
-        "Check if the user is logged in."
+        "Return True if the user is logged in."
         return self._logged_in
+
+    @property
+    def _auth_creds(self):
+        "Return the user's authorization credentials."
+        return {"username": self.name, "password": self.password}
+
+    @property
+    def _auth_header(self):
+        "Get the user's authorization header."
+        return {"Authorization": f"Bearer {self.token}"}
 
     @classmethod
     def create_random(cls):
@@ -90,13 +99,13 @@ class MockStudent(User):
 
     def create_cdm(self, name: str) -> bool:
         "Create a student class diagram."
-        resp = requests.put(self.cdm_endpoint(name), headers={"Authorization": f"Bearer {self.token}"})
+        resp = requests.put(self.cdm_endpoint(name), headers=self._auth_header)
         return resp.ok
 
     def create_class(self, cdm_name: str, cls_name: str) -> str:
         "Create a class with the given name in the given class diagram belonging to the student and return its _id."
         old_cdm = self.get_cdm(cdm_name)
-        resp = requests.post(f"{self.cdm_endpoint(cdm_name)}/class",
+        resp = requests.post(f"{self.cdm_endpoint(cdm_name)}/class", headers=self._auth_header,
                              json={"className": cls_name, "dataType": False, "isInterface": False,
                                    "x": randint(0, 600), "y": randint(0, 600)})
         resp.raise_for_status()
@@ -110,13 +119,13 @@ class MockStudent(User):
 
     def delete_class(self, cdm_name: str, cls_id: str):
         "Delete the class with the given _id from the given class diagram belonging to the student."
-        resp = requests.delete(f"{self.cdm_endpoint(cdm_name)}/class/{cls_id}")
+        resp = requests.delete(f"{self.cdm_endpoint(cdm_name)}/class/{cls_id}", headers=self._auth_header)
         resp.raise_for_status()
 
     def create_attribute(self, cdm_name: str, cls_id: str, attr_name: str, attr_type: type | str) -> str:
         "Create an attribute with the given name and return its _id."
         old_cdm = self.get_cdm(cdm_name)
-        resp = requests.post(f"{self.cdm_endpoint(cdm_name)}/class/{cls_id}/attribute",
+        resp = requests.post(f"{self.cdm_endpoint(cdm_name)}/class/{cls_id}/attribute", headers=self._auth_header,
                              json={"rankIndex": 0, "typeId": old_cdm.type_id_for(attr_type),
                                    "attributeName": attr_name})
         resp.raise_for_status()
@@ -128,7 +137,7 @@ class MockStudent(User):
 
     def request_feedback(self, cdm_name: str) -> FeedbackTO:
         "Request feedback from the Modeling Assistant via WebCORE."
-        resp = requests.get(f"{self.cdm_endpoint(cdm_name)}/feedback")
+        resp = requests.get(f"{self.cdm_endpoint(cdm_name)}/feedback", headers=self._auth_header)
         print(f"{resp.text = }")
         feedback_json = resp.json()
         print(feedback_json)
@@ -136,7 +145,7 @@ class MockStudent(User):
 
     def get_cdm(self, cdm_name: str) -> ClassDiagramDTO:
         "Get the student's class diagram with the given name from WebCORE in json format."
-        resp = requests.get(self.cdm_endpoint(cdm_name))
+        resp = requests.get(self.cdm_endpoint(cdm_name), headers=self._auth_header)
         resp.raise_for_status()
         cdm = ClassDiagramDTO(resp.json(object_hook=to_simplenamespace))
         logger.debug(cdm.get_class_names_by_ids())
