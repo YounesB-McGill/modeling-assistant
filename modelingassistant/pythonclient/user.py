@@ -84,24 +84,23 @@ class MockStudent(User):
     Mock student used for testing.
     This represents a student who only interacts with the application via the frontend.
     """
-    def __init__(self, name: str, password, file_name: str = ""):
+    def __init__(self, name: str, password):
         super().__init__(name, password)
         self.student = None  # possible pointer to a Student metamodel instance for future integration tests
-        self.file_name: str = file_name  # assume one file name for now
 
-    def create_cdm(self):
+    def create_cdm(self, name: str) -> bool:
         "Create a student class diagram."
-        # At the moment, there is exactly one file in WebCORE, so reset it instead
-        requests.post(f"{self.cdm_endpoint()}/reset")
+        resp = requests.put(self.cdm_endpoint(name), headers={"Authorization": f"Bearer {self.token}"})
+        return resp.ok
 
-    def create_class(self, name: str) -> str:
-        "Create a class with the given name and return its _id."
-        old_cdm = self.get_cdm()
-        resp = requests.post(f"{self.cdm_endpoint()}/class",
-                             json={"className": name, "dataType": False, "isInterface": False,
+    def create_class(self, cdm_name: str, cls_name: str) -> str:
+        "Create a class with the given name in the given class diagram belonging to the student and return its _id."
+        old_cdm = self.get_cdm(cdm_name)
+        resp = requests.post(f"{self.cdm_endpoint(cdm_name)}/class",
+                             json={"className": cls_name, "dataType": False, "isInterface": False,
                                    "x": randint(0, 600), "y": randint(0, 600)})
         resp.raise_for_status()
-        new_cdm = self.get_cdm()
+        new_cdm = self.get_cdm(cdm_name)
         # logger.debug(f"old_cdm: {old_cdm}")
         # logger.debug(f"new_cdm: {new_cdm}")
         logger.debug(cdm_diff(old_cdm, new_cdm))
@@ -109,39 +108,40 @@ class MockStudent(User):
         logger.debug(f"MockStudent: Created class with _id {cls_id}")
         return cls_id
 
-    def delete_class(self, cls_id: str):
-        "Delete the class with the given _id."
-        resp = requests.delete(f"{self.cdm_endpoint()}/class/{cls_id}")
+    def delete_class(self, cdm_name: str, cls_id: str):
+        "Delete the class with the given _id from the given class diagram belonging to the student."
+        resp = requests.delete(f"{self.cdm_endpoint(cdm_name)}/class/{cls_id}")
         resp.raise_for_status()
 
-    def create_attribute(self, cls_id: str, name: str, attr_type: type) -> str:
+    def create_attribute(self, cdm_name: str, cls_id: str, attr_name: str, attr_type: type | str) -> str:
         "Create an attribute with the given name and return its _id."
-        old_cdm = self.get_cdm()
-        resp = requests.post(f"{self.cdm_endpoint()}/class/{cls_id}/attribute",
-                             json={"rankIndex": 0, "typeId": old_cdm.type_id_for(attr_type), "attributeName": name})
+        old_cdm = self.get_cdm(cdm_name)
+        resp = requests.post(f"{self.cdm_endpoint(cdm_name)}/class/{cls_id}/attribute",
+                             json={"rankIndex": 0, "typeId": old_cdm.type_id_for(attr_type),
+                                   "attributeName": attr_name})
         resp.raise_for_status()
-        new_cdm = self.get_cdm()
+        new_cdm = self.get_cdm(cdm_name)
         logger.debug(cdm_diff(old_cdm, new_cdm))
         attr_id = cdm_diff(old_cdm, new_cdm).additions[0]
         logger.debug(f"Returning {attr_id}")
         return attr_id
 
-    def request_feedback(self) -> FeedbackTO:
+    def request_feedback(self, cdm_name: str) -> FeedbackTO:
         "Request feedback from the Modeling Assistant via WebCORE."
-        resp = requests.get(f"{self.cdm_endpoint()}/feedback")
+        resp = requests.get(f"{self.cdm_endpoint(cdm_name)}/feedback")
         print(f"{resp.text = }")
         feedback_json = resp.json()
         print(feedback_json)
         return FeedbackTO(**feedback_json)
 
-    def get_cdm(self) -> ClassDiagramDTO:
-        "Get the class diagram from WebCORE in json format."
-        resp = requests.get(self.cdm_endpoint())
+    def get_cdm(self, cdm_name: str) -> ClassDiagramDTO:
+        "Get the student's class diagram with the given name from WebCORE in json format."
+        resp = requests.get(self.cdm_endpoint(cdm_name))
         resp.raise_for_status()
         cdm = ClassDiagramDTO(resp.json(object_hook=to_simplenamespace))
         logger.debug(cdm.get_class_names_by_ids())
         return cdm
 
-    def cdm_endpoint(self) -> str:
-        "Return the class diagram endpoint for the student, assuming there is only one (for now)."
-        return f"{WEBCORE_ENDPOINT}/classdiagram/{self.file_name.removesuffix('.cdm')}"
+    def cdm_endpoint(self, cdm_name: str) -> str:
+        "Return the class diagram endpoint for the student with the given name."
+        return f"{WEBCORE_ENDPOINT}/{self.name}/classdiagram/{cdm_name}"

@@ -25,7 +25,7 @@ import requests
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from classdiagram import Class, ClassDiagram
+from classdiagram import CDBoolean, CDInt, CDString, Class, ClassDiagram
 from constants import WEBCORE_ENDPOINT
 from envvars import TOUCHCORE_PATH
 from flaskapp import app, DEBUG_MODE, PORT
@@ -55,7 +55,9 @@ def webcore():
     """
     Start WebCORE if it is not already running.
     """
-    if not requests.get(WEBCORE_ENDPOINT).ok:
+    try:
+        requests.get(WEBCORE_ENDPOINT)
+    except (ConnectionError, requests.exceptions.RequestException):
         Thread(target=lambda: os.system(f"cd {TOUCHCORE_PATH}/.. && ./start-webcore.sh"), daemon=True).start()
 
 
@@ -84,13 +86,14 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     set_modeling_assistant(get_ma_with_ps(load_cdm(INSTRUCTOR_CDM)))
 
     # Step 1
-    student = MockStudent("", "", file_name=CDM_NAME)  # TODO
-    student.create_cdm()
+    student = MockStudent.create_random()
+    cdm_name = "AirlineSystem"
+    assert student.create_cdm(cdm_name)
 
     # Steps 2-5
-    bad_cls_id = student.create_class("badClsName")
+    bad_cls_id = student.create_class(cdm_name, "badClsName")
     assert bad_cls_id
-    feedback = student.request_feedback()
+    feedback = student.request_feedback(cdm_name)
 
     ma = get_modeling_assistant()
     assert ma.problemStatements[0].name
@@ -105,8 +108,8 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     assert bad_cls_id in feedback.solutionElements
 
     # Steps 7-10
-    airplane_id = student.create_class("Airplane")
-    feedback = student.request_feedback()
+    airplane_id = student.create_class(cdm_name, "Airplane")
+    feedback = student.request_feedback(cdm_name)
 
     assert feedback.highlightSolutionElements  # Airplane not contained in Root class
     assert set(feedback.solutionElements) == {bad_cls_id, airplane_id}  # both should be highlighted
@@ -127,17 +130,18 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
     """
     Test the communication between this mock frontend and WebCORE.
     """
-    student = MockStudent("", "", file_name=CDM_NAME)  # TODO
-    student.create_cdm()  # no-op for now
+    student = MockStudent.create_random()
+    cdm_name = "AirlineSystem"
+    assert student.create_cdm(cdm_name)
 
-    cdm = student.get_cdm()
+    cdm = student.get_cdm(cdm_name)
     assert cdm
 
     # Make a new class and ensure it is added to the cdm
-    airplane = student.create_class("Airplane")
+    airplane = student.create_class(cdm_name, "Airplane")
     assert airplane
     assert not cdm[airplane]  # class should not be in the old cdm
-    cdm = student.get_cdm()
+    cdm = student.get_cdm(cdm_name)
     assert cdm[airplane]  # class should be in the new cdm
     assert cdm[airplane].name == "Airplane"
 
@@ -145,25 +149,25 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
     class_ids: list[str] = []
     for i in range(5):
         cls_name = f"Class{i}"
-        cls = student.create_class(cls_name)
+        cls = student.create_class(cdm_name, cls_name)
         class_ids.append(cls)
         assert cls
         assert not cdm[cls]  # class should not be added yet
-        cdm = student.get_cdm()
+        cdm = student.get_cdm(cdm_name)
         assert cdm[cls]  # class should be in the cdm now
         assert cdm[cls].name == cls_name
 
     # Delete the classes made in the previous loop
     for c in class_ids:
-        student.delete_class(c)
-        assert not student.get_cdm()[c]
+        student.delete_class(cdm_name, c)
+        assert not student.get_cdm(cdm_name)[c]
 
     # Add attributes to the Airplane class
-    for name, attr_type in (("serialNumber", "CDString"), ("numberOfSeats", "CDInt"), ("isUltrasonic", "CDBoolean")):
-        attr = student.create_attribute(airplane, name, attr_type)
+    for name, attr_type in (("serialNumber", CDString), ("numberOfSeats", CDInt), ("isUltrasonic", CDBoolean)):
+        attr = student.create_attribute(cdm_name, airplane, name, attr_type)
         assert attr
         assert not cdm[attr]
-        cdm = student.get_cdm()
+        cdm = student.get_cdm(cdm_name)
         assert cdm[attr]
         assert cdm[attr].name == name
         assert cdm[attr].type == cdm.type_id_for(attr_type)
@@ -253,3 +257,4 @@ if __name__ == '__main__':
     test_webcore_user_register()
     test_webcore_user_login()
     test_webcore_user_logout()
+    test_communication_between_mock_frontend_and_webcore(webcore)

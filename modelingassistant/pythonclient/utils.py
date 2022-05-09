@@ -238,14 +238,14 @@ class ClassDiagramDTO(SimpleNamespace):
             json_repr = to_simplenamespace(json_repr)
         self.__dict__.update(json_repr.__dict__)
         # Perhaps this can be cached in the future, if it is certain that WebCORE's type _ids will not change
-        self.type_names_to_ids: dict[str, str] = {t.eClass.removeprefix("http://cs.mcgill.ca/sel/cdm/1.0#//"): t._id 
+        self.type_names_to_ids: dict[str, str] = {t.eClass.removeprefix("http://cs.mcgill.ca/sel/cdm/1.0#//"): t._id
                                   for t in self.classDiagram.types}  # pylint: disable=protected-access
 
     def get_class_names_by_ids(self) -> dict[str, str]:
         "Return a dictionary mapping class _ids to class names."
         return {c._id: c.name for c in self.classDiagram.classes}  # pylint: disable=protected-access
 
-    def type_id_for(self, type_: str | type) -> str:
+    def type_id_for(self, type_: type | str) -> str:
         "Return the type _id for the given type."
         type_name = type_.__name__ if isinstance(type_, type) else type_
         d = self.type_names_to_ids
