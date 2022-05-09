@@ -34,7 +34,6 @@ class User:
         self.name = name
         self.password = password
         self.token = self.get_token()
-        self.student = None  # to be linked to 0 or 1 Student metamodel instances in the future
         self._logged_in = False
         users[name] = self
 
@@ -71,23 +70,23 @@ class User:
         "Check if the user is logged in."
         return self._logged_in
 
-    @staticmethod
-    def create_random_user():
+    @classmethod
+    def create_random(cls):
         "Create a user with a random name and password, useful for testing."
         # fully ensure unique name for new user by using current timestamp
         name = f"{''.join(random.sample(ascii_lowercase, _USERNAME_PREFIX_LENGTH))}{int(time())}"
         password = secrets.token_urlsafe(16)
-        return User(name, password)
+        return cls(name, password)  # use cls here to allow the creation of User subclasses
 
 
-class MockStudent:
+class MockStudent(User):
     """
     Mock student used for testing.
     This represents a student who only interacts with the application via the frontend.
     """
     def __init__(self, name: str, password, file_name: str = ""):
-        self.name = name
-        self.password = password
+        super().__init__(name, password)
+        self.student = None  # possible pointer to a Student metamodel instance for future integration tests
         self.file_name: str = file_name  # assume one file name for now
 
     def create_cdm(self):

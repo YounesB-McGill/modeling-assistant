@@ -181,7 +181,7 @@ def test_communication_between_modeling_assistant_python_app_and_webcore(webcore
 
 def test_webcore_user_register():
     "Test whether a new user can register with WebCORE."
-    user = User.create_random_user()
+    user = User.create_random()
     assert user
     assert user.name
     assert user.token
@@ -191,7 +191,7 @@ def test_webcore_user_register():
 
 def test_webcore_user_login():
     "Test whether a user can login to WebCORE."
-    user = User.create_random_user()
+    user = User.create_random()
     assert user.login()
     assert user.logged_in
     assert user.token
@@ -200,7 +200,7 @@ def test_webcore_user_login():
 
 def test_webcore_user_logout():
     "Test whether a user can logout of WebCORE."
-    user = User.create_random_user()
+    user = User.create_random()
     assert user.login()
     assert user.logged_in
     assert user.logout()
