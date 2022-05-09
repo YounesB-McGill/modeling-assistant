@@ -41,8 +41,8 @@ from flaskapp import app, DEBUG_MODE, PORT
 from fileserdes import load_cdm, save_to_file
 from modelingassistant_app import MODELING_ASSISTANT
 from stringserdes import SRSET, str_to_modelingassistant
+from user import User, users
 from modelingassistant import ModelingAssistant, ProblemStatement, Solution
-from user import User
 
 
 logger = logging.getLogger(__name__)
@@ -201,16 +201,27 @@ def test_webcore_user_register():
     assert user
     assert user.name
     assert user.token
+    assert user.name in users
 
 
 def test_webcore_user_login():
     "Test whether a user can login to WebCORE."
-    ...
+    user = User.create_random_user()
+    assert user.login()
+    assert user.logged_in
+    assert user.token
+    assert user.name in users
 
 
 def test_webcore_user_logout():
     "Test whether a user can logout of WebCORE."
-    ...
+    user = User.create_random_user()
+    assert user.login()
+    assert user.logged_in
+    assert user.logout()
+    assert not user.logged_in
+    assert not hasattr(user, "token")
+    assert user.name in users  # a logged out user should still be in the users list
 
 
 def test_webcore_user_getcurrent():
@@ -412,3 +423,5 @@ def _setup_instructor_solution():
 if __name__ == '__main__':
     "Main entry point."
     test_webcore_user_register()
+    test_webcore_user_login()
+    test_webcore_user_logout()
