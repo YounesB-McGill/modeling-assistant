@@ -201,6 +201,7 @@ def test_webcore_user_register():
     assert user
     assert user.name
     assert user.token
+    assert not user.logged_in
     assert user.name in users
 
 
@@ -222,12 +223,6 @@ def test_webcore_user_logout():
     assert not user.logged_in
     assert not hasattr(user, "token")
     assert user.name in users  # a logged out user should still be in the users list
-
-
-def test_webcore_user_getcurrent():
-    "Test the WebCORE getCurrent user API endpoint."
-    ...
-
 
 
 def get_modeling_assistant() -> ModelingAssistant:
