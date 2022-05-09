@@ -39,9 +39,10 @@ from envvars import TOUCHCORE_PATH
 from feedback import FeedbackTO
 from flaskapp import app, DEBUG_MODE, PORT
 from fileserdes import load_cdm, save_to_file
-from modelingassistant import ModelingAssistant, ProblemStatement, Solution
 from modelingassistant_app import MODELING_ASSISTANT
 from stringserdes import SRSET, str_to_modelingassistant
+from modelingassistant import ModelingAssistant, ProblemStatement, Solution
+from user import User
 
 
 logger = logging.getLogger(__name__)
@@ -194,26 +195,26 @@ def test_communication_between_modeling_assistant_python_app_and_webcore(webcore
     """
 
 
-def test_webcore_auth_register():
-    "Test the WebCORE authentication register API endpoint."
-    name, password = f"alice{int(time.time())}", "aaa"  # ensure unique name for new user by using current timestamp
-    response = requests.put(f"{WEBCORE_ENDPOINT}/user/public/register", json={"username": name, "password": password})
-    assert response.ok
-    assert "User registered. Your authorization token is" in response.text
+def test_webcore_user_register():
+    "Test whether a new user can register with WebCORE."
+    user = User.create_random_user()
+    assert user
+    assert user.name
+    assert user.token
 
 
-def test_webcore_auth_login():
-    "Test the WebCORE authentication login API endpoint."
+def test_webcore_user_login():
+    "Test whether a user can login to WebCORE."
     ...
 
 
-def test_webcore_auth_logout():
-    "Test the WebCORE authentication logout API endpoint."
+def test_webcore_user_logout():
+    "Test whether a user can logout of WebCORE."
     ...
 
 
-def test_webcore_auth_getcurrent():
-    "Test the WebCORE authentication getCurrent API endpoint."
+def test_webcore_user_getcurrent():
+    "Test the WebCORE getCurrent user API endpoint."
     ...
 
 
@@ -410,4 +411,4 @@ def _setup_instructor_solution():
 
 if __name__ == '__main__':
     "Main entry point."
-    test_webcore_auth_register()
+    test_webcore_user_register()
