@@ -20,6 +20,7 @@ from modelingassistant import ModelingAssistant
 LOGGING_LEVEL = logging.INFO
 
 logging.basicConfig(level=LOGGING_LEVEL, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+logger = logging.getLogger(__name__)
 
 MODELING_ASSISTANT = ModelingAssistantContainer(load_default_ma())
 
@@ -30,7 +31,7 @@ MISTAKE_DETECTION_STARTUP_DELAY = 20  # seconds
 
 
 if sys.version_info[:2] < (3, 10):
-    logging.error("Python 3.10 or higher required to run this app.")
+    logger.error("Python 3.10 or higher required to run this app.")
     sys.exit(1)
 
 
