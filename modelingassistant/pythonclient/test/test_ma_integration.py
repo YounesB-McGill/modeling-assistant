@@ -124,8 +124,7 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     # assert "no mistakes" in feedback.writtenFeedback.lower()
 
 
-@pytest.mark.skip(reason="Fails due to invalid WebCORE state. This test can pass only if WebCORE hasn't been called "
-                         "before, but it is in fact called in the more important integration test above.")
+# @pytest.mark.skip(reason="Test temporarily disabled")
 def test_communication_between_mock_frontend_and_webcore(webcore):
     """
     Test the communication between this mock frontend and WebCORE.
@@ -163,13 +162,13 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
         assert not student.get_cdm(cdm_name)[c]
 
     # Add attributes to the Airplane class
-    for name, attr_type in (("serialNumber", CDString), ("numberOfSeats", CDInt), ("isUltrasonic", CDBoolean)):
-        attr = student.create_attribute(cdm_name, airplane, name, attr_type)
+    for attr_name, attr_type in (("serialNumber", CDString), ("numberOfSeats", CDInt), ("isUltrasonic", CDBoolean)):
+        attr = student.create_attribute(cdm_name, airplane, attr_name, attr_type)
         assert attr
         assert not cdm[attr]
         cdm = student.get_cdm(cdm_name)
         assert cdm[attr]
-        assert cdm[attr].name == name
+        assert cdm[attr].name == attr_name
         assert cdm[attr].type == cdm.type_id_for(attr_type)
 
 
