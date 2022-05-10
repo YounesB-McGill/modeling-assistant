@@ -66,7 +66,7 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
 def get_classifier_by_name(metamodel_root: EPackage, name: str) -> EClass:
     "Return the classifier with the given name."
     return next((classifier for classifier in metamodel_root.eClassifiers if classifier.name == name),
-                warn(f"Classfier {name} not found in metamodel."))
+                warn(f"Classifier {name} not found in metamodel."))
 
 
 if __name__ == '__main__':

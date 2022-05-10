@@ -61,15 +61,15 @@ def webcore():
         Thread(target=lambda: os.system(f"cd {TOUCHCORE_PATH}/.. && ./start-webcore.sh"), daemon=True).start()
 
 
-@pytest.mark.skip(reason="Temporarily disabled")
+@pytest.mark.skip(reason="Disabled until support for Feedback is enabled in WebCORE")
 def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     """
     Simplest possible test for the entire system.
 
-    Scenario (this needs to be more precise):
+    Scenario:
 
     0. Instructor sets up Learning Corpus and Modeling Assistant with one problem statement
-    1. Student (with id "Student1") logs in and starts a new class diagram for that problem (Unity frontend)
+    1. Student logs in and starts a new class diagram for that problem (this mocks the frontend)
     2. Student creates a class with a wrong name and requests feedback
     3. WebCORE calls the Modeling Assistant to get feedback (new cdm -> created new student solution)
     4. Modeling Assistant calls the Mistake Detection System to get mistakes
@@ -82,7 +82,7 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     11. Student sees feedback: No mistakes!
     """
     # Step 0
-    # use this until TC is updated to allow initializing with a cdm
+    # use this until WebCORE is updated to allow initializing with a problem statement
     set_modeling_assistant(get_ma_with_ps(load_cdm(INSTRUCTOR_CDM)))
 
     # Step 1
@@ -257,3 +257,4 @@ if __name__ == '__main__':
     test_webcore_user_login()
     test_webcore_user_logout()
     test_communication_between_mock_frontend_and_webcore(webcore)
+    test_ma_one_class_student_mistake(ma_rest_app, webcore)
