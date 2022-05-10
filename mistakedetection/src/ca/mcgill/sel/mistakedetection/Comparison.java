@@ -1,6 +1,7 @@
 package ca.mcgill.sel.mistakedetection;
 
 import static ca.mcgill.sel.mistakedetection.MistakeDetectionConfig.trackComparisonInstances;
+import java.lang.StackWalker.Option;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -86,13 +87,25 @@ public class Comparison {
   /** Map stores possible instructor student Association Class pair that are detected after initial class mapping. */
   public Map<Classifier, Classifier> assocClassMappingToAdd = new HashMap<>();
 
+  /**
+   * Represents the class and method that caused the Comparison to be created, usually via the
+   * {@code MistakeDetection.compare()} method, in the format {@code ClassName.methodName}.
+   */
+  public String caller = "";
+
   /** List of Comparison instances. It is only populated if trackComparisonsInstances is true. */
   public static transient final List<Comparison> instances = new ArrayList<>();
+
+  /** The number of stack trace frames to skip when recording the comparison's caller method, useful for debugging. */
+  private static final int NUM_SKIPPED_FRAMES = 2;
 
   // use instance initializer to avoid explicit custom constructor
   {
     if (trackComparisonInstances) {
       instances.add(this);
+      caller = StackWalker.getInstance(Option.RETAIN_CLASS_REFERENCE)
+          .walk(frames -> frames.skip(NUM_SKIPPED_FRAMES).findFirst()
+              .map(fr -> fr.getDeclaringClass().getSimpleName() + "." + fr.getMethodName())).orElse("");
     }
   }
 

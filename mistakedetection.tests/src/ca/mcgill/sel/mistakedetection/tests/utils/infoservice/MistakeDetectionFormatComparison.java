@@ -29,7 +29,7 @@ public class MistakeDetectionFormatComparison extends MistakeDetectionInformatio
     var sb = new StringBuilder();
     mdfsFromMds.forEach((mt, mdf) -> {
       var mdfFromMdsShape = mdf.shape();
-      var hvMdfShape = humanValidatedMdfs.getOrDefault(mt, MistakeDetectionFormat.emptyMdf()).shape();
+      var hvMdfShape = humanValidatedMdfs.getOrDefault(mt, MistakeDetectionFormat.EMPTY_MDF).shape();
       if (mdfFromMdsShape.equals(hvMdfShape)) {
         sb.append(CHECK + " " + mt.getName() + "\n\n");
       } else if (mdfFromMdsShape.isCompatibleWith(hvMdfShape)) {

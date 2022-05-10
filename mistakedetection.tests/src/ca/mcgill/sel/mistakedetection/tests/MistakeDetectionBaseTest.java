@@ -52,7 +52,7 @@ public abstract class MistakeDetectionBaseTest {
     var humanValidatedMdfs = HumanValidatedMistakeDetectionFormats.mappings;
     mdfsFromMds.forEach((mt, mdf) -> {
       var mdfFromMdsShape = mdf.shape();
-      var hvMdfShape = humanValidatedMdfs.getOrDefault(mt, MistakeDetectionFormat.emptyMdf()).shape();
+      var hvMdfShape = humanValidatedMdfs.getOrDefault(mt, MistakeDetectionFormat.EMPTY_MDF).shape();
       if (!mdfFromMdsShape.equals(hvMdfShape)) {
         if (mdfFromMdsShape.isCompatibleWith(hvMdfShape)) {
           warnings.putIfAbsent(colorString(Color.DARK_YELLOW,
@@ -81,7 +81,7 @@ public abstract class MistakeDetectionBaseTest {
 
   /**
    * Validates that the given mistake detection format string is consistent with the given solution element.
-   * If not, a non-empty string warning will be returned to the caller.
+   * If not, a test failure with the inconsistency will be reported.
    */
   private static void validateMistakeDetectionFormatMatchesElement(String format, SolutionElement elem) {
     final var specAs = " is specified as a "; // to save space below

@@ -13,10 +13,20 @@ import java.util.stream.Collectors;
 import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
 import modelingassistant.Mistake;
 
+/**
+ * Represents the format used by the Mistake Detection System to report the student and instructor elements associated
+ * to a mistake of a certain type.
+ *
+ * @author Younes Boubekeur
+ * @author Prabhsimran Singh
+ */
 public class MistakeDetectionFormat {
 
   public final List<String> stud = new ArrayList<>();
   public final List<String> inst = new ArrayList<>();
+
+  /** The empty mistake detection format, ([], []). Note that an empty MDF is semantically invalid. */
+  public static final MistakeDetectionFormat EMPTY_MDF = emptyMdf();
 
   static final Map<CdmMetatype, CdmMetatype> typesToReplacements = Map.of(
       AGGR, ASSOC,
@@ -51,6 +61,10 @@ public class MistakeDetectionFormat {
     return new MistakeDetectionFormat(studentElemsDescriptions, instructorElemsDescriptions);
   }
 
+  /**
+   * Returns an empty mistake detection format, which is semantically invalid. To avoid creating needless instances of
+   * an empty MDF, use the EMPTY_MDF constant instead.
+   */
   public static MistakeDetectionFormat emptyMdf() {
     return new MistakeDetectionFormat(Collections.emptyList(), Collections.emptyList());
   }
