@@ -12,20 +12,26 @@ public class MistakeInfo {
   public static final String TABLE_HEADER =
       "MistakeType,StudentElems,InstructorElems,TotalElems,MaxParamRespNumParams,SolElemDescriptions\n";
 
-  public Mistake mistake;
-  int instructorElems;
-  int studentElems;
-  int totalElems;
-  List<Integer> paramRespParamNums;
-  int maxParamRespNumParams;
+  public final Mistake mistake;
+  final int numStudentElems;
+  final int numInstructorElems;
+  final int totalElems;
+  final List<Integer> paramRespParamNums;
+  final int maxParamRespNumParams;
+  final List<String> studentElementNames;
+  final List<String> instructorElementNames;
 
   public MistakeInfo(Mistake mistake) {
     this.mistake = mistake;
-    instructorElems = mistake.getInstructorElements().size();
-    studentElems = mistake.getStudentElements().size();
-    totalElems = instructorElems + studentElems;
+    numStudentElems = mistake.getStudentElements().size();
+    numInstructorElems = mistake.getInstructorElements().size();
+    totalElems = numStudentElems + numInstructorElems;
     paramRespParamNums = calculateParamRespParamNums();
     maxParamRespNumParams = Collections.max(paramRespParamNums);
+    studentElementNames = mistake.getStudentElements().stream().map(e -> e.getElement().getName())
+        .collect(Collectors.toUnmodifiableList());
+    instructorElementNames = mistake.getInstructorElements().stream().map(e -> e.getElement().getName())
+        .collect(Collectors.toUnmodifiableList());
   }
 
   private List<Integer> calculateParamRespParamNums() {
@@ -39,9 +45,9 @@ public class MistakeInfo {
     return Collections.unmodifiableList(counts);
   }
 
-  private String firstColumnEntries() {
-    return mistake.getMistakeType().getName() + "," + studentElems + "," + instructorElems + "," + totalElems + ","
-        + maxParamRespNumParams;
+  String firstColumnEntries() {
+    return mistake.getMistakeType().getName() + "," + numStudentElems + "," + numInstructorElems + "," + totalElems
+        + "," + maxParamRespNumParams;
   }
 
   @Override public String toString() {
@@ -55,13 +61,36 @@ public class MistakeInfo {
   // value-based equality based on some fields only, to avoid set duplicates
   @Override public boolean equals(Object o) {
     if (o instanceof MistakeInfo) {
-      return firstColumnEntries().equals(((MistakeInfo) o).firstColumnEntries());
+      var mistakeInfo = (MistakeInfo) o;
+      return firstColumnEntries().equals(mistakeInfo.firstColumnEntries())
+          && studentElementNames.equals(mistakeInfo.studentElementNames)
+          && instructorElementNames.equals(mistakeInfo.instructorElementNames);
     }
     return false;
   }
 
   @Override public int hashCode() {
-    return firstColumnEntries().hashCode();
+    return firstColumnEntries().hashCode() + studentElementNames.hashCode() + instructorElementNames.hashCode();
+  }
+
+  /** Represents the general structure of a MistakeInfo, useful to avoid duplicates of similar MistakeInfo instances. */
+  public static class Shape extends MistakeInfo {
+    public Shape(Mistake mistake) {
+      super(mistake);
+    }
+
+    // value-based equality based on some fields only, to avoid set duplicates
+    @Override public boolean equals(Object o) {
+      if (o instanceof MistakeInfo) {
+        var mistakeInfo = (MistakeInfo) o;
+        return firstColumnEntries().equals(mistakeInfo.firstColumnEntries());
+      }
+      return false;
+    }
+
+    @Override public int hashCode() {
+      return firstColumnEntries().hashCode();
+    }
   }
 
 }

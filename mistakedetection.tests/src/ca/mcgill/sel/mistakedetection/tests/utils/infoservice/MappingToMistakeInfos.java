@@ -16,7 +16,7 @@ public class MappingToMistakeInfos extends MistakeDetectionInformationService {
   }
 
   @Override public String getOutput() {
-    return title(name) + "\n" + mistakeTypeElementVsParametrizedStringStatistics(mapToMistakeInfos());
+    return title(name) + "\n" + mistakeTypeElementVsParametrizedStringStatistics(mapToMistakeInfoShapes());
   }
 
   public static MappingToMistakeInfos get() {
@@ -32,8 +32,17 @@ public class MappingToMistakeInfos extends MistakeDetectionInformationService {
         TreeMap::new));
   }
 
+  /** Maps comparison mistakes to MistakeInfo shape instances. */
+  public static Map<MistakeType, Set<MistakeInfo.Shape>> mapToMistakeInfoShapes() {
+    return allMistakes().collect(Collectors.toMap(
+        m -> m.getMistakeType(),
+        m -> Set.of(new MistakeInfo.Shape(m)),
+        MistakeDetectionInformationService::setUnion,
+        TreeMap::new));
+  }
+
   private static String mistakeTypeElementVsParametrizedStringStatistics(
-      Map<MistakeType, ? extends Collection<MistakeInfo>> mapping) {
+      Map<MistakeType, ? extends Collection<MistakeInfo.Shape>> mapping) {
     return MistakeInfo.TABLE_HEADER + mapping.entrySet().stream().map(e -> e.getValue().stream()
         .map(Color::randomColorString).collect(Collectors.joining("\n"))).collect(Collectors.joining("\n"));
   }

@@ -89,7 +89,8 @@ public class Comparison {
 
   /**
    * Represents the class and method that caused the Comparison to be created, usually via the
-   * {@code MistakeDetection.compare()} method, in the format {@code ClassName.methodName}.
+   * {@code MistakeDetection.compare()} method, in the format {@code ClassName.methodName()}.
+   * It is only populated if trackComparisonsInstances is true.
    */
   public String caller = "";
 
@@ -105,7 +106,7 @@ public class Comparison {
       instances.add(this);
       caller = StackWalker.getInstance(Option.RETAIN_CLASS_REFERENCE)
           .walk(frames -> frames.skip(NUM_SKIPPED_FRAMES).findFirst()
-              .map(fr -> fr.getDeclaringClass().getSimpleName() + "." + fr.getMethodName())).orElse("");
+              .map(fr -> fr.getDeclaringClass().getSimpleName() + "." + fr.getMethodName() + "()")).orElse("");
     }
   }
 
