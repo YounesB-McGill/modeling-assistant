@@ -3255,9 +3255,10 @@ public class MistakeDetection {
 
   public static boolean attributeTypesMatch(Attribute studentAttribute, Attribute instructorAttribute) {
     if (!studentAttribute.getType().getClass().equals(instructorAttribute.getType().getClass())) {
-      if ((instructorAttribute.getType() instanceof CDInt
-          && (studentAttribute.getType() instanceof CDFloat || studentAttribute.getType() instanceof CDLong))
-          || (instructorAttribute.getType() instanceof CDFloat && studentAttribute.getType() instanceof CDLong)) {
+      if ((instructorAttribute.getType() instanceof CDInt || instructorAttribute.getType() instanceof CDFloat
+          || instructorAttribute.getType() instanceof CDLong)
+          && (studentAttribute.getType() instanceof CDFloat || studentAttribute.getType() instanceof CDLong
+              || studentAttribute.getType() instanceof CDInt)) {
         return true;
       }
       return false;
