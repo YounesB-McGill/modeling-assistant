@@ -1,7 +1,13 @@
 package ca.mcgill.sel.mistakedetection.tests;
 
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.assertMistake;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.instructorSolutionFromClassDiagram;
+import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentMistakeFor;
 import static ca.mcgill.sel.mistakedetection.tests.MistakeDetectionTest.studentSolutionFromClassDiagram;
+import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_ATTRIBUTE;
+import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
+import static learningcorpus.mistaketypes.MistakeTypes.SOFTWARE_ENGINEERING_TERM;
+import static learningcorpus.mistaketypes.MistakeTypes.UPPERCASE_ATTRIBUTE_NAME;
 import static modelingassistant.util.ClassDiagramUtils.getAssocAggCompFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
@@ -72,6 +78,54 @@ public class MistakeDetectionSynonymsTest {
   }
 
   /**
+   * Test to check plural class name detection based on synonyms.
+   */
+  @Test
+  public void testToCheckPluralClassSynonym() {
+    var instructorClassDiagram = cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher/Class Diagram/Teacher.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram =  cdmFromFile(STUDENT_CDM_PATH + "student_instructors/Class Diagram/Teacher.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    setSynonymToClassInClassDiag("Teacher", List.of("Instructor"), instructorClassDiagram, instructorSolution);
+
+    var instructorClass = getClassFromClassDiagram("Teacher", instructorClassDiagram);
+    var studentClass = getClassFromClassDiagram("Instructors", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
+
+    assertMistake(studentMistakeFor(studentClass), PLURAL_CLASS_NAME, studentClass, instructorClass, 0, 1, false);
+  }
+
+  /**
+   * Test to check SE term detection based on synonyms.
+   */
+  @Test
+  public void testToCheckSEClassSynonym() {
+    var instructorClassDiagram = cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher/Class Diagram/Teacher.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram =  cdmFromFile(STUDENT_CDM_PATH + "student_instructorData/Class Diagram/Teacher.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    setSynonymToClassInClassDiag("Teacher", List.of("Instructor"), instructorClassDiagram, instructorSolution);
+
+    var instructorClass = getClassFromClassDiagram("Teacher", instructorClassDiagram);
+    var studentClass = getClassFromClassDiagram("InstructorData", studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
+
+    assertMistake(studentMistakeFor(studentClass), SOFTWARE_ENGINEERING_TERM, studentClass, instructorClass, 0, 1, false);
+  }
+
+  /**
    * Test to check Attribute mapping and detection based on synonyms.
    */
   @Test
@@ -100,6 +154,40 @@ public class MistakeDetectionSynonymsTest {
 
     assertEquals(comparison.mappedAttributes.get(instructorClassAttrib1), studentClassAttrib1);
     assertEquals(comparison.mappedAttributes.get(instructorClassAttrib2), studentClassAttrib2);
+  }
+
+  /**
+   * Test to check Plural and upper case Attribute mapping and detection based on synonyms.
+   */
+  @Test
+  public void testToCheckPluralAndUppercaseAttributeSynonym() {
+    var instructorClassDiagram = cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher_Attrib/Class Diagram/Teacher.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram =  cdmFromFile(STUDENT_CDM_PATH + "student_teacher_plural&UppercaseAttrib/Class Diagram/Teacher.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    setSynonymToAttribInClassInClassDiag("Teacher","name", List.of("fullName"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Teacher","ID", List.of("identification"), instructorClassDiagram, instructorSolution);
+
+    var instructorClass = getClassFromClassDiagram("Teacher", instructorClassDiagram);
+    var instructorClassAttrib1 = getAttributeFromClass("name", instructorClass);
+    var instructorClassAttrib2 = getAttributeFromClass("ID", instructorClass);
+
+    var studentClass = getClassFromClassDiagram("Teacher", studentClassDiagram);
+    var studentClassAttrib1 = getAttributeFromClass("fullNames", studentClass);
+    var studentClassAttrib2 = getAttributeFromClass("Identification", studentClass);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(2, comparison.newMistakes.size());
+    assertEquals(2, studentSolution.getMistakes().size());
+
+    assertEquals(comparison.mappedAttributes.get(instructorClassAttrib1), studentClassAttrib1);
+    assertEquals(comparison.mappedAttributes.get(instructorClassAttrib2), studentClassAttrib2);
+
+    assertMistake(studentMistakeFor(studentClassAttrib1), PLURAL_ATTRIBUTE, studentClassAttrib1, instructorClassAttrib1, 0, 1, false);
+    assertMistake(studentMistakeFor(studentClassAttrib2), UPPERCASE_ATTRIBUTE_NAME, studentClassAttrib2, instructorClassAttrib2, 0, 1, false);
   }
 
   /**
