@@ -303,9 +303,7 @@ public class MistakeDetection {
       List<Attribute> studentAttributes = possibleClassifierMatch.getAttributes();
       for (Attribute instructorAttribute : instructorAttributes) {
         for (Attribute studentAttribute : studentAttributes) {
-          int lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-          lDistance = getMinimuimLDInSynonyms(instructorAttribute, studentAttribute, lDistance);
-          if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)) {
+          if (isAttributeMatch(instructorAttribute, studentAttribute)) {
             mapAttributes(comparison, studentAttribute, instructorAttribute);
             checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison);
             break;
@@ -334,6 +332,15 @@ public class MistakeDetection {
 
     updateMistakes(instructorSolution, studentSolution, comparison, filter);
     return comparison;
+  }
+
+  private static boolean isAttributeMatch(Attribute instructorAttribute, Attribute studentAttribute) {
+    int lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
+    lDistance = getMinimuimLDInSynonyms(instructorAttribute, studentAttribute, lDistance);
+    if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)){
+      return true;
+    }
+    return false;
   }
 
   private static void checkMistakesMissingExtraGenWrongSuperclassWrongDirection(Comparison comparison) {
@@ -2307,9 +2314,7 @@ public class MistakeDetection {
           }
           for (Attribute instructorAttribute : instructorAttributes) {
             for (Attribute studentAttribute : studentAttributes) {
-              int lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-              lDistance = getMinimuimLDInSynonyms(instructorAttribute, studentAttribute, lDistance);
-              if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)) {
+              if (isAttributeMatch(instructorAttribute, studentAttribute)) {
                 correctAttribute++;
                 break;
               }
@@ -2348,9 +2353,7 @@ public class MistakeDetection {
           List<Attribute> studentAttributes = studentClassifier.getAttributes();
           for (Attribute instructorAttribute : instructorAttributes) {
             for (Attribute studentAttribute : studentAttributes) {
-              int lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-              lDistance = getMinimuimLDInSynonyms(instructorAttribute, studentAttribute, lDistance);
-              if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)) {
+              if (isAttributeMatch(instructorAttribute, studentAttribute)) {
                 mapAttributes(comparison, studentAttribute, instructorAttribute);
                 checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison);
                 break;
