@@ -34,7 +34,9 @@ public class MistakeDetectionFormatComparison extends MistakeDetectionInformatio
       if (!mti.mistakeInfo.caller.isEmpty()) {
         source = mti.mistakeInfo.caller;
       }
-      if (mdfFromMdsShape.equals(hvMdfShape)) {
+      if (mdfFromMdsShape.equals(hvMdfShape)
+          || (HumanValidatedMistakeDetectionFormats.exemptions.contains(mti.mistakeType)
+              && mdfFromMdsShape.isCompatibleWith(hvMdfShape))) {
         sb.append(CHECK + " " + mti.mistakeType.getName() + "\n\n");
       } else if (mdfFromMdsShape.isCompatibleWith(hvMdfShape)) {
         sb.append(colorString(Color.DARK_YELLOW, WARN + " " + mti.mistakeType.getName() + "\n~ "

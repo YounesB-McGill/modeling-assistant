@@ -54,10 +54,10 @@ public abstract class MistakeDetectionBaseTest {
           source = mti.mistakeInfo.caller;
         }
         if (mdfFromMdsShape.isCompatibleWith(hvMdfShape)) {
-          warnings.putIfAbsent(colorString(Color.DARK_YELLOW,
-              "! Double-check MDF for " + mti.mistakeType.getName() + ": " + mdf.shape().reduceToSimplestForm()
-              + ".\n MDF created from " + source),
-              false);
+          if (!HumanValidatedMistakeDetectionFormats.exemptions.contains(mti.mistakeType)) {
+            warnings.putIfAbsent(colorString(Color.DARK_YELLOW, "! Double-check MDF for " + mti.mistakeType.getName()
+                + ": " + mdf.shape().reduceToSimplestForm() + ".\n MDF created from " + source), false);
+          }
         } else {
           fail("X MDF for " + mti.mistakeType.getName() + " is " + mdf.shape() + " but expected " + hvMdfShape
               + ".\n MDF created from " + source);
