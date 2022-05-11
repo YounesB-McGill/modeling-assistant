@@ -13,10 +13,20 @@ import java.util.stream.Collectors;
 import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetectionFormats;
 import modelingassistant.Mistake;
 
+/**
+ * Represents the format used by the Mistake Detection System to report the student and instructor elements associated
+ * to a mistake of a certain type.
+ *
+ * @author Younes Boubekeur
+ * @author Prabhsimran Singh
+ */
 public class MistakeDetectionFormat {
 
   public final List<String> stud = new ArrayList<>();
   public final List<String> inst = new ArrayList<>();
+
+  /** The empty mistake detection format, ([], []). Note that an empty MDF is semantically invalid. */
+  public static final MistakeDetectionFormat EMPTY_MDF = emptyMdf();
 
   static final Map<CdmMetatype, CdmMetatype> typesToReplacements = Map.of(
       AGGR, ASSOC,
@@ -36,6 +46,10 @@ public class MistakeDetectionFormat {
     }
   }
 
+  public MistakeDetectionFormat(MistakeInfo mistakeInfo) {
+    this(mistakeInfo.mistake);
+  }
+
   private MistakeDetectionFormat(List<String> studentElemsDescriptions, List<String> instructorElemsDescriptions) {
     stud.addAll(studentElemsDescriptions);
     inst.addAll(instructorElemsDescriptions);
@@ -46,11 +60,19 @@ public class MistakeDetectionFormat {
         new MistakeDetectionFormat(mistake));
   }
 
+  public static MistakeDetectionFormat forMistakeInfo(MistakeInfo mistakeInfo) {
+    return forMistake(mistakeInfo.mistake);
+  }
+
   public static MistakeDetectionFormat mdf(List<String> studentElemsDescriptions,
       List<String> instructorElemsDescriptions) {
     return new MistakeDetectionFormat(studentElemsDescriptions, instructorElemsDescriptions);
   }
 
+  /**
+   * Returns an empty mistake detection format, which is semantically invalid. To avoid creating needless instances of
+   * an empty MDF, use the EMPTY_MDF constant instead.
+   */
   public static MistakeDetectionFormat emptyMdf() {
     return new MistakeDetectionFormat(Collections.emptyList(), Collections.emptyList());
   }
@@ -75,13 +97,11 @@ public class MistakeDetectionFormat {
   }
 
   // eg, ([], ["cls"])
-  @Override
-  public String toString() {
+  @Override public String toString() {
     return "(" + studAsString() + ", " + instAsString() + ")";
   }
 
-  @Override
-  public boolean equals(Object o) {
+  @Override public boolean equals(Object o) {
     if (!(o instanceof MistakeDetectionFormat)) {
       return false;
     }
@@ -89,8 +109,7 @@ public class MistakeDetectionFormat {
     return stud.equals(other.stud) && inst.equals(other.inst);
   }
 
-  @Override
-  public int hashCode() {
+  @Override public int hashCode() {
     return 17 * stud.hashCode() + 31 * inst.hashCode();
   }
 
@@ -172,8 +191,7 @@ public class MistakeDetectionFormat {
       return simplify(mapToShape(list1), false).equals(simplify(mapToShape(list2), false));
     }
 
-    @Override
-    public boolean equals(Object o) {
+    @Override public boolean equals(Object o) {
       if (!(o instanceof MistakeDetectionFormat.Shape)) {
         return false;
       }

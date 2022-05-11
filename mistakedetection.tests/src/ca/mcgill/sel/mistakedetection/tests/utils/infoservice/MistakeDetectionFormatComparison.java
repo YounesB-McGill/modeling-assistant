@@ -27,16 +27,23 @@ public class MistakeDetectionFormatComparison extends MistakeDetectionInformatio
     var mdfsFromMds = getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem();
     var humanValidatedMdfs = HumanValidatedMistakeDetectionFormats.mappings;
     var sb = new StringBuilder();
-    mdfsFromMds.forEach((mt, mdf) -> {
+    mdfsFromMds.forEach((mti, mdf) -> {
       var mdfFromMdsShape = mdf.shape();
-      var hvMdfShape = humanValidatedMdfs.getOrDefault(mt, MistakeDetectionFormat.emptyMdf()).shape();
-      if (mdfFromMdsShape.equals(hvMdfShape)) {
-        sb.append(CHECK + " " + mt.getName() + "\n\n");
+      var hvMdfShape = humanValidatedMdfs.getOrDefault(mti.mistakeType, MistakeDetectionFormat.EMPTY_MDF).shape();
+      var source = "unknown source";
+      if (!mti.mistakeInfo.caller.isEmpty()) {
+        source = mti.mistakeInfo.caller;
+      }
+      if (mdfFromMdsShape.equals(hvMdfShape)
+          || (HumanValidatedMistakeDetectionFormats.exemptions.contains(mti.mistakeType)
+              && mdfFromMdsShape.isCompatibleWith(hvMdfShape))) {
+        sb.append(CHECK + " " + mti.mistakeType.getName() + "\n\n");
       } else if (mdfFromMdsShape.isCompatibleWith(hvMdfShape)) {
-        sb.append(colorString(Color.DARK_YELLOW, WARN + " " + mt.getName() + "\n~ " + mdf.shape().reduceToSimplestForm()
-            + "\n\n"));
+        sb.append(colorString(Color.DARK_YELLOW, WARN + " " + mti.mistakeType.getName() + "\n~ "
+            + mdf.shape().reduceToSimplestForm() + "\n  MDF created from " + source + "\n\n"));
       } else {
-        sb.append(colorString(Color.ORANGE, X + " " + mt.getName() + "\n" + mdf.shape() + "\n" + hvMdfShape + "\n\n"));
+        sb.append(colorString(Color.ORANGE, X + " " + mti.mistakeType.getName()  + "\n" + mdf.shape() + "\n"
+            + hvMdfShape + "\n  MDF created from " + source + "\n\n"));
       }
     });
     return sb.toString();

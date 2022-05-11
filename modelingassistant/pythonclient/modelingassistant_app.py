@@ -20,6 +20,7 @@ from modelingassistant import ModelingAssistant
 LOGGING_LEVEL = logging.INFO
 
 logging.basicConfig(level=LOGGING_LEVEL, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+logger = logging.getLogger(__name__)
 
 MODELING_ASSISTANT = ModelingAssistantContainer(load_default_ma())
 
@@ -30,7 +31,7 @@ MISTAKE_DETECTION_STARTUP_DELAY = 20  # seconds
 
 
 if sys.version_info[:2] < (3, 10):
-    logging.error("Python 3.10 or higher required to run this app.")
+    logger.error("Python 3.10 or higher required to run this app.")
     sys.exit(1)
 
 
@@ -65,7 +66,7 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
 def get_classifier_by_name(metamodel_root: EPackage, name: str) -> EClass:
     "Return the classifier with the given name."
     return next((classifier for classifier in metamodel_root.eClassifiers if classifier.name == name),
-                warn(f"Classfier {name} not found in metamodel."))
+                warn(f"Classifier {name} not found in metamodel."))
 
 
 if __name__ == '__main__':

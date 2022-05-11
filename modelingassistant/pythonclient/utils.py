@@ -5,10 +5,12 @@ This module must not depend on any other to avoid circular dependencies.
 # pylint: disable=no-member
 
 # Ok to import items from standard library, constants, envvars, and pyecore model code only
-
+from collections import namedtuple
+from collections.abc import Iterable
+import json
 from string import Formatter
 from types import SimpleNamespace
-from typing import NamedTuple
+from typing import NamedTuple, Tuple
 
 from classdiagram import AssociationEnd, Classifier, ReferenceType
 from constants import CORRECT_QUIZ_ITEM_NOTATIONS, MULTIPLE_FEEDBACKS_PER_LEVEL
@@ -32,6 +34,14 @@ def color_str(color: str, text: str) -> str:
 def warn(text: str):
     "Print a warning message to the console."
     print(color_str(COLOR.ORANGE, f"Warning: {text}"))
+
+
+def to_simplenamespace(d: dict) -> SimpleNamespace:
+    """
+    Convert a dictionary to a SimpleNamespace, to make it easier to access its keys using dot notation, eg,
+    d.p instead of d["p"].
+    """
+    return SimpleNamespace(**d)
 
 
 def ae(cls_: Classifier, lb: int = 1, ub: int = 1, ref_type: ReferenceType = ReferenceType.Regular, n: str = ""
@@ -213,6 +223,95 @@ class McqFactory:
 
 
 mcq = McqFactory()
+
+
+class ClassDiagramDTO(SimpleNamespace):
+    """
+    Class Diagram Data Transfer (JSON) Object returned by WebCORE.
+
+    Properties: { eClass, _id, name, classes, types, layout }
+    """
+    def __init__(self, json_repr: dict | str | SimpleNamespace):
+        if isinstance(json_repr, str):
+            json_repr = json.loads(json_repr, object_hook=to_simplenamespace)
+        elif isinstance(json_repr, dict):
+            json_repr = to_simplenamespace(json_repr)
+        self.__dict__.update(json_repr.__dict__)
+        # Perhaps this can be cached in the future, if it is certain that WebCORE's type _ids will not change
+        self.type_names_to_ids: dict[str, str] = {t.eClass.removeprefix("http://cs.mcgill.ca/sel/cdm/1.0#//"): t._id
+                                  for t in self.classDiagram.types}  # pylint: disable=protected-access
+
+    def get_class_names_by_ids(self) -> dict[str, str]:
+        "Return a dictionary mapping class _ids to class names."
+        if not hasattr(self.classDiagram, "classes"):
+            return {}
+        return {c._id: c.name for c in self.classDiagram.classes}  # pylint: disable=protected-access
+
+    def type_id_for(self, type_: type | str) -> str:
+        "Return the type _id for the given type."
+        type_name = type_.__name__ if isinstance(type_, type) else type_
+        d = self.type_names_to_ids
+        return d.get(type_name, d["CDAny"])  # return the Any type if exact type not found
+
+    def __getitem__(self, item: str) -> SimpleNamespace:
+        return get_by_id(item, self)
+
+    class CustomJSONEncoder(json.JSONEncoder):
+        "Custom JSON encoder to display object in a more readable way."
+        def default(self, o):
+            return o.__dict__
+
+    def __repr__(self):
+        return json.dumps(self.__dict__, indent=2, cls=self.CustomJSONEncoder)
+
+
+def cdm_diff(old_cdm: dict, new_cdm: dict) -> Tuple[list[str], list[str]]:
+    "Return the difference between the old and new cdms in the format (additions, removals)."
+    def get_ids(iterable: Iterable, result: list[str] = None) -> list[str]:
+        "Recursively get the _ids of the given input."
+        if result is None:
+            result = []
+        if isinstance(iterable, SimpleNamespace):
+            iterable = iterable.__dict__
+        if isinstance(iterable, list):
+            for item in iterable:
+                for _id in get_ids(item):
+                    if _id not in result:
+                        result.append(_id)
+        elif isinstance(iterable, dict):
+            for key, value in iterable.items():
+                if key == "_id" and value not in result:
+                    result.append(value)
+                else:
+                    for _id in get_ids(value, result):
+                        if _id not in result:
+                            result.append(_id)
+        return result
+
+    old_ids, new_ids = get_ids(old_cdm), get_ids(new_cdm)
+    result_template = namedtuple("result", "additions, removals")
+    additions = [_id for _id in new_ids if _id not in old_ids]
+    removals = [_id for _id in old_ids if _id not in new_ids]
+    return result_template(additions, removals)
+
+
+def get_by_id(_id: str, iterable: Iterable) -> str:
+    "Get the item with the given _id by recursing into the iterable."
+    if isinstance(iterable, SimpleNamespace):
+        iterable = iterable.__dict__
+    if isinstance(iterable, list):
+        for item in iterable:
+            if hasattr(item, "get") and _id == item.get("_id", None):
+                return item
+            if result := get_by_id(_id, item):
+                return result
+    elif isinstance(iterable, dict):
+        for key, value in iterable.items():
+            if (key, value) == ("_id", _id):
+                return to_simplenamespace(iterable)
+            if result := get_by_id(_id, value):
+                return result
+    return None
 
 
 class NonNoneDict(dict):
