@@ -9,29 +9,21 @@ import modelingassistant.Mistake;
 public class MistakeTypeInfo implements Comparable<MistakeTypeInfo> {
 
   public final MistakeType mistakeType;
-  public MistakeInfo mistakeInfo; // only available if created from a MistakeInfo
-  public Mistake mistake; // only available if created from a Mistake or MistakeInfo
+  public final MistakeInfo mistakeInfo;
+  public final Mistake mistake;
 
   private static final Map<MistakeType, MistakeTypeInfo> instancesByMistakeType = new TreeMap<>(); // ordered map
 
   public MistakeTypeInfo(MistakeInfo mistakeInfo) {
-    this(mistakeInfo.mistake);
+    this.mistakeType = mistakeInfo.mistakeType;
     this.mistakeInfo = mistakeInfo;
-  }
-
-  public MistakeTypeInfo(Mistake mistake) {
-    this(mistake.getMistakeType());
-    this.mistake = mistake;
-  }
-
-  public MistakeTypeInfo(MistakeType mistakeType) {
-    this.mistakeType = mistakeType;
+    this.mistake = mistakeInfo.mistake;
   }
 
   public static MistakeTypeInfo get(Mistake mistake) {
     var mt = mistake.getMistakeType();
     if (!instancesByMistakeType.containsKey(mt)) {
-      instancesByMistakeType.put(mt, new MistakeTypeInfo(mistake));
+      instancesByMistakeType.put(mt, new MistakeTypeInfo(new MistakeInfo(mistake)));
     }
     return get(mt);
   }

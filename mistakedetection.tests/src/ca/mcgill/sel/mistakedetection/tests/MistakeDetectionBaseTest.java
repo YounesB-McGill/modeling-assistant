@@ -49,12 +49,18 @@ public abstract class MistakeDetectionBaseTest {
       var mdfFromMdsShape = mdf.shape();
       var hvMdfShape = humanValidatedMdfs.getOrDefault(mti.mistakeType, MistakeDetectionFormat.EMPTY_MDF).shape();
       if (!mdfFromMdsShape.equals(hvMdfShape)) {
+        var source = "unknown source";
+        if (!mti.mistakeInfo.caller.isEmpty()) {
+          source = mti.mistakeInfo.caller;
+        }
         if (mdfFromMdsShape.isCompatibleWith(hvMdfShape)) {
           warnings.putIfAbsent(colorString(Color.DARK_YELLOW,
-              "! Double-check MDF for " + mti.mistakeType.getName() + ": " + mdf.shape().reduceToSimplestForm()),
+              "! Double-check MDF for " + mti.mistakeType.getName() + ": " + mdf.shape().reduceToSimplestForm()
+              + ".\n MDF created from " + source),
               false);
         } else {
-          fail("X MDF for " + mti.mistakeType.getName() + " is " + mdf.shape() + " but expected " + hvMdfShape);
+          fail("X MDF for " + mti.mistakeType.getName() + " is " + mdf.shape() + " but expected " + hvMdfShape
+              + ".\n MDF created from " + source);
         }
       }
     });
