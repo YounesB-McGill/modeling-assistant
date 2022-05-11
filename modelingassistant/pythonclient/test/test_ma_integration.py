@@ -40,6 +40,9 @@ CDM_NAME = "MULTIPLE_CLASSES"
 INSTRUCTOR_CDM = f"modelingassistant/testmodels/{CDM_NAME}_instructor.cdm"
 MA_REST_ENDPOINT = f"http://localhost:{PORT}/modelingassistant"
 
+# Skip all pytest tests in this module by setting the pytestmark global variable
+pytestmark = pytest.mark.skip("Skipping all integrations tests since they depend on the WebCORE server")
+
 
 @pytest.fixture(scope="module")
 def ma_rest_app():
@@ -124,7 +127,6 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     # assert "no mistakes" in feedback.writtenFeedback.lower()
 
 
-# @pytest.mark.skip(reason="Test temporarily disabled")
 def test_communication_between_mock_frontend_and_webcore(webcore):
     """
     Test the communication between this mock frontend and WebCORE.
