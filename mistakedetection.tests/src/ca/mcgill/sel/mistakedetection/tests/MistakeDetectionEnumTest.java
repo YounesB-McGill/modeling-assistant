@@ -357,8 +357,6 @@ public class MistakeDetectionEnumTest extends MistakeDetectionBaseTest {
 
     assertEquals(0, comparison.newMistakes.size());
     assertEquals(0, studentSolution.getMistakes().size());
-
-
   }
 
 }

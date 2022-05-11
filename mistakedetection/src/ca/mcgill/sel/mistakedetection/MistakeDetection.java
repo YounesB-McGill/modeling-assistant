@@ -304,7 +304,7 @@ public class MistakeDetection {
       List<Attribute> studentAttributes = possibleClassifierMatch.getAttributes();
       for (Attribute instructorAttribute : instructorAttributes) {
         for (Attribute studentAttribute : studentAttributes) {
-          if (isAttributeMatch(instructorAttribute, studentAttribute)) {
+          if (isAttributeMatch(instructorAttribute, studentAttribute, comparison)) {
             mapAttributes(comparison, studentAttribute, instructorAttribute);
             checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison);
             break;
@@ -335,24 +335,27 @@ public class MistakeDetection {
     return comparison;
   }
 
-  private static boolean isAttributeMatch(Attribute instructorAttribute, Attribute studentAttribute) {
+  /** Returns true if attributes match based on LD, synonyms and enum-bool relationship. */
+  private static boolean isAttributeMatch(Attribute instructorAttribute, Attribute studentAttribute, Comparison comparison) {
     int lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
     lDistance = getMinimuimLDInSynonyms(instructorAttribute, studentAttribute, lDistance);
     if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)) {
       return true;
     }
-    if (isEnumAttributeBoolean(instructorAttribute, studentAttribute)) {
+    if (isEnumAttributeBoolean(instructorAttribute, studentAttribute, comparison)) {
       return true;
     }
     return false;
   }
 
-  private static boolean isEnumAttributeBoolean(Attribute instructorAttribute, Attribute studentAttribute) {
+  /** Returns true if student makes boolean instead of an 2 literal enumeration */
+  private static boolean isEnumAttributeBoolean(Attribute instructorAttribute, Attribute studentAttribute, Comparison comparison) {
     if (instructorAttribute.getType() instanceof CDEnum && studentAttribute.getType() instanceof CDBoolean) {
       var studAttribName = studentAttribute.getName();
-      var instEnum = instructorAttribute.getType().getName();
-      if (studAttribName.toLowerCase().equals(instructorAttribute.getName().toLowerCase())
-          || studAttribName.toLowerCase().equals(instEnum.toLowerCase())) {
+      var instEnum = getEnumFromClassDiagram(instructorAttribute.getType().getName(), comparison.instructorCdm);
+      if ((studAttribName.toLowerCase().equals(instructorAttribute.getName().toLowerCase())
+          || studAttribName.toLowerCase().equals(instEnum.getName().toLowerCase())
+          || isSynonym(instructorAttribute, studentAttribute)) && instEnum.getLiterals().size() == 2) {
         return true;
       }
     }
@@ -445,7 +448,7 @@ public class MistakeDetection {
 
     for (Attribute studAttrib : comparison.extraStudentAttributes) {
       for (Attribute instAttrib : comparison.notMappedInstructorAttributes) {
-        if (isAttributeMatch(instAttrib, studAttrib)) {
+        if (isAttributeMatch(instAttrib, studAttrib, comparison)) {
           Classifier instClass = (Classifier) instAttrib.eContainer();
           Classifier studClass = (Classifier) studAttrib.eContainer();
 
@@ -832,13 +835,13 @@ public class MistakeDetection {
 
   private static void checkMistakesInAttributes(Attribute studentAttribute, Attribute instructorAttribute,
       Comparison comparison) {
-    checkMistakeWrongAttributeTypeAndListAttrib(studentAttribute, instructorAttribute)
+    checkMistakeWrongAttributeTypeAndListAttrib(studentAttribute, instructorAttribute, comparison)
         .ifPresent(comparison.newMistakes::add);
     checkMistakeAttributeExpectedStatic(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
     checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute)
         .ifPresent(comparison.newMistakes::add);
     if (studentAttribute.getName() != instructorAttribute.getName()) {
-      checkMistakeAttributeSpelling(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
+      checkMistakeAttributeSpelling(studentAttribute, instructorAttribute, comparison).ifPresent(comparison.newMistakes::add);
       checkMistakePluralAttribName(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
       checkMistakeUppercaseAttribName(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
     }
@@ -2334,7 +2337,7 @@ public class MistakeDetection {
           }
           for (Attribute instructorAttribute : instructorAttributes) {
             for (Attribute studentAttribute : studentAttributes) {
-              if (isAttributeMatch(instructorAttribute, studentAttribute)) {
+              if (isAttributeMatch(instructorAttribute, studentAttribute, comparison)) {
                 correctAttribute++;
                 break;
               }
@@ -2373,7 +2376,7 @@ public class MistakeDetection {
           List<Attribute> studentAttributes = studentClassifier.getAttributes();
           for (Attribute instructorAttribute : instructorAttributes) {
             for (Attribute studentAttribute : studentAttributes) {
-              if (isAttributeMatch(instructorAttribute, studentAttribute)) {
+              if (isAttributeMatch(instructorAttribute, studentAttribute, comparison)) {
                 mapAttributes(comparison, studentAttribute, instructorAttribute);
                 checkMistakesInAttributes(studentAttribute, instructorAttribute, comparison);
                 break;
@@ -2619,12 +2622,12 @@ public class MistakeDetection {
   }
 
   public static Optional<Mistake> checkMistakeAttributeSpelling(Attribute studentAttribute,
-      Attribute instructorAttribute) {
+      Attribute instructorAttribute, Comparison comparison) {
     if (!isPlural(studentAttribute.getName())
         && levenshteinDistance(studentAttribute.getName().toLowerCase(),
             instructorAttribute.getName().toLowerCase()) >= 1
         && !isSynonym(instructorAttribute, studentAttribute)
-        && !isEnumAttributeBoolean(instructorAttribute, studentAttribute)) {
+        && !isEnumAttributeBoolean(instructorAttribute, studentAttribute, comparison)) {
       return Optional.of(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, studentAttribute, instructorAttribute));
     }
     return Optional.empty();
@@ -2642,12 +2645,12 @@ public class MistakeDetection {
   }
 
   public static Optional<Mistake> checkMistakeWrongAttributeTypeAndListAttrib(Attribute studentAttribute,
-      Attribute instructorAttribute) {
+      Attribute instructorAttribute, Comparison comparison) {
     if (!attributeTypesMatch(studentAttribute, instructorAttribute)
         && (studentAttribute.getType() instanceof CDArray || studentAttribute.getType() instanceof CDCollection)) {
       return Optional.of(createMistake(LIST_ATTRIBUTE, studentAttribute, instructorAttribute));
     } else if (!attributeTypesMatch(studentAttribute, instructorAttribute)
-        && !isEnumAttributeBoolean(instructorAttribute, studentAttribute)){
+        && !isEnumAttributeBoolean(instructorAttribute, studentAttribute, comparison)){
       return Optional.of(createMistake(WRONG_ATTRIBUTE_TYPE, studentAttribute, instructorAttribute));
     }
     return Optional.empty();
