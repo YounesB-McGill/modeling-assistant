@@ -25,18 +25,18 @@ public class MappingToMistakeInfos extends MistakeDetectionInformationService {
 
   /** Maps comparison mistakes to MistakeInfo instances. */
   public static Map<MistakeType, Set<MistakeInfo>> mapToMistakeInfos() {
-    return allMistakes().collect(Collectors.toMap(
-        m -> m.getMistakeType(),
-        m -> Set.of(new MistakeInfo(m)),
+    return allMistakeInfos().collect(Collectors.toMap(
+        mi -> mi.mistakeType,
+        Set::of,
         MistakeDetectionInformationService::setUnion,
         TreeMap::new));
   }
 
   /** Maps comparison mistakes to MistakeInfo shape instances. */
   public static Map<MistakeType, Set<MistakeInfo.Shape>> mapToMistakeInfoShapes() {
-    return allMistakes().collect(Collectors.toMap(
-        m -> m.getMistakeType(),
-        m -> Set.of(new MistakeInfo.Shape(m)),
+    return allMistakeInfos().collect(Collectors.toMap(
+        mi -> mi.mistakeType,
+        mi -> Set.of(new MistakeInfo.Shape(mi.mistake)),
         MistakeDetectionInformationService::setUnion,
         TreeMap::new));
   }

@@ -8,13 +8,9 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Export-Package: learningcorpus.tests,
- learningcorpusquiz.tests,
- modelingassistant.tests
 Require-Bundle: org.eclipse.core.runtime,
  modelingassistant;visibility:=reexport,
  ca.mcgill.sel.classdiagram;visibility:=reexport,
- ca.mcgill.sel.classdiagram.tests;visibility:=reexport,
  ca.mcgill.sel.core;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.junit;visibility:=reexport,

@@ -1,8 +1,9 @@
 package ca.mcgill.sel.mistakedetection.tests.utils.infoservice;
+
 import static ca.mcgill.sel.mistakedetection.tests.utils.MistakeDetectionInformationServicesForLearningCorpus.MAX_LINE_LENGTH;
 import static ca.mcgill.sel.mistakedetection.tests.utils.MistakeDetectionInformationServicesForLearningCorpus.warn;
+import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -22,6 +23,8 @@ import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedMistakeDetection
 import ca.mcgill.sel.mistakedetection.tests.utils.HumanValidatedParametrizedResponses;
 import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype;
 import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeDetectionFormat;
+import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeInfo;
+import ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.MistakeTypeInfo;
 import learningcorpus.ElementType;
 import learningcorpus.MistakeType;
 import learningcorpus.ParametrizedResponse;
@@ -109,37 +112,36 @@ public abstract class MistakeDetectionInformationService {
    * Returns all the mistakes from all comparison objects created during the mistake detection tests as a flat stream,
    * useful for iteration.
    */
-  public static Stream<Mistake> allMistakes() {
-    return Comparison.instances.stream().map(comp -> comp.newMistakes).flatMap(List::stream);
+  public static Stream<MistakeInfo> allMistakeInfos() {
+    return Comparison.instances.stream().flatMap(comp -> comparisonMistakeInfoPairs(comp)).map(Map.Entry::getValue);
   }
 
   /**
-   * Returns all the mistakes from all comparison objects created during the mistake detection tests as a flat stream,
-   * useful for iteration.
+   * Returns one mistake of each mistake type from all comparison objects created during the mistake detection tests as
+   * a flat stream, useful for iteration.
    */
-  public static Stream<Mistake> allMistakesLimitOneOfEachType() {
+  public static Stream<MistakeInfo> allMistakesLimitOneOfEachType() {
     final Set<MistakeType> seen = new HashSet<>();
-    return Comparison.instances.stream().map(comp -> comp.newMistakes).flatMap(List::stream)
-        .filter(m -> seen.add(m.getMistakeType()));
+    return allMistakeInfos().filter(mi -> seen.add(mi.mistakeType));
   }
 
   /** Maps all comparison mistakes based on the input mistakeStudentElementTransformation. */
   static <T> Map<MistakeType, Set<T>> mapAllMistakesTo(
       Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer,
       Function<? super SolutionElement, T> mistakeStudentElementTransformation) {
-    return mapMistakesTo(allMistakes(), mistakeSolutionElementsStreamer, mistakeStudentElementTransformation);
+    return mapMistakesTo(allMistakeInfos(), mistakeSolutionElementsStreamer, mistakeStudentElementTransformation);
   }
 
   /** Maps comparison mistakes based on the input mistakeStudentElementTransformation. */
-  static <T> Map<MistakeType, Set<T>> mapMistakesTo(Stream<Mistake> mistakes,
+  static <T> Map<MistakeType, Set<T>> mapMistakesTo(Stream<MistakeInfo> mistakeInfos,
       Function<Mistake, Stream<SolutionElement>> mistakeSolutionElementsStreamer,
       Function<? super SolutionElement, T> mistakeStudentElementTransformation) {
     // Collectors.toMap() can take these 4 inputs when invoked on a stream of items (in this case, mistakes):
-    return mistakes.collect(Collectors.toMap(
-        // 1. Function to map the items to the keys of the output map. Here we map each mistake to its mistake type.
-        Mistake::getMistakeType,
-        // 2. Function to map the items to the values of the output map. Here we map each mistake to a set.
-        m -> mistakeSolutionElementsStreamer.apply(m).map(mistakeStudentElementTransformation)
+    return mistakeInfos.collect(Collectors.toMap(
+        // 1. Function to map the items to the keys of the output map. Here we map each MistakeInfo to its mistake type.
+        mi -> mi.mistakeType,
+        // 2. Function to map the items to the values of the output map. Here we map each MistakeInfo to a set.
+        mi -> mistakeSolutionElementsStreamer.apply(mi.mistake).map(mistakeStudentElementTransformation)
             .collect(Collectors.toUnmodifiableSet()), // TODO Update on Java 17+
         // 3. Merge function, handles collisions between values with the same key. Here, we merge the 2 sets.
         MistakeDetectionInformationService::setUnion,
@@ -159,48 +161,53 @@ public abstract class MistakeDetectionInformationService {
   }
 
   /** Filtered MDFs which not already validated. */
-  static final Map<MistakeType, MistakeDetectionFormat> filteredSuggestedMistakeDetectionFormats() {
+  static final Map<MistakeTypeInfo, MistakeDetectionFormat> filteredSuggestedMistakeDetectionFormats() {
       return suggestMistakeDetectionFormats(e ->
-          !e.getValue().equals(HumanValidatedMistakeDetectionFormats.mappings.get(e.getKey())));
+          !e.getValue().equals(HumanValidatedMistakeDetectionFormats.mappings.get(e.getKey().mistakeType)));
   }
 
   /** Suggests mistake detection formats based on the output of the mistake detection tests. */
-  static Map<MistakeType, MistakeDetectionFormat> suggestMistakeDetectionFormats() {
+  static Map<MistakeTypeInfo, MistakeDetectionFormat> suggestMistakeDetectionFormats() {
     return suggestAllMistakeDetectionFormats().entrySet().stream().collect(Collectors.toMap(
-        e -> e.getKey().getMistakeType(),
+        e -> new MistakeTypeInfo(e.getKey()),
         Map.Entry::getValue,
         mdfCollisionFunction,
         TreeMap::new));
   }
 
-  static Map<MistakeType, MistakeDetectionFormat> suggestMistakeDetectionFormats(
-      Predicate<Map.Entry<MistakeType, MistakeDetectionFormat>> filteringFunction) {
+  static Map<MistakeTypeInfo, MistakeDetectionFormat> suggestMistakeDetectionFormats(
+      Predicate<Map.Entry<MistakeTypeInfo, MistakeDetectionFormat>> filteringFunction) {
     return suggestMistakeDetectionFormats().entrySet().stream().filter(filteringFunction)
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 
   /** Returns the MDFs as implemented in the Mistake Detection System, regardless of validation status. */
-  public static Map<MistakeType, MistakeDetectionFormat> getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem() {
+  public static Map<MistakeTypeInfo, MistakeDetectionFormat> getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem() {
     return getAllMistakeDetectionFormatsAsIsFromMistakeDetectionSystem().entrySet().stream().collect(Collectors.toMap(
-        e -> e.getKey().getMistakeType(),
+        e -> new MistakeTypeInfo(e.getKey()),
         Map.Entry::getValue,
         mdfCollisionFunction,
         TreeMap::new));
   }
 
   /** Returns the MDFs as implemented in the Mistake Detection System, regardless of validation status. */
-  static Map<MistakeType, MistakeDetectionFormat> getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem(
-      Predicate<Map.Entry<MistakeType, MistakeDetectionFormat>> filteringFunction) {
+  static Map<MistakeTypeInfo, MistakeDetectionFormat> getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem(
+      Predicate<Map.Entry<MistakeTypeInfo, MistakeDetectionFormat>> filteringFunction) {
     return getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem().entrySet().stream().filter(filteringFunction)
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 
-  private static Map<Mistake, MistakeDetectionFormat> suggestAllMistakeDetectionFormats() {
-    return allMistakes().collect(Collectors.toMap(Function.identity(), MistakeDetectionFormat::forMistake));
+  private static Map<MistakeInfo, MistakeDetectionFormat> suggestAllMistakeDetectionFormats() {
+    return allMistakeInfos().collect(Collectors.toMap(Function.identity(), MistakeDetectionFormat::forMistakeInfo));
   }
 
-  private static Map<Mistake, MistakeDetectionFormat> getAllMistakeDetectionFormatsAsIsFromMistakeDetectionSystem() {
-    return allMistakes().collect(Collectors.toMap(Function.identity(), MistakeDetectionFormat::new));
+  private static Map<MistakeInfo, MistakeDetectionFormat> getAllMistakeDetectionFormatsAsIsFromMistakeDetectionSystem()
+  {
+    return allMistakeInfos().collect(Collectors.toMap(
+        Function.identity(),
+        MistakeDetectionFormat::new,
+        (mdf1, mdf2) -> mdf2,
+        TreeMap::new));
   }
 
   private static Map<MistakeType, Set<String>> suggestParametrizedResponses(
@@ -260,6 +267,11 @@ public abstract class MistakeDetectionInformationService {
   static String underscorify(String s) {
     return s.replaceAll("\\((.+?)\\)", "").trim().replaceAll("/", "_").replaceAll("-", "_")
         .replaceAll("\\s+", "_").replaceAll("_+", "_").toLowerCase();
+  }
+
+  private static Stream<Map.Entry<Comparison, MistakeInfo>> comparisonMistakeInfoPairs(Comparison comparison) {
+    return comparison.newMistakes.stream()
+        .map(m -> new SimpleImmutableEntry<>(comparison, new MistakeInfo(m, comparison)));
   }
 
   /** Needed to get around Java compiler limitations. */

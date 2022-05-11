@@ -38,27 +38,23 @@ public abstract class MistakeDetectionBaseTest {
     testMdfsFromMdsAreCompatibleWithHumanValidatedMdfs();
     testSourcesTargetsWholesAndPartsAreProperlySpecified();
 
-    warnings.forEach((text, isPrinted) -> {
-      if (!isPrinted) {
-        System.out.println(text);
-      }
-      warnings.put(text, true);
-    });
+    printWarnings();
   }
 
   /** Ensures that the MDFs inferred from the MDS are compatible with the human-validated ones. */
   static void testMdfsFromMdsAreCompatibleWithHumanValidatedMdfs() {
     var mdfsFromMds = MistakeDetectionInformationService.getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem();
     var humanValidatedMdfs = HumanValidatedMistakeDetectionFormats.mappings;
-    mdfsFromMds.forEach((mt, mdf) -> {
+    mdfsFromMds.forEach((mti, mdf) -> {
       var mdfFromMdsShape = mdf.shape();
-      var hvMdfShape = humanValidatedMdfs.getOrDefault(mt, MistakeDetectionFormat.EMPTY_MDF).shape();
+      var hvMdfShape = humanValidatedMdfs.getOrDefault(mti.mistakeType, MistakeDetectionFormat.EMPTY_MDF).shape();
       if (!mdfFromMdsShape.equals(hvMdfShape)) {
         if (mdfFromMdsShape.isCompatibleWith(hvMdfShape)) {
           warnings.putIfAbsent(colorString(Color.DARK_YELLOW,
-              "! Double-check MDF for " + mt.getName() + ": " + mdf.shape().reduceToSimplestForm()), false);
+              "! Double-check MDF for " + mti.mistakeType.getName() + ": " + mdf.shape().reduceToSimplestForm()),
+              false);
         } else {
-          fail("X MDF for " + mt.getName() + " is " + mdf.shape() + " but expected " + hvMdfShape);
+          fail("X MDF for " + mti.mistakeType.getName() + " is " + mdf.shape() + " but expected " + hvMdfShape);
         }
       }
     });
@@ -102,6 +98,15 @@ public abstract class MistakeDetectionBaseTest {
     } else if (format.contains("part") && refType == REGULAR) {
       fail("The association end " + ae.getName() + specAs + "part but has a " + refType.getName() + " reference type!");
     }
+  }
+
+  private static void printWarnings() {
+    warnings.forEach((text, isPrinted) -> {
+      if (!isPrinted) {
+        System.out.println(text);
+      }
+      warnings.put(text, true);
+    });
   }
 
 }

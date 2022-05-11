@@ -46,6 +46,10 @@ public class MistakeDetectionFormat {
     }
   }
 
+  public MistakeDetectionFormat(MistakeInfo mistakeInfo) {
+    this(mistakeInfo.mistake);
+  }
+
   private MistakeDetectionFormat(List<String> studentElemsDescriptions, List<String> instructorElemsDescriptions) {
     stud.addAll(studentElemsDescriptions);
     inst.addAll(instructorElemsDescriptions);
@@ -54,6 +58,10 @@ public class MistakeDetectionFormat {
   public static MistakeDetectionFormat forMistake(Mistake mistake) {
     return HumanValidatedMistakeDetectionFormats.mappings.getOrDefault(mistake.getMistakeType(),
         new MistakeDetectionFormat(mistake));
+  }
+
+  public static MistakeDetectionFormat forMistakeInfo(MistakeInfo mistakeInfo) {
+    return forMistake(mistakeInfo.mistake);
   }
 
   public static MistakeDetectionFormat mdf(List<String> studentElemsDescriptions,

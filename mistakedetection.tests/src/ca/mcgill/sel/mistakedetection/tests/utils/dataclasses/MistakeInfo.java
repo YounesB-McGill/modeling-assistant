@@ -4,15 +4,19 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import ca.mcgill.sel.mistakedetection.Comparison;
+import learningcorpus.MistakeType;
 import learningcorpus.ParametrizedResponse;
 import modelingassistant.Mistake;
 
-public class MistakeInfo {
+public class MistakeInfo implements Comparable<MistakeInfo> {
 
   public static final String TABLE_HEADER =
       "MistakeType,StudentElems,InstructorElems,TotalElems,MaxParamRespNumParams,SolElemDescriptions\n";
 
   public final Mistake mistake;
+  public final MistakeType mistakeType;
+  public String caller = ""; // not final to allow for case where caller is ignored and is therefore set to empty string
   final int numStudentElems;
   final int numInstructorElems;
   final int totalElems;
@@ -23,6 +27,7 @@ public class MistakeInfo {
 
   public MistakeInfo(Mistake mistake) {
     this.mistake = mistake;
+    mistakeType = mistake.getMistakeType();
     numStudentElems = mistake.getStudentElements().size();
     numInstructorElems = mistake.getInstructorElements().size();
     totalElems = numStudentElems + numInstructorElems;
@@ -32,6 +37,11 @@ public class MistakeInfo {
         .collect(Collectors.toUnmodifiableList());
     instructorElementNames = mistake.getInstructorElements().stream().map(e -> e.getElement().getName())
         .collect(Collectors.toUnmodifiableList());
+  }
+
+  public MistakeInfo(Mistake mistake, Comparison comparison) {
+    this(mistake);
+    caller = comparison.caller;
   }
 
   private List<Integer> calculateParamRespParamNums() {
@@ -71,6 +81,10 @@ public class MistakeInfo {
 
   @Override public int hashCode() {
     return firstColumnEntries().hashCode() + studentElementNames.hashCode() + instructorElementNames.hashCode();
+  }
+
+  @Override public int compareTo(MistakeInfo other) {
+    return mistakeType.compareTo(other.mistakeType);
   }
 
   /** Represents the general structure of a MistakeInfo, useful to avoid duplicates of similar MistakeInfo instances. */
