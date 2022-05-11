@@ -4,7 +4,7 @@
     <associationEnds xmi:id="_6uKCwISGEeyCR8dJI_dwQQ" name="beds" assoc="_6uNGEISGEeyCR8dJI_dwQQ" lowerBound="1" upperBound="-1"/>
     <associationEnds xmi:id="_6uKCwYSGEeyCR8dJI_dwQQ" name="type" assoc="_6uNGEYSGEeyCR8dJI_dwQQ" lowerBound="1"/>
     <associationEnds xmi:id="_6uKCwoSGEeyCR8dJI_dwQQ" name="rooms" assoc="_6uNGEoSGEeyCR8dJI_dwQQ" upperBound="-1"/>
-    <associationEnds xmi:id="_6uKCw4SGEeyCR8dJI_dwQQ" name="booking" assoc="_6uNGFISGEeyCR8dJI_dwQQ" upperBound="-1"/>
+    <associationEnds xmi:id="_6uKCw4SGEeyCR8dJI_dwQQ" name="bookings" assoc="_6uNGFISGEeyCR8dJI_dwQQ" upperBound="-1"/>
     <associationEnds xmi:id="_6uKCxISGEeyCR8dJI_dwQQ" name="suite" assoc="_6uNGFYSGEeyCR8dJI_dwQQ"/>
     <associationEnds xmi:id="_SITjIIdzEeyu5u-RBLUhdA" name="hotel" assoc="_SITjIodzEeyu5u-RBLUhdA" lowerBound="1"/>
     <attributes xmi:id="_6uKCxYSGEeyCR8dJI_dwQQ" name="roomNumber" type="_6uLQ4oSGEeyCR8dJI_dwQQ"/>
@@ -28,7 +28,7 @@
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_6uKC0oSGEeyCR8dJI_dwQQ" name="Person">
     <associationEnds xmi:id="_6uKC04SGEeyCR8dJI_dwQQ" name="guest" assoc="_6uNGEoSGEeyCR8dJI_dwQQ"/>
-    <associationEnds xmi:id="_6uKC1ISGEeyCR8dJI_dwQQ" name="booking" assoc="_6uNGE4SGEeyCR8dJI_dwQQ" upperBound="-1"/>
+    <associationEnds xmi:id="_6uKC1ISGEeyCR8dJI_dwQQ" name="bookings" assoc="_6uNGE4SGEeyCR8dJI_dwQQ" upperBound="-1"/>
     <associationEnds xmi:id="_VsjtAIdzEeyu5u-RBLUhdA" name="hotel" assoc="_VsjtAodzEeyu5u-RBLUhdA" lowerBound="1"/>
     <attributes xmi:id="_6uKp0ISGEeyCR8dJI_dwQQ" name="name" type="_6uL38YSGEeyCR8dJI_dwQQ"/>
     <attributes xmi:id="_6uKp0YSGEeyCR8dJI_dwQQ" name="address" type="_6uL38YSGEeyCR8dJI_dwQQ"/>
