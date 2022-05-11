@@ -198,7 +198,11 @@ public abstract class MistakeDetectionInformationService {
   }
 
   private static Map<MistakeInfo, MistakeDetectionFormat> suggestAllMistakeDetectionFormats() {
-    return allMistakeInfos().collect(Collectors.toMap(Function.identity(), MistakeDetectionFormat::forMistakeInfo));
+    return allMistakeInfos().collect(Collectors.toMap(
+        Function.identity(),
+        MistakeDetectionFormat::forMistakeInfo,
+        (mdf1, mdf2) -> mdf2,
+        TreeMap::new));
   }
 
   private static Map<MistakeInfo, MistakeDetectionFormat> getAllMistakeDetectionFormatsAsIsFromMistakeDetectionSystem()
