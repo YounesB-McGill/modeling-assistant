@@ -113,6 +113,7 @@ import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Attribute;
 import ca.mcgill.sel.classdiagram.CDArray;
+import ca.mcgill.sel.classdiagram.CDBoolean;
 import ca.mcgill.sel.classdiagram.CDCollection;
 import ca.mcgill.sel.classdiagram.CDEnum;
 import ca.mcgill.sel.classdiagram.CDEnumLiteral;
@@ -337,8 +338,23 @@ public class MistakeDetection {
   private static boolean isAttributeMatch(Attribute instructorAttribute, Attribute studentAttribute) {
     int lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
     lDistance = getMinimuimLDInSynonyms(instructorAttribute, studentAttribute, lDistance);
-    if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)){
+    if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)) {
       return true;
+    }
+    if (isEnumAttributeBoolean(instructorAttribute, studentAttribute)) {
+      return true;
+    }
+    return false;
+  }
+
+  private static boolean isEnumAttributeBoolean(Attribute instructorAttribute, Attribute studentAttribute) {
+    if (instructorAttribute.getType() instanceof CDEnum && studentAttribute.getType() instanceof CDBoolean) {
+      var studAttribName = studentAttribute.getName();
+      var instEnum = instructorAttribute.getType().getName();
+      if (studAttribName.toLowerCase().equals(instructorAttribute.getName().toLowerCase())
+          || studAttribName.toLowerCase().equals(instEnum.toLowerCase())) {
+        return true;
+      }
     }
     return false;
   }
@@ -429,7 +445,7 @@ public class MistakeDetection {
 
     for (Attribute studAttrib : comparison.extraStudentAttributes) {
       for (Attribute instAttrib : comparison.notMappedInstructorAttributes) {
-        if (levenshteinDistance(studAttrib.getName(), instAttrib.getName()) <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instAttrib, studAttrib)) {
+        if (isAttributeMatch(instAttrib, studAttrib)) {
           Classifier instClass = (Classifier) instAttrib.eContainer();
           Classifier studClass = (Classifier) studAttrib.eContainer();
 
@@ -773,6 +789,10 @@ public class MistakeDetection {
 
 
     comparison.mappedAttributes.forEach((key, value) -> {
+      if (key.getType() instanceof CDEnum && value.getType() instanceof CDBoolean) {
+        CDEnum instEnumBool = getEnumFromClassDiagram(key.getType().getName(), instructorClassDiagram);
+        comparison.notMappedInstructorEnums.remove(instEnumBool);
+      }
       if (!(key.getType() instanceof CDEnum && value.getType() instanceof CDEnum)) {
         return;
       }
@@ -2600,8 +2620,11 @@ public class MistakeDetection {
 
   public static Optional<Mistake> checkMistakeAttributeSpelling(Attribute studentAttribute,
       Attribute instructorAttribute) {
-    if (!isPlural(studentAttribute.getName()) && levenshteinDistance(studentAttribute.getName().toLowerCase(),
-        instructorAttribute.getName().toLowerCase()) >= 1 && !isSynonym(instructorAttribute, studentAttribute)) {
+    if (!isPlural(studentAttribute.getName())
+        && levenshteinDistance(studentAttribute.getName().toLowerCase(),
+            instructorAttribute.getName().toLowerCase()) >= 1
+        && !isSynonym(instructorAttribute, studentAttribute)
+        && !isEnumAttributeBoolean(instructorAttribute, studentAttribute)) {
       return Optional.of(createMistake(BAD_ATTRIBUTE_NAME_SPELLING, studentAttribute, instructorAttribute));
     }
     return Optional.empty();
@@ -2623,7 +2646,8 @@ public class MistakeDetection {
     if (!attributeTypesMatch(studentAttribute, instructorAttribute)
         && (studentAttribute.getType() instanceof CDArray || studentAttribute.getType() instanceof CDCollection)) {
       return Optional.of(createMistake(LIST_ATTRIBUTE, studentAttribute, instructorAttribute));
-    } else if (!attributeTypesMatch(studentAttribute, instructorAttribute)) {
+    } else if (!attributeTypesMatch(studentAttribute, instructorAttribute)
+        && !isEnumAttributeBoolean(instructorAttribute, studentAttribute)){
       return Optional.of(createMistake(WRONG_ATTRIBUTE_TYPE, studentAttribute, instructorAttribute));
     }
     return Optional.empty();

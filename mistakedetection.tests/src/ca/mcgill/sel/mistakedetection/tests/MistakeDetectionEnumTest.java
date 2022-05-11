@@ -319,4 +319,46 @@ public class MistakeDetectionEnumTest extends MistakeDetectionBaseTest {
     assertMistake(studentSolution.getMistakes().get(0), MISSING_ENUM_ITEM, studentRoleEnum, instructorEnumLiteral, 0, 1, false);
   }
 
+  /**
+   * Test to check enumeration vs boolean.
+   */
+  @Test
+  public void testClassEnumBeBoolean() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestEnum/instructor_enumBoolean/Class Diagram/EnumBoolean.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestEnum/student_enumBoolean/Class Diagram/EnumBoolean.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(0, comparison.newMistakes.size());
+    assertEquals(0, studentSolution.getMistakes().size());
+  }
+
+  /**
+   * Test to check enumeration vs boolean.
+   */
+  @Test
+  public void testClassEnumBeBoolean2() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestEnum/instructor_enumBoolean/Class Diagram/EnumBoolean.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestEnum/student_enumBoolean2/Class Diagram/EnumBoolean.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertEquals(0, comparison.newMistakes.size());
+    assertEquals(0, studentSolution.getMistakes().size());
+
+
+  }
+
 }
