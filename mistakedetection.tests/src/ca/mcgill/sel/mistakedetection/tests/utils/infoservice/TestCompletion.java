@@ -23,7 +23,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import learningcorpus.MistakeType;
 import learningcorpus.mistaketypes.MistakeTypes;
-import modelingassistant.Mistake;
 
 public class TestCompletion extends MistakeDetectionInformationService {
 
@@ -87,7 +86,7 @@ public class TestCompletion extends MistakeDetectionInformationService {
 
   /** Returns a mapping from mistake types to their test completion status. */
   public static Map<MistakeType, TestCompletionStatus> getTestCompletionStatusByMistakeType() {
-    var doneMistakeTypes = allMistakes().map(Mistake::getMistakeType).collect(Collectors.toUnmodifiableSet());
+    var doneMistakeTypes = allMistakeInfos().map(mi -> mi.mistakeType).collect(Collectors.toUnmodifiableSet());
     return MistakeTypes.MISTAKE_TYPES_BY_NAME.values().stream().collect(Collectors.toMap(
         Function.identity(), // mistakeType -> mistakeType
         mt -> doneMistakeTypes.contains(mt) ? TestCompletionStatus.DONE : (FUTURE_WORK_MISTAKE_TYPES.contains(mt) ?

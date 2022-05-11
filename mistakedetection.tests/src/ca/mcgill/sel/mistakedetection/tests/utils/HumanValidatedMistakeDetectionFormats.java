@@ -215,4 +215,16 @@ public class HumanValidatedMistakeDetectionFormats {
       entry(USING_N_ARY_ASSOC_INSTEAD_OF_INTERMEDIATE_CLASS, mdf(List.of("assoc", "assocend*"), List.of("cls")))
   );
 
+  /**
+   * List of mistake types with MDFs that are exempted from automatic validation since they are false positives
+   * that have been manually verified as correct.
+   */
+  public static final List<MistakeType> exemptions = List.of(
+      INCOMPLETE_PR_PATTERN,
+      INFINITE_RECURSIVE_DEPENDENCY,
+      REVERSED_RELATIONSHIP_DIRECTION,
+      USING_DIRECTED_RELATIONSHIP_INSTEAD_OF_UNDIRECTED,
+      USING_UNDIRECTED_RELATIONSHIP_INSTEAD_OF_DIRECTED
+  );
+
 }

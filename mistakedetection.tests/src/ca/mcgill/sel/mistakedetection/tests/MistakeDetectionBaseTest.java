@@ -38,27 +38,29 @@ public abstract class MistakeDetectionBaseTest {
     testMdfsFromMdsAreCompatibleWithHumanValidatedMdfs();
     testSourcesTargetsWholesAndPartsAreProperlySpecified();
 
-    warnings.forEach((text, isPrinted) -> {
-      if (!isPrinted) {
-        System.out.println(text);
-      }
-      warnings.put(text, true);
-    });
+    printWarnings();
   }
 
   /** Ensures that the MDFs inferred from the MDS are compatible with the human-validated ones. */
   static void testMdfsFromMdsAreCompatibleWithHumanValidatedMdfs() {
     var mdfsFromMds = MistakeDetectionInformationService.getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem();
     var humanValidatedMdfs = HumanValidatedMistakeDetectionFormats.mappings;
-    mdfsFromMds.forEach((mt, mdf) -> {
+    mdfsFromMds.forEach((mti, mdf) -> {
       var mdfFromMdsShape = mdf.shape();
-      var hvMdfShape = humanValidatedMdfs.getOrDefault(mt, MistakeDetectionFormat.emptyMdf()).shape();
+      var hvMdfShape = humanValidatedMdfs.getOrDefault(mti.mistakeType, MistakeDetectionFormat.EMPTY_MDF).shape();
       if (!mdfFromMdsShape.equals(hvMdfShape)) {
+        var source = "unknown source";
+        if (!mti.mistakeInfo.caller.isEmpty()) {
+          source = mti.mistakeInfo.caller;
+        }
         if (mdfFromMdsShape.isCompatibleWith(hvMdfShape)) {
-          warnings.putIfAbsent(colorString(Color.DARK_YELLOW,
-              "! Double-check MDF for " + mt.getName() + ": " + mdf.shape().reduceToSimplestForm()), false);
+          if (!HumanValidatedMistakeDetectionFormats.exemptions.contains(mti.mistakeType)) {
+            warnings.putIfAbsent(colorString(Color.DARK_YELLOW, "! Double-check MDF for " + mti.mistakeType.getName()
+                + ": " + mdf.shape().reduceToSimplestForm() + ".\n MDF created from " + source), false);
+          }
         } else {
-          fail("X MDF for " + mt.getName() + " is " + mdf.shape() + " but expected " + hvMdfShape);
+          fail("X MDF for " + mti.mistakeType.getName() + " is " + mdf.shape() + " but expected " + hvMdfShape
+              + ".\n MDF created from " + source);
         }
       }
     });
@@ -81,7 +83,7 @@ public abstract class MistakeDetectionBaseTest {
 
   /**
    * Validates that the given mistake detection format string is consistent with the given solution element.
-   * If not, a non-empty string warning will be returned to the caller.
+   * If not, a test failure with the inconsistency will be reported.
    */
   private static void validateMistakeDetectionFormatMatchesElement(String format, SolutionElement elem) {
     final var specAs = " is specified as a "; // to save space below
@@ -102,6 +104,15 @@ public abstract class MistakeDetectionBaseTest {
     } else if (format.contains("part") && refType == REGULAR) {
       fail("The association end " + ae.getName() + specAs + "part but has a " + refType.getName() + " reference type!");
     }
+  }
+
+  private static void printWarnings() {
+    warnings.forEach((text, isPrinted) -> {
+      if (!isPrinted) {
+        System.out.println(text);
+      }
+      warnings.put(text, true);
+    });
   }
 
 }
