@@ -131,7 +131,7 @@
     <eLiterals name="Role" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Synonym" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="solutionElement" eType="#//SolutionElement"
-        eOpposite="#//SolutionElement/synonyms"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="solutionElement" lowerBound="1"
+        eType="#//SolutionElement" eOpposite="#//SolutionElement/synonyms"/>
   </eClassifiers>
 </ecore:EPackage>

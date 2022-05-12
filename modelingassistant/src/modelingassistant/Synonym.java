@@ -29,7 +29,7 @@ public interface Synonym extends NamedElement {
    * @see #setSolutionElement(SolutionElement)
    * @see modelingassistant.ModelingassistantPackage#getSynonym_SolutionElement()
    * @see modelingassistant.SolutionElement#getSynonyms
-   * @model opposite="synonyms" transient="false"
+   * @model opposite="synonyms" required="true" transient="false"
    * @generated
    */
   SolutionElement getSolutionElement();

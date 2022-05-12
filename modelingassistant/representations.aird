@@ -14,7 +14,7 @@
     <semanticResources>model/learningcorpusquiz.ecore</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_sM2lgGVtEeu25_uYr0tc7g">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uiMFMWVtEeu25_uYr0tc7g" name="modelingassistant" repPath="#_uhm2YGVtEeu25_uYr0tc7g" changeId="a62c420f-578d-437f-a350-5880e4d7035a">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uiMFMWVtEeu25_uYr0tc7g" name="modelingassistant" repPath="#_uhm2YGVtEeu25_uYr0tc7g" changeId="1e39a8d6-89b4-4fc1-b8a4-04845972d2d7">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/modelingassistant.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -1392,7 +1392,7 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC%20ESupertypes']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_jJ7ndssnEeyG4_5Xlj426A" sourceNode="_v7VpcGVtEeu25_uYr0tc7g" targetNode="_M_yggMsnEeyG4_5Xlj426A" beginLabel="[0..1] solutionElement" endLabel="[0..*] synonyms">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_jJ7ndssnEeyG4_5Xlj426A" sourceNode="_v7VpcGVtEeu25_uYr0tc7g" targetNode="_M_yggMsnEeyG4_5Xlj426A" beginLabel="[1..1] solutionElement" endLabel="[0..*] synonyms">
       <target xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//SolutionElement/synonyms"/>
       <semanticElements xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//Synonym/solutionElement"/>
       <semanticElements xmi:type="ecore:EReference" href="model/modelingassistant.ecore#//SolutionElement/synonyms"/>
