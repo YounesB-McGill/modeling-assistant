@@ -42,18 +42,18 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
     setSynonymToClassInClassDiag("Hotel", List.of("HotelSocs", "SOCSHotel", "HotelSystem"), instructorClassDiagram, instructorSolution);
 
     // Assigning synonyms to attributes
-    setSynonymToAttribInClassInClassDiag("RoomType","maxDailyRate", List.of("maxRate", "maximumDailyRate"), instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("RoomType","qualityLevel", List.of("quality", "level"), instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Room","roomNumber", List.of("number"), instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Room","status", List.of("smokingStatus", "smoking"), instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Bed","type", List.of("bedKind", "bedType"), instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Person","phoneNumber", List.of("telephone", "phone", "telephoneNumber"), instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Person","creditcard", List.of("card", "cardNumber", "creditCardNumber"), instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Stay","checkinDate", List.of("checkin", "date"), instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Stay","numberOfNights", List.of("nights", "duration", "length"), instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Stay","dailyRate", List.of("nightlyRate", "rate", "price", "currentRate"), instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Booking","startDate", List.of("start", "date"), instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Booking","bookedDailyRate", List.of("dailyRate"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("RoomType", "maxDailyRate", List.of("maxRate", "maximumDailyRate"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("RoomType", "qualityLevel", List.of("quality", "level"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Room", "roomNumber", List.of("number"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Room", "status", List.of("smokingStatus", "smoking"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Bed", "type", List.of("bedKind", "bedType"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Person", "phoneNumber", List.of("telephone", "phone", "telephoneNumber"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Person", "creditcard", List.of("card", "cardNumber", "creditCardNumber"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Stay", "checkinDate", List.of("checkin", "date"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Stay", "numberOfNights", List.of("nights", "duration", "length"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Stay", "dailyRate", List.of("nightlyRate", "rate", "price", "currentRate"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Booking", "startDate", List.of("start", "date"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Booking", "bookedDailyRate", List.of("dailyRate"), instructorClassDiagram, instructorSolution);
 
     // Assigning synonyms to assoc ends
     setSynonymToRoleInClassInClassDiag("Hotel", "bookings", List.of("reservations", "myReservations"), instructorClassDiagram, instructorSolution);

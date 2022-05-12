@@ -15,6 +15,7 @@ import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getEnumFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getEnumLiteralFromEnum;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
@@ -320,10 +321,10 @@ public class MistakeDetectionEnumTest extends MistakeDetectionBaseTest {
   }
 
   /**
-   * Test to check enumeration vs boolean.
+   * Test to check enumeration vs boolean using enum name.
    */
   @Test
-  public void testClassEnumBeBoolean() {
+  public void testClassEnumIsBoolean() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestEnum/instructor_enumBoolean/Class Diagram/EnumBoolean.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -332,18 +333,17 @@ public class MistakeDetectionEnumTest extends MistakeDetectionBaseTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestEnum/student_enumBoolean/Class Diagram/EnumBoolean.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(0, comparison.newMistakes.size());
-    assertEquals(0, studentSolution.getMistakes().size());
+    assertTrue(comparison.newMistakes.isEmpty());
+    assertTrue(studentSolution.getMistakes().isEmpty());
   }
 
   /**
-   * Test to check enumeration vs boolean.
+   * Test to check enumeration vs boolean using attribute name.
    */
   @Test
-  public void testClassEnumBeBoolean2() {
+  public void testClassEnumIsBoolean2() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestEnum/instructor_enumBoolean/Class Diagram/EnumBoolean.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -352,11 +352,10 @@ public class MistakeDetectionEnumTest extends MistakeDetectionBaseTest {
         "../mistakedetection/testModels/StudentSolution/ModelsToTestEnum/student_enumBoolean2/Class Diagram/EnumBoolean.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(0, comparison.newMistakes.size());
-    assertEquals(0, studentSolution.getMistakes().size());
+    assertTrue(comparison.newMistakes.isEmpty());
+    assertTrue(studentSolution.getMistakes().isEmpty());
   }
 
 }

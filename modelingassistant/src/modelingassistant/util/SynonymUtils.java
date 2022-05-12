@@ -23,55 +23,49 @@ public class SynonymUtils {
 
 
   /**
-   * Creates a new synonyms for a class.
+   * Sets a synonym to a class.
    */
-  public static void setSynonymToClassInClassDiag(String className, List<String> synonyms, ClassDiagram classDiagram,
+  public static void setSynonymToClassInClassDiag(String className, List<String> synonymNames, ClassDiagram classDiagram,
       Solution instructorSolution) {
-
     var instClass = getClassFromClassDiagram(className, classDiagram);
     var se = SolutionElement.forCdmElement(instClass);
     se.setSolution(instructorSolution);
 
-    synonyms.forEach(s -> {
-     var synonym = maf.createSynonym();
-     synonym.setName(s);
-     synonym.setSolutionElement(se);
-    });
+    setSynonyms(synonymNames, se);
   }
 
   /**
-   * Creates a new synonyms for a attribute.
+   * Sets a synonym to an attribute.
    */
-  public static void setSynonymToAttribInClassInClassDiag(String className, String attributeName, List<String> synonyms, ClassDiagram classDiagram,
+  public static void setSynonymToAttribInClassInClassDiag(String className, String attributeName, List<String> synonymNames, ClassDiagram classDiagram,
       Solution instructorSolution) {
-
     var instClass = getClassFromClassDiagram(className, classDiagram);
     var instClassAttribute = getAttributeFromClass(attributeName, instClass);
     var se = SolutionElement.forCdmElement(instClassAttribute);
     se.setSolution(instructorSolution);
 
-    synonyms.forEach(s -> {
-     var synonym = maf.createSynonym();
-     synonym.setName(s);
-     synonym.setSolutionElement(se);
-    });
+    setSynonyms(synonymNames, se);
   }
 
   /**
-   * Creates a new synonyms for a role.
+   * Sets a synonym to a role.
    */
-  public static void setSynonymToRoleInClassInClassDiag(String className, String assocEndName, List<String> synonyms, ClassDiagram classDiagram,
+  public static void setSynonymToRoleInClassInClassDiag(String className, String assocEndName, List<String> synonymNames, ClassDiagram classDiagram,
       Solution instructorSolution) {
-
     var instClass = getClassFromClassDiagram(className, classDiagram);
     var instClassAssocEnd = getAssociationEndFromClass(assocEndName, instClass);
     var se = SolutionElement.forCdmElement(instClassAssocEnd);
     se.setSolution(instructorSolution);
 
-    synonyms.forEach(s -> {
-     var synonym = maf.createSynonym();
-     synonym.setName(s);
-     synonym.setSolutionElement(se);
-    });
+    setSynonyms(synonymNames, se);
+  }
+
+  /** For every name in the list, function creates a synonym and assigns it to a SE*/
+  public static void setSynonyms(List<String> synonymNames, SolutionElement se) {
+    synonymNames.forEach(s -> {
+      var synonym = maf.createSynonym();
+      synonym.setName(s);
+      synonym.setSolutionElement(se);
+     });
   }
 }

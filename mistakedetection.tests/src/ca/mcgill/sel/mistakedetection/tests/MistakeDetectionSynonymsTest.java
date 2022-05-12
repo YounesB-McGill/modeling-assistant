@@ -15,6 +15,7 @@ import static modelingassistant.util.ResourceHelper.cdmFromFile;
 import static modelingassistant.util.SynonymUtils.setSynonymToAttribInClassInClassDiag;
 import static modelingassistant.util.SynonymUtils.setSynonymToClassInClassDiag;
 import static modelingassistant.util.SynonymUtils.setSynonymToRoleInClassInClassDiag;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,8 @@ public class MistakeDetectionSynonymsTest {
    */
   @Test
   public void testToCheckSynonymMapping() {
-    var instructorClassDiagram = cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_classPilot/Class Diagram/Instructor_classPilot.domain_model.cdm");
+    var instructorClassDiagram =
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_classPilot/Class Diagram/Instructor_classPilot.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram =  cdmFromFile(STUDENT_CDM_PATH + "student_classCaptain/Class Diagram/student_classCaptain.domain_model.cdm");
@@ -47,8 +49,8 @@ public class MistakeDetectionSynonymsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(0, comparison.newMistakes.size());
-    assertEquals(0, studentSolution.getMistakes().size());
+    assertTrue(comparison.newMistakes.isEmpty());
+    assertTrue(studentSolution.getMistakes().isEmpty());
 
     assertEquals(comparison.mappedClassifiers.get(instructorClass), studentClass);
   }
@@ -58,7 +60,8 @@ public class MistakeDetectionSynonymsTest {
    */
   @Test
   public void testToCheckClassSynonymMapping() {
-    var instructorClassDiagram = cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher/Class Diagram/Teacher.domain_model.cdm");
+    var instructorClassDiagram =
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher/Class Diagram/Teacher.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram =  cdmFromFile(STUDENT_CDM_PATH + "student_teacher/Class Diagram/Teacher.domain_model.cdm");
@@ -82,7 +85,8 @@ public class MistakeDetectionSynonymsTest {
    */
   @Test
   public void testToCheckPluralClassSynonym() {
-    var instructorClassDiagram = cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher/Class Diagram/Teacher.domain_model.cdm");
+    var instructorClassDiagram =
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher/Class Diagram/Teacher.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram =  cdmFromFile(STUDENT_CDM_PATH + "student_instructors/Class Diagram/Teacher.domain_model.cdm");
@@ -106,10 +110,12 @@ public class MistakeDetectionSynonymsTest {
    */
   @Test
   public void testToCheckSEClassSynonym() {
-    var instructorClassDiagram = cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher/Class Diagram/Teacher.domain_model.cdm");
+    var instructorClassDiagram =
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher/Class Diagram/Teacher.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var studentClassDiagram =  cdmFromFile(STUDENT_CDM_PATH + "student_instructorData/Class Diagram/Teacher.domain_model.cdm");
+    var studentClassDiagram =
+        cdmFromFile(STUDENT_CDM_PATH + "student_instructorData/Class Diagram/Teacher.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     setSynonymToClassInClassDiag("Teacher", List.of("Instructor"), instructorClassDiagram, instructorSolution);
@@ -130,14 +136,15 @@ public class MistakeDetectionSynonymsTest {
    */
   @Test
   public void testToCheckAttributeSynonymMapping() {
-    var instructorClassDiagram = cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher_Attrib/Class Diagram/Teacher.domain_model.cdm");
+    var instructorClassDiagram =
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher_Attrib/Class Diagram/Teacher.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
     var studentClassDiagram =  cdmFromFile(STUDENT_CDM_PATH + "student_teacher_Attrib/Class Diagram/Teacher.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    setSynonymToAttribInClassInClassDiag("Teacher","name", List.of("fullName"), instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Teacher","ID", List.of("identification"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Teacher", "name", List.of("fullName"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Teacher", "ID", List.of("identification"), instructorClassDiagram, instructorSolution);
 
     var instructorClass = getClassFromClassDiagram("Teacher", instructorClassDiagram);
     var instructorClassAttrib1 = getAttributeFromClass("name", instructorClass);
@@ -149,8 +156,8 @@ public class MistakeDetectionSynonymsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(0, comparison.newMistakes.size());
-    assertEquals(0, studentSolution.getMistakes().size());
+    assertTrue(comparison.newMistakes.isEmpty());
+    assertTrue(studentSolution.getMistakes().isEmpty());
 
     assertEquals(comparison.mappedAttributes.get(instructorClassAttrib1), studentClassAttrib1);
     assertEquals(comparison.mappedAttributes.get(instructorClassAttrib2), studentClassAttrib2);
@@ -161,14 +168,16 @@ public class MistakeDetectionSynonymsTest {
    */
   @Test
   public void testToCheckPluralAndUppercaseAttributeSynonym() {
-    var instructorClassDiagram = cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher_Attrib/Class Diagram/Teacher.domain_model.cdm");
+    var instructorClassDiagram =
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher_Attrib/Class Diagram/Teacher.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var studentClassDiagram =  cdmFromFile(STUDENT_CDM_PATH + "student_teacher_plural&UppercaseAttrib/Class Diagram/Teacher.domain_model.cdm");
+    var studentClassDiagram =
+        cdmFromFile(STUDENT_CDM_PATH + "student_teacher_plural&UppercaseAttrib/Class Diagram/Teacher.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    setSynonymToAttribInClassInClassDiag("Teacher","name", List.of("fullName"), instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Teacher","ID", List.of("identification"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Teacher", "name", List.of("fullName"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Teacher", "ID", List.of("identification"), instructorClassDiagram, instructorSolution);
 
     var instructorClass = getClassFromClassDiagram("Teacher", instructorClassDiagram);
     var instructorClassAttrib1 = getAttributeFromClass("name", instructorClass);
@@ -195,10 +204,12 @@ public class MistakeDetectionSynonymsTest {
    */
   @Test
   public void testToCheckAssocEndSynonymMapping() {
-    var instructorClassDiagram = cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacherStudent_Assoc/Class Diagram/Teacher.domain_model.cdm");
+    var instructorClassDiagram =
+        cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacherStudent_Assoc/Class Diagram/Teacher.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var studentClassDiagram =  cdmFromFile(STUDENT_CDM_PATH + "student_teacherStudent_Assoc/Class Diagram/Teacher.domain_model.cdm");
+    var studentClassDiagram =
+        cdmFromFile(STUDENT_CDM_PATH + "student_teacherStudent_Assoc/Class Diagram/Teacher.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     setSynonymToRoleInClassInClassDiag("Student", "myTeacher", List.of("myInstructor"), instructorClassDiagram, instructorSolution);

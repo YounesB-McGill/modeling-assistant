@@ -132,7 +132,6 @@ import modelingassistant.Mistake;
 import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
-import modelingassistant.Synonym;
 import modelingassistant.Tag;
 import modelingassistant.TagGroup;
 import modelingassistant.TagType;
@@ -335,31 +334,29 @@ public class MistakeDetection {
     return comparison;
   }
 
-  /** Returns true if attributes match based on LD, synonyms and enum-bool relationship. */
+  /** Returns true if attributes match based on Levenshtein Distance, synonyms or enum-bool relationship. */
   private static boolean isAttributeMatch(Attribute instructorAttribute, Attribute studentAttribute, Comparison comparison) {
-    int lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-    lDistance = getMinimuimLDInSynonyms(instructorAttribute, studentAttribute, lDistance);
-    if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)) {
-      return true;
-    }
-    if (isEnumAttributeBoolean(instructorAttribute, studentAttribute, comparison)) {
+    int lDistance = getMinimuimLDInSynonyms(instructorAttribute, studentAttribute);
+    if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)
+        || isEnumAttributeBoolean(instructorAttribute, studentAttribute, comparison)) {
       return true;
     }
     return false;
   }
 
-  /** Returns true if student makes boolean instead of an 2 literal enumeration */
-  private static boolean isEnumAttributeBoolean(Attribute instructorAttribute, Attribute studentAttribute, Comparison comparison) {
-    if (instructorAttribute.getType() instanceof CDEnum && studentAttribute.getType() instanceof CDBoolean) {
-      var studAttribName = studentAttribute.getName();
-      var instEnum = getEnumFromClassDiagram(instructorAttribute.getType().getName(), comparison.instructorCdm);
-      if ((studAttribName.toLowerCase().equals(instructorAttribute.getName().toLowerCase())
-          || studAttribName.toLowerCase().equals(instEnum.getName().toLowerCase())
-          || isSynonym(instructorAttribute, studentAttribute)) && instEnum.getLiterals().size() == 2) {
-        return true;
-      }
+  /** Returns true if student uses a boolean instead of a 2-literal enumeration. */
+  private static boolean isEnumAttributeBoolean(Attribute instructorAttribute, Attribute studentAttribute,
+      Comparison comparison) {
+
+    if (!(instructorAttribute.getType() instanceof CDEnum && studentAttribute.getType() instanceof CDBoolean)) {
+      return false;
     }
-    return false;
+    var studAttribName = studentAttribute.getName();
+    var instEnum = getEnumFromClassDiagram(instructorAttribute.getType().getName(), comparison.instructorCdm);
+
+    return instEnum.getLiterals().size() == 2 && (studAttribName.equalsIgnoreCase(instructorAttribute.getName())
+        || studAttribName.equalsIgnoreCase(instEnum.getName()) || isSynonym(instructorAttribute, studentAttribute));
+
   }
 
   private static void checkMistakesMissingExtraGenWrongSuperclassWrongDirection(Comparison comparison) {
@@ -791,16 +788,16 @@ public class MistakeDetection {
     }
 
 
-    comparison.mappedAttributes.forEach((key, value) -> {
-      if (key.getType() instanceof CDEnum && value.getType() instanceof CDBoolean) {
-        CDEnum instEnumBool = getEnumFromClassDiagram(key.getType().getName(), instructorClassDiagram);
+    comparison.mappedAttributes.forEach((instAttrib, studAttrib) -> {
+      if (instAttrib.getType() instanceof CDEnum && studAttrib.getType() instanceof CDBoolean) {
+        CDEnum instEnumBool = getEnumFromClassDiagram(instAttrib.getType().getName(), instructorClassDiagram);
         comparison.notMappedInstructorEnums.remove(instEnumBool);
       }
-      if (!(key.getType() instanceof CDEnum && value.getType() instanceof CDEnum)) {
+      if (!(instAttrib.getType() instanceof CDEnum && studAttrib.getType() instanceof CDEnum)) {
         return;
       }
-      CDEnum instEnum = getEnumFromClassDiagram(key.getType().getName(), instructorClassDiagram);
-      CDEnum studEnum = getEnumFromClassDiagram(value.getType().getName(), studentClassDiagram);
+      CDEnum instEnum = getEnumFromClassDiagram(instAttrib.getType().getName(), instructorClassDiagram);
+      CDEnum studEnum = getEnumFromClassDiagram(studAttrib.getType().getName(), studentClassDiagram);
       if (instEnum == null && studEnum == null) {
         return;
       }
@@ -1740,24 +1737,29 @@ public class MistakeDetection {
       double score = 0;
       double multiplicityWeightage = 0.15;
       double roleNameWeightage = 0.20;
-      int lDistance1 = levenshteinDistance(entry.getValue().get(0).getName(), entry.getValue().get(1).getName());
-      int lDistance2 = levenshteinDistance(entry.getValue().get(2).getName(), entry.getValue().get(3).getName());
-      if (associationEndMultiplicityUpperBoundsMatch(entry.getValue().get(0), entry.getValue().get(1))) {
+      var assocA0 = entry.getValue().get(0);
+      var assocA1 = entry.getValue().get(1);
+      var assocB0 = entry.getValue().get(2);
+      var assocB1 = entry.getValue().get(3);
+      int lDistance1 = levenshteinDistance(assocA0.getName(), assocA1.getName());
+      int lDistance2 = levenshteinDistance(assocB0.getName(), assocB1.getName());
+
+      if (associationEndMultiplicityUpperBoundsMatch(assocA0, assocA1)) {
         score = score + multiplicityWeightage;
       }
-      if (associationEndMultiplicityLowerBoundsMatch(entry.getValue().get(0), entry.getValue().get(1))) {
+      if (associationEndMultiplicityLowerBoundsMatch(assocA0, assocA1)) {
         score = score + multiplicityWeightage;
       }
-      if (lDistance1 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(entry.getValue().get(1), entry.getValue().get(0))) {
+      if (lDistance1 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(assocA1, assocA0)) {
         score = score + roleNameWeightage;
       }
-      if (associationEndMultiplicityUpperBoundsMatch(entry.getValue().get(2), entry.getValue().get(3))) {
+      if (associationEndMultiplicityUpperBoundsMatch(assocB0, assocB1)) {
         score = score + multiplicityWeightage;
       }
-      if (associationEndMultiplicityLowerBoundsMatch(entry.getValue().get(2), entry.getValue().get(3))) {
+      if (associationEndMultiplicityLowerBoundsMatch(assocB0, assocB1)) {
         score = score + multiplicityWeightage;
       }
-      if (lDistance2 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(entry.getValue().get(3), entry.getValue().get(2))) {
+      if (lDistance2 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(assocB1, assocB0)) {
         score = score + roleNameWeightage;
       }
       assocScoreMap.put(entry.getKey(), score);
@@ -2230,67 +2232,37 @@ public class MistakeDetection {
    * @return true if classifier match
    */
   public static boolean classifierNameAndSynonymMatch(Classifier instructorClass, Classifier studentClass) {
-    return instructorClass.getName().toLowerCase().equals(studentClass.getName().toLowerCase())
+    return instructorClass.getName().equalsIgnoreCase((studentClass.getName()))
         || isSynonym(instructorClass, studentClass);
   }
 
-  /** Returns true if studentClass name is synonym of instructorClass name. */
-  public static boolean isSynonym(Classifier instructorClass, Classifier studentClass) {
-    var se = SolutionElement.forCdmElement(instructorClass);
-    for (Synonym syn : se.getSynonyms()) {
-      if (studentClass.getName().toLowerCase().equals(syn.getName().toLowerCase())) {
-        return true;
-      }
-    }
-    return false;
+  /** Returns true if student element name is synonym of instructor element name. */
+  public static boolean isSynonym(NamedElement instructorElement, NamedElement studentElement) {
+    return SolutionElement.forCdmElement(instructorElement).getSynonyms().stream()
+        .anyMatch(syn -> studentElement.getName().equalsIgnoreCase(syn.getName()));
   }
-
-  /** Returns true if studentAttribute name is synonym of instructorAttribute name. */
-  public static boolean isSynonym(Attribute instructorAttrib, Attribute studentAttrib) {
-    var se = SolutionElement.forCdmElement(instructorAttrib);
-    for (Synonym syn : se.getSynonyms()) {
-      if (studentAttrib.getName().toLowerCase().equals(syn.getName().toLowerCase())) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /** Returns true if studentAssocEnd name is synonym of instructorAssocEnd name. */
-  public static boolean isSynonym(AssociationEnd instructorAttrib, AssociationEnd studentAttrib) {
-    var se = SolutionElement.forCdmElement(instructorAttrib);
-    for (Synonym syn : se.getSynonyms()) {
-      if (studentAttrib.getName().toLowerCase().equals(syn.getName().toLowerCase())) {
-        return true;
-      }
-    }
-    return false;
-  }
-
 
   /**
-   * Map classes with levenshtein distance less than or eqauls to MAX_LEVENSHTEIN_DISTANCE_ALLOWED and takes synonym in
+   * Map classes with Levenshtein distance less than or eqauls to MAX_LEVENSHTEIN_DISTANCE_ALLOWED taking synonym into
    * account.
    */
   public static boolean checkClassAndAttribBasedOnSpellingError(Classifier instructorClass, Classifier studentClass) {
-    int lDistance = levenshteinDistance(studentClass.getName(), instructorClass.getName());
-    lDistance = getMinimuimLDInSynonyms(instructorClass, studentClass,  lDistance);
+    int lDistance = getMinimuimLDInSynonyms(instructorClass, studentClass);
     return 0 <= lDistance && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED;
   }
 
-  public static int getMinimuimLDInSynonyms(NamedElement instructorElem, NamedElement studentElem, int previousDistance) {
+  /** Returns minimum Levenshtein Distance between instructor attribute and student attribute including its synonyms */
+  public static int getMinimuimLDInSynonyms(NamedElement instructorElem, NamedElement studentElem) {
     var se = SolutionElement.forCdmElement(instructorElem);
-    int newDistance=previousDistance;
+    int attribDistance = levenshteinDistance(studentElem.getName(), instructorElem.getName());
+    int synDistance = attribDistance;
     for (var syn : se.getSynonyms()) {
       int distance = levenshteinDistance(studentElem.getName(), syn.getName());
-      if (distance < newDistance) {
-        newDistance = distance;
+      if (distance < synDistance) {
+        synDistance = distance;
       }
     }
-    if(newDistance< previousDistance) {
-      return newDistance;
-    }
-    return previousDistance;
+    return  Math.min(attribDistance, synDistance);
   }
 
 
@@ -2301,13 +2273,8 @@ public class MistakeDetection {
   }
 
   private static boolean containsSynonym(Classifier instructorClass, Classifier studentClass) {
-    var se = SolutionElement.forCdmElement(instructorClass);
-    for (var syn : se.getSynonyms()) {
-      if (studentClass.getName().toLowerCase().contains(syn.getName().toLowerCase())) {
-        return true;
-      }
-    }
-    return false;
+    return SolutionElement.forCdmElement(instructorClass).getSynonyms().stream()
+        .anyMatch(syn -> studentClass.getName().toLowerCase().contains(syn.getName().toLowerCase()));
   }
 
   /** Finds mappings in previously unmapped classes and attributes by comparing Attributes and Association Ends */
