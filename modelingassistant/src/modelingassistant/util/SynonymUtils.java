@@ -23,7 +23,7 @@ public class SynonymUtils {
 
 
   /**
-   * Sets a synonym to a class.
+   * Assigns the given list of synonyms to the given class, such that a student class with any of the names is considered to have a correct name.
    */
   public static void setSynonymToClassInClassDiag(String className, List<String> synonymNames, ClassDiagram classDiagram,
       Solution instructorSolution) {
@@ -35,7 +35,7 @@ public class SynonymUtils {
   }
 
   /**
-   * Sets a synonym to an attribute.
+   * Assigns the given list of synonyms to the given attribute, such that a student attribute with any of the names is considered to have a correct name.
    */
   public static void setSynonymToAttribInClassInClassDiag(String className, String attributeName, List<String> synonymNames, ClassDiagram classDiagram,
       Solution instructorSolution) {
@@ -48,7 +48,7 @@ public class SynonymUtils {
   }
 
   /**
-   * Sets a synonym to a role.
+   * Assigns the given list of synonyms to the given assoc end, such that a student assoc end with any of the names is considered to have a correct name.
    */
   public static void setSynonymToRoleInClassInClassDiag(String className, String assocEndName, List<String> synonymNames, ClassDiagram classDiagram,
       Solution instructorSolution) {
@@ -60,7 +60,7 @@ public class SynonymUtils {
     setSynonyms(synonymNames, se);
   }
 
-  /** For every name in the list, function creates a synonym and assigns it to a SE*/
+  /** Creates a synonym and assigns it to the solution element for each name in the given list. */
   public static void setSynonyms(List<String> synonymNames, SolutionElement se) {
     synonymNames.forEach(s -> {
       var synonym = maf.createSynonym();

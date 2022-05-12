@@ -14,7 +14,7 @@
     <semanticResources>model/learningcorpusquiz.ecore</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_sM2lgGVtEeu25_uYr0tc7g">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uiMFMWVtEeu25_uYr0tc7g" name="modelingassistant" repPath="#_uhm2YGVtEeu25_uYr0tc7g" changeId="1e39a8d6-89b4-4fc1-b8a4-04845972d2d7">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uiMFMWVtEeu25_uYr0tc7g" name="modelingassistant" repPath="#_uhm2YGVtEeu25_uYr0tc7g" changeId="37ad1889-8f36-4062-81ac-07c3c8de02e8">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/modelingassistant.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -665,7 +665,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_jKFYccsnEeyG4_5Xlj426A" y="-10"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_jKFYcssnEeyG4_5Xlj426A" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_jKFYc8snEeyG4_5Xlj426A" x="37" y="-24"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_jKFYc8snEeyG4_5Xlj426A" x="49" y="-24"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_jKFYdMsnEeyG4_5Xlj426A" type="6003">
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_jKFYdcsnEeyG4_5Xlj426A" x="-22" y="21"/>

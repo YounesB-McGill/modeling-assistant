@@ -600,7 +600,7 @@
                 <path d="M608 482 L617 482 L617 492 L608 492 L608 482 Z"/>
             </clipPath>
             <clipPath clipPathUnits="userSpaceOnUse" id="clipPath181">
-                <path d="M1493 690 L1621 690 L1621 709 L1493 709 L1493 690 Z"/>
+                <path d="M1505 690 L1633 690 L1633 709 L1505 709 L1505 690 Z"/>
             </clipPath>
             <clipPath clipPathUnits="userSpaceOnUse" id="clipPath182">
                 <path d="M1565 735 L1656 735 L1656 754 L1565 754 L1565 735 Z"/>
@@ -922,7 +922,7 @@
             <polygon fill="white" clip-path="url(#clipPath140)" points=" 1188 156 1192 164 1184 164" stroke="none"/>
             <polygon fill="none" clip-path="url(#clipPath140)" points=" 1188 156 1192 164 1184 164" stroke="rgb(136,136,136)"/>
             <line clip-path="url(#clipPath103)" fill="none" x1="1495" x2="1656" y1="723" y2="723"/>
-            <text x="1494" y="702" clip-path="url(#clipPath181)" font-family="'Segoe UI'" stroke="none" xml:space="preserve">[0..1] solutionElement</text>
+            <text x="1506" y="702" clip-path="url(#clipPath181)" font-family="'Segoe UI'" stroke="none" xml:space="preserve">[1..1] solutionElement</text>
             <text x="1566" y="747" clip-path="url(#clipPath182)" font-family="'Segoe UI'" stroke="none" xml:space="preserve">[0..*] synonyms</text>
             <polygon clip-path="url(#clipPath183)" points=" 1495 723 1501 720 1507 723 1501 726" stroke="none"/>
             <polygon fill="none" clip-path="url(#clipPath183)" points=" 1495 723 1501 720 1507 723 1501 726"/>

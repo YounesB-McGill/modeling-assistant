@@ -72,7 +72,7 @@ public class MistakeDetectionPerformanceAnalysis extends MistakeDetectionBaseTes
         "../mistakedetection/realModels/studentSolution/studentDomainModel_G12_1/Class Diagram/StudentDomainModel.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true).sortedLog();
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, true);
   }
 
   @Test
