@@ -336,12 +336,9 @@ public class MistakeDetection {
 
   /** Returns true if attributes match based on Levenshtein Distance, synonyms or enum-bool relationship. */
   private static boolean isAttributeMatch(Attribute instructorAttribute, Attribute studentAttribute, Comparison comparison) {
-    int lDistance = getMinimuimLDInSynonyms(instructorAttribute, studentAttribute);
-    if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)
-        || isEnumAttributeBoolean(instructorAttribute, studentAttribute, comparison)) {
-      return true;
-    }
-    return false;
+    int lDistance = getMinimumLDInSynonyms(instructorAttribute, studentAttribute);
+    return (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)
+        || isEnumAttributeBoolean(instructorAttribute, studentAttribute, comparison));
   }
 
   /** Returns true if student uses a boolean instead of a 2-literal enumeration. */
@@ -1737,29 +1734,29 @@ public class MistakeDetection {
       double score = 0;
       double multiplicityWeightage = 0.15;
       double roleNameWeightage = 0.20;
-      var assocA0 = entry.getValue().get(0);
-      var assocA1 = entry.getValue().get(1);
-      var assocB0 = entry.getValue().get(2);
-      var assocB1 = entry.getValue().get(3);
-      int lDistance1 = levenshteinDistance(assocA0.getName(), assocA1.getName());
-      int lDistance2 = levenshteinDistance(assocB0.getName(), assocB1.getName());
+      var studAssocEnd = entry.getValue().get(0);
+      var instAssocEnd = entry.getValue().get(1);
+      var otherStudAssocEnd = entry.getValue().get(2);
+      var otherInstAssocEnd = entry.getValue().get(3);
+      int lDistance1 = levenshteinDistance(studAssocEnd.getName(), instAssocEnd.getName());
+      int lDistance2 = levenshteinDistance(otherStudAssocEnd.getName(), otherInstAssocEnd.getName());
 
-      if (associationEndMultiplicityUpperBoundsMatch(assocA0, assocA1)) {
+      if (associationEndMultiplicityUpperBoundsMatch(studAssocEnd, instAssocEnd)) {
         score = score + multiplicityWeightage;
       }
-      if (associationEndMultiplicityLowerBoundsMatch(assocA0, assocA1)) {
+      if (associationEndMultiplicityLowerBoundsMatch(studAssocEnd, instAssocEnd)) {
         score = score + multiplicityWeightage;
       }
-      if (lDistance1 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(assocA1, assocA0)) {
+      if (lDistance1 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instAssocEnd, studAssocEnd)) {
         score = score + roleNameWeightage;
       }
-      if (associationEndMultiplicityUpperBoundsMatch(assocB0, assocB1)) {
+      if (associationEndMultiplicityUpperBoundsMatch(otherStudAssocEnd, otherInstAssocEnd)) {
         score = score + multiplicityWeightage;
       }
-      if (associationEndMultiplicityLowerBoundsMatch(assocB0, assocB1)) {
+      if (associationEndMultiplicityLowerBoundsMatch(otherStudAssocEnd, otherInstAssocEnd)) {
         score = score + multiplicityWeightage;
       }
-      if (lDistance2 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(assocB1, assocB0)) {
+      if (lDistance2 <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(otherInstAssocEnd, otherStudAssocEnd)) {
         score = score + roleNameWeightage;
       }
       assocScoreMap.put(entry.getKey(), score);
@@ -2243,16 +2240,16 @@ public class MistakeDetection {
   }
 
   /**
-   * Map classes with Levenshtein distance less than or eqauls to MAX_LEVENSHTEIN_DISTANCE_ALLOWED taking synonym into
+   * Maps classes with Levenshtein distance less than or equal to MAX_LEVENSHTEIN_DISTANCE_ALLOWED, taking synonyms into
    * account.
    */
   public static boolean checkClassAndAttribBasedOnSpellingError(Classifier instructorClass, Classifier studentClass) {
-    int lDistance = getMinimuimLDInSynonyms(instructorClass, studentClass);
+    int lDistance = getMinimumLDInSynonyms(instructorClass, studentClass);
     return 0 <= lDistance && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED;
   }
 
   /** Returns minimum Levenshtein Distance between instructor attribute and student attribute including its synonyms */
-  public static int getMinimuimLDInSynonyms(NamedElement instructorElem, NamedElement studentElem) {
+  public static int getMinimumLDInSynonyms(NamedElement instructorElem, NamedElement studentElem) {
     var se = SolutionElement.forCdmElement(instructorElem);
     int attribDistance = levenshteinDistance(studentElem.getName(), instructorElem.getName());
     int synDistance = attribDistance;
@@ -2262,7 +2259,7 @@ public class MistakeDetection {
         synDistance = distance;
       }
     }
-    return  Math.min(attribDistance, synDistance);
+    return Math.min(attribDistance, synDistance);
   }
 
 

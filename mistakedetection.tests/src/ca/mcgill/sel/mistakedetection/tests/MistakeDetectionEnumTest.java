@@ -324,7 +324,7 @@ public class MistakeDetectionEnumTest extends MistakeDetectionBaseTest {
    * Test to check enumeration vs boolean using enum name.
    */
   @Test
-  public void testClassEnumIsBoolean() {
+  public void testClassEnumIsBooleanUsingEnumName() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestEnum/instructor_enumBoolean/Class Diagram/EnumBoolean.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -335,7 +335,7 @@ public class MistakeDetectionEnumTest extends MistakeDetectionBaseTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertTrue(comparison.newMistakes.isEmpty());
+    assertTrue(comparison.newMistakes.isEmpty());   // No Mistake because of name match
     assertTrue(studentSolution.getMistakes().isEmpty());
   }
 
@@ -343,7 +343,7 @@ public class MistakeDetectionEnumTest extends MistakeDetectionBaseTest {
    * Test to check enumeration vs boolean using attribute name.
    */
   @Test
-  public void testClassEnumIsBoolean2() {
+  public void testClassEnumIsBooleanUsingAttributeName() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestEnum/instructor_enumBoolean/Class Diagram/EnumBoolean.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -354,7 +354,7 @@ public class MistakeDetectionEnumTest extends MistakeDetectionBaseTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertTrue(comparison.newMistakes.isEmpty());
+    assertTrue(comparison.newMistakes.isEmpty());      // No Mistake because of name match
     assertTrue(studentSolution.getMistakes().isEmpty());
   }
 

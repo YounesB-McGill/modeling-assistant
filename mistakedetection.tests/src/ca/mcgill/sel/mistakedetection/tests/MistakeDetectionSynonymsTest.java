@@ -23,8 +23,7 @@ import ca.mcgill.sel.mistakedetection.MistakeDetection;
 
 public class MistakeDetectionSynonymsTest {
 
-  static final String INSTRUCTOR_CDM_PATH =
-      "../mistakedetection/testModels/InstructorSolution/ModelToTestSynonyms/";
+  static final String INSTRUCTOR_CDM_PATH = "../mistakedetection/testModels/InstructorSolution/ModelToTestSynonyms/";
   static final String STUDENT_CDM_PATH = "../mistakedetection/testModels/StudentSolution/ModelToTestSynonyms/";
 
 
@@ -37,19 +36,22 @@ public class MistakeDetectionSynonymsTest {
         cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_classPilot/Class Diagram/Instructor_classPilot.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var studentClassDiagram =  cdmFromFile(STUDENT_CDM_PATH + "student_classCaptain/Class Diagram/student_classCaptain.domain_model.cdm");
+    var studentClassDiagram =
+        cdmFromFile(STUDENT_CDM_PATH + "student_classCaptain/Class Diagram/student_classCaptain.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    setSynonymToClassInClassDiag("Pilot", List.of("flier", "captain", "aviator"), instructorClassDiagram, instructorSolution);
+    setSynonymToClassInClassDiag("Pilot", List.of("flier", "captain", "aviator"), instructorClassDiagram,
+        instructorSolution);
 
-    setSynonymToRoleInClassInClassDiag("Root", "myPilot", List.of("myFlier", "myCaptain", "myAviator"), instructorClassDiagram, instructorSolution);
+    setSynonymToRoleInClassInClassDiag("Root", "myPilot", List.of("myFlier", "myCaptain", "myAviator"),
+        instructorClassDiagram, instructorSolution);
 
     var instructorClass = getClassFromClassDiagram("Pilot", instructorClassDiagram);
     var studentClass = getClassFromClassDiagram("Captain", studentClassDiagram);
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertTrue(comparison.newMistakes.isEmpty());
+    assertTrue(comparison.newMistakes.isEmpty()); // No Mistake because of synonym match
     assertTrue(studentSolution.getMistakes().isEmpty());
 
     assertEquals(comparison.mappedClassifiers.get(instructorClass), studentClass);
@@ -64,7 +66,7 @@ public class MistakeDetectionSynonymsTest {
         cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher/Class Diagram/Teacher.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var studentClassDiagram =  cdmFromFile(STUDENT_CDM_PATH + "student_teacher/Class Diagram/Teacher.domain_model.cdm");
+    var studentClassDiagram = cdmFromFile(STUDENT_CDM_PATH + "student_teacher/Class Diagram/Teacher.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     setSynonymToClassInClassDiag("Teacher", List.of("Instructor"), instructorClassDiagram, instructorSolution);
@@ -89,7 +91,8 @@ public class MistakeDetectionSynonymsTest {
         cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher/Class Diagram/Teacher.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var studentClassDiagram =  cdmFromFile(STUDENT_CDM_PATH + "student_instructors/Class Diagram/Teacher.domain_model.cdm");
+    var studentClassDiagram =
+        cdmFromFile(STUDENT_CDM_PATH + "student_instructors/Class Diagram/Teacher.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
     setSynonymToClassInClassDiag("Teacher", List.of("Instructor"), instructorClassDiagram, instructorSolution);
@@ -128,7 +131,8 @@ public class MistakeDetectionSynonymsTest {
     assertEquals(5, comparison.newMistakes.size());
     assertEquals(5, studentSolution.getMistakes().size());
 
-    assertMistake(studentMistakeFor(studentClass), SOFTWARE_ENGINEERING_TERM, studentClass, instructorClass, 0, 1, false);
+    assertMistake(studentMistakeFor(studentClass), SOFTWARE_ENGINEERING_TERM, studentClass, instructorClass, 0, 1,
+        false);
   }
 
   /**
@@ -140,11 +144,14 @@ public class MistakeDetectionSynonymsTest {
         cdmFromFile(INSTRUCTOR_CDM_PATH + "instructor_teacher_Attrib/Class Diagram/Teacher.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
 
-    var studentClassDiagram =  cdmFromFile(STUDENT_CDM_PATH + "student_teacher_Attrib/Class Diagram/Teacher.domain_model.cdm");
+    var studentClassDiagram =
+        cdmFromFile(STUDENT_CDM_PATH + "student_teacher_Attrib/Class Diagram/Teacher.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    setSynonymToAttribInClassInClassDiag("Teacher", "name", List.of("fullName"), instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Teacher", "ID", List.of("identification"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Teacher", "name", List.of("fullName"), instructorClassDiagram,
+        instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Teacher", "ID", List.of("identification"), instructorClassDiagram,
+        instructorSolution);
 
     var instructorClass = getClassFromClassDiagram("Teacher", instructorClassDiagram);
     var instructorClassAttrib1 = getAttributeFromClass("name", instructorClass);
@@ -156,7 +163,7 @@ public class MistakeDetectionSynonymsTest {
 
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertTrue(comparison.newMistakes.isEmpty());
+    assertTrue(comparison.newMistakes.isEmpty()); // No Mistake because of synonym match
     assertTrue(studentSolution.getMistakes().isEmpty());
 
     assertEquals(comparison.mappedAttributes.get(instructorClassAttrib1), studentClassAttrib1);
@@ -176,8 +183,10 @@ public class MistakeDetectionSynonymsTest {
         cdmFromFile(STUDENT_CDM_PATH + "student_teacher_plural&UppercaseAttrib/Class Diagram/Teacher.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    setSynonymToAttribInClassInClassDiag("Teacher", "name", List.of("fullName"), instructorClassDiagram, instructorSolution);
-    setSynonymToAttribInClassInClassDiag("Teacher", "ID", List.of("identification"), instructorClassDiagram, instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Teacher", "name", List.of("fullName"), instructorClassDiagram,
+        instructorSolution);
+    setSynonymToAttribInClassInClassDiag("Teacher", "ID", List.of("identification"), instructorClassDiagram,
+        instructorSolution);
 
     var instructorClass = getClassFromClassDiagram("Teacher", instructorClassDiagram);
     var instructorClassAttrib1 = getAttributeFromClass("name", instructorClass);
@@ -195,8 +204,10 @@ public class MistakeDetectionSynonymsTest {
     assertEquals(comparison.mappedAttributes.get(instructorClassAttrib1), studentClassAttrib1);
     assertEquals(comparison.mappedAttributes.get(instructorClassAttrib2), studentClassAttrib2);
 
-    assertMistake(studentMistakeFor(studentClassAttrib1), PLURAL_ATTRIBUTE, studentClassAttrib1, instructorClassAttrib1, 0, 1, false);
-    assertMistake(studentMistakeFor(studentClassAttrib2), UPPERCASE_ATTRIBUTE_NAME, studentClassAttrib2, instructorClassAttrib2, 0, 1, false);
+    assertMistake(studentMistakeFor(studentClassAttrib1), PLURAL_ATTRIBUTE, studentClassAttrib1, instructorClassAttrib1,
+        0, 1, false);
+    assertMistake(studentMistakeFor(studentClassAttrib2), UPPERCASE_ATTRIBUTE_NAME, studentClassAttrib2,
+        instructorClassAttrib2, 0, 1, false);
   }
 
   /**
@@ -212,7 +223,8 @@ public class MistakeDetectionSynonymsTest {
         cdmFromFile(STUDENT_CDM_PATH + "student_teacherStudent_Assoc/Class Diagram/Teacher.domain_model.cdm");
     var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
 
-    setSynonymToRoleInClassInClassDiag("Student", "myTeacher", List.of("myInstructor"), instructorClassDiagram, instructorSolution);
+    setSynonymToRoleInClassInClassDiag("Student", "myTeacher", List.of("myInstructor"), instructorClassDiagram,
+        instructorSolution);
 
     var instructorClass1 = getClassFromClassDiagram("Teacher", instructorClassDiagram);
     var instructorClass2 = getClassFromClassDiagram("Student", instructorClassDiagram);
@@ -229,6 +241,6 @@ public class MistakeDetectionSynonymsTest {
     assertEquals(2, comparison.newMistakes.size());
     assertEquals(2, studentSolution.getMistakes().size());
 
-    assertEquals(comparison.mappedAssociations.get(instructorAssoc.get(0)),studentAssoc.get(0));
+    assertEquals(comparison.mappedAssociations.get(instructorAssoc.get(0)), studentAssoc.get(0));
   }
 }
