@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
+import ca.mcgill.sel.mistakedetection.MistakeDetectionUtils;
 
 public class MistakeDetectionHelperFunctionLogicTest extends MistakeDetectionBaseTest {
 
@@ -47,7 +48,7 @@ public class MistakeDetectionHelperFunctionLogicTest extends MistakeDetectionBas
    */
   @Test
   public void testCheckLowerCase() {
-    assertTrue(MistakeDetection.isLowerName("class1"));
-    assertFalse(MistakeDetection.isLowerName("Class1"));
+    assertTrue(MistakeDetectionUtils.isLowerName("class1"));
+    assertFalse(MistakeDetectionUtils.isLowerName("Class1"));
   }
 }

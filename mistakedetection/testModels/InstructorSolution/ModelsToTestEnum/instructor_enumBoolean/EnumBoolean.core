@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_2u_SgNC5EeybsvOOc3I7kQ" name="EnumBoolean" featureModel="_2u_SgdC5EeybsvOOc3I7kQ" impactModel="_2u_Sg9C5EeybsvOOc3I7kQ">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_2u_SgdC5EeybsvOOc3I7kQ" root="_2u_SgtC5EeybsvOOc3I7kQ">
+    <features xmi:id="_2u_SgtC5EeybsvOOc3I7kQ" name="EnumBoolean" realizedBy="_3QonANC5EeybsvOOc3I7kQ"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_2u_Sg9C5EeybsvOOc3I7kQ" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_3QnY4NC5EeybsvOOc3I7kQ" name="EnumBoolean" scene="_3QonANC5EeybsvOOc3I7kQ" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/EnumBoolean.domain_model.cdm#_3Qp1INC5EeybsvOOc3I7kQ"/>
+  </artefacts>
+  <scenes xmi:id="_3QonANC5EeybsvOOc3I7kQ" name="EnumBoolean" realizes="_2u_SgtC5EeybsvOOc3I7kQ" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_3QonAdC5EeybsvOOc3I7kQ" value="_3QnY4NC5EeybsvOOc3I7kQ" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>

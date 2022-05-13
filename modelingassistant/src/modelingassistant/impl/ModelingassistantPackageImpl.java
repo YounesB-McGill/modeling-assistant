@@ -26,6 +26,7 @@ import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
 import modelingassistant.Student;
 import modelingassistant.StudentKnowledge;
+import modelingassistant.Synonym;
 import modelingassistant.Tag;
 import modelingassistant.TagGroup;
 import modelingassistant.TagType;
@@ -129,6 +130,13 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   private EClass tagGroupEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass synonymEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -575,6 +583,16 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   @Override
+  public EReference getSolutionElement_Synonyms() {
+    return (EReference)solutionElementEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getStudentKnowledge() {
     return studentKnowledgeEClass;
   }
@@ -885,6 +903,26 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
    * @generated
    */
   @Override
+  public EClass getSynonym() {
+    return synonymEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getSynonym_SolutionElement() {
+    return (EReference)synonymEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EEnum getTagType() {
     return tagTypeEEnum;
   }
@@ -968,6 +1006,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     createEReference(solutionElementEClass, SOLUTION_ELEMENT__ELEMENT);
     createEReference(solutionElementEClass, SOLUTION_ELEMENT__INSTRUCTOR_ELEMENT_MISTAKES);
     createEReference(solutionElementEClass, SOLUTION_ELEMENT__TAGS);
+    createEReference(solutionElementEClass, SOLUTION_ELEMENT__SYNONYMS);
 
     studentKnowledgeEClass = createEClass(STUDENT_KNOWLEDGE);
     createEAttribute(studentKnowledgeEClass, STUDENT_KNOWLEDGE__LEVEL_OF_KNOWLEDGE);
@@ -1005,6 +1044,9 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     tagGroupEClass = createEClass(TAG_GROUP);
     createEReference(tagGroupEClass, TAG_GROUP__TAGS);
     createEReference(tagGroupEClass, TAG_GROUP__SOLUTION);
+
+    synonymEClass = createEClass(SYNONYM);
+    createEReference(synonymEClass, SYNONYM__SOLUTION_ELEMENT);
 
     // Create enums
     tagTypeEEnum = createEEnum(TAG_TYPE);
@@ -1048,6 +1090,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     studentEClass.getESuperTypes().add(this.getNamedElement());
     problemStatementEClass.getESuperTypes().add(this.getNamedElement());
     problemStatementElementEClass.getESuperTypes().add(this.getNamedElement());
+    synonymEClass.getESuperTypes().add(this.getNamedElement());
 
     // Initialize classes, features, and operations; add parameters
     initEClass(modelingAssistantEClass, ModelingAssistant.class, "ModelingAssistant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1090,6 +1133,7 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEReference(getSolutionElement_Element(), theCdmPackage.getNamedElement(), null, "element", null, 1, 1, SolutionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSolutionElement_InstructorElementMistakes(), this.getMistake(), this.getMistake_InstructorElements(), "instructorElementMistakes", null, 0, -1, SolutionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSolutionElement_Tags(), this.getTag(), this.getTag_SolutionElement(), "tags", null, 0, -1, SolutionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSolutionElement_Synonyms(), this.getSynonym(), this.getSynonym_SolutionElement(), "synonyms", null, 0, -1, SolutionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(studentKnowledgeEClass, StudentKnowledge.class, "StudentKnowledge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getStudentKnowledge_LevelOfKnowledge(), ecorePackage.getEDouble(), "levelOfKnowledge", "5.0", 0, 1, StudentKnowledge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1127,6 +1171,9 @@ public class ModelingassistantPackageImpl extends EPackageImpl implements Modeli
     initEClass(tagGroupEClass, TagGroup.class, "TagGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTagGroup_Tags(), this.getTag(), this.getTag_TagGroup(), "tags", null, 0, -1, TagGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTagGroup_Solution(), this.getSolution(), this.getSolution_TagGroups(), "solution", null, 1, 1, TagGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(synonymEClass, Synonym.class, "Synonym", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSynonym_SolutionElement(), this.getSolutionElement(), this.getSolutionElement_Synonyms(), "solutionElement", null, 1, 1, Synonym.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(tagTypeEEnum, TagType.class, "TagType");

@@ -15,6 +15,7 @@ import static modelingassistant.util.ClassDiagramUtils.getClassFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getEnumFromClassDiagram;
 import static modelingassistant.util.ClassDiagramUtils.getEnumLiteralFromEnum;
 import static modelingassistant.util.ResourceHelper.cdmFromFile;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
@@ -317,6 +318,44 @@ public class MistakeDetectionEnumTest extends MistakeDetectionBaseTest {
     assertEquals(1, comparison.newMistakes.size());
     assertEquals(1, studentSolution.getMistakes().size());
     assertMistake(studentSolution.getMistakes().get(0), MISSING_ENUM_ITEM, studentRoleEnum, instructorEnumLiteral, 0, 1, false);
+  }
+
+  /**
+   * Test to check enumeration vs boolean using enum name.
+   */
+  @Test
+  public void testClassEnumIsBooleanUsingEnumName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestEnum/instructor_enumBoolean/Class Diagram/EnumBoolean.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestEnum/student_enumBoolean/Class Diagram/EnumBoolean.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertTrue(comparison.newMistakes.isEmpty());   // No Mistake because of name match
+    assertTrue(studentSolution.getMistakes().isEmpty());
+  }
+
+  /**
+   * Test to check enumeration vs boolean using attribute name.
+   */
+  @Test
+  public void testClassEnumIsBooleanUsingAttributeName() {
+    var instructorClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/InstructorSolution/ModelsToTestEnum/instructor_enumBoolean/Class Diagram/EnumBoolean.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        "../mistakedetection/testModels/StudentSolution/ModelsToTestEnum/student_enumBoolean2/Class Diagram/EnumBoolean.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertTrue(comparison.newMistakes.isEmpty());      // No Mistake because of name match
+    assertTrue(studentSolution.getMistakes().isEmpty());
   }
 
 }

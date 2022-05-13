@@ -65,8 +65,9 @@ class SolutionElement(EObject, metaclass=MetaEClass):
     element = EReference(ordered=True, unique=True, containment=False, derived=False)
     instructorElementMistakes = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
     tags = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    synonyms = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
 
-    def __init__(self, *, problemStatementElements=None, solution=None, studentElementMistakes=None, element=None, instructorElementMistakes=None, tags=None):
+    def __init__(self, *, problemStatementElements=None, solution=None, studentElementMistakes=None, element=None, instructorElementMistakes=None, tags=None, synonyms=None):
         super().__init__()
         if problemStatementElements:
             self.problemStatementElements.extend(problemStatementElements)
@@ -80,6 +81,8 @@ class SolutionElement(EObject, metaclass=MetaEClass):
             self.instructorElementMistakes.extend(instructorElementMistakes)
         if tags:
             self.tags.extend(tags)
+        if synonyms:
+            self.synonyms.extend(synonyms)
 
 class StudentKnowledge(EObject, metaclass=MetaEClass):
     levelOfKnowledge = EAttribute(eType=EDouble, unique=True, derived=False, changeable=True, default_value=5.0)
@@ -234,6 +237,14 @@ class ProblemStatementElement(NamedElement):
             self.problemStatement = problemStatement
         if solutionElements:
             self.solutionElements.extend(solutionElements)
+
+class Synonym(NamedElement):
+    solutionElement = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, solutionElement=None, **kwargs):
+        super().__init__(**kwargs)
+        if solutionElement is not None:
+            self.solutionElement = solutionElement
 
 def override_pyecorevalue_check(self, value, _isinstance=isinstance):
     """

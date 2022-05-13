@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_3Qp1INC5EeybsvOOc3I7kQ" name="EnumBoolean">
+  <classes xsi:type="classdiagram:Class" xmi:id="_3mRf0NC5EeybsvOOc3I7kQ" name="Room">
+    <attributes xmi:id="_5iYAINC5EeybsvOOc3I7kQ" name="smokingStatus" type="_3Qp1I9C5EeybsvOOc3I7kQ"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="_3Qp1IdC5EeybsvOOc3I7kQ"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="_3Qp1ItC5EeybsvOOc3I7kQ"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="_3Qp1I9C5EeybsvOOc3I7kQ"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="_3Qp1JNC5EeybsvOOc3I7kQ"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_3Qp1JdC5EeybsvOOc3I7kQ"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="_3Qp1JtC5EeybsvOOc3I7kQ"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_3Qp1J9C5EeybsvOOc3I7kQ"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="_3Qp1KNC5EeybsvOOc3I7kQ"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="_3Qp1KdC5EeybsvOOc3I7kQ"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="_3Qp1KtC5EeybsvOOc3I7kQ"/>
+  <layout xmi:id="_3Qp1K9C5EeybsvOOc3I7kQ">
+    <containers xmi:id="_3Qp1LNC5EeybsvOOc3I7kQ" key="_3Qp1INC5EeybsvOOc3I7kQ">
+      <value xmi:id="_3m-DYNC5EeybsvOOc3I7kQ" key="_3mRf0NC5EeybsvOOc3I7kQ">
+        <value xmi:id="_3m-DYdC5EeybsvOOc3I7kQ" x="725.99976" y="186.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

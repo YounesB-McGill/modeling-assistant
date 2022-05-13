@@ -534,13 +534,22 @@ public interface ModelingassistantPackage extends EPackage {
   int SOLUTION_ELEMENT__TAGS = 5;
 
   /**
+   * The feature id for the '<em><b>Synonyms</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SOLUTION_ELEMENT__SYNONYMS = 6;
+
+  /**
    * The number of structural features of the '<em>Solution Element</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SOLUTION_ELEMENT_FEATURE_COUNT = 6;
+  int SOLUTION_ELEMENT_FEATURE_COUNT = 7;
 
   /**
    * The number of operations of the '<em>Solution Element</em>' class.
@@ -908,6 +917,52 @@ public interface ModelingassistantPackage extends EPackage {
   int TAG_GROUP_OPERATION_COUNT = 0;
 
   /**
+   * The meta object id for the '{@link modelingassistant.impl.SynonymImpl <em>Synonym</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see modelingassistant.impl.SynonymImpl
+   * @see modelingassistant.impl.ModelingassistantPackageImpl#getSynonym()
+   * @generated
+   */
+  int SYNONYM = 12;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SYNONYM__NAME = NAMED_ELEMENT__NAME;
+
+  /**
+   * The feature id for the '<em><b>Solution Element</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SYNONYM__SOLUTION_ELEMENT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Synonym</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SYNONYM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The number of operations of the '<em>Synonym</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SYNONYM_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link modelingassistant.TagType <em>Tag Type</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -915,7 +970,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @see modelingassistant.impl.ModelingassistantPackageImpl#getTagType()
    * @generated
    */
-  int TAG_TYPE = 12;
+  int TAG_TYPE = 13;
 
   /**
    * The meta object id for the '<em>Time</em>' data type.
@@ -925,7 +980,7 @@ public interface ModelingassistantPackage extends EPackage {
    * @see modelingassistant.impl.ModelingassistantPackageImpl#getTime()
    * @generated
    */
-  int TIME = 13;
+  int TIME = 14;
 
 
   /**
@@ -1308,6 +1363,17 @@ public interface ModelingassistantPackage extends EPackage {
   EReference getSolutionElement_Tags();
 
   /**
+   * Returns the meta object for the containment reference list '{@link modelingassistant.SolutionElement#getSynonyms <em>Synonyms</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Synonyms</em>'.
+   * @see modelingassistant.SolutionElement#getSynonyms()
+   * @see #getSolutionElement()
+   * @generated
+   */
+  EReference getSolutionElement_Synonyms();
+
+  /**
    * Returns the meta object for class '{@link modelingassistant.StudentKnowledge <em>Student Knowledge</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1641,6 +1707,27 @@ public interface ModelingassistantPackage extends EPackage {
    * @generated
    */
   EReference getTagGroup_Solution();
+
+  /**
+   * Returns the meta object for class '{@link modelingassistant.Synonym <em>Synonym</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Synonym</em>'.
+   * @see modelingassistant.Synonym
+   * @generated
+   */
+  EClass getSynonym();
+
+  /**
+   * Returns the meta object for the container reference '{@link modelingassistant.Synonym#getSolutionElement <em>Solution Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the container reference '<em>Solution Element</em>'.
+   * @see modelingassistant.Synonym#getSolutionElement()
+   * @see #getSynonym()
+   * @generated
+   */
+  EReference getSynonym_SolutionElement();
 
   /**
    * Returns the meta object for enum '{@link modelingassistant.TagType <em>Tag Type</em>}'.
@@ -1979,6 +2066,14 @@ public interface ModelingassistantPackage extends EPackage {
     EReference SOLUTION_ELEMENT__TAGS = eINSTANCE.getSolutionElement_Tags();
 
     /**
+     * The meta object literal for the '<em><b>Synonyms</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SOLUTION_ELEMENT__SYNONYMS = eINSTANCE.getSolutionElement_Synonyms();
+
+    /**
      * The meta object literal for the '{@link modelingassistant.impl.StudentKnowledgeImpl <em>Student Knowledge</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2237,6 +2332,24 @@ public interface ModelingassistantPackage extends EPackage {
      * @generated
      */
     EReference TAG_GROUP__SOLUTION = eINSTANCE.getTagGroup_Solution();
+
+    /**
+     * The meta object literal for the '{@link modelingassistant.impl.SynonymImpl <em>Synonym</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see modelingassistant.impl.SynonymImpl
+     * @see modelingassistant.impl.ModelingassistantPackageImpl#getSynonym()
+     * @generated
+     */
+    EClass SYNONYM = eINSTANCE.getSynonym();
+
+    /**
+     * The meta object literal for the '<em><b>Solution Element</b></em>' container reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SYNONYM__SOLUTION_ELEMENT = eINSTANCE.getSynonym_SolutionElement();
 
     /**
      * The meta object literal for the '{@link modelingassistant.TagType <em>Tag Type</em>}' enum.

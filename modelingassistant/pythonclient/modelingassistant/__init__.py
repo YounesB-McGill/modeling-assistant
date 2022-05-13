@@ -1,7 +1,7 @@
 
 from .modelingassistant import getEClassifier, eClassifiers
 from .modelingassistant import name, nsURI, nsPrefix, eClass
-from .modelingassistant import Time, ModelingAssistant, Student, ProblemStatement, ProblemStatementElement, Solution, SolutionElement, StudentKnowledge, Mistake, NamedElement, FeedbackItem, Tag, TagGroup, TagType
+from .modelingassistant import Time, ModelingAssistant, Student, ProblemStatement, ProblemStatementElement, Solution, SolutionElement, StudentKnowledge, Mistake, NamedElement, FeedbackItem, Tag, TagGroup, TagType, Synonym
 
 from classdiagram import ClassDiagram, NamedElement
 from learningcorpus import Feedback, MistakeType
@@ -9,7 +9,7 @@ from learningcorpus import Feedback, MistakeType
 from . import modelingassistant
 
 __all__ = ['Time', 'ModelingAssistant', 'Student', 'ProblemStatement', 'ProblemStatementElement', 'Solution',
-           'SolutionElement', 'StudentKnowledge', 'Mistake', 'NamedElement', 'FeedbackItem', 'Tag', 'TagGroup', 'TagType']
+           'SolutionElement', 'StudentKnowledge', 'Mistake', 'NamedElement', 'FeedbackItem', 'Tag', 'TagGroup', 'TagType', 'Synonym']
 
 eSubpackages = []
 eSuperPackage = None
@@ -54,6 +54,7 @@ SolutionElement.solution.eOpposite = Solution.solutionElements
 SolutionElement.studentElementMistakes.eType = Mistake
 SolutionElement.instructorElementMistakes.eType = Mistake
 SolutionElement.tags.eType = Tag
+SolutionElement.synonyms.eType = Synonym
 StudentKnowledge.student.eType = Student
 StudentKnowledge.student.eOpposite = Student.studentKnowledges
 StudentKnowledge.modelingAssistant.eType = ModelingAssistant
@@ -76,6 +77,8 @@ TagGroup.tags.eType = Tag
 TagGroup.tags.eOpposite = Tag.tagGroup
 TagGroup.solution.eType = Solution
 TagGroup.solution.eOpposite = Solution.tagGroups
+Synonym.solutionElement.eType = SolutionElement
+Synonym.solutionElement.eOpposite = SolutionElement.synonyms
 
 otherClassifiers = [Time, TagType]
 

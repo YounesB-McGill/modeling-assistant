@@ -17,7 +17,7 @@
     <associationEnds xmi:id="_ROgGoQT4EeyXe5VBBNZ50w" name="myPersons" assoc="_ROgGogT4EeyXe5VBBNZ50w" upperBound="-1"/>
     <associationEnds xmi:id="_U5vCQAT4EeyXe5VBBNZ50w" name="myRoot" assoc="_U5vCQgT4EeyXe5VBBNZ50w" lowerBound="1"/>
     <attributes xmi:id="_EtVFEAT4EeyXe5VBBNZ50w" name="company" type="_-EtLRwT3EeyXe5VBBNZ50w"/>
-    <attributes xmi:id="_FeOWgAT4EeyXe5VBBNZ50w" name="flightNo" type="_-EtLRgT3EeyXe5VBBNZ50w"/>
+    <attributes xmi:id="_FeOWgAT4EeyXe5VBBNZ50w" name="flightNo" type="_-EtLRwT3EeyXe5VBBNZ50w"/>
   </classes>
   <classes xsi:type="classdiagram:Class" xmi:id="_F_U4cAT4EeyXe5VBBNZ50w" name="Person">
     <associationEnds xmi:id="_ROgGoAT4EeyXe5VBBNZ50w" name="myAirplanes" assoc="_ROgGogT4EeyXe5VBBNZ50w" upperBound="-1"/>

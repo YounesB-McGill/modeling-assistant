@@ -20,6 +20,7 @@ import modelingassistant.ModelingassistantPackage;
 import modelingassistant.ProblemStatementElement;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
+import modelingassistant.Synonym;
 import modelingassistant.Tag;
 
 /**
@@ -36,6 +37,7 @@ import modelingassistant.Tag;
  *   <li>{@link modelingassistant.impl.SolutionElementImpl#getElement <em>Element</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionElementImpl#getInstructorElementMistakes <em>Instructor Element Mistakes</em>}</li>
  *   <li>{@link modelingassistant.impl.SolutionElementImpl#getTags <em>Tags</em>}</li>
+ *   <li>{@link modelingassistant.impl.SolutionElementImpl#getSynonyms <em>Synonyms</em>}</li>
  * </ul>
  *
  * @generated
@@ -90,6 +92,16 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected EList<Tag> tags;
+
+  /**
+   * The cached value of the '{@link #getSynonyms() <em>Synonyms</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSynonyms()
+   * @generated
+   * @ordered
+   */
+  protected EList<Synonym> synonyms;
 
   /**
    * <!-- begin-user-doc -->
@@ -251,6 +263,19 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public EList<Synonym> getSynonyms() {
+    if (synonyms == null) {
+      synonyms = new EObjectContainmentWithInverseEList<Synonym>(Synonym.class, this, ModelingassistantPackage.SOLUTION_ELEMENT__SYNONYMS, ModelingassistantPackage.SYNONYM__SOLUTION_ELEMENT);
+    }
+    return synonyms;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -267,6 +292,8 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getInstructorElementMistakes()).basicAdd(otherEnd, msgs);
       case ModelingassistantPackage.SOLUTION_ELEMENT__TAGS:
         return ((InternalEList<InternalEObject>)(InternalEList<?>)getTags()).basicAdd(otherEnd, msgs);
+      case ModelingassistantPackage.SOLUTION_ELEMENT__SYNONYMS:
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getSynonyms()).basicAdd(otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
@@ -289,6 +316,8 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
         return ((InternalEList<?>)getInstructorElementMistakes()).basicRemove(otherEnd, msgs);
       case ModelingassistantPackage.SOLUTION_ELEMENT__TAGS:
         return ((InternalEList<?>)getTags()).basicRemove(otherEnd, msgs);
+      case ModelingassistantPackage.SOLUTION_ELEMENT__SYNONYMS:
+        return ((InternalEList<?>)getSynonyms()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -328,6 +357,8 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
         return getInstructorElementMistakes();
       case ModelingassistantPackage.SOLUTION_ELEMENT__TAGS:
         return getTags();
+      case ModelingassistantPackage.SOLUTION_ELEMENT__SYNONYMS:
+        return getSynonyms();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -363,6 +394,10 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
         getTags().clear();
         getTags().addAll((Collection<? extends Tag>)newValue);
         return;
+      case ModelingassistantPackage.SOLUTION_ELEMENT__SYNONYMS:
+        getSynonyms().clear();
+        getSynonyms().addAll((Collection<? extends Synonym>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -393,6 +428,9 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
       case ModelingassistantPackage.SOLUTION_ELEMENT__TAGS:
         getTags().clear();
         return;
+      case ModelingassistantPackage.SOLUTION_ELEMENT__SYNONYMS:
+        getSynonyms().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -417,6 +455,8 @@ public class SolutionElementImpl extends MinimalEObjectImpl.Container implements
         return instructorElementMistakes != null && !instructorElementMistakes.isEmpty();
       case ModelingassistantPackage.SOLUTION_ELEMENT__TAGS:
         return tags != null && !tags.isEmpty();
+      case ModelingassistantPackage.SOLUTION_ELEMENT__SYNONYMS:
+        return synonyms != null && !synonyms.isEmpty();
     }
     return super.eIsSet(featureID);
   }

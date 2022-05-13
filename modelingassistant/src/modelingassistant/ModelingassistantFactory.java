@@ -133,6 +133,15 @@ public interface ModelingassistantFactory extends EFactory {
   TagGroup createTagGroup();
 
   /**
+   * Returns a new object of class '<em>Synonym</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Synonym</em>'.
+   * @generated
+   */
+  Synonym createSynonym();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
