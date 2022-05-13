@@ -185,12 +185,12 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
     Attribute studentDriverName = getAttributeFromClass("name", studentDriverClass);
     Attribute studentPassengerName = getAttributeFromClass("name", studentPassengerClass);
 
-    assertTrue(MistakeDetection.checkCorrectTest(instructorBusClass, studentBusClass));
-    assertTrue(MistakeDetection.checkCorrectTest(instructorDriverClass, studentDriverClass));
-    assertTrue(MistakeDetection.checkCorrectTest(instructorPassengerClass, studentPassengerClass));
-
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     var studentMistakes = studentSolution.getMistakes();
+
+    assertEquals(comparison.mappedClassifiers.get(instructorBusClass), studentBusClass);
+    assertEquals(comparison.mappedClassifiers.get(instructorDriverClass), studentDriverClass);
+    assertEquals(comparison.mappedClassifiers.get(instructorPassengerClass), studentPassengerClass);
 
     assertEquals(5, comparison.newMistakes.size()); // Incomplete Containment tree
     assertEquals(5, studentSolution.getMistakes().size());

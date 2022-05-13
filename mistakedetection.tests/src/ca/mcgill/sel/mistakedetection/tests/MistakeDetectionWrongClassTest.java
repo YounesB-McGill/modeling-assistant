@@ -27,6 +27,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
+import ca.mcgill.sel.mistakedetection.MistakeDetectionUtils;
 import learningcorpus.mistaketypes.MistakeTypes;
 
 public class MistakeDetectionWrongClassTest extends MistakeDetectionBaseTest {
@@ -315,7 +316,7 @@ public class MistakeDetectionWrongClassTest extends MistakeDetectionBaseTest {
     assertTrue(MistakeDetection.checkMistakePluralClassName(studentClass, instructorClass).isEmpty());
 
     // mistake
-    var expected = MistakeDetection.MAF.createMistake();
+    var expected = MistakeDetectionUtils.MAF.createMistake();
     expected.setMistakeType(MistakeTypes.PLURAL_CLASS_NAME);
     studentClass = MistakeDetection.CDF.createClass();
     studentClass.setName("Women");

@@ -3,6 +3,28 @@ package ca.mcgill.sel.mistakedetection;
 import static ca.mcgill.sel.classdiagram.ReferenceType.AGGREGATION;
 import static ca.mcgill.sel.classdiagram.ReferenceType.COMPOSITION;
 import static ca.mcgill.sel.classdiagram.ReferenceType.REGULAR;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.associationEndMultiplicityLowerBoundsMatch;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.associationEndMultiplicityMatch;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.associationEndMultiplicityUpperBoundsMatch;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.attributeTypesMatch;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.createMistake;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isAssociationClassExtra;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isAssociationClassMissing;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isAttributeExpectedStatic;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isAttributeNotExpectedStatic;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isLowerName;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isRoleNameExpectedStatic;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isRoleNameMissing;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isRoleNameNotExpectedStatic;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isUsingAggregationInsteadOfAssociation;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isUsingAggregationInsteadOfComposition;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isUsingAssociationInsteadOfAggregation;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isUsingAssociationInsteadOfComposition;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isUsingCompositionInsteadOfAggregation;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isUsingCompositionInsteadOfAssociation;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isUsingDirectedInsteadOfUndirected;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isUsingUndirectedInsteadOfDirected;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.startsWithUppercase;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_CLASS_SHOULD_BE_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_ENUM_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_FULL_PR_PATTERN;
@@ -117,19 +139,14 @@ import ca.mcgill.sel.classdiagram.CDBoolean;
 import ca.mcgill.sel.classdiagram.CDCollection;
 import ca.mcgill.sel.classdiagram.CDEnum;
 import ca.mcgill.sel.classdiagram.CDEnumLiteral;
-import ca.mcgill.sel.classdiagram.CDFloat;
-import ca.mcgill.sel.classdiagram.CDInt;
-import ca.mcgill.sel.classdiagram.CDLong;
 import ca.mcgill.sel.classdiagram.CdmFactory;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
 import ca.mcgill.sel.classdiagram.NamedElement;
-import ca.mcgill.sel.classdiagram.ReferenceType;
 import ca.mcgill.sel.classdiagram.Type;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import learningcorpus.MistakeType;
 import modelingassistant.Mistake;
-import modelingassistant.ModelingassistantFactory;
 import modelingassistant.Solution;
 import modelingassistant.SolutionElement;
 import modelingassistant.Tag;
@@ -146,7 +163,6 @@ import modelingassistant.TagType;
 public class MistakeDetection {
 
   public static final CdmFactory CDF = CdmFactory.eINSTANCE;
-  public static final ModelingassistantFactory MAF = ModelingassistantFactory.eINSTANCE;
 
   /** The maximum limit after which a resolved mistake will be removed from student solution. */
   public static final int MAX_DETECTIONS_AFTER_RESOLUTION = 5;
@@ -3239,261 +3255,9 @@ public class MistakeDetection {
     return maxentTagger.tagString(taggerInput);
   }
 
-  public static boolean isLowerName(String name) {
-    return name.toLowerCase() == name;
-  }
-
-  public static boolean startsWithUppercase(String name) {
-    return Character.isUpperCase(name.charAt(0));
-  }
-
-  public static boolean attributeTypesMatch(Attribute studentAttribute, Attribute instructorAttribute) {
-    if (!studentAttribute.getType().getClass().equals(instructorAttribute.getType().getClass())) {
-      if ((instructorAttribute.getType() instanceof CDInt || instructorAttribute.getType() instanceof CDFloat
-          || instructorAttribute.getType() instanceof CDLong)
-          && (studentAttribute.getType() instanceof CDFloat || studentAttribute.getType() instanceof CDLong
-              || studentAttribute.getType() instanceof CDInt)) {
-        return true;
-      }
-      return false;
-    }
-    return true;
-  }
-
   private static boolean spellingMistakeCheck(String name1, String name2) {
     int lDistance = levenshteinDistance(name1, name2);
     return lDistance > 0 && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED;
-  }
-
-  /** Returns true if the student has made attribute not static but static is required. */
-  public static boolean isAttributeExpectedStatic(Attribute studentAttribute, Attribute instructorAttribute) {
-    return !studentAttribute.isStatic() && instructorAttribute.isStatic();
-  }
-
-  /** Returns true if the student has made attribute static but static is not required. */
-  public static boolean isAttributeNotExpectedStatic(Attribute studentAttribute, Attribute instructorAttribute) {
-    return studentAttribute.isStatic() && !instructorAttribute.isStatic();
-  }
-
-  public static boolean isUsingAssociationInsteadOfComposition(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
-    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, REGULAR, COMPOSITION);
-  }
-
-  public static boolean isUsingAssociationInsteadOfAggregation(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
-    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, REGULAR, AGGREGATION);
-  }
-
-  public static boolean isUsingCompositionInsteadOfAssociation(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
-    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, COMPOSITION, REGULAR);
-  }
-
-  public static boolean isUsingAggregationInsteadOfAssociation(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
-    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, AGGREGATION, REGULAR);
-  }
-
-  public static boolean isUsingAggregationInsteadOfComposition(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
-    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, AGGREGATION, COMPOSITION);
-  }
-
-  public static boolean isUsingCompositionInsteadOfAggregation(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
-    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, COMPOSITION, AGGREGATION);
-  }
-
-  public static boolean isUsingDirectedInsteadOfUndirected(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
-    return instructorClassAssocEnd.isNavigable() && !studentClassAssocEnd.isNavigable();
-  }
-
-  public static boolean isUsingUndirectedInsteadOfDirected(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
-    return !instructorClassAssocEnd.isNavigable() && studentClassAssocEnd.isNavigable();
-  }
-
-  public static boolean associationEndAssociationPropertyMatch(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
-    return associationEndsMatchType(studentClassAssocEnd, instructorClassAssocEnd, REGULAR, REGULAR);
-  }
-
-  /** Returns true if both association ends have the same reference type. */
-  public static boolean associationEndsMatchType(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
-    return studentClassAssocEnd.getReferenceType() == instructorClassAssocEnd.getReferenceType();
-  }
-
-  /** Returns true if both association ends match the given reference type or not. */
-  public static boolean associationEndsMatchType(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd, ReferenceType assocTypeS, ReferenceType assocTypeI) {
-    return studentClassAssocEnd.getReferenceType() == assocTypeS
-        && instructorClassAssocEnd.getReferenceType() == assocTypeI;
-  }
-
-  public static boolean associationEndMultiplicityMatch(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
-    return associationEndMultiplicityLowerBoundsMatch(studentClassAssocEnd, instructorClassAssocEnd)
-        && associationEndMultiplicityUpperBoundsMatch(studentClassAssocEnd, instructorClassAssocEnd);
-  }
-
-  public static boolean associationEndMultiplicityLowerBoundsMatch(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
-    return studentClassAssocEnd.getLowerBound() == instructorClassAssocEnd.getLowerBound();
-  }
-
-  public static boolean associationEndMultiplicityUpperBoundsMatch(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
-    return studentClassAssocEnd.getUpperBound() == instructorClassAssocEnd.getUpperBound();
-  }
-
-  public static boolean isRoleNameMissing(AssociationEnd studentClassAssocEnd, AssociationEnd instructorClassAssocEnd) {
-    return studentClassAssocEnd.getName().isEmpty() && !instructorClassAssocEnd.getName().isEmpty();
-  }
-
-  public static boolean isRoleNameExpectedStatic(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
-    return !studentClassAssocEnd.isStatic() && instructorClassAssocEnd.isStatic();
-  }
-
-  public static boolean isRoleNameNotExpectedStatic(AssociationEnd studentClassAssocEnd,
-      AssociationEnd instructorClassAssocEnd) {
-    return studentClassAssocEnd.isStatic() && !instructorClassAssocEnd.isStatic();
-  }
-
-  /** Returns true if association class is extra. */
-  public static boolean isAssociationClassExtra(Association studentClassAssoc, Association instructorClassAssoc) {
-    return studentClassAssoc.getAssociationClass() != null && instructorClassAssoc.getAssociationClass() == null;
-  }
-
-  /** Returns true if association class is missing. */
-  public static boolean isAssociationClassMissing(Association studentClassAssoc, Association instructorClassAssoc) {
-    return studentClassAssoc.getAssociationClass() == null && instructorClassAssoc.getAssociationClass() != null;
-  }
-
-  /**
-   * Creates a new mistake from the input parameters.
-   *
-   * @param mistakeType
-   * @param studentElement
-   * @param instructorElement
-   */
-  private static Mistake createMistake(MistakeType mistakeType, NamedElement studentElement,
-      NamedElement instructorElement) {
-    List<NamedElement> studentElements = studentElement == null ? Collections.emptyList() : List.of(studentElement);
-    List<NamedElement> instElements = instructorElement == null ? Collections.emptyList() : List.of(instructorElement);
-    return createMistake(mistakeType, studentElements, instElements);
-  }
-
-  /**
-   * Creates a new mistake from the input parameters.
-   *
-   * @param mistakeType
-   * @param studentElements
-   * @param instructorElements
-   */
-  private static Mistake createMistake(MistakeType mistakeType, List<? extends NamedElement> studentElements,
-      List<? extends NamedElement> instructorElements) {
-    var mistake = MAF.createMistakeOfType(mistakeType);
-    if (studentElements != null) {
-      studentElements.forEach(se -> {
-        var solutionElement = SolutionElement.forCdmElement(se);
-        mistake.getStudentElements().add(solutionElement);
-      });
-    }
-    if (instructorElements != null) {
-      instructorElements.forEach(ie -> {
-        var solutionElement = SolutionElement.forCdmElement(ie);
-        mistake.getInstructorElements().add(solutionElement);
-      });
-    }
-    return mistake;
-  }
-
-  /** Overloaded method used for testing. */
-  public static boolean checkCorrectTest(Classifier instructorClassifier, Classifier studentClassifier) {
-    return checkCorrectTest(instructorClassifier, studentClassifier, new Comparison());
-  }
-
-  /**
-   * This is a function created for testing the logic. Only for test.
-   *
-   * @param instructorClassifier
-   * @param studentClassifier
-   * @return
-   */
-  public static boolean checkCorrectTest(Classifier instructorClassifier, Classifier studentClassifier,
-      Comparison comparison) {
-    // clearAttributesAndClassifer();
-    boolean isMapped = false;
-    List<Attribute> instructorAttributes = instructorClassifier.getAttributes();
-    List<Attribute> studentAttributes = studentClassifier.getAttributes();
-
-    comparison.notMappedInstructorClassifiers.add(instructorClassifier);
-    comparison.extraStudentClassifiers.add(studentClassifier);
-
-    int totalAttibutes = instructorAttributes.size();
-    int correctAttribute = 0;
-    float lDistance = levenshteinDistance(studentClassifier.getName(), instructorClassifier.getName());
-    if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-      isMapped = true;
-      comparison.mappedClassifiers.put(instructorClassifier, studentClassifier);
-      comparison.notMappedInstructorClassifiers.remove(instructorClassifier);
-      comparison.extraStudentClassifiers.remove(studentClassifier);
-    } else {
-      for (Attribute instructorAttribute : instructorAttributes) { // To check association -> Not at present.
-        for (Attribute studentAttribute : studentAttributes) {
-          lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-          if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-            correctAttribute++;
-            break;
-          }
-        }
-      }
-    }
-    if (totalAttibutes != 0) {
-      if ((double) correctAttribute / totalAttibutes > 0.5 && !isMapped) {
-        comparison.mappedClassifiers.put(instructorClassifier, studentClassifier);
-        comparison.notMappedInstructorClassifiers.remove(instructorClassifier);
-        comparison.extraStudentClassifiers.remove(studentClassifier);
-
-        isMapped = true;
-      }
-    }
-
-    if (isMapped) { // Map attributes if classifiers map.
-      boolean processed = false;
-      for (Attribute instructorAttribute : instructorAttributes) { // To check association -> Not at present.
-        comparison.notMappedInstructorAttributes.add(instructorAttribute);
-        for (Attribute studentAttribute : studentAttributes) {
-          if (!processed) { // To stop duplicate entries.
-            comparison.extraStudentAttributes.add(studentAttribute);
-          }
-          lDistance = levenshteinDistance(studentAttribute.getName(), instructorAttribute.getName());
-          if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED
-              && comparison.mappedAttributes.containsValue(studentAttribute)) {
-            comparison.duplicateStudentAttributes.add(studentAttribute);
-            comparison.extraStudentAttributes.remove(studentAttribute);
-          } else if (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED) {
-            comparison.mappedAttributes.put(instructorAttribute, studentAttribute);
-            comparison.notMappedInstructorAttributes.remove(instructorAttribute);
-            comparison.extraStudentAttributes.remove(studentAttribute);
-            break;
-          }
-        }
-        processed = true;
-      }
-    }
-
-    return isMapped;
-  }
-
-  public static void showMistakes(List<Mistake> mistakes) {
-    for (Mistake m : mistakes) {
-      System.out.println(m.getMistakeType().getName() + " in " + m.getStudentElements().get(0).getElement().getName());
-    }
   }
 
   private static MaxentTagger getMaxentTagger() {
