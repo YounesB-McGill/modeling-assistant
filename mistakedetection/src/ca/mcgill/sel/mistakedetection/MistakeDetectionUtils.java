@@ -19,7 +19,7 @@ import modelingassistant.ModelingassistantFactory;
 import modelingassistant.SolutionElement;
 
 /**
- * This class contains some helper functions.
+ * This class contains the helper functions used in the MistakeDetection class.
  *
  * @author Prabhsimran Singh
  */
