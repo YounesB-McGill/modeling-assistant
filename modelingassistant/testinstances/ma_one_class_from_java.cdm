@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="ASCII"?>
-<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_EsLaUKpTEey5FbTsZc70hQ" name="Student1_solution">
-  <classes xsi:type="classdiagram:Class" xmi:id="_EsLaUapTEey5FbTsZc70hQ" name="Car">
-    <attributes xmi:id="_EsLaUqpTEey5FbTsZc70hQ" name="id" type="_EsLaVKpTEey5FbTsZc70hQ"/>
-    <attributes xmi:id="_EsLaU6pTEey5FbTsZc70hQ" name="make" type="_EsLaVapTEey5FbTsZc70hQ"/>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="_N_oVQtTdEey5ZLSjw1sFVg" name="Student1_solution">
+  <classes xsi:type="classdiagram:Class" xmi:id="_N_oVQ9TdEey5ZLSjw1sFVg" name="Car">
+    <associationEnds xmi:id="_N_oVRNTdEey5ZLSjw1sFVg" name="carInFront" assoc="_N_oVStTdEey5ZLSjw1sFVg"/>
+    <associationEnds xmi:id="_N_oVRdTdEey5ZLSjw1sFVg" name="carBehind" assoc="_N_oVStTdEey5ZLSjw1sFVg"/>
+    <attributes xmi:id="_N_oVRtTdEey5ZLSjw1sFVg" name="id" type="_N_oVSNTdEey5ZLSjw1sFVg"/>
+    <attributes xmi:id="_N_oVR9TdEey5ZLSjw1sFVg" name="make" type="_N_oVSdTdEey5ZLSjw1sFVg"/>
   </classes>
-  <types xsi:type="classdiagram:CDInt" xmi:id="_EsLaVKpTEey5FbTsZc70hQ"/>
-  <types xsi:type="classdiagram:CDString" xmi:id="_EsLaVapTEey5FbTsZc70hQ"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="_N_oVSNTdEey5ZLSjw1sFVg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="_N_oVSdTdEey5ZLSjw1sFVg"/>
+  <associations xmi:id="_N_oVStTdEey5ZLSjw1sFVg" ends="_N_oVRNTdEey5ZLSjw1sFVg _N_oVRdTdEey5ZLSjw1sFVg"/>
+  <layout xmi:id="_N_o8UNTdEey5ZLSjw1sFVg">
+    <containers xmi:id="_N_o8UdTdEey5ZLSjw1sFVg" key="_N_oVQtTdEey5ZLSjw1sFVg">
+      <value xmi:id="_N_o8UtTdEey5ZLSjw1sFVg" key="_N_oVRNTdEey5ZLSjw1sFVg">
+        <value xmi:id="_N_o8U9TdEey5ZLSjw1sFVg" x="20.0" y="23.0"/>
+      </value>
+    </containers>
+  </layout>
 </classdiagram:ClassDiagram>
