@@ -11,7 +11,6 @@ from uuid import uuid4 as uuid
 import logging
 
 from classdiagram import ClassDiagram
-from envvars import CORES_PATH
 from fileserdes import load_cdm
 from modelingassistant_app import MODELING_ASSISTANT, get_mistakes
 from parametrizedresponse import parametrize_response
@@ -108,58 +107,55 @@ def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:
                                  modelingAssistant=mistake.solution.modelingAssistant))
 
 
-def give_feedback_for_student_cdm(
-        student_cdm_name: str, student_cdm: ClassDiagram | str = "", ma: ModelingAssistant = None
+def give_feedback_for_student_cdm(student_cdm: ClassDiagram | str, ma: ModelingAssistant = None
     ) -> FeedbackTO | Tuple[FeedbackTO, ModelingAssistant]:
     "Give feedback given a student class diagram."
     # pylint: disable=protected-access, global-statement, too-many-branches
-    global MODELING_ASSISTANT
-    print(f"give_feedback_for_student_cdm({student_cdm_name}, {student_cdm}, {ma})")
     use_local_ma = bool(ma)
-    if not use_local_ma:
-        ma = MODELING_ASSISTANT.instance
+    ma = ma or MODELING_ASSISTANT.instance
 
-    instructor_cdm = instructor_cdm_for(student_cdm_name)
-    if ma.eResource and instructor_cdm._internal_id in ma.classDiagramsToSolutions:
-        print(f"Getting ins sol at {id(ma) = }, {ma.classDiagramsToSolutions = }")
-        sol_id = ma.classDiagramsToSolutions[instructor_cdm._internal_id]
-        print(ma.eResource, ma.eResource.uuid_dict)
-        instructor_solution = ma.eResource.uuid_dict[sol_id]
-    else:
-        print(f"Creating new ins sol at {id(ma) = }")
-        instructor_solution = Solution(classDiagram=instructor_cdm, modelingAssistant=ma)
-        ma.classDiagramsToSolutions[instructor_cdm._internal_id] = instructor_solution._internal_id
+    if isinstance(student_cdm, str):
+        student_cdm = str_to_cdm(student_cdm)
 
-    if not isinstance(student_cdm, ClassDiagram):
-        if student_cdm and isinstance(student_cdm, str):
-            student_cdm = str_to_cdm(student_cdm)
-        else:
-            student_cdm = student_cdm_for(student_cdm_name)
+    student_cdm_name = student_cdm.name
 
-    print(f"give_fb: {student_cdm._internal_id = }")
-    if ma.eResource and student_cdm._internal_id in ma.classDiagramsToSolutions:
-        sol_id = ma.classDiagramsToSolutions[student_cdm._internal_id]
-        student_solution = ma.eResource.uuid_dict[sol_id]
-        student_solution.classDiagram = student_cdm
-        ma = student_solution.modelingAssistant
-    else:
-        # TODO Complete initialization of solution later
-        #if modeling_assistant._eresource.uuid_dict
-        print("Could not find solution for student cdm, so creating new one")
-        student = ma.students[0] if ma.students else Student(
-            id=str(uuid()), name=student_cdm_name, modelingAssistant=ma)
-        student_solution = Solution(modelingAssistant=ma, student=student, classDiagram=student_cdm)
-        student.currentSolution = student_solution
-        print(f"give_fb: {student_solution._internal_id = }")
-        ma.classDiagramsToSolutions[student_cdm._internal_id] = student_solution._internal_id
-    if ma.problemStatements:
-        ps = ma.problemStatements[0]
-        ps.instructorSolution = instructor_solution
-        if not ps.studentSolutions:  # Only one student solution for now
-            ps.studentSolutions.append(student_solution)
-    else:
-        ma.problemStatements.append(ProblemStatement(modelingAssistant=ma, instructorSolution=instructor_solution,
-                                                     studentSolutions=[student_solution]))
+    print(f"give_feedback_for_student_cdm({student_cdm_name}, {student_cdm}, {ma})")
+
+    instructor_cdm = instructor_solution_for(student_cdm, ma).classDiagram
+    # print(f"{ma.eResource.uuid_dict = }")
+    # if ma.eResource and instructor_cdm._internal_id in ma.classDiagramsToSolutions:
+    #     print(f"Getting ins sol at {id(ma) = }, {ma.classDiagramsToSolutions = }")
+    #     sol_id = ma.classDiagramsToSolutions[instructor_cdm._internal_id]
+    #     print(ma.eResource, ma.eResource.uuid_dict)
+    #     instructor_solution = ma.eResource.uuid_dict[sol_id]
+    # else:
+    #     print(f"Saving new ins sol in MA dict at {id(ma) = }")
+    #     ma.classDiagramsToSolutions[instructor_cdm._internal_id] = instructor_solution._internal_id
+
+    # print(f"give_fb: {student_cdm._internal_id = }")
+    # if ma.eResource and student_cdm._internal_id in ma.classDiagramsToSolutions:
+    #     sol_id = ma.classDiagramsToSolutions[student_cdm._internal_id]
+    #     student_solution = ma.eResource.uuid_dict[sol_id]
+    #     student_solution.classDiagram = student_cdm
+    #     ma = student_solution.modelingAssistant
+    # else:
+    #     # TODO Complete initialization of solution later
+    #     #if modeling_assistant._eresource.uuid_dict
+    #     print("Could not find solution for student cdm, so creating new one")
+    #     student = ma.students[0] if ma.students else Student(
+    #         id=str(uuid()), name=student_cdm_name, modelingAssistant=ma)
+    #     student_solution = Solution(modelingAssistant=ma, student=student, classDiagram=student_cdm)
+    #     student.currentSolution = student_solution
+    #     print(f"give_fb: {student_solution._internal_id = }")
+    #     ma.classDiagramsToSolutions[student_cdm._internal_id] = student_solution._internal_id
+    # if ma.problemStatements:
+    #     ps = ma.problemStatements[0]
+    #     ps.instructorSolution = instructor_solution
+    #     if not ps.studentSolutions:  # Only one student solution for now
+    #         ps.studentSolutions.append(student_solution)
+    # else:
+    #     ma.problemStatements.append(ProblemStatement(modelingAssistant=ma, instructorSolution=instructor_solution,
+    #                                                  studentSolutions=[student_solution]))
     cdms2sols = ma.classDiagramsToSolutions
     if not use_local_ma:
         MODELING_ASSISTANT.instance = ma
@@ -191,19 +187,13 @@ def give_feedback_for_student_cdm(
 
 
 @cache
-def instructor_cdm_for(student_cdm_name: str) -> ClassDiagram:
-    "Return the instructor class diagram for the given student class diagram name."
-    # return next((ps.instructorSolution.classDiagram for ps in MODELING_ASSISTANT.instance.problemStatements
-    #              if ps.name.lower() in student_cdm_name.lower()), None)
-    return load_cdm(f"modelingassistant/testmodels/{student_cdm_name}_instructor.cdm")  # do this for now
-
-
-@cache
-def student_cdm_for(student_cdm_name: str) -> ClassDiagram:
-    "Return the student class diagram for the given student class diagram name."
-    # Use file system for now
-    cdm_file = f"{CORES_PATH}/{student_cdm_name}/Class Diagram/{student_cdm_name}.design_class_model.cdm"
-    return load_cdm(cdm_file)
+def instructor_solution_for(student_cdm: ClassDiagram, ma: ModelingAssistant = None) -> Solution:
+    "Return the instructor solution for the given student class diagram."
+    ma = ma or MODELING_ASSISTANT.instance
+    print(f"{student_cdm.name = }")
+    print(f"{ma.solutions[0].classDiagram.name = }")
+    student_sol: Solution = next(sol for sol in ma.solutions if sol.classDiagram == student_cdm)  # TODO Improve later
+    return student_sol.problemStatement.instructorSolution
 
 
 if __name__ == '__main__':
