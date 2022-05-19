@@ -87,6 +87,10 @@ class User:
         password = secrets.token_urlsafe(16)
         return cls(name, password)  # use cls here to allow the creation of User subclasses
 
+    def __repr__(self) -> str:
+        # TODO token returned for debugging only, remove before release
+        return f'{self.__class__.__name__}(name="{self.name}", token="{self.token}")'
+
 
 class MockStudent(User):
     """

@@ -36,7 +36,7 @@ from user import MockStudent, User, users
 from modelingassistant import ModelingAssistant, ProblemStatement, Solution
 
 
-CDM_NAME = "MULTIPLE_CLASSES"
+CDM_NAME = "AirlineSystem"
 INSTRUCTOR_CDM = f"modelingassistant/testmodels/{CDM_NAME}_instructor.cdm"
 MA_REST_ENDPOINT = f"http://localhost:{PORT}/modelingassistant"
 

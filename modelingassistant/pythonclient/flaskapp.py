@@ -42,11 +42,11 @@ def feedback(cdmName: str) -> Response:
     print(f"{'badClsName' in cdm_xmi = }")
     print(f"{'Airplane' in cdm_xmi = }")
     r = jsonify(give_feedback_for_student_cdm(
-        cdmName, json.loads(request.get_data())["classDiagram"], MODELING_ASSISTANT.instance)[0])
+        json.loads(request.get_data())["classDiagram"], MODELING_ASSISTANT.instance)[0])
     print(f"/feedback/{cdmName}: Returning this response: ", r.data.decode("utf-8"))
     return r
     #return jsonify(give_feedback_for_student_cdm(
-    #    cdmName, json.loads(request.get_data())["classDiagram"], MODELING_ASSISTANT.instance))
+    #    json.loads(request.get_data())["classDiagram"], MODELING_ASSISTANT.instance)[0])
 
 
 @app.route("/modelingassistant", methods=["GET", "POST"])

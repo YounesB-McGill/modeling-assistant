@@ -96,8 +96,8 @@ def make_ma_with_1_wrong_mult_mistake(num_detection: int=1) -> ModelingAssistant
 
 def make_ma_with_airline_system() -> ModelingAssistant:
     "Create a Modeling Assistant instance with instructor and student solutions for an airline system."
-    inst_cdm = load_cdm("modelingassistant/testmodels/AirplaneSystem_instructor.cdm")
-    stud_cdm = load_cdm("modelingassistant/testmodels/AirplaneSystem_student.cdm")
+    inst_cdm = load_cdm("modelingassistant/testmodels/AirlineSystem_instructor.cdm")
+    stud_cdm = load_cdm("modelingassistant/testmodels/AirlineSystem_student.cdm")
     ma = ModelingAssistant()
     airline_system_ps = ProblemStatement(name="Airline System", modelingAssistant=ma)
     alice = Student(name="Alice", modelingAssistant=ma)
