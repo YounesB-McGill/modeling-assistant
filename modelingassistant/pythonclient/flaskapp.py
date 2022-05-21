@@ -34,19 +34,21 @@ def hello_world(name) -> Response:
     return jsonify({"hello": name})
 
 
-@app.route("/feedback/<cdmName>", methods=["POST"])
-def feedback(cdmName: str) -> Response:
-    "Return feedback for the class diagram given its name."
+@app.route("/feedback/<userName>", methods=["POST"])
+def feedback(userName: str) -> Response:
+    """
+    Return feedback for the user's class diagram given its name.
+
+    Body: {"classDiagram": <ClassDiagram in XMI format>}
+    """
     print("Got POST REST call for feedback on this class diagram")
     cdm_xmi: str = json.loads(request.get_data())["classDiagram"]
     print(f"{'badClsName' in cdm_xmi = }")
     print(f"{'Airplane' in cdm_xmi = }")
-    r = jsonify(give_feedback_for_student_cdm(
-        json.loads(request.get_data())["classDiagram"], MODELING_ASSISTANT.instance)[0])
-    print(f"/feedback/{cdmName}: Returning this response: ", r.data.decode("utf-8"))
+    r = jsonify(give_feedback_for_student_cdm(userName, cdm_xmi))
+    print(f"/feedback/{userName}: Returning this response: ", r.data.decode("utf-8"))
     return r
-    #return jsonify(give_feedback_for_student_cdm(
-    #    json.loads(request.get_data())["classDiagram"], MODELING_ASSISTANT.instance)[0])
+    #return jsonify(give_feedback_for_student_cdm(userName, cdm_xmi))
 
 
 @app.route("/modelingassistant", methods=["GET", "POST"])
@@ -68,7 +70,6 @@ def modeling_assistant() -> Response:
         return r
         # return jsonify({"success": True})
     return abort(405)  # invalid method
-
 
 
 if __name__ == "__main__":

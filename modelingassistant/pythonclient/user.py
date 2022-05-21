@@ -144,7 +144,6 @@ class MockStudent(User):
         resp = requests.get(f"{self.cdm_endpoint(cdm_name)}/feedback", headers=self._auth_header)
         print(f"{resp.text = }")
         feedback_json = resp.json()
-        print(feedback_json)
         return FeedbackTO(**feedback_json)
 
     def get_cdm(self, cdm_name: str) -> ClassDiagramDTO:

@@ -584,7 +584,9 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     """
     # pylint: disable=protected-access
     ma = make_ma_with_airline_system()
-    fb, ma = give_feedback_for_student_cdm(ma.students[0].solutions[0].classDiagram, ma=ma)
+    student: Student = ma.students[0]
+    student_name: str = student.name
+    fb, ma = give_feedback_for_student_cdm(student_name, student.solutions[0].classDiagram, ma=ma)
 
     solution: Solution = ma.students[0].solutions[0]
     mistakes: list[Mistake] = solution.mistakes
@@ -602,7 +604,7 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     with open("modelingassistant/testinstances/ma_test2.modelingassistant", "w", encoding="utf-8") as f:
         f.write(SRSET.create_ma_str(ma))
 
-    fb, ma = give_feedback_for_student_cdm(cdm, ma=ma)
+    fb, ma = give_feedback_for_student_cdm(student_name, cdm, ma=ma)
     solution = next(sol for sol in ma.solutions if sol.student)  # false positive: pylint: disable=no-member
     mistakes: list[Mistake] = solution.mistakes
 

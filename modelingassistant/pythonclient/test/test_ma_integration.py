@@ -232,6 +232,7 @@ def get_ma_with_ps(instructor_cdm: ClassDiagram) -> ModelingAssistant:
     """
     ps = ProblemStatement(name=instructor_cdm.name)
     sol = Solution(classDiagram=instructor_cdm, problemStatement=ps)
+    ps.instructorSolution = sol
     ma = MODELING_ASSISTANT.instance
     ma.problemStatements.append(ps)
     ma.solutions.append(sol)
