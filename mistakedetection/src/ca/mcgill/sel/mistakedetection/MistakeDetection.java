@@ -1551,8 +1551,10 @@ public class MistakeDetection {
     checkAssociationClassMappingWithNonAssociationClass(comparison);
     comparison.assocClassifiersToRemove.forEach(c -> comparison.mappedClassifiers.remove(c));
     comparison.assocClassMappingToAdd.forEach((key, value) -> {
-      comparison.mappedClassifiers.put(key, value);
-      checkMistakesInClassifier(value, key, comparison.newMistakes);
+      if(!comparison.mappedClassifiers.containsValue(value)) {
+        comparison.mappedClassifiers.put(key, value);
+        checkMistakesInClassifier(value, key, comparison.newMistakes);
+      }      
     });
   }
 
