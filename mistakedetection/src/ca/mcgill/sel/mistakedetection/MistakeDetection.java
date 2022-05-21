@@ -287,7 +287,7 @@ public class MistakeDetection {
             possibleClassifierMatch = studentClassifier;
             priority = HIGH_PRIORITY;
           }
-        } else if (checkClassAndAttribBasedOnSpellingError(instructorClassifier, studentClassifier)) {
+        } else if (checkClassAndAttribBasedOnSpellingError(instructorClassifier, studentClassifier, comparison)) {
           if (priority <= MID_PRIORITY) {
             possibleClassifierMatch = studentClassifier;
             priority = MID_PRIORITY;
@@ -352,7 +352,7 @@ public class MistakeDetection {
 
   /** Returns true if attributes match based on Levenshtein Distance, synonyms or enum-bool relationship. */
   private static boolean isAttributeMatch(Attribute instructorAttribute, Attribute studentAttribute, Comparison comparison) {
-    int lDistance = getMinimumLDInSynonyms(instructorAttribute, studentAttribute);
+    int lDistance = getMinimumLDInSynonyms(instructorAttribute, studentAttribute, comparison);
     return (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)
         || isEnumAttributeBoolean(instructorAttribute, studentAttribute, comparison));
   }
@@ -458,7 +458,7 @@ public class MistakeDetection {
 
     for (Attribute studAttrib : comparison.extraStudentAttributes) {
       for (Attribute instAttrib : comparison.notMappedInstructorAttributes) {
-        if (isAttributeMatch(instAttrib, studAttrib, comparison)) {
+        if (isAttributeMatch(instAttrib, studAttrib, comparison) && !instAttributesProcessed.contains(instAttrib)) {
           Classifier instClass = (Classifier) instAttrib.eContainer();
           Classifier studClass = (Classifier) studAttrib.eContainer();
 
@@ -1554,7 +1554,7 @@ public class MistakeDetection {
       if(!comparison.mappedClassifiers.containsValue(value)) {
         comparison.mappedClassifiers.put(key, value);
         checkMistakesInClassifier(value, key, comparison.newMistakes);
-      }      
+      }
     });
   }
 
@@ -2261,20 +2261,22 @@ public class MistakeDetection {
    * Maps classes with Levenshtein distance less than or equal to MAX_LEVENSHTEIN_DISTANCE_ALLOWED, taking synonyms into
    * account.
    */
-  public static boolean checkClassAndAttribBasedOnSpellingError(Classifier instructorClass, Classifier studentClass) {
-    int lDistance = getMinimumLDInSynonyms(instructorClass, studentClass);
+  public static boolean checkClassAndAttribBasedOnSpellingError(Classifier instructorClass, Classifier studentClass, Comparison comparison) {
+    int lDistance = getMinimumLDInSynonyms(instructorClass, studentClass, comparison);
     return 0 <= lDistance && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED;
   }
 
   /** Returns minimum Levenshtein Distance between instructor attribute and student attribute including its synonyms */
-  public static int getMinimumLDInSynonyms(NamedElement instructorElem, NamedElement studentElem) {
+  public static int getMinimumLDInSynonyms(NamedElement instructorElem, NamedElement studentElem, Comparison comparison) {
     var se = SolutionElement.forCdmElement(instructorElem);
     int attribDistance = levenshteinDistance(studentElem.getName(), instructorElem.getName());
     int synDistance = attribDistance;
-    for (var syn : se.getSynonyms()) {
-      int distance = levenshteinDistance(studentElem.getName(), syn.getName());
-      if (distance < synDistance) {
-        synDistance = distance;
+    if (!comparison.mappedAttributes.containsValue(studentElem) && !comparison.mappedAttributes.containsKey(instructorElem)) {
+      for (var syn : se.getSynonyms()) {
+        int distance = levenshteinDistance(studentElem.getName(), syn.getName());
+        if (distance < synDistance) {
+          synDistance = distance;
+        }
       }
     }
     return Math.min(attribDistance, synDistance);
