@@ -125,7 +125,6 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
     studentSolution = studentSolutionFromClassDiagram(modelingAssistant, studentClassDiagram);
 
     comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-
     assertEquals(comparison.newMistakes.size(), 5); // 2 Plural Class names + 2 Bad Role Name Spelling + Incomplete
                                                     // Containment tree
     assertEquals(studentSolution.getMistakes().size(), 5);
@@ -136,9 +135,16 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
     assertEquals(comparison.newMistakes.size(), 5);
     assertEquals(studentSolution.getMistakes().size(), 5);
 
+    for(var studClass: studentSolution.getSolutionElements()) {
+      if(studClass.getElement().getName().equals("Buses")) {
+        studClass.getElement().setName("Bus");
+        break;
+      };
+    }
+
     comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(comparison.newMistakes.size(), 5);
+    assertEquals(comparison.newMistakes.size(), 4);
     assertEquals(studentSolution.getMistakes().size(), 5);
 
     // checking with perfect solution
@@ -149,7 +155,7 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
     comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(comparison.newMistakes.size(), 1); // Incomplete Containment tree
-    // assertEquals(studentSolution.getMistakes().size(), 4); // TODO Discuss in meeting
+    // assertEquals(studentSolution.getMistakes().size(),6); // TODO Discuss in meeting
     // next meeting
 
   }

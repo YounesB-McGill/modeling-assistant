@@ -1551,10 +1551,12 @@ public class MistakeDetection {
     checkAssociationClassMappingWithNonAssociationClass(comparison);
     comparison.assocClassifiersToRemove.forEach(c -> comparison.mappedClassifiers.remove(c));
     comparison.assocClassMappingToAdd.forEach((key, value) -> {
-      if(!comparison.mappedClassifiers.containsValue(value)) {
-        comparison.mappedClassifiers.put(key, value);
-        checkMistakesInClassifier(value, key, comparison.newMistakes);
+      if (comparison.mappedClassifiers.containsValue(value)) {
+        comparison.mappedClassifiers.remove(getKey(comparison.mappedClassifiers, value));
       }
+      comparison.mappedClassifiers.put(key, value);
+      checkMistakesInClassifier(value, key, comparison.newMistakes);
+
     });
   }
 
@@ -1701,6 +1703,9 @@ public class MistakeDetection {
         comparison.newMistakes
             .add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS, List.of(comparison.mappedClassifiers.get(instAssocClass)),
                 List.of(instructorClassifierAssoc, instAssocClass)));
+        if(comparison.assocClassMappingToAdd.containsKey(instAssocClass)) {
+          comparison.assocClassifiersToRemove.add(instAssocClass);
+        }
       }
     }
     if (studentClassifierAssoc.getAssociationClass() != null
@@ -1711,6 +1716,9 @@ public class MistakeDetection {
           if (value.equals(studAssocClass)) {
             comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS,
                 List.of(studentClassifierAssoc, studAssocClass), List.of(key)));
+            if(comparison.assocClassMappingToAdd.containsKey(key)) {
+              comparison.assocClassifiersToRemove.add(key);
+            }
             return;
           }
         });
@@ -1725,6 +1733,9 @@ public class MistakeDetection {
         Classifier instAssocClass = instAssoc.getAssociationClass();
         comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS,
             List.of(comparison.mappedClassifiers.get(instAssocClass)), List.of(instAssoc, instAssocClass)));
+        if(comparison.assocClassMappingToAdd.containsKey(instAssocClass)){
+          comparison.assocClassifiersToRemove.add(instAssocClass);
+        }
       }
     }
 
@@ -1970,6 +1981,7 @@ public class MistakeDetection {
 
     // List containing mistakes associated with a student Solution
     var existingMistakes = List.copyOf(studentSolution.getMistakes()); // copy to simplify removals
+
     var newMistakes = comparison.newMistakes;
     existingMistakes.forEach(setSolutionForElems);
     newMistakes.forEach(setSolutionForElems);
@@ -2017,7 +2029,7 @@ public class MistakeDetection {
       for (var existingMistake : existingMistakes) {
         if (!existingMistakesProcessed.contains(existingMistake)) {
           if (existingMistake.getNumSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION
-              && existingMistake.isResolved()) {
+              && !existingMistake.isResolved()) {
             existingMistake.setResolved(true);
             existingMistake.setNumSinceResolved(existingMistake.getNumSinceResolved() + 1);
           } else {
