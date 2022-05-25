@@ -86,7 +86,9 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     """
     # Step 0
     # use this until WebCORE is updated to allow initializing with a problem statement
-    set_modeling_assistant(get_ma_with_ps(load_cdm(INSTRUCTOR_CDM)))
+    ma = get_ma_with_ps(load_cdm(INSTRUCTOR_CDM))
+    assert valid(ma)
+    set_modeling_assistant(ma)
 
     # Step 1
     student = MockStudent.create_random()
@@ -99,10 +101,11 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     feedback = student.request_feedback(cdm_name)
 
     ma = get_modeling_assistant()
+    assert valid(ma)
     assert ma.problemStatements[0].name
     print(ma.solutions)
     assert ma.solutions[1].classDiagram.name
-    assert len(ma.solutions) >= 2
+    assert len(ma.solutions) == 2, "Must have exactly one instructor solution and one student solution"
 
     # Step 6
     assert feedback.highlightSolutionElements
@@ -234,11 +237,27 @@ def get_ma_with_ps(instructor_cdm: ClassDiagram) -> ModelingAssistant:
     sol = Solution(classDiagram=instructor_cdm, problemStatement=ps)
     ps.instructorSolution = sol
     ma = MODELING_ASSISTANT.instance
+    ps = ProblemStatement(name=instructor_cdm.name.removesuffix("_instructor"), modelingAssistant=ma)
+    sol = Solution(classDiagram=instructor_cdm, problemStatement=ps, modelingAssistant=ma)
+    ps.instructorSolution = sol
     ma.problemStatements.append(ps)
     ma.solutions.append(sol)
     assert ma.problemStatements[0].name
     assert ma.solutions[0].classDiagram.name
     return ma
+
+
+def valid(ma: ModelingAssistant) -> bool:
+    """
+    Check whether the provided Modeling Assistant instance is valid.
+    """
+    assert ma
+    for ps in ma.problemStatements:
+        assert ps.instructorSolution
+    for sol in ma.solutions:
+        assert sol.classDiagram
+        assert sol.problemStatement
+    return True
 
 
 def _setup_instructor_solution():

@@ -163,20 +163,28 @@ def instructor_solution_for(student_cdm: ClassDiagram, ma: ModelingAssistant = N
 def student_solution_for(username: str, student_cdm: ClassDiagram, ma: ModelingAssistant) -> Solution:
     "Return the student solution for the given student class diagram."
     # pylint: disable=protected-access
-    student = next((s for s in ma.students if s.name == username), Student(name=username, modelingAssistant=ma))
+    student = next((s for s in ma.students if s.name == username), None) or Student(name=username, modelingAssistant=ma)
     ps: ProblemStatement = ma.problemStatements[0]  # TODO Assume only one problem statement for now
-    sol = next((sol for sol in ma.solutions if sol.student and sol.student.name == username
-                and sol.classDiagram._internal_id == student_cdm._internal_id),
-               Solution(student=student, classDiagram=student_cdm, modelingAssistant=ma, problemStatement=ps))
-    old = None
-    for e in ps.studentSolutions:
-        if e.student.name == username and e.classDiagram._internal_id == student_cdm._internal_id:
-            old = e
+    stud_sol = (next((sol for sol in ma.solutions if sol.student and sol.student.name == username
+                      and sol.classDiagram._internal_id == student_cdm._internal_id), None)
+                or Solution(student=student, classDiagram=student_cdm, modelingAssistant=ma, problemStatement=ps))
+    stud_sol.classDiagram = student_cdm
+    # old_cdm = None
+    # for cdm in ma.eResource.contents:
+    #     if cdm._internal_id == student_cdm._internal_id:
+    #         old_cdm = cdm
+    # if old_cdm:
+    #     ma.eResource.contents.remove(old_cdm)
+    # ma.eResource.contents.append(student_cdm)
+    old_sol = None
+    for sol in ps.studentSolutions:
+        if sol.student.name == username and sol.classDiagram._internal_id == student_cdm._internal_id:
+            old_sol = sol
             break
-    if old:
-        ps.studentSolutions.remove(old)
-    ps.studentSolutions.append(sol)
-    return sol
+    if old_sol:
+        ps.studentSolutions.remove(old_sol)
+    ps.studentSolutions.append(stud_sol)
+    return stud_sol
 
 
 if __name__ == '__main__':

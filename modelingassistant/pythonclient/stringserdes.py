@@ -43,7 +43,8 @@ class StringEnabledResourceSet(ResourceSet):
     def create_string_resource(self) -> StringEnabledXMIResource:
         "Create a resource that can be used to store a string in-memory."
         resource = StringEnabledXMIResource()
-        self.resources["dummy.modelingassistant"] = self.resources["dummy.cdm"] = resource
+        # self.resources["dummy.modelingassistant"] = self.resources["dummy.cdm"] = resource
+        self.resources["modeling-assistant"] = self.resources["class-diagram"] = resource
         resource.resource_set = self
         resource.decoders.insert(0, self)
         resource.use_uuid = True
@@ -55,13 +56,15 @@ class StringEnabledResourceSet(ResourceSet):
         ma_id = ma._internal_id  # pylint: disable=protected-access
         ma_id_not_set = ma_id is None
 
-        if ma_id in self.ma_ids_to_string_resources:
-            resource = self.ma_ids_to_string_resources[ma_id]
+        if False:  # ma_id in self.ma_ids_to_string_resources:
+            print(f"{ma_id = }", "already exists")
+            resource: StringEnabledXMIResource = self.ma_ids_to_string_resources[ma_id]
             resource.contents.clear()
         else:
             resource = self.create_string_resource()
             if ma_id:
                 self.ma_ids_to_string_resources[ma_id] = resource
+
         resource.extend((ma, *cdms))
 
         ma_str = resource.save_to_string().decode()
@@ -76,7 +79,7 @@ class StringEnabledResourceSet(ResourceSet):
         options[MA_USE_STRING_SERDES] = True
 
         ma_id = self.get_ma_id_from_str(string)
-        if ma_id in self.ma_ids_to_string_resources:
+        if False:  # ma_id in self.ma_ids_to_string_resources:
             resource = self.ma_ids_to_string_resources[ma_id]
             for e in resource.contents:
                 e._eresource = None
@@ -293,7 +296,7 @@ def str_to_cdm(cdm_str: str, use_static_classes: bool = True) -> ClassDiagram:
     return class_diagram
 
 
-def str_to_modelingassistant(ma_str: str, use_static_classes: bool = True) -> ModelingAssistant:
+def str_to_modelingassistant(ma_str: str | bytes, use_static_classes: bool = True) -> ModelingAssistant:
     "Load a modeling assistant from a string."
     resource = SRSET.get_string_resource(ma_str)
     modeling_assistant: ModelingAssistant = resource.contents[0]
@@ -304,6 +307,8 @@ def str_to_modelingassistant(ma_str: str, use_static_classes: bool = True) -> Mo
         modeling_assistant.__class__ = ModelingAssistant
         for e in modeling_assistant.eAllContents():
             set_static_class_for(e)
+            if not e.eResource: # if hasattr(e, "eResource") and not e.eResource:
+                e.eResource = resource
     # print(f"str_to_ma(): {modeling_assistant.eResource}, {modeling_assistant.eResource.uuid_dict}")
     # for k, v in modeling_assistant.eResource.uuid_dict.items():
     #     print(f"{k} -> {v}")
