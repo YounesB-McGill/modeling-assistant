@@ -136,7 +136,7 @@ class MockStudent(User):
         new_cdm = self.get_cdm(cdm_name)
         logger.debug(cdm_diff(old_cdm, new_cdm))
         attr_id = cdm_diff(old_cdm, new_cdm).additions[0]
-        logger.debug(f"Returning {attr_id}")
+        logger.debug(f"MockStudent.create_attribute(): Returning {attr_id = }")
         return attr_id
 
     def request_feedback(self, cdm_name: str) -> FeedbackTO:

@@ -55,6 +55,7 @@ class StringEnabledResourceSet(ResourceSet):
         cdms = (sol.classDiagram for sol in ma.solutions)
         ma_id = ma._internal_id  # pylint: disable=protected-access
         ma_id_not_set = ma_id is None
+        ma_rsc = ma.eResource
 
         if False:  # ma_id in self.ma_ids_to_string_resources:
             print(f"{ma_id = }", "already exists")
@@ -65,12 +66,15 @@ class StringEnabledResourceSet(ResourceSet):
             if ma_id:
                 self.ma_ids_to_string_resources[ma_id] = resource
 
-        resource.extend((ma, *cdms))
+        resource.extend((ma, *cdms))  # bad: this destroys the reference to the original MA resource
+        resource.uuid_dict |= ma_rsc.uuid_dict
 
         ma_str = resource.save_to_string().decode()
         ma_id = self.get_ma_id_from_str(ma_str)
         if ma_id_not_set and ma_id:
             self.ma_ids_to_string_resources[ma_id] = resource  # pylint: disable=protected-access
+        # restore the original resource
+        ma._eresource = ma_rsc  # pylint: disable=protected-access
         return ma_str
 
     def get_string_resource(self, string: str | bytes, options=None) -> StringEnabledXMIResource:

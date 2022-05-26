@@ -57,8 +57,9 @@ def modeling_assistant() -> Response:
     global MODELING_ASSISTANT  # pylint: disable=global-statement
     print(f"Received a /modelingassistant {request.method} request")
     if request.method == "GET":
-        r = jsonify({"modelingAssistantXmi": SRSET.create_ma_str(MODELING_ASSISTANT.instance)})
-        print("GET /modelingassistant: Returning this response: \n", SRSET.create_ma_str(MODELING_ASSISTANT.instance))
+        ma_str = SRSET.create_ma_str(MODELING_ASSISTANT.instance)
+        r = jsonify({"modelingAssistantXmi": ma_str})
+        print("GET /modelingassistant: Returning this response: \n", ma_str)
         return r
         # return jsonify({"modelingAssistantXmi": str_to_modelingassistant(MODELING_ASSISTANT.instance)})
     if request.method == "POST":

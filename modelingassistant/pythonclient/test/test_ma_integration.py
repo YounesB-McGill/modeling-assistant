@@ -257,6 +257,10 @@ def valid(ma: ModelingAssistant) -> bool:
     for sol in ma.solutions:
         assert sol.classDiagram
         assert sol.problemStatement
+    assert ma.eResource
+    assert ma.eResource.contents
+    assert ma in ma.eResource.contents
+    assert ma.eResource.uuid_dict
     return True
 
 
