@@ -67,7 +67,7 @@ class StringEnabledResourceSet(ResourceSet):
                 self.ma_ids_to_string_resources[ma_id] = resource
 
         resource.extend((ma, *cdms))  # bad: this destroys the reference to the original MA resource
-        resource.uuid_dict |= ma_rsc.uuid_dict
+        resource.uuid_dict |= getattr(ma_rsc, "uuid_dict", {})
 
         ma_str = resource.save_to_string().decode()
         ma_id = self.get_ma_id_from_str(ma_str)
@@ -316,4 +316,14 @@ def str_to_modelingassistant(ma_str: str | bytes, use_static_classes: bool = Tru
     # print(f"str_to_ma(): {modeling_assistant.eResource}, {modeling_assistant.eResource.uuid_dict}")
     # for k, v in modeling_assistant.eResource.uuid_dict.items():
     #     print(f"{k} -> {v}")
+
+    # debug only
+    # for sol in modeling_assistant.solutions:
+    #     print("MA sol", sol, sol.eResource, sol._internal_id)
+    # isol = modeling_assistant.problemStatements[0].instructorSolution
+    # for sol in type(modeling_assistant.solutions[0]).allInstances():
+    #     print("All   ", sol, sol.eResource, sol._internal_id)
+    # #print(isol, isol.eResource, isol._internal_id)
+    # if not modeling_assistant.problemStatements[0].instructorSolution.eResource:
+    #     raise ValueError(f"Instructor solution {modeling_assistant.problemStatements[0].instructorSolution} has no eResource!")
     return modeling_assistant
