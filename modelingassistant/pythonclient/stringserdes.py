@@ -230,6 +230,6 @@ def str_to_modelingassistant(ma_str: str | bytes, use_static_classes: bool = Tru
         modeling_assistant.__class__ = ModelingAssistant
         for e in modeling_assistant.eAllContents():
             set_static_class_for(e)
-            if not e.eResource: # if hasattr(e, "eResource") and not e.eResource:
+            if not e.eResource:
                 e._eresource = resource  # pylint: disable=protected-access
     return modeling_assistant
