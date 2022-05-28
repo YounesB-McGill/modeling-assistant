@@ -108,22 +108,17 @@ def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:
 def give_feedback_for_student_cdm(username: str, student_cdm: ClassDiagram | str, ma: ModelingAssistant = None
     ) -> FeedbackTO | Tuple[FeedbackTO, ModelingAssistant]:
     "Give feedback given a student class diagram."
-    # pylint: disable=protected-access, global-statement, too-many-branches
+    # pylint: disable=protected-access
     use_local_ma = bool(ma)
     ma = ma or MODELING_ASSISTANT.instance
 
     if isinstance(student_cdm, str):
         student_cdm = str_to_cdm(student_cdm)
 
-    student_cdm_name = student_cdm.name
-
-    print(f"give_feedback_for_student_cdm({username}, {student_cdm_name}, {ma})")
-
     instructor_cdm = instructor_solution_for(student_cdm, ma).classDiagram
     student_solution = student_solution_for(username, student_cdm, ma)  # useful line to create solution, do not remove
 
     cdms2sols = ma.classDiagramsToSolutions
-    print(f"give_fb: {'Airplane' in (c.name for c in student_cdm.classes) = }")
     ma = get_mistakes(ma, instructor_cdm, student_cdm)
     if not ma.classDiagramsToSolutions:
         ma.classDiagramsToSolutions = cdms2sols
@@ -139,7 +134,7 @@ def give_feedback_for_student_cdm(username: str, student_cdm: ClassDiagram | str
     feedback = FeedbackTO(
         solutionElements=[e.element._internal_id for e in fb.mistake.studentElements],
         instructorElements=[e.element._internal_id for e in fb.mistake.instructorElements],
-        problemStatementElements=[], #[pse._internal_id for e in fb.mistake.instructorElements for pse in e],
+        problemStatementElements=[],  #[pse._internal_id for e in fb.mistake.instructorElements for pse in e],
         highlightProblemStatementElements=fb.feedback.highlightProblem,
         highlightSolutionElements=fb.feedback.highlightSolution,
         grade=0.0,  # for now
