@@ -10,10 +10,9 @@ from typing import Tuple
 import logging
 
 from classdiagram import ClassDiagram
-from fileserdes import load_cdm
 from modelingassistant_app import MODELING_ASSISTANT, get_mistakes
 from parametrizedresponse import parametrize_response
-from stringserdes import SRSET, str_to_cdm
+from stringserdes import str_to_cdm
 from learningcorpus import Feedback, ParametrizedResponse, TextResponse
 from modelingassistant import (ModelingAssistant, Student, ProblemStatement, FeedbackItem, Mistake, Solution,
                                StudentKnowledge)
@@ -126,9 +125,6 @@ def give_feedback_for_student_cdm(username: str, student_cdm: ClassDiagram | str
     cdms2sols = ma.classDiagramsToSolutions
     print(f"give_fb: {'Airplane' in (c.name for c in student_cdm.classes) = }")
     ma = get_mistakes(ma, instructor_cdm, student_cdm)
-    print("------------------------------------")
-    print(SRSET.create_ma_str(ma))
-    print("------------------------------------")
     if not ma.classDiagramsToSolutions:
         ma.classDiagramsToSolutions = cdms2sols
     if not use_local_ma:
@@ -152,7 +148,7 @@ def give_feedback_for_student_cdm(username: str, student_cdm: ClassDiagram | str
     return (feedback, ma) if use_local_ma else feedback
 
 
-#@cache
+@cache
 def instructor_solution_for(student_cdm: ClassDiagram, ma: ModelingAssistant = None) -> Solution:
     "Return the instructor solution for the given student class diagram."
     # TODO Assume only one problem statement for now
@@ -169,13 +165,6 @@ def student_solution_for(username: str, student_cdm: ClassDiagram, ma: ModelingA
                       and sol.classDiagram._internal_id == student_cdm._internal_id), None)
                 or Solution(student=student, classDiagram=student_cdm, modelingAssistant=ma, problemStatement=ps))
     stud_sol.classDiagram = student_cdm
-    # old_cdm = None
-    # for cdm in ma.eResource.contents:
-    #     if cdm._internal_id == student_cdm._internal_id:
-    #         old_cdm = cdm
-    # if old_cdm:
-    #     ma.eResource.contents.remove(old_cdm)
-    # ma.eResource.contents.append(student_cdm)
     old_sol = None
     for sol in ps.studentSolutions:
         if sol.student.name == username and sol.classDiagram._internal_id == student_cdm._internal_id:
