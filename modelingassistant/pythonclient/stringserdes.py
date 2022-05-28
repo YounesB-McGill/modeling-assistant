@@ -10,17 +10,16 @@ import re
 import os
 
 from lxml.etree import Element, ElementTree, QName, fromstring, tostring  # pylint: disable=no-name-in-module
-from pyecore.ecore import EObject, EProxy
-from pyecore.innerutils import ignored
-from pyecore.resources.resource import Resource, ResourceSet, URI, URIConverter
+from pyecore.ecore import EProxy
+from pyecore.resources.resource import Resource, ResourceSet, URI
 from pyecore.resources.xmi import XMI, XMIOptions, XMIResource, XMI_URL, XSI
 
 from serdes import set_static_class_for
 from classdiagram import ClassDiagram
 from constants import (CLASS_DIAGRAM_MM, LEARNING_CORPUS_MM, LEARNING_CORPUS_QUIZ_MM, MODELING_ASSISTANT_MM,
                        LEARNING_CORPUS_PATH)
+from utils import NonNoneDict
 from modelingassistant import ModelingAssistant
-from utils import NonNoneDict, warn
 
 MA_USE_STRING_SERDES = "MA_USE_STRING_SERDES"
 
@@ -43,7 +42,6 @@ class StringEnabledResourceSet(ResourceSet):
     def create_string_resource(self) -> StringEnabledXMIResource:
         "Create a resource that can be used to store a string in-memory."
         resource = StringEnabledXMIResource()
-        # self.resources["dummy.modelingassistant"] = self.resources["dummy.cdm"] = resource
         self.resources["modeling-assistant"] = self.resources["class-diagram"] = resource
         resource.resource_set = self
         resource.decoders.insert(0, self)
@@ -57,22 +55,15 @@ class StringEnabledResourceSet(ResourceSet):
         ma_id_not_set = ma_id is None
         ma_rsc = ma.eResource
 
-        if False:  # ma_id in self.ma_ids_to_string_resources:
-            print(f"{ma_id = }", "already exists")
-            resource: StringEnabledXMIResource = self.ma_ids_to_string_resources[ma_id]
-            resource.contents.clear()
-        else:
-            resource = self.create_string_resource()
-            if ma_id:
-                self.ma_ids_to_string_resources[ma_id] = resource
-
-        resource.extend((ma, *cdms))  # bad: this destroys the reference to the original MA resource
-        resource.uuid_dict |= getattr(ma_rsc, "uuid_dict", {})
+        resource = self.create_string_resource()
+        if ma_id:
+            self.ma_ids_to_string_resources[ma_id] = resource
+        resource.extend((ma, *cdms))  # this overwrites the reference to the original MA resource
 
         ma_str = resource.save_to_string().decode()
         ma_id = self.get_ma_id_from_str(ma_str)
         if ma_id_not_set and ma_id:
-            self.ma_ids_to_string_resources[ma_id] = resource  # pylint: disable=protected-access
+            self.ma_ids_to_string_resources[ma_id] = resource
         # restore the original resource
         ma._eresource = ma_rsc  # pylint: disable=protected-access
         return ma_str
@@ -83,18 +74,12 @@ class StringEnabledResourceSet(ResourceSet):
         options[MA_USE_STRING_SERDES] = True
 
         ma_id = self.get_ma_id_from_str(string)
-        if False:  # ma_id in self.ma_ids_to_string_resources:
-            resource = self.ma_ids_to_string_resources[ma_id]
-            for e in resource.contents:
-                e._eresource = None
-            resource.contents.clear()
-        elif ma_id:
+        if ma_id:
             resource = self.create_string_resource()
             self.ma_ids_to_string_resources[ma_id] = resource
 
         try:
             resource.load_string(string, options=options)
-
             # Set relative path as URI if not already set
             here_uri = URI(".")
             self.resources[here_uri.normalize()] = None
@@ -108,7 +93,6 @@ class StringEnabledResourceSet(ResourceSet):
     def get_resource(self, uri, options=None):
         if uri and LC_FILENAME in uri.normalize() and LC_ABS_PATH in self.resources:
             return self.resources[LC_ABS_PATH]
-        #print(uri, type(uri), dir(uri))
         if isinstance(uri, URI):
             uri.plain = uri.plain.removeprefix("file:")
         return super().get_resource(uri, options)
@@ -140,19 +124,17 @@ class StringEnabledXMIResource(XMIResource):
         self.cache_enabled = True
         if not isinstance(string, bytes):
             string = string.encode("utf-8")
-        #print(f"StringEnabledXMIResource.load_string({string})")
         tree = fromstring(string, base_url=".")
         xmlroot = tree
         self.prefixes.update(xmlroot.nsmap)
         self.reverse_nsmap = {v: k for k, v in self.prefixes.items()}
 
-        self.xsitype = '{{{0}}}type'.format(self.prefixes.get(XSI))
-        self.xmiid = '{{{0}}}id'.format(self.prefixes.get(XMI))
-        self.schema_tag = '{{{0}}}schemaLocation'.format(
-                            self.prefixes.get(XSI))
+        self.xsitype = f"{{{self.prefixes.get(XSI)}}}type"
+        self.xmiid = f"{{{self.prefixes.get(XMI)}}}id"
+        self.schema_tag = f"{{{self.prefixes.get(XSI)}}}schemaLocation"
 
         # Decode the XMI
-        if '{{{0}}}XMI'.format(self.prefixes.get(XMI)) == xmlroot.tag:
+        if f"{{{self.prefixes.get(XMI)}}}XMI" == xmlroot.tag:
             real_roots = xmlroot
         else:
             real_roots = [xmlroot]
@@ -221,69 +203,6 @@ class StringEnabledXMIResource(XMIResource):
         # TODO Set pretty_print=False in production  # pylint: disable=fixme
         return tostring(tree, pretty_print=True, xml_declaration=True, encoding=tree.docinfo.encoding)
 
-    # def _try_resource_autoload(self, uri, original_uri):
-    #     print(f"Resource._try_resource_autoload({self = }, {uri = }, {original_uri = })")
-    #     try:
-    #         # return self.resource_set
-    #         rset = self.resource_set
-    #         tmp_uri = URI(self.uri.apply_relative_from_me(uri))
-    #         external_uri = URIConverter.convert(tmp_uri, self.resource_set)
-    #         norm_plain = self.uri.apply_relative_from_me(external_uri.plain)
-    #         external_uri.plain = norm_plain
-    #         external_uri._split()  # pylint: disable=protected-access
-    #         resource = rset.get_resource(external_uri)
-    #         if external_uri.plain != original_uri:
-    #             rset.resources[original_uri] = resource
-    #         return rset
-    #     except Exception as e:
-    #         warn(f'Resource "{uri}" cannot be resolved, problem with "{e}"')
-
-    # @classmethod
-    # def _navigate_from(cls, path: str, start_obj: EObject):
-    #     print(f"Resource._navigate_from({cls = }, {path = }, {start_obj = })")  # remove this line
-    #     if '#' in path[:1]:
-    #         path = path[1:]
-    #     path = path.removeprefix("*.modelingassistant#")
-    #     if cls.is_fragment_uuid(path) and start_obj.eResource and path in start_obj.eResource.uuid_dict:
-    #         print(f"returning {start_obj.eResource.uuid_dict[path]}")
-    #         return start_obj.eResource.uuid_dict[path]
-
-    #     features = [x for x in path.split('/') if x]
-    #     feat_info = [x.split('.') for x in features]
-    #     obj = start_obj
-    #     annot_content = False
-    #     for feat in feat_info:
-    #         key, index = feat if len(feat) > 1 else (feat[0], None)
-    #         if key.startswith('@'):
-    #             tmp_obj = obj.__getattribute__(key[1:])
-    #             try:
-    #                 obj = tmp_obj[int(index)] if index else tmp_obj
-    #             except IndexError:
-    #                 raise ValueError('Index in path is not the collection, broken proxy?')
-    #             except ValueError:
-    #                 # If index is not numeric it may be given as a name.
-    #                 if index:
-    #                     obj = tmp_obj.select(lambda x: x.name == index)[0]
-    #         elif key.startswith('%'):
-    #             key = key[1:-1]
-    #             obj = obj.eAnnotations.select(lambda x: x.source == key)[0]
-    #             annot_content = True
-    #         elif annot_content:
-    #             annot_content = False
-    #             obj = obj.contents.select(lambda x: x.name == key)[0]
-    #         else:
-    #             with ignored(Exception):
-    #                 subpack = next((p for p in obj.eSubpackages if p.name == key), None)
-    #                 if subpack:
-    #                     obj = subpack
-    #                     continue
-    #             try:
-    #                 obj = obj.getEClassifier(key)
-    #             except AttributeError:
-    #                 obj = next((c for c in obj.eContents if hasattr(c, 'name') and c.name == key), None)
-    #     print(f"returning {type(obj)} {obj}")
-    #     return obj
-
 
 # The StringEnabledResourceSet singleton instance
 SRSET = StringEnabledResourceSet()
@@ -312,18 +231,5 @@ def str_to_modelingassistant(ma_str: str | bytes, use_static_classes: bool = Tru
         for e in modeling_assistant.eAllContents():
             set_static_class_for(e)
             if not e.eResource: # if hasattr(e, "eResource") and not e.eResource:
-                e.eResource = resource
-    # print(f"str_to_ma(): {modeling_assistant.eResource}, {modeling_assistant.eResource.uuid_dict}")
-    # for k, v in modeling_assistant.eResource.uuid_dict.items():
-    #     print(f"{k} -> {v}")
-
-    # debug only
-    # for sol in modeling_assistant.solutions:
-    #     print("MA sol", sol, sol.eResource, sol._internal_id)
-    # isol = modeling_assistant.problemStatements[0].instructorSolution
-    # for sol in type(modeling_assistant.solutions[0]).allInstances():
-    #     print("All   ", sol, sol.eResource, sol._internal_id)
-    # #print(isol, isol.eResource, isol._internal_id)
-    # if not modeling_assistant.problemStatements[0].instructorSolution.eResource:
-    #     raise ValueError(f"Instructor solution {modeling_assistant.problemStatements[0].instructorSolution} has no eResource!")
+                e._eresource = resource  # pylint: disable=protected-access
     return modeling_assistant
