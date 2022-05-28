@@ -14,8 +14,6 @@ These tests assume that WebCORE and the Mistake Detection System servers are run
 The Python backend must not import anything from this module.
 """
 
-from __future__ import annotations
-
 from threading import Thread
 import os
 import sys
@@ -64,8 +62,7 @@ def webcore():
         Thread(target=lambda: os.system(f"cd {TOUCHCORE_PATH}/.. && ./start-webcore.sh"), daemon=True).start()
 
 
-@pytest.mark.skip(reason="Disabled until support for Feedback is enabled in WebCORE")
-def test_ma_one_class_student_mistake(ma_rest_app, webcore):
+def test_ma_two_class_student_mistake(ma_rest_app, webcore):
     """
     Simplest possible test for the entire system.
 
@@ -233,9 +230,6 @@ def get_ma_with_ps(instructor_cdm: ClassDiagram) -> ModelingAssistant:
     """
     Create a Modeling Assistant instance with the provided parameters.
     """
-    ps = ProblemStatement(name=instructor_cdm.name)
-    sol = Solution(classDiagram=instructor_cdm, problemStatement=ps)
-    ps.instructorSolution = sol
     ma = MODELING_ASSISTANT.instance
     ps = ProblemStatement(name=instructor_cdm.name.removesuffix("_instructor"), modelingAssistant=ma)
     sol = Solution(classDiagram=instructor_cdm, problemStatement=ps, modelingAssistant=ma)
@@ -283,4 +277,6 @@ if __name__ == '__main__':
     test_webcore_user_login()
     test_webcore_user_logout()
     test_communication_between_mock_frontend_and_webcore(webcore)
-    test_ma_one_class_student_mistake(ma_rest_app, webcore)
+    test_ma_two_class_student_mistake(ma_rest_app, webcore)
+    # run again to ensure WebCORE still works after the previous test
+    test_communication_between_mock_frontend_and_webcore(webcore)
