@@ -348,6 +348,24 @@ public class MistakeDetectionGeneralizationTest extends MistakeDetectionBaseTest
   }
 
   /**
+   * Test to check Reverse Generalization Direction.
+   */
+  @Test
+  public void testToCheckReverseGeneralization() {
+    var instructorClassDiagram =
+        cdmFromFile(INSTRUCTOR_CDM_PATH+"instructor_reverse_direction/Class Diagram/Reverse_direction.domain_model.cdm");
+    var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
+
+    var studentClassDiagram = cdmFromFile(
+        STUDENT_CDM_PATH+ "student_reverse_direction/Class Diagram/Reverse_direction.domain_model.cdm");
+    var studentSolution = studentSolutionFromClassDiagram(studentClassDiagram);
+
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+
+    assertMistakeTypesContain(comparison.newMistakes, REVERSED_GENERALIZATION_DIRECTION);
+  }
+
+  /**
    * Test to Wrong Generalization direction.
    * IS : A <- B <- C <- D
    * SS : A <- D <- B <- C

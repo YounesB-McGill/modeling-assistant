@@ -2579,7 +2579,7 @@ public class MistakeDetection {
   }
 
   public static Optional<Mistake> checkMistakePluralClassName(Classifier studentClass, Classifier instructorClass) {
-    if (isPlural(studentClass.getName())) {
+    if (isPlural(studentClass.getName()) && studentClass.getName() != instructorClass.getName() && !isSynonym(instructorClass, studentClass)) {
       return Optional.of(createMistake(PLURAL_CLASS_NAME, studentClass, instructorClass));
     }
     return Optional.empty();

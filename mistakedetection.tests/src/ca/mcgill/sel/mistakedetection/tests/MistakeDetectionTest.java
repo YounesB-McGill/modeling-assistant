@@ -135,6 +135,7 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
     assertEquals(comparison.newMistakes.size(), 5);
     assertEquals(studentSolution.getMistakes().size(), 5);
 
+    // Modified the student solution.
     for(var studClass: studentSolution.getSolutionElements()) {
       if(studClass.getElement().getName().equals("Buses")) {
         studClass.getElement().setName("Bus");

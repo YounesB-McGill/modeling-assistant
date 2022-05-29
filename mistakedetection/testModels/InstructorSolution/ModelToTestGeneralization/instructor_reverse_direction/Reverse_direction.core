@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:COREConcern xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://cs.mcgill.ca/sel/core/2.0" xmi:id="_8Y7QUN0LEeywHcJzeW2YQA" name="Reverse_direction" featureModel="_8Y7QUd0LEeywHcJzeW2YQA" impactModel="_8Y7QU90LEeywHcJzeW2YQA">
+  <artefacts xsi:type="core:COREFeatureModel" xmi:id="_8Y7QUd0LEeywHcJzeW2YQA" root="_8Y7QUt0LEeywHcJzeW2YQA">
+    <features xmi:id="_8Y7QUt0LEeywHcJzeW2YQA" name="Reverse_direction" realizedBy="_84EqcN0LEeywHcJzeW2YQA"/>
+  </artefacts>
+  <artefacts xsi:type="core:COREImpactModel" xmi:id="_8Y7QU90LEeywHcJzeW2YQA" name="Impact Model"/>
+  <artefacts xsi:type="core:COREExternalArtefact" xmi:id="_84DcUN0LEeywHcJzeW2YQA" name="Reverse_direction" scene="_84EqcN0LEeywHcJzeW2YQA" languageName="Class Diagram">
+    <rootModelElement href="Class%20Diagram/Reverse_direction.domain_model.cdm#_84F4kN0LEeywHcJzeW2YQA"/>
+  </artefacts>
+  <scenes xmi:id="_84EqcN0LEeywHcJzeW2YQA" name="Reverse_direction" realizes="_8Y7QUt0LEeywHcJzeW2YQA" perspectiveName="Domain Modelling">
+    <artefacts xmi:id="_84Eqcd0LEeywHcJzeW2YQA" value="_84DcUN0LEeywHcJzeW2YQA" key="Domain Model"/>
+  </scenes>
+</core:COREConcern>
