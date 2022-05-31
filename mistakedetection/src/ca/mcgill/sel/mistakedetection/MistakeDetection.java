@@ -2242,7 +2242,13 @@ public class MistakeDetection {
    * @return boolean
    */
   private static boolean compareElement(SolutionElement existingElement, SolutionElement newElement) {
-    return existingElement.getElement().equals(newElement.getElement());
+    if(existingElement == null && newElement == null) {
+      return true;
+    } else if(existingElement != null && newElement != null) {
+      //return EcoreUtil.getID(existingElement.getElement()).equals(EcoreUtil.getID(newElement.getElement()));
+      return existingElement.getElement().equals(newElement.getElement());
+    }
+    return false;
   }
 
   /** Sets the properties of a mistake. */
