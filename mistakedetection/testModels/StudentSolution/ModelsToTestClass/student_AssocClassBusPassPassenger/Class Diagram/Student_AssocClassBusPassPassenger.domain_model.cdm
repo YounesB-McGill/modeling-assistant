@@ -18,8 +18,8 @@
     <associationEnds xmi:id="_6eBUofuEEeu7ZOM0uoSvEw" name="myPassenger" assoc="_6eB7svuEEeu7ZOM0uoSvEw" lowerBound="1"/>
     <associationEnds xmi:id="_-I2noPuEEeu7ZOM0uoSvEw" name="myRoot" assoc="_-I2novuEEeu7ZOM0uoSvEw" lowerBound="1"/>
   </classes>
-  <classes xsi:type="classdiagram:Class" xmi:id="_3PmQ0vuEEeu7ZOM0uoSvEw" name="BusPass"/>
-  <classes xsi:type="classdiagram:Class" xmi:id="_6eBUovuEEeu7ZOM0uoSvEw" name="Company"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_3PmQ0vuEEeu7ZOM0uoSvEw" name="Company"/>
+  <classes xsi:type="classdiagram:Class" xmi:id="_6eBUovuEEeu7ZOM0uoSvEw" name="BusPass"/>
   <types xsi:type="classdiagram:CDVoid" xmi:id="_xCZHtPuEEeu7ZOM0uoSvEw"/>
   <types xsi:type="classdiagram:CDAny" xmi:id="_xCZHtfuEEeu7ZOM0uoSvEw"/>
   <types xsi:type="classdiagram:CDBoolean" xmi:id="_xCZHtvuEEeu7ZOM0uoSvEw"/>

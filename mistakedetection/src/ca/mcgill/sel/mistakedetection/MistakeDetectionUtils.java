@@ -8,6 +8,7 @@ import java.util.List;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Attribute;
+import ca.mcgill.sel.classdiagram.CDDouble;
 import ca.mcgill.sel.classdiagram.CDFloat;
 import ca.mcgill.sel.classdiagram.CDInt;
 import ca.mcgill.sel.classdiagram.CDLong;
@@ -145,8 +146,10 @@ public class MistakeDetectionUtils {
   public static boolean attributeTypesMatch(Attribute studentAttribute, Attribute instructorAttribute) {
     if (!studentAttribute.getType().getClass().equals(instructorAttribute.getType().getClass())) {
       if ((instructorAttribute.getType() instanceof CDInt || instructorAttribute.getType() instanceof CDFloat
+          || instructorAttribute.getType() instanceof CDDouble
           || instructorAttribute.getType() instanceof CDLong)
           && (studentAttribute.getType() instanceof CDFloat || studentAttribute.getType() instanceof CDLong
+              || studentAttribute.getType() instanceof CDDouble
               || studentAttribute.getType() instanceof CDInt)) {
         return true;
       }

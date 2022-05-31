@@ -1527,7 +1527,7 @@ public class MistakeDetectionWrongClassTest extends MistakeDetectionBaseTest {
   }
 
   /**
-   * Check Company-BusPass AssocClass for mapping.
+   * Check Company-Company AssocClass for mapping.
    */
   @Test
   public void testMappingAssocClassCompanyAndBusPass() {
@@ -1545,8 +1545,8 @@ public class MistakeDetectionWrongClassTest extends MistakeDetectionBaseTest {
     var studentBusPassClass = getClassFromClassDiagram("BusPass", studentClassDiagram);
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(studentBusPassClass, comparison.mappedClassifiers.get(instructorCompanyClass));
-    assertEquals(studentCompanyClass, comparison.mappedClassifiers.get(instructorBusPassClass));
+    assertEquals(studentBusPassClass, comparison.mappedClassifiers.get(instructorBusPassClass));
+    assertEquals(studentCompanyClass, comparison.mappedClassifiers.get(instructorCompanyClass));
   }
 
   /**

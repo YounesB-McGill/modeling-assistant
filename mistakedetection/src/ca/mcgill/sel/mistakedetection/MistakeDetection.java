@@ -1692,8 +1692,10 @@ public class MistakeDetection {
       }
       if (!comparison.mappedClassifiers.get(instAssocClass).equals(studAssocClass)) {
         comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
+        if (!comparison.mappedClassifiers.containsValue(studAssocClass)) {
         comparison.mappedClassifiers.put(instAssocClass, studAssocClass);
         comparison.extraStudentClassifiers.remove(studAssocClass);
+        }
       }
     }
     if (studentClassifierAssoc.getAssociationClass() == null
@@ -2331,10 +2333,15 @@ public class MistakeDetection {
               continue;
             }
           }
+          List<Attribute> countedAttrib = new ArrayList<>();
           for (Attribute instructorAttribute : instructorAttributes) {
             for (Attribute studentAttribute : studentAttributes) {
               if (isAttributeMatch(instructorAttribute, studentAttribute, comparison)) {
-                correctAttribute++;
+                if(!countedAttrib.contains(instructorAttribute) && !countedAttrib.contains(studentAttribute)) {
+                  correctAttribute++;
+                  countedAttrib.add(instructorAttribute);
+                  countedAttrib.add(studentAttribute);
+                }
                 break;
               }
             }
