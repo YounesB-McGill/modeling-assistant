@@ -24,7 +24,10 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import org.eclipse.emf.common.util.BasicEMap;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Test;
@@ -35,7 +38,10 @@ import ca.mcgill.sel.classdiagram.CdmFactory;
 import ca.mcgill.sel.classdiagram.CdmPackage;
 import ca.mcgill.sel.classdiagram.ClassDiagram;
 import ca.mcgill.sel.classdiagram.Classifier;
+import ca.mcgill.sel.classdiagram.LayoutElement;
 import ca.mcgill.sel.classdiagram.ReferenceType;
+import ca.mcgill.sel.classdiagram.impl.ContainerMapImpl;
+import ca.mcgill.sel.classdiagram.impl.ElementMapImpl;
 import ca.mcgill.sel.mistakedetection.MistakeDetection;
 import ca.mcgill.sel.mistakedetection.MistakeDetectionConfig;
 import learningcorpus.Feedback;
@@ -366,6 +372,35 @@ public class ControllerTest {
 
     classDiagram.getTypes().addAll(List.of(cdInt, cdString));
     classDiagram.getClasses().add(carClass);
+
+    // Create a reflexive association to show that association end positions can be stored with the existing CDM MM
+    // model code that uses a car "linked list" as an example: carBehind[Me] -> [my]Car -> carInFront[OfMe]
+    var assoc = CDF.createAssociation();
+    classDiagram.getAssociations().add(assoc);
+    var carInFront = CDF.createAssociationEnd();
+    carInFront.setName("carInFront");
+    var carBehind = CDF.createAssociationEnd();
+    carBehind.setName("carBehind");
+    var assocEnds = List.of(carInFront, carBehind);
+    carClass.getAssociationEnds().addAll(assocEnds);
+    assoc.getEnds().addAll(assocEnds);
+
+    // store layout according to the following relationships
+    // ClassDiagram <@>- Layout <@> 1..* ContainerMap <@>- 1..* ElementMap <@>- LayoutElement
+    var layoutElement = CDF.createLayoutElement();
+    layoutElement.setX(20);
+    layoutElement.setY(23);
+    var elementMapEntry = new ElementMapImpl() {}; // use {} to create a subclass, since constructor is not public
+    elementMapEntry.setKey(carInFront);
+    elementMapEntry.setValue(layoutElement);
+    EMap<EObject, LayoutElement> elementMap = new BasicEMap<>();
+    elementMap.add(elementMapEntry);
+    var containerMap = new ContainerMapImpl() {};
+    containerMap.setKey(classDiagram);
+    containerMap.setValue(elementMap);
+    var layout = CDF.createLayout();
+    classDiagram.setLayout(layout);
+    layout.getContainers().add(containerMap);
 
     assertEquals("Student1_solution", modelingAssistant.getSolutions().get(0).getClassDiagram().getName());
     assertEquals("Car", classDiagram.getClasses().get(0).getName());

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classdiagram:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="__zbfj0NpYEeuihpv-j2laQg" name="AirlineSystem_instructor">
+  <classes xsi:type="classdiagram:Class" xmi:id="__z421QNpYEeuihpv-j2laQg" name="Pilot">
+    <associationEnds xmi:id="__Juy__MN25EeuVoonRXmsiAQ" name="myRoot" assoc="__Juy__Mt25EeuVoonRXmsiAQ" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="__z421QNpYEeuihbv-j2laQg" name="Airplane">
+    <associationEnds xmi:id="__Juy__MN25EeuVoonRXmsiAR" name="myRoot" assoc="__Juy__Mt25EeuVoonRXmsiAR" lowerBound="1"/>
+  </classes>
+  <classes xsi:type="classdiagram:Class" xmi:id="__IuR9YN25EeuVoonRXmsiAQ" name="Root">
+    <associationEnds xmi:id="__Juy__Md25EeuVoonRXmsiAQ" name="myPilot" assoc="__Juy__Mt25EeuVoonRXmsiAQ" lowerBound="1" referenceType="Composition"/>
+    <associationEnds xmi:id="__Juy__Md25EeuVoonRXmsiAR" name="myAirplane" assoc="__Juy__Mt25EeuVoonRXmsiAR" lowerBound="1" referenceType="Composition"/>
+  </classes>
+  <types xsi:type="classdiagram:CDVoid" xmi:id="__zbfj0dpYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDAny" xmi:id="__zbfj0tpYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDBoolean" xmi:id="__zbfj09pYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDDouble" xmi:id="__zbfj1NpYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDInt" xmi:id="__zbfj1dpYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDLong" xmi:id="__zbfj1tpYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDString" xmi:id="__zbfj19pYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDByte" xmi:id="__zbfj2NpYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDFloat" xmi:id="__zbfj2dpYEeuihpv-j2laQg"/>
+  <types xsi:type="classdiagram:CDChar" xmi:id="__zbfj2tpYEeuihpv-j2laQg"/>
+  <associations xmi:id="__Juy__Mt25EeuVoonRXmsiAQ" name="Pilot_Root" ends="__Juy__MN25EeuVoonRXmsiAQ __Juy__Md25EeuVoonRXmsiAQ"/>
+  <associations xmi:id="__Juy__Mt25EeuVoonRXmsiAR" name="Airplane_Root" ends="__Juy__MN25EeuVoonRXmsiAR __Juy__Md25EeuVoonRXmsiAR"/>
+  <layout xmi:id="__zbgK4NpYEeuihpv-j2laQg">
+    <containers xmi:id="__zbgK4dpYEeuihpv-j2laQg" key="__zbfj0NpYEeuihpv-j2laQg">
+      <value xmi:id="__z44DYNpYEeuihpv-j2laQg" key="__z421QNpYEeuihpv-j2laQg">
+        <value xmi:id="__z44DYdpYEeuihpv-j2laQg" x="974.0001" y="251.0"/>
+      </value>
+      <value xmi:id="__IuSkcN25EeuVoonRXmsiAQ" key="__IuR9YN25EeuVoonRXmsiAQ">
+        <value xmi:id="__IuSkcd25EeuVoonRXmsiAQ" x="423.99976" y="251.0"/>
+      </value>
+    </containers>
+  </layout>
+</classdiagram:ClassDiagram>

@@ -14,8 +14,6 @@ These tests assume that WebCORE and the Mistake Detection System servers are run
 The Python backend must not import anything from this module.
 """
 
-from __future__ import annotations
-
 from threading import Thread
 import os
 import sys
@@ -36,7 +34,7 @@ from user import MockStudent, User, users
 from modelingassistant import ModelingAssistant, ProblemStatement, Solution
 
 
-CDM_NAME = "MULTIPLE_CLASSES"
+CDM_NAME = "AirlineSystem"
 INSTRUCTOR_CDM = f"modelingassistant/testmodels/{CDM_NAME}_instructor.cdm"
 MA_REST_ENDPOINT = f"http://localhost:{PORT}/modelingassistant"
 
@@ -64,8 +62,7 @@ def webcore():
         Thread(target=lambda: os.system(f"cd {TOUCHCORE_PATH}/.. && ./start-webcore.sh"), daemon=True).start()
 
 
-@pytest.mark.skip(reason="Disabled until support for Feedback is enabled in WebCORE")
-def test_ma_one_class_student_mistake(ma_rest_app, webcore):
+def test_ma_two_class_student_mistake(ma_rest_app, webcore):
     """
     Simplest possible test for the entire system.
 
@@ -86,7 +83,9 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     """
     # Step 0
     # use this until WebCORE is updated to allow initializing with a problem statement
-    set_modeling_assistant(get_ma_with_ps(load_cdm(INSTRUCTOR_CDM)))
+    ma = get_ma_with_ps(load_cdm(INSTRUCTOR_CDM))
+    assert valid(ma)
+    set_modeling_assistant(ma)
 
     # Step 1
     student = MockStudent.create_random()
@@ -99,10 +98,11 @@ def test_ma_one_class_student_mistake(ma_rest_app, webcore):
     feedback = student.request_feedback(cdm_name)
 
     ma = get_modeling_assistant()
+    assert valid(ma)
     assert ma.problemStatements[0].name
     print(ma.solutions)
     assert ma.solutions[1].classDiagram.name
-    assert len(ma.solutions) >= 2
+    assert len(ma.solutions) == 2, "Must have exactly one instructor solution and one student solution"
 
     # Step 6
     assert feedback.highlightSolutionElements
@@ -230,14 +230,32 @@ def get_ma_with_ps(instructor_cdm: ClassDiagram) -> ModelingAssistant:
     """
     Create a Modeling Assistant instance with the provided parameters.
     """
-    ps = ProblemStatement(name=instructor_cdm.name)
-    sol = Solution(classDiagram=instructor_cdm, problemStatement=ps)
     ma = MODELING_ASSISTANT.instance
+    ps = ProblemStatement(name=instructor_cdm.name.removesuffix("_instructor"), modelingAssistant=ma)
+    sol = Solution(classDiagram=instructor_cdm, problemStatement=ps, modelingAssistant=ma)
+    ps.instructorSolution = sol
     ma.problemStatements.append(ps)
     ma.solutions.append(sol)
     assert ma.problemStatements[0].name
     assert ma.solutions[0].classDiagram.name
     return ma
+
+
+def valid(ma: ModelingAssistant) -> bool:
+    """
+    Check whether the provided Modeling Assistant instance is valid.
+    """
+    assert ma
+    for ps in ma.problemStatements:
+        assert ps.instructorSolution
+    for sol in ma.solutions:
+        assert sol.classDiagram
+        assert sol.problemStatement
+    assert ma.eResource
+    assert ma.eResource.contents
+    assert ma in ma.eResource.contents
+    assert ma.eResource.uuid_dict
+    return True
 
 
 def _setup_instructor_solution():
@@ -259,4 +277,6 @@ if __name__ == '__main__':
     test_webcore_user_login()
     test_webcore_user_logout()
     test_communication_between_mock_frontend_and_webcore(webcore)
-    test_ma_one_class_student_mistake(ma_rest_app, webcore)
+    test_ma_two_class_student_mistake(ma_rest_app, webcore)
+    # run again to ensure WebCORE still works after the previous test
+    test_communication_between_mock_frontend_and_webcore(webcore)
