@@ -87,6 +87,10 @@ class User:
         password = secrets.token_urlsafe(16)
         return cls(name, password)  # use cls here to allow the creation of User subclasses
 
+    def __repr__(self) -> str:
+        # TODO token returned for debugging only, remove before release
+        return f'{self.__class__.__name__}(name="{self.name}", token="{self.token}")'
+
 
 class MockStudent(User):
     """
@@ -132,7 +136,7 @@ class MockStudent(User):
         new_cdm = self.get_cdm(cdm_name)
         logger.debug(cdm_diff(old_cdm, new_cdm))
         attr_id = cdm_diff(old_cdm, new_cdm).additions[0]
-        logger.debug(f"Returning {attr_id}")
+        logger.debug(f"MockStudent.create_attribute(): Returning {attr_id = }")
         return attr_id
 
     def request_feedback(self, cdm_name: str) -> FeedbackTO:
@@ -140,7 +144,6 @@ class MockStudent(User):
         resp = requests.get(f"{self.cdm_endpoint(cdm_name)}/feedback", headers=self._auth_header)
         print(f"{resp.text = }")
         feedback_json = resp.json()
-        print(feedback_json)
         return FeedbackTO(**feedback_json)
 
     def get_cdm(self, cdm_name: str) -> ClassDiagramDTO:

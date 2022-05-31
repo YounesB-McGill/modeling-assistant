@@ -25,9 +25,9 @@ from learningcorpus import Feedback, ParametrizedResponse, Reference, ResourceRe
 from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, MISSING_CLASS,
     SOFTWARE_ENGINEERING_TERM, WRONG_MULTIPLICITY)
 from stringserdes import SRSET, str_to_modelingassistant
+from utils import ae
 from modelingassistant import (FeedbackItem, Mistake, ModelingAssistant, ProblemStatement, Solution, SolutionElement,
     Student, StudentKnowledge)
-from utils import ae
 
 
 HOST = "localhost"
@@ -91,6 +91,20 @@ def make_ma_with_1_wrong_mult_mistake(num_detection: int=1) -> ModelingAssistant
                          instructorElements=[SolutionElement(solution=inst_sol, element=inst_bus_garage)])
     if num_detection > 1:
         wm_mistake.lastFeedback = FeedbackItem(feedback=Feedback(level=num_detection - 1))
+    return ma
+
+
+def make_ma_with_airline_system() -> ModelingAssistant:
+    "Create a Modeling Assistant instance with instructor and student solutions for an airline system."
+    inst_cdm = load_cdm("modelingassistant/testmodels/AirlineSystem_instructor.cdm")
+    stud_cdm = load_cdm("modelingassistant/testmodels/AirlineSystem_student.cdm")
+    ma = ModelingAssistant()
+    airline_system_ps = ProblemStatement(name="Airline System", modelingAssistant=ma)
+    alice = Student(name="Alice", modelingAssistant=ma)
+    inst_sol = Solution(modelingAssistant=ma, classDiagram=inst_cdm, problemStatement=airline_system_ps)
+    stud_sol = Solution(modelingAssistant=ma, classDiagram=stud_cdm, problemStatement=airline_system_ps, student=alice)
+    airline_system_ps.instructorSolution = inst_sol
+    airline_system_ps.studentSolutions.append(stud_sol)
     return ma
 
 
@@ -520,7 +534,7 @@ def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cd
     return ma
 
 
-@pytest.mark.skip(reason="Longer test time")
+@pytest.mark.skip(reason="Longer test time because running the MDS REST API server is required")
 def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
     """
     Test feedback for a modeling assistant instance with mistakes detected from the actual mistake detection system.
@@ -563,18 +577,18 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
 
-@pytest.mark.skip(reason="Longer test time")
+@pytest.mark.skip(reason="Longer test time because running the MDS REST API server is required")
 def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
     """
     Test feedback for a serialized modeling assistant instance with mistakes detected from the mistake detection system.
     """
     # pylint: disable=protected-access
-    cdm_name = "MULTIPLE_CLASSES"
+    ma = make_ma_with_airline_system()
+    student: Student = ma.students[0]
+    student_name: str = student.name
+    fb, ma = give_feedback_for_student_cdm(student_name, student.solutions[0].classDiagram, ma=ma)
 
-    ma = ModelingAssistant()
-    fb, ma = give_feedback_for_student_cdm(cdm_name, ma=ma)
-
-    solution: Solution = ma.students[0].solutions[0]  # false positive: pylint: disable=no-member
+    solution: Solution = ma.students[0].solutions[0]
     mistakes: list[Mistake] = solution.mistakes
     missing_class_mistake = mistakes[0]
 
@@ -590,7 +604,7 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     with open("modelingassistant/testinstances/ma_test2.modelingassistant", "w", encoding="utf-8") as f:
         f.write(SRSET.create_ma_str(ma))
 
-    fb, ma = give_feedback_for_student_cdm(cdm_name, cdm, ma=ma)
+    fb, ma = give_feedback_for_student_cdm(student_name, cdm, ma=ma)
     solution = next(sol for sol in ma.solutions if sol.student)  # false positive: pylint: disable=no-member
     mistakes: list[Mistake] = solution.mistakes
 
@@ -600,4 +614,4 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
 
 if __name__ == '__main__':
     "Main entry point (used for debugging)."
-    test_feedback_with_1_mistake_levels_1_6()
+    test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system()
