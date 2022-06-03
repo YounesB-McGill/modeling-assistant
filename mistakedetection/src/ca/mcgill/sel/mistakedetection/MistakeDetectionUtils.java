@@ -5,6 +5,8 @@ import static ca.mcgill.sel.classdiagram.ReferenceType.COMPOSITION;
 import static ca.mcgill.sel.classdiagram.ReferenceType.REGULAR;
 import java.util.Collections;
 import java.util.List;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Attribute;
@@ -204,4 +206,18 @@ public class MistakeDetectionUtils {
       System.out.println(m.getMistakeType().getName() + " in " + m.getStudentElements().get(0).getElement().getName());
     }
   }
+
+  /** Returns the XMI ID for an EObject as a string, if present. */
+  public static String xmiId(EObject eObject) {
+    if (eObject == null) {
+      return null;
+    }
+    var id = EcoreUtil.getID(eObject);
+    if (id == null && eObject.eResource() != null) {
+      // from eclipse.org/forums/index.php?t=msg&th=403365&goto=944954&#msg_944954
+      id = eObject.eResource().getURIFragment(eObject);
+    }
+    return id;
+  }
+
 }
