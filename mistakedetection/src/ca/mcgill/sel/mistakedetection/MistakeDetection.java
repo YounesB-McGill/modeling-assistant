@@ -25,6 +25,7 @@ import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isUsingCompos
 import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isUsingDirectedInsteadOfUndirected;
 import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isUsingUndirectedInsteadOfDirected;
 import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.startsWithUppercase;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.xmiId;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_CLASS_SHOULD_BE_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_ENUM_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_FULL_PR_PATTERN;
@@ -2242,11 +2243,10 @@ public class MistakeDetection {
    * @return boolean
    */
   private static boolean compareElement(SolutionElement existingElement, SolutionElement newElement) {
-    if(existingElement == null && newElement == null) {
+    if (existingElement == null && newElement == null) {
       return true;
-    } else if(existingElement != null && newElement != null) {
-      //return EcoreUtil.getID(existingElement.getElement()).equals(EcoreUtil.getID(newElement.getElement()));
-      return existingElement.getElement().equals(newElement.getElement());
+    } else if (existingElement != null && newElement != null) {
+      return xmiId(existingElement.getElement()).equals(xmiId(newElement.getElement()));
     }
     return false;
   }
