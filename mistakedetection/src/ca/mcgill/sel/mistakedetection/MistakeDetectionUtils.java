@@ -214,7 +214,8 @@ public class MistakeDetectionUtils {
     }
     var id = EcoreUtil.getID(eObject);
     if (id == null && eObject.eResource() != null) {
-      id = eObject.eResource().getURIFragment(eObject); // from eclipse.org/forums/index.php/m/944954
+      // from eclipse.org/forums/index.php?t=msg&th=403365&goto=944954&#msg_944954
+      id = eObject.eResource().getURIFragment(eObject);
     }
     return id;
   }
