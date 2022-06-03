@@ -125,7 +125,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -762,9 +761,9 @@ public class MistakeDetection {
     return studClass.getAssociationEnds().stream().allMatch(ae -> ae.getLowerBound() > 0);
   }
 
-  /** Returns null if key not found in mapping. */
-  public static Classifier getKey(Map<Classifier, Classifier> map, Classifier value) {
-    for (Entry<Classifier, Classifier> entry : map.entrySet()) {
+  /** Returns the key for the given value, or null if key not found in mapping. */
+  public static <T> T getKey(Map<T, T> map, T value) {
+    for (var entry : map.entrySet()) {
       if (entry.getValue().equals(value)) {
         return entry.getKey();
       }
@@ -1547,16 +1546,15 @@ public class MistakeDetection {
 
   /** Maps associations for mapped classes */
   private static void mapRelations(Comparison comparison) {
-    comparison.mappedClassifiers.forEach((key, value) -> compareAssocation(key, value, comparison));
+    comparison.mappedClassifiers.forEach((instClass, studClass) -> compareAssocation(instClass, studClass, comparison));
     checkAssociationClassMappingWithNonAssociationClass(comparison);
     comparison.assocClassifiersToRemove.forEach(c -> comparison.mappedClassifiers.remove(c));
-    comparison.assocClassMappingToAdd.forEach((key, value) -> {
-      if (comparison.mappedClassifiers.containsValue(value)) {
-        comparison.mappedClassifiers.remove(getKey(comparison.mappedClassifiers, value));
+    comparison.assocClassMappingToAdd.forEach((instClass, studClass) -> {
+      if (comparison.mappedClassifiers.containsValue(studClass)) {
+        comparison.mappedClassifiers.remove(getKey(comparison.mappedClassifiers, studClass));
       }
-      comparison.mappedClassifiers.put(key, value);
-      checkMistakesInClassifier(value, key, comparison.newMistakes);
-
+      comparison.mappedClassifiers.put(instClass, studClass);
+      checkMistakesInClassifier(studClass, instClass, comparison.newMistakes);
     });
   }
 
@@ -1693,8 +1691,8 @@ public class MistakeDetection {
       if (!comparison.mappedClassifiers.get(instAssocClass).equals(studAssocClass)) {
         comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
         if (!comparison.mappedClassifiers.containsValue(studAssocClass)) {
-        comparison.mappedClassifiers.put(instAssocClass, studAssocClass);
-        comparison.extraStudentClassifiers.remove(studAssocClass);
+          comparison.mappedClassifiers.put(instAssocClass, studAssocClass);
+          comparison.extraStudentClassifiers.remove(studAssocClass);
         }
       }
     }
@@ -1705,7 +1703,7 @@ public class MistakeDetection {
         comparison.newMistakes
             .add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS, List.of(comparison.mappedClassifiers.get(instAssocClass)),
                 List.of(instructorClassifierAssoc, instAssocClass)));
-        if(comparison.assocClassMappingToAdd.containsKey(instAssocClass)) {
+        if (comparison.assocClassMappingToAdd.containsKey(instAssocClass)) {
           comparison.assocClassifiersToRemove.add(instAssocClass);
         }
       }
@@ -1718,7 +1716,7 @@ public class MistakeDetection {
           if (value.equals(studAssocClass)) {
             comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS,
                 List.of(studentClassifierAssoc, studAssocClass), List.of(key)));
-            if(comparison.assocClassMappingToAdd.containsKey(key)) {
+            if (comparison.assocClassMappingToAdd.containsKey(key)) {
               comparison.assocClassifiersToRemove.add(key);
             }
             return;
