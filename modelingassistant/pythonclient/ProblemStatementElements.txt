@@ -1,0 +1,235 @@
+Problem Statement Element	Class Element	Association class	Attribute	Association	Association End	Generalization	Enummeration	Enummeration Literal
+You								
+have								
+been								
+asked								
+to								
+create								
+a								
+system	Hotel							
+to								
+manage								
+the								
+front-desk								
+activities								
+of								
+the								
+“SOCSHotel”.	Hotel			Hotel_Booking	Booking.hotel			
+The				Hotel_Booking				
+system	Hotel			Hotel_Booking				
+will				Hotel_Booking				
+be				Hotel_Booking				
+used				Hotel_Booking				
+to				Hotel_Booking				
+enter			checkInDate	Hotel_Booking				
+reservations	Booking		checkInDate	Hotel_Booking	Hotel.bookings			
+as			checkInDate					
+well			checkInDate					
+as			checkInDate					
+to			checkInDate	Hotel_Person				
+check			checkInDate	Hotel_Person	Hotel.persons			
+people	Person		checkInDate	Hotel_Person	Hotel.persons			
+in			checkInDate	Hotel_Person				
+and				Hotel_Person				
+out				Hotel_Person				
+of				Hotel_Person				
+the				Hotel_Person				
+hotel.	Hotel			Hotel_Person	Person.hotel			
+The				Hotel_Room				
+hotel	Hotel			"Hotel_Room, Hotel_Bed, Hotel_ Suite"	"Room.hotel, Suite.hotel, Bed.hotel"			
+contains				Hotel_Room				
+30				Hotel_Room				
+rooms	Room			"Hotel_Room, Room_Person"	"Hotel.rooms, Person.rooms"			
+in				Room_Person				
+which				Room_Person				
+guests	Person			Room_Person	Room.guest			
+can				Room_Person				
+stay.		Stay		Room_Person				
+Some								
+hotel	Hotel							
+rooms	Room							
+adjoin								
+"others,"								
+"i.e.,"								
+there								
+are								
+internal								
+doors								
+between								
+"them,"								
+so								
+a								
+guest	Person			Room_Suite				
+can				Room_Suite				
+stay		Stay		Room_Suite				
+either				Room_Suite				
+in				Room_Suite				
+an				Room_Suite				
+individualroom	Room			Room_Suite	Suite.composedOf			
+or				Room_Suite				
+a				"Room_Suite, Hotel_Suite"				
+suite	Suite			"Room_Suite, Hotel_Suite"	"Room.suite,  Hotel.suites"			
+(multiple								
+rooms).								
+Each				Hotel_RoomType				
+hotel	Hotel			Hotel_RoomType	RoomType.hotel			
+room	Room			Hotel_RoomType	Hotel.roomType		Quality	
+is				Hotel_RoomType			Quality	
+assigned				Hotel_RoomType			Quality	
+a				Hotel_RoomType			Quality	
+qualitylevel			qualityLevel	Hotel_RoomType	Hotel.roomType		Quality	
+"(e.g.,"								
+a								
+larger								"SuperiorWithView, Superior, Standard, StandardWithView"
+room	Room							"SuperiorWithView, Superior, Standard, StandardWithView"
+or								"SuperiorWithView, Superior, Standard, StandardWithView"
+a								"SuperiorWithView, Superior, Standard, StandardWithView"
+room	Room							"SuperiorWithView, Superior, Standard, StandardWithView"
+with								"SuperiorWithView, Superior, Standard, StandardWithView"
+a								"SuperiorWithView, Superior, Standard, StandardWithView"
+view								"SuperiorWithView, Superior, Standard, StandardWithView"
+would								"SuperiorWithView, Superior, Standard, StandardWithView"
+be								"SuperiorWithView, Superior, Standard, StandardWithView"
+better								"SuperiorWithView, Superior, Standard, StandardWithView"
+than								"SuperiorWithView, Superior, Standard, StandardWithView"
+a								"SuperiorWithView, Superior, Standard, StandardWithView"
+smaller								"SuperiorWithView, Superior, Standard, StandardWithView"
+room								"SuperiorWithView, Superior, Standard, StandardWithView"
+without								"SuperiorWithView, Superior, Standard, StandardWithView"
+a								"SuperiorWithView, Superior, Standard, StandardWithView"
+view).								"SuperiorWithView, Superior, Standard, StandardWithView"
+Each				Room_Bed				
+room	Room			Room_Bed	Bed.In			
+also				Room_Bed				
+has				Room_Bed				
+a				Room_Bed				
+certain			roomNumber	"Room_Bed, Hotel_Bed"				
+number			roomNumber	"Room_Bed, Hotel_Bed"				
+and				"Room_Bed, Hotel_Bed"				
+"typeofbeds,"	Bed		type	"Room_Bed, Hotel_Bed"	"Room.beds, Hotel.beds"		BedType	"Single, Double, Queen, King"
+a								
+"roomnumber,"			roomNumber					
+and								
+a								
+smoking			status				SmokingStatus	Smoking
+/			status				SmokingStatus	
+non-smoking			status				SmokingStatus	NonSmoking
+status.			status				SmokingStatus	
+Each								
+qualitylevel			qualityLevel					
+has								
+a								
+"maximumdailyrate,"			maxDailyRate					
+although								
+the								
+rate			dailyRate					
+that								
+a								
+guest	Person							
+pays			bookedDailyRate					
+may								
+be								
+less.								
+When								
+a								
+hotelguest				Person_Booking	Booking.By			
+wishes				Person_Booking				
+to				Person_Booking				
+make				Person_Booking				
+a				Person_Booking				
+"reservation,"	Booking			Person_Booking	Person.bookings			
+the								
+hotelclerk								
+asks								
+him								
+or								
+her								
+what								
+nights								
+he				Room_RoomType				
+or				Room_RoomType				
+she				Room_RoomType				
+wants				Room_RoomType				
+to				Room_RoomType				
+stay		Stay		Room_RoomType	RoomType.Room			
+and				Room_RoomType				
+the				Room_RoomType				
+typeofroom	RoomType			Room_RoomType	Room.type			
+he								
+or								
+she								
+wants.								
+The								
+system	Hotel							
+must								
+verify								
+if								
+room(s)	Room		startDate	Room_Booking	Booking.bookedRooms			
+are			startDate	Room_Booking				
+available	Date	"day, month, year"	startDate	Room_Booking				
+on	Date	"day, month, year"	startDate	Room_Booking				
+those	Date	"day, month, year"	startDate	Room_Booking				
+nights	Date	"day, month, year"	"startDate, plannedNumberOfNights"	Room_Booking				
+before			startDate	Room_Booking				
+allowing			startDate	Room_Booking				
+a			startDate	Room_Booking				
+reservation	Booking			Room_Booking	Room.bookings			
+to								
+be								
+made.								
+The								
+hotel	Hotel							
+needs								
+to								
+record								
+basic								
+information								
+about								
+each								
+"guest,"	Person							
+"e.g.,"								
+his/her								
+"name,"			name					
+"address,"			address					
+telephone			phoneNumber					
+"number,"			phoneNumber					
+"creditcard,"			creditcard					
+etc.								
+A								
+reservation	Booking							
+can								
+be								
+cancelled								
+at								
+any								
+time.								
+When			checkInDate					
+a			checkInDate					
+guest	Person		checkInDate					
+checks			checkInDate					
+"in,"			checkInDate					
+a								
+room	Room							
+is								
+allocated								
+to								
+him/her								
+until								
+s/he			numberOfNights					
+checks			numberOfNights					
+out.			numberOfNights					
+The								
+system	Hotel							
+must								
+keep								
+track								
+of								
+the								
+guest's	Person							
+"account,"								
+and								
+print								
+his								
+or								
+her								
+bill.								
