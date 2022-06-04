@@ -1434,7 +1434,7 @@ public class MistakeDetection {
     }
     for (NamedElement el : studEnumElements) {
       if (el instanceof CDEnumLiteral) {
-        if(orderedList.size() <= 1) {
+        if (orderedList.size() <= 1) {
           CDEnumLiteral studLiteral = (CDEnumLiteral) el;
           CDEnum studEnum = studLiteral.getEnum();
           orderedList.add(getAttributeFromEnumeration(studEnum.getName(), comparison.studentCdm));
@@ -1552,7 +1552,7 @@ public class MistakeDetection {
     comparison.assocClassifiersToRemove.forEach(c -> comparison.mappedClassifiers.remove(c));
     comparison.assocClassMappingToAdd.forEach((instClass, studClass) -> {
       if (comparison.mappedClassifiers.containsValue(studClass)) {
-        comparison.mappedClassifiers.remove(getKey(comparison.mappedClassifiers, studClass));
+        comparison.mappedClassifiers.values().remove(studClass);
       }
       comparison.mappedClassifiers.put(instClass, studClass);
       checkMistakesInClassifier(studClass, instClass, comparison.newMistakes);
@@ -1734,7 +1734,7 @@ public class MistakeDetection {
         Classifier instAssocClass = instAssoc.getAssociationClass();
         comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS,
             List.of(comparison.mappedClassifiers.get(instAssocClass)), List.of(instAssoc, instAssocClass)));
-        if(comparison.assocClassMappingToAdd.containsKey(instAssocClass)){
+        if (comparison.assocClassMappingToAdd.containsKey(instAssocClass)) {
           comparison.assocClassifiersToRemove.add(instAssocClass);
         }
       }
@@ -2341,7 +2341,7 @@ public class MistakeDetection {
           for (Attribute instructorAttribute : instructorAttributes) {
             for (Attribute studentAttribute : studentAttributes) {
               if (isAttributeMatch(instructorAttribute, studentAttribute, comparison)) {
-                if(!countedAttrib.contains(instructorAttribute) && !countedAttrib.contains(studentAttribute)) {
+                if (!countedAttrib.contains(instructorAttribute) && !countedAttrib.contains(studentAttribute)) {
                   correctAttribute++;
                   countedAttrib.add(instructorAttribute);
                   countedAttrib.add(studentAttribute);
