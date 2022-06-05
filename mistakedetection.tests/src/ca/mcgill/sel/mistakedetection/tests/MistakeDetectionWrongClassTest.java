@@ -1524,6 +1524,7 @@ public class MistakeDetectionWrongClassTest extends MistakeDetectionBaseTest {
 
     assertEquals(studentCompanyClass, comparison.mappedClassifiers.get(instructorCompanyClass));
     assertEquals(studentBusPassClass, comparison.mappedClassifiers.get(instructorBusPassClass));
+    assertEquals(0, comparison.newMistakes.size());
   }
 
   /**
