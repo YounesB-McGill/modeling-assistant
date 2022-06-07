@@ -8,7 +8,8 @@ Many of these tests have equivalents written in Java and therefore serve as a fo
 import os
 import re
 from textwrap import dedent
-
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import pytest
 import learningcorpus  # pylint: disable=unused-import
 from stringserdes import SRSET, str_to_modelingassistant
@@ -807,3 +808,4 @@ def _get_compos_aggreg_assoc_reference() -> Reference:
 
 if __name__ == "__main__":
     "Main entry point."
+    test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java()
