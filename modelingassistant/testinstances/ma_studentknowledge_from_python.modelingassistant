@@ -1,17 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:learningcorpus="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0" xmi:id="831d3d57-eee9-4722-a382-698d3a19d7fa" xmi:version="2.0">
-  <solutions xsi:type="modelingassistant:Solution" xmi:id="5ac23ee1-c7f4-47e7-ab4c-3e254e1ace50" student="f873818d-fc7b-4a47-9760-0cdae503e1f3">
+<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:learningcorpus="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="e3e4c410-50fc-4276-bbaa-0dfb738dfe28" xmi:version="2.0">
+  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="680ff835-ae24-4cc7-8d76-ededc5d5a899" student="f3d457b7-ece2-4122-94a7-53e6599b07a1" levelOfKnowledge="10578963.0">
+    <mistakeType href="..\learningcorpusinstances\default.learningcorpus#6d288fd8-3232-40fa-a200-7647e24bed9c" xsi:type="learningcorpus:MistakeType"/>
+  </studentKnowledges>
+  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="8588a2d6-daf0-4129-93cc-ec9615b0c5d7" student="0da65466-2c7b-4f36-96b3-a50859ec62f7" levelOfKnowledge="8996541.0">
+    <mistakeType href="..\learningcorpusinstances\default.learningcorpus#6d288fd8-3232-40fa-a200-7647e24bed9c" xsi:type="learningcorpus:MistakeType"/>
+  </studentKnowledges>
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="6fb527fe-e89c-4ca8-8a79-5619610fdd66" student="f3d457b7-ece2-4122-94a7-53e6599b07a1">
     <classDiagram href="ma_studentknowledge_from_python1.cdm#_VQRncElSEeuektpDqzDh1Q" xsi:type="classdiagram:ClassDiagram"/>
   </solutions>
-  <solutions xsi:type="modelingassistant:Solution" xmi:id="546e1cf6-fdbd-46f3-9bb0-0115412e80ae" student="1e441371-eb78-4918-8d14-ed5f7918a227">
-    <classDiagram href="ma_studentknowledge_from_python2.cdm#51cfeac5-979a-49a2-ae4e-4e3dca449e66" xsi:type="classdiagram:ClassDiagram"/>
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="59222054-c104-414d-b805-1c35c95837a3" student="0da65466-2c7b-4f36-96b3-a50859ec62f7">
+    <classDiagram href="ma_studentknowledge_from_python2.cdm#704e7e0a-9c08-494d-86b4-b674c9f3ade8" xsi:type="classdiagram:ClassDiagram"/>
   </solutions>
-  <students xsi:type="modelingassistant:Student" xmi:id="f873818d-fc7b-4a47-9760-0cdae503e1f3" studentKnowledges="f1b9c58d-7fb9-4ac5-ac74-34f8de26daf3" solutions="5ac23ee1-c7f4-47e7-ab4c-3e254e1ace50" id="1111"/>
-  <students xsi:type="modelingassistant:Student" xmi:id="1e441371-eb78-4918-8d14-ed5f7918a227" studentKnowledges="61b6ce7f-f1dc-447f-bd0e-ba9b18d9fb44" solutions="546e1cf6-fdbd-46f3-9bb0-0115412e80ae" id="2222"/>
-  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="f1b9c58d-7fb9-4ac5-ac74-34f8de26daf3" levelOfKnowledge="10578963.0" student="f873818d-fc7b-4a47-9760-0cdae503e1f3">
-    <mistakeType href="..\learningcorpusinstances\default.learningcorpus#6d288fd8-3232-40fa-a200-7647e24bed9c" xsi:type="learningcorpus:MistakeType"/>
-  </studentKnowledges>
-  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="61b6ce7f-f1dc-447f-bd0e-ba9b18d9fb44" levelOfKnowledge="8996541.0" student="1e441371-eb78-4918-8d14-ed5f7918a227">
-    <mistakeType href="..\learningcorpusinstances\default.learningcorpus#6d288fd8-3232-40fa-a200-7647e24bed9c" xsi:type="learningcorpus:MistakeType"/>
-  </studentKnowledges>
+  <students xsi:type="modelingassistant:Student" xmi:id="f3d457b7-ece2-4122-94a7-53e6599b07a1" studentKnowledges="680ff835-ae24-4cc7-8d76-ededc5d5a899" solutions="6fb527fe-e89c-4ca8-8a79-5619610fdd66" id="1111"/>
+  <students xsi:type="modelingassistant:Student" xmi:id="0da65466-2c7b-4f36-96b3-a50859ec62f7" studentKnowledges="8588a2d6-daf0-4129-93cc-ec9615b0c5d7" solutions="59222054-c104-414d-b805-1c35c95837a3" id="2222"/>
 </modelingassistant:ModelingAssistant>
