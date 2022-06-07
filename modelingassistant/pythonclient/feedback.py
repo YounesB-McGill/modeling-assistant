@@ -74,6 +74,7 @@ def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackIte
     resolved_mistakes: list[Mistake] = [m for m in student_solution.mistakes if m.resolvedByStudent]
     for m in resolved_mistakes:
         if sk := student_knowledge_for(m):
+            # print statements for debugging, will be cleaned up later
             print(m.mistakeType.name, m.lastFeedback)
             sk.levelOfKnowledge += m.lastFeedback.feedback.level / 2
 
