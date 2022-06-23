@@ -458,7 +458,7 @@ public class MistakeDetection {
 
     for (Attribute studAttrib : comparison.extraStudentAttributes) {
       for (Attribute instAttrib : comparison.notMappedInstructorAttributes) {
-        if (isAttributeMatch(instAttrib, studAttrib, comparison) && !instAttributesProcessed.contains(instAttrib)) {
+        if (isAttributeMatch(instAttrib, studAttrib, comparison) && !instAttributesProcessed.contains(instAttrib) && !studAttributesProcessed.contains(studAttrib)) {
           Classifier instClass = (Classifier) instAttrib.eContainer();
           Classifier studClass = (Classifier) studAttrib.eContainer();
 
@@ -1552,6 +1552,7 @@ public class MistakeDetection {
     comparison.assocClassifiersToRemove.forEach(c -> comparison.mappedClassifiers.remove(c));
     comparison.assocClassMappingToAdd.forEach((instClass, studClass) -> {
       if (comparison.mappedClassifiers.containsValue(studClass)) {
+        comparison.notMappedInstructorClassifiers.add(getKey(comparison.mappedClassifiers, studClass));
         comparison.mappedClassifiers.values().remove(studClass);
       }
       comparison.mappedClassifiers.put(instClass, studClass);

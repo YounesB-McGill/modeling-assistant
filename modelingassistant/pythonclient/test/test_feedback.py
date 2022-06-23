@@ -609,7 +609,7 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     mistakes: list[Mistake] = solution.mistakes
 
     assert fb.highlightSolutionElements
-    assert solution.mistakes[0].mistakeType == INCOMPLETE_CONTAINMENT_TREE
+    assert solution.mistakes[2].mistakeType == INCOMPLETE_CONTAINMENT_TREE 
 
 
 if __name__ == '__main__':

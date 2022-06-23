@@ -76,7 +76,8 @@ def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackIte
         if sk := student_knowledge_for(m):
             # print statements for debugging, will be cleaned up later
             print(m.mistakeType.name, m.lastFeedback)
-            sk.levelOfKnowledge += m.lastFeedback.feedback.level / 2
+            if m.lastFeedback: # TODO to debug why it is null
+                sk.levelOfKnowledge += m.lastFeedback.feedback.level / 2
 
     return result[0] if len(result) == 1 else result
 
