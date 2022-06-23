@@ -101,10 +101,10 @@ class StringEnabledResourceSet(ResourceSet):
     def resolve(self, uri, from_resource=None):
         if isinstance(uri, str):
             uri = uri.removeprefix("file:")
-            if "default.learningcorpus" in uri:
+            if "default.learningcorpus" in uri and os.name == "nt":
                 uri = uri.replace('G:/','').replace('/','\\')
         else:
-            if "default.learningcorpus" in uri.plain:
+            if "default.learningcorpus" in uri.plain and os.name == "nt":
                 uri = uri.plain.replace('G:/','').replace('/','\\')
         return super().resolve(uri, from_resource)
 

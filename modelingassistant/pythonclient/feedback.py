@@ -74,9 +74,7 @@ def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackIte
     resolved_mistakes: list[Mistake] = [m for m in student_solution.mistakes if m.resolvedByStudent]
     for m in resolved_mistakes:
         if sk := student_knowledge_for(m):
-            # print statements for debugging, will be cleaned up later
-            print(m.mistakeType.name, m.lastFeedback)
-            if m.lastFeedback: # TODO to debug why it is null
+            if m.lastFeedback: # ignore mistakes which have been resolved before feedback was given on them
                 sk.levelOfKnowledge += m.lastFeedback.feedback.level / 2
 
     return result[0] if len(result) == 1 else result
@@ -104,6 +102,7 @@ def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:
     # pylint: disable=protected-access
     # TODO Cache studentknowledges or redesign metamodel to access them in O(1) time instead of O(n)
     student = mistake.solution.student
+    # print statements for debugging, will be cleaned up later
     #print("Student knowledges for", student.name, "Mistake", mistake.mistakeType.name,mistake.mistakeType._internal_id)
     for sk in student.studentKnowledges:
         #print(">>>", sk.mistakeType.name, sk.mistakeType._internal_id, sk.levelOfKnowledge)

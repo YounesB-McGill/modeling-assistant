@@ -192,7 +192,7 @@ Level 2: Text response:
 
 Level 3: Parametrized response:
 
-> ${stud_cls} contains a software engineering term (e.g., data, database, table), which does not belong in a domain model.
+> ${stud_cls} contains a software engineering term (e.g., data, database, table, record), which does not belong in a domain model.
 
 Level 4: Resource response with Example:
 
