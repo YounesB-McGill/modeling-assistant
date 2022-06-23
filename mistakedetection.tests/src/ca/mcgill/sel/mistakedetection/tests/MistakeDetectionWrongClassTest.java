@@ -1551,10 +1551,10 @@ public class MistakeDetectionWrongClassTest extends MistakeDetectionBaseTest {
   }
 
   /**
-   * Check Company-BusPass AssocClass for mapping and Extra Company.
+   * Check Company-BusPass AssocClass for mapping and not mapped Company.
    */
   @Test
-  public void testMappingAssocClassCompanyAndBusPassAndExtraCompany() {
+  public void testMappingAssocClassCompanyAndBusPassAndNotMappedCompany() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_busDriverCompanyPassengerAssocClass/Class Diagram/Instructor_busDriverCompanyPassengerAssocClass.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -1566,10 +1566,11 @@ public class MistakeDetectionWrongClassTest extends MistakeDetectionBaseTest {
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
     var instructorBusPassClass = getClassFromClassDiagram("BusPass", instructorClassDiagram);
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false).log();
 
     assertEquals(studentCompanyClass, comparison.mappedClassifiers.get(instructorBusPassClass));
-    assertFalse(comparison.notMappedInstructorClassifiers.contains(instructorCompanyClass));
+
+    assertTrue(comparison.notMappedInstructorClassifiers.contains(instructorCompanyClass));
   }
 
   /**
