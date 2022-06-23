@@ -1566,7 +1566,7 @@ public class MistakeDetectionWrongClassTest extends MistakeDetectionBaseTest {
     var instructorCompanyClass = getClassFromClassDiagram("Company", instructorClassDiagram);
     var instructorBusPassClass = getClassFromClassDiagram("BusPass", instructorClassDiagram);
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
-    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false).log();
+    var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
     assertEquals(studentCompanyClass, comparison.mappedClassifiers.get(instructorBusPassClass));
 
