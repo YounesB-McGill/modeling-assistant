@@ -70,7 +70,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     1: HighlightSolution(),
                     2: TextResponse(text="Remember that a domain model should not contain software engineering terms."),
                     3: ParametrizedResponse(text="${stud_cls} contains a software engineering term (e.g., data, "
-                        "database, table), which does not belong in a domain model."),
+                        "database, table, record), which does not belong in a domain model."),
                     4: ResourceResponse(learningResources=[correct_class_naming_example]),
                     5: ResourceResponse(learningResources=[class_ref]),
                 })),
