@@ -5,9 +5,12 @@ import static ca.mcgill.sel.classdiagram.ReferenceType.COMPOSITION;
 import static ca.mcgill.sel.classdiagram.ReferenceType.REGULAR;
 import java.util.Collections;
 import java.util.List;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import ca.mcgill.sel.classdiagram.Association;
 import ca.mcgill.sel.classdiagram.AssociationEnd;
 import ca.mcgill.sel.classdiagram.Attribute;
+import ca.mcgill.sel.classdiagram.CDDouble;
 import ca.mcgill.sel.classdiagram.CDFloat;
 import ca.mcgill.sel.classdiagram.CDInt;
 import ca.mcgill.sel.classdiagram.CDLong;
@@ -145,8 +148,10 @@ public class MistakeDetectionUtils {
   public static boolean attributeTypesMatch(Attribute studentAttribute, Attribute instructorAttribute) {
     if (!studentAttribute.getType().getClass().equals(instructorAttribute.getType().getClass())) {
       if ((instructorAttribute.getType() instanceof CDInt || instructorAttribute.getType() instanceof CDFloat
+          || instructorAttribute.getType() instanceof CDDouble
           || instructorAttribute.getType() instanceof CDLong)
           && (studentAttribute.getType() instanceof CDFloat || studentAttribute.getType() instanceof CDLong
+              || studentAttribute.getType() instanceof CDDouble
               || studentAttribute.getType() instanceof CDInt)) {
         return true;
       }
@@ -201,4 +206,18 @@ public class MistakeDetectionUtils {
       System.out.println(m.getMistakeType().getName() + " in " + m.getStudentElements().get(0).getElement().getName());
     }
   }
+
+  /** Returns the XMI ID for an EObject as a string, if present. */
+  public static String xmiId(EObject eObject) {
+    if (eObject == null) {
+      return null;
+    }
+    var id = EcoreUtil.getID(eObject);
+    if (id == null && eObject.eResource() != null) {
+      // from eclipse.org/forums/index.php?t=msg&th=403365&goto=944954&#msg_944954
+      id = eObject.eResource().getURIFragment(eObject);
+    }
+    return id;
+  }
+
 }

@@ -5,6 +5,7 @@ Module for custom, string-friendly pyecore items.
 """
 
 from __future__ import annotations
+from email.policy import default
 
 import re
 import os
@@ -100,6 +101,11 @@ class StringEnabledResourceSet(ResourceSet):
     def resolve(self, uri, from_resource=None):
         if isinstance(uri, str):
             uri = uri.removeprefix("file:")
+            if "default.learningcorpus" in uri and os.name == "nt":
+                uri = uri.replace('G:/','').replace('/','\\')
+        else:
+            if "default.learningcorpus" in uri.plain and os.name == "nt":
+                uri = uri.plain.replace('G:/','').replace('/','\\')
         return super().resolve(uri, from_resource)
 
     @staticmethod

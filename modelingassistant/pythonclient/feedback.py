@@ -74,7 +74,8 @@ def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackIte
     resolved_mistakes: list[Mistake] = [m for m in student_solution.mistakes if m.resolvedByStudent]
     for m in resolved_mistakes:
         if sk := student_knowledge_for(m):
-            sk.levelOfKnowledge += m.lastFeedback.level / 2
+            if m.lastFeedback: # ignore mistakes which have been resolved before feedback was given on them
+                sk.levelOfKnowledge += m.lastFeedback.feedback.level / 2
 
     return result[0] if len(result) == 1 else result
 
@@ -98,11 +99,19 @@ def student_knowledge_for(mistake: Mistake) -> StudentKnowledge:
     Return the student knowledge object for the given mistake (a mistake is made by a specific student).
     If not found, create a new one.
     """
+    # pylint: disable=protected-access
     # TODO Cache studentknowledges or redesign metamodel to access them in O(1) time instead of O(n)
     student = mistake.solution.student
-    return next((sk for sk in student.studentKnowledges if sk.mistakeType == mistake.mistakeType),
-                StudentKnowledge(student=student, mistakeType=mistake.mistakeType, levelOfKnowledge=5.0,
-                                 modelingAssistant=mistake.solution.modelingAssistant))
+    # print statements for debugging, will be cleaned up later
+    #print("Student knowledges for", student.name, "Mistake", mistake.mistakeType.name,mistake.mistakeType._internal_id)
+    for sk in student.studentKnowledges:
+        #print(">>>", sk.mistakeType.name, sk.mistakeType._internal_id, sk.levelOfKnowledge)
+        if sk.mistakeType._internal_id == mistake.mistakeType._internal_id:
+            #print("--- Returning existing SK\n")
+            return sk
+    #print(f"** Creating new SK for mistake type {mistake.mistakeType.name} ({mistake.mistakeType._internal_id}) **\n")
+    return StudentKnowledge(student=student, mistakeType=mistake.mistakeType, levelOfKnowledge=5.0,
+                            modelingAssistant=mistake.solution.modelingAssistant)
 
 
 def give_feedback_for_student_cdm(username: str, student_cdm: ClassDiagram | str, ma: ModelingAssistant = None

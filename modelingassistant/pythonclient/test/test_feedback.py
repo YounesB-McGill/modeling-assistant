@@ -577,7 +577,7 @@ def test_feedback_for_modeling_assistant_instance_with_mistakes_from_mistake_det
     assert 9 == ma.studentKnowledges[0].levelOfKnowledge
 
 
-@pytest.mark.skip(reason="Longer test time because running the MDS REST API server is required")
+#@pytest.mark.skip(reason="Longer test time because running the MDS REST API server is required")
 def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system():
     """
     Test feedback for a serialized modeling assistant instance with mistakes detected from the mistake detection system.
@@ -609,7 +609,7 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     mistakes: list[Mistake] = solution.mistakes
 
     assert fb.highlightSolutionElements
-    assert solution.mistakes[0].mistakeType == INCOMPLETE_CONTAINMENT_TREE
+    assert INCOMPLETE_CONTAINMENT_TREE in [m.mistakeType for m in mistakes]
 
 
 if __name__ == '__main__':
