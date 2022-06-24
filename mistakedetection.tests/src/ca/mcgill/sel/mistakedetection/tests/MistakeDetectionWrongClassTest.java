@@ -1568,8 +1568,9 @@ public class MistakeDetectionWrongClassTest extends MistakeDetectionBaseTest {
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
+    // studentCompany maps to instructorBusPass because both are assoc classes between same classes, ie,
+    // Passenger-studentCompany-Bus and Passenger-instructorBusPass-Bus
     assertEquals(studentCompanyClass, comparison.mappedClassifiers.get(instructorBusPassClass));
-
     assertTrue(comparison.notMappedInstructorClassifiers.contains(instructorCompanyClass));
   }
 
