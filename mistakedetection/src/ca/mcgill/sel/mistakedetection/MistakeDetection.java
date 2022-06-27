@@ -25,6 +25,7 @@ import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isUsingCompos
 import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isUsingDirectedInsteadOfUndirected;
 import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.isUsingUndirectedInsteadOfDirected;
 import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.startsWithUppercase;
+import static ca.mcgill.sel.mistakedetection.MistakeDetectionUtils.xmiId;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_CLASS_SHOULD_BE_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_ENUM_PR_PATTERN;
 import static learningcorpus.mistaketypes.MistakeTypes.ASSOC_SHOULD_BE_FULL_PR_PATTERN;
@@ -125,7 +126,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -287,7 +287,7 @@ public class MistakeDetection {
             possibleClassifierMatch = studentClassifier;
             priority = HIGH_PRIORITY;
           }
-        } else if (checkClassAndAttribBasedOnSpellingError(instructorClassifier, studentClassifier)) {
+        } else if (checkClassAndAttribBasedOnSpellingError(instructorClassifier, studentClassifier, comparison)) {
           if (priority <= MID_PRIORITY) {
             possibleClassifierMatch = studentClassifier;
             priority = MID_PRIORITY;
@@ -352,7 +352,7 @@ public class MistakeDetection {
 
   /** Returns true if attributes match based on Levenshtein Distance, synonyms or enum-bool relationship. */
   private static boolean isAttributeMatch(Attribute instructorAttribute, Attribute studentAttribute, Comparison comparison) {
-    int lDistance = getMinimumLDInSynonyms(instructorAttribute, studentAttribute);
+    int lDistance = getMinimumLDInSynonyms(instructorAttribute, studentAttribute, comparison);
     return (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)
         || isEnumAttributeBoolean(instructorAttribute, studentAttribute, comparison));
   }
@@ -458,7 +458,7 @@ public class MistakeDetection {
 
     for (Attribute studAttrib : comparison.extraStudentAttributes) {
       for (Attribute instAttrib : comparison.notMappedInstructorAttributes) {
-        if (isAttributeMatch(instAttrib, studAttrib, comparison)) {
+        if (isAttributeMatch(instAttrib, studAttrib, comparison) && !instAttributesProcessed.contains(instAttrib) && !studAttributesProcessed.contains(studAttrib)) {
           Classifier instClass = (Classifier) instAttrib.eContainer();
           Classifier studClass = (Classifier) studAttrib.eContainer();
 
@@ -762,9 +762,9 @@ public class MistakeDetection {
     return studClass.getAssociationEnds().stream().allMatch(ae -> ae.getLowerBound() > 0);
   }
 
-  /** Returns null if key not found in mapping. */
-  public static Classifier getKey(Map<Classifier, Classifier> map, Classifier value) {
-    for (Entry<Classifier, Classifier> entry : map.entrySet()) {
+  /** Returns the key for the given value, or null if key not found in mapping. */
+  public static <T> T getKey(Map<T, T> map, T value) {
+    for (var entry : map.entrySet()) {
       if (entry.getValue().equals(value)) {
         return entry.getKey();
       }
@@ -1434,7 +1434,7 @@ public class MistakeDetection {
     }
     for (NamedElement el : studEnumElements) {
       if (el instanceof CDEnumLiteral) {
-        if(orderedList.size() <= 1) {
+        if (orderedList.size() <= 1) {
           CDEnumLiteral studLiteral = (CDEnumLiteral) el;
           CDEnum studEnum = studLiteral.getEnum();
           orderedList.add(getAttributeFromEnumeration(studEnum.getName(), comparison.studentCdm));
@@ -1547,12 +1547,16 @@ public class MistakeDetection {
 
   /** Maps associations for mapped classes */
   private static void mapRelations(Comparison comparison) {
-    comparison.mappedClassifiers.forEach((key, value) -> compareAssocation(key, value, comparison));
+    comparison.mappedClassifiers.forEach((instClass, studClass) -> compareAssocation(instClass, studClass, comparison));
     checkAssociationClassMappingWithNonAssociationClass(comparison);
     comparison.assocClassifiersToRemove.forEach(c -> comparison.mappedClassifiers.remove(c));
-    comparison.assocClassMappingToAdd.forEach((key, value) -> {
-      comparison.mappedClassifiers.put(key, value);
-      checkMistakesInClassifier(value, key, comparison.newMistakes);
+    comparison.assocClassMappingToAdd.forEach((instClass, studClass) -> {
+      if (comparison.mappedClassifiers.containsValue(studClass)) {
+        comparison.notMappedInstructorClassifiers.add(getKey(comparison.mappedClassifiers, studClass));
+        comparison.mappedClassifiers.values().remove(studClass);
+      }
+      comparison.mappedClassifiers.put(instClass, studClass);
+      checkMistakesInClassifier(studClass, instClass, comparison.newMistakes);
     });
   }
 
@@ -1688,8 +1692,10 @@ public class MistakeDetection {
       }
       if (!comparison.mappedClassifiers.get(instAssocClass).equals(studAssocClass)) {
         comparison.extraStudentClassifiers.add(comparison.mappedClassifiers.get(instAssocClass));
-        comparison.mappedClassifiers.put(instAssocClass, studAssocClass);
-        comparison.extraStudentClassifiers.remove(studAssocClass);
+        if (!comparison.mappedClassifiers.containsValue(studAssocClass)) {
+          comparison.mappedClassifiers.put(instAssocClass, studAssocClass);
+          comparison.extraStudentClassifiers.remove(studAssocClass);
+        }
       }
     }
     if (studentClassifierAssoc.getAssociationClass() == null
@@ -1699,6 +1705,9 @@ public class MistakeDetection {
         comparison.newMistakes
             .add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS, List.of(comparison.mappedClassifiers.get(instAssocClass)),
                 List.of(instructorClassifierAssoc, instAssocClass)));
+        if (comparison.assocClassMappingToAdd.containsKey(instAssocClass)) {
+          comparison.assocClassifiersToRemove.add(instAssocClass);
+        }
       }
     }
     if (studentClassifierAssoc.getAssociationClass() != null
@@ -1709,6 +1718,9 @@ public class MistakeDetection {
           if (value.equals(studAssocClass)) {
             comparison.newMistakes.add(createMistake(ASSOC_CLASS_SHOULD_BE_CLASS,
                 List.of(studentClassifierAssoc, studAssocClass), List.of(key)));
+            if (comparison.assocClassMappingToAdd.containsKey(key)) {
+              comparison.assocClassifiersToRemove.add(key);
+            }
             return;
           }
         });
@@ -1723,6 +1735,9 @@ public class MistakeDetection {
         Classifier instAssocClass = instAssoc.getAssociationClass();
         comparison.newMistakes.add(createMistake(CLASS_SHOULD_BE_ASSOC_CLASS,
             List.of(comparison.mappedClassifiers.get(instAssocClass)), List.of(instAssoc, instAssocClass)));
+        if (comparison.assocClassMappingToAdd.containsKey(instAssocClass)) {
+          comparison.assocClassifiersToRemove.add(instAssocClass);
+        }
       }
     }
 
@@ -1968,6 +1983,7 @@ public class MistakeDetection {
 
     // List containing mistakes associated with a student Solution
     var existingMistakes = List.copyOf(studentSolution.getMistakes()); // copy to simplify removals
+
     var newMistakes = comparison.newMistakes;
     existingMistakes.forEach(setSolutionForElems);
     newMistakes.forEach(setSolutionForElems);
@@ -2015,7 +2031,7 @@ public class MistakeDetection {
       for (var existingMistake : existingMistakes) {
         if (!existingMistakesProcessed.contains(existingMistake)) {
           if (existingMistake.getNumSinceResolved() <= MAX_DETECTIONS_AFTER_RESOLUTION
-              && existingMistake.isResolved()) {
+              && !existingMistake.isResolved()) {
             existingMistake.setResolved(true);
             existingMistake.setNumSinceResolved(existingMistake.getNumSinceResolved() + 1);
           } else {
@@ -2226,7 +2242,12 @@ public class MistakeDetection {
    * @return boolean
    */
   private static boolean compareElement(SolutionElement existingElement, SolutionElement newElement) {
-    return existingElement.getElement().equals(newElement.getElement());
+    if (existingElement == null && newElement == null) {
+      return true;
+    } else if (existingElement != null && newElement != null) {
+      return xmiId(existingElement.getElement()).equals(xmiId(newElement.getElement()));
+    }
+    return false;
   }
 
   /** Sets the properties of a mistake. */
@@ -2259,20 +2280,22 @@ public class MistakeDetection {
    * Maps classes with Levenshtein distance less than or equal to MAX_LEVENSHTEIN_DISTANCE_ALLOWED, taking synonyms into
    * account.
    */
-  public static boolean checkClassAndAttribBasedOnSpellingError(Classifier instructorClass, Classifier studentClass) {
-    int lDistance = getMinimumLDInSynonyms(instructorClass, studentClass);
+  public static boolean checkClassAndAttribBasedOnSpellingError(Classifier instructorClass, Classifier studentClass, Comparison comparison) {
+    int lDistance = getMinimumLDInSynonyms(instructorClass, studentClass, comparison);
     return 0 <= lDistance && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED;
   }
 
   /** Returns minimum Levenshtein Distance between instructor attribute and student attribute including its synonyms */
-  public static int getMinimumLDInSynonyms(NamedElement instructorElem, NamedElement studentElem) {
+  public static int getMinimumLDInSynonyms(NamedElement instructorElem, NamedElement studentElem, Comparison comparison) {
     var se = SolutionElement.forCdmElement(instructorElem);
     int attribDistance = levenshteinDistance(studentElem.getName(), instructorElem.getName());
     int synDistance = attribDistance;
-    for (var syn : se.getSynonyms()) {
-      int distance = levenshteinDistance(studentElem.getName(), syn.getName());
-      if (distance < synDistance) {
-        synDistance = distance;
+    if (!comparison.mappedAttributes.containsValue(studentElem) && !comparison.mappedAttributes.containsKey(instructorElem)) {
+      for (var syn : se.getSynonyms()) {
+        int distance = levenshteinDistance(studentElem.getName(), syn.getName());
+        if (distance < synDistance) {
+          synDistance = distance;
+        }
       }
     }
     return Math.min(attribDistance, synDistance);
@@ -2315,10 +2338,15 @@ public class MistakeDetection {
               continue;
             }
           }
+          List<Attribute> countedAttrib = new ArrayList<>();
           for (Attribute instructorAttribute : instructorAttributes) {
             for (Attribute studentAttribute : studentAttributes) {
               if (isAttributeMatch(instructorAttribute, studentAttribute, comparison)) {
-                correctAttribute++;
+                if (!countedAttrib.contains(instructorAttribute) && !countedAttrib.contains(studentAttribute)) {
+                  correctAttribute++;
+                  countedAttrib.add(instructorAttribute);
+                  countedAttrib.add(studentAttribute);
+                }
                 break;
               }
             }
@@ -2563,7 +2591,7 @@ public class MistakeDetection {
   }
 
   public static Optional<Mistake> checkMistakePluralClassName(Classifier studentClass, Classifier instructorClass) {
-    if (isPlural(studentClass.getName())) {
+    if (isPlural(studentClass.getName()) && studentClass.getName() != instructorClass.getName() && !isSynonym(instructorClass, studentClass)) {
       return Optional.of(createMistake(PLURAL_CLASS_NAME, studentClass, instructorClass));
     }
     return Optional.empty();

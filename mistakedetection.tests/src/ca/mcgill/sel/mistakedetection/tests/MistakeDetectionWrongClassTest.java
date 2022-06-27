@@ -1524,10 +1524,11 @@ public class MistakeDetectionWrongClassTest extends MistakeDetectionBaseTest {
 
     assertEquals(studentCompanyClass, comparison.mappedClassifiers.get(instructorCompanyClass));
     assertEquals(studentBusPassClass, comparison.mappedClassifiers.get(instructorBusPassClass));
+    assertEquals(0, comparison.newMistakes.size());
   }
 
   /**
-   * Check Company-BusPass AssocClass for mapping.
+   * Check Company-Company AssocClass for mapping.
    */
   @Test
   public void testMappingAssocClassCompanyAndBusPass() {
@@ -1545,15 +1546,15 @@ public class MistakeDetectionWrongClassTest extends MistakeDetectionBaseTest {
     var studentBusPassClass = getClassFromClassDiagram("BusPass", studentClassDiagram);
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(studentBusPassClass, comparison.mappedClassifiers.get(instructorCompanyClass));
-    assertEquals(studentCompanyClass, comparison.mappedClassifiers.get(instructorBusPassClass));
+    assertEquals(studentBusPassClass, comparison.mappedClassifiers.get(instructorBusPassClass));
+    assertEquals(studentCompanyClass, comparison.mappedClassifiers.get(instructorCompanyClass));
   }
 
   /**
-   * Check Company-BusPass AssocClass for mapping and Extra Company.
+   * Check Company-BusPass AssocClass for mapping and not mapped Company.
    */
   @Test
-  public void testMappingAssocClassCompanyAndBusPassAndExtraCompany() {
+  public void testMappingAssocClassCompanyAndBusPassAndNotMappedCompany() {
     var instructorClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/InstructorSolution/ModelsToTestClass/instructor_busDriverCompanyPassengerAssocClass/Class Diagram/Instructor_busDriverCompanyPassengerAssocClass.domain_model.cdm");
     var instructorSolution = instructorSolutionFromClassDiagram(instructorClassDiagram);
@@ -1567,8 +1568,10 @@ public class MistakeDetectionWrongClassTest extends MistakeDetectionBaseTest {
     var studentCompanyClass = getClassFromClassDiagram("Company", studentClassDiagram);
     var comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
+    // studentCompany maps to instructorBusPass because both are assoc classes between same classes, ie,
+    // Passenger-studentCompany-Bus and Passenger-instructorBusPass-Bus
     assertEquals(studentCompanyClass, comparison.mappedClassifiers.get(instructorBusPassClass));
-    assertFalse(comparison.notMappedInstructorClassifiers.contains(instructorCompanyClass));
+    assertTrue(comparison.notMappedInstructorClassifiers.contains(instructorCompanyClass));
   }
 
   /**
