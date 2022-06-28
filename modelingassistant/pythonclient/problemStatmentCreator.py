@@ -27,7 +27,7 @@ def solutionElemToProblemStatementElem():
     CDM_PATH = "mistakedetection/realModels"   
 
     try:        
-        file_url = "modelingassistant\pythonclient\ProblemStatementElements.txt"
+        file_url = "modelingassistant\pythonclient\ProblemStatementElements.tsv"
         file_data = open(file_url)   
         cdm_file = f"{CDM_PATH}/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm"
         class_diagram = load_cdm(cdm_file)
