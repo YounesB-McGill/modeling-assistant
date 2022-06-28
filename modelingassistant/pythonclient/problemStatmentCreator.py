@@ -1,40 +1,48 @@
-#!/usr/bin/env python
+"""
+Run this file to generate modeling assistant instance with problem statement, problem statement elements and solution elements.
+
+Before running make sure you have correct .tsv file path.
+
+Paramenter: input file(.tsv) and output file path
+
 # Author : Prabhsimran Singh
+"""
 
-from asyncio.windows_events import NULL
+#!/usr/bin/env python
+
+from collections import defaultdict
 import csv
-import re
-import json
 import sys
-from typing import Iterable
-from xml.etree.ElementTree import Element
-from modelingassistant import ModelingAssistant, ProblemStatement, ProblemStatementElement, SolutionElement, Solution
-from classdiagram import CDEnum, ClassDiagram, Class, Attribute, CDInt, CDString, AssociationEnd, Association
-from fileserdes import load_cdm, load_lc, load_ma, save_to_files
-import collections 
+from classdiagram import CDEnum
+from fileserdes import load_cdm, save_to_files
+from modelingassistant import (ModelingAssistant, ProblemStatement,
+                               ProblemStatementElement, Solution,
+                               SolutionElement)
+
+input_file = "modelingassistant/pythonclient/ProblemStatementElements.tsv"
+output_file = "/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm"
 
 
-def popDict(value, psen, name_to_pse, string_to_pse):
+def populate_dict(value, pse_name, name_to_pse, string_to_pse):
     value = value.replace(" ", "")
     if "," in value:
         values = value.split(",")
         for val in values:
-            name_to_pse[val].append(string_to_pse [psen])
+            name_to_pse[val].append(string_to_pse[pse_name])
     else:
-        name_to_pse[value].append(string_to_pse [psen])
+        name_to_pse[value].append(string_to_pse[pse_name])
 
-def solutionElemToProblemStatementElem():
-    CDM_PATH = "mistakedetection/realModels"   
+def solution_elem_to_problem_statement_elem():
+    CDM_PATH = "mistakedetection/realModels" + output_file  
 
     try:        
-        file_url = "modelingassistant\pythonclient\ProblemStatementElements.tsv"
-        file_data = open(file_url)   
-        cdm_file = f"{CDM_PATH}/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm"
+        file_data = open(input_file)   
+        cdm_file = f"{CDM_PATH}"
         class_diagram = load_cdm(cdm_file)
         
     except:
         print("Files Not found, check the address of .tsv, .cdm files")   
-        exit()
+        sys.exit()
 
     # Modeling assistant instance
     modeling_assistant = ModelingAssistant()
@@ -44,52 +52,52 @@ def solutionElemToProblemStatementElem():
 
     read_file = csv.DictReader(file_data, delimiter="\t")
 
-    string_to_pse = collections.defaultdict(list) # Dic to map string to probelm statement element
-    className_to_pse = collections.defaultdict(list) # Dict to map class name to problem statement elements
-    attribName_to_pse = collections.defaultdict(list) # Dict to map attribute name to problem statement elements
-    assocName_to_pse = collections.defaultdict(list) # Dict to map association name to problem statement elements
-    assocEndName_to_pse = collections.defaultdict(list) # Dict to map association end name to problem statement elements
-    enumName_to_pse = collections.defaultdict(list) # Dict to map enum name to problem statement elements
-    enumLiteralName_to_pse = collections.defaultdict(list) # Dict to enum literal attribute name to problem statement elements
+    string_to_pse = defaultdict(list) # Dic to map string to probelm statement element
+    className_to_pse = defaultdict(list) # Dict to map class name to problem statement elements
+    attribName_to_pse = defaultdict(list) # Dict to map attribute name to problem statement elements
+    assocName_to_pse = defaultdict(list) # Dict to map association name to problem statement elements
+    assocEndName_to_pse = defaultdict(list) # Dict to map association end name to problem statement elements
+    enumName_to_pse = defaultdict(list) # Dict to map enum name to problem statement elements
+    enumLiteralName_to_pse = defaultdict(list) # Dict to enum literal attribute name to problem statement elements
 
     # Creates probelm statement elements for given strings.
     for row in read_file:  
         psen = row['Problem Statement Element']
         if  psen not in  string_to_pse:      
             pse = ProblemStatementElement(problemStatement=problem_statement)            
-            string_to_pse [psen] = pse
+            string_to_pse[psen] = pse
         
         # Map class name to problem statement elements
         if row['Class Element']:
-            popDict(row['Class Element'], psen, className_to_pse, string_to_pse)
+            populate_dict(row['Class Element'], psen, className_to_pse, string_to_pse)
 
         # Map assoc class names to problem statement elements
         if row['Association class']:
-            popDict(row['Association class'], psen, className_to_pse, string_to_pse)
+            populate_dict(row['Association class'], psen, className_to_pse, string_to_pse)
 
         # Map attribute names to problem statement elements
         if row['Attribute']:
-            popDict(row['Attribute'], psen, attribName_to_pse, string_to_pse)
+            populate_dict(row['Attribute'], psen, attribName_to_pse, string_to_pse)
 
         # Map association names to problem statement elements
         if row['Association']:
-            popDict(row['Association'], psen, assocName_to_pse, string_to_pse)
+            populate_dict(row['Association'], psen, assocName_to_pse, string_to_pse)
 
         # Map association names to problem statement elements
         if row['Association End']:
-            popDict(row['Association End'], psen, assocEndName_to_pse, string_to_pse)
+            populate_dict(row['Association End'], psen, assocEndName_to_pse, string_to_pse)
 
         # Map Generalization to problem statement elements
         if row['Generalization']:
-            popDict(row['Generalization'], psen, className_to_pse, string_to_pse)
+            populate_dict(row['Generalization'], psen, className_to_pse, string_to_pse)
 
         # Map Enummeration to problem statement elements
         if row['Enummeration']:
-            popDict(row['Enummeration'], psen, enumName_to_pse, string_to_pse)
+            populate_dict(row['Enummeration'], psen, enumName_to_pse, string_to_pse)
 
         # Map Enummeration Literal to problem statement elements
         if row['Enummeration Literal']:
-            popDict(row['Enummeration Literal'], psen, enumLiteralName_to_pse, string_to_pse)
+            populate_dict(row['Enummeration Literal'], psen, enumLiteralName_to_pse, string_to_pse)
             
     se_to_pse = {} # solution element to problem statement elements
 
@@ -190,7 +198,7 @@ def getEnumerationLiteralElement(enum_literal_name, cdm):
     raise Exception(enum_literal_name, "enum not found, check spelling of class in .tsv")
 
 if __name__ == "__main__":
-    solutionElemToProblemStatementElem()
+    solution_elem_to_problem_statement_elem()
 
 
 
