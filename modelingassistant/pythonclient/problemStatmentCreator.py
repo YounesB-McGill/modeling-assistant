@@ -3,7 +3,7 @@ Run this file to generate modeling assistant instance with problem statement, pr
 
 Before running make sure you have correct .tsv file path.
 
-Paramenter: input file(.tsv) and output file path
+Paramenter: input file(.tsv), input model and output file path
 
 # Author : Prabhsimran Singh
 """
@@ -19,8 +19,9 @@ from modelingassistant import (ModelingAssistant, ProblemStatement,
                                ProblemStatementElement, Solution,
                                SolutionElement)
 
-input_file = "modelingassistant/pythonclient/ProblemStatementElements.tsv"
-output_file = "/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm"
+input_file_tsv = "modelingassistant/pythonclient/ProblemStatementElements.tsv"
+input_model_file = "mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm"
+output_file_ma = "modelingassistant/ProblemStatementInstance/problem_statement_instance.modelingassistant"
 
 
 def populate_dict(value, pse_name, name_to_pse, string_to_pse):
@@ -33,12 +34,9 @@ def populate_dict(value, pse_name, name_to_pse, string_to_pse):
         name_to_pse[value].append(string_to_pse[pse_name])
 
 def solution_elem_to_problem_statement_elem():
-    CDM_PATH = "mistakedetection/realModels" + output_file
-
     try:
-        file_data = open(input_file)
-        cdm_file = f"{CDM_PATH}"
-        class_diagram = load_cdm(cdm_file)
+        file_data = open(input_file_tsv)
+        class_diagram = load_cdm(input_model_file)
 
     except:
         print("Files Not found, check the address of .tsv, .cdm files")
@@ -103,69 +101,64 @@ def solution_elem_to_problem_statement_elem():
 
     # Mapping solution elements (classes, assoc class, gen classes) to problem statement elements.
     for key, values in className_to_pses.items():
-        element = getClassElement(key, class_diagram)
-        createSolutionElement(solution, element, values)
+        element = get_class_element(key, class_diagram)
+        create_solution_element(solution, element, values)
 
     # Mapping solution elements (attributes) to problem statement elements.
     for key, values in attribName_to_pses.items():
-        element = getAttributeElement(key, class_diagram)
-        createSolutionElement(solution, element, values)
+        element = get_attribute_element(key, class_diagram)
+        create_solution_element(solution, element, values)
 
     # Mapping solution elements (associations) to problem statement elements.
     for key, values in assocName_to_pses.items():
-        element = getAssociationElement(key, class_diagram)
-        createSolutionElement(solution, element, values)
+        element = get_association_element(key, class_diagram)
+        create_solution_element(solution, element, values)
 
      # Mapping solution elements (association ends) to problem statement elements.
     for key, values in assocEndName_to_pses.items():
-        element = getAssociationEndElement(key, class_diagram)
-        createSolutionElement(solution, element, values)
+        element = get_association_end_element(key, class_diagram)
+        create_solution_element(solution, element, values)
 
     # Mapping solution elements (enumerations) to problem statement elements.
     for key, values in enumName_to_pses.items():
-        element = getEnumerationElement(key, class_diagram)
-        createSolutionElement(solution, element, values)
+        element = get_enumeration_element(key, class_diagram)
+        create_solution_element(solution, element, values)
 
     # Mapping solution elements (enumeration literals) to problem statement elements.
     for key, values in enumLiteralName_to_pses.items():
-        element = getEnumerationLiteralElement(key, class_diagram)
-        createSolutionElement(solution, element, values)
+        element = get_enumeration_literal_element(key, class_diagram)
+        create_solution_element(solution, element, values)
 
-    # Save modelling assistant
-    saveModelingAssitant(modeling_assistant=modeling_assistant)
+    # Save modeling assistant
+    save_to_files({output_file_ma : modeling_assistant})
 
-def saveModelingAssitant(modeling_assistant):
-    MA_PATH = "modelingassistant/ProblemStatementInstance"
-    ma_path = f"{MA_PATH}/problem_statement_instance.modelingassistant"
-    save_to_files({ma_path: modeling_assistant})
-
-def createSolutionElement(solution, element, values):
-    se = SolutionElement(solution=solution, element= element)
+def create_solution_element(solution, element, values):
+    se = SolutionElement(solution=solution, element=element)
     for value in values:
         #value.solutionElements.add(se)
         se.problemStatementElements.add(value)
 
-def getClassElement(class_name, cdm):
+def get_class_element(class_name, cdm):
     for cls in cdm.classes:
         if cls.name == class_name:
             return cls
-    raise Exception(class_name, "class not found, check spelling of class in .tsv")
+    raise Exception(f"{class_name}class not found, check spelling of class in .tsv")
 
-def getAttributeElement(attrib_name, cdm):
+def get_attribute_element(attrib_name, cdm):
     for cls in cdm.classes:
         for attrib in cls.attributes:
             if attrib.name == attrib_name:
                 return attrib
-    raise Exception(attrib_name, "attribute not found, check spelling of class in .tsv")
+    raise Exception(f"{attrib_name}attribute not found, check spelling of class in .tsv")
 
-def getAssociationElement(assoc_name, cdm):
+def get_association_element(assoc_name, cdm):
     assoc_cls_names = assoc_name.split("_")
     for assoc in cdm.associations:
         if(assoc_cls_names[0] in assoc.name and assoc_cls_names[1] in assoc.name):
             return assoc
-    raise Exception(assoc_name, "association not found, check spelling of class in .tsv")
+    raise Exception(f"{assoc_name}association not found, check spelling of class in .tsv")
 
-def getAssociationEndElement(assocEnd_name, cdm):
+def get_association_end_element(assocEnd_name, cdm):
     assocEnd_names = assocEnd_name.split(".")
     cls_name = assocEnd_names[0]
     assocEnd_name = assocEnd_names[1]
@@ -174,24 +167,21 @@ def getAssociationEndElement(assocEnd_name, cdm):
             for ae in cls.associationEnds:
                 if(ae.name == assocEnd_name):
                     return ae
-    raise Exception(cls_name, "class has no ", assocEnd_name, "association end not found, check spelling of class in .tsv")
+    raise Exception(f"{cls_name}class has no {assocEnd_name}association end not found, check spelling of class in .tsv")
 
-def getEnumerationElement(enum_name, cdm):
+def get_enumeration_element(enum_name, cdm):
     for type in cdm.types:
         if isinstance(type, CDEnum) and type.name == enum_name:
             return type
-    raise Exception(enum_name, "enum not found, check spelling of class in .tsv")
+    raise Exception(f"{enum_name}enum not found, check spelling of class in .tsv")
 
-def getEnumerationLiteralElement(enum_literal_name, cdm):
+def get_enumeration_literal_element(enum_literal_name, cdm):
     for type in cdm.types:
         if isinstance(type, CDEnum):
             for literal in type.literals:
                 if(literal.name == enum_literal_name):
                     return literal
-    raise Exception(enum_literal_name, "enum not found, check spelling of class in .tsv")
+    raise Exception(f"{enum_literal_name}enum not found, check spelling of class in .tsv")
 
 if __name__ == "__main__":
     solution_elem_to_problem_statement_elem()
-
-
-
