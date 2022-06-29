@@ -1,0 +1,385 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmi:id="51a45a91-fe80-4a6a-8008-2f56445e01d1" xmi:version="2.0">
+  <problemStatements xsi:type="modelingassistant:ProblemStatement" xmi:id="0e8cee70-c58f-4da6-989b-60fef84a9fd4" instructorSolution="ed712520-ce86-434e-87d1-5c3e4cf387dc">
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="97cc8f05-a8ba-4f54-a31b-73fdbfc2a704"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="70013683-b801-450d-b5bb-6de23e716432"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="0ea5ad10-b271-4912-9284-c5ca989b843f"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="1e8031ca-9610-405b-9f16-70f70a7d0d89"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="8c618299-bb9d-4891-8a76-9745ee7b148d" solutionElements="5f2b8cd9-c93f-41ef-90e9-14f621bf38f0 bc050059-72bf-462f-b24c-9229db4e98bd 0f93eb06-d5fb-4c13-bdcb-f4e79dd0d0ca 19ced393-fd4a-40ab-a0ad-936b173919e6 a33bddcf-3a31-45ff-8ef0-13ccbf6260fa"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="4eaa93e5-bb6c-4c50-9988-d3118d9101df"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="50949330-b6e9-4e52-b828-b0cb85290126" solutionElements="5f2b8cd9-c93f-41ef-90e9-14f621bf38f0 41322d4b-5625-4b3a-9afe-3dab8d8a9aaa fa6b37eb-fcde-464b-866f-96ba8e7dc0d1 a471a015-6b35-4313-a3cc-9094207ade3f da75a43d-1ee7-4c3e-813a-d3b6d7343761 976b4a4d-4927-4c5c-8160-58b0c1dfd693 19ced393-fd4a-40ab-a0ad-936b173919e6 33efbbf4-1a77-46dc-aefc-00836b0fe21c e55187cb-9da2-4994-a34d-9b077dd1b4d4 084fb49f-906c-4d73-8ee3-166f4cd080e1 49401e80-131f-4a1f-9bca-9d847a514f09 927027d7-350e-40ec-b727-d61aa2e183e6 492ec8f1-69d2-436c-bb0c-0a72e9180e7c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="569fa894-c552-4a08-994c-dfec2ab46e77" solutionElements="60a2dcb1-c0de-4361-90f3-030839184f35 bc050059-72bf-462f-b24c-9229db4e98bd"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="0f6366f1-7201-4062-8ac4-acce32a47c86"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="ff6f8dc2-328e-43cd-bf8b-90c85c7663e8" solutionElements="0f93eb06-d5fb-4c13-bdcb-f4e79dd0d0ca a33bddcf-3a31-45ff-8ef0-13ccbf6260fa"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="b0c12201-db9f-48e0-a873-747ff2dd82af"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="2f627fe1-c0ed-437d-b5ab-cfdd76692255"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="8e5a2466-c5ef-4714-96f2-e98ec3c5640a" solutionElements="0f93eb06-d5fb-4c13-bdcb-f4e79dd0d0ca"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="df6ef1f3-b368-405e-8b31-5cb390c320d9" solutionElements="60a2dcb1-c0de-4361-90f3-030839184f35 bc050059-72bf-462f-b24c-9229db4e98bd 5d1d0108-93b4-406b-83b4-76a9681b9016"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="92640508-d8e8-4b29-954f-3ceec1928ad2" solutionElements="bc050059-72bf-462f-b24c-9229db4e98bd cad156d8-845a-4728-a968-9cec9b66a113"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="e6300226-1833-467f-8ad2-56287f1da8ac" solutionElements="bc050059-72bf-462f-b24c-9229db4e98bd"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="caf9e6a1-11b7-4121-b4fc-5259574064e2" solutionElements="bc050059-72bf-462f-b24c-9229db4e98bd 084fb49f-906c-4d73-8ee3-166f4cd080e1 49401e80-131f-4a1f-9bca-9d847a514f09 927027d7-350e-40ec-b727-d61aa2e183e6 492ec8f1-69d2-436c-bb0c-0a72e9180e7c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="bc80fbdd-9628-41a9-bff7-acf8a7b49de0" solutionElements="bc050059-72bf-462f-b24c-9229db4e98bd"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="cd698387-9599-465b-b063-ec7fedee1472" solutionElements="5f2b8cd9-c93f-41ef-90e9-14f621bf38f0 bc050059-72bf-462f-b24c-9229db4e98bd"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="2ac74829-e9eb-4856-b825-2fd05ba9ef95" solutionElements="f54d63a6-34a2-4a98-a5a7-52e2b937f312 5f2b8cd9-c93f-41ef-90e9-14f621bf38f0 bc050059-72bf-462f-b24c-9229db4e98bd 04a14530-d691-4297-ac6e-eedc66d12f4a"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="a2a20cbe-f1cc-4ef2-aeba-ec2c821b12c6" solutionElements="5f2b8cd9-c93f-41ef-90e9-14f621bf38f0"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="ed550fd6-d94e-4d36-9cdc-81d9b2e4e013" solutionElements="5f2b8cd9-c93f-41ef-90e9-14f621bf38f0"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="d459f0a9-7326-489a-a197-538f93c632a9" solutionElements="5f2b8cd9-c93f-41ef-90e9-14f621bf38f0 0f93eb06-d5fb-4c13-bdcb-f4e79dd0d0ca 05f36eff-8b11-4076-99fc-95a59015a8a0"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="273db48d-6a4f-4988-928f-1996527b7441" solutionElements="c65fed1f-d9fe-499a-92b5-f0f9a2e3396b 5f2b8cd9-c93f-41ef-90e9-14f621bf38f0 0f93eb06-d5fb-4c13-bdcb-f4e79dd0d0ca 05f36eff-8b11-4076-99fc-95a59015a8a0"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="e1a94189-13fe-4daf-9eac-074098f2b676" solutionElements="5f2b8cd9-c93f-41ef-90e9-14f621bf38f0 0f93eb06-d5fb-4c13-bdcb-f4e79dd0d0ca e551170a-94e8-46ba-b5e3-f83e8c3cc2f0 a471a015-6b35-4313-a3cc-9094207ade3f"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="d29163cf-03c6-4078-afcf-0111ab3acf4e" solutionElements="0f93eb06-d5fb-4c13-bdcb-f4e79dd0d0ca 76926374-be52-4cd3-8806-7a1f45558de4 976b4a4d-4927-4c5c-8160-58b0c1dfd693 a33bddcf-3a31-45ff-8ef0-13ccbf6260fa"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="51b95ea4-b77a-4290-9a65-0d81534df632" solutionElements="0f93eb06-d5fb-4c13-bdcb-f4e79dd0d0ca"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="8fd09579-8bd4-4934-956a-374d27864fe9" solutionElements="60a2dcb1-c0de-4361-90f3-030839184f35 0f93eb06-d5fb-4c13-bdcb-f4e79dd0d0ca eb44103e-e1cf-45cb-9646-624d92cd8eef"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="2783c058-cf09-4234-b166-f811a16fa426" solutionElements="60a2dcb1-c0de-4361-90f3-030839184f35 cad156d8-845a-4728-a968-9cec9b66a113 76926374-be52-4cd3-8806-7a1f45558de4 fa6b37eb-fcde-464b-866f-96ba8e7dc0d1 da75a43d-1ee7-4c3e-813a-d3b6d7343761 6be6abca-eb65-412c-bc8b-5f4782fa92b0 67b2bbcb-e491-452e-9d38-b4423893191b 50217df4-0bbc-4d23-8df2-c2660808af2e f9836dae-ba05-492e-85d0-379a5ed9c573"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="43f95926-68fb-4dc8-8fb5-4b9db5354e23" solutionElements="cad156d8-845a-4728-a968-9cec9b66a113"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="8c406aad-1ffd-4b96-9fb7-4a40d96e5e48" solutionElements="cad156d8-845a-4728-a968-9cec9b66a113"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="e46ddf87-87f2-47cd-9ff3-4dabb68bfc85" solutionElements="e641e392-94d2-4def-8fd0-3ec8e107573c cad156d8-845a-4728-a968-9cec9b66a113 e551170a-94e8-46ba-b5e3-f83e8c3cc2f0 8f5defde-fb90-4345-8c1a-8589f9b7f138 04a613a4-3463-4c83-92d6-0d4a934194e1"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="a3381efe-5dd1-45ca-bfce-1e0c306bc4e6" solutionElements="e551170a-94e8-46ba-b5e3-f83e8c3cc2f0"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="1bda84ef-5d22-4ce9-89e9-0c90adfc1bfb" solutionElements="c65fed1f-d9fe-499a-92b5-f0f9a2e3396b e551170a-94e8-46ba-b5e3-f83e8c3cc2f0 543e5cb9-5bf2-40e5-b546-952fd03cb6b1"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="43e12b35-ec4b-4b8b-bdc5-a9374e050ff3" solutionElements="e551170a-94e8-46ba-b5e3-f83e8c3cc2f0 a471a015-6b35-4313-a3cc-9094207ade3f"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="6508a2eb-8d85-4003-bff0-0c8d5555ae3f" solutionElements="a58909ed-3f3d-446d-b8ac-bae450cd6399 e551170a-94e8-46ba-b5e3-f83e8c3cc2f0"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="ab16029b-0977-48f8-b212-deb26d6343f2"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="6ce497c6-cd06-4ee8-a64d-50bc2c0dace1"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="e73f77be-1445-403b-b962-b109f3cabc09"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="dab3aa4d-62ab-4500-b657-d47a0494151d"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="a255644c-3c04-4d5a-a746-8ddf7def38fd"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="527ed1c9-c0a3-423e-9ce1-e6180052f38e" solutionElements="41322d4b-5625-4b3a-9afe-3dab8d8a9aaa 33efbbf4-1a77-46dc-aefc-00836b0fe21c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="2a858e10-91cb-406e-b29c-099d2d9f376e"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="9e241021-31db-4150-aeaf-a91c3001186f"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="7258bf2d-f209-4937-af52-addad0c523ee"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="ecf0f496-b594-4eb6-a071-cccf489acc6d"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="80889539-06e4-48ff-9e36-f22d21e99e11"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="3ec825f1-c031-43a2-8615-3188fafb9469" solutionElements="c65fed1f-d9fe-499a-92b5-f0f9a2e3396b 5f2b8cd9-c93f-41ef-90e9-14f621bf38f0 a471a015-6b35-4313-a3cc-9094207ade3f"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="10198a57-5709-43eb-b0cf-77180d22e404" solutionElements="a58909ed-3f3d-446d-b8ac-bae450cd6399 a471a015-6b35-4313-a3cc-9094207ade3f a33bddcf-3a31-45ff-8ef0-13ccbf6260fa 76776557-52e2-4f96-84d3-a21f9dd38f13"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="7a4fa0c7-66d5-45af-a11f-c4d9262e3bde" solutionElements="a471a015-6b35-4313-a3cc-9094207ade3f"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="60b13c33-568d-4a09-bfc7-8036531a08cb" solutionElements="a471a015-6b35-4313-a3cc-9094207ade3f"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="c2cb4328-6415-4b9a-9dde-0d40477687bd" solutionElements="e641e392-94d2-4def-8fd0-3ec8e107573c a471a015-6b35-4313-a3cc-9094207ade3f 890ff050-88bf-42e7-85e1-a678d3cf0c4f"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="e59609c2-0629-4393-93bf-87eac0b30348" solutionElements="a471a015-6b35-4313-a3cc-9094207ade3f a33bddcf-3a31-45ff-8ef0-13ccbf6260fa 084fb49f-906c-4d73-8ee3-166f4cd080e1 49401e80-131f-4a1f-9bca-9d847a514f09 927027d7-350e-40ec-b727-d61aa2e183e6 492ec8f1-69d2-436c-bb0c-0a72e9180e7c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="2c61c3d3-7673-4761-b6b0-7cb05aefcb5d" solutionElements="bb9680c4-eb27-485b-87e3-77dfe715ed7f fa6b37eb-fcde-464b-866f-96ba8e7dc0d1 a471a015-6b35-4313-a3cc-9094207ade3f 0ae00cc0-1bdf-47b0-9b7b-3e63d38f0193 c869c99d-4823-4fdb-80f6-19137ac97449"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="d0beffae-76d8-4430-a6f8-32e8236870ea"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="7348780a-830e-4c16-a197-1269ac03acf4"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="2a86ad81-f71a-4a6b-ad33-2b65aa4f0afa" solutionElements="da75a43d-1ee7-4c3e-813a-d3b6d7343761 976b4a4d-4927-4c5c-8160-58b0c1dfd693"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="d7774460-e9c0-4ba6-96af-979dda182b20" solutionElements="e641e392-94d2-4def-8fd0-3ec8e107573c da75a43d-1ee7-4c3e-813a-d3b6d7343761 976b4a4d-4927-4c5c-8160-58b0c1dfd693 d10126a3-330c-46a5-b42a-f1606baed6a8 3f28fbd5-cff3-4b01-8780-3c751e952e3d e55187cb-9da2-4994-a34d-9b077dd1b4d4 084fb49f-906c-4d73-8ee3-166f4cd080e1 49401e80-131f-4a1f-9bca-9d847a514f09 927027d7-350e-40ec-b727-d61aa2e183e6 492ec8f1-69d2-436c-bb0c-0a72e9180e7c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="ea253fae-bdfb-40fd-a056-624e47d0ae21" solutionElements="da75a43d-1ee7-4c3e-813a-d3b6d7343761 e55187cb-9da2-4994-a34d-9b077dd1b4d4"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="e22456d5-6448-4633-8826-44329bfab1be" solutionElements="da75a43d-1ee7-4c3e-813a-d3b6d7343761 e55187cb-9da2-4994-a34d-9b077dd1b4d4"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="b827d3cd-65f4-47b6-8433-6a9164f25943" solutionElements="e45ab45e-2d5f-490e-b2e2-852e848fcdb7 da75a43d-1ee7-4c3e-813a-d3b6d7343761 d10126a3-330c-46a5-b42a-f1606baed6a8 e55187cb-9da2-4994-a34d-9b077dd1b4d4"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="1b795f37-8f06-416b-b6ca-50c9276a4f73"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="6b015b0a-0b7c-4027-8433-160ad5487799" solutionElements="084fb49f-906c-4d73-8ee3-166f4cd080e1 49401e80-131f-4a1f-9bca-9d847a514f09 927027d7-350e-40ec-b727-d61aa2e183e6 492ec8f1-69d2-436c-bb0c-0a72e9180e7c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="d7e80a10-1da1-4855-a6cf-3fd9f945b619" solutionElements="084fb49f-906c-4d73-8ee3-166f4cd080e1 49401e80-131f-4a1f-9bca-9d847a514f09 927027d7-350e-40ec-b727-d61aa2e183e6 492ec8f1-69d2-436c-bb0c-0a72e9180e7c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="01a9ce43-f052-41fb-9688-c2520dce6a26" solutionElements="084fb49f-906c-4d73-8ee3-166f4cd080e1 49401e80-131f-4a1f-9bca-9d847a514f09 927027d7-350e-40ec-b727-d61aa2e183e6 492ec8f1-69d2-436c-bb0c-0a72e9180e7c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="bf809b75-2305-4142-835e-f84955351d4a" solutionElements="084fb49f-906c-4d73-8ee3-166f4cd080e1 49401e80-131f-4a1f-9bca-9d847a514f09 927027d7-350e-40ec-b727-d61aa2e183e6 492ec8f1-69d2-436c-bb0c-0a72e9180e7c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="8ad2d101-1103-45f8-b388-aa9523a4ab4c" solutionElements="084fb49f-906c-4d73-8ee3-166f4cd080e1 49401e80-131f-4a1f-9bca-9d847a514f09 927027d7-350e-40ec-b727-d61aa2e183e6 492ec8f1-69d2-436c-bb0c-0a72e9180e7c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="91ece0f5-f29f-4c78-b2d5-6f828420db60" solutionElements="084fb49f-906c-4d73-8ee3-166f4cd080e1 49401e80-131f-4a1f-9bca-9d847a514f09 927027d7-350e-40ec-b727-d61aa2e183e6 492ec8f1-69d2-436c-bb0c-0a72e9180e7c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="138b46c6-f3bb-4747-b6fd-00c8ad705d68" solutionElements="084fb49f-906c-4d73-8ee3-166f4cd080e1 49401e80-131f-4a1f-9bca-9d847a514f09 927027d7-350e-40ec-b727-d61aa2e183e6 492ec8f1-69d2-436c-bb0c-0a72e9180e7c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="d88cc168-0ab8-4c20-a52a-ba3289609038" solutionElements="084fb49f-906c-4d73-8ee3-166f4cd080e1 49401e80-131f-4a1f-9bca-9d847a514f09 927027d7-350e-40ec-b727-d61aa2e183e6 492ec8f1-69d2-436c-bb0c-0a72e9180e7c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="51dfb290-bbd1-427d-857b-50ef5cb0ce63" solutionElements="084fb49f-906c-4d73-8ee3-166f4cd080e1 49401e80-131f-4a1f-9bca-9d847a514f09 927027d7-350e-40ec-b727-d61aa2e183e6 492ec8f1-69d2-436c-bb0c-0a72e9180e7c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="30fd5f69-bdf6-482e-8ac0-2825ce626d0a" solutionElements="976b4a4d-4927-4c5c-8160-58b0c1dfd693"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="1d06b08e-8e91-453e-9b79-1f3f1397961f" solutionElements="976b4a4d-4927-4c5c-8160-58b0c1dfd693"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="3335546f-5800-490b-aab4-7b4d03a2daeb" solutionElements="804d8eb6-4175-43ec-a820-2f059c9547c3 76926374-be52-4cd3-8806-7a1f45558de4 976b4a4d-4927-4c5c-8160-58b0c1dfd693"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="cd79a4d3-876b-49ec-a175-235623201118" solutionElements="804d8eb6-4175-43ec-a820-2f059c9547c3 76926374-be52-4cd3-8806-7a1f45558de4 976b4a4d-4927-4c5c-8160-58b0c1dfd693"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="3817be86-043d-4e29-8719-5a8c39259045" solutionElements="54014593-c841-4b66-8687-2651cd871974 e1dcd5f4-9335-4005-9212-996a8224ed9a 76926374-be52-4cd3-8806-7a1f45558de4 976b4a4d-4927-4c5c-8160-58b0c1dfd693 a1fa657f-2486-415d-864f-fef592d67645 a060b3c0-da07-499e-9821-bacf3dfc3cd0 0378e182-25a7-44b5-87fd-a6b6c728379c 92d1b05c-fd82-4e60-bbff-ffcfc9e399af a09e677f-7206-478a-855b-ec17669cb7a9 cfcb8fd3-01b1-44e6-8e0e-0617d6c95e00 3c47a5a2-e56d-4fe2-ba7d-bd3242767e0f"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="f6f906ff-93ef-4d8f-ba8c-3e34dd20f724" solutionElements="804d8eb6-4175-43ec-a820-2f059c9547c3"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="aa3c39f0-d58b-4e57-9955-0ccd4969c03d" solutionElements="9dd195c6-5134-48a9-bfd0-902ce721033e 0a6a7556-7b14-4d02-91ac-0693da204f06 9498562e-588d-4e7b-9e26-53e9201e4eea"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="016c77bd-c67d-4dc7-bac3-57996494de11" solutionElements="9dd195c6-5134-48a9-bfd0-902ce721033e 0a6a7556-7b14-4d02-91ac-0693da204f06"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="0ee82edb-03a0-4b41-9249-6663dc9ae7f6" solutionElements="9dd195c6-5134-48a9-bfd0-902ce721033e 0a6a7556-7b14-4d02-91ac-0693da204f06 94121952-18d7-4b72-9cb4-436fd63a3874"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="908ae2a4-641f-4f86-a8cb-7030bf5c1c1b" solutionElements="9dd195c6-5134-48a9-bfd0-902ce721033e 0a6a7556-7b14-4d02-91ac-0693da204f06"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="82071529-209e-455b-a177-34024ffe96ce" solutionElements="05813881-ae1d-4405-a19a-9ec839205f00"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="3cc0aa43-9f93-4191-9b58-a34943af8172"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="64de98c2-9206-4622-b35b-39798d750ede" solutionElements="b410eaad-e88d-4610-8df9-07454a345f66"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="68ad9392-3c68-4693-84fa-92fc19526721"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="b579f3ee-70c4-464d-871c-14f5cfa58eac" solutionElements="708b13ba-668c-4dca-b2d7-dad6255f9d42"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="258ce50f-293d-4ac9-9efc-2ec06481a420"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="0d98f3a8-54a5-443b-bb38-0d6d03044699"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="6a015664-a5c7-4e90-b0c6-edf74d91efd2" solutionElements="5f2b8cd9-c93f-41ef-90e9-14f621bf38f0"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="3cc52664-83de-479f-ad0f-ff88b1668eb9" solutionElements="19ced393-fd4a-40ab-a0ad-936b173919e6 bca1e599-b08f-48c0-8a4d-cfcdbd583285"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="d02b28b8-0898-42d4-b38f-d0f48ae6b872" solutionElements="19ced393-fd4a-40ab-a0ad-936b173919e6"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="ebe209bb-2314-48be-870c-825421cdc244" solutionElements="19ced393-fd4a-40ab-a0ad-936b173919e6"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="cfccf30b-93c6-47c9-a154-72ccea87f322" solutionElements="f54d63a6-34a2-4a98-a5a7-52e2b937f312 19ced393-fd4a-40ab-a0ad-936b173919e6 cc14bb7f-5cc5-4cee-a015-8ef21cd86264"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="848ebc40-2171-4878-b926-f84f1e926419"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="6c82be83-3163-410a-a2cb-670765a9c632"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="58d84c87-a945-4a56-94d7-82b3f1bb368e"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="eabd0e2f-8f51-43c4-938a-4ed13c074231"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="04c6fb4a-e281-4ab0-97c2-694a2b70f418"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="899f03fa-c0f6-4e85-9d94-ae110641a1ab" solutionElements="50668337-8595-442c-bae8-c970cd04dfe3 41322d4b-5625-4b3a-9afe-3dab8d8a9aaa 3d8306f0-5841-4fb5-89d9-52cafdcca075 0636e1ca-cfb3-49e5-9e57-4cc754e8d38f 1c945cc3-1a18-4372-89e4-30e96539d9f2 7d94a160-34bc-4a4b-99e5-67996c2bc3dc 33efbbf4-1a77-46dc-aefc-00836b0fe21c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="34450e3b-1c55-40df-9ce1-2128a5aa2a36" solutionElements="a33bddcf-3a31-45ff-8ef0-13ccbf6260fa"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="6b9ed452-c06e-4e72-963f-9dee142adf61" solutionElements="a33bddcf-3a31-45ff-8ef0-13ccbf6260fa"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="b97937a9-760e-4459-9af8-f8d25de24201" solutionElements="a33bddcf-3a31-45ff-8ef0-13ccbf6260fa"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="62fc962a-b1b6-4a7a-9d17-49c81d5d4c44" solutionElements="5b72e92d-8dd0-407d-9199-2eb567cad83d a33bddcf-3a31-45ff-8ef0-13ccbf6260fa c8b9de9b-9169-4178-9fc6-32987d5bbac8"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="79dd677d-a2da-477f-9d9c-d851677623b7"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="04e06b3d-cdec-4146-8655-5878300befd3"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="37a80290-f3f0-4a1b-a060-59737f06457e"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="3feb8f74-a617-4b25-abd9-2be5fa790435"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="0130c3b6-e1af-4aec-aa83-c2cdb29a8a2e" solutionElements="e641e392-94d2-4def-8fd0-3ec8e107573c 41322d4b-5625-4b3a-9afe-3dab8d8a9aaa 33efbbf4-1a77-46dc-aefc-00836b0fe21c 81a51b66-afa0-45f4-9db6-0ee6dca410d3"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="a9faf9bb-80a2-4742-b936-496e2cfb9a4f" solutionElements="50668337-8595-442c-bae8-c970cd04dfe3 41322d4b-5625-4b3a-9afe-3dab8d8a9aaa 3d8306f0-5841-4fb5-89d9-52cafdcca075 0636e1ca-cfb3-49e5-9e57-4cc754e8d38f 1c945cc3-1a18-4372-89e4-30e96539d9f2 33efbbf4-1a77-46dc-aefc-00836b0fe21c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="77068710-7453-4c3e-b012-642bc0ed88e2" solutionElements="50668337-8595-442c-bae8-c970cd04dfe3 41322d4b-5625-4b3a-9afe-3dab8d8a9aaa 3d8306f0-5841-4fb5-89d9-52cafdcca075 0636e1ca-cfb3-49e5-9e57-4cc754e8d38f 1c945cc3-1a18-4372-89e4-30e96539d9f2 33efbbf4-1a77-46dc-aefc-00836b0fe21c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="d428d1f2-cf37-4d49-87fe-da6b760202f6" solutionElements="50668337-8595-442c-bae8-c970cd04dfe3 41322d4b-5625-4b3a-9afe-3dab8d8a9aaa 3d8306f0-5841-4fb5-89d9-52cafdcca075 0636e1ca-cfb3-49e5-9e57-4cc754e8d38f 1c945cc3-1a18-4372-89e4-30e96539d9f2 33efbbf4-1a77-46dc-aefc-00836b0fe21c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="596b123d-b5b0-4958-8b01-f6d03d88018d" solutionElements="41322d4b-5625-4b3a-9afe-3dab8d8a9aaa 33efbbf4-1a77-46dc-aefc-00836b0fe21c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="9f450aa1-e956-4337-8c9f-decc35558e31" solutionElements="41322d4b-5625-4b3a-9afe-3dab8d8a9aaa 33efbbf4-1a77-46dc-aefc-00836b0fe21c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="82fe2821-f099-4507-a70a-87abab48f847" solutionElements="f54d63a6-34a2-4a98-a5a7-52e2b937f312 33efbbf4-1a77-46dc-aefc-00836b0fe21c 37ea3a2f-2586-484d-8323-4b94f00b4fd3"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="0be71f2c-dd89-4e50-afda-419b8c6a3002"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="17873e13-3dd5-492c-b12e-e84f6365b0f7"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="b75c676e-1806-4209-8c5a-775e792640cf"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="c8721223-efbe-4deb-9465-26eb875f6a33"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="6bc5a70b-9e47-4627-a4ca-69dac6f30de8"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="420b0eb4-d2c9-4bac-bc51-5fb6e55c5182"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="1a2281ef-3a44-49be-95ee-fd9c6a587bae"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="166f6d9b-e655-43a4-9a9e-2fd14ed963a4" solutionElements="c65fed1f-d9fe-499a-92b5-f0f9a2e3396b"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="7bc24b0c-19ef-41d5-be0d-df33be9bad28"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="55594dcf-0d1d-43bf-a329-2b90bd834c6a"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="49f3672e-073e-4457-94b8-179c26c82a12" solutionElements="d9f9141f-9b74-4042-bda5-15ab15c052d9"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="26ffba6b-265c-41bc-bdbe-c79a74a96a4a" solutionElements="6af3c5f1-2bd9-480d-aa08-6b1705843aaf"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="945bb9c9-4334-4eab-b2fb-32a06d3bb604" solutionElements="b26daf43-b708-4d30-9425-d4a73fa70554"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="15211b5b-de07-484b-8e98-931cabffe427" solutionElements="b26daf43-b708-4d30-9425-d4a73fa70554"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="cafae571-d55c-4137-afb0-f8fab9d5f595" solutionElements="fc990701-2200-4f5b-b64a-fae881c561ed"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="d1fc12fb-e2f5-4dd7-8e0e-61268ec5d7ec"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="f9d2bba2-ba45-48cd-b498-f6f54f39a00c"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="f0ee6fa5-a1e0-4d9d-9285-b0241c22aac6"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="c2ec31a3-d257-4521-9a7e-e7e645dd43e4"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="3f53aca3-1c18-4949-b1cc-337cbc69ccb2"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="79977325-3e39-4484-9162-e183c22cefc0"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="881a667a-1255-4634-b876-39606c081acf" solutionElements="5f2b8cd9-c93f-41ef-90e9-14f621bf38f0 af547eeb-e706-40b0-842c-3d070203f64f"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="ae4d6c33-0468-4e96-bfde-a866fe2de3c6" solutionElements="5f2b8cd9-c93f-41ef-90e9-14f621bf38f0"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="25f29790-b5d5-44a2-a2b3-330b6201c62b"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="da0540b7-eacf-491e-b5f9-e4cdc93199b0"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="60ba7eeb-be2a-4b2d-95f4-f20758ac7ac9"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="730fa299-29ec-4690-a9aa-4124e574628b" solutionElements="af547eeb-e706-40b0-842c-3d070203f64f"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="cff06a6a-2270-47d5-bc8c-14ac56e977d4" solutionElements="af547eeb-e706-40b0-842c-3d070203f64f"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="f8132217-2b2a-431f-a842-1b47bfc32d80"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="083fe234-665d-4978-b2be-686b7e8762b6"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="5dcee0f6-fcc6-491a-9636-98467953eb5c" solutionElements="c65fed1f-d9fe-499a-92b5-f0f9a2e3396b"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="40849d10-99f8-4495-9486-10c853568af0"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="14478471-c097-4049-8630-c129dc098841"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="da70a4e2-615c-4058-a91f-b08f76705a96"/>
+    <problemStatementElements xsi:type="modelingassistant:ProblemStatementElement" xmi:id="aaa469b0-d289-41fe-99be-44a1c91fed5a"/>
+  </problemStatements>
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="ed712520-ce86-434e-87d1-5c3e4cf387dc" problemStatement="0e8cee70-c58f-4da6-989b-60fef84a9fd4">
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="60a2dcb1-c0de-4361-90f3-030839184f35" problemStatementElements="569fa894-c552-4a08-994c-dfec2ab46e77 df6ef1f3-b368-405e-8b31-5cb390c320d9 8fd09579-8bd4-4934-956a-374d27864fe9 2783c058-cf09-4234-b166-f811a16fa426">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_IAzusIdzEeyu5u-RBLUhdA" xsi:type="classdiagram:Class"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="f54d63a6-34a2-4a98-a5a7-52e2b937f312" problemStatementElements="2ac74829-e9eb-4856-b825-2fd05ba9ef95 cfccf30b-93c6-47c9-a154-72ccea87f322 82fe2821-f099-4507-a70a-87abab48f847">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp2oSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Class"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="c65fed1f-d9fe-499a-92b5-f0f9a2e3396b" problemStatementElements="273db48d-6a4f-4988-928f-1996527b7441 1bda84ef-5d22-4ce9-89e9-0c90adfc1bfb 3ec825f1-c031-43a2-8615-3188fafb9469 166f6d9b-e655-43a4-9a9e-2fd14ed963a4 5dcee0f6-fcc6-491a-9636-98467953eb5c">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKC0oSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Class"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="e641e392-94d2-4def-8fd0-3ec8e107573c" problemStatementElements="e46ddf87-87f2-47cd-9ff3-4dabb68bfc85 c2cb4328-6415-4b9a-9dde-0d40477687bd d7774460-e9c0-4ba6-96af-979dda182b20 0130c3b6-e1af-4aec-aa83-c2cdb29a8a2e">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uI0oISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Class"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="a58909ed-3f3d-446d-b8ac-bae450cd6399" problemStatementElements="6508a2eb-8d85-4003-bff0-0c8d5555ae3f 10198a57-5709-43eb-b0cf-77180d22e404">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp1oSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Class"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="bb9680c4-eb27-485b-87e3-77dfe715ed7f" problemStatementElements="2c61c3d3-7673-4761-b6b0-7cb05aefcb5d">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp1ISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Class"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="54014593-c841-4b66-8687-2651cd871974" problemStatementElements="3817be86-043d-4e29-8719-5a8c39259045">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCy4SGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Class"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="5b72e92d-8dd0-407d-9199-2eb567cad83d" problemStatementElements="62fc962a-b1b6-4a7a-9d17-49c81d5d4c44">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCzoSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Class"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="50668337-8595-442c-bae8-c970cd04dfe3" problemStatementElements="a9faf9bb-80a2-4742-b936-496e2cfb9a4f 77068710-7453-4c3e-b012-642bc0ed88e2 d428d1f2-cf37-4d49-87fe-da6b760202f6 899f03fa-c0f6-4e85-9d94-ae110641a1ab">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCx4SGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Class"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="5f2b8cd9-c93f-41ef-90e9-14f621bf38f0" problemStatementElements="cd698387-9599-465b-b063-ec7fedee1472 2ac74829-e9eb-4856-b825-2fd05ba9ef95 a2a20cbe-f1cc-4ef2-aeba-ec2c821b12c6 ed550fd6-d94e-4d36-9cdc-81d9b2e4e013 8c618299-bb9d-4891-8a76-9745ee7b148d d459f0a9-7326-489a-a197-538f93c632a9 273db48d-6a4f-4988-928f-1996527b7441 e1a94189-13fe-4daf-9eac-074098f2b676 6a015664-a5c7-4e90-b0c6-edf74d91efd2 50949330-b6e9-4e52-b828-b0cb85290126 3ec825f1-c031-43a2-8615-3188fafb9469 881a667a-1255-4634-b876-39606c081acf ae4d6c33-0468-4e96-bfde-a866fe2de3c6">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp14SGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="e45ab45e-2d5f-490e-b2e2-852e848fcdb7" problemStatementElements="b827d3cd-65f4-47b6-8433-6a9164f25943">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKC0YSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="804d8eb6-4175-43ec-a820-2f059c9547c3" problemStatementElements="3335546f-5800-490b-aab4-7b4d03a2daeb cd79a4d3-876b-49ec-a175-235623201118 f6f906ff-93ef-4d8f-ba8c-3e34dd20f724">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCxYSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="e1dcd5f4-9335-4005-9212-996a8224ed9a" problemStatementElements="3817be86-043d-4e29-8719-5a8c39259045">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCzYSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="9dd195c6-5134-48a9-bfd0-902ce721033e" problemStatementElements="aa3c39f0-d58b-4e57-9955-0ccd4969c03d 016c77bd-c67d-4dc7-bac3-57996494de11 0ee82edb-03a0-4b41-9249-6663dc9ae7f6 908ae2a4-641f-4f86-a8cb-7030bf5c1c1b">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCxoSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="05813881-ae1d-4405-a19a-9ec839205f00" problemStatementElements="82071529-209e-455b-a177-34024ffe96ce">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKC0ISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="b410eaad-e88d-4610-8df9-07454a345f66" problemStatementElements="64de98c2-9206-4622-b35b-39798d750ede">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp2YSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="708b13ba-668c-4dca-b2d7-dad6255f9d42" problemStatementElements="b579f3ee-70c4-464d-871c-14f5cfa58eac">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp34SGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="41322d4b-5625-4b3a-9afe-3dab8d8a9aaa" problemStatementElements="0130c3b6-e1af-4aec-aa83-c2cdb29a8a2e 527ed1c9-c0a3-423e-9ce1-e6180052f38e a9faf9bb-80a2-4742-b936-496e2cfb9a4f 77068710-7453-4c3e-b012-642bc0ed88e2 d428d1f2-cf37-4d49-87fe-da6b760202f6 899f03fa-c0f6-4e85-9d94-ae110641a1ab 596b123d-b5b0-4958-8b01-f6d03d88018d 9f450aa1-e956-4337-8c9f-decc35558e31 50949330-b6e9-4e52-b828-b0cb85290126">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp3oSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="3d8306f0-5841-4fb5-89d9-52cafdcca075" problemStatementElements="a9faf9bb-80a2-4742-b936-496e2cfb9a4f 77068710-7453-4c3e-b012-642bc0ed88e2 d428d1f2-cf37-4d49-87fe-da6b760202f6 899f03fa-c0f6-4e85-9d94-ae110641a1ab">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCyISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="0636e1ca-cfb3-49e5-9e57-4cc754e8d38f" problemStatementElements="a9faf9bb-80a2-4742-b936-496e2cfb9a4f 77068710-7453-4c3e-b012-642bc0ed88e2 d428d1f2-cf37-4d49-87fe-da6b760202f6 899f03fa-c0f6-4e85-9d94-ae110641a1ab">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCyYSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="1c945cc3-1a18-4372-89e4-30e96539d9f2" problemStatementElements="a9faf9bb-80a2-4742-b936-496e2cfb9a4f 77068710-7453-4c3e-b012-642bc0ed88e2 d428d1f2-cf37-4d49-87fe-da6b760202f6 899f03fa-c0f6-4e85-9d94-ae110641a1ab">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCyoSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="7d94a160-34bc-4a4b-99e5-67996c2bc3dc" problemStatementElements="899f03fa-c0f6-4e85-9d94-ae110641a1ab">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp3YSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="d9f9141f-9b74-4042-bda5-15ab15c052d9" problemStatementElements="49f3672e-073e-4457-94b8-179c26c82a12">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp0ISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="6af3c5f1-2bd9-480d-aa08-6b1705843aaf" problemStatementElements="26ffba6b-265c-41bc-bdbe-c79a74a96a4a">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp0YSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="b26daf43-b708-4d30-9425-d4a73fa70554" problemStatementElements="945bb9c9-4334-4eab-b2fb-32a06d3bb604 15211b5b-de07-484b-8e98-931cabffe427">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp0oSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="fc990701-2200-4f5b-b64a-fae881c561ed" problemStatementElements="cafae571-d55c-4137-afb0-f8fab9d5f595">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp04SGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="af547eeb-e706-40b0-842c-3d070203f64f" problemStatementElements="730fa299-29ec-4690-a9aa-4124e574628b 881a667a-1255-4634-b876-39606c081acf cff06a6a-2270-47d5-bc8c-14ac56e977d4">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp2ISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Attribute"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="bc050059-72bf-462f-b24c-9229db4e98bd" problemStatementElements="df6ef1f3-b368-405e-8b31-5cb390c320d9 92640508-d8e8-4b29-954f-3ceec1928ad2 569fa894-c552-4a08-994c-dfec2ab46e77 e6300226-1833-467f-8ad2-56287f1da8ac caf9e6a1-11b7-4121-b4fc-5259574064e2 bc80fbdd-9628-41a9-bff7-acf8a7b49de0 8c618299-bb9d-4891-8a76-9745ee7b148d cd698387-9599-465b-b063-ec7fedee1472 2ac74829-e9eb-4856-b825-2fd05ba9ef95">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_qfbfAodzEeyu5u-RBLUhdA" xsi:type="classdiagram:Association"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="0f93eb06-d5fb-4c13-bdcb-f4e79dd0d0ca" problemStatementElements="8c618299-bb9d-4891-8a76-9745ee7b148d d459f0a9-7326-489a-a197-538f93c632a9 273db48d-6a4f-4988-928f-1996527b7441 e1a94189-13fe-4daf-9eac-074098f2b676 d29163cf-03c6-4078-afcf-0111ab3acf4e 51b95ea4-b77a-4290-9a65-0d81534df632 8e5a2466-c5ef-4714-96f2-e98ec3c5640a ff6f8dc2-328e-43cd-bf8b-90c85c7663e8 8fd09579-8bd4-4934-956a-374d27864fe9">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_VsjtAodzEeyu5u-RBLUhdA" xsi:type="classdiagram:Association"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="cad156d8-845a-4728-a968-9cec9b66a113" problemStatementElements="92640508-d8e8-4b29-954f-3ceec1928ad2 2783c058-cf09-4234-b166-f811a16fa426 43f95926-68fb-4dc8-8fb5-4b9db5354e23 8c406aad-1ffd-4b96-9fb7-4a40d96e5e48 e46ddf87-87f2-47cd-9ff3-4dabb68bfc85">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_O2socodzEeyu5u-RBLUhdA" xsi:type="classdiagram:Association"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="76926374-be52-4cd3-8806-7a1f45558de4" problemStatementElements="2783c058-cf09-4234-b166-f811a16fa426 3335546f-5800-490b-aab4-7b4d03a2daeb cd79a4d3-876b-49ec-a175-235623201118 d29163cf-03c6-4078-afcf-0111ab3acf4e 3817be86-043d-4e29-8719-5a8c39259045">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_fP8HwodzEeyu5u-RBLUhdA" xsi:type="classdiagram:Association"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="fa6b37eb-fcde-464b-866f-96ba8e7dc0d1" problemStatementElements="2783c058-cf09-4234-b166-f811a16fa426 50949330-b6e9-4e52-b828-b0cb85290126 2c61c3d3-7673-4761-b6b0-7cb05aefcb5d">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_JOg38odzEeyu5u-RBLUhdA" xsi:type="classdiagram:Association"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="e551170a-94e8-46ba-b5e3-f83e8c3cc2f0" problemStatementElements="e46ddf87-87f2-47cd-9ff3-4dabb68bfc85 e1a94189-13fe-4daf-9eac-074098f2b676 a3381efe-5dd1-45ca-bfce-1e0c306bc4e6 1bda84ef-5d22-4ce9-89e9-0c90adfc1bfb 43e12b35-ec4b-4b8b-bdc5-a9374e050ff3 6508a2eb-8d85-4003-bff0-0c8d5555ae3f">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uNGEoSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Association"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="a471a015-6b35-4313-a3cc-9094207ade3f" problemStatementElements="3ec825f1-c031-43a2-8615-3188fafb9469 43e12b35-ec4b-4b8b-bdc5-a9374e050ff3 10198a57-5709-43eb-b0cf-77180d22e404 7a4fa0c7-66d5-45af-a11f-c4d9262e3bde e1a94189-13fe-4daf-9eac-074098f2b676 60b13c33-568d-4a09-bfc7-8036531a08cb c2cb4328-6415-4b9a-9dde-0d40477687bd e59609c2-0629-4393-93bf-87eac0b30348 50949330-b6e9-4e52-b828-b0cb85290126 2c61c3d3-7673-4761-b6b0-7cb05aefcb5d">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uNGFYSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Association"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="da75a43d-1ee7-4c3e-813a-d3b6d7343761" problemStatementElements="2a86ad81-f71a-4a6b-ad33-2b65aa4f0afa 2783c058-cf09-4234-b166-f811a16fa426 d7774460-e9c0-4ba6-96af-979dda182b20 ea253fae-bdfb-40fd-a056-624e47d0ae21 e22456d5-6448-4633-8826-44329bfab1be 50949330-b6e9-4e52-b828-b0cb85290126 b827d3cd-65f4-47b6-8433-6a9164f25943">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_O2socodzEeyu5u-RBLUhdA" xsi:type="classdiagram:Association"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="976b4a4d-4927-4c5c-8160-58b0c1dfd693" problemStatementElements="2a86ad81-f71a-4a6b-ad33-2b65aa4f0afa d7774460-e9c0-4ba6-96af-979dda182b20 30fd5f69-bdf6-482e-8ac0-2825ce626d0a 1d06b08e-8e91-453e-9b79-1f3f1397961f 50949330-b6e9-4e52-b828-b0cb85290126 3335546f-5800-490b-aab4-7b4d03a2daeb cd79a4d3-876b-49ec-a175-235623201118 d29163cf-03c6-4078-afcf-0111ab3acf4e 3817be86-043d-4e29-8719-5a8c39259045">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uNGEISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Association"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="19ced393-fd4a-40ab-a0ad-936b173919e6" problemStatementElements="3cc52664-83de-479f-ad0f-ff88b1668eb9 d02b28b8-0898-42d4-b38f-d0f48ae6b872 8c618299-bb9d-4891-8a76-9745ee7b148d ebe209bb-2314-48be-870c-825421cdc244 50949330-b6e9-4e52-b828-b0cb85290126 cfccf30b-93c6-47c9-a154-72ccea87f322">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uNGE4SGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Association"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="a33bddcf-3a31-45ff-8ef0-13ccbf6260fa" problemStatementElements="34450e3b-1c55-40df-9ce1-2128a5aa2a36 e59609c2-0629-4393-93bf-87eac0b30348 6b9ed452-c06e-4e72-963f-9dee142adf61 b97937a9-760e-4459-9af8-f8d25de24201 8c618299-bb9d-4891-8a76-9745ee7b148d 10198a57-5709-43eb-b0cf-77180d22e404 d29163cf-03c6-4078-afcf-0111ab3acf4e ff6f8dc2-328e-43cd-bf8b-90c85c7663e8 62fc962a-b1b6-4a7a-9d17-49c81d5d4c44">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uNGEYSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Association"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="33efbbf4-1a77-46dc-aefc-00836b0fe21c" problemStatementElements="0130c3b6-e1af-4aec-aa83-c2cdb29a8a2e 527ed1c9-c0a3-423e-9ce1-e6180052f38e a9faf9bb-80a2-4742-b936-496e2cfb9a4f 77068710-7453-4c3e-b012-642bc0ed88e2 d428d1f2-cf37-4d49-87fe-da6b760202f6 899f03fa-c0f6-4e85-9d94-ae110641a1ab 596b123d-b5b0-4958-8b01-f6d03d88018d 9f450aa1-e956-4337-8c9f-decc35558e31 50949330-b6e9-4e52-b828-b0cb85290126 82fe2821-f099-4507-a70a-87abab48f847">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uNGFISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:Association"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="5d1d0108-93b4-406b-83b4-76a9681b9016" problemStatementElements="df6ef1f3-b368-405e-8b31-5cb390c320d9">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_qfbfAIdzEeyu5u-RBLUhdA" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="04a14530-d691-4297-ac6e-eedc66d12f4a" problemStatementElements="2ac74829-e9eb-4856-b825-2fd05ba9ef95">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_qfbfAYdzEeyu5u-RBLUhdA" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="05f36eff-8b11-4076-99fc-95a59015a8a0" problemStatementElements="d459f0a9-7326-489a-a197-538f93c632a9 273db48d-6a4f-4988-928f-1996527b7441">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_VsjtAYdzEeyu5u-RBLUhdA" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="eb44103e-e1cf-45cb-9646-624d92cd8eef" problemStatementElements="8fd09579-8bd4-4934-956a-374d27864fe9">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_VsjtAIdzEeyu5u-RBLUhdA" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="6be6abca-eb65-412c-bc8b-5f4782fa92b0" problemStatementElements="2783c058-cf09-4234-b166-f811a16fa426">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_SITjIIdzEeyu5u-RBLUhdA" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="67b2bbcb-e491-452e-9d38-b4423893191b" problemStatementElements="2783c058-cf09-4234-b166-f811a16fa426">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_JOg38IdzEeyu5u-RBLUhdA" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="50217df4-0bbc-4d23-8df2-c2660808af2e" problemStatementElements="2783c058-cf09-4234-b166-f811a16fa426">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_fP8HwIdzEeyu5u-RBLUhdA" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="8f5defde-fb90-4345-8c1a-8589f9b7f138" problemStatementElements="e46ddf87-87f2-47cd-9ff3-4dabb68bfc85">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_SITjIYdzEeyu5u-RBLUhdA" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="04a613a4-3463-4c83-92d6-0d4a934194e1" problemStatementElements="e46ddf87-87f2-47cd-9ff3-4dabb68bfc85">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCwoSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="543e5cb9-5bf2-40e5-b546-952fd03cb6b1" problemStatementElements="1bda84ef-5d22-4ce9-89e9-0c90adfc1bfb">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKC04SGEeyCR8dJI_dwQQ" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="890ff050-88bf-42e7-85e1-a678d3cf0c4f" problemStatementElements="c2cb4328-6415-4b9a-9dde-0d40477687bd">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp1YSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="0ae00cc0-1bdf-47b0-9b7b-3e63d38f0193" problemStatementElements="2c61c3d3-7673-4761-b6b0-7cb05aefcb5d">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCxISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="c869c99d-4823-4fdb-80f6-19137ac97449" problemStatementElements="2c61c3d3-7673-4761-b6b0-7cb05aefcb5d">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_JOg38YdzEeyu5u-RBLUhdA" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="f9836dae-ba05-492e-85d0-379a5ed9c573" problemStatementElements="2783c058-cf09-4234-b166-f811a16fa426">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_O2socIdzEeyu5u-RBLUhdA" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="d10126a3-330c-46a5-b42a-f1606baed6a8" problemStatementElements="d7774460-e9c0-4ba6-96af-979dda182b20 b827d3cd-65f4-47b6-8433-6a9164f25943">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_O2socYdzEeyu5u-RBLUhdA" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="3f28fbd5-cff3-4b01-8780-3c751e952e3d" problemStatementElements="d7774460-e9c0-4ba6-96af-979dda182b20">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCzISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="a1fa657f-2486-415d-864f-fef592d67645" problemStatementElements="3817be86-043d-4e29-8719-5a8c39259045">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCwISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="a060b3c0-da07-499e-9821-bacf3dfc3cd0" problemStatementElements="3817be86-043d-4e29-8719-5a8c39259045">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_fP8HwYdzEeyu5u-RBLUhdA" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="bca1e599-b08f-48c0-8a4d-cfcdbd583285" problemStatementElements="3cc52664-83de-479f-ad0f-ff88b1668eb9">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp24SGEeyCR8dJI_dwQQ" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="cc14bb7f-5cc5-4cee-a015-8ef21cd86264" problemStatementElements="cfccf30b-93c6-47c9-a154-72ccea87f322">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKC1ISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="76776557-52e2-4f96-84d3-a21f9dd38f13" problemStatementElements="10198a57-5709-43eb-b0cf-77180d22e404">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCz4SGEeyCR8dJI_dwQQ" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="c8b9de9b-9169-4178-9fc6-32987d5bbac8" problemStatementElements="62fc962a-b1b6-4a7a-9d17-49c81d5d4c44">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCwYSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="81a51b66-afa0-45f4-9db6-0ee6dca410d3" problemStatementElements="0130c3b6-e1af-4aec-aa83-c2cdb29a8a2e">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKp3ISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="37ea3a2f-2586-484d-8323-4b94f00b4fd3" problemStatementElements="82fe2821-f099-4507-a70a-87abab48f847">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uKCw4SGEeyCR8dJI_dwQQ" xsi:type="classdiagram:AssociationEnd"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="e55187cb-9da2-4994-a34d-9b077dd1b4d4" problemStatementElements="d7774460-e9c0-4ba6-96af-979dda182b20 ea253fae-bdfb-40fd-a056-624e47d0ae21 e22456d5-6448-4633-8826-44329bfab1be 50949330-b6e9-4e52-b828-b0cb85290126 b827d3cd-65f4-47b6-8433-6a9164f25943">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uMfA4SGEeyCR8dJI_dwQQ" xsi:type="classdiagram:CDEnum"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="0378e182-25a7-44b5-87fd-a6b6c728379c" problemStatementElements="3817be86-043d-4e29-8719-5a8c39259045">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uMfCISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:CDEnum"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="0a6a7556-7b14-4d02-91ac-0693da204f06" problemStatementElements="aa3c39f0-d58b-4e57-9955-0ccd4969c03d 016c77bd-c67d-4dc7-bac3-57996494de11 0ee82edb-03a0-4b41-9249-6663dc9ae7f6 908ae2a4-641f-4f86-a8cb-7030bf5c1c1b">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uMfAISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:CDEnum"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="084fb49f-906c-4d73-8ee3-166f4cd080e1" problemStatementElements="6b015b0a-0b7c-4027-8433-160ad5487799 d7774460-e9c0-4ba6-96af-979dda182b20 e59609c2-0629-4393-93bf-87eac0b30348 50949330-b6e9-4e52-b828-b0cb85290126 d7e80a10-1da1-4855-a6cf-3fd9f945b619 01a9ce43-f052-41fb-9688-c2520dce6a26 bf809b75-2305-4142-835e-f84955351d4a caf9e6a1-11b7-4121-b4fc-5259574064e2 8ad2d101-1103-45f8-b388-aa9523a4ab4c 91ece0f5-f29f-4c78-b2d5-6f828420db60 138b46c6-f3bb-4747-b6fd-00c8ad705d68 d88cc168-0ab8-4c20-a52a-ba3289609038 51dfb290-bbd1-427d-857b-50ef5cb0ce63">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uMfB4SGEeyCR8dJI_dwQQ" xsi:type="classdiagram:CDEnumLiteral"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="49401e80-131f-4a1f-9bca-9d847a514f09" problemStatementElements="6b015b0a-0b7c-4027-8433-160ad5487799 d7774460-e9c0-4ba6-96af-979dda182b20 e59609c2-0629-4393-93bf-87eac0b30348 50949330-b6e9-4e52-b828-b0cb85290126 d7e80a10-1da1-4855-a6cf-3fd9f945b619 01a9ce43-f052-41fb-9688-c2520dce6a26 bf809b75-2305-4142-835e-f84955351d4a caf9e6a1-11b7-4121-b4fc-5259574064e2 8ad2d101-1103-45f8-b388-aa9523a4ab4c 91ece0f5-f29f-4c78-b2d5-6f828420db60 138b46c6-f3bb-4747-b6fd-00c8ad705d68 d88cc168-0ab8-4c20-a52a-ba3289609038 51dfb290-bbd1-427d-857b-50ef5cb0ce63">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uMfBoSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:CDEnumLiteral"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="927027d7-350e-40ec-b727-d61aa2e183e6" problemStatementElements="6b015b0a-0b7c-4027-8433-160ad5487799 d7774460-e9c0-4ba6-96af-979dda182b20 e59609c2-0629-4393-93bf-87eac0b30348 50949330-b6e9-4e52-b828-b0cb85290126 d7e80a10-1da1-4855-a6cf-3fd9f945b619 01a9ce43-f052-41fb-9688-c2520dce6a26 bf809b75-2305-4142-835e-f84955351d4a caf9e6a1-11b7-4121-b4fc-5259574064e2 8ad2d101-1103-45f8-b388-aa9523a4ab4c 91ece0f5-f29f-4c78-b2d5-6f828420db60 138b46c6-f3bb-4747-b6fd-00c8ad705d68 d88cc168-0ab8-4c20-a52a-ba3289609038 51dfb290-bbd1-427d-857b-50ef5cb0ce63">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uMfBISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:CDEnumLiteral"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="492ec8f1-69d2-436c-bb0c-0a72e9180e7c" problemStatementElements="6b015b0a-0b7c-4027-8433-160ad5487799 d7774460-e9c0-4ba6-96af-979dda182b20 e59609c2-0629-4393-93bf-87eac0b30348 50949330-b6e9-4e52-b828-b0cb85290126 d7e80a10-1da1-4855-a6cf-3fd9f945b619 01a9ce43-f052-41fb-9688-c2520dce6a26 bf809b75-2305-4142-835e-f84955351d4a caf9e6a1-11b7-4121-b4fc-5259574064e2 8ad2d101-1103-45f8-b388-aa9523a4ab4c 91ece0f5-f29f-4c78-b2d5-6f828420db60 138b46c6-f3bb-4747-b6fd-00c8ad705d68 d88cc168-0ab8-4c20-a52a-ba3289609038 51dfb290-bbd1-427d-857b-50ef5cb0ce63">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uMfBYSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:CDEnumLiteral"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="92d1b05c-fd82-4e60-bbff-ffcfc9e399af" problemStatementElements="3817be86-043d-4e29-8719-5a8c39259045">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uMfCYSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:CDEnumLiteral"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="a09e677f-7206-478a-855b-ec17669cb7a9" problemStatementElements="3817be86-043d-4e29-8719-5a8c39259045">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uMfCoSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:CDEnumLiteral"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="cfcb8fd3-01b1-44e6-8e0e-0617d6c95e00" problemStatementElements="3817be86-043d-4e29-8719-5a8c39259045">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uMfC4SGEeyCR8dJI_dwQQ" xsi:type="classdiagram:CDEnumLiteral"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="3c47a5a2-e56d-4fe2-ba7d-bd3242767e0f" problemStatementElements="3817be86-043d-4e29-8719-5a8c39259045">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uMfDISGEeyCR8dJI_dwQQ" xsi:type="classdiagram:CDEnumLiteral"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="9498562e-588d-4e7b-9e26-53e9201e4eea" problemStatementElements="aa3c39f0-d58b-4e57-9955-0ccd4969c03d">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uMfAoSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:CDEnumLiteral"/>
+    </solutionElements>
+    <solutionElements xsi:type="modelingassistant:SolutionElement" xmi:id="94121952-18d7-4b72-9cb4-436fd63a3874" problemStatementElements="0ee82edb-03a0-4b41-9249-6663dc9ae7f6">
+      <element href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_6uMfAYSGEeyCR8dJI_dwQQ" xsi:type="classdiagram:CDEnumLiteral"/>
+    </solutionElements>
+    <classDiagram href="..\..\mistakedetection\realModels\instructorSolution\instructorSolution2\Class Diagram\InstructorSolution2.domain_model.cdm#_Pe_hMCRPEeyCTbtvBIQyIw" xsi:type="classdiagram:ClassDiagram"/>
+  </solutions>
+</modelingassistant:ModelingAssistant>
