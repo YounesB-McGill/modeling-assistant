@@ -1,6 +1,6 @@
 """
 Learning Corpus definition file. The corpus mistake types and learning items are defined here in a
-DSL-style, as well as the mistake type priorities.
+DSL style, as well as the mistake type priorities.
 
 The actual corpus initialization is done in the corpus.py file.
 """
@@ -861,7 +861,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     ]),
 
     design_pattern_mistakes := mtc(n="Design pattern mistakes", subcategories=[
-        player_role_pattern_mistakes := mtc(n="Player-Role Pattern mistakes", mistakeTypes=[
+        player_role_pattern_mistakes := mtc(n="Player-Role pattern mistakes", mistakeTypes=[
             missing_pr_pattern := mt(n="Missing PR pattern", d="Missing Player-Role pattern", feedbacks=fbs({
                 1: HighlightProblem(),
                 2: TextResponse(text="Think carefully about how to model the relationships between these concepts."),

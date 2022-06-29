@@ -99,7 +99,7 @@
       1. [Wrong superclass](#wrong-superclass)
 
 1. [Design pattern mistakes](#design-pattern-mistakes)
-   1. [Player-Role Pattern mistakes](#player-role-pattern-mistakes)
+   1. [Player-Role pattern mistakes](#player-role-pattern-mistakes)
       1. [Missing Player-Role pattern](#missing-player-role-pattern)
       1. [Incomplete Player-Role pattern](#incomplete-player-role-pattern)
       1. [Subclass should be full Player-Role pattern](#subclass-should-be-full-player-role-pattern)
@@ -2146,7 +2146,7 @@ Level 7: Resource response with Reference:
 
 ## Design pattern mistakes
 
-### Player-Role Pattern mistakes
+### Player-Role pattern mistakes
 
 #### Missing Player-Role pattern
 
