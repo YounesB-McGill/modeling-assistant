@@ -1,5 +1,8 @@
+#!/usr/bin/env python
+
 """
-Run this file to generate modeling assistant instance with problem statement, problem statement elements and solution elements.
+Run to generate modeling assistant instance with problem statement,
+problem statement elements and solution elements.
 
 Before running make sure you have correct .tsv file path.
 
@@ -7,8 +10,6 @@ Paramenter: input file(.tsv), input model and output file path
 
 # Author : Prabhsimran Singh
 """
-
-#!/usr/bin/env python
 
 from collections import defaultdict
 import csv
@@ -19,9 +20,9 @@ from modelingassistant import (ModelingAssistant, ProblemStatement,
                                ProblemStatementElement, Solution,
                                SolutionElement)
 
-input_file_tsv = "modelingassistant/pythonclient/ProblemStatementElements.tsv"
-input_model_file = "mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm"
-output_file_ma = "modelingassistant/ProblemStatementInstance/problem_statement_instance.modelingassistant"
+INPUT_FILE_TSV = "modelingassistant/pythonclient/ProblemStatementElements.tsv"
+INPUT_MODEL_FILE = "mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm"
+OUTPUT_FILE_MA = "modelingassistant/ProblemStatementInstance/problem_statement_instance.modelingassistant"
 
 
 def populate_dict(value, pse_name, name_to_pse, string_to_pse):
@@ -35,8 +36,8 @@ def populate_dict(value, pse_name, name_to_pse, string_to_pse):
 
 def solution_elem_to_problem_statement_elem():
     try:
-        file_data = open(input_file_tsv)
-        class_diagram = load_cdm(input_model_file)
+        file_data = open(INPUT_FILE_TSV, encoding="utf-8")
+        class_diagram = load_cdm(INPUT_MODEL_FILE)
 
     except:
         print("Files Not found, check the address of .tsv, .cdm files")
@@ -51,12 +52,12 @@ def solution_elem_to_problem_statement_elem():
     read_file = csv.DictReader(file_data, delimiter="\t")
 
     string_to_pses = defaultdict(list) # Dict to map string to problem statement elements
-    className_to_pses = defaultdict(list) # Dict to map class name to problem statement elements
-    attribName_to_pses = defaultdict(list) # Dict to map attribute name to problem statement elements
-    assocName_to_pses = defaultdict(list) # Dict to map association name to problem statement elements
-    assocEndName_to_pses = defaultdict(list) # Dict to map association end name to problem statement elements
-    enumName_to_pses = defaultdict(list) # Dict to map enum name to problem statement elements
-    enumLiteralName_to_pses = defaultdict(list) # Dict to enum literal attribute name to problem statement elements
+    class_name_to_pses = defaultdict(list) # Dict to map class name to problem statement elements
+    attrib_name_to_pses = defaultdict(list) # Dict to map attribute name to problem statement elements
+    assoc_name_to_pses = defaultdict(list) # Dict to map association name to problem statement elements
+    assoc_end_name_to_pses = defaultdict(list) # Dict to map association end name to problem statement elements
+    enum_name_to_pses = defaultdict(list) # Dict to map enum name to problem statement elements
+    enum_literal_name_to_pses = defaultdict(list) # Dict to enum literal attribute name to problem statement elements
 
     # Creates problem statement elements for given strings.
     for row in read_file:
@@ -67,96 +68,95 @@ def solution_elem_to_problem_statement_elem():
 
         # Map class name to problem statement elements
         if row['Class Element']:
-            populate_dict(row['Class Element'], pse_name, className_to_pses, string_to_pses)
+            populate_dict(row['Class Element'], pse_name, class_name_to_pses, string_to_pses)
 
         # Map assoc class names to problem statement elements
         if row['Association class']:
-            populate_dict(row['Association class'], pse_name, className_to_pses, string_to_pses)
+            populate_dict(row['Association class'], pse_name, class_name_to_pses, string_to_pses)
 
         # Map attribute names to problem statement elements
         if row['Attribute']:
-            populate_dict(row['Attribute'], pse_name, attribName_to_pses, string_to_pses)
+            populate_dict(row['Attribute'], pse_name, attrib_name_to_pses, string_to_pses)
 
         # Map association names to problem statement elements
         if row['Association']:
-            populate_dict(row['Association'], pse_name, assocName_to_pses, string_to_pses)
+            populate_dict(row['Association'], pse_name, assoc_name_to_pses, string_to_pses)
 
         # Map association names to problem statement elements
         if row['Association End']:
-            populate_dict(row['Association End'], pse_name, assocEndName_to_pses, string_to_pses)
+            populate_dict(row['Association End'], pse_name, assoc_end_name_to_pses, string_to_pses)
 
         # Map Generalization to problem statement elements
         if row['Generalization']:
-            populate_dict(row['Generalization'], pse_name, className_to_pses, string_to_pses)
+            populate_dict(row['Generalization'], pse_name, class_name_to_pses, string_to_pses)
 
-        # Map Enummeration to problem statement elements
-        if row['Enummeration']:
-            populate_dict(row['Enummeration'], pse_name, enumName_to_pses, string_to_pses)
+        # Map Enumeration to problem statement elements
+        if row['Enumeration']:
+            populate_dict(row['Enumeration'], pse_name, enum_name_to_pses, string_to_pses)
 
-        # Map Enummeration Literal to problem statement elements
-        if row['Enummeration Literal']:
-            populate_dict(row['Enummeration Literal'], pse_name, enumLiteralName_to_pses, string_to_pses)
+        # Map Enumeration Literal to problem statement elements
+        if row['Enumeration Literal']:
+            populate_dict(row['Enumeration Literal'], pse_name, enum_literal_name_to_pses, string_to_pses)
 
     se_to_pse = {} # solution element to problem statement elements
 
     # Mapping solution elements (classes, assoc class, gen classes) to problem statement elements.
-    for key, values in className_to_pses.items():
+    for key, values in class_name_to_pses.items():
         element = get_class_element(key, class_diagram)
         create_solution_element(solution, element, values)
 
     # Mapping solution elements (attributes) to problem statement elements.
-    for key, values in attribName_to_pses.items():
+    for key, values in attrib_name_to_pses.items():
         element = get_attribute_element(key, class_diagram)
         create_solution_element(solution, element, values)
 
     # Mapping solution elements (associations) to problem statement elements.
-    for key, values in assocName_to_pses.items():
+    for key, values in assoc_name_to_pses.items():
         element = get_association_element(key, class_diagram)
         create_solution_element(solution, element, values)
 
      # Mapping solution elements (association ends) to problem statement elements.
-    for key, values in assocEndName_to_pses.items():
+    for key, values in assoc_end_name_to_pses.items():
         element = get_association_end_element(key, class_diagram)
         create_solution_element(solution, element, values)
 
     # Mapping solution elements (enumerations) to problem statement elements.
-    for key, values in enumName_to_pses.items():
+    for key, values in enum_name_to_pses.items():
         element = get_enumeration_element(key, class_diagram)
         create_solution_element(solution, element, values)
 
     # Mapping solution elements (enumeration literals) to problem statement elements.
-    for key, values in enumLiteralName_to_pses.items():
+    for key, values in enum_literal_name_to_pses.items():
         element = get_enumeration_literal_element(key, class_diagram)
         create_solution_element(solution, element, values)
 
     # Save modeling assistant
-    save_to_files({output_file_ma : modeling_assistant})
+    save_to_files({OUTPUT_FILE_MA : modeling_assistant})
 
 def create_solution_element(solution, element, values):
     se = SolutionElement(solution=solution, element=element)
     for value in values:
-        #value.solutionElements.add(se)
         se.problemStatementElements.add(value)
 
 def get_class_element(class_name, cdm):
     for cls in cdm.classes:
         if cls.name == class_name:
             return cls
-    raise Exception(f"{class_name}class not found, check spelling of class in .tsv")
+    raise Exception(f"{class_name} class not found, check spelling of class in .tsv")
 
 def get_attribute_element(attrib_name, cdm):
     for cls in cdm.classes:
         for attrib in cls.attributes:
             if attrib.name == attrib_name:
                 return attrib
-    raise Exception(f"{attrib_name}attribute not found, check spelling of class in .tsv")
+    raise Exception(f"{attrib_name} attribute not found, check spelling of class in .tsv")
 
 def get_association_element(assoc_name, cdm):
     assoc_cls_names = assoc_name.split("_")
     for assoc in cdm.associations:
         if(assoc_cls_names[0] in assoc.name and assoc_cls_names[1] in assoc.name):
             return assoc
-    raise Exception(f"{assoc_name}association not found, check spelling of class in .tsv")
+    raise Exception(f"{assoc_name} association not found, check spelling of class in .tsv")
 
 def get_association_end_element(assocEnd_name, cdm):
     assocEnd_names = assocEnd_name.split(".")
@@ -167,13 +167,13 @@ def get_association_end_element(assocEnd_name, cdm):
             for ae in cls.associationEnds:
                 if(ae.name == assocEnd_name):
                     return ae
-    raise Exception(f"{cls_name}class has no {assocEnd_name}association end not found, check spelling of class in .tsv")
+    raise Exception(f"{cls_name} class has no {assocEnd_name} association end not found, check spelling of class in .tsv")
 
 def get_enumeration_element(enum_name, cdm):
     for type in cdm.types:
         if isinstance(type, CDEnum) and type.name == enum_name:
             return type
-    raise Exception(f"{enum_name}enum not found, check spelling of class in .tsv")
+    raise Exception(f"{enum_name} enum not found, check spelling of class in .tsv")
 
 def get_enumeration_literal_element(enum_literal_name, cdm):
     for type in cdm.types:
@@ -181,7 +181,7 @@ def get_enumeration_literal_element(enum_literal_name, cdm):
             for literal in type.literals:
                 if(literal.name == enum_literal_name):
                     return literal
-    raise Exception(f"{enum_literal_name}enum not found, check spelling of class in .tsv")
+    raise Exception(f"{enum_literal_name} enum not found, check spelling of class in .tsv")
 
 if __name__ == "__main__":
     solution_elem_to_problem_statement_elem()
