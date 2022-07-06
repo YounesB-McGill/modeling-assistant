@@ -94,7 +94,7 @@ public class MistakeTypes {
   public static final MistakeTypeCategory GENERALIZATION_MISTAKES = MTCS.get("Generalization mistakes");
 
   /** The category for player-role pattern mistakes. */
-  public static final MistakeTypeCategory PLAYER_ROLE_PATTERN_MISTAKES = MTCS.get("Player-Role Pattern mistakes");
+  public static final MistakeTypeCategory PLAYER_ROLE_PATTERN_MISTAKES = MTCS.get("Player-Role pattern mistakes");
 
   /** The category for abstraction-occurrence pattern mistakes. */
   public static final MistakeTypeCategory ABSTRACTION_OCCURRENCE_PATTERN_MISTAKES =

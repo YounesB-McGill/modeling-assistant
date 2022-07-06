@@ -1,6 +1,6 @@
 """
 Learning Corpus definition file. The corpus mistake types and learning items are defined here in a
-DSL-style, as well as the mistake type priorities.
+DSL style, as well as the mistake type priorities.
 
 The actual corpus initialization is done in the corpus.py file.
 """
@@ -714,13 +714,13 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     4: ParametrizedResponse(
                         text="${stud_cls*} cannot be contained in more than one class."),
                     5: ResourceResponse(learningResources=[containment_example := Example(content=dedent("""\
-                        Observe the following domain model. Every single class except the root class is contained in the 
-                        root class, `PISystem`.
+                        Observe the following domain model. Every single class except the root class is directly or
+                        indirectly contained in the root class, `PISystem`.
 
                         ![PISystem](images/PISystem.png)"""))]),
                     6: ResourceResponse(learningResources=[containment_quiz := mcq[dedent("""\
-                        Which of the following compositions should be added to complete the containment tree for the
-                        following model?
+                        Which of the following compositions should be part of the containment tree for the following
+                        model?
 
                         ![IRS](images/IRS.png)"""),
                         T: "1 IRS <@>- * StudentRole",
@@ -861,7 +861,7 @@ corpus = LearningCorpus(mistakeTypeCategories=[
     ]),
 
     design_pattern_mistakes := mtc(n="Design pattern mistakes", subcategories=[
-        player_role_pattern_mistakes := mtc(n="Player-Role Pattern mistakes", mistakeTypes=[
+        player_role_pattern_mistakes := mtc(n="Player-Role pattern mistakes", mistakeTypes=[
             missing_pr_pattern := mt(n="Missing PR pattern", d="Missing Player-Role pattern", feedbacks=fbs({
                 1: HighlightProblem(),
                 2: TextResponse(text="Think carefully about how to model the relationships between these concepts."),

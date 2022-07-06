@@ -99,7 +99,7 @@
       1. [Wrong superclass](#wrong-superclass)
 
 1. [Design pattern mistakes](#design-pattern-mistakes)
-   1. [Player-Role Pattern mistakes](#player-role-pattern-mistakes)
+   1. [Player-Role pattern mistakes](#player-role-pattern-mistakes)
       1. [Missing Player-Role pattern](#missing-player-role-pattern)
       1. [Incomplete Player-Role pattern](#incomplete-player-role-pattern)
       1. [Subclass should be full Player-Role pattern](#subclass-should-be-full-player-role-pattern)
@@ -1751,15 +1751,15 @@ Level 4: Parametrized response:
 
 Level 5: Resource response with Example:
 
-> Observe the following domain model. Every single class except the root class is contained in the 
-root class, `PISystem`.
+> Observe the following domain model. Every single class except the root class is directly or
+indirectly contained in the root class, `PISystem`.
 
 ![PISystem](images/PISystem.png)
 
 Level 6: Resource response with List multiple-choice quiz:
 
-Which of the following compositions should be added to complete the containment tree for the
-following model?
+Which of the following compositions should be part of the containment tree for the following
+model?
 
 ![IRS](images/IRS.png)
 
@@ -1794,15 +1794,15 @@ Level 3: Parametrized response:
 
 Level 4: Resource response with Example:
 
-> Observe the following domain model. Every single class except the root class is contained in the 
-root class, `PISystem`.
+> Observe the following domain model. Every single class except the root class is directly or
+indirectly contained in the root class, `PISystem`.
 
 ![PISystem](images/PISystem.png)
 
 Level 5: Resource response with List multiple-choice quiz:
 
-Which of the following compositions should be added to complete the containment tree for the
-following model?
+Which of the following compositions should be part of the containment tree for the following
+model?
 
 ![IRS](images/IRS.png)
 
@@ -2146,7 +2146,7 @@ Level 7: Resource response with Reference:
 
 ## Design pattern mistakes
 
-### Player-Role Pattern mistakes
+### Player-Role pattern mistakes
 
 #### Missing Player-Role pattern
 

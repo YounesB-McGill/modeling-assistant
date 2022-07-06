@@ -119,7 +119,8 @@ In the textual responses, items in \\verb|${{this format}}| represent the parame
 a parametrized response, which are computed and substituted at runtime from the general
 template based on the specific mistake. Items [in square brackets] refer to optional
 text which may or may not be included, depending on the student's knowledge.
-Some of the resource responses are adapted from the textbook by
+Some of the resource responses, e.g., the ones used for the Player-Role pattern and
+Abstraction-Occurrence pattern, are adapted from the textbook by
 Lethbridge and Laganière~\\cite{{Lethbridge05}}.
 
 """

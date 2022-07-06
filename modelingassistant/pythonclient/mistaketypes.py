@@ -44,7 +44,7 @@ ASSOCIATION_NAME_MISTAKES: MistakeTypeCategory = _MTCS["Association name mistake
 ASSOCIATION_CLASS_MISTAKES: MistakeTypeCategory = _MTCS["Association class mistakes"]
 COMPOSITION_MISTAKES: MistakeTypeCategory = _MTCS["Composition mistakes"]
 GENERALIZATION_MISTAKES: MistakeTypeCategory = _MTCS["Generalization mistakes"]
-PLAYER_ROLE_PATTERN_MISTAKES: MistakeTypeCategory = _MTCS["Player-Role Pattern mistakes"]
+PLAYER_ROLE_PATTERN_MISTAKES: MistakeTypeCategory = _MTCS["Player-Role pattern mistakes"]
 ABSTRACTION_OCCURRENCE_PATTERN_MISTAKES: MistakeTypeCategory = _MTCS["Abstraction-Occurrence pattern mistakes"]
 
 # Mistake types
