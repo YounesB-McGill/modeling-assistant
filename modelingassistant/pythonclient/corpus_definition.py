@@ -714,13 +714,13 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     4: ParametrizedResponse(
                         text="${stud_cls*} cannot be contained in more than one class."),
                     5: ResourceResponse(learningResources=[containment_example := Example(content=dedent("""\
-                        Observe the following domain model. Every single class except the root class is contained in the 
-                        root class, `PISystem`.
+                        Observe the following domain model. Every single class except the root class is directly or
+                        indirectly contained in the root class, `PISystem`.
 
                         ![PISystem](images/PISystem.png)"""))]),
                     6: ResourceResponse(learningResources=[containment_quiz := mcq[dedent("""\
-                        Which of the following compositions should be added to complete the containment tree for the
-                        following model?
+                        Which of the following compositions should be part of the containment tree for the following
+                        model?
 
                         ![IRS](images/IRS.png)"""),
                         T: "1 IRS <@>- * StudentRole",
