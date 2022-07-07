@@ -26,6 +26,10 @@
         eType="#//MistakeTypeCategory" eOpposite="#//MistakeTypeCategory/mistakeTypes"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="priority" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="studentElements" upperBound="-1"
+        eType="#//MistakeElement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instructorElements" upperBound="-1"
+        eType="#//MistakeElement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Feedback">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="level" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -91,5 +95,9 @@
     <eLiterals name="Generalization" value="6"/>
     <eLiterals name="PlayerRolePattern" value="7"/>
     <eLiterals name="AbstractionOccurrencePattern" value="8"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MistakeElement" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="many" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="ecore:EClass modelingassistant.ecore#//CdmMetatype"/>
   </eClassifiers>
 </ecore:EPackage>
