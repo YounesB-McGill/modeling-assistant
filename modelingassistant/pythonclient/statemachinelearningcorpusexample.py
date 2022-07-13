@@ -34,22 +34,8 @@ from learningcorpus import ParametrizedResponse, Reference, ResourceResponse, Te
 from utils import fbs, mdf, mt, HighlightSolution, McqFactory
 
 
-class AccumulatableOrable:
-    "Helper proof-of-concept class that allows orables to be accumulated in a chain."
-    def __init__(self, value):
-        self.chain = [value]
-    def __or__(self, other: AccumulatableOrable):
-        self.chain.extend(other.chain)  # does not handle cycles, but this can be ignored for now
-        return self
-    def __repr__(self) -> str:
-        return " | ".join(self.chain)
-
-
 state_machine_reference = Reference()  # pylint: disable=invalid-name
 tmcq = McqFactory()
-
-T = AccumulatableOrable(True)
-_ = AccumulatableOrable(False)
 
 # formatting following what is used in the paper
 transition_with_correct_event_to_wrong_target_state = mt(
@@ -66,14 +52,14 @@ transition_with_correct_event_to_wrong_target_state = mt(
             "there is a transition from a state to another:",
 
             "From state\\to state" : "Red | Yellow | Green",
-            "Red"                  :   _  |   _    |   T   ,
-            "Yellow"               :   T  |   _    |   _   ,
-            "Green"                :   _  |   T    |   _   ,
+            "Red"                  : "    |        |   √  ",
+            "Yellow"               : " √  |        |      ",
+            "Green"                : "    |   √    |      ",
         ]]),
         5: ResourceResponse(
             learningResources=[state_machine_reference])}))
 
-# priority of this mistake is not explicit defined, but this can be omitted given the context
+# priority of this mistake is not explicitly defined, but this can be omitted given the context
 
 # for this example, use `mistake_elems` instead of `md_format` (stud, inst elems)
 transition_with_correct_event_to_wrong_target_state.mistake_elems = mdf(
