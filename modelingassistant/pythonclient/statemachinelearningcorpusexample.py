@@ -33,6 +33,8 @@ from __future__ import annotations
 from learningcorpus import ParametrizedResponse, Reference, ResourceResponse, TextResponse
 from utils import fbs, mdf, mt, HighlightSolution, McqFactory
 
+class MistakeElement:
+    pass
 
 state_machine_reference = Reference()  # pylint: disable=invalid-name
 tmcq = McqFactory()
@@ -40,6 +42,7 @@ tmcq = McqFactory()
 # formatting following what is used in the paper
 transition_with_correct_event_to_wrong_target_state = mt(
     n="Transition with correct event to wrong target state",
+    stud_inst=["trans", "from_state", "to_state"],  # same mistake elements for student and instructor solutions
     feedbacks=fbs({
         1: HighlightSolution(),  # highlight the transition
         2: TextResponse(text="Double check this transition."),
@@ -60,10 +63,6 @@ transition_with_correct_event_to_wrong_target_state = mt(
             learningResources=[state_machine_reference])}))
 
 # priority of this mistake is not explicitly defined, but this can be omitted given the context
-
-# for this example, use `mistake_elems` instead of `md_format` (stud, inst elems)
-transition_with_correct_event_to_wrong_target_state.mistake_elems = mdf(
-    ["trans", "from_state", "to_state"], ["trans", "from_state", "to_state"])
 
 """
 Other possible mistake types in a state machine:
