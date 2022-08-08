@@ -25,16 +25,16 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningItem/learningResources"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningItem/mistakeTypes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//LearningItem/description"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningItem/learningCorpus"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningItem/i"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//LearningItem/elementType"/>
     </genClasses>
     <genClasses ecoreClass="learningcorpus.ecore#//MistakeType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//MistakeType/atomic"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//MistakeType/timeToAddress"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//MistakeType/numStepsBeforeNotification"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeType/learningItem"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeType/l"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeType/feedbacks"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeType/mistakeTypeCategory"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeType/m"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//MistakeType/priority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//MistakeType/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeType/studentElements"/>
@@ -46,9 +46,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//Feedback/usefulness"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//Feedback/highlightProblem"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//Feedback/highlightSolution"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//Feedback/mistakeType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//Feedback/m"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//Feedback/text"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference learningcorpus.ecore#//Feedback/learningCorpus"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference learningcorpus.ecore#//Feedback/i"/>
     </genClasses>
     <genClasses ecoreClass="learningcorpus.ecore#//TextResponse"/>
     <genClasses ecoreClass="learningcorpus.ecore#//ParametrizedResponse"/>
@@ -56,10 +56,10 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//ResourceResponse/learningResources"/>
     </genClasses>
     <genClasses ecoreClass="learningcorpus.ecore#//LearningResource">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningResource/learningItem"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningResource/m"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningResource/resourceResponses"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//LearningResource/content"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningResource/learningCorpus"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningResource/i"/>
     </genClasses>
     <genClasses ecoreClass="learningcorpus.ecore#//Reference"/>
     <genClasses ecoreClass="learningcorpus.ecore#//Tutorial"/>
@@ -72,7 +72,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeTypeCategory/mistakeTypes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeTypeCategory/supercategory"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeTypeCategory/subcategories"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeTypeCategory/learningCorpus"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeTypeCategory/i"/>
     </genClasses>
     <genClasses ecoreClass="learningcorpus.ecore#//LearningCorpus">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningCorpus/mistakeTypeCategories"/>
