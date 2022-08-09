@@ -445,7 +445,7 @@
             <line clip-path="url(#clipPath64)" fill="none" x1="1363" x2="1356" y1="141" y2="138"/>
             <line clip-path="url(#clipPath54)" fill="none" x1="909" x2="909" y1="145" y2="177"/>
             <text xml:space="preserve" x="916" y="159" clip-path="url(#clipPath65)" stroke="none">1</text>
-            <text xml:space="preserve" x="829" y="172" clip-path="url(#clipPath66)" stroke="none">choices *</text>
+            <text xml:space="preserve" x="829" y="172" clip-path="url(#clipPath66)" stroke="none"> choices *</text>
             <polygon clip-path="url(#clipPath67)" points=" 909 145 912 151 909 157 906 151" stroke="none"/>
             <polygon fill="none" clip-path="url(#clipPath67)" points=" 909 145 912 151 909 157 906 151"/>
             <line clip-path="url(#clipPath68)" fill="none" x1="906" x2="909" y1="170" y2="177"/>
@@ -457,7 +457,7 @@
             <line clip-path="url(#clipPath54)" fill="none" x1="444" x2="145" y1="120" y2="120"/>
             <line clip-path="url(#clipPath54)" fill="none" x1="145" x2="145" y1="120" y2="177"/>
             <text xml:space="preserve" x="424" y="109" clip-path="url(#clipPath71)" stroke="none">1</text>
-            <text xml:space="preserve" x="53" y="170" clip-path="url(#clipPath72)" stroke="none">rowItems* </text>
+            <text xml:space="preserve" x="53" y="170" clip-path="url(#clipPath72)" stroke="none">rowItems *</text>
             <polygon clip-path="url(#clipPath73)" points=" 444 120 438 123 432 120 438 117" stroke="none"/>
             <polygon fill="none" clip-path="url(#clipPath73)" points=" 444 120 438 123 432 120 438 117"/>
             <line clip-path="url(#clipPath74)" fill="none" x1="142" x2="145" y1="170" y2="177"/>
