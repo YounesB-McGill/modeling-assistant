@@ -19,7 +19,7 @@ from learningcorpus import ResourceResponse
 from utils import fbs, fitb, mcq, mt
 
 
-plural_attribute_copy_mt = mt(n="Plural attribute copy", feedbacks=fbs({
+plural_attribute_copy_mt = mt(n="Plural attribute copy", stud="attr", inst=[], feedbacks=fbs({
     4: ResourceResponse(learningResources=[mcq[
            "Pick the classes which are modeled correctly with Umple.",
            "class Student { courses; }",
@@ -28,7 +28,7 @@ plural_attribute_copy_mt = mt(n="Plural attribute copy", feedbacks=fbs({
     ]]),
 }))
 
-extra_generalization_copy_mt = mt(n="Extra generalization copy", feedbacks=fbs({
+extra_generalization_copy_mt = mt(n="Extra generalization copy", stud=["assoc", "cls"], inst="cls", feedbacks=fbs({
     5: ResourceResponse(learningResources=[inherit_checks_quiz := fitb(dedent("""\
         Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
         and complete the following:

@@ -68,8 +68,8 @@ def test_prs_correctly_specified():
 def test_pr_aggr():
     "Test parametrized response for a single aggregation."
     # Dummy mistake type used for testing
-    wrong_aggr_name = mt("Wrong aggregation name", feedbacks=[wrong_aggr_name_pr := ParametrizedResponse(
-        text="The ${stud_aggr} aggregation should be renamed to ${inst_aggr}.")])
+    wrong_aggr_name = mt("Wrong aggregation name", stud_inst="aggr", feedbacks=[wrong_aggr_name_pr :=
+        ParametrizedResponse(text="The ${stud_aggr} aggregation should be renamed to ${inst_aggr}.")])
     wrong_aggr_name.md_format = mdf(["aggr"], ["aggr"])
     # Assume this mistake is returned from the Mistake Detection System
     wrong_aggr_name_mistake = Mistake(instructorElements=[SolutionElement(element=aggr.example)],

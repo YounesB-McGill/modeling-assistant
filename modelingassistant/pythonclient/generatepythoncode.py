@@ -4,7 +4,7 @@
 Module to generate and customize the pyecore Python code from the modeling assistant ecore metamodel.
 """
 
-# pylint: disable=invalid-name, import-outside-toplevel
+# pylint: disable=invalid-name, import-outside-toplevel, unnecessary-lambda-assignment
 
 from ast import AST
 from inspect import getsource
@@ -172,7 +172,6 @@ def remove_from_module(filename: str, name: str):
     "Remove all items with the given name from the given module."
     class ItemRemover(ast.NodeTransformer):
         "Remove the matching items from the module."
-        # pylint: disable=no-self-use
         def visit_FunctionDef(self, node):
             "Remove the matching function definitions from the module."
             if hasattr(node, "name") and node.name == name:
