@@ -2,13 +2,13 @@
  */
 package learningcorpus.impl;
 
+import ca.mcgill.sel.classdiagram.NamedElement;
 import learningcorpus.LearningcorpusPackage;
 import learningcorpus.MistakeElement;
 
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -56,7 +56,7 @@ public class MistakeElementImpl extends NamedElementImpl implements MistakeEleme
    * @generated
    * @ordered
    */
-  protected EObject type;
+  protected NamedElement type;
 
   /**
    * <!-- begin-user-doc -->
@@ -106,10 +106,10 @@ public class MistakeElementImpl extends NamedElementImpl implements MistakeEleme
    * @generated
    */
   @Override
-  public EObject getType() {
+  public NamedElement getType() {
     if (type != null && type.eIsProxy()) {
       InternalEObject oldType = (InternalEObject)type;
-      type = eResolveProxy(oldType);
+      type = (NamedElement)eResolveProxy(oldType);
       if (type != oldType) {
         if (eNotificationRequired())
           eNotify(new ENotificationImpl(this, Notification.RESOLVE, LearningcorpusPackage.MISTAKE_ELEMENT__TYPE, oldType, type));
@@ -123,7 +123,7 @@ public class MistakeElementImpl extends NamedElementImpl implements MistakeEleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EObject basicGetType() {
+  public NamedElement basicGetType() {
     return type;
   }
 
@@ -133,8 +133,8 @@ public class MistakeElementImpl extends NamedElementImpl implements MistakeEleme
    * @generated
    */
   @Override
-  public void setType(EObject newType) {
-    EObject oldType = type;
+  public void setType(NamedElement newType) {
+    NamedElement oldType = type;
     type = newType;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, LearningcorpusPackage.MISTAKE_ELEMENT__TYPE, oldType, type));
@@ -169,7 +169,7 @@ public class MistakeElementImpl extends NamedElementImpl implements MistakeEleme
         setMany((Boolean)newValue);
         return;
       case LearningcorpusPackage.MISTAKE_ELEMENT__TYPE:
-        setType((EObject)newValue);
+        setType((NamedElement)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -187,7 +187,7 @@ public class MistakeElementImpl extends NamedElementImpl implements MistakeEleme
         setMany(MANY_EDEFAULT);
         return;
       case LearningcorpusPackage.MISTAKE_ELEMENT__TYPE:
-        setType((EObject)null);
+        setType((NamedElement)null);
         return;
     }
     super.eUnset(featureID);

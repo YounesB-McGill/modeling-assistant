@@ -2,8 +2,6 @@
  */
 package learningcorpus;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Mistake Element</b></em>'.
@@ -49,12 +47,12 @@ public interface MistakeElement extends NamedElement {
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Type</em>' reference.
-   * @see #setType(EObject)
+   * @see #setType(ca.mcgill.sel.classdiagram.NamedElement)
    * @see learningcorpus.LearningcorpusPackage#getMistakeElement_Type()
    * @model required="true"
    * @generated
    */
-  EObject getType();
+  ca.mcgill.sel.classdiagram.NamedElement getType();
 
   /**
    * Sets the value of the '{@link learningcorpus.MistakeElement#getType <em>Type</em>}' reference.
@@ -64,6 +62,6 @@ public interface MistakeElement extends NamedElement {
    * @see #getType()
    * @generated
    */
-  void setType(EObject value);
+  void setType(ca.mcgill.sel.classdiagram.NamedElement value);
 
 } // MistakeElement

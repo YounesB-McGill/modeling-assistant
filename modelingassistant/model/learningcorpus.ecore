@@ -98,6 +98,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MistakeElement" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="many" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="ecore:EClass ../../ca.mcgill.sel.classdiagram/model/classdiagram.ecore#//NamedElement"/>
   </eClassifiers>
 </ecore:EPackage>

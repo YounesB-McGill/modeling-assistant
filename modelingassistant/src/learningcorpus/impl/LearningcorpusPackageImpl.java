@@ -928,6 +928,9 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     setNsPrefix(eNS_PREFIX);
     setNsURI(eNS_URI);
 
+    // Obtain other dependent packages
+    CdmPackage theCdmPackage = (CdmPackage)EPackage.Registry.INSTANCE.getEPackage(CdmPackage.eNS_URI);
+
     // Create type parameters
 
     // Set bounds for type parameters
@@ -1014,7 +1017,7 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
 
     initEClass(mistakeElementEClass, MistakeElement.class, "MistakeElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getMistakeElement_Many(), ecorePackage.getEBoolean(), "many", null, 0, 1, MistakeElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMistakeElement_Type(), ecorePackage.getEObject(), null, "type", null, 1, 1, MistakeElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMistakeElement_Type(), theCdmPackage.getNamedElement(), null, "type", null, 1, 1, MistakeElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(elementTypeEEnum, ElementType.class, "ElementType");

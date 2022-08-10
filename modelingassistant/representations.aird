@@ -18,7 +18,7 @@
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/modelingassistant.ecore#/"/>
       </ownedRepresentationDescriptors>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_F26PEMlqEeuy_vhQ3TK-kg" name="learningcorpus" repPath="#_F2v3AMlqEeuy_vhQ3TK-kg" changeId="d6c7a8da-f04a-4bcf-be45-61cd95c452f4">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_F26PEMlqEeuy_vhQ3TK-kg" name="learningcorpus" repPath="#_F2v3AMlqEeuy_vhQ3TK-kg" changeId="4e1abce1-b08c-4268-9eaf-eb44f1bba1b6">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/learningcorpus.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -2959,7 +2959,7 @@
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
       </ownedElements>
-      <ownedElements xmi:type="diagram:DNodeListElement" uid="_n2Np5P17EeyUkau3CURMuw" name=" type : EObject" tooltipText="">
+      <ownedElements xmi:type="diagram:DNodeListElement" uid="_n2Np5P17EeyUkau3CURMuw" name=" type : NamedElement" tooltipText="">
         <target xmi:type="ecore:EReference" href="model/learningcorpus.ecore#//MistakeElement/type"/>
         <semanticElements xmi:type="ecore:EReference" href="model/learningcorpus.ecore#//MistakeElement/type"/>
         <ownedStyle xmi:type="diagram:BundledImage" uid="_n2OQ8P17EeyUkau3CURMuw" labelSize="12" showIcon="false" labelAlignment="LEFT" description="_n2Np5f17EeyUkau3CURMuw" color="114,159,207">
