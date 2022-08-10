@@ -134,5 +134,4 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="solutionElement" lowerBound="1"
         eType="#//SolutionElement" eOpposite="#//SolutionElement/synonyms"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CdmMetatype"/>
 </ecore:EPackage>

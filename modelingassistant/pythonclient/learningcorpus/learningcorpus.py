@@ -108,8 +108,10 @@ class MistakeType(NamedElement):
     learningItem = EReference(ordered=True, unique=True, containment=False, derived=False)
     feedbacks = EReference(ordered=True, unique=True, containment=False, derived=False, upper=-1)
     mistakeTypeCategory = EReference(ordered=True, unique=True, containment=False, derived=False)
+    studentElements = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
+    instructorElements = EReference(ordered=True, unique=True, containment=True, derived=False, upper=-1)
 
-    def __init__(self, *, atomic=None, timeToAddress=None, numStepsBeforeNotification=None, learningItem=None, feedbacks=None, mistakeTypeCategory=None, priority=None, description=None, **kwargs):
+    def __init__(self, *, atomic=None, timeToAddress=None, numStepsBeforeNotification=None, learningItem=None, feedbacks=None, mistakeTypeCategory=None, priority=None, description=None, studentElements=None, instructorElements=None, **kwargs):
         super().__init__(**kwargs)
         if atomic is not None:
             self.atomic = atomic
@@ -127,6 +129,10 @@ class MistakeType(NamedElement):
             self.feedbacks.extend(feedbacks)
         if mistakeTypeCategory is not None:
             self.mistakeTypeCategory = mistakeTypeCategory
+        if studentElements:
+            self.studentElements.extend(studentElements)
+        if instructorElements:
+            self.instructorElements.extend(instructorElements)
 
     def parametrized_responses(self) -> list[ParametrizedResponse]:
         """Custom function to return all the parametrized responses for this mistake type."""
@@ -183,6 +189,17 @@ class MistakeTypeCategory(NamedElement):
             self.subcategories.extend(subcategories)
         if learningCorpus is not None:
             self.learningCorpus = learningCorpus
+
+class MistakeElement(NamedElement):
+    many = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True)
+    type = EReference(ordered=True, unique=True, containment=False, derived=False)
+
+    def __init__(self, *, many=None, type=None, **kwargs):
+        super().__init__(**kwargs)
+        if many is not None:
+            self.many = many
+        if type is not None:
+            self.type = type
 
 class Reference(LearningResource):
 
