@@ -13,6 +13,8 @@ from string import Formatter
 from types import SimpleNamespace
 from typing import NamedTuple, Tuple
 
+from pyecore.ecore import EObject
+
 from classdiagram import AssociationEnd, Classifier, ReferenceType
 from constants import CORRECT_QUIZ_ITEM_NOTATIONS, MULTIPLE_FEEDBACKS_PER_LEVEL
 from learningcorpus import MistakeElement, MistakeTypeCategory, MistakeType, Feedback
@@ -70,18 +72,21 @@ def mt(n, d="", stud: str | list[str] = None, inst: str | list[str] = None, stud
     from cdmmetatypes import CDM_METATYPES  # pylint: disable=import-outside-toplevel
     def elems(me_s: str | list[str]) -> list[MistakeElement]:
         "Helper function to create the list of MistakeElements for the given input string(s)."
-        strs = (tmp := (stud_inst or me_s)) if isinstance(tmp, list) else [tmp]
-        return [MistakeElement(many=s.endswith("*"), type=CDM_METATYPES[re.sub(r"[*\d]+", "", s.split("_")[-1])])
-                for s in strs]
+        strs = tmp if isinstance(tmp := (stud_inst or me_s), list) else [tmp]
+        result = []
+        for s in strs:
+            t = CDM_METATYPES[re.sub(r"[*\d]+", "", s.split("_")[-1])].eClass()
+            result.append(MistakeElement(many=s.endswith("*"), type=t))
+        return result
     if n == d:
         warn(f"Name and description are identical for mistake type {n}")
     if not d:
         d = n
-    if not any(stud, inst, stud_inst):
+    if not any((stud, inst, stud_inst)):
         raise ValueError("At least one of stud, inst, stud_inst must be provided")
     if (stud and stud_inst) or (inst and stud_inst):
         raise ValueError("stud_inst cannot be used in conjunction with stud or inst")
-    if stud == inst:
+    if stud and stud == inst:
         warn(f"stud and inst are identical for mistake type {n}, so prefer stud_inst to specify mistake elements")
     return MistakeType(name=n, description=d, studentElements=elems(stud), instructorElements=elems(inst), **kwargs)
 
