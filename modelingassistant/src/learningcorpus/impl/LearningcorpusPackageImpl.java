@@ -776,8 +776,8 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
    * @generated
    */
   @Override
-  public EReference getMistakeElement_Type() {
-    return (EReference)mistakeElementEClass.getEStructuralFeatures().get(1);
+  public EAttribute getMistakeElement_Type() {
+    return (EAttribute)mistakeElementEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -896,7 +896,7 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
 
     mistakeElementEClass = createEClass(MISTAKE_ELEMENT);
     createEAttribute(mistakeElementEClass, MISTAKE_ELEMENT__MANY);
-    createEReference(mistakeElementEClass, MISTAKE_ELEMENT__TYPE);
+    createEAttribute(mistakeElementEClass, MISTAKE_ELEMENT__TYPE);
 
     // Create enums
     elementTypeEEnum = createEEnum(ELEMENT_TYPE);
@@ -927,9 +927,6 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     setName(eNAME);
     setNsPrefix(eNS_PREFIX);
     setNsURI(eNS_URI);
-
-    // Obtain other dependent packages
-    CdmPackage theCdmPackage = (CdmPackage)EPackage.Registry.INSTANCE.getEPackage(CdmPackage.eNS_URI);
 
     // Create type parameters
 
@@ -1017,7 +1014,7 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
 
     initEClass(mistakeElementEClass, MistakeElement.class, "MistakeElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getMistakeElement_Many(), ecorePackage.getEBoolean(), "many", null, 0, 1, MistakeElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMistakeElement_Type(), theCdmPackage.getNamedElement(), null, "type", null, 1, 1, MistakeElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMistakeElement_Type(), ecorePackage.getEString(), "type", null, 0, 1, MistakeElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(elementTypeEEnum, ElementType.class, "ElementType");

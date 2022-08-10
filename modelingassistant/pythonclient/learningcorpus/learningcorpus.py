@@ -192,7 +192,7 @@ class MistakeTypeCategory(NamedElement):
 
 class MistakeElement(NamedElement):
     many = EAttribute(eType=EBoolean, unique=True, derived=False, changeable=True)
-    type = EReference(ordered=True, unique=True, containment=False, derived=False)
+    type = EAttribute(eType=EString, unique=True, derived=False, changeable=True)
 
     def __init__(self, *, many=None, type=None, **kwargs):
         super().__init__(**kwargs)

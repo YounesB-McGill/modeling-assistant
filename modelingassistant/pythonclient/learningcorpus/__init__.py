@@ -3,7 +3,6 @@ from .learningcorpus import getEClassifier, eClassifiers
 from .learningcorpus import name, nsURI, nsPrefix, eClass
 from .learningcorpus import Time, LearningItem, MistakeType, Feedback, TextResponse, ParametrizedResponse, ResourceResponse, LearningResource, Reference, Tutorial, Example, Quiz, NamedElement, MistakeTypeCategory, LearningCorpus, ElementType, MistakeElement
 
-from classdiagram import NamedElement
 
 from . import learningcorpus
 
@@ -17,7 +16,6 @@ learningcorpus.eSuperPackage = eSuperPackage
 
 MistakeType.studentElements.eType = MistakeElement
 MistakeType.instructorElements.eType = MistakeElement
-MistakeElement.type.eType = NamedElement
 LearningItem.learningResources.eType = LearningResource
 LearningItem.mistakeTypes.eType = MistakeType
 LearningItem.learningCorpus.eType = LearningCorpus

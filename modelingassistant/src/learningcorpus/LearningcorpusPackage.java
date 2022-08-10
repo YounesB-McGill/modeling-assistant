@@ -1244,7 +1244,7 @@ public interface LearningcorpusPackage extends EPackage {
   int MISTAKE_ELEMENT__MANY = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' reference.
+   * The feature id for the '<em><b>Type</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1860,15 +1860,15 @@ public interface LearningcorpusPackage extends EPackage {
   EAttribute getMistakeElement_Many();
 
   /**
-   * Returns the meta object for the reference '{@link learningcorpus.MistakeElement#getType <em>Type</em>}'.
+   * Returns the meta object for the attribute '{@link learningcorpus.MistakeElement#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Type</em>'.
+   * @return the meta object for the attribute '<em>Type</em>'.
    * @see learningcorpus.MistakeElement#getType()
    * @see #getMistakeElement()
    * @generated
    */
-  EReference getMistakeElement_Type();
+  EAttribute getMistakeElement_Type();
 
   /**
    * Returns the meta object for enum '{@link learningcorpus.ElementType <em>Element Type</em>}'.
@@ -2369,12 +2369,12 @@ public interface LearningcorpusPackage extends EPackage {
     EAttribute MISTAKE_ELEMENT__MANY = eINSTANCE.getMistakeElement_Many();
 
     /**
-     * The meta object literal for the '<em><b>Type</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MISTAKE_ELEMENT__TYPE = eINSTANCE.getMistakeElement_Type();
+    EAttribute MISTAKE_ELEMENT__TYPE = eINSTANCE.getMistakeElement_Type();
 
     /**
      * The meta object literal for the '{@link learningcorpus.ElementType <em>Element Type</em>}' enum.

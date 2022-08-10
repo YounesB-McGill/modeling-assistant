@@ -75,7 +75,7 @@ def mt(n, d="", stud: str | list[str] = None, inst: str | list[str] = None, stud
         strs = tmp if isinstance(tmp := (stud_inst or me_s), list) else [tmp]
         result = []
         for s in strs:
-            t = CDM_METATYPES[re.sub(r"[*\d]+", "", s.split("_")[-1])].eClass()
+            t = CDM_METATYPES[re.sub(r"[*\d]+", "", s.split("_")[-1])].eClass.__name__
             result.append(MistakeElement(many=s.endswith("*"), type=t))
         return result
     if n == d:

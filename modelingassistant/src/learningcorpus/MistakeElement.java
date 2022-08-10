@@ -43,25 +43,25 @@ public interface MistakeElement extends NamedElement {
   void setMany(boolean value);
 
   /**
-   * Returns the value of the '<em><b>Type</b></em>' reference.
+   * Returns the value of the '<em><b>Type</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Type</em>' reference.
-   * @see #setType(ca.mcgill.sel.classdiagram.NamedElement)
+   * @return the value of the '<em>Type</em>' attribute.
+   * @see #setType(String)
    * @see learningcorpus.LearningcorpusPackage#getMistakeElement_Type()
-   * @model required="true"
+   * @model
    * @generated
    */
-  ca.mcgill.sel.classdiagram.NamedElement getType();
+  String getType();
 
   /**
-   * Sets the value of the '{@link learningcorpus.MistakeElement#getType <em>Type</em>}' reference.
+   * Sets the value of the '{@link learningcorpus.MistakeElement#getType <em>Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Type</em>' reference.
+   * @param value the new value of the '<em>Type</em>' attribute.
    * @see #getType()
    * @generated
    */
-  void setType(ca.mcgill.sel.classdiagram.NamedElement value);
+  void setType(String value);
 
 } // MistakeElement

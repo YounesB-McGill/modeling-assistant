@@ -2,15 +2,12 @@
  */
 package learningcorpus.impl;
 
-import ca.mcgill.sel.classdiagram.NamedElement;
 import learningcorpus.LearningcorpusPackage;
 import learningcorpus.MistakeElement;
 
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -49,14 +46,24 @@ public class MistakeElementImpl extends NamedElementImpl implements MistakeEleme
   protected boolean many = MANY_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+   * The default value of the '{@link #getType() <em>Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getType()
    * @generated
    * @ordered
    */
-  protected NamedElement type;
+  protected static final String TYPE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getType()
+   * @generated
+   * @ordered
+   */
+  protected String type = TYPE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -106,24 +113,7 @@ public class MistakeElementImpl extends NamedElementImpl implements MistakeEleme
    * @generated
    */
   @Override
-  public NamedElement getType() {
-    if (type != null && type.eIsProxy()) {
-      InternalEObject oldType = (InternalEObject)type;
-      type = (NamedElement)eResolveProxy(oldType);
-      if (type != oldType) {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, LearningcorpusPackage.MISTAKE_ELEMENT__TYPE, oldType, type));
-      }
-    }
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NamedElement basicGetType() {
+  public String getType() {
     return type;
   }
 
@@ -133,8 +123,8 @@ public class MistakeElementImpl extends NamedElementImpl implements MistakeEleme
    * @generated
    */
   @Override
-  public void setType(NamedElement newType) {
-    NamedElement oldType = type;
+  public void setType(String newType) {
+    String oldType = type;
     type = newType;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, LearningcorpusPackage.MISTAKE_ELEMENT__TYPE, oldType, type));
@@ -151,8 +141,7 @@ public class MistakeElementImpl extends NamedElementImpl implements MistakeEleme
       case LearningcorpusPackage.MISTAKE_ELEMENT__MANY:
         return isMany();
       case LearningcorpusPackage.MISTAKE_ELEMENT__TYPE:
-        if (resolve) return getType();
-        return basicGetType();
+        return getType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -169,7 +158,7 @@ public class MistakeElementImpl extends NamedElementImpl implements MistakeEleme
         setMany((Boolean)newValue);
         return;
       case LearningcorpusPackage.MISTAKE_ELEMENT__TYPE:
-        setType((NamedElement)newValue);
+        setType((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -187,7 +176,7 @@ public class MistakeElementImpl extends NamedElementImpl implements MistakeEleme
         setMany(MANY_EDEFAULT);
         return;
       case LearningcorpusPackage.MISTAKE_ELEMENT__TYPE:
-        setType((NamedElement)null);
+        setType(TYPE_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -204,7 +193,7 @@ public class MistakeElementImpl extends NamedElementImpl implements MistakeEleme
       case LearningcorpusPackage.MISTAKE_ELEMENT__MANY:
         return many != MANY_EDEFAULT;
       case LearningcorpusPackage.MISTAKE_ELEMENT__TYPE:
-        return type != null;
+        return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
     }
     return super.eIsSet(featureID);
   }
@@ -221,6 +210,8 @@ public class MistakeElementImpl extends NamedElementImpl implements MistakeEleme
     StringBuilder result = new StringBuilder(super.toString());
     result.append(" (many: ");
     result.append(many);
+    result.append(", type: ");
+    result.append(type);
     result.append(')');
     return result.toString();
   }
