@@ -23,6 +23,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link learningcorpus.MistakeType#getMistakeTypeCategory <em>Mistake Type Category</em>}</li>
  *   <li>{@link learningcorpus.MistakeType#getPriority <em>Priority</em>}</li>
  *   <li>{@link learningcorpus.MistakeType#getDescription <em>Description</em>}</li>
+ *   <li>{@link learningcorpus.MistakeType#getStudentElements <em>Student Elements</em>}</li>
+ *   <li>{@link learningcorpus.MistakeType#getInstructorElements <em>Instructor Elements</em>}</li>
  * </ul>
  *
  * @see learningcorpus.LearningcorpusPackage#getMistakeType()
@@ -201,5 +203,29 @@ public interface MistakeType extends NamedElement {
    * @generated
    */
   void setDescription(String value);
+
+  /**
+   * Returns the value of the '<em><b>Student Elements</b></em>' containment reference list.
+   * The list contents are of type {@link learningcorpus.MistakeElement}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Student Elements</em>' containment reference list.
+   * @see learningcorpus.LearningcorpusPackage#getMistakeType_StudentElements()
+   * @model containment="true"
+   * @generated
+   */
+  EList<MistakeElement> getStudentElements();
+
+  /**
+   * Returns the value of the '<em><b>Instructor Elements</b></em>' containment reference list.
+   * The list contents are of type {@link learningcorpus.MistakeElement}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Instructor Elements</em>' containment reference list.
+   * @see learningcorpus.LearningcorpusPackage#getMistakeType_InstructorElements()
+   * @model containment="true"
+   * @generated
+   */
+  EList<MistakeElement> getInstructorElements();
 
 } // MistakeType

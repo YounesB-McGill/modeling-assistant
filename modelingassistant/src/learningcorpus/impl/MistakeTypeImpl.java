@@ -9,6 +9,7 @@ import java.util.Collection;
 import learningcorpus.Feedback;
 import learningcorpus.LearningItem;
 import learningcorpus.LearningcorpusPackage;
+import learningcorpus.MistakeElement;
 import learningcorpus.MistakeType;
 import learningcorpus.MistakeTypeCategory;
 
@@ -22,6 +23,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -42,6 +44,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link learningcorpus.impl.MistakeTypeImpl#getMistakeTypeCategory <em>Mistake Type Category</em>}</li>
  *   <li>{@link learningcorpus.impl.MistakeTypeImpl#getPriority <em>Priority</em>}</li>
  *   <li>{@link learningcorpus.impl.MistakeTypeImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link learningcorpus.impl.MistakeTypeImpl#getStudentElements <em>Student Elements</em>}</li>
+ *   <li>{@link learningcorpus.impl.MistakeTypeImpl#getInstructorElements <em>Instructor Elements</em>}</li>
  * </ul>
  *
  * @generated
@@ -166,6 +170,26 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
    * @ordered
    */
   protected String description = DESCRIPTION_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getStudentElements() <em>Student Elements</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getStudentElements()
+   * @generated
+   * @ordered
+   */
+  protected EList<MistakeElement> studentElements;
+
+  /**
+   * The cached value of the '{@link #getInstructorElements() <em>Instructor Elements</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInstructorElements()
+   * @generated
+   * @ordered
+   */
+  protected EList<MistakeElement> instructorElements;
 
   /**
    * <!-- begin-user-doc -->
@@ -424,6 +448,32 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public EList<MistakeElement> getStudentElements() {
+    if (studentElements == null) {
+      studentElements = new EObjectContainmentEList<MistakeElement>(MistakeElement.class, this, LearningcorpusPackage.MISTAKE_TYPE__STUDENT_ELEMENTS);
+    }
+    return studentElements;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EList<MistakeElement> getInstructorElements() {
+    if (instructorElements == null) {
+      instructorElements = new EObjectContainmentEList<MistakeElement>(MistakeElement.class, this, LearningcorpusPackage.MISTAKE_TYPE__INSTRUCTOR_ELEMENTS);
+    }
+    return instructorElements;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -456,6 +506,10 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         return ((InternalEList<?>)getFeedbacks()).basicRemove(otherEnd, msgs);
       case LearningcorpusPackage.MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY:
         return basicSetMistakeTypeCategory(null, msgs);
+      case LearningcorpusPackage.MISTAKE_TYPE__STUDENT_ELEMENTS:
+        return ((InternalEList<?>)getStudentElements()).basicRemove(otherEnd, msgs);
+      case LearningcorpusPackage.MISTAKE_TYPE__INSTRUCTOR_ELEMENTS:
+        return ((InternalEList<?>)getInstructorElements()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -499,6 +553,10 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         return getPriority();
       case LearningcorpusPackage.MISTAKE_TYPE__DESCRIPTION:
         return getDescription();
+      case LearningcorpusPackage.MISTAKE_TYPE__STUDENT_ELEMENTS:
+        return getStudentElements();
+      case LearningcorpusPackage.MISTAKE_TYPE__INSTRUCTOR_ELEMENTS:
+        return getInstructorElements();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -537,6 +595,14 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
       case LearningcorpusPackage.MISTAKE_TYPE__DESCRIPTION:
         setDescription((String)newValue);
         return;
+      case LearningcorpusPackage.MISTAKE_TYPE__STUDENT_ELEMENTS:
+        getStudentElements().clear();
+        getStudentElements().addAll((Collection<? extends MistakeElement>)newValue);
+        return;
+      case LearningcorpusPackage.MISTAKE_TYPE__INSTRUCTOR_ELEMENTS:
+        getInstructorElements().clear();
+        getInstructorElements().addAll((Collection<? extends MistakeElement>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -573,6 +639,12 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
       case LearningcorpusPackage.MISTAKE_TYPE__DESCRIPTION:
         setDescription(DESCRIPTION_EDEFAULT);
         return;
+      case LearningcorpusPackage.MISTAKE_TYPE__STUDENT_ELEMENTS:
+        getStudentElements().clear();
+        return;
+      case LearningcorpusPackage.MISTAKE_TYPE__INSTRUCTOR_ELEMENTS:
+        getInstructorElements().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -601,6 +673,10 @@ public class MistakeTypeImpl extends NamedElementImpl implements MistakeType {
         return priority != PRIORITY_EDEFAULT;
       case LearningcorpusPackage.MISTAKE_TYPE__DESCRIPTION:
         return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+      case LearningcorpusPackage.MISTAKE_TYPE__STUDENT_ELEMENTS:
+        return studentElements != null && !studentElements.isEmpty();
+      case LearningcorpusPackage.MISTAKE_TYPE__INSTRUCTOR_ELEMENTS:
+        return instructorElements != null && !instructorElements.isEmpty();
     }
     return super.eIsSet(featureID);
   }
