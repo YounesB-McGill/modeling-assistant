@@ -8,7 +8,7 @@ from string import Formatter
 
 from pyecore.ecore import EClass
 
-from cdmmetatypes import CDM_METATYPES, CdmMetatype
+from metatypes import CDM_METATYPES, Metatype
 from utils import MistakeDetectionFormat, warn
 from classdiagram import Association, AssociationEnd, Attribute, CDEnumLiteral, Classifier, NamedElement
 from learningcorpus import MistakeType, ParametrizedResponse
@@ -263,21 +263,21 @@ def get_role_named_elem(start_elem: AssociationEnd | CDEnumLiteral | Classifier)
     return start_elem
 
 
-def param_start_elem_type(param: str, as_type: type = None) -> str | CdmMetatype | EClass:
+def param_start_elem_type(param: str, as_type: type = None) -> str | Metatype | EClass:
     """
     Return the CDM metatype of the starting element (part before dot) of the given parametrized response parameter.
 
     ```
-    param_start_elem_type("stud_cls") -> cdmmetatypes.cls.eClass = classdiagram.Class  # default
-    param_start_elem_type("stud_cls", as_type=str) -> cdmmetatypes.cls.short_name = "cls"
-    param_start_elem_type("inst_attr.type", as_type=CdmMetatype) -> cdmmetatypes.attr
+    param_start_elem_type("stud_cls") -> metatypes.cls.eClass = classdiagram.Class  # default
+    param_start_elem_type("stud_cls", as_type=str) -> metatypes.cls.short_name = "cls"
+    param_start_elem_type("inst_attr.type", as_type=CdmMetatype) -> metatypes.attr
     ```
     """
     part_before_dot = param.split(".")[0]
     type_name = re.sub(r"[\d]+$", "*", part_before_dot.split("_")[-1])
     if as_type == str:
         return type_name
-    if as_type == CdmMetatype:
+    if as_type == Metatype:
         return CDM_METATYPES.get(type_name, None)
     if as_type not in (None, EClass, type):
         warn(f"param_start_elem_type(): {as_type = } is not a valid type")

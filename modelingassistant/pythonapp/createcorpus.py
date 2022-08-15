@@ -18,7 +18,7 @@ from textwrap import dedent
 
 import cv2
 
-from cdmmetatypes import CDM_METATYPES, CdmMetatype
+from metatypes import CDM_METATYPES, Metatype
 from constants import LEARNING_CORPUS_PATH, MULTIPLE_FEEDBACKS_PER_LEVEL
 from corpus import corpus
 from fileserdes import save_to_file
@@ -570,7 +570,7 @@ class LatexGenerator(TextualGenerator):
                     continue
                 # safe navigation equivalent of CDM_METATYPES[mt.md_format.stud[0]].long_name
                 elem_type = getattr(CDM_METATYPES.get(next(iter(getattr(mt, "md_format").stud), ""),
-                                                      CdmMetatype(short_name="", long_name="", eClass=None)),
+                                                      Metatype(short_name="", long_name="", eClass=None)),
                                     "long_name")
                 elem_type = ""  # for now, don't show the element type
                 match fb:

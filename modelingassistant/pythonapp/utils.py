@@ -69,16 +69,17 @@ def mt(n, d="", stud: str | list[str] = None, inst: str | list[str] = None, stud
     n: name of the mistake type
     d: description of the mistake type
     """
-    from cdmmetatypes import CDM_METATYPES  # pylint: disable=import-outside-toplevel
+    # change the line below to use other languages
+    from metatypes import CDM_METATYPES as types  # pylint: disable=import-outside-toplevel
     def elems(me_s: str | list[str]) -> list[MistakeElement]:
         "Helper function to create the list of MistakeElements for the given input string(s)."
         strs = tmp if isinstance(tmp := (stud_inst or me_s), list) else [tmp]
         result = []
         for s in strs:
             desired_type_name = re.sub(r"[*\d]+", "", s.split("_")[-1])
-            if desired_type_name not in metatypes:
+            if desired_type_name not in types:
                 raise ValueError(f"{desired_type_name} is not a valid metatype name.")
-            t = metatypes[re.sub(r"[*\d]+", "", s.split("_")[-1])].eClass.__name__
+            t = types[re.sub(r"[*\d]+", "", s.split("_")[-1])].eClass.__name__
             result.append(MistakeElement(name=s, many=s.endswith("*"), type=t))
         return result
     if n == d:
