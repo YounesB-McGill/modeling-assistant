@@ -23,7 +23,7 @@ def insert_mistake_elements():
         corpus_def: str = f.read().replace(FBS, f"{PLACEHOLDER}, {FBS}")
     for mistake_element, stud_inst_pairs in mistake_elements.items():
         before, after = corpus_def.split(mistake_element, 1)
-        after = after.replace(PLACEHOLDER, create_arguments(stud_inst_pairs))
+        after = after.replace(PLACEHOLDER, create_arguments(stud_inst_pairs), 1)
         corpus_def = f"{before}{mistake_element}{after}"
     print(corpus_def)
     # this is commented out to avoid accidentally overwriting the file
