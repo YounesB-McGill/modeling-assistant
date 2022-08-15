@@ -27,7 +27,7 @@
       "request": "launch",
       "module": "flask",
       "env": {
-        "FLASK_APP": "modelingassistant/pythonclient/flaskapp.py",
+        "FLASK_APP": "modelingassistant/pythonapp/flaskapp.py",
         "FLASK_ENV": "development",
         "FLASK_DEBUG": "0",
         "FLASK_RUN_HOST": "localhost",

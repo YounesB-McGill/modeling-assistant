@@ -8,7 +8,7 @@ then run this file to update corpus_definition.py
 import json
 
 MISTAKE_ELEMS_FILE = "modelingassistant/corpus_descriptions/mistakeelems.json"
-CORPUS_DEF_FILE = "modelingassistant/pythonclient/corpus_definition.py"
+CORPUS_DEF_FILE = "modelingassistant/pythonapp/corpus_definition.py"
 
 FBS = "feedbacks=fbs({"
 PLACEHOLDER = '"@@PLACEHOLDER@@"'

@@ -24,7 +24,7 @@ def generate_pyecore():
     "Generate the pyecore Python code from the modeling assistant and learning corpus metamodels."
     # TODO Add automatic code generation for the now external "classdiagram.ecore" metamodel
     pyecoregen_cmd = lambda mdl: f"""pyecoregen -e {mdl
-                                  } -o modelingassistant/pythonclient --with-dependencies"""
+                                  } -o modelingassistant/pythonapp --with-dependencies"""
     metamodel_names = ["learningcorpus", "learningcorpusquiz", "modelingassistant"]
     for mm in metamodel_names:
         os.system(pyecoregen_cmd(f"modelingassistant/model/{mm}.ecore"))
@@ -131,9 +131,9 @@ def customize_generated_code():
             raise BadValueError(got=value, expected=etype, feature=feature)
         return True
 
-    cdm_py = "modelingassistant/pythonclient/classdiagram/classdiagram.py"
-    lc_py = "modelingassistant/pythonclient/learningcorpus/learningcorpus.py"
-    ma_py = "modelingassistant/pythonclient/modelingassistant/modelingassistant.py"
+    cdm_py = "modelingassistant/pythonapp/classdiagram/classdiagram.py"
+    lc_py = "modelingassistant/pythonapp/learningcorpus/learningcorpus.py"
+    ma_py = "modelingassistant/pythonapp/modelingassistant/modelingassistant.py"
 
     # remove the NotImplementedError stubs for CDM getName() and replace with actual implementation
     remove_from_module(cdm_py, "getName")

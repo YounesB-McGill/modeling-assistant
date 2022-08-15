@@ -61,8 +61,8 @@ Commonly run commands:
 
 ```bash
 pytest  # This runs all tests for the Python app
-python modelingassistant/pythonclient/flaskapp.py  # Run the Modeling Assistant Feedback Mechanism backend
-python modelingassistant/pythonclient/createcorpus.py  # updates learning corpus from corpus definition file
+python modelingassistant/pythonapp/flaskapp.py  # Run the Modeling Assistant Feedback Mechanism backend
+python modelingassistant/pythonapp/createcorpus.py  # updates learning corpus from corpus definition file
 ```
 
 ## Updating the Metamodel(s)
@@ -81,7 +81,7 @@ file, right-clicking `Modelingassistant`, and selecting the `Generate All` optio
 Make sure the code compiles.
 1. Autogenerate the Python code using the command
    ```bash
-   python3 modelingassistant/pythonclient/generatepythoncode.py
+   python3 modelingassistant/pythonapp/generatepythoncode.py
    ```
    Run this from the repo root in an active virtual environment.
    Activating the virtual environment is automatically done in Visual Studio Code

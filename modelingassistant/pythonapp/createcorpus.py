@@ -31,7 +31,7 @@ from utils import warn, NonNoneDict
 MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
 MAX_COLUMN_WIDTH = 120
 
-PYTHON_MISTAKE_TYPES_FILE = "modelingassistant/pythonclient/mistaketypes.py"
+PYTHON_MISTAKE_TYPES_FILE = "modelingassistant/pythonapp/mistaketypes.py"
 JAVA_MISTAKE_TYPES_FILE = "modelingassistant/src/learningcorpus/mistaketypes/MistakeTypes.java"
 CORPUS_DESCRIPTION_DIR = "modelingassistant/corpus_descriptions"
 LEARNING_CORPUS_MARKDOWN_FILE = f"{CORPUS_DESCRIPTION_DIR}/README.md"

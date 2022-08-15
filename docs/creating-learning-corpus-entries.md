@@ -38,7 +38,7 @@ To update the learning corpus instance stored on disk, as well as the Java and P
 run the following command:
 
 ```bash
-python modelingassistant/pythonclient/createcorpus.py
+python modelingassistant/pythonapp/createcorpus.py
 ```
 
 ### Step 3: Update Source Code

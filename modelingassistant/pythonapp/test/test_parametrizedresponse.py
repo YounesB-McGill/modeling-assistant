@@ -30,7 +30,7 @@ from learningcorpus import MistakeElement, MistakeType, ParametrizedResponse
 from modelingassistant import Mistake, SolutionElement
 
 
-_PR_PARAM_PARSED_OUTPUT_FILE = "modelingassistant/pythonclient/test/pr_param_parsed_output.md"
+_PR_PARAM_PARSED_OUTPUT_FILE = "modelingassistant/pythonapp/test/pr_param_parsed_output.md"
 
 
 def test_prs_correctly_specified():
