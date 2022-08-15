@@ -12,6 +12,7 @@ MODELING_ASSISTANT_MM = f"{MM_PATH}/modelingassistant.ecore"
 # Model paths
 LEARNING_CORPUS_PATH = "modelingassistant/learningcorpusinstances/default.learningcorpus"
 DEFAULT_MODELING_ASSISTANT_PATH = "modelingassistant/instances/default.modelingassistant"
+MISTAKE_ELEMS_JSON_FILE = "modelingassistant/corpus_descriptions/mistakeelems.json"
 
 # Web endpoints
 WEBCORE_ENDPOINT = "http://localhost:8080"

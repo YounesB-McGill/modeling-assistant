@@ -7,7 +7,8 @@ then run this file to update corpus_definition.py
 """
 import json
 
-MISTAKE_ELEMS_FILE = "modelingassistant/corpus_descriptions/mistakeelems.json"
+from constants import MISTAKE_ELEMS_JSON_FILE
+
 CORPUS_DEF_FILE = "modelingassistant/pythonapp/corpus_definition.py"
 
 FBS = "feedbacks=fbs({"
@@ -16,7 +17,7 @@ PLACEHOLDER = '"@@PLACEHOLDER@@"'
 
 def insert_mistake_elements():
     "Extract the mistake elements from the JSON file and insert them in the corpus description."
-    with open(MISTAKE_ELEMS_FILE, "r", encoding="utf-8") as f:
+    with open(MISTAKE_ELEMS_JSON_FILE, "r", encoding="utf-8") as f:
         mistake_elements: dict[str, list[list[str]]] = json.load(f)
     with open(CORPUS_DEF_FILE, "r", encoding="utf-8") as f:
         corpus_def: str = f.read().replace(FBS, f"{PLACEHOLDER}, {FBS}")

@@ -207,6 +207,9 @@ class MistakeElement(NamedElement):
         if type is not None:
             self.type = type
 
+    def __repr__(self) -> str:
+        return f"{(f'{self.name}_' if self.name else '')}{self.type}{('*' if self.many else '')}"
+
 class Reference(LearningResource):
 
     def __init__(self, **kwargs):

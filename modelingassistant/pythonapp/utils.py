@@ -76,11 +76,12 @@ def mt(n, d="", stud: str | list[str] = None, inst: str | list[str] = None, stud
         strs = tmp if isinstance(tmp := (stud_inst or me_s), list) else [tmp]
         result = []
         for s in strs:
-            desired_type_name = re.sub(r"[*\d]+", "", s.split("_")[-1])
+            _split = s.split("_")
+            desired_type_name = re.sub(r"[*\d]+", "", _split[-1])
             if desired_type_name not in types:
                 raise ValueError(f"{desired_type_name} is not a valid metatype name.")
-            t = types[re.sub(r"[*\d]+", "", s.split("_")[-1])].eClass.__name__
-            result.append(MistakeElement(name=s, many=s.endswith("*"), type=t))
+            t = re.sub(r"[*\d]+", "", _split[-1])  # TODO improve this later
+            result.append(MistakeElement(name="_".join(_split[:-1]), many=s.endswith("*"), type=t))
         return result
     if n == d:
         warn(f"Name and description are identical for mistake type {n}")
