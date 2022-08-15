@@ -31,7 +31,7 @@ def generate_pyecore():
 
 
 def customize_generated_code():
-    "Add custom functionality to the generated code, similar to `@generated NOT` in the Java ecore implementation."
+    "Add custom functionality to the generated code, similar to `@generated NOT` in the Java Ecore implementation."
     ast_for = lambda item: ast.parse(dedent(getsource(item)))
 
     # Add the following items to the generated ClassDiagram class
@@ -91,6 +91,15 @@ def customize_generated_code():
         "Custom function to return all the parametrized responses for this mistake type."
         return [fb for fb in self.feedbacks if fb.__class__.__name__ == "ParametrizedResponse"]
 
+    md_format = dedent("""\
+        @property
+        def md_format(self):
+            from collections import namedtuple
+            Mdf = namedtuple("MDF", "stud inst")
+            return Mdf([e.name for e in self.studentElements], [e.name for e in self.instructorElements])
+        """)
+
+
     # Add the following items to the generated ModelingAssistant class
     cdm2sols_def = "classDiagramsToSolutions: dict = {}"
 
@@ -132,7 +141,7 @@ def customize_generated_code():
     customize_class(cdm_py, "ObjectType", [ast_for(ObjectType.__init__)])
     customize_class(cdm_py, "AssociationEnd", [ast_for(getOppositeEnd), ast.parse(oppositeEnd)])
     customize_class(lc_py, "LearningCorpus", [ast_for(mistakeTypes), ast_for(topLevelMistakeTypeCategories)])
-    customize_class(lc_py, "MistakeType", [ast_for(parametrized_responses)])
+    customize_class(lc_py, "MistakeType", [ast_for(parametrized_responses), ast.parse(md_format)])
     customize_class(ma_py, "ModelingAssistant", [ast.parse(cdm2sols_def)])
 
     ma_footer = dedent("""

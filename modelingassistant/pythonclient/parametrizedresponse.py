@@ -48,7 +48,7 @@ def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> st
     Example execution (Python-like pseudocode):
 
     ```
-    WRONG_CLASS_NAME.md_format = mdf(["cls"], ["cls"])
+    Given MistakeType WRONG_CLASS_NAME with student element cls and instructor element cls:
     parametrize_response(resp="${stud_cls} should be ${inst_cls}.", mistake={mt: WRONG_CLASS_NAME, se: [sc], ie: [ic]}):
         1. Establish mapping {stud_cls: sc, inst_cls: ic}
         2. Extract parameters: stud_cls, inst_cls
@@ -60,7 +60,7 @@ def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> st
     For other more interesting examples, see the unit tests.
     """
     options: dict[str, str] = {}
-    mdf_items_to_mistake_elems = get_mdf_items_to_mistake_elem_dict(mistake)
+    mdf_items_to_mistake_elems = get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(mistake)
     params = extract_params(response.text)
     param_roots = param_parts_before_dot(params)
     for param, param_root in zip(params, param_roots):
@@ -170,9 +170,10 @@ def resolve_attribute(elem, attr_name: str):
     return getattr(elem, SHORTHANDS.get(attr_name, attr_name), elem)
 
 
-def get_mdf_items_to_mistake_elem_dict(mistake: Mistake) -> dict[str, NamedElement | list[NamedElement]]:
+def get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(mistake: Mistake
+    ) -> dict[str, NamedElement | list[NamedElement]]:
     """
-    Return a dict of mistake detection format items to mistake elements.
+    Return a dict of mistake element string descriptions to actual mistake elements.
     """
     mdf_items_to_elems = {}
     mdf: MistakeDetectionFormat = mistake.mistakeType.md_format

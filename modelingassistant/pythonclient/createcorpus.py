@@ -25,7 +25,7 @@ from fileserdes import save_to_file
 from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResponse, ParametrizedResponse,
                             ResourceResponse, Quiz)
 from learningcorpusquiz import Blank, FillInTheBlanksQuiz, ListMultipleChoiceQuiz, NonBlank, TableMultipleChoiceQuiz
-from utils import mdf, warn, NonNoneDict
+from utils import warn, NonNoneDict
 
 
 MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
@@ -49,7 +49,6 @@ from constants import LEARNING_CORPUS_PATH
 from corpus import corpus as runtime_corpus
 from fileserdes import load_lc
 from learningcorpus import MistakeTypeCategory, MistakeType
-from utils import mdf
 
 corpus = load_lc(LEARNING_CORPUS_PATH)
 
@@ -60,10 +59,6 @@ MISTAKE_TYPES_BY_NAME: dict[str, MistakeType] = {{mt.name: mt for mt in corpus.m
 # Short-name references to the above dicts for greater code legibility
 _MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
 _MTS = MISTAKE_TYPES_BY_NAME
-
-# Add mistake detection format attribute to mistake types in _MTS
-for mt in runtime_corpus.mistakeTypes():
-    _MTS[mt.name].md_format = getattr(mt, "md_format", mdf([], []))
 
 
 # Mistake type categories
@@ -574,7 +569,7 @@ class LatexGenerator(TextualGenerator):
                 if fb.level != level:
                     continue
                 # safe navigation equivalent of CDM_METATYPES[mt.md_format.stud[0]].long_name
-                elem_type = getattr(CDM_METATYPES.get(next(iter(getattr(mt, "md_format", mdf([], [])).stud), ""),
+                elem_type = getattr(CDM_METATYPES.get(next(iter(getattr(mt, "md_format").stud), ""),
                                                       CdmMetatype(short_name="", long_name="", eClass=None)),
                                     "long_name")
                 elem_type = ""  # for now, don't show the element type

@@ -75,8 +75,11 @@ def mt(n, d="", stud: str | list[str] = None, inst: str | list[str] = None, stud
         strs = tmp if isinstance(tmp := (stud_inst or me_s), list) else [tmp]
         result = []
         for s in strs:
-            t = CDM_METATYPES[re.sub(r"[*\d]+", "", s.split("_")[-1])].eClass.__name__
-            result.append(MistakeElement(many=s.endswith("*"), type=t))
+            desired_type_name = re.sub(r"[*\d]+", "", s.split("_")[-1])
+            if desired_type_name not in metatypes:
+                raise ValueError(f"{desired_type_name} is not a valid metatype name.")
+            t = metatypes[re.sub(r"[*\d]+", "", s.split("_")[-1])].eClass.__name__
+            result.append(MistakeElement(name=s, many=s.endswith("*"), type=t))
         return result
     if n == d:
         warn(f"Name and description are identical for mistake type {n}")
@@ -171,27 +174,19 @@ class HighlightSolution(Feedback):
 
 class MistakeDetectionFormat(NamedTuple):
     """
-    Simple representation of the current mistake detection format for a mistake type.
+    Internal representation of the current mistake detection format for a mistake type.
 
-    stud: ordered list of student solution elements for a particular mistake type
-    inst: ordered list of instructor solution elements
+    stud: ordered list of student solution element descriptions for a particular mistake type
+    inst: ordered list of instructor solution element descriptions
 
     Note that in both cases, not all slots are occupied. For example, for incomplete containment tree, there may be
     a variable number of student solution elements.
-
-    This information is not in the metamodel as of now, but is still needed to interpret the results of the
-    Mistake Detection System. This approach is provisional and will be improved in future work.
     """
     stud: list[str]
     inst: list[str]
 
     def __repr__(self) -> str:
         return f"({self.stud}, {self.inst})"
-
-
-def mdf(student_elems_descriptions: list[str], instructor_elems_descriptions: list[str]) -> MistakeDetectionFormat:
-    "Shorthand for MistakeDetectionFormat initializer."
-    return MistakeDetectionFormat(stud=student_elems_descriptions, inst=instructor_elems_descriptions)
 
 
 class McqFactory:

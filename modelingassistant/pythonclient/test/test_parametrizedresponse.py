@@ -25,8 +25,8 @@ from corpus_definition import attribute_misplaced, missing_association_name, mis
 from parametrizedresponse import (comma_seperated_with_and, extract_params, get_mdf_items_to_mistake_elem_dict,
                                   parametrize_response, param_parts_before_dot, param_start_elem_type, param_valid,
                                   parse)
-from utils import mdf, mt
-from learningcorpus import MistakeType, ParametrizedResponse
+from utils import mt
+from learningcorpus import MistakeElement, MistakeType, ParametrizedResponse
 from modelingassistant import Mistake, SolutionElement
 
 
@@ -70,7 +70,6 @@ def test_pr_aggr():
     # Dummy mistake type used for testing
     wrong_aggr_name = mt("Wrong aggregation name", stud_inst="aggr", feedbacks=[wrong_aggr_name_pr :=
         ParametrizedResponse(text="The ${stud_aggr} aggregation should be renamed to ${inst_aggr}.")])
-    wrong_aggr_name.md_format = mdf(["aggr"], ["aggr"])
     # Assume this mistake is returned from the Mistake Detection System
     wrong_aggr_name_mistake = Mistake(instructorElements=[SolutionElement(element=aggr.example)],
                                       studentElements=[SolutionElement(element=Association(ends=(stud_aes := [
@@ -206,18 +205,18 @@ def test_all_pr_params_can_be_parsed():
 
 def test_get_mdf_items_to_mistake_elem_dict():
     "Test get_mdf_items_to_mistake_elem_dict() helper function."
+    simple_mt = MistakeType(name="Simple mistake", studentElements=[MistakeElement(name=n) for n in ["a", "b"]])
+    varargs_mt = MistakeType(name="Varargs mistake", studentElements=[MistakeElement(name=n) for n in ["a", "b", "c*"]])
     simple_mistake = Mistake(studentElements=[SolutionElement(element=Class(name=c)) for c in "ab"],
-                             mistakeType=(simple_mt := MistakeType(name="Simple mistake")))
+                             mistakeType=simple_mt)
     varargs_mistake = Mistake(studentElements=[SolutionElement(element=Class(name=c)) for c in "abxyz"],
-                              mistakeType=(varargs_mt := MistakeType(name="Varargs mistake")))
-    simple_mt.md_format = mdf(["a", "b"], [])
-    varargs_mt.md_format = mdf(["a", "b", "c*"], [])
+                              mistakeType=varargs_mt)
 
-    assert get_mdf_items_to_mistake_elem_dict(simple_mistake) == {
+    assert get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(simple_mistake) == {
         "stud_a": simple_mistake.studentElements[0].element,
         "stud_b": simple_mistake.studentElements[1].element,
     }
-    assert get_mdf_items_to_mistake_elem_dict(varargs_mistake) == {
+    assert get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(varargs_mistake) == {
         "stud_a": varargs_mistake.studentElements[0].element,
         "stud_b": varargs_mistake.studentElements[1].element,
         "stud_c*": [varargs_mistake.studentElements[i].element for i in range(2, len(varargs_mistake.studentElements))],

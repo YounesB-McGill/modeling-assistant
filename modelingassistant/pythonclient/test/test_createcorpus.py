@@ -28,7 +28,7 @@ plural_attribute_copy_mt = mt(n="Plural attribute copy", stud="attr", inst=[], f
     ]]),
 }))
 
-extra_generalization_copy_mt = mt(n="Extra generalization copy", stud=["assoc", "cls"], inst="cls", feedbacks=fbs({
+extra_generalization_copy_mt = mt(n="Extra generalization copy", stud=["sub_cls", "super_cls"], inst=[], feedbacks=fbs({
     5: ResourceResponse(learningResources=[inherit_checks_quiz := fitb(dedent("""\
         Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
         and complete the following:
@@ -48,6 +48,8 @@ def test_md_make_multiple_choice_quiz():
     expected_mt_with_quiz_md = dedent("""\
         ## Plural attribute copy
         
+        Student element: Attribute. 
+
         Level 4: Resource response with List multiple-choice quiz:
 
         Pick the classes which are modeled correctly with Umple.
@@ -62,6 +64,8 @@ def test_md_make_multiple_choice_quiz():
 def test_md_make_fill_in_the_blanks_quiz():
     expected_mt_with_quiz_md = dedent("""\
         ## Extra generalization copy
+
+        Student elements: Subclass, Superclass. 
 
         Level 5: Resource response with Fill-in-the-blanks quiz:
         
@@ -107,6 +111,8 @@ def test_tex_make_multiple_choice_quiz():
     expected_mt_with_quiz_tex = dedent(R"""
         \section{Plural attribute copy}
 
+        Student element: Attribute.  \medskip
+
         \noindent Level 4: Resource response with List multiple-choice quiz: \medskip
 
         \begin{tabular}{|p{0.9\linewidth}}
@@ -130,6 +136,8 @@ def test_tex_make_fill_in_the_blanks_quiz():
     test_md_make_fill_in_the_blanks_quiz()
     expected_mt_with_quiz_tex = dedent(R"""
         \section{Extra generalization copy}
+
+        Student elements: Subclass, Superclass.  \medskip
 
         \noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
 
@@ -194,4 +202,3 @@ def test_use_contextual_capitalization():
 
 if __name__ == "__main__":
     "Main entry point."
-    test_tex_make_fill_in_the_blanks_quiz()

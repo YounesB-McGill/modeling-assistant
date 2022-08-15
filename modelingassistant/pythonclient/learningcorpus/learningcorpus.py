@@ -138,6 +138,12 @@ class MistakeType(NamedElement):
         """Custom function to return all the parametrized responses for this mistake type."""
         return [fb for fb in self.feedbacks if fb.__class__.__name__ == 'ParametrizedResponse']
 
+    @property
+    def md_format(self):
+        from collections import namedtuple
+        Mdf = namedtuple('MDF', 'stud inst')
+        return Mdf([e.name for e in self.studentElements], [e.name for e in self.instructorElements])
+
 class TextResponse(Feedback):
 
     def __init__(self, **kwargs):
