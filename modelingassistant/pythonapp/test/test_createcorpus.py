@@ -20,7 +20,7 @@ from learningcorpus import MistakeElement, MistakeType, ResourceResponse
 from utils import fbs, fitb, mcq, mt
 
 
-plural_attribute_copy_mt = mt(n="Plural attribute copy", stud="attr", inst="attr", feedbacks=fbs({
+plural_attribute_copy_mt = mt(n="Plural attribute copy", stud_inst="attr", feedbacks=fbs({
     4: ResourceResponse(learningResources=[mcq[
            "Pick the classes which are modeled correctly with Umple.",
            "class Student { courses; }",
@@ -206,13 +206,9 @@ def test_runtime_corpus_mistake_elements_match_json():
             rmes: list[MistakeElement] = getattr(mt_, f"{person}Elements")
             for j, me_str in enumerate(mistake_elements[i]):
                 rme = rmes[j]
-                if me_str == "aggr_compos_or_assoc":  # special case for relation union type
-                    jme = MistakeElement(name="", type="assoc")
-                else:
-                    _split = me_str.split("_")
-                    _type = _split[-1]
-                    jme = MistakeElement(name="_".join(_split[:-1]), many=_type.endswith("*"),
-                                         type=_type.removesuffix("*"))
+                _split = me_str.split("_")
+                _type = _split[-1]
+                jme = MistakeElement(name="_".join(_split[:-1]), many=_type.endswith("*"), type=_type.removesuffix("*"))
                 for attr in ("name", "many", "type"):
                     assert (rme_attr := getattr(rme, attr)) == (jme_attr := getattr(jme, attr)), (
                         f'''Mistake type "{mt_.name}" {person} element {j} {attr} mismatch: rme.{attr} = {rme_attr or

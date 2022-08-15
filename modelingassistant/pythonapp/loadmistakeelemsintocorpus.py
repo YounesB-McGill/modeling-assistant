@@ -22,10 +22,9 @@ def insert_mistake_elements():
     with open(CORPUS_DEF_FILE, "r", encoding="utf-8") as f:
         corpus_def: str = f.read().replace(FBS, f"{PLACEHOLDER}, {FBS}")
     for mistake_element, stud_inst_pairs in mistake_elements.items():
-        before, after = corpus_def.split(mistake_element, 1)
+        before, after = corpus_def.split(f"{mistake_element} ", 1)  # space is to avoid MTCs with similar names
         after = after.replace(PLACEHOLDER, create_arguments(stud_inst_pairs), 1)
-        corpus_def = f"{before}{mistake_element}{after}"
-    print(corpus_def)
+        corpus_def = f"{before}{mistake_element} {after}"
     # this is commented out to avoid accidentally overwriting the file
     # with open(CORPUS_DEF_FILE, "w", encoding="utf-8") as f:
     #     f.write(corpus_def)
