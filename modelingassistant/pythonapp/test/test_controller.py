@@ -733,10 +733,12 @@ def test_creating_using_attribute_instead_of_assoc_learning_corpus_entry():
     mtas = ["atomic", "timeToAddress", "numStepsBeforeNotification", "priority", "description", "mistakeTypeCategory"]
     fbas = ["level", "congratulatory", "usefulness", "highlightProblem", "highlightSolution", "text"]
     for attr in mtas:
-        assert getattr(actual, attr) == getattr(expected, attr)
+        assert (a := getattr(actual, attr)) == (e := getattr(expected, attr)), (
+            f"actual.{attr} ({a}) does not match expected.{attr} ({e})")
     for actual_fb, expected_fb in zip(actual.feedbacks, expected.feedbacks, strict=True):
         for attr in fbas:
-            assert getattr(actual_fb, attr) == getattr(expected_fb, attr)
+            assert (a := getattr(actual_fb, attr)) == (e := getattr(expected_fb, attr)), (
+                f"actual_fb.{attr} ({a}) does not match expected_fb.{attr} ({e})")
 
 
 def _create_using_attribute_instead_of_assoc_mistake_type() -> MistakeType:
@@ -773,6 +775,7 @@ def _create_using_attribute_instead_of_assoc_mistake_type() -> MistakeType:
         description="Using attribute instead of association",
         studentElements=[MistakeElement(name="attr")],
         instructorElements=[MistakeElement(name="assocend")],
+        priority=24,
         feedbacks=[
             Feedback(level=1, highlightSolution=True, learningCorpus=corpus),
             TextResponse(level=2, text="Remember that attributes are simple pieces of data."),
@@ -809,4 +812,4 @@ def _get_compos_aggreg_assoc_reference() -> Reference:
 
 if __name__ == "__main__":
     "Main entry point."
-    test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java()
+    test_creating_using_attribute_instead_of_assoc_learning_corpus_entry()
