@@ -18,14 +18,14 @@ from textwrap import dedent
 
 import cv2
 
-from metatypes import CDM_METATYPES, Metatype
+from metatypes import Metatype, CDM_METATYPES as metatypes
 from constants import LEARNING_CORPUS_PATH, MULTIPLE_FEEDBACKS_PER_LEVEL
 from corpus import corpus
 from fileserdes import save_to_file
 from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResponse, ParametrizedResponse,
-                            ResourceResponse, Quiz)
+                            MistakeElement, ResourceResponse, Quiz)
 from learningcorpusquiz import Blank, FillInTheBlanksQuiz, ListMultipleChoiceQuiz, NonBlank, TableMultipleChoiceQuiz
-from utils import warn, NonNoneDict
+from utils import NonNoneDict
 
 
 MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
@@ -268,12 +268,12 @@ class TextualGenerator(ABC):
         "Return the body for the mistake type, indented by the given amount."
 
     @classmethod
-    def mdf_item_display_name(cls, mdf_name: str) -> str:
+    def mistake_elem_display_name(cls, mistake_elem: MistakeElement | str) -> str:
         "Return the display name for the input MDF name."
         def display_name(s: str) -> str:
-            return CDM_METATYPES[s].long_name if s in CDM_METATYPES else s
+            return metatypes[s].long_name if s in metatypes else s
 
-        return (" ".join([display_name(w).capitalize() for w in mdf_name.split("_")])
+        return (" ".join([display_name(w).capitalize() for w in str(mistake_elem).split("_")])
                 .replace("Sub Class", "Subclass").replace("Super Class", "Superclass")
                 .replace("Minlowerbound", "Minimum lower bound")
                 .replace("Abs", "Abstraction").replace("Occ", "Occurrence")).capitalize()
@@ -295,18 +295,18 @@ class TextualGenerator(ABC):
             case 0:
                 result += ""
             case 1:
-                result += f"Student element: {cls.mdf_item_display_name(mt.md_format.stud[0])}.{sep}"
+                result += f"Student element: {cls.mistake_elem_display_name(mt.studentElements[0])}.{sep}"
             case _:
-                result += (
-                    f"Student elements: {', '.join([cls.mdf_item_display_name(e) for e in mt.md_format.stud])}.{sep}")
+                result += f"""Student elements: {
+                           ', '.join([cls.mistake_elem_display_name(e) for e in mt.studentElements])}.{sep}"""
         match len(mt.instructorElements):
             case 0:
                 result += ""
             case 1:
-                result += f"Instructor element: {cls.mdf_item_display_name(mt.md_format.inst[0])}."
+                result += f"Instructor element: {cls.mistake_elem_display_name(mt.instructorElements[0])}."
             case _:
                 result += f"""Instructor elements: {
-                    ', '.join([cls.mdf_item_display_name(e) for e in mt.md_format.inst])}."""
+                    ', '.join([cls.mistake_elem_display_name(e) for e in mt.instructorElements])}."""
         return result
 
     @classmethod
@@ -574,9 +574,9 @@ class LatexGenerator(TextualGenerator):
             for fb in mt.feedbacks:
                 if fb.level != level:
                     continue
-                # safe navigation equivalent of CDM_METATYPES[mt.md_format.stud[0]].long_name
-                elem_type = getattr(CDM_METATYPES.get(next(iter(getattr(mt, "md_format").stud), ""),
-                                                      Metatype(short_name="", long_name="", eClass=None)),
+                # safe navigation equivalent of metatypes[mt.md_format.stud[0]].long_name
+                elem_type = getattr(metatypes.get(next(iter(getattr(mt, "md_format").stud), ""),
+                                                  Metatype(short_name="", long_name="", eClass=None)),
                                     "long_name")
                 elem_type = ""  # for now, don't show the element type
                 match fb:
