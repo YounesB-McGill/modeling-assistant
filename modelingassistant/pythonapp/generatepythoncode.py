@@ -92,9 +92,19 @@ def customize_generated_code():
         return [fb for fb in self.feedbacks if fb.__class__.__name__ == "ParametrizedResponse"]
 
     class MistakeElement:
-        "Container for the __repr__ method below, which returns the DSL string representation of the MistakeElement."
+        "Container for the methods below."
         name, many, type = range(3)  # dummy definitions to make the linter happy
+
+        def __init__(self, *, many=None, type=None, **kwargs):  # pylint: disable=redefined-builtin
+            super().__init__(**kwargs)
+            self.name = self.name or ""
+            if many is not None:
+                self.many = many
+            if type is not None:
+                self.type = type
+
         def __repr__(self) -> str:
+            "Return the DSL string representation of the MistakeElement."
             return f"{f'{self.name}_' if self.name else ''}{self.type}{'*' if self.many else ''}"
 
     md_format = dedent("""\
@@ -147,7 +157,7 @@ def customize_generated_code():
     customize_class(cdm_py, "ObjectType", [ast_for(ObjectType.__init__)])
     customize_class(cdm_py, "AssociationEnd", [ast_for(getOppositeEnd), ast.parse(oppositeEnd)])
     customize_class(lc_py, "LearningCorpus", [ast_for(mistakeTypes), ast_for(topLevelMistakeTypeCategories)])
-    customize_class(lc_py, "MistakeElement", [ast_for(MistakeElement.__repr__)])
+    customize_class(lc_py, "MistakeElement", [ast_for(MistakeElement.__init__), ast_for(MistakeElement.__repr__)])
     customize_class(lc_py, "MistakeType", [ast_for(parametrized_responses), ast.parse(md_format)])
     customize_class(ma_py, "ModelingAssistant", [ast.parse(cdm2sols_def)])
 

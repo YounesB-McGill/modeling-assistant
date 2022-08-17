@@ -202,12 +202,14 @@ class MistakeElement(NamedElement):
 
     def __init__(self, *, many=None, type=None, **kwargs):
         super().__init__(**kwargs)
+        self.name = self.name or ''
         if many is not None:
             self.many = many
         if type is not None:
             self.type = type
 
     def __repr__(self) -> str:
+        """Return the DSL string representation of the MistakeElement."""
         return f"{(f'{self.name}_' if self.name else '')}{self.type}{('*' if self.many else '')}"
 
 class Reference(LearningResource):
