@@ -356,14 +356,20 @@ class MarkdownGenerator(TextualGenerator):
                     continue
                 match fb:
                     case Feedback(highlightProblem=True):
+                        """
+                        Possible outcomes here are:
+
+                        "Highlight specific problem statement elements referring to the instructor element(s)\n\n"
+                        "Highlight sentence(s) in problem statement referring to the instructor element(s)\n\n"
+                        """
                         sp = "specific" if fb.level > 1 else "sentence(s) in"
                         pse = "elements " if fb.level > 1 else ""
                         # use elem type here in the future if it can be made more specific, eg, enum instead of class
                         plural_item_marker = "(s)"
                         elem_owner = ""
-                        if hasattr(mt, "md_format") and mt.md_format.inst:
+                        if mt.instructorElements:
                             elem_owner = "the instructor "
-                            if len(mt.md_format.inst) == 1:
+                            if len(mt.instructorElements) == 1:
                                 plural_item_marker = ""
                         elem = f"referring to {elem_owner}element{plural_item_marker}"
                         result += f"Highlight {sp} problem statement {pse}{elem}\n\n"
@@ -581,14 +587,20 @@ class LatexGenerator(TextualGenerator):
                 elem_type = ""  # for now, don't show the element type
                 match fb:
                     case Feedback(highlightProblem=True):
+                        """
+                        Possible outcomes here are:
+
+                        "Highlight specific problem statement elements referring to the inst. element(s) \\medskip\n"
+                        "Highlight sentence(s) in problem statement referring to the instructor element(s) \\medskip\n"
+                        """
                         sp = "specific" if fb.level > 1 else "sentence(s) in"
                         pse = "elements " if fb.level > 1 else ""
                         # use elem_type here in the future if it can be made more specific, eg, enum instead of class
                         plural_item_marker = "(s)"
                         elem_owner = ""
-                        if hasattr(mt, "md_format") and mt.md_format.inst:
+                        if mt.instructorElements:
                             elem_owner = "the instructor "
-                            if len(mt.md_format.inst) == 1:
+                            if len(mt.instructorElements) == 1:
                                 plural_item_marker = ""
                         elem = f"referring to {elem_owner}element{plural_item_marker}"
                         result += f"Highlight {sp} problem statement {pse}{elem}{cls.NLS}"
