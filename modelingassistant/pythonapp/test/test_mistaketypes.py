@@ -236,4 +236,4 @@ def print_mts_by_priority_with_labels_latex_table():
 
 if __name__ == "__main__":
     "Main entry point."
-    print_mts_by_priority_with_labels_latex_table()
+    test_mistake_type_formats()

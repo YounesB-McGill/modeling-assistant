@@ -112,6 +112,8 @@ def test_tex_make_multiple_choice_quiz():
     expected_mt_with_quiz_tex = dedent(R"""
         \section{Plural attribute copy}
 
+        Student element: Attribute. Instructor element: Attribute. \medskip
+
         \noindent Level 4: Resource response with List multiple-choice quiz: \medskip
 
         \begin{tabular}{|p{0.9\linewidth}}
@@ -132,9 +134,11 @@ def test_tex_make_multiple_choice_quiz():
 
 
 def test_tex_make_fill_in_the_blanks_quiz():
-    test_md_make_fill_in_the_blanks_quiz()
+    test_md_make_fill_in_the_blanks_quiz()  # need to create Markdown first and save it to _quizzes_to_md
     expected_mt_with_quiz_tex = dedent(R"""
         \section{Extra generalization copy}
+
+        Student elements: Subclass, Superclass. \medskip
 
         \noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
 
@@ -221,3 +225,4 @@ def test_runtime_corpus_mistake_elements_match_json():
 
 if __name__ == "__main__":
     "Main entry point."
+    test_runtime_corpus_mistake_elements_match_json()
