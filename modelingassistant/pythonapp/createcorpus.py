@@ -280,14 +280,18 @@ class TextualGenerator(ABC):
 
     @classmethod
     @abstractmethod
-    def make_md_format_description(cls, mt: MistakeType) -> str:
-        "Return the mistake detection format description for the mistake type."
-        if not hasattr(mt, "md_format"):
-            warn(f"Mistake type {mt.name} does not have a Mistake Detection Format")
-            return ""  # MistakeDetectionFormat not yet defined for mistake type
+    def make_mistake_type_element_description(cls, mt: MistakeType) -> str:
+        """
+        Return the mistake element description for the mistake type.
+
+        Example: For the mistake type "Using attribute instead of association," the output is the string
+        "Student element: Attribute. Instructor element: Association end."
+        """
+        if not mt.studentElements and not mt.instructorElements:
+            raise ValueError(f"Mistake type {mt.name} must have student or instructor elements.")
         result = ""
         sep = " " if mt.instructorElements else ""  # add space after student elements only if inst elements are present
-        match len(mt.md_format.stud):
+        match len(mt.studentElements):
             case 0:
                 result += ""
             case 1:
@@ -295,7 +299,7 @@ class TextualGenerator(ABC):
             case _:
                 result += (
                     f"Student elements: {', '.join([cls.mdf_item_display_name(e) for e in mt.md_format.stud])}.{sep}")
-        match len(mt.md_format.inst):
+        match len(mt.instructorElements):
             case 0:
                 result += ""
             case 1:
@@ -341,7 +345,7 @@ class MarkdownGenerator(TextualGenerator):
     @classmethod
     def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -> str:
         "Return the Markdown body of the output."
-        result = f"{cls.make_body_title(mt.description, indentation)}{cls.make_md_format_description(mt)}"
+        result = f"{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}"
         levels = sorted(fb.level for fb in mt.feedbacks)
         for level in levels:
             if (level_header := f"Level {level}: ") not in result:
@@ -415,8 +419,8 @@ class MarkdownGenerator(TextualGenerator):
         return result
 
     @classmethod
-    def make_md_format_description(cls, mt: MistakeType) -> str:
-        descr = super().make_md_format_description(mt)
+    def make_mistake_type_element_description(cls, mt: MistakeType) -> str:
+        descr = super().make_mistake_type_element_description(mt)
         return (descr + "\n\n") if descr else ""
 
     @classmethod
@@ -561,7 +565,7 @@ class LatexGenerator(TextualGenerator):
     @classmethod
     def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -> str:
         "Return the LaTeX body of the output."
-        result = f"{cls.make_body_title(mt.description, indentation)}{cls.make_md_format_description(mt)}"
+        result = f"{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}"
         levels = sorted(fb.level for fb in mt.feedbacks)
         for level in levels:
             if (level_header := f"{cls.NO_INDENT}Level {level}: ") not in result:
@@ -625,8 +629,8 @@ class LatexGenerator(TextualGenerator):
         return result
 
     @classmethod
-    def make_md_format_description(cls, mt: MistakeType) -> str:
-        descr = super().make_md_format_description(mt)
+    def make_mistake_type_element_description(cls, mt: MistakeType) -> str:
+        descr = super().make_mistake_type_element_description(mt)
         return f"{descr}{cls.NLS}" if descr else ""
 
     @classmethod
