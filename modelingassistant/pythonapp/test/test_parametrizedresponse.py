@@ -203,10 +203,10 @@ def test_all_pr_params_can_be_parsed():
     return pr_md
 
 
-def test_get_mdf_items_to_mistake_elem_dict():
+def test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems():
     "Test get_mdf_items_to_mistake_elem_dict() helper function."
-    simple_mt = MistakeType(name="Simple mistake", studentElements=[MistakeElement(name=n) for n in ["a", "b"]])
-    varargs_mt = MistakeType(name="Varargs mistake", studentElements=[MistakeElement(name=n) for n in ["a", "b", "c*"]])
+    simple_mt = MistakeType(name="Simple mistake", studentElements=[MistakeElement(type=n) for n in ["a", "b"]])
+    varargs_mt = MistakeType(name="Varargs mistake", studentElements=[MistakeElement(type=n) for n in ["a", "b", "c*"]])
     simple_mistake = Mistake(studentElements=[SolutionElement(element=Class(name=c)) for c in "ab"],
                              mistakeType=simple_mt)
     varargs_mistake = Mistake(studentElements=[SolutionElement(element=Class(name=c)) for c in "abxyz"],
@@ -316,4 +316,4 @@ def get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries() ->
 
 if __name__ == "__main__":
     "Main entry point (used for debugging)."
-    get_latex_pr_param_parsed_output()
+    test_prs_correctly_specified()

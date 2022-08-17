@@ -357,7 +357,7 @@ Level 5: Resource response with Reference:
 
 #### Extra enumeration
 
-Student element: Enumeration. 
+Student element: Enumeration.
 
 Level 1: Highlight solution
 
@@ -418,7 +418,7 @@ Level 5: Resource response with Reference:
 
 #### Extra enumeration item
 
-Student element: Enumeration item. 
+Student element: Enumeration item.
 
 Level 1: Highlight solution
 
@@ -477,7 +477,7 @@ Level 5: Resource response with Reference:
 
 ### Extra class
 
-Student element: Class. 
+Student element: Class.
 
 Level 1: Highlight solution
 
@@ -590,7 +590,7 @@ Level 5: Resource response with Reference:
 
 #### Attribute duplicated
 
-Student element: Attribute. 
+Student element: Attribute.
 
 Level 1: Highlight solution
 
@@ -688,7 +688,7 @@ Level 6: Resource response with Reference:
 
 #### Extra attribute
 
-Student element: Attribute. 
+Student element: Attribute.
 
 Level 1: Highlight solution
 
@@ -920,7 +920,7 @@ better understand these relationships and where they are used.
 
 #### Extra association
 
-Student element: Association. 
+Student element: Association.
 
 Level 1: Highlight solution
 
@@ -951,7 +951,7 @@ Level 5: Resource response with Reference:
 
 #### Extra aggregation
 
-Student elements: Aggregation, Whole association end, Part association end. 
+Student elements: Aggregation, Whole association end, Part association end.
 
 Level 1: Highlight solution
 
@@ -970,7 +970,7 @@ Level 4: Resource response with Reference:
 
 #### Extra n-ary association
 
-Student elements: Association, Association ends. 
+Student elements: Association, Association ends.
 
 Level 1: Highlight solution
 
@@ -991,7 +991,7 @@ Level 4: Resource response with Reference:
 
 #### Infinite recursive dependency
 
-Student element: Association ends. 
+Student element: Association ends.
 
 Level 1: Highlight solution
 
@@ -1503,7 +1503,7 @@ Level 4: Resource response with Reference:
 
 #### Extra association class
 
-Student elements: Association, Class. 
+Student elements: Association, Class.
 
 Level 1: Highlight solution
 
@@ -1629,7 +1629,7 @@ better understand these relationships and where they are used.
 
 #### Extra composition
 
-Student elements: Composition, Whole association end, Part association end. 
+Student elements: Composition, Whole association end, Part association end.
 
 Level 1: Highlight solution
 
@@ -1733,7 +1733,7 @@ better understand these relationships and where they are used.
 
 #### Composed part contained in more than one parent
 
-Student element: Classes. 
+Student element: Classes.
 
 Level 1: Highlight solution
 
@@ -1780,7 +1780,7 @@ better understand these relationships and where they are used.
 
 #### Incomplete containment tree
 
-Student element: Classes. 
+Student element: Classes.
 
 Level 1: Highlight solution
 
@@ -1854,7 +1854,7 @@ Level 5: Resource response with Reference:
 
 #### Extra generalization
 
-Student elements: Subclass, Superclass. 
+Student elements: Subclass, Superclass.
 
 Level 1: Highlight solution
 
@@ -1896,7 +1896,7 @@ Level 6: Resource response with Reference:
 
 #### Generalization does not follow isA rule
 
-Student elements: Subclass, Superclass. 
+Student elements: Subclass, Superclass.
 
 Level 1: Highlight solution
 
@@ -1938,7 +1938,7 @@ Level 6: Resource response with Reference:
 
 #### Subclass not distinct across lifetime
 
-Student elements: Subclass, Superclass. 
+Student elements: Subclass, Superclass.
 
 Level 1: Highlight solution
 
@@ -1967,7 +1967,7 @@ Level 5: Resource response with Reference:
 
 #### Inherited feature does not make sense for subclass
 
-Student elements: Subclass, Superclass. 
+Student elements: Subclass, Superclass.
 
 Level 1: Highlight solution
 
@@ -1999,7 +1999,7 @@ Level 5: Resource response with Reference:
 
 #### Subclass is an instance of superclass
 
-Student elements: Subclass, Superclass. 
+Student elements: Subclass, Superclass.
 
 Level 1: Highlight solution
 
@@ -2035,7 +2035,7 @@ Level 6: Resource response with Reference:
 
 #### Non-differentiated subclass
 
-Student element: Class. 
+Student element: Class.
 
 Level 1: Highlight solution
 

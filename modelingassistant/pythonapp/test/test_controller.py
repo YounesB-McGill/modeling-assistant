@@ -773,8 +773,8 @@ def _create_using_attribute_instead_of_assoc_mistake_type() -> MistakeType:
         learningItem=assoc_end_learning_item,
         name="Using attribute instead of assoc",
         description="Using attribute instead of association",
-        studentElements=[MistakeElement(name="attr")],
-        instructorElements=[MistakeElement(name="assocend")],
+        studentElements=[MistakeElement(type="attr")],
+        instructorElements=[MistakeElement(type="assocend")],
         priority=24,
         feedbacks=[
             Feedback(level=1, highlightSolution=True, learningCorpus=corpus),
