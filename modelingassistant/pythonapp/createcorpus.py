@@ -286,13 +286,15 @@ class TextualGenerator(ABC):
             warn(f"Mistake type {mt.name} does not have a Mistake Detection Format")
             return ""  # MistakeDetectionFormat not yet defined for mistake type
         result = ""
+        sep = " " if mt.instructorElements else ""  # add space after student elements only if inst elements are present
         match len(mt.md_format.stud):
             case 0:
                 result += ""
             case 1:
-                result += f"Student element: {cls.mdf_item_display_name(mt.md_format.stud[0])}. "
+                result += f"Student element: {cls.mdf_item_display_name(mt.md_format.stud[0])}.{sep}"
             case _:
-                result += f"Student elements: {', '.join([cls.mdf_item_display_name(e) for e in mt.md_format.stud])}. "
+                result += (
+                    f"Student elements: {', '.join([cls.mdf_item_display_name(e) for e in mt.md_format.stud])}.{sep}")
         match len(mt.md_format.inst):
             case 0:
                 result += ""

@@ -142,7 +142,7 @@ class MistakeType(NamedElement):
     def md_format(self):
         from collections import namedtuple
         Mdf = namedtuple('MDF', 'stud inst')
-        return Mdf([e.name for e in self.studentElements], [e.name for e in self.instructorElements])
+        return Mdf([str(e) for e in self.studentElements], [str(e) for e in self.instructorElements])
 
 class TextResponse(Feedback):
 

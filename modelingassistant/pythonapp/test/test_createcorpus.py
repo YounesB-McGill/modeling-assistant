@@ -48,7 +48,9 @@ extra_generalization_copy_mt = mt(n="Extra generalization copy", stud=["sub_cls"
 def test_md_make_multiple_choice_quiz():
     expected_mt_with_quiz_md = dedent("""\
         ## Plural attribute copy
-        
+
+        Student element: Attribute. Instructor element: Attribute.
+
         Level 4: Resource response with List multiple-choice quiz:
 
         Pick the classes which are modeled correctly with Umple.
@@ -63,6 +65,8 @@ def test_md_make_multiple_choice_quiz():
 def test_md_make_fill_in_the_blanks_quiz():
     expected_mt_with_quiz_md = dedent("""\
         ## Extra generalization copy
+
+        Student elements: Subclass, Superclass.
 
         Level 5: Resource response with Fill-in-the-blanks quiz:
         
@@ -217,4 +221,3 @@ def test_runtime_corpus_mistake_elements_match_json():
 
 if __name__ == "__main__":
     "Main entry point."
-    test_runtime_corpus_mistake_elements_match_json()
