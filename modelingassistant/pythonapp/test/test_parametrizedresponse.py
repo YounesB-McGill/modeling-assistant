@@ -203,7 +203,7 @@ def test_all_pr_params_can_be_parsed():
 
 
 def test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems():
-    "Test get_mdf_items_to_mistake_elem_dict() helper function."
+    "Test test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems() helper function."
     simple_mt = MistakeType(name="Simple mistake", studentElements=[MistakeElement(type=n) for n in ["a", "b"]])
     varargs_mt = MistakeType(
         name="Varargs mistake",

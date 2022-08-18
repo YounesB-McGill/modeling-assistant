@@ -60,11 +60,11 @@ def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> st
     For other more interesting examples, see the unit tests.
     """
     options: dict[str, str] = {}
-    mdf_items_to_mistake_elems = get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(mistake)
+    mt_elem_descriptions_to_mistake_elems = get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(mistake)
     params = extract_params(response.text)
     param_roots = param_parts_before_dot(params)
     for param, param_root in zip(params, param_roots):
-        start_elem = mdf_items_to_mistake_elems.get(param_root)
+        start_elem = mt_elem_descriptions_to_mistake_elems.get(param_root)
         if start_elem is None:
             warn(f"parametrizedresponse.parametrize_response(): Parameter {param} not found for mistake {mistake}")
             continue

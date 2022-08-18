@@ -123,8 +123,8 @@ def test_mistake_type_elements():
         for e in (*mt_stud, *mt_inst):
             s = str(e)
             for prefix in ("stud", "inst"):
-                assert not s.startswith(prefix), f'{name} MDF: {s} must not contain duplicate "{prefix}" prefix'
-            assert s.rsplit('_', maxsplit=1)[-1] in metatypes, f"{name} MDF: {s} must be of a valid type"
+                assert not s.startswith(prefix), f'{name}: {s} must not contain duplicate "{prefix}" prefix'
+            assert s.rsplit('_', maxsplit=1)[-1] in metatypes, f"{name}: Element {s} must be of a valid type"
         assert len(mt_stud) == len(set(str(e) for e in mt_stud)), f"{name} has duplicate student elements"
         assert len(mt_inst) == len(set(str(e) for e in mt_inst)), f"{name} has duplicate instructor elements"
         assert not any(e.many for e in (mt_stud[:-1].union(mt_inst[:-1]))), f"{name} has an invalid vararg"

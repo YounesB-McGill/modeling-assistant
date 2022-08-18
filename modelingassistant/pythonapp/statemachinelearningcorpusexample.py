@@ -26,15 +26,21 @@ class TrafficLight {
   }
 }
 ```
+
+Other possible mistake types in a state machine:
+
+- Missing/extra elements (trivial)
+- Bad state name
+- Bad state nesting
+- Bad action
+- Bad guard condition
 """
 
 from __future__ import annotations
 
 from learningcorpus import ParametrizedResponse, Reference, ResourceResponse, TextResponse
-from utils import fbs, mdf, mt, HighlightSolution, McqFactory
+from utils import fbs, mt, HighlightSolution, McqFactory
 
-class MistakeElement:
-    pass
 
 state_machine_reference = Reference()  # pylint: disable=invalid-name
 tmcq = McqFactory()
@@ -63,13 +69,3 @@ transition_with_correct_event_to_wrong_target_state = mt(
             learningResources=[state_machine_reference])}))
 
 # priority of this mistake is not explicitly defined, but this can be omitted given the context
-
-"""
-Other possible mistake types in a state machine:
-
-- Missing/extra elements (trivial)
-- Bad state name
-- Bad state nesting
-- Bad action
-- Bad guard condition
-"""

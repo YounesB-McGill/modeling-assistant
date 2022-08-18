@@ -269,7 +269,7 @@ class TextualGenerator(ABC):
 
     @classmethod
     def mistake_elem_display_name(cls, mistake_elem: MistakeElement | str) -> str:
-        "Return the display name for the input MDF name."
+        "Return the display name for the input mistake element name."
         def display_name(s: str) -> str:
             return metatypes[s].long_name if s in metatypes else s
 
