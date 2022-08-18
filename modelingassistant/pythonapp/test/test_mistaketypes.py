@@ -117,8 +117,6 @@ def test_mistake_type_elements():
     """
     for mt in corpus.mistakeTypes():
         name: str = mt.name
-        assert getattr(mt, "md_format", None), f"{name} has no MistakeDetectionFormat"
-        mdf: MistakeDetectionFormat = mt.md_format
         mt_stud: OrderedSet[MistakeElement] = mt.studentElements
         mt_inst: OrderedSet[MistakeElement] = mt.instructorElements
         assert mt_stud or mt_inst, f"{name} has no student or instructor elements"
@@ -134,7 +132,9 @@ def test_mistake_type_elements():
             assert mt_stud, f"{name} has no student elements"
         if name.lower().startswith("missing"):
             assert mt_inst, f"{name} has no instructor elements"
-        for lst in (mdf.stud, mdf.inst):
+        mt_stud_desc = [str(e) for e in mt_stud]
+        mt_inst_desc = [str(e) for e in mt_inst]
+        for lst in (mt_stud_desc, mt_inst_desc):
             for e1, e2 in (("sub_cls", "super_cls"), ("whole", "part"), ("source", "target")):
                 if e1 in lst:
                     assert e2 in lst, f'{name} has "{e1}" but no "{e2}"'
