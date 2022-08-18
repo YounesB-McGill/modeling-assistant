@@ -13,7 +13,7 @@ import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToCdmMetaty
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToElementDescriptions;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToLearningCorpusElementTypes;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeDetectionFormats;
-import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeDetectionFormatsForPython;
+import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeElementDescriptionsForJson;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MappingToMistakeInfos;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionFormatComparison;
 import ca.mcgill.sel.mistakedetection.tests.utils.infoservice.MistakeDetectionInformationService;
@@ -67,7 +67,7 @@ public class MistakeDetectionInformationServicesForLearningCorpus {
         MappingToMistakeDetectionFormats.get(),
         SuggestedParametrizedResponsesForJava.get(),
         SuggestedParametrizedResponses.get(),
-        MappingToMistakeDetectionFormatsForPython.get(),
+        MappingToMistakeElementDescriptionsForJson.get(),
         MistakeDetectionFormatComparison.get(),
         PythonLearningCorpusInitializationCode.get()
         ).map(MistakeDetectionInformationService::getOutput);
