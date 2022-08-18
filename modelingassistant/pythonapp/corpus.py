@@ -3,7 +3,7 @@ Initializes and provides access to the Learning Corpus at runtime.
 """
 # pylint: disable=invalid-name
 
-from corpus_definition import (corpus as corpus_def, mts_by_priority as mts_by_priority_def,
+from corpusdefinition import (corpus as corpus_def, mts_by_priority as mts_by_priority_def,
     enum_should_be_subclass_pr_pattern, missing_generalization, incomplete_pr_pattern, bad_enum_item_spelling,
     full_pr_pattern_should_be_enum, extra_enum, wrong_class_name, bad_class_name_spelling,
     enum_should_be_full_pr_pattern, incomplete_containment_tree, missing_ao_pattern, missing_enum,

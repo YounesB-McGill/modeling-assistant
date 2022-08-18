@@ -13,7 +13,7 @@ This file describes the steps to create a new learning corpus entry, correspondi
 ### Step 1: Update Corpus Definition
 
 The learning corpus is currently defined in the `modelingassistant/learningcorpusinstances/default.learningcorpus` file
-based on what is specified in the `corpus_definition.py` file.
+based on what is specified in the `corpusdefinition.py` file.
 
 1. Add a new mistake type (mt) to the corpus definition file in the correct mistake type category (mtc), or add
    a new category. Use the appropriately named helper functions for this (`mt` and `mtc`), and add at least one

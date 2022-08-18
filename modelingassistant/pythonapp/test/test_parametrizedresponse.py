@@ -21,7 +21,7 @@ from metatypes import Metatype, aggr, assoc, assocend, assocends, attr, attrs, c
 from classdiagram import Association, AssociationEnd, Class, NamedElement
 from createcorpus import LatexGenerator, underscorify
 from corpus import corpus
-from corpus_definition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
+from corpusdefinition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
 from parametrizedresponse import (comma_seperated_with_and, extract_params, parametrize_response,
                                   param_parts_before_dot, param_start_elem_type, param_valid,
                                   get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems, parse)

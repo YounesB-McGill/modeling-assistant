@@ -18,7 +18,7 @@ from stringserdes import SRSET, str_to_modelingassistant
 from classdiagram import ClassDiagram, Class, Attribute, CDInt, CDString, AssociationEnd, Association
 from constants import LEARNING_CORPUS_PATH
 from corpus import corpus
-from corpus_definition import missing_association_aggregation_mistakes, using_attribute_instead_of_assoc
+from corpusdefinition import missing_association_aggregation_mistakes, using_attribute_instead_of_assoc
 from fileserdes import load_cdm, load_lc, load_ma, save_to_files
 from learningcorpus import (Feedback, LearningItem, MistakeType, ParametrizedResponse, Reference, ResourceResponse,
                             MistakeElement, TextResponse)

@@ -3,13 +3,13 @@
 Module to load mistake elements generated from the MDS into the learning corpus.
 
 To use this file, first ensure that the modelingassistant/corpus_descriptions/mistakeelems.json file is up to date,
-then run this file to update corpus_definition.py
+then run this file to update corpusdefinition.py
 """
 import json
 
 from constants import MISTAKE_ELEMS_JSON_FILE
 
-CORPUS_DEF_FILE = "modelingassistant/pythonapp/corpus_definition.py"
+CORPUS_DEF_FILE = "modelingassistant/pythonapp/corpusdefinition.py"
 
 FBS = "feedbacks=fbs({"
 PLACEHOLDER = '"@@PLACEHOLDER@@"'

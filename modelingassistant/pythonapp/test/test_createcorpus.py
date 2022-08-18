@@ -15,7 +15,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from createcorpus import MarkdownGenerator, LatexGenerator, underscorify
 from constants import MISTAKE_ELEMS_JSON_FILE, T
 from corpus import corpus, effectuate_contextual_capitalization
-from corpus_definition import lowercase_class_name, uppercase_attribute_name
+from corpusdefinition import lowercase_class_name, uppercase_attribute_name
 from learningcorpus import MistakeElement, MistakeType, ResourceResponse
 from utils import fbs, fitb, mcq, mt
 

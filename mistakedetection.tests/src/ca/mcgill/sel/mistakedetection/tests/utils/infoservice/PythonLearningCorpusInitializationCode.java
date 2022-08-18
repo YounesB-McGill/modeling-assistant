@@ -38,7 +38,7 @@ public class PythonLearningCorpusInitializationCode extends MistakeDetectionInfo
       }
     }));
     var imports = new StringBuilder(
-        "from corpus_definition import (corpus as corpus_def, mts_by_priority as mts_by_priority_def, ");
+        "from corpusdefinition import (corpus as corpus_def, mts_by_priority as mts_by_priority_def, ");
     var learningItems = new StringBuilder();
     typesToMistakes.forEach((t, mistakes) -> {
       learningItems.append(underscorify(t.getName()).replace("class", "class_") + " = LearningItem(name=\""
