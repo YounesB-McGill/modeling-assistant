@@ -39,7 +39,7 @@ def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> st
 
     This function uses the following approach to determing the returned text:
 
-    1. Map MistakeDetectionFormat items to mistake elements
+    1. Map mistake type element descriptions to mistake elements
     2. Extract parameter template strings from parametrized response text, eg, ${stud_attr.cls}
     3. Get parameter part before dot, eg, stud_attr. This is the start element, passed into the parse() function
     4. Populate the options dictionary with (original parameter, replacement) pairs

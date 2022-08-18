@@ -18,7 +18,7 @@ from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, CLASS_MISTAKE
 from metatypes import CDM_METATYPES as metatypes
 from corpus import corpus, mts_by_priority
 from corpus_definition import mts_by_priority as mts_by_priority_with_labels
-from utils import COLOR, MistakeDetectionFormat, color_str
+from utils import COLOR, color_str
 
 import mistaketypes
 

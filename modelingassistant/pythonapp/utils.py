@@ -174,23 +174,6 @@ class HighlightSolution(Feedback):
         return Feedback(*args, highlightSolution=True, **kwargs)
 
 
-class MistakeDetectionFormat(NamedTuple):
-    """
-    Internal representation of the current mistake detection format for a mistake type.
-
-    stud: ordered list of student solution element descriptions for a particular mistake type
-    inst: ordered list of instructor solution element descriptions
-
-    Note that in both cases, not all slots are occupied. For example, for incomplete containment tree, there may be
-    a variable number of student solution elements.
-    """
-    stud: list[str]
-    inst: list[str]
-
-    def __repr__(self) -> str:
-        return f"({self.stud}, {self.inst})"
-
-
 class McqFactory:
     """
     Factory to create a list multiple choice quiz.
