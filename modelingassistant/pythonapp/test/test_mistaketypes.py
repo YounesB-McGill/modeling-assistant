@@ -9,11 +9,13 @@ import os
 import sys
 from textwrap import dedent
 
+from ordered_set import OrderedSet
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from learningcorpus import MistakeTypeCategory, MistakeType
+from learningcorpus import MistakeElement, MistakeTypeCategory, MistakeType
 from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, CLASS_MISTAKES, CLASS_NAME_MISTAKES
-from metatypes import CDM_METATYPES
+from metatypes import CDM_METATYPES as metatypes
 from corpus import corpus, mts_by_priority
 from corpus_definition import mts_by_priority as mts_by_priority_with_labels
 from utils import COLOR, MistakeDetectionFormat, color_str
@@ -95,9 +97,9 @@ def test_mistake_type_priorities():
             assert mt.priority
 
 
-def test_mistake_type_formats():
+def test_mistake_type_elements():
     """
-    Verify the validity of all mistake type formats.
+    Verify the validity of all mistake type elements.
 
     - There must be at least one student element or instructor element
     - Each element may have a descriptive prefix and must end with a valid CdmMetatype short name, eg, cls*
@@ -117,18 +119,21 @@ def test_mistake_type_formats():
         name: str = mt.name
         assert getattr(mt, "md_format", None), f"{name} has no MistakeDetectionFormat"
         mdf: MistakeDetectionFormat = mt.md_format
-        assert mdf.stud or mdf.inst, f"{name} has no student or instructor elements"
-        for e in (*mdf.stud, *mdf.inst):
+        mt_stud: OrderedSet[MistakeElement] = mt.studentElements
+        mt_inst: OrderedSet[MistakeElement] = mt.instructorElements
+        assert mt_stud or mt_inst, f"{name} has no student or instructor elements"
+        for e in (*mt_stud, *mt_inst):
+            s = str(e)
             for prefix in ("stud", "inst"):
-                assert not e.startswith(prefix), f'{name} MDF: {e} must not contain duplicate "{prefix}" prefix'
-            assert e.split("_")[-1] in CDM_METATYPES, f"{name} MDF: {e} must be of a valid type"
-        assert len(mdf.stud) == len(set(mdf.stud)), f"{name} has duplicate student elements"
-        assert len(mdf.inst) == len(set(mdf.inst)), f"{name} has duplicate instructor elements"
-        assert not any(s.endswith("*") for s in (mdf.stud[:-1] + mdf.inst[:-1])), f"{name} has an invalid vararg"
+                assert not s.startswith(prefix), f'{name} MDF: {s} must not contain duplicate "{prefix}" prefix'
+            assert s.rsplit('_', maxsplit=1)[-1] in metatypes, f"{name} MDF: {s} must be of a valid type"
+        assert len(mt_stud) == len(set(str(e) for e in mt_stud)), f"{name} has duplicate student elements"
+        assert len(mt_inst) == len(set(str(e) for e in mt_inst)), f"{name} has duplicate instructor elements"
+        assert not any(e.many for e in (mt_stud[:-1].union(mt_inst[:-1]))), f"{name} has an invalid vararg"
         if name.lower().startswith("extra"):
-            assert mdf.stud, f"{name} has no student elements"
+            assert mt_stud, f"{name} has no student elements"
         if name.lower().startswith("missing"):
-            assert mdf.inst, f"{name} has no instructor elements"
+            assert mt_inst, f"{name} has no instructor elements"
         for lst in (mdf.stud, mdf.inst):
             for e1, e2 in (("sub_cls", "super_cls"), ("whole", "part"), ("source", "target")):
                 if e1 in lst:
@@ -236,4 +241,4 @@ def print_mts_by_priority_with_labels_latex_table():
 
 if __name__ == "__main__":
     "Main entry point."
-    test_mistake_type_formats()
+    test_mistake_type_elements()
