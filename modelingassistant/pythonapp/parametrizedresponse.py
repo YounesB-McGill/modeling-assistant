@@ -8,10 +8,10 @@ from string import Formatter
 
 from pyecore.ecore import EClass
 
-from metatypes import CDM_METATYPES, Metatype
-from utils import MistakeDetectionFormat, warn
+from metatypes import Metatype, CDM_METATYPES as metatypes
+from utils import warn
 from classdiagram import Association, AssociationEnd, Attribute, CDEnumLiteral, Classifier, NamedElement
-from learningcorpus import MistakeType, ParametrizedResponse
+from learningcorpus import MistakeElement, MistakeType, ParametrizedResponse
 from modelingassistant import Mistake
 
 
@@ -176,31 +176,32 @@ def get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(mistake: 
     Return a dict of mistake element string descriptions to actual mistake elements.
     """
     mt_elem_descriptions_to_diagram_elems = {}
-    mdf: MistakeDetectionFormat = mistake.mistakeType.md_format
     mt: MistakeType = mistake.mistakeType
-    for stud_key, sol_elem in zip(mt.studentElements[:-1], mistake.studentElements[:-1]):
+    mt_stud: list[MistakeElement] = mt.studentElements
+    mt_inst: list[MistakeElement] = mt.instructorElements
+    for stud_key, sol_elem in zip(mt_stud[:-1], mistake.studentElements[:-1]):
         mt_elem_descriptions_to_diagram_elems[f"stud_{stud_key}"] = sol_elem.element
-    for inst_key, sol_elem in zip(mt.instructorElements[:-1], mistake.instructorElements[:-1]):
+    for inst_key, sol_elem in zip(mt_inst[:-1], mistake.instructorElements[:-1]):
         mt_elem_descriptions_to_diagram_elems[f"inst_{inst_key}"] = sol_elem.element
 
     # handle the last element separately
-    if mt.studentElements:
-        if mt.studentElements[-1].many:
+    if mt_stud:
+        if mt_stud[-1].many:
             # varargs: last student element is a list of elements, eg,
             # mistakeElems = (stud=[A, B, C*], inst=[])
             # studentElems = [a, b, c1, c2, c3, ...]
             # want studentElems[2:], which corresponds to C*, the last student element (there are 2 elems before C*)
-            mt_elem_descriptions_to_diagram_elems[f"stud_{mdf.stud[-1]}"] = [
-                e.element for e in mistake.studentElements[len(mdf.stud) - 1:]]
+            mt_elem_descriptions_to_diagram_elems[f"stud_{mt_stud[-1]}"] = [
+                e.element for e in mistake.studentElements[len(mt_stud) - 1:]]
         else:
             # no varargs: last student element is a single element
-            mt_elem_descriptions_to_diagram_elems[f"stud_{mdf.stud[-1]}"] = mistake.studentElements[-1].element
-    if mt.instructorElements:
-        if mt.instructorElements[-1].many:
-            mt_elem_descriptions_to_diagram_elems[f"inst_{mdf.inst[-1]}"] = [
-                e.element for e in mistake.instructorElements[len(mdf.inst) - 1:]]
+            mt_elem_descriptions_to_diagram_elems[f"stud_{mt_stud[-1]}"] = mistake.studentElements[-1].element
+    if mt_inst:
+        if mt_inst[-1].many:
+            mt_elem_descriptions_to_diagram_elems[f"inst_{mt_inst[-1]}"] = [
+                e.element for e in mistake.instructorElements[len(mt_inst) - 1:]]
         else:
-            mt_elem_descriptions_to_diagram_elems[f"inst_{mdf.inst[-1]}"] = mistake.instructorElements[-1].element
+            mt_elem_descriptions_to_diagram_elems[f"inst_{mt_inst[-1]}"] = mistake.instructorElements[-1].element
     return mt_elem_descriptions_to_diagram_elems
 
 
@@ -276,11 +277,11 @@ def param_start_elem_type(param: str, as_type: type = None) -> str | Metatype | 
     if as_type == str:
         return type_name
     if as_type == Metatype:
-        return CDM_METATYPES.get(type_name, None)
+        return metatypes.get(type_name, None)
     if as_type not in (None, EClass, type):
         warn(f"param_start_elem_type(): {as_type = } is not a valid type")
-    # default return value is CDM_METATYPES[type_name].eClass if it exists
-    return getattr(CDM_METATYPES.get(type_name, None), "eClass", None)
+    # default return value is metatypes[type_name].eClass if it exists
+    return getattr(metatypes.get(type_name, None), "eClass", None)
 
 
 def param_valid(param: str, mt: MistakeType = None) -> bool:
