@@ -107,15 +107,6 @@ def customize_generated_code():
             "Return the DSL string representation of the MistakeElement."
             return f"{f'{self.name}_' if self.name else ''}{self.type}{'*' if self.many else ''}"
 
-    md_format = dedent("""\
-        @property
-        def md_format(self):
-            from collections import namedtuple
-            Mdf = namedtuple("MDF", "stud inst")
-            return Mdf([str(e) for e in self.studentElements], [str(e) for e in self.instructorElements])
-        """)
-
-
     # Add the following items to the generated ModelingAssistant class
     cdm2sols_def = "classDiagramsToSolutions: dict = {}"
 
@@ -158,7 +149,7 @@ def customize_generated_code():
     customize_class(cdm_py, "AssociationEnd", [ast_for(getOppositeEnd), ast.parse(oppositeEnd)])
     customize_class(lc_py, "LearningCorpus", [ast_for(mistakeTypes), ast_for(topLevelMistakeTypeCategories)])
     customize_class(lc_py, "MistakeElement", [ast_for(MistakeElement.__init__), ast_for(MistakeElement.__repr__)])
-    customize_class(lc_py, "MistakeType", [ast_for(parametrized_responses), ast.parse(md_format)])
+    customize_class(lc_py, "MistakeType", [ast_for(parametrized_responses)])
     customize_class(ma_py, "ModelingAssistant", [ast.parse(cdm2sols_def)])
 
     ma_footer = dedent("""

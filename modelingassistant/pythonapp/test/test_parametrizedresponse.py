@@ -45,24 +45,23 @@ def test_prs_correctly_specified():
       and end with a valid type
     - `.` is used to get the attribute of an object just like in Python. If no prespecified parameter is found,
       Python's `getattr` is used to get the attribute.
-    - `*` indicates a sequence of items. Only one sequence is allowed in each MistakeDetectionFormat list.
+    - `*` indicates a sequence of items. Only one sequence is allowed in each element list.
 
-    Programmatic attributes are a cdm metamodel property or a shorthand for it defined in parametrizedresponse.py.
+    Programmatic attributes are a metamodel property or a shorthand for it defined in parametrizedresponse.py.
     """
     # assert syntactic correctness
-    for param, mt_ in get_pr_parameters_for_mistake_types_with_md_formats().items():
+    for param, mt_ in get_pr_parameters_to_mistake_types().items():
         assert param_valid(param, mt_)
-    # assert parameters in parametrized response text are actually contained in the mistake type's detection format
+    # assert parameters in parametrized response text are actually contained in the mistake type's elements
     for mt_ in corpus.mistakeTypes():
-        if not hasattr(mt_, "md_format"):
-            continue
         for pr in mt_.parametrized_responses():
             for param in extract_params(pr.text):
                 for person in ("stud", "inst"):
                     if param.startswith(pers_ := f"{person}_"):
-                        assert (re.sub(r"\d+", "*", param.removeprefix(pers_).split(".")[0])
-                                in getattr(mt_.md_format, person)
-                        ), f"Param {param} for {mt_.name} does not match MDF: {mt_.md_format}"
+                        p = "student" if person == "stud" else "instructor"
+                        assert (re.sub(r"\d+", "*", param.removeprefix(pers_).split(".")[0]) in
+                                [str(e) for e in getattr(mt_, f"{p}Elements")]
+                        ), f"Param {param} for {mt_.name} does not match mistake type element descriptions."
 
 
 def test_pr_aggr():
@@ -164,7 +163,7 @@ def test_all_pr_params_can_be_parsed():
     # assert False
 
     params_to_start_elem_and_parsed_output: dict[str, tuple[str, str]] = {}
-    for param in get_pr_parameters_for_mistake_types_with_md_formats():
+    for param in get_pr_parameters_to_mistake_types():
         assert (start_elem := param_start_elem_type(param, as_type=Metatype).example), f"Invalid {start_elem = }"
         assert (parsed_output := parse(param, start_elem)), f"Invalid {parsed_output = }"
         assert isinstance(parsed_output, str) and "${" not in parsed_output
@@ -258,9 +257,9 @@ def get_all_pr_parameters() -> dict[str, MistakeType]:
     return prs
 
 
-def get_pr_parameters_for_mistake_types_with_md_formats() -> dict[str, MistakeType]:
+def get_pr_parameters_to_mistake_types() -> dict[str, MistakeType]:
     "Return a dict of ParametrizedResponse parameters mapped to mistake types with mistake detection formats."
-    return {param: mt_ for param, mt_ in get_all_pr_parameters().items() if hasattr(mt_, "md_format")}
+    return {param: mt_ for param, mt_ in get_all_pr_parameters().items()}
 
 
 def get_number_of_mistake_types_with_parametrized_responses() -> int:

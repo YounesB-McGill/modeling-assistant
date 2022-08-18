@@ -148,12 +148,11 @@ def test_no_bad_highlighting():
     that a problem statement element(s) is highlighted only if there are instructor elements.
     """
     for mt in corpus.mistakeTypes():
-        mdf: MistakeDetectionFormat = mt.md_format
-        if not mdf.inst:
+        if not mt.instructorElements:
             for fb in mt.feedbacks:
                 assert not fb.highlightProblem, f"""Cannot highlight problem statement for {mt.name
                                                  } without instructor elements"""
-        if not mdf.stud:
+        if not mt.studentElements:
             for fb in mt.feedbacks:
                 assert not fb.highlightSolution, f"Cannot highlight solution for {mt.name} without student elements"
 
@@ -194,14 +193,14 @@ def print_mistake_type_stats_md():
     print("```")
 
 
-def print_mistake_type_stats_md_format_completion_status():
+def print_mistake_type_elements_completion_status():
     "Print mistake detection format completion status for each mistake type."
     # pylint: disable=expression-not-assigned
     def print_mt(mt: MistakeType, indent: int = 0):
-        "Print mistake type and show its priority and whether it has feedbacks."
-        sign = "+" if hasattr(mt, "md_format") else "-"
-        #print(f"{sign}{' ' * indent}{mt.name}")
-        if not hasattr(mt, "md_format"):
+        "Print mistake type. The output can be changed to show relevant stats such as priority and number of feedbacks."
+        has_elems = mt.studentElements or mt.instructorElements
+        sign = "+" if has_elems else "-"
+        if not has_elems:
             print(f"{sign}{' ' * indent}{mt.name}")
 
     def print_mtc(mtc: MistakeTypeCategory, indent: int = 0):
