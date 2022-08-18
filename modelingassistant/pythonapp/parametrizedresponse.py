@@ -175,35 +175,33 @@ def get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(mistake: 
     """
     Return a dict of mistake element string descriptions to actual mistake elements.
     """
-    mdf_items_to_elems = {}
+    mt_elem_descriptions_to_diagram_elems = {}
     mdf: MistakeDetectionFormat = mistake.mistakeType.md_format
-    for stud_key, elem in zip(mdf.stud[:-1], mistake.studentElements[:-1]):
-        mdf_items_to_elems[f"stud_{stud_key}"] = elem.element
-    for inst_key, elem in zip(mdf.inst[:-1], mistake.instructorElements[:-1]):
-        mdf_items_to_elems[f"inst_{inst_key}"] = elem.element
+    mt: MistakeType = mistake.mistakeType
+    for stud_key, sol_elem in zip(mt.studentElements[:-1], mistake.studentElements[:-1]):
+        mt_elem_descriptions_to_diagram_elems[f"stud_{stud_key}"] = sol_elem.element
+    for inst_key, sol_elem in zip(mt.instructorElements[:-1], mistake.instructorElements[:-1]):
+        mt_elem_descriptions_to_diagram_elems[f"inst_{inst_key}"] = sol_elem.element
 
     # handle the last element separately
-    if mdf.stud:
-        if mdf.stud[-1].endswith("*"):
+    if mt.studentElements:
+        if mt.studentElements[-1].many:
             # varargs: last student element is a list of elements, eg,
-            # mdf = ([A, B, C*], [])
+            # mistakeElems = (stud=[A, B, C*], inst=[])
             # studentElems = [a, b, c1, c2, c3, ...]
-            # want studentElems[2:], which corresponds to the last MDF element (there are 2 elems before C*)
-            mdf_items_to_elems[f"stud_{mdf.stud[-1]}"] = [
+            # want studentElems[2:], which corresponds to C*, the last student element (there are 2 elems before C*)
+            mt_elem_descriptions_to_diagram_elems[f"stud_{mdf.stud[-1]}"] = [
                 e.element for e in mistake.studentElements[len(mdf.stud) - 1:]]
         else:
             # no varargs: last student element is a single element
-            mdf_items_to_elems[f"stud_{mdf.stud[-1]}"] = mistake.studentElements[-1].element
-    if mdf.inst:
-        if mdf.inst[-1].endswith("*"):
-            mdf_items_to_elems[f"inst_{mdf.inst[-1]}"] = [
+            mt_elem_descriptions_to_diagram_elems[f"stud_{mdf.stud[-1]}"] = mistake.studentElements[-1].element
+    if mt.instructorElements:
+        if mt.instructorElements[-1].many:
+            mt_elem_descriptions_to_diagram_elems[f"inst_{mdf.inst[-1]}"] = [
                 e.element for e in mistake.instructorElements[len(mdf.inst) - 1:]]
         else:
-            mdf_items_to_elems[
-                f"inst_{mdf.inst[-1]}"
-                ] = (
-                    mistake.instructorElements[-1].element)
-    return mdf_items_to_elems
+            mt_elem_descriptions_to_diagram_elems[f"inst_{mdf.inst[-1]}"] = mistake.instructorElements[-1].element
+    return mt_elem_descriptions_to_diagram_elems
 
 
 def extract_params(pr_text: str) -> list[str]:
