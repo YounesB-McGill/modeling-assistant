@@ -14,10 +14,12 @@ These tests assume that WebCORE and the Mistake Detection System servers are run
 The Python backend must not import anything from this module.
 """
 
+from time import sleep
 from threading import Thread
 import os
 import sys
 
+from pyecore.ecore import EClass
 import pytest
 import requests
 
@@ -37,6 +39,8 @@ from modelingassistant import ModelingAssistant, ProblemStatement, Solution
 CDM_NAME = "AirlineSystem"
 INSTRUCTOR_CDM = f"modelingassistant/testmodels/{CDM_NAME}_instructor.cdm"
 MA_REST_ENDPOINT = f"http://localhost:{PORT}/modelingassistant"
+
+SLEEP_TIME_S = 0.2  # 1/5 second
 
 # Skip all pytest tests in this module by setting the pytestmark global variable
 pytestmark = pytest.mark.skip("Skipping all integrations tests since they depend on the WebCORE server")
@@ -163,8 +167,11 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
         student.delete_class(cdm_name, c)
         assert not student.get_cdm(cdm_name)[c]
 
-    # Add attributes to the Airplane class
-    for attr_name, attr_type in (("serialNumber", CDString), ("numberOfSeats", CDInt), ("isUltrasonic", CDBoolean)):
+    # Add and then delete attributes of the Airplane class
+    attrs: dict[str, EClass] = {"serialNumber": CDString, "numberOfSeats": CDInt, "isUltrasonic": CDBoolean}
+    attr_ids: list[str] = []
+
+    for attr_name, attr_type in attrs.items():
         attr = student.create_attribute(cdm_name, airplane, attr_name, attr_type)
         assert attr
         assert not cdm[attr]
@@ -172,6 +179,28 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
         assert cdm[attr]
         assert cdm[attr].name == attr_name
         assert cdm[attr].type == cdm.type_id_for(attr_type)
+        attr_ids.append(attr)
+
+    for attr_id in attr_ids:
+        student.delete_attribute(cdm_name, attr_id)
+        cdm = student.get_cdm(cdm_name)
+        assert not cdm[attr_id]
+
+
+def test_communication_between_mock_frontend_and_webcore_multiple_students(webcore):
+    """
+    Test the communication between this mock frontend and WebCORE with multiple students.
+    """
+    for _ in range(3):
+        print(f"Creating student {_}")
+        student = MockStudent.create_random()
+        assert student.login() and student.logged_in
+        # Logout logic is currently faulty, so uncommenting the lines below will cause the create_cdm() call to fail
+        # assert student.logout() and not student.logged_in
+        # assert student.login() and student.logged_in
+        assert student.create_cdm(CDM_NAME)
+        assert student.get_cdm(CDM_NAME)
+        sleep(SLEEP_TIME_S)
 
 
 @pytest.mark.skip(reason="Not yet implemented")
