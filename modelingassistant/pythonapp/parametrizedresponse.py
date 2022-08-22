@@ -8,10 +8,10 @@ from string import Formatter
 
 from pyecore.ecore import EClass
 
-from cdmmetatypes import CDM_METATYPES, CdmMetatype
-from utils import MistakeDetectionFormat, warn
+from metatypes import Metatype, CDM_METATYPES as metatypes
+from utils import warn
 from classdiagram import Association, AssociationEnd, Attribute, CDEnumLiteral, Classifier, NamedElement
-from learningcorpus import MistakeType, ParametrizedResponse
+from learningcorpus import MistakeElement, MistakeType, ParametrizedResponse
 from modelingassistant import Mistake
 
 
@@ -39,7 +39,7 @@ def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> st
 
     This function uses the following approach to determing the returned text:
 
-    1. Map MistakeDetectionFormat items to mistake elements
+    1. Map mistake type element descriptions to mistake elements
     2. Extract parameter template strings from parametrized response text, eg, ${stud_attr.cls}
     3. Get parameter part before dot, eg, stud_attr. This is the start element, passed into the parse() function
     4. Populate the options dictionary with (original parameter, replacement) pairs
@@ -48,7 +48,7 @@ def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> st
     Example execution (Python-like pseudocode):
 
     ```
-    WRONG_CLASS_NAME.md_format = mdf(["cls"], ["cls"])
+    Given MistakeType WRONG_CLASS_NAME with student element cls and instructor element cls:
     parametrize_response(resp="${stud_cls} should be ${inst_cls}.", mistake={mt: WRONG_CLASS_NAME, se: [sc], ie: [ic]}):
         1. Establish mapping {stud_cls: sc, inst_cls: ic}
         2. Extract parameters: stud_cls, inst_cls
@@ -60,11 +60,11 @@ def parametrize_response(response: ParametrizedResponse, mistake: Mistake) -> st
     For other more interesting examples, see the unit tests.
     """
     options: dict[str, str] = {}
-    mdf_items_to_mistake_elems = get_mdf_items_to_mistake_elem_dict(mistake)
+    mt_elem_descriptions_to_mistake_elems = get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(mistake)
     params = extract_params(response.text)
     param_roots = param_parts_before_dot(params)
     for param, param_root in zip(params, param_roots):
-        start_elem = mdf_items_to_mistake_elems.get(param_root)
+        start_elem = mt_elem_descriptions_to_mistake_elems.get(param_root)
         if start_elem is None:
             warn(f"parametrizedresponse.parametrize_response(): Parameter {param} not found for mistake {mistake}")
             continue
@@ -170,39 +170,39 @@ def resolve_attribute(elem, attr_name: str):
     return getattr(elem, SHORTHANDS.get(attr_name, attr_name), elem)
 
 
-def get_mdf_items_to_mistake_elem_dict(mistake: Mistake) -> dict[str, NamedElement | list[NamedElement]]:
+def get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(mistake: Mistake
+    ) -> dict[str, NamedElement | list[NamedElement]]:
     """
-    Return a dict of mistake detection format items to mistake elements.
+    Return a dict of mistake element string descriptions to actual mistake elements.
     """
-    mdf_items_to_elems = {}
-    mdf: MistakeDetectionFormat = mistake.mistakeType.md_format
-    for stud_key, elem in zip(mdf.stud[:-1], mistake.studentElements[:-1]):
-        mdf_items_to_elems[f"stud_{stud_key}"] = elem.element
-    for inst_key, elem in zip(mdf.inst[:-1], mistake.instructorElements[:-1]):
-        mdf_items_to_elems[f"inst_{inst_key}"] = elem.element
+    mt_elem_descriptions_to_diagram_elems = {}
+    mt: MistakeType = mistake.mistakeType
+    mt_stud: list[MistakeElement] = mt.studentElements
+    mt_inst: list[MistakeElement] = mt.instructorElements
+    for stud_key, sol_elem in zip(mt_stud[:-1], mistake.studentElements[:-1]):
+        mt_elem_descriptions_to_diagram_elems[f"stud_{stud_key}"] = sol_elem.element
+    for inst_key, sol_elem in zip(mt_inst[:-1], mistake.instructorElements[:-1]):
+        mt_elem_descriptions_to_diagram_elems[f"inst_{inst_key}"] = sol_elem.element
 
     # handle the last element separately
-    if mdf.stud:
-        if mdf.stud[-1].endswith("*"):
+    if mt_stud:
+        if mt_stud[-1].many:
             # varargs: last student element is a list of elements, eg,
-            # mdf = ([A, B, C*], [])
+            # mistakeElems = (stud=[A, B, C*], inst=[])
             # studentElems = [a, b, c1, c2, c3, ...]
-            # want studentElems[2:], which corresponds to the last MDF element (there are 2 elems before C*)
-            mdf_items_to_elems[f"stud_{mdf.stud[-1]}"] = [
-                e.element for e in mistake.studentElements[len(mdf.stud) - 1:]]
+            # want studentElems[2:], which corresponds to C*, the last student element (there are 2 elems before C*)
+            mt_elem_descriptions_to_diagram_elems[f"stud_{mt_stud[-1]}"] = [
+                e.element for e in mistake.studentElements[len(mt_stud) - 1:]]
         else:
             # no varargs: last student element is a single element
-            mdf_items_to_elems[f"stud_{mdf.stud[-1]}"] = mistake.studentElements[-1].element
-    if mdf.inst:
-        if mdf.inst[-1].endswith("*"):
-            mdf_items_to_elems[f"inst_{mdf.inst[-1]}"] = [
-                e.element for e in mistake.instructorElements[len(mdf.inst) - 1:]]
+            mt_elem_descriptions_to_diagram_elems[f"stud_{mt_stud[-1]}"] = mistake.studentElements[-1].element
+    if mt_inst:
+        if mt_inst[-1].many:
+            mt_elem_descriptions_to_diagram_elems[f"inst_{mt_inst[-1]}"] = [
+                e.element for e in mistake.instructorElements[len(mt_inst) - 1:]]
         else:
-            mdf_items_to_elems[
-                f"inst_{mdf.inst[-1]}"
-                ] = (
-                    mistake.instructorElements[-1].element)
-    return mdf_items_to_elems
+            mt_elem_descriptions_to_diagram_elems[f"inst_{mt_inst[-1]}"] = mistake.instructorElements[-1].element
+    return mt_elem_descriptions_to_diagram_elems
 
 
 def extract_params(pr_text: str) -> list[str]:
@@ -262,26 +262,26 @@ def get_role_named_elem(start_elem: AssociationEnd | CDEnumLiteral | Classifier)
     return start_elem
 
 
-def param_start_elem_type(param: str, as_type: type = None) -> str | CdmMetatype | EClass:
+def param_start_elem_type(param: str, as_type: type = None) -> str | Metatype | EClass:
     """
     Return the CDM metatype of the starting element (part before dot) of the given parametrized response parameter.
 
     ```
-    param_start_elem_type("stud_cls") -> cdmmetatypes.cls.eClass = classdiagram.Class  # default
-    param_start_elem_type("stud_cls", as_type=str) -> cdmmetatypes.cls.short_name = "cls"
-    param_start_elem_type("inst_attr.type", as_type=CdmMetatype) -> cdmmetatypes.attr
+    param_start_elem_type("stud_cls") -> metatypes.cls.eClass = classdiagram.Class  # default
+    param_start_elem_type("stud_cls", as_type=str) -> metatypes.cls.short_name = "cls"
+    param_start_elem_type("inst_attr.type", as_type=CdmMetatype) -> metatypes.attr
     ```
     """
     part_before_dot = param.split(".")[0]
     type_name = re.sub(r"[\d]+$", "*", part_before_dot.split("_")[-1])
     if as_type == str:
         return type_name
-    if as_type == CdmMetatype:
-        return CDM_METATYPES.get(type_name, None)
+    if as_type == Metatype:
+        return metatypes.get(type_name, None)
     if as_type not in (None, EClass, type):
         warn(f"param_start_elem_type(): {as_type = } is not a valid type")
-    # default return value is CDM_METATYPES[type_name].eClass if it exists
-    return getattr(CDM_METATYPES.get(type_name, None), "eClass", None)
+    # default return value is metatypes[type_name].eClass if it exists
+    return getattr(metatypes.get(type_name, None), "eClass", None)
 
 
 def param_valid(param: str, mt: MistakeType = None) -> bool:

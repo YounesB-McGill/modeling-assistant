@@ -19,6 +19,7 @@ pydeps = "*"
 graphviz = "*"
 railroad-diagrams = "*"
 pylint = "*"
+pytest-randomly = "*"
 
 [requires]
 python_version = "3.10"

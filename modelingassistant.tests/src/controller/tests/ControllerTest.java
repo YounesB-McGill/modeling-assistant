@@ -973,6 +973,7 @@ public class ControllerTest {
    * <pre>
    * using_attribute_instead_of_assoc := mt(
    *     n="Using attribute instead of assoc", d="Using attribute instead of association",
+   *     stud=["attr"], inst=["assocend"],
    *     feedbacks=fbs({
    *         1: HighlightSolution(),
    *         2: TextResponse(text="Remember that attributes are simple pieces of data."),
@@ -1027,6 +1028,19 @@ public class ControllerTest {
       feedbacks.get(i).setLearningCorpus(getLearningCorpus());
       usingAttributeInsteadOfAssocMistakeType.getFeedbacks().add(feedbacks.get(i));
     }
+
+    // Additional lines below to add mistake elements (formerly known as MDFs) to the mistake type for EduSymp'22 paper
+    // They are commented out because the Ecore code has not been generated at this point
+    /*
+    var studAttr = LearningcorpusFactory.eINSTANCE.createMistakeElement();
+    studAttr.setName("attr");
+    studAttr.setType(Attribute.class);
+    usingAttributeInsteadOfAssocMistakeType.getStudentElements().add(studAttr);
+    var instAssocEnd = LearningcorpusFactory.eINSTANCE.createMistakeElement();
+    instAssocEnd.setName("assocend");
+    instAssocEnd.setType(AssociationEnd.class);
+    usingAttributeInsteadOfAssocMistakeType.getInstructorElements().add(instAssocEnd);
+    */
 
     return usingAttributeInsteadOfAssocMistakeType;
   }

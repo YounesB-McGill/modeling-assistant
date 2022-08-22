@@ -5,21 +5,22 @@
 Tests for the createcorpus module.
 """
 
+import json
 import os
 import sys
 from textwrap import dedent
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from createcorpus import MarkdownGenerator, LatexGenerator
-from constants import T
-from corpus import effectuate_contextual_capitalization
-from corpus_definition import lowercase_class_name, uppercase_attribute_name
-from learningcorpus import ResourceResponse
+from createcorpus import MarkdownGenerator, LatexGenerator, underscorify
+from constants import MISTAKE_ELEMS_JSON_FILE, T
+from corpus import corpus, effectuate_contextual_capitalization
+from corpusdefinition import lowercase_class_name, uppercase_attribute_name
+from learningcorpus import MistakeElement, MistakeType, ResourceResponse
 from utils import fbs, fitb, mcq, mt
 
 
-plural_attribute_copy_mt = mt(n="Plural attribute copy", feedbacks=fbs({
+plural_attribute_copy_mt = mt(n="Plural attribute copy", stud_inst="attr", feedbacks=fbs({
     4: ResourceResponse(learningResources=[mcq[
            "Pick the classes which are modeled correctly with Umple.",
            "class Student { courses; }",
@@ -28,7 +29,7 @@ plural_attribute_copy_mt = mt(n="Plural attribute copy", feedbacks=fbs({
     ]]),
 }))
 
-extra_generalization_copy_mt = mt(n="Extra generalization copy", feedbacks=fbs({
+extra_generalization_copy_mt = mt(n="Extra generalization copy", stud=["sub_cls", "super_cls"], inst=[], feedbacks=fbs({
     5: ResourceResponse(learningResources=[inherit_checks_quiz := fitb(dedent("""\
         Please review the [checks for proper generalization](https://mycourses2.mcgill.ca/) lecture material
         and complete the following:
@@ -47,7 +48,9 @@ extra_generalization_copy_mt = mt(n="Extra generalization copy", feedbacks=fbs({
 def test_md_make_multiple_choice_quiz():
     expected_mt_with_quiz_md = dedent("""\
         ## Plural attribute copy
-        
+
+        Student element: Attribute. Instructor element: Attribute.
+
         Level 4: Resource response with List multiple-choice quiz:
 
         Pick the classes which are modeled correctly with Umple.
@@ -62,6 +65,8 @@ def test_md_make_multiple_choice_quiz():
 def test_md_make_fill_in_the_blanks_quiz():
     expected_mt_with_quiz_md = dedent("""\
         ## Extra generalization copy
+
+        Student elements: Subclass, Superclass.
 
         Level 5: Resource response with Fill-in-the-blanks quiz:
         
@@ -107,6 +112,8 @@ def test_tex_make_multiple_choice_quiz():
     expected_mt_with_quiz_tex = dedent(R"""
         \section{Plural attribute copy}
 
+        Student element: Attribute. Instructor element: Attribute. \medskip
+
         \noindent Level 4: Resource response with List multiple-choice quiz: \medskip
 
         \begin{tabular}{|p{0.9\linewidth}}
@@ -127,9 +134,11 @@ def test_tex_make_multiple_choice_quiz():
 
 
 def test_tex_make_fill_in_the_blanks_quiz():
-    test_md_make_fill_in_the_blanks_quiz()
+    test_md_make_fill_in_the_blanks_quiz()  # need to create Markdown first and save it to _quizzes_to_md
     expected_mt_with_quiz_tex = dedent(R"""
         \section{Extra generalization copy}
+
+        Student elements: Subclass, Superclass. \medskip
 
         \noindent Level 5: Resource response with Fill-in-the-blanks quiz: \medskip
 
@@ -192,6 +201,28 @@ def test_use_contextual_capitalization():
         assert not any("Letter" in fb.text for fb in _mt.feedbacks if getattr(fb, "text", None))
 
 
+def test_runtime_corpus_mistake_elements_match_json():
+    "Test that the runtime corpus mistake elements match those found in the mistakeelems.json file."
+    with open(MISTAKE_ELEMS_JSON_FILE, "r", encoding="utf-8") as f:
+        json_mistake_elements: dict[str, list[list[str]]] = json.load(f)
+    mt_names_to_mts: dict[str, MistakeType] = {underscorify(mt.name).lower(): mt for mt in corpus.mistakeTypes()}
+    assert (r := len(json_mistake_elements)) == (j := len(mt_names_to_mts)), (
+        f"Number of mistake types in runtime corpus ({r}) does not match number in mistakeelems.json ({j})")
+    for mt_name, mistake_elements in json_mistake_elements.items():
+        for i, person in enumerate(["student", "instructor"]):
+            mt_ = mt_names_to_mts[mt_name]
+            rmes: list[MistakeElement] = getattr(mt_, f"{person}Elements")
+            for j, me_str in enumerate(mistake_elements[i]):
+                rme = rmes[j]
+                _split = me_str.split("_")
+                _type = _split[-1]
+                jme = MistakeElement(name="_".join(_split[:-1]), many=_type.endswith("*"), type=_type.removesuffix("*"))
+                for attr in ("name", "many", "type"):
+                    assert (rme_attr := getattr(rme, attr)) == (jme_attr := getattr(jme, attr)), (
+                        f'''Mistake type "{mt_.name}" {person} element {j} {attr} mismatch: rme.{attr} = {rme_attr or
+                         '""'}, jme.{attr} = {jme_attr or '""'}''')
+
+
 if __name__ == "__main__":
     "Main entry point."
-    test_tex_make_fill_in_the_blanks_quiz()
+    test_runtime_corpus_mistake_elements_match_json()

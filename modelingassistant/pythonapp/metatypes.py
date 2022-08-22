@@ -17,8 +17,8 @@ from utils import ae
 
 
 @dataclass
-class CdmMetatype:
-    "Represents a CDM metatype or list thereof."
+class Metatype:
+    "Represents a metatype or list thereof."
     short_name: str
     long_name: str
     eClass: EClass | list[EClass] # pylint: disable=invalid-name
@@ -129,21 +129,21 @@ _passengerrole_booking = Association(name="PassengerRole_Booking", ends=[
 _role_types: list[EClass] = [AssociationEnd, CDEnumLiteral, Class]
 
 CDM_METATYPES = {
-    "aggr": (aggr := CdmMetatype("aggr", "Aggregation", Association, _passengerrole_booking)),
-    "assoc": (assoc := CdmMetatype("assoc", "Association", Association, _person_personrole)),
-    "assocend": (assocend := CdmMetatype("assocend", "Association End", AssociationEnd, _personrole_person)),
-    "assocend*": (assocends := CdmMetatype("assocend*", "Association Ends", AssociationEnd, [
+    "aggr": (aggr := Metatype("aggr", "Aggregation", Association, _passengerrole_booking)),
+    "assoc": (assoc := Metatype("assoc", "Association", Association, _person_personrole)),
+    "assocend": (assocend := Metatype("assocend", "Association End", AssociationEnd, _personrole_person)),
+    "assocend*": (assocends := Metatype("assocend*", "Association Ends", AssociationEnd, [
         _personrole_person, _airlinesystem_persons, _person_airlinesystem, _bookings_aggrend])),
-    "attr": (attr := CdmMetatype("attr", "Attribute", Attribute, _person_name)),
-    "attr*": (attrs := CdmMetatype("attr*", "Attributes", Attribute, [_person_name, _person_id])),
-    "cls": (cls := CdmMetatype("cls", "Class", Class, _person)),
-    "cls*": (clss := CdmMetatype("cls*", "Classes", Class, [_passengerrole, _employeerole, _visitorrole])),
-    "compos": (compos := CdmMetatype("compos", "Composition", Association, _airlinesystem_person)),
-    "enum": (enum := CdmMetatype("enum", "Enumeration", CDEnum, _seat_type)),
-    "enumitem": (enumitem := CdmMetatype("enumitem", "Enumeration Item", CDEnumLiteral, _first_class)),
-    "enumitem*": (enumitems := CdmMetatype("enumitem*", "Enumeration Items", CDEnumLiteral, _seat_type.literals)),
-    "qualassoc": (qualassoc := CdmMetatype("qualassoc", "Qualified Association", Association)),  # not yet supported
-    "role": (role := CdmMetatype("role", "Role", _role_types, _person_roles)),
-    "role*": (roles := CdmMetatype("role*", "Roles", _role_types, [_passengerrole, _employeerole, _visitorrole])),
-    "rel": (rel := CdmMetatype("rel", "Relationship", Association)),
+    "attr": (attr := Metatype("attr", "Attribute", Attribute, _person_name)),
+    "attr*": (attrs := Metatype("attr*", "Attributes", Attribute, [_person_name, _person_id])),
+    "cls": (cls := Metatype("cls", "Class", Class, _person)),
+    "cls*": (clss := Metatype("cls*", "Classes", Class, [_passengerrole, _employeerole, _visitorrole])),
+    "compos": (compos := Metatype("compos", "Composition", Association, _airlinesystem_person)),
+    "enum": (enum := Metatype("enum", "Enumeration", CDEnum, _seat_type)),
+    "enumitem": (enumitem := Metatype("enumitem", "Enumeration Item", CDEnumLiteral, _first_class)),
+    "enumitem*": (enumitems := Metatype("enumitem*", "Enumeration Items", CDEnumLiteral, _seat_type.literals)),
+    "qualassoc": (qualassoc := Metatype("qualassoc", "Qualified Association", Association)),  # not yet supported
+    "role": (role := Metatype("role", "Role", _role_types, _person_roles)),
+    "role*": (roles := Metatype("role*", "Roles", _role_types, [_passengerrole, _employeerole, _visitorrole])),
+    "rel": (rel := Metatype("rel", "Relationship", Association)),
 }

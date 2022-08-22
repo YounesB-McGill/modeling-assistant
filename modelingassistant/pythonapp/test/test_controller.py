@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+# pylint: disable=wrong-import-position
 """
 Tests for the interaction with the modeling assistant and learning corpus generated pyecore code.
 Many of these tests have equivalents written in Java and therefore serve as a form of documentation.
@@ -9,19 +9,21 @@ import os
 import re
 from textwrap import dedent
 import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import pytest
 import learningcorpus  # pylint: disable=unused-import
 from stringserdes import SRSET, str_to_modelingassistant
 from classdiagram import ClassDiagram, Class, Attribute, CDInt, CDString, AssociationEnd, Association
 from constants import LEARNING_CORPUS_PATH
 from corpus import corpus
-from corpus_definition import missing_association_aggregation_mistakes, using_attribute_instead_of_assoc
+from corpusdefinition import missing_association_aggregation_mistakes, using_attribute_instead_of_assoc
 from fileserdes import load_cdm, load_lc, load_ma, save_to_files
 from learningcorpus import (Feedback, LearningItem, MistakeType, ParametrizedResponse, Reference, ResourceResponse,
-                            TextResponse)
+                            MistakeElement, TextResponse)
 from learningcorpusquiz import Choice, ListMultipleChoiceQuiz
-from mistaketypes import BAD_CLASS_NAME_SPELLING
+from mistaketypes import PLURAL_CLASS_NAME
 from modelingassistant import ModelingAssistant, Solution, Student, StudentKnowledge
 
 
@@ -633,7 +635,7 @@ def test_student_knowledge_persisted_correctly():
     learning_corpus = load_lc(LEARNING_CORPUS_PATH)
 
     correct_class_naming = LearningItem(learningCorpus=learning_corpus)
-    class_naming_mistake_type = BAD_CLASS_NAME_SPELLING
+    class_naming_mistake_type = PLURAL_CLASS_NAME
     class_naming_mistake_type.learningItem = correct_class_naming
 
     # Link first class diagram to modeling assistant instance and related student
@@ -690,7 +692,7 @@ def test_student_knowledge_persisted_correctly():
 
     assert "1111" == s1k.student.id
     assert lok1 == s1k.levelOfKnowledge
-    assert "Bad class name spelling" == s1k.mistakeType.name
+    assert "Plural class name" == s1k.mistakeType.name
     assert "2222" == s2k.student.id
     assert lok2 == s2k.levelOfKnowledge
     assert s2k.mistakeType.atomic
@@ -731,10 +733,12 @@ def test_creating_using_attribute_instead_of_assoc_learning_corpus_entry():
     mtas = ["atomic", "timeToAddress", "numStepsBeforeNotification", "priority", "description", "mistakeTypeCategory"]
     fbas = ["level", "congratulatory", "usefulness", "highlightProblem", "highlightSolution", "text"]
     for attr in mtas:
-        assert getattr(actual, attr) == getattr(expected, attr)
+        assert (a := getattr(actual, attr)) == (e := getattr(expected, attr)), (
+            f"actual.{attr} ({a}) does not match expected.{attr} ({e})")
     for actual_fb, expected_fb in zip(actual.feedbacks, expected.feedbacks, strict=True):
         for attr in fbas:
-            assert getattr(actual_fb, attr) == getattr(expected_fb, attr)
+            assert (a := getattr(actual_fb, attr)) == (e := getattr(expected_fb, attr)), (
+                f"actual_fb.{attr} ({a}) does not match expected_fb.{attr} ({e})")
 
 
 def _create_using_attribute_instead_of_assoc_mistake_type() -> MistakeType:
@@ -769,6 +773,8 @@ def _create_using_attribute_instead_of_assoc_mistake_type() -> MistakeType:
         learningItem=assoc_end_learning_item,
         name="Using attribute instead of assoc",
         description="Using attribute instead of association",
+        studentElements=[MistakeElement(type="attr")],
+        instructorElements=[MistakeElement(type="assocend")],
         priority=24,
         feedbacks=[
             Feedback(level=1, highlightSolution=True, learningCorpus=corpus),
@@ -788,8 +794,6 @@ def _create_using_attribute_instead_of_assoc_mistake_type() -> MistakeType:
             ResourceResponse(level=5, learningResources=[compos_aggreg_assoc_ref]),
         ])
 
-    # copy MDF to fake MT pass test
-    using_attribute_instead_of_assoc_mistake_type.md_format = using_attribute_instead_of_assoc.md_format
     return using_attribute_instead_of_assoc_mistake_type
 
 
@@ -808,4 +812,4 @@ def _get_compos_aggreg_assoc_reference() -> Reference:
 
 if __name__ == "__main__":
     "Main entry point."
-    test_loading_modeling_assistant_with_multiple_solutions_serialized_from_java()
+    test_creating_using_attribute_instead_of_assoc_learning_corpus_entry()

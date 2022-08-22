@@ -17,20 +17,20 @@ from textwrap import dedent
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from cdmmetatypes import CdmMetatype, aggr, assoc, assocend, assocends, attr, attrs, cls, compos, enum, enumitem
+from metatypes import Metatype, aggr, assoc, assocend, assocends, attr, attrs, cls
 from classdiagram import Association, AssociationEnd, Class, NamedElement
 from createcorpus import LatexGenerator, underscorify
 from corpus import corpus
-from corpus_definition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
-from parametrizedresponse import (comma_seperated_with_and, extract_params, get_mdf_items_to_mistake_elem_dict,
-                                  parametrize_response, param_parts_before_dot, param_start_elem_type, param_valid,
-                                  parse)
-from utils import mdf, mt
-from learningcorpus import MistakeType, ParametrizedResponse
+from corpusdefinition import attribute_misplaced, missing_association_name, missing_class, wrong_role_name
+from parametrizedresponse import (comma_seperated_with_and, extract_params, parametrize_response,
+                                  param_parts_before_dot, param_start_elem_type, param_valid,
+                                  get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems, parse)
+from utils import mt
+from learningcorpus import MistakeElement, MistakeType, ParametrizedResponse
 from modelingassistant import Mistake, SolutionElement
 
 
-_PR_PARAM_PARSED_OUTPUT_FILE = "modelingassistant/pythonclient/test/pr_param_parsed_output.md"
+_PR_PARAM_PARSED_OUTPUT_FILE = "modelingassistant/pythonapp/test/pr_param_parsed_output.md"
 
 
 def test_prs_correctly_specified():
@@ -45,32 +45,30 @@ def test_prs_correctly_specified():
       and end with a valid type
     - `.` is used to get the attribute of an object just like in Python. If no prespecified parameter is found,
       Python's `getattr` is used to get the attribute.
-    - `*` indicates a sequence of items. Only one sequence is allowed in each MistakeDetectionFormat list.
+    - `*` indicates a sequence of items. Only one sequence is allowed in each element list.
 
-    Programmatic attributes are a cdm metamodel property or a shorthand for it defined in parametrizedresponse.py.
+    Programmatic attributes are a metamodel property or a shorthand for it defined in parametrizedresponse.py.
     """
     # assert syntactic correctness
-    for param, mt_ in get_pr_parameters_for_mistake_types_with_md_formats().items():
+    for param, mt_ in get_pr_parameters_to_mistake_types().items():
         assert param_valid(param, mt_)
-    # assert parameters in parametrized response text are actually contained in the mistake type's detection format
+    # assert parameters in parametrized response text are actually contained in the mistake type's elements
     for mt_ in corpus.mistakeTypes():
-        if not hasattr(mt_, "md_format"):
-            continue
         for pr in mt_.parametrized_responses():
             for param in extract_params(pr.text):
                 for person in ("stud", "inst"):
                     if param.startswith(pers_ := f"{person}_"):
-                        assert (re.sub(r"\d+", "*", param.removeprefix(pers_).split(".")[0])
-                                in getattr(mt_.md_format, person)
-                        ), f"Param {param} for {mt_.name} does not match MDF: {mt_.md_format}"
+                        p = "student" if person == "stud" else "instructor"
+                        assert (re.sub(r"\d+", "*", param.removeprefix(pers_).split(".")[0]) in
+                                [str(e) for e in getattr(mt_, f"{p}Elements")]
+                        ), f"Param {param} for {mt_.name} does not match mistake type element descriptions."
 
 
 def test_pr_aggr():
     "Test parametrized response for a single aggregation."
     # Dummy mistake type used for testing
-    wrong_aggr_name = mt("Wrong aggregation name", feedbacks=[wrong_aggr_name_pr := ParametrizedResponse(
-        text="The ${stud_aggr} aggregation should be renamed to ${inst_aggr}.")])
-    wrong_aggr_name.md_format = mdf(["aggr"], ["aggr"])
+    wrong_aggr_name = mt("Wrong aggregation name", stud_inst="aggr", feedbacks=[wrong_aggr_name_pr :=
+        ParametrizedResponse(text="The ${stud_aggr} aggregation should be renamed to ${inst_aggr}.")])
     # Assume this mistake is returned from the Mistake Detection System
     wrong_aggr_name_mistake = Mistake(instructorElements=[SolutionElement(element=aggr.example)],
                                       studentElements=[SolutionElement(element=Association(ends=(stud_aes := [
@@ -165,8 +163,8 @@ def test_all_pr_params_can_be_parsed():
     # assert False
 
     params_to_start_elem_and_parsed_output: dict[str, tuple[str, str]] = {}
-    for param in get_pr_parameters_for_mistake_types_with_md_formats():
-        assert (start_elem := param_start_elem_type(param, as_type=CdmMetatype).example), f"Invalid {start_elem = }"
+    for param in get_pr_parameters_to_mistake_types():
+        assert (start_elem := param_start_elem_type(param, as_type=Metatype).example), f"Invalid {start_elem = }"
         assert (parsed_output := parse(param, start_elem)), f"Invalid {parsed_output = }"
         assert isinstance(parsed_output, str) and "${" not in parsed_output
         if any((c in param) for c in digits[1:]):
@@ -179,7 +177,7 @@ def test_all_pr_params_can_be_parsed():
         This file contains the parsed output of all possible parametrized response parameters.
         It is used to verify correctness of the learning corpus parametrized responses as well as the parsing logic and
         is generated by the `test_all_pr_params_can_be_parsed()` test.
-        The example domain model used in the test is defined in the `cdmmetatypes.py` file.
+        The example domain model used in the test is defined in the `metatypes.py` file.
         To avoid repetition, parameter prefixes such as "stud_" have been omitted from this document.
 
         Parameter | Start Element(s) | Parsed Output
@@ -204,20 +202,22 @@ def test_all_pr_params_can_be_parsed():
     return pr_md
 
 
-def test_get_mdf_items_to_mistake_elem_dict():
-    "Test get_mdf_items_to_mistake_elem_dict() helper function."
+def test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems():
+    "Test test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems() helper function."
+    simple_mt = MistakeType(name="Simple mistake", studentElements=[MistakeElement(type=n) for n in ["a", "b"]])
+    varargs_mt = MistakeType(
+        name="Varargs mistake",
+        studentElements=[MistakeElement(type=n.removesuffix("*"), many=n.endswith("*")) for n in ["a", "b", "c*"]])
     simple_mistake = Mistake(studentElements=[SolutionElement(element=Class(name=c)) for c in "ab"],
-                             mistakeType=(simple_mt := MistakeType(name="Simple mistake")))
+                             mistakeType=simple_mt)
     varargs_mistake = Mistake(studentElements=[SolutionElement(element=Class(name=c)) for c in "abxyz"],
-                              mistakeType=(varargs_mt := MistakeType(name="Varargs mistake")))
-    simple_mt.md_format = mdf(["a", "b"], [])
-    varargs_mt.md_format = mdf(["a", "b", "c*"], [])
+                              mistakeType=varargs_mt)
 
-    assert get_mdf_items_to_mistake_elem_dict(simple_mistake) == {
+    assert get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(simple_mistake) == {
         "stud_a": simple_mistake.studentElements[0].element,
         "stud_b": simple_mistake.studentElements[1].element,
     }
-    assert get_mdf_items_to_mistake_elem_dict(varargs_mistake) == {
+    assert get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(varargs_mistake) == {
         "stud_a": varargs_mistake.studentElements[0].element,
         "stud_b": varargs_mistake.studentElements[1].element,
         "stud_c*": [varargs_mistake.studentElements[i].element for i in range(2, len(varargs_mistake.studentElements))],
@@ -257,9 +257,9 @@ def get_all_pr_parameters() -> dict[str, MistakeType]:
     return prs
 
 
-def get_pr_parameters_for_mistake_types_with_md_formats() -> dict[str, MistakeType]:
+def get_pr_parameters_to_mistake_types() -> dict[str, MistakeType]:
     "Return a dict of ParametrizedResponse parameters mapped to mistake types with mistake detection formats."
-    return {param: mt_ for param, mt_ in get_all_pr_parameters().items() if hasattr(mt_, "md_format")}
+    return {param: mt_ for param, mt_ in get_all_pr_parameters().items()}
 
 
 def get_number_of_mistake_types_with_parametrized_responses() -> int:
@@ -317,4 +317,4 @@ def get_mdis4lc_human_validated_parametrized_responses_java_mapping_entries() ->
 
 if __name__ == "__main__":
     "Main entry point (used for debugging)."
-    get_latex_pr_param_parsed_output()
+    test_get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems()

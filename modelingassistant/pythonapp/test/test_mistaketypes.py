@@ -9,14 +9,16 @@ import os
 import sys
 from textwrap import dedent
 
+from ordered_set import OrderedSet
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from learningcorpus import MistakeTypeCategory, MistakeType
+from learningcorpus import MistakeElement, MistakeTypeCategory, MistakeType
 from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, CLASS_MISTAKES, CLASS_NAME_MISTAKES
-from cdmmetatypes import CDM_METATYPES
+from metatypes import CDM_METATYPES as metatypes
 from corpus import corpus, mts_by_priority
-from corpus_definition import mts_by_priority as mts_by_priority_with_labels
-from utils import COLOR, MistakeDetectionFormat, color_str
+from corpusdefinition import mts_by_priority as mts_by_priority_with_labels
+from utils import COLOR, color_str
 
 import mistaketypes
 
@@ -95,9 +97,9 @@ def test_mistake_type_priorities():
             assert mt.priority
 
 
-def test_mistake_type_formats():
+def test_mistake_type_elements():
     """
-    Verify the validity of all mistake type formats.
+    Verify the validity of all mistake type elements.
 
     - There must be at least one student element or instructor element
     - Each element may have a descriptive prefix and must end with a valid CdmMetatype short name, eg, cls*
@@ -115,21 +117,24 @@ def test_mistake_type_formats():
     """
     for mt in corpus.mistakeTypes():
         name: str = mt.name
-        assert getattr(mt, "md_format", None), f"{name} has no MistakeDetectionFormat"
-        mdf: MistakeDetectionFormat = mt.md_format
-        assert mdf.stud or mdf.inst, f"{name} has no student or instructor elements"
-        for e in (*mdf.stud, *mdf.inst):
+        mt_stud: OrderedSet[MistakeElement] = mt.studentElements
+        mt_inst: OrderedSet[MistakeElement] = mt.instructorElements
+        assert mt_stud or mt_inst, f"{name} has no student or instructor elements"
+        for e in (*mt_stud, *mt_inst):
+            s = str(e)
             for prefix in ("stud", "inst"):
-                assert not e.startswith(prefix), f'{name} MDF: {e} must not contain duplicate "{prefix}" prefix'
-            assert e.split("_")[-1] in CDM_METATYPES, f"{name} MDF: {e} must be of a valid type"
-        assert len(mdf.stud) == len(set(mdf.stud)), f"{name} has duplicate student elements"
-        assert len(mdf.inst) == len(set(mdf.inst)), f"{name} has duplicate instructor elements"
-        assert not any(s.endswith("*") for s in (mdf.stud[:-1] + mdf.inst[:-1])), f"{name} has an invalid vararg"
+                assert not s.startswith(prefix), f'{name}: {s} must not contain duplicate "{prefix}" prefix'
+            assert s.rsplit('_', maxsplit=1)[-1] in metatypes, f"{name}: Element {s} must be of a valid type"
+        assert len(mt_stud) == len(set(str(e) for e in mt_stud)), f"{name} has duplicate student elements"
+        assert len(mt_inst) == len(set(str(e) for e in mt_inst)), f"{name} has duplicate instructor elements"
+        assert not any(e.many for e in (mt_stud[:-1].union(mt_inst[:-1]))), f"{name} has an invalid vararg"
         if name.lower().startswith("extra"):
-            assert mdf.stud, f"{name} has no student elements"
+            assert mt_stud, f"{name} has no student elements"
         if name.lower().startswith("missing"):
-            assert mdf.inst, f"{name} has no instructor elements"
-        for lst in (mdf.stud, mdf.inst):
+            assert mt_inst, f"{name} has no instructor elements"
+        mt_stud_desc = [str(e) for e in mt_stud]
+        mt_inst_desc = [str(e) for e in mt_inst]
+        for lst in (mt_stud_desc, mt_inst_desc):
             for e1, e2 in (("sub_cls", "super_cls"), ("whole", "part"), ("source", "target")):
                 if e1 in lst:
                     assert e2 in lst, f'{name} has "{e1}" but no "{e2}"'
@@ -143,12 +148,11 @@ def test_no_bad_highlighting():
     that a problem statement element(s) is highlighted only if there are instructor elements.
     """
     for mt in corpus.mistakeTypes():
-        mdf: MistakeDetectionFormat = mt.md_format
-        if not mdf.inst:
+        if not mt.instructorElements:
             for fb in mt.feedbacks:
                 assert not fb.highlightProblem, f"""Cannot highlight problem statement for {mt.name
                                                  } without instructor elements"""
-        if not mdf.stud:
+        if not mt.studentElements:
             for fb in mt.feedbacks:
                 assert not fb.highlightSolution, f"Cannot highlight solution for {mt.name} without student elements"
 
@@ -189,14 +193,14 @@ def print_mistake_type_stats_md():
     print("```")
 
 
-def print_mistake_type_stats_md_format_completion_status():
+def print_mistake_type_elements_completion_status():
     "Print mistake detection format completion status for each mistake type."
     # pylint: disable=expression-not-assigned
     def print_mt(mt: MistakeType, indent: int = 0):
-        "Print mistake type and show its priority and whether it has feedbacks."
-        sign = "+" if hasattr(mt, "md_format") else "-"
-        #print(f"{sign}{' ' * indent}{mt.name}")
-        if not hasattr(mt, "md_format"):
+        "Print mistake type. The output can be changed to show relevant stats such as priority and number of feedbacks."
+        has_elems = mt.studentElements or mt.instructorElements
+        sign = "+" if has_elems else "-"
+        if not has_elems:
             print(f"{sign}{' ' * indent}{mt.name}")
 
     def print_mtc(mtc: MistakeTypeCategory, indent: int = 0):
@@ -236,4 +240,4 @@ def print_mts_by_priority_with_labels_latex_table():
 
 if __name__ == "__main__":
     "Main entry point."
-    print_mts_by_priority_with_labels_latex_table()
+    test_mistake_type_elements()

@@ -1,19 +1,21 @@
 
 from .learningcorpus import getEClassifier, eClassifiers
 from .learningcorpus import name, nsURI, nsPrefix, eClass
-from .learningcorpus import Time, LearningItem, MistakeType, Feedback, TextResponse, ParametrizedResponse, ResourceResponse, LearningResource, Reference, Tutorial, Example, Quiz, NamedElement, MistakeTypeCategory, LearningCorpus, ElementType
+from .learningcorpus import Time, LearningItem, MistakeType, Feedback, TextResponse, ParametrizedResponse, ResourceResponse, LearningResource, Reference, Tutorial, Example, Quiz, NamedElement, MistakeTypeCategory, LearningCorpus, ElementType, MistakeElement
 
 
 from . import learningcorpus
 
-__all__ = ['Time', 'LearningItem', 'MistakeType', 'Feedback', 'TextResponse', 'ParametrizedResponse', 'ResourceResponse',
-           'LearningResource', 'Reference', 'Tutorial', 'Example', 'Quiz', 'NamedElement', 'MistakeTypeCategory', 'LearningCorpus', 'ElementType']
+__all__ = ['Time', 'LearningItem', 'MistakeType', 'Feedback', 'TextResponse', 'ParametrizedResponse', 'ResourceResponse', 'LearningResource',
+           'Reference', 'Tutorial', 'Example', 'Quiz', 'NamedElement', 'MistakeTypeCategory', 'LearningCorpus', 'ElementType', 'MistakeElement']
 
 eSubpackages = []
 eSuperPackage = None
 learningcorpus.eSubpackages = eSubpackages
 learningcorpus.eSuperPackage = eSuperPackage
 
+MistakeType.studentElements.eType = MistakeElement
+MistakeType.instructorElements.eType = MistakeElement
 LearningItem.learningResources.eType = LearningResource
 LearningItem.mistakeTypes.eType = MistakeType
 LearningItem.learningCorpus.eType = LearningCorpus

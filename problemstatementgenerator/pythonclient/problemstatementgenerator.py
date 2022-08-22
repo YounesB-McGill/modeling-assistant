@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import modelingassistant_imports
-from modelingassistant.pythonclient.classdiagram import ClassDiagram
+from modelingassistant.pythonapp.classdiagram import ClassDiagram
 from pyecore.resources import ResourceSet, URI
 
 

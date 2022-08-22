@@ -20,7 +20,7 @@ from modelingassistant import (ModelingAssistant, ProblemStatement,
                                ProblemStatementElement, Solution,
                                SolutionElement)
 
-INPUT_FILE_TSV = "modelingassistant/pythonclient/ProblemStatementElements.tsv"
+INPUT_FILE_TSV = "modelingassistant/pythonapp/ProblemStatementElements.tsv"
 INPUT_MODEL_FILE = "mistakedetection/realModels/instructorSolution/instructorSolution2/Class Diagram/InstructorSolution2.domain_model.cdm"
 OUTPUT_FILE_MA = "modelingassistant/ProblemStatementInstance/problem_statement_instance.modelingassistant"
 

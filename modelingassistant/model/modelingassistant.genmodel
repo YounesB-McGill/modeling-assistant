@@ -37,6 +37,8 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeType/mistakeTypeCategory"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//MistakeType/priority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//MistakeType/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeType/studentElements"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//MistakeType/instructorElements"/>
     </genClasses>
     <genClasses ecoreClass="learningcorpus.ecore#//Feedback">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//Feedback/level"/>
@@ -77,6 +79,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningCorpus/feedbacks"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningCorpus/learningItems"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference learningcorpus.ecore#//LearningCorpus/learningResources"/>
+    </genClasses>
+    <genClasses ecoreClass="learningcorpus.ecore#//MistakeElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//MistakeElement/many"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute learningcorpus.ecore#//MistakeElement/type"/>
     </genClasses>
   </genPackages>
   <genPackages prefix="Modelingassistant" disposableProviderFactory="true" ecorePackage="modelingassistant.ecore#/">

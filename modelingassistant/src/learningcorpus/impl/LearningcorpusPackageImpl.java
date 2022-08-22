@@ -14,6 +14,7 @@ import learningcorpus.LearningItem;
 import learningcorpus.LearningResource;
 import learningcorpus.LearningcorpusFactory;
 import learningcorpus.LearningcorpusPackage;
+import learningcorpus.MistakeElement;
 import learningcorpus.MistakeType;
 import learningcorpus.MistakeTypeCategory;
 import learningcorpus.NamedElement;
@@ -142,6 +143,13 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
    * @generated
    */
   private EClass learningCorpusEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass mistakeElementEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -380,6 +388,26 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
   @Override
   public EAttribute getMistakeType_Description() {
     return (EAttribute)mistakeTypeEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getMistakeType_StudentElements() {
+    return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getMistakeType_InstructorElements() {
+    return (EReference)mistakeTypeEClass.getEStructuralFeatures().get(9);
   }
 
   /**
@@ -728,6 +756,36 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
    * @generated
    */
   @Override
+  public EClass getMistakeElement() {
+    return mistakeElementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getMistakeElement_Many() {
+    return (EAttribute)mistakeElementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getMistakeElement_Type() {
+    return (EAttribute)mistakeElementEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EEnum getElementType() {
     return elementTypeEEnum;
   }
@@ -787,6 +845,8 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     createEReference(mistakeTypeEClass, MISTAKE_TYPE__MISTAKE_TYPE_CATEGORY);
     createEAttribute(mistakeTypeEClass, MISTAKE_TYPE__PRIORITY);
     createEAttribute(mistakeTypeEClass, MISTAKE_TYPE__DESCRIPTION);
+    createEReference(mistakeTypeEClass, MISTAKE_TYPE__STUDENT_ELEMENTS);
+    createEReference(mistakeTypeEClass, MISTAKE_TYPE__INSTRUCTOR_ELEMENTS);
 
     feedbackEClass = createEClass(FEEDBACK);
     createEAttribute(feedbackEClass, FEEDBACK__LEVEL);
@@ -834,6 +894,10 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     createEReference(learningCorpusEClass, LEARNING_CORPUS__LEARNING_ITEMS);
     createEReference(learningCorpusEClass, LEARNING_CORPUS__LEARNING_RESOURCES);
 
+    mistakeElementEClass = createEClass(MISTAKE_ELEMENT);
+    createEAttribute(mistakeElementEClass, MISTAKE_ELEMENT__MANY);
+    createEAttribute(mistakeElementEClass, MISTAKE_ELEMENT__TYPE);
+
     // Create enums
     elementTypeEEnum = createEEnum(ELEMENT_TYPE);
 
@@ -880,6 +944,7 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     exampleEClass.getESuperTypes().add(this.getLearningResource());
     quizEClass.getESuperTypes().add(this.getLearningResource());
     mistakeTypeCategoryEClass.getESuperTypes().add(this.getNamedElement());
+    mistakeElementEClass.getESuperTypes().add(this.getNamedElement());
 
     // Initialize classes, features, and operations; add parameters
     initEClass(learningItemEClass, LearningItem.class, "LearningItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -898,6 +963,8 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     initEReference(getMistakeType_MistakeTypeCategory(), this.getMistakeTypeCategory(), this.getMistakeTypeCategory_MistakeTypes(), "mistakeTypeCategory", null, 1, 1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMistakeType_Priority(), ecorePackage.getEInt(), "priority", null, 0, 1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMistakeType_Description(), ecorePackage.getEString(), "description", null, 0, 1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMistakeType_StudentElements(), this.getMistakeElement(), null, "studentElements", null, 0, -1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMistakeType_InstructorElements(), this.getMistakeElement(), null, "instructorElements", null, 0, -1, MistakeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(feedbackEClass, Feedback.class, "Feedback", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getFeedback_Level(), ecorePackage.getEInt(), "level", null, 0, 1, Feedback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -944,6 +1011,10 @@ public class LearningcorpusPackageImpl extends EPackageImpl implements Learningc
     initEReference(getLearningCorpus_Feedbacks(), this.getFeedback(), this.getFeedback_LearningCorpus(), "feedbacks", null, 0, -1, LearningCorpus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningCorpus_LearningItems(), this.getLearningItem(), this.getLearningItem_LearningCorpus(), "learningItems", null, 0, -1, LearningCorpus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getLearningCorpus_LearningResources(), this.getLearningResource(), this.getLearningResource_LearningCorpus(), "learningResources", null, 0, -1, LearningCorpus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(mistakeElementEClass, MistakeElement.class, "MistakeElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getMistakeElement_Many(), ecorePackage.getEBoolean(), "many", null, 0, 1, MistakeElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMistakeElement_Type(), ecorePackage.getEString(), "type", null, 0, 1, MistakeElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(elementTypeEEnum, ElementType.class, "ElementType");

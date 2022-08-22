@@ -5,16 +5,19 @@ This module must not depend on any other to avoid circular dependencies.
 # pylint: disable=no-member
 
 # Ok to import items from standard library, constants, envvars, and pyecore model code only
+import json
+import re
 from collections import namedtuple
 from collections.abc import Iterable
-import json
 from string import Formatter
 from types import SimpleNamespace
 from typing import NamedTuple, Tuple
 
+from pyecore.ecore import EObject
+
 from classdiagram import AssociationEnd, Classifier, ReferenceType
 from constants import CORRECT_QUIZ_ITEM_NOTATIONS, MULTIPLE_FEEDBACKS_PER_LEVEL
-from learningcorpus import MistakeTypeCategory, MistakeType, Feedback
+from learningcorpus import MistakeElement, MistakeTypeCategory, MistakeType, Feedback
 from learningcorpusquiz import (Blank, Choice, FillInTheBlanksQuiz, FillInTheBlanksQuizStatement,
                                 ListMultipleChoiceQuiz, NonBlank)
 from modelingassistant import ModelingAssistant
@@ -58,18 +61,39 @@ def mtc(n, s=None, **kwargs) -> MistakeTypeCategory:
     return _mtc
 
 
-def mt(n, d="", **kwargs) -> MistakeType:
+def mt(n, d="", stud: str | list[str] = None, inst: str | list[str] = None, stud_inst: str | list[str] = None,
+       **kwargs) -> MistakeType:
     """
     Shorthand for MistakeType initializer.
 
     n: name of the mistake type
     d: description of the mistake type
     """
+    # change the line below to use other languages
+    from metatypes import CDM_METATYPES as types  # pylint: disable=import-outside-toplevel
+    def elems(me_s: str | list[str]) -> list[MistakeElement]:
+        "Helper function to create the list of MistakeElements for the given input string(s)."
+        strs = tmp if isinstance(tmp := (stud_inst or me_s), list) else [tmp]
+        result = []
+        for s in strs:
+            _split = s.split("_")
+            desired_type_name = re.sub(r"[*\d]+", "", _split[-1])
+            if desired_type_name not in types:
+                raise ValueError(f"{desired_type_name} is not a valid metatype name.")
+            t = re.sub(r"[*\d]+", "", _split[-1])  # TODO improve this later
+            result.append(MistakeElement(name="_".join(_split[:-1]), many=s.endswith("*"), type=t))
+        return result
     if n == d:
         warn(f"Name and description are identical for mistake type {n}")
     if not d:
         d = n
-    return MistakeType(name=n, description=d, **kwargs)
+    if not any((stud, inst, stud_inst)):
+        raise ValueError("At least one of stud, inst, stud_inst must be provided")
+    if (stud and stud_inst) or (inst and stud_inst):
+        raise ValueError("stud_inst cannot be used in conjunction with stud or inst")
+    if stud and stud == inst:
+        warn(f"stud and inst are identical for mistake type {n}, so prefer stud_inst to specify mistake elements")
+    return MistakeType(name=n, description=d, studentElements=elems(stud), instructorElements=elems(inst), **kwargs)
 
 
 def fbs(fbs_by_level: dict[int, Feedback | list[Feedback]]) -> list[Feedback]:
@@ -148,31 +172,6 @@ class HighlightSolution(Feedback):
     "Shorthand for Feedback initializer with highlightSolution=True."
     def __new__(cls, *args, **kwargs):
         return Feedback(*args, highlightSolution=True, **kwargs)
-
-
-class MistakeDetectionFormat(NamedTuple):
-    """
-    Simple representation of the current mistake detection format for a mistake type.
-
-    stud: ordered list of student solution elements for a particular mistake type
-    inst: ordered list of instructor solution elements
-
-    Note that in both cases, not all slots are occupied. For example, for incomplete containment tree, there may be
-    a variable number of student solution elements.
-
-    This information is not in the metamodel as of now, but is still needed to interpret the results of the
-    Mistake Detection System. This approach is provisional and will be improved in future work.
-    """
-    stud: list[str]
-    inst: list[str]
-
-    def __repr__(self) -> str:
-        return f"({self.stud}, {self.inst})"
-
-
-def mdf(student_elems_descriptions: list[str], instructor_elems_descriptions: list[str]) -> MistakeDetectionFormat:
-    "Shorthand for MistakeDetectionFormat initializer."
-    return MistakeDetectionFormat(stud=student_elems_descriptions, inst=instructor_elems_descriptions)
 
 
 class McqFactory:

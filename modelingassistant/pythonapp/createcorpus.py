@@ -18,20 +18,20 @@ from textwrap import dedent
 
 import cv2
 
-from cdmmetatypes import CDM_METATYPES, CdmMetatype
+from metatypes import Metatype, CDM_METATYPES as metatypes
 from constants import LEARNING_CORPUS_PATH, MULTIPLE_FEEDBACKS_PER_LEVEL
 from corpus import corpus
 from fileserdes import save_to_file
 from learningcorpus import (MistakeTypeCategory, MistakeType, Feedback, TextResponse, ParametrizedResponse,
-                            ResourceResponse, Quiz)
+                            MistakeElement, ResourceResponse, Quiz)
 from learningcorpusquiz import Blank, FillInTheBlanksQuiz, ListMultipleChoiceQuiz, NonBlank, TableMultipleChoiceQuiz
-from utils import mdf, warn, NonNoneDict
+from utils import NonNoneDict
 
 
 MAX_NUM_OF_HASHES_IN_HEADING = 6  # See https://github.github.com/gfm/#atx-heading
 MAX_COLUMN_WIDTH = 120
 
-PYTHON_MISTAKE_TYPES_FILE = "modelingassistant/pythonclient/mistaketypes.py"
+PYTHON_MISTAKE_TYPES_FILE = "modelingassistant/pythonapp/mistaketypes.py"
 JAVA_MISTAKE_TYPES_FILE = "modelingassistant/src/learningcorpus/mistaketypes/MistakeTypes.java"
 CORPUS_DESCRIPTION_DIR = "modelingassistant/corpus_descriptions"
 LEARNING_CORPUS_MARKDOWN_FILE = f"{CORPUS_DESCRIPTION_DIR}/README.md"
@@ -49,7 +49,6 @@ from constants import LEARNING_CORPUS_PATH
 from corpus import corpus as runtime_corpus
 from fileserdes import load_lc
 from learningcorpus import MistakeTypeCategory, MistakeType
-from utils import mdf
 
 corpus = load_lc(LEARNING_CORPUS_PATH)
 
@@ -60,10 +59,6 @@ MISTAKE_TYPES_BY_NAME: dict[str, MistakeType] = {{mt.name: mt for mt in corpus.m
 # Short-name references to the above dicts for greater code legibility
 _MTCS = MISTAKE_TYPE_CATEGORIES_BY_NAME
 _MTS = MISTAKE_TYPES_BY_NAME
-
-# Add mistake detection format attribute to mistake types in _MTS
-for mt in runtime_corpus.mistakeTypes():
-    _MTS[mt.name].md_format = getattr(mt, "md_format", mdf([], []))
 
 
 # Mistake type categories
@@ -273,39 +268,45 @@ class TextualGenerator(ABC):
         "Return the body for the mistake type, indented by the given amount."
 
     @classmethod
-    def mdf_item_display_name(cls, mdf_name: str) -> str:
-        "Return the display name for the input MDF name."
+    def mistake_elem_display_name(cls, mistake_elem: MistakeElement | str) -> str:
+        "Return the display name for the input mistake element name."
         def display_name(s: str) -> str:
-            return CDM_METATYPES[s].long_name if s in CDM_METATYPES else s
+            return metatypes[s].long_name if s in metatypes else s
 
-        return (" ".join([display_name(w).capitalize() for w in mdf_name.split("_")])
+        return (" ".join([display_name(w).capitalize() for w in str(mistake_elem).split("_")])
                 .replace("Sub Class", "Subclass").replace("Super Class", "Superclass")
                 .replace("Minlowerbound", "Minimum lower bound")
                 .replace("Abs", "Abstraction").replace("Occ", "Occurrence")).capitalize()
 
     @classmethod
     @abstractmethod
-    def make_md_format_description(cls, mt: MistakeType) -> str:
-        "Return the mistake detection format description for the mistake type."
-        if not hasattr(mt, "md_format"):
-            warn(f"Mistake type {mt.name} does not have a Mistake Detection Format")
-            return ""  # MistakeDetectionFormat not yet defined for mistake type
+    def make_mistake_type_element_description(cls, mt: MistakeType) -> str:
+        """
+        Return the mistake element description for the mistake type.
+
+        Example: For the mistake type "Using attribute instead of association," the output is the string
+        "Student element: Attribute. Instructor element: Association end."
+        """
+        if not mt.studentElements and not mt.instructorElements:
+            raise ValueError(f"Mistake type {mt.name} must have student or instructor elements.")
         result = ""
-        match len(mt.md_format.stud):
+        sep = " " if mt.instructorElements else ""  # add space after student elements only if inst elements are present
+        match len(mt.studentElements):
             case 0:
                 result += ""
             case 1:
-                result += f"Student element: {cls.mdf_item_display_name(mt.md_format.stud[0])}. "
+                result += f"Student element: {cls.mistake_elem_display_name(mt.studentElements[0])}.{sep}"
             case _:
-                result += f"Student elements: {', '.join([cls.mdf_item_display_name(e) for e in mt.md_format.stud])}. "
-        match len(mt.md_format.inst):
+                result += f"""Student elements: {
+                           ', '.join([cls.mistake_elem_display_name(e) for e in mt.studentElements])}.{sep}"""
+        match len(mt.instructorElements):
             case 0:
                 result += ""
             case 1:
-                result += f"Instructor element: {cls.mdf_item_display_name(mt.md_format.inst[0])}."
+                result += f"Instructor element: {cls.mistake_elem_display_name(mt.instructorElements[0])}."
             case _:
                 result += f"""Instructor elements: {
-                    ', '.join([cls.mdf_item_display_name(e) for e in mt.md_format.inst])}."""
+                    ', '.join([cls.mistake_elem_display_name(e) for e in mt.instructorElements])}."""
         return result
 
     @classmethod
@@ -344,7 +345,7 @@ class MarkdownGenerator(TextualGenerator):
     @classmethod
     def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -> str:
         "Return the Markdown body of the output."
-        result = f"{cls.make_body_title(mt.description, indentation)}{cls.make_md_format_description(mt)}"
+        result = f"{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}"
         levels = sorted(fb.level for fb in mt.feedbacks)
         for level in levels:
             if (level_header := f"Level {level}: ") not in result:
@@ -355,14 +356,20 @@ class MarkdownGenerator(TextualGenerator):
                     continue
                 match fb:
                     case Feedback(highlightProblem=True):
+                        """
+                        Possible outcomes here are:
+
+                        "Highlight specific problem statement elements referring to the instructor element(s)\n\n"
+                        "Highlight sentence(s) in problem statement referring to the instructor element(s)\n\n"
+                        """
                         sp = "specific" if fb.level > 1 else "sentence(s) in"
                         pse = "elements " if fb.level > 1 else ""
                         # use elem type here in the future if it can be made more specific, eg, enum instead of class
                         plural_item_marker = "(s)"
                         elem_owner = ""
-                        if hasattr(mt, "md_format") and mt.md_format.inst:
+                        if mt.instructorElements:
                             elem_owner = "the instructor "
-                            if len(mt.md_format.inst) == 1:
+                            if len(mt.instructorElements) == 1:
                                 plural_item_marker = ""
                         elem = f"referring to {elem_owner}element{plural_item_marker}"
                         result += f"Highlight {sp} problem statement {pse}{elem}\n\n"
@@ -418,8 +425,8 @@ class MarkdownGenerator(TextualGenerator):
         return result
 
     @classmethod
-    def make_md_format_description(cls, mt: MistakeType) -> str:
-        descr = super().make_md_format_description(mt)
+    def make_mistake_type_element_description(cls, mt: MistakeType) -> str:
+        descr = super().make_mistake_type_element_description(mt)
         return (descr + "\n\n") if descr else ""
 
     @classmethod
@@ -564,7 +571,7 @@ class LatexGenerator(TextualGenerator):
     @classmethod
     def make_mt_body(cls, mt: MistakeType, indentation: int = 0) -> str:
         "Return the LaTeX body of the output."
-        result = f"{cls.make_body_title(mt.description, indentation)}{cls.make_md_format_description(mt)}"
+        result = f"{cls.make_body_title(mt.description, indentation)}{cls.make_mistake_type_element_description(mt)}"
         levels = sorted(fb.level for fb in mt.feedbacks)
         for level in levels:
             if (level_header := f"{cls.NO_INDENT}Level {level}: ") not in result:
@@ -573,21 +580,27 @@ class LatexGenerator(TextualGenerator):
             for fb in mt.feedbacks:
                 if fb.level != level:
                     continue
-                # safe navigation equivalent of CDM_METATYPES[mt.md_format.stud[0]].long_name
-                elem_type = getattr(CDM_METATYPES.get(next(iter(getattr(mt, "md_format", mdf([], [])).stud), ""),
-                                                      CdmMetatype(short_name="", long_name="", eClass=None)),
+                # safe navigation equivalent of metatypes[mt.studentElements[0].type].long_name
+                elem_type = getattr(metatypes.get(mt.studentElements[0].type,
+                                                  Metatype(short_name="", long_name="", eClass=None)),
                                     "long_name")
                 elem_type = ""  # for now, don't show the element type
                 match fb:
                     case Feedback(highlightProblem=True):
+                        """
+                        Possible outcomes here are:
+
+                        "Highlight specific problem statement elements referring to the inst. element(s) \\medskip\n"
+                        "Highlight sentence(s) in problem statement referring to the instructor element(s) \\medskip\n"
+                        """
                         sp = "specific" if fb.level > 1 else "sentence(s) in"
                         pse = "elements " if fb.level > 1 else ""
                         # use elem_type here in the future if it can be made more specific, eg, enum instead of class
                         plural_item_marker = "(s)"
                         elem_owner = ""
-                        if hasattr(mt, "md_format") and mt.md_format.inst:
+                        if mt.instructorElements:
                             elem_owner = "the instructor "
-                            if len(mt.md_format.inst) == 1:
+                            if len(mt.instructorElements) == 1:
                                 plural_item_marker = ""
                         elem = f"referring to {elem_owner}element{plural_item_marker}"
                         result += f"Highlight {sp} problem statement {pse}{elem}{cls.NLS}"
@@ -628,8 +641,8 @@ class LatexGenerator(TextualGenerator):
         return result
 
     @classmethod
-    def make_md_format_description(cls, mt: MistakeType) -> str:
-        descr = super().make_md_format_description(mt)
+    def make_mistake_type_element_description(cls, mt: MistakeType) -> str:
+        descr = super().make_mistake_type_element_description(mt)
         return f"{descr}{cls.NLS}" if descr else ""
 
     @classmethod

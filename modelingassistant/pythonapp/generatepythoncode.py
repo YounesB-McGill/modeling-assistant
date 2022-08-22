@@ -4,7 +4,7 @@
 Module to generate and customize the pyecore Python code from the modeling assistant ecore metamodel.
 """
 
-# pylint: disable=invalid-name, import-outside-toplevel
+# pylint: disable=invalid-name, import-outside-toplevel, unnecessary-lambda-assignment
 
 from ast import AST
 from inspect import getsource
@@ -24,14 +24,14 @@ def generate_pyecore():
     "Generate the pyecore Python code from the modeling assistant and learning corpus metamodels."
     # TODO Add automatic code generation for the now external "classdiagram.ecore" metamodel
     pyecoregen_cmd = lambda mdl: f"""pyecoregen -e {mdl
-                                  } -o modelingassistant/pythonclient --with-dependencies"""
+                                  } -o modelingassistant/pythonapp --with-dependencies"""
     metamodel_names = ["learningcorpus", "learningcorpusquiz", "modelingassistant"]
     for mm in metamodel_names:
         os.system(pyecoregen_cmd(f"modelingassistant/model/{mm}.ecore"))
 
 
 def customize_generated_code():
-    "Add custom functionality to the generated code, similar to `@generated NOT` in the Java ecore implementation."
+    "Add custom functionality to the generated code, similar to `@generated NOT` in the Java Ecore implementation."
     ast_for = lambda item: ast.parse(dedent(getsource(item)))
 
     # Add the following items to the generated ClassDiagram class
@@ -91,6 +91,22 @@ def customize_generated_code():
         "Custom function to return all the parametrized responses for this mistake type."
         return [fb for fb in self.feedbacks if fb.__class__.__name__ == "ParametrizedResponse"]
 
+    class MistakeElement:
+        "Container for the methods below."
+        name, many, type = range(3)  # dummy definitions to make the linter happy
+
+        def __init__(self, *, many=None, type=None, **kwargs):  # pylint: disable=redefined-builtin
+            super().__init__(**kwargs)
+            self.name = self.name or ""
+            if many is not None:
+                self.many = many
+            if type is not None:
+                self.type = type
+
+        def __repr__(self) -> str:
+            "Return the DSL string representation of the MistakeElement."
+            return f"{f'{self.name}_' if self.name else ''}{self.type}{'*' if self.many else ''}"
+
     # Add the following items to the generated ModelingAssistant class
     cdm2sols_def = "classDiagramsToSolutions: dict = {}"
 
@@ -122,9 +138,9 @@ def customize_generated_code():
             raise BadValueError(got=value, expected=etype, feature=feature)
         return True
 
-    cdm_py = "modelingassistant/pythonclient/classdiagram/classdiagram.py"
-    lc_py = "modelingassistant/pythonclient/learningcorpus/learningcorpus.py"
-    ma_py = "modelingassistant/pythonclient/modelingassistant/modelingassistant.py"
+    cdm_py = "modelingassistant/pythonapp/classdiagram/classdiagram.py"
+    lc_py = "modelingassistant/pythonapp/learningcorpus/learningcorpus.py"
+    ma_py = "modelingassistant/pythonapp/modelingassistant/modelingassistant.py"
 
     # remove the NotImplementedError stubs for CDM getName() and replace with actual implementation
     remove_from_module(cdm_py, "getName")
@@ -132,6 +148,7 @@ def customize_generated_code():
     customize_class(cdm_py, "ObjectType", [ast_for(ObjectType.__init__)])
     customize_class(cdm_py, "AssociationEnd", [ast_for(getOppositeEnd), ast.parse(oppositeEnd)])
     customize_class(lc_py, "LearningCorpus", [ast_for(mistakeTypes), ast_for(topLevelMistakeTypeCategories)])
+    customize_class(lc_py, "MistakeElement", [ast_for(MistakeElement.__init__), ast_for(MistakeElement.__repr__)])
     customize_class(lc_py, "MistakeType", [ast_for(parametrized_responses)])
     customize_class(ma_py, "ModelingAssistant", [ast.parse(cdm2sols_def)])
 
@@ -172,7 +189,6 @@ def remove_from_module(filename: str, name: str):
     "Remove all items with the given name from the given module."
     class ItemRemover(ast.NodeTransformer):
         "Remove the matching items from the module."
-        # pylint: disable=no-self-use
         def visit_FunctionDef(self, node):
             "Remove the matching function definitions from the module."
             if hasattr(node, "name") and node.name == name:

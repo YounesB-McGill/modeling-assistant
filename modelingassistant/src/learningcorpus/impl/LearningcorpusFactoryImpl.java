@@ -72,6 +72,7 @@ public class LearningcorpusFactoryImpl extends EFactoryImpl implements Learningc
       case LearningcorpusPackage.QUIZ: return createQuiz();
       case LearningcorpusPackage.MISTAKE_TYPE_CATEGORY: return createMistakeTypeCategory();
       case LearningcorpusPackage.LEARNING_CORPUS: return createLearningCorpus();
+      case LearningcorpusPackage.MISTAKE_ELEMENT: return createMistakeElement();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -252,6 +253,17 @@ public class LearningcorpusFactoryImpl extends EFactoryImpl implements Learningc
   public LearningCorpus createLearningCorpus() {
     LearningCorpusImpl learningCorpus = new LearningCorpusImpl();
     return learningCorpus;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public MistakeElement createMistakeElement() {
+    MistakeElementImpl mistakeElement = new MistakeElementImpl();
+    return mistakeElement;
   }
 
   /**

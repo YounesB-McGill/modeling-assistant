@@ -77,7 +77,7 @@ class User:
     @property
     def _auth_header(self):
         "Get the user's authorization header."
-        return {"Authorization": f"Bearer {self.token}"}
+        return {"Authorization": f"Bearer {self.token}"} if hasattr(self, "token") else {}
 
     @classmethod
     def create_random(cls):
@@ -138,6 +138,12 @@ class MockStudent(User):
         attr_id = cdm_diff(old_cdm, new_cdm).additions[0]
         logger.debug(f"MockStudent.create_attribute(): Returning {attr_id = }")
         return attr_id
+
+    def delete_attribute(self, cdm_name: str, attr_id: str):
+        "Delete the attribute from the given class."
+        resp = requests.delete(f"{self.cdm_endpoint(cdm_name)}/class/attribute/{attr_id}",
+                               headers=self._auth_header)
+        resp.raise_for_status()
 
     def request_feedback(self, cdm_name: str) -> FeedbackTO:
         "Request feedback from the Modeling Assistant via WebCORE."

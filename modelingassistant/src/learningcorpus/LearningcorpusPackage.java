@@ -269,13 +269,31 @@ public interface LearningcorpusPackage extends EPackage {
   int MISTAKE_TYPE__DESCRIPTION = NAMED_ELEMENT_FEATURE_COUNT + 7;
 
   /**
+   * The feature id for the '<em><b>Student Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_TYPE__STUDENT_ELEMENTS = NAMED_ELEMENT_FEATURE_COUNT + 8;
+
+  /**
+   * The feature id for the '<em><b>Instructor Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_TYPE__INSTRUCTOR_ELEMENTS = NAMED_ELEMENT_FEATURE_COUNT + 9;
+
+  /**
    * The number of structural features of the '<em>Mistake Type</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MISTAKE_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 8;
+  int MISTAKE_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 10;
 
   /**
    * The number of operations of the '<em>Mistake Type</em>' class.
@@ -1198,6 +1216,61 @@ public interface LearningcorpusPackage extends EPackage {
   int LEARNING_CORPUS_OPERATION_COUNT = 0;
 
   /**
+   * The meta object id for the '{@link learningcorpus.impl.MistakeElementImpl <em>Mistake Element</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see learningcorpus.impl.MistakeElementImpl
+   * @see learningcorpus.impl.LearningcorpusPackageImpl#getMistakeElement()
+   * @generated
+   */
+  int MISTAKE_ELEMENT = 14;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_ELEMENT__NAME = NAMED_ELEMENT__NAME;
+
+  /**
+   * The feature id for the '<em><b>Many</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_ELEMENT__MANY = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_ELEMENT__TYPE = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Mistake Element</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+  /**
+   * The number of operations of the '<em>Mistake Element</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MISTAKE_ELEMENT_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link learningcorpus.ElementType <em>Element Type</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1205,7 +1278,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getElementType()
    * @generated
    */
-  int ELEMENT_TYPE = 14;
+  int ELEMENT_TYPE = 15;
 
   /**
    * The meta object id for the '<em>Time</em>' data type.
@@ -1215,7 +1288,7 @@ public interface LearningcorpusPackage extends EPackage {
    * @see learningcorpus.impl.LearningcorpusPackageImpl#getTime()
    * @generated
    */
-  int TIME = 15;
+  int TIME = 16;
 
 
   /**
@@ -1380,6 +1453,28 @@ public interface LearningcorpusPackage extends EPackage {
    * @generated
    */
   EAttribute getMistakeType_Description();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link learningcorpus.MistakeType#getStudentElements <em>Student Elements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Student Elements</em>'.
+   * @see learningcorpus.MistakeType#getStudentElements()
+   * @see #getMistakeType()
+   * @generated
+   */
+  EReference getMistakeType_StudentElements();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link learningcorpus.MistakeType#getInstructorElements <em>Instructor Elements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Instructor Elements</em>'.
+   * @see learningcorpus.MistakeType#getInstructorElements()
+   * @see #getMistakeType()
+   * @generated
+   */
+  EReference getMistakeType_InstructorElements();
 
   /**
    * Returns the meta object for class '{@link learningcorpus.Feedback <em>Feedback</em>}'.
@@ -1744,6 +1839,38 @@ public interface LearningcorpusPackage extends EPackage {
   EReference getLearningCorpus_LearningResources();
 
   /**
+   * Returns the meta object for class '{@link learningcorpus.MistakeElement <em>Mistake Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Mistake Element</em>'.
+   * @see learningcorpus.MistakeElement
+   * @generated
+   */
+  EClass getMistakeElement();
+
+  /**
+   * Returns the meta object for the attribute '{@link learningcorpus.MistakeElement#isMany <em>Many</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Many</em>'.
+   * @see learningcorpus.MistakeElement#isMany()
+   * @see #getMistakeElement()
+   * @generated
+   */
+  EAttribute getMistakeElement_Many();
+
+  /**
+   * Returns the meta object for the attribute '{@link learningcorpus.MistakeElement#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Type</em>'.
+   * @see learningcorpus.MistakeElement#getType()
+   * @see #getMistakeElement()
+   * @generated
+   */
+  EAttribute getMistakeElement_Type();
+
+  /**
    * Returns the meta object for enum '{@link learningcorpus.ElementType <em>Element Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1910,6 +2037,22 @@ public interface LearningcorpusPackage extends EPackage {
      * @generated
      */
     EAttribute MISTAKE_TYPE__DESCRIPTION = eINSTANCE.getMistakeType_Description();
+
+    /**
+     * The meta object literal for the '<em><b>Student Elements</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MISTAKE_TYPE__STUDENT_ELEMENTS = eINSTANCE.getMistakeType_StudentElements();
+
+    /**
+     * The meta object literal for the '<em><b>Instructor Elements</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MISTAKE_TYPE__INSTRUCTOR_ELEMENTS = eINSTANCE.getMistakeType_InstructorElements();
 
     /**
      * The meta object literal for the '{@link learningcorpus.impl.FeedbackImpl <em>Feedback</em>}' class.
@@ -2206,6 +2349,32 @@ public interface LearningcorpusPackage extends EPackage {
      * @generated
      */
     EReference LEARNING_CORPUS__LEARNING_RESOURCES = eINSTANCE.getLearningCorpus_LearningResources();
+
+    /**
+     * The meta object literal for the '{@link learningcorpus.impl.MistakeElementImpl <em>Mistake Element</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see learningcorpus.impl.MistakeElementImpl
+     * @see learningcorpus.impl.LearningcorpusPackageImpl#getMistakeElement()
+     * @generated
+     */
+    EClass MISTAKE_ELEMENT = eINSTANCE.getMistakeElement();
+
+    /**
+     * The meta object literal for the '<em><b>Many</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MISTAKE_ELEMENT__MANY = eINSTANCE.getMistakeElement_Many();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MISTAKE_ELEMENT__TYPE = eINSTANCE.getMistakeElement_Type();
 
     /**
      * The meta object literal for the '{@link learningcorpus.ElementType <em>Element Type</em>}' enum.
