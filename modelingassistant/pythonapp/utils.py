@@ -246,6 +246,12 @@ class ClassDiagramDTO(SimpleNamespace):
             return {}
         return {c._id: c.name for c in self.classDiagram.classes}  # pylint: disable=protected-access
 
+    def get_ids_by_class_names(self) -> dict[str, str]:
+        "Return a dictionary mapping class names to class _ids."
+        if not hasattr(self.classDiagram, "classes"):
+            return {}
+        return {c.name: c._id for c in self.classDiagram.classes}  # pylint: disable=protected-access
+
     def type_id_for(self, type_: type | str) -> str:
         "Return the type _id for the given type."
         type_name = type_.__name__ if isinstance(type_, type) else type_

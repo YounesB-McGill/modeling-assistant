@@ -150,7 +150,7 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
     assert cdm[airplane]  # class should be in the new cdm
     assert cdm[airplane].name == "Airplane"
 
-    # Repeat for multiple classes
+    # Repeat for multiple numbered classes (Class0, ..., Class5)
     class_ids: list[str] = []
     for i in range(5):
         cls_name = f"Class{i}"
@@ -162,7 +162,7 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
         assert cdm[cls]  # class should be in the cdm now
         assert cdm[cls].name == cls_name
 
-    # Delete the classes made in the previous loop
+    # Delete the numbered classes made in the previous loop
     for c in class_ids:
         student.delete_class(cdm_name, c)
         assert not student.get_cdm(cdm_name)[c]
@@ -185,6 +185,22 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
         student.delete_attribute(cdm_name, attr_id)
         cdm = student.get_cdm(cdm_name)
         assert not cdm[attr_id]
+
+    # Add Pilot and Person classes
+    pilot = student.create_class(cdm_name, "Pilot")
+    person = student.create_class(cdm_name, "Person")
+    assert pilot and person
+    cdm = student.get_cdm(cdm_name)
+
+    assert cdm[pilot] and cdm[person]
+
+    # Add the following relationships
+    # Pilot isA Person
+    # 1..2 Pilot pilots -- * Airplane airplanes
+    # * Person passengers -- * Airplane airplanes
+    pilot, person = student.create_generalization(cdm_name, pilot, person)
+    cdm = student.get_cdm(cdm_name)
+    assert cdm[pilot] and cdm[person]
 
 
 def test_communication_between_mock_frontend_and_webcore_multiple_students(webcore):
