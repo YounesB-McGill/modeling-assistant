@@ -201,6 +201,8 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
     pilot, person = student.create_generalization(cdm_name, pilot, person)
     cdm = student.get_cdm(cdm_name)
     assert cdm[pilot] and cdm[person]
+    assert person in cdm[pilot].superTypes
+    assert pilot not in cdm[person].superTypes
 
 
 def test_communication_between_mock_frontend_and_webcore_multiple_students(webcore):

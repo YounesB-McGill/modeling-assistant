@@ -11,7 +11,7 @@ from collections import namedtuple
 from collections.abc import Iterable
 from string import Formatter
 from types import SimpleNamespace
-from typing import NamedTuple, Tuple
+from typing import Tuple
 
 from pyecore.ecore import EObject
 
@@ -39,12 +39,27 @@ def warn(text: str):
     print(color_str(COLOR.ORANGE, f"Warning: {text}"))
 
 
+class RobustSimpleNamespace(SimpleNamespace):
+    """
+    A SimpleNamespace that can handle missing keys.
+    """
+    def __iter__(self):
+        return iter(self.__dict__)
+
+    def __getattr__(self, name: str) -> object:
+        return (self.__dict__[name] if name in self.__dict__ else RobustSimpleNamespace())
+
+    def get(self, name: str, default: object = None) -> object:
+        "Get the item from the namespace dict, or the default if it doesn't exist."
+        return self.__dict__.get(name, default)
+
+
 def to_simplenamespace(d: dict) -> SimpleNamespace:
     """
     Convert a dictionary to a SimpleNamespace, to make it easier to access its keys using dot notation, eg,
     d.p instead of d["p"].
     """
-    return SimpleNamespace(**d)
+    return RobustSimpleNamespace(**d)
 
 
 def ae(cls_: Classifier, lb: int = 1, ub: int = 1, ref_type: ReferenceType = ReferenceType.Regular, n: str = ""
