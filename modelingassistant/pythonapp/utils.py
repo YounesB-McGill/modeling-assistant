@@ -239,12 +239,13 @@ class McqFactory:
 mcq = McqFactory()
 
 
-class ClassDiagramDTO(SimpleNamespace):
+class ClassDiagramDTO(RobustSimpleNamespace):
     """
     Class Diagram Data Transfer (JSON) Object returned by WebCORE.
 
     Properties: { eClass, _id, name, classes, types, layout }
     """
+    # pylint: disable=protected-access
     def __init__(self, json_repr: dict | str | SimpleNamespace):
         if isinstance(json_repr, str):
             json_repr = json.loads(json_repr, object_hook=to_simplenamespace)
@@ -253,19 +254,20 @@ class ClassDiagramDTO(SimpleNamespace):
         self.__dict__.update(json_repr.__dict__)
         # Perhaps this can be cached in the future, if it is certain that WebCORE's type _ids will not change
         self.type_names_to_ids: dict[str, str] = {t.eClass.removeprefix("http://cs.mcgill.ca/sel/cdm/1.0#//"): t._id
-                                  for t in self.classDiagram.types}  # pylint: disable=protected-access
+                                                  for t in self.classDiagram.types}
 
     def get_class_names_by_ids(self) -> dict[str, str]:
         "Return a dictionary mapping class _ids to class names."
-        if not hasattr(self.classDiagram, "classes"):
-            return {}
-        return {c._id: c.name for c in self.classDiagram.classes}  # pylint: disable=protected-access
+        # The RobustSimpleNamespace handles attribute existence checking
+        return {c._id: c.name for c in self.classDiagram.classes}
 
     def get_ids_by_class_names(self) -> dict[str, str]:
         "Return a dictionary mapping class names to class _ids."
-        if not hasattr(self.classDiagram, "classes"):
-            return {}
-        return {c.name: c._id for c in self.classDiagram.classes}  # pylint: disable=protected-access
+        return {c.name: c._id for c in self.classDiagram.classes}
+
+    def get_associations_by_ids(self) -> dict:
+        "Return a dictionary mapping association _ids to associations."
+        return {a._id: a for a in self.classDiagram.associations}
 
     def type_id_for(self, type_: type | str) -> str:
         "Return the type _id for the given type."

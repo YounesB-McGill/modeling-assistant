@@ -26,7 +26,7 @@ import requests
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from classdiagram import CDBoolean, CDInt, CDString, Class, ClassDiagram
-from constants import WEBCORE_ENDPOINT
+from constants import MANY, WEBCORE_ENDPOINT
 from envvars import TOUCHCORE_PATH
 from flaskapp import app, DEBUG_MODE, PORT
 from fileserdes import load_cdm, save_to_file
@@ -203,6 +203,10 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
     assert cdm[pilot] and cdm[person]
     assert person in cdm[pilot].superTypes
     assert pilot not in cdm[person].superTypes
+
+    airplane = cdm.get_ids_by_class_names()["Airplane"]
+    pilot, pilots, pilot_airplane, airplanes, airplane = student.create_association(
+        cdm_name, (1, 2), pilot, "pilots", MANY, airplane, "airplanes")
 
 
 def test_communication_between_mock_frontend_and_webcore_multiple_students(webcore):

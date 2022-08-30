@@ -119,7 +119,7 @@ class MockStudent(User):
         new_cdm_mapping = new_cdm.get_class_names_by_ids()
         new_ids: set[str] = new_cdm_mapping.keys() - old_class_mapping
         if len(new_ids) != 1:
-            warn(f"Student.create_class(): The number of new _ids is {len(new_ids)} instead of 1.")
+            warn(f"MockStudent.create_class(): The number of new _ids is {len(new_ids)} instead of 1.")
         cls_id = new_ids.pop()
         logger.debug(f"MockStudent: Created class with _id {cls_id}")
         return cls_id
@@ -162,6 +162,76 @@ class MockStudent(User):
         superclass_id = new_class_ids[superclass_name]
         return subclass_id, superclass_id
 
+    def create_association(self, cdm_name: str,
+        multiplicities1: int | tuple[int, int] = 1, class1_id: str = "", rolename1: str = "",
+        multiplicities2: int | tuple[int, int] = 1, class2_id: str = "", rolename2: str = "", bidirectional: bool = True
+    ) -> tuple:
+        """
+        Create an association with the given inputs, which are ordered in the same way as Umple (after the CDM name):
+
+        multiplicities1, class1_id, rolename1, multiplicities2, class2_id, rolename2
+
+        For example:
+
+            1..2   Pilot      pilots  --   *   Airplane      airplanes
+
+        -> (1, 2), pilot_id, "pilots",   MANY, airplane_id, "airplanes"
+
+        The return value is a tuple.
+        """
+        # pylint: disable=too-many-arguments, too-many-locals, protected-access
+        def value_or_index(element: int | tuple[int, int], index = 0) -> int:
+            return element if isinstance(element, int) else element[index]
+
+        if not class1_id or not class2_id:
+            raise ValueError(f"MockStudent.create_association(): {class1_id = } and/or {class2_id = } not valid.")
+        # AssociationEnd lower and upper bounds
+        ae1lb, ae1ub = value_or_index(multiplicities1), value_or_index(multiplicities1, 1)  # eg,  1,  2
+        ae2lb, ae2ub = value_or_index(multiplicities2), value_or_index(multiplicities2, 1)  # eg, -1, -1
+        old_class_names = self._cdm.get_class_names_by_ids()
+        class1_name = old_class_names[class1_id]
+        class2_name = old_class_names[class2_id]
+        old_assoc_mapping = self._cdm.get_associations_by_ids()
+        # Rudimentary pluralization when upper bound is 2+ or -1 (*)
+        rolename1 = rolename1 or f"{class1_name[0].lower()}{class1_name[1:]}{'s' if ae1ub != 1 else ''}"  # eg, pilots
+        rolename2 = rolename2 or f"{class2_name[0].lower()}{class2_name[1:]}{'s' if ae2ub != 1 else ''}"  # eg, airpl.
+
+        # Create the association itself
+        resp = requests.post(f"{self.cdm_endpoint(cdm_name)}/association", headers=self._auth_header,
+                             json={"fromClassId": class1_id, "toClassId": class2_id, "bidirectional": bidirectional})
+        resp.raise_for_status()
+        new_cdm = self.get_cdm(cdm_name)
+        ids_by_class_names = new_cdm.get_ids_by_class_names()
+        class1_id = ids_by_class_names[class1_name]
+        class2_id = ids_by_class_names[class2_name]
+        class2_ae_ids = [ae._id for ae in new_cdm[class2_id].associationEnds]
+        new_assoc_mapping = new_cdm.get_associations_by_ids()
+        new_assoc_ids: set[str] = new_assoc_mapping.keys() - old_assoc_mapping
+        if len(new_assoc_ids) != 1:
+            warn(f"MockStudent.create_association(): The number of new _ids is {len(new_assoc_ids)} instead of 1.")
+        assoc_id = new_assoc_ids.pop()
+        assoc_end_ids: list[int] = new_cdm[assoc_id].ends
+        # ae1 here means the association end that refers to class1 and is contained in class2
+        ae1 = assoc_end_ids[0] if assoc_end_ids[0] in class2_ae_ids else assoc_end_ids[1]  # eg, Airplane.pilots
+        ae2 = assoc_end_ids[0] if assoc_end_ids[0] != ae1 else assoc_end_ids[1]            # eg, Pilot.airplanes
+
+        # Set the multiplicities of the association ends if different from 1 (the default)
+        for ae, lb, ub in ((ae1, ae1lb, ae1ub), (ae2, ae2lb, ae2ub)):
+            if lb * ub != 1:  # if both are 1, save an API call
+                resp = requests.put(f"{self.cdm_endpoint(cdm_name)}/association/end/{ae}/multiplicity",
+                                    headers=self._auth_header, json={"lowerBound": lb, "upperBound": ub})
+                resp.raise_for_status()
+
+        # Set the rolenames of the association ends
+        for ae, rolename in ((ae1, rolename1), (ae2, rolename2)):
+            resp = requests.put(f"{self.cdm_endpoint(cdm_name)}/association/end/{ae}/rolename",
+                                headers=self._auth_header, json={"roleName": rolename})
+            resp.raise_for_status()
+
+        # eg, Pilot, Airplane.pilots, Pilot_Airplane, Pilot.airplanes, Airplane
+        return (class1_id, ae1, assoc_id, ae2, class2_id)
+
+
     def request_feedback(self, cdm_name: str) -> FeedbackTO:
         "Request feedback from the Modeling Assistant via WebCORE."
         resp = requests.get(f"{self.cdm_endpoint(cdm_name)}/feedback", headers=self._auth_header)
@@ -174,7 +244,7 @@ class MockStudent(User):
         resp = requests.get(self.cdm_endpoint(cdm_name), headers=self._auth_header)
         resp.raise_for_status()
         self._cdm = ClassDiagramDTO(resp.json(object_hook=to_simplenamespace))
-        logger.debug(self._cdm.get_class_names_by_ids())
+        logger.debug(self._cdm)
         return self._cdm
 
     def cdm_endpoint(self, cdm_name: str) -> str:
