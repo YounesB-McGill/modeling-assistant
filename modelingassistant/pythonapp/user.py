@@ -248,9 +248,9 @@ class MockStudent(User):
         part_rolename: str = "", bidirectional: bool = True) -> tuple[str, str, str, str, str]:
         """
         Create a composition with the given inputs and return a 5-tuple,
-        (class1_id, ae1_id, assoc_id, ae2_id, class2_id). See create_association() for parameter details. Note that the
-        AssociationEnd with the part_rolename refers to the Part class and is contained in the Whole class and has the
-        Composition ReferenceType.
+        (whole_class_id, whole_ae_id, compos_id, part_ae_id, part_class_id). See create_association() for parameter
+        details. Note that the AssociationEnd with the part_rolename refers to the Part class and is contained in the
+        Whole class and has the Composition ReferenceType.
 
         Example:
         ```
@@ -269,6 +269,19 @@ class MockStudent(User):
         return self.create_association(
             cdm_name, whole_multiplicities, whole_class_id, whole_rolename, part_multiplicities, part_class_id,
             part_rolename, bidirectional, "Regular", "Composition")
+
+    def create_aggregation(self, cdm_name: str,
+        whole_multiplicities: Literal[1] | tuple[Literal[0], Literal[1]] = 1, whole_class_id: str = "",
+        whole_rolename: str = "", part_multiplicities: int | tuple[int, int] = 1, part_class_id: str = "",
+        part_rolename: str = "", bidirectional: bool = True) -> tuple[str, str, str, str, str]:
+        """
+        Create an aggregation with the given inputs and return a 5-tuple,
+        (whole_class_id, whole_ae_id, aggr_id, part_ae_id, part_class_id). See the methods above for parameter details.
+        """
+        # pylint: disable=too-many-arguments
+        return self.create_association(
+            cdm_name, whole_multiplicities, whole_class_id, whole_rolename, part_multiplicities, part_class_id,
+            part_rolename, bidirectional, "Regular", "Aggregation")
 
 
     def request_feedback(self, cdm_name: str) -> FeedbackTO:
