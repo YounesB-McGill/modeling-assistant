@@ -165,7 +165,7 @@ class MockStudent(User):
     def create_association(self, cdm_name: str,
         multiplicities1: int | tuple[int, int] = 1, class1_id: str = "", rolename1: str = "",
         multiplicities2: int | tuple[int, int] = 1, class2_id: str = "", rolename2: str = "", bidirectional: bool = True
-    ) -> tuple:
+    ) -> tuple[str, str, str, str, str]:
         """
         Create an association with the given inputs, which are ordered in the same way as Umple (after the CDM name):
 
@@ -177,7 +177,7 @@ class MockStudent(User):
 
         -> (1, 2), pilot_id, "pilots",   MANY, airplane_id, "airplanes"
 
-        The return value is a tuple.
+        The return value is a 5-tuple: (class1_id, ae1_id, assoc_id, ae2_id, class2_id).
         """
         # pylint: disable=too-many-arguments, too-many-locals, protected-access
         def value_or_index(element: int | tuple[int, int], index = 0) -> int:
@@ -210,14 +210,14 @@ class MockStudent(User):
         if len(new_assoc_ids) != 1:
             warn(f"MockStudent.create_association(): The number of new _ids is {len(new_assoc_ids)} instead of 1.")
         assoc_id = new_assoc_ids.pop()
-        assoc_end_ids: list[int] = new_cdm[assoc_id].ends
+        assoc_end_ids: list[str] = new_cdm[assoc_id].ends
         # ae1 here means the association end that refers to class1 and is contained in class2
         ae1 = assoc_end_ids[0] if assoc_end_ids[0] in class2_ae_ids else assoc_end_ids[1]  # eg, Airplane.pilots
         ae2 = assoc_end_ids[0] if assoc_end_ids[0] != ae1 else assoc_end_ids[1]            # eg, Pilot.airplanes
 
         # Set the multiplicities of the association ends if different from 1 (the default)
         for ae, lb, ub in ((ae1, ae1lb, ae1ub), (ae2, ae2lb, ae2ub)):
-            if lb * ub != 1:  # if both are 1, save an API call
+            if not (lb == ub == 1):  # if both are 1, save an API call
                 resp = requests.put(f"{self.cdm_endpoint(cdm_name)}/association/end/{ae}/multiplicity",
                                     headers=self._auth_header, json={"lowerBound": lb, "upperBound": ub})
                 resp.raise_for_status()

@@ -9,6 +9,7 @@ import json
 import re
 from collections import namedtuple
 from collections.abc import Iterable
+from functools import lru_cache
 from string import Formatter
 from types import SimpleNamespace
 from typing import Tuple
@@ -27,6 +28,8 @@ COLOR = SimpleNamespace(VIOLET="\033[95m", BLUE="\033[94m", CYAN="\033[96m", GRE
                         ORANGE="\u001b[31;1m", RED="\033[91m", ENDC="\033[0m")
 
 _mtc_subcats: dict[MistakeTypeCategory, list[MistakeTypeCategory]] = {}
+
+_CACHE_SIZE = 128
 
 
 def color_str(color: str, text: str) -> str:
@@ -245,7 +248,7 @@ class ClassDiagramDTO(RobustSimpleNamespace):
 
     Properties: { eClass, _id, name, classes, types, layout }
     """
-    # pylint: disable=protected-access
+    # pylint: disable=protected-access, super-init-not-called
     def __init__(self, json_repr: dict | str | SimpleNamespace):
         if isinstance(json_repr, str):
             json_repr = json.loads(json_repr, object_hook=to_simplenamespace)
@@ -275,6 +278,7 @@ class ClassDiagramDTO(RobustSimpleNamespace):
         d = self.type_names_to_ids
         return d.get(type_name, d["CDAny"])  # return the Any type if exact type not found
 
+    @lru_cache(maxsize=_CACHE_SIZE)
     def __getitem__(self, item: str) -> SimpleNamespace:
         return get_by_id(item, self)
 
@@ -285,6 +289,12 @@ class ClassDiagramDTO(RobustSimpleNamespace):
 
     def __repr__(self):
         return json.dumps(self.__dict__, indent=2, cls=self.CustomJSONEncoder)
+
+    def __eq__(self, __o: object) -> bool:
+        return self.__dict__ == __o.__dict__
+
+    def __hash__(self) -> int:
+        return hash(frozenset(self.__dict__))
 
 
 def cdm_diff(old_cdm: dict, new_cdm: dict) -> Tuple[list[str], list[str]]:

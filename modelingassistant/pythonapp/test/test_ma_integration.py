@@ -135,6 +135,7 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
     """
     Test the communication between this mock frontend and WebCORE.
     """
+    # pylint: disable=too-many-locals, too-many-statements, protected-access
     student = MockStudent.create_random()
     cdm_name = "AirlineSystem"
     assert student.create_cdm(cdm_name)
@@ -196,17 +197,46 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
 
     # Add the following relationships
     # Pilot isA Person
-    # 1..2 Pilot pilots -- * Airplane airplanes
-    # * Person passengers -- * Airplane airplanes
     pilot, person = student.create_generalization(cdm_name, pilot, person)
     cdm = student.get_cdm(cdm_name)
     assert cdm[pilot] and cdm[person]
     assert person in cdm[pilot].superTypes
     assert pilot not in cdm[person].superTypes
 
+    # 1..2 Pilot pilots -- * Airplane airplanes
     airplane = cdm.get_ids_by_class_names()["Airplane"]
     pilot, pilots, pilot_airplane, airplanes, airplane = student.create_association(
         cdm_name, (1, 2), pilot, "pilots", MANY, airplane, "airplanes")
+    cdm = student.get_cdm(cdm_name)
+    assert all((cdm[pilot], cdm[pilots], cdm[pilot_airplane], cdm[airplanes], cdm[airplane]))
+    assert cdm[pilot].name == "Pilot"
+    assert cdm[pilots].name == "pilots"
+    assert pilots in [ae._id for ae in cdm[airplane].associationEnds]  # Airplane.pilots
+    assert cdm[pilots].lowerBound == 1 and cdm[pilots].upperBound == 2
+    assert set(cdm[pilot_airplane].ends) == {pilots, airplanes}
+    assert cdm[airplanes].name == "airplanes"
+    assert airplanes in [ae._id for ae in cdm[pilot].associationEnds]  # Pilot.airplanes
+    assert cdm[airplanes].lowerBound == cdm[airplanes].upperBound == MANY
+    assert cdm[airplane].name == "Airplane"
+    assert person in cdm[pilot].superTypes
+
+    # * Person passengers -- * Airplane airplanes
+    person = cdm.get_ids_by_class_names()["Person"]
+    airplane = cdm.get_ids_by_class_names()["Airplane"]
+    person, passengers, passenger_airplane, airplanes, airplane = student.create_association(
+        cdm_name, MANY, person, "passengers", MANY, airplane, "airplanes")
+    cdm = student.get_cdm(cdm_name)
+    assert all((cdm[person], cdm[passengers], cdm[passenger_airplane], cdm[airplanes], cdm[airplane]))
+    assert cdm[person].name == "Person"
+    assert cdm[passengers].name == "passengers"
+    assert passengers in [ae._id for ae in cdm[airplane].associationEnds]  # Airplane.passengers
+    assert cdm[passengers].lowerBound == cdm[passengers].upperBound == MANY
+    assert set(cdm[passenger_airplane].ends) == {passengers, airplanes}
+    assert cdm[airplanes].name == "airplanes"
+    assert airplanes in [ae._id for ae in cdm[person].associationEnds]  # Person.airplanes
+    assert cdm[airplanes].lowerBound == cdm[airplanes].upperBound == MANY
+    assert cdm[airplane].name == "Airplane"
+    assert person in cdm[pilot].superTypes
 
 
 def test_communication_between_mock_frontend_and_webcore_multiple_students(webcore):
