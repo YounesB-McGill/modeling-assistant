@@ -9,13 +9,14 @@ import secrets
 from random import randint
 from string import ascii_lowercase
 from time import time
+from typing import Literal
 
 import requests
 
 from constants import WEBCORE_ENDPOINT
 from feedback import FeedbackTO
 from modelingassistant_app import logger
-from utils import cdm_diff, to_simplenamespace, warn, ClassDiagramDTO
+from utils import cdm_diff, to_simplenamespace, warn, ClassDiagramDTO, AeReferenceType
 
 USER_REGISTER_ENDPOINT = f"{WEBCORE_ENDPOINT}/user/public/register"
 USER_LOGIN_ENDPOINT = f"{WEBCORE_ENDPOINT}/user/public/login"
@@ -164,18 +165,21 @@ class MockStudent(User):
 
     def create_association(self, cdm_name: str,
         multiplicities1: int | tuple[int, int] = 1, class1_id: str = "", rolename1: str = "",
-        multiplicities2: int | tuple[int, int] = 1, class2_id: str = "", rolename2: str = "", bidirectional: bool = True
+        multiplicities2: int | tuple[int, int] = 1, class2_id: str = "", rolename2: str = "",
+        bidirectional: bool = True, reftype1: AeReferenceType = "Regular", reftype2: AeReferenceType = "Regular"
     ) -> tuple[str, str, str, str, str]:
         """
-        Create an association with the given inputs, which are ordered in the same way as Umple (after the CDM name):
+        Create an association with the given inputs, which are ordered in mostly the same way as Umple:
 
-        multiplicities1, class1_id, rolename1, multiplicities2, class2_id, rolename2
+        multiplicities1, class1_id, rolename1, multiplicities2, class2_id, rolename2, bidrectional, reftype1, reftype2
+
+        (The last three arguments are at the end because they are optional.)
 
         For example:
 
             1..2   Pilot      pilots  --   *   Airplane      airplanes
 
-        -> (1, 2), pilot_id, "pilots",   MANY, airplane_id, "airplanes"
+        -> (1, 2), pilot_id, "pilots",   MANY, airplane_id, "airplanes", Regular, Regular
 
         The return value is a 5-tuple: (class1_id, ae1_id, assoc_id, ae2_id, class2_id).
         """
@@ -217,7 +221,7 @@ class MockStudent(User):
 
         # Set the multiplicities of the association ends if different from 1 (the default)
         for ae, lb, ub in ((ae1, ae1lb, ae1ub), (ae2, ae2lb, ae2ub)):
-            if not (lb == ub == 1):  # if both are 1, save an API call
+            if not lb == ub == 1:  # if both are 1, save an API call
                 resp = requests.put(f"{self.cdm_endpoint(cdm_name)}/association/end/{ae}/multiplicity",
                                     headers=self._auth_header, json={"lowerBound": lb, "upperBound": ub})
                 resp.raise_for_status()
@@ -228,8 +232,43 @@ class MockStudent(User):
                                 headers=self._auth_header, json={"roleName": rolename})
             resp.raise_for_status()
 
+        # Set the reference types of the association ends if not Regular (the default)
+        for ae, reftype in ((ae1, reftype1), (ae2, reftype2)):
+            if reftype != "Regular":
+                resp = requests.put(f"{self.cdm_endpoint(cdm_name)}/association/end/{ae}/referencetype",
+                                    headers=self._auth_header, json={"referenceType": reftype})
+                resp.raise_for_status()
+
         # eg, Pilot, Airplane.pilots, Pilot_Airplane, Pilot.airplanes, Airplane
         return (class1_id, ae1, assoc_id, ae2, class2_id)
+
+    def create_composition(self, cdm_name: str,
+        whole_multiplicities: Literal[1] | tuple[Literal[0], Literal[1]] = 1, whole_class_id: str = "",
+        whole_rolename: str = "", part_multiplicities: int | tuple[int, int] = 1, part_class_id: str = "",
+        part_rolename: str = "", bidirectional: bool = True) -> tuple[str, str, str, str, str]:
+        """
+        Create a composition with the given inputs and return a 5-tuple,
+        (class1_id, ae1_id, assoc_id, ae2_id, class2_id). See create_association() for parameter details. Note that the
+        AssociationEnd with the part_rolename refers to the Part class and is contained in the Whole class and has the
+        Composition ReferenceType.
+
+        Example:
+        ```
+        1  Car car <@>- 1 Engine engine
+        |   |   |       |    |      |
+        |   |   |       |  Part     |
+        |   |   |       |           |
+        | Whole | part_multiplicity |
+        |       |                   |
+        |  whole_rolename           |
+        |                           |
+        whole_multiplicity    part_rolename (composend)
+        ```
+        """
+        # pylint: disable=too-many-arguments
+        return self.create_association(
+            cdm_name, whole_multiplicities, whole_class_id, whole_rolename, part_multiplicities, part_class_id,
+            part_rolename, bidirectional, "Regular", "Composition")
 
 
     def request_feedback(self, cdm_name: str) -> FeedbackTO:

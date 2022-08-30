@@ -218,7 +218,7 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
     assert airplanes in [ae._id for ae in cdm[pilot].associationEnds]  # Pilot.airplanes
     assert cdm[airplanes].lowerBound == cdm[airplanes].upperBound == MANY
     assert cdm[airplane].name == "Airplane"
-    assert person in cdm[pilot].superTypes
+    assert person in cdm[pilot].superTypes  # make sure previous assertion still holds
 
     # * Person passengers -- * Airplane airplanes
     person = cdm.get_ids_by_class_names()["Person"]
@@ -236,6 +236,23 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
     assert airplanes in [ae._id for ae in cdm[person].associationEnds]  # Person.airplanes
     assert cdm[airplanes].lowerBound == cdm[airplanes].upperBound == MANY
     assert cdm[airplane].name == "Airplane"
+    assert person in cdm[pilot].superTypes
+
+    # 1 Airplane airplane <@>- 1..4 Engine engines
+    engine = student.create_class(cdm_name, "Engine")
+    airplane = cdm.get_ids_by_class_names()["Airplane"]
+    airplane, airplane_ae, airplane_engine, engines, engine = student.create_composition(
+        cdm_name, 1, airplane, "airplane", (1, 4), engine, "engines")
+    cdm = student.get_cdm(cdm_name)
+    assert all((cdm[airplane], cdm[airplane_ae], cdm[airplane_engine], cdm[engines], cdm[engine]))
+    assert cdm[airplane].name == "Airplane"
+    assert cdm[airplane_ae].name == "airplane"
+    assert cdm[airplane_ae].lowerBound == 1 and cdm[airplane_ae].upperBound == 1
+    assert set(cdm[airplane_engine].ends) == {airplane_ae, engines}
+    assert cdm[engines].name == "engines"
+    assert engines in [ae._id for ae in cdm[airplane].associationEnds]  # Airplane.engines
+    assert cdm[engines].lowerBound == 1 and cdm[engines].upperBound == 4
+    assert cdm[engine].name == "Engine"
     assert person in cdm[pilot].superTypes
 
 
