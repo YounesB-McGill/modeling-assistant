@@ -51,11 +51,14 @@ class RobustSimpleNamespace(SimpleNamespace):
         return iter(self.__dict__)
 
     def __getattr__(self, name: str) -> object:
-        # In the cases where self represents an AssociationEnd with a default upperBound value of 1, WebCORE omits
-        # the upperBound value from the JSON representation and so we need add it manually
-        if name == "upperBound" and "lowerBound" in self.__dict__:  # this should be in the metamodel code somehow
-            return 1  # CDM Metamodel default
-        return (self.__dict__[name] if name in self.__dict__ else RobustSimpleNamespace())
+        # In the cases where self represents an AssociationEnd with a default values
+        # (eg, upperBound=1, referenceType="Regular"), WebCORE omits them from the JSON and so we need add it manually
+        # This logic should be rewritten in a type safe way within the generated metamodel code somehow
+        if name == "upperBound" and "lowerBound" in self.__dict__:
+            return 1
+        if name == "referenceType":
+            return "Regular"
+        return self.__dict__[name] if name in self.__dict__ else RobustSimpleNamespace()
 
     def get(self, name: str, default: object = None) -> object:
         "Get the item from the namespace dict, or the default if it doesn't exist."

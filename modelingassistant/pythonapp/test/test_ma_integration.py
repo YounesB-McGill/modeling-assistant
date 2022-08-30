@@ -248,10 +248,12 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
     assert cdm[airplane].name == "Airplane"
     assert cdm[airplane_ae].name == "airplane"
     assert cdm[airplane_ae].lowerBound == 1 and cdm[airplane_ae].upperBound == 1
+    assert cdm[airplane_ae].referenceType == "Regular"
     assert set(cdm[airplane_engine].ends) == {airplane_ae, engines}
     assert cdm[engines].name == "engines"
     assert engines in [ae._id for ae in cdm[airplane].associationEnds]  # Airplane.engines
     assert cdm[engines].lowerBound == 1 and cdm[engines].upperBound == 4
+    assert cdm[engines].referenceType == "Composition"
     assert cdm[engine].name == "Engine"
     assert person in cdm[pilot].superTypes
 
