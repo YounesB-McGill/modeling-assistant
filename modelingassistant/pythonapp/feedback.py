@@ -10,7 +10,7 @@ from typing import Tuple
 import logging
 
 from classdiagram import ClassDiagram
-from modelingassistant_app import MODELING_ASSISTANT, get_mistakes
+from modelingassistantapp import MODELING_ASSISTANT, get_mistakes
 from parametrizedresponse import parametrize_response
 from stringserdes import str_to_cdm
 from learningcorpus import Feedback, ParametrizedResponse, TextResponse

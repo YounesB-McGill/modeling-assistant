@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # None of these apply to pytests
-# pylint: disable=wrong-import-position, redefined-outer-name, unused-argument
+# pylint: disable=wrong-import-position, wrong-import-order, redefined-outer-name, unused-argument
 
 """
 Module for Modeling Assistant integration tests.
@@ -25,19 +25,17 @@ import requests
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from classdiagram import CDBoolean, CDInt, CDString, Class, ClassDiagram
+from classdiagram import CDBoolean, CDInt, CDString, Class
 from constants import MANY, WEBCORE_ENDPOINT
 from envvars import TOUCHCORE_PATH
 from flaskapp import app, DEBUG_MODE, PORT
 from fileserdes import load_cdm, save_to_file
-from modelingassistant_app import MODELING_ASSISTANT
 from stringserdes import SRSET, str_to_modelingassistant
 from user import MockStudent, User, users
-from modelingassistant import ModelingAssistant, ProblemStatement, Solution
+from modelingassistant import ModelingAssistant
+from modelingassistantapp import get_ma_with_ps, EXAMPLE_CDM_NAME, EXAMPLE_INSTRUCTOR_CDM
 
 
-CDM_NAME = "AirlineSystem"
-INSTRUCTOR_CDM = f"modelingassistant/testmodels/{CDM_NAME}_instructor.cdm"
 MA_REST_ENDPOINT = f"http://localhost:{PORT}/modelingassistant"
 
 SLEEP_TIME_S = 0.2  # 1/5 second
@@ -87,7 +85,7 @@ def test_ma_two_class_student_mistake(ma_rest_app, webcore):
     """
     # Step 0
     # use this until WebCORE is updated to allow initializing with a problem statement
-    ma = get_ma_with_ps(load_cdm(INSTRUCTOR_CDM))
+    ma = get_ma_with_ps(load_cdm(EXAMPLE_INSTRUCTOR_CDM))
     assert valid(ma)
     set_modeling_assistant(ma)
 
@@ -269,8 +267,8 @@ def test_communication_between_mock_frontend_and_webcore_multiple_students(webco
         # Logout logic is currently faulty, so uncommenting the lines below will cause the create_cdm() call to fail
         # assert student.logout() and not student.logged_in
         # assert student.login() and student.logged_in
-        assert student.create_cdm(CDM_NAME)
-        assert student.get_cdm(CDM_NAME)
+        assert student.create_cdm(EXAMPLE_CDM_NAME)
+        assert student.get_cdm(EXAMPLE_CDM_NAME)
         sleep(SLEEP_TIME_S)
 
 
@@ -326,21 +324,6 @@ def set_modeling_assistant(ma: ModelingAssistant):
     requests.post(MA_REST_ENDPOINT, json={"modelingAssistantXmi": ma_str})
 
 
-def get_ma_with_ps(instructor_cdm: ClassDiagram) -> ModelingAssistant:
-    """
-    Create a Modeling Assistant instance with the provided parameters.
-    """
-    ma = MODELING_ASSISTANT.instance
-    ps = ProblemStatement(name=instructor_cdm.name.removesuffix("_instructor"), modelingAssistant=ma)
-    sol = Solution(classDiagram=instructor_cdm, problemStatement=ps, modelingAssistant=ma)
-    ps.instructorSolution = sol
-    ma.problemStatements.append(ps)
-    ma.solutions.append(sol)
-    assert ma.problemStatements[0].name
-    assert ma.solutions[0].classDiagram.name
-    return ma
-
-
 def valid(ma: ModelingAssistant) -> bool:
     """
     Check whether the provided Modeling Assistant instance is valid.
@@ -363,12 +346,12 @@ def _setup_instructor_solution():
     Setup the instructor solution by modifying the instructor cdm file.
     It is only meant to be called when the cdm needs to be modified.
     """
-    instructor_cdm = load_cdm(INSTRUCTOR_CDM, use_static_classes=False)
+    instructor_cdm = load_cdm(EXAMPLE_INSTRUCTOR_CDM, use_static_classes=False)
     instructor_cdm.name = "MULTIPLE_CLASSES_instructor"
     airplane_cls = Class(name="Airplane")
     airplane_cls.__class__ = instructor_cdm.classes[0].__class__  # do this hack for now
     instructor_cdm.classes.append(airplane_cls)
-    save_to_file(INSTRUCTOR_CDM, instructor_cdm)
+    save_to_file(EXAMPLE_INSTRUCTOR_CDM, instructor_cdm)
 
 
 if __name__ == '__main__':

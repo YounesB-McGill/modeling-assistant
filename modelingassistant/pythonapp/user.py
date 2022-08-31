@@ -15,7 +15,7 @@ import requests
 
 from constants import WEBCORE_ENDPOINT
 from feedback import FeedbackTO
-from modelingassistant_app import logger
+from modelingassistantapp import logger
 from utils import cdm_diff, to_simplenamespace, warn, ClassDiagramDTO, AeReferenceType
 
 USER_REGISTER_ENDPOINT = f"{WEBCORE_ENDPOINT}/user/public/register"

@@ -11,7 +11,7 @@ import json
 from feedback import give_feedback_for_student_cdm
 from flask import abort, Flask, Response, jsonify, request
 from flask_cors import CORS
-from modelingassistant_app import MODELING_ASSISTANT, SRSET
+from modelingassistantapp import MODELING_ASSISTANT, SRSET
 from stringserdes import str_to_modelingassistant
 
 
