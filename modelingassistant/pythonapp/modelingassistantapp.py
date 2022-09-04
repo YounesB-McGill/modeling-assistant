@@ -23,7 +23,7 @@ logging.basicConfig(level=LOGGING_LEVEL, format="%(asctime)s - %(name)s - %(leve
 logger = logging.getLogger(__name__)
 
 # Set this to True to use a preexisting problem statement, useful for testing the frontend
-USE_EXAMPLE_PROBLEM_STATEMENT = False
+USE_EXAMPLE_PROBLEM_STATEMENT = True
 
 EXAMPLE_CDM_NAME = "AirlineSystem"
 EXAMPLE_INSTRUCTOR_CDM = f"modelingassistant/testmodels/{EXAMPLE_CDM_NAME}_instructor.cdm"
@@ -80,11 +80,13 @@ def get_ma_with_ps(instructor_cdm: ClassDiagram) -> ModelingAssistant:
     Create a Modeling Assistant instance with the provided parameters.
     """
     ma = MODELING_ASSISTANT.instance
-    ps = ProblemStatement(name=instructor_cdm.name.removesuffix("_instructor"), modelingAssistant=ma)
-    sol = Solution(classDiagram=instructor_cdm, problemStatement=ps, modelingAssistant=ma)
-    ps.instructorSolution = sol
-    ma.problemStatements.append(ps)
-    ma.solutions.append(sol)
+    # assume 1 problem statement for now
+    if not ma.problemStatements:
+        ps = ProblemStatement(name=instructor_cdm.name.removesuffix("_instructor"), modelingAssistant=ma)
+        sol = Solution(classDiagram=instructor_cdm, problemStatement=ps, modelingAssistant=ma)
+        ps.instructorSolution = sol
+        ma.problemStatements.append(ps)
+        ma.solutions.append(sol)
     assert ma.problemStatements[0].name
     assert ma.solutions[0].classDiagram.name
     return ma
