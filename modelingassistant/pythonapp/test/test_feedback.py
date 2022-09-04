@@ -593,8 +593,7 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     missing_class_mistake = mistakes[0]
 
     assert missing_class_mistake.mistakeType == MISSING_CLASS
-    assert fb.highlightProblemStatementElements
-    assert fb.instructorElements[0] == missing_class_mistake.instructorElements[0].element._internal_id
+    assert fb.problemStatementElements
 
     cdm: ClassDiagram = solution.classDiagram
     cdm.__class__ = ClassDiagram
@@ -608,7 +607,7 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     solution = next(sol for sol in ma.solutions if sol.student)  # false positive: pylint: disable=no-member
     mistakes: list[Mistake] = solution.mistakes
 
-    assert fb.highlightSolutionElements
+    assert fb.solutionElements
     assert INCOMPLETE_CONTAINMENT_TREE in [m.mistakeType for m in mistakes]
 
 

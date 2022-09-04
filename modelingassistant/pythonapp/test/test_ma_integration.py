@@ -28,6 +28,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from classdiagram import CDBoolean, CDInt, CDString, Class
 from constants import MANY, WEBCORE_ENDPOINT
 from envvars import TOUCHCORE_PATH
+from feedback import FeedbackTO
 from flaskapp import app, DEBUG_MODE, PORT
 from fileserdes import load_cdm, save_to_file
 from stringserdes import SRSET, str_to_modelingassistant
@@ -97,7 +98,7 @@ def test_ma_two_class_student_mistake(ma_rest_app, webcore):
     # Steps 2-5
     bad_cls_id = student.create_class(cdm_name, "badClsName")
     assert bad_cls_id
-    feedback = student.request_feedback(cdm_name)
+    feedback: FeedbackTO = student.request_feedback(cdm_name)
 
     ma = get_modeling_assistant()
     assert valid(ma)
@@ -107,24 +108,23 @@ def test_ma_two_class_student_mistake(ma_rest_app, webcore):
     assert len(ma.solutions) == 2, "Must have exactly one instructor solution and one student solution"
 
     # Step 6
-    assert feedback.highlightSolutionElements
+    assert feedback.solutionElements
     # more strict checks possible after WebCORE is completed
     print(feedback)
-    assert bad_cls_id in feedback.solutionElements
+    assert bad_cls_id in feedback.solutionElementIds
 
     # Steps 7-10
     airplane_id = student.create_class(cdm_name, "Airplane")
     feedback = student.request_feedback(cdm_name)
 
-    assert feedback.highlightSolutionElements  # Airplane not contained in Root class
-    assert set(feedback.solutionElements) == {bad_cls_id, airplane_id}  # both should be highlighted
+    assert feedback.solutionElements  # Airplane not contained in Root class
+    assert set(feedback.solutionElementIds) == {bad_cls_id, airplane_id}  # both should be highlighted
 
     # Step 11
     # TODO Enable these assertions after the necessary updates to WebCORE and the Modeling Assistant are made
     # It should be possible to delete bad_cls_id without any errors,
     # and it should be possible to make Airplane contained in the Root class once WebCORE supports this feature
 
-    # assert not feedback.highlightSolutionElements
     # assert not feedback.solutionElements
     # assert "no mistakes" in feedback.writtenFeedback.lower()
 

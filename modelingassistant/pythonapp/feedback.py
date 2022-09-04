@@ -25,19 +25,38 @@ MAX_STUDENT_LEVEL_OF_KNOWLEDGE = 10.0
 BEGINNER_LEVEL_OF_KNOWLEDGE = 7.0
 
 
+DEFAULT_HIGHLIGHT_COLOR = [1, 1, 0.588]  # light yellow, in RGB 0-1 used by Unity
+
+
+@dataclass
+class HighlightedElement:
+    "A highlighted element in a diagram."
+    # pylint: disable=invalid-name
+    elementId: str = ""
+    color: list[float] = field(default_factory=lambda: DEFAULT_HIGHLIGHT_COLOR)  # to avoid mutable default value
+
+
 @dataclass
 class FeedbackTO:
     "Feedback transfer object class. An explicit class is used to allow for compile-time type checking."
     # pylint: disable=invalid-name
-    solutionElements: list[str] = field(default_factory=list)  # to avoid mutable default value
-    # TODO add this (or similar)
-    #wrongGeneralizations: list[tuple[str, str]] = field(default_factory=list)
-    instructorElements: list[str] = field(default_factory=list)
-    problemStatementElements: list[str] = field(default_factory=list)
-    highlightProblemStatementElements: bool = False
-    highlightSolutionElements: bool = False
+    solutionElements: list[HighlightedElement] = field(default_factory=list)  # includes generalizations
+    problemStatementElements: list[HighlightedElement] = field(default_factory=list)
     grade: float = 0.0
     writtenFeedback: str = ""
+
+    # custom __init__ for correct JSON (de)serialization
+    def __init__(self, solutionElements: list[HighlightedElement] = field(default_factory=list),
+                 problemStatementElements: list[HighlightedElement] = field(default_factory=list),
+                 grade: float = 0.0, writtenFeedback: str = ""):
+        def make_highlighted_elems(elems):
+            return [HighlightedElement(**e) for e in elems] if elems and isinstance(elems[0], dict) else elems
+        self.solutionElements = make_highlighted_elems(solutionElements)
+        self.solutionElementIds = [e.elementId for e in self.solutionElements]
+        self.problemStatementElements = make_highlighted_elems(problemStatementElements)
+        self.problemStatementElementIds = [e.elementId for e in self.problemStatementElements]
+        self.grade = grade
+        self.writtenFeedback = writtenFeedback
 
 
 def give_feedback(student_solution: Solution) -> FeedbackItem | list[FeedbackItem]:
@@ -141,11 +160,8 @@ def give_feedback_for_student_cdm(username: str, student_cdm: ClassDiagram | str
         return FeedbackTO()
 
     feedback = FeedbackTO(
-        solutionElements=[e.element._internal_id for e in fb.mistake.studentElements],
-        instructorElements=[e.element._internal_id for e in fb.mistake.instructorElements],
-        problemStatementElements=[],  #[pse._internal_id for e in fb.mistake.instructorElements for pse in e],
-        highlightProblemStatementElements=fb.feedback.highlightProblem,
-        highlightSolutionElements=fb.feedback.highlightSolution,
+        solutionElements=[HighlightedElement(e.element._internal_id) for e in fb.mistake.studentElements],
+        problemStatementElements=[HighlightedElement(e.element._internal_id) for e in fb.mistake.instructorElements],
         grade=0.0,  # for now
         writtenFeedback=fb.text or fb.feedback.text or "")
 
