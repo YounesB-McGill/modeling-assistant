@@ -1,17 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:learningcorpus="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0" xmi:id="2e4d0d03-b8b7-4fc1-87b4-dc707496d604" xmi:version="2.0">
-  <solutions xsi:type="modelingassistant:Solution" xmi:id="46ed9c48-c32d-43ca-92f2-5169b24f7def" student="9a7b8ea8-6265-4404-b379-37f46c3619af">
+<modelingassistant:ModelingAssistant xmlns:xmi="http://www.omg.org/XMI" xmlns:modelingassistant="http://cs.mcgill.ca/sel/modelingassistant/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagram="http://cs.mcgill.ca/sel/cdm/1.0" xmlns:learningcorpus="http://cs.mcgill.ca/sel/modelingassistant/learningcorpus/1.0" xmi:id="cbe4cbb3-efc9-429d-a7e3-68532891551a" xmi:version="2.0">
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="5272258a-c96c-4d07-9353-623bed50ca7f" student="8ad61076-2ed5-4c05-ba03-7d7daa016551">
     <classDiagram href="ma_studentknowledge_from_python1.cdm#_VQRncElSEeuektpDqzDh1Q" xsi:type="classdiagram:ClassDiagram"/>
   </solutions>
-  <solutions xsi:type="modelingassistant:Solution" xmi:id="acbe085d-83e6-4e07-abf6-e325f4555ccc" student="1d38510e-d37b-4c9f-9f2c-304785a6d353">
-    <classDiagram href="ma_studentknowledge_from_python2.cdm#9de23c5b-c2e6-4f0d-8c34-bfd4d9aca29f" xsi:type="classdiagram:ClassDiagram"/>
+  <solutions xsi:type="modelingassistant:Solution" xmi:id="29a4194a-ba14-45ad-aa46-92474d1d82db" student="889d9988-8def-488e-95e5-f9e956932885">
+    <classDiagram href="ma_studentknowledge_from_python2.cdm#ae7031af-2ba6-4089-a0cc-aeb05cabda96" xsi:type="classdiagram:ClassDiagram"/>
   </solutions>
-  <students xsi:type="modelingassistant:Student" xmi:id="9a7b8ea8-6265-4404-b379-37f46c3619af" studentKnowledges="b3133427-16c7-4dff-b442-ce9e8ddb26e8" solutions="46ed9c48-c32d-43ca-92f2-5169b24f7def" id="1111"/>
-  <students xsi:type="modelingassistant:Student" xmi:id="1d38510e-d37b-4c9f-9f2c-304785a6d353" studentKnowledges="15068b23-5e2a-4b2b-9368-caaf6ba0fdbb" solutions="acbe085d-83e6-4e07-abf6-e325f4555ccc" id="2222"/>
-  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="b3133427-16c7-4dff-b442-ce9e8ddb26e8" levelOfKnowledge="10578963.0" student="9a7b8ea8-6265-4404-b379-37f46c3619af">
+  <students xsi:type="modelingassistant:Student" xmi:id="8ad61076-2ed5-4c05-ba03-7d7daa016551" studentKnowledges="5ef56017-c9e5-478c-b909-c3419331d4bd" solutions="5272258a-c96c-4d07-9353-623bed50ca7f" id="1111"/>
+  <students xsi:type="modelingassistant:Student" xmi:id="889d9988-8def-488e-95e5-f9e956932885" studentKnowledges="7d1eeebc-f752-4328-8c98-8990e740df4e" solutions="29a4194a-ba14-45ad-aa46-92474d1d82db" id="2222"/>
+  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="5ef56017-c9e5-478c-b909-c3419331d4bd" levelOfKnowledge="10578963.0" student="8ad61076-2ed5-4c05-ba03-7d7daa016551">
     <mistakeType href="../learningcorpusinstances/default.learningcorpus#dc3f888f-664a-4cb9-9f03-11c83e31f070" xsi:type="learningcorpus:MistakeType"/>
   </studentKnowledges>
-  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="15068b23-5e2a-4b2b-9368-caaf6ba0fdbb" levelOfKnowledge="8996541.0" student="1d38510e-d37b-4c9f-9f2c-304785a6d353">
+  <studentKnowledges xsi:type="modelingassistant:StudentKnowledge" xmi:id="7d1eeebc-f752-4328-8c98-8990e740df4e" levelOfKnowledge="8996541.0" student="889d9988-8def-488e-95e5-f9e956932885">
     <mistakeType href="../learningcorpusinstances/default.learningcorpus#dc3f888f-664a-4cb9-9f03-11c83e31f070" xsi:type="learningcorpus:MistakeType"/>
   </studentKnowledges>
 </modelingassistant:ModelingAssistant>
