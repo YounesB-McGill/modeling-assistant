@@ -372,7 +372,7 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
     assertMistakeTypes(comparison.newMistakes, INCOMPLETE_CONTAINMENT_TREE);
   }
 
-  @Disabled("temporarily, since learning corpus updates are not being reflected in ma_test2.modelingassistant")
+  //@Disabled("temporarily, since learning corpus updates are not being reflected in ma_test2.modelingassistant")
   @Test
   public void testMistakeDetectionMultipleInvocationsWithInputModelingAssistantFromEcoreStrings() {
     try {
@@ -400,6 +400,41 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
       assertMistakeTypes(comparison.newMistakes, INCOMPLETE_CONTAINMENT_TREE);
       assertNotNull(ma.toEcoreString());
     } catch (IOException e) {
+      e.printStackTrace();
+      fail();
+    }
+  }
+
+  @Test
+  public void testMistakeDetectionMultipleInvocationsWithInputModelingAssistantFromEcoreStrings2() {
+    try {
+      var maStr1 = Files.readString(Paths.get("../modelingassistant/testinstances/ma_test5.modelingassistant"));
+      var ma = ModelingAssistant.fromEcoreString(maStr1);
+
+      var instructorSolution = ma.getSolutions().stream().filter(sol -> sol.getStudent() == null).findFirst().get();
+      var studentSolution = ma.getSolutions().stream().filter(sol -> sol.getStudent() != null).findFirst().get();
+
+      var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+      comparison.newMistakes.forEach(System.out::println);
+      //assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, MISSING_CLASS);
+      assertNotNull(ma.toEcoreString());
+
+      // If the test fails here, rerun the following test using `pytest`
+      // test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system()
+      var maStr2 = Files.readString(Paths.get("../modelingassistant/testinstances/ma_test6.modelingassistant"));
+      ma = ModelingAssistant.fromEcoreString(maStr2);
+
+      instructorSolution = ma.getSolutions().stream().filter(sol -> sol.getStudent() == null).findFirst().get();
+      studentSolution = ma.getSolutions().stream().filter(sol -> sol.getStudent() != null).findFirst().get();
+
+      comparison = MistakeDetection.compare(instructorSolution, studentSolution);
+
+      comparison.newMistakes.forEach(System.out::println);
+      //assertMistakeTypes(comparison.newMistakes, INCOMPLETE_CONTAINMENT_TREE);
+      assertNotNull(ma.toEcoreString());
+    } catch (IOException e) {
+      e.printStackTrace();
       fail();
     }
   }

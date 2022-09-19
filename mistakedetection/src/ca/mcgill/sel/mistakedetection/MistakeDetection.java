@@ -1988,6 +1988,18 @@ public class MistakeDetection {
     existingMistakes.forEach(setSolutionForElems);
     newMistakes.forEach(setSolutionForElems);
 
+    System.out.println("\nupdateMistakes(): Existing mistakes: " + existingMistakes.size() + "\n");
+
+    // TODO Added the following for debugging only - do not merge!
+    Consumer<? super Mistake> printMistakeIdAndRscStatus = m ->
+      System.out.print(Integer.toHexString(m.hashCode()) + " (" + (m.eResource() != null) + ") ");
+    System.out.println("\nupdateMistakes() start:\nExisting mistakes: ");
+    existingMistakes.forEach(printMistakeIdAndRscStatus);
+    System.out.println("\nNew mistakes: ");
+    newMistakes.forEach(printMistakeIdAndRscStatus);
+    System.out.println("\n");
+    // End debugging part
+
     // List containing existing mistakes that are equal to newMistakes
     List<Mistake> existingMistakesProcessed = new ArrayList<>();
     // List containing new mistakes that are already present in a solution (i.e. existingMistakes)
@@ -1997,25 +2009,33 @@ public class MistakeDetection {
     if (existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
       updateNewMistakes(newMistakes, studentSolution, filter, comparison);
     } else if (!existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
+      System.out.println("\nupdateMistakes(): Found " + existingMistakes.size() + " existing mistakes and "
+          + newMistakes.size() + " new mistakes\n");
       for (Mistake existingMistake : existingMistakes) {
         for (Mistake newMistake : newMistakes) {
-          if (existingMistake.getMistakeType() == newMistake.getMistakeType()) {
+          if (xmiId(existingMistake.getMistakeType()).equals(xmiId(newMistake.getMistakeType()))) {
             if (haveInstructorAndStudentElements(existingMistake, newMistake)) {
+              System.out.println("\nupdateMistakes(): haveInstructorAndStudentElements\n");
               if (compareInstructorElements(newMistake, existingMistake)) {
+                System.out.println("\nupdateMistakes(): compareInstructorElements(1)\n");
                 setMistakeProperties(existingMistake, false, existingMistake.getNumDetections() + 1, 0);
                 updateElementsOfExistingMistake(newMistake, existingMistake);
                 existingMistakesProcessed.add(existingMistake);
                 newMistakesProcessed.add(newMistake);
               }
             } else if (haveOnlyStudentElements(existingMistake, newMistake)) {
+              System.out.println("\nupdateMistakes(): haveOnlyStudentElements\n");
               if (compareStudentElements(newMistake, existingMistake)) {
+                System.out.println("\nupdateMistakes(): compareInstructorElements(2)\n");
                 setMistakeProperties(existingMistake, false, existingMistake.getNumDetections() + 1, 0);
                 updateElementsOfExistingMistake(newMistake, existingMistake);
                 existingMistakesProcessed.add(existingMistake);
                 newMistakesProcessed.add(newMistake);
               }
             } else if (haveOnlyInstructorElements(existingMistake, newMistake)) {
+              System.out.println("\nupdateMistakes(): haveOnlyInstructorElements\n");
               if (compareInstructorElements(newMistake, existingMistake)) {
+                System.out.println("\nupdateMistakes(): compareInstructorElements(3)\n");
                 setMistakeProperties(existingMistake, false, existingMistake.getNumDetections() + 1, 0);
                 existingMistakesProcessed.add(existingMistake);
                 newMistakesProcessed.add(newMistake);
@@ -2245,7 +2265,11 @@ public class MistakeDetection {
     if (existingElement == null && newElement == null) {
       return true;
     } else if (existingElement != null && newElement != null) {
-      return xmiId(existingElement.getElement()).equals(xmiId(newElement.getElement()));
+      var id1 = xmiId(existingElement.getElement());
+      var id2 = xmiId(newElement.getElement());
+      if (id1 != null) {
+        return id1.equals(id2);
+      }
     }
     return false;
   }
