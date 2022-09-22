@@ -128,7 +128,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import ca.mcgill.sel.classdiagram.Association;
@@ -351,7 +353,8 @@ public class MistakeDetection {
   }
 
   /** Returns true if attributes match based on Levenshtein Distance, synonyms or enum-bool relationship. */
-  private static boolean isAttributeMatch(Attribute instructorAttribute, Attribute studentAttribute, Comparison comparison) {
+  private static boolean isAttributeMatch(Attribute instructorAttribute, Attribute studentAttribute,
+      Comparison comparison) {
     int lDistance = getMinimumLDInSynonyms(instructorAttribute, studentAttribute, comparison);
     return (lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED || isSynonym(instructorAttribute, studentAttribute)
         || isEnumAttributeBoolean(instructorAttribute, studentAttribute, comparison));
@@ -369,7 +372,6 @@ public class MistakeDetection {
 
     return instEnum.getLiterals().size() == 2 && (studAttribName.equalsIgnoreCase(instructorAttribute.getName())
         || studAttribName.equalsIgnoreCase(instEnum.getName()) || isSynonym(instructorAttribute, studentAttribute));
-
   }
 
   private static void checkMistakesMissingExtraGenWrongSuperclassWrongDirection(Comparison comparison) {
@@ -1991,12 +1993,44 @@ public class MistakeDetection {
     System.out.println("\nupdateMistakes(): Existing mistakes: " + existingMistakes.size() + "\n");
 
     // TODO Added the following for debugging only - do not merge!
-    Consumer<? super Mistake> printMistakeIdAndRscStatus = m ->
-      System.out.print(Integer.toHexString(m.hashCode()) + " (" + (m.eResource() != null) + ") ");
-    System.out.println("\nupdateMistakes() start:\nExisting mistakes: ");
-    existingMistakes.forEach(printMistakeIdAndRscStatus);
-    System.out.println("\nNew mistakes: ");
-    newMistakes.forEach(printMistakeIdAndRscStatus);
+    BiFunction<? super Mistake, ? super SolutionElement, ? extends String> elemName = (m, e) -> {
+      var supposedName = e.getElement().getName();
+      if (supposedName == null) {
+        e.getElement().getName(); // debug breakpoint
+        System.err.println("Warning: Mistake element " + e.getElement() + " exists but has a null name");
+        try {
+          //System.out.println(cdmToEcoreString(m.getSolution().getClassDiagram()));
+        } catch (Exception ex) {
+          ex.printStackTrace();
+        }
+        return "null";
+      }
+      return supposedName;
+    };
+    Function<? super Mistake, List<String>> studElemNames = m ->
+      m.getStudentElements().stream().map(e -> elemName.apply(m, e)).collect(Collectors.toUnmodifiableList());
+    Function<? super Mistake, List<String>> instElemNames = m ->
+      m.getInstructorElements().stream().map(e -> elemName.apply(m, e)).collect(Collectors.toUnmodifiableList());
+    // xmiId <=> m.eResource
+    Consumer<? super Mistake> printMistakeInfo = m ->
+      System.out.format("%8s | %23s | %50s%n", Integer.toHexString(m.hashCode()), xmiId(m),
+          m.getMistakeType().getName() + "(" + studElemNames.apply(m) + ", " + instElemNames.apply(m) + ")");
+    var tableHeader = "MemAddrs | XmiId                   | MistakeType";
+    tableHeader += "\n" + tableHeader.replace("|", "+").replaceAll("[^+]", "-");
+    System.out.println("\nExisting mistakes:\n");
+    if (existingMistakes.isEmpty()) {
+      System.out.println("None found");
+    } else {
+      System.out.println(tableHeader);
+      existingMistakes.forEach(printMistakeInfo);
+    }
+    System.out.println("\nNew mistakes:\n");
+    if (newMistakes.isEmpty()) {
+      System.out.println("None found");
+    } else {
+      System.out.println(tableHeader);
+      newMistakes.forEach(printMistakeInfo);
+    }
     System.out.println("\n");
     // End debugging part
 
@@ -2009,36 +2043,31 @@ public class MistakeDetection {
     if (existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
       updateNewMistakes(newMistakes, studentSolution, filter, comparison);
     } else if (!existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
-      System.out.println("\nupdateMistakes(): Found " + existingMistakes.size() + " existing mistakes and "
-          + newMistakes.size() + " new mistakes\n");
       for (Mistake existingMistake : existingMistakes) {
         for (Mistake newMistake : newMistakes) {
           if (xmiId(existingMistake.getMistakeType()).equals(xmiId(newMistake.getMistakeType()))) {
             if (haveInstructorAndStudentElements(existingMistake, newMistake)) {
-              System.out.println("\nupdateMistakes(): haveInstructorAndStudentElements\n");
               if (compareInstructorElements(newMistake, existingMistake)) {
-                System.out.println("\nupdateMistakes(): compareInstructorElements(1)\n");
                 setMistakeProperties(existingMistake, false, existingMistake.getNumDetections() + 1, 0);
                 updateElementsOfExistingMistake(newMistake, existingMistake);
                 existingMistakesProcessed.add(existingMistake);
                 newMistakesProcessed.add(newMistake);
+                removeStaleMistake(newMistake);
               }
             } else if (haveOnlyStudentElements(existingMistake, newMistake)) {
-              System.out.println("\nupdateMistakes(): haveOnlyStudentElements\n");
               if (compareStudentElements(newMistake, existingMistake)) {
-                System.out.println("\nupdateMistakes(): compareInstructorElements(2)\n");
                 setMistakeProperties(existingMistake, false, existingMistake.getNumDetections() + 1, 0);
                 updateElementsOfExistingMistake(newMistake, existingMistake);
                 existingMistakesProcessed.add(existingMistake);
                 newMistakesProcessed.add(newMistake);
+                removeStaleMistake(newMistake);
               }
             } else if (haveOnlyInstructorElements(existingMistake, newMistake)) {
-              System.out.println("\nupdateMistakes(): haveOnlyInstructorElements\n");
               if (compareInstructorElements(newMistake, existingMistake)) {
-                System.out.println("\nupdateMistakes(): compareInstructorElements(3)\n");
                 setMistakeProperties(existingMistake, false, existingMistake.getNumDetections() + 1, 0);
                 existingMistakesProcessed.add(existingMistake);
                 newMistakesProcessed.add(newMistake);
+                removeStaleMistake(newMistake);
               }
             }
           }
@@ -2075,9 +2104,11 @@ public class MistakeDetection {
   private static void removeStaleMistake(Mistake mistake) {
     mistake.getInstructorElements().clear();
     mistake.getStudentElements().clear();
-    mistake.getSolution().getMistakes().remove(mistake);
     mistake.setLastFeedback(null);
-    mistake.setSolution(null);
+    if (mistake.getSolution() != null) {
+      mistake.getSolution().getMistakes().remove(mistake);
+      mistake.setSolution(null);
+    }
   }
 
   private static void updateNewMistakes(List<Mistake> newMistakes, Solution studentSolution, boolean filter,

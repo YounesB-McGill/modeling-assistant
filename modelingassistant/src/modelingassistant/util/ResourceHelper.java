@@ -79,7 +79,7 @@ public final class ResourceHelper {
     Resource resource = resourceSet.createResource(URI.createFileURI(file));
     resource.getContents().add(model);
     try {
-      resource.save(Collections.EMPTY_MAP);
+      resource.save(Collections.emptyMap());
     } catch (IOException e) {
       System.err.println("Error saving model: " + e.getLocalizedMessage());
     }
@@ -94,7 +94,7 @@ public final class ResourceHelper {
     rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("cdm", new CdmResourceFactoryImpl());
     try {
       var cdmResource = rset.createResource(URI.createFileURI(file.getCanonicalPath()));
-      cdmResource.load(Collections.EMPTY_MAP);
+      cdmResource.load(Collections.emptyMap());
       return (ClassDiagram) cdmResource.getContents().get(0);
     } catch (IOException e) {
       e.printStackTrace();
@@ -151,7 +151,7 @@ public final class ResourceHelper {
 
     filesToEObjects.forEach((file, itemList) -> {
       try {
-        filesToResources.get(file).save(Collections.EMPTY_MAP);
+        filesToResources.get(file).save(Collections.emptyMap());
       } catch (IOException e) {
         System.err.println("Failed to save model(s) to file " + file + " with error: " + e);
       }

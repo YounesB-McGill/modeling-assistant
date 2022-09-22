@@ -696,7 +696,7 @@ public class ControllerTest {
       var classDiagram = modelingAssistant.getSolutions().get(0).getClassDiagram();
 
       assertEquals("Student1_solution", classDiagram.getName());
-      var expectedClassNames = new ArrayList<String>(List.of("Car", "SportsCar", "Driver", "Part"));
+      List<String> expectedClassNames = new ArrayList<>(List.of("Car", "SportsCar", "Driver", "Part"));
       classDiagram.getClasses().forEach(c -> assertTrue(expectedClassNames.remove(c.getName())));
       assertTrue(expectedClassNames.isEmpty());
     } catch (IOException e) {
@@ -743,7 +743,7 @@ public class ControllerTest {
     maStr = maStr.replace("\r", "");
 
     // TODO Replace ugly string concatenation with """text block""" after upgrading to Java 16+
-    assertEquals("<?xml version=\"1.0\" encoding=\"ASCII\"?>\n"
+    assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
         + "<xmi:XMI xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:classdiagram=\"http://cs.mcgill.ca/sel/cdm/1.0\" xmlns:modelingassistant=\"http://cs.mcgill.ca/sel/modelingassistant/1.0\">\n"
         + "  <modelingassistant:ModelingAssistant xmi:id=\"\">\n"
         + "    <solutions xmi:id=\"\" classDiagram=\"\"/>\n"
@@ -833,7 +833,7 @@ public class ControllerTest {
     resource = rset.createResource(URI.createFileURI(maPath));
     resource.getContents().addAll(List.of(modelingAssistant, classDiagram, classDiagram2));
     try {
-      resource.save(Collections.EMPTY_MAP);
+      resource.save(Collections.emptyMap());
       assertTrue(maFile.isFile());
       var fileContent = Files.readString(Paths.get(maPath));
       List.of("Car", "SportsCar", "Part", "Driver", "make", "CDInt", "Student2_solution", "1111", "2222",

@@ -11,6 +11,7 @@ import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype
 import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.QUALASSOC;
 import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.REL;
 import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.ROLE;
+import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_CONTAINMENT_TREE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
@@ -406,7 +407,7 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
   }
 
   @Test
-  public void testMistakeDetectionMultipleInvocationsWithInputModelingAssistantFromEcoreStrings2() {
+  public void testMistakeDetectionMultipleInvocationsWithInputModelingAssistantEcoreStringsFromWebApp() {
     try {
       var maStr1 = Files.readString(Paths.get("../modelingassistant/testinstances/ma_test5.modelingassistant"));
       var ma = ModelingAssistant.fromEcoreString(maStr1);
@@ -416,12 +417,9 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
 
       var comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-      comparison.newMistakes.forEach(System.out::println);
-      //assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, MISSING_CLASS);
+      assertMistakeTypes(comparison.newMistakes, MISSING_COMPOSITION, MISSING_CLASS, EXTRA_CLASS);
       assertNotNull(ma.toEcoreString());
 
-      // If the test fails here, rerun the following test using `pytest`
-      // test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_mistake_detection_system()
       var maStr2 = Files.readString(Paths.get("../modelingassistant/testinstances/ma_test6.modelingassistant"));
       ma = ModelingAssistant.fromEcoreString(maStr2);
 
@@ -430,7 +428,7 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
 
       comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-      comparison.newMistakes.forEach(System.out::println);
+      // TODO Double check whether comparison.newMistakes should omit the 3 mistakes from previous compare() call
       //assertMistakeTypes(comparison.newMistakes, INCOMPLETE_CONTAINMENT_TREE);
       assertNotNull(ma.toEcoreString());
     } catch (IOException e) {
@@ -463,7 +461,7 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
     var instructorSolution = maf.createSolution();
     instructorSolution.setModelingAssistant(modelingAssistant);
     instructorSolution.setClassDiagram(classDiagram);
-  //modelingAssistant.getInstructorSolutions().add(instructorSolution);
+    //modelingAssistant.getInstructorSolutions().add(instructorSolution);
     return instructorSolution;
   }
 

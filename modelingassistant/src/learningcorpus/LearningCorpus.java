@@ -119,7 +119,7 @@ public interface LearningCorpus extends EObject {
         new LearningcorpusResourceFactoryImpl());
     try {
       var lcResource = rset.createResource(URI.createFileURI(file.getCanonicalPath()));
-      lcResource.load(Collections.EMPTY_MAP);
+      lcResource.load(Collections.emptyMap());
       return (LearningCorpus) lcResource.getContents().get(0);
     } catch (IOException e) {
       return null;
