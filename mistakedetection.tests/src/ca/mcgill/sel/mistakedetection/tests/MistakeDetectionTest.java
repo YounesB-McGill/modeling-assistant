@@ -11,10 +11,12 @@ import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype
 import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.QUALASSOC;
 import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.REL;
 import static ca.mcgill.sel.mistakedetection.tests.utils.dataclasses.CdmMetatype.ROLE;
+import static learningcorpus.mistaketypes.MistakeTypes.BAD_ROLE_NAME_SPELLING;
 import static learningcorpus.mistaketypes.MistakeTypes.EXTRA_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.INCOMPLETE_CONTAINMENT_TREE;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_CLASS;
 import static learningcorpus.mistaketypes.MistakeTypes.MISSING_COMPOSITION;
+import static learningcorpus.mistaketypes.MistakeTypes.PLURAL_CLASS_NAME;
 import static learningcorpus.mistaketypes.MistakeTypes.WRONG_ATTRIBUTE_TYPE;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromClass;
 import static modelingassistant.util.ClassDiagramUtils.getAttributeFromDiagram;
@@ -32,6 +34,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.ECollections;
 import org.junit.jupiter.api.Disabled;
@@ -126,15 +130,17 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
     studentSolution = studentSolutionFromClassDiagram(modelingAssistant, studentClassDiagram);
 
     comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-    assertEquals(comparison.newMistakes.size(), 5); // 2 Plural Class names + 2 Bad Role Name Spelling + Incomplete
-                                                    // Containment tree
-    assertEquals(studentSolution.getMistakes().size(), 5);
-
-    // Running the second Solution again to check updated attribute values in Mistake in Metamodel
-    assertEquals(studentSolution.getMistakes().size(), 5);
-    comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
     assertEquals(comparison.newMistakes.size(), 5);
     assertEquals(studentSolution.getMistakes().size(), 5);
+    assertMistakeTypes(studentSolution.getMistakes(), Map.of(
+        BAD_ROLE_NAME_SPELLING, 2,
+        PLURAL_CLASS_NAME, 2,
+        INCOMPLETE_CONTAINMENT_TREE, 1));
+
+    // Running the second Solution again to check updated attribute values in Mistake in Metamodel
+    comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
+    assertEquals(0, comparison.newMistakes.size());
+    assertEquals(5, studentSolution.getMistakes().size());
 
     // Modified the student solution to correct a mistake.
     for (var studClass : studentSolution.getSolutionElements()) {
@@ -146,20 +152,18 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
 
     comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(comparison.newMistakes.size(), 4);
-    assertEquals(studentSolution.getMistakes().size(), 5);
+    assertEquals(0, comparison.newMistakes.size()); // student fixed a mistake, so no new mistakes
+    assertEquals(5, studentSolution.getMistakes().size()); // existing mistakes remain
 
-    // checking with perfect solution
+    // checking with near-perfect solution
     studentClassDiagram = cdmFromFile(
         "../mistakedetection/testModels/StudentSolution/One/Class Diagram/StudentSolution.domain_model.cdm");
     studentSolution = studentSolutionFromClassDiagram(modelingAssistant, studentClassDiagram);
 
     comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
 
-    assertEquals(comparison.newMistakes.size(), 1); // Incomplete Containment tree
-    // assertEquals(studentSolution.getMistakes().size(),6); // TODO Discuss in meeting
-    // next meeting
-
+    assertEquals(1, comparison.newMistakes.size());
+    assertMistakeTypes(studentSolution.getMistakes(), INCOMPLETE_CONTAINMENT_TREE);
   }
 
   /**
@@ -200,8 +204,9 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
     assertEquals(comparison.mappedClassifiers.get(instructorDriverClass), studentDriverClass);
     assertEquals(comparison.mappedClassifiers.get(instructorPassengerClass), studentPassengerClass);
 
-    assertEquals(5, comparison.newMistakes.size()); // Incomplete Containment tree
-    assertEquals(5, studentSolution.getMistakes().size());
+    assertEquals(5, comparison.newMistakes.size());
+    assertEquals(5, studentMistakes.size());
+    assertMistakeTypes(studentMistakes, WRONG_ATTRIBUTE_TYPE, INCOMPLETE_CONTAINMENT_TREE);
 
     var studentAttrs = List.of(studentBusNumberPlate, studentBusCapacity, studentDriverName, studentPassengerName);
     var instAttrs = List.of(instructorBusNumberPlate, instructorBusCapacity, instructorDriverName,
@@ -213,8 +218,8 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
 
     // ---------Second iteration to test update of mistake Properties---
     comparison = MistakeDetection.compare(instructorSolution, studentSolution, false);
-    assertEquals(5, comparison.newMistakes.size());
-    assertEquals(5, studentSolution.getMistakes().size());
+    assertEquals(0, comparison.newMistakes.size()); // the student did not update the solution, so no new mistakes
+    assertEquals(5, studentSolution.getMistakes().size()); // the existing mistakes remain present in the solution
 
     for (int i = 0; i < instAttrs.size(); i++) {
       assertMistake(studentMistakes.get(i), WRONG_ATTRIBUTE_TYPE, studentAttrs.get(i), instAttrs.get(i), 0, 2, false);
@@ -804,6 +809,17 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
   public static void assertMistakeTypes(List<Mistake> mistakes, MistakeType... mistakeTypes) {
     assertEquals(new HashSet<>(Arrays.asList(mistakeTypes)),
         mistakes.stream().map(Mistake::getMistakeType).collect(Collectors.toUnmodifiableSet()));
+  }
+
+  /**
+   * Asserts that the given mistakes have the given mistake type counts.
+   *
+   * The format of the mistake type counts is {mt1: mt1_count, ..., mtN: mtN_count}
+   */
+  public static void assertMistakeTypes(List<Mistake> mistakes, Map<MistakeType, Integer> mistakeTypeCounts) {
+    assertEquals(mistakeTypeCounts,
+        mistakes.stream().map(Mistake::getMistakeType)
+            .collect(Collectors.groupingBy(Function.identity(), Collectors.summingInt(e -> 1))));
   }
 
   /** Asserts that the given mistakes contain at least the given mistake type(s). */

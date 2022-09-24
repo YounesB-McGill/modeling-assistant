@@ -128,9 +128,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.BiFunction;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import ca.mcgill.sel.classdiagram.Association;
@@ -460,7 +458,8 @@ public class MistakeDetection {
 
     for (Attribute studAttrib : comparison.extraStudentAttributes) {
       for (Attribute instAttrib : comparison.notMappedInstructorAttributes) {
-        if (isAttributeMatch(instAttrib, studAttrib, comparison) && !instAttributesProcessed.contains(instAttrib) && !studAttributesProcessed.contains(studAttrib)) {
+        if (isAttributeMatch(instAttrib, studAttrib, comparison) && !instAttributesProcessed.contains(instAttrib) &&
+            !studAttributesProcessed.contains(studAttrib)) {
           Classifier instClass = (Classifier) instAttrib.eContainer();
           Classifier studClass = (Classifier) studAttrib.eContainer();
 
@@ -853,7 +852,8 @@ public class MistakeDetection {
     checkMistakeAttributeNotExpectedStatic(studentAttribute, instructorAttribute)
         .ifPresent(comparison.newMistakes::add);
     if (studentAttribute.getName() != instructorAttribute.getName()) {
-      checkMistakeAttributeSpelling(studentAttribute, instructorAttribute, comparison).ifPresent(comparison.newMistakes::add);
+      checkMistakeAttributeSpelling(studentAttribute, instructorAttribute, comparison)
+          .ifPresent(comparison.newMistakes::add);
       checkMistakePluralAttribName(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
       checkMistakeUppercaseAttribName(studentAttribute, instructorAttribute).ifPresent(comparison.newMistakes::add);
     }
@@ -1993,28 +1993,14 @@ public class MistakeDetection {
     System.out.println("\nupdateMistakes(): Existing mistakes: " + existingMistakes.size() + "\n");
 
     // TODO Added the following for debugging only - do not merge!
-    BiFunction<? super Mistake, ? super SolutionElement, ? extends String> elemName = (m, e) -> {
-      var supposedName = e.getElement().getName();
-      if (supposedName == null) {
-        e.getElement().getName(); // debug breakpoint
-        System.err.println("Warning: Mistake element " + e.getElement() + " exists but has a null name");
-        try {
-          //System.out.println(cdmToEcoreString(m.getSolution().getClassDiagram()));
-        } catch (Exception ex) {
-          ex.printStackTrace();
-        }
-        return "null";
-      }
-      return supposedName;
-    };
-    Function<? super Mistake, List<String>> studElemNames = m ->
-      m.getStudentElements().stream().map(e -> elemName.apply(m, e)).collect(Collectors.toUnmodifiableList());
-    Function<? super Mistake, List<String>> instElemNames = m ->
-      m.getInstructorElements().stream().map(e -> elemName.apply(m, e)).collect(Collectors.toUnmodifiableList());
     // xmiId <=> m.eResource
-    Consumer<? super Mistake> printMistakeInfo = m ->
+    Consumer<? super Mistake> printMistakeInfo = m -> {
       System.out.format("%8s | %23s | %50s%n", Integer.toHexString(m.hashCode()), xmiId(m),
-          m.getMistakeType().getName() + "(" + studElemNames.apply(m) + ", " + instElemNames.apply(m) + ")");
+          m.getMistakeType().getName() + "(" + m.getStudentElementNames() + ", " + m.getInstructorElementNames() + ")");
+      if (m.getStudentElements().isEmpty() && m.getInstructorElements().isEmpty()) {
+        throw new RuntimeException("Invalid mistake state: mistake does not have any solution elements");
+      }
+    };
     var tableHeader = "MemAddrs | XmiId                   | MistakeType";
     tableHeader += "\n" + tableHeader.replace("|", "+").replaceAll("[^+]", "-");
     System.out.println("\nExisting mistakes:\n");
@@ -2038,6 +2024,8 @@ public class MistakeDetection {
     List<Mistake> existingMistakesProcessed = new ArrayList<>();
     // List containing new mistakes that are already present in a solution (i.e. existingMistakes)
     List<Mistake> newMistakesProcessed = new ArrayList<>();
+    // List containing stale mistakes that need to be removed from the student solution
+    List<Mistake> staleMistakes = new ArrayList<>();
 
     // Condition when only new mistakes exists.
     if (existingMistakes.isEmpty() && !newMistakes.isEmpty()) {
@@ -2052,7 +2040,7 @@ public class MistakeDetection {
                 updateElementsOfExistingMistake(newMistake, existingMistake);
                 existingMistakesProcessed.add(existingMistake);
                 newMistakesProcessed.add(newMistake);
-                removeStaleMistake(newMistake);
+                staleMistakes.add(newMistake);
               }
             } else if (haveOnlyStudentElements(existingMistake, newMistake)) {
               if (compareStudentElements(newMistake, existingMistake)) {
@@ -2060,14 +2048,14 @@ public class MistakeDetection {
                 updateElementsOfExistingMistake(newMistake, existingMistake);
                 existingMistakesProcessed.add(existingMistake);
                 newMistakesProcessed.add(newMistake);
-                removeStaleMistake(newMistake);
+                staleMistakes.add(newMistake);
               }
             } else if (haveOnlyInstructorElements(existingMistake, newMistake)) {
               if (compareInstructorElements(newMistake, existingMistake)) {
                 setMistakeProperties(existingMistake, false, existingMistake.getNumDetections() + 1, 0);
                 existingMistakesProcessed.add(existingMistake);
                 newMistakesProcessed.add(newMistake);
-                removeStaleMistake(newMistake);
+                staleMistakes.add(newMistake);
               }
             }
           }
@@ -2084,7 +2072,7 @@ public class MistakeDetection {
             existingMistake.setResolved(true);
             existingMistake.setNumSinceResolved(existingMistake.getNumSinceResolved() + 1);
           } else {
-            removeStaleMistake(existingMistake);
+            staleMistakes.add(existingMistake);
           }
         }
       }
@@ -2094,21 +2082,25 @@ public class MistakeDetection {
           existingMistake.setResolved(true);
           existingMistake.setNumSinceResolved(existingMistake.getNumSinceResolved() + 1);
         } else {
-          removeStaleMistake(existingMistake);
+          staleMistakes.add(existingMistake);
         }
       }
     }
+    removeStaleMistakes(staleMistakes, comparison);
   }
 
-  /** Removes a stale mistake from the solution that contains it. */
-  private static void removeStaleMistake(Mistake mistake) {
-    mistake.getInstructorElements().clear();
-    mistake.getStudentElements().clear();
-    mistake.setLastFeedback(null);
-    if (mistake.getSolution() != null) {
-      mistake.getSolution().getMistakes().remove(mistake);
-      mistake.setSolution(null);
-    }
+  /** Removes the given stale mistakes from the solution containing them. */
+  private static void removeStaleMistakes(List<Mistake> mistakes, Comparison comparison) {
+    mistakes.forEach(mistake -> {
+      mistake.getInstructorElements().clear();
+      mistake.getStudentElements().clear();
+      mistake.setLastFeedback(null);
+      if (mistake.getSolution() != null) {
+        mistake.getSolution().getMistakes().remove(mistake);
+        mistake.setSolution(null);
+      }
+      comparison.newMistakes.remove(mistake); // do not leak stale mistake
+    });
   }
 
   private static void updateNewMistakes(List<Mistake> newMistakes, Solution studentSolution, boolean filter,
@@ -2335,17 +2327,20 @@ public class MistakeDetection {
    * Maps classes with Levenshtein distance less than or equal to MAX_LEVENSHTEIN_DISTANCE_ALLOWED, taking synonyms into
    * account.
    */
-  public static boolean checkClassAndAttribBasedOnSpellingError(Classifier instructorClass, Classifier studentClass, Comparison comparison) {
+  public static boolean checkClassAndAttribBasedOnSpellingError(Classifier instructorClass, Classifier studentClass,
+      Comparison comparison) {
     int lDistance = getMinimumLDInSynonyms(instructorClass, studentClass, comparison);
     return 0 <= lDistance && lDistance <= MAX_LEVENSHTEIN_DISTANCE_ALLOWED;
   }
 
   /** Returns minimum Levenshtein Distance between instructor attribute and student attribute including its synonyms */
-  public static int getMinimumLDInSynonyms(NamedElement instructorElem, NamedElement studentElem, Comparison comparison) {
+  public static int getMinimumLDInSynonyms(NamedElement instructorElem, NamedElement studentElem,
+      Comparison comparison) {
     var se = SolutionElement.forCdmElement(instructorElem);
     int attribDistance = levenshteinDistance(studentElem.getName(), instructorElem.getName());
     int synDistance = attribDistance;
-    if (!comparison.mappedAttributes.containsValue(studentElem) && !comparison.mappedAttributes.containsKey(instructorElem)) {
+    if (!comparison.mappedAttributes.containsValue(studentElem) &&
+        !comparison.mappedAttributes.containsKey(instructorElem)) {
       for (var syn : se.getSynonyms()) {
         int distance = levenshteinDistance(studentElem.getName(), syn.getName());
         if (distance < synDistance) {
@@ -2646,7 +2641,8 @@ public class MistakeDetection {
   }
 
   public static Optional<Mistake> checkMistakePluralClassName(Classifier studentClass, Classifier instructorClass) {
-    if (isPlural(studentClass.getName()) && studentClass.getName() != instructorClass.getName() && !isSynonym(instructorClass, studentClass)) {
+    if (isPlural(studentClass.getName()) && studentClass.getName() != instructorClass.getName() &&
+        !isSynonym(instructorClass, studentClass)) {
       return Optional.of(createMistake(PLURAL_CLASS_NAME, studentClass, instructorClass));
     }
     return Optional.empty();

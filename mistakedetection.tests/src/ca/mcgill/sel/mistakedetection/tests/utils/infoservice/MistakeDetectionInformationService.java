@@ -182,7 +182,8 @@ public abstract class MistakeDetectionInformationService {
   }
 
   /** Returns the MDFs as implemented in the Mistake Detection System, regardless of validation status. */
-  public static Map<MistakeTypeInfo, MistakeDetectionFormat> getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem() {
+  public static Map<MistakeTypeInfo, MistakeDetectionFormat> getMistakeDetectionFormatsAsIsFromMistakeDetectionSystem()
+  {
     return getAllMistakeDetectionFormatsAsIsFromMistakeDetectionSystem().entrySet().stream().collect(Collectors.toMap(
         e -> new MistakeTypeInfo(e.getKey()),
         Map.Entry::getValue,

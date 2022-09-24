@@ -704,24 +704,22 @@ public class MistakeImpl extends MinimalEObjectImpl.Container implements Mistake
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
+   * @generated NOT
    */
   @Override
   public String toString() {
     if (eIsProxy()) return super.toString();
 
-    StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (resolvedByStudent: ");
-    result.append(resolvedByStudent);
-    result.append(", timeToAddress: ");
-    result.append(timeToAddress);
-    result.append(", numStepsBeforeNotification: ");
-    result.append(numStepsBeforeNotification);
-    result.append(", numDetections: ");
-    result.append(numDetections);
-    result.append(", numSinceResolved: ");
-    result.append(numSinceResolved);
-    result.append(')');
+    StringBuilder result = new StringBuilder(super.toString() + "(")
+        .append("\n    mistakeType.name: ").append(getMistakeType().getName())
+        .append("\n    studentElements: ").append(getStudentElementNames())
+        .append("\n    instructorElements: ").append(getInstructorElementNames())
+        .append("\n    resolvedByStudent: ").append(resolvedByStudent)
+        .append("\n    timeToAddress: ").append(timeToAddress)
+        .append("\n    numStepsBeforeNotification: ").append(numStepsBeforeNotification)
+        .append("\n    numDetections: ").append(numDetections)
+        .append("\n    numSinceResolved: ").append(numSinceResolved)
+        .append("\n)");
     return result.toString();
   }
 

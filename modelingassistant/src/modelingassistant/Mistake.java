@@ -3,6 +3,9 @@
 package modelingassistant;
 
 import java.sql.Time;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import learningcorpus.MistakeType;
@@ -140,6 +143,16 @@ public interface Mistake extends EObject {
   EList<SolutionElement> getStudentElements();
 
   /**
+   * Convenience method to return the names of the student elements of this mistake, useful for logging and debugging.
+   *
+   * @generated NOT
+   */
+  default List<String> getStudentElementNames() {
+    return getStudentElements().stream().map(e -> Objects.requireNonNullElse(e.getElement().getName(), "null"))
+        .collect(Collectors.toUnmodifiableList());
+  }
+
+  /**
    * Returns the value of the '<em><b>Last Feedback</b></em>' reference.
    * It is bidirectional and its opposite is '{@link modelingassistant.FeedbackItem#getMistake <em>Mistake</em>}'.
    * <!-- begin-user-doc -->
@@ -176,6 +189,17 @@ public interface Mistake extends EObject {
    * @generated
    */
   EList<SolutionElement> getInstructorElements();
+
+  /**
+   * Convenience method to return the names of the instructor elements of this mistake, useful for logging and
+   * debugging.
+   *
+   * @generated NOT
+   */
+  default List<String> getInstructorElementNames() {
+    return getInstructorElements().stream().map(e -> Objects.requireNonNullElse(e.getElement().getName(), "null"))
+        .collect(Collectors.toUnmodifiableList());
+  }
 
   /**
    * Returns the value of the '<em><b>Solution</b></em>' container reference.

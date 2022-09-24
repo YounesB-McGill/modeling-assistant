@@ -25,7 +25,12 @@ public class MistakeInfo implements Comparable<MistakeInfo> {
   final List<String> studentElementNames;
   final List<String> instructorElementNames;
 
+  private static final Pattern PARAMETRIZED_RESPONSE_PARAMETER = Pattern.compile("\\$\\{.*?\\}");
+
   public MistakeInfo(Mistake mistake) {
+    if (mistake.getStudentElements().isEmpty() && mistake.getInstructorElements().isEmpty()) {
+      throw new IllegalArgumentException("Invalid mistake state: mistake does not have any solution elements");
+    }
     this.mistake = mistake;
     mistakeType = mistake.getMistakeType();
     numStudentElems = mistake.getStudentElements().size();
@@ -46,13 +51,12 @@ public class MistakeInfo implements Comparable<MistakeInfo> {
 
   private List<Integer> calculateParamRespParamNums() {
     var counts = mistake.getMistakeType().getFeedbacks().stream().filter(fb -> fb instanceof ParametrizedResponse)
-        .map(pr -> Pattern.compile("\\$\\{.*?\\}").matcher(((ParametrizedResponse) pr).getText()).results().count())
-        .map(Math::toIntExact).collect(Collectors.toList()); // use mutable list to allow sorting in next step
+        .map(pr -> PARAMETRIZED_RESPONSE_PARAMETER.matcher(((ParametrizedResponse) pr).getText()).results().count())
+        .map(Math::toIntExact).sorted().collect(Collectors.toUnmodifiableList());
     if (counts.isEmpty()) {
       return List.of(0);
     }
-    Collections.sort(counts);
-    return Collections.unmodifiableList(counts);
+    return counts;
   }
 
   String firstColumnEntries() {
