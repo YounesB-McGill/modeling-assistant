@@ -165,8 +165,6 @@ public interface ModelingAssistant extends EObject {
    * @generated NOT
    */
   default String toEcoreString() {
-    System.out.println("RSET resource URIs");
-    RSET_INTERNAL.getResources().stream().forEach(System.out::println);
     var resource = zerothSaveToStringResource();
     if (resource == null) {
       resource = RSET_INTERNAL.createResource(URI.createFileURI(SAVE_TO_STRING_URI_INTERNAL));

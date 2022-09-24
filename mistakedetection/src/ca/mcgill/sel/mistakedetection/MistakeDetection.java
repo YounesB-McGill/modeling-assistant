@@ -1990,36 +1990,6 @@ public class MistakeDetection {
     existingMistakes.forEach(setSolutionForElems);
     newMistakes.forEach(setSolutionForElems);
 
-    System.out.println("\nupdateMistakes(): Existing mistakes: " + existingMistakes.size() + "\n");
-
-    // TODO Added the following for debugging only - do not merge!
-    // xmiId <=> m.eResource
-    Consumer<? super Mistake> printMistakeInfo = m -> {
-      System.out.format("%8s | %23s | %50s%n", Integer.toHexString(m.hashCode()), xmiId(m),
-          m.getMistakeType().getName() + "(" + m.getStudentElementNames() + ", " + m.getInstructorElementNames() + ")");
-      if (m.getStudentElements().isEmpty() && m.getInstructorElements().isEmpty()) {
-        throw new RuntimeException("Invalid mistake state: mistake does not have any solution elements");
-      }
-    };
-    var tableHeader = "MemAddrs | XmiId                   | MistakeType";
-    tableHeader += "\n" + tableHeader.replace("|", "+").replaceAll("[^+]", "-");
-    System.out.println("\nExisting mistakes:\n");
-    if (existingMistakes.isEmpty()) {
-      System.out.println("None found");
-    } else {
-      System.out.println(tableHeader);
-      existingMistakes.forEach(printMistakeInfo);
-    }
-    System.out.println("\nNew mistakes:\n");
-    if (newMistakes.isEmpty()) {
-      System.out.println("None found");
-    } else {
-      System.out.println(tableHeader);
-      newMistakes.forEach(printMistakeInfo);
-    }
-    System.out.println("\n");
-    // End debugging part
-
     // List containing existing mistakes that are equal to newMistakes
     List<Mistake> existingMistakesProcessed = new ArrayList<>();
     // List containing new mistakes that are already present in a solution (i.e. existingMistakes)
