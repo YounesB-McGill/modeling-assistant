@@ -433,8 +433,7 @@ public class MistakeDetectionTest extends MistakeDetectionBaseTest {
 
       comparison = MistakeDetection.compare(instructorSolution, studentSolution);
 
-      // TODO Double check whether comparison.newMistakes should omit the 3 mistakes from previous compare() call
-      //assertMistakeTypes(comparison.newMistakes, INCOMPLETE_CONTAINMENT_TREE);
+      assertMistakeTypes(comparison.newMistakes, EXTRA_CLASS, INCOMPLETE_CONTAINMENT_TREE);
       assertNotNull(ma.toEcoreString());
     } catch (IOException e) {
       e.printStackTrace();

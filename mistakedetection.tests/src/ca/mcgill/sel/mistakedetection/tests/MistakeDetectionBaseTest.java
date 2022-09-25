@@ -35,7 +35,6 @@ public abstract class MistakeDetectionBaseTest {
 
   @AfterAll
   public static void teardown() {
-    // TODO Temporarily disable these failing checks. Fix and uncomment
     testMdfsFromMdsAreCompatibleWithHumanValidatedMdfs();
     testSourcesTargetsWholesAndPartsAreProperlySpecified();
 

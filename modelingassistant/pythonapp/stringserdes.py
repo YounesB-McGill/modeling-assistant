@@ -101,12 +101,11 @@ class StringEnabledResourceSet(ResourceSet):
     def resolve(self, uri, from_resource: StringEnabledXMIResource = None):
         if isinstance(uri, str):
             uri = uri.removeprefix("file:")
-            # TODO Make this more general
             if "default.learningcorpus" in uri and os.name == "nt":
-                uri = uri.replace('G:/','').replace('/','\\')
+                uri = re.sub(r"\S://", "", uri).replace('/','\\')  # remove Windows drive letter
         else:
             if "default.learningcorpus" in uri.plain and os.name == "nt":
-                uri = uri.plain.replace('G:/','').replace('/','\\')
+                uri = re.sub(r"\S://", "", uri.plain).replace('/','\\')
         ma = next((e for e in from_resource.contents if isinstance(e, ModelingAssistant)), None)
         if ma and not ma.eResource.uuid_dict:
             ma.eResource.uuid_dict = from_resource.uuid_dict

@@ -51,7 +51,7 @@ class RobustSimpleNamespace(SimpleNamespace):
         return iter(self.__dict__)
 
     def __getattr__(self, name: str) -> object:
-        # In the cases where self represents an AssociationEnd with a default values
+        # In the cases where self represents an AssociationEnd with default values
         # (eg, upperBound=1, referenceType="Regular"), WebCORE omits them from the JSON and so we need add it manually
         # This logic should be rewritten in a type safe way within the generated metamodel code somehow
         if name == "upperBound" and "lowerBound" in self.__dict__:
