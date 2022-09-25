@@ -184,7 +184,7 @@ class MockStudent(User):
         The return value is a 5-tuple: (class1_id, ae1_id, assoc_id, ae2_id, class2_id).
         """
         # pylint: disable=too-many-arguments, too-many-locals, protected-access
-        def value_or_index(element: int | tuple[int, int], index = 0) -> int:
+        def value_or_index(element: int | tuple[int, int], index=0) -> int:
             return element if isinstance(element, int) else element[index]
 
         if not class1_id or not class2_id:
@@ -283,11 +283,11 @@ class MockStudent(User):
             cdm_name, whole_multiplicities, whole_class_id, whole_rolename, part_multiplicities, part_class_id,
             part_rolename, bidirectional, "Regular", "Aggregation")
 
-
     def request_feedback(self, cdm_name: str) -> FeedbackTO:
         "Request feedback from the Modeling Assistant via WebCORE."
         resp = requests.get(f"{self.cdm_endpoint(cdm_name)}/feedback", headers=self._auth_header)
         print(f"{resp.text = }")
+        resp.raise_for_status()
         feedback_json = resp.json()
         return FeedbackTO(**feedback_json)
 

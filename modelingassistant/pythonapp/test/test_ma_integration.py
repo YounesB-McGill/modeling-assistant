@@ -92,7 +92,7 @@ def test_ma_two_class_student_mistake(ma_rest_app, webcore):
 
     # Step 1
     student = MockStudent.create_random()
-    cdm_name = "AirlineSystem"
+    cdm_name = EXAMPLE_CDM_NAME
     assert student.create_cdm(cdm_name)
 
     # Steps 2-5
@@ -135,7 +135,7 @@ def test_communication_between_mock_frontend_and_webcore(webcore):
     """
     # pylint: disable=too-many-locals, too-many-statements, protected-access
     student = MockStudent.create_random()
-    cdm_name = "AirlineSystem"
+    cdm_name = EXAMPLE_CDM_NAME
     assert student.create_cdm(cdm_name)
 
     cdm = student.get_cdm(cdm_name)
@@ -272,7 +272,7 @@ def test_communication_between_mock_frontend_and_webcore_multiple_students(webco
         sleep(SLEEP_TIME_S)
 
 
-@pytest.mark.skip(reason="Not yet implemented")
+#@pytest.mark.skip(reason="Not yet implemented")
 def test_communication_between_modeling_assistant_python_app_and_webcore(webcore):
     """
     Test the communication between the Modeling Assistant Python app and WebCORE.
@@ -280,6 +280,17 @@ def test_communication_between_modeling_assistant_python_app_and_webcore(webcore
     A Modeling Assistant instance has solutions with solution elements, respectively
     linked to class diagrams (accessed via WebCORE) with cdm elements.
     """
+    cdm_name = EXAMPLE_CDM_NAME
+    student = MockStudent.create_random()
+    assert student.login() and student.logged_in
+    assert student.create_cdm(cdm_name)
+    cdm = student.get_cdm(cdm_name)
+    assert cdm
+    assert (feedback := student.request_feedback(cdm_name))
+    class1 = student.create_class(cdm_name, "Class1")
+    assert (feedback := student.request_feedback(cdm_name))
+    assert class1 in [e.elementId for e in feedback.solutionElements]
+    assert (feedback := student.request_feedback(cdm_name))
 
 
 def test_webcore_user_register():
@@ -363,3 +374,4 @@ if __name__ == '__main__':
     test_ma_two_class_student_mistake(ma_rest_app, webcore)
     # run again to ensure WebCORE still works after the previous test
     test_communication_between_mock_frontend_and_webcore(webcore)
+    test_communication_between_mock_frontend_and_webcore_multiple_students(webcore)
