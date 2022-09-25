@@ -6,6 +6,7 @@ import re
 from collections.abc import Iterable
 from string import Formatter
 
+from ordered_set import OrderedSet
 from pyecore.ecore import EClass
 
 from metatypes import Metatype, CDM_METATYPES as metatypes
@@ -177,8 +178,8 @@ def get_mapping_from_mistake_elem_descriptions_to_actual_mistake_elems(mistake: 
     """
     mt_elem_descriptions_to_diagram_elems = {}
     mt: MistakeType = mistake.mistakeType
-    mt_stud: list[MistakeElement] = mt.studentElements
-    mt_inst: list[MistakeElement] = mt.instructorElements
+    mt_stud: OrderedSet[MistakeElement] = mt.studentElements
+    mt_inst: OrderedSet[MistakeElement] = mt.instructorElements
     for stud_key, sol_elem in zip(mt_stud[:-1], mistake.studentElements[:-1]):
         mt_elem_descriptions_to_diagram_elems[f"stud_{stud_key}"] = sol_elem.element
     for inst_key, sol_elem in zip(mt_inst[:-1], mistake.instructorElements[:-1]):

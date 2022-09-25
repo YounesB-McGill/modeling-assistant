@@ -11,7 +11,8 @@ from pyecore.ecore import EClass, EPackage
 from requests.models import Response
 import requests
 
-from fileserdes import load_cdm, load_default_ma
+from constants import LEARNING_CORPUS_PATH
+from fileserdes import load_cdm, load_default_ma, load_lc
 from stringserdes import SRSET, str_to_modelingassistant
 from utils import ModelingAssistantContainer, warn
 from classdiagram import ClassDiagram
@@ -39,6 +40,9 @@ MISTAKE_DETECTION_STARTUP_DELAY = 20  # seconds
 if sys.version_info[:2] < (3, 10):
     logger.error("Python 3.10 or higher required to run this app.")
     sys.exit(1)
+
+
+load_lc(LEARNING_CORPUS_PATH)
 
 
 def get_mistakes(ma: ModelingAssistant, instructor_cdm: ClassDiagram, student_cdm: ClassDiagram) -> ModelingAssistant:

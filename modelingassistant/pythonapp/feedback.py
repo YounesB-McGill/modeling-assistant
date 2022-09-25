@@ -12,6 +12,7 @@ import logging
 from classdiagram import ClassDiagram
 from modelingassistantapp import MODELING_ASSISTANT, get_mistakes
 from parametrizedresponse import parametrize_response
+from serdes import set_static_class_for
 from stringserdes import str_to_cdm
 from learningcorpus import Feedback, ParametrizedResponse, TextResponse
 from modelingassistant import (ModelingAssistant, Student, ProblemStatement, FeedbackItem, Mistake, Solution,
@@ -106,7 +107,8 @@ def next_feedback(mistake: Mistake) -> FeedbackItem:
         next_feedback(mistake with lastFeedback.level = 2) = feedback at level 3
     """
     target_level = mistake.lastFeedback.feedback.level + 1 if mistake.lastFeedback else 1
-    next_fb: Feedback = next(fb for fb in mistake.mistakeType.feedbacks if fb.level == target_level)
+    next_fb: Feedback = set_static_class_for(
+        next(fb for fb in mistake.mistakeType.feedbacks if fb.level == target_level))
     fb_text = next_fb.text
     if isinstance(next_fb, ParametrizedResponse):
         fb_text = parametrize_response(next_fb, mistake)

@@ -272,7 +272,6 @@ def test_communication_between_mock_frontend_and_webcore_multiple_students(webco
         sleep(SLEEP_TIME_S)
 
 
-#@pytest.mark.skip(reason="Not yet implemented")
 def test_communication_between_modeling_assistant_python_app_and_webcore(webcore):
     """
     Test the communication between the Modeling Assistant Python app and WebCORE.
@@ -286,11 +285,29 @@ def test_communication_between_modeling_assistant_python_app_and_webcore(webcore
     assert student.create_cdm(cdm_name)
     cdm = student.get_cdm(cdm_name)
     assert cdm
-    assert (feedback := student.request_feedback(cdm_name))
+
+    # Missing class level 1: highlight problem
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.problemStatementElements and not feedback.solutionElements and not feedback.writtenFeedback
+
     class1 = student.create_class(cdm_name, "Class1")
-    assert (feedback := student.request_feedback(cdm_name))
-    assert class1 in [e.elementId for e in feedback.solutionElements]
-    assert (feedback := student.request_feedback(cdm_name))
+
+    # Extra class level 1: highlight solution
+    feedback = student.request_feedback(cdm_name)
+    assert (class1 in [e.elementId for e in feedback.solutionElements] and not feedback.problemStatementElements and
+            not feedback.writtenFeedback)
+
+    # Extra class level 2: text response
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.writtenFeedback and "${" not in feedback.writtenFeedback and not feedback.problemStatementElements
+
+    # Extra class level 3: more detailed text response
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.writtenFeedback and "${" not in feedback.writtenFeedback and not feedback.problemStatementElements
+
+    # Extra class level 4: parametrized response
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.writtenFeedback and "${" not in feedback.writtenFeedback and not feedback.problemStatementElements
 
 
 def test_webcore_user_register():
@@ -375,3 +392,4 @@ if __name__ == '__main__':
     # run again to ensure WebCORE still works after the previous test
     test_communication_between_mock_frontend_and_webcore(webcore)
     test_communication_between_mock_frontend_and_webcore_multiple_students(webcore)
+    test_communication_between_modeling_assistant_python_app_and_webcore(webcore)
