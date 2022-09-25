@@ -129,6 +129,43 @@ def test_ma_two_class_student_mistake(ma_rest_app, webcore):
     # assert "no mistakes" in feedback.writtenFeedback.lower()
 
 
+def test_ma_multiple_feedback_levels(webcore):
+    """
+    Test that the application can provide multiple consecutive feedback levels correctly.
+
+    This integration test exercises WebCORE, the Feedback Algorithm, and the Mistake Detection System.
+    """
+    cdm_name = EXAMPLE_CDM_NAME
+    student = MockStudent.create_random()
+    assert student.login() and student.logged_in
+    assert student.create_cdm(cdm_name)
+    cdm = student.get_cdm(cdm_name)
+    assert cdm
+
+    # Missing class level 1: highlight problem
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.problemStatementElements and not feedback.solutionElements and not feedback.writtenFeedback
+
+    class1 = student.create_class(cdm_name, "Class1")
+
+    # Extra class level 1: highlight solution
+    feedback = student.request_feedback(cdm_name)
+    assert (class1 in [e.elementId for e in feedback.solutionElements] and not feedback.problemStatementElements and
+            not feedback.writtenFeedback)
+
+    # Extra class level 2: text response
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.writtenFeedback and "${" not in feedback.writtenFeedback and not feedback.problemStatementElements
+
+    # Extra class level 3: more detailed text response
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.writtenFeedback and "${" not in feedback.writtenFeedback and not feedback.problemStatementElements
+
+    # Extra class level 4: parametrized response
+    feedback = student.request_feedback(cdm_name)
+    assert feedback.writtenFeedback and "${" not in feedback.writtenFeedback and not feedback.problemStatementElements
+
+
 def test_communication_between_mock_frontend_and_webcore(webcore):
     """
     Test the communication between this mock frontend and WebCORE.
@@ -270,44 +307,6 @@ def test_communication_between_mock_frontend_and_webcore_multiple_students(webco
         assert student.create_cdm(EXAMPLE_CDM_NAME)
         assert student.get_cdm(EXAMPLE_CDM_NAME)
         sleep(SLEEP_TIME_S)
-
-
-def test_communication_between_modeling_assistant_python_app_and_webcore(webcore):
-    """
-    Test the communication between the Modeling Assistant Python app and WebCORE.
-
-    A Modeling Assistant instance has solutions with solution elements, respectively
-    linked to class diagrams (accessed via WebCORE) with cdm elements.
-    """
-    cdm_name = EXAMPLE_CDM_NAME
-    student = MockStudent.create_random()
-    assert student.login() and student.logged_in
-    assert student.create_cdm(cdm_name)
-    cdm = student.get_cdm(cdm_name)
-    assert cdm
-
-    # Missing class level 1: highlight problem
-    feedback = student.request_feedback(cdm_name)
-    assert feedback.problemStatementElements and not feedback.solutionElements and not feedback.writtenFeedback
-
-    class1 = student.create_class(cdm_name, "Class1")
-
-    # Extra class level 1: highlight solution
-    feedback = student.request_feedback(cdm_name)
-    assert (class1 in [e.elementId for e in feedback.solutionElements] and not feedback.problemStatementElements and
-            not feedback.writtenFeedback)
-
-    # Extra class level 2: text response
-    feedback = student.request_feedback(cdm_name)
-    assert feedback.writtenFeedback and "${" not in feedback.writtenFeedback and not feedback.problemStatementElements
-
-    # Extra class level 3: more detailed text response
-    feedback = student.request_feedback(cdm_name)
-    assert feedback.writtenFeedback and "${" not in feedback.writtenFeedback and not feedback.problemStatementElements
-
-    # Extra class level 4: parametrized response
-    feedback = student.request_feedback(cdm_name)
-    assert feedback.writtenFeedback and "${" not in feedback.writtenFeedback and not feedback.problemStatementElements
 
 
 def test_webcore_user_register():
