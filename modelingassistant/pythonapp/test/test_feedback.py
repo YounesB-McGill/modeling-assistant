@@ -19,9 +19,9 @@ import pytest  # (to allow tests to be skipped) pylint: disable=unused-import
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from classdiagram import Association, Attribute, CDEnum, Class, ClassDiagram
+from classdiagram import Association, Attribute, CDEnum, CDEnumLiteral, Class, ClassDiagram
 from constants import MANY
-from corpusdefinition import attribute_duplicated, missing_enum
+from corpusdefinition import attribute_duplicated, enum_should_be_full_pr_pattern, missing_enum
 from feedback import DEFAULT_HIGHLIGHT_COLOR, FeedbackTO, give_feedback, give_feedback_for_student_cdm
 from fileserdes import load_cdm
 from learningcorpus import Feedback, ParametrizedResponse, Reference, ResourceResponse, TextResponse, Quiz
@@ -620,31 +620,6 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
     assert INCOMPLETE_CONTAINMENT_TREE in [m.mistakeType for m in mistakes]
 
 
-def test_feedbackto_instructor_element():
-    """
-    Test the FeedbackTO class, including its serialization to JSON, with an instructor element.
-    """
-    status_id = "7"
-    status = CDEnum(name="Status")
-    status._internal_id = status_id  # pylint: disable=protected-access
-    feedback = FeedbackTO(feedback=FeedbackItem(
-        text="Add a Status enumeration.",  # assume already parameterized
-        feedback=next(fb for fb in missing_enum.feedbacks if isinstance(fb, ParametrizedResponse)),
-        mistake=Mistake(numDetections=4, mistakeType=missing_enum, studentElements=[], instructorElements=[
-            SolutionElement(element=status)])))
-    fb_json = _json_str(feedback)
-    print(fb_json)
-    assert fb_json == _json_str({
-        "grade": 0.0,
-        "problemStatementElements": [{
-            "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
-            "elementId": status_id
-        }],
-        "solutionElements": [],
-        "writtenFeedback": "Add a Status enumeration."
-    })
-
-
 def test_feedbackto_student_element():
     """
     Test the FeedbackTO class, including its serialization to JSON, with a student element.
@@ -658,7 +633,6 @@ def test_feedbackto_student_element():
         mistake=Mistake(numDetections=4, mistakeType=attribute_duplicated, studentElements=[
             SolutionElement(element=active)], instructorElements=[])))
     fb_json = _json_str(feedback)
-    print(fb_json)
     assert fb_json == _json_str({
         "grade": 0.0,
         "problemStatementElements": [],
@@ -667,6 +641,93 @@ def test_feedbackto_student_element():
             "elementId": active_id
         }],
         "writtenFeedback": "Does this need to be included more than once?"
+    })
+
+
+def test_feedbackto_instructor_element():
+    """
+    Test the FeedbackTO class, including its serialization to JSON, with an instructor element.
+    """
+    status_id = "7"
+    status = CDEnum(name="Status")
+    status._internal_id = status_id  # pylint: disable=protected-access
+    feedback = FeedbackTO(feedback=FeedbackItem(
+        text="Add a Status enumeration.",  # assume already parameterized
+        feedback=next(fb for fb in missing_enum.feedbacks if isinstance(fb, ParametrizedResponse)),
+        mistake=Mistake(numDetections=4, mistakeType=missing_enum, studentElements=[], instructorElements=[
+            SolutionElement(element=status)])))
+    fb_json = _json_str(feedback)
+    assert fb_json == _json_str({
+        "grade": 0.0,
+        "problemStatementElements": [{
+            "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
+            "elementId": status_id
+        }],
+        "solutionElements": [],
+        "writtenFeedback": "Add a Status enumeration."
+    })
+
+
+def test_feedbackto_multiple_student_and_instructor_elements():
+    """
+    Test the FeedbackTO class, including its serialization to JSON, with multiple student and instructor elements.
+    """
+    # stud=["player_cls", "role_attr", "role_enum", "role_enumitem*"], inst=["player_cls", "role_cls*"],
+    stud_person = Class(name="Person", attributes=[stud_role_attr := Attribute(name="role", type=(stud_role := CDEnum(
+        name="Role", literals=[stud_passenger := CDEnumLiteral(name="Passenger"),
+                               stud_employee := CDEnumLiteral(name="Employee"),
+                               stud_visitor := CDEnumLiteral(name="Visitor")])))])
+    inst_person = Class(name="Person")
+    inst_passenger = Class(name="Passenger")
+    inst_employee = Class(name="Employee")
+    inst_visitor = Class(name="Visitor")
+    for i, e in enumerate([stud_person, stud_role_attr, stud_role, stud_passenger, stud_employee, stud_visitor,
+                           inst_person, inst_passenger, inst_employee, inst_visitor], 1):
+        e._internal_id = str(i)
+    feedback = FeedbackTO(feedback=FeedbackItem(
+        text=("An instance of Person can play more than one role out of Passenger, Employee, and Visitor at the same "
+              "time and different features need to be captured for the roles."),
+        feedback=next(fb for fb in enum_should_be_full_pr_pattern.feedbacks if isinstance(fb, ParametrizedResponse)),
+        mistake=Mistake(numDetections=3, mistakeType=enum_should_be_full_pr_pattern,
+        studentElements=[SolutionElement(element=e) for e in (stud_person, stud_role_attr, stud_role, stud_passenger)],
+        instructorElements=[SolutionElement(element=e) for e in (inst_person, inst_passenger, inst_employee)])))
+    fb_json = _json_str(feedback)
+    assert fb_json == _json_str({
+        "grade": 0.0,
+        "problemStatementElements": [
+            {
+                "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
+                "elementId": "7"
+            },
+            {
+                "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
+                "elementId": "8"
+            },
+            {
+                "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
+                "elementId": "9"
+            }
+        ],
+        "solutionElements": [
+            {
+                "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
+                "elementId": "1"
+            },
+            {
+                "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
+                "elementId": "2"
+            },
+            {
+                "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
+                "elementId": "3"
+            },
+            {
+                "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
+                "elementId": "4"
+            }
+        ],
+        "writtenFeedback": ("An instance of Person can play more than one role out of Passenger, Employee, and Visitor "
+                            "at the same time and different features need to be captured for the roles.")
     })
 
 

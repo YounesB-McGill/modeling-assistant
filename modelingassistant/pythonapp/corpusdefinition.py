@@ -1035,8 +1035,8 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                     2: TextResponse(
                         text="Think carefully about how to model the relationships between these concepts."),
                     3: ParametrizedResponse(text="An instance of ${stud_player_cls} can play more than one role out of "
-                                                  "${stud_role_enumitem*} at the same time and different features need "
-                                                  "to be captured for the roles."),
+                                                 "${stud_role_enumitem*} at the same time and different features need "
+                                                 "to be captured for the roles."),
                     4: ResourceResponse(learningResources=[pr_quiz]),
                     5: ResourceResponse(learningResources=[pr_ref]),
                 })),
