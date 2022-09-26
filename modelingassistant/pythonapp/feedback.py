@@ -10,6 +10,7 @@ from typing import Tuple
 import logging
 
 from classdiagram import ClassDiagram
+from color import Color
 from modelingassistantapp import MODELING_ASSISTANT, get_mistakes
 from parametrizedresponse import parametrize_response
 from serdes import set_static_class_for
@@ -26,7 +27,7 @@ MAX_STUDENT_LEVEL_OF_KNOWLEDGE = 10.0
 BEGINNER_LEVEL_OF_KNOWLEDGE = 7.0
 
 
-DEFAULT_HIGHLIGHT_COLOR = [1, 1, 0.588]  # light yellow, in RGB 0-1 used by Unity
+DEFAULT_HIGHLIGHT_COLOR = Color.LIGHT_YELLOW
 
 
 @dataclass
@@ -34,7 +35,7 @@ class HighlightedElement:
     "A highlighted element in a diagram."
     # pylint: disable=invalid-name
     elementId: str = ""
-    color: list[float] = field(default_factory=lambda: DEFAULT_HIGHLIGHT_COLOR)  # to avoid mutable default value
+    color: list[float] = DEFAULT_HIGHLIGHT_COLOR.to_rgb1()  # convert color to RGB 0-1 used by Unity
 
 
 @dataclass
