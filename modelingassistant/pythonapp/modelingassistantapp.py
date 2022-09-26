@@ -19,9 +19,13 @@ from classdiagram import ClassDiagram
 from modelingassistant import ModelingAssistant, ProblemStatement, Solution
 
 LOGGING_LEVEL = logging.DEBUG
+LOGGING_FORMAT = "{asctime} - {name} - {levelname} - {message}"
 
-logging.basicConfig(level=LOGGING_LEVEL, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+logging.basicConfig(level=LOGGING_LEVEL, format=LOGGING_FORMAT, style="{")
 logger = logging.getLogger(__name__)
+
+# suppress useless debug messages
+logging.getLogger("urllib3.connectionpool").addFilter(lambda record: "Starting new HTTP connection" not in record.msg)
 
 # Set this to True to use a preexisting problem statement, useful for testing the frontend
 USE_EXAMPLE_PROBLEM_STATEMENT = True

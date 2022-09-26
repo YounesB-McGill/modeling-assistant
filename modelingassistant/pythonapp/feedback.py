@@ -50,9 +50,14 @@ class FeedbackTO:
     # custom __init__ for correct JSON (de)serialization
     def __init__(self, solutionElements: list[HighlightedElement] = field(default_factory=list),
                  problemStatementElements: list[HighlightedElement] = field(default_factory=list),
-                 grade: float = 0.0, writtenFeedback: str = ""):
+                 grade: float = 0.0, writtenFeedback: str = "", feedback: FeedbackItem = None):
         def make_highlighted_elems(elems):
             return [HighlightedElement(**e) for e in elems] if elems and isinstance(elems[0], dict) else elems
+        if feedback:
+            solutionElements = [HighlightedElement(e.element._internal_id) for e in feedback.mistake.studentElements]
+            problemStatementElements = [HighlightedElement(e.element._internal_id)
+                                        for e in feedback.mistake.instructorElements]
+            writtenFeedback = feedback.text or feedback.feedback.text or ""  # TODO handle Example/Quiz in the future
         self.solutionElements = make_highlighted_elems(solutionElements)
         self.solutionElementIds = [e.elementId for e in self.solutionElements]
         self.problemStatementElements = make_highlighted_elems(problemStatementElements)
@@ -161,13 +166,7 @@ def give_feedback_for_student_cdm(username: str, student_cdm: ClassDiagram | str
 
     if not fb.mistake:
         return FeedbackTO()
-
-    feedback = FeedbackTO(
-        solutionElements=[HighlightedElement(e.element._internal_id) for e in fb.mistake.studentElements],
-        problemStatementElements=[HighlightedElement(e.element._internal_id) for e in fb.mistake.instructorElements],
-        grade=0.0,  # for now
-        writtenFeedback=fb.text or fb.feedback.text or "")
-
+    feedback = FeedbackTO(feedback=fb)
     return (feedback, ma) if use_local_ma else feedback
 
 

@@ -4,6 +4,7 @@ Module to manage users.
 
 from __future__ import annotations
 
+import logging
 import random
 import secrets
 from random import randint
@@ -15,7 +16,7 @@ import requests
 
 from constants import WEBCORE_ENDPOINT
 from feedback import FeedbackTO
-from modelingassistantapp import logger
+from modelingassistantapp import LOGGING_FORMAT, LOGGING_LEVEL
 from utils import cdm_diff, to_simplenamespace, warn, ClassDiagramDTO, AeReferenceType
 
 USER_REGISTER_ENDPOINT = f"{WEBCORE_ENDPOINT}/user/public/register"
@@ -25,6 +26,9 @@ USER_LOGOUT_ENDPOINT = f"{WEBCORE_ENDPOINT}/user/logout"
 _USERNAME_PREFIX_LENGTH = 6
 
 users: dict[str, User] = {}
+
+logging.basicConfig(level=LOGGING_LEVEL, format=LOGGING_FORMAT)
+logger = logging.getLogger(__name__)
 
 class User:
     "Class to represent a user."
