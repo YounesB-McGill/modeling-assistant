@@ -11,6 +11,7 @@ from learningcorpusquiz import (Blank, FillInTheBlanksQuiz, FillInTheBlanksQuizS
                                 NonBlank)
 import utils
 
+
 def test_mtc():
     "Test the mtc() helper function."
     mtc_name = "Using Java instead of Python"

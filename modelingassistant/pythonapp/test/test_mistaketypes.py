@@ -16,10 +16,9 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from learningcorpus import MistakeElement, MistakeTypeCategory, MistakeType
 from mistaketypes import MISSING_CLASS, SOFTWARE_ENGINEERING_TERM, CLASS_MISTAKES, CLASS_NAME_MISTAKES
 from metatypes import CDM_METATYPES as metatypes
+from color import Color
 from corpus import corpus, mts_by_priority
 from corpusdefinition import mts_by_priority as mts_by_priority_with_labels
-from utils import COLOR, color_str
-
 import mistaketypes
 
 def test_get_mistake_type_and_mistake_type_category_by_names():
@@ -162,12 +161,12 @@ def print_mistake_type_stats():
     # pylint: disable=expression-not-assigned
     def print_mt(mt: MistakeType, indent: int = 0):
         "Print mistake type and show its priority and whether it has feedbacks."
-        color = COLOR.CYAN if mt.feedbacks else COLOR.ORANGE
-        print(color_str(color, f"{indent * ' '}{mt.name}") + color_str(COLOR.VIOLET, f" ({mt.priority})"))
+        color = Color.CYAN if mt.feedbacks else Color.ORANGE
+        print(color(f"{indent * ' '}{mt.name}") + Color.VIOLET(f" ({mt.priority})"))
 
     def print_mtc(mtc: MistakeTypeCategory, indent: int = 0):
         "Recursively print mistake type category and its subcategories."
-        print(color_str(COLOR.BLUE, f"{indent * ' '}{mtc.name}"))
+        print(Color.BLUE(f"{indent * ' '}{mtc.name}"))
         [print_mt(mt, indent + 2) for mt in mtc.mistakeTypes]
         [print_mtc(c, indent + 2) for c in mtc.subcategories]
 
@@ -240,4 +239,4 @@ def print_mts_by_priority_with_labels_latex_table():
 
 if __name__ == "__main__":
     "Main entry point."
-    test_mistake_type_elements()
+    print_mistake_type_stats()

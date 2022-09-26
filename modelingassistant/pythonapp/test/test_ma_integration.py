@@ -28,7 +28,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from classdiagram import CDBoolean, CDInt, CDString, Class
 from constants import MANY, WEBCORE_ENDPOINT
 from envvars import TOUCHCORE_PATH
-from feedback import FeedbackTO
+from feedback import FeedbackTO, DEFAULT_HIGHLIGHT_COLOR
 from flaskapp import app, DEBUG_MODE, PORT
 from fileserdes import load_cdm, save_to_file
 from stringserdes import SRSET, str_to_modelingassistant
@@ -152,6 +152,7 @@ def test_ma_multiple_feedback_levels(webcore):
     feedback = student.request_feedback(cdm_name)
     assert (class1 in [e.elementId for e in feedback.solutionElements] and not feedback.problemStatementElements and
             not feedback.writtenFeedback)
+    assert DEFAULT_HIGHLIGHT_COLOR in [e.color for e in feedback.solutionElements]
 
     # Extra class level 2: text response
     feedback = student.request_feedback(cdm_name)
