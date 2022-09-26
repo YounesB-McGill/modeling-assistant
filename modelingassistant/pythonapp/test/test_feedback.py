@@ -19,9 +19,9 @@ import pytest  # (to allow tests to be skipped) pylint: disable=unused-import
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from classdiagram import Association, CDEnum, Class, ClassDiagram
+from classdiagram import Association, Attribute, CDEnum, Class, ClassDiagram
 from constants import MANY
-from corpusdefinition import missing_enum
+from corpusdefinition import attribute_duplicated, missing_enum
 from feedback import DEFAULT_HIGHLIGHT_COLOR, FeedbackTO, give_feedback, give_feedback_for_student_cdm
 from fileserdes import load_cdm
 from learningcorpus import Feedback, ParametrizedResponse, Reference, ResourceResponse, TextResponse, Quiz
@@ -649,6 +649,25 @@ def test_feedbackto_student_element():
     """
     Test the FeedbackTO class, including its serialization to JSON, with a student element.
     """
+    active_id = "3"
+    active = Attribute(name="active")
+    active._internal_id = active_id  # pylint: disable=protected-access
+    feedback = FeedbackTO(feedback=FeedbackItem(
+        text="Does this need to be included more than once?",
+        feedback=next(fb for fb in attribute_duplicated.feedbacks if isinstance(fb, TextResponse)),
+        mistake=Mistake(numDetections=4, mistakeType=attribute_duplicated, studentElements=[
+            SolutionElement(element=active)], instructorElements=[])))
+    fb_json = _json_str(feedback)
+    print(fb_json)
+    assert fb_json == _json_str({
+        "grade": 0.0,
+        "problemStatementElements": [],
+        "solutionElements": [{
+            "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
+            "elementId": active_id
+        }],
+        "writtenFeedback": "Does this need to be included more than once?"
+    })
 
 
 if __name__ == '__main__':
