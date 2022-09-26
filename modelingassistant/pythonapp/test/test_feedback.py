@@ -5,8 +5,10 @@
 Tests for feedback algorithm.
 """
 
+from dataclasses import asdict, is_dataclass
 from threading import Thread
 from time import sleep
+from typing import Any
 import os
 import json
 import sys
@@ -17,9 +19,10 @@ import pytest  # (to allow tests to be skipped) pylint: disable=unused-import
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from classdiagram import Association, Class, ClassDiagram
+from classdiagram import Association, CDEnum, Class, ClassDiagram
 from constants import MANY
-from feedback import give_feedback, give_feedback_for_student_cdm
+from corpusdefinition import missing_enum
+from feedback import DEFAULT_HIGHLIGHT_COLOR, FeedbackTO, give_feedback, give_feedback_for_student_cdm
 from fileserdes import load_cdm
 from learningcorpus import Feedback, ParametrizedResponse, Reference, ResourceResponse, TextResponse, Quiz
 from mistaketypes import (BAD_CLASS_NAME_SPELLING, INCOMPLETE_CONTAINMENT_TREE, MISSING_CLASS,
@@ -106,6 +109,12 @@ def make_ma_with_airline_system() -> ModelingAssistant:
     airline_system_ps.instructorSolution = inst_sol
     airline_system_ps.studentSolutions.append(stud_sol)
     return ma
+
+
+def _json_str(item: Any) -> str:
+    if is_dataclass(item):
+        item = asdict(item)
+    return json.dumps(item, indent=4, sort_keys=True)
 
 
 def test_feedback_without_mistakes():
@@ -609,6 +618,37 @@ def test_feedback_for_serialized_modeling_assistant_instance_with_mistakes_from_
 
     assert fb.solutionElements
     assert INCOMPLETE_CONTAINMENT_TREE in [m.mistakeType for m in mistakes]
+
+
+def test_feedbackto_instructor_element():
+    """
+    Test the FeedbackTO class, including its serialization to JSON, with an instructor element.
+    """
+    status_id = "7"
+    status = CDEnum(name="Status")
+    status._internal_id = status_id  # pylint: disable=protected-access
+    feedback = FeedbackTO(feedback=FeedbackItem(
+        text="Add a Status enumeration.",  # assume already parameterized
+        feedback=next(fb for fb in missing_enum.feedbacks if isinstance(fb, ParametrizedResponse)),
+        mistake=Mistake(numDetections=4, mistakeType=missing_enum, studentElements=[], instructorElements=[
+            SolutionElement(element=status)])))
+    fb_json = _json_str(feedback)
+    print(fb_json)
+    assert fb_json == _json_str({
+        "grade": 0.0,
+        "problemStatementElements": [{
+            "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
+            "elementId": status_id
+        }],
+        "solutionElements": [],
+        "writtenFeedback": "Add a Status enumeration."
+    })
+
+
+def test_feedbackto_student_element():
+    """
+    Test the FeedbackTO class, including its serialization to JSON, with a student element.
+    """
 
 
 if __name__ == '__main__':

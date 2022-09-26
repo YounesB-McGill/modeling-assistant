@@ -156,6 +156,16 @@ def test_no_bad_highlighting():
                 assert not fb.highlightSolution, f"Cannot highlight solution for {mt.name} without student elements"
 
 
+def test_mistake_type_feedbacks_have_consecutive_levels():
+    """
+    Verify that all mistake type feedbacks have consecutive levels, starting at 1.
+    """
+    for mt in corpus.mistakeTypes():
+        levels = [fb.level for fb in mt.feedbacks]
+        assert levels, f"{mt.name} has no feedbacks"
+        assert levels == list(range(1, len(levels) + 1)), f"{mt.name} has non-consecutive feedback levels"
+
+
 def print_mistake_type_stats():
     "Print mistake type statistics to console."
     # pylint: disable=expression-not-assigned

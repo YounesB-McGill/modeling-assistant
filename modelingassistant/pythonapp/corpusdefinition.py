@@ -223,10 +223,10 @@ corpus = LearningCorpus(mistakeTypeCategories=[
                 })),
                 attribute_duplicated := mt(n="Attribute duplicated", stud="attr", inst=[], feedbacks=fbs({
                     1: HighlightSolution(),
-                    3: TextResponse(text="Does this need to be included more than once?"),
-                    4: ParametrizedResponse(text="The ${stud_attr} already exists in the same class or another class "
+                    2: TextResponse(text="Does this need to be included more than once?"),
+                    3: ParametrizedResponse(text="The ${stud_attr} already exists in the same class or another class "
                         "in the generalization hierarchy, so there is no need to include it again."),
-                    5: ResourceResponse(learningResources=[attribute_reference]),
+                    4: ResourceResponse(learningResources=[attribute_reference]),
                 })),
                 attribute_misplaced_in_generalization_hierarchy := mt(
                     n="Attribute misplaced in generalization hierarchy", stud_inst="attr", feedbacks=fbs({

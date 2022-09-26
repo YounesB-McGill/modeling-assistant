@@ -580,8 +580,8 @@ class LatexGenerator(TextualGenerator):
             for fb in mt.feedbacks:
                 if fb.level != level:
                     continue
-                # safe navigation equivalent of metatypes[mt.studentElements[0].type].long_name
-                elem_type = getattr(metatypes.get(mt.studentElements[0].type,
+                # safe navigation equiv. of metatypes[[*mt.studentElements, *mt.instructorElements][0].type].long_name
+                elem_type = getattr(metatypes.get([*mt.studentElements, *mt.instructorElements][0].type,
                                                   Metatype(short_name="", long_name="", eClass=None)),
                                     "long_name")
                 elem_type = ""  # for now, don't show the element type

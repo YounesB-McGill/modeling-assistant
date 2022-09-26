@@ -594,15 +594,15 @@ Student element: Attribute.
 
 Level 1: Highlight solution
 
-Level 3: Text response:
+Level 2: Text response:
 
 > Does this need to be included more than once?
 
-Level 4: Parametrized response:
+Level 3: Parametrized response:
 
 > The ${stud_attr} already exists in the same class or another class in the generalization hierarchy, so there is no need to include it again.
 
-Level 5: Resource response with Reference:
+Level 4: Resource response with Reference:
 
 > Please review the [Attribute](https://mycourses2.mcgill.ca/) and [Noun Analysis](https://mycourses2.mcgill.ca/) parts of the Class Diagram lecture.
 
