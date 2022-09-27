@@ -38,6 +38,8 @@ PORT = 8539
 
 DELAY = 20  # seconds
 
+_HIGHLIGHT_COLOR = DEFAULT_HIGHLIGHT_COLOR.to_hex()
+
 
 def make_ma_without_mistakes() -> ModelingAssistant:
     "Make a simple Modeling Assistant instance with no mistakes."
@@ -637,8 +639,8 @@ def test_feedbackto_student_element():
         "grade": 0.0,
         "problemStatementElements": [],
         "solutionElements": [{
-            "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
-            "elementId": active_id
+            _HIGHLIGHT_COLOR: [active_id],
+            # if there were elements highlighted with other colors, they would be listed here
         }],
         "writtenFeedback": "Does this need to be included more than once?"
     })
@@ -659,10 +661,7 @@ def test_feedbackto_instructor_element():
     fb_json = _json_str(feedback)
     assert fb_json == _json_str({
         "grade": 0.0,
-        "problemStatementElements": [{
-            "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
-            "elementId": status_id
-        }],
+        "problemStatementElements": [{_HIGHLIGHT_COLOR: [status_id]}],
         "solutionElements": [],
         "writtenFeedback": "Add a Status enumeration."
     })
@@ -694,38 +693,8 @@ def test_feedbackto_multiple_student_and_instructor_elements():
     fb_json = _json_str(feedback)
     assert fb_json == _json_str({
         "grade": 0.0,
-        "problemStatementElements": [
-            {
-                "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
-                "elementId": "7"
-            },
-            {
-                "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
-                "elementId": "8"
-            },
-            {
-                "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
-                "elementId": "9"
-            }
-        ],
-        "solutionElements": [
-            {
-                "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
-                "elementId": "1"
-            },
-            {
-                "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
-                "elementId": "2"
-            },
-            {
-                "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
-                "elementId": "3"
-            },
-            {
-                "color": DEFAULT_HIGHLIGHT_COLOR.to_rgb1(),
-                "elementId": "4"
-            }
-        ],
+        "problemStatementElements": [{_HIGHLIGHT_COLOR: ["7", "8", "9"]}],
+        "solutionElements": [{_HIGHLIGHT_COLOR: ["1", "2", "3", "4"]}],
         "writtenFeedback": ("An instance of Person can play more than one role out of Passenger, Employee, and Visitor "
                             "at the same time and different features need to be captured for the roles.")
     })

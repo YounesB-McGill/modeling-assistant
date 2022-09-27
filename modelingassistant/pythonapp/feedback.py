@@ -9,15 +9,15 @@ from functools import cache
 from typing import Tuple
 import logging
 
-from classdiagram import ClassDiagram
+from classdiagram import ClassDiagram, NamedElement
 from color import Color
 from modelingassistantapp import MODELING_ASSISTANT, get_mistakes
 from parametrizedresponse import parametrize_response
 from serdes import set_static_class_for
 from stringserdes import str_to_cdm
-from learningcorpus import Feedback, ParametrizedResponse, TextResponse
+from learningcorpus import Feedback, LearningResource, ParametrizedResponse, TextResponse
 from modelingassistant import (ModelingAssistant, Student, ProblemStatement, FeedbackItem, Mistake, Solution,
-                               StudentKnowledge)
+                               SolutionElement, StudentKnowledge)
 
 
 logger = logging.getLogger(__name__)
@@ -29,39 +29,67 @@ BEGINNER_LEVEL_OF_KNOWLEDGE = 7.0
 
 DEFAULT_HIGHLIGHT_COLOR = Color.LIGHT_YELLOW
 
-
-@dataclass
-class HighlightedElement:
-    "A highlighted element in a diagram."
-    # pylint: disable=invalid-name
-    elementId: str = ""
-    color: list[float] = DEFAULT_HIGHLIGHT_COLOR.to_rgb1()  # convert color to RGB 0-1 used by Unity
+_empty_resource = LearningResource(name="Empty", content="")
 
 
 @dataclass
 class FeedbackTO:
-    "Feedback transfer object class. An explicit class is used to allow for compile-time type checking."
+    """
+    Feedback transfer object class. An explicit class is used to allow for lint and compile-time type checking.
+
+    When transformed to JSON, this object will have the following structure:
+
+    ```json
+    {
+        "grade": 0.0,
+        "problemStatementElements": [{"#fffacd": ["7", "8", "9"]}],
+        "solutionElements": [{"#add8e6": [ "1", "2", "3", "4"]}],
+        "writtenFeedback": "The hex strings above refer to the colors used to highlight the diagram elements."
+    }
+    ```
+    """
     # pylint: disable=invalid-name
-    solutionElements: list[HighlightedElement] = field(default_factory=list)  # includes generalizations
-    problemStatementElements: list[HighlightedElement] = field(default_factory=list)
+    solutionElements: list[dict[str, list[str]]] = field(default_factory=list)  # includes generalizations
+    problemStatementElements: list[dict[str, list[str]]] = field(default_factory=list)
     grade: float = 0.0
     writtenFeedback: str = ""
 
     # custom __init__ for correct JSON (de)serialization
-    def __init__(self, solutionElements: list[HighlightedElement] = field(default_factory=list),
-                 problemStatementElements: list[HighlightedElement] = field(default_factory=list),
+    def __init__(self, solutionElements: list[dict] = field(default_factory=list),
+                 problemStatementElements: list[dict] = field(default_factory=list),
                  grade: float = 0.0, writtenFeedback: str = "", feedback: FeedbackItem = None):
-        def make_highlighted_elems(elems):
-            return [HighlightedElement(**e) for e in elems] if elems and isinstance(elems[0], dict) else elems
+        def make_highlighted_elems(elems: list[str] | list[dict[str, list[str]]]) -> list[dict[str, list[str]]]:
+            if not elems:
+                return []
+            if not all(isinstance(e, type(elems[0])) for e in elems):
+                raise TypeError("All elems must be of the same type")
+            default_color = DEFAULT_HIGHLIGHT_COLOR.to_hex()
+            match elems[0]:
+                case dict():
+                    return elems
+                case str():
+                    return [{default_color: [e for e in elems]}]
+                case NamedElement():
+                    return [{default_color: [e._internal_id for e in elems]}]
+                case SolutionElement():
+                    return [{default_color: [e.element._internal_id for e in elems]}]
+                case _:
+                    raise TypeError(f"Unexpected type {type(elems[0])} in elems")
+        def get_ids(elems: list[dict[str, list[str]]]) -> list[str]:
+            result = set()
+            for e in elems:
+                for _, ids in e.items():
+                    result.update(ids)
+            return list(result)
         if feedback:
-            solutionElements = [HighlightedElement(e.element._internal_id) for e in feedback.mistake.studentElements]
-            problemStatementElements = [HighlightedElement(e.element._internal_id)
-                                        for e in feedback.mistake.instructorElements]
-            writtenFeedback = feedback.text or feedback.feedback.text or ""  # TODO handle Example/Quiz in the future
+            solutionElements = feedback.mistake.studentElements
+            problemStatementElements = feedback.mistake.instructorElements
+            writtenFeedback = (feedback.text or feedback.feedback.text
+                               or getattr(feedback.feedback, "learningResources", [_empty_resource])[0].content)
         self.solutionElements = make_highlighted_elems(solutionElements)
-        self.solutionElementIds = [e.elementId for e in self.solutionElements]
+        self.solutionElementIds = get_ids(self.solutionElements)
         self.problemStatementElements = make_highlighted_elems(problemStatementElements)
-        self.problemStatementElementIds = [e.elementId for e in self.problemStatementElements]
+        self.problemStatementElementIds = get_ids(self.problemStatementElements)
         self.grade = grade
         self.writtenFeedback = writtenFeedback
 
