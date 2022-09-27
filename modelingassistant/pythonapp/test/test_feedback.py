@@ -637,11 +637,11 @@ def test_feedbackto_student_element():
     fb_json = _json_str(feedback)
     assert fb_json == _json_str({
         "grade": 0.0,
-        "problemStatementElements": [],
-        "solutionElements": [{
+        "problemStatementElements": {},
+        "solutionElements": {
             _HIGHLIGHT_COLOR: [active_id],
             # if there were elements highlighted with other colors, they would be listed here
-        }],
+        },
         "writtenFeedback": "Does this need to be included more than once?"
     })
 
@@ -661,8 +661,8 @@ def test_feedbackto_instructor_element():
     fb_json = _json_str(feedback)
     assert fb_json == _json_str({
         "grade": 0.0,
-        "problemStatementElements": [{_HIGHLIGHT_COLOR: [status_id]}],
-        "solutionElements": [],
+        "problemStatementElements": {_HIGHLIGHT_COLOR: [status_id]},
+        "solutionElements": {},
         "writtenFeedback": "Add a Status enumeration."
     })
 
@@ -693,8 +693,8 @@ def test_feedbackto_multiple_student_and_instructor_elements():
     fb_json = _json_str(feedback)
     assert fb_json == _json_str({
         "grade": 0.0,
-        "problemStatementElements": [{_HIGHLIGHT_COLOR: ["7", "8", "9"]}],
-        "solutionElements": [{_HIGHLIGHT_COLOR: ["1", "2", "3", "4"]}],
+        "problemStatementElements": {_HIGHLIGHT_COLOR: ["7", "8", "9"]},
+        "solutionElements": {_HIGHLIGHT_COLOR: ["1", "2", "3", "4"]},
         "writtenFeedback": ("An instance of Person can play more than one role out of Passenger, Employee, and Visitor "
                             "at the same time and different features need to be captured for the roles.")
     })

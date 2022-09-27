@@ -152,8 +152,7 @@ def test_ma_multiple_feedback_levels(webcore):
     feedback = student.request_feedback(cdm_name)
     assert (class1 in feedback.solutionElementIds and not feedback.problemStatementElements and
             not feedback.writtenFeedback)
-    assert DEFAULT_HIGHLIGHT_COLOR.to_hex() in [
-        color for color_to_ids in feedback.solutionElements for color in color_to_ids]
+    assert DEFAULT_HIGHLIGHT_COLOR.to_hex() in feedback.solutionElements
 
     # Extra class level 2: text response
     feedback = student.request_feedback(cdm_name)

@@ -4,10 +4,13 @@
 Module containing feedback algorithm for modeling assistant.
 """
 
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from functools import cache
 from typing import Tuple
 import logging
+
+from ordered_set import OrderedSet
 
 from classdiagram import ClassDiagram, NamedElement
 from color import Color
@@ -42,48 +45,48 @@ class FeedbackTO:
     ```json
     {
         "grade": 0.0,
-        "problemStatementElements": [{"#fffacd": ["7", "8", "9"]}],
-        "solutionElements": [{"#add8e6": [ "1", "2", "3", "4"]}],
+        "problemStatementElements": {"#fffacd": ["7", "8", "9"]},
+        "solutionElements": {"#add8e6": [ "1", "2", "3", "4"]},
         "writtenFeedback": "The hex strings above refer to the colors used to highlight the diagram elements."
     }
     ```
     """
     # pylint: disable=invalid-name
-    solutionElements: list[dict[str, list[str]]] = field(default_factory=list)  # includes generalizations
-    problemStatementElements: list[dict[str, list[str]]] = field(default_factory=list)
+    solutionElements: dict[str, list[str]] = field(default_factory=dict)  # includes generalizations
+    problemStatementElements: dict[str, list[str]] = field(default_factory=dict)
     grade: float = 0.0
     writtenFeedback: str = ""
 
     # custom __init__ for correct JSON (de)serialization
-    def __init__(self, solutionElements: list[dict] = field(default_factory=list),
-                 problemStatementElements: list[dict] = field(default_factory=list),
+    def __init__(self, solutionElements: dict[str, list[str]] = field(default_factory=dict),
+                 problemStatementElements: dict[str, list[str]] = field(default_factory=dict),
                  grade: float = 0.0, writtenFeedback: str = "", feedback: FeedbackItem = None):
-        def make_highlighted_elems(elems: list[str] | list[dict[str, list[str]]]) -> list[dict[str, list[str]]]:
+
+        def make_highlighted_elems(
+            elems: Iterable[str] | Iterable[NamedElement] | Iterable[SolutionElement]
+                 | dict[str, list[str] | list[NamedElement] | list[SolutionElement]]) -> dict[str, list[str]]:
+            def id_for(e: str | NamedElement | SolutionElement) -> str:
+                if not isinstance(e, str | NamedElement | SolutionElement):
+                    raise TypeError(f"Expected str, NamedElement, or SolutionElement but got {e} of type {type(e)}")
+                return e.element._internal_id if isinstance(e, SolutionElement) else (
+                    e._internal_id if isinstance(e, NamedElement) else e)
             if not elems:
-                return []
-            if not all(isinstance(e, type(elems[0])) for e in elems):
-                raise TypeError("All elems must be of the same type")
-            default_color = DEFAULT_HIGHLIGHT_COLOR.to_hex()
-            match elems[0]:
-                case dict():
-                    return elems
-                case str():
-                    return [{default_color: [e for e in elems]}]
-                case NamedElement():
-                    return [{default_color: [e._internal_id for e in elems]}]
-                case SolutionElement():
-                    return [{default_color: [e.element._internal_id for e in elems]}]
-                case _:
-                    raise TypeError(f"Unexpected type {type(elems[0])} in elems")
-        def get_ids(elems: list[dict[str, list[str]]]) -> list[str]:
+                return {}
+            if isinstance(elems, list | OrderedSet):
+                return {DEFAULT_HIGHLIGHT_COLOR.to_hex(): [id_for(e) for e in elems]}
+            if isinstance(elems, dict):
+                return {color: [id_for(e) for e in elems[color]] for color in elems}
+            raise TypeError(f"Unexpected type elems type: {type(elems)}")
+
+        def get_ids(elems: dict[str, list[str]]) -> list[str]:
             result = set()
-            for e in elems:
-                for _, ids in e.items():
-                    result.update(ids)
+            for _, ids in elems.items():
+                result.update(ids)
             return list(result)
+
         if feedback:
-            solutionElements = feedback.mistake.studentElements
-            problemStatementElements = feedback.mistake.instructorElements
+            solutionElements: OrderedSet[SolutionElement] = feedback.mistake.studentElements
+            problemStatementElements: OrderedSet[SolutionElement] = feedback.mistake.instructorElements
             writtenFeedback = (feedback.text or feedback.feedback.text
                                or getattr(feedback.feedback, "learningResources", [_empty_resource])[0].content)
         self.solutionElements = make_highlighted_elems(solutionElements)
