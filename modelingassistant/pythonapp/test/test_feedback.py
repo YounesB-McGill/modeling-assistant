@@ -20,6 +20,7 @@ import pytest  # (to allow tests to be skipped) pylint: disable=unused-import
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from classdiagram import Association, Attribute, CDEnum, CDEnumLiteral, Class, ClassDiagram
+from color import Color
 from constants import MANY
 from corpusdefinition import attribute_duplicated, enum_should_be_full_pr_pattern, missing_enum
 from feedback import DEFAULT_HIGHLIGHT_COLOR, FeedbackTO, give_feedback, give_feedback_for_student_cdm
@@ -671,6 +672,7 @@ def test_feedbackto_multiple_student_and_instructor_elements():
     """
     Test the FeedbackTO class, including its serialization to JSON, with multiple student and instructor elements.
     """
+    # Use the Enum should be full PR pattern mistake type as an example, which has the following solution elements:
     # stud=["player_cls", "role_attr", "role_enum", "role_enumitem*"], inst=["player_cls", "role_cls*"],
     stud_person = Class(name="Person", attributes=[stud_role_attr := Attribute(name="role", type=(stud_role := CDEnum(
         name="Role", literals=[stud_passenger := CDEnumLiteral(name="Passenger"),
@@ -697,6 +699,23 @@ def test_feedbackto_multiple_student_and_instructor_elements():
         "solutionElements": {_HIGHLIGHT_COLOR: ["1", "2", "3", "4"]},
         "writtenFeedback": ("An instance of Person can play more than one role out of Passenger, Employee, and Visitor "
                             "at the same time and different features need to be captured for the roles.")
+    })
+
+
+def test_feedbackto_elements_with_multiple_colors():
+    """
+    Test the FeedbackTO class, including its serialization to JSON, with elements highlighted with multiple colors.
+    """
+    wf = "What do all these numbers mean?"
+    ses = {Color.LIGHT_YELLOW.to_hex(): ["211", "326"], Color.LIGHT_ORANGE.to_hex(): ["401", "418"]}
+    pses = {Color.LIGHT_BLUE.to_hex(): ["512", "539", "598.3"]}
+    feedback = FeedbackTO(solutionElements=ses, problemStatementElements=pses, writtenFeedback=wf)
+    fb_json = _json_str(feedback)
+    assert fb_json == _json_str({
+        "grade": 0.0,
+        "problemStatementElements": pses,
+        "solutionElements": ses,
+        "writtenFeedback": wf
     })
 
 
