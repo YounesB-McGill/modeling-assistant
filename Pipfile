@@ -20,6 +20,8 @@ graphviz = "*"
 railroad-diagrams = "*"
 pylint = "*"
 pytest-randomly = "*"
+colorama = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.10"
