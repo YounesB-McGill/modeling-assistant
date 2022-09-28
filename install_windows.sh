@@ -1,4 +1,8 @@
-#!/usr/bin/env bashexport TOUCHCORE_SRC=$(python3 readenv.py touchcore-sources)
+#!/usr/bin/env bash
+
+export TOUCHCORE_SRC=$(python3 readenv.py touchcore-sources)
+
+# change .\mvnw to ./mvnw if you are using Git Bash 
 
 .\mvnw install:install-file    -Dfile="lib/org.eclipse.ocl-3.4.2.v20140725-2242.jar"    -DgroupId="org.eclipse.ocl"    -DartifactId="org.eclipse.ocl"    -Dversion="3.4.2"    -Dpackaging=jar    -DgeneratePom=true
 
