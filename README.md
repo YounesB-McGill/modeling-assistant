@@ -1,6 +1,52 @@
 # Modeling Assistant
 
-Interactive domain modeling assistant developed at [McGill University](https://www.mcgill.ca/).
+## Overview
+
+This repository contains the source code and documentation for an
+interactive domain modeling assistant developed at
+[McGill University](https://www.mcgill.ca/).
+This Modeling Assistant
+teaches students the fundamentals of domain modeling
+by asking them to model the concepts of a problem domain
+and their relationships given a natural language problem statement.
+
+This system compares the student solution to one provided by the
+instructor, detects mistakes using the Mistake Detection System,
+and returns feedback to the student with the Feedback Mechanism.
+
+The feedback is obtained from a
+[Learning Corpus](modelingassistant/corpus_descriptions/README.md)
+which consists of a mistake type hierarchy with multiple feedback
+levels for each mistake type, ranging from highlighting a UI element
+to parametrized responses and responses with learning resources
+such as quizzes.
+
+A UI mockup of the Modeling Assistant can be found below.
+
+![Modeling Assistant UI Mockup](docs/resources/ma-ui-mockup.png)
+
+
+## System Architecture and Repository Structure
+
+The Modeling Assistant application has the following structure.
+
+![Modeling Assistant Architecture](docs/resources/ma-arch.png)
+
+### Learning Corpus
+
+### Mistake Detection System
+
+### Feedback Mechanism
+
+_(details to follow)_
+
+### Other Components
+
+The **Modeling UI Frontend**
+([Unity](https://github.com/eknuviad/domain-model-assistant)),
+**[WebCORE](https://bitbucket.org/mcgillram/touchcore-web)**, and
+**[TouchCORE](https://bitbucket.org/mcgillram/)**
+are all developed in separate repositories.
 
 ## People
 
