@@ -22,6 +22,7 @@ pylint = "*"
 pytest-randomly = "*"
 colorama = "*"
 python-dotenv = "*"
+pdoc3 = "*"
 
 [requires]
 python_version = "3.10"
