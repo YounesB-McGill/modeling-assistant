@@ -81,7 +81,7 @@ def mtc(n, s=None, **kwargs) -> MistakeTypeCategory:
 
 
 def mt(n, d="", stud: str | list[str] = None, inst: str | list[str] = None, stud_inst: str | list[str] = None,
-       **kwargs) -> MistakeType:
+       types: dict = None, **kwargs) -> MistakeType:
     """
     Shorthand for MistakeType initializer.
 
@@ -89,7 +89,8 @@ def mt(n, d="", stud: str | list[str] = None, inst: str | list[str] = None, stud
     d: description of the mistake type
     """
     # change the line below to use other languages
-    from metatypes import CDM_METATYPES as types  # pylint: disable=import-outside-toplevel
+    if not types:
+        from metatypes import CDM_METATYPES as types  # pylint: disable=import-outside-toplevel
     def elems(me_s: str | list[str]) -> list[MistakeElement]:
         "Helper function to create the list of MistakeElements for the given input string(s)."
         strs = tmp if isinstance(tmp := (stud_inst or me_s), list) else [tmp]
